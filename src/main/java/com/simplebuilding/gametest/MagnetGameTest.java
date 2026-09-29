@@ -32,8 +32,13 @@ public final class MagnetGameTest {
     }
 
     @GameTest
-    public void magnetReachIsFourBlocksAndConstructorsTouchWidensIt(GameTestHelper helper) {
-        MagnetTests.magnetReachIsFourBlocksAndConstructorsTouchWidensIt(helper);
+    public void magnetReachIsThreeBlocksAndRangeWidensItUpToItsCap(GameTestHelper helper) {
+        MagnetTests.magnetReachIsThreeBlocksAndRangeWidensItUpToItsCap(helper);
+    }
+
+    @GameTest
+    public void theFilterNeedsConstructorsTouchAndIsSetLikeTheDetector(GameTestHelper helper) {
+        MagnetTests.theFilterNeedsConstructorsTouchAndIsSetLikeTheDetector(helper);
     }
 
     @GameTest

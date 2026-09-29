@@ -13,6 +13,11 @@ public class ModTags {
     public static class Items {
         public static final TagKey<Item> CHISEL_TOOLS = createTag("chisel_tools");
         public static final TagKey<Item> CHISEL_AND_MINING_TOOLS = createTag("chisel_and_mining_tools");
+        /**
+         * Was Reichweite am Amboss annimmt: die Werkzeuge oben plus Attractor (Zugradius) und Messuhr
+         * (Hoehenmesser) - bei diesen beiden ohne Blockreichweite ({@code RangeReach}).
+         */
+        public static final TagKey<Item> RANGE_ENCHANTABLE = createTag("range_enchantable");
         public static final TagKey<Item> BUNDLE_ENCHANTABLE = createTag("bundle_enchantable");
         public static final TagKey<Item> EXTRA_INVENTORY_ITEMS_ENCHANTABLE = createTag("extra_inventory_items");
         public static final TagKey<Item> CONSTRUCTORS_TOUCH_ENCHANTABLE = createTag("constructors_touch_enchantable");

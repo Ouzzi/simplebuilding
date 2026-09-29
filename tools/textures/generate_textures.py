@@ -65,6 +65,7 @@ from mount_armor_textures import mount_armor_textures  # Enderit-Pferde-/Nautilu
 from potion_pad_textures import POTION_PAD_ANIMATIONS, POTION_PAD_MAIN_ONLY, potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads)
 from guide_book_textures import guide_book_textures, MAIN_LINE_ONLY  # Handbuecher beider Regale
 from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse, 32 Nadeln, Ruhebild
+from gauge_textures import gauge_textures  # Messuhr: Zifferblatt, 17 Nadeln, Ruhebild (nur Hauptbaum)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -72,6 +73,9 @@ TREES = [
     os.path.join(REPO, "src", "main", "resources", "assets", "simplebuilding", "textures"),
     os.path.join(REPO, "mc1_21_11", "fabric", "src", "main", "resources", "assets", "simplebuilding", "textures"),
 ]
+# Texturen nur fuer den Hauptbaum (26.2/26.3, Hauptlinie 26.3 zuerst): die 1.21.11-Kopie zieht der
+# Port-Run nach, bis dahin behaelt sie ihre alten Bilder.
+MAIN_TREE_PREFIXES = ("item/velocity_gauge",)
 PREVIEW = os.path.join(HERE, "preview.png")
 GEAR_PREVIEW = os.path.join(HERE, "gear_preview.png")
 HAND = os.path.join(HERE, "hand")  # unveraenderte Vorlagen handgemalter Texturen, die der Generator nachbearbeitet
@@ -3109,6 +3113,7 @@ def build():
     tex.update(guide_book_textures())
     tex.update(ore_detector_textures())
     tex.update(mount_armor_textures())
+    tex.update(gauge_textures())
     return tex
 
 
@@ -4257,7 +4262,7 @@ def main():
         data = png_bytes(img)
         # Texturen, die es bisher nur auf der Hauptlinie 26.3 gibt, landen nur im gemeinsamen Baum;
         # der Port-Run fuer 1.21.11 nimmt sie aus MAIN_LINE_ONLY heraus (hauptlinie-26-3-zuerst).
-        for tree in (TREES[:1] if rel in MAIN_TREE_ONLY or rel in MAIN_LINE_ONLY else TREES):
+        for tree in (TREES[:1] if rel in MAIN_TREE_ONLY or rel in MAIN_LINE_ONLY or rel.startswith(MAIN_TREE_PREFIXES) else TREES):
             path = os.path.join(tree, *rel.split("/"))
             if args.check:
                 try:

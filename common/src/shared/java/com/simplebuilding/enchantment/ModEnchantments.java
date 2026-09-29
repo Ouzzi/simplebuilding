@@ -84,8 +84,9 @@ public class ModEnchantments {
                 )));
 
         // Range (Max Level III, Treasure, Very Rare) [CHISEL, SPATULA, MINING_TOOLS]
+        // Am Amboss auch auf Attractor und Messuhr (RANGE_ENCHANTABLE, 2026-09-29), dort ohne Blockreichweite.
         register(registerable, RANGE, Enchantment.enchantment(Enchantment.definition(
-                        items.getOrThrow(ModTags.Items.CHISEL_AND_MINING_TOOLS),
+                        items.getOrThrow(ModTags.Items.RANGE_ENCHANTABLE),
                         items.getOrThrow(ModTags.Items.CHISEL_AND_MINING_TOOLS),
                         1, // Weight (Very Rare)
                         3, // Max Level

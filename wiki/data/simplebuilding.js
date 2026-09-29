@@ -3588,8 +3588,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:amethyst_lens",
       "name": {
-        "en_us": "Amethyst Lens",
-        "de_de": "Amethystlinse"
+        "en_us": "Amethyst Resonance Rod",
+        "de_de": "Amethyst-Resonanzstab"
       },
       "texture": "assets/textures/item/amethyst_lens.png",
       "craftedBy": [
@@ -16495,10 +16495,10 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:velocity_gauge",
       "name": {
-        "en_us": "Velocity Gauge",
-        "de_de": "Geschwindigkeitsmesser"
+        "en_us": "Gauge",
+        "de_de": "Messuhr"
       },
-      "texture": "assets/textures/item/velocity_gauge.png",
+      "texture": "assets/textures/item/velocity_gauge_dial.png",
       "craftedBy": [
         "simplebuilding:velocity_gauge"
       ],
@@ -41187,7 +41187,7 @@ window.WIKI_DATA = {
       "slots": [
         "mainhand"
       ],
-      "supportedItems": "#simplebuilding:chisel_and_mining_tools",
+      "supportedItems": "#simplebuilding:range_enchantable",
       "primaryItems": "#simplebuilding:chisel_and_mining_tools",
       "exclusiveSet": null,
       "effects": [
@@ -42609,6 +42609,25 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/tags/item/radius_enchantable.json"
     },
     {
+      "id": "simplebuilding:item/range_enchantable",
+      "replace": false,
+      "values": [
+        {
+          "id": "#simplebuilding:chisel_and_mining_tools",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:magnet",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:velocity_gauge",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/item/range_enchantable.json"
+    },
+    {
       "id": "simplebuilding:item/sledgehammer_tools",
       "replace": false,
       "values": [
@@ -43034,8 +43053,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Attractor Range Multiplier",
       "labelDe": "Reichweiten-Faktor des Attraktors",
-      "tooltip": "Multiplies how far the Attractor pulls items (4 blocks, 8 with Constructor's Touch, +2 per Radius level). 2 = twice as far, 0 = the Attractor pulls nothing. Server-side. Default: 1.0.",
-      "tooltipDe": "Multipliziert, wie weit der Attraktor Gegenstände anzieht (4 Blöcke, 8 mit Berührung des Konstrukteurs, +2 je Radius-Stufe). 2 = doppelt so weit, 0 = der Attraktor zieht nichts an. Serverseitig. Standard: 1,0."
+      "tooltip": "Multiplies how far the Attractor pulls items (3 blocks, +1.5 per Range level, at most 7.5; never beyond 12 after this factor). 2 = twice as far, 0 = the Attractor pulls nothing. Server-side. Default: 1.0.",
+      "tooltipDe": "Faktor darauf, wie weit der Attractor Items zieht (3 Blöcke, +1,5 je Stufe Reichweite, höchstens 7,5; nach diesem Faktor nie über 12). 2 = doppelt so weit, 0 = der Attractor zieht nichts. Serverseitig. Standard: 1.0."
     },
     {
       "name": "tools.rotatorChargePerTurn",
@@ -43450,12 +43469,12 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
-      "group": "Amethyst Lens",
-      "groupDe": "Amethystlinse",
-      "label": "Amethyst Lens",
-      "labelDe": "Amethystlinse",
-      "tooltip": "Shows the beam dots and lets the lens melt, light and dry blocks. Off: the lens does nothing. Server-side, sent to clients. Off also removes its recipes (with the next /reload or world start). Default: on.",
-      "tooltipDe": "Zeigt die Strahlpunkte und lässt die Linse Blöcke schmelzen, anzünden und trocknen. Aus: Die Linse tut nichts. Serverseitig, an die Clients geschickt. Aus nimmt auch die Rezepte weg (beim nächsten /reload oder Weltstart). Standard: an."
+      "group": "Amethyst Resonance Rod",
+      "groupDe": "Amethyst-Resonanzstab",
+      "label": "Amethyst Resonance Rod",
+      "labelDe": "Amethyst-Resonanzstab",
+      "tooltip": "Shows the beam dots and lets the rod melt, light and dry blocks. Off: the rod does nothing. Server-side, sent to clients. Off also removes its recipes (with the next /reload or world start). Default: on.",
+      "tooltipDe": "Zeigt die Strahlpunkte und lässt den Stab Blöcke schmelzen, anzünden und trocknen. Aus: Der Stab tut nichts. Serverseitig, an die Clients geschickt. Aus nimmt auch die Rezepte weg (beim nächsten /reload oder Weltstart). Standard: an."
     },
     {
       "name": "tweaks.laserPointer.color",
@@ -43465,8 +43484,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
-      "group": "Amethyst Lens",
-      "groupDe": "Amethystlinse",
+      "group": "Amethyst Resonance Rod",
+      "groupDe": "Amethyst-Resonanzstab",
       "label": "Dot Colour",
       "labelDe": "Punktfarbe",
       "tooltip": "Colour of the beam dot (RGB). Client-side. Default: red (#FF0000).",
@@ -43480,8 +43499,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
-      "group": "Amethyst Lens",
-      "groupDe": "Amethystlinse",
+      "group": "Amethyst Resonance Rod",
+      "groupDe": "Amethyst-Resonanzstab",
       "label": "Dot Size (Blocks)",
       "labelDe": "Punktgröße (Blöcke)",
       "tooltip": "Size of the dot in blocks (0.05 to 1); far away it only grows so it stays visible. Client-side. Default: 0.25.",
@@ -43495,27 +43514,27 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
-      "group": "Amethyst Lens",
-      "groupDe": "Amethystlinse",
+      "group": "Amethyst Resonance Rod",
+      "groupDe": "Amethyst-Resonanzstab",
       "label": "Max Range (Blocks)",
       "labelDe": "Reichweite (Blöcke)",
       "tooltip": "How far the beam reaches, in blocks (never beyond the server's view distance). Server-side, sent to clients. Default: 512.",
       "tooltipDe": "Wie weit der Strahl reicht, in Blöcken (nie über die Sichtweite des Servers hinaus). Serverseitig, an die Clients geschickt. Standard: 512."
     },
     {
-      "name": "tweaks.laserPointer.beamCostPerSecond",
-      "shortName": "beamCostPerSecond",
+      "name": "tweaks.laserPointer.chargePerSecond",
+      "shortName": "chargePerSecond",
       "type": "int",
-      "default": "1",
+      "default": "4",
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
-      "group": "Amethyst Lens",
-      "groupDe": "Amethystlinse",
+      "group": "Amethyst Resonance Rod",
+      "groupDe": "Amethyst-Resonanzstab",
       "label": "Charge per Second of Beaming",
       "labelDe": "Ladung je Sekunde Strahlen",
-      "tooltip": "Charge the lens uses up for every started second of beaming (a full lens holds 640, one Redstone Dust recharges 10). 0 = beaming is free. Default: 1.",
-      "tooltipDe": "Ladung, die die Linse je angefangener Sekunde Strahlen verbraucht (voll sind 640, ein Redstonestaub lädt 10 auf). 0 = Strahlen kostet nichts. Standard: 1."
+      "tooltip": "Charge the rod uses up for every started second of beaming (a full rod holds 640, one amethyst shard recharges 40). 0 = beaming is free. Default: 4.",
+      "tooltipDe": "Ladung, die der Stab je angefangener Sekunde Strahlen verbraucht (voll sind 640, eine Amethystscherbe lädt 40 auf). 0 = Strahlen kostet nichts. Standard: 4."
     },
     {
       "name": "tweaks.laserPointer.effectCost",
@@ -43525,8 +43544,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
-      "group": "Amethyst Lens",
-      "groupDe": "Amethystlinse",
+      "group": "Amethyst Resonance Rod",
+      "groupDe": "Amethyst-Resonanzstab",
       "label": "Charge per Effect",
       "labelDe": "Ladung je Wirkung",
       "tooltip": "Charge used up each time the beam melts, lights, dries or ignites something. 0 = effects are free. Default: 5.",
@@ -44114,8 +44133,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Show Mod HUD",
       "labelDe": "Mod-HUD anzeigen",
-      "tooltip": "Shows the mod's HUD boxes: velocity gauge, lens distance readout, air jump cooldown bar and spawn elytra bar. The Toggle Mod HUD key (unbound by default, see Controls) switches this too. Client-side. Default: on.",
-      "tooltipDe": "Zeigt die HUD-Kästen der Mod: Tacho, Linsen-Entfernungsanzeige, Luftsprung-Abklingleiste und Spawn-Elytra-Leiste. Die Taste „Mod-HUD ein/aus“ (anfangs nicht belegt, siehe Steuerung) schaltet das ebenfalls. Nur Client. Standard: an."
+      "tooltip": "Shows the mod's HUD boxes: Gauge, Octant, rod distance readout, air jump cooldown bar and spawn elytra bar. The Toggle Mod HUD key (unbound by default, see Controls) switches this too. Client-side. Default: on.",
+      "tooltipDe": "Zeigt die HUD-Kästen der Mod: Messuhr, Oktant, Entfernungsanzeige des Stabs, Luftsprung-Abklingleiste und Spawn-Elytra-Leiste. Die Taste „Mod-HUD ein/aus“ (anfangs nicht belegt, siehe Steuerung) schaltet das ebenfalls. Nur Client. Standard: an."
     },
     {
       "name": "hudPositionX",
@@ -44129,8 +44148,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "HUD Position: Horizontal",
       "labelDe": "HUD-Position: waagerecht",
-      "tooltip": "Where the velocity gauge and lens distance boxes sit across the screen, in percent: 0 = left edge, 50 = center, 100 = right edge. Client-side. Default: 0.",
-      "tooltipDe": "Wo die Kästen von Tacho und Linsen-Entfernungsanzeige in der Breite stehen, in Prozent: 0 = linker Rand, 50 = Mitte, 100 = rechter Rand. Nur Client. Standard: 0."
+      "tooltip": "Where the HUD boxes (Gauge, Octant, rod distance) sit across the screen, in percent: 0 = left edge, 50 = center, 100 = right edge. Client-side. Default: 0.",
+      "tooltipDe": "Wo die HUD-Kästen (Messuhr, Oktant, Entfernung des Stabs) in der Breite stehen, in Prozent: 0 = linker Rand, 50 = Mitte, 100 = rechter Rand. Nur Client. Standard: 0."
     },
     {
       "name": "hudPositionY",
@@ -44144,8 +44163,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "HUD Position: Vertical",
       "labelDe": "HUD-Position: senkrecht",
-      "tooltip": "Where the velocity gauge and lens distance boxes sit up and down the screen, in percent: 0 = top, 50 = middle, 100 = bottom. Client-side. Default: 50.",
-      "tooltipDe": "Wo die Kästen von Tacho und Linsen-Entfernungsanzeige in der Höhe stehen, in Prozent: 0 = oben, 50 = Mitte, 100 = unten. Nur Client. Standard: 50."
+      "tooltip": "Where the HUD boxes (Gauge, Octant, rod distance) sit up and down the screen, in percent: 0 = top, 50 = middle, 100 = bottom. Client-side. Default: 50.",
+      "tooltipDe": "Wo die HUD-Kästen (Messuhr, Oktant, Entfernung des Stabs) in der Höhe stehen, in Prozent: 0 = oben, 50 = Mitte, 100 = unten. Nur Client. Standard: 50."
     },
     {
       "name": "hudScale",
@@ -44159,8 +44178,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "HUD Size",
       "labelDe": "HUD-Größe",
-      "tooltip": "Size of the velocity gauge and lens distance boxes in percent (50 to 200). Client-side. Default: 100.",
-      "tooltipDe": "Größe der Kästen von Tacho und Linsen-Entfernungsanzeige in Prozent (50 bis 200). Nur Client. Standard: 100."
+      "tooltip": "Size of the HUD boxes (Gauge, Octant, rod distance) in percent (50 to 200). Client-side. Default: 100.",
+      "tooltipDe": "Größe der HUD-Kästen (Messuhr, Oktant, Entfernung des Stabs) in Prozent (50 bis 200). Nur Client. Standard: 100."
     },
     {
       "name": "pistonsFireBreakEvents",
@@ -44380,8 +44399,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Server & Modpack Tuning",
       "categoryDe": "Server & Modpack-Tuning",
-      "group": "Amethyst Lens: What the Beam Ignites",
-      "groupDe": "Amethystlinse: was der Strahl entzündet",
+      "group": "Amethyst Resonance Rod: What the Beam Ignites",
+      "groupDe": "Amethyst-Resonanzstab: was der Strahl entzündet",
       "label": "Ignite Flammable Blocks",
       "labelDe": "Brennbare Blöcke entzünden",
       "tooltip": "Off: the beam no longer sets flammable blocks on fire or lights soul fire (melting, drying and candles still work). Server-side. Default: on.",
@@ -44395,8 +44414,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Server & Modpack Tuning",
       "categoryDe": "Server & Modpack-Tuning",
-      "group": "Amethyst Lens: What the Beam Ignites",
-      "groupDe": "Amethystlinse: was der Strahl entzündet",
+      "group": "Amethyst Resonance Rod: What the Beam Ignites",
+      "groupDe": "Amethyst-Resonanzstab: was der Strahl entzündet",
       "label": "Ignite TNT",
       "labelDe": "TNT zünden",
       "tooltip": "Off: the beam no longer primes TNT. Server-side. Default: on.",
@@ -44410,8 +44429,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Server & Modpack Tuning",
       "categoryDe": "Server & Modpack-Tuning",
-      "group": "Amethyst Lens: What the Beam Ignites",
-      "groupDe": "Amethystlinse: was der Strahl entzündet",
+      "group": "Amethyst Resonance Rod: What the Beam Ignites",
+      "groupDe": "Amethyst-Resonanzstab: was der Strahl entzündet",
       "label": "Ignite Creatures",
       "labelDe": "Lebewesen anzünden",
       "tooltip": "Off: the beam no longer sets mobs and players on fire. Server-side. Default: on.",
@@ -44502,10 +44521,10 @@ window.WIKI_DATA = {
       "categoryDe": "Server & Modpack-Tuning",
       "group": "Maximum Charges (restart required)",
       "groupDe": "Höchstladungen (Neustart nötig)",
-      "label": "Amethyst Lens: Maximum Charge",
-      "labelDe": "Amethystlinse: Höchstladung",
-      "tooltip": "Full charge of the Amethyst Lens (one redstone = 1/64 of it), 64 to 2560. This is the item's durability, fixed when the game starts: takes effect after a restart, and clients need the same value in their config file (ship it with the modpack), otherwise they show wrong charge bars. Default: 640.",
-      "tooltipDe": "Volle Ladung der Amethystlinse (ein Redstone = 1/64 davon), 64 bis 2560. Das ist die Haltbarkeit des Gegenstands, beim Spielstart festgelegt: wirkt nach einem Neustart, und Clients brauchen denselben Wert in ihrer Config-Datei (mit dem Modpack ausliefern), sonst zeigen sie falsche Ladebalken. Standard: 640."
+      "label": "Amethyst Resonance Rod: Maximum Charge",
+      "labelDe": "Amethyst-Resonanzstab: Höchstladung",
+      "tooltip": "Full charge of the Amethyst Resonance Rod (one amethyst shard = 1/16 of it), 64 to 2560. This is the item's durability, fixed when the game starts: takes effect after a restart, and clients need the same value in their config file (ship it with the modpack), otherwise they show wrong charge bars. Default: 640.",
+      "tooltipDe": "Volle Ladung des Amethyst-Resonanzstabs (eine Amethystscherbe = 1/16 davon), 64 bis 2560. Das ist die Haltbarkeit des Gegenstands, beim Spielstart festgelegt: wirkt nach einem Neustart, und Clients brauchen denselben Wert in ihrer Config-Datei (mit dem Modpack ausliefern), sonst zeigen sie falsche Ladebalken. Standard: 640."
     },
     {
       "name": "server.charges.rotatorMaxCharge",
@@ -61710,8 +61729,8 @@ window.WIKI_DATA = {
         "de_de": "Brennpunkt"
       },
       "description": {
-        "en_us": "Hold the Amethyst Lens on ice, a candle, a campfire or a wet sponge until it gives in",
-        "de_de": "Halte die Amethystlinse auf Eis, eine Kerze, ein Lagerfeuer oder einen nassen Schwamm, bis er nachgibt"
+        "en_us": "Hold the Amethyst Resonance Rod on ice, a candle, a campfire or a wet sponge until it gives in",
+        "de_de": "Halte den Amethyst-Resonanzstab auf Eis, eine Kerze, ein Lagerfeuer oder einen nassen Schwamm, bis er nachgibt"
       },
       "criteria": [
         {
@@ -61758,8 +61777,8 @@ window.WIKI_DATA = {
         "de_de": "Fernzündung"
       },
       "description": {
-        "en_us": "Hold the Amethyst Lens beam on TNT until it lights",
-        "de_de": "Halte den Strahl der Amethystlinse auf TNT, bis es zündet"
+        "en_us": "Hold the Amethyst Resonance Rod's beam on TNT until it lights",
+        "de_de": "Halte den Strahl des Amethyst-Resonanzstabs auf TNT, bis es zündet"
       },
       "criteria": [
         {
@@ -61782,8 +61801,8 @@ window.WIKI_DATA = {
         "de_de": "Tempomacher"
       },
       "description": {
-        "en_us": "A Copper Core, a compass, quartz and amethyst make a Velocity Gauge: see how fast you really are",
-        "de_de": "Kupferkern, Kompass, Quarz und Amethyst ergeben einen Geschwindigkeitsmesser: sieh, wie schnell du wirklich bist"
+        "en_us": "A Copper Core, a compass, quartz and amethyst make a Gauge: see how fast you really are",
+        "de_de": "Kupferkern, Kompass, Quarz und Amethyst ergeben eine Messuhr: sieh, wie schnell du wirklich bist"
       },
       "criteria": [
         {
@@ -63418,8 +63437,8 @@ window.WIKI_DATA = {
         "de_de": "Gadgets & Kniffe"
       },
       "description": {
-        "en_us": "Attractors, detectors, lenses and pads that launch, lend wings or carry you home",
-        "de_de": "Attraktoren, Detektoren, Linsen und Pads, die dich hochschleudern, dir Flügel leihen oder nach Hause bringen"
+        "en_us": "Attractors, detectors, rods and pads that launch, lend wings or carry you home",
+        "de_de": "Attraktoren, Detektoren, Stäbe und Pads, die dich hochschleudern, dir Flügel leihen oder nach Hause bringen"
       },
       "criteria": [
         {
@@ -65447,8 +65466,8 @@ window.WIKI_DATA = {
             "de_de": "Gadgets & Kniffe"
           },
           "description": {
-            "en_us": "Attractors, detectors, lenses and pads that launch, lend wings or carry you home",
-            "de_de": "Attraktoren, Detektoren, Linsen und Pads, die dich hochschleudern, dir Flügel leihen oder nach Hause bringen"
+            "en_us": "Attractors, detectors, rods and pads that launch, lend wings or carry you home",
+            "de_de": "Attraktoren, Detektoren, Stäbe und Pads, die dich hochschleudern, dir Flügel leihen oder nach Hause bringen"
           },
           "dependencies": [
             "stage_1.welcome"
@@ -65503,8 +65522,8 @@ window.WIKI_DATA = {
             "de_de": "Tempomacher"
           },
           "description": {
-            "en_us": "A Copper Core, a compass, quartz and amethyst make a Velocity Gauge: see how fast you really are",
-            "de_de": "Kupferkern, Kompass, Quarz und Amethyst ergeben einen Geschwindigkeitsmesser: sieh, wie schnell du wirklich bist"
+            "en_us": "A Copper Core, a compass, quartz and amethyst make a Gauge: see how fast you really are",
+            "de_de": "Kupferkern, Kompass, Quarz und Amethyst ergeben eine Messuhr: sieh, wie schnell du wirklich bist"
           },
           "dependencies": [
             "gadgets.intro",
@@ -65541,8 +65560,8 @@ window.WIKI_DATA = {
             "de_de": "Brennpunkt"
           },
           "description": {
-            "en_us": "Hold the Amethyst Lens on ice, a candle, a campfire or a wet sponge until it gives in",
-            "de_de": "Halte die Amethystlinse auf Eis, eine Kerze, ein Lagerfeuer oder einen nassen Schwamm, bis er nachgibt"
+            "en_us": "Hold the Amethyst Resonance Rod on ice, a candle, a campfire or a wet sponge until it gives in",
+            "de_de": "Halte den Amethyst-Resonanzstab auf Eis, eine Kerze, ein Lagerfeuer oder einen nassen Schwamm, bis er nachgibt"
           },
           "dependencies": [
             "gadgets.intro"
@@ -65560,8 +65579,8 @@ window.WIKI_DATA = {
             "de_de": "Fernzündung"
           },
           "description": {
-            "en_us": "Hold the Amethyst Lens beam on TNT until it lights",
-            "de_de": "Halte den Strahl der Amethystlinse auf TNT, bis es zündet"
+            "en_us": "Hold the Amethyst Resonance Rod's beam on TNT until it lights",
+            "de_de": "Halte den Strahl des Amethyst-Resonanzstabs auf TNT, bis es zündet"
           },
           "dependencies": [
             "gadgets.laser"
@@ -65901,7 +65920,7 @@ window.WIKI_DATA = {
     "lootTables": 138,
     "trades": 20,
     "enchantments": 19,
-    "tags": 39,
+    "tags": 40,
     "config": 167,
     "inWorld": 395,
     "advancements": 101,

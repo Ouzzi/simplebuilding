@@ -52,7 +52,7 @@ public class TweaksConfig {
         padTuning.potionPadCooldownFactor = nonNegative(padTuning.potionPadCooldownFactor, 2.0);
         commands.killCommandRadius = Math.max(1, commands.killCommandRadius);
         optimization.xpClumpRadius = nonNegative(optimization.xpClumpRadius, 2.0);
-        laserPointer.beamCostPerSecond = Math.max(0, laserPointer.beamCostPerSecond);
+        laserPointer.chargePerSecond = Math.max(0, laserPointer.chargePerSecond);
         laserPointer.effectCost = Math.max(0, laserPointer.effectCost);
         balancing.echoSounderJumpCooldownTicks = Math.max(0, balancing.echoSounderJumpCooldownTicks);
         balancing.echoSounderAttemptLockTicks = Math.max(0, balancing.echoSounderAttemptLockTicks);
@@ -294,8 +294,15 @@ public class TweaksConfig {
         public float scale = 0.25f;
         @ConfigEntry.Gui.Tooltip
         public int range = 512;
-        /** Ladung je angefangener Sekunde Strahlen (640 = voll, 10 je Redstone); 0 = kostenlos. */
+        /**
+         * Ladung je angefangener Sekunde Strahlen (640 = voll, 40 je Amethystscherbe); 0 = kostenlos.
+         * Neuer Schluessel statt beamCostPerSecond (1) seit 2026-09-29 (Besitzer: vier je Sekunde), damit
+         * eine gespeicherte Datei nicht den alten, langsamen Wert behaelt.
+         */
         @ConfigEntry.Gui.Tooltip
+        public int chargePerSecond = 4;
+        /** Alter Schluessel (bis 2026-09-29, Standard 1): wird nicht mehr gelesen, bleibt fuer alte Dateien lesbar. */
+        @ConfigEntry.Gui.Excluded
         public int beamCostPerSecond = 1;
         /** Ladung je Wirkung auf einen Block oder ein Wesen (Schmelzen, Anzuenden, Trocknen ...). */
         @ConfigEntry.Gui.Tooltip

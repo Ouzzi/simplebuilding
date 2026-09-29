@@ -1,11 +1,9 @@
 package com.simplebuilding.client.gui;
 
-import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.util.guiDrawHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.BlockPos;
@@ -19,6 +17,10 @@ import net.minecraft.world.item.component.CustomData;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * HUD des Oktanten (Entfernungsmesser): Pos 1, Pos 2 und das Ergebnis im gemeinsamen Anzeigekasten
+ * der Mod ({@link HudPanel}) - die Vorlage, nach der sich Messuhr und Resonanzstab richten.
+ */
 public class RangefinderHudOverlay {
 
     public static void render(GuiGraphicsExtractor context) {
@@ -53,17 +55,11 @@ public class RangefinderHudOverlay {
 
         guiDrawHelper.ColorTheme theme = guiDrawHelper.getColorTheme(dyeColor);
 
-        ItemStack main = client.player.getMainHandItem();
-        ItemStack off = client.player.getOffhandItem();
-        boolean hasSpeedometer = main.is(ModItems.VELOCITY_GAUGE) || off.is(ModItems.VELOCITY_GAUGE);
-
         CustomData nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
         CompoundTag nbt = nbtData.copyTag();
         List<Component> lines = new ArrayList<>();
 
-        ChatFormatting titleColor = stack.isEnchanted() ? ChatFormatting.AQUA : ChatFormatting.WHITE;
-
-        lines.add(stack.getHoverName().copy().withStyle(titleColor));
+        lines.add(HudPanel.title(stack));
 
         BlockPos pos1 = null;
         BlockPos pos2 = null;
@@ -123,25 +119,25 @@ public class RangefinderHudOverlay {
         int minSafeWidth = textRenderer.width(sampleString);
         int finalContentWidth = Math.max(actualTextWidth, minSafeWidth);
 
-        int paddingX = 6;
-        int paddingY = 6;
-        int lineSpacing = 2;
-        int titleSpacing = 4;
+        int paddingX = HudPanel.PADDING;
+        int paddingY = HudPanel.PADDING;
+        int lineSpacing = HudPanel.LINE_GAP;
+        int titleSpacing = HudPanel.TITLE_GAP;
 
         int totalTextHeight = (lines.size() * textRenderer.lineHeight) + ((lines.size() - 1) * lineSpacing) + titleSpacing * (lines.size() > 3 ? 2 : 1);
         int boxWidth = finalContentWidth + (paddingX * 2);
         int boxHeight = totalTextHeight + (paddingY * 2);
 
-        // Ort und Groesse aus der Client-Config (ModHud); mit Tacho rueckt der Kasten 35 px nach oben.
-        ModHud.begin(context, boxWidth, boxHeight, hasSpeedometer ? -35 : 0);
+        // Ort und Groesse aus der Client-Config (ModHud); mit Messuhr/Stab-Anzeige stapeln sich die Kaesten (HudPanel).
+        ModHud.begin(context, boxWidth, boxHeight, HudPanel.stackOffset(HudPanel.Slot.OCTANT, client));
         int x = 0;
         int y = 0;
 
         // --- BOX: Vanilla-Tooltip-Hintergrund (Sprites tooltip/background + tooltip/frame) wie der
         // Tachometer. Die Farbstoff-Farbe des Entfernungsmessers bleibt in den Textzeilen (Pos 1,
         // Pos 2, Ergebnis); der fruehere nachgebaute Kasten mit gefaerbtem Rahmen ist weg.
-        TooltipRenderUtil.extractTooltipBackground(context, x + paddingX, y + paddingY,
-                boxWidth - paddingX * 2, boxHeight - paddingY * 2, null);
+        HudPanel.background(context, x + paddingX, y + paddingY,
+                boxWidth - paddingX * 2, boxHeight - paddingY * 2);
 
         // --- TEXT ---
         int textY = y + paddingY;

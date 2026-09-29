@@ -633,7 +633,9 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("magnet_game_test_magnet_pull_follows_the_acceleration_and_braking_curve", MagnetTests::magnetPullFollowsTheAccelerationAndBrakingCurve)
                     .build(),
-            GameTestSpec.named("magnet_game_test_magnet_reach_is_four_blocks_and_constructors_touch_widens_it", MagnetTests::magnetReachIsFourBlocksAndConstructorsTouchWidensIt)
+            GameTestSpec.named("magnet_game_test_magnet_reach_is_three_blocks_and_range_widens_it_up_to_its_cap", MagnetTests::magnetReachIsThreeBlocksAndRangeWidensItUpToItsCap)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_the_filter_needs_constructors_touch_and_is_set_like_the_detector", MagnetTests::theFilterNeedsConstructorsTouchAndIsSetLikeTheDetector)
                     .build(),
             GameTestSpec.named("magnet_game_test_magnet_filter_matches_the_full_registry_id_and_nothing_else", MagnetTests::magnetFilterMatchesTheFullRegistryIdAndNothingElse)
                     .build(),
@@ -1664,7 +1666,11 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_lens_hums_on_any_surface_and_sizzles_or_crackles_while_heating", TweaksTests::theLensHumsOnAnySurfaceAndSizzlesOrCracklesWhileHeating)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_anvil_recharge_with_redstone_costs_no_levels", TweaksTests::anvilRechargeWithRedstoneCostsNoLevels)
+            GameTestSpec.named("tweaks_game_test_anvil_recharge_with_amethyst_shards_costs_no_levels", TweaksTests::anvilRechargeWithAmethystShardsCostsNoLevels)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_rod_drains_four_charge_per_second_of_beaming", TweaksTests::theRodDrainsFourChargePerSecondOfBeaming)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_gauge_altimeter_reads_the_ground_and_range_reaches_deeper", TweaksTests::theGaugeAltimeterReadsTheGroundAndRangeReachesDeeper)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_world_spawn_command_takes_effect_immediately", TweaksTests::theWorldSpawnCommandTakesEffectImmediately)
                     .build(),

@@ -224,6 +224,10 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Blaupause: normale, bearbeitete oder signierte Textur (assets/simplebuilding/items/blueprint.json).
         SelectItemModelProperties.ID_MAPPER.put(com.simplebuilding.client.property.BlueprintStateModelProperty.ID,
                 com.simplebuilding.client.property.BlueprintStateModelProperty.PROPERTY_TYPE);
+        // Messuhr: Nadel auf dem Item (assets/simplebuilding/items/velocity_gauge.json).
+        net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperties.ID_MAPPER.put(
+                com.simplebuilding.client.property.GaugeNeedleModelProperty.ID,
+                com.simplebuilding.client.property.GaugeNeedleModelProperty.CODEC);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {

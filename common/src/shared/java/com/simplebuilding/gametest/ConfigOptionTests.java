@@ -481,6 +481,7 @@ public final class ConfigOptionTests {
             "tweaks.laserPointer.color int=16711680",
             "tweaks.laserPointer.scale float=0.25",
             "tweaks.laserPointer.range int=512",
+            "tweaks.laserPointer.chargePerSecond int=4",
             "tweaks.laserPointer.beamCostPerSecond int=1",
             "tweaks.laserPointer.effectCost int=5",
             "tweaks.laserPointer.showLine boolean=false",
@@ -1424,7 +1425,7 @@ public final class ConfigOptionTests {
         int radius = tweaks.commands.killCommandRadius;
         boolean killBoats = tweaks.commands.enableKillBoatsCommand;
         double clump = tweaks.optimization.xpClumpRadius;
-        int beam = tweaks.laserPointer.beamCostPerSecond;
+        int beam = tweaks.laserPointer.chargePerSecond;
         int effect = tweaks.laserPointer.effectCost;
         boolean lens = tweaks.laserPointer.enable;
         int echo = tweaks.balancing.echoSounderJumpCooldownTicks;
@@ -1433,7 +1434,7 @@ public final class ConfigOptionTests {
             live.commands.killCommandRadius = radius;
             live.commands.enableKillBoatsCommand = killBoats;
             live.optimization.xpClumpRadius = clump;
-            live.laserPointer.beamCostPerSecond = beam;
+            live.laserPointer.chargePerSecond = beam;
             live.laserPointer.effectCost = effect;
             live.laserPointer.enable = lens;
             live.balancing.echoSounderJumpCooldownTicks = echo;
@@ -1478,11 +1479,11 @@ public final class ConfigOptionTests {
                 b.discard();
             }
 
-            // --- tweaks.laserPointer.beamCostPerSecond: the first tick of beaming ---
+            // --- tweaks.laserPointer.chargePerSecond: the first tick of beaming ---
             tweaks.laserPointer.enable = true;
             ItemStack beamLens = new ItemStack(com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER);
             player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, beamLens);
-            tweaks.laserPointer.beamCostPerSecond = 3;
+            tweaks.laserPointer.chargePerSecond = 3;
             beamLens.getItem().onUseTick(helper.getLevel(), player, beamLens, beamLens.getItem().getUseDuration(beamLens, player));
             helper.assertTrue(beamLens.getDamageValue() == 3, "the first second of beaming at cost 3 took " + beamLens.getDamageValue() + " charge");
             com.simplebuilding.tweaks.item.LaserBeam.reset(player);

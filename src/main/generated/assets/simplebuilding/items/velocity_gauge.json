@@ -1,6 +1,128 @@
 {
+  "hand_animation_on_swap": false,
   "model": {
-    "type": "minecraft:model",
-    "model": "simplebuilding:item/velocity_gauge"
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_00"
+        },
+        "threshold": 0.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_01"
+        },
+        "threshold": 0.03125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_02"
+        },
+        "threshold": 0.09375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_03"
+        },
+        "threshold": 0.15625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_04"
+        },
+        "threshold": 0.21875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_05"
+        },
+        "threshold": 0.28125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_06"
+        },
+        "threshold": 0.34375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_07"
+        },
+        "threshold": 0.40625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_08"
+        },
+        "threshold": 0.46875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_09"
+        },
+        "threshold": 0.53125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_10"
+        },
+        "threshold": 0.59375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_11"
+        },
+        "threshold": 0.65625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_12"
+        },
+        "threshold": 0.71875
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_13"
+        },
+        "threshold": 0.78125
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_14"
+        },
+        "threshold": 0.84375
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_15"
+        },
+        "threshold": 0.90625
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/velocity_gauge_16"
+        },
+        "threshold": 0.96875
+      }
+    ],
+    "property": "simplebuilding:gauge_needle"
   }
 }

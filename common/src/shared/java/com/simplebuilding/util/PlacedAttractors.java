@@ -88,7 +88,8 @@ public final class PlacedAttractors {
             return 0;
         }
         Vec3 target = target(be);
-        String filter = MagnetItem.filterOf(be.getTemplate());
+        // Filter nur mit Beruehrung des Konstrukteurs (Besitzer 2026-09-29), wie in der Hand.
+        String filter = MagnetItem.effectiveFilter(be.getTemplate(), level);
         double rangeSq = range * range;
         List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(range),
                 entity -> entity.distanceToSqr(target) <= rangeSq && canPull(entity, filter));
