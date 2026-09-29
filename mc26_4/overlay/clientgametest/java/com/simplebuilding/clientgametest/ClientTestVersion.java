@@ -31,4 +31,15 @@ public final class ClientTestVersion {
     public static Object firstPersonItemRenderer(Minecraft client) {
         return client.gameRenderer.firstPersonHandsAndItemsRenderer;
     }
+
+    /**
+     * A key event as the keyboard callback builds it. 26.3+ (SDL): the key is a scancode, the second
+     * field the SDL keycode that shortcuts ({@code isPaste} and friends) compare against, and the
+     * modifiers are SDL's modstate (shift 0x1, control 0x40), not GLFW's bits (shift 1, control 2).
+     */
+    public static net.minecraft.client.input.KeyEvent keyEvent(int key, int glfwModifiers) {
+        int modstate = ((glfwModifiers & 1) != 0 ? 0x0001 : 0) | ((glfwModifiers & 2) != 0 ? 0x0040 : 0);
+        int keycode = org.lwjgl.sdl.SDLKeyboard.SDL_GetKeyFromScancode(key, (short) 0, false);
+        return new net.minecraft.client.input.KeyEvent(key, keycode, modstate);
+    }
 }

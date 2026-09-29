@@ -141,6 +141,23 @@ public interface Harness {
      */
     void releaseAllInput() throws Exception;
 
+    /**
+     * Presses and releases a key the way the keyboard callback does it, so an open SCREEN sees
+     * it ({@code KeyboardHandler.keyPress}, press then release). {@link #pressKey} is not that on
+     * NeoForge: it feeds the binding layer, which a screen never reads.
+     *
+     * @param modifiers GLFW modifier bits held during the press ({@code 1} shift, {@code 2} control)
+     */
+    void pressKeyInScreen(int glfwKeyCode, int modifiers) throws Exception;
+
+    /**
+     * Types text into the open screen: one character event per code point, through
+     * {@code KeyboardHandler.charTyped} - the callback GLFW calls for a typed character, and a
+     * different one from the key callback. A text field that only ever sees key events can
+     * delete and paste but never insert what was typed.
+     */
+    void typeChars(String text) throws Exception;
+
     /** Moves the cursor to a position in the window, in scaled screen coordinates. */
     void setCursorPos(double x, double y) throws Exception;
 

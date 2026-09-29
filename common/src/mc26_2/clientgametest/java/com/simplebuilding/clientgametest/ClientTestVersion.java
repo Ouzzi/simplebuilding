@@ -36,4 +36,12 @@ public final class ClientTestVersion {
     public static Object firstPersonItemRenderer(Minecraft client) {
         return client.getEntityRenderDispatcher().getItemInHandRenderer();
     }
+
+    /**
+     * A key event as the keyboard callback builds it. 26.2 (GLFW): key code, scancode (unused by
+     * screens, 0), GLFW modifier bits - which is what {@code glfwModifiers} already is.
+     */
+    public static net.minecraft.client.input.KeyEvent keyEvent(int key, int glfwModifiers) {
+        return new net.minecraft.client.input.KeyEvent(key, 0, glfwModifiers);
+    }
 }
