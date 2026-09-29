@@ -4,6 +4,8 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.PlacedBundleBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.networking.ModMessageHandlers;
+import com.simplebuilding.networking.PlacedBundleScrollPayload;
 import com.simplebuilding.util.PlacedBundles;
 import java.util.List;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -23,22 +25,26 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Spieltests der abgestellten Buendel (Besitzer 2026-09-28, {@link PlacedBundles}): Abstellen nur mit
- * Schleichen und nur auf eine Oberseite, fuer alle Stufen (auch gefaerbt und farbige Vanilla-Buendel),
- * das gezeigte Item wechselt nur fuer einen schleichenden Betrachter, Rechtsklick (echter Weg ueber
- * {@code ServerPlayerGameMode#useItemOn}) nimmt genau das gezeigte Item heraus, und Abbauen gibt das
- * Buendel mit seinem ganzen Inhalt zurueck.
+ * Spieltests der abgestellten Buendel (Besitzer 2026-09-28/29, {@link PlacedBundles}): Abstellen nur
+ * mit Schleichen und nur auf eine Oberseite, fuer alle Stufen (auch gefaerbt und farbige
+ * Vanilla-Buendel); das gezeigte Item wechselt nur ueber das Mausrad-Paket eines schleichenden
+ * Spielers in Reichweite (nie von selbst); Rechtsklick (echter Weg ueber
+ * {@code ServerPlayerGameMode#useItemOn}) nimmt genau das gezeigte Item heraus, Schleichen +
+ * Rechtsklick mit einem Item legt es nach den Regeln des Buendels hinein; Abbauen gibt das Buendel mit
+ * seinem ganzen Inhalt zurueck.
  */
 public final class PlacedBundleTests {
 
-    /** Zeit, bis der Block-Entity-Takt das gezeigte Item sicher einmal weitergeschaltet hat. */
-    public static final int CYCLE_MAX_TICKS = PlacedBundles.CYCLE_TICKS * 3 + 20;
+    /** So lange schaut ein schleichender Spieler hin, ohne dass das gezeigte Item von selbst wechseln darf. */
+    public static final int NO_AUTO_CYCLE_TICKS = 50;
+    public static final int SCROLL_MAX_TICKS = NO_AUTO_CYCLE_TICKS + 40;
 
     private PlacedBundleTests() {
     }
@@ -119,16 +125,19 @@ public final class PlacedBundleTests {
     // =====================================================================================
 
     /**
-     * Das gezeigte Item wechselt nur, wenn ein Spieler schleicht und auf das Buendel schaut - direkt
-     * ueber {@link PlacedBundles#tickCycle} und danach auch ueber den Takt der Block-Entity. Rechtsklick
-     * mit leerer Hand (der echte Weg {@code useItemOn}) legt genau das gezeigte Item in die Hand, das
-     * naechste rueckt nach; ohne Schleichen und mit einem Item in der Hand kommt es ins Inventar.
+     * Das gezeigte Item waehlt der Spieler mit Schleichen + Mausrad: das Paket
+     * ({@code PlacedBundleScrollPayload}, echter Handler {@link ModMessageHandlers#handlePlacedBundleScroll})
+     * schaltet vor und zurueck, reihum in beide Richtungen - aber nicht ohne Schleichen, nicht ausser
+     * Reichweite und nicht bei nur einem Item. Rechtsklick mit leerer Hand (echter Weg
+     * {@code useItemOn}) legt genau das gezeigte Item in die Hand, das naechste rueckt nach; ohne
+     * Schleichen und mit einem Item in der Hand kommt es ins Inventar, bei vollem Inventar vor die
+     * Fuesse. Und das gezeigte Item wechselt nie von selbst, auch wenn jemand lange schleichend
+     * hinschaut.
      */
-    public static void sneakingViewersCycleTheTopItemAndRightClickTakesIt(GameTestHelper helper) {
+    public static void sneakScrollPacketsCycleTheTopItemAndRightClickTakesIt(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
-        // Der Betrachter schwebt ueber dem Buendel und schaut senkrecht hinunter: Schleichen senkt die
-        // Augen, trifft aber weiter dasselbe Buendel.
+        // Der Spieler schwebt ueber dem Buendel und schaut senkrecht hinunter.
         ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 3.2, 2.5));
         player.setNoGravity(true);
         player.setShiftKeyDown(true);
@@ -140,19 +149,31 @@ public final class PlacedBundleTests {
         PlacedBundleBlockEntity be = bundleAt(helper, rel);
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(pos).subtract(0.0, 0.3, 0.0));
-        helper.assertTrue(PlacedBundles.isViewing(player, pos), "the sneaking player looking down is not viewing the bundle");
         helper.assertTrue(be.shownItem().is(Items.TORCH), "the top item is " + be.shownItem() + " instead of the last inserted torch");
 
-        // Nicht schleichend: kein Wechsel.
+        // Nicht schleichend: das Paket aendert nichts.
         player.setShiftKeyDown(false);
-        helper.assertTrue(!PlacedBundles.tickCycle(level, pos, be) && be.shownIndex() == 0, "the bundle cycled for a player who is not sneaking");
-        // Schleichend: reihum.
+        ModMessageHandlers.handlePlacedBundleScroll(new PlacedBundleScrollPayload(pos, 1), player);
+        helper.assertTrue(be.shownIndex() == 0, "a scroll packet from a player who is not sneaking moved the top item to " + be.shownItem());
+        // Schleichend: vor, zurueck, und rueckwaerts ueber den Anfang hinaus.
         player.setShiftKeyDown(true);
-        helper.assertTrue(PlacedBundles.tickCycle(level, pos, be) && be.shownItem().is(Items.APPLE), "one cycle shows " + be.shownItem());
-        PlacedBundles.tickCycle(level, pos, be);
-        PlacedBundles.tickCycle(level, pos, be);
-        helper.assertTrue(be.shownItem().is(Items.TORCH), "three cycles over three items do not wrap to the torch: " + be.shownItem());
-        PlacedBundles.tickCycle(level, pos, be);
+        ModMessageHandlers.handlePlacedBundleScroll(new PlacedBundleScrollPayload(pos, 1), player);
+        helper.assertTrue(be.shownItem().is(Items.APPLE), "one scroll step down shows " + be.shownItem() + " instead of the apples");
+        ModMessageHandlers.handlePlacedBundleScroll(new PlacedBundleScrollPayload(pos, -1), player);
+        helper.assertTrue(be.shownItem().is(Items.TORCH), "one scroll step back shows " + be.shownItem() + " instead of the torch");
+        ModMessageHandlers.handlePlacedBundleScroll(new PlacedBundleScrollPayload(pos, -1), player);
+        helper.assertTrue(be.shownItem().is(Items.FEATHER), "scrolling back past the first item does not wrap to the feathers: " + be.shownItem());
+        // Ein uebergrosser Schritt zaehlt als einer (der Client schickt nur +1/-1).
+        ModMessageHandlers.handlePlacedBundleScroll(new PlacedBundleScrollPayload(pos, 1000), player);
+        helper.assertTrue(be.shownItem().is(Items.TORCH), "a scroll packet with a huge step moved by more than one: " + be.shownItem());
+        ModMessageHandlers.handlePlacedBundleScroll(new PlacedBundleScrollPayload(pos, 1), player);
+        helper.assertTrue(be.shownItem().is(Items.APPLE), "the scroll back to the apples failed: " + be.shownItem());
+
+        // Ausser Reichweite: nichts (der Server prueft selbst, der Client koennte luegen).
+        ServerPlayer far = mockPlayer(helper, new Vec3(2.5, 2.0, 2.5 + 14.0));
+        far.setShiftKeyDown(true);
+        ModMessageHandlers.handlePlacedBundleScroll(new PlacedBundleScrollPayload(pos, 1), far);
+        helper.assertTrue(be.shownItem().is(Items.APPLE), "a scroll packet from 14 blocks away moved the top item to " + be.shownItem());
 
         // Rechtsklick mit leerer Hand: der Apfel (gezeigt) in die Hand, die Federn ruecken nach.
         InteractionResult take = player.gameMode.useItemOn(player, level, ItemStack.EMPTY, InteractionHand.MAIN_HAND, hitTop(pos));
@@ -167,14 +188,119 @@ public final class PlacedBundleTests {
         helper.assertTrue(player.getMainHandItem().is(Items.APPLE), "the apples left the hand");
         helper.assertTrue(player.getInventory().countItem(Items.FEATHER) == 5, "the feathers did not reach the inventory");
         helper.assertTrue(be.contents().size() == 1 && be.shownItem().is(Items.TORCH), "left in the bundle: " + be.contents());
+        // Nur noch ein Item: das Mausrad hat nichts zu waehlen.
+        player.setShiftKeyDown(true);
+        helper.assertTrue(!PlacedBundles.scroll(player, pos, 1), "a bundle with a single item scrolled");
 
-        // Der Takt der Block-Entity schaltet selbst weiter, solange jemand schleichend hinschaut.
+        // Volles Inventar: das gezeigte Item faellt vor die Fuesse. Im Ueberlebensmodus - einem
+        // Kreativspieler verschluckt Vanillas Inventory#add, was nicht passt.
+        player.setGameMode(GameType.SURVIVAL);
+        player.gameMode.changeGameModeForPlayer(GameType.SURVIVAL);
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            player.getInventory().setItem(slot, new ItemStack(Items.COBBLESTONE, 64));
+        }
+        player.setShiftKeyDown(false);
+        player.gameMode.useItemOn(player, level, player.getMainHandItem(), InteractionHand.MAIN_HAND, hitTop(pos));
+        helper.assertTrue(be.isEmpty(), "the torches stayed in the bundle although they had to be dropped: " + be.contents());
+        boolean torchesDropped = level.getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(3.0)).stream()
+                .anyMatch(entity -> entity.getItem().is(Items.TORCH) && entity.getItem().getCount() == 8);
+        helper.assertTrue(torchesDropped, "with a full inventory the eight torches were not dropped at the player's feet");
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            player.getInventory().setItem(slot, ItemStack.EMPTY);
+        }
+
+        // Nie von selbst: mit zwei Items und einem schleichenden Betrachter bleibt der Index stehen.
         PlacedBundles.setContents(be.getBundle(), List.of(new ItemStack(Items.TORCH, 8), new ItemStack(Items.STICK, 2)));
         be.setBundle(be.getBundle());
         be.setShownIndex(0);
         player.setShiftKeyDown(true);
         player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(pos).subtract(0.0, 0.3, 0.0));
-        helper.succeedWhen(() -> helper.assertTrue(be.shownIndex() == 1, "the block entity tick did not cycle the top item"));
+        helper.runAfterDelay(NO_AUTO_CYCLE_TICKS, () -> {
+            helper.assertTrue(be.shownIndex() == 0, "the top item changed by itself to " + be.shownItem()
+                    + " - only the scroll wheel may change it");
+            helper.succeed();
+        });
+    }
+
+    // =====================================================================================
+    // Hineinlegen
+    // =====================================================================================
+
+    /**
+     * Schleichen + Rechtsklick mit einem Item (echter Weg {@code ServerPlayerGameMode#useItemOn}, bei
+     * dem Vanilla den Block beim Schleichen gar nicht fragt) legt es in das abgestellte Buendel, so weit
+     * es passt: ein Vanilla-Buendel fasst einen Stapel (16 Enderperlen, danach nichts mehr), ein
+     * verstaerktes 96 Items (von zwei 64er-Stapeln Bruchstein kommen 64 + 32 hinein, 32 bleiben in
+     * der Hand). Das hineingelegte Item liegt oben und wird gezeigt. Was nicht in ein Buendel darf
+     * (Shulkerkiste), bleibt in der Hand. Ein Spieler im Ueberlebensmodus, damit der Stapel in der
+     * Hand wirklich schrumpft.
+     */
+    public static void sneakRightClickWithAnItemDepositsIntoThePlacedBundle(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 3.2, 3.5));
+        player.setNoGravity(true);
+        player.setGameMode(GameType.SURVIVAL);
+        player.gameMode.changeGameModeForPlayer(GameType.SURVIVAL);
+        player.setShiftKeyDown(true);
+        helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
+        helper.setBlock(new BlockPos(4, 1, 2), Blocks.STONE);
+        use(helper, player, filled(Items.BUNDLE, new ItemStack(Items.STRING, 1)), new BlockPos(2, 1, 2), Direction.UP);
+        use(helper, player, filled(ModItems.REINFORCED_BUNDLE), new BlockPos(4, 1, 2), Direction.UP);
+        BlockPos vanillaPos = helper.absolutePos(new BlockPos(2, 2, 2));
+        BlockPos reinforcedPos = helper.absolutePos(new BlockPos(4, 2, 2));
+        PlacedBundleBlockEntity vanilla = bundleAt(helper, new BlockPos(2, 2, 2));
+        PlacedBundleBlockEntity reinforced = bundleAt(helper, new BlockPos(4, 2, 2));
+        helper.assertTrue(vanilla.contents().size() == 1 && reinforced.isEmpty(),
+                "the two bundles were not placed as prepared: " + vanilla.contents() + " / " + reinforced.contents());
+
+        // Vanilla-Buendel: ein Faden (1/64) liegt drin, 15 Enderperlen (je 1/16) passen noch - nicht 16.
+        ItemStack pearls = new ItemStack(Items.ENDER_PEARL, 16);
+        player.setItemInHand(InteractionHand.MAIN_HAND, pearls);
+        InteractionResult deposit = player.gameMode.useItemOn(player, level, pearls, InteractionHand.MAIN_HAND, hitTop(vanillaPos));
+        helper.assertTrue(deposit.consumesAction(), "sneak + right-click with pearls on the placed bundle returned " + deposit);
+        helper.assertTrue(player.getMainHandItem().is(Items.ENDER_PEARL) && player.getMainHandItem().getCount() == 1,
+                "the hand holds " + player.getMainHandItem() + " instead of the one pearl that did not fit");
+        helper.assertTrue(vanilla.shownItem().is(Items.ENDER_PEARL) && vanilla.shownItem().getCount() == 15 && vanilla.shownIndex() == 0,
+                "the placed vanilla bundle shows " + vanilla.shownItem() + " at " + vanilla.shownIndex() + " instead of the 15 pearls on top");
+        helper.assertTrue(vanilla.contents().size() == 2, "the vanilla bundle holds " + vanilla.contents());
+        // Voll: die letzte Perle bleibt in der Hand, nichts veraendert sich.
+        player.gameMode.useItemOn(player, level, player.getMainHandItem(), InteractionHand.MAIN_HAND, hitTop(vanillaPos));
+        helper.assertTrue(player.getMainHandItem().getCount() == 1 && vanilla.contents().size() == 2,
+                "the full vanilla bundle took more: hand " + player.getMainHandItem() + ", bundle " + vanilla.contents());
+
+        // Verstaerktes Buendel: 96 Items (1,5 Stapel).
+        ItemStack cobble = new ItemStack(Items.COBBLESTONE, 64);
+        player.setItemInHand(InteractionHand.MAIN_HAND, cobble);
+        player.gameMode.useItemOn(player, level, cobble, InteractionHand.MAIN_HAND, hitTop(reinforcedPos));
+        helper.assertTrue(player.getMainHandItem().isEmpty(), "the first 64 cobblestone did not all go in: hand " + player.getMainHandItem());
+        ItemStack more = new ItemStack(Items.COBBLESTONE, 64);
+        player.setItemInHand(InteractionHand.MAIN_HAND, more);
+        player.gameMode.useItemOn(player, level, more, InteractionHand.MAIN_HAND, hitTop(reinforcedPos));
+        helper.assertTrue(player.getMainHandItem().is(Items.COBBLESTONE) && player.getMainHandItem().getCount() == 32,
+                "the reinforced bundle (96 items) left " + player.getMainHandItem() + " in the hand instead of 32 cobblestone");
+        int stored = reinforced.contents().stream().mapToInt(ItemStack::getCount).sum();
+        helper.assertTrue(stored == 96, "the reinforced bundle holds " + stored + " cobblestone instead of 96");
+        helper.assertTrue(reinforced.shownItem().is(Items.COBBLESTONE) && reinforced.shownIndex() == 0,
+                "the reinforced bundle shows " + reinforced.shownItem() + " at " + reinforced.shownIndex());
+
+        // Was nicht in ein Buendel darf, bleibt in der Hand.
+        helper.setBlock(new BlockPos(2, 1, 4), Blocks.STONE);
+        use(helper, player, filled(ModItems.NETHERITE_BUNDLE), new BlockPos(2, 1, 4), Direction.UP);
+        BlockPos netheritePos = helper.absolutePos(new BlockPos(2, 2, 4));
+        ItemStack shulker = new ItemStack(Items.SHULKER_BOX);
+        player.setItemInHand(InteractionHand.MAIN_HAND, shulker);
+        player.gameMode.useItemOn(player, level, shulker, InteractionHand.MAIN_HAND, hitTop(netheritePos));
+        helper.assertTrue(player.getMainHandItem().is(Items.SHULKER_BOX) && bundleAt(helper, new BlockPos(2, 2, 4)).isEmpty(),
+                "a shulker box went into the placed bundle");
+
+        // Ohne Schleichen legt ein Item in der Hand nichts hinein (dann nimmt der Klick heraus).
+        player.setShiftKeyDown(false);
+        ItemStack sticks = new ItemStack(Items.STICK, 4);
+        player.setItemInHand(InteractionHand.MAIN_HAND, sticks);
+        player.gameMode.useItemOn(player, level, sticks, InteractionHand.MAIN_HAND, hitTop(reinforcedPos));
+        helper.assertTrue(player.getMainHandItem().is(Items.STICK) && player.getMainHandItem().getCount() == 4,
+                "a right-click without sneaking put sticks into the bundle: hand " + player.getMainHandItem());
+        helper.succeed();
     }
 
     // =====================================================================================

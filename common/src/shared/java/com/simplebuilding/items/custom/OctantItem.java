@@ -69,6 +69,14 @@ public class OctantItem extends Item {
         Player player = context.getPlayer();
         ItemStack stack = context.getItemInHand();
 
+        // Gesperrt + Schleichen + Rechtsklick: den Oktanten als Merkstein ablegen (Besitzer 2026-09-29),
+        // wie eine Schmiedevorlage; Rechtsklick auf den abgelegten Oktanten blendet seine Auswahl ein.
+        InteractionResult placed = com.simplebuilding.util.PlacedTemplates.isPlaceableOctant(stack)
+                ? com.simplebuilding.util.PlacedTemplates.tryPlace(context) : null;
+        if (placed != null) {
+            return placed;
+        }
+
         if (!world.isClientSide()) {
             CustomData nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
             CompoundTag nbt = nbtData.copyTag();

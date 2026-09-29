@@ -682,8 +682,8 @@ public final class TestCentreSections {
      */
     private static int placedBundles(TcCanvas c, int bx) {
         c.sign(bx, 0, 2, Direction.NORTH, TcText.bold(TcText.t("storage.placed_bundle", "Placed bundles")),
-                TcText.t("storage.placed_bundle.sub", "sneak + look: top item"),
-                TcText.t("storage.placed_bundle.sub2", "right-click takes it"));
+                TcText.t("storage.placed_bundle.sub", "sneak + wheel: pick item"),
+                TcText.t("storage.placed_bundle.sub2", "right-click out, sneak: put in"));
         bx++;
         List<ItemStack> bundles = new ArrayList<>();
         bundles.add(new ItemStack(Items.BUNDLE));

@@ -90,6 +90,11 @@ public final class McVersion {
         return new BundleContents.Mutable();
     }
 
+    /** A mutable copy of existing bundle contents (26.2: the copy constructor). */
+    public static BundleContents.Mutable bundleMutable(BundleContents contents) {
+        return contents.asMutable();
+    }
+
     public static HolderSet<VillagerTrade> tradeSetTrades(TradeSet tradeSet) {
         return tradeSet.trades();
     }

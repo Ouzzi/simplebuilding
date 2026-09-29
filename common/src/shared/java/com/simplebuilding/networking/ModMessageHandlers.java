@@ -451,4 +451,12 @@ public final class ModMessageHandlers {
         int steps = Math.floorMod(com.simplebuilding.blueprint.BlueprintBuilder.rotationSteps(blueprint) + Integer.signum(payload.amount()), 4);
         blueprint.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT_ROTATION, steps);
     }
+
+    /**
+     * Schleichen + Mausrad auf ein abgestelltes Buendel: der Server besitzt den gezeigten Index und
+     * prueft Schleichen, Reichweite und Inhalt selbst ({@link com.simplebuilding.util.PlacedBundles#scroll}).
+     */
+    public static void handlePlacedBundleScroll(PlacedBundleScrollPayload payload, ServerPlayer player) {
+        com.simplebuilding.util.PlacedBundles.scroll(player, payload.pos(), payload.step());
+    }
 }

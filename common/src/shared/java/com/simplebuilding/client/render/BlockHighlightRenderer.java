@@ -4,6 +4,7 @@ import com.simplebuilding.util.OctantShape;
 import com.simplebuilding.util.OctantSurface;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.OctantItem;
@@ -47,7 +48,7 @@ public class BlockHighlightRenderer {
     /** NeoForge 26: pose stack is camera-relative; subtract camera before drawing world-space boxes. */
     public static void renderInWorldWithCamera(SubmitNodeCollector collector, PoseStack poseStack, Vec3 cameraPos) {
         Minecraft client = Minecraft.getInstance();
-        if (client.player == null || client.level == null || !ClientState.showHighlights) {
+        if (client.player == null || client.level == null) {
             return;
         }
 
@@ -55,9 +56,16 @@ public class BlockHighlightRenderer {
         try {
             poseStack.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z);
 
+            // Abgelegte Oktanten, die der eigene Spieler per Rechtsklick eingeblendet hat: eine eigene,
+            // ausdrueckliche Wahl je Oktant, deshalb auch bei ausgeschalteten Hervorhebungen.
+            drawPlacedOctants(collector, poseStack, client);
+            if (!ClientState.showHighlights) {
+                return;
+            }
+
             ItemStack octantStack = findOctantStack();
             if (!octantStack.isEmpty()) {
-                drawOctantHighlights(collector, poseStack, octantStack);
+                drawOctantHighlights(collector, poseStack, octantStack, octantFromTable);
             }
 
             ItemStack sledgeStack = findSledgehammerStack();
@@ -158,7 +166,83 @@ public class BlockHighlightRenderer {
         submit(collector, matrices, lines, fill);
     }
 
-    private static void drawOctantHighlights(SubmitNodeCollector collector, PoseStack matrices, ItemStack stack) {
+    // =================================================================================
+    // ABGELEGTE OKTANTEN
+    // =================================================================================
+
+    /** Halbdurchsichtige Rahmen-Textur (weisser Rand, zarte Flaeche) fuer das Leuchten abgelegter Oktanten. */
+    public static final net.minecraft.resources.Identifier GLOW_TEXTURE =
+            net.minecraft.resources.Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "textures/misc/placed_octant_glow.png");
+    /** So weit ragt das Leuchten ueber die Platte hinaus (Bloecke). */
+    private static final double GLOW_MARGIN = 0.08;
+
+    /**
+     * Wie viele abgelegte Oktanten der eigene Spieler im letzten Bild eingeblendet sah - fuer Tests
+     * und Fehlersuche; wird bei jedem Bild neu gezaehlt.
+     */
+    public static volatile int placedOctantsShown;
+
+    /**
+     * Abgelegte Oktanten, deren Auswahl der eigene Spieler eingeblendet hat (Rechtsklick,
+     * {@code PlacedTemplates#toggleOctantOutline}): die ganze Auswahl wie am Kartentisch, dazu ein
+     * Leuchtrahmen um den Oktanten, der durch Waende scheint - so findet man ihn wieder, um ihn
+     * auszuschalten. Wer eingeblendet hat, steht in der Block-Entity; jeder Client zeigt nur, was fuer
+     * den eigenen Spieler gilt.
+     */
+    private static void drawPlacedOctants(SubmitNodeCollector collector, PoseStack matrices, Minecraft client) {
+        int shown = 0;
+        if (!PlacedTemplateBlockEntity.CLIENT_LOADED.isEmpty()) {
+            java.util.UUID self = client.player.getUUID();
+            for (PlacedTemplateBlockEntity be : List.copyOf(PlacedTemplateBlockEntity.CLIENT_LOADED)) {
+                if (be.isRemoved() || be.getLevel() != client.level || !be.showsOutlineTo(self)
+                        || !(be.getTemplate().getItem() instanceof OctantItem octant)) {
+                    continue;
+                }
+                shown++;
+                drawOctantHighlights(collector, matrices, be.getTemplate(), true);
+                drawPlacedOctantGlow(collector, matrices, be, getRenderColors(octant.getColor()));
+            }
+        }
+        placedOctantsShown = shown;
+    }
+
+    /** Leuchtrahmen um die Platte des abgelegten Oktanten, ohne Tiefentest (durch Waende sichtbar). */
+    private static void drawPlacedOctantGlow(SubmitNodeCollector collector, PoseStack matrices, PlacedTemplateBlockEntity be, RenderColors colors) {
+        BlockPos pos = be.getBlockPos();
+        VoxelShape shape = be.getBlockState().getShape(be.getLevel(), pos);
+        AABB box = (shape.isEmpty() ? new AABB(0, 0, 0, 1, 1, 1) : shape.bounds()).move(pos).inflate(GLOW_MARGIN);
+        int argb = (0xE6 << 24) | (toByte(colors.r3()) << 16) | (toByte(colors.g3()) << 8) | toByte(colors.b3());
+        collector.submitCustomGeometry(matrices, RenderTypes.textSeeThrough(GLOW_TEXTURE), (pose, buffer) -> {
+            for (Direction face : Direction.values()) {
+                glowFace(pose, buffer, box, face, argb);
+            }
+        });
+    }
+
+    private static int toByte(float channel) {
+        return Math.max(0, Math.min(255, Math.round(channel * 255.0F)));
+    }
+
+    /** Eine Seite des Kastens als Viereck mit der ganzen Rahmen-Textur. */
+    private static void glowFace(PoseStack.Pose pose, VertexConsumer buffer, AABB b, Direction face, int argb) {
+        float x0 = (float) b.minX, y0 = (float) b.minY, z0 = (float) b.minZ;
+        float x1 = (float) b.maxX, y1 = (float) b.maxY, z1 = (float) b.maxZ;
+        float[][] corners = switch (face) {
+            case DOWN -> new float[][]{{x0, y0, z0}, {x1, y0, z0}, {x1, y0, z1}, {x0, y0, z1}};
+            case UP -> new float[][]{{x0, y1, z0}, {x0, y1, z1}, {x1, y1, z1}, {x1, y1, z0}};
+            case NORTH -> new float[][]{{x0, y0, z0}, {x0, y1, z0}, {x1, y1, z0}, {x1, y0, z0}};
+            case SOUTH -> new float[][]{{x0, y0, z1}, {x1, y0, z1}, {x1, y1, z1}, {x0, y1, z1}};
+            case WEST -> new float[][]{{x0, y0, z0}, {x0, y0, z1}, {x0, y1, z1}, {x0, y1, z0}};
+            case EAST -> new float[][]{{x1, y0, z0}, {x1, y1, z0}, {x1, y1, z1}, {x1, y0, z1}};
+        };
+        float[][] uv = {{0, 1}, {1, 1}, {1, 0}, {0, 0}};
+        for (int i = 0; i < 4; i++) {
+            buffer.addVertex(pose, corners[i][0], corners[i][1], corners[i][2]).setColor(argb)
+                    .setUv(uv[i][0], uv[i][1]).setLight(0xF000F0);
+        }
+    }
+
+    private static void drawOctantHighlights(SubmitNodeCollector collector, PoseStack matrices, ItemStack stack, boolean fullFigure) {
         CustomData nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
         CompoundTag nbt = nbtData.copyTag();
 
@@ -174,7 +258,7 @@ public class BlockHighlightRenderer {
         boolean isInverted = Simplebuilding.getConfig().tools.invertOctantSneak;
         int opacityPercent = Simplebuilding.getConfig().tools.buildingHighlightOpacity;
         boolean hasConstructorsTouch = hasEnchantment(stack, Minecraft.getInstance(), ModEnchantments.CONSTRUCTORS_TOUCH);
-        boolean showFill = (isInverted ^ hasConstructorsTouch) || octantFromTable;
+        boolean showFill = (isInverted ^ hasConstructorsTouch) || fullFigure;
         float baseAlpha = Math.max(0, Math.min(100, opacityPercent)) / 100.0f;
 
         OctantItem octant = (OctantItem) stack.getItem();
@@ -189,7 +273,7 @@ public class BlockHighlightRenderer {
         if (pos1 != null) drawBoxOutline(matrices, lines, new AABB(pos1).inflate(0.001), colors.r1(), colors.g1(), colors.b1(), lineAlpha);
         if (pos2 != null) drawBoxOutline(matrices, lines, new AABB(pos2).inflate(0.002), colors.r2(), colors.g2(), colors.b2(), lineAlpha);
 
-        if (pos1 != null && pos2 != null && showFill && (ClientState.showOctantFigure || octantFromTable)) {
+        if (pos1 != null && pos2 != null && showFill && (ClientState.showOctantFigure || fullFigure)) {
             AABB bounds = getFullArea(pos1, pos2);
 
             Predicate<BlockPos> shapeFunc = OctantShape.predicate(shape, orientation, bounds);
@@ -223,17 +307,27 @@ public class BlockHighlightRenderer {
     // VOXEL SHAPE LOGIK
     // =================================================================================
 
-    /** Zuletzt gezeichnete Huelle und ihr Schluessel (Form, Ausrichtung, Ecken), siehe {@link OctantSurface}. */
-    private static Object surfaceKey;
-    private static OctantSurface surfaceCache;
+    /**
+     * Die zuletzt gezeichneten Huellen je Schluessel (Form, Ausrichtung, Ecken), siehe
+     * {@link OctantSurface}. Mehrere Eintraege, weil neben dem gehaltenen Oktanten auch eingeblendete
+     * abgelegte Oktanten je Bild gezeichnet werden - ein einzelner Platz wuerde jedes Bild neu rechnen.
+     */
+    private static final int SURFACE_CACHE_SIZE = 8;
+    private static final java.util.Map<Object, OctantSurface> SURFACES = new java.util.LinkedHashMap<>(16, 0.75F, true) {
+        @Override
+        protected boolean removeEldestEntry(java.util.Map.Entry<Object, OctantSurface> eldest) {
+            return size() > SURFACE_CACHE_SIZE;
+        }
+    };
 
     /** Die Huelle zum Schluessel; neu gesucht nur, wenn sich Form, Ausrichtung oder eine Ecke geaendert hat. */
     static OctantSurface surfaceFor(Object key, AABB bounds, Predicate<BlockPos> inShape) {
-        if (surfaceCache == null || !key.equals(surfaceKey)) {
-            surfaceCache = OctantSurface.compute(bounds, inShape);
-            surfaceKey = key;
+        OctantSurface surface = SURFACES.get(key);
+        if (surface == null) {
+            surface = OctantSurface.compute(bounds, inShape);
+            SURFACES.put(key, surface);
         }
-        return surfaceCache;
+        return surface;
     }
 
     private static void renderVoxelShape(PoseStack matrices, VertexConsumer lines, VertexConsumer fill, Object key, AABB bounds, Predicate<BlockPos> inShape, float r, float g, float b, float la, float fa) {

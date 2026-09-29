@@ -25,6 +25,7 @@
     "ItemFrameEntityMixin",
     "ItemParserStateMixin",
     "ItemUseOnMixin",
+    "ItemStackUseOnMixin",
     "LivingEntityMixin",
     "MappedRegistryAliasMixin",
     "MovingPistonExplosionMixin",

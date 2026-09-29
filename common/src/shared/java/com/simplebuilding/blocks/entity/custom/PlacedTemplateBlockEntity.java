@@ -5,6 +5,7 @@ import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.util.PlacedTemplates;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -24,6 +25,13 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.WeakHashMap;
+
 /**
  * Die abgelegte Schmiedevorlage ({@link PlacedTemplateBlock}): haelt den Vorlagen-Stapel samt allen
  * Komponenten (Schluessel {@code Template}) und schickt ihn zum Client, der ihn mit dem
@@ -33,17 +41,32 @@ import org.jetbrains.annotations.Nullable;
  * Jade und alle anderen Anzeigen, die nach dem Namen der Block-Entity fragen, zeigen so
  * "Leuchtender Rüstungsbesatz" statt "Abgelegte Schmiedevorlage" (Besitzer 2026-09-28).
  *
+ * <p>Ein abgelegter Oktant merkt sich ausserdem, welche Spieler seine Auswahl eingeblendet haben
+ * ({@code OutlineViewers}, gespeichert und zum Client geschickt; jeder Client zeigt nur, was fuer den
+ * eigenen Spieler eingeblendet ist).
+ *
  * <p>Nicht gespeichert: der Zaehler der Hammerschlaege (verfaellt ohnehin nach
  * {@link PlacedTemplates#HIT_RESET_TICKS}) und der Zeitpunkt des letzten Hinweis-Tons.
  */
 public class PlacedTemplateBlockEntity extends BlockEntity implements Nameable {
     private static final String TEMPLATE_TAG = "Template";
+    private static final String OUTLINE_VIEWERS_TAG = "OutlineViewers";
+
+    /**
+     * Die clientseitig geladenen abgelegten Platten (nur Client-Welten): der Renderer der
+     * Oktant-Auswahl ({@code BlockHighlightRenderer}) sucht darin die abgelegten Oktanten, die der
+     * eigene Spieler eingeblendet hat, statt jedes Bild alle Block-Entities der Welt abzufragen.
+     * Schwach gehalten, damit ein Weltwechsel ohne {@link #setRemoved()} nichts festhaelt.
+     */
+    public static final Set<PlacedTemplateBlockEntity> CLIENT_LOADED = Collections.newSetFromMap(new WeakHashMap<>());
 
     private ItemStack template = ItemStack.EMPTY;
     private int hits;
     private @Nullable Item hitCatalyst;
     private long lastHitTime = Long.MIN_VALUE / 2;
     private long lastHintSound = Long.MIN_VALUE / 2;
+    /** Spieler, die die Auswahl dieses abgelegten Oktanten eingeblendet haben (Besitzer 2026-09-29). */
+    private final Set<UUID> outlineViewers = new LinkedHashSet<>();
 
     public PlacedTemplateBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.PLACED_TEMPLATE_BE, pos, state);
@@ -73,6 +96,40 @@ public class PlacedTemplateBlockEntity extends BlockEntity implements Nameable {
     @Override
     public @Nullable Component getCustomName() {
         return this.template.isEmpty() ? null : this.template.getHoverName();
+    }
+
+    /** Wer die Auswahl dieses abgelegten Oktanten eingeblendet hat (unveraenderliche Sicht). */
+    public Set<UUID> outlineViewers() {
+        return Collections.unmodifiableSet(this.outlineViewers);
+    }
+
+    /** Hat dieser Spieler die Auswahl eingeblendet? */
+    public boolean showsOutlineTo(UUID player) {
+        return this.outlineViewers.contains(player);
+    }
+
+    /** Blendet die Auswahl fuer diesen Spieler ein oder aus; liefert den neuen Zustand. */
+    public boolean toggleOutlineViewer(UUID player) {
+        boolean shown = this.outlineViewers.add(player) || !this.outlineViewers.remove(player);
+        setChanged();
+        if (this.level != null && !this.level.isClientSide()) {
+            this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+        }
+        return shown;
+    }
+
+    @Override
+    public void clearRemoved() {
+        super.clearRemoved();
+        if (this.level != null && this.level.isClientSide()) {
+            CLIENT_LOADED.add(this);
+        }
+    }
+
+    @Override
+    public void setRemoved() {
+        super.setRemoved();
+        CLIENT_LOADED.remove(this);
     }
 
     /** Bisher gezaehlte Hammerschlaege (0, solange keiner zaehlt). */
@@ -131,6 +188,8 @@ public class PlacedTemplateBlockEntity extends BlockEntity implements Nameable {
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         this.template = input.read(TEMPLATE_TAG, ItemStack.CODEC).orElse(ItemStack.EMPTY);
+        this.outlineViewers.clear();
+        input.read(OUTLINE_VIEWERS_TAG, UUIDUtil.CODEC.listOf()).ifPresent(this.outlineViewers::addAll);
     }
 
     @Override
@@ -139,9 +198,12 @@ public class PlacedTemplateBlockEntity extends BlockEntity implements Nameable {
         if (!this.template.isEmpty()) {
             output.store(TEMPLATE_TAG, ItemStack.CODEC, this.template);
         }
+        if (!this.outlineViewers.isEmpty()) {
+            output.store(OUTLINE_VIEWERS_TAG, UUIDUtil.CODEC.listOf(), List.copyOf(this.outlineViewers));
+        }
     }
 
-    /** Der Client braucht die Vorlage zum Zeichnen. */
+    /** Der Client braucht die Vorlage zum Zeichnen und, bei einem Oktanten, wer dessen Auswahl sieht. */
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
         return saveCustomOnly(registries);

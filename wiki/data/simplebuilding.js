@@ -458,7 +458,9 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/client/render/PlacedTemplateRenderer.java",
         "common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java",
         "common/src/shared/java/com/simplebuilding/util/PlacedPlate.java",
-        "common/src/shared/java/com/simplebuilding/util/PlacedAttractors.java"
+        "common/src/shared/java/com/simplebuilding/util/PlacedAttractors.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/OctantItem.java",
+        "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java"
       ],
       "en": {
         "title": "Placed smithing templates",
@@ -471,7 +473,8 @@ window.WIKI_DATA = {
           "Blueprints can be placed the same way: sneak + right-click lays one flat on the floor, on a wall or under the ceiling as a thin plate showing the blueprint's current look. It keeps all its data (code, title, author) and drops itself when broken; its hitbox is the plate, and it is named like the blueprint.",
           "Placed armor trim templates can be upgraded with the sledgehammer just like in an item frame, but it takes 3 hits instead of 1: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the third turns it into the Glowing or Emitting Armor Trim and uses up the off-hand item (not in creative). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target.",
           "Hint: while a player holding Glow Ink Sac or Glowstone Dust (either hand) is within 6 blocks, an upgradable placed template shows a few sparks circling over it every half second and chimes quietly at most every 3 seconds.",
-          "The Attractor can be placed the same way (sneak + right-click) and then pulls loose items toward itself, see the Attractor chapter."
+          "The Attractor can be placed the same way (sneak + right-click) and then pulls loose items toward itself, see the Attractor chapter.",
+          "A locked Octant can be put down the same way (sneak + right-click; an unlocked one still sets Pos 2 with that click) and keeps its corners, shape and colour. Right-click the placed octant to show its selection for yourself - corners and the full figure, as at the cartography table - and right-click again to hide it. While it is shown for you, the placed octant also glows in its colour through walls, so you can find it again to switch it off. The switch is per player: others only see what they switched on themselves. It is saved with the block and also works while the mod's highlights are hidden with the toggle key."
         ]
       },
       "de": {
@@ -485,7 +488,8 @@ window.WIKI_DATA = {
           "Blaupausen lassen sich genauso ablegen: Schleichen + Rechtsklick legt eine flach auf den Boden, an die Wand oder unter die Decke, als dünne Platte in ihrem aktuellen Aussehen. Sie behält alle Daten (Code, Titel, Autor) und fällt beim Abbauen als sie selbst heraus; ihre Trefferform ist die Platte, und sie heißt wie die Blaupause.",
           "Abgelegte Rüstungsbesatz-Vorlagen lassen sich wie im Rahmen mit dem Vorschlaghammer aufwerten, brauchen aber 3 Schläge statt einem: Vorschlaghammer in der Haupthand, Leuchttintenbeutel oder Glowstonestaub in der Nebenhand, Linksklick auf die Vorlage. Jeder Schlag gibt Funken und einen höher werdenden Klang; der dritte macht daraus die leuchtende bzw. strahlende Besatzvorlage und verbraucht das Item aus der Nebenhand (nicht im Kreativmodus). Nach 5 Sekunden ohne Schlag oder bei einem anderen Material beginnt die Zählung von vorn. Mit Hammer und Material in den Händen lässt sich die Vorlage nicht abbauen; der Hammer neigt sich zu ihr wie zu jedem anderen gültigen Ziel.",
           "Hinweis: Solange ein Spieler mit Leuchttintenbeutel oder Glowstonestaub (in einer der beiden Hände) höchstens 6 Blöcke entfernt ist, kreisen über einer aufwertbaren abgelegten Vorlage alle halbe Sekunde ein paar Funken, und höchstens alle 3 Sekunden klingt sie leise.",
-          "Der Attraktor lässt sich genauso ablegen (Schleichen + Rechtsklick) und zieht dann lose Items zu sich, siehe das Kapitel zum Attraktor."
+          "Der Attraktor lässt sich genauso ablegen (Schleichen + Rechtsklick) und zieht dann lose Items zu sich, siehe das Kapitel zum Attraktor.",
+          "Ein gesperrter Oktant lässt sich genauso ablegen (Schleichen + Rechtsklick; ein ungesperrter setzt mit diesem Klick weiter Pos 2) und behält Ecken, Form und Farbe. Rechtsklick auf den abgelegten Oktanten blendet seine Auswahl für dich ein – Ecken und die ganze Figur, wie am Kartentisch –, ein zweiter Rechtsklick blendet sie wieder aus. Solange sie für dich eingeblendet ist, leuchtet der abgelegte Oktant außerdem in seiner Farbe durch Wände, damit du ihn zum Ausschalten wiederfindest. Der Schalter gilt je Spieler: andere sehen nur, was sie selbst eingeschaltet haben. Er wird mit dem Block gespeichert und wirkt auch, wenn die Hervorhebungen der Mod per Taste ausgeblendet sind."
         ]
       }
     },
@@ -503,25 +507,28 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedBundleBlockEntity.java",
         "common/src/shared/java/com/simplebuilding/client/render/PlacedBundleRenderer.java",
         "common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java",
-        "tools/textures/placed_bundle_textures.py"
+        "tools/textures/placed_bundle_textures.py",
+        "common/src/shared/java/com/simplebuilding/mixin/ItemStackUseOnMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/client/MouseMixin.java",
+        "common/src/shared/java/com/simplebuilding/networking/PlacedBundleScrollPayload.java"
       ],
       "en": {
         "title": "Placed bundles",
-        "summary": "Sneak + right-click on the top of a block with a bundle to set it down as a 3D bundle. Sneak and look at it to see its top item floating above it; right-click takes that item out.",
+        "summary": "Sneak + right-click on the top of a block with a bundle to set it down as a 3D bundle. Sneak and look at it to see its top item floating above it; sneak + mouse wheel picks the item, right-click takes it out, and sneak + right-click with an item puts that item in.",
         "details": [
           "Works with the Reinforced, Netherite and Enderite Bundle (dyed ones too) and with the vanilla bundle in all 17 colours. Only on the top face of a block that can hold it up, like a lantern - never on a wall or under a ceiling. Without sneaking, and on walls or ceilings, a bundle behaves as before. Quivers cannot be placed.",
           "Each tier has its own 3D model; dyed bundles and the coloured vanilla bundles show their colour on the leather. The bundle faces the player who placed it. The item itself stays a flat item.",
-          "While you sneak and look at a placed bundle, its top item floats and turns above it, and every second the next item comes to the top (with at least two items inside). Right-click takes exactly the shown item out - into your empty hand, otherwise into your inventory - and the next one moves up.",
+          "While you sneak and look at a placed bundle, its top item floats above it, always turned towards your own camera (every player sees its front). Sneak + mouse wheel switches the shown item - wheel down to the next, wheel up to the previous, round and round; the hotbar selection does not move while you do it, and nothing changes by itself. Right-click takes exactly the shown item out - into your empty hand, otherwise into your inventory, and dropped at your feet if the inventory is full - and the next one moves up. Sneak + right-click with an item in your main hand puts as much of it in as fits, with the same rules as the bundle item: the tier's capacity (vanilla bundle 64, Reinforced 96, Netherite 192, Enderite 288), Deep Pockets and Drawer, and nothing that may not go into a bundle (like a shulker box). What you put in lies on top and is shown.",
           "Breaking it - by hand, explosion, piston or by taking away the block below - drops the bundle with all its contents and data (colour, name, enchantments). In creative mode a bundle with contents drops too. Middle-click picks the bundle; Jade and other displays show the bundle's name."
         ]
       },
       "de": {
         "title": "Abgestellte Bündel",
-        "summary": "Schleichen + Rechtsklick mit einem Bündel auf die Oberseite eines Blocks stellt es als 3D-Bündel ab. Schleichend hinsehen zeigt das oberste Item darüber schwebend; Rechtsklick nimmt es heraus.",
+        "summary": "Schleichen + Rechtsklick mit einem Bündel auf die Oberseite eines Blocks stellt es als 3D-Bündel ab. Schleichend hinsehen zeigt das oberste Item darüber schwebend; Schleichen + Mausrad wählt das Item, Rechtsklick nimmt es heraus, Schleichen + Rechtsklick mit einem Item legt dieses hinein.",
         "details": [
           "Geht mit dem verstärkten, dem Netherit- und dem Enderit-Bündel (auch gefärbt) und mit dem Vanilla-Bündel in allen 17 Farben. Nur auf die Oberseite eines Blocks, der es trägt wie eine Laterne – nie an eine Wand oder unter eine Decke. Ohne Schleichen und an Wänden oder Decken verhält sich ein Bündel wie bisher. Köcher lassen sich nicht abstellen.",
           "Jede Stufe hat ein eigenes 3D-Modell; gefärbte Bündel und die farbigen Vanilla-Bündel zeigen ihre Farbe auf dem Leder. Das Bündel schaut zu dem Spieler, der es abstellt. Das Item selbst bleibt flach.",
-          "Solange du schleichst und auf ein abgestelltes Bündel schaust, schwebt sein oberstes Item drehend darüber, und jede Sekunde kommt das nächste nach oben (ab zwei Items). Rechtsklick nimmt genau das gezeigte Item heraus – in die leere Hand, sonst ins Inventar – und das nächste rückt nach.",
+          "Solange du schleichst und auf ein abgestelltes Bündel schaust, schwebt sein oberstes Item darüber, immer zu deiner eigenen Kamera gedreht (jeder Spieler sieht die Vorderseite). Schleichen + Mausrad wechselt das gezeigte Item – Rad nach unten zum nächsten, nach oben zum vorigen, reihum; die Auswahl in der Schnellleiste bleibt dabei stehen, und von selbst wechselt nichts. Rechtsklick nimmt genau das gezeigte Item heraus – in die leere Hand, sonst ins Inventar, bei vollem Inventar fällt es vor die Füße – und das nächste rückt nach. Schleichen + Rechtsklick mit einem Item in der Haupthand legt so viel davon hinein, wie passt, nach denselben Regeln wie beim Bündel-Item: Fassungsvermögen der Stufe (Vanilla-Bündel 64, verstärkt 96, Netherit 192, Enderit 288), Tiefe Taschen und Schublade, und nichts, was nicht in ein Bündel darf (etwa eine Shulkerkiste). Was du hineinlegst, liegt oben und wird gezeigt.",
           "Abbauen – von Hand, durch Explosion, Kolben oder indem man den Block darunter wegnimmt – gibt das Bündel mit seinem ganzen Inhalt und allen Daten (Farbe, Name, Verzauberungen) zurück. Im Kreativmodus fällt ein Bündel mit Inhalt trotzdem heraus. Die mittlere Maustaste nimmt das Bündel; Jade und andere Anzeigen zeigen den Namen des Bündels."
         ]
       }
@@ -808,6 +815,7 @@ window.WIKI_DATA = {
           "Dyed octants (octant + dye) have their own colour for the HUD and the markers and the same 128 durability as the plain octant; the colour can be washed off in a water cauldron, and the selection survives that (enchantments and damage do not).",
           "Sneak + right-click in the air resets the octant completely. The lock protects the selection from accidental clicking and scrolling (not from changes in the manager). The server only takes corners within 320 blocks of you and inside the build height; the manager shows a farther corner in red, and the action bar says it was not taken.",
           "The octant itself does not build anything - it measures and displays. Together with a building wand it becomes a building plan: wand in the main hand, octant in the off hand, and a click fills the shape (or lays a roof of stairs on a prism or pyramid). The fill options Hollow, Layer Mode and Order on page 2 of the manager apply to that fill; see Building Wand.",
+          "Placed octant: sneak + right-click with a locked octant puts it down as a marker plate (see Placed smithing templates); right-clicking it shows or hides its selection just for you, and while shown it glows through walls.",
           "Loader note: HUD and world markers exist on Fabric, NeoForge and Forge alike."
         ]
       },
@@ -825,6 +833,7 @@ window.WIKI_DATA = {
           "Gefärbte Oktanten (Oktant + Farbstoff) haben eine eigene Farbe für HUD und Markierungen und dieselbe Haltbarkeit von 128 wie der normale Oktant; im Wasserkessel lässt sich die Farbe wieder abwaschen, die Auswahl bleibt dabei erhalten (Verzauberungen und Schaden nicht).",
           "Schleichen + Rechtsklick in die Luft setzt den Oktanten komplett zurück. Die Sperre schützt die Auswahl vor versehentlichem Klicken und Scrollen (nicht vor Änderungen im Manager). Der Server übernimmt nur Ecken bis 320 Blöcke um dich und innerhalb der Bauhöhe; der Manager zeigt eine weiter entfernte Ecke rot, und die Aktionsleiste sagt, dass sie nicht übernommen wurde.",
           "Der Oktant selbst baut nichts - er misst und zeigt an. Zusammen mit einem Baustab wird er zum Bauplan: Stab in der Haupthand, Oktant in der Nebenhand, und ein Klick füllt die Figur (oder legt auf ein Prisma oder eine Pyramide ein Dach aus Treppen). Die Fülloptionen Hohl, Ebenenmodus und Reihenfolge auf Seite 2 des Managers gelten für diese Füllung; siehe Baustab.",
+          "Abgelegter Oktant: Schleichen + Rechtsklick mit einem gesperrten Oktanten legt ihn als Merkplatte ab (siehe Abgelegte Schmiedevorlagen); Rechtsklick darauf blendet seine Auswahl nur für dich ein oder aus, und eingeblendet leuchtet er durch Wände.",
           "Loader-Hinweis: HUD und Weltmarkierungen gibt es auf Fabric, NeoForge und Forge gleichermaßen."
         ]
       }
