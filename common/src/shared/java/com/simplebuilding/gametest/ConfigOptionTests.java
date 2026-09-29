@@ -1063,7 +1063,8 @@ public final class ConfigOptionTests {
      * has to be reachable through {@code ConfigOptions} - and so through the screen and the command.
      */
     private static final Set<String> EXCLUDED_KEYS =
-            Set.of("tweaks.spawn.spawnTeleporterCount", "tweaks.laserPointer.showLine");
+            Set.of("tweaks.spawn.spawnTeleporterCount", "tweaks.laserPointer.showLine",
+                    "tweaks.laserPointer.beamCostPerSecond");
 
     /**
      * The config screen explains itself: every option a player can see has a name and a tooltip in
