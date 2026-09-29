@@ -53,6 +53,7 @@
     "simplebuilding:enderite_piston",
     "simplebuilding:enderite_piston_head",
     "simplebuilding:enderite_pressure_plate",
+    "simplebuilding:enderite_shulker_box",
     "simplebuilding:enderite_smoker",
     "simplebuilding:enderite_spawn_teleporter",
     "simplebuilding:enderman_head",
@@ -79,6 +80,7 @@
     "simplebuilding:netherite_piston",
     "simplebuilding:netherite_piston_head",
     "simplebuilding:netherite_pressure_plate",
+    "simplebuilding:netherite_shulker_box",
     "simplebuilding:netherite_smoker",
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_purpur_block",
@@ -119,6 +121,7 @@
     "simplebuilding:reinforced_piston",
     "simplebuilding:reinforced_piston_head",
     "simplebuilding:reinforced_potion_pad",
+    "simplebuilding:reinforced_shulker_box",
     "simplebuilding:reinforced_smoker",
     "simplebuilding:reinforced_sticky_piston",
     "simplebuilding:resin_quartz_checker",
@@ -524,6 +527,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:enderite_shulker_box",
+      "maxStackSize": 1
+    },
+    {
       "attackDamage": 15.0,
       "attackSpeed": 1.2,
       "durability": 10000,
@@ -835,6 +842,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:netherite_shulker_box",
+      "maxStackSize": 1
+    },
+    {
       "attackDamage": 13.0,
       "attackSpeed": 1.0,
       "durability": 8124,
@@ -1087,6 +1098,10 @@
     {
       "bundleCapacityItems": 96,
       "id": "simplebuilding:reinforced_quiver",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:reinforced_shulker_box",
       "maxStackSize": 1
     },
     {

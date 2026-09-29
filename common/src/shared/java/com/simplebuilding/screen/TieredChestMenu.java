@@ -32,22 +32,33 @@ public class TieredChestMenu extends AbstractContainerMenu {
     private final int columns;
     private final int rows;
     private final int chestSlots;
+    private final boolean shulkerBox;
 
     /** Client: aus den Oeffnungsdaten, mit einem Container, der nichts abschneidet. */
     public TieredChestMenu(int containerId, Inventory inventory, TieredChestOpenData data) {
         this(containerId, inventory, new ClientStorage(data.tier().slots() * (data.isDouble() ? 2 : 1),
-                data.tier().stackMultiplier()), data.tier(), data.isDouble());
+                data.tier().stackMultiplier()), data.tier(), data.isDouble(), data.isShulkerBox());
     }
 
     /** Server: {@code container} ist die Truhe oder, fuer eine Doppeltruhe, Vanillas {@code CompoundContainer}. */
     public static TieredChestMenu server(int containerId, Inventory inventory, Container container, ChestTier tier, boolean isDouble) {
-        return new TieredChestMenu(containerId, inventory, container, tier, isDouble);
+        return new TieredChestMenu(containerId, inventory, container, tier, isDouble, false);
     }
 
-    private TieredChestMenu(int containerId, Inventory inventory, Container container, ChestTier tier, boolean isDouble) {
+    /**
+     * Server, auch fuer die gestuften Shulkerkisten ({@code shulkerBox}: einzeln, und ihre Plaetze
+     * nehmen wie Vanillas {@code ShulkerBoxSlot} nichts, was nicht in einen Container-Gegenstand darf).
+     */
+    public static TieredChestMenu server(int containerId, Inventory inventory, Container container, ChestTier tier, boolean isDouble,
+                                         boolean shulkerBox) {
+        return new TieredChestMenu(containerId, inventory, container, tier, isDouble, shulkerBox);
+    }
+
+    private TieredChestMenu(int containerId, Inventory inventory, Container container, ChestTier tier, boolean isDouble, boolean shulkerBox) {
         super(ModScreenHandlers.TIERED_CHEST_MENU, containerId);
         this.tier = tier;
         this.isDouble = isDouble;
+        this.shulkerBox = shulkerBox;
         this.columns = tier.columns(isDouble);
         this.rows = tier.rows(isDouble);
         this.chestSlots = this.columns * this.rows;
@@ -58,7 +69,7 @@ public class TieredChestMenu extends AbstractContainerMenu {
         for (int row = 0; row < this.rows; row++) {
             for (int column = 0; column < this.columns; column++) {
                 this.addSlot(new TieredChestSlot(container, column + row * this.columns,
-                        left + column * SLOT, 18 + row * SLOT, tier.stackMultiplier()));
+                        left + column * SLOT, 18 + row * SLOT, tier.stackMultiplier(), shulkerBox));
             }
         }
         this.addStandardInventorySlots(inventory, inventoryLeft(), 18 + this.rows * SLOT + 13);
@@ -84,6 +95,11 @@ public class TieredChestMenu extends AbstractContainerMenu {
 
     public boolean isDouble() {
         return this.isDouble;
+    }
+
+    /** Ob dieses Menue eine gestufte Shulkerkiste zeigt (statt einer Truhe). */
+    public boolean isShulkerBox() {
+        return this.shulkerBox;
     }
 
     public int columns() {

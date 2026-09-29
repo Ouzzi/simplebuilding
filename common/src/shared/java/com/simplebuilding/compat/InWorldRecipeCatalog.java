@@ -200,13 +200,16 @@ public final class InWorldRecipeCatalog {
                 continue;
             }
             int perHit = step.get("damagePerHit").getAsInt();
+            // Shulkerkisten haben eigene Schlaege und Dauer je Stufe; alte Exporte ohne sie gelten wie alle.
+            int stepHits = step.has("hits") ? step.get("hits").getAsInt() : hits;
+            int stepDuration = step.has("durationTicks") ? step.get("durationTicks").getAsInt() : duration;
             List<Component> notes = List.of(
                     Component.translatable("jei.simplebuilding.note.machine_upgrade.how"),
-                    Component.translatable("jei.simplebuilding.note.machine_upgrade.time", hits, seconds(duration), duration),
+                    Component.translatable("jei.simplebuilding.note.machine_upgrade.time", stepHits, seconds(stepDuration), stepDuration),
                     Component.translatable("jei.simplebuilding.note.machine_upgrade.damage", perHit, step.get("totalDamage").getAsInt()));
             out.add(new Entry(Kind.MACHINE_UPGRADE, "machine_upgrade/" + from,
                     List.of(Stack.of(fromItem, 1), Stack.of(nugget, step.get("nuggetCount").getAsInt())),
-                    tools, Stack.of(to, 1), duration, notes));
+                    tools, Stack.of(to, 1), stepDuration, notes));
         }
     }
 

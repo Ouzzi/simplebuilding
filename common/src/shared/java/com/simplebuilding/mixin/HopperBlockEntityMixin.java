@@ -3,7 +3,6 @@ package com.simplebuilding.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity;
 import com.simplebuilding.util.TieredChests;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 /**
  * Trichter fuellen die uebergrossen Plaetze der Netherit- (x2) und Enderittruhe (x4) bis zu deren
- * Grenze. Vanilla rechnet beim Einfuellen mit {@code stack.getMaxStackSize()} (64), haelt einen
+ * Grenze - ebenso die gestuften Shulkerkisten. Vanilla rechnet beim Einfuellen mit {@code stack.getMaxStackSize()} (64), haelt einen
  * Platz mit mehr als 64 fuer nicht zusammenfuehrbar und einen Container mit lauter 64ern fuer
  * voll. Nur fuer Mod-Truhen (auch als Doppeltruhe hinter {@code CompoundContainer}) wird die
  * Grenze ersetzt, jeder andere Container bleibt bei Vanilla. Gilt fuer Vanillas Trichter, die
@@ -27,11 +26,11 @@ public abstract class HopperBlockEntityMixin {
             target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;canMergeItems(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z"))
     private static boolean simplebuilding$mergeIntoOversizedSlots(ItemStack current, ItemStack incoming, Operation<Boolean> original,
                                                                   @Local(argsOnly = true, ordinal = 1) Container container) {
-        TieredChestBlockEntity chest = TieredChests.chestBehind(container);
-        if (chest == null) {
+        Container storage = TieredChests.oversizedStorage(container);
+        if (storage == null) {
             return original.call(current, incoming);
         }
-        return current.getCount() < chest.getMaxStackSize(current) && ItemStack.isSameItemSameComponents(current, incoming);
+        return current.getCount() < storage.getMaxStackSize(current) && ItemStack.isSameItemSameComponents(current, incoming);
     }
 
     @WrapOperation(method = "tryMoveInItem", at = @At(value = "INVOKE",

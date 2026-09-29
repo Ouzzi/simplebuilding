@@ -62,18 +62,22 @@ public final class InWorldExportTests {
                     + "x" + step.get("nuggetCount").getAsInt()
                     + "/" + step.get("damagePerHit").getAsInt() + "per" + "/" + step.get("totalDamage").getAsInt());
         }
+        // Shulkerkisten: zwei Stueck Material und zehn Schlaege je Stufe, also doppelte Haltbarkeit.
         String expected = "[minecraft:copper_chest>copper_sledgehammer/cracked_diamondx1/2per/10, "
+                + "minecraft:shulker_box>copper_sledgehammer/cracked_diamondx2/2per/20, "
                 + "netherite_blast_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_chest>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_hopper>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_piston>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
+                + "netherite_shulker_box>netherite_sledgehammer/enderite_nuggetx2/10per/100, "
                 + "netherite_smoker>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "reinforced_blast_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_chest>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_hopper>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
+                + "reinforced_shulker_box>diamond_sledgehammer/netherite_nuggetx2/4per/40, "
                 + "reinforced_smoker>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_sticky_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20]";
         helper.assertTrue(summary.toString().equals(expected), "upgrade steps: expected " + expected + " but were " + summary);
@@ -190,7 +194,8 @@ public final class InWorldExportTests {
                             && entry.inputs().get(0).items().get(0) == block(step.get("from").getAsString()).asItem()
                             && entry.inputs().get(1).items().get(0) == item(step.get("nugget").getAsString())
                             && entry.tools().get(0) == item(step.get("minimumHammer").getAsString())
-                            && entry.durationTicks() == up.get("durationTicks").getAsInt(),
+                            && entry.durationTicks() == step.get("durationTicks").getAsInt()
+                            && entry.inputs().get(1).count() == step.get("nuggetCount").getAsInt(),
                     "JEI machine step " + entry.id() + " differs from the export");
         }
         InWorldRecipeCatalog.Entry hopper = byId.get("machine_upgrade/simplebuilding:reinforced_hopper");

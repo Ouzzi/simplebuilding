@@ -356,7 +356,9 @@ public final class ModItemGroupsContent {
                         ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
                 CreativeTabLayout.Row.of("chests",
                         Items.CHEST, Items.COPPER_CHEST.weathering().unaffected(), ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST,
-                        ModItems.ENDERITE_CHEST));
+                        ModItems.ENDERITE_CHEST),
+                CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX,
+                        ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
     }
 
     /**

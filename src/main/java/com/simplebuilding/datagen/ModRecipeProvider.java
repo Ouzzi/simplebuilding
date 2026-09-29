@@ -448,6 +448,38 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(ModItems.CRACKED_DIAMOND), has(ModItems.CRACKED_DIAMOND))
                         .save(output);
 
+                // Verstaerkte Shulkerkiste aus einer Vanilla-Shulkerkiste (jede Farbe) und vier Rissigen
+                // Diamanten - doppelt so viel wie die Aufwertung in der Welt (zwei, TieredShulkerBoxes).
+                // crafting_transmute behaelt Inhalt und Namen; die Farbe der Vanilla-Kiste (ihr Block)
+                // wird zu minecraft:base_color. Netherit- und Enderit-Shulkerkiste nur in der Welt.
+                for (Block vanillaBox : BuiltInRegistries.BLOCK) {
+                    if (!com.simplebuilding.util.TieredShulkerBoxes.isVanillaShulkerBox(vanillaBox)) {
+                        continue;
+                    }
+                    DyeColor boxColor = ((net.minecraft.world.level.block.ShulkerBoxBlock) vanillaBox).getColor();
+                    net.minecraft.data.recipes.TransmuteRecipeBuilder.transmute(RecipeCategory.DECORATIONS,
+                                    Ingredient.of(vanillaBox.asItem()), Ingredient.of(ModItems.CRACKED_DIAMOND),
+                                    dyedShulkerBox(ModItems.REINFORCED_SHULKER_BOX, boxColor))
+                            .setMaterialCount(net.minecraft.advancements.predicates.MinMaxBounds.Ints.exactly(
+                                    com.simplebuilding.util.TieredShulkerBoxes.REINFORCED_RECIPE_CRACKED_DIAMOND_COST))
+                            .group("reinforced_shulker_box")
+                            .unlockedBy(getHasName(ModItems.CRACKED_DIAMOND), has(ModItems.CRACKED_DIAMOND))
+                            .save(output, Simplebuilding.MOD_ID + ":reinforced_shulker_box_from_"
+                                    + (boxColor == null ? "" : boxColor.getName() + "_") + "shulker_box");
+                }
+                // Faerben wie Vanillas Shulkerkisten: Kiste + Farbstoff, Inhalt bleibt (crafting_transmute).
+                for (Item box : com.simplebuilding.util.TieredShulkerBoxes.items()) {
+                    String boxPath = BuiltInRegistries.ITEM.getKey(box).getPath();
+                    for (DyeColor color : DyeColor.values()) {
+                        Item dye = getDyeItem(color);
+                        net.minecraft.data.recipes.TransmuteRecipeBuilder.transmute(RecipeCategory.DECORATIONS,
+                                        Ingredient.of(box), Ingredient.of(dye), dyedShulkerBox(box, color))
+                                .group(boxPath + "_dye")
+                                .unlockedBy(getHasName(box), has(box))
+                                .save(output, Simplebuilding.MOD_ID + ":" + color.getName() + "_" + boxPath);
+                    }
+                }
+
                 // Netherit- und Enderit-Trichter (wie alle Netherit- und Enderit-Maschinen) haben kein
                 // Werkbankrezept mehr: sie entstehen in der Welt, per Vorschlaghammer und Nugget
                 // (SledgehammerUpgrades).
@@ -1294,6 +1326,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
     // MC 26.2: Die 16 Einzelfelder Items.<COLOR>_DYE gibt es nicht mehr; die Farbvarianten
     // stecken jetzt in Items.DYE (ColorCollection<Item>). ColorCollection.pick(DyeColor) ist
     // exakt derselbe Switch ueber DyeColor wie zuvor (white()..black()), also verhaltensgleich.
+    /** Die gestufte Shulkerkiste {@code box} mit der Farbe {@code color} (null: ungefaerbt). */
+    private static ItemStackTemplate dyedShulkerBox(Item box, DyeColor color) {
+        return color == null ? new ItemStackTemplate(box)
+                : new ItemStackTemplate(box, DataComponentPatch.builder().set(net.minecraft.core.component.DataComponents.BASE_COLOR, color).build());
+    }
+
     private Item getDyeItem(DyeColor color) {
         return Items.DYE.pick(color);
     }

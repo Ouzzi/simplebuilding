@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "group": "netherite_shulker_box_dye",
+  "input": "simplebuilding:netherite_shulker_box",
+  "material": "minecraft:orange_dye",
+  "result": {
+    "components": {
+      "minecraft:base_color": "orange"
+    },
+    "id": "simplebuilding:netherite_shulker_box"
+  }
+}

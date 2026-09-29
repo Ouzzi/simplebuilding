@@ -1,0 +1,601 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_white"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "white"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_orange"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "orange"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_magenta"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "magenta"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_light_blue"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "light_blue"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_yellow"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "yellow"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_lime"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "lime"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_pink"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "pink"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_gray"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "gray"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_light_gray"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "light_gray"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_cyan"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "cyan"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_purple"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "purple"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_blue"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "blue"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_brown"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "brown"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_green"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "green"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_red"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "red"
+      },
+      {
+        "model": {
+          "type": "minecraft:special",
+          "base": "simplebuilding:item/netherite_shulker_box",
+          "model": {
+            "type": "minecraft:shulker_box",
+            "texture": "simplebuilding:netherite_black"
+          },
+          "transformation": {
+            "left_rotation": [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "right_rotation": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1.0
+            ],
+            "scale": [
+              0.9995,
+              0.9995,
+              0.9995
+            ],
+            "translation": [
+              0.5,
+              1.4995,
+              0.5
+            ]
+          }
+        },
+        "when": "black"
+      }
+    ],
+    "component": "minecraft:base_color",
+    "fallback": {
+      "type": "minecraft:special",
+      "base": "simplebuilding:item/netherite_shulker_box",
+      "model": {
+        "type": "minecraft:shulker_box",
+        "texture": "simplebuilding:netherite"
+      },
+      "transformation": {
+        "left_rotation": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "right_rotation": [
+          -0.0,
+          -0.0,
+          -0.0,
+          1.0
+        ],
+        "scale": [
+          0.9995,
+          0.9995,
+          0.9995
+        ],
+        "translation": [
+          0.5,
+          1.4995,
+          0.5
+        ]
+      }
+    },
+    "property": "minecraft:component"
+  }
+}

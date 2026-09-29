@@ -72,6 +72,12 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         add(ModBlocks.NETHERITE_CHEST, createNameableBlockEntityTable(ModBlocks.NETHERITE_CHEST));
         add(ModBlocks.ENDERITE_CHEST, createNameableBlockEntityTable(ModBlocks.ENDERITE_CHEST));
 
+        // Gestufte Shulkerkisten wie Vanillas Shulkerkiste: sich selbst mit Inhalt, Name und Schloss -
+        // dazu die Farbe und die echten Anzahlen der Plaetze ueber 99. Ohne survives_explosion.
+        add(ModBlocks.REINFORCED_SHULKER_BOX, tieredShulkerBoxDrop(ModBlocks.REINFORCED_SHULKER_BOX));
+        add(ModBlocks.NETHERITE_SHULKER_BOX, tieredShulkerBoxDrop(ModBlocks.NETHERITE_SHULKER_BOX));
+        add(ModBlocks.ENDERITE_SHULKER_BOX, tieredShulkerBoxDrop(ModBlocks.ENDERITE_SHULKER_BOX));
+
         dropSelf(ModBlocks.REINFORCED_PISTON);
         dropSelf(ModBlocks.REINFORCED_STICKY_PISTON);
         dropSelf(ModBlocks.NETHERITE_PISTON);
@@ -141,6 +147,19 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
                 .setRolls(LootNumbers.exactly(1))
                 .add(LootItem.lootTableItem(block)
                         .apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY))));
+    }
+
+    private static LootTable.Builder tieredShulkerBoxDrop(Block block) {
+        return LootTable.lootTable().withPool(LootPool.lootPool()
+                .setRolls(LootNumbers.exactly(1))
+                .add(LootItem.lootTableItem(block)
+                        .apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
+                                .include(net.minecraft.core.component.DataComponents.CUSTOM_NAME)
+                                .include(net.minecraft.core.component.DataComponents.CONTAINER)
+                                .include(net.minecraft.core.component.DataComponents.LOCK)
+                                .include(net.minecraft.core.component.DataComponents.CONTAINER_LOOT)
+                                .include(net.minecraft.core.component.DataComponents.BASE_COLOR)
+                                .include(com.simplebuilding.component.ModDataComponentTypes.CONTAINER_COUNTS))));
     }
 
     public static void modifyLootTables() {

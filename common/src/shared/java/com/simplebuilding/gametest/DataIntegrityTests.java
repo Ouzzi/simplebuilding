@@ -2246,7 +2246,7 @@ public final class DataIntegrityTests {
         Map<Item, ModItemGroupsContent.Tab> vanillaHome = new HashMap<>();
         for (Item counterpart : List.of(Items.HOPPER, Items.PISTON, Items.STICKY_PISTON,
                 Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE, Items.BUNDLE,
-                Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")))) {
+                Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")), Items.SHULKER_BOX)) {
             vanillaHome.put(counterpart, ModItemGroupsContent.Tab.FUNCTIONAL);
         }
         vanillaHome.put(Items.CARTOGRAPHY_TABLE, ModItemGroupsContent.Tab.TOOLS);
@@ -2288,7 +2288,7 @@ public final class DataIntegrityTests {
         if (trims < 18) {
             problems.add("only " + trims + " vanilla armour trim templates are registered");
         }
-        if (vanillaHome.size() != 10 + 5 + 42 + 28 + 11 + 2 + 1 + trims
+        if (vanillaHome.size() != 11 + 5 + 42 + 28 + 11 + 2 + 1 + trims
                 || vanillaHome.containsKey(Items.AIR)) {
             problems.add("the vanilla tool and armour list names an item that does not exist: " + vanillaHome.size() + " entries");
         }
@@ -2534,7 +2534,8 @@ public final class DataIntegrityTests {
                 List.of(ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
                 // Truhen: Vanilla-Truhe, Kupfertruhe (die erste Aufwertungsstufe), dann die Mod-Stufen.
                 List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
-                        ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST));
+                        ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST),
+                List.of(Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.FUNCTIONAL, problems), expectedSlots(expected), "SimpleMachines", problems);
         helper.assertTrue(problems.isEmpty(), "machines and storage layout: " + problems);
         helper.succeed();

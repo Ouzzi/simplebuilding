@@ -2,11 +2,51 @@
   "upgrades": [
     {
       "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:black_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:blue_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:brown_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
       "from": "minecraft:copper_chest",
       "material": "simplebuilding:cracked_diamond",
       "min_hammer": "any",
       "tier": "reinforced",
       "to": "simplebuilding:reinforced_chest"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:cyan_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
     },
     {
       "damage_per_hit": 2,
@@ -18,11 +58,121 @@
     },
     {
       "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:gray_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:green_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:light_blue_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:light_gray_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:lime_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:magenta_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:orange_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
       "from": "minecraft:oxidized_copper_chest",
       "material": "simplebuilding:cracked_diamond",
       "min_hammer": "any",
       "tier": "reinforced",
       "to": "simplebuilding:reinforced_chest"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:pink_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:purple_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:red_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
     },
     {
       "damage_per_hit": 2,
@@ -63,6 +213,26 @@
       "min_hammer": "any",
       "tier": "reinforced",
       "to": "simplebuilding:reinforced_chest"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:white_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
+    },
+    {
+      "damage_per_hit": 2,
+      "duration_factor": 2,
+      "from": "minecraft:yellow_shulker_box",
+      "material": "simplebuilding:cracked_diamond",
+      "material_count": 2,
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_shulker_box"
     }
   ]
 }

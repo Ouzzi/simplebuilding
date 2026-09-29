@@ -31,7 +31,9 @@ import org.slf4j.LoggerFactory;
  *       "material": "simplebuilding:netherite_nugget",   // held in the off hand, used up on success
  *       "min_hammer": "diamond",                         // any | diamond | netherite | enderite
  *       "damage_per_hit": 4,                             // durability per blow, five blows
- *       "tier": "netherite"                              // reinforced | netherite | enderite (advancements)
+ *       "tier": "netherite",                             // reinforced | netherite | enderite (advancements)
+ *       "duration_factor": 1,                            // optional: times the blows (shulker boxes: 2)
+ *       "material_count": 1                              // optional: material per block (shulker boxes: 2)
  *     }
  *   ],
  *   "remove": ["simplebuilding:reinforced_piston"]      // optional: no upgrade from these blocks
@@ -114,7 +116,10 @@ public final class SledgehammerUpgradeData {
         }
         int damage = json.has("damage_per_hit") ? Math.max(0, json.get("damage_per_hit").getAsInt()) : 1;
         String tier = json.has("tier") ? json.get("tier").getAsString() : "netherite";
-        return new Upgrade(from, to, material, rank, damage, "enderite".equals(tier), "reinforced".equals(tier));
+        int durationFactor = json.has("duration_factor") ? Math.max(1, json.get("duration_factor").getAsInt()) : 1;
+        int materialCount = json.has("material_count") ? Math.max(1, json.get("material_count").getAsInt()) : 1;
+        return new Upgrade(from, to, material, rank, damage, "enderite".equals(tier), "reinforced".equals(tier),
+                durationFactor, materialCount);
     }
 
     private static @Nullable Block block(Identifier file, String id) {
@@ -149,6 +154,12 @@ public final class SledgehammerUpgradeData {
             entry.addProperty("min_hammer", HAMMERS.get(upgrade.minHammerRank()));
             entry.addProperty("damage_per_hit", upgrade.damagePerHit());
             entry.addProperty("tier", fileOf(upgrade));
+            if (upgrade.durationFactor() != 1) {
+                entry.addProperty("duration_factor", upgrade.durationFactor());
+            }
+            if (upgrade.materialCost() != 1) {
+                entry.addProperty("material_count", upgrade.materialCost());
+            }
             array.add(entry);
         }
         JsonObject json = new JsonObject();

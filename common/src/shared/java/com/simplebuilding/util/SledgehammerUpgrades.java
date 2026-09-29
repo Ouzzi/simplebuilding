@@ -52,6 +52,9 @@ import org.jetbrains.annotations.Nullable;
  * {@value #REINFORCED_DAMAGE_PER_HIT} je Schlag) zur Verstaerkten Truhe, die dann wie die Maschinen
  * weiter zu Netherit und Enderit. Truhen behalten dabei ihren Inhalt ({@link TieredChests}); eine
  * Doppeltruhe wird mit beiden Haelften zugleich umgebaut und braucht zwei Stueck Material.
+ * Shulkerkisten gehen denselben Weg (jede Vanilla-Shulkerkiste, jede Farbe -&gt; Verstaerkt -&gt; Netherit
+ * -&gt; Enderit), nur teurer: doppelt so viele Schlaege und zwei Stueck Material je Stufe
+ * ({@link TieredShulkerBoxes}); Inhalt, Name und Farbe bleiben.
  *
  * <p><b>Ablauf.</b> {@link #tryBegin} legt je Spieler und Seite einen Auftrag an und startet eine
  * Item-Benutzung von genau {@value #UPGRADE_TICKS} Ticks. {@link #tick} prueft jeden Tick, ob der
@@ -119,12 +122,31 @@ public final class SledgehammerUpgrades {
     public static final int RANK_NETHERITE = 2;
     public static final int RANK_ENDERITE = 3;
 
-    /** Eine Aufwertungsstufe: von welchem Block zu welchem, mit welchem Nugget und welchem Hammer. */
+    /**
+     * Eine Aufwertungsstufe: von welchem Block zu welchem, mit welchem Nugget und welchem Hammer.
+     * {@code durationFactor} vervielfacht die Schlaege (Shulkerkisten: 2), {@code materialCost} ist
+     * das Material je Block (Shulkerkisten: 2; eine Doppeltruhe braucht es zweimal).
+     */
     public record Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite,
-                          boolean toReinforced) {
+                          boolean toReinforced, int durationFactor, int materialCost) {
+        public Upgrade {
+            durationFactor = Math.max(1, durationFactor);
+            materialCost = Math.max(1, materialCost);
+        }
+
+        public Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite,
+                       boolean toReinforced) {
+            this(from, to, nugget, minHammerRank, damagePerHit, toEnderite, toReinforced, 1, 1);
+        }
+
         /** Ob diese Stufe eine Truhe umbaut (Doppeltruhen: beide Haelften, ein Material je Haelfte). */
         public boolean isChest() {
             return to instanceof net.minecraft.world.level.block.ChestBlock;
+        }
+
+        /** Ob diese Stufe eine Shulkerkiste umbaut (Inhalt und Farbe ziehen um, siehe {@link TieredShulkerBoxes}). */
+        public boolean isShulkerBox() {
+            return to instanceof com.simplebuilding.blocks.custom.TieredShulkerBoxBlock;
         }
     }
 
@@ -142,6 +164,16 @@ public final class SledgehammerUpgrades {
     /** Dauer einer Aufwertung in Ticks: {@link #blows()} mal {@link #HIT_INTERVAL}. */
     public static int upgradeTicks() {
         return blows() * HIT_INTERVAL;
+    }
+
+    /** Schlaege dieser Stufe: {@link #blows()} mal ihr Faktor (Shulkerkisten: doppelt so viele). */
+    public static int blows(Upgrade upgrade) {
+        return blows() * upgrade.durationFactor();
+    }
+
+    /** Dauer dieser Stufe in Ticks. */
+    public static int upgradeTicks(Upgrade upgrade) {
+        return blows(upgrade) * HIT_INTERVAL;
     }
 
     /** Schaden je Schlag fuer diese Stufe aus {@code server.tools} (Standard wie in der Tabelle). */
@@ -173,7 +205,7 @@ public final class SledgehammerUpgrades {
         }
 
         int duration() {
-            return upgradeTicks() - startHits * HIT_INTERVAL;
+            return upgradeTicks(upgrade) - startHits * HIT_INTERVAL;
         }
     }
 
@@ -224,6 +256,20 @@ public final class SledgehammerUpgrades {
             }
             toNetherite(map, ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST);
             toEnderite(map, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST);
+            // Shulkerkisten: jede der 17 Vanilla-Shulkerkisten (ungefaerbt und 16 Farben) -> Verstaerkt ->
+            // Netherit -> Enderit, teurer als die Truhen (TieredShulkerBoxes). Farbe und Inhalt bleiben.
+            int factor = TieredShulkerBoxes.SHULKER_UPGRADE_DURATION_FACTOR;
+            int cost = TieredShulkerBoxes.SHULKER_UPGRADE_MATERIAL_COST;
+            for (Block vanillaBox : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
+                if (TieredShulkerBoxes.isVanillaShulkerBox(vanillaBox)) {
+                    map.put(vanillaBox, new Upgrade(vanillaBox, ModBlocks.REINFORCED_SHULKER_BOX, ModItems.CRACKED_DIAMOND,
+                            0, REINFORCED_DAMAGE_PER_HIT, false, true, factor, cost));
+                }
+            }
+            map.put(ModBlocks.REINFORCED_SHULKER_BOX, new Upgrade(ModBlocks.REINFORCED_SHULKER_BOX, ModBlocks.NETHERITE_SHULKER_BOX,
+                    ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false, factor, cost));
+            map.put(ModBlocks.NETHERITE_SHULKER_BOX, new Upgrade(ModBlocks.NETHERITE_SHULKER_BOX, ModBlocks.ENDERITE_SHULKER_BOX,
+                    ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
             table = map;
         }
         return table;
@@ -303,7 +349,7 @@ public final class SledgehammerUpgrades {
             return "piston_busy";
         }
         if (!hasEnoughMaterial(level, pos, state, player, upgrade)) {
-            return "double_chest";
+            return upgrade.materialCost() > 1 ? "more_material" : "double_chest";
         }
         return null;
     }
@@ -313,7 +359,8 @@ public final class SledgehammerUpgrades {
      * Doppeltruhe also zwei (beide Haelften werden zugleich umgebaut, siehe {@link TieredChests}).
      */
     public static int materialNeeded(Level level, BlockPos pos, BlockState state, Upgrade upgrade) {
-        return upgrade.isChest() ? TieredChests.halves(level, pos, state, upgrade.to()).size() : 1;
+        int blocks = upgrade.isChest() ? TieredChests.halves(level, pos, state, upgrade.to()).size() : 1;
+        return blocks * upgrade.materialCost();
     }
 
     private static boolean hasEnoughMaterial(Level level, BlockPos pos, BlockState state, Player player, Upgrade upgrade) {
@@ -477,7 +524,7 @@ public final class SledgehammerUpgrades {
             return InteractionResult.FAIL;
         }
         int startHits = level instanceof ServerLevel serverLevel
-                ? Math.clamp(SledgehammerProgress.hits(serverLevel, pos, upgrade.from()), 0, blows() - 1) : 0;
+                ? Math.clamp(SledgehammerProgress.hits(serverLevel, pos, upgrade.from()), 0, blows(upgrade) - 1) : 0;
         jobs(level).put(player.getUUID(), new Job(pos.immutable(), upgrade, context.getClickLocation(), context.getClickedFace(), startHits));
         player.startUsingItem(InteractionHand.MAIN_HAND);
         return InteractionResult.CONSUME;
@@ -493,7 +540,7 @@ public final class SledgehammerUpgrades {
             player.releaseUsingItem();
             return;
         }
-        int total = upgradeTicks();
+        int total = upgradeTicks(job.upgrade);
         int elapsed = total - remainingTicks + 1;
         if (elapsed % HIT_INTERVAL == 0 && elapsed < total && level instanceof ServerLevel serverLevel) {
             strike(serverLevel, player, hammer, job, elapsed / HIT_INTERVAL);
@@ -517,7 +564,23 @@ public final class SledgehammerUpgrades {
             // Truhen wechseln die Block-Entity (27 -> 36 -> 45 -> 54 Plaetze): Inhalt umziehen,
             // eine Doppeltruhe mit beiden Haelften, und je Block ein Material verbrauchen.
             int blocks = TieredChests.upgradeInPlace(serverLevel, job.pos, job.upgrade.to());
-            player.getOffhandItem().consume(blocks, player);
+            player.getOffhandItem().consume(blocks * job.upgrade.materialCost(), player);
+            finishEffects(serverLevel, job, old);
+            if (!job.upgrade.toReinforced()) {
+                com.simplebuilding.advancement.ModTriggers.feature(player, job.upgrade.toEnderite() ? com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE : com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_NETHERITE);
+            }
+            McVersion.swing(player, InteractionHand.MAIN_HAND, true);
+            hammer.hurtAndBreak(damagePerHit(job.upgrade), player, EquipmentSlot.MAINHAND);
+            if (!hammer.isEmpty() && hasConnection(player)) {
+                player.getCooldowns().addCooldown(hammer, FINISH_COOLDOWN_TICKS);
+            }
+            return true;
+        }
+        if (job.upgrade.isShulkerBox()) {
+            // Shulkerkisten wechseln die Block-Entity (27 -> 36 -> 45 -> 54 Plaetze): Inhalt, Name und
+            // Farbe ziehen um; die Stufe kostet ihr Material auf einmal.
+            TieredShulkerBoxes.upgradeInPlace(serverLevel, job.pos, job.upgrade.to());
+            player.getOffhandItem().consume(job.upgrade.materialCost(), player);
             finishEffects(serverLevel, job, old);
             if (!job.upgrade.toReinforced()) {
                 com.simplebuilding.advancement.ModTriggers.feature(player, job.upgrade.toEnderite() ? com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE : com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_NETHERITE);
@@ -693,6 +756,11 @@ public final class SledgehammerUpgrades {
         Upgrade upgrade = upgradeOf(blockItem.getBlock());
         if (upgrade == null) {
             return null;
+        }
+        if (upgrade.isShulkerBox()) {
+            String tier = upgrade.toEnderite() ? "enderite" : upgrade.toReinforced() ? "reinforced" : "netherite";
+            return Component.translatable("tooltip.simplebuilding.hammer_upgrade.shulker_box." + tier,
+                    upgrade.materialCost(), blows(upgrade)).withStyle(ChatFormatting.GRAY);
         }
         return Component.translatable(upgrade.toEnderite()
                 ? "tooltip.simplebuilding.hammer_upgrade.enderite"
