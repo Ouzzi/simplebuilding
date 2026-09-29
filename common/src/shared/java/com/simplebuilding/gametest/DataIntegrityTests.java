@@ -3046,7 +3046,6 @@ public final class DataIntegrityTests {
             colored.add(ModItems.COLORED_OCTANT_ITEMS.get(color));
         }
         expected.add(colored);
-        expected.add(gadgetsThenColored);
         // Handbuecher: je Regal eine Kategorie (GuideBooks.Shelf, Lesezeichen-Reihenfolge). Eine Kategorie, die
         // genau volle Zeilen fuellt, hat keinen Fueller - rowLayout liest sie dann mit der naechsten als eine
         // (wie bei den Geraeten); die verzauberten Buecher folgen auf das letzte Regal.
