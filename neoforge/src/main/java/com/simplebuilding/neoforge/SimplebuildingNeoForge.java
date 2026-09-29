@@ -37,6 +37,11 @@ public final class SimplebuildingNeoForge {
         ModEnvironment.setDevelopmentEnvironment(!net.neoforged.fml.loading.FMLEnvironment.isProduction());
         // FTB Quests (optional): copy the SimpleBuilding chapters into its quest book once.
         com.simplebuilding.compat.FtbQuestsDefaults.installIfPresent(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
+        // Curios (optional): backpacks and quivers in the back/belt accessory slots count as worn.
+        // The literal id keeps CuriosCompat (and the Curios API behind it) unloaded without Curios.
+        if (ModList.get().isLoaded("curios")) {
+            com.simplebuilding.neoforge.compat.CuriosCompat.register();
+        }
         NeoForgeModRegistries.register(modEventBus);
         modEventBus.addListener(NeoForgeRegistryBootstrap::onRegister);
         modEventBus.addListener(this::commonSetup);

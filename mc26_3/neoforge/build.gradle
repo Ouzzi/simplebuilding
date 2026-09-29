@@ -128,6 +128,11 @@ neoForge {
 repositories {
     maven { url = 'https://maven.shedaniel.me/' }
     maven { url = 'https://maven.blamejared.com/' }
+    // Curios API (optional accessory slots, compileOnly), see CuriosCompat
+    exclusiveContent {
+        forRepository { maven { url = 'https://maven.theillusivec4.top/' } }
+        filter { includeGroup 'top.theillusivec4.curios' }
+    }
     exclusiveContent {
         forRepository { maven { url = 'https://api.modrinth.com/maven' } }
         filter { includeGroup 'maven.modrinth' }
@@ -163,6 +168,8 @@ dependencies {
     implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.mc263_cloth_version}"
 
     compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}"
+    // Curios API for CuriosCompat (optional, see neoforge/build.gradle)
+    compileOnly("top.theillusivec4.curios:curios-neoforge:${rootProject.mc263_curios_version}:api") { transitive = false }
     // Jade plugin (common/src/jade/java), see the root build.gradle
     compileOnly("maven.modrinth:jade:${rootProject.mc263_dev_jade_neoforge}") { transitive = false }
     devMods("mezz.jei:jei-${rootProject.mc263_minecraft_version}-neoforge:${rootProject.mc263_jei_version}") { transitive = false }

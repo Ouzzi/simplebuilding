@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -36,7 +35,9 @@ import org.jetbrains.annotations.Nullable;
  * Quad-Liste nur referenziert und erst spaeter zeichnet.
  *
  * <p>Registriert wird die Ebene neben dem Rucksack auf allen Avatar-Renderern. Rucksack und Koecher
- * teilen sich den Brust-Slot, es zeichnet also hoechstens eine der beiden Ebenen etwas.
+ * teilen sich den Brust-Slot, es zeichnet also hoechstens eine der beiden Ebenen etwas. With an
+ * accessory mod both can be worn at once; the back still shows only one of them
+ * ({@link BackpackLayer#backItem(LivingEntity)}: chest slot first, then an accessory backpack).
  */
 public class QuiverLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
     /** 16 Pixel Grafik werden knapp 13 - die Diagonale reicht so von der Schulter bis zur Huefte. */
@@ -60,7 +61,7 @@ public class QuiverLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
             return;
         }
         ItemStackRenderState item = new ItemStackRenderState();
-        Minecraft.getInstance().getItemModelResolver().updateForLiving(item, wearer.getItemBySlot(EquipmentSlot.CHEST),
+        Minecraft.getInstance().getItemModelResolver().updateForLiving(item, BackpackLayer.backItem(wearer),
                 ItemDisplayContext.NONE, wearer);
         if (item.isEmpty()) {
             return;
@@ -84,10 +85,13 @@ public class QuiverLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
     /** Der sichtbar getragene Koecher der Entity hinter {@code state}, sonst ein leerer Stapel. */
     public static ItemStack wornQuiver(AvatarRenderState state) {
         LivingEntity wearer = wearer(state);
-        return wearer == null ? ItemStack.EMPTY : wearer.getItemBySlot(EquipmentSlot.CHEST);
+        return wearer == null ? ItemStack.EMPTY : BackpackLayer.backItem(wearer);
     }
 
-    /** Die Entity hinter {@code state}, wenn sie sichtbar ist und einen Koecher im Brust-Slot traegt. */
+    /**
+     * Die Entity hinter {@code state}, wenn sie sichtbar ist und ihr Ruecken einen Koecher zeigt (Brust-Slot
+     * or a visible accessory slot, {@link BackpackLayer#backItem(LivingEntity)}).
+     */
     @Nullable
     private static LivingEntity wearer(AvatarRenderState state) {
         if (state.isInvisible) {
@@ -95,7 +99,7 @@ public class QuiverLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
         }
         ClientLevel level = Minecraft.getInstance().level;
         Entity entity = level == null ? null : level.getEntity(state.id);
-        return entity instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof QuiverItem
+        return entity instanceof LivingEntity living && BackpackLayer.backItem(living).getItem() instanceof QuiverItem
                 ? living : null;
     }
 }

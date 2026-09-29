@@ -57,6 +57,11 @@ repositories {
 	// JEI (API + dev runtime)
 	maven { url = "https://maven.blamejared.com/" }
 
+	// Trinkets Updated (optional accessory slots, compileOnly API), see TrinketsCompat
+	exclusiveContent {
+		forRepository { maven { url = "https://maven.nucleoid.xyz/" } }
+		filter { includeGroup "eu.pb4" }
+	}
 	// Architectury API, named in the REI API's signatures (REI itself comes from maven.shedaniel.me)
 	maven { url = "https://maven.architectury.dev/" }
 
@@ -174,6 +179,10 @@ dependencies {
 	compileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}") { transitive = false }
 	compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${project.rei_version}") { transitive = false }
 	compileOnly("dev.architectury:architectury-fabric:${project.rei_architectury_version}") { transitive = false }
+
+	// Trinkets Updated API (src/main/java/.../compat/TrinketsCompat.java). compileOnly and not
+	// transitive: the mod runs without Trinkets, and TrinketsCompat is only loaded when it is there.
+	compileOnly("eu.pb4:trinkets:${project.trinkets_version}") { transitive = false }
 
 	// Dev-only runtime mods, see configurations.devMods above. The JEI jar is the full distributable
 	// (its mezz_config dependency is jar-in-jar), so no transitive resolution is needed.

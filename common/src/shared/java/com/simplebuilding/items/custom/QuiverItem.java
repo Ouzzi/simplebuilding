@@ -1,5 +1,6 @@
 package com.simplebuilding.items.custom;
 
+import com.simplebuilding.compat.accessory.AccessorySlots;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import org.apache.commons.lang3.math.Fraction;
@@ -164,9 +165,9 @@ public class QuiverItem extends ReinforcedBundleItem {
 
     /**
      * Der Pfeil, den ein Bogen oder (seit 2026-09-28) eine Armbrust aus einem Koecher bekommt, sonst
-     * EMPTY. Reihenfolge: Nebenhand, Brust-Slot, Schnellleiste, restliches Inventar (nur Koecher mit
-     * Konstrukteurs Hand), zuletzt ein Koecher <em>im</em> getragenen Rucksack - nur, wenn der
-     * Rucksack Meisterbauer traegt (Besitzer 2026-09-28).
+     * EMPTY. Reihenfolge: Nebenhand, Brust-Slot, accessory slots (Curios/Trinkets), Schnellleiste,
+     * restliches Inventar (nur Koecher mit Konstrukteurs Hand), zuletzt ein Koecher <em>im</em>
+     * getragenen Rucksack - nur, wenn der Rucksack Meisterbauer traegt (Besitzer 2026-09-28).
      */
     public static ItemStack findProjectileForBow(Player player) {
         // 1. Offhand
@@ -177,6 +178,10 @@ public class QuiverItem extends ReinforcedBundleItem {
         // fuer EquipmentSlot.CHEST tragen; ohne sie nimmt Vanillas Ruestungsslot keinen Koecher an
         // und diese Stufe waere toter Code.
         arrow = findArrowInQuiver(player.getItemBySlot(EquipmentSlot.CHEST));
+        if (!arrow.isEmpty()) return arrow;
+
+        // 2b. Accessory slots (Curios/Trinkets): a quiver worn on the back or belt counts as worn
+        arrow = findArrowInQuiver(accessoryQuiverWithArrows(player));
         if (!arrow.isEmpty()) return arrow;
 
         // 3. Hotbar (ohne Constructors Touch)
@@ -230,6 +235,10 @@ public class QuiverItem extends ReinforcedBundleItem {
         // setItemSlot waere hier ueberfluessig.
         if (tryConsumeArrow(player.getItemBySlot(EquipmentSlot.CHEST))) return;
 
+        // 2b. Accessory slots: the live stack, same as the chest slot - the accessory mod syncs the
+        // changed component on its own per-tick comparison
+        if (tryConsumeArrow(accessoryQuiverWithArrows(player))) return;
+
         // 3. Hotbar (ohne Constructors Touch)
         for (int i = 0; i < 9; i++) {
             if (tryConsumeArrow(player.getInventory().getItem(i))) return;
@@ -258,7 +267,8 @@ public class QuiverItem extends ReinforcedBundleItem {
      * Pfeil-Aufnahme (Besitzer 2026-09-28): ein aufgehobener Pfeil - liegender Pfeil-Gegenstand oder
      * steckengebliebenes, aufsammelbares Geschoss - geht nur in einen Koecher mit Trichter (Stufe I nur
      * Sorten, die schon drin liegen; Stufe II jede Pfeilsorte). Haende zuerst, dann das Inventar
-     * einschliesslich Brust-Slot. Verkleinert {@code arrows} um das Eingelegte.
+     * einschliesslich Brust-Slot, then quivers in accessory slots (Curios/Trinkets). Verkleinert
+     * {@code arrows} um das Eingelegte.
      *
      * @return ob etwas eingelegt wurde
      */
@@ -273,6 +283,11 @@ public class QuiverItem extends ReinforcedBundleItem {
         for (int i = 0; i < player.getInventory().getContainerSize() && !arrows.isEmpty(); i++) {
             any |= funnelInto(player.getInventory().getItem(i), arrows, player);
         }
+        // Quivers in accessory slots (Curios/Trinkets) last, so the order without an accessory mod
+        // stays exactly as before
+        for (ItemStack quiver : AccessorySlots.findAll(player, s -> s.getItem() instanceof QuiverItem)) {
+            any |= funnelInto(quiver, arrows, player);
+        }
         return any;
     }
 
@@ -280,6 +295,11 @@ public class QuiverItem extends ReinforcedBundleItem {
         return !arrows.isEmpty() && stack.getItem() instanceof QuiverItem quiver
                 && quiver.canAutoPickup(stack, arrows, player.level())
                 && quiver.tryInsertStackFromWorld(stack, arrows, player);
+    }
+
+    /** The first quiver with arrows in an accessory slot (Curios/Trinkets), else EMPTY. */
+    private static ItemStack accessoryQuiverWithArrows(Player player) {
+        return AccessorySlots.findFirst(player, s -> !findArrowInQuiver(s).isEmpty());
     }
 
     private static ItemStack findArrowInQuiver(ItemStack stack) {

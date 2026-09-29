@@ -89,3 +89,11 @@ type="optional"
 versionRange="[0,)"
 ordering="NONE"
 side="CLIENT"
+
+# Curios (optional): backpacks and quivers can be worn in the back/belt accessory slots.
+[[dependencies.${modId}]]
+modId="curios"
+type="optional"
+versionRange="[16,)"
+ordering="NONE"
+side="BOTH"

@@ -1,5 +1,6 @@
 package com.simplebuilding.items.custom;
 
+import com.simplebuilding.compat.accessory.AccessorySlots;
 import com.simplebuilding.component.BackpackContents;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantments;
@@ -13,6 +14,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -139,10 +141,33 @@ public class BackpackItem extends BlockItem {
     // Helfer, die Menue, Block, Verzauberungen und Netzwerk teilen
     // =================================================================================
 
-    /** Der getragene Rucksack im Brust-Slot, sonst {@link ItemStack#EMPTY}. */
-    public static ItemStack wornBackpack(Player player) {
-        ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
-        return chest.getItem() instanceof BackpackItem ? chest : ItemStack.EMPTY;
+    /**
+     * The worn backpack: the one in the chest slot, else one in an accessory slot (Curios/Trinkets,
+     * {@link AccessorySlots}), else {@link ItemStack#EMPTY}. The live stack in either case.
+     */
+    public static ItemStack wornBackpack(LivingEntity entity) {
+        ItemStack chest = entity.getItemBySlot(EquipmentSlot.CHEST);
+        return chest.getItem() instanceof BackpackItem ? chest : accessoryBackpack(entity);
+    }
+
+    /** The backpack in an accessory slot (Curios/Trinkets), or EMPTY - also without an accessory mod. */
+    public static ItemStack accessoryBackpack(LivingEntity entity) {
+        return AccessorySlots.findFirst(entity, s -> s.getItem() instanceof BackpackItem);
+    }
+
+    /**
+     * Pseudo slot index for "the backpack in an accessory slot" ({@link #carriedBackpackSlot},
+     * {@link com.simplebuilding.screen.BackpackOpenData#lockedSlot()}). Not an inventory index, so the
+     * backpack menu locks no inventory slot for it - the accessory slots are not part of that menu.
+     */
+    public static final int ACCESSORY_SLOT = -2;
+
+    /** The backpack stack behind a slot index from {@link #carriedBackpackSlot} (live, may be EMPTY). */
+    public static ItemStack carriedStack(Player player, int slot) {
+        if (slot == ACCESSORY_SLOT) {
+            return accessoryBackpack(player);
+        }
+        return slot < 0 ? ItemStack.EMPTY : player.getInventory().getItem(slot);
     }
 
     /** Inventar-Index des Brust-Slots ({@code Inventory#getItem}): 36 + Index der Brust = 38. */
@@ -152,11 +177,16 @@ public class BackpackItem extends BlockItem {
      * Inventar-Index des Rucksacks, den die Rucksack-Taste oeffnet (Besitzer 2026-09-28): der
      * getragene zuerst, sonst der erste im Inventar (Schnellleiste, Hauptinventar, dann Nebenhand);
      * -1 ohne Rucksack. Client (ob die Taste fragt) und Server (was geoeffnet wird) rechnen dasselbe.
+     * A backpack in an accessory slot counts as worn: after the chest slot, before the inventory
+     * ({@link #ACCESSORY_SLOT}, read it back with {@link #carriedStack}).
      */
     public static int carriedBackpackSlot(Player player) {
         net.minecraft.world.entity.player.Inventory inventory = player.getInventory();
         if (inventory.getItem(CHEST_INVENTORY_SLOT).getItem() instanceof BackpackItem) {
             return CHEST_INVENTORY_SLOT;
+        }
+        if (!accessoryBackpack(player).isEmpty()) {
+            return ACCESSORY_SLOT;
         }
         for (int slot = 0; slot < net.minecraft.world.entity.player.Inventory.INVENTORY_SIZE; slot++) {
             if (inventory.getItem(slot).getItem() instanceof BackpackItem) {
@@ -225,9 +255,9 @@ public class BackpackItem extends BlockItem {
     }
 
     /** Traegt {@code player} einen Rucksack mit der Verzauberung {@code key}? Liefert ihn oder EMPTY. */
-    public static ItemStack wornBackpackWith(Player player, net.minecraft.resources.ResourceKey<net.minecraft.world.item.enchantment.Enchantment> key) {
-        ItemStack worn = wornBackpack(player);
-        return !worn.isEmpty() && hasEnchantment(worn, player.level(), key) ? worn : ItemStack.EMPTY;
+    public static ItemStack wornBackpackWith(LivingEntity entity, net.minecraft.resources.ResourceKey<net.minecraft.world.item.enchantment.Enchantment> key) {
+        ItemStack worn = wornBackpack(entity);
+        return !worn.isEmpty() && hasEnchantment(worn, entity.level(), key) ? worn : ItemStack.EMPTY;
     }
 
     // =================================================================================

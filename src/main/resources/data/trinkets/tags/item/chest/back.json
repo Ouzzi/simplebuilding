@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "simplebuilding:backpack",
+    "simplebuilding:reinforced_backpack",
+    "simplebuilding:netherite_backpack",
+    "simplebuilding:enderite_backpack",
+    "simplebuilding:quiver",
+    "simplebuilding:reinforced_quiver",
+    "simplebuilding:netherite_quiver",
+    "simplebuilding:enderite_quiver"
+  ]
+}

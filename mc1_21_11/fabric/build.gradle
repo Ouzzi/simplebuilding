@@ -110,6 +110,11 @@ repositories {
 	maven { url = "https://maven.shedaniel.me/" }
 	maven { url = "https://maven.terraformersmc.com/releases/" }
 	maven { url = "https://maven.blamejared.com/" }
+	// Cardinal Components API: Trinkets' TrinketComponent extends its ComponentV3, so javac needs it
+	exclusiveContent {
+		forRepository { maven { url = "https://maven.ladysnake.org/releases" } }
+		filter { includeGroup "org.ladysnake.cardinal-components-api" }
+	}
 	maven { url = "https://maven.architectury.dev/" }
 	exclusiveContent {
 		forRepository { maven { url = "https://api.modrinth.com/maven" } }
@@ -172,6 +177,12 @@ dependencies {
 	modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.mc11_rei_version}") { transitive = false }
 	modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${project.mc11_rei_version}") { transitive = false }
 	modCompileOnly("dev.architectury:architectury-fabric:${project.mc11_rei_architectury_version}") { transitive = false }
+
+	// Trinkets API for TrinketsCompat (optional). On 1.21.11 only the Trinkets Updated fork ships a
+	// build (3.11 beta, mod id "trinkets", package dev.emi.trinkets); it is intermediary-named, hence
+	// modCompileOnly. Its TrinketComponent extends Cardinal Components' ComponentV3.
+	modCompileOnly("maven.modrinth:trinkets-updated:${project.mc11_trinkets_modrinth_id}") { transitive = false }
+	modCompileOnly("org.ladysnake.cardinal-components-api:cardinal-components-base:${project.mc11_cca_version}") { transitive = false }
 
 	devMods "mezz.jei:jei-${project.mc11_minecraft_version}-fabric:${project.mc11_jei_version}"
 	devMods "maven.modrinth:jade:${project.mc11_dev_jade_fabric}"

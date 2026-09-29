@@ -101,6 +101,38 @@ Mods; die Forge-Linie der Mod ist davon nicht betroffen.
 | REI (Roughly Enough Items) | Fabric + NeoForge 26.2 (26.2.820) und 1.21.11 (21.11.816); kein Build fuer Forge 26.2, 26.3, 26.4 | kompatibel, **eigenes Plugin** (optional) | Dieselben Inhalte wie das JEI-Plugin: sieben Umwandlungs-Kategorien und "Mob-Drops" (aus `InWorldRecipeCatalog`/`MobDropCatalog`), Schmiederezepte mit Mengenangabe (`count_based_smithing`, als REI-`DefaultSmithingDisplay` ueber einen serverseitigen Rezept-Filler), Infoseiten der rezeptlosen Gegenstaende. Die Easter-Schmiedekette bleibt versteckt. Quellen `common/src/rei/java` + `mc1_21_11/rei/java`, NeoForge-Anmeldung in `neoforge/src/rei/java` bzw. `mc1_21_11/neoforge/src/rei/java`; `:forge`, `:mc26_3:*`, `:mc26_4:fabric` kompilieren den Baum nicht. Kein Dev-Laufzeit-Mod neben JEI. |
 | EMI | nur bis 1.21.1 (Fabric/NeoForge/Forge) | nicht verfuegbar | Weder Modrinth noch maven.terraformersmc.com haben einen Build fuer 1.21.11, 26.2 oder 26.3 (geprueft 2026-09-28) - deshalb kein EMI-Plugin. Der Tag `c:hidden_from_recipe_viewers` ist schon gesetzt; sobald es EMI fuer eine Linie gibt, kann ein Plugin dieselben Kataloge nutzen. |
 
+### Accessory slots (Curios / Trinkets), optional
+
+Backpacks and quivers can be worn in an accessory slot instead of the chest slot. Soft dependency
+only: each API is `compileOnly`, and the compat class is referenced solely inside an
+`isModLoaded` branch of the loader entry point, so without the accessory mod the JVM never loads it
+(no reflection). The game code only talks to `com.simplebuilding.compat.accessory.AccessorySlots`.
+Availability checked on Modrinth and the maven repositories on 2026-09-29.
+
+| Loader / line | Accessory API (compiled against) | Slots | Status |
+|---|---|---|---|
+| Fabric 26.2 | Trinkets Updated 4.1.1+26.2 (`eu.pb4:trinkets`, mod id `trinkets_updated`) | `chest/back` (backpacks, quivers), `legs/belt` (quivers) | supported |
+| Fabric 26.3 | Trinkets Updated 4.2.1+26.3 | same | supported |
+| Fabric 1.21.11 | Trinkets Updated 3.11.0-beta.2 (mod id `trinkets`, `dev.emi.trinkets` API, needs Cardinal Components 7.3.0 at compile time) | same | supported |
+| Fabric 26.4 snapshot | none (compiles against the 26.3 API, never loaded) | - | not available |
+| NeoForge 26.2 / 26.3 / 1.21.11 | Curios 16.0.0 / 17.0.0-beta.2 / 14.0.0 (API jar) | `back` (backpacks, quivers), `belt` (quivers) | supported |
+| Forge 26.2 | neither Curios nor Trinkets has a MinecraftForge 26.2 build | - | not available |
+
+Data: `data/trinkets/entities/simplebuilding.json` and `data/simplebuilding/curios/entities/simplebuilding.json`
+enable the slots for players; the item tags `data/trinkets/tags/item/{chest/back,legs/belt}.json` and
+`data/curios/tags/item/{back,belt}.json` list the items. Both are inert without the accessory mod.
+
+Lookup order everywhere: chest slot, then accessory slots, then the inventory (backpack key, quiver
+for bow and crossbow, Master Builder quiver-in-backpack, Constructor's Touch, Funnel for items and
+arrows - arrow Funnel checks accessory quivers after the inventory, so the order without an accessory
+mod is unchanged). The worn render shows one item on the back: chest slot first, then a visible
+accessory backpack, then a visible accessory quiver.
+
+Cost: without an accessory mod every lookup is one empty-list check. With one, a lookup asks the
+accessory API for the entity's equipped stacks (Curios caches `findCurios` per game tick); the
+render layers ask once per rendered player per frame. An accessory API that changed under the mod
+(`LinkageError`) disables the integration once with a log line instead of crashing.
+
 ### Mixin-Ziele mit Konfliktpotenzial
 
 Alle Mod-Mixins wurden gegen die Hotpaths der Mods oben gelesen. `@Redirect` gibt es nur noch in

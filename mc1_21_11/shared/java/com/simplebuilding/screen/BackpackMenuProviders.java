@@ -27,15 +27,15 @@ public final class BackpackMenuProviders {
 
     /**
      * Darf die Rucksack-Taste ein Menue oeffnen? Nur mit einem Rucksack am Koerper - getragen oder,
-     * seit 2026-09-28 (Besitzer), irgendwo im Inventar ({@link BackpackItem#carriedBackpackSlot}) -,
-     * lebend, nicht als Zuschauer und nur, wenn gerade kein anderes Menue offen ist. Der Server
+     * seit 2026-09-28 (Besitzer), irgendwo im Inventar ({@link BackpackItem#carriedBackpackSlot}); a
+     * backpack in an accessory slot (Curios/Trinkets) counts as worn -, lebend, nicht als Zuschauer und nur, wenn gerade kein anderes Menue offen ist. Der Server
      * prueft das selbst, egal was der Client meint.
      */
     public static boolean canOpenCarried(ServerPlayer player) {
         return player.isAlive()
                 && !player.isSpectator()
                 && player.containerMenu == player.inventoryMenu
-                && BackpackItem.carriedBackpackSlot(player) >= 0;
+                && BackpackItem.carriedBackpackSlot(player) != -1;
     }
 
     /** Menue des getragenen Rucksacks. Voraussetzung: ein Rucksack im Brust-Slot. */
@@ -48,9 +48,12 @@ public final class BackpackMenuProviders {
         return carried(player, BackpackItem.carriedBackpackSlot(player));
     }
 
-    /** Menue des Rucksacks im Inventar-Slot {@code slot} (38 = Brust); der Slot bleibt gesperrt. */
+    /**
+     * Menue des Rucksacks im Inventar-Slot {@code slot} (38 = Brust); der Slot bleibt gesperrt.
+     * {@link BackpackItem#ACCESSORY_SLOT} opens the backpack in an accessory slot.
+     */
     public static Opening carried(ServerPlayer player, int slot) {
-        ItemStack backpack = player.getInventory().getItem(slot);
+        ItemStack backpack = BackpackItem.carriedStack(player, slot);
         BackpackItem item = (BackpackItem) backpack.getItem();
         int multiplier = BackpackItem.stackMultiplier(backpack, player.level());
         BackpackOpenData data = BackpackOpenData.carried(item.getTier(), multiplier, DyedStorage.colour(backpack), slot);
