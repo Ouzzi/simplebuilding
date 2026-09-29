@@ -8,12 +8,12 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public class ModOreGeneration {
     public static void generateOres() {
         // Füge Astralit zu allen End-Biomen hinzu
-        BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd(),
+        BiomeModifications.addFeature((BiomeSelectors.foundInTheEnd()).and(context -> com.simplebuilding.config.ConfigFlags.oreEnabled(true)),
                 GenerationStep.Decoration.UNDERGROUND_ORES,
                 ModWorldGen.ASTRALIT_ORE_PLACED_KEY);
 
         // Füge Nihilith zu allen End-Biomen hinzu
-        BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd(),
+        BiomeModifications.addFeature((BiomeSelectors.foundInTheEnd()).and(context -> com.simplebuilding.config.ConfigFlags.oreEnabled(false)),
                 GenerationStep.Decoration.UNDERGROUND_ORES,
                 ModWorldGen.NIHILITH_ORE_PLACED_KEY);
     }

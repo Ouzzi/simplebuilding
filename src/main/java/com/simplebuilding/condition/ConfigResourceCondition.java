@@ -44,13 +44,7 @@ public record ConfigResourceCondition(String flag) implements ResourceCondition 
             // z.B. Datagen-Läufe, bevor die Config initialisiert ist: Standard = aktiviert
             return true;
         }
-        return switch (this.flag) {
-            case ENABLE_VILLAGER_TRADES -> config.worldGen.enableVillagerTrades;
-            case ENABLE_WANDERING_TRADES -> config.worldGen.enableWanderingTrades;
-            default -> {
-                Simplebuilding.LOGGER.warn("Unbekanntes Config-Flag in simplebuilding:config-Bedingung: {}", this.flag);
-                yield true;
-            }
-        };
+        // Alle Loader entscheiden gleich: ConfigFlags (Handel, End-Erze, Schalter-Optionen per Pfad).
+        return com.simplebuilding.config.ConfigFlags.test(this.flag);
     }
 }

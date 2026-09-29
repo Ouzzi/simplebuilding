@@ -41,14 +41,8 @@ public record ConfigLoadCondition(String flag) implements ICondition {
             // Only before the config exists (e.g. a data generation run): default = enabled.
             return true;
         }
-        return switch (this.flag) {
-            case ENABLE_VILLAGER_TRADES -> config.worldGen.enableVillagerTrades;
-            case ENABLE_WANDERING_TRADES -> config.worldGen.enableWanderingTrades;
-            default -> {
-                Simplebuilding.LOGGER.warn("Unknown config flag in simplebuilding:config condition: {}", this.flag);
-                yield true;
-            }
-        };
+        // Alle Loader entscheiden gleich: ConfigFlags (Handel, End-Erze, Schalter-Optionen per Pfad).
+        return com.simplebuilding.config.ConfigFlags.test(this.flag);
     }
 
     @Override

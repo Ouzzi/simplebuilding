@@ -35,6 +35,11 @@ public final class TrimBonusCatalog {
     public record Bonus(String key, float perPiece, Kind kind) {
         public Component describe(float weight, float resonance) {
             Component name = Component.translatable("trim_bonus.simplebuilding." + key);
+            // Staerke der Wirkung aus server.trimStrengths (auf dem Client die des Servers), damit der
+            // Tooltip zeigt, was wirkt; FACTOR (Mustergewicht) ist keine Wirkung.
+            if (kind != Kind.FACTOR && kind != Kind.TEXT) {
+                resonance *= com.simplebuilding.config.ServerTuning.trimStrength(key);
+            }
             return switch (kind) {
                 case PERCENT -> Component.translatable("attribute.modifier.plus.1",
                         format(perPiece * weight * resonance * 100f), name);

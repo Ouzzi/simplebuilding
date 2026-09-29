@@ -44,8 +44,13 @@ import net.minecraft.world.phys.Vec3;
  * danach je Sekunde und beim Loslassen; der Tooltip zeigt sie.
  */
 public class LaserPointerItem extends Item implements com.simplebuilding.items.AnvilRechargeable {
-    /** Volle Ladung (= Haltbarkeit). */
-    public static final int MAX_CHARGE = 640;
+    /** Standard der vollen Ladung. */
+    public static final int DEFAULT_MAX_CHARGE = 640;
+    /**
+     * Volle Ladung (= Haltbarkeit): {@code server.charges.lensMaxCharge}, beim Registrieren gelesen
+     * (Neustart noetig; Client und Server brauchen denselben Wert).
+     */
+    public static final int MAX_CHARGE = com.simplebuilding.config.ServerTuning.startupLensMaxCharge();
     /** Ein Redstone laedt 1/64 der vollen Ladung. */
     public static final int CHARGE_PER_REDSTONE = MAX_CHARGE / 64;
     /** Ladung je Sekunde Strahlen (auch nur zeigen). */

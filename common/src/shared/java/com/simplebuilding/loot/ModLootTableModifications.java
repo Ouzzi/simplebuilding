@@ -108,6 +108,12 @@ public final class ModLootTableModifications {
         if (!Simplebuilding.getConfig().worldGen.enableLootTableChanges) {
             return;
         }
+        // Server & Modpack Tuning (2026-09-28): Schalter je Struktur und Faktor auf alle Mod-Pools
+        // (die Koepfe oben bleiben, sie sind die einzige Quelle fuer Trank-Pad und Teleporter).
+        if (!com.simplebuilding.config.ServerTuning.lootEnabledFor(key.identifier())) {
+            return;
+        }
+        editor = TunedLootEditor.wrap(editor, com.simplebuilding.config.ServerTuning.lootMultiplier());
 
         var enchantments = registry.lookupOrThrow(Registries.ENCHANTMENT);
 

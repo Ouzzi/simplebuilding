@@ -38,7 +38,8 @@ public final class DoubleJumpController {
         if (player == null) {
             return;
         }
-        if (!Simplebuilding.getConfig().enableDoubleJump) {
+        // Eigener Schalter (Client) und der des Servers (server.features.airJump, vom Server gemeldet).
+        if (!Simplebuilding.getConfig().enableDoubleJump || !com.simplebuilding.config.ServerTuning.get().features.airJump) {
             jumpKeyPressed = false;
             cooldownRemaining = 0;
             cooldownMax = 0;

@@ -289,6 +289,9 @@ public final class LaserBeam {
      * schaden darf (PvP-Regel, Server-Einstellung, Team-Freundfeuer).
      */
     public static boolean canIgnite(ServerPlayer player, LivingEntity target) {
+        if (!com.simplebuilding.config.ServerTuning.get().laser.igniteEntities) {
+            return false;
+        }
         // Der Wasser-Merker des Entities wird erst im naechsten Tick aktualisiert; der Block zaehlt sofort.
         boolean wet = target.isInWaterOrRain() || target.level().getFluidState(target.blockPosition()).is(FluidTags.WATER);
         if (target == player || !target.isAlive() || target.fireImmune() || target.isInvulnerable() || wet) {
@@ -337,9 +340,14 @@ public final class LaserBeam {
         if (!player.mayInteract(level, pos) || !player.mayUseItemAt(pos, face, stack)) {
             return false;
         }
+        com.simplebuilding.config.ServerTuningConfig.Laser switches = com.simplebuilding.config.ServerTuning.get().laser;
         if (effect == Effect.PRIME_TNT) {
-            // Wie TntBlock#prime: mit abgeschaltetem TNT gar nicht erst verweilen und nichts abbuchen.
-            return level.getGameRules().get(GameRules.TNT_EXPLODES);
+            // Wie TntBlock#prime: mit abgeschaltetem TNT gar nicht erst verweilen und nichts abbuchen;
+            // dazu der Serverschalter server.laser.igniteTnt.
+            return switches.igniteTnt && level.getGameRules().get(GameRules.TNT_EXPLODES);
+        }
+        if ((effect == Effect.IGNITE || effect == Effect.SOUL_FIRE) && !switches.igniteFlammables) {
+            return false;
         }
         if (effect == Effect.IGNITE || effect == Effect.SOUL_FIRE) {
             BlockPos firePos = pos.relative(face);

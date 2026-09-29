@@ -47,9 +47,10 @@ public record TradeDefinition(ItemCost cost, Optional<ItemCost> additionalCost, 
     }
 
     public VillagerTrades.ItemListing toListing() {
-        // Das Ergebnis wird pro Angebot frisch kopiert, damit die Vorlage nie mutiert wird.
+        // Das Ergebnis wird pro Angebot frisch kopiert, damit die Vorlage nie mutiert wird. Der Preis
+        // bekommt den Faktor server.loot.tradePriceMultiplier (beim Erzeugen des Angebots gelesen).
         return (level, entity, random) -> this.offerChance < 1.0F && random.nextFloat() >= this.offerChance ? null : new MerchantOffer(
-                this.cost,
+                com.simplebuilding.util.TradePrices.scale(this.cost),
                 this.additionalCost,
                 this.enchantments.apply(this.result.copy(), level.registryAccess(), random),
                 this.maxUses,

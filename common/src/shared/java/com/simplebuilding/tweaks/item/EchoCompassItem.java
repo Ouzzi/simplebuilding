@@ -46,7 +46,7 @@ import org.jetbrains.annotations.Nullable;
  * kostet der Sprung keine Enderperle mehr (Besitzer) - bezahlt wird allein mit der Haltbarkeit.
  *
  * <p>Haltbarkeit (Besitzer 2026-09-27): ein Sprung leert den Kompass ganz - er ist dann "zerbrochen"
- * (Schaden = {@value #MAX_DAMAGE}, Riss-Textur, kein Glanz) und muss wieder aufgeladen werden: Mending
+ * (Schaden = {@link #MAX_DAMAGE}, Riss-Textur, kein Glanz) und muss wieder aufgeladen werden: Mending
  * repariert 2 Punkte je XP-Punkt (750 XP fuer den leeren Kompass), am Amboss stellt jede Echoscherbe
  * ein Viertel wieder her (4 Scherben = voll). Unbreaking verringert den Verbrauch wie bei jedem
  * Werkzeug (Unbreaking III leert im Mittel nur ein Viertel). Erst ganz repariert springt er normal.
@@ -56,8 +56,13 @@ import org.jetbrains.annotations.Nullable;
  * Im Kreativmodus nutzt er sich wie jedes Werkzeug nicht ab.
  */
 public class EchoCompassItem extends Item {
-    /** Reparaturpunkte eines ganz geleerten Kompasses (Besitzer: 1500). */
-    public static final int MAX_DAMAGE = 1500;
+    /** Standard der Reparaturpunkte eines ganz geleerten Kompasses (Besitzer: 1500). */
+    public static final int DEFAULT_MAX_DAMAGE = 1500;
+    /**
+     * Reparaturpunkte eines ganz geleerten Kompasses = seine Hoechstladung: {@code server.charges.echoSounderMaxCharge},
+     * beim Registrieren gelesen (Neustart noetig; Client und Server brauchen denselben Wert).
+     */
+    public static final int MAX_DAMAGE = com.simplebuilding.config.ServerTuning.startupEchoSounderMaxCharge();
     /** Ladezeit des voll reparierten Kompasses: 3 s. */
     public static final int CHARGE_TICKS = 60;
     /** Ladezeit des nicht voll reparierten Kompasses: doppelt so lang, danach zerspringt er. */
@@ -195,7 +200,16 @@ public class EchoCompassItem extends Item {
 
     /** Alle Vorbedingungen des Sprungs (Server); eine Ablehnung ist hoerbar, nie ein Bildschirmtext. */
     private static boolean canJump(ServerPlayer player, ItemStack stack) {
+        if (com.simplebuilding.config.ServerTuning.featureDenied(com.simplebuilding.config.ServerTuning.get().features.echoSounder, player)) {
+            return false;
+        }
         GlobalPos target = target(stack);
+        // Dimensionssperre (server.dimensionLocks): weder aus einer gesperrten Dimension heraus noch hinein.
+        if (target != null && (com.simplebuilding.config.ServerTuning.echoSounderBlockedIn(player.level().dimension().identifier())
+                || com.simplebuilding.config.ServerTuning.echoSounderBlockedIn(target.dimension().identifier()))) {
+            com.simplebuilding.config.ServerTuning.notify(player, "message.simplebuilding.echo_sounder.dimension_locked");
+            return false;
+        }
         if (target == null) {
             player.level().playSound(null, player.blockPosition(), SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 0.6f, 0.8f);
             return false;

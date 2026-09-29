@@ -472,6 +472,22 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("config_option_game_test_the_air_jump_cooldown_travels_from_server_to_client", ConfigOptionTests::theAirJumpCooldownTravelsFromServerToClient)
                     .build(),
+            GameTestSpec.named("server_tuning_game_test_the_server_value_wins_over_the_client_file", ServerTuningTests::theServerValueWinsOverTheClientFile)
+                    .build(),
+            GameTestSpec.named("server_tuning_game_test_every_speed_and_range_option_is_clamped", ServerTuningTests::everySpeedAndRangeOptionIsClamped)
+                    .build(),
+            GameTestSpec.named("server_tuning_game_test_the_air_jump_switch_refuses_air_jumps", ServerTuningTests::theAirJumpSwitchRefusesAirJumps)
+                    .build(),
+            GameTestSpec.named("server_tuning_game_test_chunk_loaders_idle_while_their_owner_is_offline", ServerTuningTests::chunkLoadersIdleWhileTheirOwnerIsOffline)
+                    .build(),
+            GameTestSpec.named("server_tuning_game_test_disabled_features_lose_their_recipes", ServerTuningTests::disabledFeaturesLoseTheirRecipes)
+                    .build(),
+            GameTestSpec.named("server_tuning_game_test_the_loot_multiplier_and_structure_switches_shape_the_mod_loot", ServerTuningTests::theLootMultiplierAndStructureSwitchesShapeTheModLoot)
+                    .build(),
+            GameTestSpec.named("server_tuning_game_test_the_laser_switches_stop_what_the_beam_ignites", ServerTuningTests::theLaserSwitchesStopWhatTheBeamIgnites)
+                    .build(),
+            GameTestSpec.named("server_tuning_game_test_tuning_values_reach_the_tools_and_machines", ServerTuningTests::tuningValuesReachTheToolsAndMachines)
+                    .build(),
             GameTestSpec.named("dynamic_light_game_test_the_two_level_counters_keep_their_own_storage_and_caps", DynamicLightTests::theTwoLevelCountersKeepTheirOwnStorageAndCaps)
                     .build(),
             GameTestSpec.named("dynamic_light_game_test_both_smithing_upgrades_add_one_level_per_step_and_stop_at_their_cap", DynamicLightTests::bothSmithingUpgradesAddOneLevelPerStepAndStopAtTheirCap)

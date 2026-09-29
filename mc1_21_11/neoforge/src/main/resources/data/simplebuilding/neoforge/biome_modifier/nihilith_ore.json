@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "simplebuilding:config",
+      "flag": "nihilitOre"
+    }
+  ],
   "type": "neoforge:add_features",
   "biomes": "#minecraft:is_end",
   "features": "simplebuilding:nihilith_ore_placed",

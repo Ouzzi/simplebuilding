@@ -125,8 +125,26 @@ public final class SledgehammerUpgrades {
         }
     }
 
-    /** Fuenf Schlaege je Aufwertung; der fuenfte ist der Umbau. */
+    /** Fuenf Schlaege je Aufwertung; der fuenfte ist der Umbau. Standard; es gilt {@link #blows()}. */
     public static final int BLOWS = UPGRADE_TICKS / HIT_INTERVAL;
+
+    /**
+     * Schlaege einer Aufwertung aus {@code server.tools.sledgehammerUpgradeSeconds} (einer je Sekunde,
+     * der letzte baut um); auf dem Client der Wert des Servers, damit Animation und Benutzungsdauer passen.
+     */
+    public static int blows() {
+        return com.simplebuilding.config.ServerTuning.sledgehammerBlows();
+    }
+
+    /** Dauer einer Aufwertung in Ticks: {@link #blows()} mal {@link #HIT_INTERVAL}. */
+    public static int upgradeTicks() {
+        return blows() * HIT_INTERVAL;
+    }
+
+    /** Schaden je Schlag fuer diese Stufe aus {@code server.tools} (Standard wie in der Tabelle). */
+    public static int damagePerHit(Upgrade upgrade) {
+        return com.simplebuilding.config.ServerTuning.upgradeDamagePerHit(upgrade.toReinforced(), upgrade.toEnderite());
+    }
     /**
      * Anteil eines Schlag-Zyklus, ueber den der Hammer ausgeholt wird; der Rest ist der Schlag.
      * Die Render-Mixins lesen ihn ueber {@link #blowPhase} und {@link #drawBack}.
@@ -152,7 +170,7 @@ public final class SledgehammerUpgrades {
         }
 
         int duration() {
-            return UPGRADE_TICKS - startHits * HIT_INTERVAL;
+            return upgradeTicks() - startHits * HIT_INTERVAL;
         }
     }
 
@@ -454,7 +472,7 @@ public final class SledgehammerUpgrades {
             return InteractionResult.FAIL;
         }
         int startHits = level instanceof ServerLevel serverLevel
-                ? Math.clamp(SledgehammerProgress.hits(serverLevel, pos, upgrade.from()), 0, BLOWS - 1) : 0;
+                ? Math.clamp(SledgehammerProgress.hits(serverLevel, pos, upgrade.from()), 0, blows() - 1) : 0;
         jobs(level).put(player.getUUID(), new Job(pos.immutable(), upgrade, context.getClickLocation(), context.getClickedFace(), startHits));
         player.startUsingItem(InteractionHand.MAIN_HAND);
         return InteractionResult.CONSUME;
@@ -470,8 +488,9 @@ public final class SledgehammerUpgrades {
             player.releaseUsingItem();
             return;
         }
-        int elapsed = UPGRADE_TICKS - remainingTicks + 1;
-        if (elapsed % HIT_INTERVAL == 0 && elapsed < UPGRADE_TICKS && level instanceof ServerLevel serverLevel) {
+        int total = upgradeTicks();
+        int elapsed = total - remainingTicks + 1;
+        if (elapsed % HIT_INTERVAL == 0 && elapsed < total && level instanceof ServerLevel serverLevel) {
             strike(serverLevel, player, hammer, job, elapsed / HIT_INTERVAL);
         }
     }
@@ -499,7 +518,7 @@ public final class SledgehammerUpgrades {
                 com.simplebuilding.advancement.ModTriggers.feature(player, job.upgrade.toEnderite() ? com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE : com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_NETHERITE);
             }
             player.swing(InteractionHand.MAIN_HAND, true);
-            hammer.hurtAndBreak(job.upgrade.damagePerHit(), player, EquipmentSlot.MAINHAND);
+            hammer.hurtAndBreak(damagePerHit(job.upgrade), player, EquipmentSlot.MAINHAND);
             if (!hammer.isEmpty() && hasConnection(player)) {
                 player.getCooldowns().addCooldown(hammer, FINISH_COOLDOWN_TICKS);
             }
@@ -517,7 +536,7 @@ public final class SledgehammerUpgrades {
         finishEffects(serverLevel, job, old);
         com.simplebuilding.advancement.ModTriggers.feature(player, job.upgrade.toEnderite() ? com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE : com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_NETHERITE);
         player.swing(InteractionHand.MAIN_HAND, true);
-        hammer.hurtAndBreak(job.upgrade.damagePerHit(), player, EquipmentSlot.MAINHAND);
+        hammer.hurtAndBreak(damagePerHit(job.upgrade), player, EquipmentSlot.MAINHAND);
         if (!hammer.isEmpty() && hasConnection(player)) {
             player.getCooldowns().addCooldown(hammer, FINISH_COOLDOWN_TICKS);
         }
@@ -588,7 +607,7 @@ public final class SledgehammerUpgrades {
         SledgehammerProgress.record(level, job.pos, job.upgrade.from(), hitNumber);
 
         player.swing(InteractionHand.MAIN_HAND, true);
-        hammer.hurtAndBreak(job.upgrade.damagePerHit(), player, EquipmentSlot.MAINHAND);
+        hammer.hurtAndBreak(damagePerHit(job.upgrade), player, EquipmentSlot.MAINHAND);
         if (hammer.isEmpty()) {
             // Zerbrochen: Auftrag und Benutzung enden hier. Von selbst endete die Benutzung nicht -
             // der geleerte Stapel in der Hand und der in Benutzung sind derselbe, beide sind fuer

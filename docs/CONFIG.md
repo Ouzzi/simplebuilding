@@ -1,4 +1,4 @@
-# Konfiguration (Stand 2026-09-28)
+# Konfiguration (Stand 2026-09-29)
 
 Kurzüberblick über die Config der Mod: wo sie liegt, wie der Bildschirm aufgebaut ist, wie der
 Befehl funktioniert und was man beim Hinzufügen einer Option beachten muss. Die vollständige
@@ -9,8 +9,11 @@ unter `/simplebuilding config list`.
 
 - Datei: `config/simplebuilding.json` (Cloth Config / AutoConfig, Gson).
 - Klassen: `common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java` mit den
-  Gruppen `tools`, `worldGen` und `tweaks` (`tweaks/TweaksConfig.java`). Die 1.21.11-Linie hat eine
-  identische Kopie unter `mc1_21_11/shared/...` – beide Dateien immer gleich halten.
+  Gruppen `tools`, `worldGen`, `tweaks` (`tweaks/TweaksConfig.java`) und `server`
+  (`config/ServerTuningConfig.java`, Zugriff und Grenzen in `config/ServerTuning.java`). Die
+  1.21.11-Linie hat identische Kopien unter `mc1_21_11/shared/...` – immer gleich halten
+  (`ServerTuning` unterscheidet sich nur in der Meldungszeile: `sendOverlayMessage` vs.
+  `displayClientMessage`).
 - Fabric: ModMenu öffnet den Bildschirm (`ModMenuIntegration`). NeoForge: Config-Knopf in der
   Mod-Liste (`SimplebuildingNeoForgeClient#buildConfigScreen`). 26.3 wie 26.2.
 - Forge: kein Cloth Config für 26.x. Der Shim unter `forge/src/main/java/me/shedaniel/autoconfig/`
@@ -21,7 +24,7 @@ unter `/simplebuilding config list`.
 
 ## Bildschirm
 
-Sieben Reiter, Reihenfolge = erstes Feld jeder Kategorie in `SimplebuildingConfig`:
+Acht Reiter, Reihenfolge = erstes Feld jeder Kategorie in `SimplebuildingConfig`:
 
 | Reiter (`category`) | Inhalt |
 |---|---|
@@ -32,6 +35,7 @@ Sieben Reiter, Reihenfolge = erstes Feld jeder Kategorie in `SimplebuildingConfi
 | Beute, Handel & Welt (`world`) | `worldGen.*` (Loot, Kern-Chancen, Handel) und das Einsteiger-Handbuch |
 | Darstellung (Client) (`visuals`) | Buch-Texturen, Besatz-Icons |
 | Kompatibilität & Erweitert (`advanced`) | Kolben-Abbau-Ereignisse (Schutz-Mods), Dev-Kreativ-Tab |
+| Server & Modpack Tuning (`server`) | `server.*`: alle Gameplay-Stellschrauben für Server-/Modpack-Ersteller, serverseitig verbindlich (siehe unten) |
 
 Die Gruppen stehen mit `@ConfigEntry.Gui.TransitiveObject` flach im Reiter; der JSON-Aufbau
 (Verschachtelung, Schlüssel) ist dadurch **unverändert**, alte Dateien laden ohne Migration.
@@ -56,10 +60,13 @@ Befehl weist auf einem dedizierten Server darauf hin), `APPLY_ON_RELOAD` die Dat
 ## Server → Client
 
 Was Client und Server gleich sehen müssen, schickt der Server beim Einloggen und nach jedem
-Config-Befehl: `TweaksConfigPayload` (Raketen-Stapel, Boosts, Linse an/aus + Reichweite und seit
-2026-09-28 die Luftsprung-Abklingzeit), `PistonConfigPayload` (die beiden Durchbruch-Optionen),
-`TrimDataPayload` (Resonanz-Multiplikator). Alle neuen Balance-Optionen des Umbaus liest nur der
-Server.
+Config-Befehl: `TweaksConfigPayload` (Raketen-Stapel, Boosts, Linse an/aus + Reichweite, die
+Luftsprung-Abklingzeit und seit 2026-09-29 der **ganze Reiter `server` als JSON**),
+`PistonConfigPayload` (die beiden Durchbruch-Optionen), `TrimDataPayload` (Resonanz-Multiplikator).
+Code liest den Reiter nur über `ServerTuning.get()`: auf dem Server (auch dem integrierten) die eigene
+Datei, auf dem Client-Thread den vom Server gemeldeten Stand – die eigene Datei eines Clients hat keine
+Stimme. Ohne Meldung (Hauptmenü, Server ohne Mod) gilt die eigene Datei. Abweichende Höchstladungen
+(siehe unten) meldet der Client im Log.
 
 ## Neu im Umbau 2026-09-28 (Standard = bisheriges Verhalten)
 
@@ -87,8 +94,56 @@ Außerdem: Luftsprung-Abklingzeit wird vom Server synchronisiert; die zwölf Tel
 beschreiben jetzt, was der Code tut; `maxMultiplierLimit` und `laserPointer.showLine` sind aus dem
 Bildschirm verschwunden (keine Optionen).
 
+## Reiter „Server & Modpack Tuning“ (`server.*`, Besitzer 2026-09-28)
+
+Philosophie des Besitzers: jede Gameplay-Stellschraube serverseitig verbindlich, an einem Ort für
+Server- und Modpack-Ersteller; jede Geschwindigkeit/Reichweite mit Obergrenze, die Vanilla nicht
+gefährdet. Standard = bisheriges Verhalten – einzige gewollte Änderung: Chunk-Loader laufen nur, solange
+ihr Besitzer online ist. Grenzen stehen in `ServerTuning` (Konstanten) und werden in
+`ServerTuningConfig#validate` (Laden, Befehl) und in den Zugriffen noch einmal angewandt.
+
+| Gruppe | Optionen (Standard, Grenzen) | Wirkung |
+|---|---|---|
+| `features` | `airJump`, `dynamicLight`, `backpack`, `attractor`, `echoSounder`, `blueprint`, `oreDetector`, `levitatingBlocks` (alle an) | Aus = Funktion sofort aus (Meldung „auf diesem Server abgeschaltet“); Rezepte fallen beim nächsten `/reload` weg. Luftsprung: Server-Wächter + Client-Vorhersage; dyn. Licht aus räumt gesetzte Lichtblöcke beim nächsten Takt des Trägers; Rucksack: getragen öffnet nicht, abgestellt schon (kein Inhaltsverlust); schwebende Blöcke: nur Rezepte |
+| `chunkLoaders` | `requireOwnerOnline` (an) | Loader hält Chunks nur mit Besitzer online; `ChunkLoaderRegistry` (SavedData der Oberwelt) weckt ihn beim Wiederkommen (Abgleich alle 100 Ticks im Server-Tick), Prüfung auch beim Setzen; Loader ohne Besitzer laufen immer |
+| `dimensionLocks` | `chunkLoaderBlockedDimensions`, `flypadBlockedDimensions`, `echoSounderBlockedDimensions` (leer) | Dimension-IDs (Komma/Leerzeichen); Loader lädt nichts, Flypad gibt keinen Flug, Echolot springt weder hinein noch heraus. Per Befehl leert `""` die Liste |
+| `laser` | `igniteFlammables`, `igniteTnt`, `igniteEntities` (an) | Einzelschalter des Linsenstrahls (Schmelzen/Trocknen/Kerzen bleiben) |
+| `oreGeneration` | `endOres`, `astralitOre`, `nihilitOre` (an) | Bedingung `simplebuilding:config` mit Flag `astralitOre`/`nihilitOre` an den NeoForge-/Forge-Biom-Modifikatoren, Fabric über die Biomauswahl; nächster Weltstart, nur neue Chunks |
+| `pads` | `strangerPadBreakSeconds` 60, `strangerPlateBreakSeconds` 10 (1..3600) | Abbauzeit Fremder; der Client rechnet den Fortschritt mit dem Server-Wert |
+| `charges` | `lensMaxCharge` 640 (64..2560), `rotatorMaxCharge` 1024 (64..4096), `echoSounderMaxCharge` 1500 (150..6000) | **Neustart nötig**: Haltbarkeit wird beim Registrieren gelesen (`MAX_CHARGE`/`MAX_DAMAGE`); Client und Server brauchen dieselbe Datei (Modpack), sonst falsche Ladebalken |
+| `tools` | `sledgehammerUpgradeSeconds` 5 (1..30), `reinforced/netherite/enderiteUpgradeDamagePerHit` 2/4/10 (0..64), `<stufe>ChiselCooldownTicks` 30/25/25/20/10/5/5 (2..200) | Hammer-Aufwertung = Schläge je Sekunde (Animation liest den Server-Wert); Meißel und Spachtel teilen den Wert ihrer Stufe |
+| `machines` | `reinforced/netherite/enderiteHopperSpeed` 2/4/8, `...FurnaceSpeed` 2/4/8 (1..8) | Vielfaches von Vanilla; 8 = ein Trichter-Transfer je Tick (bisheriges Maximum); Ofen, Räucherofen, Schmelzofen teilen den Wert |
+| `oreDetector` | `rangeMultiplier` 1,0 (0,25..1,5), `scanIntervalTicks` 20 (10..200) | Reichweite/Suchkugel aller Klassen (Tooltip zeigt den Server-Wert); Nebenhand halb so oft |
+| `loot` | `globalLootMultiplier` 1,0 (0..3), 15 Struktur-Schalter (an), `tradePriceMultiplier` 1,0 (0,25..4) | Faktor = ganze Kopien je Pool plus eine mit Restwahrscheinlichkeit (`TunedLootEditor`; fertig gebaute Pools gerundet); Schalter nach Tabellen-Präfix (`ServerTuning#lootEnabledFor`), Köpfe ausgenommen. Preis: erster Preis-Slot der Mod-Angebote (26.x `VillagerTradePriceMixin`, 1.21.11 `TradeDefinition`), gerundet, 1..Stapel |
+| `blueprint` | `maxBlocksPerTick` 32768 (1..32768) | Obergrenze je Tick; der Standard liegt über allem, was ein Bau heute nutzt |
+| `trimStrengths` | 27 Faktoren, je Wirkung (1,0; 0..2) | Faktor auf die Rate einer Wirkung aus allen Mustern/Materialien; Deckel bleiben; Tooltips zeigen den Server-Wert |
+
+**Rezepte abgeschalteter Funktionen** (`recipe/RecipeFilter` + `mixin/RecipeMapFilterMixin`): der private
+`RecipeMap`-Konstruktor ist auf 1.21.11/26.2/26.3/26.4 gleich; dort fallen Rezepte im Namensraum
+`simplebuilding` weg, deren ID zur Funktion passt (`backpack`, `magnet`/`attractor`, `echo_compass`,
+`blueprint`, `ore_detector`, `levitating_`/`suspended_`, und für die Pad-Schalter `chunk_loader`,
+`elytra_pad`, `flypad`, `spawn_teleporter`, `launchpad`, `potion_pad`, `laser_pointer`). Wirkt beim Laden
+der Datenpakete; der Befehl sagt es (`ConfigOptions.RECIPES_ON_RELOAD`).
+
+**Admin-Befehl**: `/simplebuilding chunkloaders list` (Position, Dimension, Besitzer, online, Bereich,
+lädt/ruht – ohne Chunks zu laden) und `/simplebuilding chunkloaders remove <dimension> <pos>` (baut ab,
+Item fällt; oder streicht einen verwaisten Eintrag).
+
+**JEI**: Infoseiten von Chunk-Loader, Pads, Linse und Echolot bekommen eine Zeile „Dieser Server: …“
+(`config/ServerTuningInfo`).
+
+**Befehl**: `ConfigOptions.RESTART_REQUIRED` (Höchstladungen, End-Erze) und `RECIPES_ON_RELOAD` geben
+nach `set` einen Hinweis; die Loot-Optionen stehen in `APPLY_ON_RELOAD`.
+
+Tests: `ServerTuningTests` (Server-Wert gewinnt, Grenzen, Luftsprung-Schalter, Chunk-Loader offline/
+Dimension/Register, Rezeptfilter, Loot-Faktor/Struktur-Schalter, Laser-Schalter, Werte bei Werkzeugen und
+Maschinen); `ConfigOptionTests` pinnt jedes Feld samt Reiter.
+
 ## Neue Option hinzufügen – Checkliste
 
+0. Gameplay-Stellschraube für Server/Modpacks? Dann in `ServerTuningConfig` (Reiter `server`), lesen
+   über `ServerTuning.get()`, Grenze in `validate()` und als Konstante in `ServerTuning`; der Client
+   bekommt den Wert automatisch.
 1. Feld in `SimplebuildingConfig`/`TweaksConfig` (beide Linien), `@ConfigEntry.Gui.Tooltip`; auf
    oberster Ebene zusätzlich `@ConfigEntry.Category`. Standard = bisheriges Verhalten; Grenzen in
    `validate()`/`validatePostLoad()` und im lesenden Code.

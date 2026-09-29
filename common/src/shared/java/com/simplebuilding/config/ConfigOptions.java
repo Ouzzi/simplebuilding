@@ -51,7 +51,54 @@ public final class ConfigOptions {
             "worldGen.enableLootTableChanges",
             "worldGen.buildingCoreLootChanceMultiplier",
             "worldGen.enableVillagerTrades",
-            "worldGen.enableWanderingTrades");
+            "worldGen.enableWanderingTrades",
+            "server.loot.globalLootMultiplier",
+            "server.loot.strongholdLoot",
+            "server.loot.endCityLoot",
+            "server.loot.ancientCityLoot",
+            "server.loot.bastionLoot",
+            "server.loot.netherFortressLoot",
+            "server.loot.pillagerOutpostLoot",
+            "server.loot.woodlandMansionLoot",
+            "server.loot.buriedTreasureLoot",
+            "server.loot.dungeonLoot",
+            "server.loot.shipwreckLoot",
+            "server.loot.iglooLoot",
+            "server.loot.mineshaftLoot",
+            "server.loot.trialChambersLoot",
+            "server.loot.ruinedPortalLoot",
+            "server.loot.fishingLoot");
+
+    /**
+     * Feature switches that also remove recipes ({@code RecipeFilter}): the behaviour switches at
+     * once, the recipes with the next datapack load. The command says so.
+     */
+    public static final Set<String> RECIPES_ON_RELOAD = Set.of(
+            "server.features.backpack",
+            "server.features.attractor",
+            "server.features.echoSounder",
+            "server.features.blueprint",
+            "server.features.oreDetector",
+            "server.features.levitatingBlocks",
+            "tweaks.pads.enableChunkLoaders",
+            "tweaks.pads.enableElytraPads",
+            "tweaks.pads.enableFlypads",
+            "tweaks.pads.enableSpawnTeleporters",
+            "tweaks.pads.enableLaunchpads",
+            "tweaks.pads.enablePotionPads",
+            "tweaks.laserPointer.enable");
+
+    /**
+     * Read once at startup: the maximum charges are item durabilities registered with the items,
+     * the End ores are added to the biomes when the world loads. The command says a restart is needed.
+     */
+    public static final Set<String> RESTART_REQUIRED = Set.of(
+            "server.charges.lensMaxCharge",
+            "server.charges.rotatorMaxCharge",
+            "server.charges.echoSounderMaxCharge",
+            "server.oreGeneration.endOres",
+            "server.oreGeneration.astralitOre",
+            "server.oreGeneration.nihilitOre");
 
     private static final List<Option> ALL;
 
@@ -119,6 +166,14 @@ public final class ConfigOptions {
 
         public boolean appliesOnReload() {
             return APPLY_ON_RELOAD.contains(path);
+        }
+
+        public boolean recipesOnReload() {
+            return RECIPES_ON_RELOAD.contains(path);
+        }
+
+        public boolean restartRequired() {
+            return RESTART_REQUIRED.contains(path);
         }
 
         /** The object holding the field inside {@code root}; null if a group is missing. */
@@ -204,7 +259,8 @@ public final class ConfigOptions {
                     return Float.isFinite(parsed) ? parsed : null;
                 }
                 if (type == String.class) {
-                    return value;
+                    // "" (two quotes) clears a text option; greedyString cannot hand over nothing.
+                    return "\"\"".equals(value) ? "" : value;
                 }
             } catch (NumberFormatException e) {
                 return null;

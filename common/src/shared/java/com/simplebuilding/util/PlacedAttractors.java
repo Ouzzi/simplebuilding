@@ -73,7 +73,9 @@ public final class PlacedAttractors {
      */
     public static int tick(ServerLevel level, BlockPos pos, PlacedTemplateBlockEntity be) {
         ItemStack stack = be.getTemplate();
-        if (!isAttractor(stack) || Math.floorMod(level.getGameTime() + pos.asLong(), INTERVAL) != 0) {
+        // Serverschalter server.features.attractor gilt auch fuer den abgelegten Attractor.
+        if (!isAttractor(stack) || !com.simplebuilding.config.ServerTuning.get().features.attractor
+                || Math.floorMod(level.getGameTime() + pos.asLong(), INTERVAL) != 0) {
             return 0;
         }
         return pull(level, pos, be);

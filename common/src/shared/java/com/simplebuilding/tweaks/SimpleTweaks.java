@@ -69,9 +69,17 @@ public final class SimpleTweaks {
      * ({@code airJumpCooldownTicks}: der Server-Waechter {@code AirJumpGuard} lehnte sonst Spruenge
      * ab, die ein Client mit kuerzerer eigener Abklingzeit schon zeigte). Der Server schickt sie beim
      * Einloggen, nach jedem Tweaks-Befehl und nach {@code /simplebuilding config set}.
+     *
+     * <p>{@code serverTuning} ist seit 2026-09-28 der ganze Reiter "Server & Modpack Tuning" als JSON
+     * ({@link com.simplebuilding.config.ServerTuning}); ein String, damit zwei Staende mit
+     * {@code equals} vergleichbar bleiben.
      */
     public record ServerValues(int rocketStackSize, int maxBoosts, boolean laserEnabled, int laserRange,
-                               int airJumpCooldownTicks) {
+                               int airJumpCooldownTicks, String serverTuning) {
+        /** Ohne Tuning-Abschnitt (Tests, alte Aufrufer): der Client nimmt dann seine eigene Datei. */
+        public ServerValues(int rocketStackSize, int maxBoosts, boolean laserEnabled, int laserRange, int airJumpCooldownTicks) {
+            this(rocketStackSize, maxBoosts, laserEnabled, laserRange, airJumpCooldownTicks, "");
+        }
     }
 
     /** Zuletzt vom Server gemeldet; null = nicht verbunden oder Server ohne diese Mod. */
@@ -83,7 +91,13 @@ public final class SimpleTweaks {
         SimplebuildingConfig root = Simplebuilding.getConfig();
         return new ServerValues(config.balancing.rocketStackSize, config.spawn.boostCount(),
                 config.laserPointer.enable, config.laserPointer.range,
-                root == null ? 100 : Math.max(0, root.airJumpCooldownTicks));
+                root == null ? 100 : Math.max(0, root.airJumpCooldownTicks),
+                com.simplebuilding.config.ServerTuning.toJson(com.simplebuilding.config.ServerTuning.local()));
+    }
+
+    /** Der zuletzt vom Server gemeldete Stand oder null (fuer {@link com.simplebuilding.config.ServerTuning}). */
+    public static @Nullable ServerValues syncedValues() {
+        return serverValues;
     }
 
     /** Vom Client beim Empfang gesetzt, beim Trennen geloescht. */

@@ -204,6 +204,9 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str) 
             if "return" in block:
                 gated = True
             continue
+        # server.loot.* (2026-09-28): Struktur-Schalter, die ganze Tabellen abschalten - Standard an.
+        if "lootEnabledFor" in cond:
+            continue
         tables = re.findall(r"BuiltInLootTables\.(\w+)\.equals\(key\)", cond)
         if not tables:
             problems.append(f"{path.name}: condition '{cond.strip()}' names no loot table")

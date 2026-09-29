@@ -24,6 +24,11 @@ public final class TweaksClientHooks {
         clientThread = supplier != null ? supplier : () -> false;
     }
 
+    /** Der gesetzte Haken (fuer Tests, die ihn kurz ersetzen und danach zuruecklegen). */
+    public static BooleanSupplier clientThreadHook() {
+        return clientThread;
+    }
+
     /** true auf dem Client-(Render-)Thread; auf dem Server und dessen Thread immer false. */
     public static boolean onClientThread() {
         return clientThread.getAsBoolean();

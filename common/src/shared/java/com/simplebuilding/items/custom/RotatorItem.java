@@ -48,8 +48,13 @@ import net.minecraft.world.phys.Vec3;
  * zweiten Klang ein paar umgekehrte Portal-Partikel.
  */
 public class RotatorItem extends Item implements AnvilRechargeable {
-    /** Volle Ladung (= Haltbarkeit) in Drehungen. */
-    public static final int MAX_CHARGE = 1024;
+    /** Standard der vollen Ladung in Drehungen. */
+    public static final int DEFAULT_MAX_CHARGE = 1024;
+    /**
+     * Volle Ladung (= Haltbarkeit) in Drehungen: {@code server.charges.rotatorMaxCharge}, beim
+     * Registrieren gelesen (Neustart noetig; Client und Server brauchen denselben Wert).
+     */
+    public static final int MAX_CHARGE = com.simplebuilding.config.ServerTuning.startupRotatorMaxCharge();
     /** So viele Enderperlen laden einen leeren Rotator ganz auf - ein voller Perlenstapel. */
     public static final int PEARLS_FOR_FULL = 16;
     /** Ladung je Enderperle (1/16 der vollen Ladung). */
