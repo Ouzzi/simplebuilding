@@ -361,18 +361,22 @@ public final class ModLootTableModifications {
      * {@code chance} Kerne pro Kiste im Mittel und nie mehr als einer.
      */
     private static void rareCore(Editor editor, ItemLike core, float chance) {
-        float scaled = coreChance(chance);
-        if (scaled <= 0.0f) {
+        // Die Chance steht als Bedingung simplebuilding:core_chance im Pool (ein Wurf, Kern nur, wenn
+        // sie greift) und wird erst beim Wuerfeln mit dem Config-Faktor skaliert: so kann ein
+        // Datapack sie in der Inject-Tabelle aendern (LootInjection), und die Config wirkt trotzdem.
+        if (coreChance(chance) <= 0.0f) {
             return;
         }
         editor.addPool(LootPool.lootPool()
-                .setRolls(LootNumbers.binomial(1, scaled))
-                .add(item(core, 1)));
+                .setRolls(LootNumbers.exactly(1))
+                .add(item(core, 1))
+                .when(CoreChanceCondition.coreChance(chance)));
     }
 
     /**
      * Kern-Chance mit dem Faktor {@code worldGen.buildingCoreLootChanceMultiplier} (Standard 1),
-     * hoechstens 1 je Kiste; 0 = kein Kern-Pool. Gelesen beim Laden der Datenpakete.
+     * hoechstens 1 je Kiste; 0 = kein Kern-Pool. Gelesen beim Laden der Datenpakete (ob der Pool
+     * entsteht) und bei jedem Wurf ({@link CoreChanceCondition}).
      */
     public static float coreChance(float base) {
         com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();

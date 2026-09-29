@@ -4,7 +4,6 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import java.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Player;
@@ -149,23 +148,15 @@ public class MiningUtils {
      * Abbau-Hook (VeinMinerUsageEvent) fragen beide genau diese Methode - die Vorschau kann also
      * nichts mehr anzeigen, was der Server danach stehen laesst.
      *
-     * <p>Genau die acht Erz-Tags, die das Handbuch fuer den Aderabbau zusagt. Netherquarzerz und
-     * Antiker Schutt gehoeren NICHT dazu: sie standen frueher nur in dieser Kopie und wurden vom
-     * Abbau nie gebrochen. Wer sie aufnehmen will, aendert damit die Balance (Aderabbau V auf
-     * Antikem Schutt) und muss das Handbuch mitziehen - es ist kein Aufraeumen.
+     * <p>Der Block-Tag {@code simplebuilding:vein_miner_ores} (Besitzer 2026-09-28): {@code #c:ores}
+     * des Loaders, die acht Vanilla-Erz-Tags, Netherquarzerz, Nethergolderz, Antiker Schutt und die
+     * Mod-Erze. Netherquarzerz und Antiker Schutt standen frueher nur in der Vorschau-Kopie; jetzt
+     * gehoeren sie bewusst dazu (Handbuch und {@code VeinAndStripMinerTests} ziehen mit).
      */
     public static boolean isOre(BlockState state) {
-        // Vanilla Tags nutzen. Hinweis: GOLD_ORES beinhaltet in Vanilla auch Nether Gold Ore.
-        // MC 26.2: Die Erz-Tags leben jetzt als Block/Item-Paare in BlockItemTags.
-        // BlockItemTags.X.block() liefert exakt denselben TagKey wie frueher BlockTags.X
-        // (minecraft:coal_ores usw. - Tag-Daten unveraendert).
-        return state.is(BlockItemTags.COAL_ORES.block()) ||
-                state.is(BlockItemTags.IRON_ORES.block()) ||
-                state.is(BlockItemTags.COPPER_ORES.block()) ||
-                state.is(BlockItemTags.GOLD_ORES.block()) ||
-                state.is(BlockItemTags.REDSTONE_ORES.block()) ||
-                state.is(BlockItemTags.LAPIS_ORES.block()) ||
-                state.is(BlockItemTags.DIAMOND_ORES.block()) ||
-                state.is(BlockItemTags.EMERALD_ORES.block());
+        // Seit 2026-09-28 ein Tag statt einer festen Liste: simplebuilding:vein_miner_ores enthaelt
+        // #c:ores des Loaders (jedes Mod-Erz nach Konvention), die Vanilla-Erz-Tags, Netherquarzerz,
+        // Nethergolderz, Antiken Schutt und die Mod-Erze; Modpacks koennen ihn per Datapack erweitern.
+        return state.is(ModTags.Blocks.VEIN_MINER_ORES);
     }
 }

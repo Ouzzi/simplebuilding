@@ -305,8 +305,10 @@ public final class MagnetTests {
 
         ItemEntity target = helper.spawnItem(Items.DIAMOND, NEAR_SPOT);
         // A freshly dropped item cannot be picked up for 40 ticks; the magnet is supposed to clear
-        // that. Making it "never" turns the reset from a nicety into the only way this can succeed.
-        target.setNeverPickUp();
+        // that. A delay far beyond the tick budget turns the reset from a nicety into the only way
+        // this can succeed. (Not setNeverPickUp: since 2026-09-28 the attractor leaves such
+        // "never" items alone - they are other mods' display items, AttractorFilter.)
+        target.setPickUpDelay(30000);
 
         helper.assertTrue(!player.getInventory().contains(stack -> stack.is(Items.DIAMOND)),
                 "test setup broken: the player already carries a diamond, so the assertion below "
@@ -351,9 +353,9 @@ public final class MagnetTests {
      *       cases 1 and 4 alone left everything between 0.0144 and 10.25 free.</li>
      * </ul>
      *
-     * <p>The pickup delay reset rides along on the first case: the item is set to "never pick up"
-     * (32767 ticks, what vanilla uses for items that must not be collected), and one magnet tick
-     * has to clear it.
+     * <p>The pickup delay reset rides along on the first case: the item gets a pickup delay far beyond the test
+     * (30000 ticks - not vanilla's 32767 "never", which the attractor leaves alone since
+     * 2026-09-28), and one magnet tick has to clear it.
      *
      * <p>What breaks this test: any of 0.10, 0.80, 0.15, 0.2 changing, the aiming point moving to
      * the feet or the eyes, the ground lift being applied while airborne (or not at all), the
@@ -370,9 +372,9 @@ public final class MagnetTests {
         ItemEntity far = helper.spawnItem(Items.DIAMOND, NEAR_SPOT);
         far.setDeltaMovement(Vec3.ZERO);
         far.setOnGround(false);
-        far.setNeverPickUp();
+        far.setPickUpDelay(30000);
         helper.assertTrue(far.hasPickUpDelay(),
-                "test setup broken: setNeverPickUp left the item collectable, so the pickup delay "
+                "test setup broken: setPickUpDelay left the item collectable, so the pickup delay "
                         + "assertion below would pass without the magnet clearing anything");
 
         tick(magnet, level, player, EquipmentSlot.MAINHAND);

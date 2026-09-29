@@ -472,6 +472,13 @@ public final class BlueprintBuilder {
                     occupied++;
                     continue;
                 }
+                if (simulated == null && (state.is(com.simplebuilding.util.ModTags.Blocks.BUILDING_WAND_BLACKLIST)
+                        || !com.simplebuilding.util.BuildPermissions.mayPlace(level, player, pos, state))) {
+                    // Blacklisted for the wand, or a claim/protection mod refuses the place event for
+                    // this cell. Only for the real build: the preview fires no events.
+                    blocked++;
+                    continue;
+                }
                 BlueprintMaterials.Cost cost = BlueprintMaterials.cost(layout.rawState(i));
                 if (cost.count() == 0) {
                     BlockPos partner = partnerOf(pos, state);
@@ -887,6 +894,7 @@ public final class BlueprintBuilder {
                 }
                 BlueprintMaterials.Cost paid = BlueprintMaterials.cost(state);
                 com.simplebuilding.util.WandUndo.record(player, level, pos, state, paid.item(), paid.count());
+                com.simplebuilding.stats.ModStats.award(player, com.simplebuilding.stats.ModStats.WAND_BLOCKS_PLACED);
                 com.simplebuilding.advancement.ModCounters.add(player, com.simplebuilding.advancement.ModCounters.WAND_BLOCKS, 1);
                 if (holder[0] != null && holder[0].sound == null) {
                     holder[0].sound = state.getSoundType();

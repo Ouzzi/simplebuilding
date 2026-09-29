@@ -213,6 +213,7 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity implements PadS
             player.teleportTo(targetLevel, target.x, target.y, target.z, Set.of(), 0f, 0f, false);
         }
         com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.SPAWN_TELEPORT);
+        com.simplebuilding.stats.ModStats.award(player, com.simplebuilding.stats.ModStats.TELEPORTS);
 
         double tx = target.x;
         double ty = target.y;

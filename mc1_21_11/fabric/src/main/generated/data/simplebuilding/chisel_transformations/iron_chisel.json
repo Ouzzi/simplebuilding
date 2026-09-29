@@ -1,0 +1,217 @@
+{
+  "chains": [
+    {
+      "blocks": [
+        "minecraft:chiseled_stone_bricks",
+        "minecraft:stone_bricks",
+        "minecraft:cracked_stone_bricks"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stone_brick_stairs",
+        "minecraft:mossy_stone_brick_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:stone_brick_slab",
+        "minecraft:mossy_stone_brick_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_andesite",
+        "minecraft:andesite"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_andesite_stairs",
+        "minecraft:andesite_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_andesite_slab",
+        "minecraft:andesite_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_diorite",
+        "minecraft:diorite"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_diorite_stairs",
+        "minecraft:diorite_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_diorite_slab",
+        "minecraft:diorite_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_granite",
+        "minecraft:granite"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_granite_stairs",
+        "minecraft:granite_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_granite_slab",
+        "minecraft:granite_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_tuff",
+        "minecraft:tuff"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_tuff_stairs",
+        "minecraft:tuff_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:polished_tuff_slab",
+        "minecraft:tuff_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:oak_planks",
+        "minecraft:oak_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:oak_stairs",
+        "minecraft:oak_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:spruce_planks",
+        "minecraft:spruce_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:spruce_stairs",
+        "minecraft:spruce_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:birch_planks",
+        "minecraft:birch_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:birch_stairs",
+        "minecraft:birch_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:jungle_planks",
+        "minecraft:jungle_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:jungle_stairs",
+        "minecraft:jungle_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:acacia_planks",
+        "minecraft:acacia_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:acacia_stairs",
+        "minecraft:acacia_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:dark_oak_planks",
+        "minecraft:dark_oak_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:dark_oak_stairs",
+        "minecraft:dark_oak_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:mangrove_planks",
+        "minecraft:mangrove_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:mangrove_stairs",
+        "minecraft:mangrove_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:cherry_planks",
+        "minecraft:cherry_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:cherry_stairs",
+        "minecraft:cherry_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:bamboo_planks",
+        "minecraft:bamboo_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:bamboo_stairs",
+        "minecraft:bamboo_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:pale_oak_planks",
+        "minecraft:pale_oak_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:pale_oak_stairs",
+        "minecraft:pale_oak_slab"
+      ]
+    }
+  ],
+  "table": "chisel",
+  "tier": "iron"
+}

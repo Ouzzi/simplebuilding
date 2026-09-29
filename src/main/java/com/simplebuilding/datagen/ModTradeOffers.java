@@ -15,6 +15,7 @@ public class ModTradeOffers {
     public static void registerModTradeOffers() {
         Simplebuilding.LOGGER.info("Registering Custom Trade Offers for " + Simplebuilding.MOD_ID);
         ModLootFunctions.registerLootFunctions();
+        com.simplebuilding.loot.ModLootConditions.register();
         ConfigResourceCondition.register();
     }
 }

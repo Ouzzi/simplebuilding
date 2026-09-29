@@ -30,6 +30,7 @@ public final class TweaksContent {
         registerItems();
         registerRecipeSerializers();
         registerTriggers();
+        registerStats();
     }
 
     public static void registerComponents() {
@@ -57,6 +58,11 @@ public final class TweaksContent {
      */
     public static void registerTriggers() {
         com.simplebuilding.advancement.ModTriggers.register();
+    }
+
+    /** Player statistics ({@link com.simplebuilding.stats.ModStats}); NeoForge/Forge: RegisterEvent for CUSTOM_STAT. */
+    public static void registerStats() {
+        com.simplebuilding.stats.ModStats.register();
     }
 
     public static void onServerTick(MinecraftServer server) {

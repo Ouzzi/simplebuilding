@@ -28,6 +28,7 @@ public class ModTradeOffers {
         // simplebuilding:config. Beide werden von den Trades hier nicht mehr gebraucht — die
         // Gewichtung läuft über ModTradeDefinitions, die Gates über getConfig() weiter unten.
         ModLootFunctions.registerLootFunctions();
+        com.simplebuilding.loot.ModLootConditions.register();
         ConfigResourceCondition.register();
         registerVillagerTrades();
         registerWanderingTraderTrades();

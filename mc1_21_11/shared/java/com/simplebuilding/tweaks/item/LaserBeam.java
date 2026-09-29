@@ -232,6 +232,9 @@ public final class LaserBeam {
             return null;
         }
         DWELLS.remove(player);
+        if (!claimAllows(player, level, pos, state, face, effect)) {
+            return null;
+        }
         if (!apply(player, level, pos, state, face, at, effect)) {
             return null;
         }
@@ -347,6 +350,20 @@ public final class LaserBeam {
         // Brennbares faengt nur Feuer, wo sich Feuer ausbreiten darf (Spielregel); Seelenfeuer
         // breitet sich nie aus und zuendet wie ein Feuerzeug auch ohne die Regel.
         return effect != Effect.IGNITE || level.canSpreadFireAround(pos.relative(face));
+    }
+
+    /**
+     * Claim and protection mods, asked once when the dwell is complete (not every beam tick): fire
+     * is a placed block, so igniting fires the loader's place event for the fire cell; melting,
+     * drying, lighting and priming change the block itself and fire its break event
+     * ({@link com.simplebuilding.util.BuildPermissions}). A refusal costs no charge.
+     */
+    private static boolean claimAllows(ServerPlayer player, ServerLevel level, BlockPos pos, BlockState state, Direction face, Effect effect) {
+        if (effect == Effect.IGNITE || effect == Effect.SOUL_FIRE) {
+            BlockPos firePos = pos.relative(face);
+            return com.simplebuilding.util.BuildPermissions.mayPlace(level, player, firePos, BaseFireBlock.getState(level, firePos));
+        }
+        return com.simplebuilding.util.BuildPermissions.mayBreak(level, player, pos, state);
     }
 
     private static boolean apply(ServerPlayer player, ServerLevel level, BlockPos pos, BlockState state, Direction face, Vec3 at, Effect effect) {

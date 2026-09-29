@@ -43,6 +43,7 @@ public class ModMessages {
         PayloadTypeRegistry.clientboundPlay().register(TrimDataPayload.ID, TrimDataPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(PistonConfigPayload.ID, PistonConfigPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(com.simplebuilding.networking.DataTablesSyncPayload.ID, com.simplebuilding.networking.DataTablesSyncPayload.CODEC);
 
         // --- 2. SERVER-RECEIVER ---
         // Every receiver hands its payload to the SHARED handler in ModMessageHandlers, the

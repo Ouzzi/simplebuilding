@@ -21,6 +21,8 @@ public final class SledgehammerUsageEvent {
     }
 
     public static boolean handleBeforeBlockBreak(Level world, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
+        // A claim check fired by BuildPermissions is not a real break: never start an area break.
+        if (BuildPermissions.isProbing()) return true;
         ItemStack mainHandItem = player.getMainHandItem();
 
         if (mainHandItem.getItem() instanceof SledgehammerItem && player instanceof ServerPlayer serverPlayer) {

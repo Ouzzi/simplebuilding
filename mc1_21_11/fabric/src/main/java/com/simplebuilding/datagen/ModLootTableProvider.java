@@ -146,7 +146,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
 
     public static void modifyLootTables() {
         net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, tableBuilder, source, registry) ->
-                ModLootTableModifications.apply(key, new ModLootTableModifications.Editor() {
+                com.simplebuilding.loot.LootInjection.apply(key, new ModLootTableModifications.Editor() {
                     @Override
                     public void addPool(LootPool.Builder pool) {
                         tableBuilder.withPool(pool);

@@ -1,0 +1,102 @@
+{
+  "chains": [
+    {
+      "blocks": [
+        "minecraft:bricks",
+        "minecraft:mud_bricks"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:brick_stairs",
+        "minecraft:mud_brick_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:brick_slab",
+        "minecraft:mud_brick_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:oak_wood",
+        "minecraft:stripped_oak_wood"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:spruce_wood",
+        "minecraft:stripped_spruce_wood"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:birch_wood",
+        "minecraft:stripped_birch_wood"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:jungle_wood",
+        "minecraft:stripped_jungle_wood"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:acacia_wood",
+        "minecraft:stripped_acacia_wood"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:dark_oak_wood",
+        "minecraft:stripped_dark_oak_wood"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:mangrove_wood",
+        "minecraft:stripped_mangrove_wood"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:cherry_wood",
+        "minecraft:stripped_cherry_wood"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:pale_oak_wood",
+        "minecraft:stripped_pale_oak_wood"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:crimson_planks",
+        "minecraft:crimson_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:crimson_stairs",
+        "minecraft:crimson_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:warped_planks",
+        "minecraft:warped_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:warped_stairs",
+        "minecraft:warped_slab"
+      ]
+    }
+  ],
+  "table": "touch",
+  "tier": "iron"
+}

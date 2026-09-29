@@ -168,7 +168,17 @@ public final class SledgehammerUpgrades {
     // TABELLE UND BEDINGUNGEN
     // =====================================================================================
 
+    /**
+     * The effective table: the datapack files {@code data/<ns>/sledgehammer_upgrades/}
+     * ({@link com.simplebuilding.data.SledgehammerUpgradeData}), or {@link #builtInTable()} before
+     * the first datapack load.
+     */
     private static Map<Block, Upgrade> table() {
+        return com.simplebuilding.data.SledgehammerUpgradeData.table();
+    }
+
+    /** The built-in table - the default the shipped datapack files are generated from. */
+    public static Map<Block, Upgrade> builtInTable() {
         if (table == null) {
             Map<Block, Upgrade> map = new HashMap<>();
             toNetherite(map, ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER);
@@ -209,8 +219,17 @@ public final class SledgehammerUpgrades {
         return table().get(block);
     }
 
+    /** Whether {@code stack} is the material of any upgrade in the effective table. */
     public static boolean isUpgradeNugget(ItemStack stack) {
-        return stack.is(ModItems.NETHERITE_NUGGET) || stack.is(ModItems.ENDERITE_NUGGET) || stack.is(ModItems.CRACKED_DIAMOND);
+        if (stack.isEmpty()) {
+            return false;
+        }
+        for (Upgrade upgrade : table().values()) {
+            if (stack.is(upgrade.nugget())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** Hammer in der Haupthand, Netherit- oder Enderit-Nugget in der Nebenhand. */

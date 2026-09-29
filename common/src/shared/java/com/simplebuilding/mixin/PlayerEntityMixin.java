@@ -38,6 +38,17 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
     @Override public boolean simplebuilding$isSpacePressed() { return this.simplebuilding$spacePressed; }
     @Override public void simplebuilding$setSpacePressed(boolean pressed) { this.simplebuilding$spacePressed = pressed; }
 
+    /** The death loot drops between these two ({@link com.simplebuilding.util.AttractorFilter}). */
+    @Inject(method = "dropEquipment", at = @At("HEAD"))
+    private void simplebuilding$beginDeathDrops(net.minecraft.server.level.ServerLevel level, CallbackInfo ci) {
+        com.simplebuilding.util.AttractorFilter.beginDeathDrops(this);
+    }
+
+    @Inject(method = "dropEquipment", at = @At("RETURN"))
+    private void simplebuilding$endDeathDrops(net.minecraft.server.level.ServerLevel level, CallbackInfo ci) {
+        com.simplebuilding.util.AttractorFilter.endDeathDrops();
+    }
+
     // --- TICK LOGIK ---
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$tickLogic(CallbackInfo ci) {

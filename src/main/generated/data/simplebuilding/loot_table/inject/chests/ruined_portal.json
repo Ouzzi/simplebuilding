@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "simplebuilding:netherite_nugget",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:gold_chisel",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:netherite_carrot",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 12
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 1.0,
+        "min": 0.0
+      }
+    }
+  ]
+}

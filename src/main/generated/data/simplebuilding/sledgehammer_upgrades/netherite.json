@@ -1,0 +1,52 @@
+{
+  "upgrades": [
+    {
+      "damage_per_hit": 4,
+      "from": "simplebuilding:reinforced_blast_furnace",
+      "material": "simplebuilding:netherite_nugget",
+      "min_hammer": "diamond",
+      "tier": "netherite",
+      "to": "simplebuilding:netherite_blast_furnace"
+    },
+    {
+      "damage_per_hit": 4,
+      "from": "simplebuilding:reinforced_chest",
+      "material": "simplebuilding:netherite_nugget",
+      "min_hammer": "diamond",
+      "tier": "netherite",
+      "to": "simplebuilding:netherite_chest"
+    },
+    {
+      "damage_per_hit": 4,
+      "from": "simplebuilding:reinforced_furnace",
+      "material": "simplebuilding:netherite_nugget",
+      "min_hammer": "diamond",
+      "tier": "netherite",
+      "to": "simplebuilding:netherite_furnace"
+    },
+    {
+      "damage_per_hit": 4,
+      "from": "simplebuilding:reinforced_hopper",
+      "material": "simplebuilding:netherite_nugget",
+      "min_hammer": "diamond",
+      "tier": "netherite",
+      "to": "simplebuilding:netherite_hopper"
+    },
+    {
+      "damage_per_hit": 4,
+      "from": "simplebuilding:reinforced_piston",
+      "material": "simplebuilding:netherite_nugget",
+      "min_hammer": "diamond",
+      "tier": "netherite",
+      "to": "simplebuilding:netherite_piston"
+    },
+    {
+      "damage_per_hit": 4,
+      "from": "simplebuilding:reinforced_smoker",
+      "material": "simplebuilding:netherite_nugget",
+      "min_hammer": "diamond",
+      "tier": "netherite",
+      "to": "simplebuilding:netherite_smoker"
+    }
+  ]
+}

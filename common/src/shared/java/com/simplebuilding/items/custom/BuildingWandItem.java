@@ -700,10 +700,15 @@ public class BuildingWandItem extends Item {
             // koennte (kein Halt, Entity im Weg), bleibt die Stelle frei und kostet nichts.
             BlockState stateToPlace = WandPlacement.stateFor(world, player, placeItem, rawPos, plan.placeFace, plan.hitRel, clicked);
             if (stateToPlace == null) continue;
+            // Blacklist (block tag simplebuilding:building_wand_blacklist) and claim/protection mods:
+            // the loader's place event for this very cell, like a hand placement would fire it.
+            if (stateToPlace.is(com.simplebuilding.util.ModTags.Blocks.BUILDING_WAND_BLACKLIST)) continue;
+            if (!com.simplebuilding.util.BuildPermissions.mayPlace(world, player, rawPos, stateToPlace)) continue;
 
             if (world.setBlock(rawPos, stateToPlace, 3)) {
                 placedThisStep++;
                 WandPlacement.afterPlace(world, player, rawPos, stateToPlace, placeItem);
+                com.simplebuilding.stats.ModStats.award(player, com.simplebuilding.stats.ModStats.WAND_BLOCKS_PLACED);
                 WandUndo.record(player, world, rawPos, stateToPlace, placeItem.getItem(),
                         !player.getAbilities().instabuild && material != null ? 1 : 0);
                 SoundType soundGroup = stateToPlace.getSoundType();

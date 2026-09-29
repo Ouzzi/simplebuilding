@@ -38,7 +38,7 @@ public final class ForgeLootEvents {
         if (registries == null) {
             return;
         }
-        ModLootTableModifications.apply(key, new ModLootTableModifications.Editor() {
+        com.simplebuilding.loot.LootInjection.apply(key, new ModLootTableModifications.Editor() {
             @Override
             public void addPool(LootPool.Builder pool) {
                 table.addPool(pool.build());

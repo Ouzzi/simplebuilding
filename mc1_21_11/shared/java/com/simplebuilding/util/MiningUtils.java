@@ -148,22 +148,15 @@ public class MiningUtils {
      * Abbau-Hook (VeinMinerUsageEvent) fragen beide genau diese Methode - die Vorschau kann also
      * nichts mehr anzeigen, was der Server danach stehen laesst.
      *
-     * <p>Genau die acht Erz-Tags, die das Handbuch fuer den Aderabbau zusagt. Netherquarzerz und
-     * Antiker Schutt gehoeren NICHT dazu: sie standen frueher nur in dieser Kopie und wurden vom
-     * Abbau nie gebrochen. Wer sie aufnehmen will, aendert damit die Balance (Aderabbau V auf
-     * Antikem Schutt) und muss das Handbuch mitziehen - es ist kein Aufraeumen.
+     * <p>Der Block-Tag {@code simplebuilding:vein_miner_ores} (Besitzer 2026-09-28): {@code #c:ores}
+     * des Loaders, die acht Vanilla-Erz-Tags, Netherquarzerz, Nethergolderz, Antiker Schutt und die
+     * Mod-Erze. Netherquarzerz und Antiker Schutt standen frueher nur in der Vorschau-Kopie; jetzt
+     * gehoeren sie bewusst dazu (Handbuch und {@code VeinAndStripMinerTests} ziehen mit).
      */
     public static boolean isOre(BlockState state) {
-        // Vanilla Tags nutzen. Hinweis: GOLD_ORES beinhaltet in Vanilla auch Nether Gold Ore.
-        // MC 1.21.11: Die Erz-Tags stehen noch direkt in BlockTags (minecraft:coal_ores usw.);
-        // die gepaarten Block/Item-Tags gibt es erst ab 26.2. Tag-Daten unveraendert.
-        return state.is(BlockTags.COAL_ORES) ||
-                state.is(BlockTags.IRON_ORES) ||
-                state.is(BlockTags.COPPER_ORES) ||
-                state.is(BlockTags.GOLD_ORES) ||
-                state.is(BlockTags.REDSTONE_ORES) ||
-                state.is(BlockTags.LAPIS_ORES) ||
-                state.is(BlockTags.DIAMOND_ORES) ||
-                state.is(BlockTags.EMERALD_ORES);
+        // Seit 2026-09-28 ein Tag statt einer festen Liste: simplebuilding:vein_miner_ores enthaelt
+        // #c:ores des Loaders (jedes Mod-Erz nach Konvention), die Vanilla-Erz-Tags, Netherquarzerz,
+        // Nethergolderz, Antiken Schutt und die Mod-Erze; Modpacks koennen ihn per Datapack erweitern.
+        return state.is(ModTags.Blocks.VEIN_MINER_ORES);
     }
 }
