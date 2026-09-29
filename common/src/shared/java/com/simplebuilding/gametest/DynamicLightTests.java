@@ -182,8 +182,8 @@ public final class DynamicLightTests {
     /** Highest emission level the smithing upgrade hands out. */
     private static final int MAX_EMISSION_LEVEL = 5;
 
-    /** Highest glow level the smithing upgrade hands out. */
-    private static final int MAX_GLOW_LEVEL = 2;
+    /** Highest (and only) glow level the smithing upgrade hands out - Glowing II is gone (owner 2026-09-29). */
+    private static final int MAX_GLOW_LEVEL = 1;
 
     /** Light points one emission level is worth. */
     private static final int LIGHT_PER_EMISSION_LEVEL = 3;
@@ -279,6 +279,21 @@ public final class DynamicLightTests {
         GlowingTrimUtils.setGlowLevel(levelled, MAX_GLOW_LEVEL);
         helper.assertValueEqual(GlowingTrimUtils.getGlowLevel(levelled), MAX_GLOW_LEVEL,
                 "glow level of a chestplate carrying the glow_level component");
+
+        // --- migration: Glowing II no longer exists, old level-2 armour reads as plain Glowing ---
+        // In memory (a stack that still carries 2, e.g. set before the codec saw it) ...
+        ItemStack oldLevelTwo = new ItemStack(ModItems.ENDERITE_CHESTPLATE);
+        oldLevelTwo.set(ModDataComponentTypes.GLOW_LEVEL, 2);
+        helper.assertValueEqual(GlowingTrimUtils.getGlowLevel(oldLevelTwo), 1,
+                "a chestplate still carrying glow level 2 must read as plain Glowing (level 1)");
+        GlowingTrimUtils.setGlowLevel(oldLevelTwo, 2);
+        helper.assertValueEqual(oldLevelTwo.get(ModDataComponentTypes.GLOW_LEVEL), 1,
+                "setGlowLevel stored a level above the only one there is");
+        // ... and on load: the component codec turns a saved 2 into 1, so the next save writes 1.
+        int decoded = ModDataComponentTypes.GLOW_LEVEL.codecOrThrow()
+                .parse(com.mojang.serialization.JsonOps.INSTANCE, new com.google.gson.JsonPrimitive(2))
+                .getOrThrow();
+        helper.assertValueEqual(decoded, 1, "a saved glow_level of 2 decoded as " + decoded + " instead of 1");
 
         // The legacy flag is written straight into the component here rather than through
         // setVisualGlow: what has to keep working is reading armour that was saved before the level

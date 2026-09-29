@@ -66,13 +66,26 @@ public class GlowingTrimUtils {
         stack.set(ModDataComponentTypes.VISUAL_GLOW, glowing);
     }
 
+    /**
+     * Die einzige Glowing-Stufe (Besitzer 2026-09-29: Glowing II gibt es nicht mehr). Hoehere gespeicherte
+     * Werte liest schon der Codec von {@code simplebuilding:glow_level} als 1
+     * ({@link #normalizeGlowLevel}); diese Methode kappt zusaetzlich, falls ein Stapel im Speicher noch
+     * einen hoeheren Wert traegt.
+     */
+    public static final int MAX_GLOW_LEVEL = 1;
+
+    /** Migration Glowing II (und hoeher) -> Glowing: alles ueber {@link #MAX_GLOW_LEVEL} wird 1, der Rest bleibt. */
+    public static int normalizeGlowLevel(int level) {
+        return Math.min(level, MAX_GLOW_LEVEL);
+    }
+
     public static int getGlowLevel(ItemStack stack) {
         if (stack.isEmpty()) return 0;
 
         // 1. Prüfe auf das neue Level-System
         Integer level = stack.get(ModDataComponentTypes.GLOW_LEVEL);
         if (level != null && level > 0) {
-            return level;
+            return normalizeGlowLevel(level);
         }
 
         // 2. Fallback: Alte Items mit Boolean gelten als Level 1
@@ -85,20 +98,19 @@ public class GlowingTrimUtils {
 
     public  static void setGlowLevel(ItemStack stack, int level) {
         if (stack.isEmpty()) return;
-        stack.set(ModDataComponentTypes.GLOW_LEVEL, level);
+        stack.set(ModDataComponentTypes.GLOW_LEVEL, normalizeGlowLevel(level));
     }
 
     // --- LICHTREGELN DES BESATZES (Besitzer 2026-09-29) ---
     //
-    // Glowing I leuchtet ruhig, Glowing II ruhig und heller; beide pulsieren NICHT mehr.
+    // Glowing leuchtet ruhig mit voller Helligkeit (15), pulsiert NICHT und heisst im Tooltip nur
+    // "Glowing"; eine Stufe II gibt es nicht mehr (alte Stuecke mit Stufe 2 lesen sich als Glowing).
     // Nur Pulsating + Glowing schwankt in der Helligkeit (Licht 1 bis 15 im Pulstakt).
     // Pulsating allein laesst das Licht, wie es ist, und pulsiert stattdessen in der Saettigung:
     // volle Farbe -> grau -> volle Farbe (EquipmentRendererMixin, TrimPulseTextures).
 
-    /** Mindest-Lichtstufe des Besatzes bei Glowing I: leuchtet im Dunkeln, heller wird es nur bei Stufe II. */
-    public static final int GLOW_I_LIGHT = 12;
-    /** Lichtstufe des Besatzes bei Glowing II: volle Helligkeit. */
-    public static final int GLOW_II_LIGHT = 15;
+    /** Lichtstufe des Besatzes mit Glowing: volle Helligkeit (Besitzer 2026-09-29). */
+    public static final int GLOW_LIGHT = 15;
     /** Spanne der Helligkeit bei Pulsating + Glowing (Tal, Spitze). */
     public static final int PULSE_LIGHT_MIN = 1;
     public static final int PULSE_LIGHT_MAX = 15;
@@ -118,9 +130,9 @@ public class GlowingTrimUtils {
 
     /**
      * Licht, mit dem der Besatz gezeichnet wird. {@code environment} ist das gepackte Licht der Umgebung.
-     * Ohne Glowing bleibt es unveraendert (auch mit Pulsating); Glowing I hebt Block- und Himmelslicht auf
-     * mindestens {@link #GLOW_I_LIGHT}, Glowing II auf {@link #GLOW_II_LIGHT}; Glowing (jede Stufe) mit
-     * Pulsating ersetzt es durch {@link #pulseLight} - die einzige Kombination, deren Helligkeit schwankt.
+     * Ohne Glowing bleibt es unveraendert (auch mit Pulsating); Glowing zeichnet Block- und Himmelslicht
+     * mit {@link #GLOW_LIGHT} (voll hell); Glowing mit Pulsating ersetzt es durch {@link #pulseLight} - die
+     * einzige Kombination, deren Helligkeit schwankt.
      */
     public static int trimLight(int environment, int glowLevel, boolean pulsating, long millis) {
         if (glowLevel <= 0) {
@@ -130,8 +142,7 @@ public class GlowingTrimUtils {
             int level = pulseLight(millis);
             return packLight(level, level);
         }
-        int floor = glowLevel >= 2 ? GLOW_II_LIGHT : GLOW_I_LIGHT;
-        return packLight(Math.max(blockLight(environment), floor), Math.max(skyLight(environment), floor));
+        return packLight(GLOW_LIGHT, GLOW_LIGHT);
     }
 
     /** Lichtstufe bei Pulsating + Glowing zur Zeit {@code millis}: 15 auf der Spitze, 1 im Tal des Pulses. */

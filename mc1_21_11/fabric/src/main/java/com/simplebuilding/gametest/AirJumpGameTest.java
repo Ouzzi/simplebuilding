@@ -24,4 +24,9 @@ public final class AirJumpGameTest {
     public void theBarFillsUpWhileTheAirJumpRecharges(GameTestHelper helper) {
         AirJumpTests.theBarFillsUpWhileTheAirJumpRecharges(helper);
     }
+
+    @GameTest
+    public void theServerEnforcesTheFullCooldownAcrossLandings(GameTestHelper helper) {
+        AirJumpTests.theServerEnforcesTheFullCooldownAcrossLandings(helper);
+    }
 }

@@ -60,10 +60,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
         // 2. Nihilith Gravity (Client & Server für prediction)
         TrimEffectUtil.handleNihilithGravity(player);
 
-        // 2b. Luftsprung: nach der Landung ist er wieder frei (Audit #30, serverseitige Pruefung).
-        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
-            com.simplebuilding.util.AirJumpGuard.onPlayerTick(serverPlayer);
-        }
+        // 2b. Luftsprung: die Landung setzt die Abklingzeit NICHT mehr zurueck (Besitzer 2026-09-29),
+        //     deshalb kein Aufruf mehr hier - AirJumpGuard prueft die volle Abklingzeit beim Paket.
 
         // 3. Enderite Slow Fall (Server-Side)
         if (!this.level().isClientSide()) {
