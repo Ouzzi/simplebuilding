@@ -59,17 +59,16 @@ build/run/
 # Mojang-Assets gehoeren nicht ins Repository; ein Generatorlauf holt sie lokal.
 wiki/assets/textures/minecraft/
 
-# Die erzeugten Textur-Vorschlaege unter art/alt-textures/: 602 PNG (~1,9 MB),
-# davon die Haelfte Kopien von Dateien, die schon im Repo liegen. Das Werkzeug
-# ist versioniert, das Ergebnis nicht - ein Lauf von generate.py stellt es her.
-art/alt-textures/original/
-art/alt-textures/gallery-data.js
-
 # Aufzeichnungen der Testlaeufe (tools/testrunner/run.py). Die Oberflaeche
 # testing/index.html gehoert ins Repo, die Laufdaten nicht: sie entstehen bei
 # jedem Lauf neu und wuerden jeden Commit mit Rauschen fuellen.
 testing/runs/
 testing/data/
+
+# Balancing-Zentrale (tools/devserver): balance/balance.json und balance/versions/ gehoeren ins
+# Repo, die Sperrdatei und abgebrochene Schreibvorgaenge nicht.
+balance/.lock
+balance/**/.*.tmp
 
 # Python-Bytecode der Werkzeuge unter tools/
 __pycache__/

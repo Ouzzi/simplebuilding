@@ -171,8 +171,20 @@ Verlauf im Detail: git log.
 - [ ] S Optik: Pulsating Armor Trim (Warden, Echoscherbe+Hammer), Vorlagen ohne "Smithing" im Namen, Magnet->Attractor + platzierbar zieht Items an, Kern-Texturen bunter (Netherstern-Mitte), JEI-Schmiedeanzeige der Trims reparieren
 - [ ] T danach: amerikanisches Englisch, Zeilen-Layout alle Tabs
 - [ ] V: Pulsating-Vorlage (Muster wie Glowing/Emitting, Deep-Dark-Stil, Warden-Gesicht), Kerne mit Stern-Rahmen, Leuchtregeln (Glowing II steady, Helligkeit nur Pulsating+Glowing, Pulsating allein Saettigung)
-- [ ] W1: Balancing-Zentrale (Dev-Webserver) Phase 1: UI, Auslesen aller Werte, Versionen/Rollback, Rechner 1-6 Items, Doku-Integration, Alttexturen-Server entfernen
-- [ ] W2: Balancing-Zentrale Phase 2 nach Merge von M/N/P2/R: gespeicherte Werte wirken im Mod (Konstanten -> Variablen/Datapack)
+- [ ] W1: Balancing-Zentrale (Dev-Webserver) Phase 1: UI, Auslesen aller Werte, Versionen/Rollback, Rechner 1-6 Items, Doku-Integration, Alttexturen-Server entfernen (fertig im Branch worktree-agent-a1f930ea3b77189ec, wartet auf Merge; Start: python tools/devserver/serve.py)
+- [ ] W2: Balancing-Zentrale Phase 2 nach Merge von M/N/P2/R: gespeicherte Werte wirken im Mod (Konstanten -> Variablen/Datapack) - Plan: docs/BALANCING-ZENTRALE.md Abschnitt 5
+
+## Wiki-UX aus Balancing-Zentrale (Ideen aus tools/devserver, die auch dem Wiki helfen)
+- [ ] Beschaffungszeit je Item: Zeit bis zum 1. (und k.) Stueck je Quelle, gezielt vs. normales Spiel, mit Zeitalter-Einordnung ("vor Braustand & Traenke") auf Item-Seiten und in der Beschaffungs-Uebersicht (Modell: tools/devserver/sbdev/model.py)
+- [ ] Diagramm "Zeit bis k Stueck" mit logarithmischer Zeitachse und Zeitalter-Linien auf Item-Seiten
+- [ ] Handel: "im Angebot je Haendler/Dorfbewohner" (aus Poolgroesse, Ziehungen und Angebots-Chance) statt nur der rohen Angebots-Chance
+- [ ] Loot: "Ø Stueck je Kiste" neben der Chance; Pools, die im Code fuer mehrere Tabellen gelten (Bastion, Tresore), sichtbar markieren
+- [ ] Deep-Link auf eine einzelne Tabellenzeile (?f=<id>) mit Scrollen und kurzer Hervorhebung; "Seite nicht gefunden" nennt den Pfad und fuehrt zurueck
+- [ ] Filter- und Ansichtszustand je Liste merken (Suchtext, Umschalter) wie schon die Faltungen
+- [ ] Sticky Tabellenkoepfe in langen Tabellen (Rezepte, Loot, Config)
+- [ ] Zaehler je Bereich in der Seitenleiste
+- [ ] Config-Seite: Wertebereich (min ... max aus @BoundedDiscrete/validate()), Client/Server und "wirkt bei /reload" als eigene Spalten
+- [ ] Leere Zustaende mit Handlungsanweisung statt nur "keine Eintraege"
 - [ ] Offen beim Besitzer: Kern-Chancen-Vorschlag fuer Eisen/Gold/Diamant/Netherit uebernehmen?
 
 ## Spaeter (Besitzer 2026-09-28)

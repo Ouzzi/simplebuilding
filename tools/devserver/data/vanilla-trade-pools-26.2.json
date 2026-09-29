@@ -1,0 +1,2061 @@
+{
+ "generatedFrom": "minecraft-client.jar 26.2",
+ "tags": {
+  "armorer/level_1": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_1"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/1/emerald_iron_leggings"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/1/emerald_iron_boots"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/1/emerald_iron_helmet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/1/emerald_iron_chestplate"
+   }
+  ],
+  "armorer/level_2": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_2"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/2/emerald_chainmail_boots"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/2/emerald_chainmail_leggings"
+   }
+  ],
+  "armorer/level_3": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_3"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/3/lava_bucket_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/3/emerald_chainmail_helmet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/3/emerald_chainmail_chestplate"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/3/emerald_shield"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/3/diamond_emerald"
+   }
+  ],
+  "armorer/level_4": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_4"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/4/emerald_enchanted_diamond_leggings"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/4/emerald_enchanted_diamond_boots"
+   }
+  ],
+  "armorer/level_5": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_5"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/5/emerald_enchanted_diamond_helmet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:armorer/5/emerald_enchanted_diamond_chestplate"
+   }
+  ],
+  "butcher/level_1": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:butcher/1/chicken_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:butcher/1/porkchop_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:butcher/1/rabbit_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:butcher/1/emerald_rabbit_stew"
+   }
+  ],
+  "butcher/level_2": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:butcher/2/coal_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:butcher/2/emerald_cooked_porkchop"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:butcher/2/emerald_cooked_chicken"
+   }
+  ],
+  "butcher/level_3": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:butcher/3/mutton_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:butcher/3/beef_emerald"
+   }
+  ],
+  "butcher/level_4": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:butcher/4/dried_kelp_block_emerald"
+   }
+  ],
+  "butcher/level_5": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:butcher/5/sweet_berries_emerald"
+   }
+  ],
+  "cartographer/level_1": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:cartographer/1/paper_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:cartographer/1/emerald_map"
+   }
+  ],
+  "cartographer/level_2": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:cartographer/2/glass_pane_emerald"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/2/emerald_and_compass_village_taiga_map"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/2/emerald_and_compass_village_snowy_map"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/2/emerald_and_compass_village_savanna_map"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/2/emerald_and_compass_village_plains_map"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/2/emerald_and_compass_village_desert_map"
+   }
+  ],
+  "cartographer/level_3": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:cartographer/3/compass_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:cartographer/3/emerald_and_compass_ocean_explorer_map"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:cartographer/3/emerald_and_compass_trial_chamber_map"
+   }
+  ],
+  "cartographer/level_4": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:cartographer/4/emerald_item_frame"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_white_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_orange_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_magenta_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_blue_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_light_blue_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_yellow_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_lime_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_pink_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_gray_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_cyan_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_purple_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_brown_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_green_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_red_banner"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:cartographer/4/emerald_black_banner"
+   }
+  ],
+  "cartographer/level_5": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:cartographer/5/emerald_globe_banner_pattern"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map"
+   }
+  ],
+  "cleric/level_1": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:cleric/1/rotten_flesh_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:cleric/1/emerald_redstone"
+   }
+  ],
+  "cleric/level_2": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:cleric/2/gold_ingot_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:cleric/2/emerald_lapis_lazuli"
+   }
+  ],
+  "cleric/level_3": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:cleric/3/rabbit_foot_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:cleric/3/emerald_glowstone"
+   }
+  ],
+  "cleric/level_4": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:cleric/4/turtle_scute_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:cleric/4/glass_bottle_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:cleric/4/emerald_ender_pearl"
+   }
+  ],
+  "cleric/level_5": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:cleric/5/nether_wart_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:cleric/5/emerald_experience_bottle"
+   }
+  ],
+  "common_smith/level_1": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:smith/1/coal_emerald"
+   }
+  ],
+  "common_smith/level_2": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:smith/2/iron_ingot_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:smith/2/emerald_bell"
+   }
+  ],
+  "common_smith/level_3": [],
+  "common_smith/level_4": [],
+  "common_smith/level_5": [],
+  "farmer/level_1": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/1/wheat_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/1/potato_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/1/carrot_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/1/beetroot_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/1/emerald_bread"
+   }
+  ],
+  "farmer/level_2": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/2/pumpkin_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/2/emerald_pumpkin_pie"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/2/emerald_apple"
+   }
+  ],
+  "farmer/level_3": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/3/emerald_cookie"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/3/melon_emerald"
+   }
+  ],
+  "farmer/level_4": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/4/emerald_cake"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/4/emerald_suspicious_stew"
+   }
+  ],
+  "farmer/level_5": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/5/emerald_golden_carrot"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:farmer/5/emerald_glistening_melon_slice"
+   }
+  ],
+  "fisherman/level_1": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:fisherman/1/string_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fisherman/1/coal_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fisherman/1/raw_cod_and_emerald_cooked_cod"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fisherman/1/emerald_cod_bucket"
+   }
+  ],
+  "fisherman/level_2": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:fisherman/2/cod_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fisherman/2/salmon_and_emerald_cooked_salmon"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fisherman/2/emerald_campfire"
+   }
+  ],
+  "fisherman/level_3": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:fisherman/3/salmon_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fisherman/3/emerald_enchanted_fishing_rod"
+   }
+  ],
+  "fisherman/level_4": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:fisherman/4/tropical_fish_emerald"
+   }
+  ],
+  "fisherman/level_5": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:fisherman/5/pufferfish_emerald"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:fisherman/5/oak_boat_emerald"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:fisherman/5/spruce_boat_emerald"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:fisherman/5/jungle_boat_emerald"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:fisherman/5/acacia_boat_emerald"
+   },
+   {
+    "chance": 1.0,
+    "condition": "minecraft:entity_properties",
+    "id": "minecraft:fisherman/5/dark_oak_boat_emerald"
+   }
+  ],
+  "fletcher/level_1": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:fletcher/1/stick_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fletcher/1/emerald_arrow"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fletcher/1/gravel_and_emerald_flint"
+   }
+  ],
+  "fletcher/level_2": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:fletcher/2/flint_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fletcher/2/emerald_bow"
+   }
+  ],
+  "fletcher/level_3": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:fletcher/3/string_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fletcher/3/emerald_crossbow"
+   }
+  ],
+  "fletcher/level_4": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:fletcher/4/feather_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fletcher/4/emerald_enchanted_bow"
+   }
+  ],
+  "fletcher/level_5": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:fletcher/5/tripwire_hook_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fletcher/5/emerald_enchanted_crossbow"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:fletcher/5/arrow_and_emerald_tipped_arrow"
+   }
+  ],
+  "leatherworker/level_1": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:leatherworker/1/leather_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:leatherworker/1/emerald_dyed_leather_leggings"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:leatherworker/1/emerald_dyed_leather_chestplate"
+   }
+  ],
+  "leatherworker/level_2": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:leatherworker/2/flint_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:leatherworker/2/emerald_dyed_leather_helmet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:leatherworker/2/emerald_dyed_leather_boots"
+   }
+  ],
+  "leatherworker/level_3": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:leatherworker/3/rabbit_hide_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:leatherworker/3/emerald_dyed_leather_chestplate"
+   }
+  ],
+  "leatherworker/level_4": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:leatherworker/4/turtle_scute_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:leatherworker/4/emerald_dyed_leather_horse_armor"
+   }
+  ],
+  "leatherworker/level_5": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:leatherworker/5/emerald_saddle"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:leatherworker/5/emerald_dyed_leather_helmet"
+   }
+  ],
+  "librarian/level_1": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/1/paper_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/1/emerald_and_book_enchanted_book"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/1/emerald_bookshelf"
+   }
+  ],
+  "librarian/level_2": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/2/book_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/2/emerald_and_book_enchanted_book"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/2/emerald_lantern"
+   }
+  ],
+  "librarian/level_3": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/3/ink_sac_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/3/emerald_and_book_enchanted_book"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/3/emerald_glass"
+   }
+  ],
+  "librarian/level_4": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/4/writable_book_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/4/emerald_book_and_enchanted_book"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/4/emerald_clock"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/4/emerald_compass"
+   }
+  ],
+  "librarian/level_5": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/5/emerald_yellow_candle"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:librarian/5/emerald_red_candle"
+   }
+  ],
+  "mason/level_1": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/1/clay_ball_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/1/emerald_brick"
+   }
+  ],
+  "mason/level_2": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/2/stone_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/2/emerald_chiseled_stone_bricks"
+   }
+  ],
+  "mason/level_3": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/3/granite_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/3/andesite_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/3/diorite_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/3/emerald_dripstone_block"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/3/emerald_polished_andesite"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/3/emerald_polished_diorite"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/3/emerald_polished_granite"
+   }
+  ],
+  "mason/level_4": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/quartz_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_white_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_orange_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_magenta_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_light_blue_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_yellow_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_lime_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_pink_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_gray_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_light_gray_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_cyan_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_purple_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_blue_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_brown_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_green_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_red_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_black_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_white_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_orange_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_magenta_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_light_blue_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_yellow_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_lime_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_pink_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_gray_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_light_gray_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_cyan_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_purple_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_blue_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_brown_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_green_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_red_glazed_terracotta"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/4/emerald_black_glazed_terracotta"
+   }
+  ],
+  "mason/level_5": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/5/emerald_quartz_pillar"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:mason/5/emerald_quartz_block"
+   }
+  ],
+  "shepherd/level_1": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/1/white_wool_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/1/brown_wool_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/1/gray_wool_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/1/black_wool_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/1/emerald_shears"
+   }
+  ],
+  "shepherd/level_2": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/white_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/gray_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/black_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/light_blue_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/lime_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_white_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_orange_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_magenta_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_light_blue_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_yellow_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_lime_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_pink_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_gray_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_light_gray_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_cyan_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_purple_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_blue_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_brown_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_green_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_red_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_black_wool"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_white_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_orange_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_magenta_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_light_blue_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_yellow_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_lime_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_pink_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_gray_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_light_gray_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_cyan_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_purple_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_blue_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_brown_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_green_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_red_carpet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/2/emerald_black_carpet"
+   }
+  ],
+  "shepherd/level_3": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/yellow_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/light_gray_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/orange_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/red_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/pink_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_white_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_orange_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_magenta_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_light_blue_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_yellow_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_lime_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_pink_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_gray_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_light_gray_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_cyan_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_purple_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_blue_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_brown_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_green_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_red_bed"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/3/emerald_black_bed"
+   }
+  ],
+  "shepherd/level_4": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/brown_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/purple_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/blue_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/green_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/magenta_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/cyan_dye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_white_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_orange_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_magenta_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_light_blue_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_yellow_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_lime_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_pink_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_gray_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_light_gray_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_cyan_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_purple_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_blue_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_brown_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_green_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_red_banner"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/4/emerald_black_banner"
+   }
+  ],
+  "shepherd/level_5": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:shepherd/5/emerald_painting"
+   }
+  ],
+  "toolsmith/level_1": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_1"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/1/emerald_stone_axe"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/1/emerald_stone_shovel"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/1/emerald_stone_pickaxe"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/1/emerald_stone_hoe"
+   }
+  ],
+  "toolsmith/level_2": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_2"
+   }
+  ],
+  "toolsmith/level_3": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_3"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/3/flint_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/3/emerald_enchanted_iron_axe"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/3/emerald_enchanted_iron_shovel"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/3/emerald_enchanted_iron_pickaxe"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/3/emerald_diamond_hoe"
+   }
+  ],
+  "toolsmith/level_4": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_4"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/4/emerald_enchanted_diamond_axe"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/4/emerald_enchanted_diamond_shovel"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/4/diamond_emerald"
+   }
+  ],
+  "toolsmith/level_5": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_5"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:toolsmith/5/emerald_enchanted_diamond_pickaxe"
+   }
+  ],
+  "wandering_trader/buying": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/water_bottle_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/water_bucket_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/milk_bucket_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/fermented_spider_eye_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/baked_potato_emerald"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/hay_block_emerald"
+   }
+  ],
+  "wandering_trader/common": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_white_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_orange_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_magenta_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_light_blue_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_yellow_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_lime_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_pink_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_gray_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_light_gray_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_cyan_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_purple_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_blue_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_brown_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_green_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_red_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_black_dye"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_fish_bucket"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_pufferfish_bucket"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_sea_pickle"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_slime_ball"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_glowstone"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_nautilus_shell"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_fern"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_sugar_cane"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_pumpkin"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_kelp"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_cactus"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_dandelion"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_poppy"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_blue_orchid"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_allium"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_azure_bluet"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_red_tulip"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_orange_tulip"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_white_tulip"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_pink_tulip"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_oxeye_daisy"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_cornflower"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_lily_of_the_valley"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_open_eyeblossom"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_wheat_seeds"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_beetroot_seeds"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_pumpkin_seeds"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_melon_seeds"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_acacia_sapling"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_birch_sapling"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_dark_oak_sapling"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_jungle_sapling"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_oak_sapling"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_spruce_sapling"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_cherry_sapling"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_pale_oak_sapling"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_mangrove_propagule"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_brain_coral_block"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_bubble_coral_block"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_fire_coral_block"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_horn_coral_block"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_tube_coral_block"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_vine"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_pale_hanging_moss"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_brown_mushroom"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_red_mushroom"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_lily_pad"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_small_dripleaf"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_sand"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_red_sand"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_pointed_dripstone"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_sulfur_spike"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_rooted_dirt"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_moss_block"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_pale_moss_block"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_wildflowers"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_dry_tall_grass"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_firefly_bush"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_golden_dandelion"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_name_tag"
+   }
+  ],
+  "wandering_trader/uncommon": [
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_packed_ice"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_blue_ice"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_gunpowder"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_podzol"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_acacia_log"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_birch_log"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_dark_oak_log"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_jungle_log"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_oak_log"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_spruce_log"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_cherry_log"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_mangrove_log"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_pale_oak_log"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_enchanted_iron_pickaxe"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:wandering_trader/emerald_long_invisibility_potion"
+   }
+  ],
+  "weaponsmith/level_1": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_1"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:weaponsmith/1/emerald_iron_axe"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:weaponsmith/1/emerald_enchanted_iron_sword"
+   }
+  ],
+  "weaponsmith/level_2": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_2"
+   }
+  ],
+  "weaponsmith/level_3": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_3"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:weaponsmith/3/flint_emerald"
+   }
+  ],
+  "weaponsmith/level_4": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_4"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:weaponsmith/4/emerald_enchanted_diamond_axe"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:weaponsmith/4/diamond_emerald"
+   }
+  ],
+  "weaponsmith/level_5": [
+   {
+    "chance": 1.0,
+    "id": "#minecraft:common_smith/level_5"
+   },
+   {
+    "chance": 1.0,
+    "id": "minecraft:weaponsmith/5/emerald_enchanted_diamond_sword"
+   }
+  ]
+ },
+ "tradeSets": {
+  "armorer/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:armorer/level_1"
+  },
+  "armorer/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:armorer/level_2"
+  },
+  "armorer/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:armorer/level_3"
+  },
+  "armorer/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:armorer/level_4"
+  },
+  "armorer/level_5": {
+   "amount": 2.0,
+   "trades": "#minecraft:armorer/level_5"
+  },
+  "butcher/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:butcher/level_1"
+  },
+  "butcher/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:butcher/level_2"
+  },
+  "butcher/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:butcher/level_3"
+  },
+  "butcher/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:butcher/level_4"
+  },
+  "butcher/level_5": {
+   "amount": 2.0,
+   "trades": "#minecraft:butcher/level_5"
+  },
+  "cartographer/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:cartographer/level_1"
+  },
+  "cartographer/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:cartographer/level_2"
+  },
+  "cartographer/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:cartographer/level_3"
+  },
+  "cartographer/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:cartographer/level_4"
+  },
+  "cartographer/level_5": {
+   "amount": 2.0,
+   "trades": "#minecraft:cartographer/level_5"
+  },
+  "cleric/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:cleric/level_1"
+  },
+  "cleric/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:cleric/level_2"
+  },
+  "cleric/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:cleric/level_3"
+  },
+  "cleric/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:cleric/level_4"
+  },
+  "cleric/level_5": {
+   "amount": 2.0,
+   "trades": "#minecraft:cleric/level_5"
+  },
+  "farmer/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:farmer/level_1"
+  },
+  "farmer/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:farmer/level_2"
+  },
+  "farmer/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:farmer/level_3"
+  },
+  "farmer/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:farmer/level_4"
+  },
+  "farmer/level_5": {
+   "amount": 2.0,
+   "trades": "#minecraft:farmer/level_5"
+  },
+  "fisherman/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:fisherman/level_1"
+  },
+  "fisherman/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:fisherman/level_2"
+  },
+  "fisherman/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:fisherman/level_3"
+  },
+  "fisherman/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:fisherman/level_4"
+  },
+  "fisherman/level_5": {
+   "amount": 2.0,
+   "trades": "#minecraft:fisherman/level_5"
+  },
+  "fletcher/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:fletcher/level_1"
+  },
+  "fletcher/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:fletcher/level_2"
+  },
+  "fletcher/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:fletcher/level_3"
+  },
+  "fletcher/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:fletcher/level_4"
+  },
+  "fletcher/level_5": {
+   "amount": 2.0,
+   "trades": "#minecraft:fletcher/level_5"
+  },
+  "leatherworker/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:leatherworker/level_1"
+  },
+  "leatherworker/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:leatherworker/level_2"
+  },
+  "leatherworker/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:leatherworker/level_3"
+  },
+  "leatherworker/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:leatherworker/level_4"
+  },
+  "leatherworker/level_5": {
+   "amount": 2.0,
+   "trades": "#minecraft:leatherworker/level_5"
+  },
+  "librarian/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:librarian/level_1"
+  },
+  "librarian/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:librarian/level_2"
+  },
+  "librarian/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:librarian/level_3"
+  },
+  "librarian/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:librarian/level_4"
+  },
+  "librarian/level_5": {
+   "amount": 3.0,
+   "trades": "#minecraft:librarian/level_5"
+  },
+  "mason/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:mason/level_1"
+  },
+  "mason/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:mason/level_2"
+  },
+  "mason/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:mason/level_3"
+  },
+  "mason/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:mason/level_4"
+  },
+  "mason/level_5": {
+   "amount": 2.0,
+   "trades": "#minecraft:mason/level_5"
+  },
+  "shepherd/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:shepherd/level_1"
+  },
+  "shepherd/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:shepherd/level_2"
+  },
+  "shepherd/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:shepherd/level_3"
+  },
+  "shepherd/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:shepherd/level_4"
+  },
+  "shepherd/level_5": {
+   "amount": 2.0,
+   "trades": "#minecraft:shepherd/level_5"
+  },
+  "toolsmith/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:toolsmith/level_1"
+  },
+  "toolsmith/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:toolsmith/level_2"
+  },
+  "toolsmith/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:toolsmith/level_3"
+  },
+  "toolsmith/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:toolsmith/level_4"
+  },
+  "toolsmith/level_5": {
+   "amount": 2.0,
+   "trades": "#minecraft:toolsmith/level_5"
+  },
+  "wandering_trader/buying": {
+   "amount": 2.0,
+   "trades": "#minecraft:wandering_trader/buying"
+  },
+  "wandering_trader/common": {
+   "amount": 5.0,
+   "trades": "#minecraft:wandering_trader/common"
+  },
+  "wandering_trader/uncommon": {
+   "amount": 2.0,
+   "trades": "#minecraft:wandering_trader/uncommon"
+  },
+  "weaponsmith/level_1": {
+   "amount": 2.0,
+   "trades": "#minecraft:weaponsmith/level_1"
+  },
+  "weaponsmith/level_2": {
+   "amount": 2.0,
+   "trades": "#minecraft:weaponsmith/level_2"
+  },
+  "weaponsmith/level_3": {
+   "amount": 2.0,
+   "trades": "#minecraft:weaponsmith/level_3"
+  },
+  "weaponsmith/level_4": {
+   "amount": 2.0,
+   "trades": "#minecraft:weaponsmith/level_4"
+  },
+  "weaponsmith/level_5": {
+   "amount": 2.0,
+   "trades": "#minecraft:weaponsmith/level_5"
+  }
+ }
+}
