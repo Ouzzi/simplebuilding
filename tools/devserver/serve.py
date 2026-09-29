@@ -4,10 +4,12 @@ Balancing-Zentrale - lokaler Entwicklungs-Server für alle Balance-Werte von Sim
     python tools/devserver/serve.py            startet auf http://127.0.0.1:8770 und öffnet den Browser
     python tools/devserver/serve.py --no-browser --port 8771
     python tools/devserver/serve.py --refresh-vanilla   Vanilla-Handelspools/Namen neu aus dem Client-Jar lesen
+    python tools/devserver/serve.py --check    checkBalance: Ablage, Code und erzeugte Dateien passen zusammen?
+                                               (Exit-Code 1 bei Fehlern; gradlew checkBalance ruft das auf)
 
 Liest die Werte bei jedem Start (und auf Knopfdruck) aus dem Repo, hält geplante Werte versioniert in
-balance/ und rechnet Beschaffungszeiten. Nur Standardbibliothek. Hoert nur auf 127.0.0.1.
-Aufbau und Phase 2: docs/BALANCING-ZENTRALE.md.
+balance/, schreibt bestätigte Werte in die Mod (JSON und Java, alle Linien), startet Datagen und rechnet
+Beschaffungszeiten. Nur Standardbibliothek. Hoert nur auf 127.0.0.1. Aufbau: docs/BALANCING-ZENTRALE.md.
 """
 
 from __future__ import annotations
@@ -88,11 +90,15 @@ def make_handler(service: Service, repo: Path):
                     return self._json(data)
                 if path.startswith("/api/docs/"):
                     return self._json(service.doc(unquote(path.rsplit("/", 1)[1])))
-                if path == "/api/phase2":
+                if path in ("/api/phase2", "/api/handover"):
                     data = service.phase2()
                     return self._json(data, extra={"Content-Disposition": 'attachment; filename="balance-phase2.json"'})
                 if path == "/api/pending-apply":
                     return self._json({"pending": service.pending_apply()})
+                if path == "/api/check":
+                    return self._json(service.balance_check())
+                if path == "/api/datagen":
+                    return self._json(service.datagen_status())
                 return self._error(404, f"Nicht gefunden: {path}")
             except FileNotFoundError:
                 return self._error(404, "Nicht gefunden.")
@@ -148,6 +154,8 @@ def make_handler(service: Service, repo: Path):
                 "/api/overview": service.overview,
                 "/api/apply-planned": service.apply_planned,
                 "/api/reload": lambda _p: service.reload(),
+                "/api/datagen": service.start_datagen,
+                "/api/datagen/cancel": service.cancel_datagen,
             }
             handler = routes.get(path)
             if handler is None:
@@ -185,7 +193,12 @@ def main(argv=None) -> int:
     parser.add_argument("--store", default=None, help="Ablage-Ordner (Standard: balance/ im Repo)")
     parser.add_argument("--repo", default=None, help="Repo-Wurzel (Standard: zwei Ebenen über diesem Skript)")
     parser.add_argument("--refresh-vanilla", action="store_true", help="Vanilla-Pools und -Namen neu aus dem Client-Jar lesen")
+    parser.add_argument("--check", action="store_true",
+                        help="checkBalance: prüfen statt starten (Exit-Code 1, wenn Ablage, Code und erzeugte Dateien abweichen)")
+    parser.add_argument("--json", action="store_true", help="mit --check: Ergebnis als JSON")
     args = parser.parse_args(argv)
+    if args.check:
+        return run_check(args)
     if args.host not in ("127.0.0.1", "localhost", "::1"):
         print("Warnung: die Zentrale ist für lokalen Gebrauch gebaut und hat keine Anmeldung.")
     repo = Path(args.repo).resolve() if args.repo else REPO
@@ -207,6 +220,23 @@ def main(argv=None) -> int:
     finally:
         server.server_close()
     return 0
+
+
+def run_check(args) -> int:
+    from sbdev import check as balance_checker
+    repo = Path(args.repo).resolve() if args.repo else REPO
+    store = Path(args.store).resolve() if args.store else repo / "balance"
+    service = Service(repo, store)
+    result = service.balance_check()
+    if args.json:
+        print(json.dumps(result, ensure_ascii=False, indent=1))
+    else:
+        try:
+            sys.stdout.reconfigure(encoding="utf-8")
+        except (AttributeError, ValueError):
+            pass
+        print(balance_checker.format_report(result))
+    return 0 if result["ok"] else 1
 
 
 if __name__ == "__main__":

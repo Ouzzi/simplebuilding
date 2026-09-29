@@ -18,7 +18,8 @@ Regeln, damit nie ein Wert verloren geht oder still zurueckgesetzt wird:
   waechst nur.
 
 Eintrag je Wert: {"value": geplanter Wert, "mod": Mod-Wert beim Speichern, "origin": Mod-Wert, als
-der Wert zum ersten Mal geplant wurde}.
+der Wert zum ersten Mal geplant wurde, "applied": true, wenn Speichern ihn in die Mod geschrieben hat
+(checkBalance meldet dann jede spätere Abweichung im Code)}.
 """
 
 from __future__ import annotations
@@ -275,6 +276,11 @@ class Store:
                         continue
                     origin = before.get("origin", before.get("mod")) if before else change.get("mod")
                     entries[vid] = {"value": change["new"], "mod": change.get("mod"), "origin": origin}
+                    if change.get("applied"):
+                        entries[vid]["applied"] = True
+                    origin_text = (before or {}).get("originText") or change.get("originText")
+                    if origin_text:
+                        entries[vid]["originText"] = origin_text
                     log.append({"id": vid, "old": before["value"] if before else change.get("old"), "new": change["new"],
                                 "mod": change.get("mod"), "wasPlanned": before is not None})
                 if entries == current["entries"]:

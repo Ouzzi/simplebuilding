@@ -278,6 +278,27 @@ tasks.register('checkWiki', Exec) {
 }
 tasks.named('check') { dependsOn 'checkWiki' }
 
+// The Balancing-Zentrale (python tools/devserver/serve.py, docs/BALANCING-ZENTRALE.md) writes balance
+// values into the Java/JSON sources of every line and keeps each confirmed save in balance/.
+// checkBalance fails when those three drift apart:
+//   - a value the Zentrale saved AND applied no longer stands in the code (someone changed the number
+//     behind the Zentrale's back) or another line (1.21.11, 26.3 overlay) holds a different number,
+//   - generated files (loot inject tables, enchantments, recipes, ore features, the item export) no
+//     longer match the Java numbers they are made from - runDatagen is missing.
+//   fix:   python tools/devserver/serve.py (page Übersicht: "Datagen starten"), or
+//          gradlew runDatagen :mc26_3:fabric:runDatagen :mc1_21_11:fabric:runDatagen
+//   skip:  -PskipWiki (like checkWiki: only where python is unavailable)
+tasks.register('checkBalance', Exec) {
+	group = 'verification'
+	description = 'Fails when the balance store (balance/), the code and the generated data files disagree.'
+	workingDir = rootDir
+	commandLine wikiPython, 'tools/devserver/serve.py', '--check'
+	onlyIf { !project.hasProperty('skipWiki') }
+	mustRunAfter 'generateWiki'
+	outputs.upToDateWhen { false }
+}
+tasks.named('check') { dependsOn 'checkBalance' }
+
 // The FTB Quests chapters (docs/QUESTS.md) are generated out of tools/quests/generate_quests.py
 // for both lines. checkQuests fails when the shipped files or the quests.simplebuilding.* lang keys
 // are stale, when a quest names an item or mod advancement the datagen output does not have, or
