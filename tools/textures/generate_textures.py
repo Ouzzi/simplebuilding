@@ -61,7 +61,7 @@ import sys
 from PIL import Image, ImageDraw, ImageFont
 
 from echo_compass_textures import echo_compass_textures  # Echo-Kompass: Nadelbilder + Riss-Stufen
-from potion_pad_textures import POTION_PAD_ANIMATIONS, potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads) + Lohenkopf
+from potion_pad_textures import POTION_PAD_ANIMATIONS, potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads)
 from guide_book_textures import guide_book_textures  # Einsteiger-Handbuch + sieben Themenbuecher
 from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse, 32 Nadeln, Ruhebild
 

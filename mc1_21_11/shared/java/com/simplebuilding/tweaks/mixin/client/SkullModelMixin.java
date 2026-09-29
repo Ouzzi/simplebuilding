@@ -1,11 +1,15 @@
 package com.simplebuilding.tweaks.mixin.client;
 
-import com.simplebuilding.tweaks.SimpleTweaks;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.simplebuilding.tweaks.block.BlazeHeadType;
+import com.simplebuilding.tweaks.client.ModSkullModels;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.model.object.skull.SkullModel;
 import net.minecraft.client.model.object.skull.SkullModelBase;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.SkullBlock;
 import java.util.Map;
 import net.minecraft.resources.Identifier;
@@ -18,11 +22,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * Modell und Textur des Lohenkopfs. Vanillas {@code SkullBlockRenderer#createModel} kennt nur die
- * eigenen Kopf-Typen und liefert fuer alle anderen null; Block-Renderer, Item-Modell
+ * Modell und Textur der Mod-Koepfe (Lohenkopf, Endermankopf). Vanillas {@code SkullBlockRenderer#createModel}
+ * kennt nur die eigenen Kopf-Typen und liefert fuer alle anderen null; Block-Renderer, Item-Modell
  * ({@code minecraft:head}) und der getragene Kopf ({@code CustomHeadLayer}) holen ihr Modell alle
- * dort. Der Lohenkopf ist Vanillas Mob-Kopf-Wuerfel (8x8x8, Textur 64x32 wie der Creeper-Kopf), die
- * Textur {@code simplebuilding:textures/entity/blaze_head.png} steht in {@code SKIN_BY_TYPE}.
+ * dort und zeichnen ueber {@code submitSkull}. Die Texturen sind die echten Vanilla-Mob-Texturen
+ * (Lohe, Enderman), siehe {@link ModSkullModels}; der Endermankopf bekommt in {@code submitSkull}
+ * zusaetzlich seine leuchtenden Augen.
  */
 @Mixin(SkullBlockRenderer.class)
 public abstract class SkullModelMixin {
@@ -31,15 +36,28 @@ public abstract class SkullModelMixin {
     private static Map<SkullBlock.Type, Identifier> SKIN_BY_TYPE;
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
-    private static void simplebuilding$blazeHeadSkin(CallbackInfo ci) {
-        SKIN_BY_TYPE.put(BlazeHeadType.BLAZE, SimpleTweaks.id("textures/entity/blaze_head.png"));
-        SKIN_BY_TYPE.put(BlazeHeadType.ENDERMAN, SimpleTweaks.id("textures/entity/enderman_head.png"));
+    private static void simplebuilding$modHeadSkins(CallbackInfo ci) {
+        for (BlazeHeadType type : BlazeHeadType.values()) {
+            SKIN_BY_TYPE.put(type, ModSkullModels.texture(type));
+        }
     }
 
     @Inject(method = "createModel", at = @At("HEAD"), cancellable = true)
-    private static void simplebuilding$blazeHeadModel(EntityModelSet modelSet, SkullBlock.Type type, CallbackInfoReturnable<SkullModelBase> cir) {
-        if (type instanceof BlazeHeadType) {
-            cir.setReturnValue(new SkullModel(SkullModel.createMobHeadLayer().bakeRoot()));
+    private static void simplebuilding$modHeadModel(EntityModelSet modelSet, SkullBlock.Type type, CallbackInfoReturnable<SkullModelBase> cir) {
+        if (type instanceof BlazeHeadType modType) {
+            cir.setReturnValue(ModSkullModels.createModel(modType));
         }
+    }
+
+    /** 1.21.11: submitSkull schiebt selbst eine Pose (Wand-Versatz, Spiegelung) - die Augen vor deren popPose. */
+    @Inject(method = "submitSkull", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V"))
+    private static void simplebuilding$modHeadGlow(Direction direction, float yRot, float animationValue, PoseStack poseStack,
+                                                   SubmitNodeCollector collector, int lightCoords, SkullModelBase model,
+                                                   RenderType renderType, int outlineColor,
+                                                   ModelFeatureRenderer.CrumblingOverlay breakProgress, CallbackInfo ci) {
+        SkullModelBase.State state = new SkullModelBase.State();
+        state.animationPos = animationValue;
+        state.yRot = yRot;
+        ModSkullModels.submitGlow(model, state, poseStack, collector, lightCoords, outlineColor);
     }
 }

@@ -38998,8 +38998,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Breaker Pistons Lose Durability",
       "labelDe": "Brecher-Kolben verlieren Haltbarkeit",
-      "tooltip": "If enabled (the default), every block a Netherite or Enderite Piston destroys while extending costs 1 durability: 226 for the Netherite Piston, 281 for the Enderite Piston (1/9 of the pickaxe of their tier). When it runs out, the Enderite Piston turns into a Netherite Piston with full durability and the Netherite Piston into a Reinforced Piston. A nugget of the tier restores full durability. Disabled: they never lose durability.",
-      "tooltipDe": "Wenn aktiviert (Standard), kostet jeder Block, den ein Netherit- oder Enderitkolben beim Ausfahren zerstört, 1 Haltbarkeit: 226 beim Netheritkolben, 281 beim Enderitkolben (1/9 der Spitzhacke ihrer Stufe). Ist sie aufgebraucht, wird der Enderitkolben zum Netheritkolben mit voller Haltbarkeit und der Netheritkolben zum Verstärkten Kolben. Ein Klumpen der Stufe stellt die volle Haltbarkeit wieder her. Deaktiviert: sie verlieren nie Haltbarkeit."
+      "tooltip": "If enabled (the default), every block a Netherite or Enderite Piston destroys while extending costs 1 durability: 226 for the Netherite Piston, 281 for the Enderite Piston (1/9 of the pickaxe of their tier). When it runs out, the Enderite Piston turns into a Netherite Piston with full durability and the Netherite Piston into a Reinforced Piston. A nugget of the tier restores full durability. Disabled: they never lose durability. Server-side. Default: on.",
+      "tooltipDe": "Wenn aktiviert (Standard), kostet jeder Block, den ein Netherit- oder Enderitkolben beim Ausfahren zerstört, 1 Haltbarkeit: 226 beim Netheritkolben, 281 beim Enderitkolben (1/9 der Spitzhacke ihrer Stufe). Ist sie aufgebraucht, wird der Enderitkolben zum Netheritkolben mit voller Haltbarkeit und der Netheritkolben zum Verstärkten Kolben. Ein Klumpen der Stufe stellt die volle Haltbarkeit wieder her. Deaktiviert: sie verlieren nie Haltbarkeit. Serverseitig. Standard: an."
     },
     {
       "name": "pistonsBreachEndPortalFrames",
