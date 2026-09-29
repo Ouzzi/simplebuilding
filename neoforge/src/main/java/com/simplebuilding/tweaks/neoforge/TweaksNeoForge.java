@@ -74,13 +74,11 @@ public final class TweaksNeoForge {
         PayloadRegistrar registrar = event.registrar("1");
         registrar.playToServer(ElytraBoostPayload.ID, ElytraBoostPayload.CODEC,
                 (payload, context) -> onServer(context, player -> TweaksNetwork.handleBoost(payload, player)));
-        registrar.playBidirectional(LaserPayload.ID, LaserPayload.CODEC, (payload, context) -> {
-            if (context.flow().isServerbound()) {
-                onServer(context, player -> TweaksNetwork.handleLaser(payload, player));
-            } else {
-                context.enqueueWork(() -> TweaksNetwork.receiveLaser(payload));
-            }
-        });
+        // Die Drei-Argument-Ueberladung registriert NUR den Server-Handler; ohne den vierten
+        // Parameter fehlt der Client-Empfaenger, und NeoForge bricht den Client-Start ab.
+        registrar.playBidirectional(LaserPayload.ID, LaserPayload.CODEC,
+                (payload, context) -> onServer(context, player -> TweaksNetwork.handleLaser(payload, player)),
+                (payload, context) -> context.enqueueWork(() -> TweaksNetwork.receiveLaser(payload)));
         registrar.playToClient(TweaksConfigPayload.ID, TweaksConfigPayload.CODEC,
                 (payload, context) -> context.enqueueWork(() -> TweaksNetwork.receiveConfig(payload)));
     }
