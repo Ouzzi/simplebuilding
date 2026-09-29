@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Balancing-Zentrale</title>
+<script>
+(function () {
+  try {
+    var t = window.localStorage.getItem('simplebuilding-wiki-theme');
+    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  } catch (err) { /* ohne Storage: Systemeinstellung */ }
+})();
+</script>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu-btn" aria-label="Navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="#/"><span class="brand-icon"><img src="/wiki/assets/textures/item/diamond_core.png" alt="" onerror="this.remove()"></span><span class="brand-text">SimpleBuilding <small>Balancing-Zentrale</small></span></a>
+  <div class="search">
+    <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="search" type="search" placeholder="Item, Wert, Konstante, Seite suchen ..." autocomplete="off" aria-label="Suche">
+    <kbd>/</kbd>
+    <div class="qs" id="qs" hidden role="listbox"></div>
+  </div>
+  <div class="topmeta">
+    <span class="verpill" id="verpill" title="Stand der Balance-Ablage">...</span>
+    <button class="icon-btn" id="reload-btn" title="Werte neu aus dem Repo einlesen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg><span class="lbl">Neu einlesen</span></button>
+    <button class="icon-btn" id="theme-btn" title="Hell/Dunkel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Seiten"></nav>
+  <div class="backdrop" id="backdrop"></div>
+  <main id="main"><div class="loading"><span class="spinner"></span> Werte werden eingelesen ...</div></main>
+</div>
+<div class="pending" id="pending" hidden>
+  <span><span class="count" id="pending-count">0</span> ungespeicherte Änderungen</span>
+  <button class="btn small" id="pending-list">Anzeigen</button>
+  <button class="btn small danger" id="pending-discard">Verwerfen</button>
+  <button class="btn primary" id="pending-save">Speichern ...</button>
+</div>
+<div class="modal-back" id="modal" hidden><div class="modal" id="modal-body" role="dialog" aria-modal="true"></div></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
