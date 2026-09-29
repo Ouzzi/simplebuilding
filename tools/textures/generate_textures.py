@@ -2073,20 +2073,24 @@ def building_core_textures():
 # belegt Spalten 4-12 und Zeilen 3-12 und bleibt ueberall innerhalb der Randpixel. Nur die Schattierung
 # (Licht von oben links) ist nicht symmetrisch. Die Fuehler umrahmen den Kopf als Bogen ( ), weil die
 # Platte oben keinen Platz fuer nach aussen gebogene Spitzen laesst.
+# Runde 4 2026-09-29 (Besitzer: Motiv kleiner und um 45 Grad gedreht): der Kopf ist jetzt eine Raute
+# (|dx|+|dy| <= 3 um 8/8, Spalten 5-11, Zeilen 5-11), das Gesicht blickt nach oben rechts: Fuehler an der
+# Nord- und Ostecke (4 -> Spitze 5), Augenhoehlen e auf der Diagonale durch die Mitte, Maul m mit zwei
+# Zaehnen n darunter (parallel versetzt), Licht weiterhin von oben links (K Kante NW, g Kante SO).
 PULSATING_TRIM_TEMPLATE = [
     "......TTL.......",
     ".....TvtsuB.....",
     ".....LtsqsuRB...",
-    "....L5vtsdt5RBB.",
-    "....L4tsvst4uRRB",
-    "...L4ustvtsu4sRB",
-    "...L3hKKKkkh3uRB",
-    "..LshKKkkkkhgsB.",
-    "..LskeekKkeeguB.",
-    ".LtuhkkkkkhhguB.",
-    ".LvsgmnmmmnmgB..",
-    ".LtsugmnmnmgB...",
-    ".BsdsugggggRB...",
+    "....Luvt5dtsRBB.",
+    "....Lvts4stuuRRB",
+    "...LuustKtsutsRB",
+    "...LutsKKkssuuRB",
+    "..LssuKeKkksvsB.",
+    "..LssKnKkkkh45B.",
+    ".LtusskmkehutuB.",
+    ".LvsutsknhsvtB..",
+    ".LtsutsshuutB...",
+    ".BsdsuutsvuRB...",
     "..BBstudsuRB....",
     "....BBusqBBB....",
     "......BBBBB.....",
@@ -2095,8 +2099,8 @@ PULSATING_TRIM_TEMPLATE_PAL = {
     "T": "#4a5560", "L": "#2a333d", "B": "#0c1116", "R": "#141b22",
     "u": "#081a21", "s": "#0c2730", "t": "#113641", "v": "#174a56", "d": "#1b7f8a",
     "q": "#353a43", "Q": "#474d57",
-    "g": "#144a56", "h": "#1f6572", "k": "#2c8391", "K": "#43a3b0",
-    "e": "#051015", "m": "#04090c", "n": "#b4ccce",
+    "g": "#144a56", "h": "#287889", "k": "#3896a3", "K": "#58bbc6",
+    "e": "#010609", "m": "#020507", "n": "#e0feff",
     "3": "#1aa8b5", "4": "#29dfeb", "5": "#c8fdff",
 }
 
@@ -2310,7 +2314,7 @@ PAD_ACTIVE_GLOW = {
 }
 # Bilder, die nur in den Hauptbaum (26.2/26.3) gehen - die 1.21.11-Kopie bekommt sie erst im Port-Lauf
 # (Besitzer 2026-09-29: 26.3 zuerst, die Kopie nicht anfassen). Die Zustandsbilder vom 2026-09-29.
-MAIN_TREE_ONLY = set()
+MAIN_TREE_ONLY = {"item/pulsating_trim_template.png"}
 # Druckplatten, gedrueckt (powered): Leuchtfarbe und Deckkraft in der Mitte; die Grundbilder liegen in den
 # Ressourcen (Enderit generiert).
 PLATE_ACTIVE_GLOW = {
