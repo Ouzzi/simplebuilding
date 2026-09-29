@@ -303,6 +303,19 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("building_core_game_test_right_clicking_the_core_plays_an_animation_and_starts_the_cooldown", BuildingCoreTests::rightClickingTheCorePlaysAnAnimationAndStartsTheCooldown)
                     .build(),
+            GameTestSpec.named("building_core_game_test_right_clicking_stone_with_the_core_starts_the_one_second_cooldown", BuildingCoreTests::rightClickingStoneWithTheCoreStartsTheOneSecondCooldown)
+                    .build(),
+            GameTestSpec.named("building_core_game_test_core_animations_are_server_timed_and_end_within_the_cooldown", BuildingCoreTests::coreAnimationsAreServerTimedAndEndWithinTheCooldown)
+                    .maxTicks(BuildingCoreTests.ANIMATION_TEST_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("building_core_game_test_core_ore_hosts_are_the_blocks_ores_generate_in", BuildingCoreTests::coreOreHostsAreTheBlocksOresGenerateIn)
+                    .build(),
+            GameTestSpec.named("building_core_game_test_core_ore_tables_only_hold_the_hosts_ores_and_follow_their_weights", BuildingCoreTests::coreOreTablesOnlyHoldTheHostsOresAndFollowTheirWeights)
+                    .build(),
+            GameTestSpec.named("building_core_game_test_core_ore_chance_climbs_from_copper_to_enderite", BuildingCoreTests::coreOreChanceClimbsFromCopperToEnderite)
+                    .build(),
+            GameTestSpec.named("building_core_game_test_core_transmutation_turns_only_host_blocks_into_their_ores", BuildingCoreTests::coreTransmutationTurnsOnlyHostBlocksIntoTheirOres)
+                    .build(),
             GameTestSpec.named("wand_mode_game_test_roof_mode_works_with_the_test_centre_kit_enderite_wand", WandModeTests::roofModeWorksWithTheTestCentreKitEnderiteWand)
                     .rotation(Rotation.NONE)
                     .build(),

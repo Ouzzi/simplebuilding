@@ -25,4 +25,34 @@ public final class BuildingCoreGameTest {
     public void rightClickingTheCorePlaysAnAnimationAndStartsTheCooldown(GameTestHelper helper) {
         BuildingCoreTests.rightClickingTheCorePlaysAnAnimationAndStartsTheCooldown(helper);
     }
+
+    @GameTest
+    public void rightClickingStoneWithTheCoreStartsTheOneSecondCooldown(GameTestHelper helper) {
+        BuildingCoreTests.rightClickingStoneWithTheCoreStartsTheOneSecondCooldown(helper);
+    }
+
+    @GameTest(maxTicks = BuildingCoreTests.ANIMATION_TEST_MAX_TICKS)
+    public void coreAnimationsAreServerTimedAndEndWithinTheCooldown(GameTestHelper helper) {
+        BuildingCoreTests.coreAnimationsAreServerTimedAndEndWithinTheCooldown(helper);
+    }
+
+    @GameTest
+    public void coreOreHostsAreTheBlocksOresGenerateIn(GameTestHelper helper) {
+        BuildingCoreTests.coreOreHostsAreTheBlocksOresGenerateIn(helper);
+    }
+
+    @GameTest
+    public void coreOreTablesOnlyHoldTheHostsOresAndFollowTheirWeights(GameTestHelper helper) {
+        BuildingCoreTests.coreOreTablesOnlyHoldTheHostsOresAndFollowTheirWeights(helper);
+    }
+
+    @GameTest
+    public void coreOreChanceClimbsFromCopperToEnderite(GameTestHelper helper) {
+        BuildingCoreTests.coreOreChanceClimbsFromCopperToEnderite(helper);
+    }
+
+    @GameTest
+    public void coreTransmutationTurnsOnlyHostBlocksIntoTheirOres(GameTestHelper helper) {
+        BuildingCoreTests.coreTransmutationTurnsOnlyHostBlocksIntoTheirOres(helper);
+    }
 }
