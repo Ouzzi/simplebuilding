@@ -787,19 +787,33 @@ public class ModItems {
     // weil die Themenliste des Handbuchs dessen Namen braucht.
     public static final Item GUIDE_BOOK = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.GUIDE);
     public static final Item GUIDE_BOOK_TOOLS = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.TOOLS);
+    public static final Item GUIDE_BOOK_ENCHANTMENTS = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.ENCHANTMENTS);
     public static final Item GUIDE_BOOK_BUILDING = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.BUILDING);
     public static final Item GUIDE_BOOK_STORAGE = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.STORAGE);
     public static final Item GUIDE_BOOK_MACHINES = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.MACHINES);
     public static final Item GUIDE_BOOK_END = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.END);
-    public static final Item GUIDE_BOOK_TWEAKS = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.TWEAKS);
+    /** Das Pad-Buch; die ID bleibt guide_book_tweaks (frueher "Pads & Geraete"). */
+    public static final Item GUIDE_BOOK_TWEAKS = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.PADS);
+    public static final Item GUIDE_BOOK_GADGETS = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.GADGETS);
     public static final Item GUIDE_BOOK_TRIMS = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.TRIMS);
     public static final Item GUIDE_BOOK_ADMIN = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.ADMIN);
+    // Vanilla-Regal (2026-09-29): "Erste Schritte" und acht Themenbuecher zu Vanilla-Minecraft.
+    public static final Item GUIDE_BOOK_VANILLA_START = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.VANILLA_START);
+    public static final Item GUIDE_BOOK_VANILLA_OVERWORLD = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.VANILLA_OVERWORLD);
+    public static final Item GUIDE_BOOK_VANILLA_CAVES = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.VANILLA_CAVES);
+    public static final Item GUIDE_BOOK_VANILLA_OCEAN = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.VANILLA_OCEAN);
+    public static final Item GUIDE_BOOK_VANILLA_NETHER = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.VANILLA_NETHER);
+    public static final Item GUIDE_BOOK_VANILLA_END = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.VANILLA_END);
+    public static final Item GUIDE_BOOK_VANILLA_REDSTONE = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.VANILLA_REDSTONE);
+    public static final Item GUIDE_BOOK_VANILLA_GEAR = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.VANILLA_GEAR);
+    public static final Item GUIDE_BOOK_VANILLA_FARMING = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.VANILLA_FARMING);
 
     static {
         // Handbuch + Schluesselitem ergibt ein Themenbuch, das Handbuch bleibt im Raster liegen: es ist
         // sein eigener Rest. Item.Properties kann das Item vor seiner Erzeugung nicht nennen, darum
         // wird der Rest nach der Registrierung gesetzt (ItemCraftRemainderAccessor).
         com.simplebuilding.guide.GuideBooks.makeSelfRemainder(GUIDE_BOOK);
+        com.simplebuilding.guide.GuideBooks.makeSelfRemainder(GUIDE_BOOK_VANILLA_START);
     }
 
     private static Item registerGuideBook(com.simplebuilding.guide.GuideBooks.Book book) {

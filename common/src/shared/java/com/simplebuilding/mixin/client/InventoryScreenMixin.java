@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 
 /**
- * Knopf und Panel der Besatz-Multiplikatoren im normalen Inventar (E). Die Logik steckt in
+ * Das Resonanz-Feld der Besatz-Boni im normalen Inventar (E), seit 2026-09-29 ohne Knopf. Die Logik steckt in
  * {@link TrimStatsPanel}, das auch der Rucksack-Bildschirm benutzt.
  */
 @Mixin(InventoryScreen.class)
@@ -26,12 +26,6 @@ public abstract class InventoryScreenMixin extends AbstractContainerScreen<Inven
 
     public InventoryScreenMixin(InventoryMenu screenHandler, Inventory playerInventory, Component text) {
         super(screenHandler, playerInventory, text);
-    }
-
-    @Inject(method = "init", at = @At("TAIL"))
-    private void initTrimUI(CallbackInfo ci) {
-        // Button toggelt die Sichtbarkeit der Stats
-        this.addRenderableWidget(this.trimStats.createButton(this.leftPos, this.topPos));
     }
 
     @Inject(method = "extractRenderState", at = @At("TAIL"))

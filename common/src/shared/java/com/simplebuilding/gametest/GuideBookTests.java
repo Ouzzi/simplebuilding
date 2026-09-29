@@ -98,14 +98,18 @@ public final class GuideBookTests {
      */
     public static void everyTopicBookRecipeTakesBookOrGuideAndTheGuideStays(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
-        expect(helper, problems, List.of(new ItemStack(Items.BOOK), new ItemStack(Items.CRAFTING_TABLE)), ModItems.GUIDE_BOOK, false);
+        for (GuideBooks.Shelf shelf : GuideBooks.Shelf.values()) {
+            expect(helper, problems, List.of(new ItemStack(Items.BOOK), new ItemStack(GuideBooks.keyItem(shelf.hub()).asItem())),
+                    GuideBooks.item(shelf.hub()), false);
+        }
         for (GuideBooks.Book topic : GuideBooks.Book.topics()) {
             Item key = GuideBooks.keyItem(topic).asItem();
             Item result = GuideBooks.item(topic);
+            Item hub = GuideBooks.item(topic.shelf().hub());
             expect(helper, problems, List.of(new ItemStack(Items.BOOK), new ItemStack(key)), result, false);
             expect(helper, problems, List.of(new ItemStack(key), new ItemStack(Items.BOOK)), result, false);
-            expect(helper, problems, List.of(new ItemStack(ModItems.GUIDE_BOOK), new ItemStack(key)), result, true);
-            expect(helper, problems, List.of(new ItemStack(key), new ItemStack(ModItems.GUIDE_BOOK)), result, true);
+            expect(helper, problems, List.of(new ItemStack(hub), new ItemStack(key)), result, true);
+            expect(helper, problems, List.of(new ItemStack(key), new ItemStack(hub)), result, true);
             if (find(helper, List.of(new ItemStack(key), new ItemStack(Items.WRITABLE_BOOK))).isPresent()) {
                 problems.add("a book and quill + " + key + " crafts something");
             }
@@ -144,7 +148,7 @@ public final class GuideBookTests {
             }
             List<Component> pages = content.getPages(false);
             int contentsPages = GuideBooks.contentsPages(book);
-            int expectedPages = contentsPages + book.chapters() + (book == GuideBooks.Book.GUIDE ? GuideBooks.topicPages() : 0);
+            int expectedPages = contentsPages + book.chapters() + GuideBooks.topicPages(book);
             if (pages.size() != expectedPages) {
                 problems.add(book + " has " + pages.size() + " pages instead of " + expectedPages);
             }
@@ -435,10 +439,254 @@ public final class GuideBookTests {
                 problems.add(option + " is not named in the English and German admin guide");
             }
         }
-        helper.assertTrue(GuideBooks.item(admin) == ModItems.GUIDE_BOOK_ADMIN && admin.isTopic(), "the admin guide is not a topic book");
+        helper.assertTrue(GuideBooks.item(admin) == ModItems.GUIDE_BOOK_ADMIN && admin.isTopic() && GuideBooks.operatorOnly(admin),
+                "the admin guide is not an operator-only topic book");
         expect(helper, problems, List.of(new ItemStack(ModItems.GUIDE_BOOK), new ItemStack(GuideBooks.keyItem(admin).asItem())),
                 ModItems.GUIDE_BOOK_ADMIN, true);
         helper.assertTrue(problems.isEmpty(), problems.size() + " admin guide problems: " + problems);
+        succeed(helper);
+    }
+
+
+    /**
+     * Owner 2026-09-29: every page is properly formatted. Mirrors {@code tools/guide_book_pages.py} with
+     * the vanilla ASCII glyph widths: every vanilla page (contents, chapters, topic pages) of every book
+     * wraps to at most {@link GuideBooks#MAX_LINES} lines of 114 px in English and German, no ordinary
+     * word is wider than a line (config paths and commands excepted), chapter titles take at most two
+     * lines, and texts have no double spaces, empty paragraphs or other bullet signs than "- ".
+     */
+    public static void everyGuidePageFitsTheBookInEnglishAndGerman(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        for (String locale : List.of("en_us", "de_de")) {
+            JsonObject lang = langFile(helper, locale);
+            java.util.function.Function<String, String> t = key -> lang.has(key) ? lang.get(key).getAsString() : key;
+            for (GuideBooks.Book book : GuideBooks.Book.values()) {
+                String base = book.key();
+                for (int i = 1; i <= book.chapters(); i++) {
+                    String title = t.apply(base + "." + i + ".title");
+                    String icon = t.apply(nameKey(GuideContent.item(GuideContent.chapter(book, i - 1).icon())));
+                    String text = t.apply(base + "." + i + ".text").replace("%1$s", "G").replace("%2$s", "B").replace("%3$s", icon);
+                    String where = locale + " " + book.id() + " " + i;
+                    int lines = PageMetrics.lines(title, true) + PageMetrics.lines(text, false) + 1;
+                    if (lines > GuideBooks.MAX_LINES) {
+                        problems.add(where + ": " + lines + " lines");
+                    }
+                    if (PageMetrics.lines(title, true) > 2) {
+                        problems.add(where + ": title on more than two lines");
+                    }
+                    for (String word : PageMetrics.cutWords(title, true)) {
+                        problems.add(where + ": title word cut: " + word);
+                    }
+                    for (String word : PageMetrics.cutWords(text, false)) {
+                        problems.add(where + ": word cut: " + word);
+                    }
+                    if (text.contains("  ") || text.contains("\n\n") || text.contains(" \n") || !text.equals(text.strip())
+                            || text.matches("(?s).*(^|\n)[*\u2022].*")) {
+                        problems.add(where + ": stray spaces, empty paragraph or wrong bullet");
+                    }
+                }
+                // Inhaltsseite 1
+                StringBuilder contents = new StringBuilder();
+                int links = GuideBooks.contentsLinksOn(book, 0);
+                int lines = PageMetrics.lines(t.apply(base + ".title"), true) + 1;
+                if (book.isTopic()) {
+                    lines += PageMetrics.lines(t.apply(base + ".intro"), false) + 1;
+                }
+                for (int i = 1; i <= links; i++) {
+                    lines += PageMetrics.lines(i <= book.chapters() ? t.apply(base + "." + i + ".title") : t.apply(GuideBooks.TOPICS_KEY + ".title"), false);
+                }
+                if (lines > GuideBooks.MAX_LINES) {
+                    problems.add(locale + " " + book.id() + " contents: " + lines + " lines");
+                }
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " formatting problems: " + problems);
+        succeed(helper);
+    }
+
+    private static String nameKey(Item item) {
+        return item.getDescriptionId();
+    }
+
+    /** Vanilla-Glyphbreiten (ASCII-Schrift, 26.3) fuer die Formatpruefung ohne Client. */
+    static final class PageMetrics {
+        static final int WIDTH = 114;
+
+        static int width(char c, boolean bold) {
+            int w;
+            if (c == ' ') {
+                return 4;
+            } else if ("!',.:;i|".indexOf(c) >= 0) {
+                w = 2;
+            } else if ("`l".indexOf(c) >= 0) {
+                w = 3;
+            } else if ("\"()*I[]t{}".indexOf(c) >= 0) {
+                w = 4;
+            } else if ("<>fk".indexOf(c) >= 0) {
+                w = 5;
+            } else if ("@~".indexOf(c) >= 0) {
+                w = 7;
+            } else {
+                w = 6;
+            }
+            return w + (bold ? 1 : 0);
+        }
+
+        static int wordWidth(String word, boolean bold) {
+            int w = 0;
+            for (char c : word.toCharArray()) {
+                w += width(c, bold);
+            }
+            return w;
+        }
+
+        static int lines(String text, boolean bold) {
+            int lines = 0;
+            for (String paragraph : text.split("\n", -1)) {
+                int x = 0;
+                lines++;
+                for (String word : paragraph.split(" ")) {
+                    int w = wordWidth(word, bold);
+                    if (x > 0 && x + 4 + w > WIDTH) {
+                        lines++;
+                        x = 0;
+                    }
+                    x += (x > 0 ? 4 : 0) + w;
+                    while (x > WIDTH) {
+                        lines++;
+                        x -= WIDTH;
+                    }
+                }
+            }
+            return lines;
+        }
+
+        static List<String> cutWords(String text, boolean bold) {
+            List<String> out = new ArrayList<>();
+            for (String word : text.split("[ \n]")) {
+                if (!word.matches(".*([a-z][A-Z]|[a-z]\\.[a-z]).*") && !word.startsWith("/") && wordWidth(word, bold) > WIDTH) {
+                    out.add(word);
+                }
+            }
+            return out;
+        }
+    }
+
+    /**
+     * Owner 2026-09-29: reading a guide does not pause the game, like the inventory. The book screen
+     * returns {@link GuideContent#pausesGame} from {@code isPauseScreen}; the client class ships in the
+     * jar and names the method (its constant pool holds "isPauseScreen" and the GuideContent field).
+     */
+    public static void readingTheGuideDoesNotPauseTheGame(GameTestHelper helper) {
+        helper.assertTrue(!GuideContent.pausesGame(), "the guide screen pauses the game");
+        String path = "com/simplebuilding/client/guide/GuideBookScreen.class";
+        try (InputStream in = GuideBookTests.class.getClassLoader().getResourceAsStream(path)) {
+            helper.assertTrue(in != null, path + " is not in the jar");
+            String bytes = new String(in.readAllBytes(), StandardCharsets.ISO_8859_1);
+            helper.assertTrue(bytes.contains("isPauseScreen") && bytes.contains("pausesGame"),
+                    "GuideBookScreen does not override isPauseScreen with GuideContent.pausesGame");
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException(e);
+        }
+        succeed(helper);
+    }
+
+    /**
+     * Owner 2026-09-29: the Server Admin guide is crafted by operators only (permission level 2+).
+     * A non-operator gets no result in the crafting grid and never gets the recipe unlocked; an
+     * operator crafts it (the Beginner's Guide stays); a crafter never makes it.
+     */
+    public static void onlyOperatorsCraftTheAdminGuide(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        var players = helper.getLevel().getServer().getPlayerList();
+        boolean wasOp = players.isOp(player.nameAndId());
+        List<String> problems = new ArrayList<>();
+        List<ItemStack> grid = List.of(new ItemStack(ModItems.GUIDE_BOOK), new ItemStack(GuideBooks.keyItem(GuideBooks.Book.ADMIN).asItem()));
+        Optional<RecipeHolder<CraftingRecipe>> recipe = find(helper, grid);
+        try {
+            helper.assertTrue(recipe.isPresent() && GuideBooks.isOperatorOnlyRecipe(recipe.get().id().identifier()),
+                    "the admin guide recipe is missing or not marked operator-only");
+            players.deop(player.nameAndId());
+            if (GuideBooks.isOperator(player)) problems.add("a deopped player counts as operator");
+            if (GuideBooks.mayCraft(player, recipe.get())) problems.add("a non-operator may craft the admin guide");
+            player.awardRecipes(List.of(recipe.get()));
+            if (player.getRecipeBook().contains(recipe.get().id())) problems.add("a non-operator got the admin recipe unlocked");
+            // Stufe 1 (Moderator) reicht nicht, Stufe 2 (Spielleiter) schon - unabhaengig von op-permission-level des Testservers.
+            players.op(player.nameAndId(), Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.MODERATOR), Optional.empty());
+            if (GuideBooks.isOperator(player)) problems.add("a level 1 operator counts as operator");
+            players.deop(player.nameAndId());
+            players.op(player.nameAndId(), Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER), Optional.empty());
+            if (!GuideBooks.isOperator(player)) problems.add("a level 2 operator does not count as operator");
+            if (!GuideBooks.mayCraft(player, recipe.get())) problems.add("an operator may not craft the admin guide");
+            GuideBooks.syncOperatorRecipes(player);
+            if (!player.getRecipeBook().contains(recipe.get().id())) problems.add("joining as operator does not unlock the admin recipe");
+            players.deop(player.nameAndId());
+            GuideBooks.syncOperatorRecipes(player);
+            if (player.getRecipeBook().contains(recipe.get().id())) problems.add("joining after /deop keeps the admin recipe");
+            if (net.minecraft.world.level.block.CrafterBlock.getPotentialResults(helper.getLevel(), CraftingInput.of(2, 1, grid)).isPresent()) {
+                problems.add("a crafter makes the admin guide");
+            }
+            // Andere Buecher bleiben fuer alle offen.
+            Optional<RecipeHolder<CraftingRecipe>> tools = find(helper, List.of(new ItemStack(Items.BOOK), new ItemStack(ModItems.STONE_CHISEL)));
+            if (tools.isEmpty() || !GuideBooks.mayCraft(player, tools.get())) problems.add("non-operators cannot craft the tools guide");
+        } finally {
+            if (wasOp) players.op(player.nameAndId()); else players.deop(player.nameAndId());
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " operator problems: " + problems);
+        succeed(helper);
+    }
+
+    /**
+     * Owner 2026-09-29: the Enchantments guide explains every mod enchantment, one tool group per
+     * page. Every page shows an enchanted book of exactly one mod enchantment (at its maximum level)
+     * and at least one item that enchantment can go on; its text names the maximum level
+     * ("Max level: V" / "Hoechststufe: V"); and every mod enchantment has at least one page.
+     */
+    public static void theEnchantmentsGuideCoversEveryModEnchantment(GameTestHelper helper) {
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        var registry = helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT);
+        GuideBooks.Book book = GuideBooks.Book.ENCHANTMENTS;
+        Set<net.minecraft.resources.Identifier> covered = new java.util.HashSet<>();
+        List<String> problems = new ArrayList<>();
+        String[] roman = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
+        for (int i = 0; i < book.chapters(); i++) {
+            GuideContent.Chapter chapter = GuideContent.chapter(book, i);
+            String where = "chapter " + (i + 1);
+            List<net.minecraft.resources.Identifier> enchantments = new ArrayList<>();
+            for (String spec : chapter.items()) {
+                if (GuideContent.enchantment(spec) != null) enchantments.add(GuideContent.enchantment(spec));
+            }
+            if (enchantments.size() != 1) {
+                problems.add(where + " shows " + enchantments.size() + " enchanted books");
+                continue;
+            }
+            var holder = registry.get(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.ENCHANTMENT, enchantments.get(0)));
+            if (holder.isEmpty()) {
+                problems.add(where + ": " + enchantments.get(0) + " is no enchantment");
+                continue;
+            }
+            covered.add(enchantments.get(0));
+            ItemStack shown = GuideContent.stack(chapter.items().get(0), helper.getLevel().registryAccess());
+            var stored = shown.get(DataComponents.STORED_ENCHANTMENTS);
+            int max = holder.get().value().getMaxLevel();
+            if (stored == null || stored.getLevel(holder.get()) != max) problems.add(where + ": the book does not carry the enchantment at level " + max);
+            boolean supported = false;
+            for (String spec : chapter.items()) {
+                if (GuideContent.enchantment(spec) == null && new ItemStack(GuideContent.item(spec)).is(holder.get().value().definition().supportedItems())) {
+                    supported = true;
+                }
+            }
+            if (!supported) problems.add(where + ": shows no item " + enchantments.get(0) + " can go on");
+            String key = book.key() + "." + (i + 1) + ".text";
+            if (!en.get(key).getAsString().contains("ax level: " + roman[max])) problems.add(where + ": English text does not say Max level: " + roman[max]);
+            if (!de.get(key).getAsString().contains("chststufe: " + roman[max])) problems.add(where + ": German text does not say Höchststufe: " + roman[max]);
+        }
+        for (var holder : registry.listElements().toList()) {
+            var id = holder.key().identifier();
+            if (id.getNamespace().equals(Simplebuilding.MOD_ID) && !covered.contains(id)) problems.add(id + " has no page in the Enchantments guide");
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " enchantment guide problems: " + problems);
         succeed(helper);
     }
 
@@ -457,8 +705,8 @@ public final class GuideBookTests {
         }
         NonNullList<ItemStack> rest = match.get().value().getRemainingItems(input);
         for (int i = 0; i < grid.size(); i++) {
-            boolean isGuide = grid.get(i).is(ModItems.GUIDE_BOOK);
-            boolean stays = rest.get(i).is(ModItems.GUIDE_BOOK);
+            boolean isGuide = grid.get(i).is(ModItems.GUIDE_BOOK) || grid.get(i).is(ModItems.GUIDE_BOOK_VANILLA_START);
+            boolean stays = !rest.get(i).isEmpty() && rest.get(i).is(grid.get(i).getItem());
             if (isGuide && guideStays && !stays) {
                 problems.add(grid + ": the guide does not stay in the grid (left " + rest.get(i) + ")");
             } else if (!isGuide && !rest.get(i).isEmpty()) {

@@ -147,10 +147,14 @@ public final class ModItemGroupsContent {
         }
         rows.add(new CreativeTabLayout.Row("colored_octants", coloredOctants));
 
-        // --- Handbuecher: Einsteiger-Handbuch und die sieben Themenbuecher (GuideBooks) ---
-        rows.add(CreativeTabLayout.Row.of("guide_books", ModItems.GUIDE_BOOK, ModItems.GUIDE_BOOK_TOOLS,
-                ModItems.GUIDE_BOOK_BUILDING, ModItems.GUIDE_BOOK_STORAGE, ModItems.GUIDE_BOOK_MACHINES,
-                ModItems.GUIDE_BOOK_END, ModItems.GUIDE_BOOK_TWEAKS, ModItems.GUIDE_BOOK_TRIMS, ModItems.GUIDE_BOOK_ADMIN));
+        // --- Handbuecher: je Regal eine Kategorie (GuideBooks.Shelf), in Lesezeichen-Reihenfolge ---
+        for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
+            List<ItemStack> shelfBooks = new java.util.ArrayList<>();
+            for (com.simplebuilding.guide.GuideBooks.Book book : shelf.books()) {
+                shelfBooks.add(new ItemStack(com.simplebuilding.guide.GuideBooks.item(book)));
+            }
+            rows.add(new CreativeTabLayout.Row(shelf == com.simplebuilding.guide.GuideBooks.Shelf.MOD ? "guide_books" : "vanilla_guide_books", shelfBooks));
+        }
 
         // --- Verzauberte Buecher, wie bisher ---
         List<ItemStack> books = new java.util.ArrayList<>();

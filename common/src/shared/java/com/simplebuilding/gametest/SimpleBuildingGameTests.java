@@ -1484,6 +1484,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("guide_book_game_test_the_admin_guide_names_only_commands_and_options_that_exist", GuideBookTests::theAdminGuideNamesOnlyCommandsAndOptionsThatExist)
                     .build(),
+            GameTestSpec.named("guide_book_game_test_every_guide_page_fits_the_book_in_english_and_german", GuideBookTests::everyGuidePageFitsTheBookInEnglishAndGerman)
+                    .build(),
+            GameTestSpec.named("guide_book_game_test_reading_the_guide_does_not_pause_the_game", GuideBookTests::readingTheGuideDoesNotPauseTheGame)
+                    .build(),
+            GameTestSpec.named("guide_book_game_test_only_operators_craft_the_admin_guide", GuideBookTests::onlyOperatorsCraftTheAdminGuide)
+                    .build(),
+            GameTestSpec.named("guide_book_game_test_the_enchantments_guide_covers_every_mod_enchantment", GuideBookTests::theEnchantmentsGuideCoversEveryModEnchantment)
+                    .build(),
             GameTestSpec.named("pressure_plate_game_test_honeycomb_waxes_every_stage_and_waxed_plates_stop_oxidizing", PressurePlateTests::honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing)
                     .build(),
             GameTestSpec.named("pressure_plate_game_test_the_axe_scrapes_the_wax_off_before_the_oxidation", PressurePlateTests::theAxeScrapesTheWaxOffBeforeTheOxidation)

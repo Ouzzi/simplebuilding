@@ -44,4 +44,24 @@ public final class GuideBookGameTest {
     public void theAdminGuideNamesOnlyCommandsAndOptionsThatExist(GameTestHelper helper) {
         GuideBookTests.theAdminGuideNamesOnlyCommandsAndOptionsThatExist(helper);
     }
+
+    @GameTest
+    public void everyGuidePageFitsTheBookInEnglishAndGerman(GameTestHelper helper) {
+        GuideBookTests.everyGuidePageFitsTheBookInEnglishAndGerman(helper);
+    }
+
+    @GameTest
+    public void readingTheGuideDoesNotPauseTheGame(GameTestHelper helper) {
+        GuideBookTests.readingTheGuideDoesNotPauseTheGame(helper);
+    }
+
+    @GameTest
+    public void onlyOperatorsCraftTheAdminGuide(GameTestHelper helper) {
+        GuideBookTests.onlyOperatorsCraftTheAdminGuide(helper);
+    }
+
+    @GameTest
+    public void theEnchantmentsGuideCoversEveryModEnchantment(GameTestHelper helper) {
+        GuideBookTests.theEnchantmentsGuideCoversEveryModEnchantment(helper);
+    }
 }

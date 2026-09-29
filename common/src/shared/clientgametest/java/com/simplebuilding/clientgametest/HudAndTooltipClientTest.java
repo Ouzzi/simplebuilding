@@ -1,5 +1,7 @@
 package com.simplebuilding.clientgametest;
 
+import com.simplebuilding.client.gui.TrimStatsPanel;
+
 import com.simplebuilding.version.McClientVersion;
 
 import com.mojang.blaze3d.platform.InputConstants;
@@ -134,11 +136,9 @@ import org.joml.Vector2f;
  *
  * <p><b>Not covered</b>
  * <ul>
- *   <li><b>The colour of the trim button's tooltip.</b> The tooltip text itself is read from the
- *       render state now (see {@code assertTrimButtonIconAndTooltip}), and so is the icon's
- *       sprite; what the flattened text loses is the AQUA + BOLD style of the first line.</li>
- *   <li><b>The individual numbers in the L / S / C panel.</b> They are drawn as text into the
- *       render state; only their presence as a block of pixels is observable from outside.</li>
+ *   <li><b>The colour of the resonance tooltip.</b> The tooltip text itself is read from the
+ *       render state (see {@code inventoryShowsTheResonanceFieldAndItsDetails}), and so is the
+ *       icon's sprite; what the flattened text loses is the AQUA + BOLD style of the first line.</li>
  *   <li><b>Green versus orange in the hopper filter icon.</b> The screenshot difference proves that
  *       a different glyph is drawn per mode, but the colour of a glyph cannot be read back without
  *       a reference image.</li>
@@ -259,7 +259,7 @@ public final class HudAndTooltipClientTest {
         bundleWheelSelectsAndLeavingClears(script);
         bundleSubmenuReachesVanillaContainerScreens(script);
         hopperFilterButtonAndGhostSlots(script);
-        inventoryTrimStatsButtonToggles(script);
+        inventoryShowsTheResonanceFieldAndItsDetails(script);
         oreDetectorGlintMarksTheCalibratedSlot(script);
 
         // What a finally block used to do. As steps these run only when everything above them
@@ -2043,42 +2043,23 @@ public final class HudAndTooltipClientTest {
     // ------------------------------------------------------------------------------------------
 
     /**
-     * Proves that {@code InventoryScreenMixin} adds its 20x20 button 24 pixels to the left of the
-     * inventory background and that clicking it really toggles the resonance stats panel on and off.
+     * The inventory shows the trim resonance as a small field left of the inventory - the ward
+     * smithing template and the compact value ("0.22x") - and hovering it lists the details: the
+     * resonance against its maximum, the three factors each with "(max 1.00)", and the cap. Since
+     * 2026-09-29 there is no toggle button any more (owner): the field is always there.
      *
-     * <p>The panel is measured in pixels because its numbers only exist as render state; the
-     * mixin's {@code isStatsVisible} flag is unique and private, so the picture is the only
-     * observable. That is why the control step matters here more than anywhere else: the panel has
-     * to disappear again on the second click, which rules out any drift as the explanation.
-     *
-     * <p>The cursor is moved onto the button for the click and straight back to the parking spot
-     * afterwards. {@code InventoryScreen} renders the player model looking at the mouse, so a
-     * cursor left in a different place between two screenshots would turn the model's head and add
-     * pixels of its own.
-     *
-     * <p><b>Why the player model is painted out.</b> A parked cursor is not enough: this screen is
-     * the one place in the mod's UI that is animated on purpose. {@code HumanoidModel.setupAnim}
-     * adds {@code cos(ageInTicks * 0.09) * 0.05} to the arms' {@code zRot} and
-     * {@code sin(ageInTicks * 0.067) * 0.05} to their {@code xRot}, so the arms sway forever, with
-     * periods of about 70 and 94 ticks. Measured here that was 123 changed pixels between two
-     * screenshots taken while nothing happened - twice what {@code assertUnchanged} allows and,
-     * worse, a random sample of the sway rather than a constant, so every threshold derived from it
-     * would wander from run to run. All four screenshots are therefore compared with the model's
-     * viewport painted over in both images, so the sway cannot enter any measurement. Everything
-     * outside that one rectangle is still compared in full, the panel included, by the shared
-     * {@link ScreenshotDiff}. The excluded rectangle is {@code InventoryScreen}'s own entity
-     * viewport, and {@link #playerModelBox} refuses to hand it out if it touches the rectangle the
-     * mixin draws the panel into.
-     *
-     * <p>Survival is required: {@code InventoryScreen.init} hands over to
+     * <p>Everything is read from the render state: the icon through its particle sprite, the value
+     * and the tooltip as drawn text, so no screenshot comparison (and no player-model mask) is
+     * needed. Survival is required: {@code InventoryScreen.init} hands over to
      * {@code CreativeModeInventoryScreen} as soon as the player has infinite materials, and the
-     * mixin only sits on the survival screen. This case builds its scene in survival itself.
+     * mixin only sits on the survival screen.
      *
-     * <p>What breaks this test: the mixin no longer injecting into {@code init} (no button at all),
-     * the button's position or size changing, the click handler no longer flipping the flag, or
-     * {@code renderTrimStats} no longer drawing the panel.
+     * <p>What breaks this test: the mixin no longer drawing the field, the field moving (it sits
+     * {@link TrimStatsPanel#GAP_LEFT} left of the inventory, {@link TrimStatsPanel#OFFSET_Y} below its
+     * top edge), the value no longer being the compact resonance, a leftover 20x20 button, or the
+     * hover no longer showing the details with their maximum values.
      */
-    private static void inventoryTrimStatsButtonToggles(Script script) {
+    private static void inventoryShowsTheResonanceFieldAndItsDetails(Script script) {
         TestScene.build(script, "minecraft:stone", "survival");
 
         openInventoryScreen(script);
@@ -2086,48 +2067,70 @@ public final class HudAndTooltipClientTest {
         script.idle("let the parked cursor settle", 10);
         clearWidgetFocus(script);
 
-        Later<int[]> button = assertTrimButtonGeometry(script);
-        assertTrimButtonIconAndTooltip(script, button);
-        Later<int[]> modelBox = playerModelBox(script);
+        Later<int[]> field = new Later<>("the resonance field (x, y, width)");
+        script.act("the resonance field shows the ward template and the compact value, and no button is left", client -> {
+            AbstractContainerScreen<?> screen = containerScreen(client);
+            for (GuiEventListener child : screen.children()) {
+                if (child instanceof Button button && button.getWidth() == 20 && button.getHeight() == 20) {
+                    throw new AssertionError("The inventory still has a 20x20 button at " + button.getX() + "/" + button.getY()
+                            + " - the resonance toggle was removed on 2026-09-29");
+                }
+            }
+            String value = TrimStatsPanel.compact(com.simplebuilding.util.TrimMultiplierLogic.getMultiplier(client.player));
+            int width = TrimStatsPanel.width(client.font, value);
+            int x = TrimStatsPanel.x(leftPos(screen), width);
+            int y = topPos(screen) + TrimStatsPanel.OFFSET_Y;
+            GuiRenderState state = extractScreenState(client);
 
-        // The two baseline shots are twenty ticks apart, the same settling time clickAndPark gives
-        // the screen after a click, so the noise floor covers as much screen time as every signal
-        // measured against it.
-        Later<Path> hidden = script.shot("inventory-a-stats-hidden");
-        script.idle("let twenty ticks pass between the two baseline shots", 20);
-        Later<Path> hiddenAgain = script.shot("inventory-b-stats-hidden-again");
-
-        Later<Path> hiddenBase = new Later<>("the masked baseline of the inventory screen");
-        Later<ScreenshotDiff.Diff> noiseFloor = new Later<>("the noise floor of the inventory screen");
-
-        script.verify("measure the noise floor of the inventory screen", () -> {
-            hiddenBase.set(withoutPlayerModel(hidden.get(), modelBox.get()));
-
-            ScreenshotDiff.Diff diff = ScreenshotDiff.compare(
-                    "noise floor (inventory screen, stats hidden, twice)",
-                    hiddenBase.get(), withoutPlayerModel(hiddenAgain.get(), modelBox.get()));
-            ScreenshotDiff.assertUnchanged(diff);
-            noiseFloor.set(diff);
+            List<String> sprites = new ArrayList<>();
+            List<String> elsewhere = new ArrayList<>();
+            state.forEachItem(item -> {
+                org.joml.Vector2f onScreen = item.pose().transformPosition(item.x(), item.y(), new org.joml.Vector2f());
+                String sprite = String.valueOf(item.itemStackRenderState()
+                        .pickParticleMaterial(RandomSource.create()).sprite().contents().name());
+                if (Math.round(onScreen.x) == x + TrimStatsPanel.ICON_INSET && Math.round(onScreen.y) == y + TrimStatsPanel.ICON_INSET) {
+                    sprites.add(sprite);
+                } else {
+                    elsewhere.add(sprite + "@" + Math.round(onScreen.x) + "/" + Math.round(onScreen.y));
+                }
+            });
+            if (!sprites.contains("minecraft:item/ward_armor_trim_smithing_template")) {
+                throw new AssertionError("The resonance field at " + x + "/" + y + " does not show the ward smithing template: items "
+                        + "drawn at its icon spot " + sprites + ", items drawn elsewhere " + elsewhere);
+            }
+            List<String> texts = new ArrayList<>();
+            for (DrawnText text : drawnTexts(state)) {
+                texts.add(text.text());
+            }
+            if (!texts.contains(value)) {
+                throw new AssertionError("The resonance field does not show the compact value '" + value + "'; the screen drew " + texts);
+            }
+            field.set(new int[] {x, y, width});
         });
 
-        clickAndPark(script, button);
-        Later<Path> shown = script.shot("inventory-c-stats-shown");
-
-        script.verify("the resonance stats panel reached the screen", () -> ScreenshotDiff.assertDrew(
-                "InventoryScreenMixin (resonance stats panel)", noiseFloor.get(),
-                ScreenshotDiff.compare("resonance stats panel", hiddenBase.get(),
-                        withoutPlayerModel(shown.get(), modelBox.get()))));
-
-        clickAndPark(script, button);
-        Later<Path> hiddenControl = script.shot("inventory-d-stats-hidden-control");
-
-        script.verify("clicking again restores the baseline picture", () -> {
-            ScreenshotDiff.Diff residual = ScreenshotDiff.compare("control (stats toggled off again)",
-                    hiddenBase.get(), withoutPlayerModel(hiddenControl.get(), modelBox.get()));
-            ScreenshotDiff.assertBackToBaseline("clicking the resonance stats button a second time",
-                    noiseFloor.get(), residual);
+        script.act("hovering the resonance field lists the factors with their maximum and the cap", client -> {
+            int[] f = field.get();
+            List<String> texts = new ArrayList<>();
+            for (DrawnText text : drawnTexts(extractScreenStateWithTooltip(client, f[0] + f[2] / 2, f[1] + TrimStatsPanel.HEIGHT / 2))) {
+                texts.add(text.text());
+            }
+            List<String> expected = new ArrayList<>();
+            for (net.minecraft.network.chat.Component line : TrimStatsPanel.tooltip(client.player)) {
+                if (!line.getString().isEmpty()) {
+                    expected.add(line.getString());
+                }
+            }
+            List<String> missing = new ArrayList<>(expected);
+            missing.removeAll(texts);
+            long withMax = expected.stream().filter(line -> line.contains("1.00")).count();
+            if (!missing.isEmpty() || withMax < 3) {
+                throw new AssertionError("Hovering the resonance field did not show its details: missing " + missing
+                        + " (lines naming the factor maximum 1.00: " + withMax + "), the screen drew " + texts);
+            }
         });
 
+        parkCursor(script);
+        clearWidgetFocus(script);
         closeScreen(script);
     }
 
@@ -2317,12 +2320,10 @@ public final class HudAndTooltipClientTest {
      * {@code extractEntityInInventoryFollowsMouse}: {@code leftPos + 26 / topPos + 8} to
      * {@code leftPos + 75 / topPos + 78}.
      *
-     * <p>Before handing the rectangle out it is checked against the one the mixin draws its panel
-     * into - {@code leftPos - 115 / topPos + 5}, 84 by 64 GUI pixels, straight out of
-     * {@code InventoryScreenMixin.renderTrimStats}. If the two ever overlap the mask would swallow
-     * part of the signal and the pixel test would go quietly green on a panel that is not there,
-     * which is the one failure mode a masked comparison can hide. Either side moving is enough to
-     * fail it: the mixin's panel offsets, or the entity viewport this method mirrors.
+     * <p>Before handing the rectangle out it is checked against the resonance field
+     * ({@link TrimStatsPanel}: left of the inventory, {@link TrimStatsPanel#HEIGHT} high; 80 GUI
+     * pixels are reserved for its width). If the two ever overlapped the mask would swallow part of
+     * that field in every masked comparison.
      */
     private static Later<int[]> playerModelBox(Script script) {
         Later<int[]> box = new Later<>("the window pixel box of the animated player model");
@@ -2340,10 +2341,10 @@ public final class HudAndTooltipClientTest {
             };
 
             int[] panel = {
-                    (int) Math.floor((leftPos(screen) - 84 - 31) * scaleX),
-                    (int) Math.floor((topPos(screen) + 5) * scaleY),
-                    (int) Math.ceil((leftPos(screen) - 31) * scaleX),
-                    (int) Math.ceil((topPos(screen) + 5 + 64) * scaleY),
+                    (int) Math.floor((leftPos(screen) - TrimStatsPanel.GAP_LEFT - 80) * scaleX),
+                    (int) Math.floor((topPos(screen) + TrimStatsPanel.OFFSET_Y) * scaleY),
+                    (int) Math.ceil((leftPos(screen) - TrimStatsPanel.GAP_LEFT) * scaleX),
+                    (int) Math.ceil((topPos(screen) + TrimStatsPanel.OFFSET_Y + TrimStatsPanel.HEIGHT) * scaleY),
             };
 
             boolean overlaps = model[0] < panel[2] && panel[0] < model[2]
@@ -2455,123 +2456,6 @@ public final class HudAndTooltipClientTest {
     }
 
     /**
-     * Finds the mod's button among the screen's children and checks the geometry the mixin promises.
-     * Publishes the GUI coordinates of its centre.
-     *
-     * <p>The only other button on the survival inventory screen is vanilla's recipe book toggle,
-     * which is 20x18 - so "the single 20x20 button" identifies the mod's without any guessing.
-     */
-    private static Later<int[]> assertTrimButtonGeometry(Script script) {
-        Later<int[]> centre = new Later<>("the centre of the armor trim stats button");
-
-        script.act("the armor trim stats button exists where the mixin puts it", client -> {
-            AbstractContainerScreen<?> screen = containerScreen(client);
-            Button found = null;
-            int candidates = 0;
-
-            for (GuiEventListener child : screen.children()) {
-                if (child instanceof Button button && button.getWidth() == 20 && button.getHeight() == 20) {
-                    found = button;
-                    candidates++;
-                }
-            }
-
-            if (candidates == 0) {
-                throw new AssertionError("Armor trim stats button: the inventory screen has no 20x20 "
-                        + "button - InventoryScreenMixin.init did not run");
-            }
-
-            if (candidates > 1) {
-                throw new AssertionError("Armor trim stats button: the inventory screen has " + candidates
-                        + " buttons of 20x20; the test cannot tell which one belongs to the mod");
-            }
-
-            // Since 2026-09 the same spot as the trim button of the smithing table.
-            int expectedX = leftPos(screen) - 25;
-            int expectedY = topPos(screen) + 5;
-
-            if (found.getX() != expectedX || found.getY() != expectedY) {
-                throw new AssertionError("Armor trim stats button: the trim button sits at " + found.getX()
-                        + "/" + found.getY() + " instead of " + expectedX + "/" + expectedY
-                        + " (25 left of the inventory, 5 below its top edge, like the smithing table's trim button)");
-            }
-
-            centre.set(new int[] {found.getX() + 10, found.getY() + 10});
-        });
-
-        return centre;
-    }
-
-
-    /**
-     * The button carries the ward smithing template as its icon and says "Toggle Resonance
-     * Stats" when hovered.
-     *
-     * <p>Both were listed as not covered above, for two reasons that have since gone: the tooltip
-     * sits in a private holder without a getter, and the icon was drawn "without any identity that
-     * survives extraction". The render state is read now, and both DO survive it - the tooltip
-     * because the widget hands it to the deferred pass of the same extraction, the icon because
-     * an item's render state still knows its particle sprite, which for an item model is the
-     * item's own texture. No reference image is needed for either.
-     *
-     * <p>The tooltip is read with the real cursor on the button: the holder only shows the
-     * tooltip once the mouse has been there for longer than its delay, measured from the first
-     * frame that saw the hover, and the frames between the steps are real frames.
-     */
-    private static void assertTrimButtonIconAndTooltip(Script script, Later<int[]> button) {
-        script.act("the trim button draws the ward smithing template as its icon", client -> {
-            int iconX = button.get()[0] - 10 + 2;
-            int iconY = button.get()[1] - 10 + 2;
-            List<String> sprites = new ArrayList<>();
-            List<String> elsewhere = new ArrayList<>();
-
-            extractScreenState(client).forEachItem(item -> {
-                org.joml.Vector2f onScreen = item.pose().transformPosition(item.x(), item.y(), new org.joml.Vector2f());
-                String sprite = String.valueOf(item.itemStackRenderState()
-                        .pickParticleMaterial(RandomSource.create()).sprite().contents().name());
-
-                if (Math.round(onScreen.x) == iconX && Math.round(onScreen.y) == iconY) {
-                    sprites.add(sprite);
-                } else {
-                    elsewhere.add(sprite + "@" + Math.round(onScreen.x) + "/" + Math.round(onScreen.y));
-                }
-            });
-
-            if (!sprites.contains("minecraft:item/ward_armor_trim_smithing_template")) {
-                throw new AssertionError("The trim button at " + (iconX - 2) + "/" + (iconY - 2)
-                        + " does not carry the ward smithing template: items drawn two pixels inside it "
-                        + sprites + ", items drawn elsewhere on the screen " + elsewhere);
-            }
-        });
-
-        // The real cursor, not only the extraction's mouse argument: every real frame in between
-        // would otherwise see the widget unhovered and reset the holder's display timer, and the
-        // second pass would find a tooltip that had "just" started showing - which is what the
-        // first run reported, a screen that drew nothing but "Crafting".
-        moveCursorToGui(script, "the armor trim stats button", client -> button.get());
-        script.idle("let the tooltip delay pass with the cursor on the button", 10);
-
-        script.act("the trim button's tooltip reads Toggle Resonance Stats", client -> {
-            List<String> texts = new ArrayList<>();
-
-            for (DrawnText text : drawnTexts(extractScreenStateWithTooltip(client, button.get()[0], button.get()[1]))) {
-                texts.add(text.text());
-            }
-
-            if (!texts.contains("Toggle Resonance Stats")
-                    || !texts.contains("Click to show/hide trim multipliers.")) {
-                throw new AssertionError("Hovering the trim button did not put its tooltip into the render "
-                        + "state: expected the lines 'Toggle Resonance Stats' and 'Click to show/hide trim "
-                        + "multipliers.', the screen drew " + texts);
-            }
-        });
-
-        parkCursor(script);
-        clearWidgetFocus(script);
-        script.idle("let the parked cursor settle before the baseline shots", 10);
-    }
-
-    /**
      * {@link #extractScreenState} with the mouse at a GUI position and the deferred elements -
      * the tooltips - included, which is what the real frame does after the widgets.
      */
@@ -2587,16 +2471,6 @@ public final class HudAndTooltipClientTest {
 
         screen.extractRenderStateWithTooltipAndSubtitles(graphics, mouseX, mouseY, 0.0f);
         return state;
-    }
-
-    /** Clicks a GUI position, parks the cursor again and lets the screen settle for the next shot. */
-    private static void clickAndPark(Script script, Later<int[]> guiPoint) {
-        moveCursorToGui(script, "the armor trim stats button", client -> guiPoint.get());
-        script.harness("click the armor trim stats button", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_LEFT));
-        script.idle("let the click reach the button", 5);
-        parkCursor(script);
-        clearWidgetFocus(script);
-        script.idle("let the toggled panel settle", 20);
     }
 
     // ------------------------------------------------------------------------------------------

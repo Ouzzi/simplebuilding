@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    [
+      "minecraft:book",
+      "simplebuilding:guide_book_vanilla_start"
+    ],
+    "minecraft:wheat_seeds"
+  ],
+  "result": {
+    "id": "simplebuilding:guide_book_vanilla_farming"
+  }
+}

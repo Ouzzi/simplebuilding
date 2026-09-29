@@ -125,6 +125,15 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
         if (!dummies.isEmpty()) {
             recipes.hideRecipes(RecipeTypes.SMITHING, dummies);
         }
+        // Das Admin-Buch stellen nur Operatoren her (GuideBooks.operatorOnly): alle anderen sehen sein Rezept nicht.
+        if (!com.simplebuilding.guide.GuideBooks.isOperator(net.minecraft.client.Minecraft.getInstance().player)) {
+            List<RecipeHolder<net.minecraft.world.item.crafting.CraftingRecipe>> operatorOnly = recipes.createRecipeLookup(RecipeTypes.CRAFTING).get()
+                    .filter(holder -> com.simplebuilding.guide.GuideBooks.isOperatorOnlyRecipe(holder.id().identifier()))
+                    .toList();
+            if (!operatorOnly.isEmpty()) {
+                recipes.hideRecipes(RecipeTypes.CRAFTING, operatorOnly);
+            }
+        }
     }
 
     @Override

@@ -63,7 +63,7 @@ from PIL import Image, ImageDraw, ImageFont
 from echo_sounder_textures import echo_sounder_textures  # Echolot: Nadelbilder + Riss-Stufen
 from mount_armor_textures import mount_armor_textures  # Enderit-Pferde-/Nautilusruestung: Icons + getragene Ebenen
 from potion_pad_textures import POTION_PAD_ANIMATIONS, potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads)
-from guide_book_textures import guide_book_textures  # Einsteiger-Handbuch + sieben Themenbuecher
+from guide_book_textures import guide_book_textures, MAIN_LINE_ONLY  # Handbuecher beider Regale
 from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse, 32 Nadeln, Ruhebild
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -4187,7 +4187,9 @@ def main():
     stale = []
     for rel, img in sorted(tex.items()):
         data = png_bytes(img)
-        for tree in TREES:
+        # Texturen, die es bisher nur auf der Hauptlinie 26.3 gibt, landen nur im gemeinsamen Baum;
+        # der Port-Run fuer 1.21.11 nimmt sie aus MAIN_LINE_ONLY heraus (hauptlinie-26-3-zuerst).
+        for tree in (TREES[:1] if rel in MAIN_LINE_ONLY else TREES):
             path = os.path.join(tree, *rel.split("/"))
             if args.check:
                 try:
