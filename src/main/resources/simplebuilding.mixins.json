@@ -40,6 +40,7 @@
     "SurvivalTracerMixin",
     "VillagerTradePriceMixin",
     "ChestBlockMixin",
+    "ShulkerBoxBlockMixin",
     "CompoundContainerAccessor",
     "HopperBlockEntityMixin",
     "CauldronInteractionDispatcherAccessor",

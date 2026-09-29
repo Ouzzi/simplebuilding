@@ -65,6 +65,8 @@ public final class InWorldTransformations {
         // gewachst oder nicht, wird genauso zur Verstaerkten Truhe), dann die Mod-Bloecke.
         List<Block> sources = new ArrayList<>();
         sources.add(BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace("copper_chest")));
+        // Ebenso die ungefaerbte Vanilla-Shulkerkiste fuer alle 17 (jede Farbe wird zur Verstaerkten Shulkerkiste).
+        sources.add(BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace("shulker_box")));
         sources.addAll(modBlocks());
         for (Block block : sources) {
             SledgehammerUpgrades.Upgrade upgrade = SledgehammerUpgrades.upgradeOf(block);
@@ -75,11 +77,15 @@ public final class InWorldTransformations {
             step.addProperty("from", id(upgrade.from()));
             step.addProperty("to", id(upgrade.to()));
             step.addProperty("nugget", id(upgrade.nugget()));
-            // SledgehammerUpgrades.finish verbraucht genau einen Nugget je Block (eine Doppeltruhe: zwei).
-            step.addProperty("nuggetCount", 1);
+            // SledgehammerUpgrades.finish verbraucht materialCost je Block (eine Doppeltruhe: doppelt so viel),
+            // Shulkerkisten brauchen doppelt so viele Schlaege (TieredShulkerBoxes).
+            int stepHits = hits * upgrade.durationFactor();
+            step.addProperty("nuggetCount", upgrade.materialCost());
             step.addProperty("minimumHammer", weakestHammer(hammers, upgrade.minHammerRank()));
             step.addProperty("damagePerHit", upgrade.damagePerHit());
-            step.addProperty("totalDamage", upgrade.damagePerHit() * hits);
+            step.addProperty("totalDamage", upgrade.damagePerHit() * stepHits);
+            step.addProperty("hits", stepHits);
+            step.addProperty("durationTicks", stepHits * SledgehammerUpgrades.HIT_INTERVAL);
             steps.add(step);
         }
 

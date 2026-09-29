@@ -47,6 +47,9 @@ public final class NeoForgeItemAutomation implements ItemAutomation {
         // Block-Entity, Rohre sehen also die x2/x4-Plaetze von Netherit und Enderit.
         event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.TIERED_CHEST_BE.get(),
                 (chest, side) -> com.simplebuilding.neoforge.NeoForgeItemAutomation.chestHandler(chest));
+        // Gestufte Shulkerkisten wie NeoForges Vanilla-Shulkerkiste: seitenweise ueber WorldlyContainer
+        // (nimmt keine Shulkerkisten an), die x2/x4-Plaetze ueber getMaxStackSize(stack).
+        event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.TIERED_SHULKER_BOX_BE.get(), WorldlyContainerWrapper::new);
     }
 
     /** Die Truhe, bei einer Doppeltruhe beide Haelften als ein Lager (erst die rechte, wie Vanilla). */

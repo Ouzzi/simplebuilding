@@ -42,6 +42,16 @@
     },
     {
       "damage_per_hit": 10,
+      "duration_factor": 2,
+      "from": "simplebuilding:netherite_shulker_box",
+      "material": "simplebuilding:enderite_nugget",
+      "material_count": 2,
+      "min_hammer": "netherite",
+      "tier": "enderite",
+      "to": "simplebuilding:enderite_shulker_box"
+    },
+    {
+      "damage_per_hit": 10,
       "from": "simplebuilding:netherite_smoker",
       "material": "simplebuilding:enderite_nugget",
       "min_hammer": "netherite",

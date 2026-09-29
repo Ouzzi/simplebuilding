@@ -287,6 +287,11 @@ public final class BlockInfo {
                     if (chest.tier().stackMultiplier() > 1) {
                         lines.add(Line.of("jade.simplebuilding.chest.stacks", Arg.literal(chest.tier().stackMultiplier())));
                     }
+                } else if (state.getBlock() instanceof com.simplebuilding.blocks.custom.TieredShulkerBoxBlock box) {
+                    lines.add(Line.of("jade.simplebuilding.chest.slots", Arg.literal(box.tier().slots())));
+                    if (box.tier().stackMultiplier() > 1) {
+                        lines.add(Line.of("jade.simplebuilding.chest.stacks", Arg.literal(box.tier().stackMultiplier())));
+                    }
                 }
             }
             case FURNACE_SPEED -> {

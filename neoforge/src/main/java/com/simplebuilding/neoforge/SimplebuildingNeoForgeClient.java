@@ -115,6 +115,8 @@ public final class SimplebuildingNeoForgeClient {
         event.registerBlockEntityRenderer(NeoForgeModRegistries.PLACED_BUNDLE_BE.get(), com.simplebuilding.client.render.PlacedBundleRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
         event.registerBlockEntityRenderer(NeoForgeModRegistries.TIERED_CHEST_BE.get(), com.simplebuilding.client.render.TieredChestRenderer::new);
+        // Gestufte Shulkerkisten: Vanillas Shulkerkisten-Modell mit der Textur aus Stufe und Farbe.
+        event.registerBlockEntityRenderer(NeoForgeModRegistries.TIERED_SHULKER_BOX_BE.get(), com.simplebuilding.client.render.TieredShulkerBoxRenderer::new);
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {

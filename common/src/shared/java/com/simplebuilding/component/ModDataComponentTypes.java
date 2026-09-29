@@ -61,6 +61,14 @@ public class ModDataComponentTypes {
                     .persistent(LensMeasurement.CODEC)
                     .networkSynchronized(LensMeasurement.STREAM_CODEC));
 
+    // Gestufte Shulkerkisten (Netherit x2, Enderit x4): die echten Anzahlen der Plaetze ueber 99, die
+    // minecraft:container nicht speichert (dort steht eine lesbare Kopie mit 99). Zum Client
+    // synchronisiert, sonst verloere das Kreativinventar sie beim Verschieben.
+    public static final DataComponentType<ContainerCounts> CONTAINER_COUNTS =
+            register("container_counts", builder -> builder
+                    .persistent(ContainerCounts.CODEC)
+                    .networkSynchronized(ContainerCounts.STREAM_CODEC));
+
 
     private static <T> DataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name), (builderOperator.apply(DataComponentType.builder())).build());

@@ -103,6 +103,19 @@ public class ModBlocks {
     public static final Block ENDERITE_CHEST = registerBlock("enderite_chest", Blocks.IRON_BLOCK, s -> new TieredChestBlock(ChestTier.ENDERITE,
             s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK).mapColor(MapColor.COLOR_PURPLE)));
 
+    // Shulkerkisten-Stufen ueber der Vanilla-Shulkerkiste (siehe TieredShulkerBoxes): Plaetze und
+    // Stapelfaktor der Truhen derselben Stufe. Aus Vanillas Shulkerkiste kopiert (dynamische Form,
+    // keine Verdeckung, vom Kolben zerstoert und mit Inhalt fallen gelassen, kein Werkzeug noetig),
+    // fester und explosionsfester wie die Truhen; offen nicht erstickend.
+    public static final Block REINFORCED_SHULKER_BOX = registerBlock("reinforced_shulker_box", Blocks.SHULKER_BOX,
+            s -> new TieredShulkerBoxBlock(ChestTier.REINFORCED, shulkerBoxProperties(s).strength(3.0F, 6.0F).mapColor(MapColor.METAL)));
+    public static final Block NETHERITE_SHULKER_BOX = registerBlock("netherite_shulker_box", Blocks.SHULKER_BOX,
+            s -> new TieredShulkerBoxBlock(ChestTier.NETHERITE, shulkerBoxProperties(s).strength(4.0F, 1200.0F)
+                    .sound(SoundType.NETHERITE_BLOCK).mapColor(MapColor.COLOR_BLACK)));
+    public static final Block ENDERITE_SHULKER_BOX = registerBlock("enderite_shulker_box", Blocks.SHULKER_BOX,
+            s -> new TieredShulkerBoxBlock(ChestTier.ENDERITE, shulkerBoxProperties(s).strength(5.0F, 1500.0F)
+                    .sound(SoundType.NETHERITE_BLOCK).mapColor(MapColor.COLOR_PURPLE)));
+
     // --- 5. RUCKSAECKE (abgestellt) ---
     // Aus der Glas-Vorlage (keine Verdeckung, kein Ersticken, kein Redstone-Leiter - passend zur
     // kleinen Form), dann Wolle-Klang, weich wie Wolle und von Kolben zerstoert statt geschoben.
@@ -282,6 +295,12 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         Simplebuilding.LOGGER.info("Registering Mod Blocks for " + Simplebuilding.MOD_ID);
+    }
+
+    /** Vanillas Shulkerkisten-Eigenschaften, mit der Offen-Pruefung gegen die Block-Entity der Stufen. */
+    private static BlockBehaviour.Properties shulkerBoxProperties(BlockBehaviour.Properties settings) {
+        // Nur das Ersticken: die Sicht-Pruefung hat auf 26.3 eine andere Signatur (mit AABB), dort bleibt Vanillas.
+        return settings.isSuffocating(TieredShulkerBoxBlock::isClosedAt);
     }
 
     private static BlockBehaviour.Properties backpackProperties(BlockBehaviour.Properties settings, boolean blastProof) {

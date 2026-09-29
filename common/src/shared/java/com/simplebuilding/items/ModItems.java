@@ -482,6 +482,17 @@ public class ModItems {
 
     public static final Item ENDERITE_CHEST = registerItem("enderite_chest", s -> new BlockItem(ModBlocks.ENDERITE_CHEST, s.fireResistant().rarity(Rarity.EPIC)));
 
+    // Shulkerkisten-Stufen: wie die Truhen Verstaerkt COMMON, Netherit UNCOMMON, Enderit EPIC, Netherit
+    // und Enderit feuerfest; Stapelgroesse 1 und leerer Inhalt wie Vanillas Shulkerkiste.
+    public static final Item REINFORCED_SHULKER_BOX = registerItem("reinforced_shulker_box",
+            s -> new com.simplebuilding.items.custom.TieredShulkerBoxItem(ModBlocks.REINFORCED_SHULKER_BOX, shulkerBox(s)));
+
+    public static final Item NETHERITE_SHULKER_BOX = registerItem("netherite_shulker_box",
+            s -> new com.simplebuilding.items.custom.TieredShulkerBoxItem(ModBlocks.NETHERITE_SHULKER_BOX, shulkerBox(s).fireResistant().rarity(UNCOMMON)));
+
+    public static final Item ENDERITE_SHULKER_BOX = registerItem("enderite_shulker_box",
+            s -> new com.simplebuilding.items.custom.TieredShulkerBoxItem(ModBlocks.ENDERITE_SHULKER_BOX, shulkerBox(s).fireResistant().rarity(Rarity.EPIC)));
+
     public static final Item REINFORCED_HOPPER = registerItem("reinforced_hopper", s -> new BlockItem(ModBlocks.REINFORCED_HOPPER, s));
 
     public static final Item NETHERITE_HOPPER = registerItem("netherite_hopper", s -> new BlockItem(ModBlocks.NETHERITE_HOPPER, s.fireResistant().rarity(UNCOMMON)));
@@ -968,6 +979,11 @@ public class ModItems {
                                         tier.armor(), AttributeModifier.Operation.ADD_VALUE),
                                 EquipmentSlotGroup.CHEST)
                         .build());
+    }
+
+    private static Item.Properties shulkerBox(Item.Properties settings) {
+        return settings.stacksTo(1).component(net.minecraft.core.component.DataComponents.CONTAINER,
+                net.minecraft.world.item.component.ItemContainerContents.EMPTY);
     }
 
     private static Item registerItem(String name, Function<Item.Properties, Item> function) {

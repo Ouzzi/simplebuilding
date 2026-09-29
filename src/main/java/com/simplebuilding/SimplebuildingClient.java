@@ -76,6 +76,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.TIERED_CHEST_BE, com.simplebuilding.client.render.TieredChestRenderer::new);
+        // Gestufte Shulkerkisten: Vanillas Shulkerkisten-Modell mit der Textur aus Stufe und Farbe.
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                com.simplebuilding.blocks.entity.ModBlockEntities.TIERED_SHULKER_BOX_BE, com.simplebuilding.client.render.TieredShulkerBoxRenderer::new);
         // Der getragene Rucksack bzw. Koecher auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
         // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity.
         net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(

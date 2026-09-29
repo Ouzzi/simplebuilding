@@ -58,7 +58,11 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(key(ModBlocks.ENDERITE_BLAST_FURNACE))
                 .add(key(ModBlocks.REINFORCED_CHEST))
                 .add(key(ModBlocks.NETHERITE_CHEST))
-                .add(key(ModBlocks.ENDERITE_CHEST));
+                .add(key(ModBlocks.ENDERITE_CHEST))
+                // Gestufte Shulkerkisten: schneller mit der Spitzhacke, droppen aber mit jedem Werkzeug.
+                .add(key(ModBlocks.REINFORCED_SHULKER_BOX))
+                .add(key(ModBlocks.NETHERITE_SHULKER_BOX))
+                .add(key(ModBlocks.ENDERITE_SHULKER_BOX));
 
 
         // 2. Er benötigt mindestens ein Eisenwerkzeug (wie Diamantblock)

@@ -469,13 +469,16 @@ public final class TestCentreSections {
             if (upgrade == null || upgrade.from() != block) {
                 continue;
             }
-            // Von den acht Kupfertruhen steht nur die unverwitterte an der Station (alle werden gleich aufgewertet).
+            // Von den acht Kupfertruhen steht nur die unverwitterte an der Station, von den 17 Vanilla-
+            // Shulkerkisten nur die ungefaerbte (alle werden gleich aufgewertet).
             net.minecraft.resources.Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
-            if (!"simplebuilding".equals(blockId.getNamespace()) && !blockId.getPath().equals("copper_chest")) {
+            if (!"simplebuilding".equals(blockId.getNamespace()) && !blockId.getPath().equals("copper_chest")
+                    && !blockId.getPath().equals("shulker_box")) {
                 continue;
             }
             c.place(x, 0, 2, facing(upgrade.from().defaultBlockState(), Direction.NORTH));
-            c.wallFrame(x, 1, wallZ, new ItemStack(upgrade.nugget()));
+            // Shulkerkisten brauchen zwei Stueck Material je Stufe: der Rahmen zeigt die Anzahl.
+            c.wallFrame(x, 1, wallZ, new ItemStack(upgrade.nugget(), upgrade.materialCost()));
             Item needed = null;
             for (Item candidate : hammers) {
                 if (SledgehammerUpgrades.hammerRank(candidate) >= upgrade.minHammerRank()) {

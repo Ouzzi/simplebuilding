@@ -1,0 +1,31 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "simplebuilding:entity/shulker/reinforced",
+        "simplebuilding:entity/shulker/netherite",
+        "simplebuilding:entity/shulker/enderite"
+      ],
+      "palette_key": "simplebuilding:shulker/key",
+      "permutations": {
+        "white": "simplebuilding:shulker/white",
+        "orange": "simplebuilding:shulker/orange",
+        "magenta": "simplebuilding:shulker/magenta",
+        "light_blue": "simplebuilding:shulker/light_blue",
+        "yellow": "simplebuilding:shulker/yellow",
+        "lime": "simplebuilding:shulker/lime",
+        "pink": "simplebuilding:shulker/pink",
+        "gray": "simplebuilding:shulker/gray",
+        "light_gray": "simplebuilding:shulker/light_gray",
+        "cyan": "simplebuilding:shulker/cyan",
+        "purple": "simplebuilding:shulker/purple",
+        "blue": "simplebuilding:shulker/blue",
+        "brown": "simplebuilding:shulker/brown",
+        "green": "simplebuilding:shulker/green",
+        "red": "simplebuilding:shulker/red",
+        "black": "simplebuilding:shulker/black"
+      }
+    }
+  ]
+}

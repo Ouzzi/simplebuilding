@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "group": "enderite_shulker_box_dye",
+  "input": "simplebuilding:enderite_shulker_box",
+  "material": "minecraft:pink_dye",
+  "result": {
+    "components": {
+      "minecraft:base_color": "pink"
+    },
+    "id": "simplebuilding:enderite_shulker_box"
+  }
+}

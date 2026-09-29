@@ -1717,7 +1717,8 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                 "tools": [step["minimumHammer"]],
                 "toolOrBetter": True,
                 "output": {"id": step["to"], "count": 1},
-                "stats": {"ticks": up.get("durationTicks"), "hits": up.get("hits"),
+                "stats": {"ticks": step.get("durationTicks", up.get("durationTicks")),
+                          "hits": step.get("hits", up.get("hits")),
                           "damagePerHit": step["damagePerHit"], "damage": step["totalDamage"]},
             })
 

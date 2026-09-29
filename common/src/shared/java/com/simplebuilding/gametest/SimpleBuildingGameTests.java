@@ -1168,6 +1168,24 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tiered_chest_game_test_chest_items_follow_the_family_scheme", TieredChestTests::chestItemsFollowTheFamilyScheme)
                     .build(),
+            GameTestSpec.named("tiered_shulker_box_game_test_vanilla_box_climbs_to_enderite_in_ten_blows_keeping_contents_and_color", TieredShulkerBoxTests::vanillaBoxClimbsToEnderiteInTenBlowsKeepingContentsAndColor)
+                    .build(),
+            GameTestSpec.named("tiered_shulker_box_game_test_contents_and_oversized_stacks_survive_breaking_placing_and_burning", TieredShulkerBoxTests::contentsAndOversizedStacksSurviveBreakingPlacingAndBurning)
+                    .build(),
+            GameTestSpec.named("tiered_shulker_box_game_test_oversized_stacks_and_color_survive_saving_and_loading", TieredShulkerBoxTests::oversizedStacksAndColorSurviveSavingAndLoading)
+                    .build(),
+            GameTestSpec.named("tiered_shulker_box_game_test_hoppers_and_comparators_follow_the_tier_limit", TieredShulkerBoxTests::hoppersAndComparatorsFollowTheTierLimit)
+                    .maxTicks(TieredShulkerBoxTests.RIG_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("tiered_shulker_box_game_test_dispensers_place_the_boxes", TieredShulkerBoxTests::dispensersPlaceTheBoxes)
+                    .maxTicks(TieredShulkerBoxTests.RIG_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("tiered_shulker_box_game_test_boxes_do_not_nest", TieredShulkerBoxTests::boxesDoNotNest)
+                    .build(),
+            GameTestSpec.named("tiered_shulker_box_game_test_boxes_are_dyed_crafted_and_washed", TieredShulkerBoxTests::boxesAreDyedCraftedAndWashed)
+                    .build(),
+            GameTestSpec.named("tiered_shulker_box_game_test_box_items_follow_the_family_scheme", TieredShulkerBoxTests::boxItemsFollowTheFamilyScheme)
+                    .build(),
             GameTestSpec.named("block_info_game_test_launchpad_shows_its_charges_against_its_capacity", BlockInfoTests::launchpadShowsItsChargesAgainstItsCapacity)
                     .build(),
             GameTestSpec.named("block_info_game_test_pad_owner_is_named_by_the_server", BlockInfoTests::padOwnerIsNamedByTheServer)

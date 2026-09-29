@@ -46,6 +46,8 @@ public final class McVersion {
     public static final PushReaction PUSH_BLOCKED = PushReaction.BLOCK;
     public static final PushReaction PUSH_DESTROYS = PushReaction.DESTROY;
     public static final PushReaction PUSH_ONLY = PushReaction.PUSH_ONLY;
+    /** Entities with this reaction stay where they are when a piston or a shulker lid moves (26.3: IGNORE_ENTITY). */
+    public static final PushReaction PUSH_IGNORED = PushReaction.IGNORE;
 
     /**
      * A block's piston push reaction as the 26.2 rules see it. 26.3 folded vanilla's hard-coded

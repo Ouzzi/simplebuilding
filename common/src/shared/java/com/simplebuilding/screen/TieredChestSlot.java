@@ -16,10 +16,22 @@ import net.minecraft.world.item.ItemStack;
  */
 public class TieredChestSlot extends Slot {
     private final int multiplier;
+    private final boolean shulkerBox;
 
     public TieredChestSlot(Container container, int slot, int x, int y, int multiplier) {
+        this(container, slot, x, y, multiplier, false);
+    }
+
+    /** {@code shulkerBox}: a slot of a tier shulker box, which refuses what vanilla's {@code ShulkerBoxSlot} refuses. */
+    public TieredChestSlot(Container container, int slot, int x, int y, int multiplier, boolean shulkerBox) {
         super(container, slot, x, y);
         this.multiplier = multiplier;
+        this.shulkerBox = shulkerBox;
+    }
+
+    @Override
+    public boolean mayPlace(ItemStack stack) {
+        return !this.shulkerBox || com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity.canHold(stack);
     }
 
     @Override

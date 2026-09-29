@@ -82,6 +82,8 @@ public final class SimplebuildingForgeClient {
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
         event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_CHEST_BE.get(),
                 com.simplebuilding.client.render.TieredChestRenderer::new);
+        event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_SHULKER_BOX_BE.get(),
+                com.simplebuilding.client.render.TieredShulkerBoxRenderer::new);
     }
 
     /** Der getragene Rucksack bzw. Koecher auf dem Ruecken: beide Spielermodelle und die Mannequins. */

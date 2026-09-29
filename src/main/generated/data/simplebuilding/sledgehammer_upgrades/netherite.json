@@ -42,6 +42,16 @@
     },
     {
       "damage_per_hit": 4,
+      "duration_factor": 2,
+      "from": "simplebuilding:reinforced_shulker_box",
+      "material": "simplebuilding:netherite_nugget",
+      "material_count": 2,
+      "min_hammer": "diamond",
+      "tier": "netherite",
+      "to": "simplebuilding:netherite_shulker_box"
+    },
+    {
+      "damage_per_hit": 4,
       "from": "simplebuilding:reinforced_smoker",
       "material": "simplebuilding:netherite_nugget",
       "min_hammer": "diamond",

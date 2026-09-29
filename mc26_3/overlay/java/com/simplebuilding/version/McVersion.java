@@ -40,6 +40,8 @@ public final class McVersion {
     public static final PushReaction PUSH_BLOCKED = PushReaction.IMMOVEABLE;
     public static final PushReaction PUSH_DESTROYS = PushReaction.POPPED;
     public static final PushReaction PUSH_ONLY = PushReaction.PUSH;
+    /** Entities with this reaction stay where they are when a piston or a shulker lid moves (26.2: IGNORE). */
+    public static final PushReaction PUSH_IGNORED = PushReaction.IGNORE_ENTITY;
 
     /** 26.2 semantics: the former name list counts as a normal block again (see the 26.2 twin). */
     public static PushReaction pushReaction(net.minecraft.world.level.block.state.BlockState state) {

@@ -2240,7 +2240,7 @@ public final class DataIntegrityTests {
         Map<Item, ModItemGroupsContent.Tab> vanillaHome = new HashMap<>();
         for (Item counterpart : List.of(Items.HOPPER, Items.PISTON, Items.STICKY_PISTON,
                 Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE, Items.BUNDLE, Items.CARTOGRAPHY_TABLE,
-                Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")))) {
+                Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")), Items.SHULKER_BOX)) {
             vanillaHome.put(counterpart, ModItemGroupsContent.Tab.FUNCTIONAL);
         }
         // Alle Vanilla-Druckplatten neben den Mod-Platten (Besitzer 2026-09-27; 16, ab MC 26.3 mit Pappel 17).
@@ -2279,7 +2279,7 @@ public final class DataIntegrityTests {
         if (trims < 18) {
             problems.add("only " + trims + " vanilla armour trim templates are registered");
         }
-        if (vanillaPressurePlates().size() < 16 || vanillaHome.size() != 10 + vanillaPressurePlates().size() + 42 + 28 + 11 + 2 + 1 + trims
+        if (vanillaPressurePlates().size() < 16 || vanillaHome.size() != 11 + vanillaPressurePlates().size() + 42 + 28 + 11 + 2 + 1 + trims
                 || vanillaHome.containsKey(Items.AIR)) {
             problems.add("the vanilla tool and armour list names an item that does not exist: " + vanillaHome.size() + " entries");
         }
@@ -2384,6 +2384,9 @@ public final class DataIntegrityTests {
                 // Truhen: Vanilla-Truhe, Kupfertruhe (die erste Aufwertungsstufe), dann die Mod-Stufen.
                 List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
                         ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST),
+                // Shulkerkisten: die ungefaerbte Vanilla-Kiste (Vertreterin aller 17 Anfangsstufen), dann die Mod-Stufen.
+                List.of(Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX,
+                        ModItems.ENDERITE_SHULKER_BOX),
                 woodenPlates,
                 List.of(Items.STONE_PRESSURE_PLATE, Items.POLISHED_BLACKSTONE_PRESSURE_PLATE,
                         Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE,

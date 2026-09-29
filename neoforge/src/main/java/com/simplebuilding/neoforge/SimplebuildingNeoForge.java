@@ -96,5 +96,10 @@ public final class SimplebuildingNeoForge {
         for (Item coloredItem : OctantCauldronWash.washableOctants()) {
             ((CauldronInteractionDispatcherAccessor) (Object) CauldronInteractions.WATER).simplebuilding$put(coloredItem, OctantCauldronWash.INTERACTION);
         }
+        // Gefaerbte gestufte Shulkerkisten waschen wie Vanillas; Werfer stellen sie auf wie Vanillas.
+        for (Item box : com.simplebuilding.util.TieredShulkerBoxes.items()) {
+            ((CauldronInteractionDispatcherAccessor) (Object) CauldronInteractions.WATER).simplebuilding$put(box, com.simplebuilding.util.TieredShulkerBoxes.WASH);
+        }
+        com.simplebuilding.util.TieredShulkerBoxes.registerDispenserBehavior();
     }
 }

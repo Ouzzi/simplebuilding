@@ -158,6 +158,13 @@ public class ModModelProvider extends FabricModelProvider {
         registerTieredChest(blockStateModelGenerator, ModBlocks.NETHERITE_CHEST, net.minecraft.world.level.block.Blocks.NETHERITE_BLOCK);
         registerTieredChest(blockStateModelGenerator, ModBlocks.ENDERITE_CHEST, ModBlocks.ENDERITE_BLOCK);
 
+        // Gestufte Shulkerkisten: wie Vanillas Shulkerkisten ein Partikel-Blockmodell (gezeichnet wird
+        // vom TieredShulkerBoxRenderer), das Item ueber Vanillas Spezialmodell "minecraft:shulker_box",
+        // je nach minecraft:base_color mit der Textur aus Stufe und Farbe (TieredShulkerBoxRenderer#textureId).
+        registerTieredShulkerBox(blockStateModelGenerator, ModBlocks.REINFORCED_SHULKER_BOX);
+        registerTieredShulkerBox(blockStateModelGenerator, ModBlocks.NETHERITE_SHULKER_BOX);
+        registerTieredShulkerBox(blockStateModelGenerator, ModBlocks.ENDERITE_SHULKER_BOX);
+
         // --- 4. Hoppers ---
         registerCustomHopper(blockStateModelGenerator, ModBlocks.REINFORCED_HOPPER);
         registerCustomHopper(blockStateModelGenerator, ModBlocks.NETHERITE_HOPPER);
@@ -398,6 +405,25 @@ public class ModModelProvider extends FabricModelProvider {
         generator.itemModelOutput.accept(chest.asItem(), ItemModelUtils.specialModel(Identifier.withDefaultNamespace("item/chest"),
                 new net.minecraft.client.renderer.special.ChestSpecialRenderer.Unbaked(
                         Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, tier.textureName()))));
+    }
+
+    private void registerTieredShulkerBox(BlockModelGenerators generator, Block box) {
+        generator.createParticleOnlyBlock(box);
+        Item item = box.asItem();
+        com.simplebuilding.blocks.custom.ChestTier tier = ((com.simplebuilding.blocks.custom.TieredShulkerBoxBlock) box).tier();
+        Identifier base = ModelTemplates.SHULKER_BOX_INVENTORY.create(item, TextureMapping.particle(box), generator.modelOutput);
+        com.mojang.math.Transformation transformation = net.minecraft.client.renderer.blockentity.ShulkerBoxRenderer.modelTransform(Direction.UP);
+        java.util.List<net.minecraft.client.renderer.item.SelectItemModel.SwitchCase<DyeColor>> cases = new java.util.ArrayList<>();
+        for (DyeColor color : DyeColor.values()) {
+            cases.add(ItemModelUtils.when(color, ItemModelUtils.specialModel(base, transformation,
+                    new net.minecraft.client.renderer.special.ShulkerBoxSpecialRenderer.Unbaked(
+                            com.simplebuilding.client.render.TieredShulkerBoxRenderer.textureId(tier, color), 0.0F))));
+        }
+        ItemModel.Unbaked undyed = ItemModelUtils.specialModel(base, transformation,
+                new net.minecraft.client.renderer.special.ShulkerBoxSpecialRenderer.Unbaked(
+                        com.simplebuilding.client.render.TieredShulkerBoxRenderer.textureId(tier, null), 0.0F));
+        generator.itemModelOutput.accept(item, ItemModelUtils.select(
+                new net.minecraft.client.renderer.item.properties.select.ComponentContents<>(DataComponents.BASE_COLOR), undyed, cases));
     }
 
     private void registerCustomHopper(BlockModelGenerators generator, Block block) {

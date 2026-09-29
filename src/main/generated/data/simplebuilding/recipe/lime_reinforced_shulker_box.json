@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "group": "reinforced_shulker_box_dye",
+  "input": "simplebuilding:reinforced_shulker_box",
+  "material": "minecraft:lime_dye",
+  "result": {
+    "components": {
+      "minecraft:base_color": "lime"
+    },
+    "id": "simplebuilding:reinforced_shulker_box"
+  }
+}

@@ -128,7 +128,7 @@ public final class SledgehammerProgress extends SavedData {
         BlockPos key = pos.immutable();
         data.entries.put(key, new Entry(key, from, hits));
         data.setDirty();
-        data.broadcast(level, key, hits);
+        data.broadcast(level, key, hits, from);
     }
 
     /** Vergisst den Stand an {@code pos} und nimmt die Risse weg. */
@@ -141,7 +141,16 @@ public final class SledgehammerProgress extends SavedData {
 
     /** Die Riss-Stufe (0..9) nach so vielen Schlaegen, oder -1 fuer "keine Risse". */
     public static int crackStage(int hits) {
-        return hits <= 0 ? -1 : Math.min(9, hits * 2);
+        return crackStage(hits, 1);
+    }
+
+    /**
+     * Die Riss-Stufe fuer eine Aufwertung mit {@code factor}-fach so vielen Schlaegen (Shulkerkisten:
+     * 2): die Risse wachsen gleichmaessig ueber alle Schlaege, bei Faktor 2 also 1, 2, ... 9.
+     */
+    public static int crackStage(int hits, int factor) {
+        int f = Math.max(1, factor);
+        return hits <= 0 ? -1 : Math.min(9, (hits * 2 + f - 1) / f);
     }
 
     /** Jeder Server-Tick, von allen Loadern: Eintraege pruefen und Risse auffrischen. */
@@ -171,7 +180,7 @@ public final class SledgehammerProgress extends SavedData {
                         level.destroyBlockProgress(id, entry.pos(), -1);
                     }
                 } else if (rebroadcast) {
-                    data.broadcast(level, entry.pos(), entry.hits());
+                    data.broadcast(level, entry.pos(), entry.hits(), entry.block());
                 }
             }
         }
@@ -187,8 +196,9 @@ public final class SledgehammerProgress extends SavedData {
         }
     }
 
-    private void broadcast(ServerLevel level, BlockPos pos, int hits) {
+    private void broadcast(ServerLevel level, BlockPos pos, int hits, Block from) {
         int id = crackIds.computeIfAbsent(pos, p -> NEXT_CRACK_ID.getAndDecrement());
-        level.destroyBlockProgress(id, pos, crackStage(hits));
+        SledgehammerUpgrades.Upgrade upgrade = SledgehammerUpgrades.upgradeOf(from);
+        level.destroyBlockProgress(id, pos, crackStage(hits, upgrade == null ? 1 : upgrade.durationFactor()));
     }
 }

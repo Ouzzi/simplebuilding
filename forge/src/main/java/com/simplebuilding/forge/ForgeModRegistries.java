@@ -100,6 +100,11 @@ public final class ForgeModRegistries {
                     com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity::new,
                     Set.of(ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST)));
 
+    public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity>> TIERED_SHULKER_BOX_BE =
+            BLOCK_ENTITIES.register("tiered_shulker_box", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity>(
+                    com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity::new,
+                    Set.of(ModBlocks.REINFORCED_SHULKER_BOX, ModBlocks.NETHERITE_SHULKER_BOX, ModBlocks.ENDERITE_SHULKER_BOX)));
+
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.BackpackBlockEntity>> BACKPACK_BE =
             BLOCK_ENTITIES.register("backpack", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.BackpackBlockEntity>(
                     com.simplebuilding.blocks.entity.custom.BackpackBlockEntity::new,
@@ -205,6 +210,7 @@ public final class ForgeModRegistries {
         ModScreenHandlers.BACKPACK_MENU = BACKPACK_MENU.get();
         ModScreenHandlers.TIERED_CHEST_MENU = TIERED_CHEST_MENU.get();
         ModBlockEntities.TIERED_CHEST_BE = TIERED_CHEST_BE.get();
+        ModBlockEntities.TIERED_SHULKER_BOX_BE = TIERED_SHULKER_BOX_BE.get();
         ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
         ModBlockEntities.PLACED_TEMPLATE_BE = PLACED_TEMPLATE_BE.get();
         ModBlockEntities.PLACED_BUNDLE_BE = PLACED_BUNDLE_BE.get();

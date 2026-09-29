@@ -145,8 +145,19 @@ public final class TieredChests {
      * waere fuer Netherit und Enderit zu klein.
      */
     public static int maxStackSize(@Nullable Container container, ItemStack stack, int vanilla) {
-        TieredChestBlockEntity chest = chestBehind(container);
-        return chest == null ? vanilla : chest.getMaxStackSize(stack);
+        Container storage = oversizedStorage(container);
+        return storage == null ? vanilla : storage.getMaxStackSize(stack);
+    }
+
+    /**
+     * Das Lager mit Stufen-Stapelgrenze hinter {@code container}: eine Mod-Truhe (auch als erste
+     * Haelfte einer Doppeltruhe) oder eine gestufte Shulkerkiste, sonst null.
+     */
+    public static @Nullable Container oversizedStorage(@Nullable Container container) {
+        if (container instanceof com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity box) {
+            return box;
+        }
+        return chestBehind(container);
     }
 
     /** Vanillas Komparatorformel, gegen die Stapelgrenze der Stufe gerechnet. */
