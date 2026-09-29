@@ -150,8 +150,9 @@ public final class PressurePlateTests {
      */
     public static void copperPlatesReleaseAsLateAsTheyPress(GameTestHelper helper) {
         BlockPos plate = new BlockPos(4, 1, 4);
-        helper.setBlock(plate, TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE);
-        int required = CopperPressurePlateBlock.requiredTicks(((CopperPressurePlateBlock) TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE).getAge());
+        // Wax fixes the oxidation tier while this test measures its 40-tick delay.
+        helper.setBlock(plate, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE);
+        int required = CopperPressurePlateBlock.requiredTicks(((CopperPressurePlateBlock) TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE).getAge());
         ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 1.05, 4.5));
         long[] ticks = new long[3];
         ticks[0] = helper.getTick();
