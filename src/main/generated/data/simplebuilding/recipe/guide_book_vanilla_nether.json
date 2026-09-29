@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    [
+      "minecraft:book",
+      "simplebuilding:guide_book_vanilla_start"
+    ],
+    "minecraft:flint_and_steel"
+  ],
+  "result": {
+    "id": "simplebuilding:guide_book_vanilla_nether"
+  }
+}

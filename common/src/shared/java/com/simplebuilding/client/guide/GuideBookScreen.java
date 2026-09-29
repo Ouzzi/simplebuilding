@@ -41,8 +41,10 @@ import net.minecraft.world.item.crafting.display.StonecutterRecipeDisplay;
 
 /**
  * Der Buchbildschirm der Handbuecher, nach dem Vorbild von Eidolons Codex: eine aufgeschlagene
- * Doppelseite in einem Ledereinband, links ein Lesezeichen "Inhalt", rechts je Buch ein farbiges
- * Lesezeichen mit dem Schluesselitem (gesperrt, solange das Buch nicht im Inventar liegt).
+ * Doppelseite in einem Ledereinband, links ein Lesezeichen "Inhalt" und darunter eines, das zum
+ * anderen Regal wechselt (Mod-Buecher / Vanilla-Buecher, {@link GuideBooks.Shelf}), rechts je Buch
+ * des offenen Regals ein farbiges Lesezeichen mit dem Schluesselitem (gesperrt, solange das Buch
+ * nicht im Inventar liegt).
  *
  * <p>Aufbau eines Buchs: Inhaltsseite(n) mit Titel, Unterzeile, (Themenbuch:) Einleitung und je
  * Kapitel einer anklickbaren Zeile mit Symbol; danach jedes Kapitel ab einer neuen Doppelseite:
@@ -52,9 +54,13 @@ import net.minecraft.world.item.crafting.display.StonecutterRecipeDisplay;
  * oder, auf einem Server, aus dem Rezeptbuch des Spielers (nur freigeschaltete Rezepte). Ohne Rezept
  * zeigt die rechte Seite das Kapitelsymbol gross im Bildrahmen. Was nicht passt, fliesst weiter.
  *
+ * <p>Kapiteltexte: Absaetze ({@code \n}) bekommen einen kleinen Abstand, Zeilen mit {@code "- "}
+ * werden als Aufzaehlung mit haengendem Einzug gesetzt.
+ *
  * <p>Bedienung: Pfeile unten, Pfeiltasten/A/D/Bild auf-ab, Mausrad; Rechtsklick oder Ruecktaste
  * springt zurueck (nach einem Sprung dorthin, sonst zum Inhalt), Pos1 zum Inhalt. Die zuletzt
- * gelesene Doppelseite merkt sich jedes Buch bis zum Neustart des Spiels.
+ * gelesene Doppelseite merkt sich jedes Buch bis zum Neustart des Spiels. Das Lesen haelt das Spiel
+ * nicht an (wie das Inventar, {@link GuideContent#pausesGame}).
  */
 public class GuideBookScreen extends Screen {
     public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath("simplebuilding", "textures/gui/guide_book/book.png");
@@ -63,8 +69,15 @@ public class GuideBookScreen extends Screen {
     /** Inhaltsflaeche je Seite, relativ zum Buch. */
     static final int LEFT_X = 17, RIGHT_X = 159, CONTENT_Y = 15, CONTENT_W = 116, CONTENT_H = 142;
     static final int INK = 0xFF3B2A1C, INK_SOFT = 0xFF7A6248, INK_FAINT = 0xFFA08A6A;
-    /** Neun Lesezeichen passen mit 18 px Abstand an die Buchkante (20 px hoch, 2 px ueberlappend). */
-    private static final int TAB_Y = 12, TAB_STEP = 18;
+    /**
+     * Lesezeichen: 20 px hoch im Abstand von 18 px. Rechts passen neun an die Buchkante; hat ein
+     * Regal mehr Buecher, stehen die uebrigen links unter "Inhalt" und dem Regal-Lesezeichen.
+     */
+    private static final int TAB_Y = 12, TAB_STEP = 18, RIGHT_TABS = 9;
+    /** Das Regal-Lesezeichen links, unter "Inhalt"; darunter die Buecher, die rechts keinen Platz haben. */
+    private static final int SHELF_TAB_Y = TAB_Y + 24, LEFT_BOOK_TAB_Y = SHELF_TAB_Y + 24;
+    /** Einzug der Aufzaehlungszeilen und Abstand zwischen Absaetzen. */
+    private static final int BULLET_INDENT = 8, PARAGRAPH_GAP = 3;
 
     private static final Map<GuideBooks.Book, Integer> LAST_SPREAD = new EnumMap<>(GuideBooks.Book.class);
 
@@ -120,6 +133,45 @@ public class GuideBookScreen extends Screen {
 
     private void back() {
         goTo(history.isEmpty() ? 0 : history.pop(), false);
+    }
+
+    @Override
+    public boolean isPauseScreen() {
+        // Wie das Inventar: Lesen haelt die Welt nicht an (Besitzer 2026-09-29).
+        return GuideContent.pausesGame();
+    }
+
+    /** Die Buecher des offenen Regals, in Lesezeichen-Reihenfolge. */
+    private List<GuideBooks.Book> shelfBooks() {
+        return book.shelf().books();
+    }
+
+    /** Ob Lesezeichen {@code i} des Regals links steht (die ersten neun stehen rechts). */
+    static boolean leftTab(int i) {
+        return i >= RIGHT_TABS;
+    }
+
+    /** Oberkante von Lesezeichen {@code i}, relativ zum Buch. */
+    static int tabY(int i) {
+        return leftTab(i) ? LEFT_BOOK_TAB_Y + (i - RIGHT_TABS) * TAB_STEP : TAB_Y + i * TAB_STEP;
+    }
+
+    private GuideBooks.Shelf otherShelf() {
+        return book.shelf() == GuideBooks.Shelf.MOD ? GuideBooks.Shelf.VANILLA : GuideBooks.Shelf.MOD;
+    }
+
+    /** Das Buch, das der Regalwechsel oeffnet (das Einstiegsbuch, sonst das erste verfuegbare), oder null. */
+    private GuideBooks.Book otherShelfTarget() {
+        GuideBooks.Shelf other = otherShelf();
+        if (available(other.hub())) {
+            return other.hub();
+        }
+        for (GuideBooks.Book b : other.books()) {
+            if (available(b)) {
+                return b;
+            }
+        }
+        return null;
     }
 
     boolean available(GuideBooks.Book b) {
@@ -213,7 +265,7 @@ public class GuideBookScreen extends Screen {
      * gross. Was nicht passt, fliesst auf die naechste Seite weiter.
      */
     private void layout() {
-        int chapters = book.chapters() + (book == GuideBooks.Book.GUIDE ? 1 : 0);
+        int chapters = book.chapters() + (book.isHub() ? 1 : 0);
         chapterPage = new int[chapters];
         Pager p = new Pager();
 
@@ -241,9 +293,7 @@ public class GuideBookScreen extends Screen {
             chapterPage[i] = p.page();
             GuideContent.Chapter chapter = GuideContent.chapter(book, i);
             p.add(new Header(stack(chapter.icon()), Component.translatable(book.key() + "." + (i + 1) + ".title"), ink(book)));
-            for (FormattedCharSequence line : font.split(GuideBooks.chapterText(book, i + 1), CONTENT_W)) {
-                p.add(new TextLine(line, INK));
-            }
+            addParagraphs(p, GuideBooks.chapterText(book, i + 1).getString(), INK);
             if (!chapter.items().isEmpty()) {
                 p.add(new Gap(4));
                 p.add(new Label(Component.translatable(GuideContent.GUI + "in_chapter")));
@@ -277,26 +327,56 @@ public class GuideBookScreen extends Screen {
                 p.add(new Illustration(stack(chapter.icon())));
             }
         }
-        if (book == GuideBooks.Book.GUIDE) {
+        if (book.isHub()) {
             p.startSpread();
             chapterPage[book.chapters()] = p.page();
             p.add(new Header(new ItemStack(Items.BOOKSHELF), Component.translatable(GuideBooks.TOPICS_KEY + ".title"), ink(book)));
             for (FormattedCharSequence line : font.split(Component.translatable(GuideBooks.TOPICS_KEY + ".text"), CONTENT_W)) {
                 p.add(new TextLine(line, INK));
             }
-            for (GuideBooks.Book topic : GuideBooks.Book.topics()) {
+            for (GuideBooks.Book topic : book.shelf().topics()) {
                 p.add(new Gap(5));
-                p.add(card(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(GuideBooks.item(topic)).toString(), topic));
+                p.add(card(GuideBooks.itemId(topic), topic));
             }
         }
         pages = p.out;
     }
 
+    /**
+     * Setzt einen Kapiteltext: Absaetze mit kleinem Abstand, {@code "- "}-Zeilen als Aufzaehlung mit
+     * haengendem Einzug (der Text ist schlicht, also genuegt die aufgeloeste Zeichenkette).
+     */
+    private void addParagraphs(Pager p, String text, int colour) {
+        boolean first = true;
+        for (String paragraph : text.split("\n")) {
+            if (paragraph.isBlank()) {
+                continue;
+            }
+            if (!first) {
+                p.add(new Gap(PARAGRAPH_GAP));
+            }
+            first = false;
+            boolean bullet = paragraph.startsWith("- ");
+            String body = bullet ? paragraph.substring(2) : paragraph;
+            List<FormattedCharSequence> lines = font.split(Component.literal(body), bullet ? CONTENT_W - BULLET_INDENT : CONTENT_W);
+            for (int i = 0; i < lines.size(); i++) {
+                p.add(new TextLine(lines.get(i), colour, bullet ? BULLET_INDENT : 0, bullet && i == 0));
+            }
+        }
+    }
+
     private Element card(String spec, GuideBooks.Book topic) {
         Optional<RecipeDisplay> display = findRecipe(spec);
-        Component caption = topic != null
-                ? Component.translatable(topic.key() + ".title").withStyle(s -> s.withColor(TextColor.fromRgb(ink(topic) & 0xFFFFFF)))
-                : null;
+        Component caption = null;
+        if (topic != null) {
+            net.minecraft.network.chat.MutableComponent title = Component.translatable(topic.key() + ".title")
+                    .withStyle(s -> s.withColor(TextColor.fromRgb(ink(topic) & 0xFFFFFF)));
+            if (GuideBooks.operatorOnly(topic)) {
+                title.append(Component.translatable(GuideContent.GUI + "operator_only")
+                        .withStyle(s -> s.withColor(TextColor.fromRgb(INK_SOFT & 0xFFFFFF))));
+            }
+            caption = title;
+        }
         if (display.isEmpty()) {
             return new MissingRecipe(stack(spec), caption);
         }
@@ -330,9 +410,10 @@ public class GuideBookScreen extends Screen {
         return Optional.empty();
     }
 
+    /** Der Stapel einer Angabe, bei {@code "item#zauber"} mit dem Zauber auf Hoechststufe ({@link GuideContent#stack}). */
     static ItemStack stack(String spec) {
-        Item item = GuideContent.item(spec);
-        return item == Items.AIR ? ItemStack.EMPTY : new ItemStack(item);
+        net.minecraft.client.multiplayer.ClientLevel level = net.minecraft.client.Minecraft.getInstance().level;
+        return GuideContent.stack(spec, level != null ? level.registryAccess() : null);
     }
 
     // =====================================================================================
@@ -397,11 +478,18 @@ public class GuideBookScreen extends Screen {
             goTo(0, true);
             return true;
         }
-        GuideBooks.Book[] books = GuideBooks.Book.values();
-        for (int i = 0; i < books.length; i++) {
+        if (overShelfTab(mx, my)) {
+            GuideBooks.Book target = otherShelfTarget();
+            if (target != null) {
+                open(target, LAST_SPREAD.getOrDefault(target, 0));
+            }
+            return true;
+        }
+        List<GuideBooks.Book> books = shelfBooks();
+        for (int i = 0; i < books.size(); i++) {
             if (overTab(i, mx, my)) {
-                if (books[i] != book && available(books[i])) {
-                    open(books[i], LAST_SPREAD.getOrDefault(books[i], 0));
+                if (books.get(i) != book && available(books.get(i))) {
+                    open(books.get(i), LAST_SPREAD.getOrDefault(books.get(i), 0));
                 }
                 return true;
             }
@@ -439,8 +527,12 @@ public class GuideBookScreen extends Screen {
         return in(mx, my, bx - 22, by + TAB_Y, 24, 20);
     }
 
+    private boolean overShelfTab(double mx, double my) {
+        return in(mx, my, bx - 22, by + SHELF_TAB_Y, 24, 20);
+    }
+
     private boolean overTab(int i, double mx, double my) {
-        return in(mx, my, bx + BOOK_W - 2, by + TAB_Y + i * TAB_STEP, 26, 19);
+        return leftTab(i) ? in(mx, my, bx - 22, by + tabY(i), 24, 19) : in(mx, my, bx + BOOK_W - 2, by + tabY(i), 26, 19);
     }
 
     static boolean in(double mx, double my, int x, int y, int w, int h) {
@@ -458,24 +550,30 @@ public class GuideBookScreen extends Screen {
         hoveredText = null;
 
         // Lesezeichen liegen hinter dem Einband
-        GuideBooks.Book[] books = GuideBooks.Book.values();
-        for (int i = 0; i < books.length; i++) {
-            GuideBooks.Book b = books[i];
-            int ty = by + TAB_Y + i * TAB_STEP;
+        List<GuideBooks.Book> books = shelfBooks();
+        for (int i = 0; i < books.size(); i++) {
+            GuideBooks.Book b = books.get(i);
+            int ty = by + tabY(i);
             boolean selected = b == book;
             boolean open = available(b);
             int u = selected ? 32 : open ? 0 : 64;
             int shift = selected ? 3 : 0;
-            int tx = bx + BOOK_W - 8 + shift;
-            blit(g, tx, ty, u, 184, 30, 20);
+            // Rechts ragt das Lesezeichen nach rechts heraus, links gespiegelt nach links.
+            int tx = leftTab(i) ? bx - 24 - shift : bx + BOOK_W - 8 + shift;
+            int iconX = leftTab(i) ? tx + 4 : tx + 10;
+            if (leftTab(i)) {
+                blitMirrored(g, tx, ty, u, 184, 30, 20);
+            } else {
+                blit(g, tx, ty, u, 184, 30, 20);
+            }
             // Farbstreifen des Buchs auf dem Lesezeichen
             if (open) {
-                g.fill(tx + 8, ty + 2, tx + 26, ty + 4, 0xFF000000 | GuideContent.style(b).colour());
+                g.fill(iconX - 2, ty + 2, iconX + 16, ty + 4, 0xFF000000 | GuideContent.style(b).colour());
             }
-            ItemStack icon = b == GuideBooks.Book.GUIDE ? new ItemStack(GuideBooks.item(b)) : new ItemStack(GuideBooks.keyItem(b));
-            g.item(icon, tx + 10, ty + 3);
+            ItemStack icon = b.isHub() ? new ItemStack(GuideBooks.item(b)) : new ItemStack(GuideBooks.keyItem(b));
+            g.item(icon, iconX, ty + 3);
             if (!open) {
-                g.fill(tx + 10, ty + 3, tx + 26, ty + 19, 0x88402A18);
+                g.fill(iconX, ty + 3, iconX + 16, ty + 19, 0x88402A18);
             }
             if (overTab(i, mouseX, mouseY)) {
                 hoveredText = open ? Component.translatable(b.key() + ".title")
@@ -485,6 +583,18 @@ public class GuideBookScreen extends Screen {
         blit(g, bx - 24, by + TAB_Y, 96, 184, 30, 20);
         if (overContentsTab(mouseX, mouseY)) {
             hoveredText = Component.translatable(GuideContent.GUI + "contents");
+        }
+        // Regalwechsel: zeigt das Einstiegsbuch des anderen Regals; gesperrt, solange keines seiner Buecher da ist.
+        GuideBooks.Shelf other = otherShelf();
+        GuideBooks.Book shelfTarget = otherShelfTarget();
+        blitMirrored(g, bx - 24, by + SHELF_TAB_Y, shelfTarget != null ? 0 : 64, 184, 30, 20);
+        g.item(new ItemStack(GuideBooks.item(other.hub())), bx - 20, by + SHELF_TAB_Y + 3);
+        if (shelfTarget == null) {
+            g.fill(bx - 20, by + SHELF_TAB_Y + 3, bx - 4, by + SHELF_TAB_Y + 19, 0x88402A18);
+        }
+        if (overShelfTab(mouseX, mouseY)) {
+            hoveredText = shelfTarget != null ? Component.translatable(GuideContent.shelfKey(other))
+                    : Component.translatable(GuideContent.GUI + "locked", Component.translatable(GuideBooks.keyItem(other.hub()).asItem().getDescriptionId()));
         }
 
         blit(g, bx, by, 0, 0, BOOK_W, BOOK_H);
@@ -528,6 +638,15 @@ public class GuideBookScreen extends Screen {
         g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, u, v, w, h, TEX_W, TEX_H);
     }
 
+    /** Wie {@link #blit}, aber waagerecht gespiegelt (Lesezeichen an der linken Buchkante). */
+    static void blitMirrored(GuiGraphicsExtractor g, int x, int y, int u, int v, int w, int h) {
+        g.pose().pushMatrix();
+        g.pose().translate(x + w, y);
+        g.pose().scale(-1f, 1f);
+        blit(g, 0, 0, u, v, w, h);
+        g.pose().popMatrix();
+    }
+
     /** Ein Item in einem Rahmen (18x18), mit Tooltip beim Ueberfahren; Leerstapel nur der Rahmen. */
     void slot(GuiGraphicsExtractor g, ItemStack stack, int x, int y, int mx, int my) {
         blit(g, x, y, 168, 184, 18, 18);
@@ -567,7 +686,12 @@ public class GuideBookScreen extends Screen {
         }
     }
 
-    record TextLine(FormattedCharSequence line, int colour) implements Element {
+    /** Eine Textzeile; mit Einzug (Aufzaehlung), die erste Zeile eines Punkts mit Aufzaehlungszeichen. */
+    record TextLine(FormattedCharSequence line, int colour, int indent, boolean bullet) implements Element {
+        TextLine(FormattedCharSequence line, int colour) {
+            this(line, colour, 0, false);
+        }
+
         @Override
         public int height() {
             return 10;
@@ -575,7 +699,10 @@ public class GuideBookScreen extends Screen {
 
         @Override
         public void draw(GuideBookScreen s, GuiGraphicsExtractor g, int x, int y, int mx, int my) {
-            g.text(s.font, line, x, y, colour, false);
+            if (bullet) {
+                g.fill(x + 2, y + 3, x + 5, y + 6, colour);
+            }
+            g.text(s.font, line, x + indent, y, colour, false);
         }
     }
 
@@ -689,8 +816,13 @@ public class GuideBookScreen extends Screen {
                 g.fill(x - 2, y, x + CONTENT_W + 2, y + 17, 0x30A0703A);
             }
             g.item(icon, x, y);
-            FormattedCharSequence name = s.font.split(title, CONTENT_W - 22).get(0);
-            g.text(s.font, name, x + 20, y + 5, hover ? ink(s.book) : INK, false);
+            // Ein langer Titel bekommt zwei Zeilen statt abgeschnitten zu werden.
+            List<FormattedCharSequence> lines = s.font.split(title, CONTENT_W - 22);
+            int ty = lines.size() > 1 ? y : y + 5;
+            for (FormattedCharSequence line : lines.subList(0, Math.min(2, lines.size()))) {
+                g.text(s.font, line, x + 20, ty, hover ? ink(s.book) : INK, false);
+                ty += 9;
+            }
         }
 
         @Override

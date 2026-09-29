@@ -2,12 +2,23 @@
   "values": [
     "simplebuilding:guide_book",
     "simplebuilding:guide_book_tools",
+    "simplebuilding:guide_book_enchantments",
     "simplebuilding:guide_book_building",
     "simplebuilding:guide_book_storage",
     "simplebuilding:guide_book_machines",
     "simplebuilding:guide_book_end",
     "simplebuilding:guide_book_tweaks",
+    "simplebuilding:guide_book_gadgets",
     "simplebuilding:guide_book_trims",
-    "simplebuilding:guide_book_admin"
+    "simplebuilding:guide_book_admin",
+    "simplebuilding:guide_book_vanilla_start",
+    "simplebuilding:guide_book_vanilla_overworld",
+    "simplebuilding:guide_book_vanilla_caves",
+    "simplebuilding:guide_book_vanilla_ocean",
+    "simplebuilding:guide_book_vanilla_nether",
+    "simplebuilding:guide_book_vanilla_end",
+    "simplebuilding:guide_book_vanilla_redstone",
+    "simplebuilding:guide_book_vanilla_gear",
+    "simplebuilding:guide_book_vanilla_farming"
   ]
 }

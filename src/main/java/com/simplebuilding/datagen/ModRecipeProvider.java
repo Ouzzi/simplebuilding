@@ -768,19 +768,25 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Einsteiger-Handbuch: Buch + Werkbank (falls das geschenkte verloren geht). Themenbuecher:
                 // Buch oder Handbuch + Schluesselitem; das Handbuch ist sein eigener Handwerksrest und
                 // bleibt liegen. Freigeschaltet durch das Schluesselitem oder schon durch das Handbuch.
-                shapeless(RecipeCategory.MISC, ModItems.GUIDE_BOOK)
-                        .requires(Items.BOOK)
-                        .requires(com.simplebuilding.guide.GuideBooks.keyItem(com.simplebuilding.guide.GuideBooks.Book.GUIDE))
-                        .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
-                        .save(output);
-                for (com.simplebuilding.guide.GuideBooks.Book topic : com.simplebuilding.guide.GuideBooks.Book.topics()) {
-                    ItemLike key = com.simplebuilding.guide.GuideBooks.keyItem(topic);
-                    shapeless(RecipeCategory.MISC, com.simplebuilding.guide.GuideBooks.item(topic))
-                            .requires(Ingredient.of(Items.BOOK, ModItems.GUIDE_BOOK))
-                            .requires(key)
-                            .unlockedBy(getHasName(key), has(key))
-                            .unlockedBy(getHasName(ModItems.GUIDE_BOOK), has(ModItems.GUIDE_BOOK))
+                // Zwei Regale (GuideBooks.Shelf): das Einstiegsbuch jedes Regals (Einsteiger-Handbuch,
+                // Vanilla "Erste Schritte") ersetzt bei seinen Themenbuechern das Buch und bleibt liegen.
+                // Das Admin-Buch stellen nur Operatoren her (OperatorBook*Mixin, GuideBooks.operatorOnly).
+                for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
+                    Item hub = com.simplebuilding.guide.GuideBooks.item(shelf.hub());
+                    shapeless(RecipeCategory.MISC, hub)
+                            .requires(Items.BOOK)
+                            .requires(com.simplebuilding.guide.GuideBooks.keyItem(shelf.hub()))
+                            .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
                             .save(output);
+                    for (com.simplebuilding.guide.GuideBooks.Book topic : shelf.topics()) {
+                        ItemLike key = com.simplebuilding.guide.GuideBooks.keyItem(topic);
+                        shapeless(RecipeCategory.MISC, com.simplebuilding.guide.GuideBooks.item(topic))
+                                .requires(Ingredient.of(Items.BOOK, hub))
+                                .requires(key)
+                                .unlockedBy(getHasName(key), has(key))
+                                .unlockedBy(getHasName(hub), has(hub))
+                                .save(output);
+                    }
                 }
 
                 // --- BLAUPAUSE ---

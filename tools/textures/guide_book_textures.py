@@ -14,6 +14,15 @@ Eckfuellung), eine Spalte Abstand zu jedem Bildrand. Auf dem Deckel ein kleines 
   tweaks    gruen, Druckplatte mit Pfeil nach oben         (Pads & Geraete)
   trims     nachtblau, Brustpanzer mit goldenem Besatz     (Besaetze & Strahlkraft)
   admin     schiefergrau-dunkel, Konsole mit gruener Eingabe (Server & Admin, 2026-09-28)
+  gadgets   messingbraun, Zahnrad                          (Geraete, 2026-09-29)
+  enchantments tiefviolett, Funkeln                        (Verzauberungen, 2026-09-29)
+
+Vanilla-Regal (2026-09-29): dieselbe Buchform, aber silberne statt goldene Buende:
+  vanilla_start     Leder, Werkbankraster     vanilla_overworld Gruen, Baum
+  vanilla_caves     Steingrau, Fackel         vanilla_ocean     Meerblau, Welle
+  vanilla_nether    Netherrot, Flamme         vanilla_end       Endstein, Drachenei
+  vanilla_redstone  Dunkelgrau, Redstonefackel vanilla_gear     Stahl, Schwert
+  vanilla_farming   Weizenbraun, Weizenhalm
 """
 from PIL import Image
 
@@ -58,8 +67,20 @@ COVERS = {
     "tweaks": ("#18301a", "#244826", "#6fa35e", "#4e8040", "#3c6532"),
     "trims": ("#10142a", "#1b2342", "#4f5f99", "#343f73", "#28315a"),
     "admin": ("#1a1c1f", "#2a2d31", "#8b9199", "#636870", "#4c5057"),
+    "gadgets": ("#33240c", "#4a3614", "#b08a3e", "#8c6a2a", "#6e521f"),
+    "enchantments": ("#1f0f2e", "#2f1745", "#8a4fc0", "#6a3796", "#522a76"),
+    "vanilla_start": ("#3a2412", "#55361b", "#b08453", "#8c6538", "#704f2b"),
+    "vanilla_overworld": ("#1c3314", "#2b4a1f", "#79b45a", "#5a9340", "#467432"),
+    "vanilla_caves": ("#25262a", "#393b40", "#8e9197", "#6d7076", "#55585d"),
+    "vanilla_ocean": ("#0e2a3c", "#16405a", "#4d9bc4", "#357ba3", "#285f80"),
+    "vanilla_nether": ("#3a0f0c", "#561a14", "#b0463a", "#8c3228", "#6e271f"),
+    "vanilla_end": ("#4a4526", "#6a6338", "#e0d79a", "#c4b977", "#a59b5c"),
+    "vanilla_redstone": ("#1e1e20", "#303034", "#7a7a80", "#5c5c62", "#46464b"),
+    "vanilla_gear": ("#1f2a33", "#2f3e4a", "#8aa0b0", "#687f90", "#526474"),
+    "vanilla_farming": ("#3a2c0e", "#554116", "#c4a04a", "#a08034", "#806628"),
 }
 GOLD = {"g": "#e8b93a"}
+SILVER = {"g": "#d8dde2"}
 
 # Zeichen, 6 breit x 9 hoch, an Spalte 5 / Zeile 4. '.' = Deckel bleibt. Buchstaben eigene Palette.
 EMBLEMS = {
@@ -162,16 +183,141 @@ EMBLEMS = {
         "......",
         "......",
     ], {"F": "#c8ced6", "k": "#16191d", "g": "#62d662"}),
+    "gadgets": ([
+        "......",
+        "G.GG.G",
+        ".GGGG.",
+        "GGkkGG",
+        "GGkkGG",
+        ".GGGG.",
+        "G.GG.G",
+        "......",
+        "......",
+    ], {"G": "#e0bd5a", "k": "#3a2a10"}),
+    "enchantments": ([
+        "......",
+        "..W...",
+        ".WLW..",
+        "WLLLW.",
+        ".WLW..",
+        "..W...",
+        "....W.",
+        "...WLW",
+        "....W.",
+    ], {"W": "#f3e0ff", "L": "#c08af0"}),
+    "vanilla_start": ([
+        "......",
+        "PPPPP.",
+        "PkPkP.",
+        "PPPPP.",
+        "PkPkP.",
+        "PPPPP.",
+        "......",
+        "......",
+        "......",
+    ], {"P": "#d9b27a", "k": "#5a3d1e"}),
+    "vanilla_overworld": ([
+        "..LL..",
+        ".LLLL.",
+        "LLLLLL",
+        ".LLLL.",
+        "..TT..",
+        "..TT..",
+        "GGGGGG",
+        "......",
+        "......",
+    ], {"L": "#8fd46a", "T": "#7a5230", "G": "#5aa040"}),
+    "vanilla_caves": ([
+        "......",
+        "..F...",
+        ".FYF..",
+        "..Y...",
+        "..S...",
+        "..S...",
+        "..S...",
+        "......",
+        "......",
+    ], {"F": "#ffb030", "Y": "#fff0a0", "S": "#9a7a4a"}),
+    "vanilla_ocean": ([
+        "......",
+        "......",
+        ".WW...",
+        "W..W.W",
+        "....W.",
+        "BBBBBB",
+        "bbbbbb",
+        "......",
+        "......",
+    ], {"W": "#e8fbff", "B": "#8fd0f0", "b": "#5fb0e0"}),
+    "vanilla_nether": ([
+        "..R...",
+        "..RR..",
+        ".ROR..",
+        ".ROOR.",
+        "ROYYOR",
+        "ROYYOR",
+        ".RRRR.",
+        "......",
+        "......",
+    ], {"R": "#e0502a", "O": "#ff9a3a", "Y": "#ffe870"}),
+    "vanilla_end": ([
+        "......",
+        "..EE..",
+        ".EEEE.",
+        ".EpEE.",
+        "EEEEpE",
+        "EEpEEE",
+        ".EEEE.",
+        "......",
+        "......",
+    ], {"E": "#2a1640", "p": "#9a5ad0"}),
+    "vanilla_redstone": ([
+        "......",
+        "..R...",
+        ".RrR..",
+        "..R...",
+        "..S...",
+        "..S...",
+        "..S...",
+        "......",
+        "......",
+    ], {"R": "#ff3a2a", "r": "#ffc0b0", "S": "#9a7a4a"}),
+    "vanilla_gear": ([
+        ".....I",
+        "....I.",
+        "...I..",
+        "hII...",
+        ".h....",
+        "h.h...",
+        "......",
+        "......",
+        "......",
+    ], {"I": "#eef3f6", "h": "#8a6a3a"}),
+    "vanilla_farming": ([
+        "..Y...",
+        ".YYY..",
+        "..Y.Y.",
+        ".YYYY.",
+        "..Y...",
+        ".YY...",
+        "..G...",
+        "..G...",
+        "......",
+    ], {"Y": "#f0cc5a", "G": "#7ab45a"}),
 }
 
-ORDER = ["guide", "tools", "building", "storage", "machines", "end", "tweaks", "trims", "admin"]
+ORDER = ["guide", "tools", "enchantments", "building", "storage", "machines", "end", "tweaks", "gadgets", "trims", "admin",
+         "vanilla_start", "vanilla_overworld", "vanilla_caves", "vanilla_ocean", "vanilla_nether", "vanilla_end",
+         "vanilla_redstone", "vanilla_gear", "vanilla_farming"]
+# Neu seit 2026-09-29 und nur auf der Hauptlinie 26.3 (generate_textures schreibt sie nicht in den 1.21.11-Baum).
+MAIN_LINE_ONLY = {f"item/guide_book_{t}.png" for t in ORDER if t in ("enchantments", "gadgets") or t.startswith("vanilla_")}
 
 
 def guide_book(topic):
     o, s, l, c, d = COVERS[topic]
     pal = {"O": o, "S": s, "L": l, "C": c, "D": d}
     pal.update(PAGE)
-    pal.update(GOLD)
+    pal.update(SILVER if topic.startswith("vanilla_") else GOLD)
     img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
     for y, row in enumerate(BOOK):
         for x, ch in enumerate(row):

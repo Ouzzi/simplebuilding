@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:wooden_pickaxe"
+  ],
+  "result": {
+    "id": "simplebuilding:guide_book_vanilla_start"
+  }
+}

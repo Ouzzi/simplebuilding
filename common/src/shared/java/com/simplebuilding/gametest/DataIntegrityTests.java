@@ -3046,12 +3046,22 @@ public final class DataIntegrityTests {
             colored.add(ModItems.COLORED_OCTANT_ITEMS.get(color));
         }
         expected.add(colored);
-        // Handbuecher: Einsteiger-Handbuch, dann die sieben Themenbuecher (GuideBooks.Book-Reihenfolge).
-        List<Item> guideBooks = java.util.Arrays.stream(com.simplebuilding.guide.GuideBooks.Book.values()).map(com.simplebuilding.guide.GuideBooks::item).toList();
+        expected.add(gadgetsThenColored);
+        // Handbuecher: je Regal eine Kategorie (GuideBooks.Shelf, Lesezeichen-Reihenfolge). Eine Kategorie, die
+        // genau volle Zeilen fuellt, hat keinen Fueller - rowLayout liest sie dann mit der naechsten als eine
+        // (wie bei den Geraeten); die verzauberten Buecher folgen auf das letzte Regal.
         int modEnchantments = (int) helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
                 .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())).count();
-        expected.add(guideBooks);
-        expected.add(Collections.nCopies(modEnchantments, Items.ENCHANTED_BOOK));
+        List<Item> pending = new ArrayList<>();
+        for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
+            shelf.books().forEach(book -> pending.add(com.simplebuilding.guide.GuideBooks.item(book)));
+            if (pending.size() % 9 != 0) {
+                expected.add(new ArrayList<>(pending));
+                pending.clear();
+            }
+        }
+        pending.addAll(Collections.nCopies(modEnchantments, Items.ENCHANTED_BOOK));
+        expected.add(pending);
 
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.TOOLS, problems), expectedSlots(expected), "SimpleTools", problems);
         helper.assertTrue(problems.isEmpty(), "tools layout: " + problems);
@@ -3945,8 +3955,8 @@ public final class DataIntegrityTests {
                 "witch_hut", "stronghold")) {
             keys.add("item.simplebuilding.structure_compass." + compass);
         }
-        for (String part : List.of("toggle", "toggle.hint", "details", "level", "current_level", "survival", "distance",
-                "time_alive", "combat", "hostiles", "passives", "damage_taken")) {
+        for (String part : List.of("title", "level", "xp_gathered", "survival", "distance", "time_alive", "survival_hint",
+                "combat", "hostiles", "passives", "damage_taken", "cap", "capped", "death")) {
             keys.add("gui.simplebuilding.trim_stats." + part);
         }
         for (String tier : List.of("stone", "copper", "iron", "gold", "diamond", "netherite")) {

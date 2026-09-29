@@ -95,7 +95,6 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implem
             this.buttonClicked = true;
         }));
         this.addWidget(this.recipeBookComponent);
-        this.addRenderableWidget(this.trimStats.createButton(this.leftPos, this.topPos));
     }
 
     private int computeLeftPos() {

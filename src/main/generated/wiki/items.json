@@ -594,7 +594,15 @@
       "maxStackSize": 16
     },
     {
+      "id": "simplebuilding:guide_book_enchantments",
+      "maxStackSize": 16
+    },
+    {
       "id": "simplebuilding:guide_book_end",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_gadgets",
       "maxStackSize": 16
     },
     {
@@ -615,6 +623,42 @@
     },
     {
       "id": "simplebuilding:guide_book_tweaks",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_caves",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_end",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_farming",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_gear",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_nether",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_ocean",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_overworld",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_redstone",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_start",
       "maxStackSize": 16
     },
     {

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ender_eye": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:ender_eye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_guide_book_vanilla_start": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:guide_book_vanilla_start"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplebuilding:guide_book_vanilla_end"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ender_eye",
+      "has_guide_book_vanilla_start"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:guide_book_vanilla_end"
+    ]
+  }
+}
