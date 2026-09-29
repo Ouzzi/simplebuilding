@@ -105,21 +105,46 @@ public final class BlockInfoTests {
 
     /**
      * Chunk loader: before its first update it holds nothing; the enderite loader then forces its
-     * 3x3 area, and the tooltip counts exactly the chunks it claims (chunks the test world had
-     * forced before stay foreign). Breaking it releases them again.
+     * 3x3 area, and the tooltip counts exactly the chunks it claims. Breaking it releases them again.
+     *
+     * <p>The loader only claims chunks nobody had forced before, and in a full gate run the gametest
+     * framework has force-loaded every chunk around the structure (each test structure forces its own
+     * chunks, and the neighbouring structures sit a few blocks away) - the loader then rightly claims
+     * 0. The test therefore lifts those foreign tickets for the moment of the check and puts them back
+     * in the same tick, before any chunk could unload. The loader has no owner here, so the
+     * owner-online rule ({@code ChunkLoaderRegistry#mayRun}) does not apply.
      */
     public static void chunkLoaderShowsHowManyChunksItHolds(GameTestHelper helper) {
         BlockPos pos = new BlockPos(1, 1, 1);
+        net.minecraft.server.level.ServerLevel level = helper.getLevel();
+        BlockPos abs = helper.absolutePos(pos);
+        int cx = abs.getX() >> 4;
+        int cz = abs.getZ() >> 4;
+        List<int[]> foreign = new ArrayList<>();
         helper.setBlock(pos, TweaksBlocks.ENDERITE_CHUNK_LOADER);
         ChunkLoaderBlockEntity loader = helper.getBlockEntity(pos, ChunkLoaderBlockEntity.class);
         if (loader.ownForced().isEmpty()) {
             expect(helper, BlockInfo.serverLines(Topic.PAD_STATUS, loader), List.of("jade.simplebuilding.chunk_loader.idle []"), "chunk loader before its first update");
         }
-        loader.update(helper.getLevel());
-        int held = loader.ownForced().size();
-        helper.assertTrue(held > 0 && held <= 9, "the enderite chunk loader claims " + held + " chunks, expected 1..9");
-        expect(helper, BlockInfo.serverLines(Topic.PAD_STATUS, loader), List.of("jade.simplebuilding.chunk_loader.active [" + held + "]"), "chunk loader holding its chunks");
-        helper.setBlock(pos, Blocks.AIR);
+        try {
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    // true = it was forced (by the test framework or another test): lift it for now.
+                    if (level.setChunkForced(cx + dx, cz + dz, false)) {
+                        foreign.add(new int[]{cx + dx, cz + dz});
+                    }
+                }
+            }
+            loader.update(level);
+            int held = loader.ownForced().size();
+            helper.assertTrue(held == 9, "the enderite chunk loader claims " + held + " chunks, expected its 3x3 area of 9");
+            expect(helper, BlockInfo.serverLines(Topic.PAD_STATUS, loader), List.of("jade.simplebuilding.chunk_loader.active [" + held + "]"), "chunk loader holding its chunks");
+        } finally {
+            helper.setBlock(pos, Blocks.AIR);
+            for (int[] chunk : foreign) {
+                level.setChunkForced(chunk[0], chunk[1], true);
+            }
+        }
         helper.succeed();
     }
 

@@ -17,8 +17,10 @@ import org.jetbrains.annotations.Nullable;
  * reach it. Every place that turns a saved id back into an item - item stacks in chunks, player
  * data, containers, backpack contents, bundles, item frames, item entities, structure files,
  * recipes/advancements/loot of a data pack, {@code /give} - asks the item registry by name.
- * {@code MappedRegistryAliasMixin} (Fabric, NeoForge) and {@code NamespacedWrapperAliasMixin}
- * (Forge) answer a lookup that <em>missed</em> with the item under its new id, so an old stack
+ * {@code MappedRegistryAliasMixin} (Fabric, NeoForge) and, on Forge, {@code NamespacedWrapperAliasMixin}
+ * for the holder lookups plus Forge's own registry aliases ({@code ForgeRegistryBootstrap}, for
+ * {@code getValue}/{@code containsKey}, which the defaulted item wrapper answers without the
+ * mixin) answer a lookup that <em>missed</em> with the item under its new id, so an old stack
  * decodes as the renamed item and is written back under the new id on the next save. One table
  * covers stored data of every age on every Minecraft line (and runs after {@code ModDataFixer}
  * for upgraded worlds, because decoding comes after fixing), and ids that exist cost nothing.
