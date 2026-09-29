@@ -299,3 +299,25 @@ a.tile:hover { text-decoration: none; border-color: var(--accent); transform: tr
   .pending { left: 12px; right: 12px; transform: none; flex-wrap: wrap; }
 }
 .box li { overflow-wrap: anywhere; }
+
+/* Zeiten bearbeiten (Zielzeit -> Stellwerte) */
+.tcell { white-space: nowrap; }
+.tcell del.old { color: var(--old); text-decoration: line-through; text-decoration-thickness: 2px; font-size: .8rem; margin-right: .3rem; }
+.tcell.tchanged .tin { border-color: var(--warn-border); background: var(--warn-bg); font-weight: 700; }
+.tcell.strong .tin { font-weight: 700; }
+.tin { width: 5.6em; height: 26px; padding: 0 .35rem; border: 1px dashed var(--border); border-radius: 5px; background: transparent; color: inherit; text-align: right; font: inherit; font-variant-numeric: tabular-nums; }
+.tin:hover { border-color: var(--border-strong); border-style: solid; background: var(--panel); }
+.tin:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-style: solid; background: var(--panel); }
+.tin.bad { border-color: var(--danger); background: var(--danger-bg); }
+.tin:disabled { opacity: .6; }
+.tspin { margin-left: .3rem; }
+td.titem { min-width: 14rem; }
+details.tchanges { margin-top: .3rem; font-size: .8rem; }
+details.tchanges > summary { cursor: pointer; color: var(--muted); }
+details.tchanges.has > summary { color: var(--warn-text); font-weight: 650; }
+details.tchanges[open] { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: .35rem .6rem .6rem; }
+.tchg-body { white-space: normal; }
+.tchg-edits { margin: .2rem 0 .5rem; padding-left: 1.1rem; }
+.tchg-table td, .tchg-table th { font-size: .8rem; }
+.tstrat { height: 28px; border: 1px solid var(--border); border-radius: 6px; background: var(--panel); color: var(--text); max-width: 100%; }
+.tstrat-l { display: inline-flex; gap: .4rem; align-items: center; flex-wrap: wrap; }
