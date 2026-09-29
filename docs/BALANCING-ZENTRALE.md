@@ -202,6 +202,26 @@ nicht in der Mod steht, mit Grund, Datei und Zeile:
 * **Rueckwaerts**: Zielzeit (oder Zeitalter x Zielanteil 0,85, Regel aus KERNE-SELTENHEIT 5.3) -> welcher
   Wert eines Stellwerts (Kern-Chance, Gewicht, Angebots-Chance, Nutzungen, geplante Quelle) sie erreicht;
   "Als Entwurf uebernehmen" setzt ihn.
+* **Zeiten bearbeiten** (Seite *Seltenheit & Zeitalter* und jede Item-Seite): jede Zeit (1.-6. Stueck,
+  Mittel/Median/90 %, je Quelle gezielt, "Alle Quellen gezielt", "Normales Spiel") ist ein Eingabefeld
+  (`12`, `12,5 h`, `30 min`, Enter). Die Zentrale sucht die Werte, die diese Zeit ergeben
+  (`sbdev/solver.py`, `POST /api/solve-time`), uebernimmt sie als **Entwuerfe** und rechnet alle anderen
+  Zeiten neu; der gespeicherte Stand steht rot durchgestrichen daneben. Stellwerte je Quelle: Truhen - das
+  Gewicht des Items in jedem Pool, die Kern-Chance eigener Kern-Pools; Haendler/Dorfbewohner - die
+  Angebots-Chance (Buecher: ihr Gewicht im Verzauberungs-Pool); Mob/Block - nur die Annahme
+  Toetungen/Abbau je Stunde (die Mod hat dort keine Chance, der Drop ist sicher; **Rechner**, wirkt nie in
+  der Mod); geplante Quellen - ihre Chance. Geteilte Werte (Wuerfe eines gemischten Pools, Angebots-Chance
+  eines Buch-Angebots, Nutzungen) kommen nur dazu, wenn die eigenen das Ziel nicht erreichen. Preise gehen
+  nicht in die Zeit ein und bleiben. **Verteilung** bei mehreren Quellen (je Item gemerkt): alle
+  proportional (Standard, ein gemeinsamer Faktor), nur eine Quelle, oder nur ein Wert. Chancen werden an
+  0/100 % gekappt (die anderen Werte uebernehmen den Rest, sonst "nicht ganz erreichbar" mit dem
+  Grenzwert), ganze Zahlen gerundet und schrittweise nachgestellt; die gemeldete Zeit ist immer die mit den
+  gerundeten Werten neu gerechnete. Rezept-Zeilen rechnen aus den Zutaten (dort aendern).
+  Je Item klappt **"Automatische Aenderungen"** (standardmaessig zu) auf: die eingetippten Zeiten (alt ->
+  neu) und jeder Wert, den sie geaendert haben - alt rot durchgestrichen -> neu, Datei:Zeile je Linie,
+  "wirkt in Mod"/Rechner, Kappung, "wirkt auch auf" (andere Items im selben Pool/Angebot), einzeln
+  verwerfen. Gespeichert wird nur ueber den normalen Weg (Zusammenfassung -> Bestaetigen -> neue Version ->
+  Datagen).
 * **Quellen planen/abschalten** je Item (Struktur, Mob, Haendler, Block, eigene) - wirkt sofort in den
   Rechnern, landet als Planung in der Uebergabe.
 * **Annahmen** (Seite *Annahmen*): Oeffnungen je Stunde je Struktur und Behaelter (gezielt, normal
@@ -217,7 +237,9 @@ tools/devserver/sbdev/          extract + ex_* (Leser), ex_javadata (Java-Quelle
                                 values (Wertdatensatz, Pruefung), store (Ablage), service (Vorschau/Speichern/
                                 Rollback/Rechner/Datagen), apply (alle Stellen schreiben), javaedit (Java-
                                 Literale), jsonedit (JSON), check (checkBalance), jobs (Datagen-Auftrag),
-                                model (Rechner), params (Annahmen), docs (Markdown)
+                                model (Rechner), solver (Zeit -> Stellwerte), params (Annahmen),
+                                icons (Bilder: Wiki-Bild, sonst Modell -> Textur aus Mod-Assets/Client-Jar),
+                                docs (Markdown)
 tools/devserver/static/         Oberflaeche (index.html, app.css, app.js - ohne Framework)
 tools/devserver/data/           Vanilla-Handelspools (aus dem Client-Jar, versioniert)
 tools/devserver/tests/          unittest (fixtures/: PotionPadRules aus Lauf AA fuer den Leser-Test)
@@ -226,6 +248,9 @@ tools/devserver/tests/          unittest (fixtures/: PotionPadRules aus Lauf AA 
 API (JSON): `GET /api/state`, `/api/check`, `/api/datagen` (Stand des Auftrags), `/api/handover`
 (= `/api/phase2`), `/api/pending-apply`, `/api/version/<n>`, `/api/docs/<name>`; `POST /api/preview`,
 `/api/save`, `/api/rollback/preview`, `/api/rollback`, `/api/apply-planned`, `/api/datagen` (starten,
-`{"force", "include264"}`), `/api/datagen/cancel`, `/api/calc`, `/api/reverse`, `/api/overview`,
-`/api/reload`. Schreibende Anfragen brauchen den Header `X-Balance-Client: 1` (Schutz gegen fremde
+`{"force", "include264"}`), `/api/datagen/cancel`, `/api/calc`, `/api/reverse`, `/api/solve-time`
+(`{"item", "row", "stat", "k", "hours", "strategy": "proportional" | "source:<Quelle>" | "value:<Id>",
+"overrides"}` - schreibt nichts), `/api/overview`, `/api/reload`. Bilder: `GET /wiki/assets/...`,
+`/modtex/<ns>/<pfad>.png` (Mod-Texturen), `/vanilla/<pfad>.png` (aus dem Client-Jar); jede Id, die eine
+Seite zeigt, hat ein Bild (Test `test_icons.py`: kein 404, keine Textkachel). Schreibende Anfragen brauchen den Header `X-Balance-Client: 1` (Schutz gegen fremde
 Webseiten) und JSON.

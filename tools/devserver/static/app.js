@@ -271,7 +271,7 @@ function slot(key, size = '') {
   const name = d.name ? d.name.de : key.split(':').pop();
   const book = key.startsWith('book:') || d.book;
   const letters = h(name.split(/\s+/).map((w) => w[0]).join('').slice(0, 3));
-  const img = d.icon ? `<img src="/${h(d.icon)}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'slot-text',textContent:'${letters}'}))">` : `<span class="slot-text">${letters}</span>`;
+  const img = d.icon ? `<img src="/${h(d.icon)}"${d.anim ? ' class="anim" title="animierte Textur: erstes Bild"' : ''} alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'slot-text',textContent:'${letters}'}))">` : `<span class="slot-text">${letters}</span>`;
   return `<span class="slot ${size}${book ? ' book' : ''}" title="${h(name)}">${img}</span>`;
 }
 function nameOf(key) {
@@ -308,10 +308,11 @@ function sortable(tableSel) {
       $$('th', table).forEach((x) => x.classList.remove('sorted', 'asc'));
       th.classList.add('sorted'); if (asc) th.classList.add('asc');
       const body = table.tBodies[0];
-      const rows = Array.from(body.rows);
+      const attached = new Map();  // Item-Zeile -> ihre Aufklapp-Zeile (tr.tchg-row) direkt darunter
+      const rows = Array.from(body.rows).filter((r) => { if (r.classList.contains('tchg-row')) { if (r.previousElementSibling) attached.set(r.previousElementSibling, r); return false; } return true; });
       const key = (r) => { const c = r.cells[idx]; const v = c ? (c.dataset.sort ?? c.textContent.trim()) : ''; const n = parseFloat(v); return isNaN(n) ? v.toLowerCase() : n; };
       rows.sort((a, b) => { const x = key(a), y = key(b); const r = (typeof x === 'number' && typeof y === 'number') ? x - y : String(x).localeCompare(String(y), DE); return asc ? r : -r; });
-      rows.forEach((r) => body.appendChild(r));
+      rows.forEach((r) => { body.appendChild(r); if (attached.has(r)) body.appendChild(attached.get(r)); });
     });
   });
 }
@@ -360,7 +361,7 @@ function timeCell(t, old, spec, cls = '') {
   const changed = timeDiffers(old, t);
   let inner = changed ? `<del class="old" title="gespeicherter Stand (ohne Entwürfe)">${h(hours(old))}</del>` : '';
   if (spec && t !== null && t !== undefined && isFinite(t)) {
-    inner += `<input class="tin" type="text" inputmode="decimal" value="${h(hours(t))}" data-t="${t}" data-item="${h(spec.item)}" data-row="${h(spec.row)}" data-stat="${h(spec.stat)}" data-k="${spec.k}" data-label="${h(spec.label || '')}" data-tunables="${h((spec.tunables || []).join(' '))}" title="${h(`Zielzeit eintippen (z. B. 12, 12,5 h oder 30 min) – die Zentrale rechnet die Werte aus, die ${spec.label || 'diese Zeile'} so schnell machen (${STAT_LABEL[spec.stat]}, ${spec.k}. Stück), und übernimmt sie als Entwurf`)}" aria-label="${h(`Zeit ${spec.label || ''} ${spec.k}. Stück ${STAT_LABEL[spec.stat]}`)}" spellcheck="false">`;
+    inner += `<input class="tin" type="text" inputmode="decimal" value="${h(hours(t))}" data-t="${t}" data-item="${h(spec.item)}" data-row="${h(spec.row)}" data-stat="${h(spec.stat)}" data-k="${spec.k}" data-label="${h(spec.label || '')}" data-tunables="${h((spec.tunables || []).join(' '))}" title="${h(`Zielzeit eintippen (z. B. 12, 12,5 h oder 30 min) – die Zentrale rechnet die Werte aus, die ${spec.label || 'diese Zeile'} so schnell machen (${STAT_LABEL[spec.stat]}, ${spec.k}. Stück), und übernimmt sie als Entwurf`)}" aria-label="${h(`Zeit ${nameOf(spec.item)} – ${spec.label || ''} – ${spec.k}. Stück ${STAT_LABEL[spec.stat]}`)}" spellcheck="false">`;
   } else {
     inner += `<span${spec === null ? ' title="rechnet aus den Zutaten – ändere die Zeit auf der Seite der Zutat"' : ''}>${h(hours(t))}</span>`;
   }
@@ -1229,7 +1230,8 @@ async function pageCalc(main) {
         const b = baseBy[r.item] || {};
         const best = r.bestKey ? { item: r.item, row: r.bestKey, label: r.bestLabel, k: 1 } : undefined;
         const normal = { item: r.item, row: '__normal__', label: 'Normales Spiel', k: 1 };
-        return `<tr><td data-sort="${h(nameOf(r.item))}" class="titem">${itemRef(r.item)}${changesBox(r.item, null)}</td><td class="sub">${h(r.bestLabel || '')}${base && b.bestLabel && b.bestLabel !== r.bestLabel ? `<div class="tiny"><del class="diff-old">${h(b.bestLabel)}</del></div>` : ''}</td>${cell(r, 'bestMean', best && Object.assign({ stat: 'mean' }, best))}${cell(r, 'bestMedian', best && Object.assign({ stat: 'median' }, best))}${cell(r, 'normalMean', r.normalMean !== null ? Object.assign({ stat: 'mean' }, normal) : undefined)}${cell(r, 'normalMedian', r.normalMedian !== null ? Object.assign({ stat: 'median' }, normal) : undefined)}<td class="sub">${h(eraFor(r.bestMean))}${base && timeDiffers(b.bestMean ?? null, r.bestMean) && eraFor(b.bestMean) !== eraFor(r.bestMean) ? `<div class="tiny"><del class="diff-old">${h(eraFor(b.bestMean))}</del></div>` : ''}</td></tr>`;
+        return `<tr><td data-sort="${h(nameOf(r.item))}" class="titem">${itemRef(r.item)}</td><td class="sub">${h(r.bestLabel || '')}${base && b.bestLabel && b.bestLabel !== r.bestLabel ? `<div class="tiny"><del class="diff-old">${h(b.bestLabel)}</del></div>` : ''}</td>${cell(r, 'bestMean', best && Object.assign({ stat: 'mean' }, best))}${cell(r, 'bestMedian', best && Object.assign({ stat: 'median' }, best))}${cell(r, 'normalMean', r.normalMean !== null ? Object.assign({ stat: 'mean' }, normal) : undefined)}${cell(r, 'normalMedian', r.normalMedian !== null ? Object.assign({ stat: 'median' }, normal) : undefined)}<td class="sub">${h(eraFor(r.bestMean))}${base && timeDiffers(b.bestMean ?? null, r.bestMean) && eraFor(b.bestMean) !== eraFor(r.bestMean) ? `<div class="tiny"><del class="diff-old">${h(eraFor(b.bestMean))}</del></div>` : ''}</td></tr>
+          <tr class="tchg-row"><td colspan="7">${changesBox(r.item, null)}</td></tr>`;
       }).join('')}</tbody></table></div>`;
     sortable('#ovt');
     window.scrollTo(0, y);
@@ -1244,7 +1246,8 @@ async function pageCalc(main) {
         const b = baseReports ? (baseReports[i].best || {}) : null;
         const tun = ((r.rows.find((x) => x.key === r.best.key) || {}).tunables || []).map((t) => t.id);
         const spec = (stat, k) => ({ item: cores[i], row: r.best.key, label: r.best.label, stat, k, tunables: tun });
-        return `<tr><td class="titem">${itemRef(cores[i])}${changesBox(cores[i], r)}</td><td class="sub">${h(r.best.label)}${b && b.label && b.label !== r.best.label ? `<div class="tiny"><del class="diff-old">${h(b.label)}</del></div>` : ''}</td>${timeCell(r.best.mean[0], b ? (b.mean ? b.mean[0] : null) : undefined, spec('mean', 1), 'strong')}${r.best.median.map((m, k) => timeCell(m, b ? (b.median ? b.median[k] : null) : undefined, spec('median', k + 1))).join('')}<td class="sub">${h(eraFor(r.best.mean[0]))}</td></tr>`;
+        return `<tr><td class="titem">${itemRef(cores[i])}</td><td class="sub">${h(r.best.label)}${b && b.label && b.label !== r.best.label ? `<div class="tiny"><del class="diff-old">${h(b.label)}</del></div>` : ''}</td>${timeCell(r.best.mean[0], b ? (b.mean ? b.mean[0] : null) : undefined, spec('mean', 1), 'strong')}${r.best.median.map((m, k) => timeCell(m, b ? (b.median ? b.median[k] : null) : undefined, spec('median', k + 1))).join('')}<td class="sub">${h(eraFor(r.best.mean[0]))}</td></tr>
+          <tr class="tchg-row"><td colspan="10">${changesBox(cores[i], r)}</td></tr>`;
       }).join('')}</tbody></table></div>
       <p class="tiny muted">Wie docs/KERNE-SELTENHEIT.md Abschnitt 5.3 (dort Eisen mit Anwesen + Mine zusammen – siehe Item-Seite „Alle Quellen gezielt“). Jede Zeit ist ein Eingabefeld.</p>`;
   };
