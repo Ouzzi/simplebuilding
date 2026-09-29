@@ -1,6 +1,15 @@
 package com.simplebuilding.gametest;
 
+import com.mojang.authlib.GameProfile;
 import com.simplebuilding.blocks.ModBlocks;
+import io.netty.channel.embedded.EmbeddedChannel;
+import java.util.UUID;
+import net.minecraft.network.Connection;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.world.level.GameType;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BuildingCoreItem;
 import com.simplebuilding.items.custom.CoreOreTransmutation;
@@ -387,24 +396,90 @@ public final class BuildingCoreTests {
             List<Block> table = CoreOreTransmutation.ores(host).stream().map(CoreOreTransmutation.WeightedOre::ore).toList();
             for (int i = 0; i < 20; i++) {
                 helper.setBlock(pos, hostBlock);
-                Optional<Block> ore = CoreOreTransmutation.tryTransmute(level, absolute, 1, random, null);
+                Optional<Block> ore = CoreOreTransmutation.tryTransmute(level, absolute, 1, random);
                 helper.assertTrue(ore.isPresent() && table.contains(ore.get()),
                         BuiltInRegistries.BLOCK.getKey(hostBlock) + " became " + ore + ", not an ore of " + host);
                 helper.assertTrue(helper.getBlockState(pos).is(ore.get()), "the world does not show " + ore.get());
             }
             helper.setBlock(pos, hostBlock);
-            helper.assertTrue(CoreOreTransmutation.tryTransmute(level, absolute, 0, random, null).isEmpty(), "a missed chance transmuted");
+            helper.assertTrue(CoreOreTransmutation.tryTransmute(level, absolute, 0, random).isEmpty(), "a missed chance transmuted");
             helper.assertTrue(helper.getBlockState(pos).is(hostBlock), "a missed chance changed " + hostBlock);
         }
         RandomSource twin = RandomSource.create(99L);
         RandomSource probe = RandomSource.create(99L);
         for (Block other : List.of(Blocks.COBBLESTONE, Blocks.DIRT, Blocks.OBSIDIAN, Blocks.BLACKSTONE)) {
             helper.setBlock(pos, other);
-            helper.assertTrue(CoreOreTransmutation.tryTransmute(level, absolute, 1, probe, null).isEmpty(), other + " was transmuted");
+            helper.assertTrue(CoreOreTransmutation.tryTransmute(level, absolute, 1, probe).isEmpty(), other + " was transmuted");
             helper.assertTrue(helper.getBlockState(pos).is(other), other + " changed");
         }
         helper.assertValueEqual(probe.nextLong(), twin.nextLong(), "random draws for non-host blocks");
         helper.succeed();
+    }
+
+    /**
+     * Owner rule: gadgets show no text. A block click that transmutes (the real click path with the
+     * chance forced to 1 in 1) turns the stone into ore but sends nothing to chat or the action bar,
+     * and the removed message key stays out of both language files.
+     *
+     * <p><strong>What breaks this test:</strong> any {@code sendOverlayMessage}/{@code sendSystemMessage}
+     * on the transmutation path, or the key {@code message.simplebuilding.core.ore_transmuted} coming back.
+     */
+    public static void coreTransmutationShowsNoText(GameTestHelper helper) {
+        List<Component> texts = new ArrayList<>();
+        ServerPlayer player = textRecordingPlayer(helper, texts);
+        BlockPos pos = new BlockPos(1, 1, 1);
+        BlockPos absolute = helper.absolutePos(pos);
+        List<Block> stoneTable = CoreOreTransmutation.ores(CoreOreTransmutation.Host.STONE).stream()
+                .map(CoreOreTransmutation.WeightedOre::ore).toList();
+        ItemStack core = new ItemStack(ModItems.ENDERITE_CORE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, core);
+        for (int i = 0; i < 5; i++) {
+            helper.setBlock(pos, Blocks.STONE);
+            BuildingCoreItem.transmuteOnClick(helper.getLevel(), player, core, absolute, Direction.UP, 1);
+            Block after = helper.getBlockState(pos).getBlock();
+            helper.assertTrue(stoneTable.contains(after), "a forced click left " + after + " instead of a stone ore");
+        }
+        helper.assertTrue(texts.isEmpty(), "the transmutation showed text: " + texts);
+        for (String code : List.of("en_us", "de_de")) {
+            try (java.io.InputStream in = BuildingCoreTests.class.getResourceAsStream("/assets/simplebuilding/lang/" + code + ".json")) {
+                helper.assertTrue(in != null, "no " + code + ".json on the classpath");
+                String json = new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+                helper.assertFalse(json.contains("message.simplebuilding.core.ore_transmuted"), code + " still has the ore message");
+            } catch (java.io.IOException e) {
+                throw new IllegalStateException("cannot read " + code + ".json", e);
+            }
+        }
+        helper.succeed();
+    }
+
+    /**
+     * A player in the level (like {@code GameTestHelper#makeMockServerPlayerInLevel}) that records every
+     * action-bar line and every chat line of the mod: {@code sendOverlayMessage} and
+     * {@code sendSystemMessage} both end in {@code sendSystemMessage(Component, boolean)}.
+     */
+    private static ServerPlayer textRecordingPlayer(GameTestHelper helper, List<Component> texts) {
+        ServerLevel level = helper.getLevel();
+        CommonListenerCookie cookie = CommonListenerCookie.createInitial(new GameProfile(UUID.randomUUID(), "core-texts"), false);
+        ServerPlayer player = new ServerPlayer(level.getServer(), level, cookie.gameProfile(), cookie.clientInformation()) {
+            @Override
+            public GameType gameMode() {
+                return GameType.CREATIVE;
+            }
+
+            @Override
+            public void sendSystemMessage(Component message, boolean overlay) {
+                if (overlay || (message.getContents() instanceof TranslatableContents key && key.getKey().contains("simplebuilding"))) {
+                    texts.add(message);
+                }
+            }
+        };
+        Connection connection = new Connection(PacketFlow.SERVERBOUND);
+        new EmbeddedChannel(connection);
+        level.getServer().getPlayerList().placeNewPlayer(connection, player, cookie);
+        Vec3 at = helper.absoluteVec(new Vec3(1.5, 2, 2.5));
+        player.snapTo(at.x, at.y, at.z, 0.0F, 0.0F);
+        helper.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(player));
+        return player;
     }
 
     private static ItemStack one(Ingredient ingredient) {

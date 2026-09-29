@@ -196,7 +196,6 @@
   "message.simplebuilding.smithing.wrong_nugget": "Wrong nugget - this upgrade takes one %s in the off hand.",
   "message.simplebuilding.smithing.hammer_too_weak": "Sledgehammer too weak - this upgrade needs a %s or better.",
   "message.simplebuilding.smithing.piston_busy": "Retract the piston and cut its power before upgrading it.",
-  "message.simplebuilding.core.ore_transmuted": "The core hums - the stone turns into %s!",
   "tooltip.simplebuilding.building_wand": "Use to place more blocks at once.",
   "message.simplebuilding.set_pos1_first": "1:",
   "message.simplebuilding.pos1_set": "1:",

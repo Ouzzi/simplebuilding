@@ -6,13 +6,11 @@ import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -58,6 +56,9 @@ public final class CoreOreTransmutation {
     /** One ore of a host table with its weight (the weights of a host add up to 100). */
     public record WeightedOre(Block ore, int weight) {
     }
+
+    /** Glocken-Dreiklang beim Umwandeln: Grundton, grosse Terz, Quinte (Tonhoehen der Notenblock-Glocke). */
+    private static final float[] TRANSMUTE_CHORD = {1.0F, 1.26F, 1.498F};
 
     private CoreOreTransmutation() {
     }
@@ -125,13 +126,13 @@ public final class CoreOreTransmutation {
 
     /**
      * One click of a core at {@code pos}: if the block is a host and the "1 in {@code oneIn}" chance
-     * comes up, the block becomes an ore of that host (with a burst of its dust, a chime and a line
-     * above the hotbar of {@code player}, if given). The random source is only drawn from for hosts:
-     * first the chance, then - on a hit - the ore.
+     * comes up, the block becomes an ore of that host, with a burst of its dust, sparks and a bell
+     * chord - no text: gadgets show nothing in chat or above the hotbar (owner rule). The random
+     * source is only drawn from for hosts: first the chance, then - on a hit - the ore.
      *
      * @return the ore placed, or empty if nothing changed
      */
-    public static Optional<Block> tryTransmute(ServerLevel level, BlockPos pos, int oneIn, RandomSource random, Player player) {
+    public static Optional<Block> tryTransmute(ServerLevel level, BlockPos pos, int oneIn, RandomSource random) {
         BlockState state = level.getBlockState(pos);
         Optional<Host> host = hostOf(state);
         if (host.isEmpty() || !chanceHits(oneIn, random)) {
@@ -145,11 +146,13 @@ public final class CoreOreTransmutation {
         level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), x, y, z, 30, 0.35, 0.35, 0.35, 0.1);
         level.sendParticles(ParticleTypes.TOTEM_OF_UNDYING, x, y, z, 24, 0.4, 0.4, 0.4, 0.25);
         level.sendParticles(ParticleTypes.WAX_ON, x, y, z, 12, 0.55, 0.55, 0.55, 0.0);
+        // Unverwechselbar: tiefe Amethyst-Resonanz unter einem Glocken-Dreiklang (Grundton, Terz, Quinte),
+        // darueber ein heller Aufstiegs-Klang - kein anderer Klick der Mod klingt so.
         level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 1.0F, 0.6F);
-        level.playSound(null, pos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 0.6F, 1.6F);
-        if (player != null) {
-            player.sendOverlayMessage(Component.translatable("message.simplebuilding.core.ore_transmuted", ore.getName()));
+        for (float pitch : TRANSMUTE_CHORD) {
+            level.playSound(null, x, y, z, SoundEvents.NOTE_BLOCK_BELL, SoundSource.BLOCKS, 0.9F, pitch);
         }
+        level.playSound(null, pos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 0.4F, 1.8F);
         return Optional.of(ore);
     }
 

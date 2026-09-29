@@ -55,4 +55,9 @@ public final class BuildingCoreGameTest {
     public void coreTransmutationTurnsOnlyHostBlocksIntoTheirOres(GameTestHelper helper) {
         BuildingCoreTests.coreTransmutationTurnsOnlyHostBlocksIntoTheirOres(helper);
     }
+
+    @GameTest
+    public void coreTransmutationShowsNoText(GameTestHelper helper) {
+        BuildingCoreTests.coreTransmutationShowsNoText(helper);
+    }
 }

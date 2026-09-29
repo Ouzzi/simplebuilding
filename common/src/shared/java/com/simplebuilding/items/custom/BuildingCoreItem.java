@@ -127,12 +127,22 @@ public class BuildingCoreItem extends Item {
         ItemStack stack = context.getItemInHand();
         if (context.getLevel() instanceof ServerLevel server) {
             activate(server, player, stack);
-            BlockPos pos = context.getClickedPos();
-            if (player.mayBuild() && player.mayUseItemAt(pos, context.getClickedFace(), stack) && server.mayInteract(player, pos)) {
-                CoreOreTransmutation.tryTransmute(server, pos, oreChanceOneIn, player.getRandom(), player);
-            }
+            transmuteOnClick(server, player, stack, context.getClickedPos(), context.getClickedFace(), oreChanceOneIn);
         }
         return InteractionResult.SUCCESS;
+    }
+
+    /**
+     * Der Erz-Teil eines Blockklicks: nur wenn der Spieler hier bauen darf (Abenteuermodus, Spawnschutz),
+     * dann die Chance "1 zu {@code oneIn}". Kein Text an den Spieler (Besitzer-Regel: Gadgets zeigen
+     * nichts im Chat oder ueber der Schnellleiste). Oeffentlich, damit die Spieltests den echten Pfad mit
+     * erzwungener Chance fahren koennen.
+     */
+    public static void transmuteOnClick(ServerLevel server, Player player, ItemStack stack, BlockPos pos,
+                                        net.minecraft.core.Direction face, int oneIn) {
+        if (player.mayBuild() && player.mayUseItemAt(pos, face, stack) && server.mayInteract(player, pos)) {
+            CoreOreTransmutation.tryTransmute(server, pos, oneIn, player.getRandom());
+        }
     }
 
     private void activate(ServerLevel level, Player player, ItemStack stack) {

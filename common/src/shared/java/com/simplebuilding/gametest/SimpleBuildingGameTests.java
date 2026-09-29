@@ -316,6 +316,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("building_core_game_test_core_transmutation_turns_only_host_blocks_into_their_ores", BuildingCoreTests::coreTransmutationTurnsOnlyHostBlocksIntoTheirOres)
                     .build(),
+            GameTestSpec.named("building_core_game_test_core_transmutation_shows_no_text", BuildingCoreTests::coreTransmutationShowsNoText)
+                    .build(),
             GameTestSpec.named("wand_mode_game_test_roof_mode_works_with_the_test_centre_kit_enderite_wand", WandModeTests::roofModeWorksWithTheTestCentreKitEnderiteWand)
                     .rotation(Rotation.NONE)
                     .build(),
