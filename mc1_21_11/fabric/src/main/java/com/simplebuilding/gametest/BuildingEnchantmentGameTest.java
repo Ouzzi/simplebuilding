@@ -43,8 +43,8 @@ public final class BuildingEnchantmentGameTest {
     }
 
     @GameTest(rotation = Rotation.NONE)
-    public void linearOnlyShortensTheWandStepDelay(GameTestHelper helper) {
-        BuildingEnchantmentTests.linearOnlyShortensTheWandStepDelay(helper);
+    public void linearBuildsOnlyTheLineAndPacesItWithTheLineDelay(GameTestHelper helper) {
+        BuildingEnchantmentTests.linearBuildsOnlyTheLineAndPacesItWithTheLineDelay(helper);
     }
 
     @GameTest(rotation = Rotation.NONE)

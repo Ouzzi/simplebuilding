@@ -177,13 +177,14 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // Besitzer 2026-09-25: Goldbarren -> leichte Waegeplatten (Gold), Goldnugget ->
                 // Blitzableiter (gleiche Felder), Kupferbarren unten -> schwere Waegeplatte (Eisen).
+                // Besitzer 2026-09-29: statt der Waegeplatten Goldnuggets (leichte) und ein Goldkern (schwere).
                 shaped(RecipeCategory.TOOLS, ModItems.OCTANT)
                         .pattern(" RL")
-                        .pattern("PCR")
-                        .pattern("HP ")
-                        .define('P', Items.LIGHT_WEIGHTED_PRESSURE_PLATE)
+                        .pattern("NCR")
+                        .pattern("GN ")
+                        .define('N', Items.GOLD_NUGGET)
                         .define('R', Items.LIGHTNING_ROD.weathering().unaffected())
-                        .define('H', Items.HEAVY_WEIGHTED_PRESSURE_PLATE)
+                        .define('G', ModItems.GOLD_CORE)
                         .define('C', Items.COMPASS)
                         .define('L', Items.LEAD)
                         .unlockedBy(getHasName(Items.COMPASS), has(Items.COMPASS))

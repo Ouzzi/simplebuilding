@@ -3,7 +3,6 @@ package com.simplebuilding.forge;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
-import com.simplebuilding.client.gui.DoubleJumpHudOverlay;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.gui.SpeedometerHudOverlay;
@@ -35,7 +34,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
  * by the client mixins LevelExtractorMixin and LevelRendererMixin in
  * com.simplebuilding.mixin.forge (simplebuilding.forge.mixins.json).
  *
- * HUD overlays (octant rangefinder, speedometer, air-jump bar) hang in Forge's layered HUD via
+ * HUD overlays (octant rangefinder, speedometer) hang in Forge's layered HUD via
  * AddGuiOverlayLayersEvent, like Fabric's HudElementRegistry and NeoForge's RegisterGuiLayersEvent.
  * The enchant_type select item-model property has no Forge registration event and is
  * registered by SelectItemModelPropertiesMixin.
@@ -146,12 +145,12 @@ public final class SimplebuildingForgeClient {
     public static void onAddGuiLayers(AddGuiOverlayLayersEvent event) {
         Identifier rangefinder = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "rangefinder_hud");
         Identifier speedometer = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "speedometer_hud");
-        Identifier airJump = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "air_jump_cooldown_hud");
         ForgeLayeredDraw root = event.getLayeredDraw();
         Identifier stack = ForgeLayeredDraw.POST_SLEEP_STACK;
         root.addAbove(stack, rangefinder, ForgeLayeredDraw.CHAT_OVERLAY, (gg, dt) -> RangefinderHudOverlay.render(gg));
         root.addAbove(stack, speedometer, rangefinder, (gg, dt) -> SpeedometerHudOverlay.render(gg));
-        root.addAbove(stack, airJump, speedometer, (gg, dt) -> DoubleJumpHudOverlay.render(gg));
+        // The air jump cooldown bar is no layer: it takes vanilla's contextual bar slot
+        // (HudContextualBarMixin on Hud#updateContextualInfo / extractContextualInfoState), 2026-09-29.
     }
 
     /** Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity. */

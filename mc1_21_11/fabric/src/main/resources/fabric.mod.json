@@ -64,6 +64,7 @@
       "com.simplebuilding.gametest.OreGenAndItemFrameGameTest",
       "com.simplebuilding.gametest.ConfigOptionGameTest",
       "com.simplebuilding.gametest.ServerTuningGameTest",
+      "com.simplebuilding.gametest.AirJumpGameTest",
       "com.simplebuilding.gametest.DynamicLightGameTest",
       "com.simplebuilding.gametest.OreDetectorGameTest",
       "com.simplebuilding.gametest.QuiverGameTest",

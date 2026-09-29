@@ -188,13 +188,13 @@ public final class AirJumpClientTest {
 
     // The bar the overlay claims to draw. Deliberately a second, independent copy of the numbers in
     // DoubleJumpHudOverlay: if the overlay changes them, these assertions have to go red. Since
-    // 2026-09 it is vanilla's horse jump bar in vanilla's contextual bar slot (182x5, 29 px above
-    // the bottom), no longer a hand-filled 80x5 bar with a label.
+    // 2026-09 it sits in vanilla's contextual bar slot (182x5, 29 px above the bottom), since
+    // 2026-09-29 in the mod's own air_jump_bar sprites instead of the horse jump bar.
     private static final int BAR_WIDTH = 182;
     private static final int BAR_HEIGHT = 5;
     private static final int BAR_BOTTOM_OFFSET = 29;
-    private static final String BACKGROUND_SPRITE = "minecraft:hud/jump_bar_background";
-    private static final String PROGRESS_SPRITE = "minecraft:hud/jump_bar_progress";
+    private static final String BACKGROUND_SPRITE = "simplebuilding:hud/air_jump_bar_background";
+    private static final String PROGRESS_SPRITE = "simplebuilding:hud/air_jump_bar_progress";
 
     /** The one position every case returns to: standing still on the scene floor, facing the wall. */
     private static final double HOME_X = 10.5;
@@ -1055,7 +1055,7 @@ public final class AirJumpClientTest {
      * that records {@code fill} and {@code centeredText} instead of performing them, while the
      * controller state it reads is a real cooldown produced by a real air jump. Everything the
      * overlay promises is checked against an independent copy of the numbers: the vanilla
-     * {@code hud/jump_bar_background} sprite at 182x5, then {@code hud/jump_bar_progress} cut to a
+     * {@code simplebuilding:hud/air_jump_bar_background} sprite at 182x5, then {@code hud/air_jump_bar_progress} cut to a
      * width of {@code round(182 * (max - remaining) / max)}, centred with the top edge 29 pixels
      * above the bottom of the screen (vanilla's contextual bar slot), and no fill or label at all.
      *

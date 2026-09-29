@@ -57,6 +57,11 @@ public final class OctantGameTest {
     }
 
     @GameTest
+    public void theOctantIsRarerInChestLoot(GameTestHelper helper) {
+        OctantTests.theOctantIsRarerInChestLoot(helper);
+    }
+
+    @GameTest
     public void theOctantOnlyMeasuresAndPlacesNothing(GameTestHelper helper) {
         OctantTests.theOctantOnlyMeasuresAndPlacesNothing(helper);
     }
