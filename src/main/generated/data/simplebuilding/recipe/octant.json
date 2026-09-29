@@ -3,15 +3,15 @@
   "category": "equipment",
   "key": {
     "C": "minecraft:compass",
-    "H": "minecraft:heavy_weighted_pressure_plate",
+    "G": "simplebuilding:gold_core",
     "L": "minecraft:lead",
-    "P": "minecraft:light_weighted_pressure_plate",
+    "N": "minecraft:gold_nugget",
     "R": "minecraft:lightning_rod"
   },
   "pattern": [
     " RL",
-    "PCR",
-    "HP "
+    "NCR",
+    "GN "
   ],
   "result": {
     "id": "simplebuilding:octant"

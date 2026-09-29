@@ -426,7 +426,7 @@ public final class ConfigOptionTests {
     private static final Set<String> EXPECTED_OPTIONS = Set.of(
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
-            "root.airJumpCooldownTicks int=100",
+            "root.airJumpCooldownTicks int=400",
             "root.enableArmorTrimBenefits boolean=true",
             "root.trimBenefitBaseMultiplier double=2.0",
             "root.maxMultiplierLimit double runtime-only(static)",

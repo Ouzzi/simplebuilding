@@ -40,8 +40,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * The building wand's shapes and helpers decided by the owner on 2026-09-25: Linear (a line while
- * sneaking), Bridge (a right click into the air), Cover (only in front of the clicked kind),
+ * The building wand's shapes and helpers decided by the owner on 2026-09-25: Linear (a single line,
+ * since 2026-09-29 also without sneaking), Bridge (a right click into the air), Cover (only in front of the clicked kind),
  * placing blocks the way a player would, undo of the last action, and the octant fill and roof
  * modes that run through the blueprint planner.
  *
@@ -65,7 +65,7 @@ public final class WandModeTests {
     /**
      * Linear while sneaking builds a straight line away from the clicked face, twice the diameter
      * of the configured plane (radius 1 = 6 blocks), and ends in front of the first occupied block.
-     * Without sneaking the same wand still builds the square (pinned elsewhere).
+     * Without sneaking it builds the same line since 2026-09-29 ({@link #linearWithoutSneakingAlsoBuildsOnlyTheLine}).
      *
      * <p><strong>What breaks this test:</strong> dropping the sneak check or the Linear check in
      * {@code Plan.forClick}, stepping the line along the wrong direction, ignoring the obstacle
@@ -597,6 +597,91 @@ public final class WandModeTests {
         player.setShiftKeyDown(false);
         helper.assertTrue(helper.getBlockState(farBank.above()).is(Blocks.GLASS), "sneaking, the far bank did not get its plane");
         helper.assertTrue(helper.getBlockState(new BlockPos(3, 1, 3)).isAir(), "sneaking, the click still built the bridge");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Linear builds only a single line (owner 2026-09-29), <em>also without sneaking</em>: the same
+     * click that until then built the whole square plane now builds the line away from the clicked
+     * face - through the server's real click path ({@code ServerPlayerGameMode#useItemOn}) and the
+     * real tick path ({@code doTick}). The preview shows the same line.
+     *
+     * <p><strong>What breaks this test:</strong> the sneak check coming back into the Linear branch
+     * of {@code Plan.forClick}, the plane winning over the line, or a preview that disagrees.
+     */
+    public static void linearWithoutSneakingAlsoBuildsOnlyTheLine(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        clearRoom(helper);
+        BlockPos anchor = new BlockPos(3, 1, 3);
+        helper.setBlock(anchor, Blocks.STONE);
+        helper.setBlock(anchor.above(5), Blocks.STONE); // the line has to stop below this one
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, ModEnchantments.LINEAR);
+        stock(player, wand, new ItemStack(Items.GLASS, 64));
+        player.setShiftKeyDown(false);
+
+        Set<BlockPos> previewed = absoluteToRelative(helper, BuildingWandItem.getPreviewStates(helper.getLevel(), player, wand,
+                helper.absolutePos(anchor), Direction.UP, new Vec3(0.5, 1.0, 0.5),
+                ModItems.DIAMOND_BUILDING_WAND.getWandSquareDiameter()).keySet());
+        InteractionResult used = serverClick(helper, player, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+        helper.assertTrue(used.consumesAction(), "the Linear click without sneaking did not arm, got " + used);
+        tickUntilIdle(helper, player, wand);
+
+        Set<BlockPos> expected = new HashSet<>();
+        for (int dy = 1; dy <= 4; dy++) {
+            expected.add(anchor.above(dy));
+        }
+        Assertions.valueEqual(helper, placedGlass(helper), expected,
+                "Linear without sneaking did not build just the four free blocks of the line (a plane instead?)");
+        Assertions.valueEqual(helper, previewed, expected, "the Linear preview without sneaking does not show the line");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Bridge (owner 2026-09-29): it starts at the edge and grows towards the far end - after every
+     * tick the placed blocks are exactly the first n cells of the gap counted from the edge, n never
+     * shrinking - and it takes half the time it used to. Radius 2 over a six block gap: the old
+     * pace built it in three chunks {@code DELAY_TICKS + 1} ticks apart, 11 ticks from the first
+     * chunk to the last; now it is one block per tick, 6 ticks. Driven through the use packet and
+     * {@code ServerPlayer#doTick}, like a real right click into the air.
+     *
+     * <p><strong>What breaks this test:</strong> the bridge filling from the far end or from the
+     * middle, building it in chunks again, a timer between the bridge steps, or the old pace.
+     */
+    public static void bridgeGrowsFromTheEdgeToTheFarEndInHalfTheTime(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
+        clearRoom(helper);
+        helper.setBlock(new BlockPos(0, 1, 3), Blocks.STONE); // underfoot, the edge
+        helper.setBlock(new BlockPos(7, 1, 3), Blocks.STONE); // far bank: the gap is x = 1..6
+        Vec3 feet = helper.absoluteVec(new Vec3(0.5, 2.0, 3.5));
+        player.snapTo(feet.x, feet.y, feet.z, 270.0F, 0.0F);
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 2, ModEnchantments.BRIDGE);
+        stock(player, wand, new ItemStack(Items.GLASS, 64));
+
+        // The pace, stated as numbers: 6 cells at radius 2 used to take (3 - 1) * (4 + 1) + 1 = 11 ticks.
+        Assertions.valueEqual(helper, BuildingWandItem.bridgeSteps(2, 6), 6,
+                "the bridge over six cells at radius 2 no longer takes half of the old 11 ticks (rounded up)");
+        Assertions.valueEqual(helper, BuildingWandItem.BRIDGE_SPEEDUP, 2, "the bridge is no longer twice as fast as before");
+
+        player.connection.handleUseItem(new ServerboundUseItemPacket(InteractionHand.MAIN_HAND, 1, 270.0F, 0.0F));
+        java.util.List<Integer> perTick = new java.util.ArrayList<>();
+        int ticks = 0;
+        while (wand.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBooleanOr("Active", false) && ticks < TICK_CAP) {
+            player.doTick();
+            ticks++;
+            Set<BlockPos> placed = placedGlass(helper);
+            int n = placed.size();
+            Set<BlockPos> prefix = new HashSet<>();
+            for (int x = 1; x <= n; x++) {
+                prefix.add(new BlockPos(x, 1, 3));
+            }
+            helper.assertTrue(placed.equals(prefix), "after tick " + ticks + " the bridge is not the first " + n
+                    + " cells from the edge but " + placed + " - it has to grow from the edge to the far end");
+            helper.assertTrue(perTick.isEmpty() || n >= perTick.get(perTick.size() - 1), "the bridge shrank at tick " + ticks);
+            perTick.add(n);
+        }
+        Assertions.valueEqual(helper, perTick, java.util.List.of(1, 2, 3, 4, 5, 6),
+                "the bridge did not grow one block per tick from the edge over six ticks");
         TestCleanup.succeed(helper);
     }
 

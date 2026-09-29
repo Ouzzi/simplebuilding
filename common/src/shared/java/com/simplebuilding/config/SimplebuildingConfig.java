@@ -42,11 +42,12 @@ public class SimplebuildingConfig implements ConfigData {
     public boolean enableDoubleJump = true;
 
     // Air-jump cooldown (ticks) at DOUBLE_JUMP level 1; level 2 uses half of this. 20 ticks = 1s.
+    // Default 400 = 20 s / 10 s (owner 2026-09-29, before 100), kept in 20..6000 (AirJumpGuard.clampBase).
     // Der Server schickt seinen Wert an die Clients (TweaksConfigPayload), damit die Leiste und der
     // Server-Waechter (AirJumpGuard) dieselbe Abklingzeit rechnen.
     @ConfigEntry.Category("equipment")
     @ConfigEntry.Gui.Tooltip
-    public int airJumpCooldownTicks = 100;
+    public int airJumpCooldownTicks = 400;
 
     @ConfigEntry.Category("equipment")
     @ConfigEntry.Gui.Tooltip
@@ -203,7 +204,8 @@ public class SimplebuildingConfig implements ConfigData {
             trimBenefitBaseMultiplier = 2.0;
         }
         trimBenefitBaseMultiplier = Math.max(0.0, Math.min(maxMultiplierLimit, trimBenefitBaseMultiplier));
-        airJumpCooldownTicks = Math.max(0, airJumpCooldownTicks);
+        // Grenzen wie AirJumpGuard.MIN/MAX_COOLDOWN_TICKS (hier als Zahlen, die Balancing-Zentrale liest sie).
+        airJumpCooldownTicks = Math.max(20, Math.min(6000, airJumpCooldownTicks));
         hudPositionX = Math.max(0, Math.min(100, hudPositionX));
         hudPositionY = Math.max(0, Math.min(100, hudPositionY));
         hudScale = Math.max(50, Math.min(200, hudScale));

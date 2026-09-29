@@ -45,12 +45,18 @@ public class BuildingWandItem extends Item {
 
     public static final int DELAY_TICKS = 4; // Etwas schneller
     public static final int DELAY_TICKS_LINE = 2;
+    /**
+     * Die Bruecke baut doppelt so schnell wie bis 2026-09-29 (Besitzer): damals kam sie in
+     * Stuecken wie die Flaeche Ringe hat, alle {@code DELAY_TICKS + 1} Ticks eines; jetzt Block fuer
+     * Block von der Kante aus, jeden Tick, in der halben Zeit ({@link #bridgeSteps}).
+     */
+    public static final int BRIDGE_SPEEDUP = 2;
 
     /** Bauformen eines Klicks (NBT {@code Mode}). */
     public static final int MODE_SQUARE = 0;
     /** Abdeckung: nur vor Bloecken derselben Sorte wie der angeklickte, zusammenhaengend. */
     public static final int MODE_COVER = 1;
-    /** Linear + Schleichen: eine Linie von der Klickseite weg. */
+    /** Linear: eine einzige Linie von der Klickseite weg (seit 2026-09-29 auch ohne Schleichen, nie eine Flaeche). */
     public static final int MODE_LINE = 2;
     /** Bruecke: Rechtsklick in die Luft, vom Block unter den Fuessen geradeaus. */
     public static final int MODE_BRIDGE = 3;
@@ -58,6 +64,20 @@ public class BuildingWandItem extends Item {
     /** Laenge von Linie und Bruecke: doppelter Durchmesser der eingestellten Flaeche (Kupfer 6 ... Enderit 26). */
     public static int lineLength(int radius) {
         return 2 * (2 * Math.max(0, radius) + 1);
+    }
+
+    /**
+     * In wie vielen Ticks die Bruecke ihre {@code length} Bloecke setzt: halb so viele, wie der alte
+     * Bau brauchte ({@code min(radius + 1, length)} Stuecke, zwischen zwei Stuecken {@code DELAY_TICKS}
+     * Ticks Pause, also {@code (stuecke - 1) * (DELAY_TICKS + 1) + 1} Ticks), aufgerundet; hoechstens
+     * ein Tick je Block. Jeder Tick setzt die naechsten Bloecke von der Kante aus.
+     */
+    public static int bridgeSteps(int radius, int length) {
+        if (length <= 0) return 0;
+        int oldSteps = Math.min(Math.max(0, radius) + 1, length);
+        int oldTicks = (oldSteps - 1) * (DELAY_TICKS + 1) + 1;
+        int newTicks = (oldTicks + BRIDGE_SPEEDUP - 1) / BRIDGE_SPEEDUP;
+        return Math.min(length, Math.max(1, newTicks));
     }
 
     private int maxDiameter; // Maximaler Durchmesser (Tier-abhängig)
@@ -648,7 +668,6 @@ public class BuildingWandItem extends Item {
 
         int currentRadius = getBlockInt(nbt, "CurrentRadius");
 
-        boolean isLinePlace = hasEnchantment(stack, world, ModEnchantments.LINEAR);
         boolean hasMasterBuilder = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
         boolean hasColorPalette = hasEnchantment(stack, world, ModEnchantments.COLOR_PALETTE);
 
@@ -730,7 +749,8 @@ public class BuildingWandItem extends Item {
         com.simplebuilding.advancement.ModCounters.add(player, com.simplebuilding.advancement.ModCounters.WAND_BLOCKS, placedThisStep);
         if (currentRadius < plan.steps() - 1) {
             nbt.putInt("CurrentRadius", currentRadius + 1);
-            nbt.putInt("Timer", isLinePlace ? DELAY_TICKS_LINE : DELAY_TICKS);
+            // Bruecke: jeden Tick weiter (bridgeSteps teilt sie schon auf); Linie: die kurze Pause.
+            nbt.putInt("Timer", plan.mode == MODE_BRIDGE ? 0 : plan.mode == MODE_LINE ? DELAY_TICKS_LINE : DELAY_TICKS);
         } else {
             nbt.putBoolean("Active", false);
         }
@@ -832,12 +852,13 @@ public class BuildingWandItem extends Item {
      *   <li><b>Abdeckung</b>: dieselbe Flaeche, aber nur Stellen, hinter denen (gegen die Klickseite)
      *       ein Block derselben Sorte wie der angeklickte steht, und die mit dem Mittelfeld ueber
      *       solche Stellen zusammenhaengen (4er-Nachbarschaft). Die Achsen-Einstellung gilt hier nicht.</li>
-     *   <li><b>Linie</b> (Linear + Schleichen): von der Klickseite gerade weg, {@link #lineLength} lang,
+     *   <li><b>Linie</b> (Linear, mit oder ohne Schleichen): von der Klickseite gerade weg, {@link #lineLength} lang,
      *       endet vor dem ersten belegten Block.</li>
      *   <li><b>Bruecke</b>: vom Block unter den Fuessen waagerecht in Blickrichtung, gleiche Laenge,
      *       endet vor dem ersten belegten Block.</li>
      * </ul>
-     * Linie und Bruecke werden in so vielen Schritten gebaut wie die Flaeche Ringe haette.
+     * Die Linie wird in so vielen Schritten gebaut wie die Flaeche Ringe haette, die Bruecke Block fuer
+     * Block von der Kante aus in der halben Zeit ({@link #bridgeSteps}).
      */
     static final class Plan {
         final int mode;
@@ -867,18 +888,20 @@ public class BuildingWandItem extends Item {
             if (hasEnchantment(wand, level, ModEnchantments.COVER)) {
                 return new Plan(MODE_COVER, clicked, face, face, hitRel, radius, 0, 0, level.getBlockState(clicked).getBlock());
             }
-            if (player.isShiftKeyDown() && hasEnchantment(wand, level, ModEnchantments.LINEAR)) {
-                return new Plan(MODE_LINE, clicked, face, face, hitRel, radius, 0, freeRun(level, clicked, face, lineLength(radius)), Blocks.AIR);
-            }
             // Bruecke auch beim Blick ueber die Luecke: wer am Rand steht und hinueberschaut, trifft das
             // andere Ufer oder den Grund der Luecke, nicht die Luft - und bekam frueher dort eine Flaeche
             // statt der Bruecke (die Testzentrale sagt "look across"; 2026-09-28). Schleichen baut dort
-            // weiterhin die Flaeche.
+            // weiterhin die Flaeche (bzw. mit Linear die Linie).
             if (!player.isShiftKeyDown() && hasEnchantment(wand, level, ModEnchantments.BRIDGE)) {
                 Plan bridge = forBridge(level, player, radius);
                 if (bridge != null && bridge.steps() > 0 && bridge.aimsAcrossTheGap(clicked, face)) {
                     return bridge;
                 }
+            }
+            // Linear baut nur noch eine einzige Linie (Besitzer 2026-09-29): bis dahin nur beim
+            // Schleichen, ohne Schleichen baute derselbe Stab die ganze Flaeche, nur schneller getaktet.
+            if (hasEnchantment(wand, level, ModEnchantments.LINEAR)) {
+                return new Plan(MODE_LINE, clicked, face, face, hitRel, radius, 0, freeRun(level, clicked, face, lineLength(radius)), Blocks.AIR);
             }
             return new Plan(MODE_SQUARE, clicked, face, face, hitRel, radius, axis, 0, Blocks.AIR);
         }
@@ -941,18 +964,30 @@ public class BuildingWandItem extends Item {
 
         int steps() {
             int rings = Math.max(0, radius) + 1;
-            if (mode == MODE_LINE || mode == MODE_BRIDGE) return Math.min(rings, length);
+            if (mode == MODE_BRIDGE) return bridgeSteps(radius, length);
+            if (mode == MODE_LINE) return Math.min(rings, length);
             return rings;
         }
 
         List<BlockPos> step(Level level, int k) {
             switch (mode) {
-                case MODE_LINE, MODE_BRIDGE -> {
+                case MODE_LINE -> {
                     int steps = steps();
                     List<BlockPos> out = new ArrayList<>();
                     if (steps == 0) return out;
                     int chunk = (length + steps - 1) / steps;
                     for (int i = k * chunk; i < Math.min(length, (k + 1) * chunk); i++) out.add(origin.relative(face, i + 1));
+                    return out;
+                }
+                case MODE_BRIDGE -> {
+                    // Von der Kante zum anderen Ende: Tick k setzt die Bloecke ceil(L*k/n) .. ceil(L*(k+1)/n) - 1,
+                    // in Reihenfolge, der erste Tick den Block direkt an der Kante.
+                    int steps = steps();
+                    List<BlockPos> out = new ArrayList<>();
+                    if (steps == 0) return out;
+                    int from = (length * k + steps - 1) / steps;
+                    int to = Math.min(length, (length * (k + 1) + steps - 1) / steps);
+                    for (int i = from; i < to; i++) out.add(origin.relative(face, i + 1));
                     return out;
                 }
                 case MODE_COVER -> {

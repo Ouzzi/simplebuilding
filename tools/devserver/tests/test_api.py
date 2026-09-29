@@ -76,14 +76,14 @@ class ApiTests(unittest.TestCase):
     def test_preview_save_version_rollback_over_http(self):
         vid = "config:airJumpCooldownTicks"
         base = self.service.store.state()["version"]
-        status, pv = self.json("/api/preview", {"baseVersion": base, "changes": [{"id": vid, "value": "140", "expected": 100}]})
+        status, pv = self.json("/api/preview", {"baseVersion": base, "changes": [{"id": vid, "value": "140", "expected": 400}]})
         self.assertEqual(status, 200)
         self.assertEqual(pv["summary"][0]["new"], 140)
         self.assertEqual(pv["summary"][0]["apply"], "phase2")
         status, bad = self.json("/api/save", {"baseVersion": base, "changes": [{"id": vid, "value": "x"}]})
         self.assertEqual(status, 400)
         self.assertIn("keine Zahl", bad["details"][0]["message"])
-        status, res = self.json("/api/save", {"baseVersion": base, "changes": [{"id": vid, "value": "140", "expected": 100}], "message": "api"})
+        status, res = self.json("/api/save", {"baseVersion": base, "changes": [{"id": vid, "value": "140", "expected": 400}], "message": "api"})
         self.assertEqual(status, 200)
         self.assertEqual(res["version"], base + 1)
         status, conflict = self.json("/api/save", {"baseVersion": base, "changes": [{"id": vid, "value": 150}]})

@@ -1,7 +1,6 @@
 package com.simplebuilding.neoforge;
 
 import com.simplebuilding.Simplebuilding;
-import com.simplebuilding.client.gui.DoubleJumpHudOverlay;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.gui.SpeedometerHudOverlay;
 import com.simplebuilding.client.render.BlockOutlineSupport;
@@ -29,11 +28,8 @@ public final class NeoForgeClientHooks {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "speedometer_hud"),
                 (guiGraphics, deltaTracker) -> SpeedometerHudOverlay.render(guiGraphics)
         );
-        event.registerAbove(
-                Identifier.fromNamespaceAndPath("minecraft", "chat"),
-                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "air_jump_cooldown_hud"),
-                (guiGraphics, deltaTracker) -> DoubleJumpHudOverlay.render(guiGraphics)
-        );
+        // The air jump cooldown bar is no layer: it takes vanilla's contextual bar slot
+        // (HudContextualBarMixin, both loaders), 2026-09-29.
     }
 
     @SubscribeEvent

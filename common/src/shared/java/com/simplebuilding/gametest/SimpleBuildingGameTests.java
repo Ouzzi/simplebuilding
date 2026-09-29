@@ -289,6 +289,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("wand_mode_game_test_bridge_also_starts_when_the_click_aims_across_the_gap", WandModeTests::bridgeAlsoStartsWhenTheClickAimsAcrossTheGap)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("wand_mode_game_test_linear_without_sneaking_also_builds_only_the_line", WandModeTests::linearWithoutSneakingAlsoBuildsOnlyTheLine)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_bridge_grows_from_the_edge_to_the_far_end_in_half_the_time", WandModeTests::bridgeGrowsFromTheEdgeToTheFarEndInHalfTheTime)
+                    .rotation(Rotation.NONE)
+                    .build(),
             GameTestSpec.named("building_core_game_test_building_cores_are_not_stackable", BuildingCoreTests::buildingCoresAreNotStackable)
                     .build(),
             GameTestSpec.named("building_core_game_test_every_core_recipe_crafts_with_one_core_per_slot", BuildingCoreTests::everyCoreRecipeCraftsWithOneCorePerSlot)
@@ -356,7 +362,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("building_enchantment_game_test_color_palette_keeps_the_wand_building_when_one_block_runs_out", BuildingEnchantmentTests::colorPaletteKeepsTheWandBuildingWhenOneBlockRunsOut)
                     .rotation(Rotation.NONE)
                     .build(),
-            GameTestSpec.named("building_enchantment_game_test_linear_only_shortens_the_wand_step_delay", BuildingEnchantmentTests::linearOnlyShortensTheWandStepDelay)
+            GameTestSpec.named("building_enchantment_game_test_linear_builds_only_the_line_and_paces_it_with_the_line_delay", BuildingEnchantmentTests::linearBuildsOnlyTheLineAndPacesItWithTheLineDelay)
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("building_enchantment_game_test_constructors_touch_only_turns_orientation_and_needs_build_rights", BuildingEnchantmentTests::constructorsTouchOnlyTurnsOrientationAndNeedsBuildRights)
@@ -471,6 +477,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("config_option_game_test_core_loot_chance_follows_its_multiplier", ConfigOptionTests::coreLootChanceFollowsItsMultiplier)
                     .build(),
             GameTestSpec.named("config_option_game_test_the_air_jump_cooldown_travels_from_server_to_client", ConfigOptionTests::theAirJumpCooldownTravelsFromServerToClient)
+                    .build(),
+            GameTestSpec.named("air_jump_game_test_the_cooldown_is_twenty_seconds_at_level_one_and_ten_at_level_two", AirJumpTests::theCooldownIsTwentySecondsAtLevelOneAndTenAtLevelTwo)
+                    .build(),
+            GameTestSpec.named("air_jump_game_test_the_bar_follows_vanillas_experience_over_locator_rule", AirJumpTests::theBarFollowsVanillasExperienceOverLocatorRule)
+                    .build(),
+            GameTestSpec.named("air_jump_game_test_the_bar_fills_up_while_the_air_jump_recharges", AirJumpTests::theBarFillsUpWhileTheAirJumpRecharges)
                     .build(),
             GameTestSpec.named("server_tuning_game_test_the_server_value_wins_over_the_client_file", ServerTuningTests::theServerValueWinsOverTheClientFile)
                     .build(),
@@ -1003,6 +1015,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("octant_game_test_water_cauldron_washes_the_colour_off_an_octant", OctantTests::waterCauldronWashesTheColourOffAnOctant)
                     .build(),
             GameTestSpec.named("octant_game_test_chest_octants_are_enchanted_in_the_two_dangerous_chests_only", OctantTests::chestOctantsAreEnchantedInTheTwoDangerousChestsOnly)
+                    .build(),
+            GameTestSpec.named("octant_game_test_the_octant_is_rarer_in_chest_loot", OctantTests::theOctantIsRarerInChestLoot)
                     .build(),
             GameTestSpec.named("octant_game_test_the_octant_only_measures_and_places_nothing", OctantTests::theOctantOnlyMeasuresAndPlacesNothing)
                     .build(),
