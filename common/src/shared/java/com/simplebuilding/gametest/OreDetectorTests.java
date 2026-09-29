@@ -1062,6 +1062,9 @@ public final class OreDetectorTests {
         helper.assertTrue(tooltip(helper, calibrated).contains(expectedTarget),
                 "a detector calibrated on an oak log does not name it, its tooltip is "
                         + tooltip(helper, calibrated));
+        // Calibrated, sneak + use places it (2026-09-29): the tooltip says how to place and how to recalibrate.
+        helper.assertTrue(tooltip(helper, calibrated).contains("Sneak + Use on a block places it; Sneak + Use in the air switches the mode"),
+                "a calibrated detector does not explain placing, its tooltip is " + tooltip(helper, calibrated));
 
         // An index outside the enum is clamped into it instead of throwing.
         helper.assertValueEqual(tooltip(helper, detectorInMode(99)).getFirst(), MODE_PREFIX + "Custom",
@@ -1218,42 +1221,42 @@ public final class OreDetectorTests {
     }
 
     /**
-     * The ore detector's crafting recipe as the owner set it on 2026-09-28: the calibrated sculk
-     * sensor on top, the vanilla compass in the middle, the Gold Core at the bottom, and echo shards
-     * in the other six slots - left and right of the compass and all four corners - resolved
-     * through the server's recipe manager the way a crafting table does. The 2026-09-25 pattern with
-     * only the two side shards must no longer craft it.
+     * The detector's crafting recipe as the owner set it on 2026-09-29: the 2026-09-28 recipe turned
+     * by 45 degrees with two echo shards fewer - the vanilla compass in the middle, echo shards
+     * above, below, left and right of it, the Gold Core bottom left and the calibrated sculk sensor
+     * top right, the other two corners empty - resolved through the server's recipe manager the way
+     * a crafting table does. The six-shard pattern of 2026-09-28 must no longer craft it.
      *
-     * <p>What breaks this test: any change to {@code recipe/ore_detector.json} - pattern, key,
+     * <p>What breaks this test: any change to {@code recipe/detector.json} - pattern, key,
      * result or count - or the recipe failing to load.
      */
     public static void theOreDetectorRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
-        // "ESE" / "ECE" / "EGE" with S=calibrated sculk sensor, E=echo shard (six), C=compass, G=Gold Core.
+        // " ES" / "ECE" / "GE " with S=calibrated sculk sensor, E=echo shard (four), C=compass, G=Gold Core.
         CraftingInput grid = documentedGrid(
-                Items.ECHO_SHARD, Items.CALIBRATED_SCULK_SENSOR, Items.ECHO_SHARD,
+                null, Items.ECHO_SHARD, Items.CALIBRATED_SCULK_SENSOR,
                 Items.ECHO_SHARD, Items.COMPASS, Items.ECHO_SHARD,
-                Items.ECHO_SHARD, ModItems.GOLD_CORE, Items.ECHO_SHARD);
+                ModItems.GOLD_CORE, Items.ECHO_SHARD, null);
         Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, grid, level);
         helper.assertTrue(match.isPresent(),
                 "the documented ore detector pattern does not match any crafting recipe");
-        helper.assertValueEqual(match.get().id().identifier().toString(), "simplebuilding:ore_detector",
+        helper.assertValueEqual(match.get().id().identifier().toString(), "simplebuilding:detector",
                 "recipe matched by the documented ore detector pattern");
         ItemStack result = match.get().value().assemble(grid);
         helper.assertTrue(result.is(ModItems.ORE_DETECTOR),
                 "the ore detector recipe produced " + result + " instead of an ore detector");
         helper.assertValueEqual(result.getCount(), 1, "ore detectors produced per craft");
 
-        // --- the 2026-09-25 pattern with only two echo shards must not craft it any more ---
+        // --- the 2026-09-28 pattern with six echo shards must not craft it any more ---
         CraftingInput old = documentedGrid(
-                null, Items.CALIBRATED_SCULK_SENSOR, null,
+                Items.ECHO_SHARD, Items.CALIBRATED_SCULK_SENSOR, Items.ECHO_SHARD,
                 Items.ECHO_SHARD, Items.COMPASS, Items.ECHO_SHARD,
-                null, ModItems.GOLD_CORE, null);
+                Items.ECHO_SHARD, ModItems.GOLD_CORE, Items.ECHO_SHARD);
         Optional<RecipeHolder<CraftingRecipe>> oldMatch = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, old, level);
         helper.assertTrue(oldMatch.isEmpty() || !oldMatch.get().value().assemble(old).is(ModItems.ORE_DETECTOR),
-                "the ore detector still crafts with only the two side echo shards");
+                "the detector still crafts from the old six echo shard pattern");
         helper.succeed();
     }
 
@@ -1374,6 +1377,96 @@ public final class OreDetectorTests {
         item.inventoryTick(detector, helper.getLevel(), player, EquipmentSlot.OFFHAND);
         helper.assertTrue(OreDetectorItem.needleTarget(detector) != null, "holding the detector in the off hand made its needle rest");
         helper.setBlock(target, Blocks.AIR);
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // PLACED DETECTOR (owner 2026-09-29)
+    // =====================================================================================
+
+    /**
+     * A calibrated detector lays down like a smithing template, and placed it keeps working
+     * ({@link com.simplebuilding.util.PlacedDetectors}):
+     * <ul>
+     *   <li>sneak + use with an uncalibrated detector still calibrates (on a diamond ore) and places
+     *   nothing;</li>
+     *   <li>the now calibrated detector, sneak + used on stone, lies on it as the placed template
+     *   block holding exactly that detector, with a pixel hitbox (not the full plate);</li>
+     *   <li>a scan from the plate finds the diamond ore four blocks away, and reports no holder while
+     *   nobody holds diamond ore;</li>
+     *   <li>a player within range holding a diamond ore item triggers it, and so does a mob;</li>
+     *   <li>broken, it drops itself with mode and target.</li>
+     * </ul>
+     *
+     * <p>What breaks this: calibration no longer winning while the detector is uncalibrated, the
+     * placement hook in {@code OreDetectorItem#useOn} or {@code PlacedTemplates#isPlaceableTemplate},
+     * a missing {@code textures/item/detector.png} (the hitbox falls back to the full plate), the scan
+     * not starting at the plate, or the holder check ignoring mobs or the item in hand.
+     */
+    public static void calibratedDetectorsLieDownAndKeepSearching(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper);
+        player.setShiftKeyDown(true);
+        helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
+        BlockPos ore = new BlockPos(5, 2, 1);
+        helper.setBlock(ore, Blocks.DIAMOND_ORE);
+
+        // --- uncalibrated: sneak + use calibrates, nothing is placed ---
+        ItemStack detector = new ItemStack(ModItems.ORE_DETECTOR);
+        helper.assertFalse(OreDetectorItem.isArmed(detector), "a fresh detector counts as calibrated");
+        InteractionResult calibrated = useOn(helper, player, detector, ore);
+        helper.assertTrue(calibrated.consumesAction(), "sneak + use on the diamond ore did not calibrate: " + calibrated);
+        helper.assertTrue(helper.getBlockState(ore.above()).isAir(), "an uncalibrated detector was placed instead of calibrated");
+        helper.assertTrue(OreDetectorItem.isArmed(detector), "the detector is not calibrated after sneak + use on the diamond ore");
+
+        // --- calibrated: sneak + use on stone places it ---
+        ItemStack expected = detector.copy();
+        InteractionResult placed = useOn(helper, player, detector, new BlockPos(1, 1, 1));
+        BlockPos platePos = new BlockPos(1, 2, 1);
+        helper.assertTrue(placed.consumesAction() && helper.getBlockState(platePos).is(ModBlocks.PLACED_SMITHING_TEMPLATE),
+                "sneak + use with a calibrated detector did not place it: " + placed + ", " + helper.getBlockState(platePos));
+        com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity plate =
+                helper.getBlockEntity(platePos, com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity.class);
+        helper.assertTrue(ItemStack.isSameItemSameComponents(plate.getTemplate(), expected),
+                "the placed detector holds " + plate.getTemplate() + " instead of the calibrated detector");
+        helper.assertTrue(com.simplebuilding.util.PlacedPlate.mask(ModItems.ORE_DETECTOR) != com.simplebuilding.util.PlacedPlate.FULL,
+                "the placed detector's hitbox is the full plate, not its pixels (textures/item/detector.png missing?)");
+
+        // --- it scans from the plate; nobody holds the target yet ---
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.STONE));
+        com.simplebuilding.util.PlacedDetectors.Result scan =
+                com.simplebuilding.util.PlacedDetectors.scan(level, helper.absolutePos(platePos), plate, false);
+        helper.assertTrue(helper.absolutePos(ore).equals(scan.found()), "the placed detector found " + scan.found()
+                + " instead of the diamond ore at " + helper.absolutePos(ore));
+        helper.assertTrue(scan.holder() == null, "the placed detector reports " + scan.holder() + " as holding diamond ore");
+
+        // --- a player holding the target triggers it ---
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_ORE));
+        scan = com.simplebuilding.util.PlacedDetectors.scan(level, helper.absolutePos(platePos), plate, false);
+        helper.assertTrue(scan.holder() == player, "a player holding diamond ore did not trigger the placed detector: " + scan.holder());
+
+        // --- and so does a mob ---
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.STONE));
+        net.minecraft.world.entity.Mob mob = helper.spawnWithNoFreeWill(net.minecraft.world.entity.EntityTypes.ZOMBIE, new BlockPos(3, 2, 3));
+        mob.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.DIAMOND_ORE));
+        scan = com.simplebuilding.util.PlacedDetectors.scan(level, helper.absolutePos(platePos), plate, false);
+        helper.assertTrue(scan.holder() == mob, "a zombie holding diamond ore did not trigger the placed detector: " + scan.holder());
+        mob.discard();
+
+        // --- broken, it drops itself with mode and target ---
+        level.destroyBlock(helper.absolutePos(platePos), true);
+        net.minecraft.world.entity.item.ItemEntity dropped = null;
+        for (net.minecraft.world.entity.item.ItemEntity entity
+                : level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, helper.getBounds())) {
+            if (entity.getItem().is(ModItems.ORE_DETECTOR)) {
+                dropped = entity;
+            }
+        }
+        helper.assertTrue(dropped != null && ItemStack.isSameItemSameComponents(dropped.getItem(), expected),
+                "breaking the placed detector dropped " + (dropped == null ? "nothing" : dropped.getItem().toString())
+                        + " instead of the calibrated detector");
+        dropped.discard();
+        helper.setBlock(ore, Blocks.AIR);
         helper.succeed();
     }
 

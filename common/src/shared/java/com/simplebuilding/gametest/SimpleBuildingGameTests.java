@@ -561,6 +561,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("ore_detector_game_test_off_hand_detector_is_slower_quieter_and_fainter", OreDetectorTests::offHandDetectorIsSlowerQuieterAndFainter)
                     .build(),
+            GameTestSpec.named("ore_detector_game_test_calibrated_detectors_lie_down_and_keep_searching", OreDetectorTests::calibratedDetectorsLieDownAndKeepSearching)
+                    .build(),
             GameTestSpec.named("quiver_game_test_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder)
                     .build(),
             GameTestSpec.named("quiver_game_test_arrow_filter_holds_for_clicks_and_the_inverted_binding_slips_past_it", QuiverTests::arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt)
@@ -729,6 +731,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_turns_framed_trim_templates_glowing", SledgehammerTests::sledgehammerTurnsFramedTrimTemplatesGlowing)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_charged_hammer_only_finishes_on_the_block_it_started_on", SledgehammerTests::chargedHammerOnlyFinishesOnTheBlockItStartedOn)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_only_iron_or_better_sledgehammers_crush_diamond_blocks", SledgehammerTests::onlyIronOrBetterSledgehammersCrushDiamondBlocks)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_breaks_the_octant_selection_at_twice_the_area_time_per_block", SledgehammerTests::sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock)
                     .build(),
@@ -1266,7 +1270,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_echo_sounder_is_crafted_from_the_recovery_compass_the_enderite_core_and_seven_enderite_nuggets", TweaksTests::theEchoSounderIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSevenEnderiteNuggets)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_the_velocity_gauge_is_crafted_with_quartz_corners_copper_nuggets_and_the_copper_core", TweaksTests::theVelocityGaugeIsCraftedWithQuartzCornersCopperNuggetsAndTheCopperCore)
+            GameTestSpec.named("tweaks_game_test_the_velocity_gauge_is_crafted_from_amethyst_copper_nuggets_and_the_copper_core", TweaksTests::theVelocityGaugeIsCraftedFromAmethystCopperNuggetsAndTheCopperCore)
                     .build(),
             GameTestSpec.named("tweaks_game_test_elytra_pads_equip_an_unsafe_spawn_elytra_in_their_area", TweaksTests::elytraPadsEquipAnUnsafeSpawnElytraInTheirArea)
                     .build(),

@@ -368,6 +368,33 @@ public class OreDetectorItem extends Item {
         return targetPos;
     }
 
+    /**
+     * Hat dieser Detector einen Zielblock ausgewaehlt (Modus "Kalibriert" mit gespeichertem Block)?
+     * Nur dann legt ihn Schleichen + Rechtsklick ab, und nur dann sucht er abgelegt
+     * ({@link com.simplebuilding.util.PlacedDetectors}).
+     */
+    public static boolean isArmed(ItemStack stack) {
+        return stack.getItem() instanceof OreDetectorItem && getMode(stack) == DetectMode.CUSTOM
+                && getCustomTargetBlock(stack) != null;
+    }
+
+    /** Kalibriert {@code stack} auf {@code state} (Modus "Kalibriert"), wie Schleichen + Rechtsklick auf den Block. */
+    public static ItemStack calibrate(ItemStack stack, BlockState state) {
+        if (stack.getItem() instanceof OreDetectorItem detector) {
+            detector.setMode(stack, DetectMode.CUSTOM);
+            detector.setCustomBlock(stack, state);
+        }
+        return stack;
+    }
+
+    /** Der kalibrierte Zielblock, oder null, wenn der Detector nicht {@link #isArmed scharf} ist. */
+    @Nullable
+    public static BlockState calibratedTarget(ItemStack stack, HolderLookup.Provider registries) {
+        if (!isArmed(stack)) return null;
+        BlockState state = getCustomBlock(stack, registries);
+        return state != null && isCalibratable(state) ? state : null;
+    }
+
     private static boolean isHeldInHands(@Nullable EquipmentSlot slot) {
         return slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
     }
@@ -421,6 +448,16 @@ public class OreDetectorItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (context.getPlayer() != null && context.getPlayer().isShiftKeyDown()) {
+            // Ablegen (Besitzer 2026-09-29): ein kalibrierter Detector (Modus "Kalibriert" mit Zielblock)
+            // legt sich wie eine Schmiedevorlage ab und sucht dort weiter (PlacedDetectors). Zum
+            // Neukalibrieren erst mit Schleichen + Rechtsklick in die Luft den Modus wechseln.
+            if (isArmed(context.getItemInHand())) {
+                clearNeedle(context.getItemInHand());
+                InteractionResult placed = com.simplebuilding.util.PlacedTemplates.tryPlace(context);
+                if (placed != null) {
+                    return placed;
+                }
+            }
             Level world = context.getLevel();
             BlockState state = world.getBlockState(context.getClickedPos());
             // Beide Seiten entscheiden gleich, damit der Client nicht schwingt, wo der Server ablehnt.
@@ -803,6 +840,7 @@ public class OreDetectorItem extends Item {
             if (custom != null) {
                 textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.target",
                         custom.getBlock().getName().copy().withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.GRAY));
+                textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.place_hint").withStyle(ChatFormatting.DARK_GRAY));
             } else {
                 textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.no_target").withStyle(ChatFormatting.RED));
             }

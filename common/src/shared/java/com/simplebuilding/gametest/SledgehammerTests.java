@@ -1271,6 +1271,66 @@ public final class SledgehammerTests {
         helper.succeed();
     }
 
+    /**
+     * Owner 2026-09-29: a diamond block is only crushed by sledgehammers from the iron tier up -
+     * iron, gold, diamond, netherite and enderite (gold sits above iron in the mod's ages). Stone
+     * and copper hammers bounce off: the click is refused ({@code FAIL}, no wind-up), a finish
+     * behind it crushes nothing and the block stays. The iron hammer, the weakest allowed one, still
+     * charges and crushes the block into its 81 pebbles. JEI and the wiki list exactly the allowed
+     * hammers ({@code InWorldTransformations#diamondCrush}).
+     *
+     * <p><strong>What breaks this test:</strong> dropping the tier gate in {@code useOn} or in
+     * {@code crushDiamondBlock}, or a different set of allowed hammers.
+     */
+    public static void onlyIronOrBetterSledgehammersCrushDiamondBlocks(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        java.util.Map<Item, Boolean> expected = new java.util.LinkedHashMap<>();
+        expected.put(ModItems.STONE_SLEDGEHAMMER, false);
+        expected.put(ModItems.COPPER_SLEDGEHAMMER, false);
+        expected.put(ModItems.IRON_SLEDGEHAMMER, true);
+        expected.put(ModItems.GOLD_SLEDGEHAMMER, true);
+        expected.put(ModItems.DIAMOND_SLEDGEHAMMER, true);
+        expected.put(ModItems.NETHERITE_SLEDGEHAMMER, true);
+        expected.put(ModItems.ENDERITE_SLEDGEHAMMER, true);
+        expected.forEach((item, can) -> {
+            if (SledgehammerItem.canCrushDiamondBlock(item) != can) {
+                problems.add(item + (can ? " cannot" : " can") + " crush a diamond block");
+            }
+        });
+        helper.assertTrue(problems.isEmpty(), String.join("; ", problems));
+
+        ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, false);
+        net.minecraft.world.phys.AABB around = new net.minecraft.world.phys.AABB(helper.absolutePos(CENTRE)).inflate(2.0);
+        helper.setBlock(CENTRE, Blocks.DIAMOND_BLOCK);
+        for (Item weak : List.of(ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER)) {
+            ItemStack hammer = new ItemStack(weak);
+            InteractionResult result = useOnTop(helper, player, hammer, CENTRE);
+            helper.assertTrue(result == InteractionResult.FAIL, weak + " on a diamond block answered " + result + " instead of FAIL");
+            helper.assertFalse(player.isUsingItem(), weak + " winds up on a diamond block");
+            hammer.getItem().finishUsingItem(hammer, helper.getLevel(), player);
+            player.stopUsingItem();
+            helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, CENTRE);
+        }
+        helper.assertTrue(helper.getLevel().getEntitiesOfClass(ItemEntity.class, around).isEmpty(),
+                "a stone or copper hammer crushed the diamond block");
+
+        ItemStack iron = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        InteractionResult started = useOnTop(helper, player, iron, CENTRE);
+        helper.assertTrue(started == InteractionResult.CONSUME, "the iron hammer did not charge on the diamond block, got " + started);
+        iron.getItem().finishUsingItem(iron, helper.getLevel(), player);
+        player.stopUsingItem();
+        helper.assertBlockPresent(Blocks.AIR, CENTRE);
+        int pebbles = 0;
+        for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, around)) {
+            if (entity.getItem().is(ModItems.DIAMOND_PEBBLE)) {
+                pebbles += entity.getItem().getCount();
+            }
+            entity.discard();
+        }
+        helper.assertValueEqual(pebbles, 81, "pebbles from the diamond block crushed with the iron hammer");
+        helper.succeed();
+    }
+
     /** Right clicks the centre of a block's top face, server side. */
     private static InteractionResult useOnTop(GameTestHelper helper, ServerPlayer player,
                                               ItemStack stack, BlockPos relativePos) {

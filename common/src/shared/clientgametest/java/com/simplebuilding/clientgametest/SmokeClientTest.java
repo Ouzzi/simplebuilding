@@ -1119,7 +1119,7 @@ public final class SmokeClientTest {
         // Sneak + use into the air cycles the mode and clicks. Straight up there is no block under
         // the crosshair, so the use cannot turn into a calibration.
         script.command("clear @a", true);
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:ore_detector");
+        script.command("item replace entity @a weapon.mainhand with simplebuilding:detector");
         script.command("tp @a 10.5 0.0 16.5 0.0 -90.0");
         script.awaitPackets();
         script.idle("let the detector and the new view reach the client", 15);
@@ -1204,7 +1204,7 @@ public final class SmokeClientTest {
      */
     private static void anOreDetectorModeSwitchCostsOneDurabilityInSurvival(Script script) {
         TestScene.build(script, "minecraft:stone", "survival");
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:ore_detector");
+        script.command("item replace entity @a weapon.mainhand with simplebuilding:detector");
         // Straight up: a sneaking right click ON a block is the detector's other gesture - it
         // calibrates to that block (mode CUSTOM) and charges nothing - and the scene's wall is
         // within reach. The first run on NeoForge said so exactly: mode 5, damage 0.

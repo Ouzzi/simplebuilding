@@ -247,6 +247,12 @@
       "maxStackSize": 1
     },
     {
+      "durability": 1024,
+      "enchantability": 15,
+      "id": "simplebuilding:detector",
+      "maxStackSize": 1
+    },
+    {
       "durability": 12488,
       "enchantability": 10,
       "id": "simplebuilding:diamond_building_wand",
@@ -901,12 +907,6 @@
       "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_yellow",
-      "maxStackSize": 1
-    },
-    {
-      "durability": 1024,
-      "enchantability": 15,
-      "id": "simplebuilding:ore_detector",
       "maxStackSize": 1
     },
     {

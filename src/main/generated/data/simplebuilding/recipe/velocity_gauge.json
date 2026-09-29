@@ -5,13 +5,12 @@
     "A": "minecraft:amethyst_shard",
     "C": "minecraft:compass",
     "K": "simplebuilding:copper_core",
-    "N": "minecraft:copper_nugget",
-    "Q": "minecraft:quartz"
+    "N": "minecraft:copper_nugget"
   },
   "pattern": [
-    "QAQ",
+    " NA",
     "NCN",
-    "NKN"
+    "KN "
   ],
   "result": {
     "id": "simplebuilding:velocity_gauge"

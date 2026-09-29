@@ -1084,18 +1084,18 @@ public final class BlueprintTests {
     }
 
     /**
-     * Rezept: formlos 1 Enderquarz + 1 Papier + 1 Tintenbeutel ergeben eine leere Blaupause; ohne
-     * Tinte nichts.
+     * Rezept: formlos 1 Enderquarz + 1 Papier + 1 Leuchttintenbeutel ergeben eine leere Blaupause
+     * (Besitzer 2026-09-29: Leuchttinte statt Tinte); ohne Tinte und mit gewoehnlicher Tinte nichts.
      *
      * <p><strong>Was diesen Test bricht:</strong> ein fehlendes oder falsch belegtes Rezept.
      */
     public static void recipeCraftsOneBlankBlueprint(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         CraftingInput input = CraftingInput.of(2, 2, List.of(
-                new ItemStack(Items.INK_SAC), new ItemStack(ModItems.ENDER_QUARTZ),
+                new ItemStack(Items.GLOW_INK_SAC), new ItemStack(ModItems.ENDER_QUARTZ),
                 ItemStack.EMPTY, new ItemStack(Items.PAPER)));
         Optional<RecipeHolder<CraftingRecipe>> recipe = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level);
-        helper.assertTrue(recipe.isPresent(), "ender quartz + paper + ink sac crafts nothing");
+        helper.assertTrue(recipe.isPresent(), "ender quartz + paper + glow ink sac crafts nothing");
         ItemStack result = recipe.get().value().assemble(input);
         helper.assertTrue(result.is(ModItems.BLUEPRINT) && result.getCount() == 1 && BlueprintItem.content(result).isBlank(),
                 "the recipe does not make one blank blueprint: " + result);
@@ -1103,6 +1103,10 @@ public final class BlueprintTests {
                 ItemStack.EMPTY, new ItemStack(ModItems.ENDER_QUARTZ), ItemStack.EMPTY, new ItemStack(Items.PAPER)));
         helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, noInk, level).isEmpty(),
                 "a blueprint can be crafted without ink");
+        CraftingInput plainInk = CraftingInput.of(2, 2, List.of(
+                new ItemStack(Items.INK_SAC), new ItemStack(ModItems.ENDER_QUARTZ), ItemStack.EMPTY, new ItemStack(Items.PAPER)));
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, plainInk, level).isEmpty(),
+                "a blueprint can still be crafted with a plain ink sac instead of a glow ink sac");
         helper.succeed();
     }
 

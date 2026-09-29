@@ -84,6 +84,19 @@ public class SledgehammerItem extends Item {
     public static final int DIAMOND_BLOCK_PEBBLES = 81;
     /** Haltbarkeit fuer das Zerschlagen eines Diamantblocks. */
     public static final int DIAMOND_CRUSH_DAMAGE = 1;
+
+    /**
+     * Einen Diamantblock zerschlagen erst Haemmer ab der Eisenstufe (Besitzer 2026-09-29): Eisen, Gold,
+     * Diamant, Netherit und Enderit - in der Reihenfolge der Mod-Zeitalter liegt Gold ueber Eisen. Stein
+     * und Kupfer prallen ab (dumpfer Klang, der Block bleibt).
+     */
+    public static boolean canCrushDiamondBlock(Item item) {
+        if (!(item instanceof SledgehammerItem hammer)) {
+            return false;
+        }
+        ToolMaterial m = hammer.getMaterial();
+        return m != ToolMaterial.WOOD && m != ToolMaterial.STONE && m != ToolMaterial.COPPER;
+    }
     /** Grenzen der Umform-Ladezeit in Ticks. */
     public static final int RESHAPE_MIN_TICKS = 4;
     public static final int RESHAPE_MAX_TICKS = 40;
@@ -236,6 +249,13 @@ public class SledgehammerItem extends Item {
         }
 
         if (state.is(net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK)) {
+            if (!canCrushDiamondBlock(stack.getItem())) {
+                // Zu schwach: dumpfer Klang, keine Ladung (keine Einblendung).
+                if (!world.isClientSide()) {
+                    world.playSound(null, pos, SoundEvents.METAL_HIT, SoundSource.BLOCKS, 0.8F, 0.5F);
+                }
+                return InteractionResult.FAIL;
+            }
             rememberTarget(player, pos, state);
             player.startUsingItem(context.getHand());
             return InteractionResult.CONSUME;
@@ -536,7 +556,7 @@ public class SledgehammerItem extends Item {
     }
 
     private static void crushDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
-        if (!world.getBlockState(pos).is(Blocks.DIAMOND_BLOCK)) {
+        if (!world.getBlockState(pos).is(Blocks.DIAMOND_BLOCK) || !canCrushDiamondBlock(stack.getItem())) {
             return;
         }
 

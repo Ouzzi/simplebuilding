@@ -454,10 +454,13 @@ public final class TestCentreSections {
         x += 2 + 2 * chains.size() + 1;
 
         // b) Diamantblock zerschlagen.
+        // Erst ab der Eisenstufe (Besitzer 2026-09-29): der Rahmen zeigt den schwaechsten Hammer, der es kann.
         c.place(x, 0, 2, Blocks.DIAMOND_BLOCK);
-        c.wallFrame(x, 2, wallZ, hammer);
+        ItemStack crusher = hammers.stream().filter(com.simplebuilding.items.custom.SledgehammerItem::canCrushDiamondBlock)
+                .findFirst().map(ItemStack::new).orElse(hammer);
+        c.wallFrame(x, 2, wallZ, crusher);
         c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("inworld.crush", "Crush")),
-                TcText.t("inworld.crush.sub", "break with hammer"), TcText.t("inworld.crush.sub2", "-> diamond pebbles"));
+                TcText.t("inworld.crush.sub", "hold use, iron+ hammer"), TcText.t("inworld.crush.sub2", "-> diamond pebbles"));
         x += 3;
 
         // c) Maschinen-Aufwertung mit Nugget und Hammer.
@@ -960,6 +963,18 @@ public final class TestCentreSections {
             }
             gx += width + 2;
         }
+        // Abgelegter Detector (Besitzer 2026-09-29): auf Diamanterz kalibriert, zwei Diamanterze in Stein
+        // daneben. Wer Diamanterz in der Hand haelt, loest ihn ebenfalls aus (Rahmen mit Diamanterz).
+        int px = gx + 1;
+        c.fill(px, 0, 1, px + 6, 2, 7, Blocks.STONE.defaultBlockState());
+        c.place(px + 3, 1, 5, Blocks.DIAMOND_ORE);
+        c.place(px + 5, 0, 3, Blocks.DEEPSLATE_DIAMOND_ORE);
+        ItemStack armed = OreDetectorItem.calibrate(new ItemStack(ModItems.ORE_DETECTOR), Blocks.DIAMOND_ORE.defaultBlockState());
+        placedTemplate(c, px + 1, 3, 2, AttachFace.FLOOR, Direction.SOUTH, armed);
+        c.place(px, 0, 0, Blocks.STONE);
+        c.frame(px, 1, 0, Direction.UP, new ItemStack(Items.DIAMOND_ORE));
+        c.sign(px + 1, 1, 0, Direction.NORTH, TcText.bold(TcText.t("ores.placed", "Placed detector")),
+                TcText.t("ores.placed.sub", "calibrated: diamond ore"), TcText.t("ores.placed.sub2", "hold ore = trigger"));
         return c;
     }
 

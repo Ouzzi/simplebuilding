@@ -178,10 +178,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Besitzer 2026-09-25: Goldbarren -> leichte Waegeplatten (Gold), Goldnugget ->
                 // Blitzableiter (gleiche Felder), Kupferbarren unten -> schwere Waegeplatte (Eisen).
                 // Besitzer 2026-09-29: statt der Waegeplatten Goldnuggets (leichte) und ein Goldkern (schwere).
+                // Besitzer 2026-09-29 (Lauf HH): Goldnuggets auch an Stelle der beiden Blitzableiter, die Leine
+                // nach unten rechts, oben rechts ein einzelner Blitzableiter; der Goldkern bleibt unten links.
                 shaped(RecipeCategory.TOOLS, ModItems.OCTANT)
-                        .pattern(" RL")
-                        .pattern("NCR")
-                        .pattern("GN ")
+                        .pattern(" NR")
+                        .pattern("NCN")
+                        .pattern("GNL")
                         .define('N', Items.GOLD_NUGGET)
                         .define('R', Items.LIGHTNING_ROD.weathering().unaffected())
                         .define('G', ModItems.GOLD_CORE)
@@ -226,16 +228,16 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // VELOCITY_GAUGE
                 // =================================================================
-                // Quarz in den oberen Ecken, Kupfer-Baukern unten mittig; Kupfernuggets statt der
-                // Kupferbarren neben dem Kompass und zusaetzlich unten links/rechts (Besitzer 2026-09-27/28)
+                // Besitzer 2026-09-29 (Lauf HH): wie der Detector um 45 Grad gedreht - Amethystscherbe oben
+                // rechts (vorher oben Mitte), Kupfer-Baukern unten links (vorher unten Mitte), Kupfernuggets
+                // oben, unten, links und rechts neben dem Kompass; oben links und unten rechts frei, kein Quarz.
                 shaped(RecipeCategory.TOOLS, ModItems.VELOCITY_GAUGE)
-                        .pattern("QAQ")
+                        .pattern(" NA")
                         .pattern("NCN")
-                        .pattern("NKN")
+                        .pattern("KN ")
                         .define('C', Items.COMPASS)
                         .define('A', Items.AMETHYST_SHARD)
                         .define('N', Items.COPPER_NUGGET)
-                        .define('Q', Items.QUARTZ)
                         .define('K', ModItems.COPPER_CORE)
                         .unlockedBy(getHasName(Items.COMPASS), has(Items.COMPASS))
                         .save(output);
@@ -367,13 +369,15 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
 
                 // =================================================================
-                // ORE DETECTOR
+                // DETECTOR
                 // =================================================================
-                // Besitzer 2026-09-28: Echoscherben auch in allen vier Ecken - sechs insgesamt.
+                // Besitzer 2026-09-29 (Lauf HH): das alte Rezept um 45 Grad gedreht und zwei Echoscherben
+                // weniger - Kompass mittig, Echoscherben oben/unten/links/rechts, Goldkern unten links,
+                // kalibrierter Sculk-Sensor oben rechts, die beiden uebrigen Ecken frei.
                 shaped(RecipeCategory.TOOLS, ModItems.ORE_DETECTOR)
-                        .pattern("ESE")
+                        .pattern(" ES")
                         .pattern("ECE")
-                        .pattern("EGE")
+                        .pattern("GE ")
                         .define('E', Items.ECHO_SHARD)
                         .define('C', Items.COMPASS)
                         .define('G', ModItems.GOLD_CORE)
@@ -780,11 +784,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 }
 
                 // --- BLAUPAUSE ---
-                // Formlos 1 Enderquarz + 1 Papier + 1 Tintenbeutel -> 1 leere Blaupause (spaet, aber leicht).
+                // Formlos 1 Enderquarz + 1 Papier + 1 Leuchttintenbeutel -> 1 leere Blaupause (spaet, aber leicht;
+                // Besitzer 2026-09-29: Leuchttinte statt Tinte).
                 shapeless(RecipeCategory.TOOLS, ModItems.BLUEPRINT)
                         .requires(ModItems.ENDER_QUARTZ)
                         .requires(Items.PAPER)
-                        .requires(Items.INK_SAC)
+                        .requires(Items.GLOW_INK_SAC)
                         .unlockedBy(getHasName(ModItems.ENDER_QUARTZ), has(ModItems.ENDER_QUARTZ))
                         .save(output);
 

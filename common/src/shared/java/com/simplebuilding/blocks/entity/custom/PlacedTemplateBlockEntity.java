@@ -122,6 +122,8 @@ public class PlacedTemplateBlockEntity extends BlockEntity implements Nameable {
         }
         // Abgelegter Attractor: zieht lose Items an (eigener Takt, siehe PlacedAttractors).
         com.simplebuilding.util.PlacedAttractors.tick(server, pos, be);
+        // Abgelegter, kalibrierter Detector: sucht nach seinem Zielblock (eigener Takt, siehe PlacedDetectors).
+        com.simplebuilding.util.PlacedDetectors.tick(server, pos, be);
         if ((level.getGameTime() + pos.asLong()) % PlacedTemplates.HINT_INTERVAL == 0) {
             PlacedTemplates.tryHint(server, pos, be);
         }

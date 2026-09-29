@@ -1867,21 +1867,25 @@ ENDERITE_SCRAP_PAL = {
 # jeder mit hellem Oberrand (Rohenderit-Toene), gesprenkeltem Koerper und dunkler Fuge darunter; die
 # Fladen sind seitlich gegeneinander versetzt, damit man bei 1x drei Lagen liest. Konturecken bleiben
 # frei (die Fugenfarbe 2 schliesst keine Diagonale), nichts reicht bis an den Bildrand.
+# Ueberarbeitet 2026-09-29 (heisst jetzt "Raw Enderite Scrap" / "Rohe Enderitplatten"): Fugen und
+# Unterkante beginnen links mit dem helleren 3 statt mit Kontur (keine dunklen Flecken an der Lichtseite),
+# Glanzsprenkel auf den Oberseiten und je ein heller Sprenkel im Koerper wie beim Rohenderit, und die
+# dunkle Eckfuellung rechts in der unteren Fuge ist weg (Konturregel).
 LAYERED_RAW_ENDERITE = [
     "................",
     "................",
     "......HHA7O.....",
-    ".....HA66457O...",
-    "....HA6546535O..",
-    "....O2232322O...",
-    "...HHA7AA6A7O...",
-    "..HA654365435O..",
+    ".....HAH6A57O...",
+    "....BA6546535O..",
+    "....32232322O...",
+    "...HHA7HA6A7O...",
+    "..HA654765435O..",
     "..B65346534553O.",
-    "...O2223222352O.",
-    "...HA7A6AA7A6O..",
-    "..HA65436A5453O.",
+    "...32223222355O.",
+    "...HA7H6AA7A6O..",
+    "..HA65476A5453O.",
     "..B65436553435O.",
-    "...O553345535O..",
+    "...3553345535O..",
     "....OOOOOOOOO...",
     "................",
 ]

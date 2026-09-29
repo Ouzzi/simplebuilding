@@ -1185,21 +1185,23 @@ public final class OctantTests {
     private static final Item ROD = Items.LIGHTNING_ROD.weathering().unaffected();
 
     /**
-     * The octant's crafting recipe as the owner set it on 2026-09-29: gold nuggets where the light
-     * weighted pressure plates were and a gold core where the heavy one was (2026-09-25 to
-     * 2026-09-28), lightning rods on the arms, compass in the middle and the lead top right - resolved through the server's recipe manager the way a crafting table does. The
-     * pressure plate pattern and a grid with core and nuggets swapped must not craft an octant.
+     * The octant's crafting recipe as the owner set it on 2026-09-29 (run HH): gold nuggets above,
+     * below, left and right of the compass (where the pressure plates and, later, the two lightning
+     * rods were), the gold core bottom left, the lead bottom right and a single lightning rod top
+     * right - resolved through the server's recipe manager the way a crafting table does. The
+     * pressure plate pattern, the two-rod pattern of run Z and a grid with core and nuggets swapped
+     * must not craft an octant.
      *
      * <p>What breaks this test: any change to {@code recipe/octant.json} - pattern, key, result or
      * count - or the recipe failing to load.
      */
     public static void theOctantRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
-        // " RL" / "NCR" / "GN " with R=lightning rod, L=lead, N=gold nugget, G=gold core, C=compass.
+        // " NR" / "NCN" / "GNL" with R=lightning rod, L=lead, N=gold nugget, G=gold core, C=compass.
         CraftingInput grid = documentedGrid(
-                null, ROD, Items.LEAD,
-                Items.GOLD_NUGGET, Items.COMPASS, ROD,
-                ModItems.GOLD_CORE, Items.GOLD_NUGGET, null);
+                null, Items.GOLD_NUGGET, ROD,
+                Items.GOLD_NUGGET, Items.COMPASS, Items.GOLD_NUGGET,
+                ModItems.GOLD_CORE, Items.GOLD_NUGGET, Items.LEAD);
         Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, grid, level);
         helper.assertTrue(match.isPresent(), "the documented octant pattern does not match any crafting recipe");
@@ -1209,20 +1211,26 @@ public final class OctantTests {
         helper.assertTrue(result.is(ModItems.OCTANT), "the octant recipe produced " + result + " instead of an octant");
         helper.assertValueEqual(result.getCount(), 1, "octants produced per craft");
 
-        // --- the pressure plate pattern (2026-09-25) and core/nuggets swapped must not craft an octant ---
+        // --- the pressure plate pattern (2026-09-25), the two-rod pattern of run Z and core/nuggets
+        // swapped must not craft an octant ---
+        CraftingInput twoRods = documentedGrid(
+                null, ROD, Items.LEAD,
+                Items.GOLD_NUGGET, Items.COMPASS, ROD,
+                ModItems.GOLD_CORE, Items.GOLD_NUGGET, null);
         CraftingInput old = documentedGrid(
                 null, ROD, Items.LEAD,
                 Items.LIGHT_WEIGHTED_PRESSURE_PLATE, Items.COMPASS, ROD,
                 Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE, null);
         CraftingInput swapped = documentedGrid(
-                null, ROD, Items.LEAD,
-                ModItems.GOLD_CORE, Items.COMPASS, ROD,
-                Items.GOLD_NUGGET, ModItems.GOLD_CORE, null);
-        for (CraftingInput wrong : List.of(old, swapped)) {
+                null, ModItems.GOLD_CORE, ROD,
+                ModItems.GOLD_CORE, Items.COMPASS, ModItems.GOLD_CORE,
+                Items.GOLD_NUGGET, ModItems.GOLD_CORE, Items.LEAD);
+        for (CraftingInput wrong : List.of(old, twoRods, swapped)) {
             Optional<RecipeHolder<CraftingRecipe>> wrongMatch = level.getServer().getRecipeManager()
                     .getRecipeFor(RecipeType.CRAFTING, wrong, level);
             helper.assertTrue(wrongMatch.isEmpty() || !wrongMatch.get().value().assemble(wrong).is(ModItems.OCTANT),
-                    (wrong == old ? "the old pressure plate pattern" : "the grid with gold core and nuggets swapped")
+                    (wrong == old ? "the old pressure plate pattern" : wrong == twoRods ? "the old two lightning rod pattern"
+                            : "the grid with gold core and nuggets swapped")
                             + " still crafts an octant");
         }
         helper.succeed();

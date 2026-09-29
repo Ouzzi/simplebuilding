@@ -204,23 +204,25 @@ public final class TweaksTests {
     }
 
     /**
-     * Geschwindigkeitsmesser (Besitzer 2026-09-27/28): Quarz in den oberen Ecken um den
-     * Amethystsplitter, Kupfernuggets links und rechts vom Kompass und unten links/rechts, unten
-     * mittig ein Kupfer-Baukern ("QAQ" / "NCN" / "NKN").
+     * Geschwindigkeitsmesser (Besitzer 2026-09-29, wie der Detector um 45 Grad gedreht): Amethystsplitter
+     * oben rechts, Kupfer-Baukern unten links, Kupfernuggets ueber, unter, links und rechts vom Kompass,
+     * oben links und unten rechts frei, kein Quarz mehr (" NA" / "NCN" / "KN ").
      */
-    public static void theVelocityGaugeIsCraftedWithQuartzCornersCopperNuggetsAndTheCopperCore(GameTestHelper helper) {
+    public static void theVelocityGaugeIsCraftedFromAmethystCopperNuggetsAndTheCopperCore(GameTestHelper helper) {
         Item q = Items.QUARTZ;
         Item n = Items.COPPER_NUGGET;
         Item o = Items.COPPER_INGOT;
-        CraftingInput grid = grid(q, Items.AMETHYST_SHARD, q, n, Items.COMPASS, n, n, ModItems.COPPER_CORE, n);
+        CraftingInput grid = grid(null, n, Items.AMETHYST_SHARD, n, Items.COMPASS, n, ModItems.COPPER_CORE, n, null);
         expectCrafting(helper, grid, ModItems.VELOCITY_GAUGE, "simplebuilding:velocity_gauge");
+        CraftingInput quartzRecipe = grid(q, Items.AMETHYST_SHARD, q, n, Items.COMPASS, n, n, ModItems.COPPER_CORE, n);
+        helper.assertTrue(craftingResult(helper, quartzRecipe).isEmpty(), "the 2026-09-28 quartz corner recipe still crafts a velocity gauge");
         CraftingInput ingots = grid(q, Items.AMETHYST_SHARD, q, o, Items.COMPASS, o, null, ModItems.COPPER_CORE, null);
         helper.assertTrue(craftingResult(helper, ingots).isEmpty(), "the previous copper ingot recipe still crafts a velocity gauge");
         CraftingInput oldRecipe = grid(null, Items.AMETHYST_SHARD, null, o, Items.COMPASS, o, q, q, q);
         helper.assertTrue(craftingResult(helper, oldRecipe).isEmpty(), "the old quartz row recipe still crafts a velocity gauge");
-        CraftingInput bottomEmpty = grid(q, Items.AMETHYST_SHARD, q, n, Items.COMPASS, n, null, ModItems.COPPER_CORE, null);
-        helper.assertTrue(craftingResult(helper, bottomEmpty).isEmpty(), "the gauge crafts without the two bottom copper nuggets");
-        CraftingInput ironCore = grid(q, Items.AMETHYST_SHARD, q, n, Items.COMPASS, n, n, ModItems.IRON_CORE, n);
+        CraftingInput bottomEmpty = grid(null, n, Items.AMETHYST_SHARD, n, Items.COMPASS, n, ModItems.COPPER_CORE, null, null);
+        helper.assertTrue(craftingResult(helper, bottomEmpty).isEmpty(), "the gauge crafts without the bottom copper nugget");
+        CraftingInput ironCore = grid(null, n, Items.AMETHYST_SHARD, n, Items.COMPASS, n, ModItems.IRON_CORE, n, null);
         helper.assertTrue(craftingResult(helper, ironCore).isEmpty(), "an iron core is accepted instead of the copper core");
         helper.succeed();
     }

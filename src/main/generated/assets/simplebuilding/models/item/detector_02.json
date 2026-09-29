@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simplebuilding:item/detector_dial",
+    "layer1": "simplebuilding:item/detector_needle_02"
+  }
+}

@@ -4,7 +4,7 @@
   "ingredients": [
     "simplebuilding:ender_quartz",
     "minecraft:paper",
-    "minecraft:ink_sac"
+    "minecraft:glow_ink_sac"
   ],
   "result": {
     "id": "simplebuilding:blueprint"
