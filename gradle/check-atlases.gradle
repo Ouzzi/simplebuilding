@@ -1,0 +1,152 @@
+// checkAtlases (part of check, applied by every loader module): verifies the texture atlas
+// definitions the module ships against what the game will actually find at runtime - the mod's
+// processed resources plus everything on the runtime classpath (the Minecraft jar with its assets,
+// the loader jar, other mods).
+//
+// Background (2026-09-29): NeoForge 26.3 ships its own items atlas source
+// neoforge:directory_paletted_permutations that pairs every texture under textures/trims/items with
+// every palette under textures/trims/color_palettes and keys them with
+// minecraft:trims/color_palettes/trim_palette - a 26.2 path that no longer exists on 26.3 (vanilla
+// moved to minecraft:trim_base and textures/palettes/trim). The mod still shipped its 26.2 palettes
+// there, so NeoForge produced 456 broken sprites ("Failed to load palette image ...") and replaced
+// the mod's correct Astralit/Enderite/Nihilith trim item sprites with missing textures. Nothing in
+// the build noticed; only the client log did.
+//
+// Rules:
+//   1. every paletted_permutations source the MOD ships names a palette key, palettes and textures
+//      that exist;
+//   2. a directory_paletted_permutations source (from anyone, e.g. the loader) whose directories the
+//      mod contributes to must have a palette key that exists, whenever it would produce sprites;
+//   3. the mod ships no assets/minecraft/atlases/<x>.json for an atlas this Minecraft version does
+//      not have (e.g. armor_trims on 26.3 - dead weight that still names 26.2 palettes).
+
+import groovy.json.JsonSlurper
+import java.util.zip.ZipFile
+
+tasks.register('checkAtlases') {
+    group = 'verification'
+    description = 'Fails when a texture atlas source of the mod (or one the mod feeds) names a palette or texture the game cannot find.'
+    SourceSet main = sourceSets.main
+    dependsOn main.processResourcesTaskName
+    // ForgeGradle modules compile classes into the resources directory.
+    mustRunAfter main.compileJavaTaskName
+    File modDir = main.output.resourcesDir
+    // Jars only: directories on the runtime classpath are this module's own outputs (ForgeGradle
+    // puts build/sourcesSets/main there), and counting the mod's files as "the game's" would let a
+    // dead mod atlas pass as a vanilla one.
+    FileCollection classpath = configurations.runtimeClasspath.filter { File f -> f.name.endsWith('.jar') }
+    inputs.files(classpath).withPropertyName('classpath')
+    inputs.dir(modDir).withPropertyName('modResources')
+    File marker = layout.buildDirectory.file('checkAtlases.txt').get().asFile
+    outputs.file(marker)
+    String modulePath = project.path
+    doLast {
+        def texturePattern = ~/assets\/([^\/]+)\/textures\/(.+)\.png/
+        def atlasPattern = ~/assets\/([^\/]+)\/atlases\/([^\/]+)\.json/
+        Set<String> modTextures = [] as Set
+        Set<String> allTextures = [] as Set
+        // atlas id -> list of [origin, sources]
+        Map<String, List<List>> atlases = [:].withDefault { [] }
+        Set<String> dependencyAtlases = [] as Set
+        def slurper = new JsonSlurper()
+        // From 26.3 on palettes are no plain textures: Palette.ID_CONVERTER resolves a palette id
+        // under textures/palettes/ (minecraft:trim_base -> textures/palettes/trim_base.png).
+        boolean palettesDir = false
+
+        def visit = { String rel, boolean mod, String origin, Closure<String> text ->
+            def t = texturePattern.matcher(rel)
+            if (t.matches()) {
+                String id = t.group(1) + ':' + t.group(2)
+                allTextures << id
+                if (mod) modTextures << id
+                return
+            }
+            def a = atlasPattern.matcher(rel)
+            if (a.matches()) {
+                String id = a.group(1) + ':' + a.group(2)
+                if (!mod) dependencyAtlases << id
+                def json = slurper.parseText(text())
+                atlases[id] << [origin, (json.sources ?: []) as List, mod]
+            }
+        }
+        def visitDir = { File dir, boolean mod, String origin ->
+            if (!dir.isDirectory()) return
+            dir.eachFileRecurse(groovy.io.FileType.FILES) { File f ->
+                String rel = dir.toPath().relativize(f.toPath()).toString().replace('\\', '/')
+                if (rel.startsWith('assets/')) visit(rel, mod, origin) { f.getText('UTF-8') }
+            }
+        }
+        visitDir(modDir, true, 'mod')
+        classpath.files.each { File f ->
+            if (f.isFile()) {
+                new ZipFile(f).withCloseable { ZipFile zip ->
+                    if (zip.getEntry('net/minecraft/client/resources/palette/Palette.class') != null) palettesDir = true
+                    zip.entries().each { e ->
+                        if (!e.directory && e.name.startsWith('assets/')) {
+                            visit(e.name, false, f.name) { zip.getInputStream(e).getText('UTF-8') }
+                        }
+                    }
+                }
+            }
+        }
+
+        List<String> problems = []
+        if (!allTextures.contains('minecraft:item/stick') || !dependencyAtlases.contains('minecraft:items')) {
+            throw new GradleException("checkAtlases (${modulePath}): the Minecraft assets are not on runtimeClasspath, the check cannot run")
+        }
+        def norm = { String type -> type.contains(':') ? type : 'minecraft:' + type }
+        def exists = { String id -> allTextures.contains(id.contains(':') ? id : 'minecraft:' + id) }
+        def paletteExists = { String id ->
+            String full = id.contains(':') ? id : 'minecraft:' + id
+            int c = full.indexOf(':')
+            exists(palettesDir ? full.substring(0, c) + ':palettes/' + full.substring(c + 1) : full)
+        }
+        int checkedSources = 0
+        atlases.each { String atlas, List<List> defs ->
+            if (atlas.startsWith('minecraft:') && !dependencyAtlases.contains(atlas)) {
+                problems << "assets/minecraft/atlases/${atlas.substring(10)}.json: this Minecraft version has no atlas ${atlas} - the file is dead"
+                return
+            }
+            defs.each { List def_ ->
+                String origin = def_[0]
+                boolean mod = def_[2]
+                def_[1].each { Map src ->
+                    String type = norm(src.type as String)
+                    if (type == 'minecraft:paletted_permutations' && mod) {
+                        checkedSources++
+                        String where = "${atlas} (${origin})"
+                        if (!paletteExists(src.palette_key as String)) problems << "${where}: palette_key ${src.palette_key} does not exist"
+                        (src.permutations as Map).each { k, v -> if (!paletteExists(v as String)) problems << "${where}: palette ${k} -> ${v} does not exist" }
+                        (src.textures as List).each { tex -> if (!exists(tex as String)) problems << "${where}: texture ${tex} does not exist" }
+                    } else if (type == 'neoforge:directory_paletted_permutations') {
+                        String palettes = (src.palettes as String) + '/'
+                        String textures = (src.textures as String) + '/'
+                        def inDir = { String id, String dir -> id.substring(id.indexOf(':') + 1).startsWith(dir) }
+                        boolean modFeeds = modTextures.any { inDir(it, palettes) || inDir(it, textures) }
+                        boolean producesSprites = allTextures.any { inDir(it, palettes) } && allTextures.any { inDir(it, textures) }
+                        if (modFeeds && producesSprites) {
+                            checkedSources++
+                            def fed = modTextures.findAll { inDir(it, palettes) }
+                            String hint = "the mod ships ${fed.size()} palette(s) under textures/${palettes} (${fed.take(3).join(', ')}${fed.size() > 3 ? ', ...' : ''}) - every sprite made with them is broken"
+                            if (!paletteExists(src.palette_key as String)) {
+                                problems << "${atlas} (${origin}): ${type} keys its palettes with ${src.palette_key}, which does not exist on this version; ${hint}"
+                            } else {
+                                // The source finds textures/<palettes>/x.png but loads each palette by its
+                                // id, which from 26.3 on resolves under textures/palettes/.
+                                fed.findAll { !paletteExists(it) }.each { problems << "${atlas} (${origin}): palette ${it} found by ${type} does not load by its id" }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (problems) {
+            throw new GradleException("checkAtlases (${modulePath}) failed:\n  " + problems.take(30).join('\n  ')
+                    + (problems.size() > 30 ? "\n  ... ${problems.size() - 30} more" : ''))
+        }
+        String summary = "checkAtlases: ${checkedSources} palette sources checked against ${allTextures.size()} textures (${modTextures.size()} from the mod)"
+        marker.text = summary + '\n'
+        logger.lifecycle(summary)
+    }
+}
+tasks.named('check') { dependsOn 'checkAtlases' }

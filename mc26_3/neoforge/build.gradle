@@ -200,3 +200,6 @@ tasks.withType(JavaCompile).configureEach {
 tasks.withType(Jar).configureEach {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
+
+// Texture atlas sources vs. the textures the game finds (gradle/check-atlases.gradle).
+apply from: rootProject.file('gradle/check-atlases.gradle')

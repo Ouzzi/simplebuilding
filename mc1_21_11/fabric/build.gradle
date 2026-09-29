@@ -236,3 +236,6 @@ tasks.withType(JavaCompile).configureEach {
 	// port down the wrong track. Raise the cap so the diagnostics stay truthful.
 	it.options.compilerArgs.addAll(['-Xmaxerrs', '5000'])
 }
+
+// Texture atlas sources vs. the textures the game finds (gradle/check-atlases.gradle).
+apply from: rootProject.file('gradle/check-atlases.gradle')
