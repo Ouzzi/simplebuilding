@@ -193,32 +193,59 @@ public final class PadOverhaulTests {
     // =====================================================================================
 
     /**
-     * Stufe I jeder Pad-Familie ist ein Schmiederezept: Vorlage + Druckplatte der Familie (Basis) +
-     * Freischalt-Zutat, in Erz-Reihenfolge - Chunk-Loader: Kupfer-Druckplatte + Kupferkern, Launchpad:
-     * schwere Waegeplatte + Eisenkern, Spawn-Teleporter: leichte Waegeplatte + Endermankopf, Elytra-Pad:
-     * Diamant-Druckplatte + Elytra (vorher Elytra ohne dritte Zutat - kaputt), Trank-Pad:
-     * Netherit-Druckplatte + Lohenkopf (vorher Werkbank), Flypad: Enderit-Vorlage + Enderit-Druckplatte +
-     * Enderit-Kern. Jede beliebige Vorlage geht (hier ein Besatz und die Netherit-Aufwertung). Der
-     * Einstieg in die Easter-Kette nimmt dieselbe Freischalt-Zutat.
+     * Stufe I jeder Pad-Familie (Besitzer 2026-09-29): immer der Materialkern der Familie im Vorlagen-Feld +
+     * Druckplatte der Familie (Basis) + Freischalt-Zutat, in Erz-Reihenfolge - Chunk-Loader: Kupferkern +
+     * Kupfer-Druckplatte + Trial-Chamber-Kopf, Launchpad: Eisenkern + schwere Waegeplatte + Trial-Chamber-Kopf,
+     * Spawn-Teleporter: Goldkern + leichte Waegeplatte + Endermankopf, Elytra-Pad: Diamantkern +
+     * Diamant-Druckplatte + Elytra, Trank-Pad: Netheritkern + Netherit-Druckplatte + Lohenkopf (Flypad I
+     * formlos an der Werkbank, {@link MobHeadTests#flypadOneNeedsTheShulkerHeadAndAnElytraWithMending}). Jeder der
+     * zehn Koepfe aus {@code simplebuilding:trial_chamber_heads} geht, kein anderer; eine Vorlage statt des Kerns
+     * geht nicht mehr, ein fremder Kern auch nicht. Der Einstieg in die Easter-Kette nimmt dieselben Zutaten.
      */
     public static void tierOneOfEveryPadFamilyIsSmithedFromItsPlateAndUnlockItem(GameTestHelper helper) {
-        record Entry(TweaksFamilies.Family family, ItemLike plate, Item unlock, Block result) {
+        record Entry(TweaksFamilies.Family family, Item core, ItemLike plate, List<Item> unlocks, Block result) {
         }
+        List<Item> trialHeads = com.simplebuilding.tweaks.heads.ModHeads.trialChamberHeads();
         List<Entry> entries = List.of(
-                new Entry(TweaksFamilies.Family.CHUNK_LOADER, TweaksBlocks.COPPER_PRESSURE_PLATE, ModItems.COPPER_CORE, TweaksBlocks.CHUNK_LOADER),
-                new Entry(TweaksFamilies.Family.LAUNCHPAD, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, ModItems.IRON_CORE, TweaksBlocks.LAUNCHPAD),
-                new Entry(TweaksFamilies.Family.SPAWN_TELEPORTER, Items.LIGHT_WEIGHTED_PRESSURE_PLATE, TweaksItems.ENDERMAN_HEAD, TweaksBlocks.SPAWN_TELEPORTER),
-                new Entry(TweaksFamilies.Family.ELYTRA_PAD, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.ELYTRA, TweaksBlocks.ELYTRA_PAD),
-                new Entry(TweaksFamilies.Family.POTION_PAD, TweaksBlocks.NETHERITE_PRESSURE_PLATE, TweaksItems.BLAZE_HEAD, TweaksBlocks.POTION_PAD));
-        for (Entry entry : entries) {
-            for (Item template : List.of(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)) {
-                expect(helper, template, entry.plate(), entry.unlock(), entry.result());
+                new Entry(TweaksFamilies.Family.CHUNK_LOADER, ModItems.COPPER_CORE, TweaksBlocks.COPPER_PRESSURE_PLATE, trialHeads, TweaksBlocks.CHUNK_LOADER),
+                new Entry(TweaksFamilies.Family.LAUNCHPAD, ModItems.IRON_CORE, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, trialHeads, TweaksBlocks.LAUNCHPAD),
+                new Entry(TweaksFamilies.Family.SPAWN_TELEPORTER, ModItems.GOLD_CORE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE,
+                        List.of(TweaksItems.ENDERMAN_HEAD), TweaksBlocks.SPAWN_TELEPORTER),
+                new Entry(TweaksFamilies.Family.ELYTRA_PAD, ModItems.DIAMOND_CORE, TweaksBlocks.DIAMOND_PRESSURE_PLATE,
+                        List.of(Items.ELYTRA), TweaksBlocks.ELYTRA_PAD),
+                new Entry(TweaksFamilies.Family.POTION_PAD, ModItems.NETHERITE_CORE, TweaksBlocks.NETHERITE_PRESSURE_PLATE,
+                        List.of(TweaksItems.BLAZE_HEAD), TweaksBlocks.POTION_PAD));
+        for (int i = 0; i < entries.size(); i++) {
+            Entry entry = entries.get(i);
+            for (Item unlock : entry.unlocks()) {
+                expect(helper, entry.core(), entry.plate(), unlock, entry.result());
             }
-            expectNothing(helper, Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE, entry.plate(), null);
-            helper.assertValueEqual(EasterEggs.steps(entry.family()).get(0).addition(), entry.unlock(),
-                    "unlock item of the easter entry of " + entry.family());
+            Item unlock = entry.unlocks().get(0);
+            for (Item template : List.of(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)) {
+                expectNothing(helper, template, entry.plate(), unlock);
+            }
+            Item otherCore = entries.get((i + 1) % entries.size()).core();
+            expectNothing(helper, otherCore, entry.plate(), unlock);
+            expectNothing(helper, entry.core(), entry.plate(), null);
+            EasterEggs.Step easter = EasterEggs.steps(entry.family()).get(0);
+            helper.assertValueEqual(easter.templates(), List.of(entry.core()), "template of the easter entry of " + entry.family());
+            helper.assertValueEqual(easter.additions(), entry.unlocks(), "unlock items of the easter entry of " + entry.family());
         }
-        expect(helper, ModItems.ENDERITE_UPGRADE_TEMPLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE, ModItems.ENDERITE_CORE, TweaksBlocks.FLYPAD);
+        // Nur die Trial-Chamber-Koepfe: das Tag hat genau die zehn, andere Koepfe passen nicht.
+        java.util.Set<Item> tagged = new java.util.HashSet<>();
+        for (net.minecraft.core.Holder<Item> holder : net.minecraft.core.registries.BuiltInRegistries.ITEM
+                .getTagOrEmpty(com.simplebuilding.tweaks.heads.ModHeads.TRIAL_CHAMBER_HEADS)) {
+            tagged.add(holder.value());
+        }
+        helper.assertValueEqual(tagged, java.util.Set.copyOf(trialHeads), "items of #simplebuilding:trial_chamber_heads");
+        helper.assertValueEqual(trialHeads.size(), 10, "trial chamber heads (zombie, husk, skeleton, stray, bogged, spider, cave spider, slime, silverfish, breeze)");
+        for (Item other : List.of(TweaksItems.BLAZE_HEAD, TweaksItems.ENDERMAN_HEAD, TweaksItems.SHULKER_HEAD, TweaksItems.DROWNED_HEAD,
+                Items.CREEPER_HEAD, Items.PIGLIN_HEAD, Items.WITHER_SKELETON_SKULL, Items.DRAGON_HEAD)) {
+            expectNothing(helper, ModItems.COPPER_CORE, TweaksBlocks.COPPER_PRESSURE_PLATE, other);
+            expectNothing(helper, ModItems.IRON_CORE, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, other);
+        }
+        // Flypad I ist kein Schmiederezept mehr (Enderit-Vorlage + Platte + Kern).
+        expectNothing(helper, ModItems.ENDERITE_UPGRADE_TEMPLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE, ModItems.ENDERITE_CORE);
         // Die alten Wege sind weg: Elytra ohne Zutat, Diamant-Druckplatte als Zutat von Launchpad/Chunk-Loader,
         // Diamantblock/Netheritbarren beim Teleporter.
         expectNothing(helper, Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE, Items.ELYTRA, null);

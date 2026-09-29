@@ -14,6 +14,12 @@
     "simplebuilding:blackstone_quartz_checker",
     "simplebuilding:blaze_head",
     "simplebuilding:blaze_wall_head",
+    "simplebuilding:bogged_skull",
+    "simplebuilding:bogged_wall_skull",
+    "simplebuilding:breeze_head",
+    "simplebuilding:breeze_wall_head",
+    "simplebuilding:cave_spider_head",
+    "simplebuilding:cave_spider_wall_head",
     "simplebuilding:chiseled_astralit_bricks",
     "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
@@ -22,6 +28,8 @@
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_diamond_block",
     "simplebuilding:diamond_pressure_plate",
+    "simplebuilding:drowned_head",
+    "simplebuilding:drowned_wall_head",
     "simplebuilding:elytra_pad",
     "simplebuilding:ender_quartz_block",
     "simplebuilding:ender_quartz_brick_slab",
@@ -52,6 +60,8 @@
     "simplebuilding:exposed_copper_pressure_plate",
     "simplebuilding:fine_elytra_pad",
     "simplebuilding:flypad",
+    "simplebuilding:husk_head",
+    "simplebuilding:husk_wall_head",
     "simplebuilding:infused_potion_pad",
     "simplebuilding:lapis_quartz_checker",
     "simplebuilding:launchpad",
@@ -112,11 +122,21 @@
     "simplebuilding:reinforced_smoker",
     "simplebuilding:reinforced_sticky_piston",
     "simplebuilding:resin_quartz_checker",
+    "simplebuilding:shulker_head",
+    "simplebuilding:shulker_wall_head",
+    "simplebuilding:silverfish_head",
+    "simplebuilding:silverfish_wall_head",
+    "simplebuilding:slime_head",
+    "simplebuilding:slime_wall_head",
     "simplebuilding:spawn_teleporter",
     "simplebuilding:spawn_teleporter_tier_2",
     "simplebuilding:spawn_teleporter_tier_3",
     "simplebuilding:spawn_teleporter_tier_4",
+    "simplebuilding:spider_head",
+    "simplebuilding:spider_wall_head",
     "simplebuilding:stellar_flypad",
+    "simplebuilding:stray_skull",
+    "simplebuilding:stray_wall_skull",
     "simplebuilding:suspended_gravel",
     "simplebuilding:suspended_sand",
     "simplebuilding:waxed_copper_pressure_plate",
@@ -181,6 +201,15 @@
     {
       "id": "simplebuilding:blueprint",
       "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:bogged_skull"
+    },
+    {
+      "id": "simplebuilding:breeze_head"
+    },
+    {
+      "id": "simplebuilding:cave_spider_head"
     },
     {
       "id": "simplebuilding:chiseled_astralit_bricks"
@@ -286,6 +315,9 @@
       "enchantability": 10,
       "id": "simplebuilding:diamond_spatula",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:drowned_head"
     },
     {
       "durability": 1500,
@@ -610,6 +642,9 @@
     {
       "id": "simplebuilding:guide_book_tweaks",
       "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:husk_head"
     },
     {
       "id": "simplebuilding:infused_potion_pad",
@@ -1026,6 +1061,15 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:shulker_head"
+    },
+    {
+      "id": "simplebuilding:silverfish_head"
+    },
+    {
+      "id": "simplebuilding:slime_head"
+    },
+    {
       "id": "simplebuilding:spawn_elytra",
       "maxStackSize": 1
     },
@@ -1044,6 +1088,9 @@
     {
       "id": "simplebuilding:spawn_teleporter_tier_4",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:spider_head"
     },
     {
       "id": "simplebuilding:stellar_flypad",
@@ -1072,6 +1119,9 @@
       "enchantability": 15,
       "id": "simplebuilding:stone_spatula",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:stray_skull"
     },
     {
       "id": "simplebuilding:suspended_gravel"

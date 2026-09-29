@@ -141,11 +141,25 @@ public final class DataIntegrityTests {
     private static final String MOD_ID = Simplebuilding.MOD_ID;
 
     /** Blocks that intentionally have no item form (mirrors vanilla's piston head). */
-    private static final Set<String> BLOCKS_WITHOUT_ITEM = Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
-            "blaze_wall_head", "enderman_wall_head", "placed_smithing_template", "placed_blueprint", "placed_bundle");
+    private static final Set<String> BLOCKS_WITHOUT_ITEM = blocksWithoutItem();
 
-    /** Wall variants that share the loot table (and drop) of their standing block, like vanilla's {@code wallVariant}. */
-    private static final Map<String, String> WALL_VARIANTS = Map.of("blaze_wall_head", "blaze_head", "enderman_wall_head", "enderman_head");
+    /** Wall variants that share the loot table (and drop) of their standing block, like vanilla's {@code wallVariant}: every mob head. */
+    private static final Map<String, String> WALL_VARIANTS = wallVariants();
+
+    private static Set<String> blocksWithoutItem() {
+        Set<String> blocks = new java.util.HashSet<>(Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
+                "placed_smithing_template", "placed_blueprint", "placed_bundle"));
+        blocks.addAll(wallVariants().keySet());
+        return Set.copyOf(blocks);
+    }
+
+    private static Map<String, String> wallVariants() {
+        Map<String, String> walls = new java.util.HashMap<>();
+        for (com.simplebuilding.tweaks.block.BlazeHeadType type : com.simplebuilding.tweaks.block.BlazeHeadType.values()) {
+            walls.put(type.wallBlockName(), type.blockName());
+        }
+        return Map.copyOf(walls);
+    }
 
     /** Blocks registered with {@code noLootTable()}. */
     private static final Set<String> BLOCKS_WITHOUT_LOOT_TABLE = Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
@@ -2399,14 +2413,16 @@ public final class DataIntegrityTests {
                         TweaksBlocks.LAUNCHPAD.asItem(), TweaksBlocks.NETHERITE_LAUNCHPAD.asItem(),
                         TweaksBlocks.ENDERITE_LAUNCHPAD.asItem(), ModItems.IRON_CORE),
                 List.of(TweaksBlocks.SPAWN_TELEPORTER.asItem(), TweaksBlocks.SPAWN_TELEPORTER_TIER_2.asItem(),
-                        TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem(), TweaksItems.ENDERMAN_HEAD),
+                        TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem(), ModItems.GOLD_CORE),
                 List.of(TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.REINFORCED_ELYTRA_PAD.asItem(),
                         TweaksBlocks.NETHERITE_ELYTRA_PAD.asItem(), TweaksBlocks.ENDERITE_ELYTRA_PAD.asItem(),
                         TweaksBlocks.FINE_ELYTRA_PAD.asItem(), TweaksItems.SPAWN_ELYTRA),
                 List.of(TweaksBlocks.POTION_PAD.asItem(), TweaksBlocks.REINFORCED_POTION_PAD.asItem(),
-                        TweaksBlocks.INFUSED_POTION_PAD.asItem(), TweaksItems.BLAZE_HEAD, gap,
+                        TweaksBlocks.INFUSED_POTION_PAD.asItem(), ModItems.NETHERITE_CORE, gap,
                         TweaksBlocks.FLYPAD.asItem(), TweaksBlocks.REINFORCED_FLYPAD.asItem(),
                         TweaksBlocks.STELLAR_FLYPAD.asItem(), ModItems.ENDERITE_CORE),
+                // Alle Mob-Koepfe in einer Zeile (2026-09-29), die in eine zweite Zeile weiterlaeuft
+                TweaksItems.heads(),
                 List.of(ModItems.BLUEPRINT, Items.CARTOGRAPHY_TABLE, ModItems.OCTANT, ModItems.COPPER_BUILDING_WAND,
                         ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND,
                         ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND));
@@ -4100,6 +4116,16 @@ public final class DataIntegrityTests {
             // Koepfe wie Vanillas Mob-Koepfe, Easter wie das Drachenei, Technik wie die Barriere
             Map.entry("blaze_head", net.minecraft.world.item.Rarity.UNCOMMON),
             Map.entry("enderman_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("husk_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("spider_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("cave_spider_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("stray_skull", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("bogged_skull", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("slime_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("silverfish_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("breeze_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("shulker_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("drowned_head", net.minecraft.world.item.Rarity.UNCOMMON),
             Map.entry("funny_stick", net.minecraft.world.item.Rarity.EPIC),
             Map.entry("creative_spacer", net.minecraft.world.item.Rarity.EPIC));
     /** Feuerfest ausser allem mit netherite_/enderite_ vorn: alles, was mit Netherit oder Enderit gebaut wird. */

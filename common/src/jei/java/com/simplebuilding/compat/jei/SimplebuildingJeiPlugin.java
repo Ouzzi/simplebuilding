@@ -82,6 +82,9 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
     public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
         registration.getSmithingCategory().addExtension(CountBasedSmithingRecipe.class, new CountBasedSmithingExtension());
         registration.getSmithingCategory().addExtension(UpgradeSmithingRecipe.class, new TrimUpgradeSmithingExtension());
+        // Flypad I: die Elytra muss Reparatur tragen - JEI zeigt sie verzaubert.
+        registration.getCraftingCategory().addExtension(com.simplebuilding.recipe.EnchantedShapelessRecipe.class,
+                new EnchantedShapelessExtension());
     }
 
     @Override

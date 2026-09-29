@@ -235,8 +235,8 @@ public final class ImmersionTests {
     }
 
     /**
-     * Each core's "Used in" list is exactly the set of results of the recipes (shaped crafting and
-     * smithing, easter recipes aside) that take that core - checked against the recipes the server
+     * Each core's "Used in" list is exactly the set of results of the recipes (shaped and shapeless crafting
+     * and smithing - any slot, the pad tiers I take the core as their template - easter recipes aside) that take that core - checked against the recipes the server
      * loaded, so a new recipe or a moved core shows up here.
      *
      * <p><strong>What breaks this test:</strong> a recipe that takes a core but is missing from the
@@ -327,10 +327,24 @@ public final class ImmersionTests {
             }
             return shaped.assemble(CraftingInput.of(shaped.getWidth(), shaped.getHeight(), grid));
         }
+        if (recipe instanceof net.minecraft.world.item.crafting.ShapelessRecipe shapeless) {
+            // Formlos (Flypad I seit 2026-09-29: Kern + Platte + Shulkerkopf + Elytra mit Reparatur)
+            List<Ingredient> ingredients = shapeless.placementInfo().ingredients();
+            if (ingredients.stream().noneMatch(i -> takes(i, core))) {
+                return null;
+            }
+            List<ItemStack> row = new ArrayList<>();
+            for (Ingredient ingredient : ingredients) {
+                row.add(one(ingredient, core));
+            }
+            return shapeless.assemble(CraftingInput.of(row.size(), 1, row));
+        }
         if (recipe instanceof SmithingRecipe smithing) {
             boolean base = takes(smithing.baseIngredient(), core);
             boolean addition = smithing.additionIngredient().map(i -> takes(i, core)).orElse(false);
-            if (!base && !addition) {
+            // Stufe I der Pads (seit 2026-09-29): der Kern liegt im Vorlagen-Feld
+            boolean template = smithing.templateIngredient().map(i -> takes(i, core)).orElse(false);
+            if (!base && !addition && !template) {
                 return null;
             }
             SmithingRecipeInput input = new SmithingRecipeInput(

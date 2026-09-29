@@ -193,11 +193,17 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict,
             helper = re.fullmatch(r"\s*(\w+)\(registry\)\s*", args_text)
             if helper and helper.group(1) in helpers:
                 chain_start, chain_end = helpers[helper.group(1)]
+            # Mob-Koepfe: headPool(registry, EntityTypes.X, TweaksItems.Y) - Wuerfe aus dem Helfer, Opfer und Kopf aus dem Aufruf
+            head = re.fullmatch(r"\s*(\w+)\(registry,\s*EntityTypes\.(\w+),\s*(\w+)\.(\w+)\)\s*", args_text)
+            if head and head.group(1) in helpers:
+                chain_start, chain_end = helpers[head.group(1)]
             chain = text[chain_start:chain_end]
             condition = None
             victim = re.search(r"EntityTypes?\.(\w+)\)\)\)", chain)
             if ".when(" in chain and victim:
                 condition = {"victim": "minecraft:" + victim.group(1).lower()}
+            if head and head.group(1) in helpers:
+                condition = {"victim": "minecraft:" + head.group(2).lower()}
             rolls_match = ROLLS.search(text, chain_start, chain_end)
             if not rolls_match:
                 problems.append(problem("loot", f"Pool ohne erkennbare Würfe ({block_key})", file=LOOT_FILE,
@@ -223,6 +229,11 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict,
             entries = []
             seen = set()
             scan = chain_start
+            if head and head.group(1) in helpers:
+                head_item = item_id(head.group(3) + "." + head.group(4), open_at)
+                entries.append({"key": head_item.split(":")[1], "item": head_item, "weight": 1, "count": [1, 1], "ids": {},
+                                "label": head_item})
+                scan = chain_end  # der Eintrag im Helfer ist der Parameter, nicht ein Item
             while True:
                 am = re.compile(r"\.add\(").search(text, scan, chain_end)
                 if not am:

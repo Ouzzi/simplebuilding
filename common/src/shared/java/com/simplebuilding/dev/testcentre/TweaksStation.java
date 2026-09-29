@@ -107,10 +107,45 @@ public final class TweaksStation {
                 PotionContents.createItemStack(Items.SPLASH_POTION, Potions.POISON),
                 PotionContents.createItemStack(Items.LINGERING_POTION, Potions.NIGHT_VISION),
                 PotionContents.createItemStack(Items.SPLASH_POTION, Potions.WATER),
-                new ItemStack(TweaksItems.BLAZE_HEAD), new ItemStack(TweaksItems.ENDERMAN_HEAD)));
+                new ItemStack(TweaksItems.BLAZE_HEAD)));
+
+        x = heads(c, x, floorZ, wallZ);
 
         c.backWall(0, Math.max(end, x), wallZ, panelTop + 3);
         return c;
+    }
+
+    /**
+     * Mob-Koepfe (docs/MOBKOEPFE.md): ein Spinnenkopf auf dem Boden, daneben eine Truhe mit allen zwoelf Koepfen und
+     * dem Zubehoer fuer die geheimen Faehigkeiten (verdorbenes Fleisch, giftige Kartoffel, Enderperlen), dann die
+     * Proben: Spinnennetz (Spinne/Hoehlenspinne), Magmablock (Lohe), Pulverschnee (Eiswanderer) und eine
+     * Shulkerkiste mit Stein auf dem Deckel (Shulker). Liefert die naechste freie Spalte.
+     */
+    static int heads(TcCanvas c, int x, int floorZ, int wallZ) {
+        int heads = x;
+        x = station(c, x, floorZ, wallZ, TweaksBlocks.head(com.simplebuilding.tweaks.block.BlazeHeadType.SPIDER),
+                TcText.t("tweaks.heads", "Mob Heads"), TcText.t("tweaks.heads.1", "wear one:"),
+                TcText.t("tweaks.heads.2", "each has a secret"));
+        List<ItemStack> chest = new ArrayList<>();
+        for (net.minecraft.world.item.Item head : TweaksItems.heads()) {
+            chest.add(new ItemStack(head));
+        }
+        chest.add(new ItemStack(Items.ROTTEN_FLESH, 16));
+        chest.add(new ItemStack(Items.POISONOUS_POTATO, 16));
+        chest.add(new ItemStack(Items.ENDER_PEARL, 16));
+        c.place(heads, 0, floorZ + 1, Blocks.CHEST);
+        c.contents(heads, 0, floorZ + 1, chest);
+        x = station(c, x, floorZ, wallZ, Blocks.COBWEB,
+                TcText.t("tweaks.heads.cobweb", "Cobweb"), TcText.t("tweaks.heads.cobweb.1", "spider heads"));
+        x = station(c, x, floorZ, wallZ, Blocks.MAGMA_BLOCK,
+                TcText.t("tweaks.heads.magma", "Magma Block"), TcText.t("tweaks.heads.magma.1", "blaze head"));
+        x = station(c, x, floorZ, wallZ, Blocks.POWDER_SNOW,
+                TcText.t("tweaks.heads.snow", "Powder Snow"), TcText.t("tweaks.heads.snow.1", "stray skull"));
+        int shulker = x;
+        x = station(c, x, floorZ, wallZ, Blocks.SHULKER_BOX,
+                TcText.t("tweaks.heads.shulker", "Blocked Box"), TcText.t("tweaks.heads.shulker.1", "shulker head"));
+        c.place(shulker, 1, floorZ, Blocks.STONE);
+        return x;
     }
 
     /** Ein Block auf dem Boden, darueber an der Wand sein Schild. Liefert die naechste freie Spalte. */

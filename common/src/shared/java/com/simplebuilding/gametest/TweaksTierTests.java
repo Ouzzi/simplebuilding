@@ -284,9 +284,9 @@ public final class TweaksTierTests {
 
     /**
      * Die Aufwertungen aller Pad-Familien kosten die Druckplatte des Zielmaterials statt des Rohstoffs;
-     * die alten Wege (Barren, Block) fuehren zu nichts mehr. Stufe I jeder Familie ist seit 2026-09-28
-     * ein Schmiederezept aus Vorlage + Familienplatte + Freischalt-Zutat (PadOverhaulTests prueft das
-     * im Einzelnen).
+     * die alten Wege (Barren, Block) fuehren zu nichts mehr. Stufe I jeder Familie ist seit 2026-09-29
+     * Materialkern + Familienplatte + Freischalt-Zutat (PadOverhaulTests prueft das im Einzelnen, das Flypad I
+     * aus der Werkbank MobHeadTests).
      */
     public static void padUpgradesPayWithThePressurePlateOfTheirTargetMaterial(GameTestHelper helper) {
         Item any = Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE;
@@ -296,11 +296,12 @@ public final class TweaksTierTests {
         Item netherite = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
         Item enderite = TweaksBlocks.ENDERITE_PRESSURE_PLATE.asItem();
 
-        expect(helper, any, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, ModItems.IRON_CORE, TweaksBlocks.LAUNCHPAD);
+        expect(helper, ModItems.IRON_CORE, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.ZOMBIE_HEAD, TweaksBlocks.LAUNCHPAD);
         expect(helper, net, TweaksBlocks.LAUNCHPAD, netherite, TweaksBlocks.NETHERITE_LAUNCHPAD);
         expect(helper, end, TweaksBlocks.NETHERITE_LAUNCHPAD, enderite, TweaksBlocks.ENDERITE_LAUNCHPAD);
 
-        expect(helper, any, TweaksBlocks.COPPER_PRESSURE_PLATE, ModItems.COPPER_CORE, TweaksBlocks.CHUNK_LOADER);
+        expect(helper, ModItems.COPPER_CORE, TweaksBlocks.COPPER_PRESSURE_PLATE, com.simplebuilding.tweaks.item.TweaksItems.SPIDER_HEAD,
+                TweaksBlocks.CHUNK_LOADER);
         expect(helper, net, TweaksBlocks.CHUNK_LOADER, netherite, TweaksBlocks.NETHERITE_CHUNK_LOADER);
         expect(helper, end, TweaksBlocks.NETHERITE_CHUNK_LOADER, enderite, TweaksBlocks.ENDERITE_CHUNK_LOADER);
 
@@ -308,11 +309,12 @@ public final class TweaksTierTests {
         expect(helper, net, TweaksBlocks.REINFORCED_ELYTRA_PAD, netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD);
         expect(helper, end, TweaksBlocks.NETHERITE_ELYTRA_PAD, enderite, TweaksBlocks.ENDERITE_ELYTRA_PAD);
 
-        // Elytra-Pad I: Vorlage + Diamant-Druckplatte + Elytra (2026-09-28; vorher ohne dritte Zutat)
-        expect(helper, any, diamond, Items.ELYTRA, TweaksBlocks.ELYTRA_PAD);
+        // Elytra-Pad I: Diamantkern + Diamant-Druckplatte + Elytra (2026-09-29; vorher beliebige Vorlage)
+        expect(helper, ModItems.DIAMOND_CORE, diamond, Items.ELYTRA, TweaksBlocks.ELYTRA_PAD);
+        expectNothing(helper, any, diamond, Items.ELYTRA);
         expectNothing(helper, any, Items.ELYTRA, null);
-        // Flypads aus Enderit: I = Platte + Kern, II = I + Platte, III = zwei II
-        expect(helper, end, enderite, ModItems.ENDERITE_CORE, TweaksBlocks.FLYPAD);
+        // Flypads aus Enderit: I aus der Werkbank (MobHeadTests), II = I + Platte, III = zwei II
+        expectNothing(helper, end, enderite, ModItems.ENDERITE_CORE);
         expect(helper, end, TweaksBlocks.FLYPAD, enderite, TweaksBlocks.REINFORCED_FLYPAD);
         expect(helper, end, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD);
 

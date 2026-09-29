@@ -7,6 +7,7 @@ import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.block.TweaksFamilies;
 import com.simplebuilding.tweaks.block.TweaksFamilies.Family;
 import com.simplebuilding.tweaks.block.entity.OwnedBlockEntity;
+import com.simplebuilding.tweaks.heads.ModHeads;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import java.util.ArrayList;
 import java.util.List;
@@ -222,14 +223,20 @@ public final class EasterEggs {
      * wird zu Easter-Stufe 1. {@code result} ist der Block der Zielstufe oder, beim letzten Schritt,
      * der Funny Stick ({@code toStage} 0).
      */
-    public record Step(Family family, List<Item> templates, Item base, int fromStage, @Nullable Item addition,
+    public record Step(Family family, List<Item> templates, Item base, int fromStage, List<Item> additions,
                        Item result, int toStage) {
+        /** Die erste (bei den meisten Schritten einzige) moegliche Zutat; {@code null} ohne Zutat. */
+        public @Nullable Item addition() {
+            return additions.isEmpty() ? null : additions.get(0);
+        }
     }
 
     /**
-     * Alle Schritte der Familie: der Einstieg kostet, was Stufe I kostet (ihre Vorlage und ihre
-     * Hauptzutat - beim Elytra-Pad die Elytra), jeder Folgeschritt die Vorlage und Zutat der normalen
-     * Aufwertung auf dieselbe Stufe; zuletzt Netherit-Vorlage + Netheritbarren zum Funny Stick.
+     * Alle Schritte der Familie: der Einstieg kostet, was Stufe I kostet (seit 2026-09-29 der Kern der Familie
+     * im Vorlagen-Feld und die Freischalt-Zutat - bei Chunk-Loader und Launchpad jeder Trial-Chamber-Kopf, beim
+     * Flypad der Shulkerkopf, denn die Elytra mit Reparatur passt nicht mehr in den Schmiedetisch), jeder
+     * Folgeschritt die Vorlage und Zutat der normalen Aufwertung auf dieselbe Stufe; zuletzt Netherit-Vorlage +
+     * Netheritbarren zum Funny Stick.
      */
     public static List<Step> steps(Family family) {
         List<Block> tiers = TweaksFamilies.tiers(family);
@@ -242,41 +249,41 @@ public final class EasterEggs {
 
         // Vorlage und Zutat je Zielstufe 1..n, wie in ModRecipeProvider#buildTweaksRecipes.
         List<List<Item>> templates = new ArrayList<>();
-        List<Item> additions = new ArrayList<>();
+        List<List<Item>> additions = new ArrayList<>();
         switch (family) {
             case ELYTRA_PAD -> {
-                add(templates, additions, any, Items.ELYTRA);
+                add(templates, additions, List.of(ModItems.DIAMOND_CORE), Items.ELYTRA);
                 add(templates, additions, any, diamondPlate);
                 add(templates, additions, netherite, netheritePlate);
                 add(templates, additions, enderite, enderitePlate);
                 add(templates, additions, netherite, Items.NETHER_STAR);
             }
             case FLYPAD -> {
-                add(templates, additions, enderite, ModItems.ENDERITE_CORE);
+                add(templates, additions, List.of(ModItems.ENDERITE_CORE), TweaksItems.SHULKER_HEAD);
                 add(templates, additions, enderite, enderitePlate);
                 add(templates, additions, enderite, TweaksBlocks.REINFORCED_FLYPAD.asItem());
             }
             case SPAWN_TELEPORTER -> {
-                // Drei Stufen seit 2026-09-28: I = leichte Waegeplatte + Endermankopf
-                add(templates, additions, any, TweaksItems.ENDERMAN_HEAD);
+                // Drei Stufen seit 2026-09-28: I = Goldkern + leichte Waegeplatte + Endermankopf
+                add(templates, additions, List.of(ModItems.GOLD_CORE), TweaksItems.ENDERMAN_HEAD);
                 add(templates, additions, netherite, netheritePlate);
                 add(templates, additions, enderite, enderitePlate);
             }
             case LAUNCHPAD -> {
-                // I = schwere Waegeplatte + Eisenkern (2026-09-28)
-                add(templates, additions, any, ModItems.IRON_CORE);
+                // I = Eisenkern + schwere Waegeplatte + Trial-Chamber-Kopf (2026-09-29)
+                addAny(templates, additions, List.of(ModItems.IRON_CORE), ModHeads.trialChamberHeads());
                 add(templates, additions, netherite, netheritePlate);
                 add(templates, additions, enderite, enderitePlate);
             }
             case CHUNK_LOADER -> {
-                // I = Kupfer-Druckplatte + Kupferkern (2026-09-28)
-                add(templates, additions, any, ModItems.COPPER_CORE);
+                // I = Kupferkern + Kupfer-Druckplatte + Trial-Chamber-Kopf (2026-09-29)
+                addAny(templates, additions, List.of(ModItems.COPPER_CORE), ModHeads.trialChamberHeads());
                 add(templates, additions, netherite, netheritePlate);
                 add(templates, additions, enderite, enderitePlate);
             }
             case POTION_PAD -> {
-                // I = beliebige Vorlage + Netherit-Druckplatte + Lohenkopf (Schmiede seit 2026-09-28)
-                add(templates, additions, any, TweaksItems.BLAZE_HEAD);
+                // I = Netheritkern + Netherit-Druckplatte + Lohenkopf (Kern statt Vorlage seit 2026-09-29)
+                add(templates, additions, List.of(ModItems.NETHERITE_CORE), TweaksItems.BLAZE_HEAD);
                 add(templates, additions, enderite, enderitePlate);
                 add(templates, additions, enderite, ModItems.ENDERITE_CORE);
             }
@@ -291,13 +298,17 @@ public final class EasterEggs {
             steps.add(new Step(family, templates.get(stage), tiers.get(stage - 1).asItem(), stage, additions.get(stage),
                     tiers.get(stage).asItem(), stage + 1));
         }
-        steps.add(new Step(family, netherite, tiers.get(count - 1).asItem(), count, Items.NETHERITE_INGOT, funnyStick(), 0));
+        steps.add(new Step(family, netherite, tiers.get(count - 1).asItem(), count, List.of(Items.NETHERITE_INGOT), funnyStick(), 0));
         return steps;
     }
 
-    private static void add(List<List<Item>> templates, List<Item> additions, List<Item> template, Item addition) {
+    private static void add(List<List<Item>> templates, List<List<Item>> additions, List<Item> template, Item addition) {
+        addAny(templates, additions, template, List.of(addition));
+    }
+
+    private static void addAny(List<List<Item>> templates, List<List<Item>> additions, List<Item> template, List<Item> choices) {
         templates.add(template);
-        additions.add(addition);
+        additions.add(List.copyOf(choices));
     }
 
     /** "Beliebige Vorlage" der Einstiegsstufen (dieselbe Liste wie ModRecipeProvider#buildTweaksRecipes). */

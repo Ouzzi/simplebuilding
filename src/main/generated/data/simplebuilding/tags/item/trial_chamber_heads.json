@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:zombie_head",
+    "minecraft:skeleton_skull",
+    "simplebuilding:husk_head",
+    "simplebuilding:spider_head",
+    "simplebuilding:cave_spider_head",
+    "simplebuilding:stray_skull",
+    "simplebuilding:bogged_skull",
+    "simplebuilding:slime_head",
+    "simplebuilding:silverfish_head",
+    "simplebuilding:breeze_head"
+  ]
+}

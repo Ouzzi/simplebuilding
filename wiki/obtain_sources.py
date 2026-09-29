@@ -226,6 +226,13 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str) 
                 pools.append({"rolls": {"type": "binomial", "n": 1, "p": _number(parts[2], constants)},
                               "entries": [{"item": item_id(owner, const), "weight": 1, "count": [1, 1]}]})
                 continue
+            # headPool(registry, EntityTypes.SPIDER, TweaksItems.SPIDER_HEAD): one mob head per victim (charged creeper)
+            head = re.fullmatch(r"\s*headPool\(registry,\s*EntityTypes\.(\w+),\s*(\w+)\.(\w+)\)\s*", args)
+            if head:
+                pools.append({"rolls": {"type": "exactly", "n": 1},
+                              "entries": [{"item": item_id(head.group(2), head.group(3)), "weight": 1, "count": [1, 1]}],
+                              "condition": {"victim": "minecraft:" + head.group(1).lower()}})
+                continue
             helper = re.fullmatch(r"\s*(\w+)\(registry\)\s*", args)
             chain = helper_pools.get(helper.group(1), "") if helper else args
             condition = None

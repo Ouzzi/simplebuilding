@@ -298,9 +298,10 @@ public final class InWorldExportTests {
     }
 
     /**
-     * JEI's "Mob drops" category ({@link com.simplebuilding.compat.MobDropCatalog}): the seven heads a
-     * charged creeper's explosion knocks off - vanilla's five and the mod's blaze and enderman heads - and the
-     * creeper-killed-by-a-skeleton entry with every disc of {@code minecraft:creeper_drop_music_discs}.
+     * JEI's "Mob drops" category ({@link com.simplebuilding.compat.MobDropCatalog}): the seventeen heads a
+     * charged creeper's explosion knocks off - vanilla's five and the mod's twelve (blaze, enderman, the trial
+     * chamber mobs, shulker, drowned; docs/MOBKOEPFE.md) - and the creeper-killed-by-a-skeleton entry with every
+     * disc of {@code minecraft:creeper_drop_music_discs}.
      */
     public static void mobDropCatalogHasEveryHeadAndTheDiscs(GameTestHelper helper) {
         TreeMap<String, String> seen = new TreeMap<>();
@@ -314,10 +315,20 @@ public final class InWorldExportTests {
             seen.put(drop.id(), BuiltInRegistries.ITEM.getKey(drop.results().get(0)).toString());
         }
         String expected = "{charged_creeper/minecraft:blaze=simplebuilding:blaze_head, "
+                + "charged_creeper/minecraft:bogged=simplebuilding:bogged_skull, "
+                + "charged_creeper/minecraft:breeze=simplebuilding:breeze_head, "
+                + "charged_creeper/minecraft:cave_spider=simplebuilding:cave_spider_head, "
                 + "charged_creeper/minecraft:creeper=minecraft:creeper_head, "
+                + "charged_creeper/minecraft:drowned=simplebuilding:drowned_head, "
                 + "charged_creeper/minecraft:enderman=simplebuilding:enderman_head, "
+                + "charged_creeper/minecraft:husk=simplebuilding:husk_head, "
                 + "charged_creeper/minecraft:piglin=minecraft:piglin_head, "
+                + "charged_creeper/minecraft:shulker=simplebuilding:shulker_head, "
+                + "charged_creeper/minecraft:silverfish=simplebuilding:silverfish_head, "
                 + "charged_creeper/minecraft:skeleton=minecraft:skeleton_skull, "
+                + "charged_creeper/minecraft:slime=simplebuilding:slime_head, "
+                + "charged_creeper/minecraft:spider=simplebuilding:spider_head, "
+                + "charged_creeper/minecraft:stray=simplebuilding:stray_skull, "
                 + "charged_creeper/minecraft:wither_skeleton=minecraft:wither_skeleton_skull, "
                 + "charged_creeper/minecraft:zombie=minecraft:zombie_head, "
                 + "killed_by_skeleton/minecraft:creeper=12 discs}";
@@ -370,7 +381,7 @@ public final class InWorldExportTests {
             killer.discard();
             checked++;
         }
-        helper.assertTrue(checked == 8, "expected 8 mob drop entries (seven charged creeper heads incl. blaze and enderman, plus the discs), checked " + checked);
+        helper.assertTrue(checked == 18, "expected 18 mob drop entries (seventeen charged creeper heads, twelve of them the mod's, plus the discs), checked " + checked);
         helper.assertTrue(problems.isEmpty(), "mob drops that do not happen in the game: " + problems);
         helper.succeed();
     }

@@ -75,10 +75,9 @@ public final class TweaksModelGen {
             generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(model)));
             generator.registerSimpleItemModel(block, model);
         }
-        head(generator, TweaksBlocks.BLAZE_HEAD, TweaksBlocks.BLAZE_WALL_HEAD, TweaksItems.BLAZE_HEAD,
-                com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE);
-        head(generator, TweaksBlocks.ENDERMAN_HEAD, TweaksBlocks.ENDERMAN_WALL_HEAD, TweaksItems.ENDERMAN_HEAD,
-                com.simplebuilding.tweaks.block.BlazeHeadType.ENDERMAN);
+        for (com.simplebuilding.tweaks.block.BlazeHeadType type : com.simplebuilding.tweaks.block.BlazeHeadType.values()) {
+            head(generator, TweaksBlocks.head(type), TweaksBlocks.wallHead(type), TweaksItems.head(type), type);
+        }
     }
 
     /**

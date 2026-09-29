@@ -8,6 +8,7 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
@@ -52,23 +53,18 @@ public final class ModLootTableModifications {
     private ModLootTableModifications() {
     }
 
-    /** Pool fuer charged_creeper/root: ein Lohenkopf, nur wenn das Opfer ({@code this}) eine Lohe ist. */
-    public static LootPool.Builder blazeHeadPool(HolderGetter.Provider registry) {
+    /**
+     * Pool fuer charged_creeper/root: ein Mod-Kopf, nur wenn das Opfer ({@code this}) der Mob des Kopfes ist.
+     * Aufrufe in {@link #apply} stehen je Kopf in einer Zeile ({@code headPool(registry, EntityTypes.X, TweaksItems.head(...))}),
+     * weil {@code wiki/obtain_sources.py} sie so liest.
+     */
+    public static LootPool.Builder headPool(HolderGetter.Provider registry, EntityType<?> victim, ItemLike head) {
         return LootPool.lootPool()
                 .setRolls(LootNumbers.exactly(1))
-                .add(LootItem.lootTableItem(TweaksItems.BLAZE_HEAD))
+                .add(LootItem.lootTableItem(head))
                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
                         EntityPredicate.Builder.entity().entityType(
-                                EntityTypePredicate.of(registry.lookupOrThrow(Registries.ENTITY_TYPE), EntityTypes.BLAZE))));
-    }
-    /** Pool fuer charged_creeper/root: ein Endermankopf, nur wenn das Opfer ein Enderman ist (Spawn-Teleporter I). */
-    public static LootPool.Builder endermanHeadPool(HolderGetter.Provider registry) {
-        return LootPool.lootPool()
-                .setRolls(LootNumbers.exactly(1))
-                .add(LootItem.lootTableItem(TweaksItems.ENDERMAN_HEAD))
-                .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
-                        EntityPredicate.Builder.entity().entityType(
-                                EntityTypePredicate.of(registry.lookupOrThrow(Registries.ENTITY_TYPE), EntityTypes.ENDERMAN))));
+                                EntityTypePredicate.of(registry.lookupOrThrow(Registries.ENTITY_TYPE), victim))));
     }
     // Kern-Chancen (Besitzer 2026-09-28, "Zeitalter B"): die mittlere Zeit gezielter Suche bis zum
     // ersten Kern liegt bei ~85 % des Zeitalters, in dem der Kern gebraucht wird - Eisen ~8 h
@@ -95,14 +91,24 @@ public final class ModLootTableModifications {
     // HolderGetter.Provider, not HolderLookup.Provider: NeoForge 26.3 hands its loot event a plain
     // getter provider; every HolderLookup.Provider is one as well.
     public static void apply(ResourceKey<LootTable> key, Editor editor, HolderGetter.Provider registry) {
-        // 0. Lohenkopf: wie Vanillas Mob-Koepfe aus charged_creeper/root - toetet eine geladene
-        // Creeper-Explosion eine Lohe, faellt ihr Kopf (Creeper#killedEntity rollt die Tabelle nur
-        // einmal je Explosion). Eigener Pool, der nur fuer Lohen greift. Unabhaengig vom Schalter
-        // enableLootTableChanges: der Kopf ist die einzige Quelle fuer das Trank-Pad.
+        // 0. Mob-Koepfe: wie Vanillas Koepfe aus charged_creeper/root - toetet eine geladene Creeper-Explosion
+        // den Mob, faellt sein Kopf (Creeper#killedEntity rollt die Tabelle nur einmal je Explosion). Je Kopf ein
+        // Pool, der nur fuer seinen Mob greift. Unabhaengig vom Schalter enableLootTableChanges: die Koepfe sind die
+        // einzige Quelle fuer Trank-Pad I (Lohe), Spawn-Teleporter I (Enderman), Flypad I (Shulker) und die
+        // Trial-Chamber-Koepfe von Chunk-Loader I und Launchpad I (docs/MOBKOEPFE.md).
         if (BuiltInLootTables.CHARGED_CREEPER.equals(key)) {
-            editor.addPool(blazeHeadPool(registry));
-            // Endermankopf genauso (2026-09-28): einzige Quelle fuer den Spawn-Teleporter I.
-            editor.addPool(endermanHeadPool(registry));
+            editor.addPool(headPool(registry, EntityTypes.BLAZE, TweaksItems.BLAZE_HEAD));
+            editor.addPool(headPool(registry, EntityTypes.ENDERMAN, TweaksItems.ENDERMAN_HEAD));
+            editor.addPool(headPool(registry, EntityTypes.HUSK, TweaksItems.HUSK_HEAD));
+            editor.addPool(headPool(registry, EntityTypes.SPIDER, TweaksItems.SPIDER_HEAD));
+            editor.addPool(headPool(registry, EntityTypes.CAVE_SPIDER, TweaksItems.CAVE_SPIDER_HEAD));
+            editor.addPool(headPool(registry, EntityTypes.STRAY, TweaksItems.STRAY_SKULL));
+            editor.addPool(headPool(registry, EntityTypes.BOGGED, TweaksItems.BOGGED_SKULL));
+            editor.addPool(headPool(registry, EntityTypes.SLIME, TweaksItems.SLIME_HEAD));
+            editor.addPool(headPool(registry, EntityTypes.SILVERFISH, TweaksItems.SILVERFISH_HEAD));
+            editor.addPool(headPool(registry, EntityTypes.BREEZE, TweaksItems.BREEZE_HEAD));
+            editor.addPool(headPool(registry, EntityTypes.SHULKER, TweaksItems.SHULKER_HEAD));
+            editor.addPool(headPool(registry, EntityTypes.DROWNED, TweaksItems.DROWNED_HEAD));
         }
 
         if (!Simplebuilding.getConfig().worldGen.enableLootTableChanges) {

@@ -549,6 +549,8 @@ class Icons:
         name = short(block_id)
         if name.endswith("_wall_head"):
             return self.item(f"{NS}:{name[:-len('_wall_head')]}_head")
+        if name.endswith("_wall_skull"):
+            return self.item(f"{NS}:{name[:-len('_wall_skull')]}_skull")
         relpath = f"{RENDER_DIR}/block/{name}.png"
         if self.active:
             image = None

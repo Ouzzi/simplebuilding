@@ -1,6 +1,16 @@
 {
   "values": [
     "simplebuilding:blaze_head",
-    "simplebuilding:enderman_head"
+    "simplebuilding:enderman_head",
+    "simplebuilding:husk_head",
+    "simplebuilding:spider_head",
+    "simplebuilding:cave_spider_head",
+    "simplebuilding:stray_skull",
+    "simplebuilding:bogged_skull",
+    "simplebuilding:slime_head",
+    "simplebuilding:silverfish_head",
+    "simplebuilding:breeze_head",
+    "simplebuilding:shulker_head",
+    "simplebuilding:drowned_head"
   ]
 }

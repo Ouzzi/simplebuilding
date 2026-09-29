@@ -182,9 +182,11 @@ public final class InfoTooltips {
                 TweaksBlocks.CHUNK_LOADER.asItem()));
         uses.put(ModItems.IRON_CORE, List.of(ModItems.IRON_BUILDING_WAND, TweaksItems.LASER_POINTER, ModItems.MAGNET,
                 ModItems.ROTATOR, TweaksBlocks.LAUNCHPAD.asItem()));
-        uses.put(ModItems.GOLD_CORE, List.of(ModItems.GOLD_BUILDING_WAND, ModItems.ORE_DETECTOR, ModItems.OCTANT));
-        uses.put(ModItems.DIAMOND_CORE, List.of(ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_CORE));
-        uses.put(ModItems.NETHERITE_CORE, List.of(ModItems.ENDERITE_CORE));
+        uses.put(ModItems.GOLD_CORE, List.of(ModItems.GOLD_BUILDING_WAND, ModItems.ORE_DETECTOR, ModItems.OCTANT,
+                TweaksBlocks.SPAWN_TELEPORTER.asItem()));
+        uses.put(ModItems.DIAMOND_CORE, List.of(ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_CORE,
+                TweaksBlocks.ELYTRA_PAD.asItem()));
+        uses.put(ModItems.NETHERITE_CORE, List.of(ModItems.ENDERITE_CORE, TweaksBlocks.POTION_PAD.asItem()));
         uses.put(ModItems.ENDERITE_CORE, List.of(TweaksItems.ECHO_COMPASS, TweaksBlocks.FLYPAD.asItem(),
                 TweaksBlocks.INFUSED_POTION_PAD.asItem()));
         return uses;

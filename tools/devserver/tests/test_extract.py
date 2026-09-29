@@ -112,8 +112,12 @@ class ExtractTests(unittest.TestCase):
             recs = [v for v in self.values.values() if v["category"] == cat and v["apply"] == "mod"]
             self.assertGreater(len(recs), 50, cat)
             for v in recs:
-                self.assertIn("1.21.11", v["lines"], v["id"])
                 self.assertIn("26.2", v["lines"], v["id"])
+                if "1.21.11" not in v["lines"]:
+                    # Hauptlinie 26.3 zuerst (2026-09-29): was der 1.21.11-Port-Run noch nachzieht, steht als Hinweis
+                    # in der Zentrale ("nicht gefunden") statt still zu fehlen.
+                    notes = v["source"].get("twinNotes", [])
+                    self.assertTrue(any(n.startswith("1.21.11:") and "nicht gefunden" in n for n in notes), v["id"])
         core = self.values["const:ModLootTableModifications.ENDERITE_CORE_CHANCE"]
         self.assertEqual([t["mc"] for t in core["source"]["twins"]], ["1.21.11"])
         self.assertTrue(core["source"]["twins"][0]["file"].startswith("mc1_21_11/"))

@@ -702,6 +702,7 @@ en: {
   'recipe.minecraft:crafting_shaped': 'Crafting Table (shaped)',
   'recipe.simplebuilding:reinforced_bundle': 'Crafting Table (shaped, keeps what the container holds)',
   'recipe.minecraft:crafting_shapeless': 'Crafting Table (shapeless)',
+  'recipe.simplebuilding:enchanted_shapeless': 'Crafting Table (shapeless, one ingredient must carry an enchantment)',
   'recipe.minecraft:smithing_transform': 'Smithing Table',
   'recipe.minecraft:smithing_trim': 'Smithing Table (trim)',
   'recipe.simplebuilding:count_based_smithing': 'Smithing Table (count-based)',
@@ -1183,6 +1184,7 @@ de: {
   'recipe.minecraft:crafting_shaped': 'Werkbank (geformt)',
   'recipe.simplebuilding:reinforced_bundle': 'Werkbank (geformt, behält den Behälterinhalt)',
   'recipe.minecraft:crafting_shapeless': 'Werkbank (formlos)',
+  'recipe.simplebuilding:enchanted_shapeless': 'Werkbank (formlos, eine Zutat muss verzaubert sein)',
   'recipe.minecraft:smithing_transform': 'Schmiedetisch',
   'recipe.minecraft:smithing_trim': 'Schmiedetisch (Verzierung)',
   'recipe.simplebuilding:count_based_smithing': 'Schmiedetisch (mengenbasiert)',
@@ -1935,7 +1937,7 @@ function featureCard(f, full) {
 /* Rezepte                                                            */
 /* ------------------------------------------------------------------ */
 /* Reihenfolge der Gruppen auf der Rezeptseite; die Beschriftung kommt aus STR. */
-var RECIPE_TYPE_ORDER = ['minecraft:crafting_shaped', 'simplebuilding:reinforced_bundle', 'minecraft:crafting_shapeless', 'minecraft:smithing_transform', 'minecraft:smithing_trim', 'simplebuilding:count_based_smithing', 'minecraft:blasting', 'minecraft:smelting', 'minecraft:smoking', 'minecraft:campfire_cooking', 'minecraft:stonecutting'];
+var RECIPE_TYPE_ORDER = ['minecraft:crafting_shaped', 'simplebuilding:reinforced_bundle', 'minecraft:crafting_shapeless', 'simplebuilding:enchanted_shapeless', 'minecraft:smithing_transform', 'minecraft:smithing_trim', 'simplebuilding:count_based_smithing', 'minecraft:blasting', 'minecraft:smelting', 'minecraft:smoking', 'minecraft:campfire_cooking', 'minecraft:stonecutting'];
 var COOK_DEFAULT = { 'minecraft:blasting': 100, 'minecraft:smelting': 200, 'minecraft:smoking': 100, 'minecraft:campfire_cooking': 600 };
 function recipeTypeLabel(type) { return tId('recipe.', type, prettyFromId(type || T('unknown'))); }
 function recipeKind(t) {
@@ -1943,7 +1945,8 @@ function recipeKind(t) {
   // simplebuilding:reinforced_bundle ist ein geformtes Werkbank-Rezept, das den Behaelter-Inhalt mitnimmt.
   // simplebuilding:backpack_upgrade ebenso (geformt, nimmt den Rucksackinhalt mit).
   if (/crafting_shaped$/.test(t) || t === 'simplebuilding:reinforced_bundle' || t === 'simplebuilding:backpack_upgrade') return 'shaped';
-  if (/crafting_shapeless$/.test(t)) return 'shapeless';
+  // simplebuilding:enchanted_shapeless: formlos, eine Zutat muss eine Verzauberung tragen (Flypad I: Elytra mit Reparatur).
+  if (/crafting_shapeless$/.test(t) || t === 'simplebuilding:enchanted_shapeless') return 'shapeless';
   if (/smithing/.test(t)) return 'smithing';
   if (COOK_DEFAULT[t] != null || /smelting|blasting|smoking|cooking/.test(t)) return 'cooking';
   return 'generic';
@@ -2730,7 +2733,7 @@ function machineFeature(id) {
 var STATION_ORDER = ['crafting', 'smelting', 'blasting', 'smoking', 'campfire', 'smithing', 'stonecutting', 'inworld', 'other'];
 function stationOfType(t) {
   t = String(t || ''); var p = pathOf(t);
-  if (/^crafting/.test(p) || t === 'simplebuilding:reinforced_bundle' || t === 'simplebuilding:backpack_upgrade') return 'crafting';
+  if (/^crafting/.test(p) || t === 'simplebuilding:reinforced_bundle' || t === 'simplebuilding:backpack_upgrade' || t === 'simplebuilding:enchanted_shapeless') return 'crafting';
   if (p === 'smelting' || p === 'blasting' || p === 'smoking') return p;
   if (p === 'campfire_cooking') return 'campfire';
   if (/smithing/.test(p)) return 'smithing';

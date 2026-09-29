@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 226,
+      "count": 236,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -5684,6 +5684,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:diamond_building_wand",
+        "simplebuilding:elytra_pad_smithing",
         "simplebuilding:netherite_core_smithing",
         "simplebuilding:upgrade_gold_building_wand_to_diamond_building_wand"
       ],
@@ -7366,7 +7367,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:echo_sounder",
-        "simplebuilding:flypad_tier1_smithing",
+        "simplebuilding:flypad_tier1_crafting",
         "simplebuilding:infused_potion_pad_smithing"
       ],
       "trades": [],
@@ -8406,7 +8407,6 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_spear_smithing",
         "simplebuilding:enderite_sword_smithing",
         "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:flypad_tier1_smithing",
         "simplebuilding:flypad_tier2_smithing",
         "simplebuilding:infused_potion_pad_smithing",
         "simplebuilding:reinforced_potion_pad_smithing",
@@ -8914,6 +8914,7 @@ window.WIKI_DATA = {
         "simplebuilding:gold_building_wand",
         "simplebuilding:octant",
         "simplebuilding:ore_detector",
+        "simplebuilding:spawn_teleporter_smithing",
         "simplebuilding:upgrade_iron_building_wand_to_gold_building_wand"
       ],
       "trades": [
@@ -11961,7 +11962,8 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_core_smithing"
       ],
       "usedIn": [
-        "simplebuilding:enderite_core_smithing"
+        "simplebuilding:enderite_core_smithing",
+        "simplebuilding:potion_pad_smithing"
       ],
       "trades": [],
       "properties": {
@@ -16710,6 +16712,96 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:bogged_skull",
+      "name": {
+        "en_us": "Bogged Skull",
+        "de_de": "Sumpfskelettschädel"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/bogged_skull.png",
+      "lootTable": "simplebuilding:blocks/bogged_skull",
+      "drops": [
+        "simplebuilding:bogged_skull"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:bogged_wall_skull",
+      "name": {
+        "en_us": "Bogged Skull",
+        "de_de": "Sumpfskelettschädel"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/bogged_skull.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:breeze_head",
+      "name": {
+        "en_us": "Breeze Head",
+        "de_de": "Breeze-Kopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/breeze_head.png",
+      "lootTable": "simplebuilding:blocks/breeze_head",
+      "drops": [
+        "simplebuilding:breeze_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:breeze_wall_head",
+      "name": {
+        "en_us": "Breeze Head",
+        "de_de": "Breeze-Kopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/breeze_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cave_spider_head",
+      "name": {
+        "en_us": "Cave Spider Head",
+        "de_de": "Höhlenspinnenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/cave_spider_head.png",
+      "lootTable": "simplebuilding:blocks/cave_spider_head",
+      "drops": [
+        "simplebuilding:cave_spider_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cave_spider_wall_head",
+      "name": {
+        "en_us": "Cave Spider Head",
+        "de_de": "Höhlenspinnenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/cave_spider_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:chiseled_astralit_bricks",
       "name": {
         "en_us": "Chiseled Astralit Bricks",
@@ -17065,6 +17157,36 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:drowned_head",
+      "name": {
+        "en_us": "Drowned Head",
+        "de_de": "Ertrunkenenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/drowned_head.png",
+      "lootTable": "simplebuilding:blocks/drowned_head",
+      "drops": [
+        "simplebuilding:drowned_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:drowned_wall_head",
+      "name": {
+        "en_us": "Drowned Head",
+        "de_de": "Ertrunkenenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/drowned_head.png",
       "hasCustomBehaviour": false
     },
     {
@@ -18298,7 +18420,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_elytra_pad_smithing",
         "simplebuilding:enderite_launchpad_smithing",
         "simplebuilding:enderite_spawn_teleporter_smithing",
-        "simplebuilding:flypad_tier1_smithing",
+        "simplebuilding:flypad_tier1_crafting",
         "simplebuilding:flypad_tier2_smithing",
         "simplebuilding:reinforced_potion_pad_smithing"
       ],
@@ -18674,7 +18796,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/flypad_ender.png",
       "craftedBy": [
-        "simplebuilding:flypad_tier1_smithing"
+        "simplebuilding:flypad_tier1_crafting"
       ],
       "usedIn": [
         "simplebuilding:flypad_tier2_smithing"
@@ -18724,6 +18846,36 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:husk_head",
+      "name": {
+        "en_us": "Husk Head",
+        "de_de": "Wüstenzombiekopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/husk_head.png",
+      "lootTable": "simplebuilding:blocks/husk_head",
+      "drops": [
+        "simplebuilding:husk_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:husk_wall_head",
+      "name": {
+        "en_us": "Husk Head",
+        "de_de": "Wüstenzombiekopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/husk_head.png",
       "hasCustomBehaviour": false
     },
     {
@@ -22198,6 +22350,98 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:shulker_head",
+      "name": {
+        "en_us": "Shulker Head",
+        "de_de": "Shulkerkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:flypad_tier1_crafting"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/shulker_head.png",
+      "lootTable": "simplebuilding:blocks/shulker_head",
+      "drops": [
+        "simplebuilding:shulker_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:shulker_wall_head",
+      "name": {
+        "en_us": "Shulker Head",
+        "de_de": "Shulkerkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/shulker_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:silverfish_head",
+      "name": {
+        "en_us": "Silverfish Head",
+        "de_de": "Silberfischchenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/silverfish_head.png",
+      "lootTable": "simplebuilding:blocks/silverfish_head",
+      "drops": [
+        "simplebuilding:silverfish_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:silverfish_wall_head",
+      "name": {
+        "en_us": "Silverfish Head",
+        "de_de": "Silberfischchenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/silverfish_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:slime_head",
+      "name": {
+        "en_us": "Slime Head",
+        "de_de": "Schleimkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/slime_head.png",
+      "lootTable": "simplebuilding:blocks/slime_head",
+      "drops": [
+        "simplebuilding:slime_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:slime_wall_head",
+      "name": {
+        "en_us": "Slime Head",
+        "de_de": "Schleimkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/slime_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:spawn_teleporter",
       "name": {
         "en_us": "Spawn Teleporter I",
@@ -22446,6 +22690,36 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:spider_head",
+      "name": {
+        "en_us": "Spider Head",
+        "de_de": "Spinnenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/spider_head.png",
+      "lootTable": "simplebuilding:blocks/spider_head",
+      "drops": [
+        "simplebuilding:spider_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:spider_wall_head",
+      "name": {
+        "en_us": "Spider Head",
+        "de_de": "Spinnenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/spider_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stellar_flypad",
       "name": {
         "en_us": "Stellar Flypad III",
@@ -22501,6 +22775,36 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:stray_skull",
+      "name": {
+        "en_us": "Stray Skull",
+        "de_de": "Eiswandererschädel"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stray_skull.png",
+      "lootTable": "simplebuilding:blocks/stray_skull",
+      "drops": [
+        "simplebuilding:stray_skull"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:stray_wall_skull",
+      "name": {
+        "en_us": "Stray Skull",
+        "de_de": "Eiswandererschädel"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stray_skull.png",
       "hasCustomBehaviour": false
     },
     {
@@ -24415,59 +24719,106 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/chunk_loader_smithing.json",
       "ingredients": [
-        "minecraft:bolt_armor_trim_smithing_template",
-        "minecraft:coast_armor_trim_smithing_template",
-        "minecraft:dune_armor_trim_smithing_template",
-        "minecraft:eye_armor_trim_smithing_template",
-        "minecraft:flow_armor_trim_smithing_template",
-        "minecraft:host_armor_trim_smithing_template",
-        "minecraft:netherite_upgrade_smithing_template",
-        "minecraft:raiser_armor_trim_smithing_template",
-        "minecraft:rib_armor_trim_smithing_template",
-        "minecraft:sentry_armor_trim_smithing_template",
-        "minecraft:shaper_armor_trim_smithing_template",
-        "minecraft:silence_armor_trim_smithing_template",
-        "minecraft:snout_armor_trim_smithing_template",
-        "minecraft:spire_armor_trim_smithing_template",
-        "minecraft:tide_armor_trim_smithing_template",
-        "minecraft:vex_armor_trim_smithing_template",
-        "minecraft:ward_armor_trim_smithing_template",
-        "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template",
+        "#simplebuilding:trial_chamber_heads",
         "simplebuilding:copper_core",
         "simplebuilding:copper_pressure_plate"
       ],
       "slots": {
         "template": [
-          "minecraft:netherite_upgrade_smithing_template",
-          "minecraft:sentry_armor_trim_smithing_template",
-          "minecraft:dune_armor_trim_smithing_template",
-          "minecraft:coast_armor_trim_smithing_template",
-          "minecraft:wild_armor_trim_smithing_template",
-          "minecraft:ward_armor_trim_smithing_template",
-          "minecraft:eye_armor_trim_smithing_template",
-          "minecraft:vex_armor_trim_smithing_template",
-          "minecraft:tide_armor_trim_smithing_template",
-          "minecraft:snout_armor_trim_smithing_template",
-          "minecraft:rib_armor_trim_smithing_template",
-          "minecraft:spire_armor_trim_smithing_template",
-          "minecraft:wayfinder_armor_trim_smithing_template",
-          "minecraft:shaper_armor_trim_smithing_template",
-          "minecraft:silence_armor_trim_smithing_template",
-          "minecraft:raiser_armor_trim_smithing_template",
-          "minecraft:host_armor_trim_smithing_template",
-          "minecraft:flow_armor_trim_smithing_template",
-          "minecraft:bolt_armor_trim_smithing_template"
+          "simplebuilding:copper_core"
         ],
         "base": [
           "simplebuilding:copper_pressure_plate"
         ],
         "addition": [
-          "simplebuilding:copper_core"
+          "#simplebuilding:trial_chamber_heads"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "#simplebuilding:trial_chamber_heads",
+                "simplebuilding:copper_core",
+                "simplebuilding:copper_pressure_plate"
+              ],
+              "other": [
+                "minecraft:bolt_armor_trim_smithing_template",
+                "minecraft:coast_armor_trim_smithing_template",
+                "minecraft:dune_armor_trim_smithing_template",
+                "minecraft:eye_armor_trim_smithing_template",
+                "minecraft:flow_armor_trim_smithing_template",
+                "minecraft:host_armor_trim_smithing_template",
+                "minecraft:netherite_upgrade_smithing_template",
+                "minecraft:raiser_armor_trim_smithing_template",
+                "minecraft:rib_armor_trim_smithing_template",
+                "minecraft:sentry_armor_trim_smithing_template",
+                "minecraft:shaper_armor_trim_smithing_template",
+                "minecraft:silence_armor_trim_smithing_template",
+                "minecraft:snout_armor_trim_smithing_template",
+                "minecraft:spire_armor_trim_smithing_template",
+                "minecraft:tide_armor_trim_smithing_template",
+                "minecraft:vex_armor_trim_smithing_template",
+                "minecraft:ward_armor_trim_smithing_template",
+                "minecraft:wayfinder_armor_trim_smithing_template",
+                "minecraft:wild_armor_trim_smithing_template",
+                "simplebuilding:copper_core",
+                "simplebuilding:copper_pressure_plate"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simplebuilding:copper_core"
+                ],
+                "base": [
+                  "simplebuilding:copper_pressure_plate"
+                ],
+                "addition": [
+                  "#simplebuilding:trial_chamber_heads"
+                ]
+              },
+              "other": {
+                "template": [
+                  "minecraft:netherite_upgrade_smithing_template",
+                  "minecraft:sentry_armor_trim_smithing_template",
+                  "minecraft:dune_armor_trim_smithing_template",
+                  "minecraft:coast_armor_trim_smithing_template",
+                  "minecraft:wild_armor_trim_smithing_template",
+                  "minecraft:ward_armor_trim_smithing_template",
+                  "minecraft:eye_armor_trim_smithing_template",
+                  "minecraft:vex_armor_trim_smithing_template",
+                  "minecraft:tide_armor_trim_smithing_template",
+                  "minecraft:snout_armor_trim_smithing_template",
+                  "minecraft:rib_armor_trim_smithing_template",
+                  "minecraft:spire_armor_trim_smithing_template",
+                  "minecraft:wayfinder_armor_trim_smithing_template",
+                  "minecraft:shaper_armor_trim_smithing_template",
+                  "minecraft:silence_armor_trim_smithing_template",
+                  "minecraft:raiser_armor_trim_smithing_template",
+                  "minecraft:host_armor_trim_smithing_template",
+                  "minecraft:flow_armor_trim_smithing_template",
+                  "minecraft:bolt_armor_trim_smithing_template"
+                ],
+                "base": [
+                  "simplebuilding:copper_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:copper_core"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/chunk_loader_smithing.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -24998,49 +25349,13 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/elytra_pad_smithing.json",
       "ingredients": [
-        "minecraft:bolt_armor_trim_smithing_template",
-        "minecraft:coast_armor_trim_smithing_template",
-        "minecraft:dune_armor_trim_smithing_template",
         "minecraft:elytra",
-        "minecraft:eye_armor_trim_smithing_template",
-        "minecraft:flow_armor_trim_smithing_template",
-        "minecraft:host_armor_trim_smithing_template",
-        "minecraft:netherite_upgrade_smithing_template",
-        "minecraft:raiser_armor_trim_smithing_template",
-        "minecraft:rib_armor_trim_smithing_template",
-        "minecraft:sentry_armor_trim_smithing_template",
-        "minecraft:shaper_armor_trim_smithing_template",
-        "minecraft:silence_armor_trim_smithing_template",
-        "minecraft:snout_armor_trim_smithing_template",
-        "minecraft:spire_armor_trim_smithing_template",
-        "minecraft:tide_armor_trim_smithing_template",
-        "minecraft:vex_armor_trim_smithing_template",
-        "minecraft:ward_armor_trim_smithing_template",
-        "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:diamond_core",
         "simplebuilding:diamond_pressure_plate"
       ],
       "slots": {
         "template": [
-          "minecraft:netherite_upgrade_smithing_template",
-          "minecraft:sentry_armor_trim_smithing_template",
-          "minecraft:dune_armor_trim_smithing_template",
-          "minecraft:coast_armor_trim_smithing_template",
-          "minecraft:wild_armor_trim_smithing_template",
-          "minecraft:ward_armor_trim_smithing_template",
-          "minecraft:eye_armor_trim_smithing_template",
-          "minecraft:vex_armor_trim_smithing_template",
-          "minecraft:tide_armor_trim_smithing_template",
-          "minecraft:snout_armor_trim_smithing_template",
-          "minecraft:rib_armor_trim_smithing_template",
-          "minecraft:spire_armor_trim_smithing_template",
-          "minecraft:wayfinder_armor_trim_smithing_template",
-          "minecraft:shaper_armor_trim_smithing_template",
-          "minecraft:silence_armor_trim_smithing_template",
-          "minecraft:raiser_armor_trim_smithing_template",
-          "minecraft:host_armor_trim_smithing_template",
-          "minecraft:flow_armor_trim_smithing_template",
-          "minecraft:bolt_armor_trim_smithing_template"
+          "simplebuilding:diamond_core"
         ],
         "base": [
           "simplebuilding:diamond_pressure_plate"
@@ -25049,8 +25364,91 @@ window.WIKI_DATA = {
           "minecraft:elytra"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:elytra",
+                "simplebuilding:diamond_core",
+                "simplebuilding:diamond_pressure_plate"
+              ],
+              "other": [
+                "minecraft:bolt_armor_trim_smithing_template",
+                "minecraft:coast_armor_trim_smithing_template",
+                "minecraft:dune_armor_trim_smithing_template",
+                "minecraft:elytra",
+                "minecraft:eye_armor_trim_smithing_template",
+                "minecraft:flow_armor_trim_smithing_template",
+                "minecraft:host_armor_trim_smithing_template",
+                "minecraft:netherite_upgrade_smithing_template",
+                "minecraft:raiser_armor_trim_smithing_template",
+                "minecraft:rib_armor_trim_smithing_template",
+                "minecraft:sentry_armor_trim_smithing_template",
+                "minecraft:shaper_armor_trim_smithing_template",
+                "minecraft:silence_armor_trim_smithing_template",
+                "minecraft:snout_armor_trim_smithing_template",
+                "minecraft:spire_armor_trim_smithing_template",
+                "minecraft:tide_armor_trim_smithing_template",
+                "minecraft:vex_armor_trim_smithing_template",
+                "minecraft:ward_armor_trim_smithing_template",
+                "minecraft:wayfinder_armor_trim_smithing_template",
+                "minecraft:wild_armor_trim_smithing_template",
+                "simplebuilding:diamond_pressure_plate"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simplebuilding:diamond_core"
+                ],
+                "base": [
+                  "simplebuilding:diamond_pressure_plate"
+                ],
+                "addition": [
+                  "minecraft:elytra"
+                ]
+              },
+              "other": {
+                "template": [
+                  "minecraft:netherite_upgrade_smithing_template",
+                  "minecraft:sentry_armor_trim_smithing_template",
+                  "minecraft:dune_armor_trim_smithing_template",
+                  "minecraft:coast_armor_trim_smithing_template",
+                  "minecraft:wild_armor_trim_smithing_template",
+                  "minecraft:ward_armor_trim_smithing_template",
+                  "minecraft:eye_armor_trim_smithing_template",
+                  "minecraft:vex_armor_trim_smithing_template",
+                  "minecraft:tide_armor_trim_smithing_template",
+                  "minecraft:snout_armor_trim_smithing_template",
+                  "minecraft:rib_armor_trim_smithing_template",
+                  "minecraft:spire_armor_trim_smithing_template",
+                  "minecraft:wayfinder_armor_trim_smithing_template",
+                  "minecraft:shaper_armor_trim_smithing_template",
+                  "minecraft:silence_armor_trim_smithing_template",
+                  "minecraft:raiser_armor_trim_smithing_template",
+                  "minecraft:host_armor_trim_smithing_template",
+                  "minecraft:flow_armor_trim_smithing_template",
+                  "minecraft:bolt_armor_trim_smithing_template"
+                ],
+                "base": [
+                  "simplebuilding:diamond_pressure_plate"
+                ],
+                "addition": [
+                  "minecraft:elytra"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/elytra_pad_smithing.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -27219,33 +27617,36 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:flypad_tier1_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
+      "id": "simplebuilding:flypad_tier1_crafting",
+      "type": "simplebuilding:enchanted_shapeless",
+      "category": "equipment",
       "group": null,
       "result": {
         "id": "simplebuilding:flypad",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/flypad_tier1_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/flypad_tier1_crafting.json",
       "ingredients": [
+        "minecraft:elytra",
         "simplebuilding:enderite_core",
         "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:enderite_upgrade_template"
+        "simplebuilding:shulker_head"
       ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_core"
         ],
-        "base": [
+        [
           "simplebuilding:enderite_pressure_plate"
         ],
-        "addition": [
-          "simplebuilding:enderite_core"
+        [
+          "simplebuilding:shulker_head"
+        ],
+        [
+          "minecraft:elytra"
         ]
-      },
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -27937,59 +28338,106 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/launchpad_smithing.json",
       "ingredients": [
-        "minecraft:bolt_armor_trim_smithing_template",
-        "minecraft:coast_armor_trim_smithing_template",
-        "minecraft:dune_armor_trim_smithing_template",
-        "minecraft:eye_armor_trim_smithing_template",
-        "minecraft:flow_armor_trim_smithing_template",
+        "#simplebuilding:trial_chamber_heads",
         "minecraft:heavy_weighted_pressure_plate",
-        "minecraft:host_armor_trim_smithing_template",
-        "minecraft:netherite_upgrade_smithing_template",
-        "minecraft:raiser_armor_trim_smithing_template",
-        "minecraft:rib_armor_trim_smithing_template",
-        "minecraft:sentry_armor_trim_smithing_template",
-        "minecraft:shaper_armor_trim_smithing_template",
-        "minecraft:silence_armor_trim_smithing_template",
-        "minecraft:snout_armor_trim_smithing_template",
-        "minecraft:spire_armor_trim_smithing_template",
-        "minecraft:tide_armor_trim_smithing_template",
-        "minecraft:vex_armor_trim_smithing_template",
-        "minecraft:ward_armor_trim_smithing_template",
-        "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template",
         "simplebuilding:iron_core"
       ],
       "slots": {
         "template": [
-          "minecraft:netherite_upgrade_smithing_template",
-          "minecraft:sentry_armor_trim_smithing_template",
-          "minecraft:dune_armor_trim_smithing_template",
-          "minecraft:coast_armor_trim_smithing_template",
-          "minecraft:wild_armor_trim_smithing_template",
-          "minecraft:ward_armor_trim_smithing_template",
-          "minecraft:eye_armor_trim_smithing_template",
-          "minecraft:vex_armor_trim_smithing_template",
-          "minecraft:tide_armor_trim_smithing_template",
-          "minecraft:snout_armor_trim_smithing_template",
-          "minecraft:rib_armor_trim_smithing_template",
-          "minecraft:spire_armor_trim_smithing_template",
-          "minecraft:wayfinder_armor_trim_smithing_template",
-          "minecraft:shaper_armor_trim_smithing_template",
-          "minecraft:silence_armor_trim_smithing_template",
-          "minecraft:raiser_armor_trim_smithing_template",
-          "minecraft:host_armor_trim_smithing_template",
-          "minecraft:flow_armor_trim_smithing_template",
-          "minecraft:bolt_armor_trim_smithing_template"
+          "simplebuilding:iron_core"
         ],
         "base": [
           "minecraft:heavy_weighted_pressure_plate"
         ],
         "addition": [
-          "simplebuilding:iron_core"
+          "#simplebuilding:trial_chamber_heads"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "#simplebuilding:trial_chamber_heads",
+                "minecraft:heavy_weighted_pressure_plate",
+                "simplebuilding:iron_core"
+              ],
+              "other": [
+                "minecraft:bolt_armor_trim_smithing_template",
+                "minecraft:coast_armor_trim_smithing_template",
+                "minecraft:dune_armor_trim_smithing_template",
+                "minecraft:eye_armor_trim_smithing_template",
+                "minecraft:flow_armor_trim_smithing_template",
+                "minecraft:heavy_weighted_pressure_plate",
+                "minecraft:host_armor_trim_smithing_template",
+                "minecraft:netherite_upgrade_smithing_template",
+                "minecraft:raiser_armor_trim_smithing_template",
+                "minecraft:rib_armor_trim_smithing_template",
+                "minecraft:sentry_armor_trim_smithing_template",
+                "minecraft:shaper_armor_trim_smithing_template",
+                "minecraft:silence_armor_trim_smithing_template",
+                "minecraft:snout_armor_trim_smithing_template",
+                "minecraft:spire_armor_trim_smithing_template",
+                "minecraft:tide_armor_trim_smithing_template",
+                "minecraft:vex_armor_trim_smithing_template",
+                "minecraft:ward_armor_trim_smithing_template",
+                "minecraft:wayfinder_armor_trim_smithing_template",
+                "minecraft:wild_armor_trim_smithing_template",
+                "simplebuilding:iron_core"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simplebuilding:iron_core"
+                ],
+                "base": [
+                  "minecraft:heavy_weighted_pressure_plate"
+                ],
+                "addition": [
+                  "#simplebuilding:trial_chamber_heads"
+                ]
+              },
+              "other": {
+                "template": [
+                  "minecraft:netherite_upgrade_smithing_template",
+                  "minecraft:sentry_armor_trim_smithing_template",
+                  "minecraft:dune_armor_trim_smithing_template",
+                  "minecraft:coast_armor_trim_smithing_template",
+                  "minecraft:wild_armor_trim_smithing_template",
+                  "minecraft:ward_armor_trim_smithing_template",
+                  "minecraft:eye_armor_trim_smithing_template",
+                  "minecraft:vex_armor_trim_smithing_template",
+                  "minecraft:tide_armor_trim_smithing_template",
+                  "minecraft:snout_armor_trim_smithing_template",
+                  "minecraft:rib_armor_trim_smithing_template",
+                  "minecraft:spire_armor_trim_smithing_template",
+                  "minecraft:wayfinder_armor_trim_smithing_template",
+                  "minecraft:shaper_armor_trim_smithing_template",
+                  "minecraft:silence_armor_trim_smithing_template",
+                  "minecraft:raiser_armor_trim_smithing_template",
+                  "minecraft:host_armor_trim_smithing_template",
+                  "minecraft:flow_armor_trim_smithing_template",
+                  "minecraft:bolt_armor_trim_smithing_template"
+                ],
+                "base": [
+                  "minecraft:heavy_weighted_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:iron_core"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/launchpad_smithing.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -31389,49 +31837,13 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/potion_pad_smithing.json",
       "ingredients": [
-        "minecraft:bolt_armor_trim_smithing_template",
-        "minecraft:coast_armor_trim_smithing_template",
-        "minecraft:dune_armor_trim_smithing_template",
-        "minecraft:eye_armor_trim_smithing_template",
-        "minecraft:flow_armor_trim_smithing_template",
-        "minecraft:host_armor_trim_smithing_template",
-        "minecraft:netherite_upgrade_smithing_template",
-        "minecraft:raiser_armor_trim_smithing_template",
-        "minecraft:rib_armor_trim_smithing_template",
-        "minecraft:sentry_armor_trim_smithing_template",
-        "minecraft:shaper_armor_trim_smithing_template",
-        "minecraft:silence_armor_trim_smithing_template",
-        "minecraft:snout_armor_trim_smithing_template",
-        "minecraft:spire_armor_trim_smithing_template",
-        "minecraft:tide_armor_trim_smithing_template",
-        "minecraft:vex_armor_trim_smithing_template",
-        "minecraft:ward_armor_trim_smithing_template",
-        "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template",
         "simplebuilding:blaze_head",
+        "simplebuilding:netherite_core",
         "simplebuilding:netherite_pressure_plate"
       ],
       "slots": {
         "template": [
-          "minecraft:netherite_upgrade_smithing_template",
-          "minecraft:sentry_armor_trim_smithing_template",
-          "minecraft:dune_armor_trim_smithing_template",
-          "minecraft:coast_armor_trim_smithing_template",
-          "minecraft:wild_armor_trim_smithing_template",
-          "minecraft:ward_armor_trim_smithing_template",
-          "minecraft:eye_armor_trim_smithing_template",
-          "minecraft:vex_armor_trim_smithing_template",
-          "minecraft:tide_armor_trim_smithing_template",
-          "minecraft:snout_armor_trim_smithing_template",
-          "minecraft:rib_armor_trim_smithing_template",
-          "minecraft:spire_armor_trim_smithing_template",
-          "minecraft:wayfinder_armor_trim_smithing_template",
-          "minecraft:shaper_armor_trim_smithing_template",
-          "minecraft:silence_armor_trim_smithing_template",
-          "minecraft:raiser_armor_trim_smithing_template",
-          "minecraft:host_armor_trim_smithing_template",
-          "minecraft:flow_armor_trim_smithing_template",
-          "minecraft:bolt_armor_trim_smithing_template"
+          "simplebuilding:netherite_core"
         ],
         "base": [
           "simplebuilding:netherite_pressure_plate"
@@ -31440,8 +31852,91 @@ window.WIKI_DATA = {
           "simplebuilding:blaze_head"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "simplebuilding:blaze_head",
+                "simplebuilding:netherite_core",
+                "simplebuilding:netherite_pressure_plate"
+              ],
+              "other": [
+                "minecraft:bolt_armor_trim_smithing_template",
+                "minecraft:coast_armor_trim_smithing_template",
+                "minecraft:dune_armor_trim_smithing_template",
+                "minecraft:eye_armor_trim_smithing_template",
+                "minecraft:flow_armor_trim_smithing_template",
+                "minecraft:host_armor_trim_smithing_template",
+                "minecraft:netherite_upgrade_smithing_template",
+                "minecraft:raiser_armor_trim_smithing_template",
+                "minecraft:rib_armor_trim_smithing_template",
+                "minecraft:sentry_armor_trim_smithing_template",
+                "minecraft:shaper_armor_trim_smithing_template",
+                "minecraft:silence_armor_trim_smithing_template",
+                "minecraft:snout_armor_trim_smithing_template",
+                "minecraft:spire_armor_trim_smithing_template",
+                "minecraft:tide_armor_trim_smithing_template",
+                "minecraft:vex_armor_trim_smithing_template",
+                "minecraft:ward_armor_trim_smithing_template",
+                "minecraft:wayfinder_armor_trim_smithing_template",
+                "minecraft:wild_armor_trim_smithing_template",
+                "simplebuilding:blaze_head",
+                "simplebuilding:netherite_pressure_plate"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simplebuilding:netherite_core"
+                ],
+                "base": [
+                  "simplebuilding:netherite_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:blaze_head"
+                ]
+              },
+              "other": {
+                "template": [
+                  "minecraft:netherite_upgrade_smithing_template",
+                  "minecraft:sentry_armor_trim_smithing_template",
+                  "minecraft:dune_armor_trim_smithing_template",
+                  "minecraft:coast_armor_trim_smithing_template",
+                  "minecraft:wild_armor_trim_smithing_template",
+                  "minecraft:ward_armor_trim_smithing_template",
+                  "minecraft:eye_armor_trim_smithing_template",
+                  "minecraft:vex_armor_trim_smithing_template",
+                  "minecraft:tide_armor_trim_smithing_template",
+                  "minecraft:snout_armor_trim_smithing_template",
+                  "minecraft:rib_armor_trim_smithing_template",
+                  "minecraft:spire_armor_trim_smithing_template",
+                  "minecraft:wayfinder_armor_trim_smithing_template",
+                  "minecraft:shaper_armor_trim_smithing_template",
+                  "minecraft:silence_armor_trim_smithing_template",
+                  "minecraft:raiser_armor_trim_smithing_template",
+                  "minecraft:host_armor_trim_smithing_template",
+                  "minecraft:flow_armor_trim_smithing_template",
+                  "minecraft:bolt_armor_trim_smithing_template"
+                ],
+                "base": [
+                  "simplebuilding:netherite_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:blaze_head"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/potion_pad_smithing.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -32234,49 +32729,13 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/spawn_teleporter_smithing.json",
       "ingredients": [
-        "minecraft:bolt_armor_trim_smithing_template",
-        "minecraft:coast_armor_trim_smithing_template",
-        "minecraft:dune_armor_trim_smithing_template",
-        "minecraft:eye_armor_trim_smithing_template",
-        "minecraft:flow_armor_trim_smithing_template",
-        "minecraft:host_armor_trim_smithing_template",
         "minecraft:light_weighted_pressure_plate",
-        "minecraft:netherite_upgrade_smithing_template",
-        "minecraft:raiser_armor_trim_smithing_template",
-        "minecraft:rib_armor_trim_smithing_template",
-        "minecraft:sentry_armor_trim_smithing_template",
-        "minecraft:shaper_armor_trim_smithing_template",
-        "minecraft:silence_armor_trim_smithing_template",
-        "minecraft:snout_armor_trim_smithing_template",
-        "minecraft:spire_armor_trim_smithing_template",
-        "minecraft:tide_armor_trim_smithing_template",
-        "minecraft:vex_armor_trim_smithing_template",
-        "minecraft:ward_armor_trim_smithing_template",
-        "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template",
-        "simplebuilding:enderman_head"
+        "simplebuilding:enderman_head",
+        "simplebuilding:gold_core"
       ],
       "slots": {
         "template": [
-          "minecraft:netherite_upgrade_smithing_template",
-          "minecraft:sentry_armor_trim_smithing_template",
-          "minecraft:dune_armor_trim_smithing_template",
-          "minecraft:coast_armor_trim_smithing_template",
-          "minecraft:wild_armor_trim_smithing_template",
-          "minecraft:ward_armor_trim_smithing_template",
-          "minecraft:eye_armor_trim_smithing_template",
-          "minecraft:vex_armor_trim_smithing_template",
-          "minecraft:tide_armor_trim_smithing_template",
-          "minecraft:snout_armor_trim_smithing_template",
-          "minecraft:rib_armor_trim_smithing_template",
-          "minecraft:spire_armor_trim_smithing_template",
-          "minecraft:wayfinder_armor_trim_smithing_template",
-          "minecraft:shaper_armor_trim_smithing_template",
-          "minecraft:silence_armor_trim_smithing_template",
-          "minecraft:raiser_armor_trim_smithing_template",
-          "minecraft:host_armor_trim_smithing_template",
-          "minecraft:flow_armor_trim_smithing_template",
-          "minecraft:bolt_armor_trim_smithing_template"
+          "simplebuilding:gold_core"
         ],
         "base": [
           "minecraft:light_weighted_pressure_plate"
@@ -32285,8 +32744,91 @@ window.WIKI_DATA = {
           "simplebuilding:enderman_head"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:light_weighted_pressure_plate",
+                "simplebuilding:enderman_head",
+                "simplebuilding:gold_core"
+              ],
+              "other": [
+                "minecraft:bolt_armor_trim_smithing_template",
+                "minecraft:coast_armor_trim_smithing_template",
+                "minecraft:dune_armor_trim_smithing_template",
+                "minecraft:eye_armor_trim_smithing_template",
+                "minecraft:flow_armor_trim_smithing_template",
+                "minecraft:host_armor_trim_smithing_template",
+                "minecraft:light_weighted_pressure_plate",
+                "minecraft:netherite_upgrade_smithing_template",
+                "minecraft:raiser_armor_trim_smithing_template",
+                "minecraft:rib_armor_trim_smithing_template",
+                "minecraft:sentry_armor_trim_smithing_template",
+                "minecraft:shaper_armor_trim_smithing_template",
+                "minecraft:silence_armor_trim_smithing_template",
+                "minecraft:snout_armor_trim_smithing_template",
+                "minecraft:spire_armor_trim_smithing_template",
+                "minecraft:tide_armor_trim_smithing_template",
+                "minecraft:vex_armor_trim_smithing_template",
+                "minecraft:ward_armor_trim_smithing_template",
+                "minecraft:wayfinder_armor_trim_smithing_template",
+                "minecraft:wild_armor_trim_smithing_template",
+                "simplebuilding:enderman_head"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simplebuilding:gold_core"
+                ],
+                "base": [
+                  "minecraft:light_weighted_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:enderman_head"
+                ]
+              },
+              "other": {
+                "template": [
+                  "minecraft:netherite_upgrade_smithing_template",
+                  "minecraft:sentry_armor_trim_smithing_template",
+                  "minecraft:dune_armor_trim_smithing_template",
+                  "minecraft:coast_armor_trim_smithing_template",
+                  "minecraft:wild_armor_trim_smithing_template",
+                  "minecraft:ward_armor_trim_smithing_template",
+                  "minecraft:eye_armor_trim_smithing_template",
+                  "minecraft:vex_armor_trim_smithing_template",
+                  "minecraft:tide_armor_trim_smithing_template",
+                  "minecraft:snout_armor_trim_smithing_template",
+                  "minecraft:rib_armor_trim_smithing_template",
+                  "minecraft:spire_armor_trim_smithing_template",
+                  "minecraft:wayfinder_armor_trim_smithing_template",
+                  "minecraft:shaper_armor_trim_smithing_template",
+                  "minecraft:silence_armor_trim_smithing_template",
+                  "minecraft:raiser_armor_trim_smithing_template",
+                  "minecraft:host_armor_trim_smithing_template",
+                  "minecraft:flow_armor_trim_smithing_template",
+                  "minecraft:bolt_armor_trim_smithing_template"
+                ],
+                "base": [
+                  "minecraft:light_weighted_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:enderman_head"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/spawn_teleporter_smithing.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -33774,7 +34316,368 @@ window.WIKI_DATA = {
       ]
     }
   ],
-  "recipesOtherLines": [],
+  "recipesOtherLines": [
+    {
+      "id": "simplebuilding:chunk_loader_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:chunk_loader",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/chunk_loader_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:copper_core",
+        "simplebuilding:copper_pressure_plate"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:copper_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:copper_core"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:elytra_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:elytra_pad",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/elytra_pad_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:elytra",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:diamond_pressure_plate"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:diamond_pressure_plate"
+        ],
+        "addition": [
+          "minecraft:elytra"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:flypad_tier1_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:flypad",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/flypad_tier1_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_core",
+        "simplebuilding:enderite_pressure_plate",
+        "simplebuilding:enderite_upgrade_template"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:enderite_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:enderite_core"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:launchpad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:launchpad",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/launchpad_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:heavy_weighted_pressure_plate",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:iron_core"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "minecraft:heavy_weighted_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:iron_core"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:potion_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:potion_pad",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/potion_pad_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:blaze_head",
+        "simplebuilding:netherite_pressure_plate"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:blaze_head"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:spawn_teleporter",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/spawn_teleporter_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:light_weighted_pressure_plate",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:enderman_head"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "minecraft:light_weighted_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:enderman_head"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    }
+  ],
   "lootTables": [
     {
       "id": "simplebuilding:blocks/astral_end_stone",
@@ -34006,6 +34909,60 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/blaze_head.json"
     },
     {
+      "id": "simplebuilding:blocks/bogged_skull",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:bogged_skull"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/bogged_skull.json"
+    },
+    {
+      "id": "simplebuilding:blocks/breeze_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:breeze_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/breeze_head.json"
+    },
+    {
+      "id": "simplebuilding:blocks/cave_spider_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:cave_spider_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/cave_spider_head.json"
+    },
+    {
       "id": "simplebuilding:blocks/chiseled_astralit_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -34148,6 +35105,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/diamond_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/drowned_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:drowned_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/drowned_head.json"
     },
     {
       "id": "simplebuilding:blocks/elytra_pad",
@@ -34646,6 +35621,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/flypad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/husk_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:husk_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/husk_head.json"
     },
     {
       "id": "simplebuilding:blocks/infused_potion_pad",
@@ -35625,6 +36618,60 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/resin_quartz_checker.json"
     },
     {
+      "id": "simplebuilding:blocks/shulker_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:shulker_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/shulker_head.json"
+    },
+    {
+      "id": "simplebuilding:blocks/silverfish_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:silverfish_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/silverfish_head.json"
+    },
+    {
+      "id": "simplebuilding:blocks/slime_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:slime_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/slime_head.json"
+    },
+    {
       "id": "simplebuilding:blocks/spawn_teleporter",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -35697,6 +36744,24 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter_tier_4.json"
     },
     {
+      "id": "simplebuilding:blocks/spider_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:spider_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spider_head.json"
+    },
+    {
       "id": "simplebuilding:blocks/stellar_flypad",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -35713,6 +36778,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/stellar_flypad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stray_skull",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:stray_skull"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/stray_skull.json"
     },
     {
       "id": "simplebuilding:blocks/suspended_gravel",
@@ -35859,6 +36942,106 @@ window.WIKI_DATA = {
           "rolls": 1.0,
           "items": [
             "simplebuilding:enderman_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:husk_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:spider_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:cave_spider_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:stray_skull"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:bogged_skull"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:slime_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:silverfish_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:breeze_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:shulker_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:drowned_head"
           ],
           "conditions": [
             "minecraft:entity_properties"
@@ -40122,6 +41305,53 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json"
+    },
+    {
+      "id": "simplebuilding:item/trial_chamber_heads",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:zombie_head",
+          "required": true
+        },
+        {
+          "id": "minecraft:skeleton_skull",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:husk_head",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:spider_head",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cave_spider_head",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:stray_skull",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:bogged_skull",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:slime_head",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:silverfish_head",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:breeze_head",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/item/trial_chamber_heads.json"
     },
     {
       "id": "simplebuilding:item/veinmine_enchantable",
@@ -54762,6 +55992,266 @@ window.WIKI_DATA = {
         "how": "charged_creeper"
       },
       {
+        "type": "mob",
+        "item": "simplebuilding:husk_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 2,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:husk",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:spider_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 3,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:spider",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:cave_spider_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 4,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:cave_spider",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:stray_skull",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 5,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:stray",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:bogged_skull",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 6,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:bogged",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:slime_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 7,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:slime",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:silverfish_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 8,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:silverfish",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:breeze_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 9,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:breeze",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:shulker_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 10,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:shulker",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:drowned_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 11,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:drowned",
+        "how": "charged_creeper"
+      },
+      {
         "type": "chest",
         "item": "minecraft:enchanted_book",
         "table": "minecraft:chests/stronghold_library",
@@ -59971,6 +61461,42 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/pads/frequent_traveller.json"
     },
     {
+      "id": "simplebuilding:pads/heads_up",
+      "parent": "simplebuilding:pads/hot_head",
+      "icon": "simplebuilding:silverfish_head",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Heads Up",
+        "de_de": "Kopf hoch"
+      },
+      "description": {
+        "en_us": "Let a charged creeper blow up another mob - a spider, a slime, a shulker ... - for its head. Then wear it: every head hides a small secret",
+        "de_de": "Lass einen geladenen Creeper einen anderen Mob sprengen - eine Spinne, einen Schleim, einen Shulker ... - für seinen Kopf. Dann setz ihn auf: jeder Kopf verbirgt ein kleines Geheimnis"
+      },
+      "criteria": [
+        {
+          "name": "mob_head",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderman_head",
+            "simplebuilding:husk_head",
+            "simplebuilding:spider_head",
+            "simplebuilding:cave_spider_head",
+            "simplebuilding:stray_skull",
+            "simplebuilding:bogged_skull",
+            "simplebuilding:slime_head",
+            "simplebuilding:silverfish_head",
+            "simplebuilding:breeze_head",
+            "simplebuilding:shulker_head",
+            "simplebuilding:drowned_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/heads_up.json"
+    },
+    {
       "id": "simplebuilding:pads/higher_ground",
       "parent": "simplebuilding:pads/liftoff",
       "icon": "simplebuilding:netherite_launchpad",
@@ -63264,15 +64790,15 @@ window.WIKI_DATA = {
   },
   "counts": {
     "items": 182,
-    "blocks": 124,
+    "blocks": 144,
     "recipes": 361,
-    "lootTables": 135,
+    "lootTables": 145,
     "trades": 20,
     "enchantments": 19,
-    "tags": 39,
+    "tags": 40,
     "config": 167,
     "inWorld": 392,
-    "advancements": 101,
+    "advancements": 102,
     "features": 40,
     "undocumented": 0,
     "incompleteProse": 0

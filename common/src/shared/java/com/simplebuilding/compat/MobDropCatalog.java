@@ -1,5 +1,7 @@
 package com.simplebuilding.compat;
 
+import com.simplebuilding.tweaks.block.BlazeHeadType;
+import com.simplebuilding.tweaks.heads.ModHeads;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,7 @@ import net.minecraft.world.item.Items;
 /**
  * Items a mob drops only when it dies in one particular way - no recipe, no chest: the heads a
  * charged creeper's explosion knocks off (vanilla {@code loot_table/charged_creeper/*} plus the
- * mod's blaze head from {@code ModLootTableModifications#blazeHeadPool}) and the music discs a
+ * mod's twelve heads from {@code ModLootTableModifications#headPool}) and the music discs a
  * creeper drops when a skeleton kills it (vanilla {@code loot_table/entities/creeper}, item tag
  * {@code minecraft:creeper_drop_music_discs}).
  *
@@ -60,13 +62,16 @@ public final class MobDropCatalog {
     /** All drops as the game has them now; the disc entry needs item tags, so it is missing before they are bound. */
     public static List<Drop> drops() {
         List<Drop> out = new ArrayList<>();
-        head(out, EntityTypes.BLAZE, Items.BLAZE_SPAWN_EGG, TweaksItems.BLAZE_HEAD);
         head(out, EntityTypes.CREEPER, Items.CREEPER_SPAWN_EGG, Items.CREEPER_HEAD);
-        head(out, EntityTypes.ENDERMAN, Items.ENDERMAN_SPAWN_EGG, TweaksItems.ENDERMAN_HEAD);
         head(out, EntityTypes.PIGLIN, Items.PIGLIN_SPAWN_EGG, Items.PIGLIN_HEAD);
         head(out, EntityTypes.SKELETON, Items.SKELETON_SPAWN_EGG, Items.SKELETON_SKULL);
         head(out, EntityTypes.WITHER_SKELETON, Items.WITHER_SKELETON_SPAWN_EGG, Items.WITHER_SKELETON_SKULL);
         head(out, EntityTypes.ZOMBIE, Items.ZOMBIE_SPAWN_EGG, Items.ZOMBIE_HEAD);
+        // Die Mod-Koepfe (docs/MOBKOEPFE.md), dann alle nach der Id des Opfers wie bisher.
+        for (BlazeHeadType type : BlazeHeadType.values()) {
+            head(out, ModHeads.source(type), ModHeads.spawnEgg(type), TweaksItems.head(type));
+        }
+        out.sort(java.util.Comparator.comparing(Drop::id));
         List<Item> discs = new ArrayList<>();
         for (Holder<Item> disc : BuiltInRegistries.ITEM.getTagOrEmpty(ItemTags.CREEPER_DROP_MUSIC_DISCS)) {
             discs.add(disc.value());

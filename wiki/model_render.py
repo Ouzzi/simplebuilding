@@ -55,8 +55,51 @@ HEAD_KINDS = {
 MOD_HEAD_KINDS = {
     "simplebuilding:blaze": ("minecraft:entity/blaze/blaze", "minecraft:entity/blaze"),
     "simplebuilding:enderman": ("minecraft:entity/enderman/enderman",),
+    "simplebuilding:husk": ("minecraft:entity/zombie/husk",),
+    "simplebuilding:drowned": ("minecraft:entity/zombie/drowned",),
+    "simplebuilding:spider": ("minecraft:entity/spider/spider",),
+    "simplebuilding:cave_spider": ("minecraft:entity/spider/cave_spider",),
+    "simplebuilding:stray": ("minecraft:entity/skeleton/stray",),
+    "simplebuilding:bogged": ("minecraft:entity/skeleton/bogged",),
+    "simplebuilding:slime": ("minecraft:entity/slime/slime",),
+    "simplebuilding:silverfish": ("minecraft:entity/silverfish/silverfish", "minecraft:entity/silverfish"),
+    "simplebuilding:breeze": ("minecraft:entity/breeze/breeze",),
+    "simplebuilding:shulker": ("minecraft:entity/shulker/shulker",),
 }
 ENDERMAN_EYES = "minecraft:entity/enderman/enderman_eyes"
+
+# Geometry of the mod heads that are no plain 8x8x8 mob head (ModSkullModels.java), in the item's pixel space
+# (face at +z): (texture or None for the head's own, from, to, texOffs, size, shaded). Layers with another texture
+# (eyes, clothing) come after the head; a missing layer texture only drops that layer.
+MOD_HEAD_BOXES = {
+    "simplebuilding:husk": [(None, (4, 0, 4), (12, 8, 12), (0, 0), (8, 8, 8), True),
+                            (None, (3.75, -0.25, 3.75), (12.25, 8.25, 12.25), (32, 0), (8, 8, 8), True)],
+    "simplebuilding:drowned": [(None, (4, 0, 4), (12, 8, 12), (0, 0), (8, 8, 8), True),
+                               (None, (3.75, -0.25, 3.75), (12.25, 8.25, 12.25), (32, 0), (8, 8, 8), True),
+                               ("minecraft:entity/zombie/drowned_outer_layer", (3.7, -0.3, 3.7), (12.3, 8.3, 12.3), (0, 0), (8, 8, 8), True)],
+    "simplebuilding:spider": [(None, (4, 0, 4), (12, 8, 12), (32, 4), (8, 8, 8), True),
+                              ("minecraft:entity/spider/spider_eyes", (4, 0, 3.75), (12, 8, 12.25), (32, 4), (8, 8, 8), False)],
+    "simplebuilding:cave_spider": [(None, (4, 0, 4), (12, 8, 12), (32, 4), (8, 8, 8), True),
+                                   ("minecraft:entity/spider/spider_eyes", (4, 0, 3.75), (12, 8, 12.25), (32, 4), (8, 8, 8), False)],
+    "simplebuilding:stray": [(None, (4, 0, 4), (12, 8, 12), (0, 0), (8, 8, 8), True),
+                             ("minecraft:entity/skeleton/stray_overlay", (3.75, -0.25, 3.75), (12.25, 8.25, 12.25), (0, 0), (8, 8, 8), True)],
+    "simplebuilding:bogged": [(None, (4, 0, 4), (12, 8, 12), (0, 0), (8, 8, 8), True),
+                              ("minecraft:entity/skeleton/bogged_overlay", (3.8, -0.2, 3.8), (12.2, 8.2, 12.2), (0, 0), (8, 8, 8), True)],
+    "simplebuilding:slime": [(None, (5, 1, 5), (11, 7, 11), (0, 16), (6, 6, 6), True),
+                             (None, (4.75, 4, 9.5), (6.75, 6, 11.5), (32, 0), (2, 2, 2), True),
+                             (None, (9.25, 4, 9.5), (11.25, 6, 11.5), (32, 4), (2, 2, 2), True),
+                             (None, (8, 2, 10.5), (9, 3, 11.5), (32, 8), (1, 1, 1), True),
+                             (None, (4, 0, 4), (12, 8, 12), (0, 0), (8, 8, 8), True)],
+    "simplebuilding:silverfish": [(None, (5, 0, 8), (11, 4, 12), (0, 0), (3, 2, 2), True),
+                                  (None, (4, 0, 4), (12, 6, 8), (0, 4), (4, 3, 2), True)],
+    "simplebuilding:breeze": [(None, (4, 0, 4), (12, 8, 12), (0, 0), (8, 8, 8), True),
+                              (None, (3, 2, 8.2), (13, 5, 12.2), (4, 24), (10, 3, 4), True),
+                              ("minecraft:entity/breeze/breeze_eyes", (4, 0, 3.75), (12, 8, 12.25), (0, 0), (8, 8, 8), False),
+                              ("minecraft:entity/breeze/breeze_eyes", (3, 2, 8.2), (13, 5, 12.45), (4, 24), (10, 3, 4), False)],
+    "simplebuilding:shulker": [(None, (4, 0, 4), (12, 4, 12), (0, 28), (16, 8, 16), True),
+                               (None, (6.5, 4, 6.5), (9.5, 7, 9.5), (0, 52), (6, 6, 6), True),
+                               (None, (4, 6, 4), (12, 12, 12), (0, 0), (16, 12, 16), True)],
+}
 
 
 def rl(value: str) -> tuple[str, str]:
@@ -439,6 +482,12 @@ class IconRenderer:
         if kind == "piglin":
             faces = self.box((3, 0, 4), (13, 8, 12), tex, (0, 0), (10, 8, 8))
             faces += self.box((6, 0, 12), (10, 4, 13), tex, (31, 1), (4, 4, 1))
+        elif kind in MOD_HEAD_BOXES:
+            faces = []
+            for layer, f, t, offset, size, shade in MOD_HEAD_BOXES[kind]:
+                layer_tex = tex if layer is None else self.assets.texture(layer)
+                if layer_tex is not None:
+                    faces += self.box(f, t, layer_tex, offset, size, shade=shade)
         else:
             faces = self.box((4, 0, 4), (12, 8, 12), tex, (0, 0), (8, 8, 8))
             if kind == "simplebuilding:enderman":

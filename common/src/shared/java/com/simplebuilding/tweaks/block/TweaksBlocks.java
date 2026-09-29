@@ -4,7 +4,9 @@ import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.version.McVersion;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -121,23 +123,31 @@ public final class TweaksBlocks {
     public static final Block WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = register("waxed_oxidized_copper_pressure_plate",
             p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED, true, fragile(p).mapColor(MapColor.WARPED_NYLIUM)));
 
-    // --- Lohenkopf (Mob-Kopf, kein Pad): nicht in all(), eigene Liste heads() ---
+    // --- Mob-Koepfe (keine Pads): nicht in all(), eigene Liste heads(). Je Kopf-Typ ein stehender Kopf und
+    // eine Wandvariante (wie Vanillas wallVariant(kopf, true): Beute und Name vom stehenden Kopf). Reihenfolge
+    // = BlazeHeadType: Lohe und Enderman zuerst, damit ihre Registrierung wie vorher bleibt.
     private static final List<Block> HEADS = new ArrayList<>();
-    public static final Block BLAZE_HEAD = registerHead("blaze_head",
-            p -> new SkullBlock(BlazeHeadType.BLAZE, p.instrument(NoteBlockInstrument.CUSTOM_HEAD).strength(1.0f)
-                    .pushReaction(McVersion.PUSH_DESTROYS).noOcclusion()));
-    // Wie Vanillas wallVariant(kopf, true): Beute und Name vom stehenden Kopf.
-    public static final Block BLAZE_WALL_HEAD = registerHead("blaze_wall_head",
-            p -> new WallSkullBlock(BlazeHeadType.BLAZE, p.overrideLootTable(BLAZE_HEAD.getLootTable())
-                    .overrideDescription(BLAZE_HEAD.getDescriptionId()).strength(1.0f).pushReaction(McVersion.PUSH_DESTROYS)));
+    private static final Map<BlazeHeadType, Block> STANDING_HEADS = new EnumMap<>(BlazeHeadType.class);
+    private static final Map<BlazeHeadType, Block> WALL_HEADS = new EnumMap<>(BlazeHeadType.class);
 
-    // Endermankopf (2026-09-28): Zutat des Spawn-Teleporters I, faellt wie der Lohenkopf nur durch geladene Creeper.
-    public static final Block ENDERMAN_HEAD = registerHead("enderman_head",
-            p -> new SkullBlock(BlazeHeadType.ENDERMAN, p.instrument(NoteBlockInstrument.CUSTOM_HEAD).strength(1.0f)
-                    .pushReaction(McVersion.PUSH_DESTROYS).noOcclusion()));
-    public static final Block ENDERMAN_WALL_HEAD = registerHead("enderman_wall_head",
-            p -> new WallSkullBlock(BlazeHeadType.ENDERMAN, p.overrideLootTable(ENDERMAN_HEAD.getLootTable())
-                    .overrideDescription(ENDERMAN_HEAD.getDescriptionId()).strength(1.0f).pushReaction(McVersion.PUSH_DESTROYS)));
+    static {
+        for (BlazeHeadType type : BlazeHeadType.values()) {
+            Block standing = registerHead(type.blockName(),
+                    p -> new SkullBlock(type, p.instrument(NoteBlockInstrument.CUSTOM_HEAD).strength(1.0f)
+                            .pushReaction(McVersion.PUSH_DESTROYS).noOcclusion()));
+            Block wall = registerHead(type.wallBlockName(),
+                    p -> new WallSkullBlock(type, p.overrideLootTable(standing.getLootTable())
+                            .overrideDescription(standing.getDescriptionId()).strength(1.0f).pushReaction(McVersion.PUSH_DESTROYS)));
+            STANDING_HEADS.put(type, standing);
+            WALL_HEADS.put(type, wall);
+        }
+    }
+
+    // Lohenkopf: Zutat des Trank-Pads I. Endermankopf (2026-09-28): Zutat des Spawn-Teleporters I.
+    public static final Block BLAZE_HEAD = STANDING_HEADS.get(BlazeHeadType.BLAZE);
+    public static final Block BLAZE_WALL_HEAD = WALL_HEADS.get(BlazeHeadType.BLAZE);
+    public static final Block ENDERMAN_HEAD = STANDING_HEADS.get(BlazeHeadType.ENDERMAN);
+    public static final Block ENDERMAN_WALL_HEAD = WALL_HEADS.get(BlazeHeadType.ENDERMAN);
 
     private TweaksBlocks() {
     }
@@ -147,9 +157,19 @@ public final class TweaksBlocks {
         return List.of(NETHERITE_FLYPAD, ENDERITE_FLYPAD, SPAWN_TELEPORTER_TIER_3, SPAWN_TELEPORTER_TIER_4);
     }
 
-    /** Mob-Koepfe (Lohen- und Endermankopf, stehend und an der Wand); keine Pads, darum nicht in {@link #all()}. */
+    /** Alle Mob-Koepfe der Mod (stehend und an der Wand); keine Pads, darum nicht in {@link #all()}. */
     public static List<Block> heads() {
         return Collections.unmodifiableList(HEADS);
+    }
+
+    /** Der stehende Kopf eines Kopf-Typs. */
+    public static Block head(BlazeHeadType type) {
+        return STANDING_HEADS.get(type);
+    }
+
+    /** Die Wandvariante eines Kopf-Typs. */
+    public static Block wallHead(BlazeHeadType type) {
+        return WALL_HEADS.get(type);
     }
 
     /** Alle Bloecke in Registrierungsreihenfolge (Datagen, Tests, Kreativ-Tab). */

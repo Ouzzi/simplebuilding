@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smithing_transform",
-  "addition": "simplebuilding:enderite_core",
-  "base": "simplebuilding:enderite_pressure_plate",
-  "result": {
-    "id": "simplebuilding:flypad"
-  },
-  "template": "simplebuilding:enderite_upgrade_template"
-}

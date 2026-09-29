@@ -289,6 +289,9 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     any(TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER));
             AdvancementHolder head = node("pads/hot_head", tweaks, TweaksItems.BLAZE_HEAD, AdvancementType.TASK, "blaze_head",
                     any(TweaksItems.BLAZE_HEAD));
+            // Mob-Koepfe (2026-09-29): der Hinweis auf die geheimen Faehigkeiten steht in der Beschreibung.
+            node("pads/heads_up", head, TweaksItems.SILVERFISH_HEAD, AdvancementType.TASK, "mob_head",
+                    any(TweaksItems.heads().stream().filter(h -> h != TweaksItems.BLAZE_HEAD).toArray(ItemLike[]::new)));
             AdvancementHolder potion = feature("pads/bottoms_up", head, TweaksBlocks.POTION_PAD, AdvancementType.GOAL, ModTriggers.POTION_PAD);
             node("pads/infusion", potion, TweaksBlocks.INFUSED_POTION_PAD, AdvancementType.TASK, "infused_potion_pad",
                     any(TweaksBlocks.INFUSED_POTION_PAD));

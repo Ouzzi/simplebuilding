@@ -115,6 +115,18 @@ public final class TweaksNeoForge {
         }
     }
 
+    /**
+     * Breezekopf (docs/MOBKOEPFE.md): NeoForge verlegt die Trampel-Pruefung aus {@code FarmlandBlock#fallOn} nach
+     * {@code Entity#canTrample} und fragt danach dieses Ereignis - hier statt des Vanilla-Mixins
+     * {@code HeadAbilityFarmlandMixin}, der auf NeoForge keine Stelle findet.
+     */
+    @SubscribeEvent
+    public static void onFarmlandTrample(net.neoforged.neoforge.event.level.BlockEvent.FarmlandTrampleEvent event) {
+        if (!com.simplebuilding.tweaks.heads.HeadAbilities.tramplesFarmland(event.getEntity())) {
+            event.setCanceled(true);
+        }
+    }
+
     @SubscribeEvent
     public static void onLevelLoad(LevelEvent.Load event) {
         if (event.getLevel() instanceof ServerLevel level) {

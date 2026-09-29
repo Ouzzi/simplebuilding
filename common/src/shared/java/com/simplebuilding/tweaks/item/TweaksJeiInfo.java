@@ -28,6 +28,12 @@ public final class TweaksJeiInfo {
         map.put("potion_pad", List.of(TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD));
         map.put("blaze_head", List.of(TweaksItems.BLAZE_HEAD));
         map.put("enderman_head", List.of(TweaksItems.ENDERMAN_HEAD));
+        // Mob-Koepfe seit 2026-09-29 (docs/MOBKOEPFE.md); die geheimen Faehigkeiten verraten die Seiten nicht.
+        map.put("trial_chamber_head", List.of(TweaksItems.HUSK_HEAD, TweaksItems.SPIDER_HEAD, TweaksItems.CAVE_SPIDER_HEAD,
+                TweaksItems.STRAY_SKULL, TweaksItems.BOGGED_SKULL, TweaksItems.SLIME_HEAD, TweaksItems.SILVERFISH_HEAD,
+                TweaksItems.BREEZE_HEAD));
+        map.put("shulker_head", List.of(TweaksItems.SHULKER_HEAD));
+        map.put("drowned_head", List.of(TweaksItems.DROWNED_HEAD));
         map.put("diamond_pressure_plate", List.of(TweaksBlocks.DIAMOND_PRESSURE_PLATE));
         map.put("netherite_pressure_plate", List.of(TweaksBlocks.NETHERITE_PRESSURE_PLATE));
         map.put("enderite_pressure_plate", List.of(TweaksBlocks.ENDERITE_PRESSURE_PLATE));

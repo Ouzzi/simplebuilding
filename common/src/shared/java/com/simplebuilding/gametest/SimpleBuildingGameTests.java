@@ -1412,6 +1412,36 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("potion_pad_game_test_blazes_killed_otherwise_drop_no_head", PotionPadTests::blazesKilledOtherwiseDropNoHead)
                     .build(),
+            GameTestSpec.named("mob_head_game_test_charged_creepers_drop_the_new_heads_and_no_other_death_does", MobHeadTests::chargedCreepersDropTheNewHeadsAndNoOtherDeathDoes)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_every_mod_head_is_wearable_like_vanilla_skulls_and_keeps_its_secret", MobHeadTests::everyModHeadIsWearableLikeVanillaSkullsAndKeepsItsSecret)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_flypad_one_needs_the_shulker_head_and_an_elytra_with_mending", MobHeadTests::flypadOneNeedsTheShulkerHeadAndAnElytraWithMending)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_blaze_head_wearers_ignore_magma_blocks_and_campfires", MobHeadTests::blazeHeadWearersIgnoreMagmaBlocksAndCampfires)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_enderman_head_wearers_take_no_ender_pearl_damage", MobHeadTests::endermanHeadWearersTakeNoEnderPearlDamage)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_husk_head_skips_the_hunger_of_food", MobHeadTests::huskHeadSkipsTheHungerOfFood)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_bogged_skull_skips_the_poison_of_food", MobHeadTests::boggedSkullSkipsThePoisonOfFood)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_spider_head_wearers_are_not_slowed_by_cobwebs", MobHeadTests::spiderHeadWearersAreNotSlowedByCobwebs)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_cave_spider_head_cuts_cobwebs_as_fast_as_swords", MobHeadTests::caveSpiderHeadCutsCobwebsAsFastAsSwords)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_stray_skull_keeps_powder_snow_from_freezing", MobHeadTests::straySkullKeepsPowderSnowFromFreezing)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_slime_head_adds_one_block_of_safe_fall", MobHeadTests::slimeHeadAddsOneBlockOfSafeFall)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_silverfish_head_shrinks_the_wearer_to_half_size", MobHeadTests::silverfishHeadShrinksTheWearerToHalfSize)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_breeze_head_wearers_do_not_trample_farmland", MobHeadTests::breezeHeadWearersDoNotTrampleFarmland)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_shulker_head_opens_blocked_shulker_boxes", MobHeadTests::shulkerHeadOpensBlockedShulkerBoxes)
+                    .build(),
+            GameTestSpec.named("mob_head_game_test_drowned_head_resists_downward_bubble_columns", MobHeadTests::drownedHeadResistsDownwardBubbleColumns)
+                    .build(),
             GameTestSpec.named("potion_pad_game_test_potion_pads_are_switched_off_by_redstone_and_report_their_state_to_acomparator", PotionPadTests::potionPadsAreSwitchedOffByRedstoneAndReportTheirStateToAComparator)
                     .build(),
             GameTestSpec.named("potion_pad_game_test_a_dispenser_fills_the_potion_pad_but_ahopper_cannot", PotionPadTests::aDispenserFillsThePotionPadButAHopperCannot)

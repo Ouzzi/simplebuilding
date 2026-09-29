@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_enderite_pressure_plate": {
+    "has_enderite_core": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:enderite_pressure_plate"
+            "items": "simplebuilding:enderite_core"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:flypad_tier1_smithing"
+        "recipes": "simplebuilding:flypad_tier1_crafting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_enderite_pressure_plate"
+      "has_enderite_core"
     ]
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:flypad_tier1_smithing"
+      "simplebuilding:flypad_tier1_crafting"
     ]
   }
 }
