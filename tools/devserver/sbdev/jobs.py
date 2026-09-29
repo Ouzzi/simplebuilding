@@ -121,13 +121,15 @@ class Job:
                     if rest["status"] == "waiting":
                         rest["status"] = "skipped"
                 break
-        self.status = "cancelled" if self._cancel else ("ok" if all(s["status"] == "ok" for s in self.steps) else "failed")
-        self.finished = time.time()
+        final = "cancelled" if self._cancel else ("ok" if all(s["status"] == "ok" for s in self.steps) else "failed")
+        self._append("=== Auswertung: neu einlesen, checkBalance, git diff")
         if self.on_done:
             try:
                 self.result = self.on_done(self)
             except Exception as err:  # Auswertung darf den Auftrag nicht haengen lassen
                 self.result = {"error": str(err)}
+        self.finished = time.time()
+        self.status = final  # erst jetzt: wer "fertig" sieht, sieht auch das Ergebnis
 
     def cancel(self):
         self._cancel = True

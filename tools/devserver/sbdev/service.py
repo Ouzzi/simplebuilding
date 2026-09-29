@@ -297,7 +297,7 @@ class Service:
                 out.append("Spieltest ConfigOptionTests hält diesen Standard fest (EXPECTED_OPTIONS) - dort mitändern, "
                            "sonst wird das Gate rot")
         if record["id"].endswith("_CORE_CHANCE") or (record["category"] == "loot" and "Kern" in record.get("group", "")):
-            out.append("Spieltest config_option_building_cores_are_very_rare_in_loot_chests prüft Bänder um die Kern-Chancen "
+            out.append("Spieltest config_option_game_test_building_cores_are_very_rare_in_loot_chests prüft Bänder um die Kern-Chancen "
                        "(ConfigOptionTests.CORE_CHANCES) - ein Wert außerhalb macht ihn rot")
         return out
 
