@@ -122,6 +122,7 @@ public final class ForgeGameplayEvents {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             DynamicLightHandler.onDisconnect(serverPlayer);
             com.simplebuilding.util.SledgehammerUpgrades.onDisconnect(serverPlayer);
+            com.simplebuilding.tweaks.item.EchoCompassItem.onDisconnect(serverPlayer);
         }
     }
 

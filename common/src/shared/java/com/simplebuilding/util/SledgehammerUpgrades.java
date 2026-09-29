@@ -15,7 +15,6 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -65,7 +64,7 @@ import org.jetbrains.annotations.Nullable;
  * <p><b>Fortschritt.</b> Jeder Schlag 1..4 landet in {@link SledgehammerProgress} (je Block,
  * gespeichert, fuer alle sichtbar als Risse im Block, Stufe 2/4/6/8). Wer abbricht und spaeter wieder
  * haemmert, setzt dort fort: die Benutzung dauert nur noch die fehlenden Schlaege, und nur die kosten
- * Haltbarkeit. Die Aktionsleiste nennt den Stand bei jedem Schlag, beim Fortsetzen und beim Abbruch.
+ * Haltbarkeit. Den Stand zeigen die Risse im Block, nie ein Text.
  * Der Stand verfaellt erst, wenn der Block abgebaut oder ein anderer wird (siehe dort). Der Client
  * kennt den gespeicherten Stand nicht und rechnet immer mit vollen 100 Ticks; der Server beendet
  * eine fortgesetzte Aufwertung frueher, der Client merkt das am getauschten Block und laesst los.
@@ -79,9 +78,11 @@ import org.jetbrains.annotations.Nullable;
  *
  * <p><b>Nur wenn aufwertbar.</b> Mit einem Nugget in der Nebenhand faengt der Hammer nur dann an zu
  * schmieden, wenn der Block mit genau diesem Nugget und diesem Hammer aufgewertet werden kann; sonst
- * bleibt alles beim Alten (Menue oeffnen, Umformen, Diamantblock zerschlagen). Bei einer
- * Maschinen-Stufe, die nur am falschen Nugget, am zu schwachen Hammer oder an einem ausgefahrenen
- * bzw. mit Strom versorgten Kolben scheitert, erscheint ein Hinweis in der Aktionsleiste.
+ * bleibt alles beim Alten (Menue oeffnen, Umformen, Diamantblock zerschlagen). Ob es passt, sieht man
+ * vorher in der Hand (Besitzer 2026-09-29, kein Bildschirmtext): kann das Nugget in der Nebenhand die
+ * Maschine unter dem Fadenkreuz mit diesem Hammer aufwerten, neigen sich Nugget und Hammer
+ * ({@link #showsUpgradeHint}); sonst bleiben sie ruhig. Scheitert ein Rechtsklick nur am falschen
+ * Nugget, am zu schwachen Hammer, am Kolben oder an der Menge, macht es leise "klonk" ({@link #clunk}).
  *
  * <p><b>Seiten.</b> Server und Client fuehren je eine eigene Auftragsliste (im Einzelspieler laufen
  * beide im selben Prozess). Der Client prueft genauso wie der Server und bricht bei sich selbst ab;
@@ -110,8 +111,8 @@ public final class SledgehammerUpgrades {
     public static final int AIM_GRACE_TICKS = 2;
     /** Zusaetzliche Reichweite auf dem Server, wie Vanillas eigene Pruefung sie gewaehrt. */
     private static final double SERVER_REACH_BUFFER = 1.0;
-    /** Mindestabstand zwischen zwei Hinweisen in der Aktionsleiste. */
-    private static final int HINT_INTERVAL_TICKS = 60;
+    /** Mindestabstand zwischen zwei Klonk-Klaengen (gehaltener Rechtsklick wiederholt alle 4 Ticks). */
+    private static final int HINT_INTERVAL_TICKS = 20;
 
     /** Rang der Hammerstufen fuer die Mindestanforderung; alles unter Diamant ist 0. */
     public static final int RANK_DIAMOND = 1;
@@ -331,7 +332,7 @@ public final class SledgehammerUpgrades {
      * Fuer die vier Mod-Blockklassen mit Menue: im Schmiedestand laeuft der Rechtsklick nicht ins
      * Menue, sondern an den Hammer weiter - wenn die Aufwertung beginnen kann, oder solange der
      * Hammer nach einer fertigen Aufwertung abkuehlt. Sonst oeffnet das Menue wie immer; scheitert es
-     * nur am Nugget, am Hammer oder am Kolben, erscheint zusaetzlich der Hinweis.
+     * nur am Nugget, am Hammer oder am Kolben, klingt zusaetzlich das leise Klonk.
      */
     public static boolean shouldSkipBlockUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         if (hand != InteractionHand.MAIN_HAND || !isSmithingStance(player)) {
@@ -346,7 +347,7 @@ public final class SledgehammerUpgrades {
         }
         String refusal = refusal(level, pos, state, player, upgrade);
         if (refusal != null) {
-            hint(level, player, refusal, upgrade);
+            clunk(level, player);
             return false;
         }
         return true;
@@ -467,7 +468,7 @@ public final class SledgehammerUpgrades {
         }
         String refusal = refusal(level, pos, state, player, upgrade);
         if (refusal != null) {
-            hint(level, player, refusal, upgrade);
+            clunk(level, player);
             return null;
         }
         if (!player.mayUseItemAt(pos, context.getClickedFace(), context.getItemInHand())) {
@@ -660,7 +661,13 @@ public final class SledgehammerUpgrades {
     }
 
 
-    private static void hint(Level level, Player player, String reason, Upgrade upgrade) {
+    /**
+     * Der Rechtsklick passt nicht (falsches Nugget, zu schwacher Hammer, Kolben ausgefahren/bestromt,
+     * zu wenig Material fuer eine Doppeltruhe): ein leises, dumpfes Klonk nur fuer diesen Spieler statt
+     * einer Meldung (Besitzer 2026-09-29: keine Bildschirmtexte). Hoechstens einmal je Sekunde, ein
+     * gehaltener Rechtsklick rattert also nicht.
+     */
+    private static void clunk(Level level, Player player) {
         if (level.isClientSide() || !(player instanceof ServerPlayer serverPlayer) || serverPlayer.connection == null) {
             return;
         }
@@ -670,17 +677,7 @@ public final class SledgehammerUpgrades {
             return;
         }
         LAST_HINT.put(player.getUUID(), now);
-        MutableComponent message = switch (reason) {
-            case "wrong_nugget" -> Component.translatable("message.simplebuilding.smithing.wrong_nugget",
-                    Component.translatable(upgrade.nugget().getDescriptionId()));
-            case "hammer_too_weak" -> Component.translatable("message.simplebuilding.smithing.hammer_too_weak",
-                    Component.translatable((upgrade.minHammerRank() >= RANK_NETHERITE
-                            ? ModItems.NETHERITE_SLEDGEHAMMER : ModItems.DIAMOND_SLEDGEHAMMER).getDescriptionId()));
-            case "double_chest" -> Component.translatable("message.simplebuilding.smithing.double_chest",
-                    Component.translatable(upgrade.nugget().getDescriptionId()));
-            default -> Component.translatable("message.simplebuilding.smithing.piston_busy");
-        };
-        serverPlayer.sendOverlayMessage(message.withStyle(ChatFormatting.RED));
+        Feedback.playTo(serverPlayer, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundSource.PLAYERS, 0.35F, 0.55F);
     }
 
     /**

@@ -111,9 +111,8 @@ public final class InfoTooltips {
             int t = pad.getTier();
             out.add(tier(t, SpawnTeleporterBlock.MAX_TIER));
             out.add(gray("tooltip.simplebuilding.pad.teleport_wait", seconds(SpawnTeleporterBlockEntity.requiredTicks(t))));
-            if (t >= SpawnTeleporterBlock.ENDERITE_TIER) {
-                out.add(gray("tooltip.simplebuilding.pad.teleport_home"));
-            }
+            // Besitzer 2026-09-29: jede Stufe zum eigenen Spawn, mit Redstone zum Weltspawn.
+            out.add(gray("tooltip.simplebuilding.pad.teleport_home"));
         } else if (block instanceof PotionPadBlock pad) {
             int t = pad.getTier();
             int duration = PotionPadBlock.effectDuration(t);

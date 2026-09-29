@@ -55,7 +55,15 @@ public class FlypadBlock extends PadBlock {
      */
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (animateSwitchedOff(level, pos, random)) {
+            return;
+        }
         if (!state.getValue(ACTIVE)) {
+            // Bereit, aber niemand fliegt: nur selten ein matter Funke ueber dem Pad.
+            if (random.nextInt(30) == 0) {
+                level.addParticle(ParticleTypes.END_ROD, pos.getX() + 0.3 + random.nextDouble() * 0.4, pos.getY() + 0.25,
+                        pos.getZ() + 0.3 + random.nextDouble() * 0.4, 0.0, 0.01, 0.0);
+            }
             return;
         }
         if (random.nextInt(4) == 0) {

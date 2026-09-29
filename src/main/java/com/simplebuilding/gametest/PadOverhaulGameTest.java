@@ -49,4 +49,24 @@ public final class PadOverhaulGameTest {
     public void hoppersFillOnlyWindChargesIntoTheLaunchpad(GameTestHelper helper) {
         PadOverhaulTests.hoppersFillOnlyWindChargesIntoTheLaunchpad(helper);
     }
+
+    @GameTest(maxTicks = PadOverhaulTests.DESTINATION_MAX_TICKS)
+    public void theSpawnTeleporterTakesPlayersToTheirBedAndWithRedstoneToTheWorldSpawn(GameTestHelper helper) {
+        PadOverhaulTests.theSpawnTeleporterTakesPlayersToTheirBedAndWithRedstoneToTheWorldSpawn(helper);
+    }
+
+    @GameTest
+    public void theEchoSounderLocksForUpToFiveSecondsAfterAnAttemptDependingOnTheDistance(GameTestHelper helper) {
+        PadOverhaulTests.theEchoSounderLocksForUpToFiveSecondsAfterAnAttemptDependingOnTheDistance(helper);
+    }
+
+    @GameTest
+    public void aWrongNuggetOnTheSledgehammerWritesNothingAndDoesNotTilt(GameTestHelper helper) {
+        PadOverhaulTests.aWrongNuggetOnTheSledgehammerWritesNothingAndDoesNotTilt(helper);
+    }
+
+    @GameTest(maxTicks = PadOverhaulTests.STATE_MAX_TICKS)
+    public void everyPadFamilyShowsWhetherItIsWorking(GameTestHelper helper) {
+        PadOverhaulTests.everyPadFamilyShowsWhetherItIsWorking(helper);
+    }
 }

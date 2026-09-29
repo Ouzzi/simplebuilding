@@ -54,6 +54,13 @@ import org.jetbrains.annotations.Nullable;
  * ({@value #CRACKED_CHARGE_TICKS} Ticks), Warnzeichen (Knacken, Rauch, Funken, Kreischer), der Sprung
  * gelingt, danach zerspringt der Kompass endgueltig - Unbreaking rettet ihn dabei nicht.
  * Im Kreativmodus nutzt er sich wie jedes Werkzeug nicht ab.
+ *
+ * <p><b>Bewusst benutzen</b> (Besitzer 2026-09-29): jeder Versuch mit einem verknuepften Echolot, der
+ * nicht springt (vorzeitig losgelassen, Leitstein fehlt, Dimension gesperrt), und jedes Verknuepfen
+ * sperrt es kurz - je weiter der Leitstein, desto laenger, hoechstens {@link #ATTEMPT_LOCK_TICKS} Ticks
+ * ({@link #attemptLockTicks}). Die Sperre ist die gewohnte Abklingzeit-Anzeige des Items, kein Text.
+ * Ein Fehlklang (unverknuepft, Leitstein fehlt, gesperrt) erklingt nur einmal, solange die
+ * Benutzen-Taste gehalten wird ({@link #failCue}).
  */
 public class EchoCompassItem extends Item {
     /** Standard der Reparaturpunkte eines ganz geleerten Kompasses (Besitzer: 1500). */
@@ -69,6 +76,19 @@ public class EchoCompassItem extends Item {
     public static final int CRACKED_CHARGE_TICKS = CHARGE_TICKS * 2;
     /** Abklingzeit nach einem Sprung: 24 s (Besitzer 2026-09-28: viermal so lang wie die frueheren 6 s). */
     public static final int COOLDOWN_TICKS = 480;
+    /** Standard der laengsten Sperre nach einem Versuch: 5 s (Config {@code tweaks.balancing.echoSounderAttemptLockTicks}). */
+    public static final int ATTEMPT_LOCK_TICKS = 100;
+    /** Kuerzeste Sperre nach einem Versuch (Leitstein direkt nebenan): 1 s. */
+    public static final int ATTEMPT_LOCK_MIN_TICKS = 20;
+    /** Ab dieser Entfernung zum Leitstein (Bloecke) sperrt ein Versuch die volle Zeit; andere Dimension ebenso. */
+    public static final double ATTEMPT_LOCK_FULL_DISTANCE = 1000.0;
+    /**
+     * Die Benutzen-Taste wiederholt gehalten alle 4 Ticks; liegt zwischen zwei Fehlversuchen weniger als
+     * das, gilt die Taste als durchgehend gehalten und der Fehlklang schweigt.
+     */
+    public static final int HELD_GAP_TICKS = 6;
+    /** Letzter Fehlversuch je Spieler (Spielzeit), fuer {@link #failCue}. */
+    private static final java.util.Map<java.util.UUID, Long> LAST_FAIL = new java.util.HashMap<>();
     /** Ticks vor dem Sprung, zu denen der Warden-Ladeklang einsetzt (so lang ist er etwa). */
     private static final int SONIC_CHARGE_LEAD = 34;
     /** Kreisbahn der Sculk-Seelen beim Aufladen: startet weit aussen und zieht sich zusammen. */
@@ -93,6 +113,58 @@ public class EchoCompassItem extends Item {
     /** Abklingzeit nach einem Sprung: Config {@code tweaks.balancing.echoSounderJumpCooldownTicks} (Standard {@link #COOLDOWN_TICKS}). */
     public static int cooldownTicks() {
         return Math.max(0, com.simplebuilding.tweaks.SimpleTweaks.config().balancing.echoSounderJumpCooldownTicks);
+    }
+
+    /** Laengste Sperre nach einem Versuch: Config {@code tweaks.balancing.echoSounderAttemptLockTicks} (Standard {@link #ATTEMPT_LOCK_TICKS}). */
+    public static int attemptLockMaxTicks() {
+        return Math.max(0, com.simplebuilding.tweaks.SimpleTweaks.config().balancing.echoSounderAttemptLockTicks);
+    }
+
+    /**
+     * Sperre nach einem Versuch, der nicht springt (oder nach dem Verknuepfen), in Ticks: 1 s direkt am
+     * Leitstein, linear bis zur vollen Zeit ab {@value #ATTEMPT_LOCK_FULL_DISTANCE} Bloecken; ein Leitstein
+     * in einer anderen Dimension zaehlt als weit. Unverknuepft 0.
+     */
+    public static int attemptLockTicks(Entity user, @Nullable GlobalPos target) {
+        int max = attemptLockMaxTicks();
+        if (target == null || max <= 0) {
+            return 0;
+        }
+        int min = Math.min(ATTEMPT_LOCK_MIN_TICKS, max);
+        if (!target.dimension().equals(user.level().dimension())) {
+            return max;
+        }
+        double distance = Math.sqrt(user.distanceToSqr(Vec3.atCenterOf(target.pos())));
+        double share = Math.min(1.0, distance / ATTEMPT_LOCK_FULL_DISTANCE);
+        return (int) Math.round(min + (max - min) * share);
+    }
+
+    /** Sperrt das Echolot nach einem Versuch (Abklingzeit-Anzeige des Items); nie kuerzer als eine laufende Sperre. */
+    private static void lockAfterAttempt(Player player, ItemStack stack) {
+        int ticks = attemptLockTicks(player, target(stack));
+        if (ticks > 0 && !player.getCooldowns().isOnCooldown(stack)) {
+            player.getCooldowns().addCooldown(stack, ticks);
+        }
+    }
+
+    /**
+     * Fehlklang eines Versuchs: nur, wenn die Benutzen-Taste seit dem letzten Fehlversuch losgelassen war
+     * (Abstand ueber {@value #HELD_GAP_TICKS} Ticks) - gehalten wiederholt der Client den Rechtsklick alle
+     * 4 Ticks, der Klang soll nicht mitrattern. Liefert, ob er gespielt wurde.
+     */
+    public static boolean failCue(ServerPlayer player, SoundEvent sound, float volume, float pitch) {
+        long now = player.level().getGameTime();
+        Long last = LAST_FAIL.put(player.getUUID(), now);
+        if (last != null && now >= last && now - last <= HELD_GAP_TICKS) {
+            return false;
+        }
+        player.level().playSound(null, player.blockPosition(), sound, SoundSource.PLAYERS, volume, pitch);
+        return true;
+    }
+
+    /** Beim Abmelden den Zeitstempel vergessen. */
+    public static void onDisconnect(Player player) {
+        LAST_FAIL.remove(player.getUUID());
     }
 
     public static int chargeTicks(ItemStack stack) {
@@ -133,6 +205,8 @@ public class EchoCompassItem extends Item {
             }
             if (context.getPlayer() != null) {
                 context.getPlayer().addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 20, 0, true, false, true));
+                // Nach dem Verknuepfen (Klang und Effekte) kurz gesperrt, damit es nicht sofort weiterlaedt.
+                lockAfterAttempt(context.getPlayer(), context.getItemInHand());
             }
         }
         return InteractionResult.SUCCESS;
@@ -187,18 +261,27 @@ public class EchoCompassItem extends Item {
         return stack;
     }
 
-    /** Vorzeitig losgelassen: nichts passiert, nichts wird verbraucht - nur die Ladung verpufft hoerbar. */
+    /**
+     * Vorzeitig losgelassen: kein Sprung, nichts verbraucht - die Ladung verpufft hoerbar, und das Echolot
+     * ist fuer {@link #attemptLockTicks} gesperrt (bewusst benutzen, Besitzer 2026-09-29).
+     */
     @Override
     public boolean releaseUsing(ItemStack stack, Level level, LivingEntity entity, int remainingTime) {
         if (level instanceof ServerLevel serverLevel) {
             serverLevel.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.BEACON_DEACTIVATE,
                     SoundSource.PLAYERS, 0.6f, 1.6f);
             serverLevel.sendParticles(ParticleTypes.SMOKE, entity.getX(), entity.getY() + 1.0, entity.getZ(), 8, 0.3, 0.4, 0.3, 0.01);
+            if (entity instanceof Player player) {
+                lockAfterAttempt(player, stack);
+            }
         }
         return false;
     }
 
-    /** Alle Vorbedingungen des Sprungs (Server); eine Ablehnung ist hoerbar, nie ein Bildschirmtext. */
+    /**
+     * Alle Vorbedingungen des Sprungs (Server); eine Ablehnung ist hoerbar ({@link #failCue}, einmal je
+     * Tastendruck), nie ein Bildschirmtext. Scheitert ein verknuepftes Echolot, sperrt der Versuch es kurz.
+     */
     private static boolean canJump(ServerPlayer player, ItemStack stack) {
         if (com.simplebuilding.config.ServerTuning.featureDenied(com.simplebuilding.config.ServerTuning.get().features.echoSounder, player)) {
             return false;
@@ -207,11 +290,13 @@ public class EchoCompassItem extends Item {
         // Dimensionssperre (server.dimensionLocks): weder aus einer gesperrten Dimension heraus noch hinein.
         if (target != null && (com.simplebuilding.config.ServerTuning.echoSounderBlockedIn(player.level().dimension().identifier())
                 || com.simplebuilding.config.ServerTuning.echoSounderBlockedIn(target.dimension().identifier()))) {
-            com.simplebuilding.config.ServerTuning.notify(player, "message.simplebuilding.echo_sounder.dimension_locked");
+            // Gesperrte Dimension (Server-Einstellung): ein dumpfes Verpuffen statt einer Meldung.
+            failCue(player, SoundEvents.RESPAWN_ANCHOR_DEPLETE.value(), 0.6f, 0.7f);
+            lockAfterAttempt(player, stack);
             return false;
         }
         if (target == null) {
-            player.level().playSound(null, player.blockPosition(), SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 0.6f, 0.8f);
+            failCue(player, SoundEvents.DISPENSER_FAIL, 0.6f, 0.8f);
             return false;
         }
         if (player.getCooldowns().isOnCooldown(stack)) {
@@ -219,7 +304,8 @@ public class EchoCompassItem extends Item {
         }
         ServerLevel targetLevel = player.level().getServer().getLevel(target.dimension());
         if (targetLevel == null || !targetLevel.getBlockState(target.pos()).is(Blocks.LODESTONE)) {
-            player.level().playSound(null, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_DEPLETE.value(), SoundSource.PLAYERS, 0.6f, 1.4f);
+            failCue(player, SoundEvents.RESPAWN_ANCHOR_DEPLETE.value(), 0.6f, 1.4f);
+            lockAfterAttempt(player, stack);
             return false;
         }
         return true;

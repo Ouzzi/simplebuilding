@@ -155,6 +155,20 @@ public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalS
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, PotionPadBlockEntity be) {
+        tickPad(level, pos, state, be);
+        if (!be.isRemoved() && level.getBlockState(pos).getBlock() instanceof PotionPadBlock) {
+            // Sichtbarer Zustand (Besitzer 2026-09-29): hell gluehend, solange es bereit ist.
+            com.simplebuilding.tweaks.block.PadBlock.setActive(level, pos, PotionPadBlock.ACTIVE, be.isReady(level, pos));
+        }
+    }
+
+    /** Bereit: Trank gespeichert, keine Abklingzeit, weder per Config noch per Redstone abgeschaltet. */
+    public boolean isReady(Level level, BlockPos pos) {
+        return stored != null && cooldown <= 0 && SimpleTweaks.config().pads.enablePotionPads
+                && !com.simplebuilding.tweaks.block.PadBlock.isDisabledByRedstone(level, pos);
+    }
+
+    private static void tickPad(Level level, BlockPos pos, BlockState state, PotionPadBlockEntity be) {
         if (!(level instanceof ServerLevel serverLevel)) {
             return;
         }

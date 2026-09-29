@@ -55,6 +55,7 @@ public class TweaksConfig {
         laserPointer.beamCostPerSecond = Math.max(0, laserPointer.beamCostPerSecond);
         laserPointer.effectCost = Math.max(0, laserPointer.effectCost);
         balancing.echoSounderJumpCooldownTicks = Math.max(0, balancing.echoSounderJumpCooldownTicks);
+        balancing.echoSounderAttemptLockTicks = Math.max(0, balancing.echoSounderAttemptLockTicks);
     }
 
     /** Endliche, nicht negative Zahl; sonst {@code fallback}. */
@@ -146,6 +147,12 @@ public class TweaksConfig {
          */
         @ConfigEntry.Gui.Tooltip
         public int echoSounderJumpCooldownTicks = 480;
+        /**
+         * Laengste Sperre des Echolots nach einem Versuch ohne Sprung (Ticks; 100 = 5 s, Besitzer 2026-09-29):
+         * 1 s direkt am Leitstein, die volle Zeit ab 1000 Bloecken oder in einer anderen Dimension. 0 = keine.
+         */
+        @ConfigEntry.Gui.Tooltip
+        public int echoSounderAttemptLockTicks = 100;
     }
 
     public static class Dimensions {

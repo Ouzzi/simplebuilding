@@ -29,7 +29,13 @@ import org.jetbrains.annotations.Nullable;
  * <p><b>Redstone</b> (Besitzer 2026-09-28): die eigentlichen Pads (Launchpad, Trank-Pad, Flypad,
  * Elytra-Pad, Spawn-Teleporter; {@link #isRedstoneControlled}) schalten ab, solange sie ein
  * Redstone-Signal bekommen ({@link #isDisabledByRedstone}), und liefern einem Komparator ein Signal
- * ({@link PadSignalSource}). Chunk-Loader und Kupfer-Druckplatte teilen nur die Basisklasse.
+ * ({@link PadSignalSource}). Chunk-Loader und Kupfer-Druckplatte teilen nur die Basisklasse. Ausnahme
+ * (Besitzer 2026-09-29): der Spawn-Teleporter schaltet mit Redstone nicht ab, sondern springt dann zum
+ * Weltspawn statt zum eigenen Spawn ({@link #switchesOffWithRedstone}).
+ *
+ * <p><b>Sichtbarer Zustand</b> (Besitzer 2026-09-29): jede Pad-Familie zeigt am Blockzustand, ob sie
+ * gerade arbeitet ({@link #setActive}); abgeschaltete Pads steigen nur ab und zu leicht rauchend
+ * ({@link #animateSwitchedOff}).
  */
 public abstract class PadBlock extends BaseEntityBlock {
     private final VoxelShape shape;
@@ -53,10 +59,44 @@ public abstract class PadBlock extends BaseEntityBlock {
         return false;
     }
 
+    /**
+     * Schaltet ein Redstone-Signal dieses Pad ab? Standard: jedes redstone-gesteuerte Pad; der
+     * Spawn-Teleporter wechselt stattdessen nur sein Ziel.
+     */
+    protected boolean switchesOffWithRedstone() {
+        return isRedstoneControlled();
+    }
+
     /** Bekommt das Pad an {@code pos} ein Redstone-Signal? Dann gibt es nichts (kein Start, kein Flug, keine Wirkung). */
     public static boolean isDisabledByRedstone(Level level, BlockPos pos) {
-        return level.getBlockState(pos).getBlock() instanceof PadBlock pad && pad.isRedstoneControlled()
+        return level.getBlockState(pos).getBlock() instanceof PadBlock pad && pad.switchesOffWithRedstone()
                 && level.hasNeighborSignal(pos);
+    }
+
+    /**
+     * Zieht einen Ein-Zustand ({@code active}) nach, nur wenn er sich wirklich aendert (ein setBlock
+     * baut den Chunk des Clients neu). Die Block-Entity bleibt, es ist derselbe Block.
+     */
+    public static void setActive(Level level, BlockPos pos, net.minecraft.world.level.block.state.properties.BooleanProperty active, boolean on) {
+        BlockState state = level.getBlockState(pos);
+        if (state.hasProperty(active) && state.getValue(active) != on) {
+            level.setBlock(pos, state.setValue(active, on), net.minecraft.world.level.block.Block.UPDATE_ALL);
+        }
+    }
+
+    /**
+     * Nur im Client: ein abgeschaltetes Pad (Redstone) glimmt nicht, ab und zu steigt ein kleines
+     * Rauchwoelkchen auf - so sieht man "aus" ohne Text. Liefert, ob das Pad aus ist.
+     */
+    protected static boolean animateSwitchedOff(Level level, BlockPos pos, net.minecraft.util.RandomSource random) {
+        if (!isDisabledByRedstone(level, pos)) {
+            return false;
+        }
+        if (random.nextInt(24) == 0) {
+            level.addParticle(net.minecraft.core.particles.ParticleTypes.SMOKE, pos.getX() + 0.25 + random.nextDouble() * 0.5,
+                    pos.getY() + 0.15, pos.getZ() + 0.25 + random.nextDouble() * 0.5, 0.0, 0.01, 0.0);
+        }
+        return true;
     }
 
     @Override

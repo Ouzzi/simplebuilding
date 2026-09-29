@@ -486,6 +486,7 @@ public final class ConfigOptionTests {
             "tweaks.laserPointer.showLine boolean=false",
             "tweaks.balancing.rocketStackSize int=64",
             "tweaks.balancing.echoSounderJumpCooldownTicks int=480",
+            "tweaks.balancing.echoSounderAttemptLockTicks int=100",
             "tweaks.spawn.MAX_FLIGHT_SECONDS int runtime-only(static)",
             "tweaks.spawn.MAX_BOOSTS int runtime-only(static)",
             "tweaks.spawn.forceExactSpawn boolean=false",

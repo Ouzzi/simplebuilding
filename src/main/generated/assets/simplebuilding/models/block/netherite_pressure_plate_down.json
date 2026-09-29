@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/pressure_plate_down",
   "textures": {
-    "texture": "simplebuilding:block/netherite_pressure_plate"
+    "texture": "simplebuilding:block/netherite_pressure_plate_active"
   }
 }
