@@ -35,6 +35,7 @@ async function loadState() {
   S = await api('/api/state');
   V = S.snapshot.values;
   overviewCache = null;
+  baseOverviewCache = null;
   const saved = loadJson(LS_DRAFTS, null);
   if (saved && saved.drafts) drafts = saved.drafts;
   for (const id of Object.keys(drafts)) if (!rec(id) && !(id in S.store.entries)) delete drafts[id];
@@ -270,7 +271,7 @@ function slot(key, size = '') {
   const name = d.name ? d.name.de : key.split(':').pop();
   const book = key.startsWith('book:') || d.book;
   const letters = h(name.split(/\s+/).map((w) => w[0]).join('').slice(0, 3));
-  const img = d.icon ? `<img src="/${h(d.icon)}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'slot-text',textContent:'${letters}'}))">` : `<span class="slot-text">${letters}</span>`;
+  const img = d.icon ? `<img src="/${h(d.icon)}"${d.anim ? ' class="anim" title="animierte Textur: erstes Bild"' : ''} alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'slot-text',textContent:'${letters}'}))">` : `<span class="slot-text">${letters}</span>`;
   return `<span class="slot ${size}${book ? ' book' : ''}" title="${h(name)}">${img}</span>`;
 }
 function nameOf(key) {
@@ -307,10 +308,11 @@ function sortable(tableSel) {
       $$('th', table).forEach((x) => x.classList.remove('sorted', 'asc'));
       th.classList.add('sorted'); if (asc) th.classList.add('asc');
       const body = table.tBodies[0];
-      const rows = Array.from(body.rows);
+      const attached = new Map();  // Item-Zeile -> ihre Aufklapp-Zeile (tr.tchg-row) direkt darunter
+      const rows = Array.from(body.rows).filter((r) => { if (r.classList.contains('tchg-row')) { if (r.previousElementSibling) attached.set(r.previousElementSibling, r); return false; } return true; });
       const key = (r) => { const c = r.cells[idx]; const v = c ? (c.dataset.sort ?? c.textContent.trim()) : ''; const n = parseFloat(v); return isNaN(n) ? v.toLowerCase() : n; };
       rows.sort((a, b) => { const x = key(a), y = key(b); const r = (typeof x === 'number' && typeof y === 'number') ? x - y : String(x).localeCompare(String(y), DE); return asc ? r : -r; });
-      rows.forEach((r) => body.appendChild(r));
+      rows.forEach((r) => { body.appendChild(r); if (attached.has(r)) body.appendChild(attached.get(r)); });
     });
   });
 }
@@ -324,6 +326,136 @@ function eraFor(t) {
 }
 function kindLabel(kind) {
   return { structure: 'Truhen', wandering: 'fahrender Händler', villager: 'Dorfbewohner', mob: 'Mob', block: 'Block', recipe: 'Rezept', custom: 'eigene Quelle' }[kind] || kind;
+}
+
+// ---------------------------------------------------------------------------------------------
+// Zeiten bearbeiten: eine Zielzeit eintippen -> die Zentrale rechnet die Stellwerte aus
+// (POST /api/solve-time, sbdev/solver.py) und übernimmt sie als Entwürfe. Gespeichert wird wie
+// immer erst im Speichern-Dialog. Je Item merkt sich timeEdits, welche Werte eine Zeit-Änderung
+// gesetzt hat (für den Aufklapp-Bereich "Automatische Änderungen").
+// ---------------------------------------------------------------------------------------------
+const LS_TIME = 'bz-time-edits-v1';
+let timeEdits = loadJson(LS_TIME, {});
+const openChanges = new Set();  // Aufklapp-Bereiche, die der Besitzer geöffnet hat (sonst immer zu)
+function saveTimeEdits() { saveJson(LS_TIME, timeEdits); }
+const STAT_LABEL = { mean: 'Mittel', median: 'Median', p90: '90 %' };
+function parseHours(text) {
+  const t = String(text || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  const m = /^([0-9]+(?:[.,][0-9]+)?)\s*(min|m|h|std|stunden?|d|tage?)?$/.exec(t);
+  if (!m) return null;
+  const x = parseFloat(m[1].replace(',', '.'));
+  const unit = m[2] || 'h';
+  if (unit === 'min' || unit === 'm') return x / 60;
+  if (unit.startsWith('d') || unit.startsWith('tag')) return x * 24;
+  return x;
+}
+function timeDiffers(a, b) {
+  if (a === undefined) return false;
+  if (a === null || b === null) return a !== b;
+  return Math.abs(a - b) > 5e-4 * Math.max(Math.abs(a), Math.abs(b), 1e-9);
+}
+function strategyFor(item) { return ((prefs.strategies || {})[item]) || 'proportional'; }
+/* Eine Zeitzelle: neuer Wert als Eingabefeld (wenn bearbeitbar), der gespeicherte Stand rot
+   durchgestrichen daneben, sobald Entwürfe ihn verändern. */
+function timeCell(t, old, spec, cls = '') {
+  const changed = timeDiffers(old, t);
+  let inner = changed ? `<del class="old" title="gespeicherter Stand (ohne Entwürfe)">${h(hours(old))}</del>` : '';
+  if (spec && t !== null && t !== undefined && isFinite(t)) {
+    inner += `<input class="tin" type="text" inputmode="decimal" value="${h(hours(t))}" data-t="${t}" data-item="${h(spec.item)}" data-row="${h(spec.row)}" data-stat="${h(spec.stat)}" data-k="${spec.k}" data-label="${h(spec.label || '')}" data-tunables="${h((spec.tunables || []).join(' '))}" title="${h(`Zielzeit eintippen (z. B. 12, 12,5 h oder 30 min) – die Zentrale rechnet die Werte aus, die ${spec.label || 'diese Zeile'} so schnell machen (${STAT_LABEL[spec.stat]}, ${spec.k}. Stück), und übernimmt sie als Entwurf`)}" aria-label="${h(`Zeit ${nameOf(spec.item)} – ${spec.label || ''} – ${spec.k}. Stück ${STAT_LABEL[spec.stat]}`)}" spellcheck="false">`;
+  } else {
+    inner += `<span${spec === null ? ' title="rechnet aus den Zutaten – ändere die Zeit auf der Seite der Zutat"' : ''}>${h(hours(t))}</span>`;
+  }
+  return `<td class="num time tcell ${cls}${changed ? ' tchanged' : ''}${t === null ? ' never' : ''}" data-sort="${t ?? 1e12}">${inner}</td>`;
+}
+function sourceLabel(item, s) {
+  if (s.kind === 'structure') return (S.snapshot.structures[s.structure] || {}).label || s.structure;
+  if (s.kind === 'wandering' || s.kind === 'villager') {
+    const t = S.snapshot.trades.find((x) => x.id === s.trade);
+    return t ? `${t.professionDe}${t.level ? ' Stufe ' + t.level : ''}` : s.trade;
+  }
+  return s.label || s.key;
+}
+function strategySelect(item, report) {
+  const cur = strategyFor(item);
+  const srcs = (S.snapshot.sources[item] || []).filter((s) => ['structure', 'wandering', 'mob', 'block'].includes(s.kind));
+  let opts = `<option value="proportional">alle Quellen proportional (Standard)</option>`;
+  opts += srcs.map((s) => `<option value="source:${h(s.key)}" ${cur === 'source:' + s.key ? 'selected' : ''}>nur Quelle: ${h(sourceLabel(item, s))} (${h(kindLabel(s.kind))})</option>`).join('');
+  const seen = new Set();
+  const tun = report ? report.rows.flatMap((r) => r.tunables || []).filter((t) => !seen.has(t.id) && seen.add(t.id)) : [];
+  opts += tun.map((t) => `<option value="value:${h(t.id)}" ${cur === 'value:' + t.id ? 'selected' : ''}>nur Wert: ${h(t.label)}</option>`).join('');
+  if (cur.startsWith('value:') && !tun.some((t) => 'value:' + t.id === cur)) opts += `<option value="${h(cur)}" selected>nur Wert: ${h((rec(cur.slice(6)) || {}).label || cur.slice(6))}</option>`;
+  return `<label class="tstrat-l tiny"><span class="muted">Verteilung bei mehreren Quellen</span> <select class="tstrat" data-item="${h(item)}" title="Wie eine eingetippte Zeit auf die Werte verteilt wird: proportional = alle Stellwerte der Quellen mit demselben Faktor; nur Quelle = nur deren Werte; nur Wert = genau dieser Wert">${opts}</select></label>`;
+}
+function setDrafts(values) {
+  for (const [id, value] of Object.entries(values)) {
+    const base = baseValue(id);
+    if (same(value, base)) delete drafts[id]; else drafts[id] = { value, expected: base };
+  }
+  draftsChanged();
+  for (const id of Object.keys(values)) refreshEditor(id);
+}
+async function editTime(input) {
+  const d = input.dataset;
+  const target = parseHours(input.value);
+  if (target === null || !(target > 0)) { input.classList.add('bad'); toast('Zeit bitte als Zahl in Stunden (z. B. 12, 12,5 h oder 30 min).', true); return; }
+  input.classList.remove('bad');
+  if (!timeDiffers(+d.t, target)) { input.value = hours(+d.t); return; }
+  let strategy = strategyFor(d.item);
+  const single = !d.row.startsWith('__');
+  if (single && strategy.startsWith('source:')) strategy = 'proportional';
+  if (single && strategy.startsWith('value:') && !(d.tunables || '').split(' ').includes(strategy.slice(6))) strategy = 'proportional';
+  input.disabled = true;
+  input.insertAdjacentHTML('afterend', '<span class="spinner tspin"></span>');
+  let res;
+  try {
+    res = await api('/api/solve-time', { item: d.item, row: d.row, stat: d.stat, k: +d.k, hours: target, strategy, overrides: overrides() });
+  } catch (err) { input.disabled = false; const sp = input.parentNode.querySelector('.tspin'); if (sp) sp.remove(); toast(h(err.message), true); return; }
+  const lines = res.lines || [];
+  if (!lines.length) {
+    input.disabled = false; input.value = hours(+d.t); const sp = input.parentNode.querySelector('.tspin'); if (sp) sp.remove();
+    toast(h(res.message || 'Keine Änderung nötig.'), !res.feasible);
+    return;
+  }
+  const values = {};
+  for (const l of lines) values[l.id] = res.values[l.id];
+  (timeEdits[d.item] = timeEdits[d.item] || []).push({
+    row: d.row, label: d.label, stat: d.stat, k: +d.k, old: res.current, hours: target, achieved: res.achieved, strategy,
+    feasible: res.feasible, message: res.message, sharedUsed: res.sharedUsed, atLimit: res.atLimitLabels || [], at: Date.now(),
+    lines: lines.map((l) => ({ id: l.id, label: l.label, group: l.group, type: l.type, apply: l.apply, sites: l.sites, lines: l.lines,
+      file: l.file, line: l.line, clamped: l.clamped, alsoAffects: l.alsoAffects, warnings: l.warnings, error: l.error, datagen: l.datagen })),
+  });
+  saveTimeEdits();
+  openChanges.delete(d.item);  // der Bereich bleibt zu, bis der Besitzer ihn öffnet
+  setDrafts(values);
+  toast(`${res.feasible ? '' : '⚠ '}${lines.length} Wert${lines.length === 1 ? '' : 'e'} als Entwurf: ${h(d.label || '')} ${d.k}. Stück ${STAT_LABEL[d.stat]} → ${hours(res.achieved)}${res.message ? '<br><span class="tiny">' + h(res.message) + '</span>' : ''}<br><span class="tiny muted">Welche Werte: „Automatische Änderungen“ am Item aufklappen.</span>`, !res.feasible);
+}
+/* Der Aufklapp-Bereich je Item: welche Werte eine Zeit-Änderung automatisch gesetzt hat - alt (rot
+   durchgestrichen) -> neu, Stellen je Linie, wirkt in Mod / Rechner. Standardmäßig zu. */
+function changesBox(item, report, opts = {}) {
+  const edits = timeEdits[item] || [];
+  const info = {};
+  for (const e of edits) for (const l of e.lines) info[l.id] = l;
+  const ids = Object.keys(info).filter((id) => drafts[id]);
+  if (edits.length && !ids.length) { delete timeEdits[item]; saveTimeEdits(); }
+  const live = ids.length ? edits : [];
+  const open = openChanges.has(item);
+  const where = (l) => (l.sites && l.sites.length ? l.sites.map((x) => `${x.mc}: ${String(x.file || '').split('/').pop()}${x.line ? ':' + x.line : ''}`).join(' · ') : (l.file ? `${String(l.file).split('/').pop()}${l.line ? ':' + l.line : ''}` : ''));
+  const body = `<div class="tchg-body">
+      ${opts.strategy === false ? '' : `<div style="margin:.3rem 0 .5rem">${strategySelect(item, report)}</div>`}
+      ${live.length ? `<ul class="tchg-edits">${live.map((e) => `<li><b>${h(e.label || e.row)}</b> · ${e.k}. Stück · ${STAT_LABEL[e.stat] || e.stat}: <del class="diff-old">${h(hours(e.old))}</del> → <span class="diff-new">${h(hours(e.hours))}</span>${timeDiffers(e.hours, e.achieved) ? ` <span class="muted">(erreicht ${h(hours(e.achieved))})</span>` : ''} <span class="badge">${h(e.strategy === 'proportional' ? 'proportional' : e.strategy.startsWith('source:') ? 'nur eine Quelle' : 'nur ein Wert')}</span>${e.sharedUsed ? ' <span class="badge b-drift" title="Die eigenen Werte des Items reichten nicht - auch geteilte Werte (Würfe, Angebots-Chance eines Buch-Angebots) wurden angepasst">auch geteilte Werte</span>' : ''}${e.message ? `<div class="tiny" style="color:var(--warn-text)">${h(e.message)}</div>` : ''}${(e.atLimit || []).length ? `<div class="tiny muted">unverändert, weil schon an der Grenze: ${h(e.atLimit.join(' · '))}</div>` : ''}</li>`).join('')}</ul>` : ''}
+      ${ids.length ? `<div class="table-wrap"><table class="table tchg-table"><thead><tr><th>Wert</th><th class="num">alt</th><th></th><th>neu</th><th>Stelle</th><th>wirkt</th><th></th></tr></thead><tbody>${ids.map((id) => {
+        const l = info[id]; const r = rec(id) || { label: l.label, type: l.type, group: l.group };
+        const oldV = baseValue(id), newV = curValue(id);
+        const fmt = (v) => (r.type === 'json' && v && typeof v === 'object' ? `Chance ${pct(v.chance)}` : fmtVal(v, r.type));
+        return `<tr><td><b>${h(r.label || l.label)}</b><div class="sub">${h(r.group || l.group || '')}</div>${l.clamped ? `<span class="badge b-drift">an der Grenze (${l.clamped === 'max' ? 'Höchstwert' : 'Kleinstwert'})</span>` : ''}${(l.alsoAffects || []).length ? `<div class="tiny muted" title="${h(l.alsoAffects.join(', '))}">wirkt auch auf ${l.alsoAffects.length} weitere: ${h(l.alsoAffects.slice(0, 5).map(nameOf).join(', '))}${l.alsoAffects.length > 5 ? ' …' : ''}</div>` : ''}${l.error ? `<div class="tiny" style="color:var(--danger)">${h(l.error)}</div>` : ''}</td>
+          <td class="num diff-old">${h(fmt(oldV))}</td><td class="diff-arrow">→</td><td class="diff-new">${h(fmt(newV))}</td>
+          <td class="sub">${where(l) ? `<span class="srcref" data-copy="${h(where(l))}">${h(where(l))}</span>` : '–'}${l.datagen && (r.apply === 'mod') ? '<div class="tiny muted">danach Datagen</div>' : ''}</td>
+          <td>${applyBadge(rec(id) || { apply: l.apply })}</td><td><button class="btn small" data-undo="${h(id)}" title="Diesen Entwurf verwerfen">↺</button></td></tr>`;
+      }).join('')}</tbody></table></div>
+      <div class="row-actions" style="display:flex;gap:.5rem;margin-top:.5rem;flex-wrap:wrap"><button class="btn small primary" data-tsave="1">Speichern …</button><button class="btn small danger" data-tdrop="${h(item)}">Diese Änderungen verwerfen</button><span class="tiny muted">Nichts ist gespeichert, bevor du im Speichern-Dialog bestätigst (neue Version, danach ggf. Datagen).</span></div>`
+        : '<p class="tiny muted">Noch keine automatischen Änderungen. Tippe eine Zeit ein (Felder in der Tabelle) – hier stehen dann die Werte, die sich dadurch ändern, mit altem und neuem Wert, Datei und Zeile.</p>'}
+    </div>`;
+  return `<details class="tchanges${ids.length ? ' has' : ''}" data-item="${h(item)}" ${open ? 'open' : ''}><summary>Automatische Änderungen${ids.length ? ` <span class="badge b-draft">${ids.length} Wert${ids.length === 1 ? '' : 'e'}</span>` : ''}</summary>${body}</details>`;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -570,6 +702,11 @@ async function getOverview() {
   if (!overviewCache) overviewCache = await api('/api/overview', { overrides: overrides() });
   return overviewCache;
 }
+let baseOverviewCache = null;  // gespeicherter Stand ohne Entwürfe (für die alten Zeiten)
+async function getBaseOverview() {
+  if (!baseOverviewCache) baseOverviewCache = await api('/api/overview', { overrides: {} });
+  return baseOverviewCache;
+}
 async function fillCores(cores) {
   const el = $('#cores'); if (!el) return;
   const ov = await getOverview();
@@ -633,13 +770,19 @@ async function pageItem(main, key) {
     <div class="hero">${slot(key, 'big')}<div><h1>${h(name)}</h1><div class="muted">${h(en)}</div><div class="idline"><code>${h(key)}</code> ${item ? `<span class="badge">${h(item.family)}</span>` : ''}</div></div></div>
     <div class="card" id="calc-card"><div class="card-head"><h2>Zeit bis 1 – 6 Stück</h2><span class="sp"></span>
       <span class="seg" id="stat"><button data-v="mean" aria-pressed="${prefs.stat === 'mean'}">Mittel</button><button data-v="median" aria-pressed="${prefs.stat === 'median'}">Median</button><button data-v="p90" aria-pressed="${prefs.stat === 'p90'}">90 %</button></span></div>
+      <div id="tstrat-box" class="tiny" style="margin:-.2rem 0 .5rem"></div>
       <div id="calc"><span class="spinner"></span></div></div>
     <div class="card" id="rev-card"><h2>Rückwärts: welche Chance für eine Zielzeit?</h2><div id="rev"></div></div>
     <div class="card"><div class="card-head"><h2>Quellen</h2><span class="sp"></span><button class="btn small" id="add-src">+ Quelle planen</button></div><div id="srcs"></div><div id="src-form"></div></div>
     <div class="card"><h2>Werte zu diesem Item</h2>${values.length ? valueTable(values, { showGroup: true }) : '<p class="muted">Keine eigenen Balance-Werte (nur Rezept/Beschaffung).</p>'}</div>`;
   let report = null;
+  let baseReport = null;  // gespeicherter Stand ohne Entwürfe - für die alten (durchgestrichenen) Zeiten
   async function recalc() {
-    try { report = await api('/api/calc', { item: key, overrides: overrides() }); } catch (err) { $('#calc').innerHTML = errorBox(err); return; }
+    try {
+      const withDrafts = Object.keys(drafts).length > 0;
+      [report, baseReport] = await Promise.all([api('/api/calc', { item: key, overrides: overrides() }), withDrafts ? api('/api/calc', { item: key, overrides: {} }) : null]);
+      if (!baseReport) baseReport = report;
+    } catch (err) { $('#calc').innerHTML = errorBox(err); return; }
     drawCalc();
     drawSources();
     drawReverse();
@@ -650,7 +793,8 @@ async function pageItem(main, key) {
     if (!rows.length && !report.normal) { $('#calc').innerHTML = '<p class="muted">Keine Quelle bekannt – füge unten eine geplante Quelle hinzu, dann rechnet die Tabelle.</p>'; return; }
     const bestKey = report.best && report.best.key;
     const ks = report.k;
-    const cell = (arr, i) => `<td class="num time ${arr[i] === null ? 'never' : ''}">${hours(arr[i])}</td>`;
+    const baseRows = Object.fromEntries((baseReport || report).rows.map((r) => [r.key, r]));
+    const cell = (arr, i, old, spec) => timeCell(arr[i], old ? old[i] : null, spec ? Object.assign({ item: key, stat, k: ks[i] }, spec) : spec);
     let body = rows.map((r) => {
       const info = r.kind === 'structure' ? (r.detail || []).map((x) => `${x.container}: ${num(x.rate, 2)}/h × ${pct(x.perOpening)}`).join(' · ')
         : r.offerChance !== undefined ? `im Angebot ${pct(r.offerChance)} · ${r.perVisit} Stück je Auffüllung` : (r.note || '');
@@ -658,11 +802,15 @@ async function pageItem(main, key) {
       return `<tr class="${r.key === bestKey ? 'best' : ''} ${r.disabled ? 'off' : ''}"><td><b>${h(r.label)}</b> <span class="badge">${h(kindLabel(r.kind))}</span>${r.planned ? ' <span class="badge b-planned">geplant</span>' : ''}${r.disabled ? ' <span class="badge b-danger">abgeschaltet</span>' : ''}
         <div class="sub">${h(info)}</div>
         ${ass.length ? `<details class="tiny"><summary class="muted">Annahmen (${ass.length})</summary>${ass.map((a) => `<div style="display:flex;gap:.5rem;align-items:center;justify-content:space-between;margin:.2rem 0"><span>${h(rec(a).label)}</span>${ed(a, { placeholder: 'auto' })}</div>`).join('')}</details>` : ''}
-        </td>${ks.map((_, i) => cell(r[stat], i)).join('')}</tr>`;
+        </td>${ks.map((_, i) => cell(r[stat], i, (baseRows[r.key] || {})[stat], r.kind === 'recipe' ? null : r.disabled ? undefined : { row: r.key, label: r.label, tunables: (r.tunables || []).map((t) => t.id) })).join('')}</tr>`;
     }).join('');
-    if (report.together) body += `<tr><td><b>Alle Quellen gezielt</b> <span class="badge">Summe</span><div class="sub">${h(report.together.note)}</div></td>${ks.map((_, i) => cell(report.together[stat], i)).join('')}</tr>`;
-    if (report.normal) body += `<tr><td><b>Normales Spiel</b> <span class="badge">alle, normale Raten</span><div class="sub">${h(report.normal.note)}</div></td>${ks.map((_, i) => cell(report.normal[stat], i)).join('')}</tr>`;
-    $('#calc').innerHTML = `<div class="table-wrap"><table class="table"><thead><tr><th>Quelle (gezielt)</th>${ks.map((k) => `<th class="num">${k}.</th>`).join('')}</tr></thead><tbody>${body}</tbody></table></div>
+    const baseTogether = (baseReport || report).together, baseNormal = (baseReport || report).normal;
+    if (report.together) body += `<tr><td><b>Alle Quellen gezielt</b> <span class="badge">Summe</span><div class="sub">${h(report.together.note)}</div></td>${ks.map((_, i) => cell(report.together[stat], i, baseTogether ? baseTogether[stat] : undefined, { row: '__together__', label: 'Alle Quellen gezielt' })).join('')}</tr>`;
+    if (report.normal) body += `<tr><td><b>Normales Spiel</b> <span class="badge">alle, normale Raten</span><div class="sub">${h(report.normal.note)}</div></td>${ks.map((_, i) => cell(report.normal[stat], i, baseNormal ? baseNormal[stat] : undefined, { row: '__normal__', label: 'Normales Spiel' })).join('')}</tr>`;
+    $('#tstrat-box').innerHTML = strategySelect(key, report);
+    $('#calc').innerHTML = `<div class="table-wrap"><table class="table calc-table"><thead><tr><th>Quelle (gezielt)</th>${ks.map((k) => `<th class="num">${k}.</th>`).join('')}</tr></thead><tbody>${body}</tbody></table></div>
+      <p class="tiny muted">Die Zeiten sind Eingabefelder: Zielzeit eintippen (Enter) – die Zentrale rechnet die Werte dahinter aus (Kisten-Chance/Gewicht, Angebots-Chance, …), übernimmt sie als Entwurf und rechnet alle anderen Zeiten neu. Alter Stand <del class="diff-old">rot durchgestrichen</del>. Rezept-Zeilen rechnen aus den Zutaten.</p>
+      ${changesBox(key, report, { strategy: false })}
       ${chart(report, stat)}
       <p class="tiny muted">${stat === 'mean' ? 'Mittelwert' : stat === 'median' ? 'Median (die Hälfte der Spieler ist schneller)' : '90 % der Spieler sind schneller als'} in Stunden Spielzeit. Grün = schnellste einzelne Quelle. Zahlen deterministisch aus Pools, Gewichten, Mengen und den Annahmen (zusammengesetzter Poisson-Prozess).</p>`;
   }
@@ -1063,20 +1211,45 @@ function pagePotionPads(main) {
 // ---------------------------------------------------------------------------------------------
 async function pageCalc(main) {
   main.innerHTML = `<h1>Seltenheit & Zeitalter</h1><p class="lead">Für jedes Item mit Quellen: wie lange bis zum ersten Stück – beste einzelne Quelle gezielt und normales Spiel – und zu welchem Zeitalter das passt. Alles rechnet mit deinen Entwürfen.</p>
+    <div class="box box-info"><b>Zeiten sind bearbeitbar.</b> Tippe eine Zielzeit in ein Zeitfeld (z. B. <code>12</code>, <code>12,5 h</code>, <code>30 min</code>) und drücke Enter: die Zentrale rechnet aus, welche Werte diese Zeit ergeben (Kisten-Chance/Gewicht, Angebots-Chance, Drop-Annahme …), übernimmt sie als Entwurf und rechnet alle anderen Zeiten neu. Der gespeicherte Stand steht <del class="diff-old">rot durchgestrichen</del> daneben. Welche Werte sich ändern (alt → neu, Datei und Zeile, wirkt in Mod), steht je Item unter „Automatische Änderungen“ (zugeklappt). Bei mehreren Quellen ist die Verteilung dort wählbar – Standard ist proportional. Gespeichert wird erst im Speichern-Dialog.</div>
     <div class="card"><h2>Baukerne: Median bis zum k-ten Kern (gezielt, beste Quelle)</h2><div id="coretab"><span class="spinner"></span></div></div>
     <div class="card"><div class="card-head"><h2>Alle Items mit Quellen</h2><span class="sp"></span><input type="search" id="cq2" placeholder="Filtern …" style="height:32px;border:1px solid var(--border);border-radius:7px;padding:0 .6rem;background:var(--panel)"></div><div id="ovtab"><span class="spinner"></span></div></div>`;
+  let seq = 0;
   const draw = async () => {
-    const ov = await getOverview();
+    const my = ++seq;
+    const withDrafts = Object.keys(drafts).length > 0;
+    const [ov, base] = await Promise.all([getOverview(), withDrafts ? getBaseOverview() : null]);
+    if (my !== seq || !$('#ovtab')) return;
+    const baseBy = Object.fromEntries(((base || ov).rows).map((r) => [r.item, r]));
     const q = ($('#cq2') || {}).value || '';
     const rows = ov.rows.filter((r) => !q || nameOf(r.item).toLowerCase().includes(q.toLowerCase()));
+    const cell = (r, field, spec) => { const b = baseBy[r.item] || {}; return timeCell(r[field], base ? (b[field] ?? null) : undefined, spec); };
+    const y = window.scrollY;
     $('#ovtab').innerHTML = `<div class="table-wrap"><table class="table" id="ovt"><thead><tr><th class="sortable">Item</th><th class="sortable">beste Quelle</th><th class="num sortable">gezielt Ø</th><th class="num sortable">Median</th><th class="num sortable">normal Ø</th><th class="num sortable">normal Median</th><th>Zeitalter (gezielt Ø)</th></tr></thead><tbody>
-      ${rows.map((r) => `<tr><td data-sort="${h(nameOf(r.item))}">${itemRef(r.item)}</td><td class="sub">${h(r.bestLabel || '')}</td><td class="num time" data-sort="${r.bestMean ?? 1e12}">${hours(r.bestMean)}</td><td class="num time" data-sort="${r.bestMedian ?? 1e12}">${hours(r.bestMedian)}</td><td class="num time" data-sort="${r.normalMean ?? 1e12}">${hours(r.normalMean)}</td><td class="num time" data-sort="${r.normalMedian ?? 1e12}">${hours(r.normalMedian)}</td><td class="sub">${h(eraFor(r.bestMean))}</td></tr>`).join('')}</tbody></table></div>`;
+      ${rows.map((r) => {
+        const b = baseBy[r.item] || {};
+        const best = r.bestKey ? { item: r.item, row: r.bestKey, label: r.bestLabel, k: 1 } : undefined;
+        const normal = { item: r.item, row: '__normal__', label: 'Normales Spiel', k: 1 };
+        return `<tr><td data-sort="${h(nameOf(r.item))}" class="titem">${itemRef(r.item)}</td><td class="sub">${h(r.bestLabel || '')}${base && b.bestLabel && b.bestLabel !== r.bestLabel ? `<div class="tiny"><del class="diff-old">${h(b.bestLabel)}</del></div>` : ''}</td>${cell(r, 'bestMean', best && Object.assign({ stat: 'mean' }, best))}${cell(r, 'bestMedian', best && Object.assign({ stat: 'median' }, best))}${cell(r, 'normalMean', r.normalMean !== null ? Object.assign({ stat: 'mean' }, normal) : undefined)}${cell(r, 'normalMedian', r.normalMedian !== null ? Object.assign({ stat: 'median' }, normal) : undefined)}<td class="sub">${h(eraFor(r.bestMean))}${base && timeDiffers(b.bestMean ?? null, r.bestMean) && eraFor(b.bestMean) !== eraFor(r.bestMean) ? `<div class="tiny"><del class="diff-old">${h(eraFor(b.bestMean))}</del></div>` : ''}</td></tr>
+          <tr class="tchg-row"><td colspan="7">${changesBox(r.item, null)}</td></tr>`;
+      }).join('')}</tbody></table></div>`;
     sortable('#ovt');
+    window.scrollTo(0, y);
     const cores = ['iron', 'gold', 'diamond', 'netherite', 'enderite', 'copper'].map((c) => `simplebuilding:${c}_core`);
-    const reports = await Promise.all(cores.map((c) => api('/api/calc', { item: c, overrides: overrides() })));
+    const [reports, baseReports] = await Promise.all([
+      Promise.all(cores.map((c) => api('/api/calc', { item: c, overrides: overrides() }))),
+      withDrafts ? Promise.all(cores.map((c) => api('/api/calc', { item: c, overrides: {} }))) : null]);
+    if (my !== seq || !$('#coretab')) return;
     $('#coretab').innerHTML = `<div class="table-wrap"><table class="table"><thead><tr><th>Kern</th><th>Quelle</th><th class="num">Mittel 1.</th>${[1, 2, 3, 4, 5, 6].map((k) => `<th class="num">${k}.</th>`).join('')}<th>Zeitalter (Mittel 1.)</th></tr></thead><tbody>
-      ${reports.map((r, i) => r.best ? `<tr><td>${itemRef(cores[i])}</td><td class="sub">${h(r.best.label)}</td><td class="num time"><b>${hours(r.best.mean[0])}</b></td>${r.best.median.map((m) => `<td class="num time">${hours(m)}</td>`).join('')}<td class="sub">${h(eraFor(r.best.mean[0]))}</td></tr>` : '').join('')}</tbody></table></div>
-      <p class="tiny muted">Wie docs/KERNE-SELTENHEIT.md Abschnitt 5.3 (dort Eisen mit Anwesen + Mine zusammen – siehe Item-Seite „Alle Quellen gezielt“).</p>`;
+      ${reports.map((r, i) => {
+        if (!r.best) return '';
+        const b = baseReports ? (baseReports[i].best || {}) : null;
+        const tun = ((r.rows.find((x) => x.key === r.best.key) || {}).tunables || []).map((t) => t.id);
+        const spec = (stat, k) => ({ item: cores[i], row: r.best.key, label: r.best.label, stat, k, tunables: tun });
+        return `<tr><td class="titem">${itemRef(cores[i])}</td><td class="sub">${h(r.best.label)}${b && b.label && b.label !== r.best.label ? `<div class="tiny"><del class="diff-old">${h(b.label)}</del></div>` : ''}</td>${timeCell(r.best.mean[0], b ? (b.mean ? b.mean[0] : null) : undefined, spec('mean', 1), 'strong')}${r.best.median.map((m, k) => timeCell(m, b ? (b.median ? b.median[k] : null) : undefined, spec('median', k + 1))).join('')}<td class="sub">${h(eraFor(r.best.mean[0]))}</td></tr>
+          <tr class="tchg-row"><td colspan="10">${changesBox(cores[i], r)}</td></tr>`;
+      }).join('')}</tbody></table></div>
+      <p class="tiny muted">Wie docs/KERNE-SELTENHEIT.md Abschnitt 5.3 (dort Eisen mit Anwesen + Mine zusammen – siehe Item-Seite „Alle Quellen gezielt“). Jede Zeit ist ein Eingabefeld.</p>`;
   };
   $('#cq2').oninput = () => draw();
   page.onDraft = draw;
@@ -1307,6 +1480,25 @@ document.addEventListener('change', (e) => {
   if (t.matches('input[type="checkbox"][data-vid]')) { setDraft(t.dataset.vid, t.checked); refreshEditor(t.dataset.vid); }
   if (t.matches('input[type="text"][data-vid]')) { refreshEditor(t.dataset.vid); }
 });
+document.addEventListener('change', (e) => {
+  const t = e.target;
+  if (t.matches('input.tin')) editTime(t);
+  if (t.matches('select.tstrat')) {
+    prefs.strategies = Object.assign({}, prefs.strategies || {}, { [t.dataset.item]: t.value });
+    if (t.value === 'proportional') delete prefs.strategies[t.dataset.item];
+    saveJson(LS_PREFS, prefs);
+    for (const other of $$(`select.tstrat[data-item="${CSS.escape(t.dataset.item)}"]`)) if (other !== t) other.value = t.value;
+    toast('Verteilung gemerkt – gilt für die nächste eingetippte Zeit dieses Items.');
+  }
+});
+document.addEventListener('toggle', (e) => {
+  const d = e.target;
+  if (d.matches && d.matches('details.tchanges')) { if (d.open) openChanges.add(d.dataset.item); else openChanges.delete(d.dataset.item); }
+}, true);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && e.target.matches('input.tin')) { e.preventDefault(); e.target.blur(); }
+  if (e.key === 'Escape' && e.target.matches('input.tin')) { e.target.value = hours(+e.target.dataset.t); e.target.blur(); }
+});
 document.addEventListener('keydown', (e) => {
   if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) { e.preventDefault(); $('#search').focus(); }
   if (e.key === 'Escape') { if (!$('#modal').hidden) closeModal(); $('#qs').hidden = true; }
@@ -1314,6 +1506,17 @@ document.addEventListener('keydown', (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); openSave(); }
 });
 document.addEventListener('click', (e) => {
+  const tb = e.target.closest('[data-tsave],[data-tdrop]');
+  if (tb) {
+    if (tb.dataset.tsave) openSave();
+    else {
+      const item = tb.dataset.tdrop;
+      for (const ed of timeEdits[item] || []) for (const l of ed.lines) delete drafts[l.id];
+      delete timeEdits[item]; saveTimeEdits(); draftsChanged();
+      toast('Automatische Änderungen dieses Items verworfen.');
+    }
+    return;
+  }
   const t = e.target.closest('[data-undo],[data-reset],[data-copy],[data-rollback]');
   if (!t) { if (!e.target.closest('.search')) $('#qs').hidden = true; return; }
   if (t.dataset.undo) { const id = t.dataset.undo; dropDraft(id); refreshEditor(id); if (!$('#modal').hidden && $('#modal-body h2') && $('#modal-body h2').textContent.startsWith('Ungespeichert')) { if (Object.keys(drafts).length) openDraftList(); else closeModal(); } }

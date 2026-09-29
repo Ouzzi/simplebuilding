@@ -28,6 +28,7 @@ from urllib.parse import unquote, urlparse
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
+from sbdev import extract  # noqa: E402
 from sbdev.service import Service  # noqa: E402
 from sbdev.store import StoreError  # noqa: E402
 
@@ -47,11 +48,11 @@ def make_handler(service: Service, repo: Path):
                 sys.stderr.write("%s - %s\n" % (self.address_string(), fmt % args))
 
         # ---- Antworten -------------------------------------------------------------------
-        def _send(self, status, body: bytes, ctype: str, extra=None):
+        def _send(self, status, body: bytes, ctype: str, extra=None, cache: str = "no-store"):
             self.send_response(status)
             self.send_header("Content-Type", ctype)
             self.send_header("Content-Length", str(len(body)))
-            self.send_header("Cache-Control", "no-store")
+            self.send_header("Cache-Control", cache)
             self.send_header("X-Content-Type-Options", "nosniff")
             for k, v in (extra or {}).items():
                 self.send_header(k, v)
@@ -81,6 +82,12 @@ def make_handler(service: Service, repo: Path):
                     return self._file(STATIC / unquote(path[len("/static/"):]), root=STATIC)
                 if path.startswith("/wiki/assets/"):
                     return self._file(repo / "wiki" / unquote(path[len("/wiki/"):]), root=wiki_assets)
+                if path.startswith(("/modtex/", "/vanilla/")):
+                    # Bilder aus den Mod-Assets bzw. dem Client-Jar (sbdev/icons.py) - nur PNGs unter textures/
+                    data = extract.icon_resolver(repo).read(unquote(path))
+                    if data is None:
+                        return self._error(404, "Bild nicht gefunden.")
+                    return self._send(200, data, "image/png", cache="max-age=300")
                 if path == "/api/state":
                     return self._json(service.state_payload())
                 if path.startswith("/api/version/"):
@@ -151,6 +158,7 @@ def make_handler(service: Service, repo: Path):
                 "/api/rollback": service.rollback,
                 "/api/calc": service.calc,
                 "/api/reverse": service.reverse,
+                "/api/solve-time": service.solve_time,
                 "/api/overview": service.overview,
                 "/api/apply-planned": service.apply_planned,
                 "/api/reload": lambda _p: service.reload(),

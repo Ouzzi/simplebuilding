@@ -113,6 +113,22 @@ class ApiTests(unittest.TestCase):
         row = next(r for r in ov["rows"] if r["item"] == "simplebuilding:enderite_core")
         self.assertLess(row["bestMean"], 38.0)
         self.assertIn("simplebuilding:wandering_trader/emerald_iron_cores", ov["offers"])
+        self.assertEqual(row["bestKey"], "structure:end_city")
+
+    def test_solve_time(self):
+        version = self.service.store.state()["version"]
+        status, res = self.json("/api/solve-time", {"item": "simplebuilding:enderite_core", "row": "structure:end_city",
+                                                     "stat": "mean", "k": 1, "hours": 20, "overrides": {}})
+        self.assertEqual(status, 200)
+        self.assertTrue(res["feasible"])
+        self.assertEqual(res["lines"][0]["id"], "const:ModLootTableModifications.ENDERITE_CORE_CHANCE")
+        self.assertAlmostEqual(res["achieved"], 20.0, delta=0.05)
+        self.assertIn("rows", res["after"])
+        self.assertEqual(self.service.store.state()["version"], version)  # nichts gespeichert
+        status, err = self.json("/api/solve-time", {"item": "simplebuilding:enderite_core", "hours": 0})
+        self.assertEqual(status, 400)
+        status, _, _ = self.request("/api/solve-time", {"item": "x", "hours": 3}, headers={"X-Balance-Client": "0"})
+        self.assertEqual(status, 403)
 
     def test_check_and_datagen_routes(self):
         status, res = self.json("/api/check")
