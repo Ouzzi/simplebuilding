@@ -1,21 +1,49 @@
 package com.simplebuilding.mixin.client;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.simplebuilding.client.render.TrimPulseTextures;
 import com.simplebuilding.util.GlowingTrimUtils;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.renderer.OrderedSubmitNodeCollector;
 import net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer;
-import net.minecraft.util.LightCoordsUtil;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.texture.UvMapping;
+import net.minecraft.client.resources.model.EquipmentClientInfo;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.trim.ArmorTrim;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 // MC 26.3 twin of common/src/mc26_2/java/.../EquipmentRendererMixin.java: trims are drawn through
-// RenderTypes.armorTrim (paletted textures) instead of the armor trim atlas sheet. Same light override.
+// RenderTypes.armorTrim (paletted textures) instead of the armor trim atlas sheet. Same light rules
+// (GlowingTrimUtils#trimLight); the saturation pulse swaps the paletted texture for a desaturated copy
+// built from the same pattern and palette (TrimPulseTextures), taking the equipment's trim overrides
+// into account exactly like EquipmentLayerRenderer$TrimTextureKey does.
 @Mixin(EquipmentLayerRenderer.class)
 public class EquipmentRendererMixin {
+
+    /** Unveraenderte UVs: die entsaettigte Kopie ist eine eigene Textur und kein Atlas-Ausschnitt. */
+    @Unique
+    private static final UvMapping simplebuilding$wholeTexture = new UvMapping() {
+        @Override
+        public float getU(float offset) {
+            return offset;
+        }
+
+        @Override
+        public float getV(float offset) {
+            return offset;
+        }
+    };
 
     @ModifyVariable(
             method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;II)V",
@@ -27,94 +55,65 @@ public class EquipmentRendererMixin {
             ordinal = 0
     )
     private int makeTrimGlow(int light, @Local(argsOnly = true) ItemStack stack) {
-        // Injection-Punkt liegt bereits im "trim != null"-Zweig von renderLayers,
-        // daher ist kein eigener ArmorTrim-Check mehr noetig. Die Ruestungs-Layer
-        // selbst sind zu diesem Zeitpunkt schon mit dem Original-Licht submitted;
-        // ueberschrieben wird nur noch das Licht fuer den Trim-Submit.
+        // Injection-Punkt liegt bereits im "hasTrim"-Zweig von renderLayers; ueberschrieben wird nur
+        // noch das Licht fuer den Trim-Submit (die Ruestungs-Layer sind schon submitted).
+        return GlowingTrimUtils.trimLight(light, GlowingTrimUtils.getGlowLevel(stack),
+                GlowingTrimUtils.isPulsating(stack), System.currentTimeMillis());
+    }
 
-        // Level abrufen (0, 1 oder 2)
-        int level = GlowingTrimUtils.getGlowLevel(stack);
-
-        // Pulsating + Glowing: volles Licht, das Pulsieren macht die Farbe (simplebuilding$pulseTrim).
-        if (level > 0 && GlowingTrimUtils.isPulsating(stack)) {
-            return LightCoordsUtil.FULL_BRIGHT;
+    /** Pulsating ohne Glowing: der Besatz-Submit zeichnet die entsaettigte Kopie (siehe 26.2-Zwilling). */
+    @WrapOperation(
+            method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;II)V",
+            slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/rendertype/RenderTypes;armorTrim(Lnet/minecraft/resources/Identifier;Z)Lnet/minecraft/client/renderer/rendertype/RenderType;")),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/OrderedSubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/rendertype/RenderType;IIILnet/minecraft/client/renderer/texture/UvMapping;I)V", ordinal = 0)
+    )
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private void simplebuilding$pulseTrim(OrderedSubmitNodeCollector collector, Model model, Object state, PoseStack poseStack,
+                                          RenderType renderType, int light, int overlay, int color, UvMapping uvMapping,
+                                          int outlineColor, Operation<Void> original,
+                                          @Local(argsOnly = true) ItemStack stack,
+                                          @Local(argsOnly = true) EquipmentClientInfo.LayerType layerType,
+                                          @Local EquipmentClientInfo equipmentInfo) {
+        ArmorTrim trim = stack.get(DataComponents.TRIM);
+        Identifier texture = trim == null ? null : simplebuilding$desaturatedTrim(stack, trim, layerType, equipmentInfo);
+        if (texture == null) {
+            original.call(collector, model, state, poseStack, renderType, light, overlay, color, uvMapping, outlineColor);
+            return;
         }
-
-        if (level > 0) {
-            // LEVEL 1: Statisches, volles Leuchten
-            if (level == 1) {
-                return LightCoordsUtil.FULL_BRIGHT;
-            }
-
-            // LEVEL 2: Pulsierendes "Überladen"-Leuchten
-            if (level >= 2) {
-                return simplebuilding$calculatePulsingLight();
-            }
-        }
-
-        return light;
+        RenderType pulsed = RenderTypes.armorTrim(texture, trim.pattern().value().decal());
+        original.call(collector, model, state, poseStack, pulsed, light, overlay, color, simplebuilding$wholeTexture, outlineColor);
     }
 
     /**
-     * Pulsating Armor Trim (Besitzer 2026-09-28): die Toenung des Besatz-Submits (Vanilla: -1, weiss)
-     * blendet im Takt {@link GlowingTrimUtils#PULSE_PERIOD_MS} nach Schwarz und zurueck. Ohne Glowing
-     * bleibt das Licht der Umgebung (kein Leuchten), mit Glowing ist es voll - der Besatz pulsiert dann
-     * leuchtend. Nur der erste Submit nach dem Besatz-RenderType ist der Besatz; danach kommt hoechstens
-     * noch der Glanz.
+     * Die entsaettigte Besatz-Ebene fuer diesen Augenblick, oder {@code null}. Muster und Palette wie in
+     * EquipmentLayerRenderer$TrimTextureKey#getOrPrepareTexture (inklusive trim_overrides); Paletten liegen
+     * unter {@code textures/palettes/<id>.png}, die Schluesselfarben in {@code minecraft:palettes/trim_base}.
      */
-    @ModifyArg(
-            method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;II)V",
-            slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/rendertype/RenderTypes;armorTrim(Lnet/minecraft/resources/Identifier;Z)Lnet/minecraft/client/renderer/rendertype/RenderType;")),
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/OrderedSubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/rendertype/RenderType;IIILnet/minecraft/client/renderer/texture/UvMapping;I)V", ordinal = 0),
-            index = 6
-    )
-    private int simplebuilding$pulseTrim(int color, @Local(argsOnly = true) ItemStack stack) {
-        if (!GlowingTrimUtils.isPulsating(stack)) {
-            return color;
-        }
-        int tint = GlowingTrimUtils.pulseTint(GlowingTrimUtils.pulseBrightness(System.currentTimeMillis()));
-        if (color == -1) {
-            return tint;
-        }
-        int v = tint & 0xFF;
-        int r = ((color >> 16) & 0xFF) * v / 255;
-        int g = ((color >> 8) & 0xFF) * v / 255;
-        int b = (color & 0xFF) * v / 255;
-        return (color & 0xFF000000) | (r << 16) | (g << 8) | b;
-    }
-
     @Unique
-    private int simplebuilding$calculatePulsingLight() {
-        // 1. Geschwindigkeit erhöhen
-        // Ein Divisor von 1000.0 ergab einen Zyklus von >6 Sekunden.
-        // Ein Divisor von 150.0 ergibt ca. 1 Sekunde pro Puls -> wirkt "energetisch".
-        double speedDivisor = 500.0;
-        double time = System.currentTimeMillis() / speedDivisor;
-
-        // 2. Sinus (-1.0 bis 1.0)
-        double sine = Math.sin(time);
-
-        // 3. Normalisieren (0.0 bis 1.0)
-        double normalized = (sine + 1.0) / 2.0;
-
-        // 4. Lichtbereich definieren
-        // TIPP: Wenn wir von 0 bis 15 gehen, sind die Sprünge visuell sehr hart.
-        // Wenn wir von 5 bis 15 gehen, wirkt das "Leuchten" stabiler, aber pulsiert immer noch deutlich.
-        // Ich habe es hier auf 1 bis 15 gesetzt, damit es nicht ganz schwarz wird (was wie ein Bug aussieht).
-        double minLight = 1.0;
-        double maxLight = 20.0;
-
-        // 5. Wert berechnen
-        double val = minLight + (normalized * (maxLight - minLight));
-
-        // 6. RUNDEN statt abschneiden (WICHTIG für weiche Übergänge)
-        // 14.9 wird zu 15, nicht zu 14.
-        int lightValue = (int) Math.round(val);
-
-        // Clamping (zur Sicherheit, falls Mathe-Rundungsfehler auftreten)
-        if (lightValue > 15) lightValue = 15;
-        if (lightValue < 0) lightValue = 0;
-
-        return LightCoordsUtil.pack(lightValue, lightValue);
+    private static Identifier simplebuilding$desaturatedTrim(ItemStack stack, ArmorTrim trim,
+                                                             EquipmentClientInfo.LayerType layerType,
+                                                             EquipmentClientInfo equipmentInfo) {
+        if (!GlowingTrimUtils.isPulsating(stack) || GlowingTrimUtils.getGlowLevel(stack) > 0) {
+            return null;
+        }
+        int step = GlowingTrimUtils.desaturationStep(System.currentTimeMillis());
+        if (step <= 0) {
+            return null;
+        }
+        Identifier textureId = trim.pattern().value().assetId();
+        Identifier paletteId = trim.material().value().paletteId();
+        for (EquipmentClientInfo.TrimOverride override : equipmentInfo.trimOverrides()) {
+            if (override.predicate().matches(trim)) {
+                textureId = override.textureId().orElse(textureId);
+                paletteId = override.paletteId().orElse(null);
+                break;
+            }
+        }
+        String prefix = layerType.trimAssetPrefix();
+        return TrimPulseTextures.texture(
+                textureId.withPath(path -> "textures/" + prefix + "/" + path + ".png"),
+                Identifier.withDefaultNamespace("textures/palettes/trim_base.png"),
+                paletteId == null ? null : paletteId.withPath(path -> "textures/palettes/" + path + ".png"),
+                step);
     }
 }

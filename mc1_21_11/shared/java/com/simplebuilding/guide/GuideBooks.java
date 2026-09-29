@@ -95,7 +95,7 @@ public final class GuideBooks {
         MACHINES("machines", 5),
         END("end", 6),
         TWEAKS("tweaks", 12),
-        TRIMS("trims", 6),
+        TRIMS("trims", 7),
         /** Befehle und die wichtigsten Config-Schalter fuer Server-Betreiber (2026-09-28). */
         ADMIN("admin", 8);
 

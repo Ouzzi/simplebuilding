@@ -176,7 +176,9 @@ public final class GuideContent {
                 ch("simplebuilding:glowing_trim_template", List.of(), List.of("minecraft:glow_ink_sac", "simplebuilding:glowing_trim_template")),
                 ch("minecraft:diamond_chestplate", List.of(), List.of("minecraft:diamond_chestplate", "minecraft:netherite_chestplate")),
                 ch("minecraft:coast_armor_trim_smithing_template", List.of(), List.of("minecraft:coast_armor_trim_smithing_template",
-                        "simplebuilding:iron_sledgehammer", "minecraft:glow_ink_sac", "simplebuilding:blueprint")))));
+                        "simplebuilding:iron_sledgehammer", "minecraft:glow_ink_sac", "simplebuilding:blueprint")),
+                ch("simplebuilding:pulsating_trim_template", List.of(), List.of("simplebuilding:pulsating_trim_template", "minecraft:echo_shard",
+                        "simplebuilding:glowing_trim_template")))));
         STYLES.put(GuideBooks.Book.ADMIN, new BookStyle(0xA9B1BC, List.of(
                 ch("minecraft:command_block", List.of(), List.of()),
                 ch("minecraft:writable_book", List.of(), List.of()),

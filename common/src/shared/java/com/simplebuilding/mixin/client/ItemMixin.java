@@ -60,6 +60,8 @@ public class ItemMixin {
         }
         if (GlowingTrimUtils.isPulsating(stack)) {
             textConsumer.accept(Component.translatable("tooltip.simplebuilding.pulsating").withStyle(ChatFormatting.DARK_AQUA));
+            // Was der Puls tut (Lichtregeln 2026-09-29): allein die Farbe, mit Glowing die Helligkeit.
+            textConsumer.accept(Component.translatable(glowLevel > 0 ? "tooltip.simplebuilding.pulsating.glow" : "tooltip.simplebuilding.pulsating.color").withStyle(ChatFormatting.GRAY));
         }
 
         // 2. Armor Trim Boni - im Stil der Vanilla-Attributliste, Werte aus TrimBonusCatalog
