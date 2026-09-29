@@ -159,9 +159,10 @@ public final class TweaksTests {
         expectSmithing(helper, template, TweaksBlocks.NETHERITE_LAUNCHPAD, enderitePlate, TweaksBlocks.ENDERITE_LAUNCHPAD);
         expectSmithing(helper, netherite, TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.NETHER_STAR, TweaksBlocks.FINE_ELYTRA_PAD);
         expectSmithing(helper, netherite, TweaksBlocks.REINFORCED_ELYTRA_PAD, netheritePlate, TweaksBlocks.NETHERITE_ELYTRA_PAD);
-        expectSmithing(helper, template, TweaksBlocks.ENDERITE_PRESSURE_PLATE, ModItems.ENDERITE_CORE, TweaksBlocks.FLYPAD);
+        helper.assertTrue(smithing(helper, template, TweaksBlocks.ENDERITE_PRESSURE_PLATE, ModItems.ENDERITE_CORE).isEmpty(),
+                "Flypad I still bypasses its Shulker Head and Mending elytra through smithing");
         expectSmithing(helper, netherite, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.NETHERITE_PRESSURE_PLATE);
-        expectSmithing(helper, netherite, TweaksBlocks.COPPER_PRESSURE_PLATE, ModItems.COPPER_CORE, TweaksBlocks.CHUNK_LOADER);
+        expectSmithing(helper, ModItems.COPPER_CORE, TweaksBlocks.COPPER_PRESSURE_PLATE, Items.ZOMBIE_HEAD, TweaksBlocks.CHUNK_LOADER);
         // Der alte Weg (Netherit-Pad + Netherstern) fuehrt nicht mehr zum feinen Pad.
         Optional<RecipeHolder<SmithingRecipe>> oldWay = smithing(helper, netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD, Items.NETHER_STAR);
         helper.assertTrue(oldWay.isEmpty() || !oldWay.get().value().assemble(smithingInput(netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD, Items.NETHER_STAR)).is(TweaksBlocks.FINE_ELYTRA_PAD.asItem()),
