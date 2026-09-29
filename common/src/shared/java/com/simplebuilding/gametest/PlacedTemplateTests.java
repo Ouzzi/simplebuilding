@@ -518,6 +518,9 @@ public final class PlacedTemplateTests {
 
         // Zweiter Attractor mit Filter (Stein) und Namen.
         ItemStack filtered = new ItemStack(ModItems.MAGNET);
+        filtered.enchant(helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT)
+                .getOrThrow(com.simplebuilding.enchantment.ModEnchantments.CONSTRUCTORS_TOUCH), 1);
+        player.setShiftKeyDown(false);
         net.minecraft.nbt.CompoundTag filter = new net.minecraft.nbt.CompoundTag();
         filter.putString("MagnetFilter", "minecraft:stone");
         filtered.set(DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(filter));

@@ -240,10 +240,10 @@ public final class OctantTests {
                 "Range's supported_items is an inline item list (" + range.definition().supportedItems()
                         + ") instead of a tag, so the octants can no longer join it through "
                         + "#simplebuilding:octants_enchantable");
-        helper.assertValueEqual(primary, supported,
-                "Range's primary_items and supported_items no longer name the same tag; an empty "
-                        + "primary_items makes every supported item primary, which is why this is "
-                        + "read off the definition and not through isPrimaryItem");
+        helper.assertValueEqual(supported, Optional.of(com.simplebuilding.util.ModTags.Items.RANGE_ENCHANTABLE),
+                "Range must support tools, Attractors and Gauges through the dedicated tag");
+        helper.assertValueEqual(primary, Optional.of(com.simplebuilding.util.ModTags.Items.CHISEL_AND_MINING_TOOLS),
+                "Range's enchanting-table primary items must remain the tool family");
 
         helper.succeed();
     }

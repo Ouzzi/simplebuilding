@@ -189,7 +189,7 @@ public final class DataIntegrityTests {
     private static final Map<ResourceKey<Enchantment>, TagKey<Item>> SUPPORTED_ITEM_TAGS = Map.ofEntries(
             Map.entry(ModEnchantments.FAST_CHISELING, ModTags.Items.CHISEL_TOOLS),
             Map.entry(ModEnchantments.CONSTRUCTORS_TOUCH, ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE),
-            Map.entry(ModEnchantments.RANGE, ModTags.Items.CHISEL_AND_MINING_TOOLS),
+            Map.entry(ModEnchantments.RANGE, ModTags.Items.RANGE_ENCHANTABLE),
             Map.entry(ModEnchantments.DEEP_POCKETS, ModTags.Items.DEEP_POCKETS_ENCHANTABLE),
             Map.entry(ModEnchantments.FUNNEL, ModTags.Items.FUNNEL_ENCHANTABLE),
             Map.entry(ModEnchantments.DRAWER, ModTags.Items.BUNDLE_ENCHANTABLE),
@@ -2222,7 +2222,7 @@ public final class DataIntegrityTests {
         // Bewusst doppelt (Besitzer 2026-09-28): Kupfer-, Eisen- und Enderit-Kern stehen als Freischalt-Zutat
         // neben Chunk-Loader, Launchpad und Flypad in SimplePads - und bei den Kernen in SimpleMaterials.
         // Sonst kein Mod-Item doppelt; Oktant und Baustaebe stehen seit 2026-09-29 nur noch in SimpleTools.
-        Set<Item> materialsAndMachines = Set.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.ENDERITE_CORE);
+        Set<Item> materialsAndMachines = Set.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE);
         for (Identifier id : modItems) {
             if (id.equals(BuiltInRegistries.ITEM.getKey(ModItems.CREATIVE_SPACER))) {
                 continue;
@@ -2319,7 +2319,7 @@ public final class DataIntegrityTests {
                 ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_HELMET, ModItems.ROTATOR, ModItems.BLUEPRINT,
                 ModItems.OCTANT, ModItems.ENDERITE_BUILDING_WAND));
         pinned.put(ModItemGroupsContent.Tab.MATERIALS, List.of(
-                ModItems.ENDERITE_INGOT, ModItems.ASTRALIT_DUST, ModItems.ENDER_QUARTZ, ModItems.NIHILITH_ORE_ITEM, ModItems.GOLD_CORE,
+                ModItems.ENDERITE_INGOT, ModItems.ASTRALIT_DUST, ModItems.ENDER_QUARTZ, ModItems.NIHILITH_ORE_ITEM,
                 ModItems.BASIC_UPGRADE_TEMPLATE, ModItems.GLOWING_TRIM_TEMPLATE,
                 ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE));
         pinned.put(ModItemGroupsContent.Tab.FUNCTIONAL, List.of(

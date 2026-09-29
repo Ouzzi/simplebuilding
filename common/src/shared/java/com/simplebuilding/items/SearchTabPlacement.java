@@ -121,8 +121,9 @@ public final class SearchTabPlacement {
         // Hinter der letzten Kupfertruhe (Vanilla fuehrt alle Oxidations- und Wachsstufen).
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.COPPER_CHEST.asList().getLast(),
                 ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST));
-        List<ItemLike> heads = new ArrayList<>(List.of(TweaksItems.BLAZE_HEAD, TweaksItems.ENDERMAN_HEAD));
-        heads.addAll(TweaksItems.extraMobHeads());
+        out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SHULKER_BOX,
+                ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
+        List<ItemLike> heads = new ArrayList<>(TweaksItems.extraMobHeads());
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.PIGLIN_HEAD, heads.toArray(ItemLike[]::new)));
 
         // --- Redstone: Trichter, Kolben, und die Pads hinter den Waegeplatten (Pads sind Druckplatten-Bloecke).

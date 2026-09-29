@@ -481,6 +481,7 @@ public final class ConfigOptionTests {
             "tweaks.laserPointer.color int=16711680",
             "tweaks.laserPointer.scale float=0.25",
             "tweaks.laserPointer.range int=512",
+            "tweaks.laserPointer.beamCostPerSecond int=1",
             "tweaks.laserPointer.chargePerSecond int=4",
             "tweaks.laserPointer.effectCost int=5",
             "tweaks.laserPointer.showLine boolean=false",
