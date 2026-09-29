@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:enderite_scrap_from_blasting_raw_enderite"
+        "recipe": "simplebuilding:layered_raw_enderite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:enderite_scrap_from_blasting_raw_enderite"
+      "simplebuilding:layered_raw_enderite"
     ]
   }
 }

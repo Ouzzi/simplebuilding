@@ -616,6 +616,7 @@ public class ModModelProvider extends FabricModelProvider {
         // --- NEW: ENDERITE MATERIALS (GENERATED) ---
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CORE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.RAW_ENDERITE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.LAYERED_RAW_ENDERITE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_INGOT, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SCRAP, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HORSE_ARMOR, ModelTemplates.FLAT_ITEM);

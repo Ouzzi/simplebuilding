@@ -5,7 +5,7 @@ Schubplatte, Kopf, Stange und Brecher-Verschleiss, Ofen, Raeucherofen, Schmelzof
 den Vanilla-Flaechen, siehe MACHINE_TIERS), die Netherit-Griffe von Vorschlaghammer, Meissel, Baustab
 und Spachtel, die Nihilith-/Astralit-Quarz-Schachbretter, die Enderit-Stufen der Tweak-Bloecke (Pads,
 Teleporter, Druckplatte, Chunk-Loader, Launchpad), Enderitblock, Enderquarz, Enderitbarren, -schrott,
--klumpen, Laserpointer, die beiden Aufwertungen, den Diamant-Kiesel, die sechs Baukerne, die pulsierende
+-klumpen, geschichtetes Rohenderit, Laserpointer, die beiden Aufwertungen, den Diamant-Kiesel, die sechs Baukerne, die pulsierende
 Besatz-Vorlage und die Blaupause; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
 Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
@@ -1863,6 +1863,33 @@ ENDERITE_SCRAP_PAL = {
     "3": "#442871", "2": "#2c1356", "4": "#442871",
 }
 
+# Geschichtetes Rohenderit (Besitzer 2026-09-29): drei flachgepresste Rohenderit-Fladen uebereinander,
+# jeder mit hellem Oberrand (Rohenderit-Toene), gesprenkeltem Koerper und dunkler Fuge darunter; die
+# Fladen sind seitlich gegeneinander versetzt, damit man bei 1x drei Lagen liest. Konturecken bleiben
+# frei (die Fugenfarbe 2 schliesst keine Diagonale), nichts reicht bis an den Bildrand.
+LAYERED_RAW_ENDERITE = [
+    "................",
+    "................",
+    "......HHA7O.....",
+    ".....HA66457O...",
+    "....HA6546535O..",
+    "....O2232322O...",
+    "...HHA7AA6A7O...",
+    "..HA654365435O..",
+    "..B65346534553O.",
+    "...O2223222352O.",
+    "...HA7A6AA7A6O..",
+    "..HA65436A5453O.",
+    "..B65436553435O.",
+    "...O553345535O..",
+    "....OOOOOOOOO...",
+    "................",
+]
+LAYERED_RAW_ENDERITE_PAL = {
+    "O": "#1f0c3d", "H": "#b58ef6", "A": "#a67aef", "B": "#9d7ad5", "7": "#8d65cd",
+    "6": "#6841a9", "5": "#553190", "4": "#4a2784", "3": "#442871", "2": "#2c1356",
+}
+
 # Enderitklumpen: oben der runde Klumpen der urspruenglichen Textur, darunter ein Tropfstein-Keil
 # mit dunklem Band, der nach unten spitz zulaeuft; Tropfen und seitliche Tropfspuren bleiben.
 ENDERITE_NUGGET = [
@@ -2073,6 +2100,7 @@ def end_palette_textures():
     tex["item/amethyst_lens_empty.png"] = render("amethyst_lens_empty", LASER_POINTER, LASER_POINTER_EMPTY_PAL, False)
     tex["item/enderite_ingot.png"] = render("enderite_ingot", ENDERITE_INGOT, ENDERITE_INGOT_PAL, False)
     tex["item/enderite_scrap.png"] = render("enderite_scrap", ENDERITE_SCRAP, ENDERITE_SCRAP_PAL, False)
+    tex["item/layered_raw_enderite.png"] = render("layered_raw_enderite", LAYERED_RAW_ENDERITE, LAYERED_RAW_ENDERITE_PAL, False)
     tex["item/enderite_nugget.png"] = render("enderite_nugget", ENDERITE_NUGGET, ENDERITE_NUGGET_PAL, False)
     tex["item/enderite_upgrade_template.png"] = render("enderite_upgrade_template", ENDERITE_UPGRADE_TEMPLATE,
                                                         ENDERITE_UPGRADE_TEMPLATE_PAL, False)
@@ -3289,7 +3317,7 @@ def build_preview(tex):
                        [checker_wall(tex[names[1]]), checker_wall(tex[names[2]])]))
     groups.append(("Enderquarz und Enderit", [(k, tex[k]) for k in (
         "item/ender_quartz.png", "item/enderite_ingot.png", "item/enderite_scrap.png",
-        "item/enderite_nugget.png", "item/enderite_upgrade_template.png", "item/basic_upgrade_template.png",
+        "item/layered_raw_enderite.png", "item/enderite_nugget.png", "item/enderite_upgrade_template.png", "item/basic_upgrade_template.png",
         "item/diamond_pebble.png", "item/pulsating_trim_template.png")], []))
     groups.append(("Baukerne", [(f"item/{t}_core.png", tex[f"item/{t}_core.png"]) for t in BUILDING_CORE_RAMPS], []))
     width = max(pad + len(items) * (cell + pad) + sum(iso.width + pad for iso in isos) + pad

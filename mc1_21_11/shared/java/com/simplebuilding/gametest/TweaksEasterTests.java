@@ -326,7 +326,7 @@ public final class TweaksEasterTests {
         int potionDoubled = infused.effectDurationAt(level, potionAbs);
         helper.assertTrue(potionNormal == 120 * 20 && potionDoubled == 240 * 20,
                 "the final easter potion pad gives effects for " + potionDoubled + " ticks, the normal one " + potionNormal + " (expected 4800 and 2400)");
-        PotionPadBlock.absorb(potionBe, PotionContents.createItemStack(Items.SPLASH_POTION, Potions.STRONG_SWIFTNESS));
+        PotionPadBlock.absorb(potionBe, PotionContents.createItemStack(Items.SPLASH_POTION, Potions.LONG_SWIFTNESS));
         ServerPlayer drinker = mockPlayer(helper, new Vec3(1.5, 1.0, 5.5));
         drinker.removeAllEffects();
         for (int step = 1; step <= PotionPadBlockEntity.RAMP_STEPS; step++) {
