@@ -1,6 +1,6 @@
 import os
 SP = os.path.dirname(os.path.abspath(__file__))
-ROOT = "C:/Users/oussa/Downloads/Minecraft/Mine/custom created mods"
+ROOT = os.environ.get("SB_MODS_ROOT") or str(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(SP)))))  # parent folder that holds all mod repos
 MODS = {
     "money": ("simplemoney", "Simple Money", "simplemoney",
               "Fabric-only, Minecraft 1.21.11, about 11 Java files, version 1.2.16 (design/ folder has art sources). Small mod: port fully."),

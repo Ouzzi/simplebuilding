@@ -1,6 +1,6 @@
 import os
 SP = os.path.dirname(os.path.abspath(__file__))
-ROOT = "C:/Users/oussa/Downloads/Minecraft/Mine/custom created mods"
+ROOT = os.environ.get("SB_MODS_ROOT") or str(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(SP)))))  # parent folder that holds all mod repos
 rd = lambda n: open(os.path.join(SP, n), encoding="utf-8").read()
 pre, contract, port = rd("pre.md"), rd("mm-contract.md"), rd("port.md")
 
