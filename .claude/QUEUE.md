@@ -76,3 +76,8 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 ## VOICEBRIDGE (2026-09-30, codex-voicebridge)
 - [x] Besitzerwunsch: Handy/Laptop, eine grosse Sprechtaste, kurze vorgelesene Antworten, mehrere Projekte; stdlib-Server und PWA, lesende Agenten, konkrete Dateivorschlaege mit einmaliger Sprachbestaetigung.
 - [ ] Besitzerpruefung: echtes Handy-Mikrofon/Vorlesen, Tailscale HTTPS, Headset-Taste und gewaehlter CLI-Anbieter; Verifikation siehe HANDOFF.
+
+## Simple Dimensions 26.3 (codex-port-dimensions, 2026-09-30)
+- [x] Erster Dimensionsentwurf und Quellvergleich: docs/modules/simpledimensions.md, Commit e7625a9d.
+- [ ] Portierung noch NICHT umgesetzt: sichere Portal-/Rueckweglogik, Pack-Anbindung beider Loader, Legacy-IDs, Config-GUI, Datenvertrag und alle vorgeschriebenen Modultests fehlen. Kein Token-Geruest als fertige Mod registriert.
+- [ ] Standardzugang Skyblock klaeren: instructions+ fordert sechs Glowstone-Boegen + Zusatzlicht; neueste Quelle nutzt Kupfer/Blau-Eis ohne Lichtpflicht. Bestehende JSONs und simpledimension-IDs erhalten.

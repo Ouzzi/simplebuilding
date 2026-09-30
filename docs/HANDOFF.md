@@ -206,3 +206,11 @@ letzten Text-/Wiki-Korrektur ebenfalls GRADLE_EXIT=0 (Log lokal scratchpad/facts
   beliebige Modpackkombinationen. `mc1_21_11` und `mc26_4` unveraendert. Keine neue Pixelkunst.
   Keine Besitzerentscheidung fuer diesen Infrastrukturvertrag erforderlich. Kein Push,
   kein Merge dieses Branches in master; Integration dort bleibt der Besitzersession.
+
+## Simple Dimensions — Entwurf, Portierung offen (2026-09-30, Codex)
+- Branch codex-port-dimensions, Entwurfscommit e7625a9d: docs/modules/simpledimensions.md. Beide Quell-READMEs, instructions+ und relevante Portal-/Config-/Loaderquellen read-only verglichen. Neuester Java-Stand hat andere Portalrezepte als README/alte Besitzeranweisung.
+- Entwurf: drei Dimensionen, Quell-Configschluessel, persistenter Namensraum simpledimension, Legacy light_blue_portal, Kollisionen mit SimpleBuilding, sichere Rueckwege und Testplan. Sicherheitsbefunde: generierte wertvolle Rahmen duplizieren Ressourcen; clearIfObstructing kann Bauten loeschen; One-way-/Plattformschalter erlauben unsichere Ankunft. Nicht ungeprueft portieren.
+- Implementierung NICHT fertig. newmod-Token-Geruest lokal unter ignoriertem scratchpad/dimensions-scaffold-unported archiviert; Manifest und Integrationsauswahl ohne Modul wiederhergestellt. Keine Dummy-Mod oder Dummy-Testresultate ausgeliefert.
+- Offene Umsetzung: loaderneutrale Runtime, Fabric/NeoForge-26.3-Adapter, automatische Datapacks, Config-GUI/Bounds, Legacy-Weltbelege, Modul-Wiki/Balancedaten und kompletter Pflicht-Testkatalog. Forge 26.3 sowie 26.2/1.21.11/26.4 bleiben spaetere separate Ports.
+- Kein Gameplay-/Launch-/Worldgen-/Modulserver-/Clientnachweis in diesem Run. Kein Neubau der Besitzer-Testzentrale, kein Push/Merge; Quellrepos und andere Minecraft-Linien unveraendert.
+- Dokumentationsstand verifiziert: wiki/generate.py und --check Exit 0; abschliessendes gradlew.bat check -q --no-daemon GRADLE_EXIT=0, Ausgabe gelesen (18 Wiki-Tests gruen; Compiler-Deprecationwarnungen). Keine Serversuite ausgefuehrt; Gate beweist keinen Modul-Launch. Generierte Wiki-Dateien nur inhaltsgleiche Zeilenenden, nicht committet.
