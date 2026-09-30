@@ -11,7 +11,7 @@ from unittest.mock import patch
 from tools.voicebridge.core import (Audit, Confirmation, RateLimit, apply_edits, authenticated,
                                    command, host_allowed, load_projects, prepare_edits, safe_path,
                                    spoken_answer, tailscale_ip, validate_host)
-from tools.voicebridge.providers import Runner, build_argv, parse_output, project_context
+from tools.voicebridge.providers import Runner, build_argv, find_executable, parse_output, project_context
 from tools.voicebridge.adapters import StubSTT, StubTTS
 from tools.voicebridge.server import Bridge, make_handler, read_records
 
@@ -288,6 +288,26 @@ class HTTPTests(unittest.TestCase):
     def test_emergency_post(self):
         self.assertEqual(self.request('/api/emergency','POST','{}',**{'X-CSRF-Token':self.token})[0],200)
         self.assertTrue(self.bridge.stopped)
+
+
+class ExecutableLookupTests(unittest.TestCase):
+    def test_bundled_claude_is_found_by_newest_version(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            for version in ("2.1.9", "2.1.284", "2.1.280"):
+                folder = Path(tmp) / "Claude" / "claude-code" / version
+                folder.mkdir(parents=True)
+                (folder / "claude.exe").write_bytes(b"")
+            with patch.dict(os.environ, {"APPDATA": tmp}), patch("shutil.which", return_value=None):
+                self.assertEqual(Path(find_executable("claude")).parent.name, "2.1.284")
+
+    def test_path_wins_and_other_providers_get_no_fallback(self):
+        with patch("shutil.which", return_value="C:/tools/claude.exe"):
+            self.assertEqual(find_executable("claude"), "C:/tools/claude.exe")
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {"APPDATA": tmp}), patch("shutil.which", return_value=None):
+            folder = Path(tmp) / "Claude" / "claude-code" / "1.0.0"
+            folder.mkdir(parents=True)
+            (folder / "claude.exe").write_bytes(b"")
+            self.assertIsNone(find_executable("codex"))
 
 
 if __name__ == '__main__': unittest.main()

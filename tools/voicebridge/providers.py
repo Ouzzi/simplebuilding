@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import tempfile
@@ -11,6 +12,20 @@ import threading
 import time
 from urllib.request import Request, urlopen
 from tools.voicebridge.core import safe_path
+
+
+def find_executable(provider):
+    """PATH first; for claude also the CLI bundled with the Claude desktop app (%APPDATA%/Claude/claude-code/<version>/claude.exe)."""
+    found = shutil.which(provider)
+    if found or provider != "claude":
+        return found
+    base = Path(os.environ.get("APPDATA", "")) / "Claude" / "claude-code"
+    if not base.is_dir():
+        return None
+    def version(path):
+        return tuple(int(part) if part.isdigit() else 0 for part in re.split(r"[.\-]", path.parent.name))
+    candidates = [path for path in base.glob("*/claude.exe") if path.is_file()]
+    return str(max(candidates, key=version)) if candidates else None
 
 VOICE = """
 VOICE MODE: Answer in the user's language. Return ONLY a JSON object
@@ -134,7 +149,7 @@ class Runner:
             if any((folder / ".codex/config.toml").exists() and
                    (folder / ".codex/config.toml").resolve() != user_config for folder in (root, *root.parents)):
                 raise ValueError("Codex-Projektkonfiguration vorhanden. Fuer Voicebridge einen konfigurationsfreien Worktree verwenden.")
-        executable = shutil.which(project["provider"])
+        executable = find_executable(project["provider"])
         if not executable:
             raise ValueError(f"{project['provider']} ist nicht installiert oder nicht im PATH.")
         if executable.lower().endswith((".cmd", ".bat")):

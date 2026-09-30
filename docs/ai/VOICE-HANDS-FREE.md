@@ -56,6 +56,8 @@ Offizielle Einrichtung: [Tailscale Serve](https://tailscale.com/docs/reference/t
   Die Bridge prueft zuerst claude --help, ohne Agentenstart. Fehlen restricted/tools/
   plan/resume, wird abgebrochen. Hier war Claude nicht installiert; Flags gegen die
   [offizielle CLI-Referenz](https://code.claude.com/docs/en/cli-reference) geprueft.
+  Windows mit der Claude-Desktop-App: die mitgelieferte CLI (`%APPDATA%\Claude\claude-code\<Version>\claude.exe`, neueste Version)
+  wird automatisch gefunden, ein PATH-Eintrag ist nicht noetig; Version 2.1.284 hat alle geforderten Flags (geprueft 2026-09-30).
   Verwendet: -p, JSON, --resume, --permission-mode plan, restricted mode, nur
   Read/Glob/Grep, keine MCP-Werkzeuge, Skills oder Hooks.
 - **codex**: native CLI oder normale npm-Installation, PC-Login. Lokale Hilfen fuer
