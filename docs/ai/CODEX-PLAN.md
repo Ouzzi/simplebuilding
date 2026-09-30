@@ -80,3 +80,11 @@ Sprach-Bridge-Morgenbericht ja/nein.
   Die frische Cache-Erzeugung beansprucht zeitweise fast den gesamten RAM.
 - Die neue Sounds-/Visuals-Framework-API benötigt eine geprüfte Laufzeitpaketierung
   zusätzlich zum Entwicklungs-Classpath. Dieser Nachweis gehört zum Merge-Review.
+- Nach dem grünen Werkzeugabschnitt werden Claims-Stufe 4 (Automation/indirekter
+  Schaden) und Stufen 5–6 (Vertrauen/Dimensions-Adapter) getrennten Workern zugeordnet.
+  `next-claims` behält die bereits begonnene Stufe 4; `next-claims-access` startet
+  für 5–6 von `7422a3ab`. Integration bleibt in Stufenfolge.
+  Gemeinsame Änderungen an Claims-Helfern/Katalogen werden vollständig vereinigt.
+- Die neue Bett-Gegenprobe zeigte einen bestehenden Baustabfehler vor der
+  Claims-Prüfung. Dieser bleibt als separate Fortsetzung dokumentiert; der
+  tatsächliche Hammerabbau eines aufgebauten Bettes wird in dieser Welle geprüft.

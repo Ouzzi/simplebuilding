@@ -10,8 +10,15 @@ Arbeitsplan: `docs/ai/CODEX-PLAN.md`.
   Zunächst 36/36 Gesamtkatalog, nach weiteren Import-/Grenz-/Befehlsfällen
   18/18 gezielte Servertests grün. Stufe 2 auf `5fbd4064`, zuletzt 26/26 grün
   (`2026-09-30T21-45-15Z-77ed`); frühere rote/veraltete Reports ersetzt.
-  Stufen 3–6 und finales check offen. Review-Notizen im Worker: Framework-Vertrag,
-  Werkzeugschutz für mehrteilige Blöcke und wirkungsloser Pfad ohne Anbieter prüfen.
+  Stufe 3 auf `7422a3ab`: Framework-Vertrag und mehrteiliger Werkzeugschutz geprüft,
+  36/36 grün (`2026-09-30T22-48-57Z-7c6b`), bestehende Hammertests 70/70 grün
+  (`2026-09-30T22-51-11Z-1a63`). Dieser Worker führt Stufe 4 und finales check weiter.
+  `run-next-claims-auto.md` ist dabei zusätzlicher Reviewauftrag, kein eigener Run.
+- Claims-Stufen 5–6 separat: `codex-next-claims-access`, Worktree
+  `%TEMP%/cx-next-claims-access`, Ausgang `7422a3ab`, Brief
+  `docs/ai/briefs/run-next-claims-access.md`. Vertrauen/Entzug/Offline/Admin und
+  Dimensions-Adapter umsetzen, getrennt committen und prüfen. Zusammenführung
+  nach Stufe 4; gemeinsame Framework-/Claims-/Katalogänderungen vereinigen.
 - Dimensions ist geprüft und mergebereit: `codex-next-dimensions` auf `8657e3d2`
   (Umsetzung `f83a75c4`), Worktree `%TEMP%/cx-next-dimensions`.
   Bericht `.ai-runs/out-next-dimensions.txt`: 76/76 Modulserver, 10/10 Testzentrale,
@@ -31,5 +38,10 @@ Arbeitsplan: `docs/ai/CODEX-PLAN.md`.
   in Sounds/Visuals und den kommenden Claims-Pfaden paketieren und prüfen.
   Keine Standardaktivierung ohne belastbare Laufzeit-/Clientreife.
 - Besitzerwelt/Testzentrale und Clientabnahme noch nicht geprüft.
+- Separater Bestandsfehler aus der Claims-Gegenprobe: `WandPlacement.stateFor`
+  (`common/src/shared/java/com/simplebuilding/util/WandPlacement.java`) verwirft
+  einen neuen Bettfuß bei der Nachbarprüfung, bevor `afterPlace` den Kopf setzt.
+  Besitzerkontrolle scheitert auch ohne Claims. Kein Fix in dieser Welle;
+  vor einer späteren Änderung echte Bett-Platzierung und andere mehrteilige Blöcke prüfen.
 - Besitzerfragen: Echolot 3 Sekunden halten oder Ein-Klick? Morgenbericht der
   Sprach-Bridge ja oder nein?
