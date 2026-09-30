@@ -86,14 +86,15 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [],
     "optional": [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "30a7b6f560f4"
+    "dataHash": "c8c701aaff8e"
   },
   {
     "id": "simplefun",

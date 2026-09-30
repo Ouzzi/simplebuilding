@@ -256,7 +256,8 @@
       "description": "Server-approved custom item models, anvil assignment, and a searchable model browser.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [],
       "optional": [
@@ -286,6 +287,18 @@
           "neoforge": {
             "task": ":modules:simplemodels:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplemodels/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplemodels:forge:runGameTestServer",
+            "report": "modules/simplemodels/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -302,7 +315,7 @@
         "shared": "modules/simplemodels/shared",
         "fabric": "modules/simplemodels/fabric",
         "neoforge": "modules/simplemodels/neoforge",
-        "forge": null,
+        "forge": "modules/simplemodels/forge",
         "generated": "modules/simplemodels/generated/resources",
         "lang": "modules/simplemodels/shared/resources/assets/simplemodels/lang",
         "wikiManual": "modules/simplemodels/wiki/manual.json",
@@ -310,7 +323,8 @@
       },
       "projects": {
         "fabric": ":modules:simplemodels:fabric",
-        "neoforge": ":modules:simplemodels:neoforge"
+        "neoforge": ":modules:simplemodels:neoforge",
+        "forge": ":modules:simplemodels:forge"
       }
     },
     {
