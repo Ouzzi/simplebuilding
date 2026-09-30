@@ -83,3 +83,44 @@ Module toggles apply to integration; SimpleBuilding remains the normal run's mai
 Root `check` includes that validator and integration compilation. Launch Hub tests exercise
 rejected selections, presets, safe scaffolding and dry-run argv. Keep loader metadata, manifest
 versions and registry coordinates synchronized, and add interaction tests when contracts grow.
+
+## Shared module data contract and wiki
+
+Every manifest entry (including SimpleBuilding) has `id`, `name`, `displayName`,
+`description`, `version`, `loaders` (fabric/neoforge/forge subset), `minecraft: "26.3"`,
+`requires`, `optional`, and `paths`: `root`, `shared`, `fabric`, `neoforge`, `forge`,
+`generated`, `lang`, `wikiManual`, `balanceDir`. Paths are repository-relative; unavailable
+loader paths are null. Keep existing fields. SimpleBuilding stays in its existing trees,
+including its existing `balance/` storage; additional modules use `balance/<id>/`.
+Planned ids: simplemoney, simplefun, simplequalityoflife, simpleriding, simplevisuals,
+simpledimensions, simplemodels (formerly renamed), simpletweaks (only unported features).
+Register a planned module when its projects exist, not as an empty Gradle project.
+
+Keep bilingual chapters/notes in `modules/<id>/wiki/manual.json` using the same schema as
+`wiki/manual.json`; language keys use the module namespace. Datagen belongs under the
+manifest's `generated` directory. Keep tunable values/loot/trades/recipes in data or named
+constants that balance extractors can read. No destructive migration of existing balance data.
+
+`python wiki/generate.py --all` generates every manifest module;
+`--module <id>` selects one; no selection preserves the SimpleBuilding default.
+`--all --check` checks JSON, JS, metadata and bilingual completeness for all modules.
+`wiki/modules.py` is the additional-module extraction interface; SimpleBuilding retains its
+specialized extractor and byte-compatible payload. Resource precedence for additional modules:
+generated, shared resources, then loader resources in manifest order (later recipe ids win;
+tags append unless replace=true). Keep common facts shared; export explicit loader differences
+as prose until separate per-loader views exist.
+
+Small modules may contain only manual/lang files. Item definitions, blockstates, language
+keys and literal Java Identifier registrations contribute inventory evidence. Dynamic registries
+must export `<generated>/wiki/items.json` as `{"items":[{"id":"mod:item",...}]}`; include
+`kind: "block"` for blocks. Do not rely on Java parsing for dynamic ids. Every discovered item,
+block and feature needs English/German prose; exact/namespaced/glob notes work. Complex trades,
+config, enchantments, advancements, quests, inWorld and obtain sections may be exported in
+`<generated>/wiki/data.json` using the corresponding generated wiki UI schema. This export
+must be produced from actual registries/data, never a second hand-maintained balance source.
+Absent sections are empty. Module textures are isolated under `assets/textures/<id>/`.
+
+Pure Python verification: `python -m unittest discover -s wiki/tests -v` (also in `check`).
+The wiki switcher persists `?mod=<id>` and guarded localStorage. Existing SimpleBuilding
+query/hash links remain valid. Cross-module chapter references use full registry ids in
+`related`, which become links when the target module documents the id.

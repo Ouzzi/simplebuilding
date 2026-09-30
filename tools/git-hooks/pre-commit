@@ -1,5 +1,5 @@
 #!/bin/sh
-# Prueft vor jedem Commit, ob wiki/ zur Mod passt: python wiki/generate.py --check.
+# Prueft vor jedem Commit, ob wiki/ zur Mod passt: python wiki/generate.py --all --check.
 #
 #   einschalten (einmal pro Klon):  git config core.hooksPath tools/git-hooks
 #   ausschalten:                    git config --unset core.hooksPath
@@ -30,9 +30,9 @@ if [ -z "$py" ]; then
   exit 0
 fi
 
-if ! out=$("$py" wiki/generate.py --check 2>&1); then
+if ! out=$("$py" wiki/generate.py --all --check 2>&1); then
   printf '%s\n\n' "$out" >&2
-  echo "pre-commit: das Wiki passt nicht zur Mod (python wiki/generate.py --check)." >&2
+  echo "pre-commit: das Wiki passt nicht zur Mod (python wiki/generate.py --all --check)." >&2
   echo "  Beheben:            python wiki/generate.py  (fehlende Prosa in wiki/manual.json" >&2
   echo "                      ergaenzen), dann wiki/ stagen und erneut committen." >&2
   echo "  Einmal durchlassen: git commit --no-verify" >&2

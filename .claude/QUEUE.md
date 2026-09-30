@@ -251,3 +251,5 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 ## Codex KK2 (26.3)
 - [x] Enderit-Signalpulver und Astralgewölbe: Implementierung und gefilterte Verifikation auf codex-kk2; kein Push/Merge.
 - [ ] Besitzer-Abnahme: 26.3-Signalkanaele und Astralgewoelbe im Client; Testzentrale in Besitzerwelt neu bauen.
+## INFRA-W (26.3, Codex)
+- [x] Manifest-driven wiki generation, mod switcher, per-module completeness and static hosting. check green; visual browser review pending (no browser surface available).

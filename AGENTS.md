@@ -82,3 +82,7 @@ Anlage: `python tools/newmod.py <id> "Name"`. Manifest: `modules/modules.json`, 
 Integration nutzt eigene Saves unter `integration/run-fabric-263` und `integration/enabled-mods.json`.
 Module koppeln nur ueber framework-API oder oeffentliche Registry-IDs, nie interne Klassen.
 Details und Grenzen: `docs/MULTIMOD.md`; Integrationstest: `--targets integration-263` (separat vom Bestand).
+
+Multimod-Datenvertrag: Manifest-Pfade/Abhaengigkeiten vollstaendig halten; Modul-Prosa in
+`modules/<id>/wiki/manual.json` (EN/DE). Wiki: `python wiki/generate.py --all` und `--all --check`;
+`checkWiki` prueft alle Module. Details und Datagen-Exports: `docs/MULTIMOD.md`.

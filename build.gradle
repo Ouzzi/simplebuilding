@@ -253,7 +253,7 @@ tasks.register('generateWiki', Exec) {
 	group = 'documentation'
 	description = 'Regenerates wiki/data from the mod (python wiki/generate.py). Runs after runDatagen.'
 	workingDir = rootDir
-	commandLine wikiPython, 'wiki/generate.py'
+	commandLine wikiPython, 'wiki/generate.py', '--all'
 	onlyIf { !project.hasProperty('skipWiki') }
 	// A finalizer runs even when runDatagen failed; half-written datagen output is no base
 	// for a wiki.
@@ -266,10 +266,11 @@ tasks.register('checkWiki', Exec) {
 	group = 'verification'
 	description = 'Fails when wiki/data is out of date with the mod or something is undocumented.'
 	workingDir = rootDir
-	commandLine wikiPython, 'wiki/generate.py', '--check'
+	commandLine wikiPython, 'wiki/generate.py', '--all', '--check'
 	onlyIf { !project.hasProperty('skipWiki') }
 	mustRunAfter 'generateWiki'
 	inputs.dir('wiki')
+	inputs.files(fileTree('modules') { exclude '**/build/**', '**/.gradle/**' })
 	inputs.dir('src/main/generated')
 	inputs.dir('src/main/resources/data')
 	inputs.dir('src/main/resources/assets/simplebuilding/lang')
@@ -278,7 +279,13 @@ tasks.register('checkWiki', Exec) {
 	inputs.file('common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java')
 	outputs.upToDateWhen { false }
 }
-tasks.named('check') { dependsOn 'checkWiki' }
+tasks.register('testWikiModules', Exec) {
+    group = 'verification'
+    workingDir = rootDir
+    commandLine wikiPython, '-m', 'unittest', 'discover', '-s', 'wiki/tests', '-v'
+    onlyIf { !project.hasProperty('skipWiki') }
+}
+tasks.named('check') { dependsOn 'checkWiki', 'testWikiModules' }
 
 // The Balancing-Zentrale (python tools/devserver/serve.py, docs/BALANCING-ZENTRALE.md) writes balance
 // values into the Java/JSON sources of every line and keeps each confirmed save in balance/.
