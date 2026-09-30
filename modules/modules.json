@@ -589,7 +589,8 @@
       "description": "Server-controlled movement, farming, mob, weather, and vault utilities.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth_config"
@@ -620,6 +621,18 @@
           "neoforge": {
             "task": ":modules:simplequalityoflife:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplequalityoflife/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplequalityoflife:forge:runGameTestServer",
+            "report": "modules/simplequalityoflife/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -636,7 +649,7 @@
         "shared": "modules/simplequalityoflife/shared",
         "fabric": "modules/simplequalityoflife/fabric",
         "neoforge": "modules/simplequalityoflife/neoforge",
-        "forge": null,
+        "forge": "modules/simplequalityoflife/forge",
         "generated": "modules/simplequalityoflife/generated/resources",
         "lang": "modules/simplequalityoflife/shared/resources/assets/simplequalityoflife/lang",
         "wikiManual": "modules/simplequalityoflife/wiki/manual.json",
@@ -644,7 +657,8 @@
       },
       "projects": {
         "fabric": ":modules:simplequalityoflife:fabric",
-        "neoforge": ":modules:simplequalityoflife:neoforge"
+        "neoforge": ":modules:simplequalityoflife:neoforge",
+        "forge": ":modules:simplequalityoflife:forge"
       }
     },
     {

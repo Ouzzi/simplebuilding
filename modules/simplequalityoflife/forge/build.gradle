@@ -1,0 +1,27 @@
+plugins { id 'java-library'; id 'net.minecraftforge.gradle' version '7.0.36' }
+ext.moduleVersion = '1.0.6'
+ext.forgeExcludedSources = ['**/client/QolConfigScreen.java']
+ext.forgeMixinConfigs = ['simplequalityoflife-common.mixins.json', 'simplequalityoflife.forge.mixins.json']
+apply from: rootProject.file('gradle/module-forge.gradle')
+
+// Generate from canonical sources: only platform configuration calls/GUI markers differ.
+def canonical = rootProject.file('modules/simplequalityoflife/shared/java')
+def output = layout.buildDirectory.dir('forgeConfigSource')
+def files = ['com/simplequalityoflife/config/SimplequalityoflifeConfig.java', 'com/simplequalityoflife/Simplequalityoflife.java', 'com/simplequalityoflife/command/ModCommands.java']
+tasks.register('prepareForgeConfig') {
+ inputs.files(files.collect { new File(canonical, it) }); outputs.dir(output)
+ doLast {
+  files.each { path ->
+   def text = new File(canonical, path).getText('UTF-8')
+       .replaceAll(/(?m)^import me\.shedaniel\.autoconfig[^;]*;\s*/, '')
+       .replaceAll(/(?m)^\s*@Config[^\n]*\n/, '')
+       .replace(' implements ConfigData', '')
+       .replace('AutoConfig.register(SimplequalityoflifeConfig.class,GsonConfigSerializer::new)', 'com.simplebuilding.modules.simplequalityoflife.forge.QolForgeConfig.load()')
+       .replace('AutoConfig.getConfigHolder(SimplequalityoflifeConfig.class)', 'com.simplebuilding.modules.simplequalityoflife.forge.QolForgeConfig.HOLDER')
+   def target = output.get().file(path).asFile; target.parentFile.mkdirs(); target.setText(text, 'UTF-8')
+  }
+ }
+}
+sourceSets.main.java.srcDir(output)
+sourceSets.main.java.exclude { e -> files.any { e.file == new File(canonical, it) } }
+tasks.named('compileJava') { dependsOn 'prepareForgeConfig' }
