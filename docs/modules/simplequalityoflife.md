@@ -13,7 +13,7 @@ Source HEAD: `9272a4ee08211c99caa52419bfde9a336991fff5`; working tree already co
 - **Hoe harvest and replant**: Main-hand hoes harvest mature wheat, carrots, potatoes, beetroot, nether wart, and cocoa. One seed is taken from the actual loot; survival costs one durability. Server reach, world border, spawn protection, build rights, loader break vetoes, and a four-tick action limit are enforced.
 - **Furnace lava fill**: Either hand inserts one lava bucket into a furnace, blast furnace, or smoker with an empty fuel slot or one leftover empty bucket. Locked furnaces and sneaking are excluded. Survival consumes the lava bucket; an existing empty bucket is returned exactly once. SimpleBuilding furnace subclasses are supported through the Vanilla interface.
 - **Sharpness cuts vegetation**: Sharpness III or higher on a sword or axe clears explicit small vegetation overlapping the attacked entity. Sneaking disables it. At most 27 positions within 4.5 blocks are considered; loader break vetoes and action cooldown apply. The matching vegetation outline is hidden.
-- **Durability bonus**: Damageable held items with at least 80% durability receive a 1.5× attack damage and mining speed bonus by default. Threshold is bounded to 0.8–1 and multiplier to 1–1.5. Server config controls gameplay.
+- **Durability bonus**: Damageable held Vanilla and mod tools with at least 80% durability can receive an attack damage and mining speed bonus. The default multiplier is 1.0 (no bonus); item durability capacity and wear remain unchanged. Threshold is bounded to 0.8–1 and multiplier to 1–1.5. Server config controls gameplay.
 - **Mute mobs**: qOL.mutedEntities selects entity IDs. Names ending in _mute or _shhh are silent by default. Lists accept at most 64 nonempty distinct entries of at most 64 characters. Existing Vanilla silent state remains effective.
 - **Permanent babies**: Every 100 ticks, named ageable mobs ending in _baby or _small are set to age -24000. The source also makes named adults young again; this behavior is preserved. Removing the suffix allows aging again.
 - **Piglin gold equipment**: Gold armor trims or a golden sword, spear, pickaxe, axe, shovel, or hoe in either hand count as safe equipment. The two switches default true. This does not prevent anger caused by attacking or opening containers.
@@ -44,7 +44,7 @@ Additional server switches: `qOL.enableManualCrawl` and `qOL.enableVaultCooldown
 | `qOL.vaultCooldownDays` | `100` |
 | `qOL.enableFullDurabilityBonus` | `true` |
 | `qOL.fullDurabilityThreshold` | `0.8` |
-| `qOL.fullDurabilityBonusMultiplier` | `1.5` |
+| `qOL.fullDurabilityBonusMultiplier` | `1.0` |
 | `qOL.piglinsIgnoreGoldTrims` | `true` |
 | `qOL.piglinsIgnoreGoldTools` | `true` |
 | `qOL.disableWeather` | `false` |
@@ -70,7 +70,7 @@ Players: `/crawl`. Owner permission: `/simplequalityoflife vaults cooldown <1..3
 
 - No registry or recipe collision with SimpleBuilding or already imported Simple Tweaks features. Feather Falling farmland protection complements the Breeze head hook on the same `FarmlandBlock.fallOn`; both use MixinExtras expression modification, plus a NeoForge event.
 - Lava filling supports SimpleBuilding furnace subclasses through `AbstractFurnaceBlockEntity`, never internal module imports. Its lock and fuel slot are respected.
-- Durability bonus also affects SimpleBuilding damageable tools. The source's 1.5 multiplier is retained with a cap; the cross-mod test checks a public tool ID. This is a balance interaction, not a duplicated feature.
+- Durability bonus also affects SimpleBuilding damageable tools. The default is 1.0; the 1.5 cap retains the existing maximum +50% combat/mining gain. Server-hook tests cover a Vanilla pickaxe, the public SimpleBuilding hammer ID and a component-defined third-party-like tool. This is a balance interaction, not a duplicated feature.
 - SimpleBuilding movement/air-jump mixins also touch LivingEntity/Player. Climb checks are restricted to climbable blocks; normal movement retains Vanilla checks.
 - Dev `mousetweaks` and `clientsort` cover inventory operations; this source has no sorting or transfer packets, so none are added. `clienttweaks` offers assorted optional client automation: potential key/input overlap with auto-walk, so it requires owner combination review. `sodium-extra` has cosmetic weather controls that may compound rain reduction. These dev mods default off; no claim of arbitrary modpack compatibility.
 - R/P may collide with user or dev-mod bindings; Vanilla key remapping remains available. No automatic rebinding.
@@ -86,3 +86,16 @@ Forge 26.3 now has an experimental opt-in loader adapter; see the status below. 
 Enable `-Pforge263=true`. All 24 canonical server cases are registered with identical IDs/bodies. Forge supplies S2C-only config/crawl channels, login/tracking sync, commands, key bindings, client tick/logout, real break-event veto (including Result.DENY), lowest-priority interactions and farmland protection. The canonical config/main class is compiled through a generated platform adaptation; fields, defaults and normalization are never duplicated. Module-owned JSON load/save retains `config/simplequalityoflife.json`, 32768-byte input limit and administrative persistence. No cross-mod shim packages. Cloth GUI is excluded. The experimental Forge transport currently requires this module on both sides. Forge client rendering, physical keys, real multiplayer delivery and owner-world upgrades remain unverified.
 
 Forge follow-up verification: 24/24 canonical cases passed in the combined run `2026-09-30T17-52-13Z-77a1`; **2828/2828, alles gruen** across existing Fabric/NeoForge/Forge 26.3, integration and all manifest module server suites. Explicit Forge compile without `forge_runs`: exit 0. Client and owner-world limits above remain open.
+
+## Default bonus change (2026-09-30)
+
+The original key, interaction tab and option name remain. Fresh configs and missing keys use
+1.0. Existing files explicitly containing 1.5 keep that value: the old generated default
+cannot be distinguished from an intentional owner choice. Set it to 1.0 to disable the
+bonus in an existing world. No migration rewrites files automatically. NaN and either
+infinity use 1.0; finite values below 1 or above 1.5 clamp to those bounds, including at
+server runtime reads. The existing 1.5 cap prevents larger combat/mining amplification
+while preserving accepted configurations. Both loaders consume the same shared EN/DE
+resources; no separate language copies exist in the loader directories.
+
+Verification: both complete QoL module server suites passed, **48/48, alles gruen**, run 2026-09-30T20-53-16Z-7aed (24 per loader). The durability case exercises actual server-player attack/mining hooks for a Vanilla pickaxe and sword, the SimpleBuilding hammer and a component-defined foreign-tool fixture; finite/nonfinite caps, worn tools and unchanged item durability are asserted. The first launch failed before tests because Java 8 was missing from the cold ForgeGradle configuration; a locally downloaded, checksum-verified JDK 8 resolved it. No Forge gameplay was run. Client rendering, real third-party mods and owner worlds remain unverified.

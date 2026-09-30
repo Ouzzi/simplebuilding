@@ -35,7 +35,7 @@
   "text.autoconfig.simplequalityoflife.option.qOL.fullDurabilityThreshold": "Durability Threshold (0.8–1.0)",
   "text.autoconfig.simplequalityoflife.option.qOL.fullDurabilityThreshold.@Tooltip": "The fraction of durability required to trigger the bonus (e.g., 0.9 for 90%). Default: 0.8. Allowed range: 0.8–1.0.",
   "text.autoconfig.simplequalityoflife.option.qOL.fullDurabilityBonusMultiplier": "Bonus Multiplier",
-  "text.autoconfig.simplequalityoflife.option.qOL.fullDurabilityBonusMultiplier.@Tooltip": "The multiplier applied to speed/damage (e.g., 1.15 for +15%). Default: 1.5. Allowed range: 1.0–1.5.",
+  "text.autoconfig.simplequalityoflife.option.qOL.fullDurabilityBonusMultiplier.@Tooltip": "The multiplier applied to speed/damage (e.g., 1.15 for +15%). Default: 1.0. Allowed range: 1.0–1.5. Applies to Vanilla and mod tools. 1.0 means no bonus; saved values are retained.",
   "text.autoconfig.simplequalityoflife.option.qOL.piglinsIgnoreGoldTrims": "Piglins Ignore Gold Trims",
   "text.autoconfig.simplequalityoflife.option.qOL.piglinsIgnoreGoldTrims.@Tooltip": "Piglins won't attack if you wear armor with gold trims. Default: true. Attacks and container interactions can still anger piglins.",
   "text.autoconfig.simplequalityoflife.option.qOL.piglinsIgnoreGoldTools": "Piglins Ignore Gold Tools",
