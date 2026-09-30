@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[66,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplesounds"
+version="${version}"
+displayName="Simple Sounds"
+[[dependencies.simplesounds]]
+modId="forge"
+mandatory=true
+versionRange="[66,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simplesounds]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"

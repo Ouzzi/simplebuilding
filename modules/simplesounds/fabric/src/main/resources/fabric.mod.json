@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "simplesounds",
+  "version": "${version}",
+  "name": "Simple Sounds",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplesounds.FabricExample"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplesounds.ModuleGameTest"
+    ],
+    "modmenu": [
+      "com.simplebuilding.modules.simplesounds.SoundsModMenu"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "cloth-config": "*"
+  },
+  "mixins": [
+    "simplesounds.mixins.json"
+  ],
+  "suggests": {
+    "simplevisuals": "*"
+  }
+}
