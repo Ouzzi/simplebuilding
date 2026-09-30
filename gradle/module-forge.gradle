@@ -56,7 +56,8 @@ processResources {
 }
 if (forgeTest && providers.gradleProperty('forge_runs').getOrElse('false').toBoolean()) {
     // Required test mods are runtime jars, never implementation imports.
-    forgeTest.testMods?.each { id ->
+    // Test dependencies are activated only by an explicitly requested manifest test task.
+    if (gradle.startParameter.taskNames.contains(forgeTest.task)) forgeTest.testMods?.each { id ->
         def dependency = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json')).modules.find { it.id == id }
         dependencies { runtimeOnly project(dependency.projects.forge) }
     }

@@ -88,3 +88,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - Simple Sounds umgesetzt/verifiziert: 34 Modul-Servertests, drei Fabric-Clientpunkte, zehn Testzentralenfaelle und finales Gradle-Gate gruen; akustische Besitzerabnahme offen, kein Push/Merge.
 
 - Forge-Modules: experimentelle opt-in Forge-26.3-Adapter fuer Money, Riding, Models, Fun und Visuals; eigene Manifestziele, gleiche Testkataloge, Modulcommits ohne Push/Merge.
+
+- [x] Forge-Modules: Money/Riding/Models/Fun/Visuals experimentell opt-in portiert; finale Modulpruefung 89/89 gruen, Standardregression 1775/1775 gruen. Forge-Client-/Mehrspielerabnahme und Standardaktivierung bleiben Besitzerpunkte. Kein Push/Merge.

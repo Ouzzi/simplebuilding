@@ -210,15 +210,23 @@ and `tests.loaders.forge` manifest fields. The test declaration supplies
 `gradleArgs` with `-Pforge263=true`, `-Pforge_runs=true` and the Java 8 toolchain
 path, plus optional `testMods` (runtime jar ids, for example `simplebuilding`).
 The existing Forge convention discovers these settings; no root/runner/Hub block
-is needed. Each module uses its own `forge/run-gametest` world.
+is needed. Include module-owned `pack.mcmeta` (the SimpleBuilding Forge resource
+format range is the current reference); Forge otherwise omits the module data pack.
+Each module uses its own `forge/run-gametest` world. Test mods are runtime jars
+enabled only when the
+fully qualified manifest test task is requested; ordinary standalone module
+client/server invocations stay independent. Do not combine a module test and its
+ordinary client/server task in one Gradle invocation.
 
 In `forge/build.gradle`, apply `gradle/module-forge.gradle` with the module version.
 Declare `forgeMixinConfigs` for shared and Forge-only configs; they enter both the
 jar manifest and development launcher, with Forge's supported JAVA_21 Mixin level.
 `forgeExcludedSources` excludes optional Cloth GUI/JEI classes when no Forge 26.3
 artifact exists. Do not bundle fake Cloth GUI APIs or require another mod's shim.
-Keep any required annotation shim inside the module jar, without implementation
-imports from another module. Server JSON configuration remains the shared loader-neutral code.
+If the canonical config only uses inert Cloth annotations, generate a compile copy
+without those markers (Fun demonstrates this); never copy field values or normalization.
+Avoid duplicate shim packages between module jars. Server JSON configuration remains
+the shared loader-neutral code.
 
 Use `FMLJavaModLoadingContext.getModBusGroup()` and the typed event's `getBus(bus)`
 for registry/lifecycle events; game events expose `BUS`. Keep client setup behind
