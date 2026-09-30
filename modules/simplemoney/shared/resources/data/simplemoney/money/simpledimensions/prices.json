@@ -1,0 +1,9 @@
+{
+  "module": "simpledimensions",
+  "derivation": "Age-of-game tier from KERNE-SELTENHEIT section 5.3; maximum ingredient tier and recipe slot count; scarce heads tier 3. Tables are curated, not a claim of measured play time.",
+  "excluded": {
+    "simpledimension:sky_portal": "Portal block without an item form; access is a world recipe (frame plus ignition), never a trade.",
+    "simpledimension:light_blue_portal": "Legacy id kept readable for old worlds; no survival drop, recipe or trade."
+  },
+  "prices": []
+}
