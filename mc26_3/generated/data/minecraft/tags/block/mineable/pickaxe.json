@@ -1,5 +1,6 @@
 {
   "values": [
+    "simplebuilding:astral_vault",
     "simplebuilding:spawn_teleporter",
     "simplebuilding:spawn_teleporter_tier_2",
     "simplebuilding:spawn_teleporter_tier_3",
@@ -110,7 +111,6 @@
     "simplebuilding:polished_ender_quartz_slab",
     "simplebuilding:polished_ender_quartz_wall",
     "simplebuilding:ender_quartz_pillar",
-    "simplebuilding:chiseled_ender_quartz_bricks",
-    "simplebuilding:astral_vault"
+    "simplebuilding:chiseled_ender_quartz_bricks"
   ]
 }

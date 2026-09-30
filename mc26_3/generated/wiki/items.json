@@ -1,0 +1,1172 @@
+{
+  "blocks": [
+    "simplebuilding:astral_end_stone",
+    "simplebuilding:astral_purpur_block",
+    "simplebuilding:astral_vault",
+    "simplebuilding:astralit_block",
+    "simplebuilding:astralit_brick_slab",
+    "simplebuilding:astralit_brick_stairs",
+    "simplebuilding:astralit_brick_wall",
+    "simplebuilding:astralit_bricks",
+    "simplebuilding:astralit_lamp",
+    "simplebuilding:astralit_ore",
+    "simplebuilding:astralit_pillar",
+    "simplebuilding:astralit_powder",
+    "simplebuilding:astralit_quartz_checker",
+    "simplebuilding:astralit_switch",
+    "simplebuilding:backpack",
+    "simplebuilding:blackstone_quartz_checker",
+    "simplebuilding:blaze_head",
+    "simplebuilding:blaze_wall_head",
+    "simplebuilding:bogged_skull",
+    "simplebuilding:bogged_wall_skull",
+    "simplebuilding:breeze_head",
+    "simplebuilding:breeze_wall_head",
+    "simplebuilding:cave_spider_head",
+    "simplebuilding:cave_spider_wall_head",
+    "simplebuilding:chiseled_astralit_bricks",
+    "simplebuilding:chiseled_ender_quartz_bricks",
+    "simplebuilding:chiseled_nihilith_bricks",
+    "simplebuilding:chunk_loader",
+    "simplebuilding:construction_light",
+    "simplebuilding:copper_pressure_plate",
+    "simplebuilding:cracked_diamond_block",
+    "simplebuilding:diamond_pressure_plate",
+    "simplebuilding:drowned_head",
+    "simplebuilding:drowned_wall_head",
+    "simplebuilding:elytra_pad",
+    "simplebuilding:ender_quartz_block",
+    "simplebuilding:ender_quartz_brick_slab",
+    "simplebuilding:ender_quartz_brick_stairs",
+    "simplebuilding:ender_quartz_brick_wall",
+    "simplebuilding:ender_quartz_bricks",
+    "simplebuilding:ender_quartz_checker",
+    "simplebuilding:ender_quartz_pillar",
+    "simplebuilding:ender_quartz_slab",
+    "simplebuilding:ender_quartz_stairs",
+    "simplebuilding:enderite_backpack",
+    "simplebuilding:enderite_blast_furnace",
+    "simplebuilding:enderite_block",
+    "simplebuilding:enderite_chest",
+    "simplebuilding:enderite_chunk_loader",
+    "simplebuilding:enderite_elytra_pad",
+    "simplebuilding:enderite_flypad",
+    "simplebuilding:enderite_furnace",
+    "simplebuilding:enderite_hopper",
+    "simplebuilding:enderite_launchpad",
+    "simplebuilding:enderite_piston",
+    "simplebuilding:enderite_piston_head",
+    "simplebuilding:enderite_pressure_plate",
+    "simplebuilding:enderite_shulker_box",
+    "simplebuilding:enderite_smoker",
+    "simplebuilding:enderite_spawn_teleporter",
+    "simplebuilding:enderman_head",
+    "simplebuilding:enderman_wall_head",
+    "simplebuilding:exposed_copper_pressure_plate",
+    "simplebuilding:fine_elytra_pad",
+    "simplebuilding:flypad",
+    "simplebuilding:husk_head",
+    "simplebuilding:husk_wall_head",
+    "simplebuilding:infused_potion_pad",
+    "simplebuilding:lapis_quartz_checker",
+    "simplebuilding:launchpad",
+    "simplebuilding:levitating_gravel",
+    "simplebuilding:levitating_sand",
+    "simplebuilding:netherite_backpack",
+    "simplebuilding:netherite_blast_furnace",
+    "simplebuilding:netherite_chest",
+    "simplebuilding:netherite_chunk_loader",
+    "simplebuilding:netherite_elytra_pad",
+    "simplebuilding:netherite_flypad",
+    "simplebuilding:netherite_furnace",
+    "simplebuilding:netherite_hopper",
+    "simplebuilding:netherite_launchpad",
+    "simplebuilding:netherite_piston",
+    "simplebuilding:netherite_piston_head",
+    "simplebuilding:netherite_pressure_plate",
+    "simplebuilding:netherite_shulker_box",
+    "simplebuilding:netherite_smoker",
+    "simplebuilding:nihil_end_stone",
+    "simplebuilding:nihil_purpur_block",
+    "simplebuilding:nihilith_block",
+    "simplebuilding:nihilith_brick_slab",
+    "simplebuilding:nihilith_brick_stairs",
+    "simplebuilding:nihilith_brick_wall",
+    "simplebuilding:nihilith_bricks",
+    "simplebuilding:nihilith_lamp",
+    "simplebuilding:nihilith_ore",
+    "simplebuilding:nihilith_pillar",
+    "simplebuilding:nihilith_powder",
+    "simplebuilding:nihilith_quartz_checker",
+    "simplebuilding:nihilith_switch",
+    "simplebuilding:oxidized_copper_pressure_plate",
+    "simplebuilding:placed_blueprint",
+    "simplebuilding:placed_bundle",
+    "simplebuilding:placed_smithing_template",
+    "simplebuilding:polished_astralit",
+    "simplebuilding:polished_astralit_slab",
+    "simplebuilding:polished_astralit_stairs",
+    "simplebuilding:polished_astralit_wall",
+    "simplebuilding:polished_end_stone",
+    "simplebuilding:polished_ender_quartz",
+    "simplebuilding:polished_ender_quartz_slab",
+    "simplebuilding:polished_ender_quartz_stairs",
+    "simplebuilding:polished_ender_quartz_wall",
+    "simplebuilding:polished_nihilith",
+    "simplebuilding:polished_nihilith_slab",
+    "simplebuilding:polished_nihilith_stairs",
+    "simplebuilding:polished_nihilith_wall",
+    "simplebuilding:potion_pad",
+    "simplebuilding:purpur_quartz_checker",
+    "simplebuilding:reinforced_backpack",
+    "simplebuilding:reinforced_blast_furnace",
+    "simplebuilding:reinforced_chest",
+    "simplebuilding:reinforced_elytra_pad",
+    "simplebuilding:reinforced_flypad",
+    "simplebuilding:reinforced_furnace",
+    "simplebuilding:reinforced_hopper",
+    "simplebuilding:reinforced_piston",
+    "simplebuilding:reinforced_piston_head",
+    "simplebuilding:reinforced_potion_pad",
+    "simplebuilding:reinforced_shulker_box",
+    "simplebuilding:reinforced_smoker",
+    "simplebuilding:reinforced_sticky_piston",
+    "simplebuilding:resin_quartz_checker",
+    "simplebuilding:shulker_head",
+    "simplebuilding:shulker_wall_head",
+    "simplebuilding:silverfish_head",
+    "simplebuilding:silverfish_wall_head",
+    "simplebuilding:slime_head",
+    "simplebuilding:slime_wall_head",
+    "simplebuilding:spawn_teleporter",
+    "simplebuilding:spawn_teleporter_tier_2",
+    "simplebuilding:spawn_teleporter_tier_3",
+    "simplebuilding:spawn_teleporter_tier_4",
+    "simplebuilding:spider_head",
+    "simplebuilding:spider_wall_head",
+    "simplebuilding:stellar_flypad",
+    "simplebuilding:stray_skull",
+    "simplebuilding:stray_wall_skull",
+    "simplebuilding:suspended_gravel",
+    "simplebuilding:suspended_sand",
+    "simplebuilding:waxed_copper_pressure_plate",
+    "simplebuilding:waxed_exposed_copper_pressure_plate",
+    "simplebuilding:waxed_oxidized_copper_pressure_plate",
+    "simplebuilding:waxed_weathered_copper_pressure_plate",
+    "simplebuilding:weathered_copper_pressure_plate"
+  ],
+  "generator": "com.simplebuilding.datagen.WikiDataProvider",
+  "items": [
+    {
+      "durability": 640,
+      "id": "simplebuilding:amethyst_lens",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:astral_end_stone"
+    },
+    {
+      "id": "simplebuilding:astral_purpur_block"
+    },
+    {
+      "id": "simplebuilding:astral_vault"
+    },
+    {
+      "id": "simplebuilding:astralit_block"
+    },
+    {
+      "id": "simplebuilding:astralit_brick_slab"
+    },
+    {
+      "id": "simplebuilding:astralit_brick_stairs"
+    },
+    {
+      "id": "simplebuilding:astralit_brick_wall"
+    },
+    {
+      "id": "simplebuilding:astralit_bricks"
+    },
+    {
+      "id": "simplebuilding:astralit_dust"
+    },
+    {
+      "id": "simplebuilding:astralit_lamp"
+    },
+    {
+      "id": "simplebuilding:astralit_ore"
+    },
+    {
+      "id": "simplebuilding:astralit_pillar"
+    },
+    {
+      "id": "simplebuilding:astralit_powder"
+    },
+    {
+      "id": "simplebuilding:astralit_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:astralit_switch"
+    },
+    {
+      "id": "simplebuilding:backpack",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:basic_upgrade_template"
+    },
+    {
+      "id": "simplebuilding:blackstone_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:blaze_head"
+    },
+    {
+      "id": "simplebuilding:blueprint",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:bogged_skull"
+    },
+    {
+      "id": "simplebuilding:breeze_head"
+    },
+    {
+      "id": "simplebuilding:cave_spider_head"
+    },
+    {
+      "id": "simplebuilding:chiseled_astralit_bricks"
+    },
+    {
+      "id": "simplebuilding:chiseled_ender_quartz_bricks"
+    },
+    {
+      "id": "simplebuilding:chiseled_nihilith_bricks"
+    },
+    {
+      "id": "simplebuilding:chunk_loader",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:construction_light"
+    },
+    {
+      "durability": 1520,
+      "enchantability": 18,
+      "id": "simplebuilding:copper_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 3
+    },
+    {
+      "cooldownTicks": 25,
+      "dedicatedSpatula": false,
+      "durability": 192,
+      "enchantability": 18,
+      "id": "simplebuilding:copper_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:copper_core",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:copper_pressure_plate"
+    },
+    {
+      "attackDamage": 6.0,
+      "attackSpeed": 0.8,
+      "durability": 760,
+      "enchantability": 13,
+      "id": "simplebuilding:copper_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 25,
+      "dedicatedSpatula": true,
+      "durability": 192,
+      "enchantability": 18,
+      "id": "simplebuilding:copper_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:cracked_diamond"
+    },
+    {
+      "id": "simplebuilding:cracked_diamond_block"
+    },
+    {
+      "id": "simplebuilding:creative_spacer",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 1024,
+      "enchantability": 15,
+      "id": "simplebuilding:detector",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 12488,
+      "enchantability": 10,
+      "id": "simplebuilding:diamond_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 9
+    },
+    {
+      "cooldownTicks": 10,
+      "dedicatedSpatula": false,
+      "durability": 392,
+      "enchantability": 10,
+      "id": "simplebuilding:diamond_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:diamond_core",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:diamond_pebble"
+    },
+    {
+      "id": "simplebuilding:diamond_pressure_plate"
+    },
+    {
+      "attackDamage": 11.0,
+      "attackSpeed": 0.8,
+      "durability": 6244,
+      "enchantability": 10,
+      "id": "simplebuilding:diamond_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 10,
+      "dedicatedSpatula": true,
+      "durability": 392,
+      "enchantability": 10,
+      "id": "simplebuilding:diamond_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:drowned_head"
+    },
+    {
+      "durability": 1500,
+      "enchantability": 15,
+      "id": "simplebuilding:echo_sounder",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:elytra_pad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:emitting_trim_template"
+    },
+    {
+      "id": "simplebuilding:enchanted_enderite_apple"
+    },
+    {
+      "id": "simplebuilding:enchanted_netherite_apple"
+    },
+    {
+      "id": "simplebuilding:ender_quartz"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_block"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_brick_slab"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_brick_stairs"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_brick_wall"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_bricks"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_pillar"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_slab"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_stairs"
+    },
+    {
+      "id": "simplebuilding:enderite_apple"
+    },
+    {
+      "attackDamage": 11.0,
+      "attackSpeed": 1.0,
+      "durability": 2530,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_axe",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_backpack",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_blast_furnace"
+    },
+    {
+      "id": "simplebuilding:enderite_block"
+    },
+    {
+      "durability": 546,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_boots",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 20000,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 13
+    },
+    {
+      "bundleCapacityItems": 288,
+      "id": "simplebuilding:enderite_bundle",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_carrot"
+    },
+    {
+      "id": "simplebuilding:enderite_chest"
+    },
+    {
+      "durability": 672,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_chestplate",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 5,
+      "dedicatedSpatula": false,
+      "durability": 600,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_chunk_loader",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_core",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_elytra_pad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_flypad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_furnace"
+    },
+    {
+      "durability": 462,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_helmet",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 2.0,
+      "attackSpeed": 4.0,
+      "durability": 2530,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_hoe",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_hopper"
+    },
+    {
+      "id": "simplebuilding:enderite_horse_armor",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_ingot"
+    },
+    {
+      "id": "simplebuilding:enderite_launchpad",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 630,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_leggings",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_nautilus_armor",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_nugget"
+    },
+    {
+      "attackDamage": 7.0,
+      "attackSpeed": 1.2,
+      "durability": 2530,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_pickaxe",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_piston"
+    },
+    {
+      "id": "simplebuilding:enderite_pressure_plate"
+    },
+    {
+      "bundleCapacityItems": 192,
+      "id": "simplebuilding:enderite_quiver",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_scrap"
+    },
+    {
+      "attackDamage": 7.5,
+      "attackSpeed": 1.0,
+      "durability": 2530,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_shovel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_shulker_box",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 15.0,
+      "attackSpeed": 1.2,
+      "durability": 10000,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_smoker"
+    },
+    {
+      "id": "simplebuilding:enderite_spawn_teleporter",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 6.0,
+      "attackSpeed": 0.87,
+      "durability": 2530,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_spear",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 9.0,
+      "attackSpeed": 1.6,
+      "durability": 2530,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_sword",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_upgrade_template"
+    },
+    {
+      "id": "simplebuilding:enderman_head"
+    },
+    {
+      "id": "simplebuilding:exposed_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:fine_elytra_pad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:flypad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:funny_stick",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:glowing_trim_template"
+    },
+    {
+      "durability": 256,
+      "enchantability": 22,
+      "id": "simplebuilding:gold_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 7
+    },
+    {
+      "cooldownTicks": 20,
+      "dedicatedSpatula": false,
+      "durability": 128,
+      "enchantability": 22,
+      "id": "simplebuilding:gold_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:gold_core",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 6.0,
+      "attackSpeed": 0.8,
+      "durability": 128,
+      "enchantability": 22,
+      "id": "simplebuilding:gold_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 20,
+      "dedicatedSpatula": true,
+      "durability": 128,
+      "enchantability": 22,
+      "id": "simplebuilding:gold_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:guide_book",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_start",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:husk_head"
+    },
+    {
+      "id": "simplebuilding:infused_potion_pad",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 2000,
+      "enchantability": 14,
+      "id": "simplebuilding:iron_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 5
+    },
+    {
+      "cooldownTicks": 25,
+      "dedicatedSpatula": false,
+      "durability": 256,
+      "enchantability": 14,
+      "id": "simplebuilding:iron_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:iron_core",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 9.0,
+      "attackSpeed": 0.6,
+      "durability": 1000,
+      "enchantability": 14,
+      "id": "simplebuilding:iron_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 25,
+      "dedicatedSpatula": true,
+      "durability": 256,
+      "enchantability": 14,
+      "id": "simplebuilding:iron_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:lapis_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:launchpad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:layered_raw_enderite"
+    },
+    {
+      "id": "simplebuilding:leather_sheet"
+    },
+    {
+      "id": "simplebuilding:levitating_gravel"
+    },
+    {
+      "id": "simplebuilding:levitating_sand"
+    },
+    {
+      "id": "simplebuilding:magnet",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_apple"
+    },
+    {
+      "id": "simplebuilding:netherite_backpack",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_blast_furnace"
+    },
+    {
+      "durability": 16248,
+      "enchantability": 15,
+      "id": "simplebuilding:netherite_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 11
+    },
+    {
+      "bundleCapacityItems": 192,
+      "id": "simplebuilding:netherite_bundle",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_carrot"
+    },
+    {
+      "id": "simplebuilding:netherite_chest"
+    },
+    {
+      "cooldownTicks": 5,
+      "dedicatedSpatula": false,
+      "durability": 512,
+      "enchantability": 15,
+      "id": "simplebuilding:netherite_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_chunk_loader",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_core",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_elytra_pad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_flypad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_furnace"
+    },
+    {
+      "id": "simplebuilding:netherite_hopper"
+    },
+    {
+      "id": "simplebuilding:netherite_launchpad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_nugget"
+    },
+    {
+      "id": "simplebuilding:netherite_piston"
+    },
+    {
+      "id": "simplebuilding:netherite_pressure_plate"
+    },
+    {
+      "bundleCapacityItems": 128,
+      "id": "simplebuilding:netherite_quiver",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_shulker_box",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 13.0,
+      "attackSpeed": 1.0,
+      "durability": 8124,
+      "enchantability": 15,
+      "id": "simplebuilding:netherite_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_smoker"
+    },
+    {
+      "cooldownTicks": 5,
+      "dedicatedSpatula": true,
+      "durability": 512,
+      "enchantability": 15,
+      "id": "simplebuilding:netherite_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone"
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_block"
+    },
+    {
+      "id": "simplebuilding:nihilith_block"
+    },
+    {
+      "id": "simplebuilding:nihilith_brick_slab"
+    },
+    {
+      "id": "simplebuilding:nihilith_brick_stairs"
+    },
+    {
+      "id": "simplebuilding:nihilith_brick_wall"
+    },
+    {
+      "id": "simplebuilding:nihilith_bricks"
+    },
+    {
+      "id": "simplebuilding:nihilith_lamp"
+    },
+    {
+      "id": "simplebuilding:nihilith_ore"
+    },
+    {
+      "id": "simplebuilding:nihilith_pillar"
+    },
+    {
+      "id": "simplebuilding:nihilith_powder"
+    },
+    {
+      "id": "simplebuilding:nihilith_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:nihilith_shard"
+    },
+    {
+      "id": "simplebuilding:nihilith_switch"
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_black",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_blue",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_brown",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_cyan",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_gray",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_green",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_light_blue",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_light_gray",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_lime",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_magenta",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_orange",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_pink",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_purple",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_red",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_white",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_yellow",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:oxidized_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:polished_astralit"
+    },
+    {
+      "id": "simplebuilding:polished_astralit_slab"
+    },
+    {
+      "id": "simplebuilding:polished_astralit_stairs"
+    },
+    {
+      "id": "simplebuilding:polished_astralit_wall"
+    },
+    {
+      "id": "simplebuilding:polished_end_stone"
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz"
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_slab"
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_stairs"
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_wall"
+    },
+    {
+      "id": "simplebuilding:polished_nihilith"
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_slab"
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_stairs"
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_wall"
+    },
+    {
+      "id": "simplebuilding:potion_pad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:pulsating_trim_template"
+    },
+    {
+      "id": "simplebuilding:purpur_quartz_checker"
+    },
+    {
+      "bundleCapacityItems": 64,
+      "id": "simplebuilding:quiver",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:raw_enderite"
+    },
+    {
+      "id": "simplebuilding:reinforced_backpack",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:reinforced_blast_furnace"
+    },
+    {
+      "bundleCapacityItems": 96,
+      "id": "simplebuilding:reinforced_bundle",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:reinforced_chest"
+    },
+    {
+      "id": "simplebuilding:reinforced_elytra_pad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:reinforced_flypad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:reinforced_furnace"
+    },
+    {
+      "id": "simplebuilding:reinforced_hopper"
+    },
+    {
+      "id": "simplebuilding:reinforced_piston"
+    },
+    {
+      "id": "simplebuilding:reinforced_potion_pad",
+      "maxStackSize": 1
+    },
+    {
+      "bundleCapacityItems": 96,
+      "id": "simplebuilding:reinforced_quiver",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:reinforced_shulker_box",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:reinforced_smoker"
+    },
+    {
+      "id": "simplebuilding:reinforced_sticky_piston"
+    },
+    {
+      "id": "simplebuilding:resin_quartz_checker"
+    },
+    {
+      "durability": 1024,
+      "enchantability": 15,
+      "id": "simplebuilding:rotator",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:shulker_head"
+    },
+    {
+      "id": "simplebuilding:silverfish_head"
+    },
+    {
+      "id": "simplebuilding:slime_head"
+    },
+    {
+      "id": "simplebuilding:spawn_elytra",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_tier_2",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_tier_3",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_tier_4",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:spider_head"
+    },
+    {
+      "id": "simplebuilding:stellar_flypad",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 30,
+      "dedicatedSpatula": false,
+      "durability": 192,
+      "enchantability": 15,
+      "id": "simplebuilding:stone_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 6.0,
+      "attackSpeed": 0.6,
+      "durability": 760,
+      "enchantability": 5,
+      "id": "simplebuilding:stone_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 30,
+      "dedicatedSpatula": true,
+      "durability": 192,
+      "enchantability": 15,
+      "id": "simplebuilding:stone_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:stray_skull"
+    },
+    {
+      "id": "simplebuilding:suspended_gravel"
+    },
+    {
+      "id": "simplebuilding:suspended_sand"
+    },
+    {
+      "id": "simplebuilding:velocity_gauge",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:waxed_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:waxed_exposed_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:weathered_copper_pressure_plate"
+    }
+  ],
+  "note": "Aus der Item-Registry erzeugt (gradlew runDatagen) - nicht von Hand aendern.",
+  "schema": 1,
+  "vanilla": {
+    "hopperMoveItemSpeed": 8
+  }
+}

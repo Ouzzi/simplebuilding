@@ -234,4 +234,5 @@ Verlauf im Detail: git log.
 - [ ] Besitzer-Abnahme: Mega-Handbuecher im Client ansehen und Testzentrale in der Besitzerwelt neu bauen.
 
 ## Codex KK2 (26.3)
-- [ ] Enderit-Signalpulver und Astralgewölbe: Implementierung und gefilterte Verifikation auf codex-kk2; kein Push/Merge.
+- [x] Enderit-Signalpulver und Astralgewölbe: Implementierung und gefilterte Verifikation auf codex-kk2; kein Push/Merge.
+- [ ] Besitzer-Abnahme: 26.3-Signalkanaele und Astralgewoelbe im Client; Testzentrale in Besitzerwelt neu bauen.
