@@ -19,6 +19,8 @@ def discover(repo):
         if not re.fullmatch(r'[a-z][a-z0-9_-]*', mid) or mid in seen:
             raise ValueError(f'Invalid or duplicate module id: {mid}')
         seen.add(mid)
+        if not re.fullmatch(r'[a-z][a-z0-9_-]*', entry.get('namespace', mid)):
+            raise ValueError(f'Invalid registry namespace: {mid}')
         for key in ('name', 'displayName', 'description', 'version', 'loaders', 'minecraft', 'paths', 'requires', 'optional'):
             if key not in entry:
                 raise ValueError(f'{mid}: missing manifest field {key}')
@@ -36,6 +38,7 @@ def discover(repo):
 def extract(entry, g, check=False):
     """Return the UI schema and completeness problems; absent features are empty."""
     repo, mid, paths = g.REPO, entry['id'], entry['paths']
+    ns = entry.get('namespace', mid)
     manual_path = repo / paths['wikiManual']
     manual = g.read_json(manual_path) if manual_path.exists() else {}
     lang = {locale: g.read_json(repo / paths['lang'] / (locale + '.json'))
@@ -43,8 +46,8 @@ def extract(entry, g, check=False):
     resources = [repo / paths['shared'] / 'resources']
     resources += [repo / paths[loader] / 'src/main/resources' for loader in entry['loaders'] if paths.get(loader)]
     generated = repo / paths['generated']
-    roots = dict(generated_data=str(generated / 'data' / mid),
-                 resource_data=str(resources[0] / 'data' / mid), namespace=mid)
+    roots = dict(generated_data=str(generated / 'data' / ns),
+                 resource_data=str(resources[0] / 'data' / ns), namespace=ns)
     # Each resource layer overrides the earlier layer by id, matching loader resources.
     collections = {}
     for name, collector in [('recipes', g.collect_recipes), ('lootTables', g.collect_loot_tables), ('tags', g.collect_tags),
@@ -52,7 +55,7 @@ def extract(entry, g, check=False):
                             ('enchantments', lambda roots: g.collect_enchantments(roots, lang)[0])]:
         values = {}
         for resource in [generated, *resources]:
-            roots['generated_data'] = str(resource / 'data' / mid)
+            roots['generated_data'] = str(resource / 'data' / ns)
             roots['resource_data'] = str(repo / 'build/wiki-no-resource-layer')
             for value in collector(roots):
                 if name == 'tags' and value['id'] in values and not value.get('replace'):
@@ -63,12 +66,12 @@ def extract(entry, g, check=False):
     for table in lang.values():
         for key in table:
             for kind, prefix in [('items', 'item'), ('blocks', 'block')]:
-                if key.startswith(f'{prefix}.{mid}.') and '.' not in key.split('.', 2)[2]:
-                    inventory[kind].add(mid + ':' + key.split('.', 2)[2])
+                if key.startswith(f'{prefix}.{ns}.') and '.' not in key.split('.', 2)[2]:
+                    inventory[kind].add(ns + ':' + key.split('.', 2)[2])
     for resource in [*resources, generated]:
         for kind, directory in [('items', 'items'), ('blocks', 'blockstates')]:
-            base = resource / 'assets' / mid / directory
-            inventory[kind].update(mid + ':' + p.relative_to(base).with_suffix('').as_posix() for p in base.rglob('*.json'))
+            base = resource / 'assets' / ns / directory
+            inventory[kind].update(ns + ':' + p.relative_to(base).with_suffix('').as_posix() for p in base.rglob('*.json'))
     props_path = generated / 'wiki/items.json'
     props = g.read_json(props_path) if props_path.exists() else {}
     if isinstance(props, dict) and 'items' in props:
@@ -76,7 +79,7 @@ def extract(entry, g, check=False):
     if isinstance(props, list):
         props = {e['id']: e for e in props}
     for identifier, value in props.items():
-        if identifier.startswith(mid + ':'):
+        if identifier.startswith(ns + ':'):
             inventory['blocks' if value.get('kind') == 'block' else 'items'].add(identifier)
     # The scaffold uses a literal identifier followed by a registry registration.
     for source in (repo / paths['shared']).rglob('*.java'):
@@ -92,8 +95,8 @@ def extract(entry, g, check=False):
                 # Resolve the nearest preceding literal assignment to this variable.
                 assignments = list(re.finditer(r'\b' + re.escape(argument) + r'\s*=\s*(' + literal + r')\s*;', code[:registration.start()]))
                 identifier = re.fullmatch(literal, assignments[-1].group(1)) if assignments else None
-            if identifier and identifier.group(1) == mid:
-                inventory['blocks' if registry == 'BLOCK' else 'items'].add(mid + ':' + identifier.group(2))
+            if identifier and identifier.group(1) == ns:
+                inventory['blocks' if registry == 'BLOCK' else 'items'].add(ns + ':' + identifier.group(2))
     # Block items inherit the block's translation key and are documented on the
     # block page; their item model/export must not demand a phantom item key.
     inventory['items'].difference_update(inventory['blocks'])
@@ -102,7 +105,7 @@ def extract(entry, g, check=False):
         problems.append(f'{paths["wikiManual"]}: notes must be an object keyed by item/block id or glob')
         notes = {}
     # An exact feature chapter can document its registry id without duplicating prose.
-    feature_notes = {f["id"] if ':' in f["id"] else mid + ':' + f["id"]:
+    feature_notes = {f["id"] if ':' in f["id"] else ns + ':' + f["id"]:
                      {locale: f[locale] for locale in ('en', 'de') if locale in f}
                      for f in manual.get('features', [])}
     notes = feature_notes | notes
@@ -119,14 +122,14 @@ def extract(entry, g, check=False):
             note = next((v for k, v in notes.items() if fnmatch.fnmatchcase(identifier, k) or fnmatch.fnmatchcase(name, k)), None)
             record(identifier, note)
             prefix = 'item' if kind == 'items' else 'block'
-            key = f'{prefix}.{mid}.{name}'
+            key = f'{prefix}.{ns}.{name}'
             if not all(key in table for table in lang.values()) or len(lang) != 2:
                 problems.append(f'{identifier}: missing English/German name')
             value = dict(props.get(identifier, {}), id=identifier, name=g.display_name(lang, key, name), note=note)
             # Copy module-owned textures with namespace isolation. Vanilla-only
             # models remain text tiles, just like missing Vanilla images in CI.
             for resource in [*resources, generated]:
-                texture = resource / 'assets' / mid / 'textures' / prefix / (name + '.png')
+                texture = resource / 'assets' / ns / 'textures' / prefix / (name + '.png')
                 if texture.exists():
                     import shutil
                     relative = f'assets/textures/{mid}/{prefix}/{name}.png'

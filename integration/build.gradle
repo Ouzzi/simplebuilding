@@ -106,7 +106,10 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
         def metadata = [schemaVersion:1, id:'sbmodules-clienttest', version:'1.0.0',
             name:'Module Client Tests', environment:'client',
             entrypoints:['fabric-client-gametest':entries.collectMany { it.tests.client.entrypoints }],
-            depends:entries.collectMany { it.tests.requires ?: [it.id] }.unique().collectEntries { [(it):'*'] }]
+            depends:entries.collectMany { it.tests.requires ?: [it.id] }.unique().collectEntries { requiredId ->
+                def producer = registry.modules.find { it.id == requiredId }
+                [(producer?.modId ?: requiredId):'*']
+            }]
         def output = clientMetadata.get().file('fabric.mod.json').asFile
         output.parentFile.mkdirs()
         output.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(metadata)) + '\n'

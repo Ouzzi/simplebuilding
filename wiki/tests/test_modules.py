@@ -42,6 +42,18 @@ class ModuleWikiTests(unittest.TestCase):
             self.write(self.entry['paths']['lang'] + '/' + locale + '.json', {'item.wiringexample.token': 'Token'})
         self.write(self.entry['paths']['wikiManual'], {'notes': {'token': self.prose()} if note else {}})
 
+    def test_module_id_can_differ_from_persistent_namespace(self):
+        self.entry['namespace'] = 'legacyname'
+        for locale in ('en_us', 'de_de'):
+            self.write(self.entry['paths']['lang'] + '/' + locale + '.json', {'block.legacyname.portal': 'Portal'})
+        self.write(self.entry['paths']['generated'] + '/wiki/items.json', {'items': [{'id': 'legacyname:portal', 'kind': 'block'}]})
+        self.write(self.entry['paths']['wikiManual'], {'notes': {'legacyname:portal': self.prose()}})
+        data, problems = module_wiki.extract(self.entry, g)
+        self.assertEqual(data['mod']['id'], 'wiringexample')
+        self.assertEqual(data['blocks'][0]['id'], 'legacyname:portal')
+        self.assertEqual(data['items'], [])
+        self.assertEqual(problems, [])
+
     def test_discovery_preserves_contract(self):
         self.assertEqual(module_wiki.discover(self.root), [self.entry])
 

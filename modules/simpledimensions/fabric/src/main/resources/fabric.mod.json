@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "simpledimension",
+  "version": "${version}",
+  "name": "Simple Dimensions",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpledimensions.FabricExample"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpledimensions.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simpledimensions.DimensionClient"
+    ],
+    "modmenu": [
+      "com.simplebuilding.modules.simpledimensions.DimensionModMenu"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "cloth-config": "*"
+  },
+  "mixins": [
+    "simpledimension.mixins.json"
+  ],
+  "suggests": {
+    "modmenu": "*",
+    "simplebuilding": "*"
+  }
+}

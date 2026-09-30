@@ -1,0 +1,309 @@
+{
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simpledimensions",
+    "name": "Simple Dimensions",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ]
+  },
+  "features": [
+    {
+      "id": "skyblock",
+      "sources": [
+        "modules/simpledimensions/shared/java/dev/simpledimension/common/portal/DimensionPortalConfig.java",
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/PortalWorld.java",
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DestinationPlatform.java"
+      ],
+      "en": {
+        "title": "Skyblock",
+        "summary": "Build one of six glowstone arches and place a separate emitting block within three blocks of the interior. Glowstone, fire, soul fire, and portal blocks do not count. Ignite with flint and steel or one fire charge. The light blue void has a bedrock arrival island whose diameter is the frame width plus four, and an exact return exit. No free resources are generated.",
+        "details": [
+          "Build one of six glowstone arches and place a separate emitting block within three blocks of the interior. Glowstone, fire, soul fire, and portal blocks do not count. Ignite with flint and steel or one fire charge. The light blue void has a bedrock arrival island whose diameter is the frame width plus four, and an exact return exit. No free resources are generated."
+        ]
+      },
+      "de": {
+        "title": "Skyblock",
+        "summary": "Einen der sechs Glowstoneb?gen bauen und einen zus?tzlichen leuchtenden Block h?chstens drei Bl?cke vom Innenraum setzen. Glowstone, Feuer, Seelenfeuer und Portalbl?cke z?hlen nicht. Mit Feuerzeug oder einer Feuerkugel z?nden. Die hellblaue Leere bietet eine Bedrockinsel mit Rahmendurchmesser plus vier und exaktem R?ckweg; keine kostenlosen Rohstoffe.",
+        "details": [
+          "Einen der sechs Glowstoneb?gen bauen und einen zus?tzlichen leuchtenden Block h?chstens drei Bl?cke vom Innenraum setzen. Glowstone, Feuer, Seelenfeuer und Portalbl?cke z?hlen nicht. Mit Feuerzeug oder einer Feuerkugel z?nden. Die hellblaue Leere bietet eine Bedrockinsel mit Rahmendurchmesser plus vier und exaktem R?ckweg; keine kostenlosen Rohstoffe."
+        ]
+      }
+    },
+    {
+      "id": "mining",
+      "sources": [
+        "modules/simpledimensions/shared/java/dev/simpledimension/common/portal/DimensionPortalConfig.java",
+        "modules/simpledimensions/shared/java/dev/simpledimension/common/config/DimensionConfigStore.java"
+      ],
+      "en": {
+        "title": "Mining Dimension",
+        "summary": "Portal rows: DXXD / D..D / D..D / D..D / DEED. D is deepslate bricks, X diamond ore, E emerald ore. One origin block maps to two mining blocks. The forest flat preset has bedrock at -64, deepslate through 0, stone through 188, dirt at 189?190, and grass at 191. Vanilla biome features provide ores and trees; terrain is never reset.",
+        "details": [
+          "Portal rows: DXXD / D..D / D..D / D..D / DEED. D is deepslate bricks, X diamond ore, E emerald ore. One origin block maps to two mining blocks. The forest flat preset has bedrock at -64, deepslate through 0, stone through 188, dirt at 189?190, and grass at 191. Vanilla biome features provide ores and trees; terrain is never reset."
+        ]
+      },
+      "de": {
+        "title": "Abbaudimension",
+        "summary": "Portalzeilen: DXXD / D..D / D..D / D..D / DEED. D ist Tiefenschieferziegel, X Diamanterz, E Smaragderz. Ein Quellblock entspricht zwei Zielbl?cken. Das flache Waldpreset hat Bedrock bei -64, Tiefenschiefer bis 0, Stein bis 188, Erde bei 189?190 und Gras bei 191. Vanilla-Biomfeatures liefern Erze und B?ume; kein Gebietsreset.",
+        "details": [
+          "Portalzeilen: DXXD / D..D / D..D / D..D / DEED. D ist Tiefenschieferziegel, X Diamanterz, E Smaragderz. Ein Quellblock entspricht zwei Zielbl?cken. Das flache Waldpreset hat Bedrock bei -64, Tiefenschiefer bis 0, Stein bis 188, Erde bei 189?190 und Gras bei 191. Vanilla-Biomfeatures liefern Erze und B?ume; kein Gebietsreset."
+        ]
+      }
+    },
+    {
+      "id": "travel",
+      "sources": [
+        "modules/simpledimensions/shared/java/dev/simpledimension/common/portal/DimensionPortalConfig.java",
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionRuntime.java"
+      ],
+      "en": {
+        "title": "Travel Dimension",
+        "summary": "Portal rows: KRRK / O..O / O..O / O..O / SSSS. K is a wither skeleton skull, R resin bricks, O dark oak logs, S soul sand. Ten origin blocks map to one travel block. The flat bedrock plane grants no extra movement speed. Generated exits keep exact origins rather than selecting nearby foreign portals.",
+        "details": [
+          "Portal rows: KRRK / O..O / O..O / O..O / SSSS. K is a wither skeleton skull, R resin bricks, O dark oak logs, S soul sand. Ten origin blocks map to one travel block. The flat bedrock plane grants no extra movement speed. Generated exits keep exact origins rather than selecting nearby foreign portals."
+        ]
+      },
+      "de": {
+        "title": "Reisedimension",
+        "summary": "Portalzeilen: KRRK / O..O / O..O / O..O / SSSS. K ist Witherskelettsch?del, R Harzziegel, O dunkler Eichenstamm, S Seelensand. Zehn Quellbl?cke entsprechen einem Zielblock. Die Bedrockebene gibt keinen Tempobonus. Erzeugte R?ckwege behalten den exakten Ursprung statt fremder Nachbarportale.",
+        "details": [
+          "Portalzeilen: KRRK / O..O / O..O / O..O / SSSS. K ist Witherskelettsch?del, R Harzziegel, O dunkler Eichenstamm, S Seelensand. Zehn Quellbl?cke entsprechen einem Zielblock. Die Bedrockebene gibt keinen Tempobonus. Erzeugte R?ckwege behalten den exakten Ursprung statt fremder Nachbarportale."
+        ]
+      }
+    },
+    {
+      "id": "portal_shapes",
+      "sources": [
+        "modules/simpledimensions/shared/java/dev/simpledimension/common/portal/DimensionPortalConfig.java",
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionRuntime.java"
+      ],
+      "en": {
+        "title": "Portal Shapes and Alternative",
+        "summary": "The six default matrices are AGA/G.G/G.G; AGGA/G..G/G..G/G..G; AGGGA/G...G/G...G/G...G; AAGGAA/AG..GA/G....G/G....G/G....G; AAGGGAA/AG...GA/G.....G/G.....G/G.....G; AAGGGGAA/AG....GA/G......G/G......G/G......G. A is checked air, G glowstone, and dots become portal cells. The newer source recipe BIIB/G..G/G..G/G..G/GIIG remains available as example JSON: B waxed oxidized copper bulbs, I blue ice, G waxed oxidized copper grates, with requireSeparateLight false. Both horizontal axes work. Breaking the frame or removing required light dissolves outbound portal cells.",
+        "details": [
+          "The six default matrices are AGA/G.G/G.G; AGGA/G..G/G..G/G..G; AGGGA/G...G/G...G/G...G; AAGGAA/AG..GA/G....G/G....G/G....G; AAGGGAA/AG...GA/G.....G/G.....G/G.....G; AAGGGGAA/AG....GA/G......G/G......G/G......G. A is checked air, G glowstone, and dots become portal cells. The newer source recipe BIIB/G..G/G..G/G..G/GIIG remains available as example JSON: B waxed oxidized copper bulbs, I blue ice, G waxed oxidized copper grates, with requireSeparateLight false. Both horizontal axes work. Breaking the frame or removing required light dissolves outbound portal cells."
+        ]
+      },
+      "de": {
+        "title": "Portalformen und Alternative",
+        "summary": "Die sechs Standardmatrizen stehen in den JSON-Beispielen; A ist gepr?fte Luft, G Glowstone, Punkte werden Portalfl?che. Die neuere Quellform BIIB/G..G/G..G/G..G/GIIG bleibt als alternatives JSON-Beispiel verf?gbar: B gewachste oxidierte Kupferlampen, I Blaueis, G gewachste oxidierte Kupfergitter; requireSeparateLight false. Beide horizontalen Achsen funktionieren. Rahmenbruch oder fehlendes Pflichtlicht l?st Hinportalbl?cke auf.",
+        "details": [
+          "Die sechs Standardmatrizen stehen in den JSON-Beispielen; A ist gepr?fte Luft, G Glowstone, Punkte werden Portalfl?che. Die neuere Quellform BIIB/G..G/G..G/G..G/GIIG bleibt als alternatives JSON-Beispiel verf?gbar: B gewachste oxidierte Kupferlampen, I Blaueis, G gewachste oxidierte Kupfergitter; requireSeparateLight false. Beide horizontalen Achsen funktionieren. Rahmenbruch oder fehlendes Pflichtlicht l?st Hinportalbl?cke auf."
+        ]
+      }
+    },
+    {
+      "id": "safe_return",
+      "sources": [
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/DimensionRuntime.java",
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/ConfigLimits.java"
+      ],
+      "en": {
+        "title": "Safe Travel and Return",
+        "summary": "Only unmounted players travel. Items, mobs, mounts, and passengers are refused. Target registries, borders, build height, solid ground, headroom, claim permissions, and an exact return path are checked. Builds use only empty cells and bedrock; valuable frames are never copied. One build per server tick, at most nine chunks per build and 1,024 recorded portals. Warmup is 0?200 ticks, cooldown 20?1,200 ticks, and players must leave the portal after arrival. Generated exits remain usable when access is disabled. Missing definitions or falling near the void floor invokes the persisted safe origin; otherwise a checked overworld spawn is used.",
+        "details": [
+          "Only unmounted players travel. Items, mobs, mounts, and passengers are refused. Target registries, borders, build height, solid ground, headroom, claim permissions, and an exact return path are checked. Builds use only empty cells and bedrock; valuable frames are never copied. One build per server tick, at most nine chunks per build and 1,024 recorded portals. Warmup is 0?200 ticks, cooldown 20?1,200 ticks, and players must leave the portal after arrival. Generated exits remain usable when access is disabled. Missing definitions or falling near the void floor invokes the persisted safe origin; otherwise a checked overworld spawn is used."
+        ]
+      },
+      "de": {
+        "title": "Sichere Reise und R?ckkehr",
+        "summary": "Nur unberittene Spieler reisen; Items, Mobs, Reittiere und Passagiere werden verweigert. Zielregistry, Weltgrenze, Bauh?he, Boden, Kopffreiheit, Claimfreigabe und exakter R?ckweg werden gepr?ft. Bau nur in Luft mit Bedrock; wertvolle Rahmen werden nie kopiert. Ein Bau pro Servertick, h?chstens neun Chunks je Bau und 1.024 gespeicherte Portale. Wartezeit 0?200, Reisesperre 20?1.200 Ticks; nach Ankunft Portal verlassen. Erzeugte R?ckwege funktionieren auch bei abgeschaltetem Zugang. Fehlende Definitionen oder N?he zum Leerboden l?sen R?ckkehr zum gespeicherten sicheren Ursprung aus, sonst zu gepr?ftem Oberweltspawn.",
+        "details": [
+          "Nur unberittene Spieler reisen; Items, Mobs, Reittiere und Passagiere werden verweigert. Zielregistry, Weltgrenze, Bauh?he, Boden, Kopffreiheit, Claimfreigabe und exakter R?ckweg werden gepr?ft. Bau nur in Luft mit Bedrock; wertvolle Rahmen werden nie kopiert. Ein Bau pro Servertick, h?chstens neun Chunks je Bau und 1.024 gespeicherte Portale. Wartezeit 0?200, Reisesperre 20?1.200 Ticks; nach Ankunft Portal verlassen. Erzeugte R?ckwege funktionieren auch bei abgeschaltetem Zugang. Fehlende Definitionen oder N?he zum Leerboden l?sen R?ckkehr zum gespeicherten sicheren Ursprung aus, sonst zu gepr?ftem Oberweltspawn."
+        ]
+      }
+    },
+    {
+      "id": "configuration",
+      "sources": [
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/ConfigLimits.java",
+        "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/client/DimensionConfigScreen.java",
+        "modules/simpledimensions/shared/java/dev/simpledimension/common/config/DimensionConfigStore.java"
+      ],
+      "en": {
+        "title": "Configuration and Data Packs",
+        "summary": "Server JSON: config/simpledimension/server.json. Portal definitions: config/simpledimension/dimensions/*.json; existing files are preserved. The mandatory generated pack loads on both loaders before world registries. At most 16 definitions, eight recipes each, 23?23 matrices, 21?21 interiors, eight extra origins, 64 KiB per input file, and coordinate ratios 0.5?10. Generation height is 16?384 in 16-block steps, minimum Y -64?0. Destinations stay in the isolated simpledimension namespace. New dimensions require a world restart. preset and orePreset are retained legacy labels without generation effects. Access/Safety config tabs show defaults; multiplayer clients cannot edit server values. Nonplayer travel is reserved and permanently refused. Known claim mods require a registered permission integration; no claim bypass is offered.",
+        "details": [
+          "Server JSON: config/simpledimension/server.json. Portal definitions: config/simpledimension/dimensions/*.json; existing files are preserved. The mandatory generated pack loads on both loaders before world registries. At most 16 definitions, eight recipes each, 23?23 matrices, 21?21 interiors, eight extra origins, 64 KiB per input file, and coordinate ratios 0.5?10. Generation height is 16?384 in 16-block steps, minimum Y -64?0. Destinations stay in the isolated simpledimension namespace. New dimensions require a world restart. preset and orePreset are retained legacy labels without generation effects. Access/Safety config tabs show defaults; multiplayer clients cannot edit server values. Nonplayer travel is reserved and permanently refused. Known claim mods require a registered permission integration; no claim bypass is offered.",
+          "accessEnabled ? Enable Portal Access: New outbound journeys can be disabled without disabling generated exits. Default: true. Server setting.",
+          "automaticDestination ? Create Safe Destinations: Build a checked bedrock island and exact return portal. Disabling this refuses first journeys. Default: true. Server setting.",
+          "portalDelayTicks ? Portal Warmup (Ticks): Minimum warmup for all definitions; range 0?200 ticks. Default: 0. Server setting.",
+          "teleportCooldownTicks ? Travel Cooldown (Ticks): Minimum cooldown; 20?1200 ticks. Leave the portal before traveling again. Default: 60. Server setting.",
+          "nonPlayerTravel ? Nonplayer Travel (Reserved): Locked off: items, mobs, mounts, and passengers are never transported. Default: false. Server setting.",
+          "id ? Definition ID: Advanced server JSON option. Default: \"skyblock\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "sourceDimensionId ? Origin Dimension: Advanced server JSON option. Default: \"minecraft:overworld\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "targetDimensionId ? Destination Dimension: Advanced server JSON option. Default: \"simpledimension:skyblock\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "targetDisplayName ? Destination Name: Advanced server JSON option. Default: \"Skyblock\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "enabled ? Enable Definition: Advanced server JSON option. Default: true. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "requireSeparateLight ? Require Separate Light: Advanced server JSON option. Default: true. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "portalColorHex ? Portal Color: Advanced server JSON option. Default: \"#66D9FF\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "portalRecipes ? Portal Shapes: Advanced server JSON option. Default: \"six glowstone arches\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "frameBlock ? Rectangular Frame Block: Advanced server JSON option. Default: \"minecraft:crying_obsidian\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "minPortalWidth ? Minimum Interior Width: Advanced server JSON option. Default: 2. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "maxPortalWidth ? Maximum Interior Width: Advanced server JSON option. Default: 21. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "minPortalHeight ? Minimum Interior Height: Advanced server JSON option. Default: 3. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "maxPortalHeight ? Maximum Interior Height: Advanced server JSON option. Default: 21. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "travelCoordinateScale ? Source Blocks per Destination Block: Advanced server JSON option. Default: 1.0. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "allowIgniteFromSource ? Ignite at Origin: Advanced server JSON option. Default: true. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "allowIgniteFromTarget ? Ignite at Destination: Advanced server JSON option. Default: false. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "openFromDimensions ? Additional Origins: Advanced server JSON option. Default: []. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "generateReturnPortalOnArrival ? Generate Return Portal: Advanced server JSON option. Default: true. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "createDestinationPlatform ? Create Destination Island: Advanced server JSON option. Default: true. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.preset ? worldGeneration.preset: Advanced server JSON option. Default: \"skyblock_void\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.generatorType ? worldGeneration.generatorType: Advanced server JSON option. Default: \"flat\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.baseBiome ? worldGeneration.baseBiome: Advanced server JSON option. Default: \"minecraft:the_void\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.biomeSelection ? worldGeneration.biomeSelection: Advanced server JSON option. Default: [\"minecraft:plains\"]. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.minY ? worldGeneration.minY: Advanced server JSON option. Default: -64. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.height ? worldGeneration.height: Advanced server JSON option. Default: 384. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.logicalHeight ? worldGeneration.logicalHeight: Advanced server JSON option. Default: 384. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.hasSkylight ? worldGeneration.hasSkylight: Advanced server JSON option. Default: true. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.hasCeiling ? worldGeneration.hasCeiling: Advanced server JSON option. Default: false. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.ultraWarm ? worldGeneration.ultraWarm: Advanced server JSON option. Default: false. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.natural ? worldGeneration.natural: Advanced server JSON option. Default: true. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.coordinateScale ? worldGeneration.coordinateScale: Advanced server JSON option. Default: 1.0. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.generateOres ? worldGeneration.generateOres: Advanced server JSON option. Default: false. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.orePreset ? worldGeneration.orePreset: Advanced server JSON option. Default: \"minecraft:overworld\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.flatLayers ? worldGeneration.flatLayers: Advanced server JSON option. Default: []. World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "portalRecipes.rows ? portalRecipes.rows: Advanced server JSON option. Default: \"shape rows\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "portalRecipes.legend ? portalRecipes.legend: Advanced server JSON option. Default: \"symbol to block ID\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "portalRecipes.interior ? portalRecipes.interior: Advanced server JSON option. Default: \".\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "portalRecipes.ignore ? portalRecipes.ignore: Advanced server JSON option. Default: \" \". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.flatLayers.block ? worldGeneration.flatLayers.block: Advanced server JSON option. Default: \"minecraft:stone\". World generation requires a world restart; preset and orePreset are legacy labels only.",
+          "worldGeneration.flatLayers.height ? worldGeneration.flatLayers.height: Advanced server JSON option. Default: 1. World generation requires a world restart; preset and orePreset are legacy labels only."
+        ]
+      },
+      "de": {
+        "title": "Konfiguration und Datenpakete",
+        "summary": "Server-JSON: config/simpledimension/server.json. Portaldefinitionen: config/simpledimension/dimensions/*.json; bestehende Dateien bleiben erhalten. Das erforderliche generierte Pack l?dt auf beiden Loadern vor den Weltregistries. H?chstens 16 Definitionen, acht Formen je Definition, 23?23 Matrizen, 21?21 Innenraum, acht Zusatzurspr?nge, 64 KiB je Eingabedatei, Verh?ltnis 0,5?10. Generationsh?he 16?384 in 16er-Schritten, minY -64?0. Ziele bleiben im isolierten Namensraum simpledimension. Neue Dimensionen brauchen Weltneustart. preset und orePreset bleiben wirkungslose Legacybezeichnungen. Reiter Zugang/Sicherheit zeigen Standards; Mehrspielerclients ?ndern keine Serverwerte. Nichtspielerreise ist reserviert und dauerhaft verweigert. Bekannte Claimmods ben?tigen registrierte Freigabeintegration; kein Claim-Bypass.",
+        "details": [
+          "Server-JSON: config/simpledimension/server.json. Portaldefinitionen: config/simpledimension/dimensions/*.json; bestehende Dateien bleiben erhalten. Das erforderliche generierte Pack l?dt auf beiden Loadern vor den Weltregistries. H?chstens 16 Definitionen, acht Formen je Definition, 23?23 Matrizen, 21?21 Innenraum, acht Zusatzurspr?nge, 64 KiB je Eingabedatei, Verh?ltnis 0,5?10. Generationsh?he 16?384 in 16er-Schritten, minY -64?0. Ziele bleiben im isolierten Namensraum simpledimension. Neue Dimensionen brauchen Weltneustart. preset und orePreset bleiben wirkungslose Legacybezeichnungen. Reiter Zugang/Sicherheit zeigen Standards; Mehrspielerclients ?ndern keine Serverwerte. Nichtspielerreise ist reserviert und dauerhaft verweigert. Bekannte Claimmods ben?tigen registrierte Freigabeintegration; kein Claim-Bypass.",
+          "accessEnabled ? Portalzugang erlauben: Neue Hinreisen abschalten; erzeugte R?ckwege bleiben benutzbar. Standard: true. Servereinstellung.",
+          "automaticDestination ? Sichere Ziele erzeugen: Gepr?fte Bedrockinsel und exakten R?ckweg bauen. Aus verweigert erste Reisen. Standard: true. Servereinstellung.",
+          "portalDelayTicks ? Portalwartezeit (Ticks): Mindestwartezeit f?r alle Definitionen; 0?200 Ticks. Standard: 0. Servereinstellung.",
+          "teleportCooldownTicks ? Reisesperre (Ticks): Mindestpause; 20?1200 Ticks. Vor erneuter Reise das Portal verlassen. Standard: 60. Servereinstellung.",
+          "nonPlayerTravel ? Nichtspielerreise (reserviert): Fest ausgeschaltet: Items, Mobs, Reittiere und Passagiere reisen nicht. Standard: false. Servereinstellung.",
+          "id ? Definitions-ID: Erweiterte serverseitige JSON-Option. Standard: \"skyblock\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "sourceDimensionId ? Ursprungsdimension: Erweiterte serverseitige JSON-Option. Standard: \"minecraft:overworld\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "targetDimensionId ? Zieldimension: Erweiterte serverseitige JSON-Option. Standard: \"simpledimension:skyblock\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "targetDisplayName ? Zielname: Erweiterte serverseitige JSON-Option. Standard: \"Skyblock\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "enabled ? Definition erlauben: Erweiterte serverseitige JSON-Option. Standard: true. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "requireSeparateLight ? Zusatzlicht verlangen: Erweiterte serverseitige JSON-Option. Standard: true. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "portalColorHex ? Portalfarbe: Erweiterte serverseitige JSON-Option. Standard: \"#66D9FF\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "portalRecipes ? Portalformen: Erweiterte serverseitige JSON-Option. Standard: \"six glowstone arches\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "frameBlock ? Rechteck-Rahmenblock: Erweiterte serverseitige JSON-Option. Standard: \"minecraft:crying_obsidian\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "minPortalWidth ? Minimale Innenbreite: Erweiterte serverseitige JSON-Option. Standard: 2. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "maxPortalWidth ? Maximale Innenbreite: Erweiterte serverseitige JSON-Option. Standard: 21. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "minPortalHeight ? Minimale Innenh?he: Erweiterte serverseitige JSON-Option. Standard: 3. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "maxPortalHeight ? Maximale Innenh?he: Erweiterte serverseitige JSON-Option. Standard: 21. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "travelCoordinateScale ? Quellbl?cke je Zielblock: Erweiterte serverseitige JSON-Option. Standard: 1.0. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "allowIgniteFromSource ? Am Ursprung z?nden: Erweiterte serverseitige JSON-Option. Standard: true. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "allowIgniteFromTarget ? Am Ziel z?nden: Erweiterte serverseitige JSON-Option. Standard: false. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "openFromDimensions ? Weitere Urspr?nge: Erweiterte serverseitige JSON-Option. Standard: []. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "generateReturnPortalOnArrival ? R?ckportal erzeugen: Erweiterte serverseitige JSON-Option. Standard: true. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "createDestinationPlatform ? Zielinsel erzeugen: Erweiterte serverseitige JSON-Option. Standard: true. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.preset ? worldGeneration.preset: Erweiterte serverseitige JSON-Option. Standard: \"skyblock_void\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.generatorType ? worldGeneration.generatorType: Erweiterte serverseitige JSON-Option. Standard: \"flat\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.baseBiome ? worldGeneration.baseBiome: Erweiterte serverseitige JSON-Option. Standard: \"minecraft:the_void\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.biomeSelection ? worldGeneration.biomeSelection: Erweiterte serverseitige JSON-Option. Standard: [\"minecraft:plains\"]. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.minY ? worldGeneration.minY: Erweiterte serverseitige JSON-Option. Standard: -64. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.height ? worldGeneration.height: Erweiterte serverseitige JSON-Option. Standard: 384. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.logicalHeight ? worldGeneration.logicalHeight: Erweiterte serverseitige JSON-Option. Standard: 384. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.hasSkylight ? worldGeneration.hasSkylight: Erweiterte serverseitige JSON-Option. Standard: true. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.hasCeiling ? worldGeneration.hasCeiling: Erweiterte serverseitige JSON-Option. Standard: false. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.ultraWarm ? worldGeneration.ultraWarm: Erweiterte serverseitige JSON-Option. Standard: false. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.natural ? worldGeneration.natural: Erweiterte serverseitige JSON-Option. Standard: true. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.coordinateScale ? worldGeneration.coordinateScale: Erweiterte serverseitige JSON-Option. Standard: 1.0. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.generateOres ? worldGeneration.generateOres: Erweiterte serverseitige JSON-Option. Standard: false. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.orePreset ? worldGeneration.orePreset: Erweiterte serverseitige JSON-Option. Standard: \"minecraft:overworld\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.flatLayers ? worldGeneration.flatLayers: Erweiterte serverseitige JSON-Option. Standard: []. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "portalRecipes.rows ? portalRecipes.rows: Erweiterte serverseitige JSON-Option. Standard: \"shape rows\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "portalRecipes.legend ? portalRecipes.legend: Erweiterte serverseitige JSON-Option. Standard: \"symbol to block ID\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "portalRecipes.interior ? portalRecipes.interior: Erweiterte serverseitige JSON-Option. Standard: \".\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "portalRecipes.ignore ? portalRecipes.ignore: Erweiterte serverseitige JSON-Option. Standard: \" \". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.flatLayers.block ? worldGeneration.flatLayers.block: Erweiterte serverseitige JSON-Option. Standard: \"minecraft:stone\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
+          "worldGeneration.flatLayers.height ? worldGeneration.flatLayers.height: Erweiterte serverseitige JSON-Option. Standard: 1. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen."
+        ]
+      }
+    }
+  ],
+  "recipes": [],
+  "lootTables": [],
+  "tags": [],
+  "advancements": [],
+  "enchantments": [],
+  "items": [],
+  "blocks": [
+    {
+      "id": "simpledimension:light_blue_portal",
+      "kind": "block",
+      "name": {
+        "en_us": "Legacy Light Blue Portal",
+        "de_de": "Altes hellblaues Portal"
+      },
+      "note": {
+        "en": {
+          "summary": "Legacy block, block entity, and item ID retained for world loading. No survival crafting recipe, loot source, or creative tab entry."
+        },
+        "de": {
+          "summary": "Alte Block-, Blockentit?ts- und Item-ID bleiben ladbar. Kein Survivalrezept, Beutequelle oder Kreativtab-Eintrag."
+        }
+      }
+    },
+    {
+      "id": "simpledimension:sky_portal",
+      "kind": "block",
+      "name": {
+        "en_us": "Sky Portal",
+        "de_de": "Himmelsportal"
+      },
+      "note": {
+        "en": {
+          "summary": "An ignited in-world portal surface, not a craftable item. It has no survival drop. Tint and destination are saved in its block entity."
+        },
+        "de": {
+          "summary": "Gez?ndete Portalfl?che, kein herstellbares Item und kein Survivaldrop. Farbe und Ziel werden in der Blockentit?t gespeichert."
+        }
+      }
+    }
+  ],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 6,
+    "recipes": 0,
+    "lootTables": 0,
+    "tags": 0,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 0,
+    "blocks": 2,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+}

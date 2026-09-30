@@ -1,0 +1,23 @@
+{
+  "source": "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/ConfigLimits.java",
+  "limits": {
+    "MAX_DEFINITIONS": 16,
+    "MAX_RECIPES": 8,
+    "MAX_INTERIOR": 21,
+    "MAX_MATRIX": 23,
+    "MAX_ORIGINS": 8,
+    "MAX_BYTES": 65536,
+    "MAX_DELAY": 200,
+    "MIN_COOLDOWN": 20,
+    "MAX_COOLDOWN": 1200,
+    "MAX_PORTALS": 1024,
+    "MAX_BUILDS_PER_TICK": 1,
+    "MIN_SCALE": 0.5,
+    "MAX_SCALE": 10,
+    "MAX_CHUNKS_PER_BUILD": 9,
+    "MAX_RETURN_RECORDS": 4096,
+    "SAFE_SEARCH_RADIUS": 8,
+    "LIGHT_SEARCH_RADIUS": 3,
+    "MAX_DECAY_SCANS_PER_TICK": 8
+  }
+}

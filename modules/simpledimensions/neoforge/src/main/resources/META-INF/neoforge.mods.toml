@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpledimension"
+version="${version}"
+displayName="Simple Dimensions"
+[[dependencies.simpledimension]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[mixins]]
+config="simpledimension.mixins.json"
+
+[[dependencies.simpledimension]]
+modId="cloth_config"
+type="required"
+versionRange="[0,)"
