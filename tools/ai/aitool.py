@@ -116,7 +116,10 @@ def cmd_gate(a):
 
     ok &= runner("fabric-263,neoforge-263")
     if a.integration:
-        ok &= runner("integration-263")
+        # The integration suite plus every module suite the manifest at this ref declares (client smokes stay manual).
+        listing = run([sys.executable, "tools/testrunner/run.py", "--list"], cwd=GATE, check=False, capture=True).stdout
+        modules = sorted(set(re.findall(r"^\s+(module-[a-z0-9_]+-(?:fabric|neoforge)-263)", listing, re.M)))
+        ok &= runner(",".join(["integration-263"] + modules))
     print("VERDICT:", "GREEN" if ok else "RED")
     if ok and a.push:
         if out(["git", "status", "--short", "--untracked-files=no"]):

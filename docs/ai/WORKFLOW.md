@@ -13,7 +13,7 @@ This file, `AGENTS.md` (rules), `docs/HANDOFF.md` (state) and `.claude/QUEUE.md`
 3. Start runs: `python tools/ai/aitool.py codex <name> <brief.md>` (creates `%TEMP%/cx-<name>`, branch `codex-<name>`, log in `.ai-runs/`). Watch with `python tools/ai/aitool.py status`. Start at most 4 runs at once (CPU, RAM, disk: each worktree + Gradle build costs several GB; check `status` for free disk).
 4. When a run finishes read only its final answer (`.ai-runs/out-<name>.txt`), then `git merge --no-ff codex-<name>` into master. Conflicts: lang JSON -> 3-way merge by key (`tools/ai/merge_helpers/jsonmerge3.py <path>` while the merge is open); docs/queue -> `aitool.py merge-help union <files>`; generated wiki data -> take theirs and regenerate (`python wiki/generate.py --all`). Never resolve by dropping a module's tests.
 5. Regenerate derived files after merges: `python wiki/generate.py --all`, `python tools/quests/generate_quests.py`, `python tools/textures/generate_textures.py`, `python tools/guide_book_pages.py` (all have `--check`).
-6. Gate: `python tools/ai/aitool.py gate --integration` (runs `check`, the 26.3 server suites and the integration suite in the gate worktree and prints `VERDICT`). Push only after GREEN: `python tools/ai/aitool.py gate --integration --push`.
+6. Gate: `python tools/ai/aitool.py gate --integration` (runs `check`, the 26.3 server suites, the integration suite and every module suite declared in the manifest in the gate worktree and prints `VERDICT`). Push only after GREEN: `python tools/ai/aitool.py gate --integration --push`.
 7. Update `docs/HANDOFF.md` and the queue, commit, push.
 
 ## Traps learned the hard way
