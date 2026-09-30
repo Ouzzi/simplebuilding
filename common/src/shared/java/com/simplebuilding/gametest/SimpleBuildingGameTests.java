@@ -31,6 +31,26 @@ public final class SimpleBuildingGameTests {
     public static final String MOD_ID = "simplebuilding";
 
     private static final List<GameTestSpec> ALL = List.of(
+            GameTestSpec.named("tweaks_game_test_boost_command_refuses_invalid_strength", HardenTests::boostCommandRefusesInvalidStrength).build(),
+            GameTestSpec.named("tweaks_game_test_xp_and_launch_runtime_caps", HardenTests::xpAndLaunchRuntimeCaps).build(),
+            GameTestSpec.named("tweaks_game_test_boost_nonfinite_and_wrong_equipment", HardenTests::boostNonfiniteAndWrongEquipment).build(),
+            GameTestSpec.named("tweaks_game_test_all_defaults_unchanged_by_validation", HardenTests::allDefaultsUnchangedByValidation).build(),
+            GameTestSpec.named("tweaks_game_test_harden_pad_tuning_teleporter_tier1warmup_ticks", HardenTests::hardenPadTuningTeleporterTier1WarmupTicks).build(),
+            GameTestSpec.named("tweaks_game_test_harden_pad_tuning_teleporter_tier2warmup_ticks", HardenTests::hardenPadTuningTeleporterTier2WarmupTicks).build(),
+            GameTestSpec.named("tweaks_game_test_harden_pad_tuning_teleporter_tier3warmup_ticks", HardenTests::hardenPadTuningTeleporterTier3WarmupTicks).build(),
+            GameTestSpec.named("tweaks_game_test_harden_pad_tuning_launchpad_strength_multiplier", HardenTests::hardenPadTuningLaunchpadStrengthMultiplier).build(),
+            GameTestSpec.named("tweaks_game_test_harden_pad_tuning_potion_pad_charge_step_ticks", HardenTests::hardenPadTuningPotionPadChargeStepTicks).build(),
+            GameTestSpec.named("tweaks_game_test_harden_pad_tuning_potion_pad_cooldown_factor", HardenTests::hardenPadTuningPotionPadCooldownFactor).build(),
+            GameTestSpec.named("tweaks_game_test_harden_commands_kill_command_radius", HardenTests::hardenCommandsKillCommandRadius).build(),
+            GameTestSpec.named("tweaks_game_test_harden_optimization_xp_clump_radius", HardenTests::hardenOptimizationXpClumpRadius).build(),
+            GameTestSpec.named("tweaks_game_test_harden_spawn_spawn_elytra_radius", HardenTests::hardenSpawnSpawnElytraRadius).build(),
+            GameTestSpec.named("tweaks_game_test_harden_spawn_boost_strength", HardenTests::hardenSpawnBoostStrength).build(),
+            GameTestSpec.named("tweaks_game_test_harden_laser_pointer_range", HardenTests::hardenLaserPointerRange).build(),
+            GameTestSpec.named("tweaks_game_test_harden_balancing_echo_sounder_jump_cooldown_ticks", HardenTests::hardenBalancingEchoSounderJumpCooldownTicks).build(),
+            GameTestSpec.named("tweaks_game_test_harden_balancing_echo_sounder_attempt_lock_ticks", HardenTests::hardenBalancingEchoSounderAttemptLockTicks).build(),
+            GameTestSpec.named("tweaks_game_test_boost_packet_budget", HardenTests::boostPacketBudget).maxTicks(220).build(),
+            GameTestSpec.named("tweaks_game_test_recipe_rename", HardenTests::recipeRename).build(),
+
             GameTestSpec.named("end_systems_game_test_vault_shares_only_its_first_half_and_persists", EndSystemsTests::vaultSharesOnlyItsFirstHalfAndPersists).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_vault_opens_and_config_preserves_contents", EndSystemsTests::vaultOpensAndConfigPreservesContents).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_channels_stay_isolated_and_stop_at_fifteen", EndSystemsTests::channelsStayIsolatedAndStopAtFifteen).maxTicks(220).build(),

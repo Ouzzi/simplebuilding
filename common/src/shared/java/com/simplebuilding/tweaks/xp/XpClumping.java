@@ -30,7 +30,7 @@ public final class XpClumping {
     /** Einsammel-Reichweite: Config {@code tweaks.optimization.xpClumpRadius} (Standard {@link #RADIUS}). */
     public static double radius() {
         double radius = SimpleTweaks.config().optimization.xpClumpRadius;
-        return Double.isFinite(radius) ? Math.max(0.0, radius) : RADIUS;
+        return com.simplebuilding.tweaks.TweaksConfig.capped(radius, 0, com.simplebuilding.tweaks.TweaksConfig.MAX_XP_CLUMP_RADIUS, RADIUS);
     }
 
     /** Schluckt die Nachbarn; gibt die Anzahl geschluckter Kugeln zurueck. */

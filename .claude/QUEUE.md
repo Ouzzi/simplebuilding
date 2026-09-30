@@ -96,10 +96,12 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Besitzerwunsch gruendlicher Vollabgleich: Quelle/claims-only Branch/Libraries, alle Features/Configs/Rezepte/IDs/Mixins und Quellabweichungen dokumentiert; source unveraendert.
 - [x] 26.3-Kompatibilitaetsmodul ohne doppelte Spielinhalte: alte IDs und Daten erhalten, Urkunde wirkungslos; 1587/1587 Server und 3/3 Fabric-Client gruen. Details docs/modules/simpletweaks.md.
 - [ ] Besitzerentscheidung: Claim-System weiterhin zurueckstellen oder eigener sicherer Claimport? Alte Urkunden bieten derzeit keinen Schutz.
-- [ ] SB-Sicherheit eigener Run: Boost-Staerke/Velocity/Packet-Rate, XP-Radius/Launchmultiplikator/Killradius/Spawnradius und weitere Config-Caps samt Runtime-Gegenproben; nicht im Modul doppeln.
+- [x] SB-Sicherheit eigener Run: Boost-Staerke/Velocity/Packet-Rate, XP-Radius/Launchmultiplikator/Killradius/Spawnradius und weitere Config-Caps samt Runtime-Gegenproben; umgesetzt in SimpleBuilding, siehe docs/SB-HARDEN.md.
 - [ ] Besitzerentscheidung: alte Echo-Library-Vanilla-Compasse automatisch zu Echo Soundern migrieren? Quelleninventar vorhanden, Library nicht mitgeliefert.
 - [ ] Simple Tweaks: NeoForge-Client und echte alte Welt/Besitzerwelt abnehmen; Forge26.3 und26.2/1.21.11/26.4 erst eigener freigegebener Port.
 - [x] Simple Tweaks: abschliessendes Worktree-Gate check -q --no-daemon GRADLE_EXIT=0, einschliesslich shared26.2-Kompilierbarkeit; kein Push/Merge.
 - Forge-Modules: experimentelle opt-in Forge-26.3-Adapter fuer Money, Riding, Models, Fun und Visuals; eigene Manifestziele, gleiche Testkataloge, Modulcommits ohne Push/Merge.
 
 - [x] Forge-Modules: Money/Riding/Models/Fun/Visuals experimentell opt-in portiert; finale Modulpruefung 89/89 gruen, Standardregression 1775/1775 gruen. Forge-Client-/Mehrspielerabnahme und Standardaktivierung bleiben Besitzerpunkte. Kein Push/Merge.
+
+- [x] TASK SB-HARDEN: bestehende SimpleBuilding-Caps, Boost-Paketbudget/Velocity, Rezeptfilter und echte 26.3-Servergegenproben; 1600/1600 Hauptlinien-Tests und Integration 1/1 alles gruen, kein Push/Merge.

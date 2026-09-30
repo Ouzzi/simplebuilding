@@ -36,6 +36,10 @@ public final class TweaksNetwork {
 
     /** Server: Zaehlfenster je Spieler, {tick des Fensterbeginns, Pakete im Fenster}. */
     private static final Map<ServerPlayer, long[]> LASER_WINDOWS = new WeakHashMap<>();
+    public static final int BOOST_WINDOW_TICKS = 100;
+    public static final int BOOSTS_PER_WINDOW = 3;
+    public static final double MAX_BOOST_VELOCITY = 3.0;
+    private static final Map<ServerPlayer, long[]> BOOST_WINDOWS = new WeakHashMap<>();
 
     public record LaserDot(float x, float y, float z, long timestamp) {
     }
@@ -94,12 +98,28 @@ public final class TweaksNetwork {
         }
         int maxBoosts = SimpleTweaks.config().spawn.boostCount();
         float cost = 1.0f / maxBoosts;
-        if (boost < cost - 0.001f) {
+        if (!Float.isFinite(boost) || boost < cost - 0.001f) {
             return;
         }
-        float strength = SimpleTweaks.config().spawn.boostStrength;
+        long now = player.level().getServer().getTickCount();
+        long[] window = BOOST_WINDOWS.computeIfAbsent(player, p -> new long[] {now, 0});
+        if (now - window[0] >= BOOST_WINDOW_TICKS || now < window[0]) {
+            window[0] = now;
+            window[1] = 0;
+        }
+        if (window[1] >= BOOSTS_PER_WINDOW) return;
+        window[1]++;
+        double strength = com.simplebuilding.tweaks.TweaksConfig.capped(
+                SimpleTweaks.config().spawn.boostStrength, 0.1,
+                com.simplebuilding.tweaks.TweaksConfig.MAX_BOOST_STRENGTH, 0.6);
         Vec3 look = player.getLookAngle();
-        player.setDeltaMovement(player.getDeltaMovement().add(look.x * strength, look.y * strength, look.z * strength));
+        Vec3 velocity = player.getDeltaMovement().add(look.scale(strength));
+        if (!Double.isFinite(velocity.x) || !Double.isFinite(velocity.y) || !Double.isFinite(velocity.z)) {
+            velocity = Vec3.ZERO;
+        } else if (velocity.length() > MAX_BOOST_VELOCITY) {
+            velocity = velocity.normalize().scale(MAX_BOOST_VELOCITY);
+        }
+        player.setDeltaMovement(velocity);
         player.connection.send(new ClientboundSetEntityMotionPacket(player));
         player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FIREWORK_ROCKET_LAUNCH, SoundSource.PLAYERS, 0.3f, 1.0f);
         float newLevel = boost - cost;
@@ -130,7 +150,8 @@ public final class TweaksNetwork {
             return 0;
         }
         Vec3 dot = new Vec3(payload.x(), payload.y(), payload.z());
-        double maxRange = SimpleTweaks.config().laserPointer.range + LASER_RANGE_SLACK;
+        double maxRange = com.simplebuilding.tweaks.TweaksConfig.capped(SimpleTweaks.config().laserPointer.range,
+                1, com.simplebuilding.tweaks.TweaksConfig.MAX_LASER_RANGE, 512) + LASER_RANGE_SLACK;
         if (sender.getEyePosition().distanceToSqr(dot) > maxRange * maxRange) {
             return 0;
         }

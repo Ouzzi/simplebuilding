@@ -70,7 +70,7 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
      */
     public static double effectRange(ServerPlayer player) {
         int viewBlocks = Math.max(2, player.level().getServer().getPlayerList().getViewDistance()) * 16;
-        return Math.min(SimpleTweaks.config().laserPointer.range, viewBlocks);
+        return Math.min(com.simplebuilding.tweaks.TweaksConfig.capped(SimpleTweaks.config().laserPointer.range, 1, com.simplebuilding.tweaks.TweaksConfig.MAX_LASER_RANGE, 512), viewBlocks);
     }
 
     public LaserPointerItem(Item.Properties properties) {

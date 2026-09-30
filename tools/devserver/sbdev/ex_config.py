@@ -140,6 +140,13 @@ def _bounds(texts: list[str], env: dict) -> dict[str, dict]:
             entry["min"] = lo
         if hi is not None:
             entry["max"] = hi
+    for m in re.finditer(r'([\w.]+)\s*=\s*(?:\(\w+\)\s*)?bounded\("[^"]+",\s*\1,\s*([^,]+),\s*([^,]+),', joined):
+        lo, hi = num(m.group(2)), num(m.group(3))
+        entry = out.setdefault(m.group(1).split(".")[-1], {})
+        if lo is not None:
+            entry["min"] = lo
+        if hi is not None:
+            entry["max"] = hi
     return out
 
 
@@ -157,6 +164,7 @@ def extract(repo: Path) -> tuple[list[dict], list[dict], list[dict]]:
         by_file[rel] = _classes(raw, text, rel)
         texts.append(text)
     env = _server_constants(repo, SERVER_CONSTANTS)
+    env.update(_server_constants(repo, TWEAKS))
     bounds = _bounds(texts, env)
     trim_max = env.get("MAX_TRIM_STRENGTH", (None,))[0]
     statics = {f["name"]: f["init"] for classes in by_file.values() for fields in classes.values() for f in fields if f["static"]}

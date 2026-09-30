@@ -72,11 +72,11 @@ public final class TweaksCommands {
                                 .then(intSetting("elytraPadCount", 0, 64, (c, v) -> c.spawn.firstJoinElytraPadCount = v))
                                 .then(Commands.literal("elytra")
                                         .then(boolSetting("toggle", (c, v) -> c.spawn.giveElytraOnSpawn = v))
-                                        .then(intSetting("radius", 1, Integer.MAX_VALUE, (c, v) -> c.spawn.spawnElytraRadius = v))
+                                        .then(intSetting("radius", 1, TweaksConfig.MAX_SPAWN_ELYTRA_RADIUS, (c, v) -> c.spawn.spawnElytraRadius = v))
                                         .then(intSetting("flightTime", 1, TweaksConfig.Spawn.MAX_FLIGHT_SECONDS, (c, v) -> c.spawn.flightTimeSeconds = v))
                                         .then(intSetting("maxBoosts", 1, TweaksConfig.Spawn.MAX_BOOSTS, (c, v) -> c.spawn.maxBoosts = v))
                                         .then(Commands.literal("boostStrength")
-                                                .then(Commands.argument("value", FloatArgumentType.floatArg(0.1f))
+                                                .then(Commands.argument("value", FloatArgumentType.floatArg(0.1f, (float) TweaksConfig.MAX_BOOST_STRENGTH))
                                                         .executes(ctx -> apply(ctx, "boostStrength", FloatArgumentType.getFloat(ctx, "value"),
                                                                 c -> c.spawn.boostStrength = FloatArgumentType.getFloat(ctx, "value")))))
                                         .then(Commands.literal("center")
@@ -148,7 +148,10 @@ public final class TweaksCommands {
 
     /** worldSpawn = einer der Weltspawn-Befehle ({@code worldspawn set/here/custom}). */
     private static int apply(CommandContext<CommandSourceStack> ctx, String name, Object value, boolean worldSpawn, Consumer<TweaksConfig> change) {
+        if (value instanceof Float f && !Float.isFinite(f)
+                || value instanceof Double d && !Double.isFinite(d)) return 0;
         change.accept(SimpleTweaks.config());
+        SimpleTweaks.config().validate();
         SimpleTweaks.saveConfig();
         afterChange(ctx.getSource().getServer(), worldSpawn);
         ctx.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.tweaks.set", name, String.valueOf(value)), true);
@@ -210,7 +213,7 @@ public final class TweaksCommands {
 
     /** Reichweite von /killboats und /killcarts: Config {@code tweaks.commands.killCommandRadius} (Standard {@link #KILL_RADIUS}). */
     public static double killRadius() {
-        return Math.max(1, SimpleTweaks.config().commands.killCommandRadius);
+        return Math.max(1, Math.min(TweaksConfig.MAX_KILL_COMMAND_RADIUS, SimpleTweaks.config().commands.killCommandRadius));
     }
 
     private static int executeKill(CommandContext<CommandSourceStack> ctx, String mode, boolean boats) {

@@ -83,6 +83,22 @@ class ExtractTests(unittest.TestCase):
             self.assertEqual(v["value"] if v["type"] != "int" else float(v["value"]), expected, c["name"])
         self.assertEqual(mine["tools.buildingHighlightOpacity"]["max"], 100)
         self.assertEqual(mine["tweaks.padTuning.teleporterTier1WarmupTicks"]["min"], 1)
+        for path, maximum in {
+            "padTuning.teleporterTier1WarmupTicks": 12000,
+            "padTuning.teleporterTier2WarmupTicks": 12000,
+            "padTuning.teleporterTier3WarmupTicks": 12000,
+            "padTuning.launchpadStrengthMultiplier": 2,
+            "padTuning.potionPadChargeStepTicks": 1200,
+            "padTuning.potionPadCooldownFactor": 10,
+            "commands.killCommandRadius": 256,
+            "optimization.xpClumpRadius": 8,
+            "spawn.spawnElytraRadius": 256,
+            "spawn.boostStrength": 1.2,
+            "laserPointer.range": 1024,
+            "balancing.echoSounderJumpCooldownTicks": 12000,
+            "balancing.echoSounderAttemptLockTicks": 12000,
+        }.items():
+            self.assertAlmostEqual(mine["tweaks." + path]["max"], maximum, msg=path)
 
     def test_item_stats_and_recipes(self):
         self.assertEqual(self.values["item:simplebuilding:copper_building_wand:durability"]["value"], 1520)
