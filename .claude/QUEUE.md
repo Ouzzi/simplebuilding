@@ -91,3 +91,12 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Port der aktiven 1.0.6-Multiloaderquelle auf Fabric/NeoForge 26.3, Server-Caps/Anti-Cheat, vollstaendige Modulpruefungen, Wiki/Daten und Ideenliste. Keine neuen Ideen implementieren; Forge und andere Linien bleiben separat.
 
 - [x] Simple Quality of Life 26.3 fertig: Fabric/NeoForge, 48/48 Modul-Servertests und 5/5 Fabric-Client-Pruefpunkte gruen; Bestand 1562/1562, Integration 1/1 und check gruen. Wiki/Config/Balancedaten/Ideenliste vorhanden. Besitzer-Abnahme, NeoForge-Client/alte Welt/Fremd-Claims sowie Forge/andere Linien bleiben offen; kein Push/Merge.
+
+## Simple Tweaks (2026-09-30, codex-port-tweaks)
+- [x] Besitzerwunsch gruendlicher Vollabgleich: Quelle/claims-only Branch/Libraries, alle Features/Configs/Rezepte/IDs/Mixins und Quellabweichungen dokumentiert; source unveraendert.
+- [x] 26.3-Kompatibilitaetsmodul ohne doppelte Spielinhalte: alte IDs und Daten erhalten, Urkunde wirkungslos; 1587/1587 Server und 3/3 Fabric-Client gruen. Details docs/modules/simpletweaks.md.
+- [ ] Besitzerentscheidung: Claim-System weiterhin zurueckstellen oder eigener sicherer Claimport? Alte Urkunden bieten derzeit keinen Schutz.
+- [ ] SB-Sicherheit eigener Run: Boost-Staerke/Velocity/Packet-Rate, XP-Radius/Launchmultiplikator/Killradius/Spawnradius und weitere Config-Caps samt Runtime-Gegenproben; nicht im Modul doppeln.
+- [ ] Besitzerentscheidung: alte Echo-Library-Vanilla-Compasse automatisch zu Echo Soundern migrieren? Quelleninventar vorhanden, Library nicht mitgeliefert.
+- [ ] Simple Tweaks: NeoForge-Client und echte alte Welt/Besitzerwelt abnehmen; Forge26.3 und26.2/1.21.11/26.4 erst eigener freigegebener Port.
+- [x] Simple Tweaks: abschliessendes Worktree-Gate check -q --no-daemon GRADLE_EXIT=0, einschliesslich shared26.2-Kompilierbarkeit; kein Push/Merge.

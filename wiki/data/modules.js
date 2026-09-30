@@ -170,5 +170,21 @@ window.WIKI_MODULES = [
       "simplebuilding"
     ],
     "dataHash": "8a5c6bc75d4e"
+  },
+  {
+    "id": "simpletweaks",
+    "displayName": "Simple Tweaks",
+    "description": "Legacy-world compatibility for features now provided by SimpleBuilding; claims remain deferred.",
+    "version": "1.2.12",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ],
+    "requires": [
+      "simplebuilding"
+    ],
+    "optional": [],
+    "dataHash": "903cfae3adb3"
   }
 ];

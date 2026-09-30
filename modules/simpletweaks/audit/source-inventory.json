@@ -1,0 +1,1191 @@
+{
+  "head": "bb8f976bcaf387e72e184354de3f9f16423c618d",
+  "branch": "1.21.11",
+  "claimsOnlyHead": "9882906050294967d229b3c7874c98e73b29c228",
+  "status": "M build.gradle\n M readme-modrinth.md\n M readme.md\n M src/main/java/com/simpletweaks/SimpletweaksClient.java\n M src/main/java/com/simpletweaks/block/custom/ElytraPadBlock.java\n M src/main/java/com/simpletweaks/block/custom/FlypadBlock.java\n M src/main/java/com/simpletweaks/block/custom/SpawnTeleporterBlock.java\n M src/main/java/com/simpletweaks/client/render/LaserRenderer.java\n M src/main/java/com/simpletweaks/command/ModCommands.java\n M src/main/java/com/simpletweaks/compat/ModMenuIntegration.java\n M src/main/java/com/simpletweaks/event/FirstJoinHandler.java\n M src/main/java/com/simpletweaks/item/ModItems.java\n M src/main/java/com/simpletweaks/item/custom/ClaimDeedItem.java\n M src/main/resources/fabric.mod.json\n M src/main/resources/simpletweaks.mixins.json",
+  "files": [
+    {
+      "path": "src/main/java/com/simpletweaks/block/custom/ChunkLoaderBlock.java",
+      "sha256": "983aebce0e46a0ed104e63bc689accd93b497876fc193c735d1e65dde8b9bc87",
+      "lines": 67,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "getCodec",
+        "getOutlineShape",
+        "getRenderType",
+        "createBlockEntity",
+        "getTicker",
+        "onPlaced",
+        "calcBlockBreakingDelta"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/custom/CopperPressurePlateBlock.java",
+      "sha256": "9d2f7711721c27025e65ed07780108f9a681df401ed842bb70a297483af501c8",
+      "lines": 126,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "getDegradationLevel",
+        "appendProperties",
+        "getOutlineShape",
+        "getRenderType",
+        "emitsRedstonePower",
+        "getWeakRedstonePower",
+        "getStrongRedstonePower",
+        "hasRandomTicks",
+        "randomTick",
+        "createBlockEntity",
+        "getTicker",
+        "getCodec",
+        "onPlaced",
+        "calcBlockBreakingDelta"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/custom/DiamondPressurePlateBlock.java",
+      "sha256": "f0362762d09062aa43b7964dbb36aea8a6c50897726322f3a75a5b3a8a8cfc7e",
+      "lines": 79,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "appendProperties",
+        "getPlacementState",
+        "getFluidState",
+        "getStateForNeighborUpdate",
+        "getRedstoneOutput"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/DiamondPressurePlateBlock.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/custom/ElytraPadBlock.java",
+      "sha256": "4e83a526a053c55e9f2c49eb71feba71369ddba4fa9b051e23df3e00f31b1247",
+      "lines": 123,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "getTier",
+        "appendProperties",
+        "getPlacementState",
+        "getFluidState",
+        "getStateForNeighborUpdate",
+        "getCodec",
+        "getOutlineShape",
+        "getRenderType",
+        "createBlockEntity",
+        "getTicker",
+        "onPlaced",
+        "calcBlockBreakingDelta"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/custom/FlypadBlock.java",
+      "sha256": "99b5fe8f64b9de2083ee49888b7f48300f116bd777bb3551b1a03d81c2d9a2cb",
+      "lines": 75,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "getTier",
+        "getCodec",
+        "getOutlineShape",
+        "getRenderType",
+        "createBlockEntity",
+        "getTicker",
+        "onPlaced",
+        "calcBlockBreakingDelta"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/custom/LaunchpadBlock.java",
+      "sha256": "3fab080ed1674591a4c3a48eb7e78c2840a832cc24b6d2bb34b686a026d73873",
+      "lines": 145,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "appendProperties",
+        "getPlacementState",
+        "getFluidState",
+        "getStateForNeighborUpdate",
+        "getCodec",
+        "getOutlineShape",
+        "getRenderType",
+        "createBlockEntity",
+        "onPlaced",
+        "calcBlockBreakingDelta",
+        "onUse",
+        "getTicker"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/custom/NetheritePressurePlateBlock.java",
+      "sha256": "311753e076fa372db724edbd8e24201a2ab5cfb72872ea7b097d0e7e57958aab",
+      "lines": 102,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "createBlockEntity",
+        "onPlaced",
+        "calcBlockBreakingDelta",
+        "getRedstoneOutput",
+        "checkInventory"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/FilterPressurePlateBlock.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/custom/SpawnTeleporterBlock.java",
+      "sha256": "62af4f911cbe574e16a1bf7f757e92708e4d752e971c69a5a64600667f7aa51e",
+      "lines": 124,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "getTier",
+        "appendProperties",
+        "getPlacementState",
+        "getFluidState",
+        "getStateForNeighborUpdate",
+        "getCodec",
+        "getOutlineShape",
+        "getRenderType",
+        "createBlockEntity",
+        "onPlaced",
+        "calcBlockBreakingDelta",
+        "getTicker"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/SpawnTeleporterBlock.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/entity/ChunkLoaderBlockEntity.java",
+      "sha256": "cebfef0848a4bc944d86345d0956d225015dfcb28675919a0c1a802ec3d89c53",
+      "lines": 85,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "setOwner",
+        "isOwner",
+        "tick",
+        "markRemoved",
+        "writeData",
+        "readData",
+        "toUpdatePacket",
+        "toInitialChunkDataNbt"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderBlockEntity.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/entity/CopperPressurePlateBlockEntity.java",
+      "sha256": "29f76989be332aa47ccc656cc6eec2711de16eba67c34140f74d972391b01d24",
+      "lines": 116,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "setOwner",
+        "isOwner",
+        "tick",
+        "writeData",
+        "readData",
+        "toUpdatePacket",
+        "toInitialChunkDataNbt"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/entity/ElytraPadBlockEntity.java",
+      "sha256": "078f201bd72cfa3f4a6019609949cc8d4f18ad7f6b69cd0cf6922bf6b85acb1b",
+      "lines": 126,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "setOwner",
+        "isOwner",
+        "tick",
+        "isInBoostColumn",
+        "initElytraData",
+        "getBoxForTier",
+        "writeData",
+        "readData"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/entity/FlypadBlockEntity.java",
+      "sha256": "aeb7520ba8f47f5a4a7f8d07c0a1387d626c84044c5e881160b0d0f666a9d89f",
+      "lines": 105,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "setOwner",
+        "isOwner",
+        "tick",
+        "getBoxForTier",
+        "writeData",
+        "readData"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/entity/LaunchpadBlockEntity.java",
+      "sha256": "94037fab4b1fc092b755969debaf3e0adaa2252a90c7c608aaeb8cc32ccf33df",
+      "lines": 195,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "setOwner",
+        "isOwner",
+        "getCharges",
+        "addCharge",
+        "tick",
+        "launchPlayer",
+        "updateListeners",
+        "writeData",
+        "readData",
+        "toUpdatePacket",
+        "toInitialChunkDataNbt"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/entity/ModBlockEntities.java",
+      "sha256": "ecd060bd38cc61243717eeab5f4d0ce70350fd3cc2296832c57ab2e9df94f597",
+      "lines": 81,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "registerBlockEntities"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/TweaksBlockEntities.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/entity/ModEntities.java",
+      "sha256": "61a74da88c9ab3a36fba22923d5c05cafc3804f4638cf4758909ff9cb2d71141",
+      "lines": 19,
+      "disposition": "empty",
+      "methods": [
+        "registerModEntities"
+      ],
+      "targetFiles": []
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/entity/NetheritePressurePlateBlockEntity.java",
+      "sha256": "952ead1791169b9c64901a281b32ab3965fa100ee16467d8d7ab65b60641c523",
+      "lines": 66,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "setOwner",
+        "isOwner",
+        "writeData",
+        "readData",
+        "toUpdatePacket",
+        "toInitialChunkDataNbt"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FilterPlateBlockEntity.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/entity/SpawnTeleporterBlockEntity.java",
+      "sha256": "ccd4607e66bb30ecadb2d70320f7cfbbc4642bee60152bb12c2c03deb88b88a5",
+      "lines": 205,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "setOwner",
+        "getOwnerUuid",
+        "isOwner",
+        "writeData",
+        "readData",
+        "toUpdatePacket",
+        "toInitialChunkDataNbt",
+        "tick",
+        "teleportToSpawn",
+        "getTargetForTier"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/SpawnTeleporterBlockEntity.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/block/ModBlocks.java",
+      "sha256": "31c0f4d2635789f6486a20ba2efd551033d69f9ece0d69b5cba778bb1e760b20",
+      "lines": 141,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "keyOf",
+        "sturdyPadSettings",
+        "fragilePadSettings",
+        "registerBlock",
+        "registerBlockItem",
+        "registerModBlocks"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/client/gui/SpawnElytraTimerOverlay.java",
+      "sha256": "bb950d89d2aa28de69bf5b8d3f71255b288f8a148fe14b6530c75d2333e96b70",
+      "lines": 66,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "onHudRender"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/client/SpawnElytraHud.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/client/IOrbValue.java",
+      "sha256": "955d1d8231c436c78be0061b7bdc14bd57a6aadd2040790b516ef25db26cfe78",
+      "lines": 6,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/client/OrbValueHolder.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/client/render/LaserRenderer.java",
+      "sha256": "0b66442ecfce4abcc4d6eb1a0f2c31af7767b98b76466842cab39d3b64e28422",
+      "lines": 133,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "render",
+        "safeRenderPixelCircle",
+        "renderPixelCircle",
+        "drawSimpleQuad",
+        "rotateToFace"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/client/LaserRenderer.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/client/SpawnElytraClient.java",
+      "sha256": "8ddb9b242b6a41e529adf4a52289c80dd5648fe6cc9e6f34fa9f1b348cc94c7f",
+      "lines": 30,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "register"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/client/TweaksClient.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/command/ModCommands.java",
+      "sha256": "58b375ab1051bbd426bf986b1e69d80a91fd940e9b7f650c23772f9937fbe8db",
+      "lines": 601,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "register",
+        "resolveName",
+        "resolveProfile",
+        "executeKillBoats",
+        "executeKillCarts",
+        "checkRemove",
+        "saveConfig",
+        "checkPermission",
+        "setTeleporterSpawn"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/command/TweaksCommands.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/compat/ModMenuIntegration.java",
+      "sha256": "60aedd1906c1a57fc813a643dec164937cb82a6c75450ed0b4995770b8559703",
+      "lines": 18,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "getModConfigScreenFactory"
+      ],
+      "targetFiles": [
+        "src/main/java/com/simplebuilding/compat/ModMenuIntegration.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/component/ModDataComponentTypes.java",
+      "sha256": "1d123da3552d12133df0d3261c49a7c4e53854e8aeea2e19fed610c7fe762d42",
+      "lines": 32,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "register",
+        "registerDataComponentTypes"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/component/TweaksComponents.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/config/SimpletweaksConfig.java",
+      "sha256": "3016e8d61183d7c0c39eee3e5ee2e1fbcf42dcc3d2f5786aa7f793038a0e1eff",
+      "lines": 130,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/datagen/ModItemTagProvider.java",
+      "sha256": "475093a9e229abae30a6c692cff8681709c6b682997ca90d57994bcb3c15f064",
+      "lines": 38,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "configure"
+      ],
+      "targetFiles": [
+        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/datagen/ModLootTableProvider.java",
+      "sha256": "04b392275e9d5702c59b90b1d655d89709195e87fc010466f05a4b5b04d2fbc2",
+      "lines": 51,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "generate"
+      ],
+      "targetFiles": [
+        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/datagen/ModModelProvider.java",
+      "sha256": "cc181e9fff8af35610656274a98768b41d456b3aaa8711afbe7db044d0f16d37",
+      "lines": 74,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "generateBlockStateModels",
+        "registerFlatBlock",
+        "generateItemModels"
+      ],
+      "targetFiles": [
+        "src/main/java/com/simplebuilding/datagen/ModModelProvider.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/datagen/ModRecipeProvider.java",
+      "sha256": "b968384cfe723133748aae78a1ccc66269c3dfdfb4f93ee44687a04442c907f4",
+      "lines": 236,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "generate",
+        "getName"
+      ],
+      "targetFiles": [
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/event/ClaimProtectionHandler.java",
+      "sha256": "7c83baf434098ba5df042a5202b25a9c635aa8045ea2f991f2d7e81e80463fe8",
+      "lines": 77,
+      "disposition": "deferred-claims",
+      "methods": [
+        "register",
+        "checkPermission"
+      ],
+      "targetFiles": []
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/event/FirstJoinHandler.java",
+      "sha256": "56816f05209f9e39577da3dfb67ec1f4422404f0345a2b29dd8f4fe85c2cd16e",
+      "lines": 54,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "register",
+        "giveStarterItems"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnSetup.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/event/SpawnHandler.java",
+      "sha256": "09bd00c3babc1b8e5d674772fea897b5da0920307ec8973b1143f4fce070477c",
+      "lines": 149,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "register",
+        "tickSpawnLogic",
+        "tickSpawnLogic",
+        "initElytraData"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnElytra.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/event/WorldSpawnHandler.java",
+      "sha256": "60a89313e802e9602ae836d5b4c8a279143891863efbeff0f5c3234a5bd8a35b",
+      "lines": 62,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "register",
+        "applyCustomSpawn"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnSetup.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/item/custom/ClaimDeedItem.java",
+      "sha256": "ca86ee5fb1c8cfc88dd6e464f60911fc4e2967dba348da7e0a8ccddd1f33e29d",
+      "lines": 150,
+      "disposition": "deferred-claims",
+      "methods": [
+        "use",
+        "updateItemNbt",
+        "resolveName",
+        "appendTooltip",
+        "isShiftDown"
+      ],
+      "targetFiles": []
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/item/custom/LaserPointerItem.java",
+      "sha256": "9dc71817f23e4a5d831c8679aab5d01f2a16f644bc1b88ebdd54e2dac0590d79",
+      "lines": 29,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "use",
+        "getMaxUseTime"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/item/LaserPointerItem.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/item/custom/SpawnElytraItem.java",
+      "sha256": "f2e14b7f43d8d23c7cb8401201a534838d45e16fbca4371b7c353e933f9ae4d0",
+      "lines": 31,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "getName"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/item/SpawnElytraItem.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/item/ModItems.java",
+      "sha256": "8eb86317ae1840b83605c729d01a2121d0c0e1bf8f4ea769f81ca98af5789571",
+      "lines": 40,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "registerItem",
+        "registerModItems"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/item/TweaksItems.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/mixin/client/ExperienceOrbRendererMixin.java",
+      "sha256": "0ca696063b10cfb9f9d46c8962f00866ff36562ebfe1699af692d8a446199c30",
+      "lines": 42,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "captureValue",
+        "scaleOrb"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/mixin/client/ExperienceOrbRendererMixin.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/mixin/client/ExperienceOrbRenderStateMixin.java",
+      "sha256": "656d068f83793441c80e8c4c9f0ed07872d2b916230f3f2895254cae381eda54",
+      "lines": 23,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/mixin/client/ExperienceOrbRenderStateMixin.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/mixin/client/InGameHudLevelMixin.java",
+      "sha256": "22a9c6963e3609141cb5a3a4c7f3a5fc03f4e65af94c4488017e4c4773d057e6",
+      "lines": 35,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "redirectDrawExperienceLevel"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/mixin/client/HudExperienceLevelMixin.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/mixin/client/InGameHudMixin.java",
+      "sha256": "2b8d99b164548b0956449039b2585cb22da15a8bd786a03280fbb4a8d2964f17",
+      "lines": 108,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "onRenderBar"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/mixin/client/ExperienceBarMixin.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/mixin/client/InGameScreenHudMixin.java",
+      "sha256": "8ada83e4548f0d668e3a6ef1c059a0a2136cd36e291d32582ac5d656d9e58761",
+      "lines": 47,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "onRenderCrosshairStart",
+        "onRenderCrosshairEnd"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/client/LaserRenderer.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/mixin/client/SpawnTeleporterClientMixin.java",
+      "sha256": "be3e5264cd77e8894035255c46e743e604616f1458497e9dbd5c50fd8476858a",
+      "lines": 46,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "clientTick"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/SpawnTeleporterBlockEntity.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/mixin/DimensionBlockMixin.java",
+      "sha256": "22401aee669faff5df945c0b449d07516501b31771541e36ceba7fc11889bef5",
+      "lines": 39,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "blockDimensionChange"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/mixin/TweaksServerPlayerMixin.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/mixin/ExactSpawnMixin.java",
+      "sha256": "af1d94e7203766f1e0bb6e5eab47cff320b6b91b5a1e13922e58a296c7aedbb9",
+      "lines": 56,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "onGetWorldSpawnPos",
+        "onGetRespawnTarget"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/mixin/TweaksServerPlayerMixin.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/mixin/ExperienceOrbInvoker.java",
+      "sha256": "cc51b1f7f63d870e73d8fb5b0f3535d334a5e3f91709cd1450a6784551197f7e",
+      "lines": 11,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/mixin/ExperienceOrbAccessor.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/mixin/ExperienceOrbMixin.java",
+      "sha256": "b38a80d2474a4328a01d198aac4e54450e4c4a44bac3253283f35384b101eb1d",
+      "lines": 69,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "getValue",
+        "instantPickup",
+        "clumpOrbs"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/mixin/ExperienceOrbMixin.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/mixin/ItemStackMixin.java",
+      "sha256": "daaf90a7bdcdb8b9cc2e992d59ec76136b80418b47bec8c43b228d9526772f63",
+      "lines": 38,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "getItem",
+        "modifyMaxStackSize"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/mixin/TweaksItemStackMixin.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/mixin/SpawnElytraDamageMixin.java",
+      "sha256": "c102ecfd86919cc6060db13e82f57bab74bca7c585e2171a62e276e84cec9b10",
+      "lines": 87,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "onFallDamage",
+        "isInSpawnArea",
+        "onDamage"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/mixin/SpawnElytraDamageMixin.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/network/LaserManager.java",
+      "sha256": "b2800fe4a71a4452bfa2926b801dafbd0382956a787ad290434b4c42ebe5ddea",
+      "lines": 99,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "decode",
+        "encode",
+        "decode",
+        "encode",
+        "register",
+        "registerClient",
+        "LaserData",
+        "LaserPayload",
+        "getId",
+        "tick"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/network/TweaksNetwork.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/network/SpawnElytraNetworking.java",
+      "sha256": "ee5b4e6c8e838a7c5755048a3eca7b3dbae6269a96abd53a598f95cd0ee9dfc0",
+      "lines": 75,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "BoostPayload",
+        "getId",
+        "register"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/network/TweaksNetwork.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/Simpletweaks.java",
+      "sha256": "b99eeee3ef05a2651fe843e76e53b478636218abe9ae95c96920732eddb9285a",
+      "lines": 65,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "onInitialize",
+        "getConfig",
+        "saveConfig"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/SimpleTweaks.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/SimpletweaksClient.java",
+      "sha256": "0fe60ec1e100107cc4aaedd8a4148beec4afddc8901a46bcf73a1558111d1730",
+      "lines": 59,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "onInitializeClient"
+      ],
+      "targetFiles": [
+        "common/src/shared/java/com/simplebuilding/tweaks/client/TweaksClient.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/SimpletweaksDataGenerator.java",
+      "sha256": "24cc2279382c56cd6f80fd526db730f78681590a02741ef35de782fc82ec387d",
+      "lines": 25,
+      "disposition": "already-ported-or-infrastructure",
+      "methods": [
+        "onInitializeDataGenerator",
+        "buildRegistry"
+      ],
+      "targetFiles": [
+        "src/main/java/com/simplebuilding/SimplebuildingDataGenerator.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/simpletweaks/world/ClaimState.java",
+      "sha256": "c3a9b69c4bdcdfcd10d2cb412a7e6f6432a3637da1def332f4c32e967eb3bf8e",
+      "lines": 168,
+      "disposition": "deferred-claims",
+      "methods": [
+        "getCodec",
+        "get",
+        "isClaimed",
+        "claim",
+        "unclaim",
+        "canInteract",
+        "addFriend",
+        "removeFriend",
+        "getOwner",
+        "getWhitelist",
+        "getClaimsByPlayer",
+        "getAllClaims"
+      ],
+      "targetFiles": []
+    }
+  ],
+  "recipes": {
+    "chunk_loader_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:netherite_ingot",
+      "base": "simpletweaks:copper_pressure_plate",
+      "result": {
+        "id": "simpletweaks:chunk_loader"
+      },
+      "template": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "copper_pressure_plate.json": {
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "key": {
+        "C": "minecraft:copper_block"
+      },
+      "pattern": [
+        "CC"
+      ],
+      "result": {
+        "count": 1,
+        "id": "simpletweaks:copper_pressure_plate"
+      }
+    },
+    "diamond_pressure_plate.json": {
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "key": {
+        "D": "minecraft:diamond"
+      },
+      "pattern": [
+        "DD"
+      ],
+      "result": {
+        "count": 1,
+        "id": "simpletweaks:diamond_pressure_plate"
+      }
+    },
+    "elytra_pad_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:diamond",
+      "base": "simpletweaks:diamond_pressure_plate",
+      "result": {
+        "id": "simpletweaks:elytra_pad"
+      },
+      "template": [
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:bolt_armor_trim_smithing_template"
+      ]
+    },
+    "fine_elytra_pad_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:nether_star",
+      "base": "simpletweaks:netherite_elytra_pad",
+      "result": {
+        "id": "simpletweaks:fine_elytra_pad"
+      },
+      "template": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "flypad_tier1_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:netherite_ingot",
+      "base": "simpletweaks:fine_elytra_pad",
+      "result": {
+        "id": "simpletweaks:flypad"
+      },
+      "template": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "flypad_tier2_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:netherite_block",
+      "base": "simpletweaks:flypad",
+      "result": {
+        "id": "simpletweaks:reinforced_flypad"
+      },
+      "template": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "launchpad_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:diamond_block",
+      "base": "minecraft:heavy_weighted_pressure_plate",
+      "result": {
+        "id": "simpletweaks:launchpad"
+      },
+      "template": [
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:bolt_armor_trim_smithing_template"
+      ]
+    },
+    "launchpad_smithing_alternative.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:netherite_ingot",
+      "base": "minecraft:heavy_weighted_pressure_plate",
+      "result": {
+        "id": "simpletweaks:launchpad"
+      },
+      "template": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "netherite_elytra_pad_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:netherite_ingot",
+      "base": "simpletweaks:reinforced_elytra_pad",
+      "result": {
+        "id": "simpletweaks:netherite_elytra_pad"
+      },
+      "template": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "netherite_flypad_crafting.json": {
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "key": {
+        "B": "minecraft:netherite_block",
+        "D": "minecraft:diamond_block",
+        "E": "minecraft:enchanted_golden_apple",
+        "F": "simpletweaks:reinforced_flypad",
+        "K": "minecraft:ominous_trial_key",
+        "S": "minecraft:nether_star"
+      },
+      "pattern": [
+        "DBD",
+        "ESE",
+        "KFK"
+      ],
+      "result": {
+        "count": 1,
+        "id": "simpletweaks:netherite_flypad"
+      }
+    },
+    "netherite_pressure_plate_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:netherite_ingot",
+      "base": "simpletweaks:diamond_pressure_plate",
+      "result": {
+        "id": "simpletweaks:netherite_pressure_plate"
+      },
+      "template": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "reinforced_elytra_pad_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:diamond_block",
+      "base": "simpletweaks:elytra_pad",
+      "result": {
+        "id": "simpletweaks:reinforced_elytra_pad"
+      },
+      "template": [
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:bolt_armor_trim_smithing_template"
+      ]
+    },
+    "spawn_teleporter_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:diamond_block",
+      "base": "minecraft:light_weighted_pressure_plate",
+      "result": {
+        "id": "simpletweaks:spawn_teleporter"
+      },
+      "template": [
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:bolt_armor_trim_smithing_template"
+      ]
+    },
+    "spawn_teleporter_smithing_alternative.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:netherite_ingot",
+      "base": "minecraft:light_weighted_pressure_plate",
+      "result": {
+        "id": "simpletweaks:spawn_teleporter"
+      },
+      "template": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "spawn_teleporter_tier2_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:netherite_ingot",
+      "base": "simpletweaks:spawn_teleporter",
+      "result": {
+        "id": "simpletweaks:spawn_teleporter_tier_2"
+      },
+      "template": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "spawn_teleporter_tier3_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:netherite_ingot",
+      "base": "simpletweaks:spawn_teleporter_tier_2",
+      "result": {
+        "id": "simpletweaks:spawn_teleporter_tier_3"
+      },
+      "template": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "spawn_teleporter_tier4_smithing.json": {
+      "type": "minecraft:smithing_transform",
+      "addition": "minecraft:netherite_ingot",
+      "base": "simpletweaks:spawn_teleporter_tier_3",
+      "result": {
+        "id": "simpletweaks:spawn_teleporter_tier_4"
+      },
+      "template": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "stellar_flypad_crafting.json": {
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "key": {
+        "E": "minecraft:enchanted_golden_apple",
+        "F": "simpletweaks:netherite_flypad",
+        "K": "minecraft:ominous_trial_key",
+        "S": "minecraft:nether_star"
+      },
+      "pattern": [
+        "KKK",
+        "ESE",
+        "FFF"
+      ],
+      "result": {
+        "count": 1,
+        "id": "simpletweaks:stellar_flypad"
+      }
+    }
+  },
+  "configDeclarations": [
+    "rocketStackSize = 64",
+    "allowNether = true",
+    "allowEnd = true",
+    "forceExactSpawn = true",
+    "disableFallDamageInSpawn = true",
+    "xCoordSpawnPoint = 0",
+    "yCoordSpawnPoint = -1",
+    "zCoordSpawnPoint = 0",
+    "spawnTeleporterCount = 1",
+    "giveElytraOnSpawn = false",
+    "spawnElytraRadius = 25",
+    "useWorldSpawnAsCenter = false",
+    "customSpawnElytraX = 0",
+    "customSpawnElytraZ = 0",
+    "flightTimeSeconds = 300",
+    "maxBoosts = 3",
+    "boostStrength = 0.6f",
+    "spawn1X = 0, spawn1Y = -1000, spawn1Z = 0",
+    "spawn2X = 0, spawn2Y = -1000, spawn2Z = 0",
+    "spawn3X = 0, spawn3Y = -1000, spawn3Z = 0",
+    "spawn4X = 0, spawn4Y = -1000, spawn4Z = 0",
+    "enableKillBoatsCommand = true",
+    "enableKillCartsCommand = false",
+    "enableXpClumps = true",
+    "scaleXpOrbs = true",
+    "enable = true",
+    "color = 0xFF0000",
+    "scale = 0.25f",
+    "range = 512",
+    "showLine = false"
+  ],
+  "mixins": {
+    "required": true,
+    "package": "com.simpletweaks.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+      "DimensionBlockMixin",
+      "ExactSpawnMixin",
+      "ExperienceOrbInvoker",
+      "ExperienceOrbMixin",
+      "ItemStackMixin",
+      "SpawnElytraDamageMixin"
+    ],
+    "injectors": {
+      "defaultRequire": 1
+    },
+    "overwrites": {
+      "requireAnnotations": true
+    },
+    "client": [
+      "client.ExperienceOrbRendererMixin",
+      "client.ExperienceOrbRenderStateMixin",
+      "client.InGameHudLevelMixin",
+      "client.InGameHudMixin",
+      "client.InGameScreenHudMixin",
+      "client.SpawnTeleporterClientMixin"
+    ]
+  },
+  "sourceTests": []
+}
