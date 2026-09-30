@@ -57,8 +57,8 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 
 | Feature | Status | Anmerkung |
 |---|---|---|
-| Laserpointer (Punkt fuer Spieler in 128 Bloecken sichtbar, Entfernungsanzeige) | port + Umbau zur "Amethystlinse" | Renderer auf 26.x-Submit-Pipeline umgebaut; Server prueft Item/Schalter/Rate (Audit 2026-09-26 #17); seit 2026-09-27 Strahlwirkungen, Ladung, Amboss-Aufladen (siehe unten) |
-| Echo-Kompass (Fremd-Datenpaket `echo-compass-v1.1.0.jar`, AGPL, per `libs/` eingebunden) | port (neu geschrieben, 2026-09-27 umgebaut, jetzt "Echolot"/"Echo Sounder") | eigenes Item statt Datenpaket (Id weiter `echo_compass`), Rezept neu, Unbreaking-Bug behoben; Aufladen 3 s, Leeren/Aufladen/Zerspringen, eigene Textur, keine Enderperle mehr |
+| Laserpointer (Punkt fuer Spieler in 128 Bloecken sichtbar, Entfernungsanzeige) | port + Umbau zum "Amethyst-Resonanzstab" | Renderer auf 26.x-Submit-Pipeline umgebaut; Server prueft Item/Schalter/Rate (Audit 2026-09-26 #17); seit 2026-09-27 Strahlwirkungen, Ladung, Amboss-Aufladen (siehe unten) |
+| Echo-Kompass (Fremd-Datenpaket `echo-compass-v1.1.0.jar`, AGPL, per `libs/` eingebunden) | port (neu geschrieben, 2026-09-27 umgebaut, jetzt "Echolot"/"Echo Sounder") | eigenes Item statt Datenpaket (aktuelle ID `echo_sounder`, `echo_compass` Legacy-Alias), Rezept neu, Unbreaking-Bug behoben; Aufladen 3 s, Leeren/Aufladen/Zerspringen, eigene Textur, keine Enderperle mehr |
 | XP-Kugeln verklumpen + sofort aufheben | port | `enableXpClumps` |
 | XP-Kugeln nach Wert skalieren | port | `scaleXpOrbs` (Client) |
 | Raketen-Stapelgroesse | port | `rocketStackSize` |
@@ -426,7 +426,7 @@ und `#materialsTabIsLaidOutInRows` (Feld fuer Feld).
   (`echo_compass_00..31`, Zaehlung wie Vanilla) und `echo_compass_cracked_0..2` (0 = leer).
 - Dimensionen: jede Dimension, die der Server kennt (auch Mod-Dimensionen - war trivial, weil die
   Vanilla-Komponente die Dimension mitfuehrt).
-- Kreativ-Tab: SimpleTools, Zeile "gadgets" (seit 2026-09-27: Kompass, Bergungskompass, Echolot, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Amethystlinse, Oktant; danach die gefaerbten Oktanten).
+- Kreativ-Tab: SimpleTools, Zeile "gadgets" (seit 2026-09-27: Kompass, Bergungskompass, Echolot, Geschwindigkeitsmesser, Detektor, Attraktor, Rotator, Amethyst-Resonanzstab, Oktant; danach die gefaerbten Oktanten).
 - Rezept (Werkbank, geformt, Besitzer 2026-09-27; zweite Runde: auch oben mittig ein Nugget, 7 Nuggets):
 
   ```
@@ -558,8 +558,8 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
   nimmt sie, Aufraeumen von Inventar/Cursor jeden Tick. Flugzeit hoechstens 24 h, Boosts hoechstens 100.
 - Config-Abgleich (Audit 2026-09-26 #16): `rocketStackSize`, `maxBoosts`, Laser-Schalter und -Reichweite
   schickt der Server beim Einloggen und nach jedem `/simplebuilding tweaks`-Befehl (`TweaksConfigPayload`).
-- Laserpointer -> **Amethystlinse** (2026-09-27; Registry-Id bleibt `laser_pointer`, alte Welten laden):
-  - Rezept `RAR`/`ICI`/`III` (Redstone, Amethystsplitter, Eisenbarren, Eisen-Baukern `iron_core`), kein Glas.
+- Laserpointer -> **Amethyst-Resonanzstab** (2026-09-27; aktuelle Registry-ID `amethyst_lens`, alter `laser_pointer` ist Legacy-Alias):
+  - 26.3-Rezept `IIR`/`ICA`/`IIR` (Redstone, Amethystsplitter, Eisenbarren, Eisen-Baukern `iron_core`), kein Glas.
   - Punkt: feste Weltgroesse (Config `scale`, auf 0,05..1 begrenzt), waechst erst ab ~3 Pixel
     Bildschirmgroesse mit (0,004 Bloecke je Block) - frueher 0,12 je Block, also ein Riesenkreis in der
     Ferne. Entfernungszahl 13 statt 10 GUI-Pixel neben der Fadenkreuzmitte.
@@ -592,12 +592,12 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
     (Feuer-Loeschen, hoch; Schmelzen/Trocknen) bzw. Knistern (Feuer + Lagerfeuer-Knistern; Anzuenden,
     Seelenfeuer, Lagerfeuer/Kerzen, TNT, Lebewesen); Abschlussklaenge wie bisher. Test-Haken
     `LaserBeam#setSoundHook`.
-  - Ladung = Haltbarkeit 640: 1 je angefangene Sekunde Benutzen - auch blosses Zeigen ins Leere oder auf
+  - Ladung = Haltbarkeit 640: standardmäßig 4 je angefangene Sekunde Benutzen - auch blosses Zeigen ins Leere oder auf
     einen Block ohne Wirkung, und schon im ersten Tick (bis 2026-09-27 erst nach 20 Ticks, kurzes Antippen
     war dadurch gratis) -, 5 je Wirkung, kreativ gratis; zerbricht nie, leer
     kein Strahlen mehr (Modell `item/laser_pointer_empty` mit eigener Textur
-    `textures/item/laser_pointer_empty.png`, auf beiden Linien vorhanden). Amboss + Redstone laedt auf,
-    0 Stufen (`AnvilScreenHandlerMixin`, auch `mayPickup`), 10 je Staub, 64 = voll, nur Noetiges wird verbraucht.
+    `textures/item/laser_pointer_empty.png`, auf beiden Linien vorhanden). Auf 26.3 lädt der Amboss mit Amethystscherben auf: 0 Stufen, 40 Ladung je Scherbe,
+    16 = voll, nur nötige Scherben werden verbraucht (`AnvilRechargeable`).
   - Kreativ-Tab: Werkzeuge, Zeile "gadgets" (nicht mehr bei den Chunk-Loadern).
   - Entfernungsanzeige misst bis zum Laserpunkt (Audit #34).
 - Echo-Kompass: ein blockierter Sprung kostet weder Haltbarkeit noch Abklingzeit (Perlen braucht er nicht mehr).
@@ -626,10 +626,10 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
 `simplebuilding:tweaks_*`), in beiden Codelinien: Besitzer und Abbau, Pad-Bereiche je Stufe,
 Elytra-Pad/Flypad/Teleporter/Launchpad/Chunk-Loader inklusive Enderit-Zusatz, Filter- und
 Kupferplatten, Echolot (Name/Id, Verknuepfen ohne Perle, Unbreaking, Aufladen/Loslassen, Leeren, Aufladen per
-Mending, Zerspringen, Rezept mit 7 Nuggets), Amethystlinse (Wirkungen, TNT nach Verweildauer mit Regeln,
+Mending, Zerspringen, Rezept mit 7 Nuggets), Amethyst-Resonanzstab (Wirkungen, TNT nach Verweildauer mit Regeln,
 Portal nie, Ladung schon beim ersten Tick und beim Zeigen ins Leere, Verweildauer nah/fern/200 Bloecke,
 Lebewesen nach doppelter Zeit, kein Spieler ohne PvP, Klaenge ueber den Test-Haken),
-Geschwindigkeitsmesser-Rezept (`QAQ`/`NCN`/`NKN`: Quarz, Amethystsplitter, Kupfernugget, Kompass, Kupferkern), XP-Verklumpen, Stapelgroessen,
+Geschwindigkeitsmesser-Rezept (` NA`/`NCN`/`KN `: Amethystscherbe, vier Kupfernuggets, Kompass, Kupferkern), XP-Verklumpen, Stapelgroessen,
 Spawn-Regeln, Befehle (seit 2026-09-28 auch `/killcarts` ueber den echten Befehlsbaum: Schalter,
 Operator-Sperre, Modi, Inhalt der Kistenlore), Pads unter Wasser (jede wasserloggbare Platte ueber den
 echten Setz-Weg), Config-Schalter je Familie. Jeder Test wurde gegengeprueft (Mutation des

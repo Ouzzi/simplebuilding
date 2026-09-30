@@ -1,19 +1,20 @@
-# In-Game-Bücher – Konzept
+# In-Game-Bücher: aktueller Stand und historischer Entwurf
 
-> **Umgesetzt am 2026-09-28 als schlichtere Fassung** (Besitzer: "das Buch, das man zum Start bekommt, mit dem man sich
-> hocharbeiten und durch die Mod klicken kann"): Option B aus Abschnitt 6, aber ohne Rätsel und ohne Versiegelung.
-> Einsteiger-Handbuch beim ersten Betreten (Config `giveGuideBookOnFirstJoin`, einmal je Spieler) plus sieben
-> Themenbücher aus Buch oder Handbuch + Schlüsselitem an der Werkbank (das Handbuch bleibt liegen). Jede Seite
-> klartext, anklickbares Inhaltsverzeichnis, en + de. Code: `com.simplebuilding.guide.GuideBooks`, Tests:
-> `GuideBookTests`, Seitenbudget: `python tools/guide_book_pages.py`, Wiki-Notiz `guide_book*`. Das Folgende bleibt
-> als Ideensammlung für eine spätere Rätsel-Fassung stehen.
->
-> **2026-09-28, eigener Buchbildschirm** (Vorbild: Eidolons Codex): Rechtsklick öffnet
-> `client.guide.GuideBookScreen` statt Vanillas Buchbildschirm - Doppelseite im blauen Einband
-> (`textures/gui/guide_book/book.png`), Inhalt mit Kapitelsymbolen, Kapitel ab neuer Doppelseite (links Text + Items,
-> rechts Rezeptkarten aus dem Rezeptmanager), Lesezeichen je Buch (gesperrt ohne Buch im Inventar), Merken der Seite.
-> Symbole/Rezepte je Kapitel: `guide.GuideContent`, geprüft von `GuideBookTests#everyGuideChapterIconAndRecipeResolves`.
-> Die Vanilla-Seiten bleiben am Item fürs Lesepult (dort weiter die schlichte Textfassung).
+Aktuell auf 26.3: zwei Basis-Handbücher (`guide_book`, `guide_book_vanilla_start`),
+getrennte Regale. Basisrezepte: Buch + Werkbank bzw. Buch + Holzspitzhacke.
+Gesperrten Themenreiter anklicken und mit Schlüsselitem im Inventar bestätigen: genau
+ein Item wird verbraucht, auch in Creative. Keine Erweiterung/Vereinigung im Handwerksraster,
+kein Erstbeitrittsgeschenk. Admin-Kapitel: OP-Stufe 2. Acht Themenreiter rechts; übrige links
+unter Inhalts- und Regalreiter, innerhalb von sechs linken Reitern. Lesen pausiert nicht.
+
+Belege: `GuideBooks`, `GuideUnlocks`, `GuideBookScreen`, `GuideContent`;
+`GuideBookTests` und `python tools/guide_book_pages.py` (höchstens 13 Zeilen je Seite).
+Rezeptkarten kommen aus dem Rezeptmanager. Vanilla-Buchseiten bleiben fürs Lesepult.
+
+## Historischer Entwurf ? keine Beschreibung des aktuellen Spiels
+
+Die folgende Ideensammlung enthält verworfene Wünsche, frühere Rezepte und frühere
+Codegegenproben. Für aktuelle Regeln gelten die Quellen oben und das generierte Wiki.
 
 Stand 2026-09-24. **Nur Konzept, kein Code.** Grundlage: der Buch-Entwurf dieser Sitzung samt
 Gegenprüfung. Alle Fakten wurden gegen den Code, die generierten Daten und die Vanilla-Jars beider
@@ -52,11 +53,11 @@ korrigierte Fassung.
 4. **Nichts Wirkungsloses als wirksam anpreisen.** Heute wirkungslos oder anders als ihr Name:
    Abdeckung (*Cover*) und Brücke (*Bridge*) (festgenagelt durch den Gametest
    `coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown`), Linear (beschleunigt nur die Ringe,
-   keine Linie), Reichweite (*Range*) am Magneten, Kinetischer Schutz gegen anderes als
+   keine Linie), Reichweite (*Range*) am Attraktor, Kinetischer Schutz gegen anderes als
    `fly_into_wall`, die Oktant-Optionen Hohl/Schicht/Reihenfolge, Kupfer als Besatzmaterial. Ein
    **ehrlicher** Tease darüber ist erlaubt.
 5. **Hartkodierte englische UI-Texte nicht zitieren**, als wären sie übersetzt (Trichterfilter,
-   Erzdetektor-Modi, Oktant-HUD, Luftsprung-Balken, Rahmen-Meldungen). Die deutsche Seite
+   Detektor-Modi, Oktant-HUD, Luftsprung-Balken, Rahmen-Meldungen). Die deutsche Seite
    umschreibt sie.
 6. **Seitenbudget.** Das Vanilla-Buch zeichnet höchstens **14 Zeilen à 114 px** und schneidet den
    Rest **stillschweigend** ab (26.2 `BookViewScreen`: `Math.min(128 / 9, …)`, 1.21.11 dieselben
@@ -195,7 +196,7 @@ Fackel, Härte 0,3, Glasgeräusch; **nicht** „beim ersten Antippen weg", von H
 
 **Ton:** Handwerker-Almanach: Sprichwörter, kurze Verse, Rätsel.
 **Kapitel:** Meißel · Vorschlaghammer · Über Kerne · Baustab · Oktant (1 schlichter + 16 gefärbte;
-Tastenbelegung als Komponente) · Rotator · Magnet · Der lauschende Kompass (Erzdetektor) ·
+Tastenbelegung als Komponente) · Rotator · Magnet · Der lauschende Kompass (Detektor) ·
 Geschwindigkeitsmesser · Aufstieg ohne Abschied (Basisaufwertung: „behält Name, Abnutzung und
 Verzauberungen") · Werkstatt-Tricks (Rahmen: Glasscheibe sperrt, Schere versteckt).
 
@@ -328,11 +329,11 @@ oder ein Werkzeug, das sie trägt.
 > **EN – Many Gifts** *(Quelle: Wiki-Notiz „constructors_touch"; Loot in `ModLootTableModifications`:
 > vergrabener Schatz, Iglu, Prüfungskammer-Tresore; kein Handel)*
 > One blessing, a different gift in every hand. A stick changes a block's mood, a wand opens a
-> window, a magnet reaches twice as far. Pirates, snow huts, trial doors - never for sale.
+> window, an attractor can filter items. Pirates, snow huts, trial doors - never for sale.
 >
 > **DE – Viele Gaben**
 > Ein Segen, in jeder Hand eine andere Gabe. Ein Stock verstellt Blocklaunen, ein Stab öffnet ein
-> Fenster, ein Magnet reicht doppelt so weit. Piraten, Schneehütten, Prüfungen - nie käuflich.
+> Fenster, ein Attraktor kann Items filtern. Piraten, Schneehütten, Prüfungen - nie käuflich.
 
 *(Gekürzt: die deutsche Fassung des Entwurfs hatte 15 Zeilen; die letzte, „zu kaufen.", wäre
 abgeschnitten worden und hätte den Sinn umgedreht.)*
@@ -457,7 +458,7 @@ Optional: Config-Schalter, Beitritts-Hook.
 ## 8. Offene Entscheidungen
 
 1. Schlüsselitem fürs Werkzeugbuch: **Steinmeißel** (empfohlen), Eisenbarren oder Kompass? Und
-   Werkzeuge teilen in „Werkzeuge" und „Instrumente" (Oktant, Magnet, Erzdetektor, Geschwindigkeitsmesser; Schlüssel
+   Werkzeuge teilen in „Werkzeuge" und „Instrumente" (Oktant, Attraktor, Detektor, Geschwindigkeitsmesser; Schlüssel
    Kompass) → acht Bücher?
 2. Fibel beim ersten Beitritt geben? Wenn ja: Config-Standard an oder aus?
 3. Rezept „Buch + Schlüsselitem" (empfohlen) oder „Fibel + Schlüsselitem" (Fibel bleibt zurück)?

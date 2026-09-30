@@ -31,7 +31,7 @@ Verzauberung hebt die angezeigte Seltenheit (COMMON/UNCOMMON -> RARE, RARE -> EP
 | Pads | nach dem Material, mit dem die Stufe gebaut wird: Netherit-Druckplatte -> UNCOMMON, Enderit-Platte/-Kern -> EPIC | Spawn-Teleporter II-IV und Trank-Pad I UNCOMMON; Flugpads I-III, Feines Elytra-Pad V, Trank-Pad II/III, Spawn-Teleporter V EPIC |
 | **Verzauberte Nahrung** | RARE wie der verzauberte goldene Apfel, Enderit EPIC | Verzauberter Netheritapfel RARE, Verzauberter Enderitapfel EPIC |
 | **Vorlagen** | Aufwertungen UNCOMMON (wie die Netherit-Aufwertung), Besatz-Aufwertungen RARE (eine Stufe über den Vanilla-Besatzvorlagen, aus denen sie entstehen) | Basis- und Enderit-Schmiedevorlage UNCOMMON; Leuchtende/Strahlende Schmiedevorlage RARE |
-| **Geräte** | nach der wertvollsten Zutat: Grundzutaten und Eisen-/Kupfer-/Goldkerne COMMON, Vanilla-UNCOMMON-Zutat (Echoscherbe) UNCOMMON, Enderit EPIC | Geschwindigkeitsmesser, Rotator, Oktanten, Magnet, Amethystlinse, Blaupause COMMON; Erzdetektor UNCOMMON; Echolot EPIC |
+| **Geräte** | nach der wertvollsten Zutat: Grundzutaten und Eisen-/Kupfer-/Goldkerne COMMON, Vanilla-UNCOMMON-Zutat (Echoscherbe) UNCOMMON, Enderit EPIC | Geschwindigkeitsmesser, Rotator, Oktanten, Attraktor, Amethyst-Resonanzstab, Blaupause COMMON; Detektor UNCOMMON; Echolot EPIC |
 | **Köpfe** | UNCOMMON wie Vanillas Mob-Köpfe | Lohenkopf |
 | **Bücher** | COMMON wie das beschriebene Buch | alle Handbücher |
 | **Easter** | EPIC wie das Drachenei | Lustiger Stock |
@@ -67,7 +67,7 @@ Enderit-Schmiedevorlage (Diamanten + Endstein; brennt wie Vanillas Netherit-Aufw
 ## 5. Änderungen am 2026-09-28
 
 Seltenheit: Magnet UNCOMMON -> COMMON, Blaupause UNCOMMON -> COMMON, Verstärkter Rucksack UNCOMMON -> COMMON,
-Amethystlinse EPIC -> COMMON, Erzdetektor RARE -> UNCOMMON, Verzauberter Netheritapfel EPIC -> RARE,
+Amethyst-Resonanzstab EPIC -> COMMON, Detektor RARE -> UNCOMMON, Verzauberter Netheritapfel EPIC -> RARE,
 Enderit-Schmiedevorlage COMMON -> UNCOMMON, Kreativ-Platzhalter COMMON -> EPIC; Netheritkern, Netherittrichter,
 -kolben, -ofen, -räucherofen, -schmelzofen, Netheritapfel/-karotte, Netherit-Druckplatte, Netherit-Pads,
 Spawn-Teleporter II-IV und Trank-Pad I COMMON -> UNCOMMON; Enderitkern, Enderitapfel/-karotte, Flugpad I/II

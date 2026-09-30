@@ -36,7 +36,7 @@ Geprueft und ohne Befund (schon versetzt, gedrosselt oder mit Frueh-Abbruch): `S
 `SledgehammerProgress.tick` (nur alle `VALIDATE/REBROADCAST_TICKS`), `DynamicLightHandler`
 (Spieler alle 2 Ticks, Traeger/Rahmen je Entity-Id versetzt, Funken erst wuerfeln, dann lesen),
 `TrimAttributeHandler` (je Entity versetzt), `LivingEntityMixin`-Tick-Hooks (Modulo vor jeder
-Arbeit), Erzdetektor (je Spieler versetzt, hoechstens 16 Scans je Server-Tick), Magnet
+Arbeit), Detektor (je Spieler versetzt, hoechstens 16 Scans je Server-Tick), Magnet
 (nur in der Hand, nicht beim Schleichen), Bauplaner/Blaupause (Tick-Budget), Testzentrale (nur mit
 geplanter Aufgabe).
 

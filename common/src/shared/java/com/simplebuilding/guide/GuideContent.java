@@ -223,7 +223,7 @@ public final class GuideContent {
                 ch("minecraft:skeleton_skull", List.of(), List.of("minecraft:skeleton_skull", "minecraft:totem_of_undying")),
                 ch("minecraft:shield", List.of(), List.of("minecraft:diamond_chestplate", "minecraft:netherite_chestplate")),
                 ch("simplebuilding:astralit_dust", List.of(), List.of("simplebuilding:astralit_dust", "simplebuilding:nihilith_shard", "simplebuilding:enderite_ingot")),
-                ch("simplebuilding:emitting_trim_template", List.of(), List.of("minecraft:item_frame", "simplebuilding:iron_sledgehammer", "minecraft:glowstone_dust", "simplebuilding:emitting_trim_template")),
+                ch("simplebuilding:emitting_trim_template", List.of(), List.of("minecraft:coast_armor_trim_smithing_template", "simplebuilding:iron_sledgehammer", "minecraft:glowstone_dust", "simplebuilding:emitting_trim_template")),
                 ch("simplebuilding:glowing_trim_template", List.of(), List.of("minecraft:glow_ink_sac", "simplebuilding:glowing_trim_template")),
                 ch("simplebuilding:pulsating_trim_template", List.of("simplebuilding:pulsating_trim_template"), List.of("minecraft:echo_shard", "simplebuilding:glowing_trim_template")),
                 ch("minecraft:coast_armor_trim_smithing_template", List.of(), List.of("minecraft:coast_armor_trim_smithing_template", "simplebuilding:iron_sledgehammer", "minecraft:glow_ink_sac")),

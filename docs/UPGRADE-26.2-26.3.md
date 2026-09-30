@@ -24,7 +24,7 @@ Was 26.3 an Vanilla-Formaten aendert (DataFixer 4996-5016), und was davon Mod-Da
 
 | Aenderung in 26.3 | trifft |
 |---|---|
-| Blockzustand `Name`/`Properties` -> `id`/`properties` (BlockStateFieldNamesFix) | aufsteigender Block (Entity), Erzdetektor-Ziel (custom_data) |
+| Blockzustand `Name`/`Properties` -> `id`/`properties` (BlockStateFieldNamesFix) | aufsteigender Block (Entity), Detektor-Ziel (custom_data) |
 | Entdeckerkarten werden eigene Items (26.2: `minecraft:filled_map` mit Entdecker-Markierung `+`; 26.3: `minecraft:ocean_monument_map` u. a.) | Karten in Mod-Behaeltern |
 | `minecraft:pot_decorations` Liste -> Karte | verzierte Kruege in Mod-Behaeltern |
 | `minecraft:map_color`, `block_transformer` entfernt, `swing_animation` geteilt | Stapel mit diesen Komponenten in Mod-Behaeltern |
@@ -37,7 +37,7 @@ geschlossen; Test = welcher Test es belegt.
 | Daten | Format | 26.2 -> 26.3 | Test |
 |---|---|---|---|
 | Oktant-Auswahl (custom_data `Pos1`/`Pos2`/`Locked`/`Shape`/`FillOrder`/`Hollow`) | Mod, Zahlen/Strings | OK | modItems |
-| Erzdetektor (custom_data `Mode`, `CustomBlock` via NbtUtils) | Blockzustand | OK - liest schon beide Schreibweisen (Fix vom 2026-09-25) | modItems, OreDetectorTests |
+| Detektor (custom_data `Mode`, `CustomBlock` via NbtUtils) | Blockzustand | OK - liest schon beide Schreibweisen (Fix vom 2026-09-25) | modItems, OreDetectorTests |
 | Blaupause (`simplebuilding:blueprint` code/title/author/signed, `blueprint_rotation`) | Mod-Codec, Strings | OK | modItems |
 | Rucksack-Item (`simplebuilding:backpack_contents`) | eigene Eintraege `{slot,id,count,components}` | **behoben**: Eintraege gingen am Fixer vorbei (Gegenprobe: eine Entdeckerkarte blieb eine gewoehnliche `filled_map` mit altem Namen); zusaetzlich liess ein einziger nicht mehr lesbarer Eintrag die **ganze Liste** scheitern -> Rucksack leer | modItems, player, backpackWithAnUnreadableEntry |
 | Rucksack-Farbe (`minecraft:dyed_color`) | Vanilla | OK | modItems, modBlockEntities |
@@ -121,7 +121,7 @@ Servers); wer es trotzdem an einer echten Welt sehen will:
    /give @p simplebuilding:ore_detector
    /stop
    ```
-   (Erzdetektor mit Schleich-Rechtsklick auf einen Block kalibrieren, Oktant-Auswahl setzen,
+   (Detektor mit Schleich-Rechtsklick auf einen Block kalibrieren, Oktant-Auswahl setzen,
    Rucksack fuellen, einen Sandblock mit Schwebe-Effekt aufsteigen lassen und vor dem Aufschlag
    `/stop`.)
 2. Welt kopieren: `run/world` nach `mc26_3/fabric/run/world` (bzw. den NeoForge-Laufordner).

@@ -22,12 +22,12 @@ Teil 1 und 2 beschreiben, was der Code **heute** tut. Teil 3 und 4 sind Vorschl�
 
 | Verzauberung | Träger (Item-Tag) | Beleg |
 |---|---|---|
-| Berührung des Konstrukteurs | Bündel (3), Köcher (4), Shulkerkiste, Rucksäcke, Meißel, Vorschlaghämmer, Baustäbe, Tempomesser, Erzdetektor, Magnet, Oktanten, Stock | `tags/item/constructors_touch_enchantable.json`, `enchantment/ModEnchantments.java:72-75` |
+| Berührung des Konstrukteurs | Bündel (3), Köcher (4), Shulkerkiste, Rucksäcke, Meißel, Vorschlaghämmer, Baustäbe, Tempomesser, Detektor, Attraktor, Oktanten, Stock | `tags/item/constructors_touch_enchantable.json`, `enchantment/ModEnchantments.java:72-75` |
 | Baumeister | Baustäbe, Bündel, Köcher (`extra_inventory_items`) + Rucksäcke | `tags/item/master_builder_enchantable.json`, `tags/item/extra_inventory_items.json` |
 | Farbpalette | Baustäbe, Bündel, Köcher | `ModEnchantments.java:130` + `extra_inventory_items.json` |
 | Trichter, Tiefe Taschen | Bündel, Köcher, Rucksäcke | `tags/item/funnel_enchantable.json`, `deep_pockets_enchantable.json` |
 | Schublade | Bündel, Köcher | `ModEnchantments.java:154-156`, `bundle_enchantable.json` |
-| Radius | Vorschlaghämmer, Erzdetektor | `tags/item/radius_enchantable.json` |
+| Radius | Vorschlaghämmer, Detektor | `tags/item/radius_enchantable.json` |
 | Durchbruch, Übersteuerung | Vorschlaghämmer | `ModEnchantments.java:167-169,192-194`, `ModTags.java:34` |
 | Reichweite | Meißel, alle Abbauwerkzeuge, Vorschlaghämmer, Oktanten | `tags/item/chisel_and_mining_tools.json`, `ModEnchantments.java:85-103` |
 | Abdeckung, Brücke, Linear | Baustäbe | `ModEnchantments.java:216-250` |
@@ -151,7 +151,7 @@ Folgen, die man nicht sofort sieht:
 | Vorschlaghammer | Rückwärts umformen beim Schleichen | `SledgehammerItem.java:289-302` |
 | Rucksack (getragen) | Füllt die Hand beim Platzieren nach | `BackpackItem.java:277-294` |
 | Köcher | Pfeile auch aus dem Hauptinventar | `QuiverItem.java:221-224` |
-| Magnet / Erzdetektor | Größere Reichweite / weniger Signalverlust | `MagnetItem.java:87`, `OreDetectorItem.java:233` |
+| Attraktor / Detektor | Itemfilter / weniger Signalverlust | `MagnetItem.java:87`, `OreDetectorItem.java:233` |
 | Stock | Schaltet die erste Blockeigenschaft weiter | `util/ConstructorsTouchInteraction.java:14-44` |
 | Bündel, Shulkerkiste | **nichts** (nur Modell) | `EnchantmentModelProperty.java:49` |
 
@@ -388,7 +388,7 @@ optional, an Kerne gebunden (Teil 4).
 |---|---|---|---|
 | Kupfer | 4 Kupferbarren + Netherstern | Maurer Stufe 2 (25 Smaragde), Wanderhändler | Kupfer-Baustab |
 | Eisen | 4 Eisenbarren + Netherstern | Waldanwesen-Beute, Wanderhändler | Eisen-Baustab / Upgrade Kupfer-Stab → Eisen-Stab |
-| Gold | 4 Goldbarren + Netherstern | Bastion, Netherfestung, Wanderhändler | Gold-Baustab / Upgrade Eisen-Stab → Gold-Stab, **Erzdetektor** |
+| Gold | 4 Goldbarren + Netherstern | Bastion, Netherfestung, Wanderhändler | Gold-Baustab / Upgrade Eisen-Stab → Gold-Stab, **Detektor** |
 | Diamant | 4 Diamanten + Netherstern | Maurer (3 Netheritbarren!), Trial Chambers | Diamant-Baustab / Upgrade Gold-Stab → Diamant-Stab |
 | Netherit | Schmiede: Diamantkern + Netheritbarren | Bastion-Schatz (2×) | **keine** |
 | Enderit | Schmiede: Netheritkern + Enderitbarren | – | **keine** |
@@ -452,7 +452,7 @@ entfallen. b1 ist klein und passt zum Umform-Thema.
 |---|---|---|---|
 | a1 | **Ersetzen-Modul** (= V5) | robust und praktisch. Eisen = Werkzeugstahl | braucht Schutzprüfung (V1) |
 | a2 | **Gerüst-Modul:** Stab setzt eine Gerüstsäule bis zum Klickpunkt und baut sie nach dem Bau wieder ab | nimmt „Gerüst hoch, Gerüst runter" ab | Gerüst-Physik, Rückgabe der Blöcke |
-| a3 | Zutat für eine **Magnet-Aufwertung** (größere Reichweite) | nutzt ein vorhandenes Item (`MagnetItem.java:87-88`) | nicht baubezogen |
+| a3 | Zutat für eine **Attraktor-Aufwertung** (größere Reichweite) | nutzt ein vorhandenes Item (`MagnetItem.java:87-88`) | nicht baubezogen |
 | b1 | **Luftanker („Engelblock"):** Kern in der Nebenhand + Block in der Haupthand → Rechtsklick in die Luft setzt den Block 2 Blöcke vor dir in die Luft | klassischer Bau-Helfer, löst Brücke-Option b aus dem Fragebogen ohne Verzauberung | kann Brücke/Linie (Kupfer) verwässern. Nur 1 Block je Klick |
 | b2 | **Lot:** zeigt Fallhöhe und Abstand zum Boden, markiert die Senkrechte | billig | überschneidet sich mit dem Oktanten/Entfernungsmesser |
 
@@ -464,11 +464,11 @@ entfallen. b1 ist klein und passt zum Umform-Thema.
 |---|---|---|---|
 | a1 | **Muster-Modul:** Stab setzt Hotbar-Blöcke als Muster (Schachbrett, Streifen, Rand) statt zufälliger Farbpalette | Deko-Kern. Gold = Schmuck. Ergänzt das Enderquarz-Schachbrett. Löst die Farbpalette-Vorschau-Lüge (D16) sauber | Muster-Auswahl braucht UI |
 | a2 | **Schnellbau:** ganze Fläche in einem Tick, halbe Haltbarkeit je Block | Gold = schnell (wie Goldwerkzeug) | schwach als Late-Game-Grund |
-| a3 | **Erzdetektor-Aufwertung** (Gold-Kern im Schmiedetisch: +1 Radius-Stufe oder alle Erze statt Klasse) | baut auf der einzigen heutigen Verwendung auf | nicht baubezogen |
+| a3 | **Detektor-Aufwertung** (Gold-Kern im Schmiedetisch: +1 Radius-Stufe oder alle Erze statt Klasse) | baut auf der einzigen heutigen Verwendung auf | nicht baubezogen |
 | b1 | **Piglin-Amulett:** Kern im Inventar zählt wie Goldrüstung (Piglins neutral) | sofort spürbar im Nether, spart einen Rüstungs-Slot | kein Bauthema |
 | b2 | **Erfahrungsspeicher:** Rechtsklick speichert 1 Level im Kern (bis 30), Schleichen gibt zurück | nützlich für Verzauberer | Balance, Doppelung mit Mods |
 
-**Empfehlung:** a1 + a3 (der Erzdetektor bleibt die freistehende Funktion und wird aufwertbar).
+**Empfehlung:** a1 + a3 (der Detektor bleibt die freistehende Funktion und wird aufwertbar).
 b1 optional als Spaß-Feature.
 
 #### Diamantkern
@@ -513,7 +513,7 @@ b1 optional als Spaß-Feature.
 |---|---|---|---|
 | Kupfer | Anbauen (V4) | Patina-Stimmgabel | S–M |
 | Eisen | Ersetzen (V5) | Luftanker („Engelblock") | M |
-| Gold | Muster | Erzdetektor (heute) + dessen Aufwertung | M |
+| Gold | Muster | Detektor (heute) + dessen Aufwertung | M |
 | Diamant | Runde Figuren + Dach (V2/V3) | Symmetrie-Anker (V11) | L |
 | Netherit | Rückbau eigener Blöcke | Lava-Läufer | M–L |
 | Enderit | Fernlager (Endertruhe/verknüpfte Truhe) | Rückruf-Anker | M |

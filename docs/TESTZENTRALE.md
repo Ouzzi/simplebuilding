@@ -1,7 +1,7 @@
 # Testzentrale
 
 Stand 2026-09-28. Die Testzentrale ist eine Welt, in der alles aus SimpleBuilding nebeneinander steht:
-Rüstungsständer, Rahmenwände, Meißel-Türme, laufende Maschinen, das Erzdetektor-Feld und eine
+Rüstungsständer, Rahmenwände, Meißel-Türme, laufende Maschinen, das Detektor-Feld und eine
 Steuerwand mit Befehlsblöcken. Sie wird **aus Code** gebaut (`/sbtestcentre`), ist also auf jeder
 Linie (1.21.11, 26.2, 26.3) und jedem Loader (Fabric, NeoForge, Forge) gleich und wächst mit neuen
 Features mit.
@@ -61,7 +61,7 @@ Schild "Items holen" darüber; die Station rückt dafür zwei Spalten nach recht
   Vorschlaghammer + Aufwertungs-Nugget, `templates`: höchster Vorschlaghammer + Glowstonestaub
   (Leuchttinte im Inventar), `chisel`: höchster Meißel + derselbe mit Constructor's Touch,
   `planning`: höchster Baustab + Oktant (der Dach-Modus braucht ihn in der Nebenhand), `tools`:
-  höchste Spitzhacke + höchster Meißel (max. verzaubert), `ores`: Erzdetektor, `mining`: Werkzeug mit
+  höchste Spitzhacke + höchster Meißel (max. verzaubert), `ores`: Detektor, `mining`: Werkzeug mit
   Vielseitigkeit, `blocks`: höchster Baustab, `lightroom`: Baulichter, `tweaks`: Windkugeln,
   `armour`: höchstes Schwert. Ohne Festlegung nimmt die Haupthand das erste gezeigte Item.
 - **Ins Inventar alles, was die Station zeigt**, als volle Stapel: Rahmen, Ständer, Behälterinhalte,
@@ -90,12 +90,12 @@ steht im Log des Bau-Tests (`test centre ... sections:`), weil sie aus den Inhal
 | `food` | alle Mod-Lebensmittel plus Apfel, Goldapfel, verzauberter Goldapfel, Karotte, goldene Karotte zum Vergleich | Items mit `food` |
 | `materials` | der ganze Tab SimpleMaterials mit Namensschildern | Tab MATERIALS |
 | `chisel` | je Meißel-Kette ein Turm (Block für Block) mit dem Startblock davor zum Meißeln; Rahmen mit dem nötigen Meißel (mit Constructor's Touch, wenn nur die Touch-Tabelle die Kette kennt), Schild mit Stufe, Länge, "Kreislauf" | Tabellen des höchsten Meißels (`getForwardMap`/`getTouchForwardMap`) |
-| `inworld` | je In-World-Umwandlung eine Station: Umformen mit dem Vorschlaghammer (Block → Treppe → Stufe, Mod-Blöcke + Stein/Eichenbretter), Diamantblock zerschlagen, Maschinen-Aufwertung (Maschine, Nugget, schwächster passender Hammer), Schere an Wolle, Besatzvorlage im Rahmen, Oktant im Kessel waschen | `InWorldTransformations`, `SledgehammerUpgrades`, `SledgehammerEntityInteraction`, `OctantCauldronWash` |
+| `inworld` | je In-World-Umwandlung eine Station: Umformen mit dem Vorschlaghammer (Block → Treppe → Stufe, Mod-Blöcke + Stein/Eichenbretter), Diamantblock zerschlagen, Maschinen-Aufwertung (Maschine, Nugget, schwächster passender Hammer), Schere an Wolle, abgelegte Besatzvorlage (26.3), Oktant im Kessel waschen | `InWorldTransformations`, `SledgehammerUpgrades`, `SledgehammerEntityInteraction`, `OctantCauldronWash` |
 | `templates` | abgelegte Schmiedevorlagen: vorn vier aufwertbare Besatzvorlagen auf dem Boden zum Draufhauen (Hammer + Glowstone/Leuchttinte, drei Schläge, Hinweis-Funken in der Nähe), dahinter Netherit-, schlichte und Enderit-Aufwertungsvorlage sowie die leuchtende und strahlende Vorlage je auf dem Boden und an der Wand, zuletzt eine Blaupause auf dem Boden, an der Wand und unter der Decke; die Stapel kommen per `TcOp.Fill` in die Block-Entity | `PlacedTemplates`, `PlacedTemplateBlock`, `PlacedPlate`, `SledgehammerEntityInteraction` |
 | `blocks` | Musterwand des Tabs SimpleBuilding (je Block eine Säule mit Namensschild), Schachbretter zusätzlich als Bodenflächen, Schwebesand/-kies frei schwebend, Levitationssand/-kies unter Glas | Tab BUILDING_BLOCKS |
 | `lightroom` | geschlossener Dunkelraum mit Baulichtern und Tür; Monster dürfen trotz Licht spawnen (Knöpfe auf der Steuerwand) | - |
 | `machines` | je Ofen-Familie und Stufe eine laufende Kette: Truhe → Trichter (gleiche Stufe) → Ofen → Trichter → Truhe, Kohle von der Seite; Kolben aller Stufen mit Hebel (Reihe rechts neben den Maschinen an der Gangkante; bis 2026-09-25 stand sie hinter der Rückwand und war vom Gang aus unsichtbar): 13 Steine (Vanilla schafft es nicht), Netherit-Kolben zerbricht, Enderit-Kolben vor verstärktem Tiefenschiefer mit Redstoneblöcken in der Truhe (Durchbruch) | Tab-Zeilen hoppers, furnaces, smokers, blast_furnaces, pistons |
-| `ores` | Erzdetektor-Feld: je Wirtsgestein (Stein, Tiefenschiefer, Netherrack, Endstein) ein Block, darin jedes Erz einzeln in 3/7/11/15 Blöcken Abstand; Schild mit Klasse, Abstand, Reichweite; Detektor im Rahmen | alle Blöcke `*_ore` und Antiker Schutt, `OreDetectorItem.classify` |
+| `ores` | Detektor-Feld: je Wirtsgestein (Stein, Tiefenschiefer, Netherrack, Endstein) ein Block, darin jedes Erz einzeln in 3/7/11/15 Blöcken Abstand; Schild mit Klasse, Abstand, Reichweite; Detektor im Rahmen | alle Blöcke `*_ore` und Antiker Schutt, `OreDetectorItem.classify` |
 | `planning` | alle Oktanten, Zeile Bauplanung; je Baustab-Modus (Linie, Brücke, Bedecken, Farbpalette, Oktant füllen, Dach) eine Fläche mit passendem Stab; Brücke mit Graben (auf flachem Boden gibt es nichts zu überbrücken), Dach mit Prisma-Oktant im Rahmen und Truhe voll Eichentreppen/-stufen; Beispielhaus mit Kartentisch, Oktant mit gesetzter Auswahl und daraus beim Bau gescannter Blaupause | Tab-Zeilen, `BlueprintScanner` |
 | `mining` | gemischte Wand (Vielseitigkeit), Eisen- und Kohleader (Aderabbau), lange Steinwand (Tunnelabbau), je mit passend verzaubertem Werkzeug | Verzauberungen, Tab-Zeilen |
 | `tweaks` | die aus Simple Tweaks uebernommenen Pads und Platten: alle Tweaks-Tab-Zeilen als Rahmen, davor Spawn-Teleporter I (50 s) und III (Enderit, 5 s), Elytra-Pad, Flypad I mit eigenem Flugfeld (4 × 4, 6 hoch, auf dem Boden mit Purpur markiert; kein anderes Pad liegt darin - bis 2026-09-28 stand es dicht neben dem Launchpad, wer das testen wollte, flog), Launchpad mit Truhe Windkugeln, Diamant-/oxidierte Kupferplatte an Lampen, Netherit-/Enderit-Platte mit Fass (Diamant) darunter, Leitstein mit Truhe (Echolot; Enderperlen braucht es seit 2026-09-27 nicht mehr), Trank-Pad I mit Truhe Wurf-/Verweiltraenke und Wasserflasche zum Leerwischen (und Lohen- und Endermankopf); Chunk-Loader nur im Rahmen (gesetzt wuerde er Chunks erzwingen) | `TweaksStation`, `TweaksItems.functionalRows` |
