@@ -75,5 +75,23 @@ window.WIKI_MODULES = [
       "simplebuilding"
     ],
     "dataHash": "ffdd075a8adb"
+  },
+  {
+    "id": "simplequalityoflife",
+    "displayName": "Simple Quality of Life",
+    "description": "Server-controlled movement, farming, mob, weather, and vault utilities.",
+    "version": "1.0.6",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "dataHash": "8a5c6bc75d4e"
   }
 ];

@@ -1,0 +1,18 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplequalityoflife"
+version="${version}"
+displayName="Simple Quality of Life"
+[[dependencies.simplequalityoflife]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[mixins]]
+config="simplequalityoflife-common.mixins.json"
+[[dependencies.simplequalityoflife]]
+modId="cloth_config"
+type="required"
+versionRange="[26.3,)"

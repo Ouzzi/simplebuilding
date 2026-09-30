@@ -1,0 +1,34 @@
+{
+  "required": true,
+  "package": "com.simplequalityoflife.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "minVersion": "0.8",
+  "mixins": [
+    "EntityMuteMixin",
+    "FarmlandTrampleMixin",
+    "FullDurabilityDamageMixin",
+    "FullDurabilityEfficiencyMixin",
+    "GrassOutlineMixin",
+    "LadderSpeedMixin",
+    "PassiveEntityMixin",
+    "PiglinGoldMixin",
+    "PowderSnowWalkMixin",
+    "ServerWeatherMixin",
+    "SharpnessGrassCutMixin",
+    "VaultBlockEntityMixin",
+    "VaultBlockEntityServerMixin",
+    "VaultServerDataAccessor",
+    "VaultServerDataMixin",
+    "VaultSharedDataAccessor",
+    "PlayerEntityCrawlMixin",
+    "LivingEntityJumpMixin",
+    "ClimbPacketMixin"
+  ],
+  "client": [
+    "client.ClientWeatherMixin",
+    "client.VisualRainMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

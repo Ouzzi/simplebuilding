@@ -76,3 +76,8 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 ## VOICEBRIDGE (2026-09-30, codex-voicebridge)
 - [x] Besitzerwunsch: Handy/Laptop, eine grosse Sprechtaste, kurze vorgelesene Antworten, mehrere Projekte; stdlib-Server und PWA, lesende Agenten, konkrete Dateivorschlaege mit einmaliger Sprachbestaetigung.
 - [ ] Besitzerpruefung: echtes Handy-Mikrofon/Vorlesen, Tailscale HTTPS, Headset-Taste und gewaehlter CLI-Anbieter; Verifikation siehe HANDOFF.
+
+## Simple Quality of Life 26.3 (Codex, codex-port-qol)
+- [ ] Port der aktiven 1.0.6-Multiloaderquelle auf Fabric/NeoForge 26.3, Server-Caps/Anti-Cheat, vollstaendige Modulpruefungen, Wiki/Daten und Ideenliste. Keine neuen Ideen implementieren; Forge und andere Linien bleiben separat.
+
+- [x] Simple Quality of Life 26.3 fertig: Fabric/NeoForge, 48/48 Modul-Servertests und 5/5 Fabric-Client-Pruefpunkte gruen; Bestand 1562/1562, Integration 1/1 und check gruen. Wiki/Config/Balancedaten/Ideenliste vorhanden. Besitzer-Abnahme, NeoForge-Client/alte Welt/Fremd-Claims sowie Forge/andere Linien bleiben offen; kein Push/Merge.
