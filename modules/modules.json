@@ -230,13 +230,18 @@
         "fabric",
         "neoforge"
       ],
-      "requires": [],
-      "optional": [],
+      "requires": [
+        "cloth_config"
+      ],
+      "optional": [
+        "simplebuilding",
+        "modmenu"
+      ],
       "checks": [
         "modules/simpledimensions/tools/check_data.py"
       ],
       "tests": {
-        "namespace": "simpledimensions",
+        "namespace": "simpledimension",
         "catalogues": [
           "modules/simpledimensions/fabric/src/main/java/com/simplebuilding/modules/simpledimensions/ModuleGameTest.java"
         ],
@@ -244,7 +249,9 @@
           "simplebuilding",
           "simpledimensions"
         ],
-        "devMods": [],
+        "devMods": [
+          "cloth_config"
+        ],
         "loaders": {
           "fabric": {
             "task": ":integration:runSimpledimensionsGameTest",

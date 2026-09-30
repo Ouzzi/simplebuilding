@@ -12,3 +12,8 @@ versionRange="[26.3,26.4)"
 
 [[mixins]]
 config="simpledimension.mixins.json"
+
+[[dependencies.simpledimension]]
+modId="cloth_config"
+type="required"
+versionRange="[0,)"

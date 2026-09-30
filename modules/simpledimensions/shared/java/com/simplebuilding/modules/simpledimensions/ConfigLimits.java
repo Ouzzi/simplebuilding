@@ -4,9 +4,27 @@ import net.minecraft.resources.Identifier;
 import java.util.*;
 /** Untrusted JSON is validated before scanners or world-generation allocate data. */
 public final class ConfigLimits {
- public static final int MAX_DEFINITIONS=16, MAX_RECIPES=8, MAX_INTERIOR=21, MAX_MATRIX=23, MAX_ORIGINS=8, MAX_BYTES=65536;
- public static final int MAX_DELAY=200, MIN_COOLDOWN=20, MAX_COOLDOWN=1200, MAX_PORTALS=1024, MAX_BUILDS_PER_TICK=1;
- public static final double MIN_SCALE=.5, MAX_SCALE=10;
+ public static final int MAX_DEFINITIONS=16;
+ public static final int MAX_RECIPES=8;
+ public static final int MAX_INTERIOR=21;
+ public static final int MAX_MATRIX=23;
+ public static final int MAX_ORIGINS=8;
+ public static final int MAX_BYTES=65536;
+
+ public static final int MAX_DELAY=200;
+ public static final int MIN_COOLDOWN=20;
+ public static final int MAX_COOLDOWN=1200;
+ public static final int MAX_PORTALS=1024;
+ public static final int MAX_BUILDS_PER_TICK=1;
+
+ public static final double MIN_SCALE=.5;
+ public static final double MAX_SCALE=10;
+
+ public static final int MAX_CHUNKS_PER_BUILD=9;
+ public static final int MAX_RETURN_RECORDS=4096;
+ public static final int SAFE_SEARCH_RADIUS=8;
+ public static final int LIGHT_SEARCH_RADIUS=3;
+ public static final int MAX_DECAY_SCANS_PER_TICK=8;
  public static int clamp(int v,int min,int max){return Math.max(min,Math.min(max,v));}
  public static double scale(double v){if(!Double.isFinite(v))throw new IllegalArgumentException("Non-finite coordinate scale");return Math.max(MIN_SCALE,Math.min(MAX_SCALE,v));}
  private static void id(String v){if(v==null||v.length()>128||Identifier.tryParse(v)==null)throw new IllegalArgumentException("Invalid resource id");}
@@ -30,6 +48,9 @@ public final class ConfigLimits {
    for(String row:r.rows){if(row==null||row.length()!=w)throw new IllegalArgumentException("Ragged matrix");
     for(char ch:row.toCharArray())if(ch!=r.interior.charAt(0)&&ch!=r.ignore.charAt(0)&&!r.legend.containsKey(""+ch))throw new IllegalArgumentException("Unknown symbol");}
    var parsed=PortalRecipe.parse(r.rows,r.legend,r.interior.charAt(0),r.ignore.charAt(0));
+   var cells=parsed.interiorCellsRel();int minX=23,maxX=-1,minY=23,maxY=-1;
+   for(var cell:cells){minX=Math.min(minX,cell[0]);maxX=Math.max(maxX,cell[0]);minY=Math.min(minY,cell[1]);maxY=Math.max(maxY,cell[1]);}
+   if(maxX-minX+1>MAX_INTERIOR||maxY-minY+1>MAX_INTERIOR||r.legend.values().stream().allMatch(v->v.equals("minecraft:air")))throw new IllegalArgumentException("Interior bounds or missing frame");
    if(!parsed.hasInterior()||parsed.interiorCellsRel().size()>MAX_INTERIOR*MAX_INTERIOR)throw new IllegalArgumentException("Interior limit");
   }
   var g=c.worldGeneration; if(g==null)throw new IllegalArgumentException("Missing generation");

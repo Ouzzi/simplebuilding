@@ -10,14 +10,25 @@
     ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simpledimensions.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simpledimensions.DimensionClient"
+    ],
+    "modmenu": [
+      "com.simplebuilding.modules.simpledimensions.DimensionModMenu"
     ]
   },
   "depends": {
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",
-    "java": ">=25"
+    "java": ">=25",
+    "cloth-config": "*"
   },
   "mixins": [
     "simpledimension.mixins.json"
-  ]
+  ],
+  "suggests": {
+    "modmenu": "*",
+    "simplebuilding": "*"
+  }
 }
