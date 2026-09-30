@@ -702,18 +702,18 @@ public final class SledgehammerTests {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE.add(0.0, 1.0, 0.0), 0.0F, 90.0F, true);
         fillSquare(helper, top.below(), 2, Blocks.AIR);
         helper.setBlock(top, Blocks.STONE);
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_PICKAXE));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.version.McVersion.PIECEWISE_HAMMER_TIME ? Items.DIAMOND_PICKAXE : Items.IRON_PICKAXE));
         float ironPickaxe = progress(helper, player, top);
         helper.assertTrue(ironPickaxe > 0.0F, "a lone stone block makes no mining progress at all");
 
         fillSquare(helper, top, 2, Blocks.STONE);
         player.setItemInHand(InteractionHand.MAIN_HAND, radius);
-        assertRatio(helper, progress(helper, player, top), ironPickaxe, 25.0F,
+        assertRatio(helper, progress(helper, player, top), ironPickaxe, com.simplebuilding.version.McVersion.PIECEWISE_HAMMER_TIME ? 19.1F : 25.0F,
                 "a full 5x5 with Radius I (25 blocks, each as long as with an iron pickaxe)");
 
         fillSquare(helper, top.below(), 2, Blocks.STONE);
         player.setItemInHand(InteractionHand.MAIN_HAND, both);
-        assertRatio(helper, progress(helper, player, top), ironPickaxe, 50.0F,
+        assertRatio(helper, progress(helper, player, top), ironPickaxe, com.simplebuilding.version.McVersion.PIECEWISE_HAMMER_TIME ? 36.6F : 50.0F,
                 "two full 5x5 layers with Radius I and Break Through I (50 blocks, no cap)");
 
         helper.succeed();
@@ -736,6 +736,10 @@ public final class SledgehammerTests {
      * pointing at the wrong pickaxe, or sneaking still counting the 3x3.
      */
     public static void sledgehammerAreaMinesEachBlockLikeThePickaxeOneTierBelow(GameTestHelper helper) {
+        if (com.simplebuilding.version.McVersion.PIECEWISE_HAMMER_TIME) {
+            piecewiseMiningTime(helper);
+            return;
+        }
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, true);
         ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
 
@@ -774,6 +778,33 @@ public final class SledgehammerTests {
         player.setShiftKeyDown(false);
         assertRatio(helper, sneaking, lone, 1.0F, "sneaking over a full 3x3");
 
+        helper.succeed();
+    }
+
+    /** Pin both thresholds using real block counting and the vanilla destroy-progress mixin. */
+    private static void piecewiseMiningTime(GameTestHelper helper) {
+        ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE.add(0, 1, 0), 0.0F, 90.0F, true);
+        BlockPos top = CENTRE.above();
+        ItemStack hammer = hammerWith(helper, ModEnchantments.BREAK_THROUGH, 1);
+        int[] counts = {1, 2, 9, 10, 18};
+        float[] times = {1.5F, 2.3F, 7.9F, 8.6F, 14.2F};
+        for (int i = 0; i < counts.length; i++) {
+            fillFace(helper, top, Blocks.AIR);
+            fillFace(helper, top.below(), Blocks.AIR);
+            helper.setBlock(top, Blocks.STONE);
+            player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
+            List<BlockPos> positions = new java.util.ArrayList<>(SledgehammerItem.getBlocksToBeDestroyed(1, helper.absolutePos(top), player));
+            positions.remove(helper.absolutePos(top));
+            positions.addFirst(helper.absolutePos(top));
+            for (int j = 0; j < counts[i]; j++) helper.getLevel().setBlockAndUpdate(positions.get(j), Blocks.STONE.defaultBlockState());
+            helper.assertValueEqual(com.simplebuilding.util.SledgehammerUtils.countBlocksBroken(player, helper.absolutePos(top)), counts[i], "actual area count");
+            float pickaxe = progressWith(helper, player, new ItemStack(Items.DIAMOND_PICKAXE), top);
+            assertRatio(helper, progressWith(helper, player, hammer, top), pickaxe, times[i], "piecewise time for " + counts[i] + " blocks");
+            helper.assertTrue(Math.abs(com.simplebuilding.util.SledgehammerUtils.swingTimeFactor(counts[i], true) - 2 * counts[i]) < 0.0001F, "octant must take 2x per block");
+        }
+        player.setShiftKeyDown(true);
+        float pickaxe = progressWith(helper, player, new ItemStack(Items.DIAMOND_PICKAXE), top);
+        assertRatio(helper, progressWith(helper, player, hammer, top), pickaxe, 1.5F, "sneaking time");
         helper.succeed();
     }
 
@@ -1139,7 +1170,7 @@ public final class SledgehammerTests {
             helper.setBlock(pos, Blocks.STONE);
         }
         BlockPos origin = helper.absolutePos(CENTRE);
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_PICKAXE));
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.version.McVersion.PIECEWISE_HAMMER_TIME ? Items.DIAMOND_PICKAXE : Items.IRON_PICKAXE));
         float ironPickaxe = progress(helper, player, CENTRE);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);

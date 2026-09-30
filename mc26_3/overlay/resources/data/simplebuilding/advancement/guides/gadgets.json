@@ -17,13 +17,8 @@
     "announce_to_chat": false
   },
   "criteria": {
-    "crafted": {
-      "trigger": "minecraft:recipe_crafted",
-      "conditions": {
-        "recipes": [
-          "simplebuilding:guide_book_gadgets"
-        ]
-      }
+    "unlocked": {
+      "trigger": "minecraft:impossible"
     }
   }
 }

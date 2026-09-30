@@ -529,6 +529,8 @@ SHARED_CLIENT_SOURCES = {
 
 #: Screenshots a line's shared client tests skip on purpose (ClientTestVersion flags).
 SKIPPED_SHOTS = {
+    # The mega-guide screen is a 26.3 feature, pending the separate port run.
+    "26.2": {"mega-guide-confirm", "mega-guide-unlocked"},
     # No Cloth Config for 26.4 yet: the config screen is hidden and not tested there.
     "26.4-snapshot": {"screen-h-mod-config"},
 }
@@ -549,11 +551,26 @@ def expected_shots(target: Target) -> list[str]:
     if shared:
         directories.append(REPO / shared)
 
+    selected = {name.strip() for name in os.environ.get("SIMPLEBUILDING_CLIENT_ONLY", "").split(",") if name.strip()}
+    selected_classes = None
+    if selected:
+        entries = {}
+        for directory in directories:
+            catalogue = directory / "ClientTests.java"
+            if catalogue.is_file():
+                entries.update(re.findall(r'new Entry\("([^"]+)",\s*(\w+)::', catalogue.read_text(encoding="utf-8")))
+        unknown = selected - entries.keys()
+        if unknown:
+            raise ValueError("Unknown SIMPLEBUILDING_CLIENT_ONLY entries: " + ", ".join(sorted(unknown)))
+        selected_classes = {entries[name] for name in selected}
+
     names: set[str] = set()
     for directory in directories:
         if not directory.is_dir():
             continue
         for source in sorted(directory.glob("*.java")):
+            if selected_classes is not None and source.stem not in selected_classes:
+                continue
             text = source.read_text(encoding="utf-8", errors="replace")
             # Only files that actually take a screenshot; a helper beside them can hold strings
             # of the same shape without promising anything.

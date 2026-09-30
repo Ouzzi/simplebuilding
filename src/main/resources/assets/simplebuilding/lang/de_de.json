@@ -2435,5 +2435,13 @@
   "item.simplebuilding.astralit_powder": "Astralit-Signalpulver",
   "item.simplebuilding.astralit_switch": "Astralit-Signalschalter",
   "item.simplebuilding.astralit_lamp": "Astralit-Signallampe",
-  "item.simplebuilding.astral_vault": "Astralgewölbe"
+  "item.simplebuilding.astral_vault": "Astralgewölbe",
+  "gui.simplebuilding.guide.unlock_confirm": "Dieses Kapitel freischalten? Ein %s wird verbraucht.",
+  "gui.simplebuilding.guide.unlock_needs": "Benötigtes Item: %s. Bringe eines im Inventar mit.",
+  "gui.simplebuilding.guide.unlock_yes": "Freischalten",
+  "gui.simplebuilding.guide.unlock_cancel": "Zurück",
+  "jei.simplebuilding.info.mega_guides": "Stelle das Basis-Handbuch aus einem Buch und einer Werkbank (SimpleBuilding) oder Holzspitzhacke (Minecraft) her. Öffne es und klicke einen gesperrten Reiter. Bestätige, um ein passendes Item zu verbrauchen und das Kapitel freizuschalten. Kapitel bleiben in diesem Buch. Auch Kreativspieler benötigen und verbrauchen das Item; Server-Admin verlangt OP-Stufe 2. Kapitel können nicht im Handwerksraster ergänzt oder vereinigt werden.",
+  "advancements.simplebuilding.guides.insert": "Schalte dieses Kapitel im Handbuch frei.",
+  "tooltip.simplebuilding.sledgehammer.mining_time": "Abbauzeit: erster Block 1,5x, Blöcke 2-9 je +0,8x, danach je +0,7x. Oktant: 2x je Block.",
+  "tooltip.simplebuilding.guide_book.unlock": "Öffne das Handbuch und klicke einen gesperrten Reiter zum Freischalten."
 }

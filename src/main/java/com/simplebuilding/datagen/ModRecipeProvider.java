@@ -798,25 +798,25 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // --- HANDBUECHER (com.simplebuilding.guide.GuideBooks) ---
                 // Einsteiger-Handbuch: Buch + Werkbank (falls das geschenkte verloren geht). Themenbuecher:
-                // Buch oder Handbuch + Schluesselitem; das Handbuch ist sein eigener Handwerksrest und
+                // Legacy-Themenrezepte: Buch oder Handbuch + Schluesselitem; das Handbuch ist sein eigener Handwerksrest und
                 // bleibt liegen. Freigeschaltet durch das Schluesselitem oder schon durch das Handbuch.
                 // Zwei Regale (GuideBooks.Shelf): das Einstiegsbuch jedes Regals (Einsteiger-Handbuch,
                 // Vanilla "Erste Schritte") ersetzt bei seinen Themenbuechern das Buch und bleibt liegen.
                 // Das Admin-Buch stellen nur Operatoren her (OperatorBook*Mixin, GuideBooks.operatorOnly).
                 for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
                     Item hub = com.simplebuilding.guide.GuideBooks.item(shelf.hub());
-                    shapeless(RecipeCategory.MISC, hub)
+                    var baseGuideRecipe = shapeless(RecipeCategory.MISC, hub)
                             .requires(Items.BOOK)
                             .requires(com.simplebuilding.guide.GuideBooks.keyItem(shelf.hub()))
-                            .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
-                            .save(output);
-                    if (com.simplebuilding.version.McVersion.MEGA_GUIDES) guideUpgrade(output,
-                            shelf.hub().itemName() + "_combine", hub, 0, hub, hub);
+                            .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK));
+                    if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+                        ItemLike key = com.simplebuilding.guide.GuideBooks.keyItem(shelf.hub());
+                        baseGuideRecipe.unlockedBy(getHasName(key), has(key));
+                    }
+                    baseGuideRecipe.save(output);
+                    if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) {
                     for (com.simplebuilding.guide.GuideBooks.Book topic : shelf.topics()) {
                         ItemLike key = com.simplebuilding.guide.GuideBooks.keyItem(topic);
-                        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
-                            guideUpgrade(output, topic.itemName(), hub, 1 << topic.ordinal(), hub, key);
-                        } else {
                         shapeless(RecipeCategory.MISC, com.simplebuilding.guide.GuideBooks.item(topic))
                                 .requires(Ingredient.of(Items.BOOK, hub))
                                 .requires(key)
@@ -1179,20 +1179,6 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         recipeKey.identifier().withPrefix("recipes/" + RecipeCategory.TOOLS.getFolderName() + "/")));
             }
 
-            private void guideUpgrade(RecipeOutput output, String name, Item hub, int chapters, ItemLike... inputs) {
-                ResourceKey<Recipe<?>> id = ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name));
-                List<Ingredient> ingredients = java.util.Arrays.stream(inputs).map(Ingredient::of).toList();
-                ItemStackTemplate result = new ItemStackTemplate(hub, DataComponentPatch.builder()
-                        .set(com.simplebuilding.component.ModDataComponentTypes.GUIDE_CHAPTERS, chapters).build());
-                var recipe = new com.simplebuilding.recipe.GuideUpgradeRecipe(new Recipe.CommonInfo(true),
-                        new net.minecraft.world.item.crafting.CraftingRecipe.CraftingBookInfo(
-                                RecipeBuilder.determineCraftingBookCategory(RecipeCategory.MISC), ""), result, ingredients, chapters);
-                var advancement = output.advancement().addCriterion("has_the_recipe", unlockedRecipe(id))
-                        .rewards(AdvancementRewards.Builder.recipe(id)).requirements(AdvancementRequirements.Strategy.OR)
-                        .addCriterion(getHasName(hub), has(hub));
-                output.accept(id, recipe, advancement.build(id.identifier().withPrefix("recipes/misc/")));
-            }
-
             // --- Helpers ---
             private void createSmithingTransform(RecipeOutput exporter, Item template, Item base, Item addition, RecipeCategory category, Item result) {
                 SmithingTransformRecipeBuilder.smithing(
@@ -1295,6 +1281,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .rewards(AdvancementRewards.Builder.recipe(recipeKey))
                         .requirements(AdvancementRequirements.Strategy.OR)
                         .addCriterion(getHasName(unlockedBy), has(unlockedBy));
+                if (com.simplebuilding.version.McVersion.MEGA_GUIDES) advancement.addCriterion("has_diamond_pebble", has(ModItems.DIAMOND_PEBBLE));
                 output.accept(recipeKey, recipe, advancement.build(
                         recipeKey.identifier().withPrefix("recipes/" + RecipeCategory.TOOLS.getFolderName() + "/")));
             }

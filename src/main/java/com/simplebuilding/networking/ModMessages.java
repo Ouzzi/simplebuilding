@@ -20,8 +20,12 @@ public class ModMessages {
         }
         registered = true;
 
-        // --- 1. REGISTRIERUNG DER PAYLOAD-TYPEN (Beide Seiten müssen diese kennen) ---
+        // --- 1. REGISTRIERUNG DER PAYLOAD-TYPEN (Beide Seiten mÃ¼ssen diese kennen) ---
 
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+            PayloadTypeRegistry.serverboundPlay().register(GuideUnlockPayload.ID, GuideUnlockPayload.CODEC);
+            receive(GuideUnlockPayload.ID, ModMessageHandlers::handleGuideUnlock);
+        }
         // Client -> Server (C2S)
         PayloadTypeRegistry.serverboundPlay().register(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(SetHopperGhostItemPayload.ID, SetHopperGhostItemPayload.CODEC);

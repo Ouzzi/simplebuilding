@@ -18,30 +18,25 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Abbau mit dem Vorschlaghammer: welche Bloecke ein Schlag nimmt und wie lange er dauert.
- *
- * <p><b>Tempo (Besitzer 2026-09-28, Zahlen vorher/nachher in docs/SLEDGEHAMMER-BALANCE.md):</b> die
- * Spitzhacke bleibt das Hauptwerkzeug.
- * <ul>
- *   <li>Ein einzelner Block (Schleichen, oder nur der Ursprung ist abbaubar) dauert
- *       {@value #SINGLE_BLOCK_SLOWDOWN}-mal so lange wie mit der Spitzhacke gleichen Materials.</li>
- *   <li>Der Flaechenabbau (3x3, 5x5, 3x3x2, 5x5x2) dauert je Block so lange wie mit der Spitzhacke
- *       eine Stufe darunter ({@link #lowerTierSpeed}): ein Enderit-Hammer, der 9 Bloecke bricht,
- *       braucht so lange wie eine Netherit-Spitzhacke fuer diese 9 Bloecke nacheinander. Effizienz
- *       zaehlt auf beiden Seiten gleich (sie kommt auf das Grundtempo des Hammers wie der
- *       Vergleichs-Spitzhacke), also hilft sie dem Hammer genauso wie einer Spitzhacke.</li>
- *   <li>Die Oktant-Auswahl ({@link #octantSelection}) dauert je Block doppelt so lange wie der
- *       Flaechenabbau ({@value #OCTANT_TIME_FACTOR}x).</li>
- * </ul>
- * Vorher war der Hammer auf einem Block genau eine Spitzhacke und ein Flaechenschlag dauerte
- * {@code sqrt(min(n, 25))}-mal so lange wie ein Block - ein 3x3 ein Drittel je Block.
- */
+/** Mining time relative to the same-tier pickaxe. 26.2 retains the previous model. */
 public final class SledgehammerUtils {
 
-    /** Ein einzelner Block dauert so viel laenger als mit der Spitzhacke gleichen Materials. */
+    /** Legacy 26.2 single-block slowdown; 26.3 uses FIRST_BLOCK_TIME_FACTOR. */
     public static final float SINGLE_BLOCK_SLOWDOWN = 1.2F;
-    /** Die Oktant-Auswahl dauert je Block so viel laenger als der Flaechenabbau. */
+    public static final float FIRST_BLOCK_TIME_FACTOR = 1.5F;
+    public static final float EARLY_BLOCK_TIME_FACTOR = 0.8F;
+    public static final float LATE_BLOCK_TIME_FACTOR = 0.7F;
+    public static final int EARLY_BLOCK_COUNT_LIMIT = 9;
+
+    /** Total same-tier pickaxe block times; octants retain the explicit 2x time per block. */
+    public static float swingTimeFactor(int blocks, boolean octant) {
+        if (blocks <= 0) return 1.0F;
+        if (octant) return blocks * OCTANT_TIME_FACTOR;
+        return FIRST_BLOCK_TIME_FACTOR
+                + Math.min(blocks - 1, EARLY_BLOCK_COUNT_LIMIT - 1) * EARLY_BLOCK_TIME_FACTOR
+                + Math.max(0, blocks - EARLY_BLOCK_COUNT_LIMIT) * LATE_BLOCK_TIME_FACTOR;
+    }
+    /** 26.3: same-tier pickaxe time per octant block; 26.2: multiplier on the legacy area time. */
     public static final float OCTANT_TIME_FACTOR = 2.0F;
     /** Groesste Oktant-Auswahl, die der Hammer bricht: so viele Stellen in der Box ... */
     public static final int OCTANT_MAX_VOLUME = 4096;
@@ -101,14 +96,7 @@ public final class SledgehammerUtils {
         return count;
     }
 
-    /**
-     * Teiler fuer das Abbautempo des Ursprungs (siehe Klassenkommentar): {@value #SINGLE_BLOCK_SLOWDOWN}
-     * fuer einen einzelnen Block, sonst {@code n * (s + e) / (s_u + e)} fuer {@code n} wirklich
-     * abgebaute Bloecke - {@code s} ist das Tempo des Hammers auf dem Ursprung, {@code s_u} das der
-     * Spitzhacke eine Stufe darunter, {@code e} die Abbau-Effizienz des Spielers (Effizienz). Bei der
-     * Oktant-Auswahl mal {@value #OCTANT_TIME_FACTOR}. Client und Server rechnen dasselbe, sonst
-     * ruckelt der Abbau.
-     */
+    /** The same divisor on client and server; 26.3 uses swingTimeFactor, 26.2 the legacy tier model. */
     public static float miningSpeedDivisor(Player player, BlockPos origin) {
         ItemStack stack = player.getMainHandItem();
         if (!(stack.getItem() instanceof SledgehammerItem hammer)) {
@@ -119,6 +107,7 @@ public final class SledgehammerUtils {
             return 1.0F;
         }
         boolean octant = !player.isShiftKeyDown() && octantSelection(player, origin) != null;
+        if (com.simplebuilding.version.McVersion.PIECEWISE_HAMMER_TIME) return swingTimeFactor(blocks, octant);
         if (blocks == 1 && !octant) {
             return SINGLE_BLOCK_SLOWDOWN;
         }
@@ -189,18 +178,18 @@ public final class SledgehammerUtils {
     }
 
     /**
-     * Prüft, ob der Ursprungsblock überhaupt mit dem Vorschlaghammer bearbeitet werden kann.
+     * PrÃ¼ft, ob der Ursprungsblock Ã¼berhaupt mit dem Vorschlaghammer bearbeitet werden kann.
      */
     public static boolean canMineOrigin(Level world, BlockPos originPos, ItemStack stack) {
         return shouldBreak(world, originPos, originPos, stack);
     }
 
     /**
-     * Prüft, ob ein Block basierend auf Override-Stufe abgebaut werden soll.
+     * PrÃ¼ft, ob ein Block basierend auf Override-Stufe abgebaut werden soll.
      * <ul>
      *   <li>Stufe 0: gleicher Blocktyp + Spitzhacke</li>
-     *   <li>Stufe 1: gemischte Spitzhacke-Blöcke</li>
-     *   <li>Stufe 2+: beliebige abbau bare Blöcke</li>
+     *   <li>Stufe 1: gemischte Spitzhacke-BlÃ¶cke</li>
+     *   <li>Stufe 2+: beliebige abbau bare BlÃ¶cke</li>
      * </ul>
      */
     public static boolean shouldBreak(Level world, BlockPos pos, BlockPos originPos, ItemStack stack) {

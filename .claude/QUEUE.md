@@ -262,3 +262,8 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 
 ## FIX16 (26.3, Codex)
 - [x] KK2-Integritaetsfehler korrigiert; komplette 26.3-Server-Suite 1562/1562 gruen; Abschlussgate siehe HANDOFF.
+## Vier Fehlerkorrekturen (26.3, codex-bugs)
+- [x] Hammer: 1,5 + 0,8 fuer Bloecke 2-9 + 0,7 ab Block 10; Oktant 2 je Block.
+- [x] Basis-Handbuecher im Rezeptbuch; Kapitel im Buch serverseitig freischalten statt Werkbank.
+- [x] Verstaerktes Buendel: Rezept/Datagen/Abdeckung sichern.
+- Verifiziert: 178/178 gefilterte Serverpruefungen, beide gezielten Clientablaeufe, Testzentralen neu gebaut, check gruen. Kein Push/Merge.

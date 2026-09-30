@@ -82,7 +82,9 @@ public class GuideBookScreen extends Screen {
     private static final Map<GuideBooks.Book, Integer> LAST_SPREAD = new EnumMap<>(GuideBooks.Book.class);
 
     private final GuideBooks.Book opened;
-    private final ItemStack source;
+    private ItemStack source;
+    private net.minecraft.world.InteractionHand sourceHand;
+    private GuideBooks.Book pendingUnlock;
     private GuideBooks.Book book;
     private List<List<Placed>> pages = List.of();
     private int[] chapterPage = new int[0];
@@ -101,8 +103,16 @@ public class GuideBookScreen extends Screen {
         super(source.getHoverName());
         GuideBooks.Book book = ((com.simplebuilding.items.custom.GuideBookItem) source.getItem()).book();
         this.source = source.copy();
+        var player = net.minecraft.client.Minecraft.getInstance().player;
+        sourceHand = player != null && ItemStack.isSameItemSameComponents(player.getMainHandItem(), source)
+                ? net.minecraft.world.InteractionHand.MAIN_HAND : net.minecraft.world.InteractionHand.OFF_HAND;
         this.opened = book;
         this.book = book;
+    }
+
+    public GuideBookScreen(ItemStack source, net.minecraft.world.InteractionHand hand) {
+        this(source);
+        this.sourceHand = hand;
     }
 
     @Override
@@ -114,6 +124,7 @@ public class GuideBookScreen extends Screen {
     }
 
     private void open(GuideBooks.Book target, int wantedSpread) {
+        pendingUnlock = null;
         book = target;
         history.clear();
         layout();
@@ -273,7 +284,39 @@ public class GuideBookScreen extends Screen {
      * Items), die Rezeptkarten stehen rechts daneben; ein Kapitel ohne Rezept zeigt rechts sein Symbol
      * gross. Was nicht passt, fliesst auf die naechste Seite weiter.
      */
+    @Override
+    public void tick() {
+        super.tick();
+        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES || minecraft.player == null) return;
+        ItemStack held = minecraft.player.getItemInHand(sourceHand);
+        if (!held.is(source.getItem())) { onClose(); return; }
+        if (GuideBooks.mask(held) != GuideBooks.mask(source)) {
+            source = held.copy();
+            if (pendingUnlock != null && available(pendingUnlock)) open(pendingUnlock, 0);
+            else layout();
+        } else if (pendingUnlock != null) layout();
+    }
+
+    private boolean hasUnlockItem(GuideBooks.Book topic) {
+        return minecraft.player != null && (minecraft.player.getInventory().countItem(GuideBooks.keyItem(topic).asItem()) > 0 || minecraft.player.getOffhandItem().is(GuideBooks.keyItem(topic).asItem()))
+                && (!GuideBooks.operatorOnly(topic) || GuideBooks.isOperator(minecraft.player));
+    }
+
     private void layout() {
+        if (pendingUnlock != null) {
+            Pager prompt = new Pager();
+            prompt.add(new Header(new ItemStack(GuideBooks.keyItem(pendingUnlock)), Component.translatable(pendingUnlock.key() + ".title"), ink(pendingUnlock)));
+            Component text = Component.translatable(GuideContent.GUI + (hasUnlockItem(pendingUnlock) ? "unlock_confirm" : "unlock_needs"),
+                    Component.translatable(GuideBooks.keyItem(pendingUnlock).asItem().getDescriptionId()));
+            if (GuideBooks.operatorOnly(pendingUnlock) && !GuideBooks.isOperator(minecraft.player)) text = Component.translatable(GuideContent.GUI + "operator_only");
+            for (var line : font.split(text, CONTENT_W)) prompt.add(new TextLine(line, INK));
+            prompt.add(new Gap(8));
+            if (hasUnlockItem(pendingUnlock)) prompt.add(new UnlockAction(true));
+            prompt.add(new UnlockAction(false));
+            pages = prompt.out;
+            spread = 0;
+            return;
+        }
         int chapters = book.chapters() + (book.isHub() ? 1 : 0);
         chapterPage = new int[chapters];
         Pager p = new Pager();
@@ -345,7 +388,10 @@ public class GuideBookScreen extends Screen {
             }
             for (GuideBooks.Book topic : book.shelf().topics()) {
                 p.add(new Gap(5));
-                p.add(card(GuideBooks.itemId(topic) + "@" + topic.itemName(), topic));
+                if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+                    p.add(new Header(new ItemStack(GuideBooks.keyItem(topic)), Component.translatable(topic.key() + ".title"), ink(topic)));
+                    for (var line : font.split(Component.translatable(GuideBooks.TOPICS_KEY + ".recipe", Component.translatable(GuideBooks.keyItem(topic).asItem().getDescriptionId())), CONTENT_W)) p.add(new TextLine(line, INK));
+                } else p.add(card(GuideBooks.itemId(topic) + "@" + topic.itemName(), topic));
             }
         }
         pages = p.out;
@@ -505,7 +551,10 @@ public class GuideBookScreen extends Screen {
         List<GuideBooks.Book> books = shelfBooks();
         for (int i = 0; i < books.size(); i++) {
             if (overTab(i, mx, my)) {
-                if (books.get(i) != book && available(books.get(i))) {
+                if (com.simplebuilding.version.McVersion.MEGA_GUIDES && !available(books.get(i))) {
+                    pendingUnlock = books.get(i);
+                    layout();
+                } else if (books.get(i) != book && available(books.get(i))) {
                     open(books.get(i), LAST_SPREAD.getOrDefault(books.get(i), 0));
                 }
                 return true;
@@ -742,6 +791,21 @@ public class GuideBookScreen extends Screen {
     }
 
     /** Titel der Inhaltsseite: Buchname in Buchfarbe, Unterzeile kursiv (bis zwei Zeilen), Zierlinie. */
+    record UnlockAction(boolean confirm) implements Element {
+        @Override public int height() { return 22; }
+        @Override public void draw(GuideBookScreen s, GuiGraphicsExtractor g, int x, int y, int mx, int my) {
+            g.fill(x, y, x + CONTENT_W, y + 18, in(mx, my, x, y, CONTENT_W, 18) ? 0x406B8D41 : 0x20503A28);
+            g.text(s.font, Component.translatable(GuideContent.GUI + (confirm ? "unlock_yes" : "unlock_cancel")), x + 4, y + 5, INK, false);
+        }
+        @Override public boolean click(GuideBookScreen s, int x, int y, double mx, double my) {
+            if (!in(mx, my, x, y, CONTENT_W, 18)) return false;
+            if (confirm && s.pendingUnlock != null && s.hasUnlockItem(s.pendingUnlock)) {
+                com.simplebuilding.platform.ClientNetworking.send(new com.simplebuilding.networking.GuideUnlockPayload(s.pendingUnlock.ordinal()));
+            } else if (!confirm) s.open(s.book, 0);
+            return true;
+        }
+    }
+
     record TitleBlock(List<FormattedCharSequence> title, List<FormattedCharSequence> tagline, GuideBooks.Book book) implements Element {
         @Override
         public int height() {

@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.Filterable;
 import net.minecraft.world.entity.player.Player;
@@ -32,7 +33,7 @@ import java.util.List;
 
 /**
  * Two guide shelves. On 26.3 only their hubs are registered items; topic books are content
- * inserted by crafting and stored in GUIDE_CHAPTERS. Older lines retain their independent
+ * unlocked in the book screen and stored in GUIDE_CHAPTERS. Older lines retain their independent
  * chapter books until the separate port run. Written-book pages serve the lectern; the custom
  * screen reads the localized chapters from GuideContent and the inserted mask from the held stack.
  */
@@ -317,6 +318,13 @@ public final class GuideBooks {
     /** Operator im Sinne der Buecher: Berechtigungsstufe mindestens 2 ("Spielleiter", wie /gamemode). */
     public static boolean isOperator(Player player) {
         if (player instanceof ServerPlayer serverPlayer) {
+            if (McVersion.MEGA_GUIDES) {
+                var server = serverPlayer.level().getServer();
+                var entry = server.getPlayerList().getOps().get(serverPlayer.nameAndId());
+                if (entry != null) return Commands.LEVEL_GAMEMASTERS.check(entry.permissions());
+                return server.getPlayerList().isOp(serverPlayer.nameAndId())
+                        && Commands.LEVEL_GAMEMASTERS.check(server.getProfilePermissions(serverPlayer.nameAndId()));
+            }
             // Frisch aus der Operatorliste (wie bei Befehlen), nicht der beim Einloggen gemerkte Stand.
             return Commands.LEVEL_GAMEMASTERS.check(serverPlayer.createCommandSourceStack().permissions());
         }
@@ -525,7 +533,18 @@ public final class GuideBooks {
      */
     public static void onPlayerJoin(ServerPlayer player) {
         syncOperatorRecipes(player);
-        if (McVersion.MEGA_GUIDES) return;
+        if (McVersion.MEGA_GUIDES) {
+            // Also unlock existing inventories on rejoin, without waiting for an inventory change.
+            var recipes = player.level().getServer().getRecipeManager();
+            for (Shelf shelf : Shelf.values()) {
+                if (player.getInventory().countItem(Items.BOOK) > 0 || player.getInventory().countItem(keyItem(shelf.hub()).asItem()) > 0) {
+                    var key = ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                            Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, shelf.hub().itemName()));
+                    recipes.byKey(key).ifPresent(recipe -> player.awardRecipes(List.of(recipe)));
+                }
+            }
+            return;
+        }
         if (player.entityTags().contains(GIVEN_TAG) || !giftEnabled()) {
             return;
         }

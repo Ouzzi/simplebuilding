@@ -328,7 +328,7 @@ public final class GuideBookTests {
             for (Component line : lines) {
                 lineKeys.add(line.getContents() instanceof TranslatableContents t ? t.getKey() : line.getString());
             }
-            if (!lineKeys.equals(List.of(GuideContent.taglineKey(com.simplebuilding.version.McVersion.MEGA_GUIDES ? book.shelf().hub() : book), GuideContent.MOD_NAME_KEY))) {
+            if (!lineKeys.equals((com.simplebuilding.version.McVersion.MEGA_GUIDES ? List.of(GuideContent.taglineKey(book.shelf().hub()), "tooltip.simplebuilding.guide_book.unlock", GuideContent.MOD_NAME_KEY) : List.of(GuideContent.taglineKey(book), GuideContent.MOD_NAME_KEY)))) {
                 problems.add(book + ": tooltip lines are " + lineKeys);
             } else if (!lines.get(0).getStyle().isItalic()) {
                 problems.add(book + ": the tagline is not italic");
@@ -451,7 +451,7 @@ public final class GuideBookTests {
         }
         helper.assertTrue(GuideBooks.item(admin) == ModItems.GUIDE_BOOK_ADMIN && admin.isTopic() && GuideBooks.operatorOnly(admin),
                 "the admin guide is not an operator-only topic book");
-        expect(helper, problems, List.of(new ItemStack(ModItems.GUIDE_BOOK), new ItemStack(GuideBooks.keyItem(admin).asItem())),
+        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) expect(helper, problems, List.of(new ItemStack(ModItems.GUIDE_BOOK), new ItemStack(GuideBooks.keyItem(admin).asItem())),
                 ModItems.GUIDE_BOOK_ADMIN, !com.simplebuilding.version.McVersion.MEGA_GUIDES);
         helper.assertTrue(problems.isEmpty(), problems.size() + " admin guide problems: " + problems);
         succeed(helper);
@@ -607,6 +607,35 @@ public final class GuideBookTests {
      * operator crafts it (the Beginner's Guide stays); a crafter never makes it.
      */
     public static void onlyOperatorsCraftTheAdminGuide(GameTestHelper helper) {
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+            ServerPlayer player = mockPlayer(helper);
+            var players = helper.getLevel().getServer().getPlayerList();
+            boolean wasOp = players.isOp(player.nameAndId());
+            var hand = net.minecraft.world.InteractionHand.MAIN_HAND;
+            ItemStack guide = new ItemStack(ModItems.GUIDE_BOOK);
+            ItemStack key = new ItemStack(GuideBooks.keyItem(GuideBooks.Book.ADMIN), 2);
+            player.setItemInHand(hand, guide);
+            player.getInventory().setItem(9, key);
+            com.simplebuilding.guide.GuideUnlocks.open(player, hand);
+            try {
+                players.deop(player.nameAndId());
+                helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, GuideBooks.Book.ADMIN.ordinal()), "non-operator unlock accepted");
+                helper.assertValueEqual(key.getCount(), 2, "denied unlock consumed key");
+                players.op(player.nameAndId(), Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER), Optional.empty());
+                helper.assertTrue(GuideBooks.isOperator(player), "op did not grant permission");
+                helper.assertTrue(player.getItemInHand(hand) == guide, "op changed held stack");
+                helper.assertTrue(player.containerMenu == player.inventoryMenu, "op left another menu open");
+                helper.assertTrue(!GuideBooks.inserted(guide, GuideBooks.Book.ADMIN), "base book already has admin");
+                helper.assertValueEqual(player.getInventory().countItem(GuideBooks.keyItem(GuideBooks.Book.ADMIN).asItem()), 2, "admin inventory fixture");
+                helper.assertTrue(com.simplebuilding.guide.GuideUnlocks.unlock(player, GuideBooks.Book.ADMIN.ordinal()), "operator unlock refused");
+                helper.assertValueEqual(key.getCount(), 1, "admin unlock cost");
+                players.deop(player.nameAndId());
+                helper.assertTrue(!GuideBooks.isOperator(player), "deop not respected");
+                helper.assertTrue(GuideBooks.inserted(guide, GuideBooks.Book.ADMIN), "deop erased persistent chapter");
+            } finally { if (wasOp) players.op(player.nameAndId()); else players.deop(player.nameAndId()); }
+            succeed(helper);
+            return;
+        }
         ServerPlayer player = mockPlayer(helper);
         var players = helper.getLevel().getServer().getPlayerList();
         boolean wasOp = players.isOp(player.nameAndId());
@@ -704,53 +733,85 @@ public final class GuideBookTests {
 
     private static void megaGuideRecipes(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
-        int registered = (int) net.minecraft.core.registries.BuiltInRegistries.ITEM.stream()
-                .filter(item -> item instanceof com.simplebuilding.items.custom.GuideBookItem).count();
-        helper.assertValueEqual(registered, 2, "chapter books remain registered items");
+        ServerPlayer player = mockPlayer(helper);
+        var main = net.minecraft.world.InteractionHand.MAIN_HAND;
+        helper.assertValueEqual((int) net.minecraft.core.registries.BuiltInRegistries.ITEM.stream()
+                .filter(item -> item instanceof com.simplebuilding.items.custom.GuideBookItem).count(), 2, "registered guide items");
         for (GuideBooks.Shelf shelf : GuideBooks.Shelf.values()) {
-            helper.assertTrue(shelf.books().size() - 8 + 1 <= 6, "guide exceeds six left tabs");
             Item hub = GuideBooks.item(shelf.hub());
-            expect(helper, problems, List.of(new ItemStack(Items.BOOK), new ItemStack(GuideBooks.keyItem(shelf.hub()))), hub, false);
-            ItemStack accumulated = new ItemStack(hub);
-            accumulated.set(DataComponents.CUSTOM_NAME, Component.literal("My guide"));
+            var baseGrid = List.of(new ItemStack(Items.BOOK), new ItemStack(GuideBooks.keyItem(shelf.hub())));
+            expect(helper, problems, baseGrid, hub, false);
+            var baseRecipe = find(helper, baseGrid).orElseThrow();
+            helper.assertTrue(baseRecipe.value().getClass() == net.minecraft.world.item.crafting.ShapelessRecipe.class, "base guide needs a normal auto-fill recipe");
+            helper.assertTrue(!baseRecipe.value().display().isEmpty(), "base guide has no recipe-book/JEI display");
+            helper.assertTrue(!baseRecipe.value().isSpecial(), "base guide hidden as special recipe");
+            player.getInventory().clearContent();
+            player.resetRecipes(List.of(baseRecipe));
+            player.getInventory().setItem(9, new ItemStack(GuideBooks.keyItem(shelf.hub())));
+            GuideBooks.onPlayerJoin(player);
+            helper.assertTrue(player.getRecipeBook().contains(baseRecipe.id()), "base guide recipe cannot be unlocked");
+            ItemStack book = new ItemStack(hub);
+            book.set(DataComponents.CUSTOM_NAME, Component.literal("My guide"));
+            player.getInventory().clearContent();
+            player.setItemInHand(main, book);
+            var first = shelf.topics().getFirst();
+            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, first.ordinal()), "packet without reading session accepted");
+            com.simplebuilding.guide.GuideUnlocks.open(player, main);
+            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, -1), "negative chapter accepted");
+            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, 1000), "invalid chapter accepted");
+            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, shelf.hub().ordinal()), "hub accepted");
+            var other = (shelf == GuideBooks.Shelf.MOD ? GuideBooks.Shelf.VANILLA : GuideBooks.Shelf.MOD).topics().getFirst();
+            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, other.ordinal()), "cross-shelf chapter accepted");
             for (GuideBooks.Book topic : shelf.topics()) {
-                var key = new ItemStack(GuideBooks.keyItem(topic));
-                var grid = List.of(accumulated, key);
-                var recipe = find(helper, grid);
-                helper.assertTrue(recipe.isPresent(), topic + " upgrade missing");
-                ItemStack out = recipe.orElseThrow().value().assemble(CraftingInput.of(2, 1, grid));
-                helper.assertTrue(out.is(hub) && GuideBooks.inserted(out, topic), topic + " was not inserted");
-                helper.assertTrue((GuideBooks.mask(out) & GuideBooks.mask(accumulated)) == GuideBooks.mask(accumulated), "upgrade erased earlier chapters");
-                helper.assertValueEqual(out.get(DataComponents.CUSTOM_NAME), accumulated.get(DataComponents.CUSTOM_NAME), "upgrade erased custom name");
-                helper.assertTrue(recipe.get().value().getRemainingItems(CraftingInput.of(2, 1, grid)).stream().allMatch(ItemStack::isEmpty), "upgrade duplicated guide or insert");
-                helper.assertTrue(find(helper, List.of(out, key)).isEmpty(), "duplicate chapter consumes insert");
-                helper.assertTrue(find(helper, List.of(new ItemStack(Items.BOOK), key)).isEmpty(), "chapter still exists as standalone item");
+                ItemStack key = new ItemStack(GuideBooks.keyItem(topic), 2);
+                helper.assertTrue(find(helper, List.of(book, key)).isEmpty(), "crafting extension still exists");
+                helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, topic.ordinal()), "unlocked without key item");
+                player.getInventory().setItem(9, key);
+                if (GuideBooks.operatorOnly(topic)) {
+                    helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, topic.ordinal()), "non-operator unlocked admin");
+                    helper.assertValueEqual(key.getCount(), 2, "denied admin consumed item");
+                    player.getInventory().setItem(9, ItemStack.EMPTY);
+                    continue;
+                }
+                int before = GuideBooks.mask(book);
+                // A poisoned key cannot inject a chapter mask.
+                key.set(com.simplebuilding.component.ModDataComponentTypes.GUIDE_CHAPTERS, 1 << GuideBooks.Book.ADMIN.ordinal());
+                helper.assertTrue(com.simplebuilding.guide.GuideUnlocks.unlock(player, topic.ordinal()), "unlock refused " + topic);
+                helper.assertValueEqual(key.getCount(), 1, "unlock must consume exactly one item");
+                helper.assertValueEqual(GuideBooks.mask(book), before | (1 << topic.ordinal()), "server accepted a spoofed mask");
+                helper.assertValueEqual(book.get(DataComponents.CUSTOM_NAME), Component.literal("My guide"), "name erased");
+                helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, topic.ordinal()), "duplicate unlock accepted");
+                helper.assertValueEqual(key.getCount(), 1, "duplicate unlock consumed item");
+                player.getInventory().setItem(9, ItemStack.EMPTY);
+                var ops = net.minecraft.resources.RegistryOps.create(net.minecraft.nbt.NbtOps.INSTANCE, helper.getLevel().registryAccess());
+                var decoded = ItemStack.CODEC.parse(ops, ItemStack.CODEC.encodeStart(ops, book).getOrThrow()).getOrThrow();
+                helper.assertValueEqual(GuideBooks.mask(decoded), GuideBooks.mask(book), "save/load lost chapters from old or new books");
                 var old = new net.minecraft.nbt.CompoundTag();
                 old.putString("id", "simplebuilding:" + topic.itemName()); old.putInt("count", 1);
                 com.simplebuilding.datafix.ModDataFixer.migrateGuide(old);
-                helper.assertValueEqual(old.getStringOr("id", ""), "simplebuilding:" + shelf.hub().itemName(), "old guide id not migrated");
-                helper.assertTrue((old.getCompound("components").orElseThrow().getIntOr("simplebuilding:guide_chapters", 0) & (1 << topic.ordinal())) != 0, "migration lost chapter");
-                var ops = net.minecraft.resources.RegistryOps.create(net.minecraft.nbt.NbtOps.INSTANCE, helper.getLevel().registryAccess());
-                var encoded = ItemStack.CODEC.encodeStart(ops, out).getOrThrow();
-                var decoded = ItemStack.CODEC.parse(ops, encoded).getOrThrow();
-                helper.assertValueEqual(GuideBooks.mask(decoded), GuideBooks.mask(out), "save/load lost guide chapters");
-                accumulated = out;
+                helper.assertTrue((old.getCompound("components").orElseThrow().getIntOr("simplebuilding:guide_chapters", 0) & (1 << topic.ordinal())) != 0, "legacy migration lost chapter");
             }
-            var first = shelf.topics().getFirst();
-            var second = shelf.topics().get(1);
-            var a = GuideBooks.withChapter(new ItemStack(hub), first);
-            var b = GuideBooks.withChapter(new ItemStack(hub), second);
-            var combine = find(helper, List.of(a, b));
-            helper.assertTrue(combine.isPresent(), "guides cannot be combined");
-            var merged = combine.orElseThrow().value().assemble(CraftingInput.of(2, 1, List.of(a, b)));
-            helper.assertTrue(GuideBooks.inserted(merged, first) && GuideBooks.inserted(merged, second), "combining lost chapters");
-            helper.assertTrue(find(helper, List.of(b, a)).isPresent(), "guide combination depends on slot order");
-            var poisonedKey = new ItemStack(GuideBooks.keyItem(first));
-            poisonedKey.set(com.simplebuilding.component.ModDataComponentTypes.GUIDE_CHAPTERS, 1 << GuideBooks.Book.ADMIN.ordinal());
-            var poisonGrid = List.of(new ItemStack(hub), poisonedKey);
-            var safe = find(helper, poisonGrid).orElseThrow().value().assemble(CraftingInput.of(2, 1, poisonGrid));
-            helper.assertTrue(!GuideBooks.inserted(safe, GuideBooks.Book.ADMIN), "insert item injected another chapter");
-            helper.assertTrue(find(helper, List.of(a, new ItemStack(GuideBooks.item(shelf == GuideBooks.Shelf.MOD ? GuideBooks.Book.VANILLA_START : GuideBooks.Book.GUIDE)))).isEmpty(), "shelves can be mixed");
+            helper.assertTrue(find(helper, List.of(book, book.copy())).isEmpty(), "crafting combination still exists");
+            // A moved/replaced book invalidates the exact-stack session.
+            player.setItemInHand(main, new ItemStack(hub));
+            player.getInventory().setItem(9, new ItemStack(GuideBooks.keyItem(first), 2));
+            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, first.ordinal()), "stale session changed a different book");
+            com.simplebuilding.guide.GuideUnlocks.open(player, main);
+            player.setGameMode(net.minecraft.world.level.GameType.CREATIVE);
+            helper.assertTrue(com.simplebuilding.guide.GuideUnlocks.unlock(player, first.ordinal()), "creative exchange refused");
+            helper.assertValueEqual(player.getInventory().getItem(9).getCount(), 1, "creative unlock must also cost one item");
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            var next = shelf.topics().get(1);
+            ItemStack offhandKey = new ItemStack(GuideBooks.keyItem(next), 2);
+            player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, offhandKey);
+            player.containerMenu = null;
+            com.simplebuilding.networking.ModMessageHandlers.handleGuideUnlock(new com.simplebuilding.networking.GuideUnlockPayload(next.ordinal()), player);
+            helper.assertTrue(!GuideBooks.inserted(player.getMainHandItem(), next), "packet accepted outside inventory menu");
+            player.containerMenu = player.inventoryMenu;
+            com.simplebuilding.networking.ModMessageHandlers.handleGuideUnlock(new com.simplebuilding.networking.GuideUnlockPayload(next.ordinal()), player);
+            helper.assertTrue(GuideBooks.inserted(player.getMainHandItem(), next), "registered handler did not unlock from off hand");
+            helper.assertValueEqual(offhandKey.getCount(), 1, "offhand exchange cost");
+            player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, ItemStack.EMPTY);
         }
         helper.assertTrue(problems.isEmpty(), problems.toString());
         succeed(helper);

@@ -22,8 +22,8 @@ import net.minecraft.world.level.Level;
  *
  * <p>Benutzen oeffnet auf dem Client den eigenen Buchbildschirm
  * ({@code com.simplebuilding.client.guide.GuideBookScreen}, von jedem Loader ueber
- * {@link #setClientOpener} eingehaengt) beim Abschnitt dieses Buchs; der Server zaehlt nur die
- * Benutzung und schickt kein Buch-oeffnen-Paket mehr. Die Seiten bleiben trotzdem als
+ * {@link #setClientOpener} eingehaengt) beim Abschnitt dieses Buchs; der Server merkt die
+ * gehaltene Buchinstanz als validierte Lesesitzung und zaehlt die Benutzung. Die Seiten bleiben trotzdem als
  * Standardkomponente {@code WRITTEN_BOOK_CONTENT} am Item: das Lesepult zeigt sie (Vanillas
  * Lesepult-Bildschirm, mit Seitensignal fuer Redstone) - dort sieht man die schlichte Textfassung.
  *
@@ -32,7 +32,7 @@ import net.minecraft.world.level.Level;
  */
 public class GuideBookItem extends Item {
 
-    private static Consumer<ItemStack> clientOpener = book -> {
+    private static java.util.function.BiConsumer<ItemStack, InteractionHand> clientOpener = (book, hand) -> {
     };
 
     private final GuideBooks.Book book;
@@ -47,16 +47,18 @@ public class GuideBookItem extends Item {
     }
 
     /** Jeder Loader setzt hier beim Client-Start den Bildschirm ein (Server: bleibt leer). */
-    public static void setClientOpener(Consumer<ItemStack> opener) {
-        clientOpener = opener != null ? opener : b -> {
+    public static void setClientOpener(java.util.function.BiConsumer<ItemStack, InteractionHand> opener) {
+        clientOpener = opener != null ? opener : (b, hand) -> {
         };
     }
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (level.isClientSide()) {
-            clientOpener.accept(player.getItemInHand(hand).copy());
+            clientOpener.accept(player.getItemInHand(hand).copy(), hand);
         }
+        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer)
+            com.simplebuilding.guide.GuideUnlocks.open(serverPlayer, hand);
         player.awardStat(Stats.ITEM_USED.get(this));
         return InteractionResult.SUCCESS;
     }
@@ -76,6 +78,7 @@ public class GuideBookItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable(GuideContent.taglineKey(book)).withStyle(s -> s.withColor(TextColor.fromRgb(GuideContent.secondaryColour(book))).withItalic(true)));
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) tooltip.accept(Component.translatable("tooltip.simplebuilding.guide_book.unlock"));
         tooltip.accept(Component.translatable(GuideContent.MOD_NAME_KEY).withStyle(ChatFormatting.BLUE, ChatFormatting.ITALIC));
     }
 }

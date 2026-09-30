@@ -2435,5 +2435,13 @@
   "item.simplebuilding.astralit_powder": "Astralit Signal Powder",
   "item.simplebuilding.astralit_switch": "Astralit Signal Switch",
   "item.simplebuilding.astralit_lamp": "Astralit Signal Lamp",
-  "item.simplebuilding.astral_vault": "Astral Vault"
+  "item.simplebuilding.astral_vault": "Astral Vault",
+  "gui.simplebuilding.guide.unlock_confirm": "Unlock this chapter? One %s will be consumed.",
+  "gui.simplebuilding.guide.unlock_needs": "Required item: %s. Bring one in your inventory.",
+  "gui.simplebuilding.guide.unlock_yes": "Unlock",
+  "gui.simplebuilding.guide.unlock_cancel": "Back",
+  "jei.simplebuilding.info.mega_guides": "Craft a base guide from a book and a crafting table (SimpleBuilding) or a wooden pickaxe (Minecraft). Open the guide and click a locked tab. Confirm to consume one matching item and unlock that chapter. Chapters stay in this book. Creative players also need and consume the item; Server Admin requires operator level 2. Chapters cannot be added or combined in a crafting grid.",
+  "advancements.simplebuilding.guides.insert": "Unlock this chapter inside the guide.",
+  "tooltip.simplebuilding.sledgehammer.mining_time": "Mining time: 1.5x first block, +0.8x for blocks 2-9, +0.7x after that. Octant: 2x per block.",
+  "tooltip.simplebuilding.guide_book.unlock": "Open the guide and click a locked tab to unlock its chapter."
 }
