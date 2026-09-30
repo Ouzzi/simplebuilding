@@ -33,7 +33,7 @@ public final class SkyPortalBlockEntity extends BlockEntity {
 
 
     public SkyPortalBlockEntity(BlockPos pos, BlockState state) {
-        super(DimensionRegistry.PORTAL_ENTITY, pos, state);
+        super(state.is(DimensionRegistry.LEGACY)?DimensionRegistry.LEGACY_ENTITY:DimensionRegistry.PORTAL_ENTITY, pos, state);
     }
 
     private static String validDestination(String value) {

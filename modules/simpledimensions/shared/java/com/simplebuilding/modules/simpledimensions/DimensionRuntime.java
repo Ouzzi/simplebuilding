@@ -25,6 +25,9 @@ public final class DimensionRuntime {
  private final Map<UUID,ReturnAddress> returns=new HashMap<>();
  private final Set<String> portals=new HashSet<>();
  private long lastBuildTick=-1;
+ private int decayCursor;
+ private final Map<UUID,Long> ignitions=new HashMap<>();
+ public boolean canIgnite(UUID id){long now=server.getTickCount();long last=ignitions.getOrDefault(id,-100L);if(now-last<10)return false;ignitions.put(id,now);return true;}
  private final Path ledger;
  public static boolean claimIntegrationRequired=false;
  public interface Permission {boolean allow(ServerPlayer player,ServerLevel level,BlockPos pos);}
@@ -59,6 +62,15 @@ public final class DimensionRuntime {
   l.sendParticles(success?ParticleTypes.PORTAL:ParticleTypes.SMOKE,p.getX()+.5,p.getY()+.5,p.getZ()+.5,8,.3,.3,.3,.01);
  }
  public void tick(){
+  if(!portals.isEmpty()) {
+   var anchors=new ArrayList<>(portals);
+   for(int i=0;i<Math.min(8,anchors.size());i++){
+    String k=anchors.get(Math.floorMod(decayCursor++,anchors.size()));int split=k.lastIndexOf('@');
+    var l=level(k.substring(0,split));var p=BlockPos.of(Long.parseLong(k.substring(split+1)));
+    if(l!=null&&l.hasChunkAt(p)&&l.getBlockEntity(p) instanceof SkyPortalBlockEntity b&&!b.generated){var def=config(b.definition);if(def!=null)validFrame(l,p,b,def);}
+   }
+  }
+  ignitions.keySet().removeIf(id->server.getPlayerList().getPlayer(id)==null);
   contacts.keySet().removeIf(id->server.getPlayerList().getPlayer(id)==null);
   for(var p:server.getPlayerList().getPlayers()){
    var l=p.level();var touched=findTouched(l,p);var c=contacts.computeIfAbsent(p.getUUID(),id->new Contact());

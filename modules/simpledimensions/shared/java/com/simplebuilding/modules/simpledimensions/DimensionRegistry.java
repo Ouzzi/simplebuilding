@@ -9,7 +9,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.item.*;
 public final class DimensionRegistry {
  public static SkyPortalBlock PORTAL, LEGACY;
- public static BlockEntityType<SkyPortalBlockEntity> PORTAL_ENTITY;
+ public static BlockEntityType<SkyPortalBlockEntity> PORTAL_ENTITY, LEGACY_ENTITY;
  public static Identifier id(String path) { return Identifier.fromNamespaceAndPath("simpledimension", path); }
  public static void blocks() {
   PORTAL=block("sky_portal"); LEGACY=block("light_blue_portal");

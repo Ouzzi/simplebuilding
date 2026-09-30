@@ -158,9 +158,13 @@ public final class DimensionConfigStore {
         out.put("min_y", minY);
         out.put("height", height);
         out.put("infiniburn", "#minecraft:infiniburn_overworld");
-        out.put("skybox", "minecraft:overworld");
+        out.put("skybox", "overworld");
         out.put("cardinal_light", "default");
-        out.put("attributes", Map.of());
+        out.put("attributes", Map.of("minecraft:gameplay/water_evaporates",gen.ultraWarm,
+                "minecraft:gameplay/fast_lava",gen.ultraWarm,
+                "minecraft:gameplay/bed_rule",Map.of("can_set_spawn","never","can_sleep","never"),
+                "minecraft:gameplay/respawn_anchor_works",false));
+        if(gen.natural){out.put("default_clock","minecraft:overworld");out.put("timelines","#minecraft:in_overworld");}
         out.put("monster_spawn_light_level", 0);
         out.put("monster_spawn_block_light_limit", 0);
         return out;

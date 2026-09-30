@@ -11,6 +11,7 @@ public final class PortalActivation {
  public static InteractionResult ignite(ServerPlayer player,InteractionHand hand,BlockHitResult hit){
   var level=player.level();var runtime=DimensionRuntime.get(level.getServer());
   var item=player.getItemInHand(hand);if(!(item.is(Items.FLINT_AND_STEEL)||item.is(Items.FIRE_CHARGE))||player.isSpectator()||!runtime.settings.accessEnabled)return InteractionResult.PASS;
+  if(!runtime.canIgnite(player.getUUID()))return InteractionResult.FAIL;
   var pos=hit.getBlockPos().relative(hit.getDirection());
   if(player.distanceToSqr(pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5)>36||!level.mayInteract(player,pos))return InteractionResult.PASS;
   for(var c:runtime.configs){
@@ -19,6 +20,7 @@ public final class PortalActivation {
    var view=new PortalWorld(level,c);var found=PortalActivationService.match(view,c,pos.getX(),pos.getY(),pos.getZ());if(found.isEmpty())continue;
    var shape=found.get();if(c.requireSeparateLight&&!view.separateLight(shape)){DimensionRuntime.signal(level,pos,false);return InteractionResult.FAIL;}
    if(!runtime.reserve(level,shape.anchor())){DimensionRuntime.signal(level,pos,false);return InteractionResult.FAIL;}
+   for(var cell:shape.interior())if(DimensionRegistry.portal(level.getBlockState(new BlockPos(cell.x(),cell.y(),cell.z()))))return InteractionResult.FAIL;
    for(var cell:shape.interior())if(!level.mayInteract(player,new BlockPos(cell.x(),cell.y(),cell.z()))||!runtime.permitted(player,level,new BlockPos(cell.x(),cell.y(),cell.z())))return InteractionResult.FAIL;
    // Entire plan is checked before the first mutation; never consume the igniter on rejection.
    for(var cell:shape.interior()){

@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.modules.simpledimensions.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "DimensionPackMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

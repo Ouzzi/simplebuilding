@@ -9,3 +9,6 @@ displayName="Simple Dimensions"
 modId="minecraft"
 type="required"
 versionRange="[26.3,26.4)"
+
+[[mixins]]
+config="simpledimension.mixins.json"
