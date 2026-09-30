@@ -80,3 +80,12 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Simple Models 26.3 umgesetzt und committed; finale Modtests 32/32, Fabric-Client 5/5 gruen. Besitzerabnahme echter Modellpack/UI offen; Forge und andere Linien bleiben eigener Port. Details docs/modules/simplemodels.md.
 `n- Simple Fun: 26.3 Fabric/NeoForge port, complete feature/security tests, eight cosmetic delights and charged-creeper farm-animal heads; work branch codex-port-fun, no push/merge.
 `n- Simple Fun 26.3 complete on codex-port-fun: 1627/1627 full server tests + 2/2 LAN safety, 4/4 Fabric client checkpoints, final Gradle check Exit 0; see docs/modules/simplefun.md and HANDOFF. Owner visual acceptance and deferred loader/MC ports remain. No push/merge.
+
+## Simple Tweaks (2026-09-30, codex-port-tweaks)
+- [x] Besitzerwunsch gruendlicher Vollabgleich: Quelle/claims-only Branch/Libraries, alle Features/Configs/Rezepte/IDs/Mixins und Quellabweichungen dokumentiert; source unveraendert.
+- [x] 26.3-Kompatibilitaetsmodul ohne doppelte Spielinhalte: alte IDs und Daten erhalten, Urkunde wirkungslos; 1587/1587 Server und 3/3 Fabric-Client gruen. Details docs/modules/simpletweaks.md.
+- [ ] Besitzerentscheidung: Claim-System weiterhin zurueckstellen oder eigener sicherer Claimport? Alte Urkunden bieten derzeit keinen Schutz.
+- [ ] SB-Sicherheit eigener Run: Boost-Staerke/Velocity/Packet-Rate, XP-Radius/Launchmultiplikator/Killradius/Spawnradius und weitere Config-Caps samt Runtime-Gegenproben; nicht im Modul doppeln.
+- [ ] Besitzerentscheidung: alte Echo-Library-Vanilla-Compasse automatisch zu Echo Soundern migrieren? Quelleninventar vorhanden, Library nicht mitgeliefert.
+- [ ] Simple Tweaks: NeoForge-Client und echte alte Welt/Besitzerwelt abnehmen; Forge26.3 und26.2/1.21.11/26.4 erst eigener freigegebener Port.
+- [x] Simple Tweaks: abschliessendes Worktree-Gate check -q --no-daemon GRADLE_EXIT=0, einschliesslich shared26.2-Kompilierbarkeit; kein Push/Merge.

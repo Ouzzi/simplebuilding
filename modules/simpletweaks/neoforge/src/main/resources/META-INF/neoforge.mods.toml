@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpletweaks"
+version="${version}"
+displayName="Simple Tweaks"
+[[dependencies.simpletweaks]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[dependencies.simpletweaks]]
+modId="simplebuilding"
+type="required"
+versionRange="[1,)"
+ordering="AFTER"
+side="BOTH"
+[[mixins]]
+config="simpletweaks.mixins.json"

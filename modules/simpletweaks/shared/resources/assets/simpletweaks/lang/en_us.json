@@ -1,0 +1,5 @@
+{
+  "item.simpletweaks.claim_deed": "Legacy Claim Deed",
+  "tooltip.simpletweaks.claim_deed.inactive": "Legacy deed. Claims are not active.",
+  "tooltip.simpletweaks.claim_deed.data": "Saved deed data is preserved. This item grants no protection."
+}

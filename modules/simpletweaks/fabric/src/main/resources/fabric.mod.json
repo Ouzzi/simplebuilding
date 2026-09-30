@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "simpletweaks",
+  "version": "${version}",
+  "name": "Simple Tweaks",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpletweaks.FabricSimpleTweaks"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpletweaks.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "simplebuilding": "*",
+    "fabric-api": "*"
+  },
+  "mixins": [
+    "simpletweaks.mixins.json"
+  ],
+  "license": "CC0-1.0"
+}

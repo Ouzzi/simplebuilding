@@ -1,0 +1,55 @@
+{
+  "features": [
+    {
+      "id": "legacy_compatibility",
+      "en": {
+        "title": "Legacy World Compatibility",
+        "summary": "An exact whitelist resolves old item, block, block entity, and component names to existing SimpleBuilding registries. Saving uses the current names. No duplicate gameplay content is registered.",
+        "details": [
+          "An exact whitelist resolves old item, block, block entity, and component names to existing SimpleBuilding registries. Saving uses the current names. No duplicate gameplay content is registered."
+        ]
+      },
+      "de": {
+        "title": "Kompatibilitaet alter Welten",
+        "summary": "Eine exakte Liste verbindet alte Item-, Block-, Blockentitaets- und Komponentennamen mit vorhandenen SimpleBuilding-Registries. Gespeichert werden aktuelle Namen; Spielinhalte werden nicht doppelt registriert.",
+        "details": [
+          "Eine exakte Liste verbindet alte Item-, Block-, Blockentitaets- und Komponentennamen mit vorhandenen SimpleBuilding-Registries. Gespeichert werden aktuelle Namen; Spielinhalte werden nicht doppelt registriert."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/LegacyAliases.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/LegacyRegistryMixin.java"
+      ]
+    },
+    {
+      "id": "claims_deferred",
+      "en": {
+        "title": "Claims Remain Deferred",
+        "summary": "The legacy deed retains its custom data but grants no land protection. No claim commands, persistence, recipes, packets, enchantments, entities, key bindings, or gameplay configuration are added. Existing claim files are not read or changed.",
+        "details": [
+          "The legacy deed retains its custom data but grants no land protection. No claim commands, persistence, recipes, packets, enchantments, entities, key bindings, or gameplay configuration are added. Existing claim files are not read or changed."
+        ]
+      },
+      "de": {
+        "title": "Claims bleiben zurueckgestellt",
+        "summary": "Die alte Urkunde behaelt ihre Zusatzdaten, bietet aber keinen Landschutz. Keine Claim-Befehle, Speicherung, Rezepte, Pakete, Verzauberungen, Entities, Tastenkombinationen oder Spieleinstellungen werden hinzugefuegt. Alte Claim-Dateien werden nicht gelesen oder veraendert.",
+        "details": [
+          "Die alte Urkunde behaelt ihre Zusatzdaten, bietet aber keinen Landschutz. Keine Claim-Befehle, Speicherung, Rezepte, Pakete, Verzauberungen, Entities, Tastenkombinationen oder Spieleinstellungen werden hinzugefuegt. Alte Claim-Dateien werden nicht gelesen oder veraendert."
+        ]
+      },
+      "sources": [
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/LegacyDeed.java"
+      ]
+    }
+  ],
+  "notes": {
+    "simpletweaks:claim_deed": {
+      "en": {
+        "summary": "An inert legacy artifact from existing worlds or /give. Stack size 16. Original texture and custom data are preserved. No recipe or land protection."
+      },
+      "de": {
+        "summary": "Ein wirkungsloses Altitem aus bestehenden Welten oder /give. Stapelgroesse 16. Originaltextur und Zusatzdaten bleiben erhalten. Kein Rezept und kein Landschutz."
+      }
+    }
+  }
+}

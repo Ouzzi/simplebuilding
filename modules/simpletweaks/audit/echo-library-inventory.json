@@ -1,0 +1,118 @@
+{
+  "sha256": "796f62849734432e76e16900ba73dd7d4bd610d2ef470eb0436f75b46a3a2923",
+  "metadata": {
+    "schemaVersion": 1,
+    "id": "mr_echo_compass",
+    "version": "1-v1.1.0",
+    "name": "Echo Compass",
+    "description": "Lodestone Compass Teleporter!",
+    "authors": [
+      "lullaby"
+    ],
+    "contact": {
+      "homepage": "https://modrinth.com/datapack/echo-compass",
+      "sources": "https://github.com/lullaby6/data-packs/tree/main/echo-compass"
+    },
+    "license": "AGPL-3.0-or-later",
+    "icon": "echo-compass_pack.png",
+    "environment": "*",
+    "depends": {
+      "fabric-resource-loader-v0": "*"
+    }
+  },
+  "pack": {
+    "pack": {
+      "pack_format": 80,
+      "description": [
+        {
+          "text": "Echo Compass",
+          "color": "#00AAAA"
+        },
+        {
+          "text": " - \nBy ",
+          "color": "gray"
+        },
+        {
+          "text": "github.com/lullaby6",
+          "color": "#683edd"
+        }
+      ]
+    }
+  },
+  "entries": [
+    "LICENSE",
+    "pack.mcmeta",
+    "pack.png",
+    "README.md",
+    "data/echo_compass/advancement/item_used_on_block.json",
+    "data/echo_compass/advancement/recipe.json",
+    "data/echo_compass/advancement/use.json",
+    "data/echo_compass/function/load.mcfunction",
+    "data/echo_compass/function/echo_compass/break.mcfunction",
+    "data/echo_compass/function/echo_compass/use.mcfunction",
+    "data/echo_compass/function/echo_compass/use/effects.mcfunction",
+    "data/echo_compass/function/echo_compass/use/hand.mcfunction",
+    "data/echo_compass/function/echo_compass/use/teleport.mcfunction",
+    "data/echo_compass/function/echo_compass/use/fail/ender_pearl.mcfunction",
+    "data/echo_compass/function/link/check.mcfunction",
+    "data/echo_compass/function/link/dimension.mcfunction",
+    "data/echo_compass/function/link/effects.mcfunction",
+    "data/echo_compass/function/link/hand.mcfunction",
+    "data/echo_compass/function/link/link.mcfunction",
+    "data/echo_compass/function/player/item_used_on_block.mcfunction",
+    "data/echo_compass/item_modifier/components.json",
+    "data/echo_compass/item_modifier/damage.json",
+    "data/echo_compass/item_modifier/dimension/overworld.json",
+    "data/echo_compass/item_modifier/dimension/the_end.json",
+    "data/echo_compass/item_modifier/dimension/the_nether.json",
+    "data/echo_compass/item_modifier/lore/base.json",
+    "data/echo_compass/item_modifier/lore/dimension/overworld.json",
+    "data/echo_compass/item_modifier/lore/dimension/the_end.json",
+    "data/echo_compass/item_modifier/lore/dimension/the_nether.json",
+    "data/echo_compass/loot_table/echo_compass.json",
+    "data/echo_compass/predicate/mainhand.json",
+    "data/echo_compass/predicate/offhand.json",
+    "data/echo_compass/recipe/echo_compass.json",
+    "data/minecraft/tags/function/load.json",
+    "fabric.mod.json",
+    "quilt.mod.json",
+    "META-INF/",
+    "META-INF/mods.toml",
+    "META-INF/neoforge.mods.toml",
+    "echo-compass_pack.png"
+  ],
+  "recipe": {
+    "category": "misc",
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+      "minecraft:ender_eye",
+      "minecraft:recovery_compass",
+      "minecraft:echo_shard"
+    ],
+    "result": {
+      "id": "minecraft:compass",
+      "count": 1,
+      "components": {
+        "minecraft:rarity": "epic",
+        "minecraft:max_stack_size": 1,
+        "minecraft:enchantment_glint_override": true,
+        "minecraft:damage": 0,
+        "minecraft:max_damage": 64,
+        "minecraft:custom_data": {
+          "echo_compass": true
+        },
+        "minecraft:custom_name": {
+          "text": "Echo Compass",
+          "italic": false
+        },
+        "minecraft:lore": [
+          {
+            "text": "Link to a lodestone and use it to teleport",
+            "italic": false,
+            "color": "gray"
+          }
+        ]
+      }
+    }
+  }
+}
