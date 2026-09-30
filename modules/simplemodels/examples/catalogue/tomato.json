@@ -1,0 +1,11 @@
+{
+  "id": "renamed:tomato",
+  "base_item": "minecraft:apple",
+  "match_name": "Tomato",
+  "model": "renamed:tomato",
+  "tags": [
+    "food",
+    "red"
+  ],
+  "author": "Example"
+}

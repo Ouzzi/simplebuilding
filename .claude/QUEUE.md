@@ -76,3 +76,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 ## VOICEBRIDGE (2026-09-30, codex-voicebridge)
 - [x] Besitzerwunsch: Handy/Laptop, eine grosse Sprechtaste, kurze vorgelesene Antworten, mehrere Projekte; stdlib-Server und PWA, lesende Agenten, konkrete Dateivorschlaege mit einmaliger Sprachbestaetigung.
 - [ ] Besitzerpruefung: echtes Handy-Mikrofon/Vorlesen, Tailscale HTTPS, Headset-Taste und gewaehlter CLI-Anbieter; Verifikation siehe HANDOFF.
+- [ ] Simple Models (codex-port-models): renamed-Skelett nach 26.3 Fabric/NeoForge; servervalidierte Ambossmodelle, Ordnerkatalog, Browser, EN/DE, Modul-/Clienttests. Keine Ports/Push/Merge.
+- [x] Simple Models 26.3 umgesetzt und committed; finale Modtests 32/32, Fabric-Client 5/5 gruen. Besitzerabnahme echter Modellpack/UI offen; Forge und andere Linien bleiben eigener Port. Details docs/modules/simplemodels.md.

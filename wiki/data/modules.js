@@ -75,5 +75,22 @@ window.WIKI_MODULES = [
       "simplebuilding"
     ],
     "dataHash": "ffdd075a8adb"
+  },
+  {
+    "id": "simplemodels",
+    "displayName": "Simple Models",
+    "description": "Server-approved custom item models, anvil assignment, and a searchable model browser.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding",
+      "modmenu"
+    ],
+    "dataHash": "30a7b6f560f4"
   }
 ];

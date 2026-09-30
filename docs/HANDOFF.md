@@ -206,3 +206,11 @@ letzten Text-/Wiki-Korrektur ebenfalls GRADLE_EXIT=0 (Log lokal scratchpad/facts
   beliebige Modpackkombinationen. `mc1_21_11` und `mc26_4` unveraendert. Keine neue Pixelkunst.
   Keine Besitzerentscheidung fuer diesen Infrastrukturvertrag erforderlich. Kein Push,
   kein Merge dieses Branches in master; Integration dort bleibt der Besitzersession.
+
+## Simple Models (Codex, 2026-09-30, codex-port-models)
+- Fortsetzung nach API-Abbruch: vorhandene Arbeit geprueft, in d2af64c1 gesichert; Ordnerlimit mit Regression in abe43d67. Additives 26.3-Modul, keine anderen MC-Linien/Quellrepo geaendert, kein Push/Merge.
+- Serverfreigegebene item_model-Zuweisung/Entfernung im Vanilla-Amboss, Suchbrowser mit Tags/Autor/3D-Itemvorschau, Servereinstellungen/Importhilfe, begrenzter Ordnerkatalog, Reload/Join-Sync, EN/DE und Balance-/Wiki-Vertrag. Standard nur OP; Ressourcenverteilung ueber Vanilla-Serverpack. Kein versteckter Itemname oder Gameplaybonus.
+- Bestand Fabric/NeoForge 1562/1562 plus Integration 1 und Mod 32 gruen (2026-09-30T15-30-36Z-a0ee). Finale Modulpruefung nach Ordnerhaertung: 32/32 alles gruen (2026-09-30T15-56-03Z-8478). Testzentralen und volle Item-/Blockabdeckung im isolierten Gesamtlauf gruen.
+- Finaler Fabric-Client 5/5 alles gruen (2026-09-30T15-59-22Z-0133); Browser/Einstellungen/Hilfe/Ambossbilder angesehen und unter modules/simplemodels/previews gesichert. Wiki --all und --all --check sowie Datenhook gruen.
+- Offen: Besitzerabnahme mit echtem Modellpack, NeoForge-Client, deutsche UI, echter Serverpack-Download und Besitzerwelt. Hinzufuegen/Entfernen ueber Admin-Dateien/Importordner, keine Remote-Uploads; platzierte Blockgeometrie nicht Teil der Item-Komponente. Forge 26.3 braucht Einstieg/Netzwerk/Client-/Testadapter; 26.2/1.21.11/26.4 erst separater Release-Port. Vollinventar/Grenzen: docs/modules/simplemodels.md.
+- Abschliessendes gradlew.bat check -q --no-daemon im Worktree: GRADLE_EXIT=0, Ausgabe gelesen; shared 26.2 kompiliert. Keine gemeinsamen Wiring-Aenderungen, nur Manifest/Auswahl und generierte Wiki-Moduldaten/Index. Keine Besitzerwelt veraendert.
