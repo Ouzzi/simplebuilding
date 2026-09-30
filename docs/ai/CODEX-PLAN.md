@@ -67,3 +67,16 @@ durchgeführt. Offene Arbeit mit Branch/SHA, Dateien und konkreter Fortsetzung i
 
 Offene Besitzerfragen bleiben unverändert: Echolot 3 Sekunden halten oder Ein-Klick;
 Sprach-Bridge-Morgenbericht ja/nein.
+
+## Laufende Plan-Abweichungen und Befunde
+
+- Zusätzlich Java 21 installiert, da `common` diese Toolchain benötigt. Java 25,
+  Python 3.12, Codex und Memory-Sync sind geprüft. Der erste `check` scheiterte
+  ausschließlich an der fehlenden Java-21-Installation.
+- Zweiter Setup-`check` im Gate-Worktree erreichte den Forge-26.2-Mavenizer und
+  scheiterte beim Lesen eines Patcharchivs (`EOFException`). Keine Portänderung;
+  das unveränderte vollständige Gate konfiguriert diese vorhandene Linie mit.
+- Kein weiterer zusätzlicher Orchestrator-Build parallel zu den Feature-Workern:
+  Die frische Cache-Erzeugung beansprucht zeitweise fast den gesamten RAM.
+- Die neue Sounds-/Visuals-Framework-API benötigt eine geprüfte Laufzeitpaketierung
+  zusätzlich zum Entwicklungs-Classpath. Dieser Nachweis gehört zum Merge-Review.
