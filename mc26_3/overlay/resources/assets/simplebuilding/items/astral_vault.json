@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "simplebuilding:item/astral_vault",
+    "model": {
+      "type": "minecraft:chest",
+      "texture": "simplebuilding:astral_vault"
+    }
+  }
+}

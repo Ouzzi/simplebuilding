@@ -99,9 +99,8 @@ LINES = {
         "resource_data": "src/main/resources/data/simplebuilding",
         "resource_assets": "build/wiki-lines/26.3/assets/simplebuilding",
         "config": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-        # WikiDataProvider's export is not kept per line (syncGenerated263 skips wiki/**);
-        # the item constants are the same shared Java code on 26.2 and 26.3.
-        "item_properties": "src/main/generated/wiki/items.json",
+        # Registrations and item properties can differ on the main line.
+        "item_properties": "mc26_3/generated/wiki/items.json",
         "inworld_export": "mc26_3/generated/wiki/inworld.json",
         "client_jar_version": "26.3",
         "furnace_cooking_time": True,

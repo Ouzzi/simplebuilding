@@ -1,0 +1,26 @@
+{
+  "parent": "simplebuilding:guides/root",
+  "display": {
+    "icon": {
+      "id": "simplebuilding:astral_vault"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.astral_vault.title"
+    },
+    "description": {
+      "translate": "advancements.simplebuilding.astral_vault.description"
+    },
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "astral_vault": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipes": [
+          "simplebuilding:astral_vault"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "simplebuilding:guides/root",
+  "display": {
+    "icon": {
+      "id": "simplebuilding:nihilith_powder"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.end_signals.title"
+    },
+    "description": {
+      "translate": "advancements.simplebuilding.end_signals.description"
+    },
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "nihilith_powder": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipes": [
+          "simplebuilding:nihilith_powder"
+        ]
+      }
+    },
+    "astralit_powder": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipes": [
+          "simplebuilding:astralit_powder"
+        ]
+      }
+    }
+  }
+}

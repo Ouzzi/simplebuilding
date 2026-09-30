@@ -9,9 +9,9 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py",
     "warning": "Generated file - do not edit by hand. Every section below is read out of the mod's own data files; edit the mod, then regenerate.",
     "itemProperties": {
-      "source": "src/main/generated/wiki/items.json",
+      "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 250,
+      "count": 239,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3591,6 +3591,74 @@ window.WIKI_DATA = {
           "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt, der Stapelfaktor in der Titelzeile."
         ]
       }
+    },
+    {
+      "id": "end_signals",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+      ],
+      "related": [
+        "simplebuilding:nihilith_powder",
+        "simplebuilding:astralit_powder",
+        "simplebuilding:nihilith_switch",
+        "simplebuilding:astralit_switch",
+        "simplebuilding:nihilith_lamp",
+        "simplebuilding:astralit_lamp"
+      ],
+      "en": {
+        "title": "Isolated End Signals",
+        "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+        "details": [
+          "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+          "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+          "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+        ]
+      },
+      "de": {
+        "title": "Getrennte End-Signale",
+        "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+        "details": [
+          "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+          "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+        ]
+      }
+    },
+    {
+      "id": "astral_vault",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/AstralVaultBlock.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AstralStorageMixin.java",
+        "common/src/shared/java/com/simplebuilding/util/AstralStorage.java",
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+      ],
+      "related": [
+        "simplebuilding:astral_vault"
+      ],
+      "en": {
+        "title": "Astral Vault",
+        "summary": "54 personal slots, including the 27 shared vanilla ender chest slots.",
+        "details": [
+          "Craft an ender chest with two Enderite Ingots and two Astralit Dust. Slots 1–27 directly use the vanilla personal ender inventory; slots 28–54 belong to that same player and are reachable through a vault. Ordinary ender chests still expose 27 slots.",
+          "The extra slots are saved in the personal ender inventory data with slot indices 27–53. Respawn uses the same ender inventory. Players and dimensions do not create shared public storage.",
+          "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault, not its personal contents; hoppers cannot access them.",
+          "server.features.astralVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astralgewölbe",
+        "summary": "54 persoenliche Plaetze, darunter die 27 geteilten Vanilla-Endertruhenplaetze.",
+        "details": [
+          "Rezept: Endertruhe mit zwei Enderitbarren und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
+          "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
+          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
+          "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
     }
   ],
   "items": [
@@ -3827,6 +3895,7 @@ window.WIKI_DATA = {
       "usedIn": [
         "simplebuilding:astral_end_stone",
         "simplebuilding:astral_purpur_block",
+        "simplebuilding:astral_vault",
         "simplebuilding:astralit_block",
         "simplebuilding:astralit_block_from_end_stone",
         "simplebuilding:astralit_brick_slab_from_end_stone_brick_slab",
@@ -3834,6 +3903,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_brick_wall_from_end_stone_brick_wall",
         "simplebuilding:astralit_bricks_from_end_stone_bricks",
         "simplebuilding:astralit_pillar_from_purpur_pillar",
+        "simplebuilding:astralit_powder",
         "simplebuilding:astralit_quartz_checker",
         "simplebuilding:ender_quartz",
         "simplebuilding:levitating_gravel",
@@ -7897,6 +7967,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_ingot_from_scrap"
       ],
       "usedIn": [
+        "simplebuilding:astral_vault",
         "simplebuilding:enderite_axe_smithing",
         "simplebuilding:enderite_backpack_smithing",
         "simplebuilding:enderite_block",
@@ -12931,6 +13002,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_brick_wall_from_end_stone_brick_wall",
         "simplebuilding:nihilith_bricks_from_end_stone_bricks",
         "simplebuilding:nihilith_pillar_from_purpur_pillar",
+        "simplebuilding:nihilith_powder",
         "simplebuilding:nihilith_quartz_checker",
         "simplebuilding:polished_nihilith_slab_from_purpur_slab",
         "simplebuilding:polished_nihilith_stairs_from_purpur_stairs",
@@ -16085,6 +16157,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_vault",
+      "name": {
+        "en_us": "Astral Vault",
+        "de_de": "Astralgewölbe"
+      },
+      "texture": "assets/textures/block/astral_vault.png",
+      "craftedBy": [
+        "simplebuilding:astral_vault"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_vault.png",
+      "lootTable": "simplebuilding:blocks/astral_vault",
+      "drops": [
+        "simplebuilding:astral_vault"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AstralVaultBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/AstralStorageMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/AstralStorage.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Astral Vault",
+          "summary": "54 personal slots, including the 27 shared vanilla ender chest slots.",
+          "details": [
+            "Craft an ender chest with two Enderite Ingots and two Astralit Dust. Slots 1–27 directly use the vanilla personal ender inventory; slots 28–54 belong to that same player and are reachable through a vault. Ordinary ender chests still expose 27 slots.",
+            "The extra slots are saved in the personal ender inventory data with slot indices 27–53. Respawn uses the same ender inventory. Players and dimensions do not create shared public storage.",
+            "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault, not its personal contents; hoppers cannot access them.",
+            "server.features.astralVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Astralgewölbe",
+          "summary": "54 persoenliche Plaetze, darunter die 27 geteilten Vanilla-Endertruhenplaetze.",
+          "details": [
+            "Rezept: Endertruhe mit zwei Enderitbarren und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
+            "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
+            "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
+            "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:astralit_block",
       "name": {
         "en_us": "Block of Astralit",
@@ -16223,6 +16342,52 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astralit_lamp",
+      "name": {
+        "en_us": "Astralit Signal Lamp",
+        "de_de": "Astralit-Signallampe"
+      },
+      "texture": "assets/textures/block/astralit_lamp.png",
+      "craftedBy": [
+        "simplebuilding:astralit_lamp"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/astralit_lamp.png",
+      "lootTable": "simplebuilding:blocks/astralit_lamp",
+      "drops": [
+        "simplebuilding:astralit_lamp"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:astralit_ore",
       "name": {
         "en_us": "Astralit Ore",
@@ -16262,6 +16427,55 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_pillar"
       ],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_powder",
+      "name": {
+        "en_us": "Astralit Signal Powder",
+        "de_de": "Astralit-Signalpulver"
+      },
+      "texture": "assets/textures/block/astralit_powder.png",
+      "craftedBy": [
+        "simplebuilding:astralit_powder"
+      ],
+      "usedIn": [
+        "simplebuilding:astralit_lamp",
+        "simplebuilding:astralit_switch"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/astralit_powder.png",
+      "lootTable": "simplebuilding:blocks/astralit_powder",
+      "drops": [
+        "simplebuilding:astralit_powder"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astralit_quartz_checker",
@@ -16309,6 +16523,52 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_switch",
+      "name": {
+        "en_us": "Astralit Signal Switch",
+        "de_de": "Astralit-Signalschalter"
+      },
+      "texture": "assets/textures/block/astralit_switch.png",
+      "craftedBy": [
+        "simplebuilding:astralit_switch"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/astralit_switch.png",
+      "lootTable": "simplebuilding:blocks/astralit_switch",
+      "drops": [
+        "simplebuilding:astralit_switch"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:backpack",
@@ -18093,7 +18353,7 @@ window.WIKI_DATA = {
         "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:337",
         "cooldownTicks": 1,
         "vanillaCooldownTicks": 8,
-        "vanillaCooldownSource": "src/main/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
+        "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
       },
       "hasCustomBehaviour": true
     },
@@ -19940,7 +20200,7 @@ window.WIKI_DATA = {
         "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:332",
         "cooldownTicks": 2,
         "vanillaCooldownTicks": 8,
-        "vanillaCooldownSource": "src/main/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
+        "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
       },
       "hasCustomBehaviour": true
     },
@@ -20613,6 +20873,52 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihilith_lamp",
+      "name": {
+        "en_us": "Nihilith Signal Lamp",
+        "de_de": "Nihilith-Signallampe"
+      },
+      "texture": "assets/textures/block/nihilith_lamp.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_lamp"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/nihilith_lamp.png",
+      "lootTable": "simplebuilding:blocks/nihilith_lamp",
+      "drops": [
+        "simplebuilding:nihilith_lamp"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:nihilith_ore",
       "name": {
         "en_us": "Nihilit Ore",
@@ -20652,6 +20958,55 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_pillar"
       ],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_powder",
+      "name": {
+        "en_us": "Nihilith Signal Powder",
+        "de_de": "Nihilith-Signalpulver"
+      },
+      "texture": "assets/textures/block/nihilith_powder.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_powder"
+      ],
+      "usedIn": [
+        "simplebuilding:nihilith_lamp",
+        "simplebuilding:nihilith_switch"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/nihilith_powder.png",
+      "lootTable": "simplebuilding:blocks/nihilith_powder",
+      "drops": [
+        "simplebuilding:nihilith_powder"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:nihilith_quartz_checker",
@@ -20699,6 +21054,52 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_switch",
+      "name": {
+        "en_us": "Nihilith Signal Switch",
+        "de_de": "Nihilith-Signalschalter"
+      },
+      "texture": "assets/textures/block/nihilith_switch.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_switch"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/nihilith_switch.png",
+      "lootTable": "simplebuilding:blocks/nihilith_switch",
+      "drops": [
+        "simplebuilding:nihilith_switch"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:oxidized_copper_pressure_plate",
@@ -21984,7 +22385,7 @@ window.WIKI_DATA = {
         "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:334",
         "cooldownTicks": 4,
         "vanillaCooldownTicks": 8,
-        "vanillaCooldownSource": "src/main/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
+        "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
       },
       "hasCustomBehaviour": true
     },
@@ -23536,6 +23937,41 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:astral_vault",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_vault",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_vault.json",
+      "ingredients": [
+        "minecraft:ender_chest",
+        "simplebuilding:astralit_dust",
+        "simplebuilding:enderite_ingot"
+      ],
+      "pattern": [
+        " A ",
+        "NEN",
+        " A "
+      ],
+      "key": {
+        "A": [
+          "simplebuilding:astralit_dust"
+        ],
+        "N": [
+          "simplebuilding:enderite_ingot"
+        ],
+        "E": [
+          "minecraft:ender_chest"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:astralit_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -24225,6 +24661,32 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:astralit_lamp",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_lamp",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_lamp.json",
+      "ingredients": [
+        "minecraft:redstone_lamp",
+        "simplebuilding:astralit_powder"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:astralit_powder"
+        ],
+        [
+          "minecraft:redstone_lamp"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:astralit_pillar",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -24358,6 +24820,32 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:astralit_powder",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_powder",
+        "count": 4
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_powder.json",
+      "ingredients": [
+        "minecraft:redstone",
+        "simplebuilding:astralit_dust"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:astralit_dust"
+        ],
+        [
+          "minecraft:redstone"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:astralit_quartz_checker",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -24386,6 +24874,32 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:astralit_switch",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_switch",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_switch.json",
+      "ingredients": [
+        "minecraft:lever",
+        "simplebuilding:astralit_powder"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:astralit_powder"
+        ],
+        [
+          "minecraft:lever"
+        ]
+      ],
+      "lines": [
         "26.3"
       ]
     },
@@ -32803,6 +33317,32 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:nihilith_lamp",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_lamp",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_lamp.json",
+      "ingredients": [
+        "minecraft:redstone_lamp",
+        "simplebuilding:nihilith_powder"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:nihilith_powder"
+        ],
+        [
+          "minecraft:redstone_lamp"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:nihilith_pillar",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -32936,6 +33476,32 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:nihilith_powder",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_powder",
+        "count": 4
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_powder.json",
+      "ingredients": [
+        "minecraft:redstone",
+        "simplebuilding:nihilith_shard"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:nihilith_shard"
+        ],
+        [
+          "minecraft:redstone"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:nihilith_quartz_checker",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -32964,6 +33530,32 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:nihilith_switch",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_switch",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_switch.json",
+      "ingredients": [
+        "minecraft:lever",
+        "simplebuilding:nihilith_powder"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:nihilith_powder"
+        ],
+        [
+          "minecraft:lever"
+        ]
+      ],
+      "lines": [
         "26.3"
       ]
     },
@@ -39470,6 +40062,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_block.json"
     },
     {
+      "id": "simplebuilding:blocks/astral_vault",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_vault"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astral_vault.json"
+    },
+    {
       "id": "simplebuilding:blocks/astralit_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -39550,6 +40160,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_bricks.json"
     },
     {
+      "id": "simplebuilding:blocks/astralit_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_lamp.json"
+    },
+    {
       "id": "simplebuilding:blocks/astralit_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -39583,6 +40211,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_pillar.json"
     },
     {
+      "id": "simplebuilding:blocks/astralit_powder",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_powder"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_powder.json"
+    },
+    {
       "id": "simplebuilding:blocks/astralit_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -39597,6 +40243,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_quartz_checker.json"
+    },
+    {
+      "id": "simplebuilding:blocks/astralit_switch",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_switch"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_switch.json"
     },
     {
       "id": "simplebuilding:blocks/backpack",
@@ -40719,6 +41383,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_bricks.json"
     },
     {
+      "id": "simplebuilding:blocks/nihilith_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_lamp.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihilith_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -40752,6 +41434,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_pillar.json"
     },
     {
+      "id": "simplebuilding:blocks/nihilith_powder",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_powder"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_powder.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihilith_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -40766,6 +41466,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_quartz_checker.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihilith_switch",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_switch"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_switch.json"
     },
     {
       "id": "simplebuilding:blocks/oxidized_copper_pressure_plate",
@@ -47483,6 +48201,36 @@ window.WIKI_DATA = {
       "tooltipDe": "Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“ auch außerhalb von Entwicklungsumgebungen: die beste Stufe jedes verzauberbaren Gegenstands, vorverzaubert auf Höchststufe. Wirkt beim Neuaufbau der Kreativ-Tabs (spätestens nach erneutem Betreten). Standard: aus."
     },
     {
+      "name": "server.features.endSignals",
+      "shortName": "endSignals",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "End Signal Channels",
+      "labelDe": "End-Signalkanaele",
+      "tooltip": "Server-controlled. Recipes update on datapack reload; range is capped at 15.",
+      "tooltipDe": "Serverseitig. Rezepte werden beim Datenpaket-Neuladen aktualisiert; Reichweite maximal 15."
+    },
+    {
+      "name": "server.features.astralVault",
+      "shortName": "astralVault",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Astral Vault",
+      "labelDe": "Astralgewölbe",
+      "tooltip": "Server-controlled. Recipes update on datapack reload; range is capped at 15.",
+      "tooltipDe": "Serverseitig. Rezepte werden beim Datenpaket-Neuladen aktualisiert; Reichweite maximal 15."
+    },
+    {
       "name": "server.features.airJump",
       "shortName": "airJump",
       "type": "boolean",
@@ -48006,6 +48754,21 @@ window.WIKI_DATA = {
       "labelDe": "Enderit-Meißel: Abklingzeit (Ticks)",
       "tooltip": "Cooldown after each use of the enderite chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 5.",
       "tooltipDe": "Abklingzeit nach jeder Benutzung von Enderit-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 5."
+    },
+    {
+      "name": "server.machines.endSignalRange",
+      "shortName": "endSignalRange",
+      "type": "int",
+      "default": "15",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "End Signal Range (1–15)",
+      "labelDe": "End-Signalreichweite (1–15)",
+      "tooltip": "Server-controlled. Recipes update on datapack reload; range is capped at 15.",
+      "tooltipDe": "Serverseitig. Rezepte werden beim Datenpaket-Neuladen aktualisiert; Reichweite maximal 15."
     },
     {
       "name": "server.machines.reinforcedHopperSpeed",
@@ -64212,6 +64975,29 @@ window.WIKI_DATA = {
   },
   "advancements": [
     {
+      "id": "simplebuilding:astral_vault",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:astral_vault",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Astral Vault",
+        "de_de": "Astralgewölbe"
+      },
+      "description": {
+        "en_us": "Craft a vault: 27 shared slots and 27 extra personal slots.",
+        "de_de": "Stelle ein Gewölbe her: 27 geteilte und 27 zusaetzliche persoenliche Plaetze."
+      },
+      "criteria": [
+        {
+          "name": "astral_vault",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/astral_vault.json"
+    },
+    {
       "id": "simplebuilding:blueprint/carbon_copy",
       "parent": "simplebuilding:blueprint/copy_that",
       "icon": "minecraft:cartography_table",
@@ -64647,6 +65433,33 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/end/stardust.json"
+    },
+    {
+      "id": "simplebuilding:end_signals",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:nihilith_powder",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Private Signals",
+        "de_de": "Eigene Signale"
+      },
+      "description": {
+        "en_us": "Craft both powders; build separate switch-to-lamp channels.",
+        "de_de": "Stelle beide Pulver her; baue getrennte Schalter-Lampen-Kanaele."
+      },
+      "criteria": [
+        {
+          "name": "nihilith_powder",
+          "trigger": "minecraft:recipe_crafted"
+        },
+        {
+          "name": "astralit_powder",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/end_signals.json"
     },
     {
       "id": "simplebuilding:enderite/beyond_netherite",
@@ -69805,16 +70618,16 @@ window.WIKI_DATA = {
   },
   "counts": {
     "items": 178,
-    "blocks": 147,
-    "recipes": 439,
-    "lootTables": 148,
+    "blocks": 154,
+    "recipes": 446,
+    "lootTables": 155,
     "trades": 20,
     "enchantments": 19,
     "tags": 41,
-    "config": 169,
+    "config": 172,
     "inWorld": 396,
-    "advancements": 121,
-    "features": 41,
+    "advancements": 123,
+    "features": 43,
     "undocumented": 0,
     "incompleteProse": 0
   },

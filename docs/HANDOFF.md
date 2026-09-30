@@ -158,3 +158,15 @@ Dieser Branch wird nicht gepusht oder gemergt; Verifikation siehe abschliessende
   lehnte Headless-Edge-Bildpruefung mit "blocked by policy" ab. Kein Client-Testlauf, Push oder Merge.
 - Beim ersten parallelen Gate/Serverlauf fehlten NeoForge-Ressourcen; gezieltes `processResources --rerun-tasks`
   stellte sie wieder her. Anschliessend Gate und Server-Gates nacheinander gruen. Kein Gameplay-Fix noetig.
+
+## End systems (2026-09-30, Codex, codex-kk2)
+- Fortsetzung des unterbrochenen Runs; Implementierung frueh als eee5aa09 gesichert. Nur 26.3 registriert neue Bloecke/Items; END_SYSTEMS=false auf 26.2, keine Ports und keine Aenderungen an mc1_21_11/mc26_4.
+- Nihilithscherbe bzw. Astralitstaub + Redstone ergibt 4 getrennte Pulver. Je Pulver + Hebel: eigener Schalter; Pulver + Redstone-Lampe: eigene Lampe (Lichtstaerke 12). Nur horizontale Nachbarn desselben Materials, kein Vanilla-Signaleingang/-ausgang. Maximal 15 Pulversegmente, server.machines.endSignalRange=15 mit Cap 1..15, Updates alle 2 Ticks; Lampen leiten nicht weiter. server.features.endSignals deaktiviert Gameplay/Rezepte (Rezepte nach Reload).
+- Astral Vault / Astralgewoelbe: 54 persoenliche Plaetze, erste 27 direkt Vanilla-Enderinventar, letzte 27 gespeichert am selben Container. Rezept: Endertruhe + 2 Enderitbarren + 2 Astralitstaub. Vanilla-Blockentity fuer Deckel, Sounds, Partikel und Waterlogging; server.features.astralVault sperrt Nutzung ohne Inhaltsverlust.
+- Rezepte, JEI-Infoseiten (getrennt von rezeptlosen Items), Jade-Kapazitaet, Erfolge ohne Toast/Chat, Handbuchkapitel, Wiki-Notizen und Features, Testzentralen-Leitungen; DE/EN in beiden Sprachorten, neue Schluessel identisch und ohne Duplikate.
+- Deterministischer Generator tools/textures/end_system_textures.py mit --check (14 Texturen); 16x Alt/Neu unter docs/previews/end-signals-16x.png und astral-vault-16x.png. Vorhandene Enderittruhen-Textur bewahrt und um Astralzeichen ergaenzt.
+- 26.3-Datagen erfolgreich. Registry-/Itemexport jetzt je Linie unter mc26_3/generated/wiki/items.json, da neue Registrierungen nicht in der 26.2-Registry stehen. Wiki generate/--check gruen, Haupttexturpruefung 470 + 9 mcmeta, Buecher 0 Probleme.
+- Funktionspruefung 8/8 alles gruen (2026-09-30T11-31-00Z-a7f1); Testzentrale in beiden separaten GameTest-Welten neu gebaut, vollstaendige Item-/Blockabdeckung: 10/10 alles gruen (2026-09-30T12-37-08Z-3da9).
+- Vollstaendiges gradlew.bat check -q im Worktree gruen (Exit 0), Ausgabe gelesen. Erstes Gate verlangte Quest-Lang-Neusortierung; Generator ausgefuehrt.
+- Keine Clienttests oder Sicht-/Soundpruefung im Spiel, kein voller Serverlauf; Besitzerwelt unveraendert. Besitzer-Abnahme der Grafik und Bedienung sowie /sbtestcentre build in der Besitzerwelt bleiben offen. Kein Push/Merge.
+- Rezept-/JEI-Integritaet nach Korrektur: 48/48 alles gruen (2026-09-30T12-45-41Z-d259). Paralleler Gate-/Testversuch zuvor mit Fabric-Ausgabekollision verworfen; serieller Wiederholungslauf gruen.

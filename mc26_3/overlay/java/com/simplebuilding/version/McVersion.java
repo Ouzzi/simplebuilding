@@ -33,6 +33,7 @@ import java.util.stream.Stream;
  * common/src/mc26_2/java for the contract; both must keep the same public signatures.
  */
 public final class McVersion {
+    public static final boolean END_SYSTEMS = true;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = true;
 

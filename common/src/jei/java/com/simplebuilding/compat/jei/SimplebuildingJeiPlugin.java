@@ -112,7 +112,9 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
             registration.addItemStackInfo(stacks, lines.toArray(new Component[0]));
         }
         // Infoseiten der Gegenstaende ohne JEI-sichtbares Rezept (Loot, Erzabbau, Altbestand).
-        for (Map.Entry<String, List<ItemLike>> page : RecipelessJeiInfo.pages().entrySet()) {
+        var infoPages = new java.util.LinkedHashMap<>(RecipelessJeiInfo.pages());
+        infoPages.putAll(RecipelessJeiInfo.supplementalPages());
+        for (Map.Entry<String, List<ItemLike>> page : infoPages.entrySet()) {
             List<ItemStack> stacks = page.getValue().stream().map(ItemStack::new).toList();
             registration.addItemStackInfo(stacks, Component.translatable(RecipelessJeiInfo.KEY_PREFIX + page.getKey()));
         }

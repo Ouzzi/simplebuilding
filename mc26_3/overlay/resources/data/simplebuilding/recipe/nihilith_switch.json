@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "simplebuilding:nihilith_powder",
+    "minecraft:lever"
+  ],
+  "result": {
+    "id": "simplebuilding:nihilith_switch",
+    "count": 1
+  }
+}

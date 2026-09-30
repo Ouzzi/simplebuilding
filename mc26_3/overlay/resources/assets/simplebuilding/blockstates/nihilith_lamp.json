@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "power=0": {
+      "model": "simplebuilding:block/nihilith_lamp"
+    },
+    "power=1": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=2": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=3": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=4": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=5": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=6": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=7": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=8": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=9": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=10": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=11": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=12": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=13": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=14": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    },
+    "power=15": {
+      "model": "simplebuilding:block/nihilith_lamp_active"
+    }
+  }
+}

@@ -247,3 +247,7 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 - [ ] codex-infra-w: Wiki mit Mod-Umschalter fuer alle Module; codex-infra-b: Balancing-Zentrale je Mod; codex-infra-f: Forge 26.3
 - [ ] Ports als Module (jeweils ein Lauf, Brief brief-port-<kuerzel>.md, erzeugt mit scratchpad codex/mkports.py): money, riding (laufen), danach qol, visuals, models (aus `renamed`, Anzeigename Simple Models), dimensions, tweaks (nur Nicht-Portiertes), fun (gross)
 - [ ] danach: Forge 26.3 fuer alle Module, alle Module im Wiki und in der Zentrale, Integrationstests ueber alle Module, Gesamtgate
+
+## Codex KK2 (26.3)
+- [x] Enderit-Signalpulver und Astralgewölbe: Implementierung und gefilterte Verifikation auf codex-kk2; kein Push/Merge.
+- [ ] Besitzer-Abnahme: 26.3-Signalkanaele und Astralgewoelbe im Client; Testzentrale in Besitzerwelt neu bauen.

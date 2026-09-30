@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "simplebuilding:nihilith_shard",
+    "minecraft:redstone"
+  ],
+  "result": {
+    "id": "simplebuilding:nihilith_powder",
+    "count": 4
+  }
+}
