@@ -50,6 +50,110 @@
       "nameKey": "text.autoconfig.simpleriding.option.enchantments.horseJump.jumpStrengthMultiplier",
       "tooltipKey": "text.autoconfig.simpleriding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip",
       "maximum": 0.5
+    },
+    {
+      "path": "safety.enableTailwind",
+      "default": true,
+      "tab": "safety",
+      "nameKey": "text.autoconfig.simpleriding.option.safety.enableTailwind",
+      "tooltipKey": "text.autoconfig.simpleriding.option.safety.enableTailwind.@Tooltip",
+      "maximum": null
+    },
+    {
+      "path": "safety.enableLeaping",
+      "default": true,
+      "tab": "safety",
+      "nameKey": "text.autoconfig.simpleriding.option.safety.enableLeaping",
+      "tooltipKey": "text.autoconfig.simpleriding.option.safety.enableLeaping.@Tooltip",
+      "maximum": null
+    },
+    {
+      "path": "safety.enableArmorUtilities",
+      "default": true,
+      "tab": "safety",
+      "nameKey": "text.autoconfig.simpleriding.option.safety.enableArmorUtilities",
+      "tooltipKey": "text.autoconfig.simpleriding.option.safety.enableArmorUtilities.@Tooltip",
+      "maximum": null
+    },
+    {
+      "path": "safety.enableNautilus",
+      "default": true,
+      "tab": "safety",
+      "nameKey": "text.autoconfig.simpleriding.option.safety.enableNautilus",
+      "tooltipKey": "text.autoconfig.simpleriding.option.safety.enableNautilus.@Tooltip",
+      "maximum": null
+    },
+    {
+      "path": "safety.maximumSpeedBonus",
+      "default": 3.0,
+      "tab": "safety",
+      "nameKey": "text.autoconfig.simpleriding.option.safety.maximumSpeedBonus",
+      "tooltipKey": "text.autoconfig.simpleriding.option.safety.maximumSpeedBonus.@Tooltip",
+      "maximum": 3,
+      "minimum": 0
+    },
+    {
+      "path": "safety.maximumJumpBonus",
+      "default": 1.5,
+      "tab": "safety",
+      "nameKey": "text.autoconfig.simpleriding.option.safety.maximumJumpBonus",
+      "tooltipKey": "text.autoconfig.simpleriding.option.safety.maximumJumpBonus.@Tooltip",
+      "maximum": 1.5,
+      "minimum": 0
+    },
+    {
+      "path": "safety.movementDistancePerTick",
+      "default": 4.0,
+      "tab": "safety",
+      "nameKey": "text.autoconfig.simpleriding.option.safety.movementDistancePerTick",
+      "tooltipKey": "text.autoconfig.simpleriding.option.safety.movementDistancePerTick.@Tooltip",
+      "maximum": 4,
+      "minimum": 0.5
+    },
+    {
+      "path": "safety.movementPacketsPerTick",
+      "default": 20,
+      "tab": "safety",
+      "nameKey": "text.autoconfig.simpleriding.option.safety.movementPacketsPerTick",
+      "tooltipKey": "text.autoconfig.simpleriding.option.safety.movementPacketsPerTick.@Tooltip",
+      "maximum": 20,
+      "minimum": 1
+    },
+    {
+      "path": "enchantments.swiftRide.nautilusSpeedMultiplier",
+      "default": 0.2,
+      "tab": "enchantments",
+      "nameKey": "text.autoconfig.simpleriding.option.enchantments.swiftRide.nautilusSpeedMultiplier",
+      "tooltipKey": "text.autoconfig.simpleriding.option.enchantments.swiftRide.nautilusSpeedMultiplier.@Tooltip",
+      "maximum": 1,
+      "minimum": 0
+    },
+    {
+      "path": "enchantments.horseJump.nautilusDashMultiplier",
+      "default": 0.2,
+      "tab": "enchantments",
+      "nameKey": "text.autoconfig.simpleriding.option.enchantments.horseJump.nautilusDashMultiplier",
+      "tooltipKey": "text.autoconfig.simpleriding.option.enchantments.horseJump.nautilusDashMultiplier.@Tooltip",
+      "maximum": 0.5,
+      "minimum": 0
+    },
+    {
+      "path": "enchantments.horseJump.featherFallingReduction",
+      "default": 0.12,
+      "tab": "enchantments",
+      "nameKey": "text.autoconfig.simpleriding.option.enchantments.horseJump.featherFallingReduction",
+      "tooltipKey": "text.autoconfig.simpleriding.option.enchantments.horseJump.featherFallingReduction.@Tooltip",
+      "maximum": 0.12,
+      "minimum": 0
+    },
+    {
+      "path": "enchantments.horseJump.armorEnchantability",
+      "default": 15,
+      "tab": "enchantments",
+      "nameKey": "text.autoconfig.simpleriding.option.enchantments.horseJump.armorEnchantability",
+      "tooltipKey": "text.autoconfig.simpleriding.option.enchantments.horseJump.armorEnchantability.@Tooltip",
+      "maximum": 15,
+      "minimum": 0
     }
   ]
 }

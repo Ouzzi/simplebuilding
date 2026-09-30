@@ -22,18 +22,19 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
  * datengetriebenen Villager-Trades in data/simpleriding/villager_trade/.
  */
 public class WeightedEnchantFunction extends LootItemConditionalFunction {
+    public static final int MAX_POOL_ENTRIES = 64, MAX_WEIGHT = 1000, MAX_LEVEL = 3;
     public record PoolEntry(Holder<Enchantment> enchantment, int level, int weight) {
         public static final Codec<PoolEntry> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Enchantment.CODEC.fieldOf("enchantment").forGetter(PoolEntry::enchantment),
-                Codec.INT.optionalFieldOf("level", 1).forGetter(PoolEntry::level),
-                Codec.INT.optionalFieldOf("weight", 1).forGetter(PoolEntry::weight)
+                Codec.intRange(1, MAX_LEVEL).optionalFieldOf("level", 1).forGetter(PoolEntry::level),
+                Codec.intRange(1, MAX_WEIGHT).optionalFieldOf("weight", 1).forGetter(PoolEntry::weight)
         ).apply(instance, PoolEntry::new));
     }
 
     public static final MapCodec<WeightedEnchantFunction> MAP_CODEC = RecordCodecBuilder.mapCodec(
             instance -> commonFields(instance)
                     .and(instance.group(
-                            PoolEntry.CODEC.listOf().fieldOf("pool").forGetter(function -> function.pool),
+                            PoolEntry.CODEC.listOf(1, MAX_POOL_ENTRIES).fieldOf("pool").forGetter(function -> function.pool),
                             Codec.floatRange(0.0F, 1.0F).optionalFieldOf("second_chance", 0.0F).forGetter(function -> function.secondChance)
                     ))
                     .apply(instance, WeightedEnchantFunction::new)

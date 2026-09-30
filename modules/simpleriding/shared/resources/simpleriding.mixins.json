@@ -6,7 +6,12 @@
     "RidingTickMixin",
     "RidingEnchantmentMixin",
     "RidingHelperMixin",
-    "RidingFallMixin"
+    "RidingFallMixin",
+    "RidingPacketMixin",
+    "RidingNautilusMixin",
+    "RidingJumpInputMixin",
+    "NautilusDashAccess",
+    "RidingCamelMixin"
   ],
   "injectors": {
     "defaultRequire": 1
