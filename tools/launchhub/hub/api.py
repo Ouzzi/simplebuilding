@@ -39,7 +39,10 @@ def _need(body: dict, key: str, kind=str):
     return value
 
 
-class Hub:
+from .mods import ModsMixin
+
+
+class Hub(ModsMixin):
     def __init__(self, repo: Path = paths.REPO, logs_dir: Path = paths.LOGS_DIR, data_dir: Path = paths.DATA_DIR):
         self.repo = repo
         self.data_dir = data_dir
@@ -238,6 +241,9 @@ class Hub:
                 warnings.append(f"World '{data['worldName']}' will not exist: create it once (flat, creative, cheats on); "
                                 "the test centre then builds itself on first join.")
         argv = targets.launch_command(entry, "server" if kind == "server" else "client", ws, data, program_args)
+        if entry['id'] in ('fabric-263', 'neoforge-263'):
+            steps.append(self.selection_step(ws))
+            argv.append('-Phub_mod_selection=true')
         steps.append({"label": f"{entry['id']} {kind}", "argv": argv, "cwd": str(ws)})
         label = {"client": "Client", "server": "Server", "client_fresh": "Client + fresh test centre"}[action]
         job = self.manager.start(
@@ -826,7 +832,7 @@ class Hub:
     def route_get(self, path: str, query: dict):
         """(kind, payload): kind is 'json' or 'text'. Raises HubError(404) for unknown paths."""
         simple = {
-            "/api/state": self.state, "/api/targets": self.get_targets, "/api/processes": self.list_processes,
+            "/api/mods": self.mods_state, "/api/state": self.state, "/api/targets": self.get_targets, "/api/processes": self.list_processes,
             "/api/overview": self.overview, "/api/failures": self.failures, "/api/prepush": self.prepush,
             "/api/worktrees": self.list_worktrees, "/api/settings": self.get_settings, "/api/providers": self.providers,
         }
@@ -864,6 +870,7 @@ class Hub:
 
     def route_post(self, path: str, body: dict):
         table = {
+            "/api/mods": self.save_mods, "/api/integration/launch": self.launch_integration,
             "/api/launch": self.launch, "/api/tests/run": self.run_tests, "/api/check/run": self.run_check,
             "/api/process/stop": self.stop_process, "/api/ai/preview": self.ai_preview, "/api/ai/start": self.ai_start,
             "/api/worktrees/delete": self.delete_worktree, "/api/settings": self.save_settings,

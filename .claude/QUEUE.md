@@ -218,3 +218,10 @@ Verlauf im Detail: git log.
 - [ ] Kerne: Netherstern nur ab Diamant, Netherit-/Enderit-Baustab aus Kern, goldener Baustab mehr Haltbarkeit - nicht gewaehlt, spaeter neu besprechen
 - [ ] Rucksack-Sortierung (Reihenfolge vorbereitet), sobald eine Sortierfunktion kommt
 - [ ] Mehrere Mods in einem Repo (build-logic + framework/)
+
+## Multimod-Grundlage (Besitzerauftrag 2026-09-30, eigener Branch)
+- [x] Additive Module + framework + Scaffold + Registry-Validator
+- [x] Fabric-Integration, Beispielmod und Cross-Mod-Testziel ohne bestehende Testaenderungen
+- [x] Launch Hub: einzelne Mod-Schalter, Presets, Integrationsstarts und Trockenlauf-Tests
+- [x] check, 1548/1548 Server, 1/1 Integration, 34 Hub-Tests und Trockenlauf gruen; kein Push/Merge
+- [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen
