@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "simplemodels",
+  "version": "${version}",
+  "name": "Simple Models",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplemodels.FabricExample"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplemodels.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplemodels.FabricModelsClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "mixins": [
+    "simplemodels.mixins.json"
+  ],
+  "provides": [
+    "renamed"
+  ]
+}

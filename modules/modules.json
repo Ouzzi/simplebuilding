@@ -217,6 +217,73 @@
       "checks": [
         "modules/simpleriding/tools/check_data.py"
       ]
+    },
+    {
+      "id": "simplemodels",
+      "name": "Simple Models",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Models",
+      "description": "Server-approved custom item models, anvil assignment, and a searchable model browser.",
+      "loaders": [
+        "fabric",
+        "neoforge"
+      ],
+      "requires": [],
+      "optional": [
+        "simplebuilding",
+        "modmenu"
+      ],
+      "checks": [
+        "modules/simplemodels/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplemodels",
+        "catalogues": [
+          "modules/simplemodels/fabric/src/main/java/com/simplebuilding/modules/simplemodels/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplemodels",
+          "simplebuilding"
+        ],
+        "devMods": [
+          "cloth_config"
+        ],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplemodelsGameTest",
+            "report": "integration/build/simplemodels-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplemodels:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplemodels/neoforge/build/module-junit.xml"
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplemodels.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplemodels/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplemodels",
+        "shared": "modules/simplemodels/shared",
+        "fabric": "modules/simplemodels/fabric",
+        "neoforge": "modules/simplemodels/neoforge",
+        "forge": null,
+        "generated": "modules/simplemodels/generated/resources",
+        "lang": "modules/simplemodels/shared/resources/assets/simplemodels/lang",
+        "wikiManual": "modules/simplemodels/wiki/manual.json",
+        "balanceDir": "balance/simplemodels"
+      },
+      "projects": {
+        "fabric": ":modules:simplemodels:fabric",
+        "neoforge": ":modules:simplemodels:neoforge"
+      }
     }
   ]
 }

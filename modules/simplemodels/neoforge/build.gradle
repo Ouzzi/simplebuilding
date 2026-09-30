@@ -1,0 +1,18 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.147'
+}
+apply from: rootProject.file('gradle/module-neoforge.gradle')
+repositories { maven { url = 'https://maven.shedaniel.me/' } }
+dependencies { implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.mc263_cloth_version}"; implementation project(':common') }
+evaluationDependsOn(':mc26_3:neoforge')
+
+neoForge.mods { simplebuilding { sourceSet project(':mc26_3:neoforge').sourceSets.main } }
+neoForge.runs {
+    moduleIntegrationGameTest {
+        type = 'gameTestServer'
+        loadedMods = [neoForge.mods.simplemodels, neoForge.mods.simplebuilding]
+        gameDirectory = rootProject.layout.projectDirectory.dir('integration/run-neoforge-263')
+        programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simplemodels:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
+    }
+}

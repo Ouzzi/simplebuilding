@@ -283,3 +283,5 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 ## Orchestrator-Stand 2026-09-30 17:00 (Welle 25, Fortsetzung)
 - [x] Plugin-Umbau der Modul-Registrierung und Simple Riding nach master gemergt (7ef79212); Gate laeuft. Briefe tragen jetzt die Plugin-Regel (docs/ai/briefs/mm-contract.md).
 - [ ] Laufende Laeufe: facts (Faktenpass), voicebridge (Sprach-Bridge), port-visuals, port-fun. Danach in Wellen (max. 4 gleichzeitig): new-sounds (nach visuals), port-qol, port-tweaks, port-dimensions, port-models, riding-followup (Nautilus, Obergrenzen), zuletzt money-links; dann Forge 26.3 fuer alle Module, Gesamtgate.
+
+- [ ] Simple Models (codex-port-models): renamed-Skelett nach 26.3 Fabric/NeoForge; servervalidierte Ambossmodelle, Ordnerkatalog, Browser, EN/DE, Modul-/Clienttests. Keine Ports/Push/Merge.

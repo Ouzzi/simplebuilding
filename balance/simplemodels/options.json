@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "module": "simplemodels",
+  "configFile": "config/simplemodels/config.json",
+  "options": [
+    {"path":"enabled","default":true,"tab":"policy","nameKey":"simplemodels.config.enabled","tooltipKey":"simplemodels.config.enabled.tooltip","maximum":null},
+    {"path":"operatorsOnly","default":true,"tab":"policy","nameKey":"simplemodels.config.operatorsOnly","tooltipKey":"simplemodels.config.operatorsOnly.tooltip","maximum":null},
+    {"path":"allowModItems","default":false,"tab":"policy","nameKey":"simplemodels.config.allowModItems","tooltipKey":"simplemodels.config.allowModItems.tooltip","maximum":null},
+    {"path":"legacyNameMatching","default":false,"tab":"policy","nameKey":"simplemodels.config.legacyNameMatching","tooltipKey":"simplemodels.config.legacyNameMatching.tooltip","maximum":null},
+    {"path":"levelCost","default":1,"minimum":1,"maximum":10,"tab":"policy","nameKey":"simplemodels.config.levelCost","tooltipKey":"simplemodels.config.levelCost.tooltip"},
+    {"path":"maxModels","default":64,"minimum":1,"maximum":64,"tab":"policy","nameKey":"simplemodels.config.maxModels","tooltipKey":"simplemodels.config.maxModels.tooltip"},
+    {"path":"maxFileBytes","default":16384,"minimum":256,"maximum":16384,"tab":"policy","nameKey":"simplemodels.config.maxFileBytes","tooltipKey":"simplemodels.config.maxFileBytes.tooltip"}
+  ]
+}
