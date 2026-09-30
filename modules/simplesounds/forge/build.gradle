@@ -1,5 +1,5 @@
-plugins {
-    id 'java-library'
-    id 'net.minecraftforge.gradle' version '7.0.36'
-}
+plugins { id 'java-library'; id 'net.minecraftforge.gradle' version '7.0.36' }
+ext.moduleVersion = '0.1.0'
+ext.forgeExcludedSources = ['**/SoundScreen.java', '**/SoundClientAssertions.java']
+ext.forgeMixinConfigs = ['simplesounds.mixins.json', 'simplesounds.forge.mixins.json']
 apply from: rootProject.file('gradle/module-forge.gradle')

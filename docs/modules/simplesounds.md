@@ -95,3 +95,7 @@ Other Minecraft lines are deferred; shared 26.2 compatibility is checked by the 
 - Decisions for owner acceptance: Vanilla-only audio, local-player-only observation, independent
   intensity settings (no automatic live following of Simple Visuals). Fireflies/pollen use soft
   rustling. No blocking owner question, no push/merge.
+
+## Experimental Forge 26.3
+
+Opt-in with `-Pforge263=true`; same 17 server catalogue cases and client-only sound tick mixin. JSON settings and sound budgets are unchanged. Cloth GUI/client harness sources are excluded because a compatible Forge artifact is unavailable. Forge client audio, UI and owner-world behavior remain unverified.

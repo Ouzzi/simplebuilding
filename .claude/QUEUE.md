@@ -105,3 +105,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Forge-Modules: Money/Riding/Models/Fun/Visuals experimentell opt-in portiert; finale Modulpruefung 89/89 gruen, Standardregression 1775/1775 gruen. Forge-Client-/Mehrspielerabnahme und Standardaktivierung bleiben Besitzerpunkte. Kein Push/Merge.
 
 - [x] TASK SB-HARDEN: bestehende SimpleBuilding-Caps, Boost-Paketbudget/Velocity, Rezeptfilter und echte 26.3-Servergegenproben; 1600/1600 Hauptlinien-Tests und Integration 1/1 alles gruen, kein Push/Merge.
+
+- Forge Modules 2: experimental Forge 26.3 adapters for Simple Sounds, Simple Quality of Life and Simple Tweaks; separate commits, no push/merge.
