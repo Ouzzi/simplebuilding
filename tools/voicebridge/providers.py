@@ -130,7 +130,9 @@ class Runner:
             # User config is ignored below. Refuse repository/ancestor configs that
             # could register executable MCP servers before sandbox/tool restrictions.
             root = Path(project["root"]).resolve()
-            if any((folder / ".codex/config.toml").exists() for folder in (root, *root.parents)):
+            user_config = (Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex"))) / "config.toml").resolve()
+            if any((folder / ".codex/config.toml").exists() and
+                   (folder / ".codex/config.toml").resolve() != user_config for folder in (root, *root.parents)):
                 raise ValueError("Codex-Projektkonfiguration vorhanden. Fuer Voicebridge einen konfigurationsfreien Worktree verwenden.")
         executable = shutil.which(project["provider"])
         if not executable:
