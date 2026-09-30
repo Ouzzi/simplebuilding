@@ -44,16 +44,16 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
       "id": "claims",
       "en": {
         "title": "Claims: Disabled by Default",
-        "summary": "Implemented stages 1–2: bounded atomic data, deeds, commands and Vanilla interaction targets (including neighboring chunks and bed/chest footprints). Tools, environmental damage, automation and administration are not complete. Default off; disabled mode never reads or writes claim data. Enable only for development testing.",
+        "summary": "Implemented stages 1–3: bounded atomic data, deeds, commands, Vanilla interactions and SimpleBuilding tool permission checks. Environmental damage, automation and administration remain incomplete. Default off; disabled mode never reads or writes claim data. Enable only for development testing. Default: false.",
         "details": [
-          "Implemented stages 1–2: bounded atomic data, deeds, commands and Vanilla interaction targets (including neighboring chunks and bed/chest footprints). Tools, environmental damage, automation and administration are not complete. Default off; disabled mode never reads or writes claim data. Enable only for development testing."
+          "Implemented stages 1–3: bounded atomic data, deeds, commands, Vanilla interactions and SimpleBuilding tool permission checks. Environmental damage, automation and administration remain incomplete. Default off; disabled mode never reads or writes claim data. Enable only for development testing. Default: false."
         ]
       },
       "de": {
         "title": "Claims: standardmäßig aus",
-        "summary": "Umgesetzt: Stufen 1–2 mit begrenzten atomaren Daten, Urkunden, Befehlen und Vanilla-Interaktionszielen (einschließlich Nachbarchunks und Bett-/Truhenhälften). Werkzeuge, Umweltschaden, Automation und Verwaltung sind unvollständig. Standard aus; ausgeschaltet keine Claim-Datenzugriffe. Nur für Entwicklungstests aktivieren.",
+        "summary": "Umgesetzt: Stufen 1–3 mit begrenzten atomaren Daten, Urkunden, Befehlen, Vanilla-Interaktionen und SimpleBuilding-Werkzeugprüfungen. Umweltschaden, Automation und Verwaltung bleiben unvollständig. Standard aus; ausgeschaltet keine Claim-Datenzugriffe. Nur für Entwicklungstests aktivieren. Standardwert: false.",
         "details": [
-          "Umgesetzt: Stufen 1–2 mit begrenzten atomaren Daten, Urkunden, Befehlen und Vanilla-Interaktionszielen (einschließlich Nachbarchunks und Bett-/Truhenhälften). Werkzeuge, Umweltschaden, Automation und Verwaltung sind unvollständig. Standard aus; ausgeschaltet keine Claim-Datenzugriffe. Nur für Entwicklungstests aktivieren."
+          "Umgesetzt: Stufen 1–3 mit begrenzten atomaren Daten, Urkunden, Befehlen, Vanilla-Interaktionen und SimpleBuilding-Werkzeugprüfungen. Umweltschaden, Automation und Verwaltung bleiben unvollständig. Standard aus; ausgeschaltet keine Claim-Datenzugriffe. Nur für Entwicklungstests aktivieren. Standardwert: false."
         ]
       },
       "sources": [
@@ -61,7 +61,9 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/Claims.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimConfig.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimStore.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimGameModeMixin.java"
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimGameModeMixin.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/Protection.java",
+        "common/src/shared/java/com/simplebuilding/api/WorldPermissions.java"
       ]
     },
     {

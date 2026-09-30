@@ -36,7 +36,7 @@ public final class BuildPermissions {
         if (!(level instanceof ServerLevel serverLevel) || !(player instanceof ServerPlayer serverPlayer)) {
             return true;
         }
-        if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos)) {
+        if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos) || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos)) {
             return false;
         }
         probing++;
@@ -52,12 +52,13 @@ public final class BuildPermissions {
         if (!(level instanceof ServerLevel serverLevel) || !(player instanceof ServerPlayer serverPlayer)) {
             return true;
         }
-        if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos)) {
+        if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos) || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos)) {
             return false;
         }
         probing++;
         try {
-            return PlatformServices.buildGuard().mayPlace(serverLevel, serverPlayer, pos.immutable(), state);
+            return com.simplebuilding.api.WorldPermissions.mayPlace(level, player, pos, state)
+                    && PlatformServices.buildGuard().mayPlace(serverLevel, serverPlayer, pos.immutable(), state);
         } finally {
             probing--;
         }

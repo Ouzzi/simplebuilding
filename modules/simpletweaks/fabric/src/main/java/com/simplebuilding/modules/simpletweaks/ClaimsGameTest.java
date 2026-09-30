@@ -3,6 +3,12 @@ import com.simplebuilding.modules.simpletweaks.claims.ClaimTests;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ClaimsGameTest {
+ @GameTest public void claimsToolsBedHammer(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_bed_hammer").accept(h); }
+ @GameTest public void claimsToolsWandHammer(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_wand_hammer").accept(h); }
+ @GameTest public void claimsToolsBeam(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_beam").accept(h); }
+ @GameTest public void claimsToolsEcho(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_echo").accept(h); }
+ @GameTest public void claimsToolsPad(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_pad").accept(h); }
+
  @GameTest public void claimsDisabledHooks(GameTestHelper h) { ClaimTests.TESTS.get("claims_disabled_hooks").accept(h); }
  @GameTest public void claimsBedFootprint(GameTestHelper h) { ClaimTests.TESTS.get("claims_bed_footprint").accept(h); }
  @GameTest public void claimsVanillaBorder(GameTestHelper h) { ClaimTests.TESTS.get("claims_vanilla_border").accept(h); }

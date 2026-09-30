@@ -18,6 +18,12 @@ import net.minecraft.world.level.*;
 public final class ClaimTests {
     public static final Map<String,Consumer<GameTestHelper>> TESTS = new LinkedHashMap<>();
     static {
+        TESTS.put("claims_tools_bed_hammer",ToolClaimTests::bedHammer);
+        TESTS.put("claims_tools_wand_hammer",ToolClaimTests::wandHammer);
+        TESTS.put("claims_tools_beam",ToolClaimTests::beam);
+        TESTS.put("claims_tools_echo",ToolClaimTests::echo);
+        TESTS.put("claims_tools_pad",ToolClaimTests::pad);
+
         TESTS.put("claims_config_bounds",ClaimTests::config);
         TESTS.put("claims_vanilla_border",ClaimTests::vanilla);
         TESTS.put("claims_bucket_entity_hooks",ClaimTests::bucketsAndEntities);
@@ -104,8 +110,8 @@ public final class ClaimTests {
         with(h,on(),test);
     }
     static void with(GameTestHelper h, ClaimConfig config, Consumer<Claims> test) {
-        var server=h.getLevel().getServer();var old=Claims.get(server);var claims=new Claims(config,temp(),Map.of());Claims.SERVERS.put(server,claims);
-        try {test.accept(claims);}finally {if(old==null)Claims.SERVERS.remove(server);else Claims.SERVERS.put(server,old);}
+        var server=h.getLevel().getServer();var old=Claims.get(server);var claims=new Claims(config,temp(),Map.of());Claims.install(server,claims);
+        try {test.accept(claims);}finally {Claims.install(server,old);}
     }
     static void deed(GameTestHelper h) {
         with(h,c->{

@@ -18,7 +18,7 @@ public abstract class ClaimBlockItemMixin {
   var p=context.getPlayer();var pos=context.getClickedPos();
   java.util.function.Predicate<net.minecraft.core.BlockPos> allowed=at->p instanceof ServerPlayer player?Claims.allow(player,level,at):Claims.allow(level,null,at);
   if(!allowed.test(pos)){cir.setReturnValue(false);return;}
-  if(state.getBlock() instanceof BedBlock && !allowed.test(pos.relative(state.getValue(BlockStateProperties.HORIZONTAL_FACING)))){cir.setReturnValue(false);return;}
+  if(state.getBlock() instanceof AbstractBedBlock && !allowed.test(pos.relative(state.getValue(BlockStateProperties.HORIZONTAL_FACING)))){cir.setReturnValue(false);return;}
   if(state.getBlock() instanceof ChestBlock)for(var direction:Direction.Plane.HORIZONTAL){var neighbor=pos.relative(direction);if(level.getBlockState(neighbor).getBlock() instanceof ChestBlock&&!allowed.test(neighbor)){cir.setReturnValue(false);return;}}
  }
 }

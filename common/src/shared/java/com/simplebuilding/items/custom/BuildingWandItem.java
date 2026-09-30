@@ -765,7 +765,8 @@ public class BuildingWandItem extends Item {
      */
     public static boolean mayBuildAt(Level level, Player player, BlockPos pos, Direction face, ItemStack wand) {
         return level.isInWorldBounds(pos) && level.getWorldBorder().isWithinBounds(pos) && level.isLoaded(pos)
-                && level.mayInteract(player, pos) && player.mayUseItemAt(pos, face, wand);
+                && level.mayInteract(player, pos) && player.mayUseItemAt(pos, face, wand)
+                && com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos);
     }
 
     public static List<BlockPos> getBuildingPositions(Level world, Player player, ItemStack wandStack, BlockPos originPos, Direction face, int maxDiameter, BlockHitResult hitResult) {

@@ -42,9 +42,17 @@ public final class Claims {
             };
             legacy.put(id.toString(), folder.resolve("data/simpletweaks_claims.dat"));
         }
-        SERVERS.put(server,new Claims(settings(), root, legacy));
+        install(server,new Claims(settings(), root, legacy));
     }
-    public static void stop(MinecraftServer server) { SERVERS.remove(server); settings=null; }
+    static void install(MinecraftServer server, Claims claims) {
+        com.simplebuilding.framework.api.Protection.unregister(server,"simpletweaks");
+        if (claims==null) SERVERS.remove(server);
+        else {
+            SERVERS.put(server,claims);
+            if (claims.config.enabled()) com.simplebuilding.framework.api.Protection.register(server,"simpletweaks",target -> (claims.config.opBypass() && target.administrator()) || claims.allowed(target.dimension(),target.actor(),new ChunkPos(target.x()>>4,target.z()>>4).pack()));
+        }
+    }
+    public static void stop(MinecraftServer server) { install(server,null); settings=null; }
     public static Claims get(MinecraftServer server) { return SERVERS.get(server); }
     public static boolean enabled(MinecraftServer server) { var c=get(server); return c!=null && c.config.enabled(); }
     public static boolean allow(ServerLevel level, UUID actor, BlockPos pos) {
@@ -69,7 +77,7 @@ public final class Claims {
         if (!enabled(level.getServer())) return true;
         if (!allow(actor,level,pos)) return false;
         var state=level.getBlockState(pos);
-        if (state.getBlock() instanceof net.minecraft.world.level.block.BedBlock) {
+        if (state.getBlock() instanceof net.minecraft.world.level.block.AbstractBedBlock) {
             var direction=state.getValue(net.minecraft.world.level.block.BedBlock.FACING);
             if (state.getValue(net.minecraft.world.level.block.BedBlock.PART)==net.minecraft.world.level.block.state.properties.BedPart.HEAD) direction=direction.getOpposite();
             if (!allow(actor,level,pos.relative(direction))) return false;

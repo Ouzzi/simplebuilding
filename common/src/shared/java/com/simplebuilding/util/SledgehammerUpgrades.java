@@ -520,7 +520,7 @@ public final class SledgehammerUpgrades {
             clunk(level, player);
             return null;
         }
-        if (!player.mayUseItemAt(pos, context.getClickedFace(), context.getItemInHand())) {
+        if (!permitted(level, player, pos, state, upgrade) || !player.mayUseItemAt(pos, context.getClickedFace(), context.getItemInHand())) {
             return InteractionResult.FAIL;
         }
         int startHits = level instanceof ServerLevel serverLevel
@@ -627,10 +627,18 @@ public final class SledgehammerUpgrades {
         LAST_HINT.remove(player.getUUID());
     }
 
+    private static boolean permitted(Level level, Player player, BlockPos pos, BlockState state, Upgrade upgrade) {
+        if (!com.simplebuilding.api.WorldPermissions.mayAct(level, player, pos)) return false;
+        if (upgrade.isChest()) for (BlockPos half : TieredChests.halves(level, pos, state, upgrade.to()))
+            if (!com.simplebuilding.api.WorldPermissions.mayAct(level, player, half)) return false;
+        return true;
+    }
+
     private static boolean stillValid(Level level, Player player, Job job) {
         BlockState state = level.getBlockState(job.pos);
         Upgrade upgrade = job.upgrade;
-        if (!state.is(upgrade.from())
+        if (!permitted(level, player, job.pos, state, upgrade)
+                || !state.is(upgrade.from())
                 || !(player.getMainHandItem().getItem() instanceof SledgehammerItem)
                 || !player.getOffhandItem().is(upgrade.nugget())
                 || hammerRank(player.getMainHandItem()) < upgrade.minHammerRank()

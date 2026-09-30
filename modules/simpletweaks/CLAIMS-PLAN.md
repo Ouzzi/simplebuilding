@@ -72,3 +72,22 @@ No worker client tests, full merged server gate, push or merge.
   Run 2026-09-30T21-45-15Z-77ed: 13/13 per loader, alles gruen 26/26.
   Tests caught a bed fixture entity collision; moving players away preserved a
   meaningful positive control. No client, automation or indirect-damage claim.
+- Stage 3 actual hook run 2026-09-30T22-48-57Z-7c6b: Fabric 18/18,
+  NeoForge 18/18, alles gruen 36/36. Registry-resolved wand ticks, actual loader
+  hammer area mining, beam item ticks, echo completion and pad block-entity ticks
+  exercise owner and stranger behavior. Bed/straw-bed hammer controls included.
+- Orchestrator reviews incorporated: provider contract lives in framework/;
+  Minecraft geometry stays in the public SimpleBuilding adapter. A standard Java
+  service installs the bridge only from mc26_3/framework. Both 26.3 loaders package
+  the framework jar; no 26.2/Forge adapter, build change or behavior activation.
+  Disabled/no-provider geometry returns before block reads. Break/undo/beam paths
+  now check connected beds and chests; queued blueprint placement rechecks targets.
+- Existing issue found outside claims scope: WandPlacement.stateFor applies neighbor
+  updates before a bed head exists, turning the proposed foot into air, including
+  for the owner. The attempted positive bed-wand test exposed that original flow.
+  No baseline behavior change was made. Real hammer tests use hand-placed beds.
+- Explicit remaining verification: all blueprint modes, multi-tick double-chest
+  upgrades and every tool transformation have not been exercised with active claims.
+- Stage 3 baseline regression: 2026-09-30T22-51-11Z-1a63,
+  simplebuilding:*sledgehammer*: Fabric 35/35, NeoForge 35/35,
+  alles gruen 70/70 without an active claims provider.

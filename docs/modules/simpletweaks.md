@@ -471,3 +471,13 @@ Nachbarchunk, Bettkopf und verbundener Truhenhaelfte; Eimer und Entity-Interakti
 sowie Nahkampf und Stichangriffe sind angebunden. 13/13 Servertests je Loader
 (Fabric/NeoForge 26.3, Lauf 2026-09-30T21-45-15Z-77ed). Schutz bleibt unvollstaendig
 und standardmaessig aus. Umweltschaden und Automation folgen separat.
+
+### Claims Stufe 3 (Fortsetzung)
+Framework-Vertrag `Protection` ohne Minecraft-Abhaengigkeit; 26.3-Serviceadapter
+und zentrale Geometriepruefungen in SimpleBuilding. Berechtigungen werden vor
+Werkzeug-Zielmutationen und vor Teleports geprueft; Bett-/Truhen-Gegenstuecke und
+beide Teleportenden sind eingeschlossen. Ohne Anbieter keine neuen Weltabfragen.
+36/36 Claims-Servertests gruen (2026-09-30T22-48-57Z-7c6b). Nicht alle Blaupausen-
+und Umformmodi wurden mit aktiven Claims geprueft; keine Sicherheitsfreigabe.
+Bestehender Baustab-Bettfehler: Nachbarupdate vor Kopfplatzierung ergibt Luft;
+dieser unabhaengige Spielfehler wurde hier nicht veraendert.

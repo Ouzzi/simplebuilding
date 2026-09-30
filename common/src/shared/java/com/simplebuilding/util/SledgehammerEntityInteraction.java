@@ -56,6 +56,7 @@ public final class SledgehammerEntityInteraction {
             return InteractionResult.PASS;
         }
 
+        if (!com.simplebuilding.api.WorldPermissions.mayAffectEntity(player, itemFrame)) return InteractionResult.FAIL;
         itemFrame.setItem(new ItemStack(result), true);
         com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.TRIM_TEMPLATE_FORGED);
 

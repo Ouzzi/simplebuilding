@@ -16,3 +16,6 @@ neoForge.runs {
   programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simpletweaks:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
  }
 }
+
+// Package the shared framework API for production, as well as development runs.
+dependencies { jarJar project(':framework') }

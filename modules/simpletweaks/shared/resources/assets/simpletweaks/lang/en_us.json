@@ -4,7 +4,7 @@
   "tooltip.simpletweaks.claim_deed.data": "Saved deed data is retained; only the server claim ledger grants permission.",
   "config.simpletweaks.claims.tab": "Server Claims",
   "config.simpletweaks.claims.enabled": "Enable Claims",
-  "config.simpletweaks.claims.enabled.tooltip": "Implemented stages 1–2: bounded atomic data, deeds, commands and Vanilla interaction targets (including neighboring chunks and bed/chest footprints). Tools, environmental damage, automation and administration are not complete. Default off; disabled mode never reads or writes claim data. Enable only for development testing. Default: false.",
+  "config.simpletweaks.claims.enabled.tooltip": "Implemented stages 1–3: bounded atomic data, deeds, commands, Vanilla interactions and SimpleBuilding tool permission checks. Environmental damage, automation and administration remain incomplete. Default off; disabled mode never reads or writes claim data. Enable only for development testing. Default: false.",
   "config.simpletweaks.claims.enabled.default": "false",
   "config.simpletweaks.claims.enabled.tab": "Server Claims",
   "config.simpletweaks.claims.maxClaimsPerPlayer": "Claims per Player",
