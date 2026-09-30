@@ -13,6 +13,10 @@ public final class Visuals {
   try{if(Files.exists(CONFIG_PATH)){try(var r=Files.newBufferedReader(CONFIG_PATH)){var c=GSON.fromJson(r,SimplevisualsConfig.class);if(c!=null)CONFIG=c;}}ConfigOptions.normalize(CONFIG);}
   catch(Exception e){org.slf4j.LoggerFactory.getLogger(MOD_ID).warn("Invalid Simple Visuals config; using safe defaults",e);CONFIG=new SimplevisualsConfig();}
   serverFormatting=CONFIG.visuals.enableAnvilFormatting;
+  com.simplebuilding.framework.api.CosmeticIntensity.register(MOD_ID,()->
+   CONFIG.particles==null || CONFIG.particles.globalLevel==null
+    ? com.simplebuilding.framework.api.CosmeticIntensity.Level.SUBTLE
+    : com.simplebuilding.framework.api.CosmeticIntensity.Level.valueOf(CONFIG.particles.globalLevel.name()));
  }
  public static void save(){ConfigOptions.normalize(CONFIG);try{Files.createDirectories(CONFIG_PATH.getParent());Files.writeString(CONFIG_PATH,GSON.toJson(CONFIG));}catch(Exception e){throw new IllegalStateException(e);}}
  public static String formatName(String name,boolean enabled){

@@ -7,6 +7,7 @@ public final class SoundScreen {
   SoundClient.load();var gson=new com.google.gson.Gson();var c=gson.fromJson(gson.toJson(SoundClient.CONFIG),SoundConfig.class);c.normalize();
   var b=me.shedaniel.clothconfig2.api.ConfigBuilder.create().setParentScreen(parent).setTitle(Component.translatable("simplesounds.title"));var e=b.entryBuilder();
   var general=b.getOrCreateCategory(Component.translatable("simplesounds.tab.general"));
+  general.addEntry(e.startBooleanToggle(name("followVisuals"),c.followVisuals).setDefaultValue(true).setTooltip(tip("followVisuals")).setSaveConsumer(v->c.followVisuals=v).build());
   general.addEntry(e.startEnumSelector(name("globalLevel"),SoundConfig.Level.class,c.globalLevel).setDefaultValue(SoundConfig.Level.SUBTLE).setEnumNameProvider(SoundScreen::level).setTooltip(tip("globalLevel")).setSaveConsumer(v->c.globalLevel=v).build());
   general.addEntry(e.startFloatField(name("volumeCap"),c.volumeCap).setDefaultValue(.25f).setMin(0).setMax(.25f).setTooltip(tip("volumeCap")).setSaveConsumer(v->c.volumeCap=v).build());
   general.addEntry(e.startIntField(name("soundsPerTick"),c.soundsPerTick).setDefaultValue(2).setMin(0).setMax(4).setTooltip(tip("soundsPerTick")).setSaveConsumer(v->c.soundsPerTick=v).build());

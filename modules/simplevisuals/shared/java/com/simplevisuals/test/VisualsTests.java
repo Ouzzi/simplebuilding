@@ -13,6 +13,16 @@ public final class VisualsTests {
   h.succeed();
  }
  public static void config(GameTestHelper h){
+  var saved=Visuals.CONFIG;
+  try {
+   Visuals.CONFIG=new SimplevisualsConfig();
+   for(var level:Intensity.values()){
+    Visuals.CONFIG.particles.globalLevel=level;
+    require(com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals").name().equals(level.name()),"Loaded provider follows all five live levels");
+   }
+   Visuals.CONFIG=new SimplevisualsConfig();
+   require(com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals")==com.simplebuilding.framework.api.CosmeticIntensity.Level.SUBTLE,"Provider follows replaced config without saving");
+  } finally { Visuals.CONFIG=saved; }
   var c=new SimplevisualsConfig();require(ConfigOptions.all(c).size()==50,"All original config fields plus global level");
   for(var o:ConfigOptions.all(c))if(o.get() instanceof Number){
    boolean integer=o.field().getType()==int.class;

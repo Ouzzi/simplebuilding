@@ -6,7 +6,11 @@ public final class ModuleGameTest {
  @GameTest public void configBounds(GameTestHelper h){SoundTests.bounds(h);}
  @GameTest public void soundFloodSafety(GameTestHelper h){SoundTests.flood(h);}
  @GameTest public void cooldownAndWorldReset(GameTestHelper h){SoundTests.cooldown(h);}
- @GameTest public void simpleBuildingIntegration(GameTestHelper h){SoundTests.integration(h);}
+ @GameTest public void simpleBuildingIntegration(GameTestHelper h){
+  h.assertTrue(net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplevisuals") ==
+   (com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals") != null), "Loaded optional Visuals publishes through the shared API");
+  SoundTests.integration(h);
+ }
  @GameTest public void effectFootstepDust(GameTestHelper h){SoundTests.effect(h,"footstep_dust");}
  @GameTest public void effectColdBreath(GameTestHelper h){SoundTests.effect(h,"cold_breath");}
  @GameTest public void effectFireflies(GameTestHelper h){SoundTests.effect(h,"fireflies");}

@@ -16,3 +16,10 @@ config="simplesounds.mixins.json"
 modId="cloth_config"
 type="required"
 versionRange="[26.3,)"
+
+[[dependencies.simplesounds]]
+modId="simplevisuals"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"

@@ -6,7 +6,7 @@ public final class SoundClientAssertions {
  public static void world(Minecraft mc){
   if(mc.level==null||mc.player==null)throw new AssertionError("No world");
   original=SoundClient.CONFIG;
-  var config=new SoundConfig();config.globalLevel=SoundConfig.Level.MAXIMUM;SoundClient.CONFIG=config;
+  var config=new SoundConfig();config.followVisuals=false;config.globalLevel=SoundConfig.Level.MAXIMUM;SoundClient.CONFIG=config;
   SoundClient.tick(mc);SoundClient.BUDGET.reset();
   float before=mc.player.getHealth();
   mc.player.setHealth(Math.max(1,before-1));SoundClient.tick(mc);

@@ -3,6 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.147'
 }
 apply from: rootProject.file('gradle/module-neoforge.gradle')
+dependencies { jarJar project(':framework') }
 
 neoForge.runs {
     moduleIntegrationGameTest {

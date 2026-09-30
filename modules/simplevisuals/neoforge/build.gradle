@@ -4,6 +4,7 @@ plugins {
 }
 ext.moduleVersion = '1.0.7'
 apply from: rootProject.file('gradle/module-neoforge.gradle')
+dependencies { jarJar project(':framework') }
 
 neoForge.runs {
     moduleIntegrationGameTest {
