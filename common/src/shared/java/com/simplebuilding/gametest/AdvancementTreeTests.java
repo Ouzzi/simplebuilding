@@ -110,7 +110,11 @@ public final class AdvancementTreeTests {
                     id + " is hidden - only the easter chain may be");
             for (String part : List.of("title", "description")) {
                 String key = display.getAsJsonObject(part).get("translate").getAsString();
-                helper.assertTrue(key.equals("advancements." + MOD_ID + "." + holder.id().getPath().replace('/', '.') + "." + part),
+                // Guide advancements reuse the guide's own texts: the title is the book title, the description
+                // one of the shared "advancements.<mod>.guides.*" lines.
+                boolean guideReuse = holder.id().getPath().startsWith("guides/")
+                        && (key.startsWith("book." + MOD_ID + ".") || key.startsWith("advancements." + MOD_ID + ".guides."));
+                helper.assertTrue(guideReuse || key.equals("advancements." + MOD_ID + "." + holder.id().getPath().replace('/', '.') + "." + part),
                         id + " uses the " + part + " key " + key);
                 helper.assertTrue(english.has(key) && !english.get(key).getAsString().isBlank(), key + " is missing in en_us.json");
                 helper.assertTrue(german.has(key) && !german.get(key).getAsString().isBlank(), key + " is missing in de_de.json");
