@@ -256,3 +256,6 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 ## INFRA-B: Multimod-Balancing (2026-09-30)
 - [x] Manifest, isolierte Ablagen/Leser, Mod-Auswahl, Tests und Dokumentation; 1554/1554 Server und check gruen.
 - [ ] Desktop-/Handy-Sichtpruefung: Browser-Werkzeug meldet keine verfuegbare Oberflaeche.
+
+## FIX16 (26.3, Codex)
+- [x] KK2-Integritaetsfehler korrigiert; komplette 26.3-Server-Suite 1562/1562 gruen; Abschlussgate siehe HANDOFF.
