@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:fletcher/00",
+      "required": false
+    },
+    {
+      "id": "simplemoney:fletcher/01",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 5
+  },
+  "max_uses": 1,
+  "xp": 50,
+  "reputation_discount": 0.7,
+  "gives": {
+    "id": "minecraft:enchanted_book"
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "given_item_modifier": [
+    {
+      "pool": [
+        {
+          "enchantment": "minecraft:swift_sneak",
+          "level": 1,
+          "weight": 2
+        },
+        {
+          "enchantment": "minecraft:soul_speed",
+          "level": 1,
+          "weight": 2
+        }
+      ],
+      "second_chance": 0.1,
+      "type": "simplemoney:weighted_enchant"
+    }
+  ]
+}

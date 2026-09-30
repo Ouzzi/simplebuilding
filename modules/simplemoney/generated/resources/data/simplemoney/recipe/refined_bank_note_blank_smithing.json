@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template":  "minecraft:gold_ingot",
+  "base": "simplemoney:blank_note",
+  "addition": "simplemoney:special_fiber",
+  "result": {
+    "id": "simplemoney:refined_blank_note",
+    "count": 1
+  }
+}

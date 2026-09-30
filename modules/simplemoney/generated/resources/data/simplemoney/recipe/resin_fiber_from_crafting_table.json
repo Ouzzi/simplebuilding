@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ERH",
+    "RBR",
+    "HRE"
+  ],
+  "key": {
+    "R": "minecraft:resin_clump",
+    "E": "minecraft:iron_nugget",
+    "B": "minecraft:bone_meal",
+    "H": "minecraft:honeycomb"
+  },
+  "result": {
+    "id": "simplemoney:resin_fiber",
+    "count": 1
+  }
+}

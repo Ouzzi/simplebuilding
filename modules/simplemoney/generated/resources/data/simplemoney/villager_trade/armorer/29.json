@@ -1,0 +1,77 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 4
+  },
+  "max_uses": 1,
+  "xp": 50,
+  "reputation_discount": 0.7,
+  "gives": {
+    "id": "minecraft:diamond_leggings"
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "given_item_modifier": [
+    {
+      "pool": [
+        {
+          "enchantment": "minecraft:protection",
+          "level": 3,
+          "weight": 40
+        },
+        {
+          "enchantment": "minecraft:protection",
+          "level": 4,
+          "weight": 40
+        },
+        {
+          "enchantment": "minecraft:blast_protection",
+          "level": 3,
+          "weight": 30
+        },
+        {
+          "enchantment": "minecraft:blast_protection",
+          "level": 4,
+          "weight": 30
+        },
+        {
+          "enchantment": "minecraft:projectile_protection",
+          "level": 3,
+          "weight": 30
+        },
+        {
+          "enchantment": "minecraft:projectile_protection",
+          "level": 4,
+          "weight": 30
+        },
+        {
+          "enchantment": "minecraft:fire_protection",
+          "level": 3,
+          "weight": 30
+        },
+        {
+          "enchantment": "minecraft:fire_protection",
+          "level": 4,
+          "weight": 30
+        },
+        {
+          "enchantment": "minecraft:swift_sneak",
+          "level": 1,
+          "weight": 5
+        }
+      ],
+      "second_chance": 0.1,
+      "type": "simplemoney:weighted_enchant"
+    }
+  ]
+}

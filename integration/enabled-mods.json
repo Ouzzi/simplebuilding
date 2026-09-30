@@ -1,1 +1,16 @@
-{"schemaVersion":1,"modules":["simplebuilding","wiringexample"],"devMods":["jei","jade","mousetweaks","appleskin","modmenu","cloth_config"]}
+{
+  "schemaVersion": 1,
+  "modules": [
+    "simplebuilding",
+    "wiringexample",
+    "simplemoney"
+  ],
+  "devMods": [
+    "jei",
+    "jade",
+    "mousetweaks",
+    "appleskin",
+    "modmenu",
+    "cloth_config"
+  ]
+}

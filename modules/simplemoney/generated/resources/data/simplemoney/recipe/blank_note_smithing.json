@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template":  "minecraft:iron_ingot",
+  "base": "simplemoney:special_paper",
+  "addition": "simplemoney:resin_fiber",
+  "result": {
+    "id": "simplemoney:blank_note",
+    "count": 1
+  }
+}

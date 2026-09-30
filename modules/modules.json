@@ -1,7 +1,114 @@
 {
   "schemaVersion": 1,
   "modules": [
-    {"id":"simplebuilding","name":"SimpleBuilding","version":"${mod_version}","minecraft":"26.3","defaultEnabled":true,"projects":{"fabric":":mc26_3:fabric","neoforge":":mc26_3:neoforge"}},
-    {"id":"wiringexample","name":"Wiring Example","version":"0.1.0","minecraft":"26.3","defaultEnabled":true,"example":true,"projects":{"fabric":":modules:wiringexample:fabric","neoforge":":modules:wiringexample:neoforge"}}
+    {
+      "id": "simplebuilding",
+      "name": "SimpleBuilding",
+      "version": "${mod_version}",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "projects": {
+        "fabric": ":mc26_3:fabric",
+        "neoforge": ":mc26_3:neoforge"
+      },
+      "displayName": "SimpleBuilding",
+      "description": "SimpleBuilding",
+      "loaders": [
+        "fabric",
+        "neoforge"
+      ],
+      "requires": [
+        "cloth_config"
+      ],
+      "optional": [
+        "jei",
+        "jade",
+        "mousetweaks",
+        "appleskin",
+        "modmenu"
+      ],
+      "paths": {
+        "root": ".",
+        "shared": "common/src/shared",
+        "fabric": "mc26_3/fabric",
+        "neoforge": "mc26_3/neoforge",
+        "forge": "forge",
+        "generated": "src/main/generated",
+        "lang": "src/main/resources/assets/simplebuilding/lang",
+        "wikiManual": "wiki/manual.json",
+        "balanceDir": "balance"
+      }
+    },
+    {
+      "id": "wiringexample",
+      "name": "Wiring Example",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "example": true,
+      "projects": {
+        "fabric": ":modules:wiringexample:fabric",
+        "neoforge": ":modules:wiringexample:neoforge"
+      },
+      "displayName": "Wiring Example",
+      "description": "Wiring Example",
+      "loaders": [
+        "fabric",
+        "neoforge"
+      ],
+      "requires": [],
+      "optional": [],
+      "paths": {
+        "root": "modules/wiringexample",
+        "shared": "modules/wiringexample/shared",
+        "fabric": "modules/wiringexample/fabric",
+        "neoforge": "modules/wiringexample/neoforge",
+        "forge": null,
+        "generated": "modules/wiringexample/generated/resources",
+        "lang": "modules/wiringexample/shared/resources/assets/wiringexample/lang",
+        "wikiManual": "modules/wiringexample/wiki/manual.json",
+        "balanceDir": "balance/wiringexample"
+      }
+    },
+    {
+      "id": "simplemoney",
+      "name": "Simple Money",
+      "version": "1.2.16",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "projects": {
+        "fabric": ":modules:simplemoney:fabric",
+        "neoforge": ":modules:simplemoney:neoforge"
+      },
+      "displayName": "Simple Money",
+      "description": "Currency production, weighted villager trades and treasure loot.",
+      "loaders": [
+        "fabric",
+        "neoforge"
+      ],
+      "requires": [
+        "cloth_config"
+      ],
+      "optional": [
+        "simplebuilding",
+        "modmenu"
+      ],
+      "paths": {
+        "root": "modules/simplemoney",
+        "shared": "modules/simplemoney/shared",
+        "fabric": "modules/simplemoney/fabric",
+        "neoforge": "modules/simplemoney/neoforge",
+        "forge": null,
+        "generated": "modules/simplemoney/generated/resources",
+        "lang": "modules/simplemoney/shared/resources/assets/simplemoney/lang",
+        "wikiManual": "modules/simplemoney/wiki/manual.json",
+        "balanceDir": "balance/simplemoney"
+      },
+      "testTargets": [
+        "module-simplemoney-fabric-263",
+        "module-simplemoney-neoforge-263"
+      ],
+      "clientSmokeTask": ":integration:runClientGameTest"
+    }
   ]
 }

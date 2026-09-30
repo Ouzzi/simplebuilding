@@ -283,7 +283,11 @@ INTEGRATION_TARGETS = (Target(
     report="integration/build/junit.xml",
     catalogue="integration/src/main/java/com/simplebuilding/integration/CrossModGameTest.java",
 ),)
-ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS
+MONEY_TARGETS = (
+ Target(id="module-simplemoney-fabric-263", label="Simple Money Fabric integration", loader="fabric", mc_line="module-simplemoney-263", gradle_task=":integration:runMoneyIntegrationGameTest", report="integration/build/money-junit.xml", catalogue="modules/simplemoney/fabric/src/main/java/com/simplemoney/MoneyGameTest.java"),
+ Target(id="module-simplemoney-neoforge-263", label="Simple Money NeoForge integration", loader="neoforge", mc_line="module-simplemoney-263", gradle_task=":modules:simplemoney:neoforge:runMoneyIntegrationGameTest", report="modules/simplemoney/neoforge/build/money-junit.xml", catalogue="modules/simplemoney/fabric/src/main/java/com/simplemoney/MoneyGameTest.java"),
+)
+ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS + MONEY_TARGETS
 
 BY_ID = {t.id: t for t in ALL_TARGETS}
 
@@ -413,6 +417,8 @@ def read_catalogue() -> dict[str, list[dict]]:
                 integration.append({"id": f"sbintegration:{snake(cls[1])}_{snake(method)}",
                                     "testClass": cls[1], "method": method})
     out["integration-26.3"] = integration
+    source = (REPO / "modules/simplemoney/fabric/src/main/java/com/simplemoney/MoneyGameTest.java").read_text(encoding="utf-8")
+    out["module-simplemoney-263"] = [{"id": "simplemoney:money_game_test_" + snake(method), "testClass": "MoneyGameTest", "method": method} for method in re.findall(r"@GameTest(?:\([^)]*\))?\s+public void (\w+)\(GameTestHelper", source)]
     return out
 
 
@@ -719,7 +725,7 @@ def run_target(
     log_path = RUNS_DIR / f"{run_id}-{target.id}.log"
     log_path.write_text(strip_ansi(output), encoding="utf-8")
 
-    report = parse_report(REPO / target.report, fresh_after, "sbintegration" if target.id == "integration-263" else MOD_ID)
+    report = parse_report(REPO / target.report, fresh_after, "simplemoney" if target.id.startswith("module-simplemoney-") else "sbintegration" if target.id == "integration-263" else MOD_ID)
 
     # Tests this loader is known not to pass yet (LOADER_KNOWN_FAILURES): their red is recorded
     # as "known" and does not move the numbers - but only while it is red. A listed test that
@@ -1177,7 +1183,7 @@ def check_parity() -> tuple[bool, list[str]]:
     notes: list[str] = []
     ok = True
 
-    catalogue = read_catalogue()
+    catalogue = {line: entries for line, entries in read_catalogue().items() if line in ("26.2", "26.3", "1.21.11")}
     # The 26.3 line has no catalogue of its own - it compiles the 26.2 one. Should it ever grow a
     # 26.3-only catalogue (an overlay test), the two must still name the same tests.
     third = catalogue.pop("26.3", None)

@@ -103,3 +103,16 @@ class ModTests(unittest.TestCase):
         self.assertNotIn('integration-263', {t.id for t in runner.DEFAULT_TARGETS})
         self.assertEqual(len(runner.read_catalogue()['integration-26.3']), 1)
         self.assertEqual(runner.read_catalogue()['26.3'], runner.read_catalogue()['26.2'])
+
+    def test_selected_money_module_has_separate_integration_test_step(self):
+        with patch.dict(os.environ, {'SB_HUB_DRY_RUN': '1'}):
+            result = self.hub.launch_integration({'action': 'tests'})
+            job = self.hub.manager.get(result['job']['id'])
+            test_steps = [step for step in job.steps if 'argv' in step]
+            self.assertIn('integration-263', test_steps[-2]['argv'])
+            self.assertIn('module-simplemoney-fabric-263,module-simplemoney-neoforge-263',
+                          test_steps[-1]['argv'])
+            deadline = time.monotonic() + 5
+            while job.status in ('starting', 'running', 'stopping') and time.monotonic() < deadline:
+                time.sleep(0.02)
+            self.assertEqual(job.exit_code, 0)

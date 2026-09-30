@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:mason/10",
+      "required": false
+    },
+    {
+      "id": "simplemoney:mason/11",
+      "required": false
+    },
+    {
+      "id": "simplemoney:mason/12",
+      "required": false
+    },
+    {
+      "id": "simplemoney:mason/13",
+      "required": false
+    },
+    {
+      "id": "simplemoney:mason/14",
+      "required": false
+    }
+  ]
+}

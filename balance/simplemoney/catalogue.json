@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "module": "simplemoney",
+  "tradeData": "modules/simplemoney/generated/resources/data/simplemoney/villager_trade",
+  "recipes": "modules/simplemoney/generated/resources/data/simplemoney/recipe",
+  "lootConstants": "modules/simplemoney/shared/java/com/simplemoney/MoneyLoot.java",
+  "config": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java"
+}

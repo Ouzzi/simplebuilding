@@ -1,0 +1,57 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 4
+  },
+  "max_uses": 1,
+  "xp": 50,
+  "reputation_discount": 0.7,
+  "gives": {
+    "id": "minecraft:enchanted_book"
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "given_item_modifier": [
+    {
+      "pool": [
+        {
+          "enchantment": "minecraft:depth_strider",
+          "level": 3,
+          "weight": 10
+        },
+        {
+          "enchantment": "minecraft:frost_walker",
+          "level": 2,
+          "weight": 10
+        },
+        {
+          "enchantment": "minecraft:looting",
+          "level": 3,
+          "weight": 15
+        },
+        {
+          "enchantment": "minecraft:piercing",
+          "level": 4,
+          "weight": 10
+        },
+        {
+          "enchantment": "minecraft:power",
+          "level": 5,
+          "weight": 15
+        }
+      ],
+      "second_chance": 0.1,
+      "type": "simplemoney:weighted_enchant"
+    }
+  ]
+}

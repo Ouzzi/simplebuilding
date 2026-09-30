@@ -1,0 +1,62 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 4
+  },
+  "max_uses": 1,
+  "xp": 30,
+  "reputation_discount": 0.7,
+  "gives": {
+    "id": "minecraft:diamond_sword"
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "given_item_modifier": [
+    {
+      "pool": [
+        {
+          "enchantment": "minecraft:sharpness",
+          "level": 5,
+          "weight": 30
+        },
+        {
+          "enchantment": "minecraft:smite",
+          "level": 5,
+          "weight": 20
+        },
+        {
+          "enchantment": "minecraft:bane_of_arthropods",
+          "level": 5,
+          "weight": 20
+        },
+        {
+          "enchantment": "minecraft:unbreaking",
+          "level": 3,
+          "weight": 20
+        },
+        {
+          "enchantment": "minecraft:sweeping_edge",
+          "level": 3,
+          "weight": 10
+        },
+        {
+          "enchantment": "minecraft:mending",
+          "level": 1,
+          "weight": 5
+        }
+      ],
+      "second_chance": 0.1,
+      "type": "simplemoney:weighted_enchant"
+    }
+  ]
+}

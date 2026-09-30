@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:wandering_trader/40",
+      "required": false
+    },
+    {
+      "id": "simplemoney:wandering_trader/41",
+      "required": false
+    }
+  ]
+}

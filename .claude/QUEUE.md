@@ -238,3 +238,7 @@ Verlauf im Detail: git log.
 - [x] Launch Hub: einzelne Mod-Schalter, Presets, Integrationsstarts und Trockenlauf-Tests
 - [x] check, 1548/1548 Server, 1/1 Integration, 34 Hub-Tests und Trockenlauf gruen; kein Push/Merge
 - [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen
+
+## Simple Money (26.3, Codex)
+- [x] Vollport als eigenes Modul: sieben Items, acht Rezepte, 47 Handelsangebote, sieben Beutetypen; eigene Integrationstests, Wiki und Balancevertrag. Bestand/Integration 1555/1555, Modsuite 20/20, Config-Gegenprobe 2/2 grün; Fabric-Client-Smoke und check Exit 0, 35 Hub-Tests grün.
+- [ ] Besitzer-Abnahme von Simple Money; NeoForge-Client/alte Spielwelt noch prüfen. Forge 26.3 und andere Linien später im Port-Run.

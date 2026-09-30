@@ -1,0 +1,52 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 3
+  },
+  "max_uses": 2,
+  "xp": 15,
+  "reputation_discount": 0.2,
+  "gives": {
+    "id": "minecraft:diamond_boots"
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "given_item_modifier": [
+    {
+      "pool": [
+        {
+          "enchantment": "minecraft:feather_falling",
+          "level": 1,
+          "weight": 30
+        },
+        {
+          "enchantment": "minecraft:depth_strider",
+          "level": 1,
+          "weight": 20
+        },
+        {
+          "enchantment": "minecraft:protection",
+          "level": 1,
+          "weight": 30
+        },
+        {
+          "enchantment": "minecraft:frost_walker",
+          "level": 1,
+          "weight": 20
+        }
+      ],
+      "second_chance": 0.05,
+      "type": "simplemoney:weighted_enchant"
+    }
+  ]
+}

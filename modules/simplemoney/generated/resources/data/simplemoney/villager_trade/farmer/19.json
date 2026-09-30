@@ -1,0 +1,25 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 1
+  },
+  "max_uses": 16,
+  "xp": 5,
+  "reputation_discount": 0.05,
+  "gives": {
+    "id": "minecraft:wheat_seeds",
+    "count": 52
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ]
+}
