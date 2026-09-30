@@ -47329,8 +47329,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Starter Guide (Older Versions)",
       "labelDe": "Starter-Handbuch (alte Versionen)",
-      "tooltip": "Ignored on 26.3: guides must be crafted.",
-      "tooltipDe": "Auf 26.3 ohne Wirkung: Handbuecher muessen hergestellt werden."
+      "tooltip": "Ignored on 26.3: guides must be crafted. Default: off.",
+      "tooltipDe": "Auf 26.3 ohne Wirkung: Handbuecher muessen hergestellt werden. Standard: aus."
     },
     {
       "name": "vanillaEnchantedBookTextures",
@@ -47837,10 +47837,10 @@ window.WIKI_DATA = {
       "categoryDe": "Server & Modpack-Tuning",
       "group": "Sledgehammer & Chisels",
       "groupDe": "Vorschlaghammer & Meißel",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Attractor: Minimum Distance",
+      "labelDe": "Attraktor: Mindestabstand",
+      "tooltip": "Dead zone for held and placed attractors, 0.5 to 2 blocks. Items inside slow down without receiving pull or lift. Server-side. Default: 1.25.",
+      "tooltipDe": "Ruhezone für gehaltene und platzierte Attraktoren, 0,5 bis 2 Blöcke. Darin werden Items ohne Zug oder Anheben abgebremst. Serverseitig. Standard: 1,25."
     },
     {
       "name": "server.tools.sledgehammerUpgradeSeconds",
@@ -67584,8 +67584,8 @@ window.WIKI_DATA = {
             "de_de": "Stein-Vorschlaghammer"
           },
           "description": {
-            "en_us": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once.",
-            "de_de": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab."
+            "en_us": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once. On 26.3, sneak without Constructor's Touch to remove one aimed corner at 1.5x speed: inner corner, straight stair, outer corner, slab.",
+            "de_de": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab. Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs eine Zielecke mit 1,5-fachem Tempo ab: Innenecke, gerade Treppe, Außenecke, Stufe."
           },
           "dependencies": [
             "stage_1.iron"
