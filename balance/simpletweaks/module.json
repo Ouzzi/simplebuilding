@@ -13,5 +13,5 @@
   ],
   "authority": "Server-only restart-bound config/simpletweaks-claims.json; immutable ClaimConfig bounds and atomic ClaimStore. No client config packets.",
   "claimDeedMaxStack": 16,
-  "claims": "disabled-by-default-stage-3"
+  "claims": "disabled-by-default-stages-1-2-3-5-stage-4-unmerged"
 }

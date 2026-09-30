@@ -55,7 +55,8 @@ final class ToolClaimTests {
     static void beam(GameTestHelper h){with(h,c->{
         var l=h.getLevel();var inside=boundary(h).east(2);var owner=player(h,inside.west(5));var other=player(h,inside.west(5));
         yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Beam fixture");
-        var cow=EntityTypes.COW.create(l,EntitySpawnReason.COMMAND);cow.setPos(Vec3.atBottomCenterOf(inside));l.addFreshEntity(cow);
+        l.getChunkAt(inside);
+        var cow=EntityTypes.COW.create(l,EntitySpawnReason.COMMAND);cow.setPos(Vec3.atBottomCenterOf(inside));yes(h,l.addFreshEntity(cow),"Beam target spawns in a loaded chunk");
         for(var actor:List.of(other,owner)){
             var idle=actor==owner?other:owner;idle.setPos(Vec3.atBottomCenterOf(inside.west(12)));
             actor.setPos(Vec3.atBottomCenterOf(inside.west(5)));actor.setYRot(270);actor.setYHeadRot(270);actor.setXRot(10);

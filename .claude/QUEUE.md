@@ -83,3 +83,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Noch offen: Echolot 3 Sekunden halten oder Ein-Klick? Morgenbericht der Sprach-Bridge ja oder nein?
 
 - [ ] CLAIMS worker codex-next-claims: sechs getrennte Stufen, standardmaessig AUS; Plan modules/simpletweaks/CLAIMS-PLAN.md. Kein Push/Merge, keine Forge-/anderen Linien-Ports.
+
+- [ ] CLAIMS access worker: Stufen 5/6 auf 7422a3ab, Plan modules/simpletweaks/CLAIMS-ACCESS-PLAN.md; Stufe 4 separat/ungemergt, nicht als fertig bestätigt. Default AUS, kein Push/Merge.

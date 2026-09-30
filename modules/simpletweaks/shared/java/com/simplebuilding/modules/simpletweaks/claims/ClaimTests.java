@@ -18,6 +18,9 @@ import net.minecraft.world.level.*;
 public final class ClaimTests {
     public static final Map<String,Consumer<GameTestHelper>> TESTS = new LinkedHashMap<>();
     static {
+        TESTS.put("claims_access_commands",ClaimAccessTests::commandsAndAccess);
+        TESTS.put("claims_access_caps_failures",ClaimAccessTests::capsAndFailures);
+        TESTS.put("claims_access_admin",ClaimAccessTests::adminPolicy);
         TESTS.put("claims_tools_bed_hammer",ToolClaimTests::bedHammer);
         TESTS.put("claims_tools_wand_hammer",ToolClaimTests::wandHammer);
         TESTS.put("claims_tools_beam",ToolClaimTests::beam);
@@ -91,6 +94,8 @@ public final class ClaimTests {
         try {Files.writeString(dir.resolve("simpletweaks-claims.json"),"malformed archived data");}catch(java.io.IOException e){throw new AssertionError(e);}
         yes(h,c.allowed("minecraft:overworld",null,0)&&c.view().isEmpty()&&!c.dataLoaded(),"Disabled lookup never opens data");
         yes(h,!c.create(new ClaimStore.Key("minecraft:overworld",0),UUID.randomUUID(),100)&&!c.dataLoaded(),"Disabled mutations do nothing");
+        var p=player(h,h.absolutePos(new BlockPos(1,3,1)));
+        yes(h,!c.trust(p,UUID.randomUUID(),true)&&!c.unclaim(p,false)&&!c.dataLoaded(),"Disabled access changes perform no IO");
         try {yes(h,Files.readString(dir.resolve("simpletweaks-claims.json")).equals("malformed archived data"),"No claim writes when disabled");}catch(java.io.IOException e){throw new AssertionError(e);}h.succeed();
     }
     static void caps(GameTestHelper h) {

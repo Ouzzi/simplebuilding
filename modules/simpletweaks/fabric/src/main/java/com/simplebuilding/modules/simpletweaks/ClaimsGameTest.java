@@ -3,6 +3,9 @@ import com.simplebuilding.modules.simpletweaks.claims.ClaimTests;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ClaimsGameTest {
+ @GameTest public void claimsAccessCommands(GameTestHelper h) { ClaimTests.TESTS.get("claims_access_commands").accept(h); }
+ @GameTest public void claimsAccessCapsFailures(GameTestHelper h) { ClaimTests.TESTS.get("claims_access_caps_failures").accept(h); }
+ @GameTest public void claimsAccessAdmin(GameTestHelper h) { ClaimTests.TESTS.get("claims_access_admin").accept(h); }
  @GameTest public void claimsToolsBedHammer(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_bed_hammer").accept(h); }
  @GameTest public void claimsToolsWandHammer(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_wand_hammer").accept(h); }
  @GameTest public void claimsToolsBeam(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_beam").accept(h); }

@@ -336,3 +336,16 @@ Simple Dimensions auf codex-port-dimensions implementiert: drei Dimensionen, sec
 - Ausgabe gelesen: 68/68 alles gruen (2026-09-30T18-12-58Z-3fd9); zweiter fester Fabric-Gesamtlauf 34/34 (2026-09-30T18-15-03Z-fddb); Bestand 1600/1600 (2026-09-30T18-16-18Z-7405); Integration und alle neun Modulpaare 379/379 (2026-09-30T18-18-28Z-fa6b), einschliesslich drittem Fabric-Dimensionslauf 34/34. Alle 0 rot. Beide Hauptlinien-Testzentralen gebaut und komplette Item-/Blockabdeckung gruen.
 - Default/all Wiki generate/check gruen. Abschliessendes gradlew.bat check -q GRADLE_EXIT=0, 19 Wiki-Tests und alle Standardgates einschliesslich shared/26.2-Kompilierung. Kein Push/Merge.
 - Nicht verifiziert: exakte historische Terrainursache, Clients, Besitzerwelt/Zentrale dort, externe Claims, Forge und andere MC-Laufzeitlinien. Kein neuer Implementierungsentscheid erforderlich; Besitzer-Abnahme realer Reisen bleibt offen.
+
+## Claims access worker — Stufe 5 (2026-10-01)
+- Branch codex-next-claims-access, Basis 7422a3ab. Besitzer-Trust/Widerruf mit Offline-UUIDs, sicheren Online-Namen, atomarer Veröffentlichung und gemeinsamen Caps/Cooldown; explizite OP4-Verwaltung unabhängig vom optionalen OP4-Schutz-Bypass.
+- Stufen 1–3 und 5 enthalten; Stufe 4 separat, ungemergt und nicht als abgeschlossen bestätigt. Claims bleiben standardmäßig AUS; Werkzeug-/Umwelt-/Automationsmatrix weiterhin nicht vollständig nachgewiesen.
+
+- Stufe-5-Verifikation: 2026-09-30T23-18-06Z-4f7d, Fabric 21/21,
+  NeoForge 21/21, **alles gruen 42/42** (Filter simpletweaks:*claims*).
+  Echte Brigadier-Befehle, Online-Join/Offline-UUID, Zugriff/Widerruf, OP3/OP4,
+  beide Bypass-Konfigurationen, Limits, atomare Fehler und bestehende Hooks geprüft.
+  Der alte Strahl-Test lädt jetzt seinen Zielchunk vor dem Entity-Spawn; vorher
+  war die Zielerfassung abhängig von der zufälligen Testposition.
+  Wiki default/module generate/check und Modul-/EN-DE-Datenprüfung grün.
+  Keine Clients, Besitzerwelt oder vollständige Sicherheitsmatrix geprüft.

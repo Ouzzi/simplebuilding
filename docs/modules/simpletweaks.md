@@ -481,3 +481,43 @@ beide Teleportenden sind eingeschlossen. Ohne Anbieter keine neuen Weltabfragen.
 und Umformmodi wurden mit aktiven Claims geprueft; keine Sicherheitsfreigabe.
 Bestehender Baustab-Bettfehler: Nachbarupdate vor Kopfplatzierung ergibt Luft;
 dieser unabhaengige Spielfehler wurde hier nicht veraendert.
+
+### Claims Stufe 5 (2026-10-01)
+
+Auf Basis 7422a3ab: `/claim trust <player>` und `untrust` ändern ausschließlich
+Rechte des aktuellen Claims und nur durch dessen Besitzer. Vertraute dürfen keine
+Rechte weitergeben. Online-Namen werden serverseitig aufgelöst; Offline-Spieler
+benötigen eine vollständige, nichtleere UUID. Kein externer Profilabruf und keine
+erratene Offline-UUID; unbekannte Namen, Selektoren und verkürzte UUIDs werden
+abgelehnt. Die UUID ist maßgeblich, auch nach einer Namensänderung.
+
+`/claim unclaim` entfernt den eigenen Claim. `/claim admin listall` (höchstens 50),
+`list <player>` (höchstens 10) und `unclaim` benötigen ausdrücklich OP4.
+Admin-Löschen ist unabhängig von `opBypass`; dieser bestehende Schalter erlaubt
+nur OP4 den Schutz-Bypass und ist standardmäßig false. OP3 genügt nie.
+OP4 darf fremde Trust-Listen nicht über den Besitzerbefehl bearbeiten.
+
+Claim-Erstellung, Trust, Widerruf und Löschen teilen die konfigurierte Abklingzeit
+je Akteur über Dimensionen hinweg. Nur erfolgreiche Änderungen verbrauchen sie;
+Neustart setzt die flüchtige Abklingzeit zurück. Abgelaufene Einträge werden entfernt,
+die Historie ist auf 10000 begrenzt. Bereits gespeicherte Rechte bleiben bei einer
+Senkung des Trust-Limits erhalten; Widerruf bleibt möglich. Neue Snapshots werden
+erst nach erfolgreichem atomarem Speichern veröffentlicht. Schreibfehler sperren
+die aktivierte Runtime; die letzte gespeicherte Datei bleibt maßgeblich.
+
+Beide Loader verwenden denselben Modul-Sprachort mit EN/DE, einschließlich Namen,
+Tooltips, Tabs und Defaults. Keine fremden Sprachdateien und keine Bildschirmtexte
+für Urkunden geändert; Befehle geben normale Befehlsantworten aus.
+
+Stufen 1–3 und 5 sind enthalten. Stufe 4 ist eine separate, ungemergte Worker-Arbeit;
+ihre Fertigstellung ist nicht bestätigt. Stufe 6 folgt separat. Claims bleiben aus,
+keine Freigabe als vollständiger Landschutz. Frühere Werkzeug-Testlücken bleiben offen.
+
+- Stufe-5-Verifikation: 2026-09-30T23-18-06Z-4f7d, Fabric 21/21,
+  NeoForge 21/21, **alles gruen 42/42** (Filter simpletweaks:*claims*).
+  Echte Brigadier-Befehle, Online-Join/Offline-UUID, Zugriff/Widerruf, OP3/OP4,
+  beide Bypass-Konfigurationen, Limits, atomare Fehler und bestehende Hooks geprüft.
+  Der alte Strahl-Test lädt jetzt seinen Zielchunk vor dem Entity-Spawn; vorher
+  war die Zielerfassung abhängig von der zufälligen Testposition.
+  Wiki default/module generate/check und Modul-/EN-DE-Datenprüfung grün.
+  Keine Clients, Besitzerwelt oder vollständige Sicherheitsmatrix geprüft.
