@@ -9,6 +9,30 @@
       "scope": "server"
     },
     {
+      "key": "skyblockEnabled",
+      "default": true,
+      "tab": "dimensions",
+      "name": "simpledimension.config.skyblockEnabled",
+      "tooltip": "simpledimension.config.skyblockEnabled.tooltip",
+      "scope": "server"
+    },
+    {
+      "key": "miningEnabled",
+      "default": true,
+      "tab": "dimensions",
+      "name": "simpledimension.config.miningEnabled",
+      "tooltip": "simpledimension.config.miningEnabled.tooltip",
+      "scope": "server"
+    },
+    {
+      "key": "travelEnabled",
+      "default": true,
+      "tab": "dimensions",
+      "name": "simpledimension.config.travelEnabled",
+      "tooltip": "simpledimension.config.travelEnabled.tooltip",
+      "scope": "server"
+    },
+    {
       "key": "automaticDestination",
       "default": true,
       "tab": "safety",

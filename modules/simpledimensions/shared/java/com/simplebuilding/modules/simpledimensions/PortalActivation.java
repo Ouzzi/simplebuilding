@@ -16,7 +16,7 @@ public final class PortalActivation {
   if(player.distanceToSqr(pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5)>Math.pow(Math.min(5,player.blockInteractionRange()),2)||!level.mayInteract(player,pos))return InteractionResult.PASS;
   for(var c:runtime.configs){
    var dim=level.dimension().identifier().toString();boolean origin=dim.equals(c.sourceDimensionId)||c.openFromDimensions.contains(dim);
-   if(!c.enabled||!(origin&&c.allowIgniteFromSource||dim.equals(c.targetDimensionId)&&c.allowIgniteFromTarget))continue;
+   if(!runtime.settings.allowsAccess(c)||!(origin&&c.allowIgniteFromSource||dim.equals(c.targetDimensionId)&&c.allowIgniteFromTarget))continue;
    var view=new PortalWorld(level,c);var found=PortalActivationService.match(view,c,pos.getX(),pos.getY(),pos.getZ());if(found.isEmpty())continue;
    var shape=found.get();if(c.requireSeparateLight&&!view.separateLight(shape)){DimensionRuntime.signal(level,pos,false);return InteractionResult.FAIL;}
    if(!runtime.reserve(level,shape.anchor())){DimensionRuntime.signal(level,pos,false);return InteractionResult.FAIL;}

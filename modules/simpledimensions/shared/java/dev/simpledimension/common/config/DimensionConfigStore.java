@@ -86,7 +86,10 @@ public final class DimensionConfigStore {
 
     private static void write(Path path, DimensionPortalConfig config) {
         try (Writer writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
-            GSON.toJson(config, writer);
+            var data = GSON.toJsonTree(config).getAsJsonObject();
+            // Built-in access is controlled by server settings, not the definition file.
+            if (List.of("skyblock", "mining", "travel").contains(config.id)) data.remove("enabled");
+            GSON.toJson(data, writer);
         } catch (IOException e) {
             throw new IllegalStateException("Could not write config " + path, e);
         }

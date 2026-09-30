@@ -17,9 +17,7 @@ Java implementiert dagegen nur den 5x4-Bogen und prüft indirektes Blocklicht; d
 Glowstone selbst. Diese Umsetzung beweist die spätere Besitzeranweisung nicht.
 Der neuere README nennt einfache Rahmen, während defaultSkyblock/miningDimensionPreset/
 travelDimensionPreset im Java bereits gemischte Rezeptformen definieren. Java gewinnt.
-Geplanter Skyblock-Standard: sechs Besitzerbögen und separates Licht; neue Quellrezepte
-bleiben über bestehende JSON-Konfigurationen verwendbar. Standardentscheidung f?r diesen Run: sechs Glowstoneb?gen plus separates Licht.
-Kupfer/Blaueis bleibt als konfigurierbare Alternative und sp?tere Besitzerentscheidung offen. Keine bestehende Konfiguration überschreiben.
+Skyblock-Standard: sechs Besitzerbögen und separates Licht. Bestehende Definitionen werden nicht überschrieben. Weitere frei konfigurierbare Formen und Aktivierungen werden erst nach dem gemeinsamen Durchgehen mit dem Besitzer erweitert.
 
 ## Dimensionskatalog
 
@@ -165,9 +163,7 @@ der immer false normalisiert wird: Mobs, Items, Reittiere und Passagiere sind ve
 Portaldefinitionen behalten die Quellschl?ssel in config/simpledimension/dimensions/*.json.
 Die Einzeldefinition kann gr??ere Wartezeiten als den globalen Mindestwert verlangen.
 Bestehende JSON-Dateien werden nicht ?berschrieben. Beispiele entstehen nur, wenn die
-jeweilige Datei fehlt. Das alternative Quellrezept steht in
-modules/simpledimensions/examples/skyblock-copper.json; es ersetzt bei Bedarf die
-Skyblock-Datei, wird aber nicht automatisch aktiviert. Alle Optionsnamen, Reiter,
+jeweilige Datei fehlt. Alle Optionsnamen, Reiter,
 Tooltips und Defaults sind in config-options.json mit EN/DE-Schl?sseln beschrieben.
 
 GeneratedPack l?dt denselben verpflichtenden Pack auf beiden Loadern, vor dem Laden der
@@ -202,7 +198,7 @@ Z?ndposition und Reichweite werden serverseitig gepr?ft (h?chstens f?nf Bl?cke);
 ein Z?ndversuch je Spieler pro zehn Serverticks. Framezerfall pr?ft h?chstens acht geladene
 Anker je Tick; keine Chunkladung durch die Wartung.
 
-Config-GUI: zwei Cloth-Reiter Zugang/Sicherheit. Lokaler integrierter Server ist editierbar;
+Config-GUI: drei Cloth-Reiter Zugang/Sicherheit/Dimensionen. Lokaler integrierter Server ist editierbar;
 Mehrspieleransicht ausdr?cklich nur lesend. Kein unsicheres OP-Edit-Paket wird eingef?hrt:
 Dedizierte Server bearbeiten JSON und starten f?r Definitionen/Weltgeneration neu.
 Fabric-Mod-Men? und NeoForge-Konfigurationsbutton ?ffnen die Seite. Quellanimation bleibt
@@ -214,7 +210,7 @@ Pr?farchitektur: eigener Manifestkatalog und Modulziele f?r beide Loader. Simple
 ist in beiden Modulinstanzen geladen. Die 26.3-GameTestServer-Klasse verwirft normalerweise
 Datapack-Dimensionen; DimensionTestWorldMixin l?sst nur diesen Testserver echte Datapack-
 LevelStems ?bernehmen. Normale Welten verwenden unver?ndert Vanilla-WorldLoader.
-Die f?nf JUnit-Quellkataloge sind ?bernommen: Alternative Kupferform explizit, alte
+Die fünf JUnit-Quellkataloge bleiben erhalten: aktuelle Standardformen, alte
 unbegrenzte Ratios jetzt geklemmt, Cooldown-Uhren instanzgebunden mit Serverticks.
 
 Derzeitiger gr?ner Modulbeleg: 60/60 Spieltests, beide Loader, Run
@@ -240,8 +236,7 @@ Client-Abhaengigkeiten. Beide behalten id als Default und enthalten keine Mod-So
 Launch Hub entdeckt das Modul und seine Tests aus dem Manifest; keine eigene Registryzeile.
 Nicht verifiziert: echte alte Besitzerwelt, NeoForge-Client, externe Claim-Adapter.
 Forge 26.3 und 26.2/1.21.11/26.4 bleiben ausdruecklich zurueckgestellt.
-Offene spaetere Besitzerentscheidung: Kupfer/Blau-Eis als Standard statt der sechs
-abgenommenen Glowstoneboegen; derzeit nur dokumentierte JSON-Alternative.
+
 
 Endlauf 2026-09-30T17-38-55Z-8a8a: alles gruen, 68/68, 0 rot (34 je Loader).
 Abschliessendes ./gradlew.bat check -q --no-daemon: Exit 0; Wiki aktuell, 19 Wiki-Tests gruen, checkBalance 0 Fehler, Modul-Datenpruefung gruen.
@@ -287,3 +282,25 @@ DIMFIX verification (all summary lines read):
 - Both main-line centre build, complete item/block coverage and command/station tests passed; owner world was untouched.
 - Default/all-module wiki generation and checks passed. No client tests, owner-world travel, external claims, Forge or deferred MC runtime lines were verified.
 - Final `./gradlew.bat check -q`: GRADLE_EXIT=0; 19 wiki tests, balance/module gates and existing shared/26.2 compilation passed. Source/test/wiki fix commit: 4fdfebe7.
+
+
+## Dimensions settings (2026-09-30)
+
+Skyblock, Mining and Travel have independent default-on server settings: `skyblockEnabled`,
+`miningEnabled`, `travelEnabled`. The dedicated Dimensions tab shows localized names,
+tooltips and defaults. Local integrated-server changes are queued on the server thread;
+remote clients retain the existing read-only notice without a server-edit packet. A
+dedicated administrator sets the server-owned `config/simpledimension/server.json` and
+restarts the server. Existing server files without these keys default all three to on.
+
+Ignition, first outbound travel and already-linked outbound travel use the same settings
+check. Generated return portals bypass access switches. Disabling access does not remove
+dimension registries, world data, portal links or existing JSON definitions. The old
+`enabled` value is ignored for the three built-in definitions, even when false; custom
+definitions retain that legacy switch. The global access switch remains a master control.
+The six glowstone arches and their separate-light requirement are unchanged. No new
+shape editor or activation mechanics are added.
+
+Both loader builds consume the module's shared `en_us.json` and `de_de.json`; they have
+no separate 26.3 language overlay. Runtime tests inspect both shipped locales on each
+loader; the data check also verifies category, scope, defaults and GUI save bindings.
