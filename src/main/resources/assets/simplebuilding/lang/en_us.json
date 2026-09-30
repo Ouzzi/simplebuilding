@@ -1191,7 +1191,7 @@
   "book.simplebuilding.guide.3.title": "Sledgehammer",
   "book.simplebuilding.guide.3.text": "Mines a 3x3 face of the block you hit, but only blocks of the same kind. Sneak to mine just one.\nIt is a little slower than a pickaxe and wears faster: 2 durability per block.",
   "book.simplebuilding.guide.4.title": "Reshaping",
-  "book.simplebuilding.guide.4.text": "Hold right-click on a block with a sledgehammer: it turns into stairs, then into a slab, right where it stands.\nExample: a stone wall becomes a staircase without mining a single block.",
+  "book.simplebuilding.guide.4.text": "Hold right-click: block, stairs, slab.\n26.3: sneak without Touch to cut the aimed corner 1.5x faster: inner corner, straight, outer corner, slab.",
   "book.simplebuilding.guide.5.title": "Diamond Pebbles",
   "book.simplebuilding.guide.5.text": "Hold right-click with a hammer on a diamond block: 81 Diamond Pebbles.\nNine pebbles make a Cracked Diamond, the material of every Reinforced machine and chest.",
   "book.simplebuilding.guide.6.title": "Hammer Upgrades",
@@ -2333,7 +2333,7 @@
   "quests.simplebuilding.stage_1.stone_chisel.title": "Stone Chisel",
   "quests.simplebuilding.stage_1.stone_chisel.description": "Cobblestone, a copper nugget and a stick make a Stone Chisel.",
   "quests.simplebuilding.stage_1.stone_sledgehammer.title": "Stone Sledgehammer",
-  "quests.simplebuilding.stage_1.stone_sledgehammer.description": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once.",
+  "quests.simplebuilding.stage_1.stone_sledgehammer.description": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once. On 26.3, sneak without Constructor's Touch to remove one aimed corner at 1.5x speed: inner corner, straight stair, outer corner, slab.",
   "quests.simplebuilding.stage_1.leather_sheet.title": "Leather Sheet",
   "quests.simplebuilding.stage_1.leather_sheet.description": "Nine leather make a Leather Sheet - backpacks, bundles and quivers are cut from it.",
   "quests.simplebuilding.stage_1.trade.hint": "Wandering traders now and then sell a Copper Core - the only merchant that does.",
@@ -2399,5 +2399,10 @@
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.chargePerSecond": "Charge per Second of Beaming",
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.chargePerSecond.@Tooltip": "Charge the rod uses up for every started second of beaming (a full rod holds 640, one amethyst shard recharges 40). 0 = beaming is free. Default: 4.",
   "book.simplebuilding.storage.9.title": "Shulker Box Tiers",
-  "book.simplebuilding.storage.9.text": "Reinforced: 36 slots. Netherite: 45, stacks x2. Enderite: 54, stacks x4.\nUpgrade a placed box with 10 hammer blows and 2 tier materials. Contents, name and color stay."
+  "book.simplebuilding.storage.9.text": "Reinforced: 36 slots. Netherite: 45, stacks x2. Enderite: 54, stacks x4.\nUpgrade a placed box with 10 hammer blows and 2 tier materials. Contents, name and color stay.",
+  "tooltip.simplebuilding.sledgehammer.corner": "Sneak: remove the aimed corner 1.5x faster. Constructor's Touch: reverse reshaping.",
+  "jei.simplebuilding.note.reshape.corner": "Sneak: inner corner → straight stair → outer corner → slab; one aimed quarter per hit, 1.5x faster (without Constructor's Touch).",
+  "jei.simplebuilding.note.trim_template.legacy": "Hit the placed template; item frames are legacy-only when no other in-world route exists.",
+  "simplebuilding.testcentre.inworld.reshape.corner": "Sneak = corner",
+  "simplebuilding.testcentre.inworld.trim.legacy": "Frame: legacy only"
 }

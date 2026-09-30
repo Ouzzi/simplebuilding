@@ -33,6 +33,43 @@ import java.util.stream.Stream;
  * common/src/mc26_2/java for the contract; both must keep the same public signatures.
  */
 public final class McVersion {
+    /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
+    public static final boolean TRANSFORM_HINTS_AND_CORNERS = true;
+
+    public static boolean canVanillaTransform(net.minecraft.world.level.Level level,
+            net.minecraft.world.phys.BlockHitResult hit, Player player, InteractionHand hand) {
+        var stack = player.getItemInHand(hand);
+        if (stack.getItem() instanceof net.minecraft.world.item.SignApplicator applicator
+                && level.getBlockEntity(hit.getBlockPos()) instanceof net.minecraft.world.level.block.entity.SignBlockEntity sign) {
+            var text = sign.getText(sign.getSlotPlayerIsFacing(player));
+            if (sign.isWaxed() || !applicator.canApplyToSign(text, stack, player)) return false;
+            if (stack.is(net.minecraft.world.item.Items.GLOW_INK_SAC)) return !text.hasGlowingText();
+            if (stack.is(net.minecraft.world.item.Items.INK_SAC)) return text.hasGlowingText();
+            if (stack.getItem() instanceof net.minecraft.world.item.DyeItem) {
+                var dye = stack.get(net.minecraft.core.component.DataComponents.DYE);
+                return dye != null && text.getColor() != dye;
+            }
+            return true;
+        }
+        var transformer = stack.get(net.minecraft.core.component.DataComponents.BLOCK_TRANSFORMER);
+        if (transformer == null) return false;
+        // Vanilla gives a raised off-hand shield priority over a main-hand tool.
+        if (hand == InteractionHand.MAIN_HAND && player.getOffhandItem().is(net.minecraft.world.item.Items.SHIELD)
+                && !player.isSecondaryUseActive()) return false;
+        for (var transform : transformer.value().transforms()) {
+            if (!transform.disallowedFaces().contains(hit.getDirection())
+                    && transform.blockStateProvider().value().getOptionalState(level,
+                            net.minecraft.util.RandomSource.create(0), hit.getBlockPos()) != null) return true;
+        }
+        return false;
+    }
+
+    public static void setSignTextFacingPlayer(net.minecraft.world.level.block.entity.SignBlockEntity sign,
+            Player player, Component text, boolean glowing) {
+        var lines = java.util.List.of(text, Component.empty(), Component.empty(), Component.empty());
+        sign.setText(new net.minecraft.world.level.block.entity.SignText(lines, lines,
+                net.minecraft.world.item.DyeColor.BLACK, glowing), sign.getSlotPlayerIsFacing(player));
+    }
 
     private McVersion() {
     }

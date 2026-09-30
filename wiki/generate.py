@@ -102,6 +102,7 @@ LINES = {
         # WikiDataProvider's export is not kept per line (syncGenerated263 skips wiki/**);
         # the item constants are the same shared Java code on 26.2 and 26.3.
         "item_properties": "src/main/generated/wiki/items.json",
+        "inworld_export": "mc26_3/generated/wiki/inworld.json",
         "client_jar_version": "26.3",
         "furnace_cooking_time": True,
         "overlay": {
@@ -1701,7 +1702,7 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
     entries: list[dict] = []
     facts: dict[str, dict] = {}
 
-    path = REPO / Path(roots["item_properties"]).with_name("inworld.json")
+    path = REPO / roots.get("inworld_export", str(Path(roots["item_properties"]).with_name("inworld.json")))
     exported = read_json(path) if path.exists() else None
     if exported is None:
         problems.append(f"{rel(path)} is MISSING - run  gradlew runDatagen")
@@ -1728,7 +1729,8 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
         facts["sledgehammer_reshape"] = {
             "damage": reshape.get("damage"), "reverseDamage": reshape.get("reverseDamage"),
             "minTicks": reshape.get("minTicks"), "maxTicks": reshape.get("maxTicks"),
-            "hammers": [h for h in reshape.get("hammers", []) if h["id"] in item_ids]}
+            "hammers": [h for h in reshape.get("hammers", []) if h["id"] in item_ids],
+            **{k: reshape[k] for k in ("cornerSpeedMultiplier", "cornerQuartersRemovedPerHit") if k in reshape}}
         hammers = [h["id"] for h in facts["sledgehammer_reshape"]["hammers"]]
 
         crush = exported.get("diamondCrush")
@@ -1758,7 +1760,7 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
 
         trim = exported.get("trimTemplate")
         if trim:
-            facts["trim_template"] = {}
+            facts["trim_template"] = {"frameLegacyOnly": trim.get("frameLegacyOnly", False)}
             templates = [t for t in trim["templates"] if t in item_ids]
             trim_hammers = [h for h in trim["hammers"] if h in item_ids]
             for upgrade in trim["upgrades"]:

@@ -124,7 +124,8 @@ ext.mcLayeredResources = { SourceSet sourceSet, List<String> extraSharedDirs, St
             int checked = 0
             layers.eachWithIndex { Map layer, int i ->
                 File generated = layer.generated
-                mc263RelativeFiles(generated).findAll { !isRemovedList(it) && !it.startsWith('.cache') }.each { String rel ->
+                // Wiki exports are metadata, excluded by mergeResources and processResources above.
+                mc263RelativeFiles(generated).findAll { !isRemovedList(it) && !it.startsWith('.cache') && !it.startsWith('wiki/') }.each { String rel ->
                     if (generatedWinner(rel, i) != -1) return
                     File shipped = new File(out, rel)
                     checked++

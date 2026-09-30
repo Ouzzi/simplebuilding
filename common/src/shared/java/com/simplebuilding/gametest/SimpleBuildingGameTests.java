@@ -729,6 +729,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_funnel_pickup_counts_what_it_took", BundleWiringTests::funnelPickupCountsWhatItTook)
                     .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_corners_subtract_only_the_aimed_quarter", SledgehammerTests::sledgehammerCornersSubtractOnlyTheAimedQuarter).build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_transform_hints_cover_both_hands_without_side_effects", SledgehammerTests::sledgehammerTransformHintsCoverBothHandsWithoutSideEffects).build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_field_skips_air_gaps_and_unbreakable_blocks", SledgehammerTests::sledgehammerFieldSkipsAirGapsAndUnbreakableBlocks)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_refuses_the_whole_field_when_the_origin_is_out_of_reach", SledgehammerTests::sledgehammerRefusesTheWholeFieldWhenTheOriginIsOutOfReach)

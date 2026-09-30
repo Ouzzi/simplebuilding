@@ -150,6 +150,7 @@ public final class BlueprintMaterials {
             BlockStateProperties.ROTATION_16, BlockStateProperties.ORIENTATION, BlockStateProperties.ATTACH_FACE,
             BlockStateProperties.BELL_ATTACHMENT, BlockStateProperties.HALF, BlockStateProperties.DOUBLE_BLOCK_HALF,
             BlockStateProperties.BED_PART, BlockStateProperties.SLAB_TYPE, BlockStateProperties.STAIRS_SHAPE,
+            com.simplebuilding.util.HammerCorners.CARVED,
             BlockStateProperties.RAIL_SHAPE, BlockStateProperties.RAIL_SHAPE_STRAIGHT, BlockStateProperties.DOOR_HINGE,
             BlockStateProperties.CHEST_TYPE, BlockStateProperties.OPEN, BlockStateProperties.HANGING,
             BlockStateProperties.ATTACHED, BlockStateProperties.IN_WALL,

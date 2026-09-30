@@ -209,6 +209,14 @@ public class RotatorItem extends Item implements AnvilRechargeable {
     }
 
     @Nullable
+    public boolean canTransformTarget(UseOnContext context) {
+        if (isEmpty(context.getItemInHand())) return false;
+        BlockState state = context.getLevel().getBlockState(context.getClickedPos());
+        BlockState next = calculateNewState(state, context.getClickedFace(), getRimDirection(context, 0.125),
+                context.getPlayer() != null && context.getPlayer().isShiftKeyDown());
+        return next != null && next != state;
+    }
+
     private Direction getRimDirection(UseOnContext context, double margin) {
         Vec3 hitPos = context.getClickLocation().subtract(Vec3.atLowerCornerOf(context.getClickedPos()));
         Direction face = context.getClickedFace();

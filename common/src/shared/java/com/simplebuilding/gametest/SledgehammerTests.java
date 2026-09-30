@@ -923,6 +923,20 @@ public final class SledgehammerTests {
         helper.assertTrue(creative.isCreative() && !survival.isCreative(),
                 "the two mock players do not report the game modes they were asked for");
 
+        if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) {
+            ItemFrame legacy = templateFrame(helper, new BlockPos(3, 2, 3));
+            ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+            ItemStack catalyst = new ItemStack(Items.GLOW_INK_SAC, 4);
+            arm(survival, hammer, catalyst);
+            helper.assertValueEqual(attack(helper, survival, InteractionHand.MAIN_HAND, legacy), InteractionResult.PASS,
+                    "a frame claimed a template with an existing placed route");
+            helper.assertTrue(legacy.getItem().is(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE), "legacy frame contents changed");
+            helper.assertValueEqual(catalyst.getCount(), 4, "legacy refusal consumed material");
+            helper.assertValueEqual(hammer.getDamageValue(), 0, "legacy refusal damaged the hammer");
+            helper.succeed();
+            return;
+        }
+
         // --- glow ink sac: the glowing template, free in creative ---
         ItemFrame frame = templateFrame(helper, new BlockPos(3, 2, 3));
         ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
@@ -965,6 +979,141 @@ public final class SledgehammerTests {
         helper.assertTrue(diamondFrame.getItem().is(Items.DIAMOND),
                 "the hammer replaced a diamond in a frame with a trim template");
 
+        helper.succeed();
+    }
+
+    /** All four aimed quarters, both halves and each step use actual collision shapes. */
+    public static void sledgehammerCornersSubtractOnlyTheAimedQuarter(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) { helper.succeed(); return; }
+        var level = helper.getLevel();
+        var pos = helper.absolutePos(CENTRE);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setShiftKeyDown(true);
+        ItemStack stack = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        SledgehammerItem hammer = (SledgehammerItem) stack.getItem();
+        for (Half half : Half.values()) for (int first = 0; first < 4; first++) {
+            BlockState state = Blocks.STONE.defaultBlockState();
+            int mask = 15;
+            int[] order = {first, first ^ 1, first ^ 2, first ^ 3};
+            for (int step = 0; step < 4; step++) {
+                int corner = order[step];
+                Vec3 aim = new Vec3((corner & 1) == 0 ? 0.25 : 0.75,
+                        half == Half.BOTTOM ? 0.75 : 0.25, (corner & 2) == 0 ? 0.25 : 0.75);
+                level.setBlockAndUpdate(pos, state);
+                BlockState next = hammer.getTransformationState(state, pos,
+                        half == Half.BOTTOM ? Direction.UP : Direction.DOWN, aim, player, stack);
+                helper.assertTrue(next != null, "missing corner step " + step + " / " + first + " / " + half);
+                var click = new BlockHitResult(Vec3.atLowerCornerOf(pos).add(aim),
+                        half == Half.BOTTOM ? Direction.UP : Direction.DOWN, pos, false);
+                helper.assertValueEqual(hammer.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, click)),
+                        InteractionResult.CONSUME, "corner hit did not use the existing charging path");
+                helper.assertValueEqual(hammer.getUseDuration(stack, player),
+                        (int) Math.ceil(SledgehammerItem.reshapeTicks(hammer.getMaterial().speed(), 0) / 1.5), "actual corner charge duration");
+                hammer.releaseUsing(stack, level, player, 0);
+                player.stopUsingItem();
+                var encoded = BlockState.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE, next).getOrThrow();
+                helper.assertValueEqual(BlockState.CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE, encoded).getOrThrow(),
+                        next, "carved geometry did not survive state serialization");
+                mask &= ~(1 << corner);
+                if (step < 3) {
+                    helper.assertValueEqual(com.simplebuilding.util.HammerCorners.mask(next), mask, "wrong removed corner");
+                    helper.assertValueEqual(next.getValue(StairBlock.HALF), half, "wrong retained half");
+                    helper.assertValueEqual(com.simplebuilding.blueprint.BlueprintMaterials.survivalState(next), next,
+                            "survival blueprint lost the carved geometry");
+                    BlockState wet = state.getBlock() instanceof StairBlock ? state.setValue(StairBlock.WATERLOGGED, true) : null;
+                    if (wet != null) helper.assertTrue(hammer.getTransformationState(wet, pos,
+                            half == Half.BOTTOM ? Direction.UP : Direction.DOWN, aim, player, stack).getValue(StairBlock.WATERLOGGED),
+                            "corner hit lost waterlogging");
+                    int quarters = step == 0 ? 3 : step == 1 ? 2 : 1;
+                    helper.assertValueEqual(Integer.bitCount(com.simplebuilding.util.HammerCorners.mask(next)), quarters, "wrong stair size");
+                    level.setBlockAndUpdate(pos, next);
+                    level.setBlockAndUpdate(pos.east(), Blocks.DIRT.defaultBlockState());
+                    level.setBlockAndUpdate(pos.east(), Blocks.AIR.defaultBlockState());
+                    helper.assertValueEqual(level.getBlockState(pos), next, "neighbor update restored a carved corner");
+                    helper.assertTrue(hammer.getTransformationState(next, pos, Direction.UP, aim, player, stack) == null,
+                            "already missing corner was cut twice");
+                } else {
+                    helper.assertTrue(next.is(Blocks.STONE_SLAB), "last corner did not become slab");
+                    helper.assertValueEqual(next.getValue(net.minecraft.world.level.block.SlabBlock.TYPE),
+                            half == Half.BOTTOM ? net.minecraft.world.level.block.state.properties.SlabType.BOTTOM
+                                    : net.minecraft.world.level.block.state.properties.SlabType.TOP, "slab half changed");
+                }
+                state = next;
+            }
+        }
+        for (int ticks = SledgehammerItem.RESHAPE_MIN_TICKS; ticks <= SledgehammerItem.RESHAPE_MAX_TICKS; ticks++)
+            helper.assertValueEqual(com.simplebuilding.util.HammerCorners.ticks(ticks), (int) Math.ceil(ticks / 1.5), "corner speed rounding");
+        helper.succeed();
+    }
+
+    private static Block transformBlock(String id) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(id));
+    }
+
+    /** A single read-only predicate handles both hands, tools, materials and negative targets. */
+    public static void sledgehammerTransformHintsCoverBothHandsWithoutSideEffects(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) { helper.succeed(); return; }
+        var level = helper.getLevel();
+        var pos = helper.absolutePos(CENTRE);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        var hit = new BlockHitResult(Vec3.atCenterOf(pos).add(0, 0.5, 0), Direction.UP, pos, false);
+        for (InteractionHand hand : InteractionHand.values()) {
+            for (Object[] test : new Object[][]{
+                    {Items.SHEARS, transformBlock("white_wool"), true}, {Items.SHEARS, Blocks.STONE, false},
+                    {Items.HONEYCOMB, transformBlock("copper_block"), true}, {Items.HONEYCOMB, transformBlock("waxed_copper_block"), false},
+                    {Items.DIAMOND_AXE, Blocks.OAK_LOG, true}, {Items.DIAMOND_AXE, Blocks.STRIPPED_OAK_LOG, false},
+                    {Items.DIAMOND_AXE, transformBlock("oxidized_copper"), true}, {Items.DIAMOND_AXE, transformBlock("waxed_copper_block"), true},
+                    {Items.DIAMOND_SHOVEL, Blocks.GRASS_BLOCK, true}, {Items.DIAMOND_HOE, Blocks.DIRT, true},
+                    {Items.SHEARS, Blocks.PUMPKIN, true},
+                    {ModItems.IRON_CORE, Blocks.STONE, true},
+                    {ModItems.ROTATOR, Blocks.OAK_STAIRS, true},
+                    {Items.ECHO_SHARD, Blocks.STONE, false}, {Items.GLOW_INK_SAC, Blocks.STONE, false},
+                    {ModItems.DIAMOND_SLEDGEHAMMER, Blocks.STONE, true}, {ModItems.STONE_CHISEL, Blocks.STONE, true}}) {
+                ItemStack stack = new ItemStack((Item) test[0]);
+                player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                player.setItemInHand(hand, stack);
+                BlockState state = ((Block) test[1]).defaultBlockState();
+                level.setBlockAndUpdate(pos, state);
+                helper.assertValueEqual(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand),
+                        (Boolean) test[2], "hint for " + test[0] + " on " + test[1] + " / " + hand);
+                helper.assertValueEqual(level.getBlockState(pos), state, "hint modified world");
+                helper.assertValueEqual(stack.getCount(), 1, "hint consumed item");
+                helper.assertValueEqual(stack.getDamageValue(), 0, "hint damaged tool");
+            }
+        }
+        for (InteractionHand hand : InteractionHand.values()) {
+            player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+            player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+            player.setItemInHand(hand, new ItemStack(Items.SHEARS));
+            level.setBlockAndUpdate(pos, Blocks.PUMPKIN.defaultBlockState());
+            var pumpkinSide = new BlockHitResult(Vec3.atCenterOf(pos).add(0, 0, -0.5), Direction.NORTH, pos, false);
+            helper.assertTrue(com.simplebuilding.util.TransformTargets.canTransformTarget(level, pumpkinSide, player, hand), "shears did not hint at carveable pumpkin face");
+            level.setBlockAndUpdate(pos, Blocks.OAK_SIGN.defaultBlockState());
+            var sign = (net.minecraft.world.level.block.entity.SignBlockEntity) level.getBlockEntity(pos);
+            com.simplebuilding.version.McVersion.setSignTextFacingPlayer(sign, player, net.minecraft.network.chat.Component.literal("Test"), false);
+            player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+            player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+            player.setItemInHand(hand, new ItemStack(Items.GLOW_INK_SAC));
+            helper.assertTrue(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "glow ink alone did not hint on sign");
+            com.simplebuilding.version.McVersion.setSignTextFacingPlayer(sign, player, net.minecraft.network.chat.Component.literal("Test"), true);
+            helper.assertFalse(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "already glowing sign hinted");
+            player.setItemInHand(hand, new ItemStack(Items.INK_SAC));
+            helper.assertTrue(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "ink alone did not hint on glowing sign");
+            player.setItemInHand(hand, new ItemStack(Items.HONEYCOMB));
+            helper.assertTrue(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "wax alone did not hint on sign");
+            sign.setWaxed(true);
+            helper.assertFalse(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "waxed sign hinted");
+        }
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.NETHERITE_NUGGET));
+        level.setBlockAndUpdate(pos, com.simplebuilding.blocks.ModBlocks.REINFORCED_FURNACE.defaultBlockState());
+        for (InteractionHand hand : InteractionHand.values()) helper.assertTrue(
+                com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "upgrade material/tool hint missing");
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        helper.assertFalse(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, InteractionHand.OFF_HAND),
+                "nugget advertised a hammer recipe without a hammer");
         helper.succeed();
     }
 

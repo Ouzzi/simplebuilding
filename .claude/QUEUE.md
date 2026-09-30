@@ -221,3 +221,5 @@ Verlauf im Detail: git log.
 
 ## 26.3 recipe / attractor / trim / bundle corrections (2026-09-30)
 - [x] Echo Sounder core swap; Resonance Rod clockwise recipe; configurable attractor dead zone; Pulsating brightness modulation; accurate storage tooltip capacity/colors. 26.3 server checks green; visual owner check pending (no client tests).
+## Codex MM (26.3, 2026-09-30)
+- [x] Gezielter Hammer-Eckenschlag, gemeinsame Transformationsanimation beider Haende, Rahmenroute nur als Legacy-Fallback (26.3, Server 1552/1552; visuelle Abnahme offen).

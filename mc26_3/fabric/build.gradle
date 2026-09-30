@@ -164,7 +164,7 @@ def syncGenerated263 = tasks.register('syncGenerated263') {
 		File shared = rootProject.file('src/main/generated')
 		File target = rootProject.file('mc26_3/generated')
 		def norm = { File f -> f.getText('UTF-8').replace('\r\n', '\n') }
-		Set<String> produced = mc263RelativeFiles(datagenOut).findAll { !it.startsWith('.cache') && !it.startsWith('wiki/') } as Set
+		Set<String> produced = mc263RelativeFiles(datagenOut).findAll { !it.startsWith('.cache') && (!it.startsWith('wiki/') || it == 'wiki/inworld.json') } as Set
 		if (produced.isEmpty()) {
 			throw new GradleException("runDatagen produced nothing in ${datagenOut}")
 		}

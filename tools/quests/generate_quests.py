@@ -689,6 +689,10 @@ def updated_lang(path: Path, entries: dict[str, str]) -> str:
     if path.is_relative_to(REPO / "src/main/resources"):
         entries = dict(entries)
         german = path.stem == "de_de"
+        entries[LANG_KEY + ".stage_1.stone_sledgehammer.description"] += (
+            " Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs eine Zielecke mit 1,5-fachem Tempo ab: Innenecke, gerade Treppe, Außenecke, Stufe."
+            if german else
+            " On 26.3, sneak without Constructor's Touch to remove one aimed corner at 1.5x speed: inner corner, straight stair, outer corner, slab.")
         entries[LANG_KEY + ".stage_1.guide_book.description"] = (
             "Ein Buch und eine Werkbank ergeben das Einsteiger-Handbuch. Mit dem passenden Gegenstand wird daraus ein Themen-Handbuch."
             if german else

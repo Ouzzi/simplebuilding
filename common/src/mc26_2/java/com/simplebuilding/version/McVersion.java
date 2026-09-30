@@ -38,6 +38,19 @@ import java.util.stream.Stream;
  * overlay class has a counterpart on the other line.
  */
 public final class McVersion {
+    /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
+    public static final boolean TRANSFORM_HINTS_AND_CORNERS = false;
+
+    public static boolean canVanillaTransform(net.minecraft.world.level.Level level,
+            net.minecraft.world.phys.BlockHitResult hit, Player player, InteractionHand hand) {
+        return false;
+    }
+
+    public static void setSignTextFacingPlayer(net.minecraft.world.level.block.entity.SignBlockEntity sign,
+            Player player, Component text, boolean glowing) {
+        sign.setText(new net.minecraft.world.level.block.entity.SignText().setMessage(0, text).setHasGlowingText(glowing),
+                sign.isFacingFrontText(player));
+    }
 
     private McVersion() {
     }

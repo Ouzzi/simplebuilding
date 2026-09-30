@@ -136,6 +136,10 @@ public final class InWorldTransformations {
         o.addProperty("minTicks", SledgehammerItem.RESHAPE_MIN_TICKS);
         o.addProperty("maxTicks", SledgehammerItem.RESHAPE_MAX_TICKS);
         o.add("hammers", hammers);
+        if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) {
+            o.addProperty("cornerSpeedMultiplier", 1.5);
+            o.addProperty("cornerQuartersRemovedPerHit", 1);
+        }
         return o;
     }
 
@@ -239,6 +243,7 @@ public final class InWorldTransformations {
         o.addProperty("damage", SledgehammerEntityInteraction.HAMMER_DAMAGE);
         // Abgelegt statt im Rahmen (PlacedTemplates): so viele Schlaege statt einem.
         o.addProperty("placedHits", PlacedTemplates.PLACED_HITS);
+        if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) o.addProperty("frameLegacyOnly", true);
         o.add("upgrades", upgrades);
         return o;
     }
