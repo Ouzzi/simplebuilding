@@ -28,3 +28,40 @@ if (providers.gradleProperty('forge_runs').getOrElse('false').toBoolean()) {
         register('server') { args '--nogui' }
     }
 }
+
+// Optional module-owned settings. Default builds never apply this convention.
+def moduleId = project.parent.name
+def entry = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json')).modules.find { it.id == moduleId }
+def forgeTest = entry?.tests?.loaders?.forge
+if (project.hasProperty('forgeExcludedSources')) sourceSets.main.java.exclude(project.forgeExcludedSources)
+if (project.hasProperty('forgeMixinConfigs')) {
+    tasks.named('jar') { manifest { attributes 'MixinConfigs': project.forgeMixinConfigs.join(',') } }
+    processResources { filesMatching('*.mixins.json') { filter { it.replace('"JAVA_25"', '"JAVA_21"') } } }
+    if (providers.gradleProperty('forge_runs').getOrElse('false').toBoolean()) {
+        minecraft.runs.configureEach { project.forgeMixinConfigs.each { args "-mixin.config=${it}" } }
+    }
+}
+// Forge consumes one condition object; Fabric/NeoForge ignore this additional key.
+processResources {
+    doLast {
+        fileTree(destinationDir).matching { include 'data/**/*.json' }.each { f ->
+            def data = new groovy.json.JsonSlurper().parse(f)
+            if (data instanceof Map && data['neoforge:conditions']) {
+                def conditions = data['neoforge:conditions']
+                data['forge:condition'] = conditions.size() == 1 ? conditions[0] : [type:'forge:and', values:conditions]
+                f.setText(groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(data)) + '\n', 'UTF-8')
+            }
+        }
+    }
+}
+if (forgeTest && providers.gradleProperty('forge_runs').getOrElse('false').toBoolean()) {
+    // Required test mods are runtime jars, never implementation imports.
+    forgeTest.testMods?.each { id ->
+        def dependency = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json')).modules.find { it.id == id }
+        dependencies { runtimeOnly project(dependency.projects.forge) }
+    }
+    minecraft.runs.register('gameTestServer') {
+        workingDir = layout.projectDirectory.dir('run-gametest')
+        args '--tests', (project.findProperty('gametestFilter') ?: "${moduleId}:*").toString(), '--report', rootProject.file(forgeTest.report).absolutePath
+    }
+}

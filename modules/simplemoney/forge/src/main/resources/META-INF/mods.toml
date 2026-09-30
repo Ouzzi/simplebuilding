@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[66,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplemoney"
+version="${version}"
+displayName="Simple Money"
+[[dependencies.simplemoney]]
+modId="forge"
+mandatory=true
+versionRange="[66,)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.simplemoney]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"

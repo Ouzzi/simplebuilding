@@ -1,0 +1,5 @@
+plugins { id 'java-library'; id 'net.minecraftforge.gradle' version '7.0.36' }
+ext.moduleVersion = '1.2.16'
+ext.forgeExcludedSources = ['**/client/MoneyConfigScreen.java']
+ext.forgeMixinConfigs = ['simplemoney.forge.mixins.json']
+apply from: rootProject.file('gradle/module-forge.gradle')

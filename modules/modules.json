@@ -87,13 +87,15 @@
       "defaultEnabled": true,
       "projects": {
         "fabric": ":modules:simplemoney:fabric",
-        "neoforge": ":modules:simplemoney:neoforge"
+        "neoforge": ":modules:simplemoney:neoforge",
+        "forge": ":modules:simplemoney:forge"
       },
       "displayName": "Simple Money",
       "description": "Currency production, weighted villager trades and treasure loot.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth_config"
@@ -134,6 +136,18 @@
           "neoforge": {
             "task": ":modules:simplemoney:neoforge:runMoneyIntegrationGameTest",
             "report": "modules/simplemoney/neoforge/build/money-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplemoney:forge:runGameTestServer",
+            "report": "modules/simplemoney/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {

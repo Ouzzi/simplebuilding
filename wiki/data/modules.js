@@ -47,7 +47,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "cloth_config"
@@ -56,7 +57,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "d7564d9000e4"
+    "dataHash": "cfa5d61c1f19"
   },
   {
     "id": "simpleriding",

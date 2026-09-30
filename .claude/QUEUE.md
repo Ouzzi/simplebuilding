@@ -86,3 +86,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 - Simple Sounds: neues 26.3-Modul, zw?lf datengetriebene Soundgegenst?cke, lokale Stufen/Overrides und harte Spam-/Lautst?rkegrenzen; Besitzerabnahme offen.
 - Simple Sounds umgesetzt/verifiziert: 34 Modul-Servertests, drei Fabric-Clientpunkte, zehn Testzentralenfaelle und finales Gradle-Gate gruen; akustische Besitzerabnahme offen, kein Push/Merge.
+
+- Forge-Modules: experimentelle opt-in Forge-26.3-Adapter fuer Money, Riding, Models, Fun und Visuals; eigene Manifestziele, gleiche Testkataloge, Modulcommits ohne Push/Merge.
