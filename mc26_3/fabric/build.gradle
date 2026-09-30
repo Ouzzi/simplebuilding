@@ -173,7 +173,8 @@ def syncGenerated263 = tasks.register('syncGenerated263') {
 			File out = new File(datagenOut, rel)
 			File twin = new File(shared, rel)
 			File dest = new File(target, rel)
-			if (twin.isFile() && norm(twin) == norm(out)) {
+			// A final newline is not a resource difference; avoid redundant overlays and wiki source drift.
+            if (twin.isFile() && norm(twin).trim() == norm(out).trim()) {
 				dest.delete()
 			} else {
 				dest.parentFile.mkdirs()

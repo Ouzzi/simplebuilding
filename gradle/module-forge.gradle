@@ -1,0 +1,30 @@
+group = 'com.simplebuilding.modules'
+base { archivesName = project.parent.name + '-26.3-forge' }
+version = project.findProperty('moduleVersion') ?: '0.1.0'
+java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
+sourceSets.main.java.srcDir '../shared/java'
+sourceSets.main.resources.srcDir '../shared/resources'
+sourceSets.main.resources.srcDir '../generated/resources'
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
+}
+repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    mavenCentral()
+}
+dependencies {
+    implementation project(':framework')
+    implementation minecraft.dependency("net.minecraftforge:forge:26.3-${rootProject.mc263_forge_version}")
+}
+processResources { filesMatching('META-INF/mods.toml') { expand version: project.version } }
+if (providers.gradleProperty('forge_runs').getOrElse('false').toBoolean()) {
+    minecraft.runs {
+        configureEach { workingDir = layout.projectDirectory.dir('run') }
+        register('client')
+        register('server') { args '--nogui' }
+    }
+}

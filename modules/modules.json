@@ -9,13 +9,15 @@
       "defaultEnabled": true,
       "projects": {
         "fabric": ":mc26_3:fabric",
-        "neoforge": ":mc26_3:neoforge"
+        "neoforge": ":mc26_3:neoforge",
+        "forge": ":mc26_3:forge"
       },
       "displayName": "SimpleBuilding",
       "description": "Building tools, storage, machines, and enchantments.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth-config"
@@ -33,13 +35,15 @@
       "paths": {
         "root": ".",
         "shared": "common/src/shared",
-        "fabric": ".",
-        "neoforge": "neoforge",
-        "forge": "forge",
-        "generated": "src/main/generated",
+        "fabric": "mc26_3/fabric",
+        "neoforge": "mc26_3/neoforge",
+        "forge": "mc26_3/forge",
+        "generated": "mc26_3/generated",
         "lang": "src/main/resources/assets/simplebuilding/lang",
         "wikiManual": "wiki/manual.json",
-        "balanceDir": "balance"
+        "balanceDir": "balance",
+        "langOverlay": "mc26_3/overlay/resources/assets/simplebuilding/lang",
+        "generatedBase": "src/main/generated"
       }
     },
     {
@@ -51,13 +55,15 @@
       "example": true,
       "projects": {
         "fabric": ":modules:wiringexample:fabric",
-        "neoforge": ":modules:wiringexample:neoforge"
+        "neoforge": ":modules:wiringexample:neoforge",
+        "forge": ":modules:wiringexample:forge"
       },
       "displayName": "Wiring Example",
       "description": "Minimal module used to verify loader and integration wiring.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [],
       "optional": [],
@@ -66,8 +72,8 @@
         "shared": "modules/wiringexample/shared",
         "fabric": "modules/wiringexample/fabric",
         "neoforge": "modules/wiringexample/neoforge",
-        "forge": null,
-        "generated": "modules/wiringexample/fabric/src/main/generated",
+        "forge": "modules/wiringexample/forge",
+        "generated": "modules/wiringexample/generated/resources",
         "lang": "modules/wiringexample/shared/resources/assets/wiringexample/lang",
         "wikiManual": "modules/wiringexample/wiki/manual.json",
         "balanceDir": "balance/wiringexample"

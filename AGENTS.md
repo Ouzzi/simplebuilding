@@ -58,6 +58,12 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge) ist die H
   Client-Handler; eigene `trimmed_armor`-Itemmodelle → Mod lädt `ordering="AFTER"` neoforge und liefert auf 26.3 keine
   `textures/*/trims/color_palettes`.
 - Forge: umbenannte IDs brauchen `ForgeRegistry#addAlias`; `BreakEvent` verweigern mit `Result.DENY`.
+  26.3 ist separat mit `-Pforge263=true`; ForgeGradle-7-Runs brauchen zusaetzlich Java 8 fuer Slime Launcher,
+  Spiel/Compiler Java 25. Klassen/Ressourcen im selben Ausgabeordner, MixinConfigs im Jar-Manifest.
+  26.3: kein KEYSYM mehr (KeyMapping-Konstruktor ohne Type); GameTest-TestData braucht die Dimension
+  (`McVersion.testData`). LootTableLoadEvent kommt vor verfuegbaren Loot-Holders: Injektion erst nach
+  dem Registry-Laden, vor Validierung. FarmlandTrampleEvent braucht einen eigenen Breeze-Handler.
+  Details und verifizierter Stand: `docs/FORGE-26.3.md`.
 - 26.3 (SDL-Texteingabe): eigene Textfelder müssen `Minecraft.onTextInputFocusChange(this, focused)` aufrufen.
 - Jade: ein Provider darf nicht `IServerDataProvider` und `IComponentProvider` zugleich sein (Split in Server-/Client-Provider).
 - ModDataFixer läuft am DataFixer nach; umbenannte Item-IDs brauchen Alias in `LegacyItemIds`.

@@ -49,18 +49,40 @@ def registries(root=ROOT):
             if not entry['version'] or entry['minecraft'] != '26.3':
                 raise ValueError(f'invalid compatibility: {mid}')
             for loader, value in entry.get('projects', {}).items():
-                if loader not in ('fabric', 'neoforge') or not isinstance(value, str) or not re.fullmatch(r'(?::[a-z][a-z0-9_]*)+', value):
+                if loader not in ('fabric', 'neoforge', 'forge') or not isinstance(value, str) or not re.fullmatch(r'(?::[a-z][a-z0-9_]*)+', value):
                     raise ValueError(f'invalid project: {mid}')
                 path = root.joinpath(*value.strip(':').split(':')).resolve()
                 if not path.is_relative_to(root.resolve()) or not (path / 'build.gradle').is_file():
                     raise ValueError(f'missing project: {mid}: {path}')
             if entry in modules and not entry.get('projects'):
                 raise ValueError(f'missing projects: {mid}')
+            if entry in modules:
+                for field in ('displayName', 'description'):
+                    if not isinstance(entry.get(field), str) or not entry[field].strip():
+                        raise ValueError(f'missing {field}: {mid}')
+                loaders = entry.get('loaders')
+                if (not isinstance(loaders, list) or not loaders or len(set(loaders)) != len(loaders)
+                        or not set(loaders) <= {'fabric', 'neoforge', 'forge'}
+                        or set(loaders) != set(entry['projects'])):
+                    raise ValueError(f'invalid loaders: {mid}')
+                paths = entry.get('paths', {})
+                for field in ('root', 'shared', 'fabric', 'neoforge', 'forge', 'generated', 'lang', 'wikiManual', 'balanceDir'):
+                    value = paths.get(field)
+                    if (not isinstance(value, str) or not value or '\\' in value or ':' in value
+                            or value.startswith('/') or '..' in value.split('/')
+                            or not (root / value).resolve().is_relative_to(root.resolve())):
+                        raise ValueError(f'invalid {field} path: {mid}')
+                for field in ('requires', 'optional'):
+                    value = entry.get(field)
+                    if (not isinstance(value, list) or any(not isinstance(i, str) or not ID.fullmatch(i) for i in value)
+                            or len(value) != len(set(value)) or mid in value):
+                        raise ValueError(f'invalid {field}: {mid}')
+
             if entry in dev:
                 if not entry['purpose'] or not entry['sources']:
                     raise ValueError(f'missing source/purpose: {mid}')
                 for loader, source in entry['sources'].items():
-                    if loader not in ('fabric', 'neoforge') or set(source) not in ({'maven'}, {'local'}):
+                    if loader not in ('fabric', 'neoforge', 'forge') or set(source) not in ({'maven'}, {'local'}):
                         raise ValueError(f'invalid source: {mid}')
                     if 'maven' in source and (not isinstance(source['maven'], str) or len(source['maven'].split(':')) != 3):
                         raise ValueError(f'invalid Maven source: {mid}')
