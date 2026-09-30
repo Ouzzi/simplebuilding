@@ -57,6 +57,6 @@ public final class RecipeFilter {
                 || (!t.pads.enableSpawnTeleporters && p.contains("spawn_teleporter"))
                 || (!t.pads.enableLaunchpads && p.contains("launchpad"))
                 || (!t.pads.enablePotionPads && p.contains("potion_pad"))
-                || (!t.laserPointer.enable && p.contains("laser_pointer"));
+                || (!t.laserPointer.enable && (p.equals("amethyst_lens") || p.equals("laser_pointer")));
     }
 }

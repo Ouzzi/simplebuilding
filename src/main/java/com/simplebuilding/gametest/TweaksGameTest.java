@@ -9,6 +9,8 @@ import net.minecraft.gametest.framework.GameTestHelper;
  * the {@code fabric-gametest} entrypoint in fabric.mod.json.
  */
 public final class TweaksGameTest {
+    @GameTest
+    public void recipeRename(GameTestHelper h) { HardenTests.recipeRename(h); }
 
     @GameTest
     public void padTiersGrowAndEnderiteSitsBetweenNetheriteAndTheNetherStarTier(GameTestHelper helper) {

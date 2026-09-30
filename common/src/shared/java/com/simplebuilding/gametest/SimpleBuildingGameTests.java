@@ -31,6 +31,7 @@ public final class SimpleBuildingGameTests {
     public static final String MOD_ID = "simplebuilding";
 
     private static final List<GameTestSpec> ALL = List.of(
+            GameTestSpec.named("tweaks_game_test_recipe_rename", HardenTests::recipeRename).build(),
             GameTestSpec.named("end_systems_game_test_vault_shares_only_its_first_half_and_persists", EndSystemsTests::vaultSharesOnlyItsFirstHalfAndPersists).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_vault_opens_and_config_preserves_contents", EndSystemsTests::vaultOpensAndConfigPreservesContents).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_channels_stay_isolated_and_stop_at_fifteen", EndSystemsTests::channelsStayIsolatedAndStopAtFifteen).maxTicks(220).build(),
