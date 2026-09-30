@@ -238,3 +238,12 @@ Verlauf im Detail: git log.
 - [x] Launch Hub: einzelne Mod-Schalter, Presets, Integrationsstarts und Trockenlauf-Tests
 - [x] check, 1548/1548 Server, 1/1 Integration, 34 Hub-Tests und Trockenlauf gruen; kein Push/Merge
 - [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen
+
+## Welle 25 (Besitzer 2026-09-30): Multi-Mod, Fehler, Forge 26.3 - alles mit Codex-CLI, Hauptlinie 26.3
+Regel: erst 26.3 (Fabric + NeoForge, dazu Forge 26.3) komplett und gruen, alle parallelen Laeufe fertig; 1.21.11/26.2/26.4 erst, wenn der Besitzer das Release ankuendigt.
+Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad codex/; Start: `codex exec --dangerously-bypass-approvals-and-sandbox -C <worktree> -o <out> - < <brief>`):
+- [ ] codex-kk2: Enderit-Redstone (zwei Pulver), Astral Vault (Enderit-Endertruhe)
+- [ ] codex-bugs: Hammer-Tempo (1,5x / +0,8x / +0,7x), Buch-Rezept, Buch-Erweiterung per Klick auf den Tab (Item wird verbraucht), Rezept verstaerktes Buendel
+- [ ] codex-infra-w: Wiki mit Mod-Umschalter fuer alle Module; codex-infra-b: Balancing-Zentrale je Mod; codex-infra-f: Forge 26.3
+- [ ] Ports als Module (jeweils ein Lauf, Brief brief-port-<kuerzel>.md, erzeugt mit scratchpad codex/mkports.py): money, riding (laufen), danach qol, visuals, models (aus `renamed`, Anzeigename Simple Models), dimensions, tweaks (nur Nicht-Portiertes), fun (gross)
+- [ ] danach: Forge 26.3 fuer alle Module, alle Module im Wiki und in der Zentrale, Integrationstests ueber alle Module, Gesamtgate
