@@ -75,5 +75,25 @@ window.WIKI_MODULES = [
       "simplebuilding"
     ],
     "dataHash": "ffdd075a8adb"
+  },
+  {
+    "id": "simplevisuals",
+    "displayName": "Simple Visuals",
+    "description": "Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles.",
+    "version": "1.0.7",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simplemodels",
+      "modmenu"
+    ],
+    "dataHash": "817359ef2a6e"
   }
 ];

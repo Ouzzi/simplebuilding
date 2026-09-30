@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "simplevisuals",
+  "version": "${version}",
+  "name": "Simple Visuals",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplevisuals.FabricExample"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplevisuals.ModuleGameTest"
+    ],
+    "modmenu": [
+      "com.simplevisuals.fabric.VisualsModMenu"
+    ],
+    "client": [
+      "com.simplevisuals.fabric.VisualsFabricClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "cloth-config": "*"
+  },
+  "mixins": [
+    "simplevisuals.mixins.json"
+  ],
+  "icon": "assets/simplevisuals/icon.png"
+}

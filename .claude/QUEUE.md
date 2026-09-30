@@ -279,3 +279,7 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 
 - [x] MERGE-RIDING: master integrieren; Modulregistrierung aus Manifest entdecken,
   beide Modulkataloge/Client-Smokes erhalten, neue Ports ohne gemeinsame Wiring-Bloecke.
+
+## Simple Visuals (Codex, 26.3)
+- Port der Quellvisuals als Pluginmodul simplevisuals; zusaetzlich zwoelf Vanilla-Partikeleffekte mit stabiler Registry, Stufen und festen Caps. Eigene Server-/Clienttests, Wiki, Config-/Balancedaten. Kein Push/Merge; andere Linien bleiben separat.
+- [x] Simple Visuals 26.3 Fabric/NeoForge: Port, 12 Vanilla-Effekte, getrennte Amboss-Serverpolicy, manifestbasierte Modulziele/Wiki/Balancedaten. Server 1599/1599, Modul 36/36, Client 5/5, Sicherheitsgegenprobe 2/2, Gradle-check Exit 0. Besitzerabnahme der Optik und spaetere Ports bleiben offen.

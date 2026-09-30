@@ -217,6 +217,76 @@
       "checks": [
         "modules/simpleriding/tools/check_data.py"
       ]
+    },
+    {
+      "id": "simplevisuals",
+      "name": "Simple Visuals",
+      "version": "1.0.7",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Visuals",
+      "description": "Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles.",
+      "loaders": [
+        "fabric",
+        "neoforge"
+      ],
+      "requires": [
+        "cloth_config"
+      ],
+      "optional": [
+        "simplebuilding",
+        "simplemodels",
+        "modmenu"
+      ],
+      "checks": [
+        "modules/simplevisuals/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplevisuals",
+        "catalogues": [
+          "modules/simplevisuals/fabric/src/main/java/com/simplebuilding/modules/simplevisuals/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplevisuals",
+          "simplebuilding"
+        ],
+        "devMods": [
+          "cloth_config"
+        ],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplevisualsGameTest",
+            "report": "integration/build/simplevisuals-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplevisuals:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplevisuals/neoforge/build/module-junit.xml"
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplevisuals.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplevisuals/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplevisuals",
+        "shared": "modules/simplevisuals/shared",
+        "fabric": "modules/simplevisuals/fabric",
+        "neoforge": "modules/simplevisuals/neoforge",
+        "forge": null,
+        "generated": "modules/simplevisuals/generated/resources",
+        "lang": "modules/simplevisuals/shared/resources/assets/simplevisuals/lang",
+        "wikiManual": "modules/simplevisuals/wiki/manual.json",
+        "balanceDir": "balance/simplevisuals"
+      },
+      "projects": {
+        "fabric": ":modules:simplevisuals:fabric",
+        "neoforge": ":modules:simplevisuals:neoforge"
+      }
     }
   ]
 }

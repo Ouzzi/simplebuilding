@@ -402,3 +402,8 @@ Dieser Abschnitt ersetzt die Werkbank-Erweiterung aus dem historischen Mega-Hand
   beliebige Modpackkombinationen. `mc1_21_11` und `mc26_4` unveraendert. Keine neue Pixelkunst.
   Keine Besitzerentscheidung fuer diesen Infrastrukturvertrag erforderlich. Kein Push,
   kein Merge dieses Branches in master; Integration dort bleibt der Besitzersession.
+
+## Simple Visuals (Codex, codex-port-visuals, 26.3)
+- Read-only Quelle 099a45af, bestehende Quell-Aenderung gradle.properties erhalten. Inventar/Config/Registry- und Effektvertrag: docs/modules/simplevisuals.md. Fabric/NeoForge additiv, keine Gameplay-Items oder Rezepte aus toten Sprachresten.
+- Forge 26.3 benoetigt Loader-/Config-/Clientcommand-/Testadapter und Clientabnahme. 26.2/1.21.11/26.4 bleiben eigener Port-Run nach Freigabe; keine Quelltexte dort geaendert. Verifikationsergebnisse folgen als angehaengte Zeilen.
+- Abschluss Simple Visuals: 1599/1599 voller 26.3-Serverlauf; danach 36/36 Modul-Serverfaelle, 5/5 Fabric-Clientpunkte, PNG-Sicherheitsgegenprobe 2/2. Wiki/--all/check und abschliessendes Gradle-check Exit 0. Testzentrale/Abdeckung gruen. Vorschauen und genaue Grenzen in docs/modules/simplevisuals.md; NeoForge-Client, echte Upgrade-Welt, Mehrspieleroptik/Last und Simple-Models-Zusammenspiel nicht abgenommen. Kein Push/Merge.

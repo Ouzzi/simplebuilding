@@ -1,0 +1,1 @@
+Reserved module-local datagen output. Simple Visuals registers no gameplay items, blocks, recipes, loot tables, tags, or advancements; no generated gameplay data is required. Handwritten effects, language and CIT compatibility fixtures live under shared/resources.
