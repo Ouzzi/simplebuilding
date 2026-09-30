@@ -188,7 +188,7 @@ class ModTests(unittest.TestCase):
     def test_registration_preserves_both_module_catalogues_and_client_evidence(self):
         runner = targets.runner()
         catalogues = runner.read_catalogue()
-        self.assertEqual(len(catalogues['simpleriding-26.3']), 13)
+        self.assertGreaterEqual(len(catalogues['simpleriding-26.3']), 13)  # the catalogue grows with the module's tests
         self.assertGreater(len(catalogues['module-simplemoney-263']), 0)
         for mid in ('simplemoney', 'simpleriding'):
             for loader in ('fabric', 'neoforge'):

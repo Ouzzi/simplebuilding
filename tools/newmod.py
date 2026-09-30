@@ -44,6 +44,7 @@ def create(mid, name, root=ROOT):
     enabled['modules'].append(mid)
     write(root / 'integration/enabled-mods.json', enabled)
     print(f'Created modules/{mid}; Gradle discovers Fabric/NeoForge; Forge uses -Pforge263=true.')
+    print(f'Reminder: Simple Money requires modules/simplemoney/shared/resources/data/simplemoney/money/{mid}/prices.json (empty prices allowed).')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
