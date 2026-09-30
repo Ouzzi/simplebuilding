@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#141619"><meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Voicebridge</title><link rel="manifest" href="/manifest.json"><link rel="icon" href="/icon.svg">
+  <link rel="apple-touch-icon" href="/icon-192.png"><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<main>
+  <header><div><span class="eyebrow">DEINE PROJEKTE · DEINE STIMME</span><h1>Voicebridge</h1></div><button id="settingsToggle" aria-label="Einstellungen öffnen">⚙</button></header>
+  <div class="status"><span id="dot"></span><strong id="state" role="status" aria-live="polite">Bereit</strong><span id="project">Lesemodus</span></div>
+  <p id="message">Einmal tippen, sprechen, nochmal tippen. Die Antwort wird vorgelesen.</p>
+  <section id="settings" hidden aria-label="Einstellungen">
+    <label>Projekt <select id="projects"></select></label>
+    <label>Sprache <select id="language"><option value="de-DE">Deutsch</option><option value="en-US">English (US)</option></select></label>
+    <label>Stimme <select id="voice"><option value="">Automatisch</option></select></label>
+    <label>Sprechtempo <input id="rate" type="range" min="0.6" max="1.5" step="0.1" value="1"></label>
+    <label>Tonhöhe <input id="pitch" type="range" min="0.6" max="1.4" step="0.1" value="1"></label>
+    <label><input id="serverSTT" type="checkbox"> Lokale Server-STT verwenden (optional)</label>
+    <label><input id="serverTTS" type="checkbox"> Lokale Piper-Stimme verwenden (optional)</label>
+    <button id="new">Neue Unterhaltung</button><button id="reactivate">Nach Notaus wieder aktivieren</button>
+    <p>Modell und Anbieter werden am PC in projects.json gewählt. Jede Aktion braucht ein eigenes Bestätigungswort.</p>
+  </section>
+  <div class="controls"><button id="stop">■ Stopp / überspringen</button><button id="repeat">↻ Letzte Antwort</button></div>
+  <button id="talk" class="talk" aria-label="Sprechen starten" aria-pressed="false"><span id="talkIcon" aria-hidden="true">●</span><span id="talkLabel">Tippen & sprechen</span><small>Tippen zum Starten und Beenden · am Laptop: Leertaste</small></button>
+  <nav><button id="historyToggle">Verlauf & Berichte</button><button id="emergency" class="danger">Notaus</button></nav>
+  <section id="history" hidden><h2>Gespeicherte Antworten</h2><div id="reports"></div></section>
+  <p class="foot">Status · Was ist fehlgeschlagen · Lies den letzten Bericht · Wiederholen · Neues Gespräch · Projekt wechseln … · Aktion … · Notaus</p>
+</main>
+</body></html>

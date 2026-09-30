@@ -2,6 +2,13 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "voicebridge",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["tools/voicebridge/server.py", "--port", "8772"],
+      "env": {"SB_VOICE_DRY_RUN": "1"},
+      "port": 8772
+    },
+    {
       "name": "wiki",
       "runtimeExecutable": "python",
       "runtimeArgs": [
