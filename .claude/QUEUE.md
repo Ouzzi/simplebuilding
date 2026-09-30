@@ -115,3 +115,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Standardzugang Skyblock klaeren: instructions+ fordert sechs Glowstone-Boegen + Zusatzlicht; neueste Quelle nutzt Kupfer/Blau-Eis ohne Lichtpflicht. Bestehende JSONs und simpledimension-IDs erhalten.
 
 2026-09-30: Simple Dimensions Implementierung abgeschlossen (codex-port-dimensions); Besitzerabnahme und spaeterer Port-Run offen. Kupfer/Blau-Eis bleibt JSON-Alternative; kein Push/Merge.
+
+- [x] TASK DIMFIX: nonblocking arrival vegetation reproduced as a product defect; WORLD_SURFACE fix, preserved plants and safe landing regression. Three fixed Fabric suites green, 68/68 modules, 1600/1600 base, 379/379 integration/all modules, check GRADLE_EXIT=0. Historical unlogged terrain attribution remains an inference; details docs/modules/simpledimensions.md. No push/merge.

@@ -245,3 +245,45 @@ abgenommenen Glowstoneboegen; derzeit nur dokumentierte JSON-Alternative.
 
 Endlauf 2026-09-30T17-38-55Z-8a8a: alles gruen, 68/68, 0 rot (34 je Loader).
 Abschliessendes ./gradlew.bat check -q --no-daemon: Exit 0; Wiki aktuell, 19 Wiki-Tests gruen, checkBalance 0 Fehler, Modul-Datenpruefung gruen.
+
+
+### DIMFIX diagnosis (2026-09-30, codex-dimfix)
+
+The arrival plan used MOTION_BLOCKING, then required every planned cell to be air.
+Nonblocking plants do not raise that heightmap, so the lowest bedrock layer can
+intersect short grass. This is a product defect, not a reason to relax the travel
+assertion or discard integration worlds. WORLD_SURFACE includes every nonair
+block and raises the complete bounded plan above vegetation without clearing it.
+Existing air/permission/border/build-height checks, chunk limits, build budget,
+coordinate mapping and exact return links are unchanged.
+
+Evidence: the original code plus a deterministic short-grass fixture failed the
+unchanged Real mining outbound assertion (run 2026-09-30T18-11-32Z-2ed8, 0/1).
+Temporary refusal logging reported the platform occupancy check:
+`center=(-11431996,204,2230880), blocked=(-11431996,202,2230880),
+state=minecraft:short_grass, motion height=202, allowed=true,
+tick=776, lastBuild=-1, portals=81`.
+This excludes claims, the per-tick build budget, portal capacity and borders for
+the reproduced refusal. The normal merged module set was loaded throughout.
+The mining test now deliberately places supported grass above the highest
+surface in the arrival footprint and checks plant preservation and safe ground,
+in addition to real outbound travel, the 0.5 ratio and exact return.
+
+Limits of the historical reproduction: the fresh worktree had no integration
+save and initially passed. A read-only copy of sbgate's failed world also passed
+at a new random Fabric test location. Attempts near the two reported historical
+positions passed; the exact original terrain/refusal was not captured. Thus the
+short-grass failure mechanism is directly demonstrated; attributing the old
+unlogged failure to that same mechanism remains an inference. No owner/gate
+world was edited or erased; only this worktree's disposable test-world copy was
+used. Temporary logging and fixed-coordinate experiments were removed.
+
+
+DIMFIX verification (all summary lines read):
+- 2026-09-30T18-12-58Z-3fd9: alles gruen: 68/68 bestanden, 0 rot (34 per loader).
+- 2026-09-30T18-15-03Z-fddb: alles gruen: 34/34 bestanden, 0 rot (second fixed Fabric suite).
+- 2026-09-30T18-16-18Z-7405: alles gruen: 1600/1600 bestanden, 0 rot (800 per main-line loader).
+- 2026-09-30T18-18-28Z-fa6b: alles gruen: 379/379 bestanden, 0 rot (integration plus all nine Fabric/NeoForge module catalogues; third fixed Fabric Dimensions suite, 34/34).
+- Both main-line centre build, complete item/block coverage and command/station tests passed; owner world was untouched.
+- Default/all-module wiki generation and checks passed. No client tests, owner-world travel, external claims, Forge or deferred MC runtime lines were verified.
+- Final `./gradlew.bat check -q`: GRADLE_EXIT=0; 19 wiki tests, balance/module gates and existing shared/26.2 compilation passed. Source/test/wiki fix commit: 4fdfebe7.
