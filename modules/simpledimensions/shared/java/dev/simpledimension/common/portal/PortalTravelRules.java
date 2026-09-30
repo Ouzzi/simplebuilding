@@ -34,6 +34,6 @@ public final class PortalTravelRules {
     }
 
     private static double sanitize(double sourcePerTarget) {
-        return sourcePerTarget <= 0 ? 1.0 : sourcePerTarget;
+        return com.simplebuilding.modules.simpledimensions.ConfigLimits.scale(sourcePerTarget);
     }
 }

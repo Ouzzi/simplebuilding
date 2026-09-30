@@ -25,6 +25,12 @@ public final class SkyPortalBlockEntity extends BlockEntity {
     // color is read from chunk-mesh threads by the block tint factory, so keep it visible.
     private volatile int color = DEFAULT_COLOR;
     private String destination = DEFAULT_DESTINATION;
+    public String definition="", linkDimension="";
+    public BlockPos anchor=BlockPos.ZERO, link=BlockPos.ZERO;
+    public boolean generated=false, linked=false;
+    public void define(String id,BlockPos anchor,boolean generated){this.definition=id;this.anchor=anchor.immutable();this.generated=generated;setChanged();}
+    public void connect(String dimension,BlockPos safe){linkDimension=validDestination(dimension);link=safe.immutable();linked=true;setChanged();}
+
 
     public SkyPortalBlockEntity(BlockPos pos, BlockState state) {
         super(DimensionRegistry.PORTAL_ENTITY, pos, state);
@@ -51,6 +57,8 @@ public final class SkyPortalBlockEntity extends BlockEntity {
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
+        output.putString("Definition",definition);output.putString("LinkDimension",linkDimension);
+        output.putLong("Anchor",anchor.asLong());output.putLong("Link",link.asLong());output.putBoolean("Generated",generated);output.putBoolean("Linked",linked);
         output.putInt("Color", color);
         output.putString("Destination", destination);
     }
@@ -58,6 +66,9 @@ public final class SkyPortalBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
+        definition=input.getStringOr("Definition","");linkDimension=input.getStringOr("LinkDimension","");
+        anchor=BlockPos.of(input.getLongOr("Anchor",0));link=BlockPos.of(input.getLongOr("Link",0));
+        generated=input.getBooleanOr("Generated",false);linked=input.getBooleanOr("Linked",false)&&net.minecraft.resources.Identifier.tryParse(linkDimension)!=null;
         color = input.getIntOr("Color", DEFAULT_COLOR) & 0xFFFFFF;
         destination = validDestination(input.getStringOr("Destination", DEFAULT_DESTINATION));
     }
