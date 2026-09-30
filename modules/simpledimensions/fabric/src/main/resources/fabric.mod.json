@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "simpledimensions",
+  "version": "${version}",
+  "name": "Simple Dimensions",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpledimensions.FabricExample"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpledimensions.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25"
+  }
+}
