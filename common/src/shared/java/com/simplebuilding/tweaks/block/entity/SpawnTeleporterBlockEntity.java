@@ -58,6 +58,32 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity implements PadS
     private final Map<UUID, Vec3> lastPositions = new HashMap<>();
     /** Zuletzt gemeldetes Komparator-Signal (Fortschritt der Wartezeit). */
     private int signal;
+    private int inputSignal = -1;
+
+    /** Discard a charge whenever the input changes, including pulses between server ticks. */
+    public void resetOnSignalChange(Level level, BlockPos pos) {
+        int next = level.getBestNeighborSignal(pos);
+        if (inputSignal == next) {
+            return;
+        }
+        boolean charged = timeStanding.values().stream().anyMatch(ticks -> ticks >= CANCEL_SOUND_AFTER);
+        inputSignal = next;
+        timeStanding.clear();
+        lastPositions.clear();
+        int previous = signal;
+        signal = 0;
+        com.simplebuilding.tweaks.block.PadBlock.setActive(level, pos, SpawnTeleporterBlock.ACTIVE, false);
+        if (previous != 0) {
+            level.updateNeighbourForOutputSignal(pos, getBlockState().getBlock());
+        }
+        if (charged) {
+            level.playSound(null, pos, SoundEvents.BEACON_DEACTIVATE, SoundSource.BLOCKS, 0.5f, 1.4f);
+            if (level instanceof ServerLevel server) {
+                server.sendParticles(ParticleTypes.SMOKE, pos.getX() + 0.5, pos.getY() + 0.5,
+                        pos.getZ() + 0.5, 6, 0.2, 0.2, 0.2, 0.01);
+            }
+        }
+    }
 
     public SpawnTeleporterBlockEntity(BlockPos pos, BlockState state) {
         super(TweaksBlockEntities.SPAWN_TELEPORTER, pos, state);
@@ -83,6 +109,7 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity implements PadS
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, SpawnTeleporterBlockEntity be) {
+        be.resetOnSignalChange(level, pos);
         tickPlayers(level, pos, state, be);
         if (!be.isRemoved()) {
             int before = be.signal;

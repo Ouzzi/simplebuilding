@@ -211,6 +211,11 @@ Verlauf im Detail: git log.
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
+## Enderit-Redstone / Astralgewoelbe / Spawn-Sicherheit (codex-kk)
+- [ ] Zwei getrennte Pulver aus Nihilith bzw. Astralit + Redstone, begrenzte Kanaele, Zusatznutzen, Server-Config, Rezepte, JEI/Jade/Wiki, Texturen und Testzentrale (noch nicht umgesetzt).
+- [ ] Astral Vault / Astralgewoelbe: 54 persoenliche Slots, erste 27 mit Vanilla synchron, weitere 27 separat; Animation, Sounds, Config und Integrationen (noch nicht umgesetzt).
+- [x] Spawn-Teleporter: jede Signalstaerkeaenderung verwirft die Ladung sofort, auch Impulse zwischen Ticks. Beide 26.3-Loader kompilieren; Spawn-Tests 14/14 und Testzentrale samt Neubau/Abdeckung 8/8 gruen. Wiki DE/EN aktualisiert. Kein Push/Merge.
+
 ## Spaeter
 - [ ] 26.4: Forge einschalten sobald Build da (-Pmc264_forge_version), Cloth-Config-Screen/Dev-Mods sobald 26.4-Builds da, NeoForge-26.4-Linie
 - [ ] Baustab V1: normale Flaechen ueber den Blaupausen-Planer (Schutzpruefung pro Position) - ca. 40 Tests pinnen das heutige Verhalten
