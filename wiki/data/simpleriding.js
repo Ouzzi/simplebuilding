@@ -69,7 +69,7 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
           "Sprungkraft I–III steigert die Sprungkraft eines spielergesteuerten Pferdes standardmäßig um 20% je Stufe.",
           "Das Buch wird am Amboss auf Pferderüstung angewendet. Alle sechs Vanilla-Materialien und optional SimpleBuildings Enderit-Pferderüstung werden unterstützt. Rüstung entfernen oder absteigen löscht den Modifikator.",
           "Nautilus- und Zombie-Nautilusrüstung erlaubt ebenfalls Sprungkraft: standardmäßig +20% Dash-Kraft je Stufe, mit derselben Gesamtgeschwindigkeitsgrenze wie Rückenwind. Der Server führt den Dash aus und behält Vanillas 40-Tick-Abklingzeit.",
-          "Der gesamte Server-Dash-Impuls inklusive vorherigem Schwung wird auf die konfigurierte Tickbewegungsgrenze und h?chstens 3.9 Bl?cke/Tick begrenzt; nichtendliche Bewegung wird verweigert."
+          "Der gesamte Server-Dash-Impuls inklusive vorherigem Schwung wird auf die konfigurierte Tickbewegungsgrenze und höchstens 3.9 Blöcke/Tick begrenzt; nichtendliche Bewegung wird verweigert."
         ]
       }
     },
@@ -841,7 +841,7 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
             "Sprungkraft I–III steigert die Sprungkraft eines spielergesteuerten Pferdes standardmäßig um 20% je Stufe.",
             "Das Buch wird am Amboss auf Pferderüstung angewendet. Alle sechs Vanilla-Materialien und optional SimpleBuildings Enderit-Pferderüstung werden unterstützt. Rüstung entfernen oder absteigen löscht den Modifikator.",
             "Nautilus- und Zombie-Nautilusrüstung erlaubt ebenfalls Sprungkraft: standardmäßig +20% Dash-Kraft je Stufe, mit derselben Gesamtgeschwindigkeitsgrenze wie Rückenwind. Der Server führt den Dash aus und behält Vanillas 40-Tick-Abklingzeit.",
-            "Der gesamte Server-Dash-Impuls inklusive vorherigem Schwung wird auf die konfigurierte Tickbewegungsgrenze und h?chstens 3.9 Bl?cke/Tick begrenzt; nichtendliche Bewegung wird verweigert."
+            "Der gesamte Server-Dash-Impuls inklusive vorherigem Schwung wird auf die konfigurierte Tickbewegungsgrenze und höchstens 3.9 Blöcke/Tick begrenzt; nichtendliche Bewegung wird verweigert."
           ]
         }
       }

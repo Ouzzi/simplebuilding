@@ -78,3 +78,4 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Besitzerpruefung: echtes Handy-Mikrofon/Vorlesen, Tailscale HTTPS, Headset-Taste und gewaehlter CLI-Anbieter; Verifikation siehe HANDOFF.
 
 - [ ] RIDING-FOLLOWUP: Nautilus/Enderit-Ruestung, serverseitige Gesamtgrenzen und Paketvalidierung, vollstaendige Modul-/Integrations-/26.3-Pruefung (codex-riding-followup).
+- [x] RIDING-FOLLOWUP verification complete: Nautilus/Enderite armor, 18 bounded server options, packet/ground/dash bounds; 1562/1562 full + 53/53 module/integration + 3/3 Fabric client, alles gruen; final check GRADLE_EXIT=0. See HANDOFF and docs/modules/simpleriding.md. Owner acceptance/NeoForge client remain open; no push/merge.

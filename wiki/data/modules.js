@@ -74,6 +74,6 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "f41dd142d600"
+    "dataHash": "ce246b81fd3c"
   }
 ];

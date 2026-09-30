@@ -115,3 +115,17 @@ acknowledgment, valid movement control, out-of-range/replayed commands, all moun
 combined Nautilus dash caps, feature toggles, every config leaf/default/bound, language completeness,
 Enderite armor, and bounded weighted loot/trade codecs. Run outcomes are appended to HANDOFF.
 Historical verification above belongs to the initial port, not this follow-up.
+
+Final continuation results: full Fabric/NeoForge 26.3 suites **1562/1562, alles gruen**
+(`2026-09-30T17-29-33Z-786a`); Riding plus integration **53/53, alles gruen**
+(`2026-09-30T17-31-41Z-3c3b`); Fabric client smoke **3/3, alles gruen**
+(`2026-09-30T17-33-00Z-5b61`). The client exercises server-owned Nautilus dash,
+invalid charge rejection, ordinary and combined ascending/steering Ghast flight, and all
+18 config entries in three tabs; the config screenshot was inspected. Full suites rebuild
+the test centre and verify complete item/block coverage in both isolated test worlds.
+`python wiki/generate.py --all`, `--all --check`, and final `gradlew.bat check -q`
+passed; the final gate reran `--all --check` after the last German prose correction and
+reported **GRADLE_EXIT=0**. No unrelated generated wiki content changed.
+Not verified: NeoForge client rendering, real upgraded worlds, owner-world rebuild,
+latency/third-party physics and real-terrain acceptance, Forge or deferred runtime lines.
+No push or merge; no source changes in mc1_21_11 or mc26_4.
