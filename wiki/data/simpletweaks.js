@@ -41,23 +41,26 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
       ]
     },
     {
-      "id": "claims_deferred",
+      "id": "claims",
       "en": {
-        "title": "Claims Remain Deferred",
-        "summary": "The legacy deed retains its custom data but grants no land protection. No claim commands, persistence, recipes, packets, enchantments, entities, key bindings, or gameplay configuration are added. Existing claim files are not read or changed.",
+        "title": "Claims: Disabled by Default",
+        "summary": "Stage 1 adds bounded server-owned claims, atomic storage, legacy data reading, a command skeleton and deeds. Protection is incomplete. The master switch is off; disabled mode never reads or writes claim data. Enable only for development testing.",
         "details": [
-          "The legacy deed retains its custom data but grants no land protection. No claim commands, persistence, recipes, packets, enchantments, entities, key bindings, or gameplay configuration are added. Existing claim files are not read or changed."
+          "Stage 1 adds bounded server-owned claims, atomic storage, legacy data reading, a command skeleton and deeds. Protection is incomplete. The master switch is off; disabled mode never reads or writes claim data. Enable only for development testing."
         ]
       },
       "de": {
-        "title": "Claims bleiben zurueckgestellt",
-        "summary": "Die alte Urkunde behaelt ihre Zusatzdaten, bietet aber keinen Landschutz. Keine Claim-Befehle, Speicherung, Rezepte, Pakete, Verzauberungen, Entities, Tastenkombinationen oder Spieleinstellungen werden hinzugefuegt. Alte Claim-Dateien werden nicht gelesen oder veraendert.",
+        "title": "Claims: standardmäßig aus",
+        "summary": "Stufe 1 ergänzt begrenzte Server-Claims, atomare Speicherung, Altdatenlesen, Befehlsgrundlage und Urkunden. Schutz ist unvollständig. Der Hauptschalter ist aus; ausgeschaltet werden Claim-Daten weder gelesen noch geschrieben. Nur für Entwicklungstests aktivieren.",
         "details": [
-          "Die alte Urkunde behaelt ihre Zusatzdaten, bietet aber keinen Landschutz. Keine Claim-Befehle, Speicherung, Rezepte, Pakete, Verzauberungen, Entities, Tastenkombinationen oder Spieleinstellungen werden hinzugefuegt. Alte Claim-Dateien werden nicht gelesen oder veraendert."
+          "Stufe 1 ergänzt begrenzte Server-Claims, atomare Speicherung, Altdatenlesen, Befehlsgrundlage und Urkunden. Schutz ist unvollständig. Der Hauptschalter ist aus; ausgeschaltet werden Claim-Daten weder gelesen noch geschrieben. Nur für Entwicklungstests aktivieren."
         ]
       },
       "sources": [
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/LegacyDeed.java"
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/LegacyDeed.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/Claims.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimConfig.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimStore.java"
       ]
     },
     {
@@ -97,10 +100,10 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
       },
       "note": {
         "en": {
-          "summary": "An inert legacy artifact from existing worlds or /give. Stack size 16. Original texture and custom data are preserved. No recipe or land protection."
+          "summary": "Legacy deed from existing worlds or /give. Stack size 16. Original texture and custom data are retained. No recipe. Claims are disabled by default; enabled deeds request ownership from the server."
         },
         "de": {
-          "summary": "Ein wirkungsloses Altitem aus bestehenden Welten oder /give. Stapelgroesse 16. Originaltextur und Zusatzdaten bleiben erhalten. Kein Rezept und kein Landschutz."
+          "summary": "Alte Urkunde aus vorhandenen Welten oder /give. Stapelgröße 16. Originaltextur und Zusatzdaten bleiben erhalten. Kein Rezept. Claims sind standardmäßig aus; aktiviert beantragt die Urkunde Besitz beim Server."
         }
       },
       "texture": "assets/textures/simpletweaks/item/claim_deed.png"

@@ -9,7 +9,8 @@
       "com.simplebuilding.modules.simpletweaks.FabricSimpleTweaks"
     ],
     "fabric-gametest": [
-      "com.simplebuilding.modules.simpletweaks.ModuleGameTest"
+      "com.simplebuilding.modules.simpletweaks.ModuleGameTest",
+      "com.simplebuilding.modules.simpletweaks.ClaimsGameTest"
     ]
   },
   "depends": {

@@ -18,6 +18,11 @@ for locale in ('en_us','de_de'):
  assert 'item.simpletweaks.claim_deed' in d
  langs.append(d)
 assert langs[0].keys()==langs[1].keys()
+for option in ('enabled','maxClaimsPerPlayer','maxTrustedPlayers','globalCap','cooldownTicks','opBypass','spawnBuffer','dimensions'):
+ for lang in langs:
+  for suffix in ('','.tooltip','.default','.tab'):
+   assert lang['config.simpletweaks.claims.'+option+suffix]
+  assert lang['config.simpletweaks.claims.'+option+'.default'] in lang['config.simpletweaks.claims.'+option+'.tooltip']
 manual=unique(M/'wiki/manual.json')
 assert manual['notes']['simpletweaks:claim_deed']['en']['summary']
 assert manual['notes']['simpletweaks:claim_deed']['de']['summary']

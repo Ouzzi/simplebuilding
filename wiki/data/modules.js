@@ -190,7 +190,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpletweaks",
     "displayName": "Simple Tweaks",
-    "description": "Legacy-world compatibility for features now provided by SimpleBuilding; claims remain deferred.",
+    "description": "Legacy compatibility and staged server-authoritative claims, disabled by default.",
     "version": "1.2.12",
     "minecraft": "26.3",
     "loaders": [
@@ -202,7 +202,7 @@ window.WIKI_MODULES = [
       "simplebuilding"
     ],
     "optional": [],
-    "dataHash": "45a14b9cca94"
+    "dataHash": "f3423d5e8e6b"
   },
   {
     "id": "simpledimensions",

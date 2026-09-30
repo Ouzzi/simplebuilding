@@ -1,6 +1,8 @@
 # Simple Tweaks: Vollabgleich und 26.3-Kompatibilitaetsmodul
 
-Stand 2026-09-30, Arbeitsbranch `codex-port-tweaks`. Diese Datei beschreibt **keinen neuen Claim-Schutz**.
+Historischer Audit vom 2026-09-30, Arbeitsbranch `codex-port-tweaks`. Die folgenden
+Auditabschnitte beschreiben den damaligen Kompatibilitaetsstand. Der neue,
+standardmaessig ausgeschaltete Claim-Port steht im Abschnitt **Claims-Fortsetzung** am Ende.
 
 ## Ergebnis und Abgrenzung
 
@@ -418,3 +420,47 @@ Aktuelle Run-IDs/Gate-Ausgaenge werden nach Abschluss unten ergaenzt.
 Mit `-Pforge263=true`; SimpleBuilding ist verpflichtend und wird vorher geladen. Native ForgeRegistry-Aliase und ein eigener NamespacedWrapper-Mixin ergänzen die gemeinsamen MappedRegistry-Lookups. Alle 12 kanonischen Fälle prüfen echte alte Item-/Block-/BE-/Komponenten-Codecs, Owner/Charges/Stacks, Canonical-Saves und Verweigerung unbekannter IDs. Keine zusätzlichen Config-/Netzwerk-/Client-Hooks nötig: das Modul besitzt keine davon; die Urkunde nutzt Vanilla-Itemdarstellung. Claims bleiben inaktiv. Forge-Client, echte alte Welt und Besitzerwelt sind nicht abgenommen.
 
 Forge follow-up verification: 12/12 canonical cases passed in the combined run `2026-09-30T17-52-13Z-77a1`; **2828/2828, alles gruen** across existing Fabric/NeoForge/Forge 26.3, integration and all manifest module server suites. Explicit Forge compile without `forge_runs`: exit 0. Client and owner-world limits above remain open.
+
+## Claims-Fortsetzung (codex-next-claims, 2026-09-30)
+
+Claims bleiben standardmaessig AUS, auch nach weiteren Ausbaustufen. Taskplan:
+`modules/simpletweaks/CLAIMS-PLAN.md`. Stufe 1 ist die Daten-/Befehlsgrundlage,
+noch kein vollstaendiger Landschutz. Die Config-Tooltiptexte nennen den aktuellen Umfang.
+
+Die dokumentierten lokalen Quellcommits bb8f976 und 9882906 sowie der lokale
+Claims-only-Branch sind auf GitHub nicht verfuegbar; gezielte Fetch-Versuche wurden
+abgelehnt. Die read-only gelesene oeffentliche 1.21.11-Quelle ist 739537ef0f250303be618dff204ccac64fdfff66.
+Dateihashes: `modules/simpletweaks/audit/claims-source.json`. Der fruehere lokale
+Audit bleibt als zusaetzlicher Formatbeleg erhalten. Kein Quellcode wurde dort geaendert.
+
+- Serverdatei `config/simpletweaks-claims.json`, Neustart erforderlich; keine C2S-Konfiguration.
+  Defaults: enabled=false, maxClaimsPerPlayer=16 (1..256), maxTrustedPlayers=8 (0..64),
+  globalCap=4096 (1..10000), cooldownTicks=100 (20..72000), opBypass=false,
+  spawnBuffer=16 (0..256), dimensions=Oberwelt/Nether/Ende (maximal 32 IDs).
+- Neue Claims muessen vollstaendig in der Weltgrenze und ausserhalb des Spawnquadrats
+  liegen. Vanilla-Spawnschutz wird mindestens eingehalten, auch fuer OPs. Die
+  Dimensionsliste beschraenkt neue Claims, nicht den Schutz schon vorhandener Daten.
+- Falls eingeschaltet, gilt ein Schutz-Bypass nur fuer OP4; er hebt keine Claim-Caps,
+  Spawn- oder Weltgrenzenregeln auf. Befehlsadministration ist separat OP4.
+- Globaler Datensatz `<world>/simpletweaks-claims.json`: Datei erst nach aktiviertem
+  Zugriff lesen; atomarer Dateitausch und unveraenderliche Map-/Whitelist-Sichten.
+  Schreiben erfolgt vor Veroeffentlichung der neuen Rechte. Bei Lesefehlern oder
+  Schreibfehlern sperrt die aktivierte Runtime den Zugriff; Originaldateien bleiben erhalten.
+- Alte per-Dimension `data/simpletweaks_claims.dat` werden beim ersten aktivierten
+  Lesen importiert, falls noch kein globaler Datensatz existiert. Es wird dabei noch
+  nichts geschrieben. Originale werden nie ersetzt; unbekannte/defekte Daten werden
+  nicht zu einer leeren, beschreibbaren Claim-Welt umgedeutet. Der Import umfasst
+  auch ungeladene eigene Dimensionen unter `dimensions/` (begrenzter Scan;
+  bei mehr als 100000 Eintraegen wird sicher abgebrochen). Nach dem ersten atomaren Schreiben
+  ist der globale Datensatz massgeblich. Alte Dateikopien bleiben als Archiv erhalten.
+- Urkunden behalten alle CustomData-Felder unveraendert. Diese Felder sind niemals
+  Autoritaet. Aktivierte Verwendung beantragt serverseitig einen Claim; Feedback nur
+  Sound/Partikel, keine Chat-/Aktionsleistentexte. Kein neues Rezept oder neue Pixelkunst.
+- Das Modul besitzt einen gemeinsamen Sprachressourcenort fuer beide Loader, keine
+  separate 26.2-/26.3-Sprachkopie. Beide EN/DE-Dateien enthalten Name, Tooltip, Tab und
+  Default fuer jede eigene Option; fremde SimpleBuilding-Sprachdateien bleiben unveraendert.
+
+Neue Serverchecks liegen im eigenen ClaimsGameTest-Katalog. Bestehende zwoelf
+Kompatibilitaetsfaelle bleiben erhalten; der bisherige Test fuer fehlende Claim-Befehle
+prueft jetzt, dass der ausgeschaltete Claim-Baum unbenutzbar bleibt. Forge-Claims,
+Forge-Katalogerweiterung, Clients, echte Altwelten und Besitzerwelt bleiben separat.

@@ -1,8 +1,17 @@
 {
   "id": "simpletweaks",
   "version": "1.2.12",
-  "gameplayOptions": [],
-  "authority": "No gameplay values or client packets. Migrated gameplay is configured only in SimpleBuilding.",
+  "gameplayOptions": [
+    "enabled",
+    "maxClaimsPerPlayer",
+    "maxTrustedPlayers",
+    "globalCap",
+    "cooldownTicks",
+    "opBypass",
+    "spawnBuffer",
+    "dimensions"
+  ],
+  "authority": "Server-only restart-bound config/simpletweaks-claims.json; immutable ClaimConfig bounds and atomic ClaimStore. No client config packets.",
   "claimDeedMaxStack": 16,
-  "claims": "deferred"
+  "claims": "disabled-by-default-stage-1"
 }

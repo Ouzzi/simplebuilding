@@ -81,3 +81,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] 5. SOUNDS: Intensitaet an die Stufe von Simple Visuals koppeln (Off/Subtle/Normal/Strong/Maximum); ohne Visuals gilt eine eigene Einstellung. Brief: docs/ai/briefs/next-small.md.
 - [ ] 6. FORGE spaeter: Forge 26.3 auch fuer Dimensions, Cloth-Dialog auf Forge und die Frage der Standardaktivierung kommen nach 1 bis 5.
 - [ ] Noch offen: Echolot 3 Sekunden halten oder Ein-Klick? Morgenbericht der Sprach-Bridge ja oder nein?
+
+- [ ] CLAIMS worker codex-next-claims: sechs getrennte Stufen, standardmaessig AUS; Plan modules/simpletweaks/CLAIMS-PLAN.md. Kein Push/Merge, keine Forge-/anderen Linien-Ports.

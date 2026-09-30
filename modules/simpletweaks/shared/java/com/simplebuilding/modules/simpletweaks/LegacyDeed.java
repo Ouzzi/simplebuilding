@@ -10,11 +10,18 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.network.chat.Component;
 import java.util.function.Consumer;
-/** Inert legacy artifact. Custom data is retained by Vanilla; never grants land or authority. */
+/** Legacy custom data is retained, but only the server ledger grants authority. */
 public final class LegacyDeed {
     public static void register() {
         var id = Identifier.fromNamespaceAndPath("simpletweaks", "claim_deed");
         Registry.register(BuiltInRegistries.ITEM, id, new Item(new Item.Properties().stacksTo(16).setId(ResourceKey.create(Registries.ITEM, id))) {
+            @Override public net.minecraft.world.InteractionResult use(net.minecraft.world.level.Level level, net.minecraft.world.entity.player.Player user, net.minecraft.world.InteractionHand hand) {
+                if (!(user instanceof net.minecraft.server.level.ServerPlayer player) || !com.simplebuilding.modules.simpletweaks.claims.Claims.enabled(player.level().getServer())) return net.minecraft.world.InteractionResult.PASS;
+                boolean success=com.simplebuilding.modules.simpletweaks.claims.Claims.get(player.level().getServer()).claim(player);
+                player.level().playSound(null,player.blockPosition(),success?net.minecraft.sounds.SoundEvents.EXPERIENCE_ORB_PICKUP:net.minecraft.sounds.SoundEvents.FIRE_EXTINGUISH,net.minecraft.sounds.SoundSource.PLAYERS,.4f,1f);
+                player.level().sendParticles(success?net.minecraft.core.particles.ParticleTypes.HAPPY_VILLAGER:net.minecraft.core.particles.ParticleTypes.SMOKE,player.getX(),player.getY()+1,player.getZ(),6,.3,.3,.3,0);
+                return success?net.minecraft.world.InteractionResult.SUCCESS:net.minecraft.world.InteractionResult.FAIL;
+            }
             @Override public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> out, TooltipFlag flag) {
                 out.accept(Component.translatable("tooltip.simpletweaks.claim_deed.inactive"));
                 out.accept(Component.translatable("tooltip.simpletweaks.claim_deed.data"));
