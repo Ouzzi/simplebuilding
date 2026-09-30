@@ -125,7 +125,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "cloth_config"
@@ -135,7 +136,7 @@ window.WIKI_MODULES = [
       "simplemodels",
       "modmenu"
     ],
-    "dataHash": "817359ef2a6e"
+    "dataHash": "01baf1f68bef"
   },
   {
     "id": "simplesounds",

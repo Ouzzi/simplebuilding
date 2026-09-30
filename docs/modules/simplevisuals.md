@@ -212,3 +212,8 @@ Kein Server-GameTest behauptet, einen Client gerendert zu haben.
   ungetestet. Forge/deferierte Linien sind kein Bestandteil dieses Ports.
 - Keine gemeinsame Implementierung oder Testinfrastruktur erweitert. Eigener Manifesteintrag
   liefert alle Ziele; Integration-Auswahl durch Scaffold, Wiki-Katalog automatisch generiert.
+
+## Experimental Forge 26.3
+Opt-in `-Pforge263=true` adapter: shared cosmetic mixins, local commands, server formatting policy, JSON configuration, and server tests. Same catalogue IDs and shared bodies; module-owned loader hooks and isolated test world. No speculative optional Forge dependencies. Cloth GUI unavailable; existing server JSON settings retained. Forge client, real multiplayer and optional integrations remain unverified.
+
+Forge catalogue: **18/18, alles gruen**, `2026-09-30T17-07-50Z-5834`. Launch, configuration/legacy/language, particle budgets, decompression bounds, server anvil policy and twelve effect contracts passed. Forge client commands and Simple Models detection are client-only; no Cloth GUI or Fabric screenshot harness is compiled into Forge. Rendered effects/HUD and real mod combination still require acceptance.

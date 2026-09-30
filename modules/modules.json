@@ -421,7 +421,8 @@
       "description": "Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth_config"
@@ -454,6 +455,18 @@
           "neoforge": {
             "task": ":modules:simplevisuals:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplevisuals/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplevisuals:forge:runGameTestServer",
+            "report": "modules/simplevisuals/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -470,7 +483,7 @@
         "shared": "modules/simplevisuals/shared",
         "fabric": "modules/simplevisuals/fabric",
         "neoforge": "modules/simplevisuals/neoforge",
-        "forge": null,
+        "forge": "modules/simplevisuals/forge",
         "generated": "modules/simplevisuals/generated/resources",
         "lang": "modules/simplevisuals/shared/resources/assets/simplevisuals/lang",
         "wikiManual": "modules/simplevisuals/wiki/manual.json",
@@ -478,7 +491,8 @@
       },
       "projects": {
         "fabric": ":modules:simplevisuals:fabric",
-        "neoforge": ":modules:simplevisuals:neoforge"
+        "neoforge": ":modules:simplevisuals:neoforge",
+        "forge": ":modules:simplevisuals:forge"
       }
     },
     {
