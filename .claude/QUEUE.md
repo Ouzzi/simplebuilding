@@ -285,3 +285,4 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 - [ ] Laufende Laeufe: facts (Faktenpass), voicebridge (Sprach-Bridge), port-visuals, port-fun. Danach in Wellen (max. 4 gleichzeitig): new-sounds (nach visuals), port-qol, port-tweaks, port-dimensions, port-models, riding-followup (Nautilus, Obergrenzen), zuletzt money-links; dann Forge 26.3 fuer alle Module, Gesamtgate.
 
 - [ ] Simple Models (codex-port-models): renamed-Skelett nach 26.3 Fabric/NeoForge; servervalidierte Ambossmodelle, Ordnerkatalog, Browser, EN/DE, Modul-/Clienttests. Keine Ports/Push/Merge.
+- [x] Simple Models 26.3 umgesetzt und committed; finale Modtests 32/32, Fabric-Client 5/5 gruen. Besitzerabnahme echter Modellpack/UI offen; Forge und andere Linien bleiben eigener Port. Details docs/modules/simplemodels.md.
