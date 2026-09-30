@@ -7,7 +7,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "cloth-config"
@@ -31,7 +32,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [],
     "optional": [],
