@@ -85,6 +85,14 @@ Sprach-Bridge-Morgenbericht ja/nein.
   `next-claims` behält die bereits begonnene Stufe 4; `next-claims-access` startet
   für 5–6 von `7422a3ab`. Integration bleibt in Stufenfolge.
   Gemeinsame Änderungen an Claims-Helfern/Katalogen werden vollständig vereinigt.
+- Der ursprüngliche Claims-Worker hat die Dateinotiz zur Aufteilung nicht
+  übernommen. Nach seinem 50/50-Lauf wurde ausschließlich dieser eigene Prozess
+  beendet, der komplette Entwurf gesichert und derselbe Worktree mit dem
+  präzisierten Stufe-4-Brief fortgesetzt. Keine Quelldatei zurückgesetzt.
 - Die neue Bett-Gegenprobe zeigte einen bestehenden Baustabfehler vor der
   Claims-Prüfung. Dieser bleibt als separate Fortsetzung dokumentiert; der
   tatsächliche Hammerabbau eines aufgebauten Bettes wird in dieser Welle geprüft.
+- `next-dimensions-ui` erweitert den vorhandenen Client-Smoke-Test um den neuen
+  Dimensions-Reiter, UI-Speichern und die Übernahme im integrierten Server.
+  Der Worker kompiliert nur; der Orchestrator startet den Client seriell und
+  erst nach Prüfung auf laufende Besitzer-Clients.

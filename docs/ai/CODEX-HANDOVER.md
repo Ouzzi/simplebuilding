@@ -13,7 +13,12 @@ Arbeitsplan: `docs/ai/CODEX-PLAN.md`.
   Stufe 3 auf `7422a3ab`: Framework-Vertrag und mehrteiliger Werkzeugschutz geprüft,
   36/36 grün (`2026-09-30T22-48-57Z-7c6b`), bestehende Hammertests 70/70 grün
   (`2026-09-30T22-51-11Z-1a63`). Dieser Worker führt Stufe 4 und finales check weiter.
-  `run-next-claims-auto.md` ist dabei zusätzlicher Reviewauftrag, kein eigener Run.
+  Fortsetzung mit `run-next-claims-auto.md`: ursprünglicher Worker wurde nach
+  50/50 grün (`2026-09-30T23-05-57Z-8f5a`) gezielt neu gestartet, damit er nur
+  Stufe 4 abschließt. Offene Reviews: natürliche Schäden dürfen nicht pauschal
+  verschwinden; Explosionen müssen mehrteilige Block-Folgewirkungen prüfen.
+  Gesichert: `.ai-runs/claims-stage4-before-resume.zip`/`.patch`, ursprüngliches
+  Log `.ai-runs/log-next-claims-through-stage4.txt`. Kein Reset/Cleanup erfolgt.
 - Claims-Stufen 5–6 separat: `codex-next-claims-access`, Worktree
   `%TEMP%/cx-next-claims-access`, Ausgang `7422a3ab`, Brief
   `docs/ai/briefs/run-next-claims-access.md`. Vertrauen/Entzug/Offline/Admin und
@@ -24,6 +29,10 @@ Arbeitsplan: `docs/ai/CODEX-PLAN.md`.
   Bericht `.ai-runs/out-next-dimensions.txt`: 76/76 Modulserver, 10/10 Testzentrale,
   23 JUnit-Tests, 19 Wiki-Tests und `GRADLE_EXIT=0`; Diff vom Orchestrator gelesen,
   `git diff --check` sauber. Client/GUI und Besitzerwelt nicht geprüft.
+- Dimensions-UI-Testergänzung läuft auf `codex-next-dimensions-ui`, Worktree
+  `%TEMP%/cx-next-dimensions-ui`, Basis `8657e3d2`, Brief `run-next-dimensions-ui.md`.
+  Worker erweitert/kompiliert nur den vorhandenen Smoke-Test; Orchestrator muss
+  tatsächlichen Clientlauf und Screenshotprüfung nach Besitzer-Clientcheck durchführen.
 - QoL/Sounds ist geprüft und mergebereit: `codex-next-small` auf `7faca095`
   (QoL `b606e27d`, Sounds `7f3ffbbc`), Worktree `%TEMP%/cx-next-small`.
   Bericht `.ai-runs/out-next-small.txt`: 48/48 QoL, 71/71 Sounds/Visuals/Integration,
