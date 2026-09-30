@@ -70,6 +70,7 @@ public final class McVersion {
         sign.setText(new net.minecraft.world.level.block.entity.SignText(lines, lines,
                 net.minecraft.world.item.DyeColor.BLACK, glowing), sign.getSlotPlayerIsFacing(player));
     }
+    public static final boolean MEGA_GUIDES = true;
 
     private McVersion() {
     }

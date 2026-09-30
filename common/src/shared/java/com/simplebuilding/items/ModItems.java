@@ -828,6 +828,9 @@ public class ModItems {
     }
 
     private static Item registerGuideBook(com.simplebuilding.guide.GuideBooks.Book book) {
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES && book.isTopic()) {
+            return book.shelf() == com.simplebuilding.guide.GuideBooks.Shelf.MOD ? GUIDE_BOOK : GUIDE_BOOK_VANILLA_START;
+        }
         return registerItem(book.itemName(), settings -> new GuideBookItem(com.simplebuilding.guide.GuideBooks.properties(settings, book), book));
     }
 

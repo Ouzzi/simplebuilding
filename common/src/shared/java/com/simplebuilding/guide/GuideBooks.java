@@ -31,41 +31,10 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Die Handbuecher: zwei Regale mit je einem Einstiegsbuch und seinen Themenbuechern.
- *
- * <ul>
- *   <li><b>Mod-Regal</b>: Einsteiger-Handbuch ({@link Book#GUIDE}) und zehn Themenbuecher zur Mod
- *       (Werkzeuge, Verzauberungen, Bauen, Lagerung, Maschinen, Ende, Pads, Geraete, Besaetze,
- *       Server-Admin).</li>
- *   <li><b>Vanilla-Regal</b> (2026-09-29): "Erste Schritte" ({@link Book#VANILLA_START}) und acht
- *       Themenbuecher zu Vanilla-Minecraft 26.3 (Oberwelt, Hoehlen, Ozean, Nether, Ende, Redstone,
- *       Ausruestung, Landwirtschaft &amp; Tiere).</li>
- * </ul>
- *
- * <p>Jedes Buch ist ein eigenes Item ({@link com.simplebuilding.items.custom.GuideBookItem}), das
- * seine Seiten als Standardkomponente {@code WRITTEN_BOOK_CONTENT} traegt: fertig aufgeloest
- * ({@code resolved = true}), ohne Titel und Autor (der Itemname bleibt der uebersetzte Name) und nur
- * aus Uebersetzungsschluesseln gebaut, damit der Client jede Seite in seiner eigenen Sprache zeigt.
- * Ein Rechtsklick oeffnet den eigenen Buchbildschirm ({@code client.guide.GuideBookScreen}, gleiche
- * Texte plus Symbole und Rezeptkarten aus {@link GuideContent}); die Vanilla-Seiten zeigt nur noch
- * das Lesepult (Tag {@code minecraft:lectern_books}).
- *
- * <p>Aufbau jedes Buchs: vorn ein anklickbares Inhaltsverzeichnis ({@link ClickEvent.ChangePage}),
- * danach je Kapitel genau eine Seite (Titel, Text, Ruecksprung). Ein Einstiegsbuch endet mit Seiten,
- * die die Themenbuecher seines Regals samt Rezept nennen ({@link #topicPages}). Schluessel:
- * {@code book.simplebuilding.<buch>.title}, {@code .intro} (nur Themenbuecher), {@code .<n>.title},
- * {@code .<n>.text}. Die Kapitelzahl steht nicht hier, sondern ergibt sich aus
- * {@link GuideContent} (eine Angabe je Kapitel). Jeder Kapiteltext bekommt drei Argumente: die Tasten
- * "Werkzeug-Einstellungen" ({@code %1$s}) und "Rucksack oeffnen" ({@code %2$s}) sowie den Namen des
- * Kapitelsymbols ({@code %3$s}) - so bleibt ein Text richtig, wenn ein Item umbenannt wird.
- *
- * <p>Textregeln: ein Gedanke je Kapitel, kurze Absaetze ({@code \n}), Aufzaehlungen mit
- * {@code "- "}. Rezepte stehen nicht im Text, sondern kommen als Rezeptkarten aus dem Rezeptmanager.
- *
- * <p>Seitenbudget: der Vanilla-Bildschirm zeichnet hoechstens 14 Zeilen zu 114 px und schneidet den
- * Rest stumm ab. Alle Seiten sind mit den Vanilla-Glyphbreiten auf hoechstens {@link #MAX_LINES}
- * Zeilen geprueft, auf Englisch und Deutsch: {@code python tools/guide_book_pages.py} nach jeder
- * Textaenderung; {@code GuideBookTests} prueft grob dasselbe im Spiel.
+ * Two guide shelves. On 26.3 only their hubs are registered items; topic books are content
+ * inserted by crafting and stored in GUIDE_CHAPTERS. Older lines retain their independent
+ * chapter books until the separate port run. Written-book pages serve the lectern; the custom
+ * screen reads the localized chapters from GuideContent and the inserted mask from the held stack.
  */
 public final class GuideBooks {
 
@@ -213,6 +182,37 @@ public final class GuideBooks {
         }
     }
 
+    /** Registered books: chapter names remain content, never extra items on 26.3. */
+    public static List<Book> items(Shelf shelf) {
+        return McVersion.MEGA_GUIDES ? List.of(shelf.hub()) : shelf.books();
+    }
+
+    public static int mask(ItemStack stack) {
+        int mask = stack.getOrDefault(com.simplebuilding.component.ModDataComponentTypes.GUIDE_CHAPTERS, 0);
+        var written = stack.get(DataComponents.WRITTEN_BOOK_CONTENT);
+        if (written != null && stack.getItem() instanceof com.simplebuilding.items.custom.GuideBookItem guide) {
+            for (Component page : written.getPages(false).stream().limit(1).toList()) {
+                for (Book topic : guide.book().shelf().topics()) if (containsKey(page, topic.key() + ".title")) mask |= 1 << topic.ordinal();
+            }
+        }
+        return mask;
+    }
+
+    private static boolean containsKey(Component text, String key) {
+        if (text.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t && t.getKey().equals(key)) return true;
+        return text.getSiblings().stream().anyMatch(c -> containsKey(c, key));
+    }
+
+    public static boolean inserted(ItemStack stack, Book book) {
+        return stack.is(item(book.shelf().hub())) && (book.isHub() || (mask(stack) & (1 << book.ordinal())) != 0);
+    }
+
+    public static ItemStack withChapter(ItemStack stack, Book book) {
+        ItemStack out = stack.copyWithCount(1);
+        out.set(com.simplebuilding.component.ModDataComponentTypes.GUIDE_CHAPTERS, mask(stack) | (1 << book.ordinal()));
+        return out;
+    }
+
     /** Das Item eines Buchs. */
     public static Item item(Book book) {
         return switch (book) {
@@ -270,7 +270,7 @@ public final class GuideBooks {
 
     /** Eigenschaften eines Buch-Items: bis 16 stapelbar wie ein beschriebenes Buch, Seiten als Standardkomponente. */
     public static Item.Properties properties(Item.Properties settings, Book book) {
-        return settings.stacksTo(16)
+        return settings.stacksTo(McVersion.MEGA_GUIDES ? 1 : 16)
                 .component(DataComponents.WRITTEN_BOOK_CONTENT, content(book))
                 // Vanillas Buchzeilen ("Original", "von ...") gehoeren zu keinem dieser Buecher.
                 .component(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.WRITTEN_BOOK_CONTENT, true));
@@ -278,6 +278,7 @@ public final class GuideBooks {
 
     /** Macht ein Einstiegsbuch zu seinem eigenen Handwerksrest (nach der Registrierung aufzurufen). */
     public static void makeSelfRemainder(Item hub) {
+        if (McVersion.MEGA_GUIDES) return;
         ((ItemCraftRemainderAccessor) hub).simplebuilding$setCraftingRemainingItem(new ItemStackTemplate(hub));
     }
 
@@ -293,7 +294,7 @@ public final class GuideBooks {
     /** Ob dieses Item ein Buch ist, das nur Operatoren herstellen duerfen. */
     public static boolean isOperatorOnly(ItemStack stack) {
         for (Book book : Book.values()) {
-            if (operatorOnly(book) && stack.is(item(book))) {
+            if (operatorOnly(book) && !McVersion.MEGA_GUIDES && stack.is(item(book))) {
                 return true;
             }
         }
@@ -513,7 +514,7 @@ public final class GuideBooks {
     /** Ob das Handbuch beim ersten Betreten verschenkt wird (Config {@code giveGuideBookOnFirstJoin}). */
     public static boolean giftEnabled() {
         SimplebuildingConfig config = Simplebuilding.getConfig();
-        return config == null || config.giveGuideBookOnFirstJoin;
+        return !McVersion.MEGA_GUIDES && (config == null || config.giveGuideBookOnFirstJoin);
     }
 
     /**
@@ -524,6 +525,7 @@ public final class GuideBooks {
      */
     public static void onPlayerJoin(ServerPlayer player) {
         syncOperatorRecipes(player);
+        if (McVersion.MEGA_GUIDES) return;
         if (player.entityTags().contains(GIVEN_TAG) || !giftEnabled()) {
             return;
         }

@@ -4,7 +4,7 @@
 window.WIKI_DATA = {
   "schema": 1,
   "generatedFrom": {
-    "line": "26.2",
+    "line": "26.3",
     "generator": "wiki/generate.py",
     "howToRegenerate": "python wiki/generate.py",
     "warning": "Generated file - do not edit by hand. Every section below is read out of the mod's own data files; edit the mod, then regenerate.",
@@ -9566,16 +9566,28 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:guide_book",
       "name": {
-        "en_us": "Beginner's Guide",
-        "de_de": "Einsteiger-Handbuch"
+        "en_us": "Mega Guide: SimpleBuilding",
+        "de_de": "Mega-Handbuch: SimpleBuilding"
       },
       "texture": "assets/textures/item/guide_book.png",
       "craftedBy": [
-        "simplebuilding:guide_book"
+        "simplebuilding:guide_book",
+        "simplebuilding:guide_book_admin",
+        "simplebuilding:guide_book_building",
+        "simplebuilding:guide_book_combine",
+        "simplebuilding:guide_book_enchantments",
+        "simplebuilding:guide_book_end",
+        "simplebuilding:guide_book_gadgets",
+        "simplebuilding:guide_book_machines",
+        "simplebuilding:guide_book_storage",
+        "simplebuilding:guide_book_tools",
+        "simplebuilding:guide_book_trims",
+        "simplebuilding:guide_book_tweaks"
       ],
       "usedIn": [
         "simplebuilding:guide_book_admin",
         "simplebuilding:guide_book_building",
+        "simplebuilding:guide_book_combine",
         "simplebuilding:guide_book_enchantments",
         "simplebuilding:guide_book_end",
         "simplebuilding:guide_book_gadgets",
@@ -9587,1300 +9599,38 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "properties": {
-        "maxStackSize": 16
+        "maxStackSize": 1
       },
       "note": {
         "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "summary": "On 26.3, two separate Mega Guides hold the Minecraft and SimpleBuilding shelves. Only the base guides are items; topic books are inserted content. Older lines retain their previous books until the port run.",
           "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+            "Craft the SimpleBuilding guide from a book and a crafting table, or the Minecraft guide from a book and a wooden pickaxe. Guides are never first-join gifts on 26.3, even with the old gift option enabled. No guide-book chest loot is registered; enchanted books with cover textures remain in loot.",
+            "Insert topics by crafting the guide with its matching key item. The guide is consumed and returned as one upgraded guide, preserving existing components and inserted chapters. Two guides from the same shelf can combine their inserted chapters; the two shelves cannot mix. Duplicate inserts do not craft.",
+            "Inserted chapters persist in simplebuilding:guide_chapters and appear with miniature book textures and localized names in the tooltip. Old chapter IDs alias to the corresponding base guide; the data fixer preserves their chapter on world load, including same-version saves.",
+            "The screen shows only the opened guide shelf, with eight tabs on the right and at most four on the left (including Contents). Locked chapters are gray and name their unlock item. Server Admin requires operator permission level 2 to insert and read. Reading does not pause the game.",
+            "Upgrade recipes are displayed by JEI and the guide recipe cards. Optional building, storage and pad quests use chapter advancements on 26.3."
           ]
         },
         "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "summary": "Auf 26.3 enthalten zwei getrennte Mega-Handbuecher die Regale fuer Minecraft und SimpleBuilding. Nur die Basis-Handbuecher sind Items; Themenbuecher sind eingefuegte Inhalte. Aeltere Linien behalten ihre bisherigen Buecher bis zum Port-Run.",
           "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+            "Mod-Handbuch: Buch + Werkbank. Minecraft-Handbuch: Buch + Holzspitzhacke. Auf 26.3 gibt es kein Handbuch beim Erstbeitritt, auch bei eingeschaltetem altem Config-Schalter. Im Code ist kein Handbuch-Truhenloot registriert; verzauberte Buecher mit Cover-Texturen bleiben in der Beute.",
+            "Handbuch + Schluesselitem fuegt das Thema ein. Das Handbuch wird verbraucht und als ein verbessertes Buch mit allen bisherigen Komponenten und Kapiteln zurueckgegeben. Zwei Handbuecher desselben Regals vereinen ihre Inhalte; die Regale lassen sich nicht mischen. Doppelte Themen ergeben kein Rezept.",
+            "simplebuilding:guide_chapters speichert die Themen dauerhaft. Im Tooltip erscheinen kleine Buchtexturen und uebersetzte Namen. Alte Themen-IDs zeigen auf das Basisbuch; der Datenfixer erhaelt das Thema beim Laden, auch ohne Minecraft-Versionswechsel.",
+            "Der Bildschirm zeigt nur das geoeffnete Regal: acht Tabs rechts, hoechstens vier links inklusive Inhalt. Gesperrte Themen sind grau und nennen ihr Schluesselitem. Server-Admin erfordert Operatorstufe 2 zum Einfuegen und Lesen. Lesen pausiert das Spiel nicht.",
+            "JEI und Rezeptkarten zeigen die Upgrades. Optionale Bau-, Lager- und Pad-Quests verwenden auf 26.3 Kapitel-Erfolge."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/recipe/GuideUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/datafix/ModDataFixer.java",
+          "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
           "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_admin",
-      "name": {
-        "en_us": "Guide: Server Admin",
-        "de_de": "Handbuch: Server-Admin"
-      },
-      "texture": "assets/textures/item/guide_book_admin.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_admin"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_building",
-      "name": {
-        "en_us": "Guide: Building",
-        "de_de": "Handbuch: Bauen"
-      },
-      "texture": "assets/textures/item/guide_book_building.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_building"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_enchantments",
-      "name": {
-        "en_us": "Guide: Enchantments",
-        "de_de": "Handbuch: Verzauberungen"
-      },
-      "texture": "assets/textures/item/guide_book_enchantments.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_enchantments"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_end",
-      "name": {
-        "en_us": "Guide: End & Enderite",
-        "de_de": "Handbuch: Ende & Enderit"
-      },
-      "texture": "assets/textures/item/guide_book_end.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_end"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_gadgets",
-      "name": {
-        "en_us": "Guide: Gadgets",
-        "de_de": "Handbuch: Geräte"
-      },
-      "texture": "assets/textures/item/guide_book_gadgets.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_gadgets"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_machines",
-      "name": {
-        "en_us": "Guide: Machines & Pistons",
-        "de_de": "Handbuch: Maschinen & Kolben"
-      },
-      "texture": "assets/textures/item/guide_book_machines.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_machines"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_storage",
-      "name": {
-        "en_us": "Guide: Storage",
-        "de_de": "Handbuch: Lagerung"
-      },
-      "texture": "assets/textures/item/guide_book_storage.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_storage"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_tools",
-      "name": {
-        "en_us": "Guide: Tools & Upgrades",
-        "de_de": "Handbuch: Werkzeuge & Aufwertungen"
-      },
-      "texture": "assets/textures/item/guide_book_tools.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_tools"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_trims",
-      "name": {
-        "en_us": "Guide: Trims & Radiance",
-        "de_de": "Handbuch: Besätze & Strahlkraft"
-      },
-      "texture": "assets/textures/item/guide_book_trims.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_trims"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_tweaks",
-      "name": {
-        "en_us": "Guide: Pads",
-        "de_de": "Handbuch: Pads"
-      },
-      "texture": "assets/textures/item/guide_book_tweaks.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_tweaks"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_caves",
-      "name": {
-        "en_us": "Vanilla Guide: Caves",
-        "de_de": "Vanilla-Handbuch: Höhlen"
-      },
-      "texture": "assets/textures/item/guide_book_vanilla_caves.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_vanilla_caves"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_end",
-      "name": {
-        "en_us": "Vanilla Guide: The End",
-        "de_de": "Vanilla-Handbuch: Das Ende"
-      },
-      "texture": "assets/textures/item/guide_book_vanilla_end.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_vanilla_end"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_farming",
-      "name": {
-        "en_us": "Vanilla Guide: Farming & Mobs",
-        "de_de": "Vanilla-Handbuch: Landwirtschaft & Tiere"
-      },
-      "texture": "assets/textures/item/guide_book_vanilla_farming.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_vanilla_farming"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_gear",
-      "name": {
-        "en_us": "Vanilla Guide: Gear",
-        "de_de": "Vanilla-Handbuch: Ausrüstung"
-      },
-      "texture": "assets/textures/item/guide_book_vanilla_gear.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_vanilla_gear"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_nether",
-      "name": {
-        "en_us": "Vanilla Guide: Nether",
-        "de_de": "Vanilla-Handbuch: Nether"
-      },
-      "texture": "assets/textures/item/guide_book_vanilla_nether.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_vanilla_nether"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_ocean",
-      "name": {
-        "en_us": "Vanilla Guide: Ocean",
-        "de_de": "Vanilla-Handbuch: Ozean"
-      },
-      "texture": "assets/textures/item/guide_book_vanilla_ocean.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_vanilla_ocean"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_overworld",
-      "name": {
-        "en_us": "Vanilla Guide: Overworld",
-        "de_de": "Vanilla-Handbuch: Oberwelt"
-      },
-      "texture": "assets/textures/item/guide_book_vanilla_overworld.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_vanilla_overworld"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_redstone",
-      "name": {
-        "en_us": "Vanilla Guide: Redstone",
-        "de_de": "Vanilla-Handbuch: Redstone"
-      },
-      "texture": "assets/textures/item/guide_book_vanilla_redstone.png",
-      "craftedBy": [
-        "simplebuilding:guide_book_vanilla_redstone"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 16
-      },
-      "note": {
-        "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
-          "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
-          ]
-        },
-        "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
-          "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
-          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+          "common/src/shared/java/com/simplebuilding/client/gui/tooltip/GuideTooltip.java",
+          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+          "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/root.json"
         ]
       },
       "hasCustomBehaviour": false
@@ -10888,12 +9638,21 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:guide_book_vanilla_start",
       "name": {
-        "en_us": "Vanilla Guide: First Steps",
-        "de_de": "Vanilla-Handbuch: Erste Schritte"
+        "en_us": "Mega Guide: Minecraft",
+        "de_de": "Mega-Handbuch: Minecraft"
       },
       "texture": "assets/textures/item/guide_book_vanilla_start.png",
       "craftedBy": [
-        "simplebuilding:guide_book_vanilla_start"
+        "simplebuilding:guide_book_vanilla_caves",
+        "simplebuilding:guide_book_vanilla_end",
+        "simplebuilding:guide_book_vanilla_farming",
+        "simplebuilding:guide_book_vanilla_gear",
+        "simplebuilding:guide_book_vanilla_nether",
+        "simplebuilding:guide_book_vanilla_ocean",
+        "simplebuilding:guide_book_vanilla_overworld",
+        "simplebuilding:guide_book_vanilla_redstone",
+        "simplebuilding:guide_book_vanilla_start",
+        "simplebuilding:guide_book_vanilla_start_combine"
       ],
       "usedIn": [
         "simplebuilding:guide_book_vanilla_caves",
@@ -10903,62 +9662,43 @@ window.WIKI_DATA = {
         "simplebuilding:guide_book_vanilla_nether",
         "simplebuilding:guide_book_vanilla_ocean",
         "simplebuilding:guide_book_vanilla_overworld",
-        "simplebuilding:guide_book_vanilla_redstone"
+        "simplebuilding:guide_book_vanilla_redstone",
+        "simplebuilding:guide_book_vanilla_start_combine"
       ],
       "trades": [],
       "properties": {
-        "maxStackSize": 16
+        "maxStackSize": 1
       },
       "note": {
         "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "summary": "On 26.3, two separate Mega Guides hold the Minecraft and SimpleBuilding shelves. Only the base guides are items; topic books are inserted content. Older lines retain their previous books until the port run.",
           "details": [
-            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-            "A lost guide is crafted again from a book and a crafting table.",
-            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+            "Craft the SimpleBuilding guide from a book and a crafting table, or the Minecraft guide from a book and a wooden pickaxe. Guides are never first-join gifts on 26.3, even with the old gift option enabled. No guide-book chest loot is registered; enchanted books with cover textures remain in loot.",
+            "Insert topics by crafting the guide with its matching key item. The guide is consumed and returned as one upgraded guide, preserving existing components and inserted chapters. Two guides from the same shelf can combine their inserted chapters; the two shelves cannot mix. Duplicate inserts do not craft.",
+            "Inserted chapters persist in simplebuilding:guide_chapters and appear with miniature book textures and localized names in the tooltip. Old chapter IDs alias to the corresponding base guide; the data fixer preserves their chapter on world load, including same-version saves.",
+            "The screen shows only the opened guide shelf, with eight tabs on the right and at most four on the left (including Contents). Locked chapters are gray and name their unlock item. Server Admin requires operator permission level 2 to insert and read. Reading does not pause the game.",
+            "Upgrade recipes are displayed by JEI and the guide recipe cards. Optional building, storage and pad quests use chapter advancements on 26.3."
           ]
         },
         "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "summary": "Auf 26.3 enthalten zwei getrennte Mega-Handbuecher die Regale fuer Minecraft und SimpleBuilding. Nur die Basis-Handbuecher sind Items; Themenbuecher sind eingefuegte Inhalte. Aeltere Linien behalten ihre bisherigen Buecher bis zum Port-Run.",
           "details": [
-            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+            "Mod-Handbuch: Buch + Werkbank. Minecraft-Handbuch: Buch + Holzspitzhacke. Auf 26.3 gibt es kein Handbuch beim Erstbeitritt, auch bei eingeschaltetem altem Config-Schalter. Im Code ist kein Handbuch-Truhenloot registriert; verzauberte Buecher mit Cover-Texturen bleiben in der Beute.",
+            "Handbuch + Schluesselitem fuegt das Thema ein. Das Handbuch wird verbraucht und als ein verbessertes Buch mit allen bisherigen Komponenten und Kapiteln zurueckgegeben. Zwei Handbuecher desselben Regals vereinen ihre Inhalte; die Regale lassen sich nicht mischen. Doppelte Themen ergeben kein Rezept.",
+            "simplebuilding:guide_chapters speichert die Themen dauerhaft. Im Tooltip erscheinen kleine Buchtexturen und uebersetzte Namen. Alte Themen-IDs zeigen auf das Basisbuch; der Datenfixer erhaelt das Thema beim Laden, auch ohne Minecraft-Versionswechsel.",
+            "Der Bildschirm zeigt nur das geoeffnete Regal: acht Tabs rechts, hoechstens vier links inklusive Inhalt. Gesperrte Themen sind grau und nennen ihr Schluesselitem. Server-Admin erfordert Operatorstufe 2 zum Einfuegen und Lesen. Lesen pausiert das Spiel nicht.",
+            "JEI und Rezeptkarten zeigen die Upgrades. Optionale Bau-, Lager- und Pad-Quests verwenden auf 26.3 Kapitel-Erfolge."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/recipe/GuideUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/datafix/ModDataFixer.java",
+          "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
           "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+          "common/src/shared/java/com/simplebuilding/client/gui/tooltip/GuideTooltip.java",
+          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+          "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/root.json"
         ]
       },
       "hasCustomBehaviour": false
@@ -25750,7 +24490,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "black"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/black_enderite_shulker_box.json",
       "ingredients": [
@@ -25777,7 +24520,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "black"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/black_netherite_shulker_box.json",
       "ingredients": [
@@ -25804,7 +24550,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "black"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/black_reinforced_shulker_box.json",
       "ingredients": [
@@ -25863,7 +24612,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "blue"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/blue_enderite_shulker_box.json",
       "ingredients": [
@@ -25890,7 +24642,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "blue"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/blue_netherite_shulker_box.json",
       "ingredients": [
@@ -25917,7 +24672,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "blue"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/blue_reinforced_shulker_box.json",
       "ingredients": [
@@ -26023,7 +24781,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "brown"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/brown_enderite_shulker_box.json",
       "ingredients": [
@@ -26050,7 +24811,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "brown"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/brown_netherite_shulker_box.json",
       "ingredients": [
@@ -26077,7 +24841,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "brown"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/brown_reinforced_shulker_box.json",
       "ingredients": [
@@ -26886,7 +25653,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "cyan"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/cyan_enderite_shulker_box.json",
       "ingredients": [
@@ -26913,7 +25683,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "cyan"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/cyan_netherite_shulker_box.json",
       "ingredients": [
@@ -26940,7 +25713,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "cyan"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/cyan_reinforced_shulker_box.json",
       "ingredients": [
@@ -27112,7 +25888,7 @@ window.WIKI_DATA = {
         "id": "minecraft:diamond",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/diamond_from_blasting_cracked_diamond.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/diamond_from_blasting_cracked_diamond.json",
       "ingredients": [
         "simplebuilding:cracked_diamond"
       ],
@@ -27121,7 +25897,9 @@ window.WIKI_DATA = {
           "simplebuilding:cracked_diamond"
         ]
       },
+      "cookingtime": 100,
       "experience": 1.0,
+      "storedCookingtime": 200,
       "lines": [
         "1.21.11",
         "26.2",
@@ -29283,7 +28061,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_scrap",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
       "ingredients": [
         "simplebuilding:layered_raw_enderite"
       ],
@@ -29294,6 +28072,7 @@ window.WIKI_DATA = {
       },
       "cookingtime": 144000,
       "experience": 10.0,
+      "storedCookingtime": 288000,
       "lines": [
         "1.21.11",
         "26.2",
@@ -29775,7 +28554,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "gray"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/gray_enderite_shulker_box.json",
       "ingredients": [
@@ -29802,7 +28584,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "gray"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/gray_netherite_shulker_box.json",
       "ingredients": [
@@ -29829,7 +28614,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "gray"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/gray_reinforced_shulker_box.json",
       "ingredients": [
@@ -29856,7 +28644,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "green"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/green_enderite_shulker_box.json",
       "ingredients": [
@@ -29883,7 +28674,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "green"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/green_netherite_shulker_box.json",
       "ingredients": [
@@ -29910,7 +28704,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "green"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/green_reinforced_shulker_box.json",
       "ingredients": [
@@ -29960,531 +28757,1874 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:guide_book_admin",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_admin",
-        "count": 1
+        "id": "simplebuilding:guide_book",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 1024
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_admin.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_admin.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:comparator",
         "simplebuilding:guide_book"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book"
         ],
         [
           "minecraft:comparator"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Server Admin",
+        "de_de": "Server-Admin"
+      },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Server Admin",
+                "de_de": "Server-Admin"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:comparator"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:comparator"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:comparator",
+                "simplebuilding:guide_book"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:comparator",
+                "simplebuilding:guide_book"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 1024
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_admin",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_admin.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_building",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_building",
-        "count": 1
+        "id": "simplebuilding:guide_book",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 8
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_building.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_building.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:brick",
         "simplebuilding:guide_book"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book"
         ],
         [
           "minecraft:brick"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Building",
+        "de_de": "Bauen"
+      },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Building",
+                "de_de": "Bauen"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:brick"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:brick"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:brick",
+                "simplebuilding:guide_book"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:brick",
+                "simplebuilding:guide_book"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 8
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_building",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_building.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_combine",
+      "type": "simplebuilding:guide_upgrade",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 0
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_combine.json",
+      "ingredients": [
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:guide_book"
+        ],
+        [
+          "simplebuilding:guide_book"
+        ]
+      ],
+      "guideCombine": true,
+      "lines": [
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_enchantments",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_enchantments",
-        "count": 1
+        "id": "simplebuilding:guide_book",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 4
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_enchantments.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_enchantments.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:lapis_lazuli",
         "simplebuilding:guide_book"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book"
         ],
         [
           "minecraft:lapis_lazuli"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Enchantments",
+        "de_de": "Verzauberungen"
+      },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Enchantments",
+                "de_de": "Verzauberungen"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:lapis_lazuli"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:lapis_lazuli"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:lapis_lazuli",
+                "simplebuilding:guide_book"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:lapis_lazuli",
+                "simplebuilding:guide_book"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 4
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_enchantments",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_enchantments.json"
+        }
+      ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_end",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_end",
-        "count": 1
+        "id": "simplebuilding:guide_book",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 64
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_end.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_end.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:ender_pearl",
         "simplebuilding:guide_book"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book"
         ],
         [
           "minecraft:ender_pearl"
         ]
       ],
+      "guideChapter": {
+        "en_us": "End & Enderite",
+        "de_de": "Ende & Enderit"
+      },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "End & Enderite",
+                "de_de": "Ende & Enderit"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:ender_pearl"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:ender_pearl"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:ender_pearl",
+                "simplebuilding:guide_book"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:ender_pearl",
+                "simplebuilding:guide_book"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 64
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_end",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_end.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_gadgets",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_gadgets",
-        "count": 1
+        "id": "simplebuilding:guide_book",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 256
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_gadgets.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_gadgets.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:copper_ingot",
         "simplebuilding:guide_book"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book"
         ],
         [
           "minecraft:copper_ingot"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Gadgets",
+        "de_de": "Geräte"
+      },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Gadgets",
+                "de_de": "Geräte"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:copper_ingot"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:copper_ingot"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:copper_ingot",
+                "simplebuilding:guide_book"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:copper_ingot",
+                "simplebuilding:guide_book"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 256
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_gadgets",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_gadgets.json"
+        }
+      ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_machines",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_machines",
-        "count": 1
+        "id": "simplebuilding:guide_book",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 32
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_machines.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_machines.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:piston",
         "simplebuilding:guide_book"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book"
         ],
         [
           "minecraft:piston"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Machines & Pistons",
+        "de_de": "Maschinen & Kolben"
+      },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Machines & Pistons",
+                "de_de": "Maschinen & Kolben"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:piston"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:piston"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:piston",
+                "simplebuilding:guide_book"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:piston",
+                "simplebuilding:guide_book"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 32
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_machines",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_machines.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_storage",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_storage",
-        "count": 1
+        "id": "simplebuilding:guide_book",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 16
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_storage.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_storage.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:chest",
         "simplebuilding:guide_book"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book"
         ],
         [
           "minecraft:chest"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Storage",
+        "de_de": "Lagerung"
+      },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Storage",
+                "de_de": "Lagerung"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:chest"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:chest"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:chest",
+                "simplebuilding:guide_book"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:chest",
+                "simplebuilding:guide_book"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 16
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_storage",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_storage.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_tools",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_tools",
-        "count": 1
+        "id": "simplebuilding:guide_book",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 2
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_tools.json",
       "ingredients": [
-        "minecraft:book",
         "simplebuilding:guide_book",
         "simplebuilding:stone_chisel"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book"
         ],
         [
           "simplebuilding:stone_chisel"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Tools & Upgrades",
+        "de_de": "Werkzeuge & Aufwertungen"
+      },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Tools & Upgrades",
+                "de_de": "Werkzeuge & Aufwertungen"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "simplebuilding:stone_chisel"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "simplebuilding:stone_chisel"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "simplebuilding:guide_book",
+                "simplebuilding:stone_chisel"
+              ],
+              "other": [
+                "minecraft:book",
+                "simplebuilding:guide_book",
+                "simplebuilding:stone_chisel"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 2
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_tools",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_tools.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_trims",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_trims",
-        "count": 1
+        "id": "simplebuilding:guide_book",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 512
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_trims.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_trims.json",
       "ingredients": [
         "minecraft:amethyst_shard",
-        "minecraft:book",
         "simplebuilding:guide_book"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book"
         ],
         [
           "minecraft:amethyst_shard"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Trims & Radiance",
+        "de_de": "Besätze & Strahlkraft"
+      },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Trims & Radiance",
+                "de_de": "Besätze & Strahlkraft"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:amethyst_shard"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:amethyst_shard"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:amethyst_shard",
+                "simplebuilding:guide_book"
+              ],
+              "other": [
+                "minecraft:amethyst_shard",
+                "minecraft:book",
+                "simplebuilding:guide_book"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 512
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_trims",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_trims.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_tweaks",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_tweaks",
-        "count": 1
+        "id": "simplebuilding:guide_book",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 128
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_tweaks.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_tweaks.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:stone_pressure_plate",
         "simplebuilding:guide_book"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book"
         ],
         [
           "minecraft:stone_pressure_plate"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Pads",
+        "de_de": "Pads"
+      },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Pads",
+                "de_de": "Pads"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:stone_pressure_plate"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book"
+                ],
+                [
+                  "minecraft:stone_pressure_plate"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:stone_pressure_plate",
+                "simplebuilding:guide_book"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:stone_pressure_plate",
+                "simplebuilding:guide_book"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 128
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_tweaks",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_tweaks.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_vanilla_caves",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_vanilla_caves",
-        "count": 1
+        "id": "simplebuilding:guide_book_vanilla_start",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 8192
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_caves.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_caves.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:torch",
         "simplebuilding:guide_book_vanilla_start"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book_vanilla_start"
         ],
         [
           "minecraft:torch"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Caves & Underground",
+        "de_de": "Höhlen & Untergrund"
+      },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Caves & Underground",
+                "de_de": "Höhlen & Untergrund"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:torch"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:torch"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:torch",
+                "simplebuilding:guide_book_vanilla_start"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:torch",
+                "simplebuilding:guide_book_vanilla_start"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book_vanilla_start",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 8192
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_vanilla_caves",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_caves.json"
+        }
+      ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_vanilla_end",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_vanilla_end",
-        "count": 1
+        "id": "simplebuilding:guide_book_vanilla_start",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 65536
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_end.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_end.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:ender_eye",
         "simplebuilding:guide_book_vanilla_start"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book_vanilla_start"
         ],
         [
           "minecraft:ender_eye"
         ]
       ],
+      "guideChapter": {
+        "en_us": "The End",
+        "de_de": "Das Ende"
+      },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "The End",
+                "de_de": "Das Ende"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:ender_eye"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:ender_eye"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:ender_eye",
+                "simplebuilding:guide_book_vanilla_start"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:ender_eye",
+                "simplebuilding:guide_book_vanilla_start"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book_vanilla_start",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 65536
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_vanilla_end",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_end.json"
+        }
+      ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_vanilla_farming",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_vanilla_farming",
-        "count": 1
+        "id": "simplebuilding:guide_book_vanilla_start",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 524288
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_farming.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_farming.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:wheat_seeds",
         "simplebuilding:guide_book_vanilla_start"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book_vanilla_start"
         ],
         [
           "minecraft:wheat_seeds"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Farming & Mobs",
+        "de_de": "Landwirtschaft & Tiere"
+      },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Farming & Mobs",
+                "de_de": "Landwirtschaft & Tiere"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:wheat_seeds"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:wheat_seeds"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:wheat_seeds",
+                "simplebuilding:guide_book_vanilla_start"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:wheat_seeds",
+                "simplebuilding:guide_book_vanilla_start"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book_vanilla_start",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 524288
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_vanilla_farming",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_farming.json"
+        }
+      ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_vanilla_gear",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_vanilla_gear",
-        "count": 1
+        "id": "simplebuilding:guide_book_vanilla_start",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 262144
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_gear.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_gear.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:stone_sword",
         "simplebuilding:guide_book_vanilla_start"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book_vanilla_start"
         ],
         [
           "minecraft:stone_sword"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Tools, Armor & Weapons",
+        "de_de": "Werkzeuge, Rüstung & Waffen"
+      },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Tools, Armor & Weapons",
+                "de_de": "Werkzeuge, Rüstung & Waffen"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:stone_sword"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:stone_sword"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:stone_sword",
+                "simplebuilding:guide_book_vanilla_start"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:stone_sword",
+                "simplebuilding:guide_book_vanilla_start"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book_vanilla_start",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 262144
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_vanilla_gear",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_gear.json"
+        }
+      ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_vanilla_nether",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_vanilla_nether",
-        "count": 1
+        "id": "simplebuilding:guide_book_vanilla_start",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 32768
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_nether.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_nether.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:flint_and_steel",
         "simplebuilding:guide_book_vanilla_start"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book_vanilla_start"
         ],
         [
           "minecraft:flint_and_steel"
         ]
       ],
+      "guideChapter": {
+        "en_us": "The Nether",
+        "de_de": "Der Nether"
+      },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "The Nether",
+                "de_de": "Der Nether"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:flint_and_steel"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:flint_and_steel"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:flint_and_steel",
+                "simplebuilding:guide_book_vanilla_start"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:flint_and_steel",
+                "simplebuilding:guide_book_vanilla_start"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book_vanilla_start",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 32768
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_vanilla_nether",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_nether.json"
+        }
+      ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_vanilla_ocean",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_vanilla_ocean",
-        "count": 1
+        "id": "simplebuilding:guide_book_vanilla_start",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 16384
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_ocean.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_ocean.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:oak_boat",
         "simplebuilding:guide_book_vanilla_start"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book_vanilla_start"
         ],
         [
           "minecraft:oak_boat"
         ]
       ],
+      "guideChapter": {
+        "en_us": "The Ocean",
+        "de_de": "Der Ozean"
+      },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "The Ocean",
+                "de_de": "Der Ozean"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:oak_boat"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:oak_boat"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:oak_boat",
+                "simplebuilding:guide_book_vanilla_start"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:oak_boat",
+                "simplebuilding:guide_book_vanilla_start"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book_vanilla_start",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 16384
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_vanilla_ocean",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_ocean.json"
+        }
+      ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_vanilla_overworld",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_vanilla_overworld",
-        "count": 1
+        "id": "simplebuilding:guide_book_vanilla_start",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 4096
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_overworld.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_overworld.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:oak_sapling",
         "simplebuilding:guide_book_vanilla_start"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book_vanilla_start"
         ],
         [
           "minecraft:oak_sapling"
         ]
       ],
+      "guideChapter": {
+        "en_us": "The Overworld",
+        "de_de": "Die Oberwelt"
+      },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "The Overworld",
+                "de_de": "Die Oberwelt"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:oak_sapling"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:oak_sapling"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:oak_sapling",
+                "simplebuilding:guide_book_vanilla_start"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:oak_sapling",
+                "simplebuilding:guide_book_vanilla_start"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book_vanilla_start",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 4096
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_vanilla_overworld",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_overworld.json"
+        }
+      ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
     {
       "id": "simplebuilding:guide_book_vanilla_redstone",
-      "type": "minecraft:crafting_shapeless",
+      "type": "simplebuilding:guide_upgrade",
       "category": null,
       "group": null,
       "result": {
-        "id": "simplebuilding:guide_book_vanilla_redstone",
-        "count": 1
+        "id": "simplebuilding:guide_book_vanilla_start",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 131072
+        }
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_redstone.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_redstone.json",
       "ingredients": [
-        "minecraft:book",
         "minecraft:redstone",
         "simplebuilding:guide_book_vanilla_start"
       ],
       "ingredientGroups": [
         [
-          "minecraft:book",
           "simplebuilding:guide_book_vanilla_start"
         ],
         [
           "minecraft:redstone"
         ]
       ],
+      "guideChapter": {
+        "en_us": "Redstone",
+        "de_de": "Redstone"
+      },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "guideChapter",
+              "this": {
+                "en_us": "Redstone",
+                "de_de": "Redstone"
+              },
+              "other": null
+            },
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:redstone"
+                ]
+              ],
+              "other": [
+                [
+                  "minecraft:book",
+                  "simplebuilding:guide_book_vanilla_start"
+                ],
+                [
+                  "minecraft:redstone"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:redstone",
+                "simplebuilding:guide_book_vanilla_start"
+              ],
+              "other": [
+                "minecraft:book",
+                "minecraft:redstone",
+                "simplebuilding:guide_book_vanilla_start"
+              ]
+            },
+            {
+              "field": "result",
+              "this": {
+                "id": "simplebuilding:guide_book_vanilla_start",
+                "count": 1,
+                "components": {
+                  "simplebuilding:guide_chapters": 131072
+                }
+              },
+              "other": {
+                "id": "simplebuilding:guide_book_vanilla_redstone",
+                "count": 1
+              }
+            },
+            {
+              "field": "type",
+              "this": "simplebuilding:guide_upgrade",
+              "other": "minecraft:crafting_shapeless"
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_redstone.json"
+        }
+      ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
@@ -30512,6 +30652,35 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_start_combine",
+      "type": "simplebuilding:guide_upgrade",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_start",
+        "count": 1,
+        "components": {
+          "simplebuilding:guide_chapters": 0
+        }
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_start_combine.json",
+      "ingredients": [
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "simplebuilding:guide_book_vanilla_start"
+        ]
+      ],
+      "guideCombine": true,
+      "lines": [
         "26.3"
       ]
     },
@@ -30965,7 +31134,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_blue"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/light_blue_enderite_shulker_box.json",
       "ingredients": [
@@ -30992,7 +31164,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_blue"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/light_blue_netherite_shulker_box.json",
       "ingredients": [
@@ -31019,7 +31194,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_blue"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/light_blue_reinforced_shulker_box.json",
       "ingredients": [
@@ -31046,7 +31224,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_gray"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/light_gray_enderite_shulker_box.json",
       "ingredients": [
@@ -31073,7 +31254,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_gray"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/light_gray_netherite_shulker_box.json",
       "ingredients": [
@@ -31100,7 +31284,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_gray"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/light_gray_reinforced_shulker_box.json",
       "ingredients": [
@@ -31127,7 +31314,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "lime"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/lime_enderite_shulker_box.json",
       "ingredients": [
@@ -31154,7 +31344,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "lime"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/lime_netherite_shulker_box.json",
       "ingredients": [
@@ -31181,7 +31374,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "lime"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/lime_reinforced_shulker_box.json",
       "ingredients": [
@@ -31208,7 +31404,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "magenta"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/magenta_enderite_shulker_box.json",
       "ingredients": [
@@ -31235,7 +31434,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "magenta"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/magenta_netherite_shulker_box.json",
       "ingredients": [
@@ -31262,7 +31464,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "magenta"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/magenta_reinforced_shulker_box.json",
       "ingredients": [
@@ -33284,7 +33489,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "orange"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/orange_enderite_shulker_box.json",
       "ingredients": [
@@ -33311,7 +33519,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "orange"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/orange_netherite_shulker_box.json",
       "ingredients": [
@@ -33338,7 +33549,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "orange"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/orange_reinforced_shulker_box.json",
       "ingredients": [
@@ -33365,7 +33579,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "pink"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/pink_enderite_shulker_box.json",
       "ingredients": [
@@ -33392,7 +33609,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "pink"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/pink_netherite_shulker_box.json",
       "ingredients": [
@@ -33419,7 +33639,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "pink"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/pink_reinforced_shulker_box.json",
       "ingredients": [
@@ -34867,7 +35090,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "purple"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/purple_enderite_shulker_box.json",
       "ingredients": [
@@ -34894,7 +35120,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "purple"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/purple_netherite_shulker_box.json",
       "ingredients": [
@@ -34921,7 +35150,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "purple"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/purple_reinforced_shulker_box.json",
       "ingredients": [
@@ -35087,7 +35319,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "red"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/red_enderite_shulker_box.json",
       "ingredients": [
@@ -35114,7 +35349,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "red"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/red_netherite_shulker_box.json",
       "ingredients": [
@@ -35141,7 +35379,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "red"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/red_reinforced_shulker_box.json",
       "ingredients": [
@@ -35612,7 +35853,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "black"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_black_shulker_box.json",
       "ingredients": [
@@ -35639,7 +35883,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "blue"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_blue_shulker_box.json",
       "ingredients": [
@@ -35666,7 +35913,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "brown"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_brown_shulker_box.json",
       "ingredients": [
@@ -35693,7 +35943,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "cyan"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_cyan_shulker_box.json",
       "ingredients": [
@@ -35720,7 +35973,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "gray"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_gray_shulker_box.json",
       "ingredients": [
@@ -35747,7 +36003,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "green"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_green_shulker_box.json",
       "ingredients": [
@@ -35774,7 +36033,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_blue"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_blue_shulker_box.json",
       "ingredients": [
@@ -35801,7 +36063,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "light_gray"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_light_gray_shulker_box.json",
       "ingredients": [
@@ -35828,7 +36093,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "lime"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_lime_shulker_box.json",
       "ingredients": [
@@ -35855,7 +36123,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "magenta"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_magenta_shulker_box.json",
       "ingredients": [
@@ -35882,7 +36153,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "orange"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_orange_shulker_box.json",
       "ingredients": [
@@ -35909,7 +36183,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "pink"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_pink_shulker_box.json",
       "ingredients": [
@@ -35936,7 +36213,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "purple"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_purple_shulker_box.json",
       "ingredients": [
@@ -35963,7 +36243,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "red"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_red_shulker_box.json",
       "ingredients": [
@@ -36017,7 +36300,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "white"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_white_shulker_box.json",
       "ingredients": [
@@ -36044,7 +36330,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "yellow"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_yellow_shulker_box.json",
       "ingredients": [
@@ -37870,7 +38159,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "white"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/white_enderite_shulker_box.json",
       "ingredients": [
@@ -37897,7 +38189,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "white"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/white_netherite_shulker_box.json",
       "ingredients": [
@@ -37924,7 +38219,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "white"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/white_reinforced_shulker_box.json",
       "ingredients": [
@@ -37951,7 +38249,10 @@ window.WIKI_DATA = {
       "group": "enderite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:enderite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "yellow"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/yellow_enderite_shulker_box.json",
       "ingredients": [
@@ -37978,7 +38279,10 @@ window.WIKI_DATA = {
       "group": "netherite_shulker_box_dye",
       "result": {
         "id": "simplebuilding:netherite_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "yellow"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/yellow_netherite_shulker_box.json",
       "ingredients": [
@@ -38005,7 +38309,10 @@ window.WIKI_DATA = {
       "group": "reinforced_shulker_box_dye",
       "result": {
         "id": "simplebuilding:reinforced_shulker_box",
-        "count": 1
+        "count": 1,
+        "components": {
+          "minecraft:base_color": "yellow"
+        }
       },
       "source": "src/main/generated/data/simplebuilding/recipe/yellow_reinforced_shulker_box.json",
       "ingredients": [
@@ -38291,6 +38598,518 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_admin",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_admin",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_admin.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:comparator",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:comparator"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_building",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_building",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_building.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:brick",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:brick"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_enchantments",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_enchantments",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_enchantments.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:lapis_lazuli",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:lapis_lazuli"
+        ]
+      ],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_end",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_end",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_end.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:ender_pearl",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:ender_pearl"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_gadgets",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_gadgets",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_gadgets.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:copper_ingot",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:copper_ingot"
+        ]
+      ],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_machines",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_machines",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_machines.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:piston",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:piston"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_storage",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_storage",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_storage.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:chest",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:chest"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_tools",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_tools",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+      "ingredients": [
+        "minecraft:book",
+        "simplebuilding:guide_book",
+        "simplebuilding:stone_chisel"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "simplebuilding:stone_chisel"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_trims",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_trims",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_trims.json",
+      "ingredients": [
+        "minecraft:amethyst_shard",
+        "minecraft:book",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:amethyst_shard"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_tweaks",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_tweaks",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_tweaks.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:stone_pressure_plate",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:stone_pressure_plate"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_caves",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_caves",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_caves.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:torch",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:torch"
+        ]
+      ],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_end",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_end",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_end.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:ender_eye",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:ender_eye"
+        ]
+      ],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_farming",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_farming",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_farming.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:wheat_seeds",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:wheat_seeds"
+        ]
+      ],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_gear",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_gear",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_gear.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:stone_sword",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:stone_sword"
+        ]
+      ],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_nether",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_nether",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_nether.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:flint_and_steel",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:flint_and_steel"
+        ]
+      ],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_ocean",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_ocean",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_ocean.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:oak_boat",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:oak_boat"
+        ]
+      ],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_overworld",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_overworld",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_overworld.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:oak_sapling",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:oak_sapling"
+        ]
+      ],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_redstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_redstone",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_redstone.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:redstone",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:redstone"
+        ]
+      ],
+      "lines": [
+        "26.2"
       ]
     },
     {
@@ -38624,17 +39443,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:astral_end_stone"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astral_end_stone.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_end_stone.json"
     },
     {
       "id": "simplebuilding:blocks/astral_purpur_block",
@@ -38642,17 +39459,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:astral_purpur_block"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astral_purpur_block.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_block.json"
     },
     {
       "id": "simplebuilding:blocks/astralit_block",
@@ -38660,17 +39475,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:astralit_block"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_block.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_block.json"
     },
     {
       "id": "simplebuilding:blocks/astralit_brick_slab",
@@ -38678,7 +39491,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:astralit_brick_slab"
           ],
@@ -38686,7 +39499,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_brick_slab.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_brick_slab.json"
     },
     {
       "id": "simplebuilding:blocks/astralit_brick_stairs",
@@ -38694,17 +39507,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:astralit_brick_stairs"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_brick_stairs.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_brick_stairs.json"
     },
     {
       "id": "simplebuilding:blocks/astralit_brick_wall",
@@ -38712,17 +39523,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:astralit_brick_wall"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_brick_wall.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_brick_wall.json"
     },
     {
       "id": "simplebuilding:blocks/astralit_bricks",
@@ -38730,17 +39539,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:astralit_bricks"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_bricks.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_bricks.json"
     },
     {
       "id": "simplebuilding:blocks/astralit_ore",
@@ -38748,7 +39555,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:astralit_ore",
             "simplebuilding:astralit_dust"
@@ -38757,7 +39564,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_ore.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_ore.json"
     },
     {
       "id": "simplebuilding:blocks/astralit_pillar",
@@ -38765,17 +39572,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:astralit_pillar"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_pillar.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_pillar.json"
     },
     {
       "id": "simplebuilding:blocks/astralit_quartz_checker",
@@ -38783,17 +39588,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:astralit_quartz_checker"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_quartz_checker.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_quartz_checker.json"
     },
     {
       "id": "simplebuilding:blocks/backpack",
@@ -38801,7 +39604,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:backpack"
           ],
@@ -38809,7 +39612,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/backpack.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/backpack.json"
     },
     {
       "id": "simplebuilding:blocks/blackstone_quartz_checker",
@@ -38817,17 +39620,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:blackstone_quartz_checker"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/blackstone_quartz_checker.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blackstone_quartz_checker.json"
     },
     {
       "id": "simplebuilding:blocks/blaze_head",
@@ -38835,17 +39636,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:blaze_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/blaze_head.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blaze_head.json"
     },
     {
       "id": "simplebuilding:blocks/bogged_skull",
@@ -38853,17 +39652,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:bogged_skull"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/bogged_skull.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/bogged_skull.json"
     },
     {
       "id": "simplebuilding:blocks/breeze_head",
@@ -38871,17 +39668,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:breeze_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/breeze_head.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/breeze_head.json"
     },
     {
       "id": "simplebuilding:blocks/cave_spider_head",
@@ -38889,17 +39684,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:cave_spider_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/cave_spider_head.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cave_spider_head.json"
     },
     {
       "id": "simplebuilding:blocks/chiseled_astralit_bricks",
@@ -38907,17 +39700,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:chiseled_astralit_bricks"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/chiseled_astralit_bricks.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_astralit_bricks.json"
     },
     {
       "id": "simplebuilding:blocks/chiseled_ender_quartz_bricks",
@@ -38925,17 +39716,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:chiseled_ender_quartz_bricks"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/chiseled_ender_quartz_bricks.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_ender_quartz_bricks.json"
     },
     {
       "id": "simplebuilding:blocks/chiseled_nihilith_bricks",
@@ -38943,17 +39732,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:chiseled_nihilith_bricks"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/chiseled_nihilith_bricks.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_nihilith_bricks.json"
     },
     {
       "id": "simplebuilding:blocks/chunk_loader",
@@ -38961,17 +39748,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:chunk_loader"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/chunk_loader.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chunk_loader.json"
     },
     {
       "id": "simplebuilding:blocks/construction_light",
@@ -38979,17 +39764,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:construction_light"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/construction_light.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/construction_light.json"
     },
     {
       "id": "simplebuilding:blocks/copper_pressure_plate",
@@ -38997,17 +39780,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:copper_pressure_plate"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/copper_pressure_plate.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/copper_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/cracked_diamond_block",
@@ -39015,17 +39796,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:cracked_diamond_block"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/cracked_diamond_block.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_diamond_block.json"
     },
     {
       "id": "simplebuilding:blocks/diamond_pressure_plate",
@@ -39033,17 +39812,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:diamond_pressure_plate"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/diamond_pressure_plate.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/diamond_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/drowned_head",
@@ -39051,17 +39828,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:drowned_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/drowned_head.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/drowned_head.json"
     },
     {
       "id": "simplebuilding:blocks/elytra_pad",
@@ -39069,17 +39844,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:elytra_pad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/elytra_pad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/elytra_pad.json"
     },
     {
       "id": "simplebuilding:blocks/ender_quartz_block",
@@ -39087,17 +39860,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:ender_quartz_block"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/ender_quartz_block.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_quartz_block.json"
     },
     {
       "id": "simplebuilding:blocks/ender_quartz_brick_slab",
@@ -39105,7 +39876,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:ender_quartz_brick_slab"
           ],
@@ -39113,7 +39884,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/ender_quartz_brick_slab.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_quartz_brick_slab.json"
     },
     {
       "id": "simplebuilding:blocks/ender_quartz_brick_stairs",
@@ -39121,17 +39892,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:ender_quartz_brick_stairs"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/ender_quartz_brick_stairs.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_quartz_brick_stairs.json"
     },
     {
       "id": "simplebuilding:blocks/ender_quartz_brick_wall",
@@ -39139,17 +39908,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:ender_quartz_brick_wall"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/ender_quartz_brick_wall.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_quartz_brick_wall.json"
     },
     {
       "id": "simplebuilding:blocks/ender_quartz_bricks",
@@ -39157,17 +39924,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:ender_quartz_bricks"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/ender_quartz_bricks.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_quartz_bricks.json"
     },
     {
       "id": "simplebuilding:blocks/ender_quartz_checker",
@@ -39175,17 +39940,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:ender_quartz_checker"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/ender_quartz_checker.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_quartz_checker.json"
     },
     {
       "id": "simplebuilding:blocks/ender_quartz_pillar",
@@ -39193,17 +39956,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:ender_quartz_pillar"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/ender_quartz_pillar.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_quartz_pillar.json"
     },
     {
       "id": "simplebuilding:blocks/ender_quartz_slab",
@@ -39211,7 +39972,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:ender_quartz_slab"
           ],
@@ -39219,7 +39980,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/ender_quartz_slab.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_quartz_slab.json"
     },
     {
       "id": "simplebuilding:blocks/ender_quartz_stairs",
@@ -39227,17 +39988,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:ender_quartz_stairs"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/ender_quartz_stairs.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_quartz_stairs.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_backpack",
@@ -39245,7 +40004,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_backpack"
           ],
@@ -39253,7 +40012,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_backpack.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_backpack.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_blast_furnace",
@@ -39261,17 +40020,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_blast_furnace"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_block",
@@ -39279,17 +40036,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_block"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_block.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_block.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_chest",
@@ -39297,17 +40052,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_chest"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_chest.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_chest.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_chunk_loader",
@@ -39315,17 +40068,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_chunk_loader"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_chunk_loader.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_chunk_loader.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_elytra_pad",
@@ -39333,17 +40084,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_elytra_pad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_elytra_pad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_elytra_pad.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_flypad",
@@ -39351,17 +40100,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_flypad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_flypad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_flypad.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_furnace",
@@ -39369,17 +40116,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_furnace"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_furnace.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_furnace.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_hopper",
@@ -39387,17 +40132,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_hopper"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_launchpad",
@@ -39405,17 +40148,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_launchpad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_launchpad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_launchpad.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_piston",
@@ -39423,17 +40164,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_piston"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_piston.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_piston.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_pressure_plate",
@@ -39441,17 +40180,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_pressure_plate"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_pressure_plate.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_shulker_box",
@@ -39459,7 +40196,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_shulker_box"
           ],
@@ -39467,7 +40204,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_shulker_box.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_shulker_box.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_smoker",
@@ -39475,17 +40212,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_smoker"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_smoker.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_smoker.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_spawn_teleporter",
@@ -39493,17 +40228,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_spawn_teleporter"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_spawn_teleporter.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_spawn_teleporter.json"
     },
     {
       "id": "simplebuilding:blocks/enderman_head",
@@ -39511,17 +40244,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderman_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderman_head.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderman_head.json"
     },
     {
       "id": "simplebuilding:blocks/exposed_copper_pressure_plate",
@@ -39529,17 +40260,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:exposed_copper_pressure_plate"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/exposed_copper_pressure_plate.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/exposed_copper_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/fine_elytra_pad",
@@ -39547,17 +40276,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:fine_elytra_pad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/fine_elytra_pad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/fine_elytra_pad.json"
     },
     {
       "id": "simplebuilding:blocks/flypad",
@@ -39565,17 +40292,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:flypad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/flypad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/flypad.json"
     },
     {
       "id": "simplebuilding:blocks/husk_head",
@@ -39583,17 +40308,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:husk_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/husk_head.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/husk_head.json"
     },
     {
       "id": "simplebuilding:blocks/infused_potion_pad",
@@ -39601,17 +40324,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:infused_potion_pad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/infused_potion_pad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/infused_potion_pad.json"
     },
     {
       "id": "simplebuilding:blocks/lapis_quartz_checker",
@@ -39619,17 +40340,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:lapis_quartz_checker"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/lapis_quartz_checker.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/lapis_quartz_checker.json"
     },
     {
       "id": "simplebuilding:blocks/launchpad",
@@ -39637,17 +40356,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:launchpad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/launchpad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/launchpad.json"
     },
     {
       "id": "simplebuilding:blocks/levitating_gravel",
@@ -39655,17 +40372,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:levitating_gravel"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/levitating_gravel.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/levitating_gravel.json"
     },
     {
       "id": "simplebuilding:blocks/levitating_sand",
@@ -39673,17 +40388,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:levitating_sand"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/levitating_sand.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/levitating_sand.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_backpack",
@@ -39691,7 +40404,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_backpack"
           ],
@@ -39699,7 +40412,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_backpack.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_backpack.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_blast_furnace",
@@ -39707,17 +40420,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_blast_furnace"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_blast_furnace.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_blast_furnace.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_chest",
@@ -39725,17 +40436,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_chest"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_chest.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_chest.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_chunk_loader",
@@ -39743,17 +40452,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_chunk_loader"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_chunk_loader.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_chunk_loader.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_elytra_pad",
@@ -39761,17 +40468,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_elytra_pad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_elytra_pad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_elytra_pad.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_flypad",
@@ -39779,17 +40484,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_flypad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_flypad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_flypad.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_furnace",
@@ -39797,17 +40500,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_furnace"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_furnace.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_furnace.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_hopper",
@@ -39815,17 +40516,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_hopper"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_hopper.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_hopper.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_launchpad",
@@ -39833,17 +40532,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_launchpad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_launchpad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_launchpad.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_piston",
@@ -39851,17 +40548,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_piston"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_piston.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_piston.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_pressure_plate",
@@ -39869,17 +40564,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_pressure_plate"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_pressure_plate.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_shulker_box",
@@ -39887,7 +40580,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_shulker_box"
           ],
@@ -39895,7 +40588,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_shulker_box.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_shulker_box.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_smoker",
@@ -39903,17 +40596,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_smoker"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_smoker.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_smoker.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_end_stone",
@@ -39921,17 +40612,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:nihil_end_stone"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihil_end_stone.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_end_stone.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_purpur_block",
@@ -39939,17 +40628,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:nihil_purpur_block"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihil_purpur_block.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_purpur_block.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_block",
@@ -39957,17 +40644,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:nihilith_block"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_block.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_block.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_brick_slab",
@@ -39975,7 +40660,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:nihilith_brick_slab"
           ],
@@ -39983,7 +40668,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_brick_slab.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_brick_slab.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_brick_stairs",
@@ -39991,17 +40676,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:nihilith_brick_stairs"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_brick_stairs.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_brick_stairs.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_brick_wall",
@@ -40009,17 +40692,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:nihilith_brick_wall"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_brick_wall.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_brick_wall.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_bricks",
@@ -40027,17 +40708,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:nihilith_bricks"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_bricks.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_bricks.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_ore",
@@ -40045,7 +40724,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:nihilith_ore",
             "simplebuilding:nihilith_shard"
@@ -40054,7 +40733,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_ore.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_ore.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_pillar",
@@ -40062,17 +40741,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:nihilith_pillar"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_pillar.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_pillar.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_quartz_checker",
@@ -40080,17 +40757,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:nihilith_quartz_checker"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_quartz_checker.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_quartz_checker.json"
     },
     {
       "id": "simplebuilding:blocks/oxidized_copper_pressure_plate",
@@ -40098,17 +40773,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:oxidized_copper_pressure_plate"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/oxidized_copper_pressure_plate.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/oxidized_copper_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/polished_astralit",
@@ -40116,17 +40789,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_astralit"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_astralit.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_astralit.json"
     },
     {
       "id": "simplebuilding:blocks/polished_astralit_slab",
@@ -40134,7 +40805,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_astralit_slab"
           ],
@@ -40142,7 +40813,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_astralit_slab.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_astralit_slab.json"
     },
     {
       "id": "simplebuilding:blocks/polished_astralit_stairs",
@@ -40150,17 +40821,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_astralit_stairs"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_astralit_stairs.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_astralit_stairs.json"
     },
     {
       "id": "simplebuilding:blocks/polished_astralit_wall",
@@ -40168,17 +40837,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_astralit_wall"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_astralit_wall.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_astralit_wall.json"
     },
     {
       "id": "simplebuilding:blocks/polished_end_stone",
@@ -40186,17 +40853,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_end_stone"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_end_stone.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_end_stone.json"
     },
     {
       "id": "simplebuilding:blocks/polished_ender_quartz",
@@ -40204,17 +40869,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_ender_quartz"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_ender_quartz.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_ender_quartz.json"
     },
     {
       "id": "simplebuilding:blocks/polished_ender_quartz_slab",
@@ -40222,7 +40885,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_ender_quartz_slab"
           ],
@@ -40230,7 +40893,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_ender_quartz_slab.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_ender_quartz_slab.json"
     },
     {
       "id": "simplebuilding:blocks/polished_ender_quartz_stairs",
@@ -40238,17 +40901,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_ender_quartz_stairs"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_ender_quartz_stairs.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_ender_quartz_stairs.json"
     },
     {
       "id": "simplebuilding:blocks/polished_ender_quartz_wall",
@@ -40256,17 +40917,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_ender_quartz_wall"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_ender_quartz_wall.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_ender_quartz_wall.json"
     },
     {
       "id": "simplebuilding:blocks/polished_nihilith",
@@ -40274,17 +40933,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_nihilith"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_nihilith.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_nihilith.json"
     },
     {
       "id": "simplebuilding:blocks/polished_nihilith_slab",
@@ -40292,7 +40949,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_nihilith_slab"
           ],
@@ -40300,7 +40957,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_nihilith_slab.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_nihilith_slab.json"
     },
     {
       "id": "simplebuilding:blocks/polished_nihilith_stairs",
@@ -40308,17 +40965,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_nihilith_stairs"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_nihilith_stairs.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_nihilith_stairs.json"
     },
     {
       "id": "simplebuilding:blocks/polished_nihilith_wall",
@@ -40326,17 +40981,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:polished_nihilith_wall"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_nihilith_wall.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_nihilith_wall.json"
     },
     {
       "id": "simplebuilding:blocks/potion_pad",
@@ -40344,17 +40997,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:potion_pad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/potion_pad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/potion_pad.json"
     },
     {
       "id": "simplebuilding:blocks/purpur_quartz_checker",
@@ -40362,17 +41013,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:purpur_quartz_checker"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/purpur_quartz_checker.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/purpur_quartz_checker.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_backpack",
@@ -40380,7 +41029,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:reinforced_backpack"
           ],
@@ -40388,7 +41037,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_backpack.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_backpack.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_blast_furnace",
@@ -40396,17 +41045,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:reinforced_blast_furnace"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_blast_furnace.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_blast_furnace.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_chest",
@@ -40414,17 +41061,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:reinforced_chest"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_chest.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_chest.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_elytra_pad",
@@ -40432,17 +41077,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:reinforced_elytra_pad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_elytra_pad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_elytra_pad.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_flypad",
@@ -40450,17 +41093,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:reinforced_flypad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_flypad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_flypad.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_furnace",
@@ -40468,17 +41109,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:reinforced_furnace"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_furnace.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_furnace.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_hopper",
@@ -40486,17 +41125,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:reinforced_hopper"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_hopper.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_hopper.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_piston",
@@ -40504,17 +41141,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:reinforced_piston"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_piston.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_piston.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_potion_pad",
@@ -40522,17 +41157,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:reinforced_potion_pad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_potion_pad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_potion_pad.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_shulker_box",
@@ -40540,7 +41173,7 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:reinforced_shulker_box"
           ],
@@ -40548,7 +41181,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_shulker_box.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_shulker_box.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_smoker",
@@ -40556,17 +41189,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:reinforced_smoker"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_smoker.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_smoker.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_sticky_piston",
@@ -40574,17 +41205,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:reinforced_sticky_piston"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_sticky_piston.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_sticky_piston.json"
     },
     {
       "id": "simplebuilding:blocks/resin_quartz_checker",
@@ -40592,17 +41221,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:resin_quartz_checker"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/resin_quartz_checker.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/resin_quartz_checker.json"
     },
     {
       "id": "simplebuilding:blocks/shulker_head",
@@ -40610,17 +41237,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:shulker_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/shulker_head.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/shulker_head.json"
     },
     {
       "id": "simplebuilding:blocks/silverfish_head",
@@ -40628,17 +41253,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:silverfish_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/silverfish_head.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/silverfish_head.json"
     },
     {
       "id": "simplebuilding:blocks/slime_head",
@@ -40646,17 +41269,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:slime_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/slime_head.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/slime_head.json"
     },
     {
       "id": "simplebuilding:blocks/spawn_teleporter",
@@ -40664,17 +41285,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:spawn_teleporter"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter.json"
     },
     {
       "id": "simplebuilding:blocks/spawn_teleporter_tier_2",
@@ -40682,17 +41301,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:spawn_teleporter_tier_2"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter_tier_2.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter_tier_2.json"
     },
     {
       "id": "simplebuilding:blocks/spawn_teleporter_tier_3",
@@ -40700,17 +41317,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:spawn_teleporter_tier_3"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter_tier_3.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter_tier_3.json"
     },
     {
       "id": "simplebuilding:blocks/spawn_teleporter_tier_4",
@@ -40718,17 +41333,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:spawn_teleporter_tier_4"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter_tier_4.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter_tier_4.json"
     },
     {
       "id": "simplebuilding:blocks/spider_head",
@@ -40736,17 +41349,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:spider_head"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spider_head.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/spider_head.json"
     },
     {
       "id": "simplebuilding:blocks/stellar_flypad",
@@ -40754,17 +41365,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:stellar_flypad"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/stellar_flypad.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stellar_flypad.json"
     },
     {
       "id": "simplebuilding:blocks/stray_skull",
@@ -40772,17 +41381,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:stray_skull"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/stray_skull.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/stray_skull.json"
     },
     {
       "id": "simplebuilding:blocks/suspended_gravel",
@@ -40790,17 +41397,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:suspended_gravel"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/suspended_gravel.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/suspended_gravel.json"
     },
     {
       "id": "simplebuilding:blocks/suspended_sand",
@@ -40808,17 +41413,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:suspended_sand"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json"
     },
     {
       "id": "simplebuilding:blocks/waxed_copper_pressure_plate",
@@ -40826,17 +41429,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:waxed_copper_pressure_plate"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/waxed_copper_pressure_plate.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_copper_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/waxed_exposed_copper_pressure_plate",
@@ -40844,17 +41445,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:waxed_exposed_copper_pressure_plate"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/waxed_exposed_copper_pressure_plate.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_exposed_copper_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/waxed_oxidized_copper_pressure_plate",
@@ -40862,17 +41461,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:waxed_oxidized_copper_pressure_plate"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/waxed_oxidized_copper_pressure_plate.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_oxidized_copper_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/waxed_weathered_copper_pressure_plate",
@@ -40880,17 +41477,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:waxed_weathered_copper_pressure_plate"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/waxed_weathered_copper_pressure_plate.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/waxed_weathered_copper_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/weathered_copper_pressure_plate",
@@ -40898,17 +41493,15 @@ window.WIKI_DATA = {
       "type": "minecraft:block",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:weathered_copper_pressure_plate"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/weathered_copper_pressure_plate.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/weathered_copper_pressure_plate.json"
     },
     {
       "id": "simplebuilding:inject/charged_creeper/root",
@@ -40916,127 +41509,103 @@ window.WIKI_DATA = {
       "type": "minecraft:entity",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:blaze_head"
           ],
-          "conditions": [
-            "minecraft:entity_properties"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderman_head"
           ],
-          "conditions": [
-            "minecraft:entity_properties"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:husk_head"
           ],
-          "conditions": [
-            "minecraft:entity_properties"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:spider_head"
           ],
-          "conditions": [
-            "minecraft:entity_properties"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:cave_spider_head"
           ],
-          "conditions": [
-            "minecraft:entity_properties"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:stray_skull"
           ],
-          "conditions": [
-            "minecraft:entity_properties"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:bogged_skull"
           ],
-          "conditions": [
-            "minecraft:entity_properties"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:slime_head"
           ],
-          "conditions": [
-            "minecraft:entity_properties"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:silverfish_head"
           ],
-          "conditions": [
-            "minecraft:entity_properties"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:breeze_head"
           ],
-          "conditions": [
-            "minecraft:entity_properties"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:shulker_head"
           ],
-          "conditions": [
-            "minecraft:entity_properties"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:drowned_head"
           ],
-          "conditions": [
-            "minecraft:entity_properties"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/charged_creeper/root.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/charged_creeper/root.json"
     },
     {
       "id": "simplebuilding:inject/chests/abandoned_mineshaft",
@@ -41046,8 +41615,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "max": 2,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41062,17 +41631,15 @@ window.WIKI_DATA = {
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:iron_core"
           ],
-          "conditions": [
-            "simplebuilding:core_chance"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/abandoned_mineshaft.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/abandoned_mineshaft.json"
     },
     {
       "id": "simplebuilding:inject/chests/ancient_city",
@@ -41082,8 +41649,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "max": 2,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41100,7 +41667,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/ancient_city.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/ancient_city.json"
     },
     {
       "id": "simplebuilding:inject/chests/bastion_other",
@@ -41110,8 +41677,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "max": 2,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41124,17 +41691,15 @@ window.WIKI_DATA = {
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:gold_core"
           ],
-          "conditions": [
-            "simplebuilding:core_chance"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/bastion_other.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/bastion_other.json"
     },
     {
       "id": "simplebuilding:inject/chests/bastion_treasure",
@@ -41144,8 +41709,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "max": 2,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41158,17 +41723,15 @@ window.WIKI_DATA = {
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:gold_core"
           ],
-          "conditions": [
-            "simplebuilding:core_chance"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_apple",
             "simplebuilding:enchanted_netherite_apple",
@@ -41178,17 +41741,15 @@ window.WIKI_DATA = {
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:netherite_core"
           ],
-          "conditions": [
-            "simplebuilding:core_chance"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/bastion_treasure.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/bastion_treasure.json"
     },
     {
       "id": "simplebuilding:inject/chests/buried_treasure",
@@ -41198,8 +41759,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "max": 2,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41212,7 +41773,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/buried_treasure.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/buried_treasure.json"
     },
     {
       "id": "simplebuilding:inject/chests/end_city_treasure",
@@ -41222,7 +41783,7 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:binomial",
-            "n": 1.0,
+            "n": 1,
             "p": 0.15
           },
           "items": [
@@ -41232,19 +41793,17 @@ window.WIKI_DATA = {
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:enderite_core"
           ],
-          "conditions": [
-            "simplebuilding:core_chance"
-          ],
+          "conditions": [],
           "functions": []
         },
         {
           "rolls": {
             "type": "minecraft:binomial",
-            "n": 1.0,
+            "n": 1,
             "p": 0.3
           },
           "items": [
@@ -41254,7 +41813,7 @@ window.WIKI_DATA = {
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:raw_enderite",
             "simplebuilding:enderite_nugget",
@@ -41267,8 +41826,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 3.0,
-            "min": 0.0
+            "max": 3,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41287,7 +41846,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/end_city_treasure.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/end_city_treasure.json"
     },
     {
       "id": "simplebuilding:inject/chests/igloo_chest",
@@ -41297,8 +41856,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
+            "max": 1,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41309,7 +41868,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/igloo_chest.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/igloo_chest.json"
     },
     {
       "id": "simplebuilding:inject/chests/nether_bridge",
@@ -41319,8 +41878,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "max": 2,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41335,17 +41894,15 @@ window.WIKI_DATA = {
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:gold_core"
           ],
-          "conditions": [
-            "simplebuilding:core_chance"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/nether_bridge.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/nether_bridge.json"
     },
     {
       "id": "simplebuilding:inject/chests/pillager_outpost",
@@ -41355,8 +41912,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "max": 2,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41370,7 +41927,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/pillager_outpost.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/pillager_outpost.json"
     },
     {
       "id": "simplebuilding:inject/chests/ruined_portal",
@@ -41380,8 +41937,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
+            "max": 1,
+            "min": 0
           },
           "items": [
             "simplebuilding:netherite_nugget",
@@ -41392,7 +41949,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/ruined_portal.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/ruined_portal.json"
     },
     {
       "id": "simplebuilding:inject/chests/shipwreck_treasure",
@@ -41402,8 +41959,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
+            "max": 1,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41414,7 +41971,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/shipwreck_treasure.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/shipwreck_treasure.json"
     },
     {
       "id": "simplebuilding:inject/chests/simple_dungeon",
@@ -41424,8 +41981,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "max": 2,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41442,7 +41999,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/simple_dungeon.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/simple_dungeon.json"
     },
     {
       "id": "simplebuilding:inject/chests/stronghold_library",
@@ -41452,8 +42009,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "max": 2,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41465,7 +42022,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/stronghold_library.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/stronghold_library.json"
     },
     {
       "id": "simplebuilding:inject/chests/trial_chambers/reward_common",
@@ -41475,8 +42032,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
+            "max": 1,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41487,7 +42044,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/trial_chambers/reward_common.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/trial_chambers/reward_common.json"
     },
     {
       "id": "simplebuilding:inject/chests/trial_chambers/reward_ominous",
@@ -41497,8 +42054,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
+            "max": 1,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41510,17 +42067,15 @@ window.WIKI_DATA = {
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:diamond_core"
           ],
-          "conditions": [
-            "simplebuilding:core_chance"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/trial_chambers/reward_ominous.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/trial_chambers/reward_ominous.json"
     },
     {
       "id": "simplebuilding:inject/chests/trial_chambers/reward_rare",
@@ -41530,8 +42085,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
+            "max": 1,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41544,8 +42099,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
+            "max": 1,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41557,17 +42112,15 @@ window.WIKI_DATA = {
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:diamond_core"
           ],
-          "conditions": [
-            "simplebuilding:core_chance"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/trial_chambers/reward_rare.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/trial_chambers/reward_rare.json"
     },
     {
       "id": "simplebuilding:inject/chests/woodland_mansion",
@@ -41577,8 +42130,8 @@ window.WIKI_DATA = {
         {
           "rolls": {
             "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.0
+            "max": 2,
+            "min": 0
           },
           "items": [
             "minecraft:enchanted_book",
@@ -41594,17 +42147,15 @@ window.WIKI_DATA = {
           "functions": []
         },
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "simplebuilding:iron_core"
           ],
-          "conditions": [
-            "simplebuilding:core_chance"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/woodland_mansion.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/chests/woodland_mansion.json"
     },
     {
       "id": "simplebuilding:inject/gameplay/fishing/treasure",
@@ -41612,7 +42163,7 @@ window.WIKI_DATA = {
       "type": "minecraft:fishing",
       "pools": [
         {
-          "rolls": 1.0,
+          "rolls": 1,
           "items": [
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
@@ -41624,7 +42175,7 @@ window.WIKI_DATA = {
           "functions": []
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/inject/gameplay/fishing/treasure.json"
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/inject/gameplay/fishing/treasure.json"
     }
   ],
   "trades": [
@@ -43350,7 +43901,7 @@ window.WIKI_DATA = {
       ],
       "implementedIn": "both",
       "hasEffect": true,
-      "source": "src/main/generated/data/simplebuilding/enchantment/kinetic_protection.json",
+      "source": "mc26_3/generated/data/simplebuilding/enchantment/kinetic_protection.json",
       "note": {
         "en": {
           "summary": "Kinetic Protection is an armor enchantment that reduces damage from the damage type tag simplebuilding:kinetic_damage - and that tag currently holds nothing but minecraft:fly_into_wall, the damage you take from flying into a wall.",
@@ -46776,10 +47327,10 @@ window.WIKI_DATA = {
       "categoryDe": "Beute, Handel & Welt",
       "group": null,
       "groupDe": null,
-      "label": "Beginner's Guide on First Join",
-      "labelDe": "Einsteiger-Handbuch beim ersten Betreten",
-      "tooltip": "Every player gets the Beginner's Guide once, the first time they join a world or server. Off: nothing is given; switched on later, each player gets it once on their next join. Default: on.",
-      "tooltipDe": "Jeder Spieler bekommt das Einsteiger-Handbuch einmal, beim ersten Betreten einer Welt oder eines Servers. Aus: nichts wird verschenkt; später eingeschaltet, bekommt es jeder Spieler einmal beim nächsten Betreten. Standard: an."
+      "label": "Starter Guide (Older Versions)",
+      "labelDe": "Starter-Handbuch (alte Versionen)",
+      "tooltip": "Ignored on 26.3: guides must be crafted.",
+      "tooltipDe": "Auf 26.3 ohne Wirkung: Handbuecher muessen hergestellt werden."
     },
     {
       "name": "vanillaEnchantedBookTextures",
@@ -63607,179 +64158,47 @@ window.WIKI_DATA = {
       {
         "type": "mob",
         "how": "charged_creeper",
-        "victim": "minecraft:creeper",
+        "victim": null,
         "item": "minecraft:creeper_head",
         "table": "minecraft:charged_creeper/root",
         "chance": 100.0,
-        "source": "wiki/data/vanilla-drops-26.2.json"
+        "source": "wiki/data/vanilla-drops-26.3.json"
       },
       {
         "type": "mob",
         "how": "charged_creeper",
-        "victim": "minecraft:piglin",
+        "victim": null,
         "item": "minecraft:piglin_head",
         "table": "minecraft:charged_creeper/root",
         "chance": 100.0,
-        "source": "wiki/data/vanilla-drops-26.2.json"
+        "source": "wiki/data/vanilla-drops-26.3.json"
       },
       {
         "type": "mob",
         "how": "charged_creeper",
-        "victim": "minecraft:skeleton",
+        "victim": null,
         "item": "minecraft:skeleton_skull",
         "table": "minecraft:charged_creeper/root",
         "chance": 100.0,
-        "source": "wiki/data/vanilla-drops-26.2.json"
+        "source": "wiki/data/vanilla-drops-26.3.json"
       },
       {
         "type": "mob",
         "how": "charged_creeper",
-        "victim": "minecraft:wither_skeleton",
+        "victim": null,
         "item": "minecraft:wither_skeleton_skull",
         "table": "minecraft:charged_creeper/root",
         "chance": 100.0,
-        "source": "wiki/data/vanilla-drops-26.2.json"
+        "source": "wiki/data/vanilla-drops-26.3.json"
       },
       {
         "type": "mob",
         "how": "charged_creeper",
-        "victim": "minecraft:zombie",
+        "victim": null,
         "item": "minecraft:zombie_head",
         "table": "minecraft:charged_creeper/root",
         "chance": 100.0,
-        "source": "wiki/data/vanilla-drops-26.2.json"
-      },
-      {
-        "type": "mob",
-        "how": "killed_by",
-        "victim": "minecraft:creeper",
-        "killer": "#minecraft:skeletons",
-        "item": "minecraft:music_disc_11",
-        "table": "minecraft:entities/creeper",
-        "chance": 8.33,
-        "oneOf": 12,
-        "source": "wiki/data/vanilla-drops-26.2.json"
-      },
-      {
-        "type": "mob",
-        "how": "killed_by",
-        "victim": "minecraft:creeper",
-        "killer": "#minecraft:skeletons",
-        "item": "minecraft:music_disc_13",
-        "table": "minecraft:entities/creeper",
-        "chance": 8.33,
-        "oneOf": 12,
-        "source": "wiki/data/vanilla-drops-26.2.json"
-      },
-      {
-        "type": "mob",
-        "how": "killed_by",
-        "victim": "minecraft:creeper",
-        "killer": "#minecraft:skeletons",
-        "item": "minecraft:music_disc_blocks",
-        "table": "minecraft:entities/creeper",
-        "chance": 8.33,
-        "oneOf": 12,
-        "source": "wiki/data/vanilla-drops-26.2.json"
-      },
-      {
-        "type": "mob",
-        "how": "killed_by",
-        "victim": "minecraft:creeper",
-        "killer": "#minecraft:skeletons",
-        "item": "minecraft:music_disc_cat",
-        "table": "minecraft:entities/creeper",
-        "chance": 8.33,
-        "oneOf": 12,
-        "source": "wiki/data/vanilla-drops-26.2.json"
-      },
-      {
-        "type": "mob",
-        "how": "killed_by",
-        "victim": "minecraft:creeper",
-        "killer": "#minecraft:skeletons",
-        "item": "minecraft:music_disc_chirp",
-        "table": "minecraft:entities/creeper",
-        "chance": 8.33,
-        "oneOf": 12,
-        "source": "wiki/data/vanilla-drops-26.2.json"
-      },
-      {
-        "type": "mob",
-        "how": "killed_by",
-        "victim": "minecraft:creeper",
-        "killer": "#minecraft:skeletons",
-        "item": "minecraft:music_disc_far",
-        "table": "minecraft:entities/creeper",
-        "chance": 8.33,
-        "oneOf": 12,
-        "source": "wiki/data/vanilla-drops-26.2.json"
-      },
-      {
-        "type": "mob",
-        "how": "killed_by",
-        "victim": "minecraft:creeper",
-        "killer": "#minecraft:skeletons",
-        "item": "minecraft:music_disc_mall",
-        "table": "minecraft:entities/creeper",
-        "chance": 8.33,
-        "oneOf": 12,
-        "source": "wiki/data/vanilla-drops-26.2.json"
-      },
-      {
-        "type": "mob",
-        "how": "killed_by",
-        "victim": "minecraft:creeper",
-        "killer": "#minecraft:skeletons",
-        "item": "minecraft:music_disc_mellohi",
-        "table": "minecraft:entities/creeper",
-        "chance": 8.33,
-        "oneOf": 12,
-        "source": "wiki/data/vanilla-drops-26.2.json"
-      },
-      {
-        "type": "mob",
-        "how": "killed_by",
-        "victim": "minecraft:creeper",
-        "killer": "#minecraft:skeletons",
-        "item": "minecraft:music_disc_stal",
-        "table": "minecraft:entities/creeper",
-        "chance": 8.33,
-        "oneOf": 12,
-        "source": "wiki/data/vanilla-drops-26.2.json"
-      },
-      {
-        "type": "mob",
-        "how": "killed_by",
-        "victim": "minecraft:creeper",
-        "killer": "#minecraft:skeletons",
-        "item": "minecraft:music_disc_strad",
-        "table": "minecraft:entities/creeper",
-        "chance": 8.33,
-        "oneOf": 12,
-        "source": "wiki/data/vanilla-drops-26.2.json"
-      },
-      {
-        "type": "mob",
-        "how": "killed_by",
-        "victim": "minecraft:creeper",
-        "killer": "#minecraft:skeletons",
-        "item": "minecraft:music_disc_wait",
-        "table": "minecraft:entities/creeper",
-        "chance": 8.33,
-        "oneOf": 12,
-        "source": "wiki/data/vanilla-drops-26.2.json"
-      },
-      {
-        "type": "mob",
-        "how": "killed_by",
-        "victim": "minecraft:creeper",
-        "killer": "#minecraft:skeletons",
-        "item": "minecraft:music_disc_ward",
-        "table": "minecraft:entities/creeper",
-        "chance": 8.33,
-        "oneOf": 12,
-        "source": "wiki/data/vanilla-drops-26.2.json"
+        "source": "wiki/data/vanilla-drops-26.3.json"
       }
     ],
     "enchantmentTags": {
@@ -64869,6 +65288,409 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/gadgets/spin_doctor.json"
+    },
+    {
+      "id": "simplebuilding:guides/admin",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Admin"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/admin.json"
+    },
+    {
+      "id": "simplebuilding:guides/building",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Building"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/building.json"
+    },
+    {
+      "id": "simplebuilding:guides/enchantments",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Enchantments"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/enchantments.json"
+    },
+    {
+      "id": "simplebuilding:guides/end",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "End"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/end.json"
+    },
+    {
+      "id": "simplebuilding:guides/gadgets",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Gadgets"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/gadgets.json"
+    },
+    {
+      "id": "simplebuilding:guides/machines",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Machines"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/machines.json"
+    },
+    {
+      "id": "simplebuilding:guides/root",
+      "parent": null,
+      "icon": "simplebuilding:guide_book",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Root"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:guide_book",
+            "simplebuilding:guide_book_vanilla_start"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/root.json"
+    },
+    {
+      "id": "simplebuilding:guides/storage",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Storage"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/storage.json"
+    },
+    {
+      "id": "simplebuilding:guides/tools",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Tools"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/tools.json"
+    },
+    {
+      "id": "simplebuilding:guides/trims",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Trims"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/trims.json"
+    },
+    {
+      "id": "simplebuilding:guides/tweaks",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Tweaks"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/tweaks.json"
+    },
+    {
+      "id": "simplebuilding:guides/vanilla_caves",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book_vanilla_start",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Vanilla Caves"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_caves.json"
+    },
+    {
+      "id": "simplebuilding:guides/vanilla_end",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book_vanilla_start",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Vanilla End"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_end.json"
+    },
+    {
+      "id": "simplebuilding:guides/vanilla_farming",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book_vanilla_start",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Vanilla Farming"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_farming.json"
+    },
+    {
+      "id": "simplebuilding:guides/vanilla_gear",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book_vanilla_start",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Vanilla Gear"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_gear.json"
+    },
+    {
+      "id": "simplebuilding:guides/vanilla_nether",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book_vanilla_start",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Vanilla Nether"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_nether.json"
+    },
+    {
+      "id": "simplebuilding:guides/vanilla_ocean",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book_vanilla_start",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Vanilla Ocean"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_ocean.json"
+    },
+    {
+      "id": "simplebuilding:guides/vanilla_overworld",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book_vanilla_start",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Vanilla Overworld"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_overworld.json"
+    },
+    {
+      "id": "simplebuilding:guides/vanilla_redstone",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:guide_book_vanilla_start",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Vanilla Redstone"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "crafted",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/vanilla_redstone.json"
     },
     {
       "id": "simplebuilding:hammer/bright_idea",
@@ -66673,8 +67495,8 @@ window.WIKI_DATA = {
             "de_de": "Ein Buch für Einsteiger"
           },
           "description": {
-            "en_us": "A book and a crafting table make the Beginner's Guide. Craft it with a matching item to make a topic guide.",
-            "de_de": "Ein Buch und eine Werkbank ergeben das Einsteiger-Handbuch. Mit dem passenden Gegenstand wird daraus ein Themen-Handbuch."
+            "en_us": "Book + crafting table: Mega Guide. Add matching items to unlock its topics.",
+            "de_de": "Buch + Werkbank: Mega-Handbuch. Weitere Gegenstaende schalten darin Themen frei."
           },
           "dependencies": [
             "stage_1.welcome"
@@ -67882,8 +68704,8 @@ window.WIKI_DATA = {
             "de_de": "Handbuch: Bauen"
           },
           "description": {
-            "en_us": "The Beginner's Guide crafted with a brick is the building guide.",
-            "de_de": "Das Einsteiger-Handbuch mit einem Ziegel ergibt das Bau-Handbuch."
+            "en_us": "Guide + brick unlocks Building.",
+            "de_de": "Handbuch + Ziegel schaltet Bauen frei."
           },
           "dependencies": [
             "building.toolkit",
@@ -68980,16 +69802,16 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 196,
+    "items": 178,
     "blocks": 147,
-    "recipes": 437,
+    "recipes": 439,
     "lootTables": 148,
     "trades": 20,
     "enchantments": 19,
     "tags": 41,
     "config": 169,
     "inWorld": 396,
-    "advancements": 102,
+    "advancements": 121,
     "features": 41,
     "undocumented": 0,
     "incompleteProse": 0

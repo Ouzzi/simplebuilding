@@ -1207,6 +1207,16 @@ public final class TestCentreSections {
         }
         for (com.simplebuilding.items.CreativeTabLayout.Row row : rows) {
             List<ItemStack> stacks = row.stacks().stream().filter(s -> !s.isEmpty() && !TcContext.isSpacer(s.getItem())).toList();
+            if (com.simplebuilding.version.McVersion.MEGA_GUIDES && (row.name().equals("guide_books") || row.name().equals("vanilla_guide_books"))) {
+                List<ItemStack> guides = new ArrayList<>(stacks);
+                for (ItemStack base : stacks) {
+                    var guide = (com.simplebuilding.items.custom.GuideBookItem) base.getItem();
+                    ItemStack filled = base.copy();
+                    for (var topic : guide.book().shelf().topics()) filled = com.simplebuilding.guide.GuideBooks.withChapter(filled, topic);
+                    guides.add(filled);
+                }
+                stacks = guides;
+            }
             lines.add(new TcCanvas.Line(TcText.t("devices." + row.name(), pretty(row.name())), stacks));
             for (ItemStack stack : stacks) {
                 if (stack.getItem() instanceof BlockItem blockItem) {

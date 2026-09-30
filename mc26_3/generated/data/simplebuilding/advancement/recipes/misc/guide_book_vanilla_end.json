@@ -1,16 +1,6 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ender_eye": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:ender_eye"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_guide_book_vanilla_start": {
       "conditions": {
         "items": [
@@ -31,7 +21,6 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_ender_eye",
       "has_guide_book_vanilla_start"
     ]
   ],

@@ -51,6 +51,7 @@ public final class McVersion {
         sign.setText(new net.minecraft.world.level.block.entity.SignText().setMessage(0, text).setHasGlowingText(glowing),
                 sign.isFacingFrontText(player));
     }
+    public static final boolean MEGA_GUIDES = false;
 
     private McVersion() {
     }

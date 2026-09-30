@@ -75,7 +75,7 @@ public final class ModDataFixer {
      */
     @SuppressWarnings("unchecked")
     public static <T> Dynamic<T> afterVanilla(DataFixer fixer, Dynamic<T> fixed, int from, int to) {
-        if (from >= to || !(fixed.getValue() instanceof Tag root)) {
+        if ((!com.simplebuilding.version.McVersion.MEGA_GUIDES && from >= to) || !(fixed.getValue() instanceof Tag root)) {
             return fixed;
         }
         Tag result = walk(fixer, root, from, to);
@@ -97,10 +97,11 @@ public final class ModDataFixer {
         if (!(tag instanceof CompoundTag compound)) {
             return tag;
         }
-        CompoundTag current = fixOwnShape(fixer, compound, from, to);
+        migrateGuide(compound);
+        CompoundTag current = from < to ? fixOwnShape(fixer, compound, from, to) : compound;
         for (String key : current.keySet().toArray(new String[0])) {
             Tag child = current.get(key);
-            if (key.equals(BACKPACK_CONTENTS_COMPONENT) && child instanceof ListTag entries) {
+            if (from < to && key.equals(BACKPACK_CONTENTS_COMPONENT) && child instanceof ListTag entries) {
                 fixItemStacks(fixer, entries, from, to);
             }
             Tag replaced = walk(fixer, child, from, to);
@@ -109,6 +110,22 @@ public final class ModDataFixer {
             }
         }
         return current;
+    }
+
+    public static void migrateGuide(CompoundTag stack) {
+        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) return;
+        String id = stack.getStringOr("id", "");
+        if (!stack.contains("count") && !stack.contains("Count")) return;
+        for (com.simplebuilding.guide.GuideBooks.Book book : com.simplebuilding.guide.GuideBooks.Book.topics()) {
+            if (!id.equals(NS + book.itemName())) continue;
+            CompoundTag components = stack.getCompound("components").orElseGet(CompoundTag::new);
+            String key = NS + "guide_chapters";
+            components.putInt(key, components.getIntOr(key, 0) | (1 << book.ordinal()));
+            components.remove("minecraft:written_book_content");
+            stack.put("components", components);
+            stack.putString("id", NS + book.shelf().hub().itemName());
+            return;
+        }
     }
 
     /** Fixes the compound itself if it is a mod block entity or mod entity. */

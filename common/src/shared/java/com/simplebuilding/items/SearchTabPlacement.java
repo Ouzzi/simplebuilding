@@ -168,7 +168,7 @@ public final class SearchTabPlacement {
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.RECOVERY_COMPASS, gadgets.toArray(ItemLike[]::new)));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.WRITABLE_BOOK,
                 Arrays.stream(com.simplebuilding.guide.GuideBooks.Book.values())
-                        .map(com.simplebuilding.guide.GuideBooks::item).toArray(ItemLike[]::new)));
+                        .map(com.simplebuilding.guide.GuideBooks::item).distinct().toArray(ItemLike[]::new)));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.ELYTRA, TweaksItems.SPAWN_ELYTRA));
 
         // --- Kampf: Enderit-Schwert, -Speer, -Ruestung und -Reittierruestung hinter Netherit.

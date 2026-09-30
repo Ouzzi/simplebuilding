@@ -31,12 +31,32 @@ import org.jetbrains.annotations.Nullable;
 public final class LegacyItemIds {
 
     /** Old path -> new path, both in the {@code simplebuilding} namespace. */
-    public static final Map<String, String> RENAMED = Map.of(
-            "velocity-gauge", "velocity_gauge",
-            "echo_compass", "echo_sounder",
-            "laser_pointer", "amethyst_lens",
+    public static final Map<String, String> RENAMED = !com.simplebuilding.version.McVersion.MEGA_GUIDES ? Map.of(
+            "velocity-gauge", "velocity_gauge", "echo_compass", "echo_sounder",
+            "laser_pointer", "amethyst_lens", "ore_detector", "detector") : Map.ofEntries(
+            Map.entry("velocity-gauge", "velocity_gauge"),
+            Map.entry("echo_compass", "echo_sounder"),
+            Map.entry("laser_pointer", "amethyst_lens"),
             // Besitzer 2026-09-29: "Ore Detector" heisst jetzt "Detector".
-            "ore_detector", "detector");
+            Map.entry("ore_detector", "detector"),
+            Map.entry("guide_book_tools", "guide_book"),
+            Map.entry("guide_book_enchantments", "guide_book"),
+            Map.entry("guide_book_building", "guide_book"),
+            Map.entry("guide_book_storage", "guide_book"),
+            Map.entry("guide_book_machines", "guide_book"),
+            Map.entry("guide_book_end", "guide_book"),
+            Map.entry("guide_book_tweaks", "guide_book"),
+            Map.entry("guide_book_gadgets", "guide_book"),
+            Map.entry("guide_book_trims", "guide_book"),
+            Map.entry("guide_book_admin", "guide_book"),
+            Map.entry("guide_book_vanilla_overworld", "guide_book_vanilla_start"),
+            Map.entry("guide_book_vanilla_caves", "guide_book_vanilla_start"),
+            Map.entry("guide_book_vanilla_ocean", "guide_book_vanilla_start"),
+            Map.entry("guide_book_vanilla_nether", "guide_book_vanilla_start"),
+            Map.entry("guide_book_vanilla_end", "guide_book_vanilla_start"),
+            Map.entry("guide_book_vanilla_redstone", "guide_book_vanilla_start"),
+            Map.entry("guide_book_vanilla_gear", "guide_book_vanilla_start"),
+            Map.entry("guide_book_vanilla_farming", "guide_book_vanilla_start"));
 
     private LegacyItemIds() {
     }
@@ -47,6 +67,7 @@ public final class LegacyItemIds {
         if (id == null || !Simplebuilding.MOD_ID.equals(id.getNamespace())) {
             return null;
         }
+        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES && id.getPath().startsWith("guide_book_")) return null;
         String now = RENAMED.get(id.getPath());
         return now == null ? null : Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, now);
     }

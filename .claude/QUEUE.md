@@ -228,3 +228,7 @@ Verlauf im Detail: git log.
 - [x] Echo Sounder core swap; Resonance Rod clockwise recipe; configurable attractor dead zone; Pulsating brightness modulation; accurate storage tooltip capacity/colors. 26.3 server checks green; visual owner check pending (no client tests).
 ## Codex MM (26.3, 2026-09-30)
 - [x] Gezielter Hammer-Eckenschlag, gemeinsame Transformationsanimation beider Haende, Rahmenroute nur als Legacy-Fallback (26.3, Server 1552/1552; visuelle Abnahme offen).
+## Mega guides (26.3, Codex)
+- [x] Zwei getrennte Mega-Handbuecher, gespeicherte Kapitel, Migration, kein Starterbuch, saubere Texturen und begrenzte Tabs (26.3, Branch codex-ll).
+- [x] Guide-/DataIntegrity-Tab-/Testzentrale-Tests auf beiden 26.3-Loadern: 50/50, alles gruen; Testzentrale neu gebaut und Abdeckung vollstaendig.
+- [ ] Besitzer-Abnahme: Mega-Handbuecher im Client ansehen und Testzentrale in der Besitzerwelt neu bauen.

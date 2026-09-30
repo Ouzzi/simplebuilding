@@ -523,7 +523,7 @@ class Dbl(float):
     """A number FTB Quests reads as a double (x, y, size)."""
 
 
-def build_files(book: Book, fmt: str) -> dict[str, str]:
+def build_files(book: Book, fmt: str, mega: bool = False) -> dict[str, str]:
     ext = "." + fmt
     files: dict[str, object] = {}
     group_id = hid("group", NS)
@@ -544,6 +544,8 @@ def build_files(book: Book, fmt: str) -> dict[str, str]:
             quest_id = hid("quest", full)
             task_id = hid("task", full)
             kind, _, ident = q.task.partition(":")
+            if mega and ident in ("simplebuilding:guide_book_building", "simplebuilding:guide_book_storage", "simplebuilding:guide_book_tweaks"):
+                kind, ident = "adv", "simplebuilding:guides/" + ident.removeprefix("simplebuilding:guide_book_")
             if kind == "item":
                 task = {"id": task_id, "type": "item", "item": {"id": ident, "count": 1}}
             else:
@@ -719,6 +721,12 @@ def main(argv: list[str]) -> int:
         base = roots["resources"] / QUEST_DIR
         for rel, text in build_files(book, roots["format"]).items():
             outputs[base / rel] = text
+    mega_base = REPO / "mc26_3/overlay/resources" / QUEST_DIR
+    for rel, text in build_files(book, "json5", mega=True).items():
+        shared = REPO / "src/main/resources" / QUEST_DIR / rel
+        if shared.exists() and shared.read_text(encoding="utf-8") == text:
+            continue
+        outputs[mega_base / rel] = text
     for path, loc in lang_paths():
         outputs[path] = updated_lang(path, book.lang_en if loc == "en_us" else book.lang_de)
     if book.errors:
@@ -727,7 +735,7 @@ def main(argv: list[str]) -> int:
             print("  - " + e)
         return 1
     stale = []
-    expected_dirs = {LINES[l]["resources"] / QUEST_DIR for l in LINES}
+    expected_dirs = {LINES[l]["resources"] / QUEST_DIR for l in LINES} | {mega_base}
     for d in expected_dirs:
         if d.exists():
             for f in d.rglob("*"):

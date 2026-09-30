@@ -9373,54 +9373,34 @@
     },
     "guide_book*": {
       "en": {
-        "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+        "summary": "On 26.3, two separate Mega Guides hold the Minecraft and SimpleBuilding shelves. Only the base guides are items; topic books are inserted content. Older lines retain their previous books until the port run.",
         "details": [
-          "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-          "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
-          "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
-          "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
-          "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-          "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
-          "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
-          "A lost guide is crafted again from a book and a crafting table.",
-          "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
-          "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          "Craft the SimpleBuilding guide from a book and a crafting table, or the Minecraft guide from a book and a wooden pickaxe. Guides are never first-join gifts on 26.3, even with the old gift option enabled. No guide-book chest loot is registered; enchanted books with cover textures remain in loot.",
+          "Insert topics by crafting the guide with its matching key item. The guide is consumed and returned as one upgraded guide, preserving existing components and inserted chapters. Two guides from the same shelf can combine their inserted chapters; the two shelves cannot mix. Duplicate inserts do not craft.",
+          "Inserted chapters persist in simplebuilding:guide_chapters and appear with miniature book textures and localized names in the tooltip. Old chapter IDs alias to the corresponding base guide; the data fixer preserves their chapter on world load, including same-version saves.",
+          "The screen shows only the opened guide shelf, with eight tabs on the right and at most four on the left (including Contents). Locked chapters are gray and name their unlock item. Server Admin requires operator permission level 2 to insert and read. Reading does not pause the game.",
+          "Upgrade recipes are displayed by JEI and the guide recipe cards. Optional building, storage and pad quests use chapter advancements on 26.3."
         ]
       },
       "de": {
-        "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+        "summary": "Auf 26.3 enthalten zwei getrennte Mega-Handbuecher die Regale fuer Minecraft und SimpleBuilding. Nur die Basis-Handbuecher sind Items; Themenbuecher sind eingefuegte Inhalte. Aeltere Linien behalten ihre bisherigen Buecher bis zum Port-Run.",
         "details": [
-          "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-          "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
-          "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
-          "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
-          "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-          "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
-          "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
-          "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
-          "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
-          "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          "Mod-Handbuch: Buch + Werkbank. Minecraft-Handbuch: Buch + Holzspitzhacke. Auf 26.3 gibt es kein Handbuch beim Erstbeitritt, auch bei eingeschaltetem altem Config-Schalter. Im Code ist kein Handbuch-Truhenloot registriert; verzauberte Buecher mit Cover-Texturen bleiben in der Beute.",
+          "Handbuch + Schluesselitem fuegt das Thema ein. Das Handbuch wird verbraucht und als ein verbessertes Buch mit allen bisherigen Komponenten und Kapiteln zurueckgegeben. Zwei Handbuecher desselben Regals vereinen ihre Inhalte; die Regale lassen sich nicht mischen. Doppelte Themen ergeben kein Rezept.",
+          "simplebuilding:guide_chapters speichert die Themen dauerhaft. Im Tooltip erscheinen kleine Buchtexturen und uebersetzte Namen. Alte Themen-IDs zeigen auf das Basisbuch; der Datenfixer erhaelt das Thema beim Laden, auch ohne Minecraft-Versionswechsel.",
+          "Der Bildschirm zeigt nur das geoeffnete Regal: acht Tabs rechts, hoechstens vier links inklusive Inhalt. Gesperrte Themen sind grau und nennen ihr Schluesselitem. Server-Admin erfordert Operatorstufe 2 zum Einfuegen und Lesen. Lesen pausiert das Spiel nicht.",
+          "JEI und Rezeptkarten zeigen die Upgrades. Optionale Bau-, Lager- und Pad-Quests verwenden auf 26.3 Kapitel-Erfolge."
         ]
       },
       "sources": [
         "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-        "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+        "common/src/shared/java/com/simplebuilding/recipe/GuideUpgradeRecipe.java",
+        "common/src/shared/java/com/simplebuilding/datafix/ModDataFixer.java",
+        "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
         "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
-        "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
-        "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-        "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-        "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
-        "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+        "common/src/shared/java/com/simplebuilding/client/gui/tooltip/GuideTooltip.java",
+        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/root.json"
       ]
     },
     "reinforced_chest": {

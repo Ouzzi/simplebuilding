@@ -101,3 +101,37 @@ Abschließendes `gradlew.bat check -q` im Worktree grün (Exit 0), einschließli
 - Ecktreppen speichern ihre Form über `simplebuilding_carved`; Nachbarupdates, Blockstate-Serialisierung und Survival-Blaupausen erhalten die Geometrie. Ladung bindet die Zielecke beim Beginn und verweigert geänderten Blockzustand oder gewechselten Modus.
 - Visuelle Clienttests und Besitzerwelt nicht geprüft/angefasst: Bestätigung geschlossener Besitzerclients war noch ausstehend. Keine neue Pixelkunst. Kein Push/Merge, Port-Run weiter separat nach Abnahme.
 - Abschließendes `gradlew.bat --no-daemon check -q` **grün (Exit 0)**, Ausgabe gelesen. 26.2/shared kompiliert; Ressourcen-Gate behandelt die ausdrücklich nicht verpackten Wiki-Metadaten wie der Ressourcen-Merger.
+
+## Mega-Handbuecher (2026-09-30, Codex, Branch codex-ll, nicht gemerged/gepusht)
+- Nur 26.3: zwei registrierte Basis-Items (guide_book, guide_book_vanilla_start), je Regal strikt getrennt.
+  Themen werden mit den bisherigen Schluesselitems eingefuegt; kein eigener Themen-Item-Output.
+  GuideUpgradeRecipe bewahrt Komponenten, verhindert doppelte Einlagen, vereinigt zwei Handbuecher
+  desselben Regals und nimmt nur Kapitel von echten Handbuechern an. Admin-Einlage weiter nur OP >= 2.
+- simplebuilding:guide_chapters speichert den Kapitel-Bitmaskenstand und synchronisiert ihn.
+  LegacyItemIds gilt fuer Buch-Aliase nur auf 26.3; ModDataFixer migriert auch ohne MC-Versionswechsel.
+  Alte explizite Buchseiten werden als zusaetzliche Absicherung erkannt. 26.2 behaelt das alte Verhalten.
+- Keine Guide-Geschenke beim Beitritt, auch bei aktiviertem altem Config-Schalter. Kein Guide-Truhenloot
+  im bestehenden Loot-Code gefunden; verzauberte Cover-/Texturbuecher bleiben unveraendert in der Beute.
+- Tabs: 8 rechts, Mod-Regal 4 links inklusive Inhalt, Vanilla 2 links. Kein Wechsel in das andere Regal.
+  Gesperrte Themen grau mit Einlage-Hinweis, Admin mit OP-Hinweis. Tooltip zeigt kleine Buchtexturen
+  und eingefuegte Themen. Saubere 26.3-Pixeltexturen mit 16-fach alt/neu unter docs/previews/mega-guides*.
+- JEI nutzt die formlosen Anzeigen des Upgrade-Rezepts. Wiki erkennt Typ und eingefuegtes Kapitel.
+  Kapitel-Erfolge und 26.3-FTB-Quest-Defaults sind vorhanden; angepasste bestehende FTB-Buecher werden
+  vom bisherigen Installer absichtlich nicht ueberschrieben.
+  Testzentrale plant pro Regal ein leeres und ein volles Buch; DataIntegrity-Layout und Guide-Tests angepasst.
+- Fortsetzung ohne Sandbox: Fabric/NeoForge 26.3 kompilieren; echter 26.3-Datagen-Lauf Exit 0.
+  Kapitel-Erfolge auf das 26.3-Format `recipe_crafted.conditions.recipes` korrigiert.
+  Wiki-Standardlinie auf die Hauptlinie 26.3 gestellt; Generator und --check gruen.
+  Buchpruefung 0 Probleme, Texturpruefung 470 Texturen + 9 mcmeta aktuell; keine doppelten
+  Schluessel in den 26.3-Sprach-Overlays. Keine Dateien in mc1_21_11/mc26_4 geaendert.
+- Gefilterte Server-Tests auf fabric-263/neoforge-263: Guides 22/22 (2026-09-30T00-30-02Z-759d),
+  DataIntegrity-Tabs 20/20 (2026-09-30T00-31-52Z-e1f4), Testzentrale 8/8
+  (2026-09-30T00-33-21Z-9761): jeweils Ausgabe alles gruen gelesen.
+  Testzentrale in beiden GameTest-Welten vollstaendig neu gebaut, alle Items/Bloecke abgedeckt.
+- Abschliessendes gradlew.bat check -q --no-daemon im Worktree: Exit 0, Ausgabe gelesen.
+  Gemeinsamer Code bleibt auch fuer 26.2 kompilierbar.
+- Der alte Sandbox-Daemon verursachte weiterhin AccessDeniedException. Verifikation mit
+  GRADLE_USER_HOME=$TEMP/sb-codex-gradle und deaktivierter Daemon-Wiederverwendung erfolgreich.
+- Noch offen: Besitzer-Abnahme der Grafik/Bedienung im Client und Neubau in der Besitzerwelt.
+  Keine Client-Sichtpruefung und kein kompletter Server-Testlauf; nur die genannten Filter.
+  Keine anderen Linien portieren, bevor der Besitzer 26.3 abnimmt. Kein Push, kein Merge.

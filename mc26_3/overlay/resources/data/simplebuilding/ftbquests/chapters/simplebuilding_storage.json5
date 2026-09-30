@@ -1,0 +1,223 @@
+{
+	"id": "6F908F36BE3C55AD",
+	"group": "0FF8ACD95EC2930E",
+	"order_index": 5,
+	"filename": "simplebuilding_storage",
+	"icon": {
+		"id": "simplebuilding:backpack"
+	},
+	"default_quest_shape": "",
+	"default_hide_dependency_lines": false,
+	"progression_mode": "flexible",
+	"quests": [
+		{
+			"id": "2E85101929018FD8",
+			"x": 0.0,
+			"y": -3.75,
+			"dependencies": [
+				"4E943829CB624FC9"
+			],
+			"tasks": [
+				{
+					"id": "4F57EE684047FBF4",
+					"type": "item",
+					"item": {
+						"id": "minecraft:bundle",
+						"count": 1
+					}
+				}
+			]
+		},
+		{
+			"id": "725C94255AECD179",
+			"x": 0.0,
+			"y": -2.25,
+			"optional": true,
+			"dependencies": [
+				"4E943829CB624FC9",
+				"4E11526B4A90FF79"
+			],
+			"tasks": [
+				{
+					"id": "672CE3903A7F3EC3",
+					"type": "advancement",
+					"advancement": "simplebuilding:guides/storage",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "65B574C773D89B43",
+			"x": 2.0,
+			"y": -1.5,
+			"dependencies": [
+				"2E85101929018FD8"
+			],
+			"tasks": [
+				{
+					"id": "297E01FBCD4BF818",
+					"type": "advancement",
+					"advancement": "simplebuilding:storage/quiver_in_fear",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "50DE9DE878403C25",
+			"x": 0.0,
+			"y": -0.75,
+			"optional": true,
+			"dependencies": [
+				"4E943829CB624FC9"
+			],
+			"tasks": [
+				{
+					"id": "0F76CAD87A799E99",
+					"type": "advancement",
+					"advancement": "simplebuilding:storage/pitching_camp",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "7ADAB2B01DE7E36B",
+			"x": 0.0,
+			"y": 0.75,
+			"optional": true,
+			"dependencies": [
+				"4E943829CB624FC9"
+			],
+			"tasks": [
+				{
+					"id": "583D8448D0A948BE",
+					"type": "advancement",
+					"advancement": "simplebuilding:storage/splash_of_color",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "380C5BBCA73F614F",
+			"x": 2.0,
+			"y": 0.0,
+			"dependencies": [
+				"2E85101929018FD8",
+				"5022B021DD5E0964"
+			],
+			"tasks": [
+				{
+					"id": "1C151B8063D34B1F",
+					"type": "advancement",
+					"advancement": "simplebuilding:storage/bundle_of_joy",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "4B7DA8049B62E403",
+			"x": 0.0,
+			"y": 2.25,
+			"dependencies": [
+				"5022B021DD5E0964"
+			],
+			"tasks": [
+				{
+					"id": "2D1C124B72CE9057",
+					"type": "item",
+					"item": {
+						"id": "simplebuilding:reinforced_backpack",
+						"count": 1
+					}
+				}
+			]
+		},
+		{
+			"id": "1E4E5D19D5207CEE",
+			"x": 4.0,
+			"y": -0.75,
+			"dependencies": [
+				"65B574C773D89B43",
+				"5022B021DD5E0964"
+			],
+			"tasks": [
+				{
+					"id": "66E9886B8E5C1775",
+					"type": "item",
+					"item": {
+						"id": "simplebuilding:reinforced_quiver",
+						"count": 1
+					}
+				}
+			]
+		},
+		{
+			"id": "5287CA2926331FA1",
+			"x": 2.0,
+			"y": 1.5,
+			"dependencies": [
+				"4B7DA8049B62E403",
+				"5BFB5EAAB13F32CD"
+			],
+			"tasks": [
+				{
+					"id": "448205D08E0E611D",
+					"type": "advancement",
+					"advancement": "simplebuilding:storage/heavy_luggage",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "7E22390B37B57C1E",
+			"x": 4.0,
+			"y": 0.75,
+			"dependencies": [
+				"380C5BBCA73F614F",
+				"5BFB5EAAB13F32CD"
+			],
+			"tasks": [
+				{
+					"id": "6F4EEAB08B419E63",
+					"type": "advancement",
+					"advancement": "simplebuilding:storage/deeper_pockets",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "0D263BC68778991B",
+			"x": 6.0,
+			"y": 0.0,
+			"dependencies": [
+				"1E4E5D19D5207CEE",
+				"5BFB5EAAB13F32CD"
+			],
+			"tasks": [
+				{
+					"id": "6F901041CBE5624D",
+					"type": "advancement",
+					"advancement": "simplebuilding:storage/sharpshooter",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "7D651A0615605010",
+			"x": 0.0,
+			"y": 3.75,
+			"dependencies": [
+				"5C8766501AAFE235"
+			],
+			"tasks": [
+				{
+					"id": "073517A5C9681E85",
+					"type": "advancement",
+					"advancement": "simplebuilding:enderite/endless_pockets",
+					"criterion": ""
+				}
+			]
+		}
+	],
+	"quest_links": [],
+	"images": []
+}

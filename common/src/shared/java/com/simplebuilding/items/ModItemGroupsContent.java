@@ -156,7 +156,7 @@ public final class ModItemGroupsContent {
         // --- Handbuecher: je Regal eine Kategorie (GuideBooks.Shelf), in Lesezeichen-Reihenfolge ---
         for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
             List<ItemStack> shelfBooks = new java.util.ArrayList<>();
-            for (com.simplebuilding.guide.GuideBooks.Book book : shelf.books()) {
+            for (com.simplebuilding.guide.GuideBooks.Book book : com.simplebuilding.guide.GuideBooks.items(shelf)) {
                 shelfBooks.add(new ItemStack(com.simplebuilding.guide.GuideBooks.item(book)));
             }
             rows.add(new CreativeTabLayout.Row(shelf == com.simplebuilding.guide.GuideBooks.Shelf.MOD ? "guide_books" : "vanilla_guide_books", shelfBooks));

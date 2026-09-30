@@ -1,0 +1,14 @@
+{
+  "type": "simplebuilding:guide_upgrade",
+  "chapters": 4,
+  "ingredients": [
+    "simplebuilding:guide_book",
+    "minecraft:lapis_lazuli"
+  ],
+  "result": {
+    "components": {
+      "simplebuilding:guide_chapters": 4
+    },
+    "id": "simplebuilding:guide_book"
+  }
+}
