@@ -4,6 +4,17 @@ Zuerst `AGENTS.md` vollständig lesen, dann diese Datei und `docs/ai/WORKFLOW.md
 Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alten Run-Berichten.
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
+## VOICEBRIDGE (2026-09-30, Codex, Branch codex-voicebridge)
+- tools/voicebridge: stdlib-Server (8772, Loopback oder explizite Tailscale-IP), private Token-/CSRF-/Host-/Origin-Pruefung, Rate-/Body-Limits, Audit, Notaus und persistente Projekt-Sitzungen/Berichte. Kein pip im Standard, kein Minecraft-Code oder Port geaendert.
+- Handy/Laptop-PWA: grosse Tap-start/Tap-stop-Taste, Space, de-DE Browser-STT, Satzweise Vorlesen, Stop/Repeat, Haptik/Beep, Wake Lock, Media Session, Shell-Serviceworker und Raster-Installationsicons. Optional Whisper/Piper hinter getrennten Interfaces, standardmaessig aus.
+- Claude/Codex immer lesend, Ollama-Q&A und Echo. Default Claude; native CLI fehlt hier, offizielle Flags geprueft und Laufzeit-Help-Pruefung bricht bei fehlendem restricted/tools/plan/resume sicher ab. Codex-Hilfen/Resume-Optionen/Features lokal gelesen; Shell/Code/Browser/Hook-Werkzeuge eingeschraenkt. Repository-Codex-Konfigurationen werden abgelehnt; normaler User-Config-Import deaktiviert.
+- Aktionen: ausschliesslich konkrete UTF-8-Dateivorschlaege, vorher vorgelesen, zufaelliges Wort als naechste Nachricht binnen 60 s; genau einmal. Pfad-/Groessen-/Versionspruefung und unveraenderliche Backups. Kein allgemeiner Schreib-/Shellmodus. Runs/Merges nicht Teil der vorgegebenen Allowlist und gesperrt; Push/Force/Loeschen nie verfuegbar. Sprache von Logs/Dateien startet keine Aktion.
+- Setup mit Tailscale Serve HTTPS, Projekt-/Modellwahl, Limits/Adapter in docs/ai/VOICE-HANDS-FREE.md. launch.json/voicebridge ist bewusst Trockenlauf. Echte PC-Konsole gab Loopback-URL aus, erkannte 100.69.194.127 und lokalen ts.net-Namen; keine Tailnet-Freigabe oder HTTPS-Konfiguration veraendert.
+- Verifiziert: 40 Python-Unit-/HTTP-Tests gruen; JavaScript-Syntax und Node-UI-Harness (Fake-STT/TTS, Tap-Ablauf, Schweigen waehrend Aufnahme, authentifizierter Turn, Satzvorlesen/Repeat/Stopp) gruen. Echten Server per HTTP im Trockenlauf geprueft, kein echter Agent gestartet. Gradle nicht geaendert: Launch-Hub-Pythontests sind nicht in check verdrahtet.
+- Wiki generate und --check aktuell; Generator erzeugte nur inhaltsgleiche Zeilenenden, keine Wiki-Aenderung committet. Vollstaendiges gradlew.bat check -q im Worktree **GRADLE_EXIT=0**, Ausgabe gelesen; shared/26.2 bleibt kompilierbar.
+- Testzentralen in beiden separaten 26.3-GameTest-Welten neu gebaut: **10/10, alles gruen**, Run 2026-09-30T15-16-30Z-578c, Filter simplebuilding:*test_centre*, einschliesslich Item-/Blockabdeckung. Besitzerwelt unberuehrt.
+- Nicht verifiziert: gerenderte Handy-/Desktop-Oberflaeche (Computer Use: browsers/apps leer; IAB nicht verfuegbar), echtes Mikrofon/STT/TTS, Headset/Sperrbildschirm/Installation, Tailscale-HTTPS-Ende-zu-Ende, echte Claude/Codex/Ollama-Turns und lokale Whisper/Piper-Adapter. Keine Minecraft-Clienttests oder vollstaendige Serversuite; nur Centre-Filter, keine neue Spiel-Pixelkunst. Besitzer sollte Handy/Headset und gewaehlten Anbieter abnehmen. Kein Push/Merge, keine mc1_21_11/mc26_4-Quellaenderung.
+
 
 ## Aktueller integrierter Bestand
 

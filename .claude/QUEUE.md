@@ -72,3 +72,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 ## Orchestrator-Stand 2026-09-30 17:00 (Welle 25, Fortsetzung)
 - [x] Plugin-Umbau der Modul-Registrierung und Simple Riding nach master gemergt (7ef79212); Gate laeuft. Briefe tragen jetzt die Plugin-Regel (docs/ai/briefs/mm-contract.md).
 - [ ] Laufende Laeufe: facts (Faktenpass), voicebridge (Sprach-Bridge), port-visuals, port-fun. Danach in Wellen (max. 4 gleichzeitig): new-sounds (nach visuals), port-qol, port-tweaks, port-dimensions, port-models, riding-followup (Nautilus, Obergrenzen), zuletzt money-links; dann Forge 26.3 fuer alle Module, Gesamtgate.
+
+## VOICEBRIDGE (2026-09-30, codex-voicebridge)
+- [x] Besitzerwunsch: Handy/Laptop, eine grosse Sprechtaste, kurze vorgelesene Antworten, mehrere Projekte; stdlib-Server und PWA, lesende Agenten, konkrete Dateivorschlaege mit einmaliger Sprachbestaetigung.
+- [ ] Besitzerpruefung: echtes Handy-Mikrofon/Vorlesen, Tailscale HTTPS, Headset-Taste und gewaehlter CLI-Anbieter; Verifikation siehe HANDOFF.

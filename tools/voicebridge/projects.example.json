@@ -1,0 +1,10 @@
+[
+  {
+    "name": "simplebuilding",
+    "root": ".",
+    "provider": "claude",
+    "model": "",
+    "default_mode": "read-only",
+    "brief_folder": "docs/ai/briefs"
+  }
+]

@@ -97,3 +97,13 @@ tools/launchhub/data/
 
 # AI run logs (tools/ai/aitool.py)
 .ai-runs/
+
+# Voicebridge: local authentication, projects, transcripts and immutable backups
+tools/voicebridge/token.txt
+tools/voicebridge/projects.json
+tools/voicebridge/audit.log
+tools/voicebridge/sessions.json
+tools/voicebridge/sessions.tmp
+tools/voicebridge/history.jsonl
+tools/voicebridge/out/
+tools/voicebridge/backups/
