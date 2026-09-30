@@ -139,3 +139,9 @@ Fabric and actual absence on the standalone NeoForge Sounds runtime. Existing ca
 were retained and extended. Fabric jars were inspected for the nested framework API.
 No client tests were run; playback/UI, real installed modpacks and subjective audio
 remain owner acceptance work. Forge runtime and its library packaging remain deferred.
+
+Final archive inspection also verified the API class and jarJar coordinates/version in
+both NeoForge jars. The final standard Gradle check passed (FINAL_CHECK_EXIT=0),
+including all module data/wiki gates and shared 26.2 compilation. Test-centre filter
+passed 10/10 on the two isolated 26.3 base worlds; the owner world was not touched.
+Full merged suites remain the orchestrator's next step, as requested.

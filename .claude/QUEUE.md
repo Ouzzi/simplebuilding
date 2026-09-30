@@ -81,4 +81,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] 5. SOUNDS: Intensitaet an die Stufe von Simple Visuals koppeln (Off/Subtle/Normal/Strong/Maximum); ohne Visuals gilt eine eigene Einstellung. Brief: docs/ai/briefs/next-small.md.
 - [ ] 6. FORGE spaeter: Forge 26.3 auch fuer Dimensions, Cloth-Dialog auf Forge und die Frage der Standardaktivierung kommen nach 1 bis 5.
 - [ ] Noch offen: Echolot 3 Sekunden halten oder Ein-Klick? Morgenbericht der Sprach-Bridge ja oder nein?
-`n- [ ] NEXT-SMALL (codex-next-small): QoL-Standardbonus 1 bei Cap 1.5; Sounds folgen optional der Visuals-Stufe. Plan: modules/simplesounds/docs/next-small-plan.md; Modul-/Integrationspruefung, gefilterte Testzentrale und finales check, kein Push/Merge.
+
+- [ ] NEXT-SMALL (codex-next-small): QoL-Standardbonus 1 bei Cap 1.5; Sounds folgen optional der Visuals-Stufe. Plan: modules/simplesounds/docs/next-small-plan.md; Modul-/Integrationspruefung, gefilterte Testzentrale und finales check, kein Push/Merge.
+
+- [x] NEXT-SMALL Worker-Umsetzung (codex-next-small): QoL-Standard 1/Cap 1.5 mit Altconfig-Erhalt; Sounds folgen aktiver Visuals-Stufe ueber optionale Framework-API. 48/48 + 71/71 + 2/2 + Testzentrale 10/10 alles gruen; finales check Exit 0. Details/Scope-Erweiterung: modules/simplesounds/docs/next-small-plan.md. Besitzer-Abnahme und komplettes zusammengefuehrtes Orchestrator-Gate bleiben offen; kein Push/Merge.
