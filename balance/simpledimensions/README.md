@@ -1,0 +1,1 @@
+Simple Dimensions tuning lives in ConfigLimits.java and config-options.json. Server JSON is the editable gameplay input; this isolated folder is reserved for manifest-driven balance history. No SimpleBuilding history is copied.

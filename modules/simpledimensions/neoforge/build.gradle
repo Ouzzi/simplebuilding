@@ -1,0 +1,20 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.147'
+}
+apply from: rootProject.file('gradle/module-neoforge.gradle')
+
+neoForge.runs {
+    moduleIntegrationGameTest {
+        type = 'gameTestServer'
+        gameDirectory = rootProject.layout.projectDirectory.dir('integration/run-neoforge-263')
+        programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simpledimension:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
+    }
+}
+
+dependencies { runtimeOnly project(':mc26_3:neoforge') }
+evaluationDependsOn(':mc26_3:neoforge')
+neoForge { mods { simplebuildingIntegration { sourceSet project(':mc26_3:neoforge').sourceSets.main } } }
+
+repositories { maven { url = "https://maven.shedaniel.me/" }; maven { url = "https://maven.terraformersmc.com/releases/" } }
+dependencies { implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.mc263_cloth_version}" }

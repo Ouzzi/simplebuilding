@@ -754,6 +754,77 @@
         "neoforge": ":modules:simpletweaks:neoforge",
         "forge": ":modules:simpletweaks:forge"
       }
+    },
+    {
+      "id": "simpledimensions",
+      "name": "Simple Dimensions",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Dimensions",
+      "description": "Configurable dimensions, light arches, and safe linked portals.",
+      "loaders": [
+        "fabric",
+        "neoforge"
+      ],
+      "requires": [
+        "cloth_config"
+      ],
+      "optional": [
+        "simplebuilding",
+        "modmenu"
+      ],
+      "checks": [
+        "modules/simpledimensions/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpledimension",
+        "catalogues": [
+          "modules/simpledimensions/fabric/src/main/java/com/simplebuilding/modules/simpledimensions/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplebuilding",
+          "simpledimensions"
+        ],
+        "devMods": [
+          "cloth_config"
+        ],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpledimensionsGameTest",
+            "report": "integration/build/simpledimensions-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simpledimensions:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simpledimensions/neoforge/build/module-junit.xml"
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simpledimensions.ModuleClientSmoke"
+          ],
+          "sources": "modules/simpledimensions/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simpledimensions",
+        "shared": "modules/simpledimensions/shared",
+        "fabric": "modules/simpledimensions/fabric",
+        "neoforge": "modules/simpledimensions/neoforge",
+        "forge": null,
+        "generated": "modules/simpledimensions/generated/resources",
+        "lang": "modules/simpledimensions/shared/resources/assets/simpledimension/lang",
+        "wikiManual": "modules/simpledimensions/wiki/manual.json",
+        "balanceDir": "balance/simpledimensions"
+      },
+      "projects": {
+        "fabric": ":modules:simpledimensions:fabric",
+        "neoforge": ":modules:simpledimensions:neoforge"
+      },
+      "namespace": "simpledimension",
+      "modId": "simpledimension"
     }
   ]
 }

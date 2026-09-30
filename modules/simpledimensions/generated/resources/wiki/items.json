@@ -1,0 +1,12 @@
+{
+  "items": [
+    {
+      "id": "simpledimension:sky_portal",
+      "kind": "block"
+    },
+    {
+      "id": "simpledimension:light_blue_portal",
+      "kind": "block"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "simpledimension:block/sky_portal"
+    },
+    "axis=z": {
+      "model": "simpledimension:block/sky_portal",
+      "y": 90
+    }
+  }
+}

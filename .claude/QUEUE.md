@@ -114,3 +114,12 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] MONEY-LINKS (codex-money-links): additive conditional 26.3 money trades, per-module price tables, bounded server formula and persistent anti-spam budgets; no push/merge.
 
 - [x] MONEY-LINKS 26.3 on codex-money-links: 243 buy-only conditional offers, bounded formula/budgets, nine tables, EN/DE/wiki/JEI; Money 34/34, off-switch 2/2, integration 1/1, centres 10/10, Fabric client 4/4 and final check Exit 0. Owner price/pool/buy-only acceptance remains open; no push/merge.
+
+## Simple Dimensions 26.3 (codex-port-dimensions, 2026-09-30)
+- [x] Erster Dimensionsentwurf und Quellvergleich: docs/modules/simpledimensions.md, Commit e7625a9d.
+- [ ] Portierung noch NICHT umgesetzt: sichere Portal-/Rueckweglogik, Pack-Anbindung beider Loader, Legacy-IDs, Config-GUI, Datenvertrag und alle vorgeschriebenen Modultests fehlen. Kein Token-Geruest als fertige Mod registriert.
+- [ ] Standardzugang Skyblock klaeren: instructions+ fordert sechs Glowstone-Boegen + Zusatzlicht; neueste Quelle nutzt Kupfer/Blau-Eis ohne Lichtpflicht. Bestehende JSONs und simpledimension-IDs erhalten.
+
+2026-09-30: Simple Dimensions Implementierung abgeschlossen (codex-port-dimensions); Besitzerabnahme und spaeterer Port-Run offen. Kupfer/Blau-Eis bleibt JSON-Alternative; kein Push/Merge.
+
+- [x] TASK DIMFIX: nonblocking arrival vegetation reproduced as a product defect; WORLD_SURFACE fix, preserved plants and safe landing regression. Three fixed Fabric suites green, 68/68 modules, 1600/1600 base, 379/379 integration/all modules, check GRADLE_EXIT=0. Historical unlogged terrain attribution remains an inference; details docs/modules/simpledimensions.md. No push/merge.

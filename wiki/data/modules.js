@@ -203,5 +203,24 @@ window.WIKI_MODULES = [
     ],
     "optional": [],
     "dataHash": "45a14b9cca94"
+  },
+  {
+    "id": "simpledimensions",
+    "displayName": "Simple Dimensions",
+    "description": "Configurable dimensions, light arches, and safe linked portals.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplebuilding",
+      "modmenu"
+    ],
+    "dataHash": "4ebc80683c65"
   }
 ];
