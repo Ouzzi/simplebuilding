@@ -135,7 +135,9 @@ public class ServerTuningConfig {
      * ({@code /reload}, Weltstart). Gesetzte Bloecke und vorhandene Gegenstaende bleiben.
      */
     public static class Features {
+        @ConfigEntry.Gui.Tooltip
         public boolean endSignals = true;
+        @ConfigEntry.Gui.Tooltip
         public boolean astralVault = true;
         /** Die Verzauberung Luftsprung wirkt (unabhaengig vom Client-Schalter enableDoubleJump). */
         @ConfigEntry.Gui.Tooltip
@@ -258,6 +260,7 @@ public class ServerTuningConfig {
 
     /** Tempo der Maschinenstufen als Vielfaches von Vanilla (1..8). */
     public static class Machines {
+        @ConfigEntry.Gui.Tooltip
         public int endSignalRange = 15;
         @ConfigEntry.Gui.Tooltip
         public int reinforcedHopperSpeed = 2;

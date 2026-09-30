@@ -254,3 +254,12 @@ Dieser Branch wird nicht gepusht oder gemergt; Verifikation siehe abschliessende
 - Abschliessendes normales `gradlew.bat check -q` (Forge263 standardmaessig aus) ebenfalls
   **gruen, Exit 0**, Ausgabe gelesen. Beide Gate-Konfigurationen bestaetigt; keine Dateien
   in mc1_21_11, mc26_4, forge/, common/ oder src/ geaendert.
+
+## FIX16 (2026-09-30, Codex, codex-fix16)
+- KK2-Integritaet repariert: sieben item.*-Namensschluessel parallel zu block.* in beiden DE/EN-Sprachorten; Nihilit-Anzeigenamen gemaess bestehender Familienregel, IDs unveraendert. Signal-Buchseite auf passende Laenge gekuerzt (Rezepte bleiben als Karten im Kapitel).
+- Suchtab: Pulver neben Redstone, Schalter neben Hebel, Lampen im zuerst eingesammelten Functional-Tab neben der Vanilla-Lampe, Astral Vault neben Endertruhe. Exakte Nachbarschaften im bestehenden Test gepinnt.
+- Erwartungsupdates fuer beabsichtigtes KK2-Design: Endertruhe genau einmal in SimpleMachines (inklusive exakter Vanilla-Anzahl); nach Shulkerkisten die Endertruhe/Vault-Zeile und beide Signalfamilien mit Abstand, weiter neun Spalten. Drei neue Config-Felder mit Namen/Defaults true,true,15 gepinnt; Tooltip-Annotationen und korrekte DE/EN-Erklaerungen samt Default ergaenzt. Keine Tests abgeschwaecht.
+- Finale volle 26.3-Server-Suite: 1562/1562, alles gruen (je Loader 781), Run 2026-09-30T13-46-59Z-c843. Testzentralen in beiden separaten GameTest-Welten gebaut, volle Item-/Blockabdeckung gruen. Gezielte Integritaet zuvor 82/82 gruen, Run 2026-09-30T13-45-14Z-4190.
+- Wiki generiert und --check aktuell; neue KK2-Items jetzt im Wiki-Itemkatalog, Prosa mit Nihilit-Namen konsistent. Buecher 0 Probleme; vier Sprachdateien ohne doppelte Schluessel.
+- Abschliessendes gradlew.bat check -q im Worktree gruen, nativer GRADLE_EXIT=0 ausdruecklich gelesen; gemeinsame 26.2-Kompilierung enthalten. Erster PowerShell-Aufruf meldete wegen stderr-Warnungen Exit 1 ohne Gradle-Fehler; Wiederholung mit explizitem LASTEXITCODE gruen.
+- Keine Clienttests/Sicht- oder Soundpruefung, Besitzerwelt nicht angefasst. Keine neue Pixelkunst; mc1_21_11/mc26_4 unveraendert, keine Ports. Kein Push/Merge; Commit auf Arbeitsbranch.

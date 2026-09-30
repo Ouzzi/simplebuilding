@@ -756,7 +756,7 @@ window.WIKI_DATA = {
           "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
           "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
           "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-          "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+          "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
           "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
         ]
       }
@@ -3609,9 +3609,9 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Isolated End Signals",
-        "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+        "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
         "details": [
-          "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+          "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
           "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
           "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
           "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
@@ -3619,9 +3619,9 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Getrennte End-Signale",
-        "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+        "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
         "details": [
-          "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
           "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
           "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
           "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
@@ -3765,6 +3765,49 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/astral_purpur_block.png",
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_vault",
+      "name": {
+        "en_us": "Astral Vault",
+        "de_de": "Astralgewölbe"
+      },
+      "texture": "assets/textures/block/astral_vault.png",
+      "craftedBy": [
+        "simplebuilding:astral_vault"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_vault.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AstralVaultBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/AstralStorageMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/AstralStorage.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Astral Vault",
+          "summary": "54 personal slots, including the 27 shared vanilla ender chest slots.",
+          "details": [
+            "Craft an ender chest with two Enderite Ingots and two Astralit Dust. Slots 1–27 directly use the vanilla personal ender inventory; slots 28–54 belong to that same player and are reachable through a vault. Ordinary ender chests still expose 27 slots.",
+            "The extra slots are saved in the personal ender inventory data with slot indices 27–53. Respawn uses the same ender inventory. Players and dimensions do not create shared public storage.",
+            "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault, not its personal contents; hoppers cannot access them.",
+            "server.features.astralVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Astralgewölbe",
+          "summary": "54 persoenliche Plaetze, darunter die 27 geteilten Vanilla-Endertruhenplaetze.",
+          "details": [
+            "Rezept: Endertruhe mit zwei Enderitbarren und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
+            "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
+            "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
+            "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astralit_block",
@@ -3916,6 +3959,47 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astralit_lamp",
+      "name": {
+        "en_us": "Astralit Signal Lamp",
+        "de_de": "Astralit-Signallampe"
+      },
+      "texture": "assets/textures/block/astralit_lamp.png",
+      "craftedBy": [
+        "simplebuilding:astralit_lamp"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:astralit_ore",
       "name": {
         "en_us": "Astralit Ore",
@@ -3946,6 +4030,50 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/astralit_pillar.png",
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_powder",
+      "name": {
+        "en_us": "Astralit Signal Powder",
+        "de_de": "Astralit-Signalpulver"
+      },
+      "texture": "assets/textures/block/astralit_powder.png",
+      "craftedBy": [
+        "simplebuilding:astralit_powder"
+      ],
+      "usedIn": [
+        "simplebuilding:astralit_lamp",
+        "simplebuilding:astralit_switch"
+      ],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astralit_quartz_checker",
@@ -3989,6 +4117,47 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_switch",
+      "name": {
+        "en_us": "Astralit Signal Switch",
+        "de_de": "Astralit-Signalschalter"
+      },
+      "texture": "assets/textures/block/astralit_switch.png",
+      "craftedBy": [
+        "simplebuilding:astralit_switch"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:backpack",
@@ -4981,7 +5150,7 @@ window.WIKI_DATA = {
             "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -6027,7 +6196,7 @@ window.WIKI_DATA = {
             "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -7709,7 +7878,7 @@ window.WIKI_DATA = {
             "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -9358,7 +9527,7 @@ window.WIKI_DATA = {
             "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -10286,7 +10455,7 @@ window.WIKI_DATA = {
             "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -11885,7 +12054,7 @@ window.WIKI_DATA = {
             "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -12909,6 +13078,47 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihilith_lamp",
+      "name": {
+        "en_us": "Nihilit Signal Lamp",
+        "de_de": "Nihilit-Signallampe"
+      },
+      "texture": "assets/textures/block/nihilith_lamp.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_lamp"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:nihilith_ore",
       "name": {
         "en_us": "Nihilit Ore",
@@ -12939,6 +13149,50 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/nihilith_pillar.png",
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_powder",
+      "name": {
+        "en_us": "Nihilit Signal Powder",
+        "de_de": "Nihilit-Signalpulver"
+      },
+      "texture": "assets/textures/block/nihilith_powder.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_powder"
+      ],
+      "usedIn": [
+        "simplebuilding:nihilith_lamp",
+        "simplebuilding:nihilith_switch"
+      ],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:nihilith_quartz_checker",
@@ -13012,6 +13266,47 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_switch",
+      "name": {
+        "en_us": "Nihilit Signal Switch",
+        "de_de": "Nihilit-Signalschalter"
+      },
+      "texture": "assets/textures/block/nihilith_switch.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_switch"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:octant",
@@ -16366,9 +16661,9 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
           "details": [
-            "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
             "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
@@ -16376,9 +16671,9 @@ window.WIKI_DATA = {
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
             "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
@@ -16456,9 +16751,9 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
           "details": [
-            "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
             "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
@@ -16466,9 +16761,9 @@ window.WIKI_DATA = {
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
             "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
@@ -16549,9 +16844,9 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
           "details": [
-            "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
             "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
@@ -16559,9 +16854,9 @@ window.WIKI_DATA = {
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
             "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
@@ -20875,8 +21170,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_lamp",
       "name": {
-        "en_us": "Nihilith Signal Lamp",
-        "de_de": "Nihilith-Signallampe"
+        "en_us": "Nihilit Signal Lamp",
+        "de_de": "Nihilit-Signallampe"
       },
       "texture": "assets/textures/block/nihilith_lamp.png",
       "craftedBy": [
@@ -20897,9 +21192,9 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
           "details": [
-            "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
             "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
@@ -20907,9 +21202,9 @@ window.WIKI_DATA = {
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
             "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
@@ -20962,8 +21257,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_powder",
       "name": {
-        "en_us": "Nihilith Signal Powder",
-        "de_de": "Nihilith-Signalpulver"
+        "en_us": "Nihilit Signal Powder",
+        "de_de": "Nihilit-Signalpulver"
       },
       "texture": "assets/textures/block/nihilith_powder.png",
       "craftedBy": [
@@ -20987,9 +21282,9 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
           "details": [
-            "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
             "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
@@ -20997,9 +21292,9 @@ window.WIKI_DATA = {
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
             "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
@@ -21058,8 +21353,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_switch",
       "name": {
-        "en_us": "Nihilith Signal Switch",
-        "de_de": "Nihilith-Signalschalter"
+        "en_us": "Nihilit Signal Switch",
+        "de_de": "Nihilit-Signalschalter"
       },
       "texture": "assets/textures/block/nihilith_switch.png",
       "craftedBy": [
@@ -21080,9 +21375,9 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
           "details": [
-            "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
             "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
@@ -21090,9 +21385,9 @@ window.WIKI_DATA = {
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
             "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
@@ -45383,7 +45678,7 @@ window.WIKI_DATA = {
             "Nicht mit Tunnelgräber kombinierbar: Aderabbau deklariert das Exklusiv-Set simplebuilding:exclusive_set/mining (enthält strip_miner und vein_miner); der Datentest der Mod prüft, dass Enchantment.areCompatible(vein_miner, strip_miner) false liefert.",
             "Löst nur aus, wenn beim Abbauen geschlichen wird; ohne Schleichen wird ganz normal nur der eine Block abgebaut.",
             "Das Werkzeug in der Haupthand muss den angeschlagenen Block regulär abbauen können (isCorrectToolForDrops), sonst passiert nichts.",
-            "Mit Spitzhacke zählen nur Blöcke aus dem Block-Tag simplebuilding:vein_miner_ores: #c:ores des Loaders (also jedes Mod-Erz nach Konvention), die Vanilla-Tags Kohle-, Eisen-, Kupfer-, Gold-, Redstone-, Lapislazuli-, Diamant- und Smaragderz, Netherquarzerz, Nethergolderz, Antiker Schutt und die Mod-Erze Nihilith- und Astralit-Erz; mit Axt nur Blöcke aus dem Stämme-Tag #minecraft:logs. Ein Datapack kann den Tag erweitern. Die Riss-Vorschau fragt genau dieselbe Liste (MiningUtils.isOre, die auch VeinMinerUsageEvent aufruft), es wird also nichts angezeigt, was der Server danach stehen lässt.",
+            "Mit Spitzhacke zählen nur Blöcke aus dem Block-Tag simplebuilding:vein_miner_ores: #c:ores des Loaders (also jedes Mod-Erz nach Konvention), die Vanilla-Tags Kohle-, Eisen-, Kupfer-, Gold-, Redstone-, Lapislazuli-, Diamant- und Smaragderz, Netherquarzerz, Nethergolderz, Antiker Schutt und die Mod-Erze Nihilit- und Astralit-Erz; mit Axt nur Blöcke aus dem Stämme-Tag #minecraft:logs. Ein Datapack kann den Tag erweitern. Die Riss-Vorschau fragt genau dieselbe Liste (MiningUtils.isOre, die auch VeinMinerUsageEvent aufruft), es wird also nichts angezeigt, was der Server danach stehen lässt.",
             "Zur Ader gehören nur Blöcke, die exakt derselbe Block wie der angeschlagene sind (Vergleich über getBlock()); Kohleerz und Tiefenschiefer-Kohleerz bilden deshalb getrennte Adern.",
             "Die Suche läuft über alle 26 Nachbarn eines Blocks, also auch diagonal, und arbeitet sich von dort per Breitensuche weiter.",
             "Blockbudget je Stufe, den angeschlagenen Block eingerechnet: I = 3, II = 6, III = 9, IV = 12, V = 18.",
@@ -48212,8 +48507,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "End Signal Channels",
       "labelDe": "End-Signalkanaele",
-      "tooltip": "Server-controlled. Recipes update on datapack reload; range is capped at 15.",
-      "tooltipDe": "Serverseitig. Rezepte werden beim Datenpaket-Neuladen aktualisiert; Reichweite maximal 15."
+      "tooltip": "Enable isolated End channels. Recipes update on datapack reload. Default: true.",
+      "tooltipDe": "End-Signalkanaele aktivieren. Rezepte nach Datenpaket-Neuladen. Standard: true."
     },
     {
       "name": "server.features.astralVault",
@@ -48227,8 +48522,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Astral Vault",
       "labelDe": "Astralgewölbe",
-      "tooltip": "Server-controlled. Recipes update on datapack reload; range is capped at 15.",
-      "tooltipDe": "Serverseitig. Rezepte werden beim Datenpaket-Neuladen aktualisiert; Reichweite maximal 15."
+      "tooltip": "Enable Astral Vault use. Disabling preserves contents. Recipes update on datapack reload. Default: true.",
+      "tooltipDe": "Astralgewoelbe aktivieren. Abschalten bewahrt den Inhalt. Rezepte nach Datenpaket-Neuladen. Standard: true."
     },
     {
       "name": "server.features.airJump",
@@ -48767,8 +49062,8 @@ window.WIKI_DATA = {
       "groupDe": "Maschinentempo",
       "label": "End Signal Range (1–15)",
       "labelDe": "End-Signalreichweite (1–15)",
-      "tooltip": "Server-controlled. Recipes update on datapack reload; range is capped at 15.",
-      "tooltipDe": "Serverseitig. Rezepte werden beim Datenpaket-Neuladen aktualisiert; Reichweite maximal 15."
+      "tooltip": "Maximum powder segments per channel, limited to 1-15. Default: 15.",
+      "tooltipDe": "Maximale Pulversegmente pro Kanal, begrenzt auf 1-15. Standard: 15."
     },
     {
       "name": "server.machines.reinforcedHopperSpeed",
@@ -70617,7 +70912,7 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 178,
+    "items": 185,
     "blocks": 154,
     "recipes": 446,
     "lootTables": 155,

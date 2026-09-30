@@ -259,3 +259,6 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 ## INFRA-F Forge 26.3 (2026-09-30)
 - [x] Official Forge 26.3-66.0.8 / MDK verified; opt-in 26.3 overlay, loader hooks, server 778/778 green, Hub and module scaffolding; no push/merge.
 - [ ] Owner acceptance: actual Forge client display, config persistence/optional integrations, eventual default enablement.
+
+## FIX16 (26.3, Codex)
+- [x] KK2-Integritaetsfehler korrigiert; komplette 26.3-Server-Suite 1562/1562 gruen; Abschlussgate siehe HANDOFF.
