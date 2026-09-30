@@ -352,3 +352,47 @@ Dieser Abschnitt ersetzt die Werkbank-Erweiterung aus dem historischen Mega-Hand
 - Offen: Besitzer-Abnahme, NeoForge-Client, echte alte Spielwelt und Besitzerwelt-Testzentrale. Forge 26.3 und 26.2/1.21.11/26.4 bleiben eigener freigegebener Port-Run; Details `docs/modules/simplemoney.md`.
 
 - Abschließender kombinierter Harness-/Modlauf nach Trennung der Fabric-Tasks: **21/21 alles gruen**, `2026-09-30T13-35-03Z-5946`. Eigene Berichte/Filter, gemeinsame Fabric-Instanz seriell. Danach vollständiges `gradlew.bat --no-daemon check -q` erneut **Exit 0**, Ausgabe gelesen.
+
+
+## MERGE-RIDING / Plugin-Registrierung (Codex, 2026-09-30)
+
+- Branch `codex-port-riding`: lokales `master` (`bf1012f9`) integriert; Merge-/Code-Commit
+  `5f7aa7de`. Money und Riding samt allen Tests erhalten, Forge-26.3-Projekte und
+  Multi-Mod-Wiki/Balance-Vertrag aus master erhalten; Queue/Handoff vereinigt.
+- Manifest `tests` beschreibt Katalogdateien, Namespace, Gradle-Tasks/Reports pro Loader,
+  Auswahlvoraussetzungen und Client-Entrypoints. Runner entdeckt Ziel-IDs, Kataloge und
+  Ergebnisnamensraeume generisch; bestehende Ziel-IDs und historische mcLine-Gruppen bleiben.
+- Integration erzeugt Fabric-Runs und Client-Metadaten im Build-Verzeichnis. Clientquellen
+  und Datenhooks liegen jetzt in ihren Modulen. Fabric- und NeoForge-Modultasks werden fuer
+  ihre gemeinsamen Testverzeichnisse auch unter `--parallel` serialisiert. Compile-only
+  Modulabhaengigkeiten umgehen die Laufzeit-Auswahl nicht. Root `checkModuleData` fuehrt
+  alle deklarierten Scripts aus. Launch Hub nutzt nur noch den Manifestvertrag.
+- `newmod.py` liefert Fabric-/NeoForge-Serveradapter, Struktur, Client-Smoke und Datenhook;
+  Auswahl wird automatisch aktualisiert. Vertrag: `docs/MULTIMOD.md`. Doppelte Resource-
+  Wurzeln aus den zusammengefuehrten Loaderbuilds entfernt. Wiki erkennt Kreativtab-IDs
+  nicht mehr als Items und nutzt exakte Featurekapitel als Registry-Prosa.
+- Voller Bestand 26.3: **1562/1562, alles gruen**, Run `2026-09-30T14-28-00Z-a00d`.
+  Testzentrale in beiden separaten GameTest-Welten vollstaendig gebaut; alle Items/Bloecke
+  abgedeckt, Stations-/Befehlstests gruen. Besitzerwelt nicht angefasst.
+- Integration + Money + Riding: **47/47, alles gruen** (1 + 10 + 10 + 13 + 13),
+  Run `2026-09-30T14-29-34Z-e94b`. Beide Fabric-Modulclients seriell nach Prozesspruefung:
+  **6/6 Screenshot-Pruefpunkte, alles gruen**, Run `2026-09-30T14-30-55Z-9035`.
+- Neue reine Python-Registrierungstests: Launch Hub **44 Tests gruen**, inklusive
+  Scaffold-Discovery, mehrerer Katalogdateien, Namespace-/Reporttrennung, Clientselector
+  und unsicherer Pfade/Tasks. Wiki **13 Tests gruen**; Devserver **121 Tests gruen,
+  ein bestehender Skip**. `wiki/generate.py --all` und `--all --check` gruen;
+  Lang-Schluessel eindeutig. Quest-Lang-Reihenfolge fuer gemeinsame/26.3-Ressourcen aktuell.
+- Echte Gegenprobe nach dem Codecommit: `newmod.py pluginprobe "Plugin Probe"` ohne
+  manuelle gemeinsame Wiring-Aenderungen. **2/2 Servertests, alles gruen** auf Fabric/NeoForge,
+  Run `2026-09-30T14-36-39Z-e66b`; **1/1 Client-Smoke, alles gruen**,
+  Run `2026-09-30T14-37-51Z-065d`. Generischer Datenhook ebenfalls gruen; Clientresultat
+  traegt `pluginprobe:pluginprobe-title`. Probe anschliessend unter dem ignorierten
+  `scratchpad/plugin-probe-completed` archiviert, Manifest/Auswahl exakt wiederhergestellt,
+  laufender Katalog aktualisiert und Integrations-JAR-Auswahl neu vorbereitet.
+- Abschliessendes `gradlew.bat :integration:prepareIntegrationMods check -q --no-daemon`:
+  **GRADLE_EXIT=0**, Ausgabe gelesen; gemeinsamer Code kompiliert auch fuer 26.2.
+- Nicht geprueft: Forge-Ziel (ausdruecklich nicht gestartet), andere MC-Laufzeitlinien,
+  NeoForge-Clientdarstellung, vollstaendige SimpleBuilding-Clientsuite, Besitzerwelt und
+  beliebige Modpackkombinationen. `mc1_21_11` und `mc26_4` unveraendert. Keine neue Pixelkunst.
+  Keine Besitzerentscheidung fuer diesen Infrastrukturvertrag erforderlich. Kein Push,
+  kein Merge dieses Branches in master; Integration dort bleibt der Besitzersession.
