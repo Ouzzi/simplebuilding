@@ -73,7 +73,7 @@ public class GuideBookScreen extends Screen {
      * Lesezeichen: 20 px hoch im Abstand von 18 px. Rechts passen neun an die Buchkante; hat ein
      * Regal mehr Buecher, stehen die uebrigen links unter "Inhalt" und dem Regal-Lesezeichen.
      */
-    private static final int TAB_Y = 12, TAB_STEP = 18, RIGHT_TABS = 9;
+    private static final int TAB_Y = 12, TAB_STEP = com.simplebuilding.version.McVersion.MEGA_GUIDES ? 20 : 18, RIGHT_TABS = com.simplebuilding.version.McVersion.MEGA_GUIDES ? 8 : 9;
     /** Das Regal-Lesezeichen links, unter "Inhalt"; darunter die Buecher, die rechts keinen Platz haben. */
     private static final int SHELF_TAB_Y = TAB_Y + 24, LEFT_BOOK_TAB_Y = SHELF_TAB_Y + 24;
     /** Einzug der Aufzaehlungszeilen und Abstand zwischen Absaetzen. */
@@ -82,6 +82,7 @@ public class GuideBookScreen extends Screen {
     private static final Map<GuideBooks.Book, Integer> LAST_SPREAD = new EnumMap<>(GuideBooks.Book.class);
 
     private final GuideBooks.Book opened;
+    private final ItemStack source;
     private GuideBooks.Book book;
     private List<List<Placed>> pages = List.of();
     private int[] chapterPage = new int[0];
@@ -93,7 +94,13 @@ public class GuideBookScreen extends Screen {
     Component hoveredText;
 
     public GuideBookScreen(GuideBooks.Book book) {
-        super(Component.translatable(GuideBooks.item(book).getDescriptionId()));
+        this(new ItemStack(GuideBooks.item(book)));
+    }
+
+    public GuideBookScreen(ItemStack source) {
+        super(source.getHoverName());
+        GuideBooks.Book book = ((com.simplebuilding.items.custom.GuideBookItem) source.getItem()).book();
+        this.source = source.copy();
         this.opened = book;
         this.book = book;
     }
@@ -143,7 +150,7 @@ public class GuideBookScreen extends Screen {
 
     /** Die Buecher des offenen Regals, in Lesezeichen-Reihenfolge. */
     private List<GuideBooks.Book> shelfBooks() {
-        return book.shelf().books();
+        return opened.shelf().books();
     }
 
     /** Ob Lesezeichen {@code i} des Regals links steht (die ersten neun stehen rechts). */
@@ -153,7 +160,7 @@ public class GuideBookScreen extends Screen {
 
     /** Oberkante von Lesezeichen {@code i}, relativ zum Buch. */
     static int tabY(int i) {
-        return leftTab(i) ? LEFT_BOOK_TAB_Y + (i - RIGHT_TABS) * TAB_STEP : TAB_Y + i * TAB_STEP;
+        return leftTab(i) ? (com.simplebuilding.version.McVersion.MEGA_GUIDES ? SHELF_TAB_Y : LEFT_BOOK_TAB_Y) + (i - RIGHT_TABS) * TAB_STEP : TAB_Y + i * TAB_STEP;
     }
 
     private GuideBooks.Shelf otherShelf() {
@@ -175,6 +182,8 @@ public class GuideBookScreen extends Screen {
     }
 
     boolean available(GuideBooks.Book b) {
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) return b.shelf() == opened.shelf() && GuideBooks.inserted(source, b)
+                && (!GuideBooks.operatorOnly(b) || GuideBooks.isOperator(minecraft.player));
         return b == opened || b == book || (minecraft.player != null && minecraft.player.getInventory().countItem(GuideBooks.item(b)) > 0);
     }
 
@@ -336,7 +345,7 @@ public class GuideBookScreen extends Screen {
             }
             for (GuideBooks.Book topic : book.shelf().topics()) {
                 p.add(new Gap(5));
-                p.add(card(GuideBooks.itemId(topic), topic));
+                p.add(card(GuideBooks.itemId(topic) + "@" + topic.itemName(), topic));
             }
         }
         pages = p.out;
@@ -400,9 +409,17 @@ public class GuideBookScreen extends Screen {
             return Optional.empty();
         }
         Item item = GuideContent.item(spec);
+        GuideBooks.Book insertedTopic = null;
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+            String recipePath = GuideContent.recipePath(spec);
+            for (GuideBooks.Book candidate : GuideBooks.Book.topics()) {
+                if (candidate.itemName().equals(recipePath)) insertedTopic = candidate;
+            }
+        }
         for (RecipeCollection collection : minecraft.player.getRecipeBook().getCollections()) {
             for (RecipeDisplayEntry entry : collection.getRecipes()) {
-                if (GuideContent.drawable(entry.display()) && GuideContent.shows(entry.display(), item, context)) {
+                if (GuideContent.drawable(entry.display()) && GuideContent.shows(entry.display(), item, context)
+                        && (insertedTopic == null || GuideBooks.inserted(entry.display().result().resolveForFirstStack(context), insertedTopic))) {
                     return Optional.of(entry.display());
                 }
             }
@@ -478,7 +495,7 @@ public class GuideBookScreen extends Screen {
             goTo(0, true);
             return true;
         }
-        if (overShelfTab(mx, my)) {
+        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES && overShelfTab(mx, my)) {
             GuideBooks.Book target = otherShelfTarget();
             if (target != null) {
                 open(target, LAST_SPREAD.getOrDefault(target, 0));
@@ -573,28 +590,32 @@ public class GuideBookScreen extends Screen {
             ItemStack icon = b.isHub() ? new ItemStack(GuideBooks.item(b)) : new ItemStack(GuideBooks.keyItem(b));
             g.item(icon, iconX, ty + 3);
             if (!open) {
-                g.fill(iconX, ty + 3, iconX + 16, ty + 19, 0x88402A18);
+                g.fill(iconX, ty + 3, iconX + 16, ty + 19, com.simplebuilding.version.McVersion.MEGA_GUIDES ? 0x88777777 : 0x88402A18);
             }
             if (overTab(i, mouseX, mouseY)) {
                 hoveredText = open ? Component.translatable(b.key() + ".title")
                         : Component.translatable(GuideContent.GUI + "locked", Component.translatable(GuideBooks.keyItem(b).asItem().getDescriptionId()));
+                if (!open && GuideBooks.operatorOnly(b)) hoveredText = hoveredText.copy().append(Component.translatable(GuideContent.GUI + "operator_only"));
             }
         }
         blit(g, bx - 24, by + TAB_Y, 96, 184, 30, 20);
         if (overContentsTab(mouseX, mouseY)) {
             hoveredText = Component.translatable(GuideContent.GUI + "contents");
         }
+        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) {
         // Regalwechsel: zeigt das Einstiegsbuch des anderen Regals; gesperrt, solange keines seiner Buecher da ist.
         GuideBooks.Shelf other = otherShelf();
         GuideBooks.Book shelfTarget = otherShelfTarget();
         blitMirrored(g, bx - 24, by + SHELF_TAB_Y, shelfTarget != null ? 0 : 64, 184, 30, 20);
         g.item(new ItemStack(GuideBooks.item(other.hub())), bx - 20, by + SHELF_TAB_Y + 3);
         if (shelfTarget == null) {
-            g.fill(bx - 20, by + SHELF_TAB_Y + 3, bx - 4, by + SHELF_TAB_Y + 19, 0x88402A18);
+            g.fill(bx - 20, by + SHELF_TAB_Y + 3, bx - 4, by + SHELF_TAB_Y + 19, com.simplebuilding.version.McVersion.MEGA_GUIDES ? 0x88777777 : 0x88402A18);
         }
         if (overShelfTab(mouseX, mouseY)) {
             hoveredText = shelfTarget != null ? Component.translatable(GuideContent.shelfKey(other))
                     : Component.translatable(GuideContent.GUI + "locked", Component.translatable(GuideBooks.keyItem(other.hub()).asItem().getDescriptionId()));
+        }
+
         }
 
         blit(g, bx, by, 0, 0, BOOK_W, BOOK_H);

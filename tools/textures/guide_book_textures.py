@@ -335,9 +335,64 @@ def guide_book_textures():
     return {("item/guide_book.png" if t == "guide" else f"item/guide_book_{t}.png"): guide_book(t) for t in ORDER}
 
 
+def mega_guide_textures(check=False):
+    """26.3-only clean covers and chapter inserts, with old/new 16x nearest-neighbor previews."""
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[2]
+    target = root / "mc26_3/overlay/resources/assets/simplebuilding/textures/item"
+    target.mkdir(parents=True, exist_ok=True)
+    # The diagonal corners are transparent; the page block and spine use a single consistent edge.
+    shape = [
+        "................", "................", "....LLLLLLL.....", "...SLCCCCCCLo...",
+        "...gLCCCCCCDOP..", "...SLCCCCCCDOP..", "...SLCCCCCCDOP..", "...SLCCCCCCDOP..",
+        "...SLCCCCCCDOP..", "...SLCCCCCCDOP..", "...SLCCCCCCDOP..", "...gLCCCCCCDOP..",
+        "...SDDDDDDDDoP..", "....ooooooooP...", "................", "................",
+    ]
+    sheet = Image.new("RGBA", (256 * 4, 256 * len(ORDER)), (198, 198, 198, 255))
+    failures = []
+    for i, topic in enumerate(ORDER):
+        old = guide_book(topic)
+        o, s, l, c, d = COVERS[topic]
+        pal = dict(O=o, S=s, L=l, C=c, D=d, **PAGE)
+        pal.update(SILVER if topic.startswith("vanilla_") else GOLD)
+        img = Image.new("RGBA", (16, 16))
+        for y, row in enumerate(shape):
+            for x, symbol in enumerate(row):
+                if symbol != ".":
+                    img.putpixel((x, y), _hex(pal[symbol]))
+        # Simple open-book emblem: clean paper, one fold, shelf-colored bookmark.
+        paper, shade = _hex("#f1e7cb"), _hex("#cbbb98")
+        for y in range(6, 10):
+            for x in range(6, 11):
+                img.putpixel((x, y), shade if x == 8 else paper)
+        img.putpixel((9, 6), _hex("#b15b36" if topic.startswith("vanilla_") else "#638bc3"))
+        name = "guide_book.png" if topic == "guide" else f"guide_book_{topic}.png"
+        path = target / name
+        if check:
+            if not path.exists() or Image.open(path).convert("RGBA").tobytes() != img.tobytes():
+                failures.append(name)
+        else:
+            img.save(path)
+        sheet.alpha_composite(old.resize((256, 256), Image.Resampling.NEAREST), (0, i * 256))
+        sheet.alpha_composite(img.resize((256, 256), Image.Resampling.NEAREST), (256, i * 256))
+        # Show the actual 10px tooltip insert at 16x too.
+        insert = img.resize((10, 10), Image.Resampling.NEAREST)
+        sheet.alpha_composite(insert.resize((160, 160), Image.Resampling.NEAREST), (560, i * 256 + 48))
+    if failures:
+        raise SystemExit("Stale mega guide textures: " + ", ".join(failures))
+    if not check:
+        preview = root / "docs/previews/mega-guides-16x.png"
+        preview.parent.mkdir(parents=True, exist_ok=True)
+        sheet.save(preview)
+    print(f"Mega guides: {len(ORDER)} clean textures, transparent edges, 16x old/new preview")
+
+
 if __name__ == "__main__":
     # Vorschau (8-fach, Inventar-Grau) nach argv[1]; die Texturen selbst schreibt generate_textures.py.
     import sys
+    if "--mega" in sys.argv:
+        mega_guide_textures("--check" in sys.argv)
+        raise SystemExit(0)
     tex = guide_book_textures()
     sheet = Image.new("RGBA", (len(tex) * 144 + 8, 144), (198, 198, 198, 255))
     for i, img in enumerate(tex.values()):

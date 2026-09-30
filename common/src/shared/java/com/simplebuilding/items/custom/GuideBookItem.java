@@ -32,7 +32,7 @@ import net.minecraft.world.level.Level;
  */
 public class GuideBookItem extends Item {
 
-    private static Consumer<GuideBooks.Book> clientOpener = book -> {
+    private static Consumer<ItemStack> clientOpener = book -> {
     };
 
     private final GuideBooks.Book book;
@@ -47,7 +47,7 @@ public class GuideBookItem extends Item {
     }
 
     /** Jeder Loader setzt hier beim Client-Start den Bildschirm ein (Server: bleibt leer). */
-    public static void setClientOpener(Consumer<GuideBooks.Book> opener) {
+    public static void setClientOpener(Consumer<ItemStack> opener) {
         clientOpener = opener != null ? opener : b -> {
         };
     }
@@ -55,10 +55,17 @@ public class GuideBookItem extends Item {
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (level.isClientSide()) {
-            clientOpener.accept(book);
+            clientOpener.accept(player.getItemInHand(hand).copy());
         }
         player.awardStat(Stats.ITEM_USED.get(this));
         return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public java.util.Optional<net.minecraft.world.inventory.tooltip.TooltipComponent> getTooltipImage(ItemStack stack) {
+        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) return java.util.Optional.empty();
+        return java.util.Optional.of(new com.simplebuilding.items.tooltip.GuideTooltipData(
+                book.shelf().books().stream().filter(b -> GuideBooks.inserted(stack, b)).toList()));
     }
 
     @Override

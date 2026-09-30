@@ -157,6 +157,7 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         // --- Tooltips ---
         ClientTooltipComponentCallback.EVENT.register(data -> {
+            if (data instanceof com.simplebuilding.items.tooltip.GuideTooltipData guide) return com.simplebuilding.client.gui.tooltip.GuideTooltip.create(guide);
             if (data instanceof ReinforcedBundleTooltipData reinforcedData) {
                 return ReinforcedBundleTooltips.create(reinforcedData);
             }

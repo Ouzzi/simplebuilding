@@ -56,6 +56,15 @@ public final class GuideBookTests {
      * uebergangen, oder der Beitritt ruft den Helfer nicht mehr (dann bleibt das Buch weg).
      */
     public static void theFirstJoinGivesTheGuideOnceAndHonoursTheConfig(GameTestHelper helper) {
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+            var player = mockPlayer(helper);
+            player.getInventory().clearContent();
+            GuideBooks.onPlayerJoin(player);
+            GuideBooks.onPlayerJoin(player);
+            helper.assertValueEqual(player.getInventory().countItem(ModItems.GUIDE_BOOK), 0, "guides must be crafted");
+            helper.assertTrue(!GuideBooks.giftEnabled(), "legacy config must not enable guide gifts");
+            succeed(helper); return;
+        }
         helper.assertTrue(new SimplebuildingConfig().giveGuideBookOnFirstJoin, "the guide gift is not on by default");
         SimplebuildingConfig config = Simplebuilding.getConfig();
         helper.assertTrue(config != null, "no config loaded, so the switch cannot be tested");
@@ -97,6 +106,7 @@ public final class GuideBookTests {
      * selbst: Buch + Werkbank. Ein Schluesselitem allein oder mit einem fremden Buch ergibt nichts.
      */
     public static void everyTopicBookRecipeTakesBookOrGuideAndTheGuideStays(GameTestHelper helper) {
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) { megaGuideRecipes(helper); return; }
         List<String> problems = new ArrayList<>();
         for (GuideBooks.Shelf shelf : GuideBooks.Shelf.values()) {
             expect(helper, problems, List.of(new ItemStack(Items.BOOK), new ItemStack(GuideBooks.keyItem(shelf.hub()).asItem())),
@@ -138,7 +148,7 @@ public final class GuideBookTests {
         Set<String> used = new LinkedHashSet<>();
         for (GuideBooks.Book book : GuideBooks.Book.values()) {
             ItemStack stack = new ItemStack(GuideBooks.item(book));
-            WrittenBookContent content = stack.get(DataComponents.WRITTEN_BOOK_CONTENT);
+            WrittenBookContent content = com.simplebuilding.version.McVersion.MEGA_GUIDES ? GuideBooks.content(book) : stack.get(DataComponents.WRITTEN_BOOK_CONTENT);
             if (content == null) {
                 problems.add(book + " has no pages");
                 continue;
@@ -308,7 +318,7 @@ public final class GuideBookTests {
 
             ItemStack stack = new ItemStack(GuideBooks.item(book));
             net.minecraft.network.chat.TextColor colour = stack.getHoverName().getStyle().getColor();
-            if (colour == null || colour.getValue() != style.colour()) {
+            if (colour == null || colour.getValue() != GuideContent.style(com.simplebuilding.version.McVersion.MEGA_GUIDES ? book.shelf().hub() : book).colour()) {
                 problems.add(book + ": the name is not in the book colour but " + colour);
             }
             List<Component> lines = new ArrayList<>();
@@ -318,7 +328,7 @@ public final class GuideBookTests {
             for (Component line : lines) {
                 lineKeys.add(line.getContents() instanceof TranslatableContents t ? t.getKey() : line.getString());
             }
-            if (!lineKeys.equals(List.of(GuideContent.taglineKey(book), GuideContent.MOD_NAME_KEY))) {
+            if (!lineKeys.equals(List.of(GuideContent.taglineKey(com.simplebuilding.version.McVersion.MEGA_GUIDES ? book.shelf().hub() : book), GuideContent.MOD_NAME_KEY))) {
                 problems.add(book + ": tooltip lines are " + lineKeys);
             } else if (!lines.get(0).getStyle().isItalic()) {
                 problems.add(book + ": the tagline is not italic");
@@ -442,7 +452,7 @@ public final class GuideBookTests {
         helper.assertTrue(GuideBooks.item(admin) == ModItems.GUIDE_BOOK_ADMIN && admin.isTopic() && GuideBooks.operatorOnly(admin),
                 "the admin guide is not an operator-only topic book");
         expect(helper, problems, List.of(new ItemStack(ModItems.GUIDE_BOOK), new ItemStack(GuideBooks.keyItem(admin).asItem())),
-                ModItems.GUIDE_BOOK_ADMIN, true);
+                ModItems.GUIDE_BOOK_ADMIN, !com.simplebuilding.version.McVersion.MEGA_GUIDES);
         helper.assertTrue(problems.isEmpty(), problems.size() + " admin guide problems: " + problems);
         succeed(helper);
     }
@@ -627,7 +637,7 @@ public final class GuideBookTests {
                 problems.add("a crafter makes the admin guide");
             }
             // Andere Buecher bleiben fuer alle offen.
-            Optional<RecipeHolder<CraftingRecipe>> tools = find(helper, List.of(new ItemStack(Items.BOOK), new ItemStack(ModItems.STONE_CHISEL)));
+            Optional<RecipeHolder<CraftingRecipe>> tools = find(helper, List.of(new ItemStack(com.simplebuilding.version.McVersion.MEGA_GUIDES ? ModItems.GUIDE_BOOK : Items.BOOK), new ItemStack(ModItems.STONE_CHISEL)));
             if (tools.isEmpty() || !GuideBooks.mayCraft(player, tools.get())) problems.add("non-operators cannot craft the tools guide");
         } finally {
             if (wasOp) players.op(player.nameAndId()); else players.deop(player.nameAndId());
@@ -691,6 +701,60 @@ public final class GuideBookTests {
     }
 
     // =====================================================================================
+
+    private static void megaGuideRecipes(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        int registered = (int) net.minecraft.core.registries.BuiltInRegistries.ITEM.stream()
+                .filter(item -> item instanceof com.simplebuilding.items.custom.GuideBookItem).count();
+        helper.assertValueEqual(registered, 2, "chapter books remain registered items");
+        for (GuideBooks.Shelf shelf : GuideBooks.Shelf.values()) {
+            helper.assertTrue(shelf.books().size() - 8 + 1 <= 6, "guide exceeds six left tabs");
+            Item hub = GuideBooks.item(shelf.hub());
+            expect(helper, problems, List.of(new ItemStack(Items.BOOK), new ItemStack(GuideBooks.keyItem(shelf.hub()))), hub, false);
+            ItemStack accumulated = new ItemStack(hub);
+            accumulated.set(DataComponents.CUSTOM_NAME, Component.literal("My guide"));
+            for (GuideBooks.Book topic : shelf.topics()) {
+                var key = new ItemStack(GuideBooks.keyItem(topic));
+                var grid = List.of(accumulated, key);
+                var recipe = find(helper, grid);
+                helper.assertTrue(recipe.isPresent(), topic + " upgrade missing");
+                ItemStack out = recipe.orElseThrow().value().assemble(CraftingInput.of(2, 1, grid));
+                helper.assertTrue(out.is(hub) && GuideBooks.inserted(out, topic), topic + " was not inserted");
+                helper.assertTrue((GuideBooks.mask(out) & GuideBooks.mask(accumulated)) == GuideBooks.mask(accumulated), "upgrade erased earlier chapters");
+                helper.assertValueEqual(out.get(DataComponents.CUSTOM_NAME), accumulated.get(DataComponents.CUSTOM_NAME), "upgrade erased custom name");
+                helper.assertTrue(recipe.get().value().getRemainingItems(CraftingInput.of(2, 1, grid)).stream().allMatch(ItemStack::isEmpty), "upgrade duplicated guide or insert");
+                helper.assertTrue(find(helper, List.of(out, key)).isEmpty(), "duplicate chapter consumes insert");
+                helper.assertTrue(find(helper, List.of(new ItemStack(Items.BOOK), key)).isEmpty(), "chapter still exists as standalone item");
+                var old = new net.minecraft.nbt.CompoundTag();
+                old.putString("id", "simplebuilding:" + topic.itemName()); old.putInt("count", 1);
+                com.simplebuilding.datafix.ModDataFixer.migrateGuide(old);
+                helper.assertValueEqual(old.getStringOr("id", ""), "simplebuilding:" + shelf.hub().itemName(), "old guide id not migrated");
+                helper.assertTrue((old.getCompound("components").orElseThrow().getIntOr("simplebuilding:guide_chapters", 0) & (1 << topic.ordinal())) != 0, "migration lost chapter");
+                var ops = net.minecraft.resources.RegistryOps.create(net.minecraft.nbt.NbtOps.INSTANCE, helper.getLevel().registryAccess());
+                var encoded = ItemStack.CODEC.encodeStart(ops, out).getOrThrow();
+                var decoded = ItemStack.CODEC.parse(ops, encoded).getOrThrow();
+                helper.assertValueEqual(GuideBooks.mask(decoded), GuideBooks.mask(out), "save/load lost guide chapters");
+                accumulated = out;
+            }
+            var first = shelf.topics().getFirst();
+            var second = shelf.topics().get(1);
+            var a = GuideBooks.withChapter(new ItemStack(hub), first);
+            var b = GuideBooks.withChapter(new ItemStack(hub), second);
+            var combine = find(helper, List.of(a, b));
+            helper.assertTrue(combine.isPresent(), "guides cannot be combined");
+            var merged = combine.orElseThrow().value().assemble(CraftingInput.of(2, 1, List.of(a, b)));
+            helper.assertTrue(GuideBooks.inserted(merged, first) && GuideBooks.inserted(merged, second), "combining lost chapters");
+            helper.assertTrue(find(helper, List.of(b, a)).isPresent(), "guide combination depends on slot order");
+            var poisonedKey = new ItemStack(GuideBooks.keyItem(first));
+            poisonedKey.set(com.simplebuilding.component.ModDataComponentTypes.GUIDE_CHAPTERS, 1 << GuideBooks.Book.ADMIN.ordinal());
+            var poisonGrid = List.of(new ItemStack(hub), poisonedKey);
+            var safe = find(helper, poisonGrid).orElseThrow().value().assemble(CraftingInput.of(2, 1, poisonGrid));
+            helper.assertTrue(!GuideBooks.inserted(safe, GuideBooks.Book.ADMIN), "insert item injected another chapter");
+            helper.assertTrue(find(helper, List.of(a, new ItemStack(GuideBooks.item(shelf == GuideBooks.Shelf.MOD ? GuideBooks.Book.VANILLA_START : GuideBooks.Book.GUIDE)))).isEmpty(), "shelves can be mixed");
+        }
+        helper.assertTrue(problems.isEmpty(), problems.toString());
+        succeed(helper);
+    }
 
     private static void expect(GameTestHelper helper, List<String> problems, List<ItemStack> grid, Item result, boolean guideStays) {
         CraftingInput input = CraftingInput.of(2, 1, grid);

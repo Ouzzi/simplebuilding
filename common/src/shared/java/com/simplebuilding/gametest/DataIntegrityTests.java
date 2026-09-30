@@ -3068,7 +3068,7 @@ public final class DataIntegrityTests {
                 .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())).count();
         List<Item> pending = new ArrayList<>();
         for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
-            shelf.books().forEach(book -> pending.add(com.simplebuilding.guide.GuideBooks.item(book)));
+            com.simplebuilding.guide.GuideBooks.items(shelf).forEach(book -> pending.add(com.simplebuilding.guide.GuideBooks.item(book)));
             if (pending.size() % 9 != 0) {
                 expected.add(new ArrayList<>(pending));
                 pending.clear();

@@ -207,6 +207,7 @@ public final class SimplebuildingNeoForgeClient {
     public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
         event.register(ReinforcedBundleTooltipData.class, ReinforcedBundleTooltips::create);
         event.register(com.simplebuilding.items.tooltip.BlueprintTooltipData.class, com.simplebuilding.client.blueprint.BlueprintTooltip::create);
+        event.register(com.simplebuilding.items.tooltip.GuideTooltipData.class, com.simplebuilding.client.gui.tooltip.GuideTooltip::create);
         event.register(com.simplebuilding.items.tooltip.BackpackTooltipData.class, com.simplebuilding.client.gui.tooltip.BackpackTooltip::create);
     }
 

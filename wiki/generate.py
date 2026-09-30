@@ -14,7 +14,7 @@ against it, and anything without prose is listed at the end of a run. With
 pre-release check should use.
 
 Usage
-    python wiki/generate.py                 # regenerate from the 26.2 line
+    python wiki/generate.py                 # regenerate from the main 26.3 line
     python wiki/generate.py --line 1.21.11  # regenerate from the 1.21.11 line
     python wiki/generate.py --line 26.3     # regenerate from the 26.3 line
     python wiki/generate.py --strict        # fail if anything is undocumented
@@ -97,7 +97,7 @@ LINES = {
         "generated_data": "build/wiki-lines/26.3/data/simplebuilding",
         "generated_assets": "build/wiki-lines/26.3/assets/simplebuilding",
         "resource_data": "src/main/resources/data/simplebuilding",
-        "resource_assets": "src/main/resources/assets/simplebuilding",
+        "resource_assets": "build/wiki-lines/26.3/assets/simplebuilding",
         "config": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
         # WikiDataProvider's export is not kept per line (syncGenerated263 skips wiki/**);
         # the item constants are the same shared Java code on 26.2 and 26.3.
@@ -144,6 +144,10 @@ def merge_overlay_lines() -> None:
             removed = {l.strip() for l in removed_file.read_text(encoding="utf-8").splitlines()
                        if l.strip() and not l.startswith("#")}
         chosen: dict[str, Path] = {}
+        # Resource textures and language files are layered with the generated assets for 26.3.
+        for path in sorted((REPO / "src/main/resources/assets").rglob("*")):
+            if path.is_file():
+                chosen["assets/" + path.relative_to(REPO / "src/main/resources/assets").as_posix()] = path
         for path in sorted(base.rglob("*")):
             relpath = path.relative_to(base).as_posix()
             if path.is_file() and not relpath.startswith((".cache/", "wiki/")) and relpath not in removed:
@@ -152,6 +156,9 @@ def merge_overlay_lines() -> None:
             relpath = path.relative_to(top).as_posix()
             if path.is_file() and relpath != removed_file.name and not relpath.startswith(".cache/"):
                 chosen[relpath] = path
+        for path in sorted((REPO / "mc26_3/overlay/resources").rglob("*")):
+            if path.is_file():
+                chosen[path.relative_to(REPO / "mc26_3/overlay/resources").as_posix()] = path
         for relpath, path in chosen.items():
             target = into / relpath
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -725,6 +732,7 @@ def recipe_entry(data: dict, recipe_id: str, source: str | None, furnace_cooking
         "result": {
             "id": result.get("id") or result.get("item"),
             "count": result.get("count", 1),
+            **({"components": result["components"]} if result.get("components") else {}),
         },
         "source": source,
         "ingredients": [],
@@ -753,6 +761,16 @@ def recipe_entry(data: dict, recipe_id: str, source: str | None, furnace_cooking
             entry["storedCookingtime"] = data["cookingtime"]
             entry["cookingtime"] = data["cookingtime"] // 2
 
+    if data.get("type") == "simplebuilding:guide_upgrade":
+        topic = recipe_id.split(":")[-1].removeprefix("guide_book_")
+        if data.get("chapters", 0):
+            topic = "pads" if topic == "tweaks" else topic
+            entry["guideChapter"] = {}
+            for locale in ("en_us", "de_de"):
+                lang_path = REPO / "mc26_3/overlay/resources/assets/simplebuilding/lang" / (locale + ".json")
+                entry["guideChapter"][locale] = read_json(lang_path).get("book.simplebuilding." + topic + ".title", topic)
+        else:
+            entry["guideCombine"] = True
     entry["ingredients"] = sorted(set(entry["ingredients"]))
     return entry
 
@@ -1167,6 +1185,13 @@ def load_item_properties(roots: dict) -> dict:
         identifier = entry.get("id")
         if identifier:
             out[identifier] = {k: v for k, v in entry.items() if k != "id"}
+    if roots.get("client_jar_version") == "26.3":
+        code = (REPO / "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java").read_text(encoding="utf-8")
+        stack = re.search(r"settings\.stacksTo\(McVersion\.MEGA_GUIDES \? (\d+) :", code)
+        if not stack:
+            raise ValueError("Mega guide stack size changed; update wiki property extraction")
+        for id in ("simplebuilding:guide_book", "simplebuilding:guide_book_vanilla_start"):
+            out.setdefault(id, {})["maxStackSize"] = int(stack.group(1))
     return out
 
 
@@ -1202,6 +1227,9 @@ def registered_ids(roots: dict) -> tuple[set[str], set[str]] | None:
         return None
     payload = read_json(path)
     items = {entry["id"] for entry in payload.get("items", []) if entry.get("id")}
+    if roots.get("client_jar_version") == "26.3":
+        # registerGuideBook returns the shelf hub for topics on the main line; no chapter item exists.
+        items = {id for id in items if not id.startswith("simplebuilding:guide_book_") or id == "simplebuilding:guide_book_vanilla_start"}
     blocks = set(payload.get("blocks", []))
     if not items and not blocks:
         return None
@@ -2345,7 +2373,7 @@ def duplicate_feature_ids(manual_path: Path) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--line", choices=sorted(LINES), default="26.2")
+    parser.add_argument("--line", choices=sorted(LINES), default="26.3")
     parser.add_argument("--strict", action="store_true",
                         help="exit non zero when something in the game has no prose in manual.json")
     parser.add_argument("--check", action="store_true",

@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:guides/root",
+  "display": {
+    "icon": {
+      "id": "simplebuilding:guide_book_vanilla_start",
+      "components": {
+        "simplebuilding:guide_chapters": 16384
+      }
+    },
+    "title": {
+      "translate": "book.simplebuilding.vanilla_ocean.title"
+    },
+    "description": {
+      "translate": "advancements.simplebuilding.guides.insert"
+    },
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "crafted": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipes": [
+          "simplebuilding:guide_book_vanilla_ocean"
+        ]
+      }
+    }
+  }
+}

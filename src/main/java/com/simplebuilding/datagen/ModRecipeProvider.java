@@ -810,14 +810,20 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .requires(com.simplebuilding.guide.GuideBooks.keyItem(shelf.hub()))
                             .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
                             .save(output);
+                    if (com.simplebuilding.version.McVersion.MEGA_GUIDES) guideUpgrade(output,
+                            shelf.hub().itemName() + "_combine", hub, 0, hub, hub);
                     for (com.simplebuilding.guide.GuideBooks.Book topic : shelf.topics()) {
                         ItemLike key = com.simplebuilding.guide.GuideBooks.keyItem(topic);
+                        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+                            guideUpgrade(output, topic.itemName(), hub, 1 << topic.ordinal(), hub, key);
+                        } else {
                         shapeless(RecipeCategory.MISC, com.simplebuilding.guide.GuideBooks.item(topic))
                                 .requires(Ingredient.of(Items.BOOK, hub))
                                 .requires(key)
                                 .unlockedBy(getHasName(key), has(key))
                                 .unlockedBy(getHasName(hub), has(hub))
                                 .save(output);
+                        }
                     }
                 }
 
@@ -1171,6 +1177,20 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .addCriterion(getHasName(inputs[0]), has(inputs[0]));
                 output.accept(recipeKey, recipe, advancement.build(
                         recipeKey.identifier().withPrefix("recipes/" + RecipeCategory.TOOLS.getFolderName() + "/")));
+            }
+
+            private void guideUpgrade(RecipeOutput output, String name, Item hub, int chapters, ItemLike... inputs) {
+                ResourceKey<Recipe<?>> id = ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name));
+                List<Ingredient> ingredients = java.util.Arrays.stream(inputs).map(Ingredient::of).toList();
+                ItemStackTemplate result = new ItemStackTemplate(hub, DataComponentPatch.builder()
+                        .set(com.simplebuilding.component.ModDataComponentTypes.GUIDE_CHAPTERS, chapters).build());
+                var recipe = new com.simplebuilding.recipe.GuideUpgradeRecipe(new Recipe.CommonInfo(true),
+                        new net.minecraft.world.item.crafting.CraftingRecipe.CraftingBookInfo(
+                                RecipeBuilder.determineCraftingBookCategory(RecipeCategory.MISC), ""), result, ingredients, chapters);
+                var advancement = output.advancement().addCriterion("has_the_recipe", unlockedRecipe(id))
+                        .rewards(AdvancementRewards.Builder.recipe(id)).requirements(AdvancementRequirements.Strategy.OR)
+                        .addCriterion(getHasName(hub), has(hub));
+                output.accept(id, recipe, advancement.build(id.identifier().withPrefix("recipes/misc/")));
             }
 
             // --- Helpers ---

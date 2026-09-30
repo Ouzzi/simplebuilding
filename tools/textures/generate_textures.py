@@ -63,7 +63,7 @@ from PIL import Image, ImageDraw, ImageFont
 from echo_sounder_textures import echo_sounder_textures  # Echolot: Nadelbilder + Riss-Stufen
 from mount_armor_textures import mount_armor_textures  # Enderit-Pferde-/Nautilusruestung: Icons + getragene Ebenen
 from potion_pad_textures import POTION_PAD_ANIMATIONS, POTION_PAD_MAIN_ONLY, potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads)
-from guide_book_textures import guide_book_textures, MAIN_LINE_ONLY  # Handbuecher beider Regale
+from guide_book_textures import guide_book_textures, mega_guide_textures, MAIN_LINE_ONLY  # Handbuecher beider Regale
 from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse, 32 Nadeln, Ruhebild
 from gauge_textures import gauge_textures  # Messuhr: Zifferblatt, 17 Nadeln, Ruhebild (nur Hauptbaum)
 
@@ -4296,6 +4296,7 @@ def main():
             else:
                 with open(path, "w", encoding="utf-8", newline="\n") as f:
                     f.write(mcmeta_text(animation))
+    mega_guide_textures(check=args.check)
     if args.check:
         if stale:
             print("Veraltet oder fehlend:\n  " + "\n  ".join(stale))

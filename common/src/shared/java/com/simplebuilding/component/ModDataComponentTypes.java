@@ -10,6 +10,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 
 public class ModDataComponentTypes {
+    public static final DataComponentType<Integer> GUIDE_CHAPTERS = register("guide_chapters", builder -> builder
+            .persistent(Codec.intRange(0, (1 << 20) - 1))
+            .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT));
     public static final DataComponentType<Integer> OFFSET = register("offset", builder -> builder.persistent(Codec.INT));
 
     // Glowing hat nur noch eine Stufe (Besitzer 2026-09-29): der Codec liest alte Stufe-2-Ruestung als 1,

@@ -52,6 +52,7 @@ public final class TweaksContent {
      * verlangter Verzauberung (Flypad I: Elytra mit Reparatur, {@link com.simplebuilding.recipe.EnchantedShapelessRecipe}).
      */
     public static void registerRecipeSerializers() {
+        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, SimpleTweaks.id("guide_upgrade"), com.simplebuilding.recipe.GuideUpgradeRecipe.SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, SimpleTweaks.id("easter_smithing"), EasterSmithingRecipe.SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, SimpleTweaks.id("enchanted_shapeless"),
                 com.simplebuilding.recipe.EnchantedShapelessRecipe.SERIALIZER);

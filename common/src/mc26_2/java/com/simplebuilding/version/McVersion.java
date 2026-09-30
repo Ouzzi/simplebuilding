@@ -38,6 +38,7 @@ import java.util.stream.Stream;
  * overlay class has a counterpart on the other line.
  */
 public final class McVersion {
+    public static final boolean MEGA_GUIDES = false;
 
     private McVersion() {
     }

@@ -33,6 +33,7 @@ import java.util.stream.Stream;
  * common/src/mc26_2/java for the contract; both must keep the same public signatures.
  */
 public final class McVersion {
+    public static final boolean MEGA_GUIDES = true;
 
     private McVersion() {
     }
