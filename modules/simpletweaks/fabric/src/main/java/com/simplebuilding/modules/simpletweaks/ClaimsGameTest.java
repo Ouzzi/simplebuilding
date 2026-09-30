@@ -3,6 +3,10 @@ import com.simplebuilding.modules.simpletweaks.claims.ClaimTests;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ClaimsGameTest {
+ @GameTest public void claimsDisabledHooks(GameTestHelper h) { ClaimTests.TESTS.get("claims_disabled_hooks").accept(h); }
+ @GameTest public void claimsBedFootprint(GameTestHelper h) { ClaimTests.TESTS.get("claims_bed_footprint").accept(h); }
+ @GameTest public void claimsVanillaBorder(GameTestHelper h) { ClaimTests.TESTS.get("claims_vanilla_border").accept(h); }
+ @GameTest public void claimsBucketEntityHooks(GameTestHelper h) { ClaimTests.TESTS.get("claims_bucket_entity_hooks").accept(h); }
  @GameTest public void claimsCommandCollision(GameTestHelper h) { ClaimTests.TESTS.get("claims_command_collision").accept(h); }
  @GameTest public void claimsConfigBounds(GameTestHelper h) { ClaimTests.TESTS.get("claims_config_bounds").accept(h); }
  @GameTest public void claimsLegacyAtomicRoundtrip(GameTestHelper h) { ClaimTests.TESTS.get("claims_legacy_atomic_roundtrip").accept(h); }

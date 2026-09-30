@@ -464,3 +464,10 @@ Neue Serverchecks liegen im eigenen ClaimsGameTest-Katalog. Bestehende zwoelf
 Kompatibilitaetsfaelle bleiben erhalten; der bisherige Test fuer fehlende Claim-Befehle
 prueft jetzt, dass der ausgeschaltete Claim-Baum unbenutzbar bleibt. Forge-Claims,
 Forge-Katalogerweiterung, Clients, echte Altwelten und Besitzerwelt bleiben separat.
+
+### Claims Stufe 2 (Fortsetzung)
+Vanilla-Serverhooks pruefen Abbau, Benutzung und Platzierung einschliesslich
+Nachbarchunk, Bettkopf und verbundener Truhenhaelfte; Eimer und Entity-Interaktionen
+sowie Nahkampf und Stichangriffe sind angebunden. 13/13 Servertests je Loader
+(Fabric/NeoForge 26.3, Lauf 2026-09-30T21-45-15Z-77ed). Schutz bleibt unvollstaendig
+und standardmaessig aus. Umweltschaden und Automation folgen separat.

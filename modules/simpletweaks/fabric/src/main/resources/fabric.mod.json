@@ -21,7 +21,8 @@
     "fabric-api": "*"
   },
   "mixins": [
-    "simpletweaks.mixins.json"
+    "simpletweaks.mixins.json",
+    "simpletweaks.claims.mixins.json"
   ],
   "license": "CC0-1.0"
 }

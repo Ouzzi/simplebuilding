@@ -55,6 +55,29 @@ public final class Claims {
         var c=get(level.getServer());
         return c==null || !c.config.enabled() || (c.config.opBypass() && admin(player)) || allow(level,player.getUUID(),pos);
     }
+    public static boolean allowEntity(ServerPlayer actor, net.minecraft.world.entity.Entity target) {
+        if (!(target.level() instanceof ServerLevel level) || !enabled(level.getServer())) return true;
+        var box=target.getBoundingBox();
+        int minX=net.minecraft.util.Mth.floor(box.minX)>>4, maxX=net.minecraft.util.Mth.floor(Math.nextDown(box.maxX))>>4;
+        int minZ=net.minecraft.util.Mth.floor(box.minZ)>>4, maxZ=net.minecraft.util.Mth.floor(Math.nextDown(box.maxZ))>>4;
+        if ((long)(maxX-minX+1)*(maxZ-minZ+1)>256) return false;
+        for (int x=minX;x<=maxX;x++) for(int z=minZ;z<=maxZ;z++)
+            if (!allow(actor,level,new BlockPos(x*16,target.blockPosition().getY(),z*16))) return false;
+        return true;
+    }
+    public static boolean allowBlock(ServerPlayer actor, ServerLevel level, BlockPos pos) {
+        if (!enabled(level.getServer())) return true;
+        if (!allow(actor,level,pos)) return false;
+        var state=level.getBlockState(pos);
+        if (state.getBlock() instanceof net.minecraft.world.level.block.BedBlock) {
+            var direction=state.getValue(net.minecraft.world.level.block.BedBlock.FACING);
+            if (state.getValue(net.minecraft.world.level.block.BedBlock.PART)==net.minecraft.world.level.block.state.properties.BedPart.HEAD) direction=direction.getOpposite();
+            if (!allow(actor,level,pos.relative(direction))) return false;
+        }
+        if (state.getBlock() instanceof net.minecraft.world.level.block.ChestBlock && state.getValue(net.minecraft.world.level.block.ChestBlock.TYPE)!=net.minecraft.world.level.block.state.properties.ChestType.SINGLE)
+            return allow(actor,level,net.minecraft.world.level.block.ChestBlock.getConnectedBlockPos(pos,state));
+        return true;
+    }
     public static boolean admin(ServerPlayer player) { return Commands.hasPermission(Commands.LEVEL_OWNERS).test(player.createCommandSourceStack()); }
     private boolean ready() {
         if (!config.enabled() || failed) return false;

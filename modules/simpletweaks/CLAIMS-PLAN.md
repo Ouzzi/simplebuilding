@@ -66,3 +66,9 @@ No worker client tests, full merged server gate, push or merge.
   assumed; Java 21 toolchain supplied locally; configure-on-demand avoids an
   unrelated Forge 26.2 dependency/bootstrap failure during module tests. An early
   unnamespaced test filter selected zero tests and is not counted as validation.
+- Stage 2: actual Vanilla break/use/place, neighboring target, bed/chest footprint,
+  bucket placement/pickup and entity interaction/melee/piercing hooks, Fabric and
+  NeoForge only. Real owner/stranger controls and disabled hooks exercised.
+  Run 2026-09-30T21-45-15Z-77ed: 13/13 per loader, alles gruen 26/26.
+  Tests caught a bed fixture entity collision; moving players away preserved a
+  meaningful positive control. No client, automation or indirect-damage claim.

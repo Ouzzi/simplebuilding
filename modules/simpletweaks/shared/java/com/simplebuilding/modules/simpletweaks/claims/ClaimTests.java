@@ -19,6 +19,10 @@ public final class ClaimTests {
     public static final Map<String,Consumer<GameTestHelper>> TESTS = new LinkedHashMap<>();
     static {
         TESTS.put("claims_config_bounds",ClaimTests::config);
+        TESTS.put("claims_vanilla_border",ClaimTests::vanilla);
+        TESTS.put("claims_bucket_entity_hooks",ClaimTests::bucketsAndEntities);
+        TESTS.put("claims_disabled_hooks",ClaimTests::disabledHooks);
+        TESTS.put("claims_bed_footprint",ClaimTests::bed);
         TESTS.put("claims_legacy_atomic_roundtrip",ClaimTests::persistence);
         TESTS.put("claims_malformed_preserved",ClaimTests::malformed);
         TESTS.put("claims_disabled_no_io",ClaimTests::disabled);
@@ -97,7 +101,10 @@ public final class ClaimTests {
         var p=h.makeMockServerPlayerInLevel();p.setUUID(UUID.randomUUID());p.setGameMode(GameType.SURVIVAL);p.setPos(pos.getX()+.5,pos.getY(),pos.getZ()+.5);return p;
     }
     static void with(GameTestHelper h, Consumer<Claims> test) {
-        var server=h.getLevel().getServer();var old=Claims.get(server);var claims=new Claims(on(),temp(),Map.of());Claims.SERVERS.put(server,claims);
+        with(h,on(),test);
+    }
+    static void with(GameTestHelper h, ClaimConfig config, Consumer<Claims> test) {
+        var server=h.getLevel().getServer();var old=Claims.get(server);var claims=new Claims(config,temp(),Map.of());Claims.SERVERS.put(server,claims);
         try {test.accept(claims);}finally {if(old==null)Claims.SERVERS.remove(server);else Claims.SERVERS.put(server,old);}
     }
     static void deed(GameTestHelper h) {
@@ -130,7 +137,80 @@ public final class ClaimTests {
             }finally {border.setCenter(oldX,oldZ);border.setSize(oldSize);}
         });h.succeed();
     }
+    static void vanilla(GameTestHelper h) {
+        with(h,c->{
+            var level=h.getLevel();var base=h.absolutePos(new BlockPos(2,3,2));
+            var inside=new BlockPos((base.getX()>>4)*16+16,base.getY(),(base.getZ()>>4)*16+8);
+            var outside=inside.west();var owner=player(h,inside.east(2));var stranger=player(h,outside.west(2));
+            yes(h,c.create(new ClaimStore.Key(level.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Claim boundary fixture");
+            level.setBlock(inside,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
+            yes(h,!stranger.gameMode.destroyBlock(inside)&&level.getBlockState(inside).is(net.minecraft.world.level.block.Blocks.STONE),"Actual break hook denies stranger");
+            yes(h,owner.gameMode.destroyBlock(inside)&&level.getBlockState(inside).isAir(),"Actual break hook permits owner");
+            level.setBlock(outside,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
+            var hit=new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(outside),net.minecraft.core.Direction.EAST,outside,false);
+            stranger.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.DIRT,2));
+            yes(h,stranger.gameMode.useItemOn(stranger,level,stranger.getMainHandItem(),InteractionHand.MAIN_HAND,hit)==InteractionResult.FAIL,"Clicked unclaimed, adjacent target claimed");
+            yes(h,level.getBlockState(inside).isAir()&&stranger.getMainHandItem().getCount()==2,"No placement or cost across claim boundary");
+            owner.setPos(stranger.position());owner.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.DIRT,2));
+            yes(h,owner.gameMode.useItemOn(owner,level,owner.getMainHandItem(),InteractionHand.MAIN_HAND,hit).consumesAction()&&level.getBlockState(inside).is(net.minecraft.world.level.block.Blocks.DIRT),"Owner actual placement succeeds");
+            level.setBlock(inside.below(),net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
+            level.setBlock(inside,net.minecraft.world.level.block.Blocks.LEVER.defaultBlockState().setValue(net.minecraft.world.level.block.LeverBlock.FACE,net.minecraft.world.level.block.state.properties.AttachFace.FLOOR),3);
+            var click=new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(inside),net.minecraft.core.Direction.UP,inside,false);
+            stranger.setItemInHand(InteractionHand.MAIN_HAND,ItemStack.EMPTY);
+            yes(h,stranger.gameMode.useItemOn(stranger,level,ItemStack.EMPTY,InteractionHand.MAIN_HAND,click)==InteractionResult.FAIL&&!level.getBlockState(inside).getValue(net.minecraft.world.level.block.LeverBlock.POWERED),"Actual block interaction denied");
+        });h.succeed();
+    }
+    static void bucketsAndEntities(GameTestHelper h) {
+        with(h,c->{
+            var level=h.getLevel();var base=h.absolutePos(new BlockPos(2,3,2));var inside=new BlockPos((base.getX()>>4)*16+16,base.getY(),(base.getZ()>>4)*16+8);
+            var owner=player(h,inside.east(3));var stranger=player(h,inside.west(3));
+            yes(h,c.create(new ClaimStore.Key(level.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Claim fixture");
+            level.setBlock(inside,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);
+            var bucket=(BucketItem)Items.WATER_BUCKET;
+            yes(h,!bucket.emptyContents(stranger,level,inside,null)&&level.getBlockState(inside).isAir(),"Real bucket placement refuses stranger");
+            yes(h,bucket.emptyContents(owner,level,inside,null)&&level.getFluidState(inside).isSource(),"Real bucket placement permits owner");
+            stranger.setPos(inside.getX()+.5,inside.getY()+2,inside.getZ()+.5);stranger.setXRot(90);
+            stranger.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.BUCKET));
+            yes(h,Items.BUCKET.use(level,stranger,InteractionHand.MAIN_HAND)==InteractionResult.FAIL&&level.getFluidState(inside).isSource(),"Real bucket pickup refuses stranger");
+            level.setBlock(inside,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);
+            var cow=net.minecraft.world.entity.EntityTypes.COW.create(level,net.minecraft.world.entity.EntitySpawnReason.COMMAND);cow.setPos(inside.getX()+.5,inside.getY(),inside.getZ()+.5);level.addFreshEntity(cow);
+            stranger.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.BUCKET));
+            yes(h,stranger.interactOn(cow,InteractionHand.MAIN_HAND,net.minecraft.world.phys.Vec3.ZERO)==InteractionResult.FAIL&&stranger.getMainHandItem().is(Items.BUCKET),"Actual entity interaction refused");
+            float health=cow.getHealth();stranger.attack(cow);yes(h,cow.getHealth()==health,"Actual melee attack refused");
+            yes(h,!stranger.stabAttack(net.minecraft.world.entity.EquipmentSlot.MAINHAND,cow,5,false,false,false)&&cow.getHealth()==health,"Piercing attack refuses stranger");
+            owner.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.BUCKET));
+            yes(h,owner.interactOn(cow,InteractionHand.MAIN_HAND,net.minecraft.world.phys.Vec3.ZERO).consumesAction()&&owner.getMainHandItem().is(Items.MILK_BUCKET),"Owner entity interaction allowed");
+            cow.discard();
+        });h.succeed();
+    }
+
     private ClaimTests() {}
+    static void disabledHooks(GameTestHelper h) {
+        with(h,ClaimConfig.DEFAULT,c->{
+            var level=h.getLevel();var pos=h.absolutePos(new BlockPos(1,3,1));var p=player(h,pos);
+            level.setBlock(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
+            yes(h,p.gameMode.destroyBlock(pos)&&level.getBlockState(pos).isAir(),"Disabled break hook preserves Vanilla");
+            yes(h,((BucketItem)Items.WATER_BUCKET).emptyContents(p,level,pos,null),"Disabled bucket hook preserves Vanilla");
+            level.setBlock(pos,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);
+            yes(h,!c.dataLoaded(),"Actual disabled hooks perform no ledger reads");
+        });h.succeed();
+    }
+    static void bed(GameTestHelper h) {
+        with(h,c->{
+            var level=h.getLevel();var base=h.absolutePos(new BlockPos(1,3,1));
+            var head=new BlockPos((base.getX()>>4)*16+16,base.getY(),(base.getZ()>>4)*16+8);var foot=head.west();
+            var owner=player(h,foot.west(3));var other=player(h,foot.west(3));other.setYRot(270);owner.setYRot(270);
+            yes(h,c.create(new ClaimStore.Key(level.dimension().identifier().toString(),ChunkPos.pack(head)),owner.getUUID(),100),"Bed boundary fixture");
+            for(var pos:List.of(foot,head)){level.setBlock(pos,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);level.setBlock(pos.below(),net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);}
+            var hit=new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(foot.below()),net.minecraft.core.Direction.UP,foot.below(),false);
+            other.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.BED.red()));
+            var context=new net.minecraft.world.item.context.BlockPlaceContext(other,InteractionHand.MAIN_HAND,other.getMainHandItem(),hit);
+            yes(h,((BlockItem)Items.BED.red()).place(context)==InteractionResult.FAIL&&level.getBlockState(foot).isAir()&&level.getBlockState(head).isAir(),"Actual bed placement checks head across border before placing foot");
+            owner.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.BED.red()));
+            yes(h,((BlockItem)Items.BED.red()).place(new net.minecraft.world.item.context.BlockPlaceContext(owner,InteractionHand.MAIN_HAND,owner.getMainHandItem(),hit)).consumesAction()&&level.getBlockState(head).is(net.minecraft.world.level.block.Blocks.BED.red()),"Owner can place complete bed");
+            yes(h,!other.gameMode.destroyBlock(foot)&&level.getBlockState(head).is(net.minecraft.world.level.block.Blocks.BED.red()),"Breaking unclaimed foot cannot remove protected head");
+        });h.succeed();
+    }
     static void commands(GameTestHelper h) {
         var dispatcher=new com.mojang.brigadier.CommandDispatcher<net.minecraft.commands.CommandSourceStack>();
         var foreign=dispatcher.register(net.minecraft.commands.Commands.literal("claim").executes(c->7));

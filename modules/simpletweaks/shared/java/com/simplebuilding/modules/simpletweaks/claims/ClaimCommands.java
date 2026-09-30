@@ -22,7 +22,7 @@ public final class ClaimCommands {
                     return 1;
                 })
                 .then(Commands.literal("admin").requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
-                        .executes(c->{c.getSource().sendSuccess(()->Component.translatable("command.simpletweaks.claim.stage",1),false);return 1;})));
+                        .executes(c->{c.getSource().sendSuccess(()->Component.translatable("command.simpletweaks.claim.stage",2),false);return 1;})));
     }
     private ClaimCommands() {}
 }

@@ -4,7 +4,7 @@
   "tooltip.simpletweaks.claim_deed.data": "Urkundendaten bleiben erhalten; nur die Claim-Daten des Servers vergeben Rechte.",
   "config.simpletweaks.claims.tab": "Server-Claims",
   "config.simpletweaks.claims.enabled": "Claims aktivieren",
-  "config.simpletweaks.claims.enabled.tooltip": "Standard aus. Stufe 1: Daten, Grenzen, Befehle und Urkunden. Landschutz ist unvollständig. Ausgeschaltet werden keine Claim-Daten gelesen oder geschrieben. Standard: false.",
+  "config.simpletweaks.claims.enabled.tooltip": "Umgesetzt: Stufen 1–2 mit begrenzten atomaren Daten, Urkunden, Befehlen und Vanilla-Interaktionszielen (einschließlich Nachbarchunks und Bett-/Truhenhälften). Werkzeuge, Umweltschaden, Automation und Verwaltung sind unvollständig. Standard aus; ausgeschaltet keine Claim-Datenzugriffe. Nur für Entwicklungstests aktivieren. Standardwert: false.",
   "config.simpletweaks.claims.enabled.default": "false",
   "config.simpletweaks.claims.enabled.tab": "Server-Claims",
   "config.simpletweaks.claims.maxClaimsPerPlayer": "Claims pro Spieler",

@@ -202,7 +202,7 @@ window.WIKI_MODULES = [
       "simplebuilding"
     ],
     "optional": [],
-    "dataHash": "f3423d5e8e6b"
+    "dataHash": "475e9194df57"
   },
   {
     "id": "simpledimensions",

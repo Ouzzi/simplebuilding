@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.modules.simpletweaks.mixin.claims",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ClaimLevelMixin",
+    "ClaimGameModeMixin",
+    "ClaimBucketMixin",
+    "ClaimBlockItemMixin",
+    "ClaimPlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
