@@ -155,6 +155,34 @@ class ModuleWikiTests(unittest.TestCase):
         self.assertEqual(data['blocks'][0]['name']['en_us'], 'Box')
         self.assertEqual(data['undocumented'], [])
 
+    def test_mixed_registries_only_inventory_items_and_blocks(self):
+        source = self.root / self.entry['paths']['shared'] / 'java/Registries.java'
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_text('''
+            Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath("wiringexample", "tab"), tab);
+            Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath("wiringexample", "item"), item);
+            var id = Identifier.fromNamespaceAndPath("wiringexample", "box");
+            Registry.register(BuiltInRegistries.BLOCK, id, block);
+            Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE, Identifier.fromNamespaceAndPath("wiringexample", "loot"), loot);
+        ''')
+        data, problems = module_wiki.extract(self.entry, g)
+        self.assertEqual([v['id'] for v in data['items']], ['wiringexample:item'])
+        self.assertEqual([v['id'] for v in data['blocks']], ['wiringexample:box'])
+        self.assertEqual(data['undocumented'], ['wiringexample:box', 'wiringexample:item'])
+        self.assertEqual(len(problems), 2)
+
+    def test_notes_list_reports_schema_error_without_crashing(self):
+        self.token()
+        self.write(self.entry['paths']['wikiManual'], {'notes': []})
+        data, problems = module_wiki.extract(self.entry, g)
+        self.assertEqual(data['undocumented'], ['wiringexample:token'])
+        self.assertTrue(any('notes must be an object' in problem for problem in problems))
+
+    def test_newmod_template_documents_its_registered_token(self):
+        template = json.loads((Path(__file__).resolve().parents[2] / 'tools/templates/module/wiki/manual.json').read_text(encoding='utf-8'))
+        self.assertIsInstance(template['notes'], dict)
+        self.assertEqual(g.prose_languages(template['notes']['__MODID__:token']), {'en', 'de'})
+
 
 if __name__ == '__main__':
     unittest.main()

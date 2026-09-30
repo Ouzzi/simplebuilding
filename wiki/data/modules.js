@@ -38,5 +38,24 @@ window.WIKI_MODULES = [
     "requires": [],
     "optional": [],
     "dataHash": "13ecfbe58894"
+  },
+  {
+    "id": "simplemoney",
+    "displayName": "Simple Money",
+    "description": "Currency production, weighted villager trades and treasure loot.",
+    "version": "1.2.16",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplebuilding",
+      "modmenu"
+    ],
+    "dataHash": "d7564d9000e4"
   }
 ];

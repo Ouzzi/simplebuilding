@@ -314,3 +314,10 @@ Dieser Abschnitt ersetzt die Werkbank-Erweiterung aus dem historischen Mega-Hand
 - Offen: Besitzer-Abnahme, NeoForge-Client, echte alte Spielwelt und Besitzerwelt-Testzentrale. Forge 26.3 und 26.2/1.21.11/26.4 bleiben eigener freigegebener Port-Run; Details `docs/modules/simplemoney.md`.
 
 - Abschließender kombinierter Harness-/Modlauf nach Trennung der Fabric-Tasks: **21/21 alles gruen**, `2026-09-30T13-35-03Z-5946`. Eigene Berichte/Filter, gemeinsame Fabric-Instanz seriell. Danach vollständiges `gradlew.bat --no-daemon check -q` erneut **Exit 0**, Ausgabe gelesen.
+
+## FIX-MONEY-WIKI (2026-09-30, codex-fix-money-wiki)
+- Simple Money: notes ist jetzt ein Objekt mit sieben konkreten zweisprachigen Item-Notizen; vorhandene Kapitelzusammenfassungen nach Rezepten/Itemcode praezisiert. Keine Gameplay-Aenderungen.
+- Generische Java-Inventarerkennung bindet literale IDs an ITEM-/BLOCK-Registrierungen statt alle IDs einer Datei als Items zu behandeln. money_items ist ein bereits bilingual benannter Kreativtab, kein Item. Ungueltige notes-Listen liefern einen Schemafehler statt AttributeError; echte fehlende Namen/Prosa bleiben Fehler.
+- Multimod-Vertrag dokumentiert; vorhandenes newmod-Template bereits konform, durch Regressionstest abgesichert. Alle Modul-Wikis regeneriert, sieben unveraenderte Originaltexturen unter wiki/assets/textures/simplemoney kopiert.
+- Verifiziert: wiki/generate.py --all und --all --check Exit 0; Wiki 15 Tests, Launch Hub 38 Tests; Devserver 121 Tests OK (1 skipped, bestehende ResourceWarnings). gradlew.bat check -q im Worktree GRADLE_EXIT=0, einschliesslich checkBalance/checkQuests/Multimod und shared-26.2-Kompilierung; Ausgabe gelesen.
+- Keine Server-/Client-Spieltests, Browser-Sichtpruefung oder Testzentralen-Neubau in diesem reinen Wiki-/Extractor-Run; Besitzerwelt unangetastet. Keine Aenderungen an mc1_21_11/mc26_4, kein Port, Push oder Merge. Keine offenen Besitzerentscheidungen fuer diesen Fix.

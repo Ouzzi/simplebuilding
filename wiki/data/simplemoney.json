@@ -1,4 +1,21 @@
 {
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simplemoney",
+    "name": "Simple Money",
+    "version": "1.2.16",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ]
+  },
   "features": [
     {
       "id": "special_paper",
@@ -1332,176 +1349,502 @@
       "related": []
     }
   ],
-  "notes": {
-    "simplemoney:special_paper": {
-      "en": {
-        "title": "Special Paper",
-        "summary": "Crafted from two paper and one honeycomb; used with an iron ingot and resin fiber to smith a banknote blank.",
-        "details": [
-          "Registry ID: simplemoney:special_paper",
-          "Stack limit: 64",
-          "Recipe: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"#M#\"], \"key\": {\"#\": \"minecraft:paper\", \"M\": \"minecraft:honeycomb\"}, \"result\": {\"id\": \"simplemoney:special_paper\", \"count\": 1}}"
-        ]
+  "recipes": [
+    {
+      "id": "simplemoney:blank_note_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplemoney:blank_note",
+        "count": 1
       },
-      "de": {
-        "title": "Spezialpapier",
-        "summary": "Aus zwei Papier und einer Honigwabe hergestellt; wird mit einem Eisenbarren und Harzfaser zu einem Banknotenrohling geschmiedet.",
-        "details": [
-          "Registry-ID: simplemoney:special_paper",
-          "Stapelgrenze: 64",
-          "Rezept: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"#M#\"], \"key\": {\"#\": \"minecraft:paper\", \"M\": \"minecraft:honeycomb\"}, \"result\": {\"id\": \"simplemoney:special_paper\", \"count\": 1}}"
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/recipe/blank_note_smithing.json",
+      "ingredients": [
+        "minecraft:iron_ingot",
+        "simplemoney:resin_fiber",
+        "simplemoney:special_paper"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:iron_ingot"
+        ],
+        "base": [
+          "simplemoney:special_paper"
+        ],
+        "addition": [
+          "simplemoney:resin_fiber"
         ]
-      },
-      "sources": [
-        "modules/simplemoney/generated/resources/data/simplemoney/recipe/special_paper_from_crafting_table.json",
-        "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
-      ]
+      }
     },
-    "simplemoney:special_fiber": {
-      "en": {
-        "title": "Special Fiber",
-        "summary": "Crafted from copper nuggets, gold nuggets, amethyst shards, and diamonds; used with a gold ingot to refine a banknote blank.",
-        "details": [
-          "Registry ID: simplemoney:special_fiber",
-          "Stack limit: 16",
-          "Recipe: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"CGA\", \"DAG\", \"GDC\"], \"key\": {\"D\": \"minecraft:diamond\", \"G\": \"minecraft:gold_nugget\", \"C\": \"minecraft:copper_nugget\", \"A\": \"minecraft:amethyst_shard\"}, \"result\": {\"id\": \"simplemoney:special_fiber\", \"count\": 1}}"
+    {
+      "id": "simplemoney:money_bill_from_blasting",
+      "type": "minecraft:blasting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/recipe/money_bill_from_blasting.json",
+      "ingredients": [
+        "simplemoney:raw_bill"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplemoney:raw_bill"
         ]
       },
-      "de": {
-        "title": "Spezialfaser",
-        "summary": "Aus Kupfernuggets, Goldnuggets, Amethystscherben und Diamanten hergestellt; veredelt mit einem Goldbarren einen Banknotenrohling.",
-        "details": [
-          "Registry-ID: simplemoney:special_fiber",
-          "Stapelgrenze: 16",
-          "Rezept: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"CGA\", \"DAG\", \"GDC\"], \"key\": {\"D\": \"minecraft:diamond\", \"G\": \"minecraft:gold_nugget\", \"C\": \"minecraft:copper_nugget\", \"A\": \"minecraft:amethyst_shard\"}, \"result\": {\"id\": \"simplemoney:special_fiber\", \"count\": 1}}"
-        ]
-      },
-      "sources": [
-        "modules/simplemoney/generated/resources/data/simplemoney/recipe/special_fiber_from_crafting_table.json",
-        "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
-      ]
+      "cookingtime": 10000,
+      "experience": 20
     },
-    "simplemoney:resin_fiber": {
-      "en": {
-        "title": "Resin Fiber",
-        "summary": "Crafted from iron nuggets, resin clumps, honeycomb, and bone meal; used to smith banknote blanks.",
-        "details": [
-          "Registry ID: simplemoney:resin_fiber",
-          "Stack limit: 16",
-          "Recipe: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"ERH\", \"RBR\", \"HRE\"], \"key\": {\"R\": \"minecraft:resin_clump\", \"E\": \"minecraft:iron_nugget\", \"B\": \"minecraft:bone_meal\", \"H\": \"minecraft:honeycomb\"}, \"result\": {\"id\": \"simplemoney:resin_fiber\", \"count\": 1}}"
-        ]
+    {
+      "id": "simplemoney:raw_bill_from_crafting_table",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplemoney:raw_bill",
+        "count": 3
       },
-      "de": {
-        "title": "Harzfaser",
-        "summary": "Aus Eisennuggets, Harzklumpen, Honigwaben und Knochenmehl hergestellt; dient zum Schmieden von Banknotenrohlingen.",
-        "details": [
-          "Registry-ID: simplemoney:resin_fiber",
-          "Stapelgrenze: 16",
-          "Rezept: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"ERH\", \"RBR\", \"HRE\"], \"key\": {\"R\": \"minecraft:resin_clump\", \"E\": \"minecraft:iron_nugget\", \"B\": \"minecraft:bone_meal\", \"H\": \"minecraft:honeycomb\"}, \"result\": {\"id\": \"simplemoney:resin_fiber\", \"count\": 1}}"
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/recipe/raw_bill_from_crafting_table.json",
+      "ingredients": [
+        "minecraft:green_dye",
+        "minecraft:ink_sac",
+        "simplemoney:refined_blank_note"
+      ],
+      "pattern": [
+        "#I#",
+        "PPP",
+        "I#I"
+      ],
+      "key": {
+        "#": [
+          "minecraft:green_dye"
+        ],
+        "I": [
+          "minecraft:ink_sac"
+        ],
+        "P": [
+          "simplemoney:refined_blank_note"
         ]
-      },
-      "sources": [
-        "modules/simplemoney/generated/resources/data/simplemoney/recipe/resin_fiber_from_crafting_table.json",
-        "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
-      ]
+      }
     },
-    "simplemoney:blank_note": {
-      "en": {
-        "title": "Banknote Blank",
-        "summary": "An uncommon smithing ingredient made from special paper, resin fiber, and an iron ingot. Refine it with special fiber and a gold ingot.",
-        "details": [
-          "Registry ID: simplemoney:blank_note",
-          "Stack limit: 64",
-          "Recipe: {\"type\": \"minecraft:smithing_transform\", \"template\": \"minecraft:iron_ingot\", \"base\": \"simplemoney:special_paper\", \"addition\": \"simplemoney:resin_fiber\", \"result\": {\"id\": \"simplemoney:blank_note\", \"count\": 1}}"
-        ]
+    {
+      "id": "simplemoney:refined_bank_note_blank_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplemoney:refined_blank_note",
+        "count": 1
       },
-      "de": {
-        "title": "Banknotenrohling",
-        "summary": "Eine ungew?hnliche Schmiedezutat aus Spezialpapier, Harzfaser und einem Eisenbarren. Mit Spezialfaser und einem Goldbarren veredeln.",
-        "details": [
-          "Registry-ID: simplemoney:blank_note",
-          "Stapelgrenze: 64",
-          "Rezept: {\"type\": \"minecraft:smithing_transform\", \"template\": \"minecraft:iron_ingot\", \"base\": \"simplemoney:special_paper\", \"addition\": \"simplemoney:resin_fiber\", \"result\": {\"id\": \"simplemoney:blank_note\", \"count\": 1}}"
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/recipe/refined_bank_note_blank_smithing.json",
+      "ingredients": [
+        "minecraft:gold_ingot",
+        "simplemoney:blank_note",
+        "simplemoney:special_fiber"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:gold_ingot"
+        ],
+        "base": [
+          "simplemoney:blank_note"
+        ],
+        "addition": [
+          "simplemoney:special_fiber"
         ]
-      },
-      "sources": [
-        "modules/simplemoney/generated/resources/data/simplemoney/recipe/blank_note_smithing.json",
-        "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
-      ]
+      }
     },
-    "simplemoney:refined_blank_note": {
-      "en": {
-        "title": "Refined Banknote Blank",
-        "summary": "An uncommon ingredient made by refining a banknote blank. Three blanks, green dye, and ink sacs produce three raw bills.",
-        "details": [
-          "Registry ID: simplemoney:refined_blank_note",
-          "Stack limit: 64",
-          "Recipe: {\"type\": \"minecraft:smithing_transform\", \"template\": \"minecraft:gold_ingot\", \"base\": \"simplemoney:blank_note\", \"addition\": \"simplemoney:special_fiber\", \"result\": {\"id\": \"simplemoney:refined_blank_note\", \"count\": 1}}"
-        ]
+    {
+      "id": "simplemoney:resin_fiber_from_crafting_table",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplemoney:resin_fiber",
+        "count": 1
       },
-      "de": {
-        "title": "Veredelter Banknotenrohling",
-        "summary": "Eine ungew?hnliche Zutat aus einem veredelten Banknotenrohling. Drei Rohlinge, gr?ner Farbstoff und Tintenbeutel ergeben drei rohe Geldscheine.",
-        "details": [
-          "Registry-ID: simplemoney:refined_blank_note",
-          "Stapelgrenze: 64",
-          "Rezept: {\"type\": \"minecraft:smithing_transform\", \"template\": \"minecraft:gold_ingot\", \"base\": \"simplemoney:blank_note\", \"addition\": \"simplemoney:special_fiber\", \"result\": {\"id\": \"simplemoney:refined_blank_note\", \"count\": 1}}"
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/recipe/resin_fiber_from_crafting_table.json",
+      "ingredients": [
+        "minecraft:bone_meal",
+        "minecraft:honeycomb",
+        "minecraft:iron_nugget",
+        "minecraft:resin_clump"
+      ],
+      "pattern": [
+        "ERH",
+        "RBR",
+        "HRE"
+      ],
+      "key": {
+        "R": [
+          "minecraft:resin_clump"
+        ],
+        "E": [
+          "minecraft:iron_nugget"
+        ],
+        "B": [
+          "minecraft:bone_meal"
+        ],
+        "H": [
+          "minecraft:honeycomb"
         ]
-      },
-      "sources": [
-        "modules/simplemoney/generated/resources/data/simplemoney/recipe/refined_bank_note_blank_smithing.json",
-        "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
-      ]
+      }
     },
-    "simplemoney:raw_bill": {
-      "en": {
-        "title": "Raw Bill",
-        "summary": "A rare crafting result. Blast it for 10,000 ticks to produce one money bill and 20 experience points.",
-        "details": [
-          "Registry ID: simplemoney:raw_bill",
-          "Stack limit: 64",
-          "Recipe: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"#I#\", \"PPP\", \"I#I\"], \"key\": {\"#\": \"minecraft:green_dye\", \"I\": \"minecraft:ink_sac\", \"P\": \"simplemoney:refined_blank_note\"}, \"result\": {\"id\": \"simplemoney:raw_bill\", \"count\": 3}}"
-        ]
+    {
+      "id": "simplemoney:rocket_from_paper",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:firework_rocket",
+        "count": 1
       },
-      "de": {
-        "title": "Roher Geldschein",
-        "summary": "Ein seltenes Herstellungsergebnis. Im Schmelzofen in 10.000 Ticks zu einem Geldschein verarbeiten; ergibt 20 Erfahrungspunkte.",
-        "details": [
-          "Registry-ID: simplemoney:raw_bill",
-          "Stapelgrenze: 64",
-          "Rezept: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"#I#\", \"PPP\", \"I#I\"], \"key\": {\"#\": \"minecraft:green_dye\", \"I\": \"minecraft:ink_sac\", \"P\": \"simplemoney:refined_blank_note\"}, \"result\": {\"id\": \"simplemoney:raw_bill\", \"count\": 3}}"
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/recipe/rocket_from_paper.json",
+      "ingredients": [
+        "minecraft:gunpowder",
+        "minecraft:paper"
+      ],
+      "pattern": [
+        "###",
+        "#G#",
+        "#G#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:paper"
+        ],
+        "G": [
+          "minecraft:gunpowder"
         ]
-      },
-      "sources": [
-        "modules/simplemoney/generated/resources/data/simplemoney/recipe/raw_bill_from_crafting_table.json",
-        "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
-      ]
+      }
     },
-    "simplemoney:money_bill": {
-      "en": {
-        "title": "Money Bill",
-        "summary": "Currency for the added villager and wandering trader offers. Epic, fire resistant, and always glinting; using it plays a page-turn sound and emits a happy-villager particle without consuming it.",
-        "details": [
-          "Registry ID: simplemoney:money_bill",
-          "Stack limit: 64",
-          "Recipe: {\"type\": \"minecraft:blasting\", \"ingredient\": \"simplemoney:raw_bill\", \"result\": {\"id\": \"simplemoney:money_bill\"}, \"experience\": 20, \"cookingtime\": 10000}",
-          "Epic rarity, fire resistant, permanent enchantment glint. Right-click plays a page-turn sound and sends a happy-villager particle; the bill is not consumed."
-        ]
+    {
+      "id": "simplemoney:special_fiber_from_crafting_table",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplemoney:special_fiber",
+        "count": 1
       },
-      "de": {
-        "title": "Geldschein",
-        "summary": "W?hrung f?r die zus?tzlichen Dorfbewohner- und fahrenden H?ndlerangebote. Episch, feuerfest und dauerhaft gl?nzend; Benutzung erzeugt einen Umbl?tterklang und ein Dorfbewohnerpartikel ohne Verbrauch.",
-        "details": [
-          "Registry-ID: simplemoney:money_bill",
-          "Stapelgrenze: 64",
-          "Rezept: {\"type\": \"minecraft:blasting\", \"ingredient\": \"simplemoney:raw_bill\", \"result\": {\"id\": \"simplemoney:money_bill\"}, \"experience\": 20, \"cookingtime\": 10000}",
-          "Episch, feuerfest, dauerhafter Verzauberungsglanz. Rechtsklick erzeugt einen Umblätterklang und ein Dorfbewohnerpartikel; der Schein bleibt erhalten."
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/recipe/special_fiber_from_crafting_table.json",
+      "ingredients": [
+        "minecraft:amethyst_shard",
+        "minecraft:copper_nugget",
+        "minecraft:diamond",
+        "minecraft:gold_nugget"
+      ],
+      "pattern": [
+        "CGA",
+        "DAG",
+        "GDC"
+      ],
+      "key": {
+        "D": [
+          "minecraft:diamond"
+        ],
+        "G": [
+          "minecraft:gold_nugget"
+        ],
+        "C": [
+          "minecraft:copper_nugget"
+        ],
+        "A": [
+          "minecraft:amethyst_shard"
         ]
+      }
+    },
+    {
+      "id": "simplemoney:special_paper_from_crafting_table",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplemoney:special_paper",
+        "count": 1
       },
-      "sources": [
-        "modules/simplemoney/generated/resources/data/simplemoney/recipe/money_bill_from_blasting.json",
-        "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
-      ]
+      "source": "modules/simplemoney/generated/resources/data/simplemoney/recipe/special_paper_from_crafting_table.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "minecraft:paper"
+      ],
+      "pattern": [
+        "#M#"
+      ],
+      "key": {
+        "#": [
+          "minecraft:paper"
+        ],
+        "M": [
+          "minecraft:honeycomb"
+        ]
+      }
     }
+  ],
+  "lootTables": [],
+  "tags": [],
+  "advancements": [],
+  "enchantments": [],
+  "items": [
+    {
+      "id": "simplemoney:blank_note",
+      "name": {
+        "en_us": "Banknote Blank",
+        "de_de": "Banknotenrohling"
+      },
+      "note": {
+        "en": {
+          "title": "Banknote Blank",
+          "summary": "An uncommon smithing ingredient made from special paper, resin fiber, and an iron ingot. Refine it with special fiber and a gold ingot.",
+          "details": [
+            "Registry ID: simplemoney:blank_note",
+            "Stack limit: 64",
+            "Recipe: {\"type\": \"minecraft:smithing_transform\", \"template\": \"minecraft:iron_ingot\", \"base\": \"simplemoney:special_paper\", \"addition\": \"simplemoney:resin_fiber\", \"result\": {\"id\": \"simplemoney:blank_note\", \"count\": 1}}"
+          ]
+        },
+        "de": {
+          "title": "Banknotenrohling",
+          "summary": "Eine ungew?hnliche Schmiedezutat aus Spezialpapier, Harzfaser und einem Eisenbarren. Mit Spezialfaser und einem Goldbarren veredeln.",
+          "details": [
+            "Registry-ID: simplemoney:blank_note",
+            "Stapelgrenze: 64",
+            "Rezept: {\"type\": \"minecraft:smithing_transform\", \"template\": \"minecraft:iron_ingot\", \"base\": \"simplemoney:special_paper\", \"addition\": \"simplemoney:resin_fiber\", \"result\": {\"id\": \"simplemoney:blank_note\", \"count\": 1}}"
+          ]
+        },
+        "sources": [
+          "modules/simplemoney/generated/resources/data/simplemoney/recipe/blank_note_smithing.json",
+          "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
+        ]
+      },
+      "texture": "assets/textures/simplemoney/item/blank_note.png"
+    },
+    {
+      "id": "simplemoney:money_bill",
+      "name": {
+        "en_us": "Money Bill",
+        "de_de": "Geldschein"
+      },
+      "note": {
+        "en": {
+          "title": "Money Bill",
+          "summary": "Currency for the added villager and wandering trader offers. Epic, fire resistant, and always glinting; using it plays a page-turn sound and emits a happy-villager particle without consuming it.",
+          "details": [
+            "Registry ID: simplemoney:money_bill",
+            "Stack limit: 64",
+            "Recipe: {\"type\": \"minecraft:blasting\", \"ingredient\": \"simplemoney:raw_bill\", \"result\": {\"id\": \"simplemoney:money_bill\"}, \"experience\": 20, \"cookingtime\": 10000}",
+            "Epic rarity, fire resistant, permanent enchantment glint. Right-click plays a page-turn sound and sends a happy-villager particle; the bill is not consumed."
+          ]
+        },
+        "de": {
+          "title": "Geldschein",
+          "summary": "W?hrung f?r die zus?tzlichen Dorfbewohner- und fahrenden H?ndlerangebote. Episch, feuerfest und dauerhaft gl?nzend; Benutzung erzeugt einen Umbl?tterklang und ein Dorfbewohnerpartikel ohne Verbrauch.",
+          "details": [
+            "Registry-ID: simplemoney:money_bill",
+            "Stapelgrenze: 64",
+            "Rezept: {\"type\": \"minecraft:blasting\", \"ingredient\": \"simplemoney:raw_bill\", \"result\": {\"id\": \"simplemoney:money_bill\"}, \"experience\": 20, \"cookingtime\": 10000}",
+            "Episch, feuerfest, dauerhafter Verzauberungsglanz. Rechtsklick erzeugt einen Umblätterklang und ein Dorfbewohnerpartikel; der Schein bleibt erhalten."
+          ]
+        },
+        "sources": [
+          "modules/simplemoney/generated/resources/data/simplemoney/recipe/money_bill_from_blasting.json",
+          "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
+        ]
+      },
+      "texture": "assets/textures/simplemoney/item/money_bill.png"
+    },
+    {
+      "id": "simplemoney:raw_bill",
+      "name": {
+        "en_us": "Raw Bill",
+        "de_de": "Roher Geldschein"
+      },
+      "note": {
+        "en": {
+          "title": "Raw Bill",
+          "summary": "A rare crafting result. Blast it for 10,000 ticks to produce one money bill and 20 experience points.",
+          "details": [
+            "Registry ID: simplemoney:raw_bill",
+            "Stack limit: 64",
+            "Recipe: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"#I#\", \"PPP\", \"I#I\"], \"key\": {\"#\": \"minecraft:green_dye\", \"I\": \"minecraft:ink_sac\", \"P\": \"simplemoney:refined_blank_note\"}, \"result\": {\"id\": \"simplemoney:raw_bill\", \"count\": 3}}"
+          ]
+        },
+        "de": {
+          "title": "Roher Geldschein",
+          "summary": "Ein seltenes Herstellungsergebnis. Im Schmelzofen in 10.000 Ticks zu einem Geldschein verarbeiten; ergibt 20 Erfahrungspunkte.",
+          "details": [
+            "Registry-ID: simplemoney:raw_bill",
+            "Stapelgrenze: 64",
+            "Rezept: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"#I#\", \"PPP\", \"I#I\"], \"key\": {\"#\": \"minecraft:green_dye\", \"I\": \"minecraft:ink_sac\", \"P\": \"simplemoney:refined_blank_note\"}, \"result\": {\"id\": \"simplemoney:raw_bill\", \"count\": 3}}"
+          ]
+        },
+        "sources": [
+          "modules/simplemoney/generated/resources/data/simplemoney/recipe/raw_bill_from_crafting_table.json",
+          "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
+        ]
+      },
+      "texture": "assets/textures/simplemoney/item/raw_bill.png"
+    },
+    {
+      "id": "simplemoney:refined_blank_note",
+      "name": {
+        "en_us": "Refined Banknote Blank",
+        "de_de": "Veredelter Banknotenrohling"
+      },
+      "note": {
+        "en": {
+          "title": "Refined Banknote Blank",
+          "summary": "An uncommon ingredient made by refining a banknote blank. Three blanks, green dye, and ink sacs produce three raw bills.",
+          "details": [
+            "Registry ID: simplemoney:refined_blank_note",
+            "Stack limit: 64",
+            "Recipe: {\"type\": \"minecraft:smithing_transform\", \"template\": \"minecraft:gold_ingot\", \"base\": \"simplemoney:blank_note\", \"addition\": \"simplemoney:special_fiber\", \"result\": {\"id\": \"simplemoney:refined_blank_note\", \"count\": 1}}"
+          ]
+        },
+        "de": {
+          "title": "Veredelter Banknotenrohling",
+          "summary": "Eine ungew?hnliche Zutat aus einem veredelten Banknotenrohling. Drei Rohlinge, gr?ner Farbstoff und Tintenbeutel ergeben drei rohe Geldscheine.",
+          "details": [
+            "Registry-ID: simplemoney:refined_blank_note",
+            "Stapelgrenze: 64",
+            "Rezept: {\"type\": \"minecraft:smithing_transform\", \"template\": \"minecraft:gold_ingot\", \"base\": \"simplemoney:blank_note\", \"addition\": \"simplemoney:special_fiber\", \"result\": {\"id\": \"simplemoney:refined_blank_note\", \"count\": 1}}"
+          ]
+        },
+        "sources": [
+          "modules/simplemoney/generated/resources/data/simplemoney/recipe/refined_bank_note_blank_smithing.json",
+          "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
+        ]
+      },
+      "texture": "assets/textures/simplemoney/item/refined_blank_note.png"
+    },
+    {
+      "id": "simplemoney:resin_fiber",
+      "name": {
+        "en_us": "Resin Fiber",
+        "de_de": "Harzfaser"
+      },
+      "note": {
+        "en": {
+          "title": "Resin Fiber",
+          "summary": "Crafted from iron nuggets, resin clumps, honeycomb, and bone meal; used to smith banknote blanks.",
+          "details": [
+            "Registry ID: simplemoney:resin_fiber",
+            "Stack limit: 16",
+            "Recipe: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"ERH\", \"RBR\", \"HRE\"], \"key\": {\"R\": \"minecraft:resin_clump\", \"E\": \"minecraft:iron_nugget\", \"B\": \"minecraft:bone_meal\", \"H\": \"minecraft:honeycomb\"}, \"result\": {\"id\": \"simplemoney:resin_fiber\", \"count\": 1}}"
+          ]
+        },
+        "de": {
+          "title": "Harzfaser",
+          "summary": "Aus Eisennuggets, Harzklumpen, Honigwaben und Knochenmehl hergestellt; dient zum Schmieden von Banknotenrohlingen.",
+          "details": [
+            "Registry-ID: simplemoney:resin_fiber",
+            "Stapelgrenze: 16",
+            "Rezept: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"ERH\", \"RBR\", \"HRE\"], \"key\": {\"R\": \"minecraft:resin_clump\", \"E\": \"minecraft:iron_nugget\", \"B\": \"minecraft:bone_meal\", \"H\": \"minecraft:honeycomb\"}, \"result\": {\"id\": \"simplemoney:resin_fiber\", \"count\": 1}}"
+          ]
+        },
+        "sources": [
+          "modules/simplemoney/generated/resources/data/simplemoney/recipe/resin_fiber_from_crafting_table.json",
+          "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
+        ]
+      },
+      "texture": "assets/textures/simplemoney/item/resin_fiber.png"
+    },
+    {
+      "id": "simplemoney:special_fiber",
+      "name": {
+        "en_us": "Special Fiber",
+        "de_de": "Spezialfaser"
+      },
+      "note": {
+        "en": {
+          "title": "Special Fiber",
+          "summary": "Crafted from copper nuggets, gold nuggets, amethyst shards, and diamonds; used with a gold ingot to refine a banknote blank.",
+          "details": [
+            "Registry ID: simplemoney:special_fiber",
+            "Stack limit: 16",
+            "Recipe: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"CGA\", \"DAG\", \"GDC\"], \"key\": {\"D\": \"minecraft:diamond\", \"G\": \"minecraft:gold_nugget\", \"C\": \"minecraft:copper_nugget\", \"A\": \"minecraft:amethyst_shard\"}, \"result\": {\"id\": \"simplemoney:special_fiber\", \"count\": 1}}"
+          ]
+        },
+        "de": {
+          "title": "Spezialfaser",
+          "summary": "Aus Kupfernuggets, Goldnuggets, Amethystscherben und Diamanten hergestellt; veredelt mit einem Goldbarren einen Banknotenrohling.",
+          "details": [
+            "Registry-ID: simplemoney:special_fiber",
+            "Stapelgrenze: 16",
+            "Rezept: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"CGA\", \"DAG\", \"GDC\"], \"key\": {\"D\": \"minecraft:diamond\", \"G\": \"minecraft:gold_nugget\", \"C\": \"minecraft:copper_nugget\", \"A\": \"minecraft:amethyst_shard\"}, \"result\": {\"id\": \"simplemoney:special_fiber\", \"count\": 1}}"
+          ]
+        },
+        "sources": [
+          "modules/simplemoney/generated/resources/data/simplemoney/recipe/special_fiber_from_crafting_table.json",
+          "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
+        ]
+      },
+      "texture": "assets/textures/simplemoney/item/special_fiber.png"
+    },
+    {
+      "id": "simplemoney:special_paper",
+      "name": {
+        "en_us": "Special Paper",
+        "de_de": "Spezialpapier"
+      },
+      "note": {
+        "en": {
+          "title": "Special Paper",
+          "summary": "Crafted from two paper and one honeycomb; used with an iron ingot and resin fiber to smith a banknote blank.",
+          "details": [
+            "Registry ID: simplemoney:special_paper",
+            "Stack limit: 64",
+            "Recipe: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"#M#\"], \"key\": {\"#\": \"minecraft:paper\", \"M\": \"minecraft:honeycomb\"}, \"result\": {\"id\": \"simplemoney:special_paper\", \"count\": 1}}"
+          ]
+        },
+        "de": {
+          "title": "Spezialpapier",
+          "summary": "Aus zwei Papier und einer Honigwabe hergestellt; wird mit einem Eisenbarren und Harzfaser zu einem Banknotenrohling geschmiedet.",
+          "details": [
+            "Registry-ID: simplemoney:special_paper",
+            "Stapelgrenze: 64",
+            "Rezept: {\"type\": \"minecraft:crafting_shaped\", \"pattern\": [\"#M#\"], \"key\": {\"#\": \"minecraft:paper\", \"M\": \"minecraft:honeycomb\"}, \"result\": {\"id\": \"simplemoney:special_paper\", \"count\": 1}}"
+          ]
+        },
+        "sources": [
+          "modules/simplemoney/generated/resources/data/simplemoney/recipe/special_paper_from_crafting_table.json",
+          "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
+        ]
+      },
+      "texture": "assets/textures/simplemoney/item/special_paper.png"
+    }
+  ],
+  "blocks": [],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 57,
+    "recipes": 8,
+    "lootTables": 0,
+    "tags": 0,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 7,
+    "blocks": 0,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
   }
 }
