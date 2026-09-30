@@ -16,6 +16,11 @@ separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompil
 - Weiterarbeiten (auch am Laptop): `docs/ai/LAPTOP-SETUP.md`, `docs/ai/WORKFLOW.md`,
   `python tools/ai/aitool.py status|codex|merge-module|gate`. Neue Module: `python tools/newmod.py`
   (Vertrag `docs/MULTIMOD.md`, Forge-Rezept dort). Briefs liegen in `docs/ai/briefs/`, Memory in `docs/ai/memory/`.
+- Besitzer-Entscheidungen 2026-09-30 Abend (Details und Reihenfolge: `.claude/QUEUE.md`, Briefs `docs/ai/briefs/next-*.md`):
+  1. Claims portieren, zunaechst als ausgeschaltetes Feature; 2. alte Echo-Kompasse nicht migrieren;
+  3. Dimensions: Bogen bleibt Standard, vorinstallierte Dimensionen einzeln in den Einstellungen schaltbar,
+  freie Portalformen spaeter nach gemeinsamem Durchgehen; 4. QoL-Haltbarkeitsbonus auch fuer Mod-Werkzeuge,
+  Standard 1, erhoehbar; 5. Sounds an die Visuals-Stufe koppeln; 6. Forge danach.
 - Keine Laeufe mehr offen; alle `codex-*` Branches sind gemergt. Andere Linien (26.2, 1.21.11, 26.4)
   warten auf die Release-Ankuendigung des Besitzers (Port-Run).
 - Bekannte Grenzen: NeoForge-Clients, echte Altwelten und Besitzerwelt ungeprueft; Forge ohne Cloth-Dialog;
