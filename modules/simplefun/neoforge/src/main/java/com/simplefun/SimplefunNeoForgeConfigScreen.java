@@ -1,0 +1,8 @@
+package com.simplefun;
+
+public final class SimplefunNeoForgeConfigScreen {
+  public static net.minecraft.client.gui.screens.Screen build(
+      net.minecraft.client.gui.screens.Screen p) {
+    return com.simplefun.client.FunConfigScreen.build(p);
+  }
+}

@@ -1,0 +1,1496 @@
+{
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simplefun",
+    "name": "Simple Fun",
+    "version": "1.3.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ]
+  },
+  "features": [
+    {
+      "id": "yeet",
+      "en": {
+        "title": "Sneak Throw",
+        "summary": "Sneak while dropping items. Server multiplier 0.1–3, velocity capped at 1.5 blocks/tick, pickup delay 20 ticks.",
+        "details": [
+          "Sneak while dropping items. Server multiplier 0.1–3, velocity capped at 1.5 blocks/tick, pickup delay 20 ticks."
+        ]
+      },
+      "de": {
+        "title": "Schleichwurf",
+        "summary": "Beim Wegwerfen schleichen. Serverfaktor 0,1–3, Tempo höchstens 1,5 Blöcke/Tick, Aufhebesperre 20 Ticks.",
+        "details": [
+          "Beim Wegwerfen schleichen. Serverfaktor 0,1–3, Tempo höchstens 1,5 Blöcke/Tick, Aufhebesperre 20 Ticks."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/mixin/YeetMixin.java"
+      ]
+    },
+    {
+      "id": "bricks",
+      "en": {
+        "title": "Throwable Bricks",
+        "summary": "Brick, nether brick and resin brick: throw with use. Server cooldown 10 ticks, lifetime 200 ticks, damage 0–4. Glass breaking defaults off.",
+        "details": [
+          "Brick, nether brick and resin brick: throw with use. Server cooldown 10 ticks, lifetime 200 ticks, damage 0–4. Glass breaking defaults off.",
+          "Glass destruction is available only in private single-player; published LAN and dedicated servers refuse it even if enabled."
+        ]
+      },
+      "de": {
+        "title": "Wurfziegel",
+        "summary": "Ziegel, Netherziegel und Harzziegel werfen. Serversperre 10 Ticks, Lebensdauer 200 Ticks, Schaden 0–4. Glasbrechen standardmäßig aus.",
+        "details": [
+          "Ziegel, Netherziegel und Harzziegel werfen. Serversperre 10 Ticks, Lebensdauer 200 Ticks, Schaden 0–4. Glasbrechen standardmäßig aus.",
+          "Glaszerst?rung nur im privaten Einzelspieler; veröffentlichte LAN-Welten und dedizierte Server verweigern sie auch bei aktiviertem Schalter."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/entity/BrickProjectileEntity.java"
+      ]
+    },
+    {
+      "id": "piggy_effect",
+      "en": {
+        "title": "Piggy Transformation",
+        "summary": "Eating raw or cooked pork grants a cosmetic pig head for five minutes; milk removes the effect.",
+        "details": [
+          "Eating raw or cooked pork grants a cosmetic pig head for five minutes; milk removes the effect.",
+          "The five-minute duration is fixed and capped by the server."
+        ]
+      },
+      "de": {
+        "title": "Schweinverwandlung",
+        "summary": "Rohes oder gebratenes Schweinefleisch gibt fünf Minuten einen kosmetischen Schweinekopf; Milch entfernt den Effekt.",
+        "details": [
+          "Rohes oder gebratenes Schweinefleisch gibt fünf Minuten einen kosmetischen Schweinekopf; Milch entfernt den Effekt.",
+          "Der Server begrenzt die feste Dauer auf fünf Minuten."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/mixin/PiggyFoodMixin.java",
+        "modules/simplefun/shared/java/com/simplefun/client/PigHeadFeatureRenderer.java"
+      ]
+    },
+    {
+      "id": "no_damage",
+      "en": {
+        "title": "No Damage",
+        "summary": "Feather melee and No Damage I deal zero direct melee damage, with knockback. Novice librarians offer the book for 25 emeralds, three uses. Switches control effect and trades.",
+        "details": [
+          "Feather melee and No Damage I deal zero direct melee damage, with knockback. Novice librarians offer the book for 25 emeralds, three uses. Switches control effect and trades."
+        ]
+      },
+      "de": {
+        "title": "Kein Schaden",
+        "summary": "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar.",
+        "details": [
+          "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/mixin/NoDamageMixin.java",
+        "modules/simplefun/generated/resources/data/simplefun/villager_trade/librarian/1/no_damage.json"
+      ]
+    },
+    {
+      "id": "knockback",
+      "en": {
+        "title": "Knockback V",
+        "summary": "Vanilla Knockback accepts feathers/sticks and levels up to five; this replaces vanilla enchantment data and can collide with datapacks.",
+        "details": [
+          "Vanilla Knockback accepts feathers/sticks and levels up to five; this replaces vanilla enchantment data and can collide with datapacks."
+        ]
+      },
+      "de": {
+        "title": "Rückstoß V",
+        "summary": "Vanilla-Rückstoß erlaubt Federn/Stöcke und Stufe fünf; überschreibt Vanilla-Daten und kann mit Datenpaketen kollidieren.",
+        "details": [
+          "Vanilla-Rückstoß erlaubt Federn/Stöcke und Stufe fünf; überschreibt Vanilla-Daten und kann mit Datenpaketen kollidieren."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/mixin/KnockbackCapMixin.java",
+        "modules/simplefun/shared/resources/data/minecraft/enchantment/knockback.json"
+      ]
+    },
+    {
+      "id": "player_heads",
+      "en": {
+        "title": "Player Heads",
+        "summary": "PvP death drops the victim’s vanilla player head with skin; server switch.",
+        "details": [
+          "PvP death drops the victim’s vanilla player head with skin; server switch."
+        ]
+      },
+      "de": {
+        "title": "Spielerköpfe",
+        "summary": "PvP-Tod lässt den Vanilla-Spielerkopf mit Skin fallen; Serverschalter.",
+        "details": [
+          "PvP-Tod lässt den Vanilla-Spielerkopf mit Skin fallen; Serverschalter."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/event/PlayerHeadDrop.java"
+      ]
+    },
+    {
+      "id": "commands",
+      "en": {
+        "title": "Admin Commands",
+        "summary": "Permission level 4: /simplefun pvp headDrops; /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side.",
+        "details": [
+          "Permission level 4: /simplefun pvp headDrops; /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side."
+        ]
+      },
+      "de": {
+        "title": "Adminbefehle",
+        "summary": "Berechtigung 4: /simplefun pvp headDrops; /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte.",
+        "details": [
+          "Berechtigung 4: /simplefun pvp headDrops; /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "brick_snowball",
+      "en": {
+        "title": "Brick Snowball",
+        "summary": "Four snowballs around one brick craft one. Stack 16. Separate switch; damage 0–4, throw cooldown 10 ticks.",
+        "details": [
+          "Four snowballs around one brick craft one. Stack 16. Separate switch; damage 0–4, throw cooldown 10 ticks."
+        ]
+      },
+      "de": {
+        "title": "Ziegelschneeball",
+        "summary": "Vier Schneebälle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0–4, Wurfsperre 10 Ticks.",
+        "details": [
+          "Vier Schneebälle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0–4, Wurfsperre 10 Ticks."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/entity/BrickProjectileEntity.java"
+      ]
+    },
+    {
+      "id": "pig_head",
+      "en": {
+        "title": "Pig Head",
+        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds.",
+        "details": [
+          "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
+        ]
+      },
+      "de": {
+        "title": "Schweinkopf",
+        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden.",
+        "details": [
+          "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/heads/AnimalHeads.java",
+        "modules/simplefun/shared/java/com/simplefun/FunLoot.java",
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
+      ]
+    },
+    {
+      "id": "cow_head",
+      "en": {
+        "title": "Cow Head",
+        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds.",
+        "details": [
+          "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
+        ]
+      },
+      "de": {
+        "title": "Kuhkopf",
+        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden.",
+        "details": [
+          "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/heads/AnimalHeads.java",
+        "modules/simplefun/shared/java/com/simplefun/FunLoot.java",
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
+      ]
+    },
+    {
+      "id": "chicken_head",
+      "en": {
+        "title": "Chicken Head",
+        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds.",
+        "details": [
+          "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
+        ]
+      },
+      "de": {
+        "title": "Huhnkopf",
+        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden.",
+        "details": [
+          "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/heads/AnimalHeads.java",
+        "modules/simplefun/shared/java/com/simplefun/FunLoot.java",
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
+      ]
+    },
+    {
+      "id": "sheep_head",
+      "en": {
+        "title": "Sheep Head",
+        "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds.",
+        "details": [
+          "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
+        ]
+      },
+      "de": {
+        "title": "Schafkopf",
+        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden.",
+        "details": [
+          "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/heads/AnimalHeads.java",
+        "modules/simplefun/shared/java/com/simplefun/FunLoot.java",
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
+      ]
+    },
+    {
+      "id": "flowerSniff",
+      "en": {
+        "title": "Flower Sniff",
+        "summary": "Cosmetic delight: hold a flower and sneak. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "details": [
+          "Cosmetic delight: hold a flower and sneak. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+        ]
+      },
+      "de": {
+        "title": "Blumenschnuppern",
+        "summary": "Kosmetische Freude: Blume halten und schleichen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "details": [
+          "Kosmetische Freude: Blume halten und schleichen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
+      ]
+    },
+    {
+      "id": "cookieCrumbs",
+      "en": {
+        "title": "Cookie Crumbs",
+        "summary": "Cosmetic delight: eat a cookie. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "details": [
+          "Cosmetic delight: eat a cookie. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+        ]
+      },
+      "de": {
+        "title": "Kekskrümel",
+        "summary": "Kosmetische Freude: Keks essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "details": [
+          "Kosmetische Freude: Keks essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
+      ]
+    },
+    {
+      "id": "appleSparkle",
+      "en": {
+        "title": "Apple Sparkle",
+        "summary": "Cosmetic delight: eat an apple. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "details": [
+          "Cosmetic delight: eat an apple. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+        ]
+      },
+      "de": {
+        "title": "Apfelglitzer",
+        "summary": "Kosmetische Freude: Apfel essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "details": [
+          "Kosmetische Freude: Apfel essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
+      ]
+    },
+    {
+      "id": "carrotCrunch",
+      "en": {
+        "title": "Carrot Crunch",
+        "summary": "Cosmetic delight: eat a carrot. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "details": [
+          "Cosmetic delight: eat a carrot. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+        ]
+      },
+      "de": {
+        "title": "Karottenknuspern",
+        "summary": "Kosmetische Freude: Karotte essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "details": [
+          "Kosmetische Freude: Karotte essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
+      ]
+    },
+    {
+      "id": "melonSplash",
+      "en": {
+        "title": "Melon Splash",
+        "summary": "Cosmetic delight: eat melon. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "details": [
+          "Cosmetic delight: eat melon. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+        ]
+      },
+      "de": {
+        "title": "Melonenspritzer",
+        "summary": "Kosmetische Freude: Melone essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "details": [
+          "Kosmetische Freude: Melone essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
+      ]
+    },
+    {
+      "id": "honeyBubbles",
+      "en": {
+        "title": "Honey Bubbles",
+        "summary": "Cosmetic delight: drink honey. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "details": [
+          "Cosmetic delight: drink honey. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+        ]
+      },
+      "de": {
+        "title": "Honigblasen",
+        "summary": "Kosmetische Freude: Honig trinken. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "details": [
+          "Kosmetische Freude: Honig trinken. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
+      ]
+    },
+    {
+      "id": "breadCrumbs",
+      "en": {
+        "title": "Bread Crumbs",
+        "summary": "Cosmetic delight: eat bread. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "details": [
+          "Cosmetic delight: eat bread. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+        ]
+      },
+      "de": {
+        "title": "Brotkrümel",
+        "summary": "Kosmetische Freude: Brot essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "details": [
+          "Kosmetische Freude: Brot essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
+      ]
+    },
+    {
+      "id": "berryBlush",
+      "en": {
+        "title": "Berry Blush",
+        "summary": "Cosmetic delight: eat sweet or glow berries. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
+        "details": [
+          "Cosmetic delight: eat sweet or glow berries. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
+        ]
+      },
+      "de": {
+        "title": "Beerenfreude",
+        "summary": "Kosmetische Freude: Süß- oder Leuchtbeeren essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
+        "details": [
+          "Kosmetische Freude: Süß- oder Leuchtbeeren essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
+      ]
+    },
+    {
+      "id": "config_playerHeadDrops",
+      "en": {
+        "title": "Player Head Drops",
+        "summary": "If enabled, players drop their head when killed by another player. Default: true. Server-owned; restart required.",
+        "details": [
+          "If enabled, players drop their head when killed by another player. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Spielerkopf-Drops",
+        "summary": "Wenn aktiviert, lassen Spieler ihren Kopf fallen, wenn sie von einem anderen Spieler getötet werden. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Wenn aktiviert, lassen Spieler ihren Kopf fallen, wenn sie von einem anderen Spieler getötet werden. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_enablePiggyEffect",
+      "en": {
+        "title": "Piggy Transformation",
+        "summary": "Eating (cooked) porkchop turns the player into a pig for 5 minutes. Default: true. Server-owned; restart required.",
+        "details": [
+          "Eating (cooked) porkchop turns the player into a pig for 5 minutes. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Schweine-Verwandlung",
+        "summary": "Das Essen von (gebratenem) Schweinefleisch verwandelt den Spieler 5 Minuten lang in ein Schwein. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Das Essen von (gebratenem) Schweinefleisch verwandelt den Spieler 5 Minuten lang in ein Schwein. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_enableNoDamage",
+      "en": {
+        "title": "No-Damage / Feather",
+        "summary": "Feathers and the No-Damage enchantment make player melee attacks deal 0 damage (knockback still applies). Default: true. Server-owned; restart required.",
+        "details": [
+          "Feathers and the No-Damage enchantment make player melee attacks deal 0 damage (knockback still applies). Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Kein Schaden / Feder",
+        "summary": "Federn und die Verzauberung „Kein Schaden“ lassen Nahkampfangriffe von Spielern 0 Schaden machen (Knockback bleibt erhalten). Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Federn und die Verzauberung „Kein Schaden“ lassen Nahkampfangriffe von Spielern 0 Schaden machen (Knockback bleibt erhalten). Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_enableYeet",
+      "en": {
+        "title": "Enable Yeet (Throw)",
+        "summary": "Allows throwing items far while sneaking (Sneak + Q). Default: true. Server-owned; restart required.",
+        "details": [
+          "Allows throwing items far while sneaking (Sneak + Q). Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Yeet (Werfen) aktivieren",
+        "summary": "Erlaubt das weite Werfen von Items beim Schleichen (Schleichen + Q). Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Erlaubt das weite Werfen von Items beim Schleichen (Schleichen + Q). Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_yeetStrength",
+      "en": {
+        "title": "Yeet Strength",
+        "summary": "Velocity multiplier when throwing items while sneaking. Default: 3.0. Server-owned; restart required.",
+        "details": [
+          "Velocity multiplier when throwing items while sneaking. Default: 3.0. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Yeet-Stärke",
+        "summary": "Geschwindigkeits-Multiplikator beim Werfen während des Schleichens. Standard: 3.0. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Geschwindigkeits-Multiplikator beim Werfen während des Schleichens. Standard: 3.0. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_enableThrowableBricks",
+      "en": {
+        "title": "Enable Throwable Bricks",
+        "summary": "If enabled, Bricks, Nether Bricks and Resin Bricks can be thrown. Default: true. Server-owned; restart required.",
+        "details": [
+          "If enabled, Bricks, Nether Bricks and Resin Bricks can be thrown. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Werfbare Ziegel",
+        "summary": "Wenn aktiviert, können Ziegel, Netherziegel und Harzziegel geworfen werden. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Wenn aktiviert, können Ziegel, Netherziegel und Harzziegel geworfen werden. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_throwableBricksBreakBlocks",
+      "en": {
+        "title": "Throwable Bricks Break Glass",
+        "summary": "Breaks ordinary/stained glass only in private single-player, with server protection and world border checks. Published LAN and dedicated servers refuse terrain destruction. Default: false.",
+        "details": [
+          "Breaks ordinary/stained glass only in private single-player, with server protection and world border checks. Published LAN and dedicated servers refuse terrain destruction. Default: false."
+        ]
+      },
+      "de": {
+        "title": "Ziegel brechen Glas",
+        "summary": "Bricht normales/buntes Glas nur im privaten Einzelspieler, mit Serverschutz und Weltgrenze. Veröffentlichte LAN-Welten und dedizierte Server verweigern Geländezerstörung. Standard: false.",
+        "details": [
+          "Bricht normales/buntes Glas nur im privaten Einzelspieler, mit Serverschutz und Weltgrenze. Veröffentlichte LAN-Welten und dedizierte Server verweigern Geländezerstörung. Standard: false."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_brickDamage",
+      "en": {
+        "title": "Brick Damage",
+        "summary": "Damage dealt by thrown bricks. Default: 2.0. Server-owned; restart required.",
+        "details": [
+          "Damage dealt by thrown bricks. Default: 2.0. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Ziegel-Schaden",
+        "summary": "Schaden durch geworfene Ziegel. Standard: 2.0. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Schaden durch geworfene Ziegel. Standard: 2.0. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_brickSnowballDamage",
+      "en": {
+        "title": "Brick Snowball Damage",
+        "summary": "Damage dealt by thrown Brick Snowballs. Default: 2.0. Server-owned; restart required.",
+        "details": [
+          "Damage dealt by thrown Brick Snowballs. Default: 2.0. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Schneeball-Ziegel-Schaden",
+        "summary": "Schaden durch geworfene Ziegel-Schneebälle. Standard: 2.0. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Schaden durch geworfene Ziegel-Schneebälle. Standard: 2.0. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_enableBrickSnowball",
+      "en": {
+        "title": "Enable brick snowball",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Ziegelschneeball aktivieren",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_enableNoDamageTrades",
+      "en": {
+        "title": "Enable no damage trades",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Kein-Schaden-Handel aktivieren",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_enableAnimalHeads",
+      "en": {
+        "title": "Enable animal heads",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Tierkopfbeute aktivieren",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_pigHeadGreeting",
+      "en": {
+        "title": "Pig head greeting",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Schweinekopfgruß",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_cowHeadGreeting",
+      "en": {
+        "title": "Cow head greeting",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Kuhkopfgruß",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_chickenHeadGreeting",
+      "en": {
+        "title": "Chicken head greeting",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Hühnerkopfgruß",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_sheepHeadGreeting",
+      "en": {
+        "title": "Sheep head greeting",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Schafkopfgruß",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_flowerSniff",
+      "en": {
+        "title": "Flower sniff",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Blumenschnuppern",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_cookieCrumbs",
+      "en": {
+        "title": "Cookie crumbs",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Kekskrümel",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_appleSparkle",
+      "en": {
+        "title": "Apple sparkle",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Apfelglitzer",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_carrotCrunch",
+      "en": {
+        "title": "Carrot crunch",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Karottenknuspern",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_melonSplash",
+      "en": {
+        "title": "Melon splash",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Melonenspritzer",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_honeyBubbles",
+      "en": {
+        "title": "Honey bubbles",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Honigblasen",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_breadCrumbs",
+      "en": {
+        "title": "Bread crumbs",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Brotkrümel",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_berryBlush",
+      "en": {
+        "title": "Berry blush",
+        "summary": "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required.",
+        "details": [
+          "Cosmetic effect; no gameplay rewards. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Beerenfreude",
+        "summary": "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Kosmetischer Effekt ohne Spielbelohnungen. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ]
+    },
+    {
+      "id": "config_enableHigherKnockback",
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ],
+      "en": {
+        "title": "Enable higher knockback",
+        "summary": "Server option. Default: true. Server-owned; restart required.",
+        "details": [
+          "Server option. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Stärkerer Rückstoß",
+        "summary": "Serveroption. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Serveroption. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      }
+    },
+    {
+      "id": "config_maxKnockback",
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+      ],
+      "en": {
+        "title": "Max knockback",
+        "summary": "Server option. Default: 4.0. Server-owned; restart required.",
+        "details": [
+          "Server option. Default: 4.0. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Maximaler Rückstoß",
+        "summary": "Serveroption. Standard: 4.0. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Serveroption. Standard: 4.0. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      }
+    },
+    {
+      "id": "configuration",
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/client/FunConfigScreen.java",
+        "modules/simplefun/shared/java/com/simplefun/SimplefunCommon.java"
+      ],
+      "en": {
+        "title": "Server Configuration",
+        "summary": "Three tabs cover gameplay, heads and small delights; every option explains its default. Gameplay uses only server settings.",
+        "details": [
+          "The client screen edits the local simplefun.json for the next local server start. Remote clients cannot submit settings. Remote admins use the original level-4 commands or change the server file and restart.",
+          "Head loot and librarian trades are selected when server data loads; changing their file switches requires restart."
+        ]
+      },
+      "de": {
+        "title": "Serverkonfiguration",
+        "summary": "Drei Reiter für Spielmechanik, Köpfe und kleine Freuden; jede Option erklärt ihren Standardwert. Nur Serverwerte bestimmen das Spiel.",
+        "details": [
+          "Der Clientbildschirm bearbeitet die lokale simplefun.json für den nächsten lokalen Serverstart. Fremde Clients können keine Einstellungen senden. Entfernte Administratoren nutzen die alten Befehle mit Stufe 4 oder ändern die Serverdatei und starten neu.",
+          "Kopfbeute und Bibliothekarhandel werden beim Laden der Serverdaten ausgewählt; Dateischalter brauchen einen Neustart."
+        ]
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "simplefun:brick_snowball",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplefun:brick_snowball",
+        "count": 1
+      },
+      "source": "modules/simplefun/shared/resources/data/simplefun/recipe/brick_snowball.json",
+      "ingredients": [
+        "minecraft:brick",
+        "minecraft:snowball"
+      ],
+      "pattern": [
+        " S ",
+        "SBS",
+        " S "
+      ],
+      "key": {
+        "B": [
+          "minecraft:brick"
+        ],
+        "S": [
+          "minecraft:snowball"
+        ]
+      }
+    }
+  ],
+  "lootTables": [
+    {
+      "id": "simplefun:blocks/chicken_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplefun:chicken_head"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplefun/generated/resources/data/simplefun/loot_table/blocks/chicken_head.json"
+    },
+    {
+      "id": "simplefun:blocks/cow_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplefun:cow_head"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplefun/generated/resources/data/simplefun/loot_table/blocks/cow_head.json"
+    },
+    {
+      "id": "simplefun:blocks/pig_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplefun:pig_head"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplefun/generated/resources/data/simplefun/loot_table/blocks/pig_head.json"
+    },
+    {
+      "id": "simplefun:blocks/sheep_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplefun:sheep_head"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplefun/generated/resources/data/simplefun/loot_table/blocks/sheep_head.json"
+    }
+  ],
+  "tags": [
+    {
+      "id": "simplefun:item/knockback_allowed",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:feather",
+          "required": true
+        },
+        {
+          "id": "minecraft:stick",
+          "required": true
+        },
+        {
+          "id": "#minecraft:swords",
+          "required": true
+        },
+        {
+          "id": "#minecraft:axes",
+          "required": true
+        },
+        {
+          "id": "#minecraft:enchantable/mace",
+          "required": true
+        },
+        {
+          "id": "#minecraft:enchantable/trident",
+          "required": true
+        },
+        {
+          "id": "#minecraft:enchantable/bow",
+          "required": true
+        },
+        {
+          "id": "#minecraft:enchantable/crossbow",
+          "required": true
+        },
+        {
+          "id": "#minecraft:enchantable/lunge",
+          "required": true
+        }
+      ],
+      "source": "modules/simplefun/shared/resources/data/simplefun/tags/item/knockback_allowed.json"
+    }
+  ],
+  "advancements": [
+    {
+      "id": "simplefun:content/brick_snowball",
+      "parent": null,
+      "icon": "simplefun:brick_snowball",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Brick Snowball"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplefun:brick_snowball"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplefun/generated/resources/data/simplefun/advancement/content/brick_snowball.json"
+    },
+    {
+      "id": "simplefun:content/chicken_head",
+      "parent": "simplefun:content/brick_snowball",
+      "icon": "simplefun:chicken_head",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chicken Head"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplefun:chicken_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplefun/generated/resources/data/simplefun/advancement/content/chicken_head.json"
+    },
+    {
+      "id": "simplefun:content/cow_head",
+      "parent": "simplefun:content/brick_snowball",
+      "icon": "simplefun:cow_head",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Cow Head"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplefun:cow_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplefun/generated/resources/data/simplefun/advancement/content/cow_head.json"
+    },
+    {
+      "id": "simplefun:content/pig_head",
+      "parent": "simplefun:content/brick_snowball",
+      "icon": "simplefun:pig_head",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Pig Head"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplefun:pig_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplefun/generated/resources/data/simplefun/advancement/content/pig_head.json"
+    },
+    {
+      "id": "simplefun:content/sheep_head",
+      "parent": "simplefun:content/brick_snowball",
+      "icon": "simplefun:sheep_head",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Sheep Head"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplefun:sheep_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplefun/generated/resources/data/simplefun/advancement/content/sheep_head.json"
+    }
+  ],
+  "enchantments": [
+    {
+      "id": "simplefun:no_damage",
+      "name": {
+        "en_us": "No Damage",
+        "de_de": "Kein Schaden"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "maxLevel": 1,
+      "weight": 1,
+      "anvilCost": 1,
+      "slots": [
+        "mainhand"
+      ],
+      "supportedItems": "#simplefun:knockback_allowed",
+      "primaryItems": null,
+      "exclusiveSet": null,
+      "effects": [],
+      "implementedIn": "none",
+      "hasEffect": false,
+      "source": "modules/simplefun/shared/resources/data/simplefun/enchantment/no_damage.json",
+      "note": {
+        "en": {
+          "title": "No Damage",
+          "summary": "Feather melee and No Damage I deal zero direct melee damage, with knockback. Novice librarians offer the book for 25 emeralds, three uses. Switches control effect and trades.",
+          "details": [
+            "Feather melee and No Damage I deal zero direct melee damage, with knockback. Novice librarians offer the book for 25 emeralds, three uses. Switches control effect and trades."
+          ]
+        },
+        "de": {
+          "title": "Kein Schaden",
+          "summary": "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar.",
+          "details": [
+            "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar."
+          ]
+        }
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "simplefun:brick_snowball",
+      "name": {
+        "en_us": "Brick Snowball",
+        "de_de": "Ziegel-Schneeball"
+      },
+      "note": {
+        "en": {
+          "summary": "Four snowballs around one brick craft one. Stack 16. Separate switch; damage 0–4, throw cooldown 10 ticks."
+        },
+        "de": {
+          "summary": "Vier Schneebälle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0–4, Wurfsperre 10 Ticks."
+        }
+      },
+      "texture": "assets/textures/simplefun/item/brick_snowball.png"
+    }
+  ],
+  "blocks": [
+    {
+      "id": "simplefun:chicken_head",
+      "kind": "block",
+      "hasItem": true,
+      "name": {
+        "en_us": "Chicken Head",
+        "de_de": "Huhnkopf"
+      },
+      "note": {
+        "en": {
+          "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
+        },
+        "de": {
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        }
+      }
+    },
+    {
+      "id": "simplefun:chicken_wall_head",
+      "kind": "block",
+      "hasItem": false,
+      "name": {
+        "en_us": "Chicken Wall Head",
+        "de_de": "Huhnwandkopf"
+      },
+      "note": {
+        "en": {
+          "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
+        },
+        "de": {
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        }
+      }
+    },
+    {
+      "id": "simplefun:cow_head",
+      "kind": "block",
+      "hasItem": true,
+      "name": {
+        "en_us": "Cow Head",
+        "de_de": "Kuhkopf"
+      },
+      "note": {
+        "en": {
+          "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
+        },
+        "de": {
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        }
+      }
+    },
+    {
+      "id": "simplefun:cow_wall_head",
+      "kind": "block",
+      "hasItem": false,
+      "name": {
+        "en_us": "Cow Wall Head",
+        "de_de": "Kuhwandkopf"
+      },
+      "note": {
+        "en": {
+          "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
+        },
+        "de": {
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        }
+      }
+    },
+    {
+      "id": "simplefun:pig_head",
+      "kind": "block",
+      "hasItem": true,
+      "name": {
+        "en_us": "Pig Head",
+        "de_de": "Schweinkopf"
+      },
+      "note": {
+        "en": {
+          "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
+        },
+        "de": {
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        }
+      }
+    },
+    {
+      "id": "simplefun:pig_wall_head",
+      "kind": "block",
+      "hasItem": false,
+      "name": {
+        "en_us": "Pig Wall Head",
+        "de_de": "Schweinwandkopf"
+      },
+      "note": {
+        "en": {
+          "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
+        },
+        "de": {
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        }
+      }
+    },
+    {
+      "id": "simplefun:sheep_head",
+      "kind": "block",
+      "hasItem": true,
+      "name": {
+        "en_us": "Sheep Head",
+        "de_de": "Schafkopf"
+      },
+      "note": {
+        "en": {
+          "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
+        },
+        "de": {
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        }
+      }
+    },
+    {
+      "id": "simplefun:sheep_wall_head",
+      "kind": "block",
+      "hasItem": false,
+      "name": {
+        "en_us": "Sheep Wall Head",
+        "de_de": "Schafwandkopf"
+      },
+      "note": {
+        "en": {
+          "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
+        },
+        "de": {
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
+        }
+      }
+    }
+  ],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 47,
+    "recipes": 1,
+    "lootTables": 4,
+    "tags": 1,
+    "advancements": 5,
+    "enchantments": 1,
+    "items": 1,
+    "blocks": 8,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+}

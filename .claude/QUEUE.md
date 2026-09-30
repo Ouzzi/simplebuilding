@@ -78,3 +78,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Besitzerpruefung: echtes Handy-Mikrofon/Vorlesen, Tailscale HTTPS, Headset-Taste und gewaehlter CLI-Anbieter; Verifikation siehe HANDOFF.
 - [ ] Simple Models (codex-port-models): renamed-Skelett nach 26.3 Fabric/NeoForge; servervalidierte Ambossmodelle, Ordnerkatalog, Browser, EN/DE, Modul-/Clienttests. Keine Ports/Push/Merge.
 - [x] Simple Models 26.3 umgesetzt und committed; finale Modtests 32/32, Fabric-Client 5/5 gruen. Besitzerabnahme echter Modellpack/UI offen; Forge und andere Linien bleiben eigener Port. Details docs/modules/simplemodels.md.
+`n- Simple Fun: 26.3 Fabric/NeoForge port, complete feature/security tests, eight cosmetic delights and charged-creeper farm-animal heads; work branch codex-port-fun, no push/merge.
+`n- Simple Fun 26.3 complete on codex-port-fun: 1627/1627 full server tests + 2/2 LAN safety, 4/4 Fabric client checkpoints, final Gradle check Exit 0; see docs/modules/simplefun.md and HANDOFF. Owner visual acceptance and deferred loader/MC ports remain. No push/merge.

@@ -92,5 +92,25 @@ window.WIKI_MODULES = [
       "modmenu"
     ],
     "dataHash": "30a7b6f560f4"
+  },
+  {
+    "id": "simplefun",
+    "displayName": "Simple Fun",
+    "description": "Bounded playful mechanics, throwable bricks, cosmetic transformations and farm-animal heads.",
+    "version": "1.3.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "modmenu",
+      "jei",
+      "jade"
+    ],
+    "dataHash": "fafc901add3e"
   }
 ];

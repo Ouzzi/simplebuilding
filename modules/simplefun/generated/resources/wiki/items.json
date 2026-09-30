@@ -1,0 +1,47 @@
+{
+  "items": [
+    {
+      "id": "simplefun:chicken_head",
+      "kind": "block",
+      "hasItem": true
+    },
+    {
+      "id": "simplefun:chicken_wall_head",
+      "kind": "block",
+      "hasItem": false
+    },
+    {
+      "id": "simplefun:cow_head",
+      "kind": "block",
+      "hasItem": true
+    },
+    {
+      "id": "simplefun:cow_wall_head",
+      "kind": "block",
+      "hasItem": false
+    },
+    {
+      "id": "simplefun:pig_head",
+      "kind": "block",
+      "hasItem": true
+    },
+    {
+      "id": "simplefun:pig_wall_head",
+      "kind": "block",
+      "hasItem": false
+    },
+    {
+      "id": "simplefun:sheep_head",
+      "kind": "block",
+      "hasItem": true
+    },
+    {
+      "id": "simplefun:sheep_wall_head",
+      "kind": "block",
+      "hasItem": false
+    },
+    {
+      "id": "simplefun:brick_snowball"
+    }
+  ]
+}

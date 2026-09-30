@@ -5,7 +5,8 @@
     "wiringexample",
     "simplemoney",
     "simpleriding",
-    "simplemodels"
+    "simplemodels",
+    "simplefun"
   ],
   "devMods": [
     "jei",

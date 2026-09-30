@@ -1,0 +1,34 @@
+{
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "simplefun:pig_head"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "simplefun:pig_head"
+    },
+    "title": {
+      "translate": "item.simplefun.pig_head"
+    },
+    "description": {
+      "translate": "jei.simplefun.head_source"
+    },
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "parent": "simplefun:content/brick_snowball"
+}

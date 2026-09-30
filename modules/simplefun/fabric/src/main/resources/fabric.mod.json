@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "simplefun",
+  "version": "${version}",
+  "name": "Simple Fun",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplefun.SimplefunFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplefun.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplefun.SimplefunFabricClient"
+    ],
+    "modmenu": [
+      "com.simplefun.compat.ModMenuIntegration"
+    ],
+    "jei_mod_plugin": [
+      "com.simplefun.client.FunJeiPlugin"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "cloth-config": "*"
+  },
+  "mixins": [
+    "simplefun.mixins.json",
+    "simplefun.fabric.mixins.json"
+  ]
+}
