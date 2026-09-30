@@ -158,3 +158,42 @@ Dieser Branch wird nicht gepusht oder gemergt; Verifikation siehe abschliessende
   lehnte Headless-Edge-Bildpruefung mit "blocked by policy" ab. Kein Client-Testlauf, Push oder Merge.
 - Beim ersten parallelen Gate/Serverlauf fehlten NeoForge-Ressourcen; gezieltes `processResources --rerun-tasks`
   stellte sie wieder her. Anschliessend Gate und Server-Gates nacheinander gruen. Kein Gameplay-Fix noetig.
+
+## Simple Riding 26.3 (Codex, 2026-09-30, Branch codex-port-riding)
+
+- Read-only Quelle: Simple Riding 1.0.5 / Fabric 1.21.11, sauberer Commit `ff83701`.
+  Vollstaendiges Inventar, Kollisionen, Config, IDs, Bezugsquellen und Grenzen: `docs/modules/simpleriding.md`.
+- Additives Modul `modules/simpleriding` fuer Fabric + NeoForge 26.3: Tailwind, Leaping,
+  Pferderuestungs-Verzauberungen, Kreativtab, Beute, Bibliothekarhandel und sechs serverseitige
+  Config-Optionen mit Obergrenzen. Alle alten IDs/Config-Pfade und die ungenutzte coordinates-Komponente bleiben.
+  Keine eigenen Items/Bloecke/Mobs/Rezepte/Befehle/Keybinds in der Quelle; keine Duplikat-Ruestungen.
+  Optionales Enderit-Pferderuestungs-Tag nutzt nur eine oeffentliche SimpleBuilding-ID; Nautilus bleibt ausserhalb.
+- Quellfehler korrigiert: keine Gratis-Tailwind-Stufe fuer Ghasts, keine Reflection/Debug-Spam-Suche,
+  sofortiges Entfernen veralteter Fahrboni; Protection nur einmal ueber Vanillas BODY-Pipeline.
+  Finale Quell-Whitelist beibehalten: kein Mending/Unbreaking/Thorns auf Pferderuestung.
+  README-Versprechen fahrender Haendler/Meisterhandel gibt es im Quellcode nicht (nur Bibliothekar 2–4).
+- Manifestvertrag fuer alle Eintraege vervollstaendigt; eigener zweisprachiger Wiki-Manual-Katalog,
+  eigene generierte Ressourcen und `balance/simpleriding` als Produzentendaten. Keine nichtdestruktive
+  Migration bestehender SimpleBuilding-Daten noetig; deren Speicherort bleibt unveraendert.
+  Launch Hub zeigt das Modul und fuehrt seine Serverpruefungen nach dem separaten Wiring-Test aus.
+  Fabric-Tests/Client nutzen die eigene Integration; NeoForge-Modulpruefungen `integration/run-neoforge-263`.
+- Voller Serverlauf **1580/1580, alles gruen**: bestehende 26.3-Ziele **1554/1554**, Modulkatalog
+  **26/26** (13 je Loader, SimpleBuilding mitgeladen), Run `2026-09-30T13-31-20Z-5d9f`.
+  Echte Fahr-/Flug-/Sprungattribute, Ausruestungswechsel, alle Schutzarten, Amboss/Zaubertisch,
+  geladene Beute, Handelsangebote, Config-Schalter/alte JSON-Pfade und Cross-Mod-Lagerung geprueft.
+  Testzentrale in beiden automatischen Bestandstestwelten gebaut; Item-/Block-Abdeckung gruen.
+- Bestehende Integration **1/1, alles gruen**, Run `2026-09-30T13-34-31Z-962c`.
+  Fabric-Modulclient: Titel -> Welt, normale Bibliothekar-Pools, Enchantment-/Tab-Sync und Config-Seite;
+  **3/3 Screenshot-Pruefpunkte, alles gruen**, Run `2026-09-30T13-28-14Z-ead5`. Config-Bild angesehen.
+  Besitzerclient war vor dem Start nicht aktiv; keine SimpleBuilding-Clientsuite ausgefuehrt.
+- Launch Hub **35 Unit-Tests gruen**. Wiki generiert und --check gruen, Modul-Datengate gruen,
+  Buecher **0 Probleme**, Texturen **470 + 9 mcmeta aktuell**. Keine neue Pixelkunst; Quell-Icon erhalten.
+  Abschliessendes **gradlew.bat check -q --no-daemon: GRADLE_EXIT=0**, Ausgabe gelesen,
+  einschliesslich gemeinsamer 26.2-Kompilierbarkeit und Client-Harness-Kompilierung.
+- Grenze: experimentelles Trade Rebalance ersetzt Vanilla-Bibliothekar-Tags und versteckt dabei
+  auch Mod-Angebote. Servertests pruefen die ausgelieferten Verknuepfungen und echte Angebote;
+  der normale Clientwelt-Test beweist die aufgeloesten Pools ohne dieses Experiment.
+- Nicht verifiziert: NeoForge-Clientdarstellung/Config-Oeffnung, echte hochgestufte Quellmod-Welt,
+  Besitzerwelt-Neubau. Forge 26.3 braucht eigene Loader-, Registry-, Bedingungs-/Loot- und Testadapter.
+  26.2/1.21.11/26.4 erst im separaten Release-Port nach Besitzerfreigabe; keine Quelltexte dort geaendert.
+  Kein Push, kein Merge; Quellrepo unveraendert.

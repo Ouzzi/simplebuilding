@@ -92,6 +92,12 @@ class ModsMixin:
         else:
             argv = [targets.gradlew_path(ws), ':integration:' + tasks[action]]
         steps.append({'label':'integration ' + action, 'argv':argv, 'cwd':str(ws)})
+        if action == 'tests':
+            # Queue modules after the wiring test: Fabric targets share one integration directory.
+            for mod_id, module_targets in targets.load_launch().get('moduleTests', {}).items():
+                if mod_id in selected['modules']:
+                    steps.append({'label':mod_id + ' integration tests',
+                                  'argv':targets.test_argv(ws, module_targets, None), 'cwd':str(ws)})
         job = self.manager.start('test' if action == 'tests' else 'launch', 'Integration ' + action, steps,
                                  meta={'target':'integration-263', 'workspace':workspace, 'action':action,
                                        'kind_of':'server' if action == 'server' else 'client',

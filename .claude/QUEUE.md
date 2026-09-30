@@ -238,3 +238,6 @@ Verlauf im Detail: git log.
 - [x] Launch Hub: einzelne Mod-Schalter, Presets, Integrationsstarts und Trockenlauf-Tests
 - [x] check, 1548/1548 Server, 1/1 Integration, 34 Hub-Tests und Trockenlauf gruen; kein Push/Merge
 - [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen
+
+## Simple Riding 26.3 (Codex)
+- [x] Port des read-only Quellrepos 1.0.5 auf 26.3: Fabric/NeoForge, eigener Integrationskatalog, Client-Smoke, Wiki/Balancedaten, Launch-Hub-Testanbindung. Details: docs/modules/simpleriding.md; kein Push/Merge. Forge und andere Linien erst im eigenen Release-Port.

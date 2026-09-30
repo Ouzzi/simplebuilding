@@ -440,3 +440,9 @@ tasks.named('check') { dependsOn 'checkMultimod', ':framework:check', ':integrat
 // Also compile new loader entrypoints in the gate; no existing suite gains a test.
 def extraModules = new groovy.json.JsonSlurper().parse(file('modules/modules.json')).modules.findAll { it.id != 'simplebuilding' }
 tasks.named('check') { dependsOn extraModules.collectMany { it.projects.values().collect { path -> "${path}:classes" } } }
+tasks.register('checkSimpleRidingData', Exec) {
+    group = 'verification'
+    workingDir = rootDir
+    commandLine wikiPython, 'tools/modules/check_simpleriding.py'
+}
+tasks.named('check') { dependsOn 'checkSimpleRidingData', ':integration:compileGametestJava' }

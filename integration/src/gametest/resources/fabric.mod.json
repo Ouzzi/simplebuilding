@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleriding-clienttest",
+  "version": "1.0.0",
+  "name": "Simple Riding Integration Client Tests",
+  "environment": "client",
+  "entrypoints": { "fabric-client-gametest": ["com.simplebuilding.integration.RidingClientGameTest"] },
+  "depends": { "simplebuilding": "*", "simpleriding": "*" }
+}

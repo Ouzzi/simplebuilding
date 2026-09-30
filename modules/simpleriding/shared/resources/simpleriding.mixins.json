@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.simpleriding.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "RidingTickMixin",
+    "RidingEnchantmentMixin",
+    "RidingHelperMixin",
+    "RidingFallMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

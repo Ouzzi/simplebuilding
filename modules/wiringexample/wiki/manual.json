@@ -1,0 +1,24 @@
+{
+  "features": [
+    {
+      "id": "wiring-token",
+      "sources": [
+        "modules/wiringexample/shared/java/com/simplebuilding/modules/wiringexample/ExampleItems.java"
+      ],
+      "en": {
+        "title": "Wiring Example (Development Only)",
+        "summary": "A paper-rendered token for checking cross-mod storage.",
+        "details": [
+          "No survival recipe or gameplay feature; only an integration fixture."
+        ]
+      },
+      "de": {
+        "title": "Wiring Example (nur Entwicklung)",
+        "summary": "Eine Marke mit Papierdarstellung zur Prüfung modübergreifender Lagerung.",
+        "details": [
+          "Kein Überlebensrezept oder Spielfeature; nur eine Integrationsfixture."
+        ]
+      }
+    }
+  ]
+}

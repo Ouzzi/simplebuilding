@@ -2,6 +2,9 @@
   "_comment": "Launch data of the Launch- und Testzentrale (moved here from .claude/launch.json). prefix + task = Gradle task path. gradleArgs may contain the token @forge, which the hub replaces by run.py's FORGE_GRADLE_ARGS (-Pforge_runs=true and the Java 8 installation path; override the path with SIMPLEBUILDING_JAVA8_HOME). testTarget / clientTestTarget are ids of tools/testrunner/run.py.",
   "worldName": "SB-Testzentrale",
   "serverPort": 25565,
+  "moduleTests": {
+    "simpleriding": ["module-simpleriding-fabric-263", "module-simpleriding-neoforge-263"]
+  },
   "tasks": {
     "client": "runClient",
     "server": "runServer"

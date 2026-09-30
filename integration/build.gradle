@@ -3,6 +3,10 @@ version = '0.1.0'
 group = 'com.simplebuilding.integration'
 apply from: rootProject.file('gradle/local-devmods.gradle')
 java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
+fabricApi {
+    configureTests { createSourceSet = true; modId = 'simpleriding-clienttest'; enableGameTests = false }
+}
+loom.runs.named('clientGameTest') { runDir 'run-fabric-263' }
 repositories {
     maven { url = 'https://maven.shedaniel.me/' }
     maven { url = 'https://maven.terraformersmc.com/releases/' }
@@ -60,10 +64,24 @@ loom {
             vmArg "-Dfabric-api.gametest.report-file=${layout.buildDirectory.get()}/junit.xml"
             vmArg "-Dfabric-api.gametest.filter=${project.findProperty('gametestFilter') ?: 'sbintegration:*'}"
         }
+        ridingGameTest {
+            server()
+            runDir 'run-fabric-263'
+            vmArg '-Dfabric-api.gametest'
+            vmArg "-Dfabric-api.gametest.report-file=${layout.buildDirectory.get()}/riding-junit.xml"
+            vmArg "-Dfabric-api.gametest.filter=${project.findProperty('gametestFilter') ?: 'simpleriding:*'}"
+        }
     }
 }
-tasks.matching { it.name in ['runIntegrationClient','runIntegrationServer','runIntegrationGameTest'] }.configureEach {
+tasks.matching { it.name in ['runIntegrationClient','runIntegrationServer','runIntegrationGameTest','runRidingGameTest','runClientGameTest'] }.configureEach {
     dependsOn prepare
+}
+tasks.named('runRidingGameTest') {
+    doFirst {
+        def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
+        if (!selected.modules.containsAll(['simplebuilding', 'simpleriding']) || !selected.devMods.contains('cloth_config'))
+            throw new GradleException('Simple Riding integration requires simplebuilding, simpleriding, and cloth_config')
+    }
 }
 tasks.named('runIntegrationGameTest') {
     doFirst {

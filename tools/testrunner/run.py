@@ -93,6 +93,7 @@ class Target:
     screenshots: str = ""
     #: Extra Gradle arguments this target needs (Forge: its run configurations are opt in).
     gradle_args: tuple[str, ...] = ()
+    namespace: str = MOD_ID
 
 
 #: ForgeGradle 7 builds its run tasks only with -Pforge_runs=true, and creating them needs a
@@ -282,7 +283,22 @@ INTEGRATION_TARGETS = (Target(
     mc_line="integration-26.3", gradle_task=":integration:runIntegrationGameTest",
     report="integration/build/junit.xml",
     catalogue="integration/src/main/java/com/simplebuilding/integration/CrossModGameTest.java",
-),)
+), Target(
+    id="module-simpleriding-fabric-263", label="Simple Riding integration Fabric - MC 26.3", loader="fabric",
+    mc_line="simpleriding-26.3", gradle_task=":integration:runRidingGameTest",
+    report="integration/build/riding-junit.xml", catalogue="modules/simpleriding/fabric/src/main/java/com/simplebuilding/modules/simpleriding/RidingGameTest.java",
+    namespace="simpleriding",
+), Target(
+    id="module-simpleriding-neoforge-263", label="Simple Riding integration NeoForge - MC 26.3", loader="neoforge",
+    mc_line="simpleriding-26.3", gradle_task=":modules:simpleriding:neoforge:runRidingIntegrationGameTest",
+    report="modules/simpleriding/neoforge/build/riding-junit.xml", catalogue="modules/simpleriding/fabric/src/main/java/com/simplebuilding/modules/simpleriding/RidingGameTest.java",
+    namespace="simpleriding",
+), Target(
+    id="module-simpleriding-client-263", label="Simple Riding integration client - MC 26.3", loader="fabric",
+    mc_line="simpleriding-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="", kind="client",
+    sources="integration/src/gametest/java/com/simplebuilding/integration", screenshots="integration/run-fabric-263/screenshots",
+    namespace="simpleriding",
+))
 ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS
 
 BY_ID = {t.id: t for t in ALL_TARGETS}
@@ -413,6 +429,10 @@ def read_catalogue() -> dict[str, list[dict]]:
                 integration.append({"id": f"sbintegration:{snake(cls[1])}_{snake(method)}",
                                     "testClass": cls[1], "method": method})
     out["integration-26.3"] = integration
+    path = REPO / "modules/simpleriding/fabric/src/main/java/com/simplebuilding/modules/simpleriding/RidingGameTest.java"
+    source = path.read_text(encoding="utf-8")
+    out["simpleriding-26.3"] = [{"id": f"simpleriding:riding_game_test_{snake(method)}", "testClass": "RidingGameTest", "method": method}
+        for method in re.findall(r"@GameTest(?:\([^)]*\))?\s+public void (\w+)\(GameTestHelper", source)]
     return out
 
 
@@ -719,7 +739,7 @@ def run_target(
     log_path = RUNS_DIR / f"{run_id}-{target.id}.log"
     log_path.write_text(strip_ansi(output), encoding="utf-8")
 
-    report = parse_report(REPO / target.report, fresh_after, "sbintegration" if target.id == "integration-263" else MOD_ID)
+    report = parse_report(REPO / target.report, fresh_after, "sbintegration" if target.id == "integration-263" else target.namespace)
 
     # Tests this loader is known not to pass yet (LOADER_KNOWN_FAILURES): their red is recorded
     # as "known" and does not move the numbers - but only while it is red. A listed test that

@@ -1,0 +1,22 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpleriding"
+version="${version}"
+displayName="Simple Riding"
+authors="Ouzzi"
+logoFile="assets/simpleriding/icon.png"
+description="Saddle speed and horse jump enchantments, mount armor utilities, loot, and trades."
+[[dependencies.simpleriding]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[mixins]]
+config="simpleriding.mixins.json"
+
+[[dependencies.simpleriding]]
+modId="cloth_config"
+type="required"
+versionRange="[26.3,)"
