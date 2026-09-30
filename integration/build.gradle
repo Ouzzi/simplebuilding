@@ -1,0 +1,74 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+version = '0.1.0'
+group = 'com.simplebuilding.integration'
+apply from: rootProject.file('gradle/local-devmods.gradle')
+java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
+repositories {
+    maven { url = 'https://maven.shedaniel.me/' }
+    maven { url = 'https://maven.terraformersmc.com/releases/' }
+    maven { url = 'https://maven.blamejared.com/' }
+    maven { url = 'https://api.modrinth.com/maven' }
+}
+dependencies {
+    runtimeOnly project(':common')
+    runtimeOnly project(':framework')
+    minecraft "com.mojang:minecraft:${rootProject.mc263_minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${rootProject.mc263_loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${rootProject.mc263_fabric_version}"
+}
+def registry = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json'))
+def devRegistry = new groovy.json.JsonSlurper().parse(rootProject.file('tools/devmods.json'))
+def resolveCoordinate = { text -> text.replaceAll(/\$\{([^}]+)\}/) { full, key -> rootProject.property(key).toString() } }
+devRegistry.mods.findAll { it.sources.fabric?.maven }.each { mod ->
+    configurations.create("integrationDev_${mod.id}") { transitive = false }
+    dependencies.add("integrationDev_${mod.id}", resolveCoordinate(mod.sources.fabric.maven))
+}
+def jarTasks = registry.modules.collect { entry -> "${entry.projects.fabric}:jar" }
+// Selection is deliberately read in doLast, including dependency validation. Build dependencies
+// are a superset; disabled module jars never enter the runtime mods directory.
+def prepare = tasks.register('prepareIntegrationMods') {
+    dependsOn jarTasks, ':checkMultimod'
+    doLast {
+        def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
+        if (selected.schemaVersion != 1 || !registry.modules*.id.containsAll(selected.modules)
+                || !devRegistry.mods*.id.containsAll(selected.devMods)) throw new GradleException('Invalid integration mod selection')
+        if (selected.modules.contains('simplebuilding') && !selected.devMods.contains('cloth_config'))
+            throw new GradleException('SimpleBuilding requires Cloth Config; enable cloth_config')
+        def jars = registry.modules.findAll { selected.modules.contains(it.id) }.collect { entry ->
+            project(entry.projects.fabric).tasks.named('jar').get().archiveFile.get().asFile
+        }
+        devRegistry.mods.findAll { selected.devMods.contains(it.id) && it.sources.fabric }.each { mod ->
+            if (mod.sources.fabric.maven) {
+                jars.addAll(configurations.getByName("integrationDev_${mod.id}").files)
+            } else {
+                jars.add(localDevModJar(mod.sources.fabric.local, mod.id))
+            }
+        }
+        // This directory is exclusively generated. Sync removes stale disabled jars, never saves.
+        project.sync { from jars; into rootProject.file('integration/run-fabric-263/mods') }
+        rootProject.file('integration/run-fabric-263/eula.txt').text = 'eula=true\n'
+    }
+}
+loom {
+    runs {
+        integrationClient { client(); runDir 'run-fabric-263' }
+        integrationServer { server(); runDir 'run-fabric-263'; programArg '--nogui' }
+        integrationGameTest {
+            server()
+            runDir 'run-fabric-263'
+            vmArg '-Dfabric-api.gametest'
+            vmArg "-Dfabric-api.gametest.report-file=${layout.buildDirectory.get()}/junit.xml"
+            vmArg "-Dfabric-api.gametest.filter=${project.findProperty('gametestFilter') ?: 'sbintegration:*'}"
+        }
+    }
+}
+tasks.matching { it.name in ['runIntegrationClient','runIntegrationServer','runIntegrationGameTest'] }.configureEach {
+    dependsOn prepare
+}
+tasks.named('runIntegrationGameTest') {
+    doFirst {
+        def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
+        if (!selected.modules.containsAll(['simplebuilding', 'wiringexample']))
+            throw new GradleException('The cross-mod test requires simplebuilding and wiringexample')
+    }
+}

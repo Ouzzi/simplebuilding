@@ -429,3 +429,14 @@ publishing {
 
 // Texture atlas sources vs. the textures the game finds (gradle/check-atlases.gradle).
 apply from: rootProject.file('gradle/check-atlases.gradle')
+
+tasks.register('checkMultimod', Exec) {
+    group = 'verification'
+    workingDir = rootDir
+    commandLine wikiPython, 'tools/multimod.py'
+}
+tasks.named('check') { dependsOn 'checkMultimod', ':framework:check', ':integration:classes' }
+
+// Also compile new loader entrypoints in the gate; no existing suite gains a test.
+def extraModules = new groovy.json.JsonSlurper().parse(file('modules/modules.json')).modules.findAll { it.id != 'simplebuilding' }
+tasks.named('check') { dependsOn extraModules.collectMany { it.projects.values().collect { path -> "${path}:classes" } } }

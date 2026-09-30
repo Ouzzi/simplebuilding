@@ -1,0 +1,13 @@
+group = 'com.simplebuilding.modules'
+base { archivesName = project.parent.name + '-26.3-' + project.name }
+version = project.findProperty('moduleVersion') ?: '0.1.0'
+java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
+sourceSets.main.java.srcDir '../shared/java'
+sourceSets.main.resources.srcDir '../shared/resources'
+dependencies {
+    minecraft "com.mojang:minecraft:${rootProject.mc263_minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${rootProject.mc263_loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${rootProject.mc263_fabric_version}"
+    implementation project(':framework')
+}
+processResources { filesMatching('fabric.mod.json') { expand version: project.version } }

@@ -1,0 +1,1 @@
+{"schemaVersion":1,"id":"wiringexample","version":"${version}","name":"Wiring Example","environment":"*","entrypoints":{"main":["com.simplebuilding.modules.wiringexample.FabricExample"]},"depends":{"fabricloader":">=0.19.5","minecraft":"~26.3","java":">=25"}}

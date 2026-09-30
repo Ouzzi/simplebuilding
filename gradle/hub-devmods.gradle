@@ -1,0 +1,30 @@
+// Normal 26.3 runs keep their defaults. Only hub launches opt into individual dev-mod selection.
+if (project.hasProperty('hub_mod_selection')) {
+    apply from: rootProject.file('gradle/local-devmods.gradle')
+    def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json')).devMods
+    def registry = new groovy.json.JsonSlurper().parse(rootProject.file('tools/devmods.json')).mods
+    def loader = project.name
+    def coordinates = registry.findAll { it.sources[loader]?.maven && !selected.contains(it.id) }.collect { entry ->
+        entry.sources[loader].maven.replaceAll(/\$\{([^}]+)\}/) { full, key -> rootProject.property(key).toString() }
+    }
+    configurations.devMods.dependencies.removeAll { dep -> coordinates.contains("${dep.group}:${dep.name}:${dep.version}".toString()) }
+    if (loader == 'fabric') {
+        // Avoid disabled mods reappearing from the owner's existing run/mods folder.
+        // Fabric's documented loader property points only Hub runs at a managed folder.
+        def localDir = layout.buildDirectory.dir('hubLocalMods')
+        def stage = tasks.register('stageHubLocalMods') {
+            dependsOn ':checkMultimod'
+            doLast {
+                def enabled = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json')).devMods
+                def jars = registry.findAll { enabled.contains(it.id) && it.sources.fabric?.local }.collect { entry ->
+                    localDevModJar(entry.sources.fabric.local, entry.id)
+                }
+                project.sync { from jars; into localDir }
+            }
+        }
+        tasks.matching { it.name in ['runClient', 'runServer'] }.configureEach {
+            dependsOn stage
+            systemProperty 'fabric.modsFolder', localDir.get().asFile.absolutePath
+        }
+    }
+}

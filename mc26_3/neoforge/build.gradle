@@ -203,3 +203,5 @@ tasks.withType(Jar).configureEach {
 
 // Texture atlas sources vs. the textures the game finds (gradle/check-atlases.gradle).
 apply from: rootProject.file('gradle/check-atlases.gradle')
+
+apply from: rootProject.file('gradle/hub-devmods.gradle')

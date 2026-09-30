@@ -1,0 +1,4 @@
+plugins { id 'java-library' }
+group = 'com.simplebuilding.framework'
+version = '0.1.0'
+java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }

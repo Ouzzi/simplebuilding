@@ -1,0 +1,11 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="__MODID__"
+version="${version}"
+displayName="__DISPLAY_NAME__"
+[[dependencies.__MODID__]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"

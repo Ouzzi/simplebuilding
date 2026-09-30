@@ -1,0 +1,11 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="wiringexample"
+version="${version}"
+displayName="Wiring Example"
+[[dependencies.wiringexample]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"

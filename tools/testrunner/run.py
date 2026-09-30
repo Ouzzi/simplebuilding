@@ -277,7 +277,13 @@ SNAPSHOT_TARGETS: tuple[Target, ...] = (
     ),
 )
 
-ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS
+INTEGRATION_TARGETS = (Target(
+    id="integration-263", label="Integration Fabric - MC 26.3", loader="fabric",
+    mc_line="integration-26.3", gradle_task=":integration:runIntegrationGameTest",
+    report="integration/build/junit.xml",
+    catalogue="integration/src/main/java/com/simplebuilding/integration/CrossModGameTest.java",
+),)
+ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS
 
 BY_ID = {t.id: t for t in ALL_TARGETS}
 
@@ -395,6 +401,18 @@ def read_catalogue() -> dict[str, list[dict]]:
             for name, test_class, method in _SPEC.findall(text):
                 entries.append({"id": f"{MOD_ID}:{name}", "testClass": test_class, "method": method})
         out[line] = entries
+    # Fabric derives test ids from annotated class/method names. Keep the integration
+    # catalogue tied to its own source, without adding entries to SimpleBuilding's catalogue.
+    integration = []
+    snake = lambda name: re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
+    for path in (REPO / "integration/src/main/java").rglob("*.java"):
+        source = path.read_text(encoding="utf-8")
+        cls = re.search(r"public final class (\w+)", source)
+        if cls:
+            for method in re.findall(r"@GameTest(?:\([^)]*\))?\s+public void (\w+)\(GameTestHelper", source):
+                integration.append({"id": f"sbintegration:{snake(cls[1])}_{snake(method)}",
+                                    "testClass": cls[1], "method": method})
+    out["integration-26.3"] = integration
     return out
 
 
@@ -402,7 +420,7 @@ def read_catalogue() -> dict[str, list[dict]]:
 # JUnit-Bericht auswerten
 # ----------------------------------------------------------------------------
 
-def parse_report(path: Path, not_older_than: float) -> dict:
+def parse_report(path: Path, not_older_than: float, namespace: str = MOD_ID) -> dict:
     """Reads one JUnit report and says how trustworthy it is.
 
     ``not_older_than`` is the wall clock at which this run started. A report
@@ -456,7 +474,7 @@ def parse_report(path: Path, not_older_than: float) -> dict:
         # Fabric runs in the minecraft:default environment and picks up one test
         # that does not belong to this mod. It is kept for the record but must
         # never move the mod's numbers.
-        entry["foreign"] = not name.startswith(f"{MOD_ID}:")
+        entry["foreign"] = not name.startswith(f"{namespace}:")
         result["tests"].append(entry)
 
     own = [t for t in result["tests"] if not t["foreign"]]
@@ -701,7 +719,7 @@ def run_target(
     log_path = RUNS_DIR / f"{run_id}-{target.id}.log"
     log_path.write_text(strip_ansi(output), encoding="utf-8")
 
-    report = parse_report(REPO / target.report, fresh_after)
+    report = parse_report(REPO / target.report, fresh_after, "sbintegration" if target.id == "integration-263" else MOD_ID)
 
     # Tests this loader is known not to pass yet (LOADER_KNOWN_FAILURES): their red is recorded
     # as "known" and does not move the numbers - but only while it is red. A listed test that

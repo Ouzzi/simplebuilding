@@ -35,3 +35,13 @@ if (providers.gradleProperty('mc264').getOrElse('false').toBoolean()) {
 }
 // Loaders: Fabric (root project, Fabric Loom) + NeoForge (:neoforge, ModDevGradle).
 // Each applies its own loader plugin to its own project; both build under Gradle 9.
+
+// Additive 26.3 modules. Existing project paths remain unchanged.
+include 'framework', 'integration'
+def moduleRegistry = new groovy.json.JsonSlurper().parse(file('modules/modules.json'))
+moduleRegistry.modules.findAll { it.id != 'simplebuilding' }.each { entry ->
+    entry.projects.values().each { path ->
+        if (!(path ==~ /:modules:[a-z][a-z0-9_]+:(fabric|neoforge)/)) throw new GradleException("Invalid module project: ${path}")
+        include path
+    }
+}

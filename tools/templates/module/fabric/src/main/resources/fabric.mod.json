@@ -1,0 +1,1 @@
+{"schemaVersion":1,"id":"__MODID__","version":"${version}","name":"__DISPLAY_NAME__","environment":"*","entrypoints":{"main":["com.simplebuilding.modules.__MODID__.FabricExample"]},"depends":{"fabricloader":">=0.19.5","minecraft":"~26.3","java":">=25"}}
