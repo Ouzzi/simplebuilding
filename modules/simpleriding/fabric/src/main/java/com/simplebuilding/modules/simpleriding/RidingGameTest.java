@@ -26,4 +26,5 @@ public final class RidingGameTest {
  @GameTest(maxTicks=100) public void steeringAndBorder(GameTestHelper h){com.simpleriding.test.RidingTests.steeringAndBorder(h);}
  @GameTest(maxTicks=100) public void allMountSpeedCaps(GameTestHelper h){com.simpleriding.test.RidingTests.allMountSpeedCaps(h);}
  @GameTest(maxTicks=100) public void camelDashBounds(GameTestHelper h){com.simpleriding.test.RidingTests.camelDashBounds(h);}
+ @GameTest(maxTicks=100) public void groundFlags(GameTestHelper h){com.simpleriding.test.RidingTests.groundFlags(h);}
 }

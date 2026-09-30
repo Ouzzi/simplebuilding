@@ -20,7 +20,7 @@ import java.io.*;
 import java.util.*;
 public final class RidingTests {
  public static final Map<String,java.util.function.Consumer<GameTestHelper>> ALL=new LinkedHashMap<>();
- static { ALL.put("camel_dash_bounds",RidingTests::camelDashBounds); ALL.put("weighted_data_bounds",RidingTests::weightedDataBounds); ALL.put("steering_and_border",RidingTests::steeringAndBorder); ALL.put("all_mount_speed_caps",RidingTests::allMountSpeedCaps); ALL.put("nautilus_speed_and_armor",RidingTests::nautilusSpeedAndArmor); ALL.put("nautilus_dash",RidingTests::nautilusDash); ALL.put("attribute_caps",RidingTests::attributeCaps); ALL.put("feature_switches",RidingTests::featureSwitches); ALL.put("all_config_bounds",RidingTests::allConfigBounds); ALL.put("movement_packets",RidingTests::movementPackets); ALL.put("jump_packets",RidingTests::jumpPackets); ALL.put("movement_budget",RidingTests::movementBudget); ALL.put("launch",RidingTests::launch); ALL.put("armor_and_anvil",RidingTests::armorAndAnvil); ALL.put("horse_speed_and_cleanup",RidingTests::horseSpeedAndCleanup); ALL.put("pig_speed",RidingTests::pigSpeed); ALL.put("strider_speed",RidingTests::striderSpeed); ALL.put("camel_speed",RidingTests::camelSpeed); ALL.put("ghast_harness",RidingTests::ghastHarness); ALL.put("leaping_and_cleanup",RidingTests::leapingAndCleanup); ALL.put("armor_defense",RidingTests::armorDefense); ALL.put("trades",RidingTests::trades); ALL.put("loot_and_toggle",RidingTests::lootAndToggle); ALL.put("config_and_lang",RidingTests::configAndLang); ALL.put("cross_mod_storage_and_armor",RidingTests::crossModStorageAndArmor); }
+ static { ALL.put("ground_flags",RidingTests::groundFlags); ALL.put("camel_dash_bounds",RidingTests::camelDashBounds); ALL.put("weighted_data_bounds",RidingTests::weightedDataBounds); ALL.put("steering_and_border",RidingTests::steeringAndBorder); ALL.put("all_mount_speed_caps",RidingTests::allMountSpeedCaps); ALL.put("nautilus_speed_and_armor",RidingTests::nautilusSpeedAndArmor); ALL.put("nautilus_dash",RidingTests::nautilusDash); ALL.put("attribute_caps",RidingTests::attributeCaps); ALL.put("feature_switches",RidingTests::featureSwitches); ALL.put("all_config_bounds",RidingTests::allConfigBounds); ALL.put("movement_packets",RidingTests::movementPackets); ALL.put("jump_packets",RidingTests::jumpPackets); ALL.put("movement_budget",RidingTests::movementBudget); ALL.put("launch",RidingTests::launch); ALL.put("armor_and_anvil",RidingTests::armorAndAnvil); ALL.put("horse_speed_and_cleanup",RidingTests::horseSpeedAndCleanup); ALL.put("pig_speed",RidingTests::pigSpeed); ALL.put("strider_speed",RidingTests::striderSpeed); ALL.put("camel_speed",RidingTests::camelSpeed); ALL.put("ghast_harness",RidingTests::ghastHarness); ALL.put("leaping_and_cleanup",RidingTests::leapingAndCleanup); ALL.put("armor_defense",RidingTests::armorDefense); ALL.put("trades",RidingTests::trades); ALL.put("loot_and_toggle",RidingTests::lootAndToggle); ALL.put("config_and_lang",RidingTests::configAndLang); ALL.put("cross_mod_storage_and_armor",RidingTests::crossModStorageAndArmor); }
  private static Holder.Reference<Enchantment> ench(GameTestHelper h,ResourceKey<Enchantment> key){return h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);}
  private static ItemStack enchanted(GameTestHelper h,Item item,ResourceKey<Enchantment> key,int n){var s=new ItemStack(item);s.enchant(ench(h,key),n);return s;}
  private static net.minecraft.world.entity.player.Player rider(GameTestHelper h,LivingEntity e){var p=h.makeMockPlayer(net.minecraft.world.level.GameType.CREATIVE);if(e instanceof net.minecraft.world.entity.animal.equine.AbstractHorse horse)horse.setTamed(true);if(e instanceof net.minecraft.world.entity.TamableAnimal tame)tame.tame(p);if(e.getType()==EntityTypes.PIG)p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.CARROT_ON_A_STICK));if(e.getType()==EntityTypes.STRIDER)p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.WARPED_FUNGUS_ON_A_STICK));p.startRiding(e,true,false);return p;}
@@ -181,7 +181,16 @@ public final class RidingTests {
   e.setDeltaMovement(Vec3.ZERO);p.connection.handlePlayerCommand(new net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket(p,net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket.Action.START_RIDING_JUMP,100));
   h.assertTrue(e.getJumpCooldown()==40&&e.isDashing(),"Server executes dash with Vanilla cooldown");
   close(e.getDeltaMovement().length(),.5*e.getAttributeValue(Attributes.MOVEMENT_SPEED)*1.6,h,"Server impulse includes armor bonus on land");
-  var before=e.getDeltaMovement();p.connection.handlePlayerCommand(new net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket(p,net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket.Action.START_RIDING_JUMP,100));h.assertTrue(e.getDeltaMovement().equals(before),"Repeated dash cannot stack impulse");p.stopRiding();h.succeed();
+  var before=e.getDeltaMovement();p.connection.handlePlayerCommand(new net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket(p,net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket.Action.START_RIDING_JUMP,100));h.assertTrue(e.getDeltaMovement().equals(before),"Repeated dash cannot stack impulse");p.stopRiding();e.discard();
+  for(int x=1;x<=3;x++)for(int y=2;y<=4;y++)for(int z=1;z<=3;z++)h.setBlock(x,y,z,net.minecraft.world.level.block.Blocks.WATER);
+  var swimmer=h.spawn(EntityTypes.NAUTILUS,2,2,2);swimmer.setItemSlot(EquipmentSlot.SADDLE,enchanted(h,Items.SADDLE,Riding.TAILWIND,3));swimmer.setItemSlot(EquipmentSlot.BODY,enchanted(h,Items.DIAMOND_NAUTILUS_ARMOR,Riding.LEAPING,3));var pilot=serverRider(h,swimmer);
+  h.runAfterDelay(2,()->{
+   h.assertTrue(swimmer.isInWater(),"Aquatic dash fixture is actually underwater");RidingEffects.tick(swimmer);swimmer.setDeltaMovement(Vec3.ZERO);
+   pilot.connection.handlePlayerCommand(new net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket(pilot,net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket.Action.START_RIDING_JUMP,100));
+   double expected=pilot.getLookAngle().length()*(double)(1.2f*1.6f)*swimmer.getAttributeValue(Attributes.MOVEMENT_SPEED);
+   close(swimmer.getDeltaMovement().length(),expected,h,"Real underwater dash combines Tailwind and Leaping within server caps");
+   h.assertTrue(swimmer.getDeltaMovement().length()<=3.9&&swimmer.getJumpCooldown()==40,"Aquatic impulse and cooldown remain bounded");pilot.stopRiding();h.succeed();
+  });
  }
  public static void attributeCaps(GameTestHelper h){
   var original=Riding.CONFIG;try{
@@ -254,7 +263,9 @@ public final class RidingTests {
    border.setCenter(e.getX(),e.getZ());border.setSize(e.getBbWidth()+.05);
    h.assertTrue(!guard.acceptMove(p,claim(e.position().add(.1,0,0))),"Full mount bounding box cannot cross world border");
   }finally{border.setCenter(x,z);border.setSize(size);}
-  p.stopRiding();h.succeed();
+  p.stopRiding();
+  var ghast=h.spawn(EntityTypes.HAPPY_GHAST,2,2,2);ghast.setItemSlot(EquipmentSlot.BODY,enchanted(h,BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("white_harness")),Riding.TAILWIND,3));var pilot=serverRider(h,ghast);RidingEffects.tick(ghast);
+  h.assertTrue(new RidingSecurity().acceptMove(pilot,claim(ghast.position().add(.6,.9,0))),"Combined ascent and strafe remains legal within server flight cap");pilot.stopRiding();h.succeed();
  }
  public static void allMountSpeedCaps(GameTestHelper h){
   var original=Riding.CONFIG;try{
@@ -281,5 +292,15 @@ public final class RidingTests {
    h.assertTrue(e.getJumpCooldown()==55,"Real camel packet retains Vanilla cooldown on server");
    h.runAfterDelay(1,()->{h.assertTrue(!guard.acceptJump(p,p.getId(),100)&&e.getJumpCooldown()>0,"Later replay during camel cooldown refused");p.stopRiding();h.succeed();});
   });
+ }
+
+ public static void groundFlags(GameTestHelper h){
+  h.setBlock(2,1,2,net.minecraft.world.level.block.Blocks.STONE);
+  var e=h.spawn(EntityTypes.HORSE,2,2,2);e.setItemSlot(EquipmentSlot.SADDLE,new ItemStack(Items.SADDLE));var p=serverRider(h,e);p.connection.tick();
+  p.connection.handleMoveVehicle(new net.minecraft.network.protocol.game.ServerboundMoveVehiclePacket(claim(e.position().add(.1,0,0)),false));
+  h.assertTrue(e.onGround(),"Real landing is server-owned even when client claims airborne");
+  e.snapTo(e.getX(),e.getY()+3,e.getZ(),0,0);e.setOnGround(false);p.connection.tick();
+  p.connection.handleMoveVehicle(new net.minecraft.network.protocol.game.ServerboundMoveVehiclePacket(claim(e.position().add(.1,0,0)),true));
+  h.assertTrue(!e.onGround(),"Forged on-ground flag cannot reset riding fall state in midair");p.stopRiding();h.succeed();
  }
 }

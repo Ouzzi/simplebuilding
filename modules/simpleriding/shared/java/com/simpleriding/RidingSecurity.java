@@ -55,7 +55,8 @@ public final class RidingSecurity {
         double horizontalCap = .125 + 3 * speed;
         if (mount.getType() == EntityTypes.HAPPY_GHAST) {
             double flight=living.getAttributeValue(Attributes.FLYING_SPEED);
-            horizontalCap=.125+(5.0/3.0)*flight*Math.min(1,Math.sqrt(2)*3.9*flight)/.09;
+            // Looking straight up, ascending (+0.5) and strafing gives sqrt(1 + 1.5²).
+            horizontalCap=.125+(5.0/3.0)*flight*Math.min(1,Math.sqrt(3.25)*3.9*flight)/.09;
         }
         if (mount instanceof AbstractNautilus) {
             double dash = mount.getId() == dashMountId && now >= dashTick && now - dashTick < 40 ? dashImpulse * Math.pow(.9, now - dashTick) : 0;

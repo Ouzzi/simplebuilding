@@ -37,4 +37,10 @@ public abstract class RidingPacketMixin {
             }
         }
     }
+    @Redirect(method="handleMoveVehicle", at=@At(value="INVOKE", target="Lnet/minecraft/network/protocol/game/ServerboundMoveVehiclePacket;onGround()Z"))
+    private boolean simpleriding$ground(ServerboundMoveVehiclePacket packet) {
+        var mount=player.getRootVehicle();
+        if (!RidingSecurity.supported(mount)) return packet.onGround();
+        return !player.level().noCollision(mount,mount.getBoundingBox().move(0,-.01,0));
+    }
 }

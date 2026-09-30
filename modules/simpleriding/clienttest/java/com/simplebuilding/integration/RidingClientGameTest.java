@@ -70,6 +70,12 @@ public final class RidingClientGameTest implements FabricClientGameTest {
     client.options.keyUp.setDown(false);var mount=(net.minecraft.world.entity.animal.happyghast.HappyGhast)client.player.getVehicle();
     double velocity=mount.getDeltaMovement().length();if(velocity<.4||velocity>1)throw new AssertionError("Happy Ghast flight remains useful and physically capped: "+velocity);
    });
+   context.runOnClient(client->{client.player.setXRot(-60);client.options.keyUp.setDown(true);client.options.keyLeft.setDown(true);client.options.keyJump.setDown(true);});
+   context.waitTicks(40);
+   context.runOnClient(client->{
+    client.options.keyUp.setDown(false);client.options.keyLeft.setDown(false);client.options.keyJump.setDown(false);
+    double velocity=client.player.getVehicle().getDeltaMovement().length();if(velocity<.4||velocity>1.4)throw new AssertionError("Combined Ghast steering/ascending remains bounded: "+velocity);
+   });
    world.getServer().runOnServer(server->{
     var player=server.getPlayerList().getPlayers().getFirst();var mount=player.getVehicle();
     double travel=Math.hypot(mount.getX()-ghastStart[0],mount.getZ()-ghastStart[1]);if(travel<5||travel>70)throw new AssertionError("Server accepts bounded Ghast flight: "+travel);
