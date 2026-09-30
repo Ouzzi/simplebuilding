@@ -76,3 +76,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 ## VOICEBRIDGE (2026-09-30, codex-voicebridge)
 - [x] Besitzerwunsch: Handy/Laptop, eine grosse Sprechtaste, kurze vorgelesene Antworten, mehrere Projekte; stdlib-Server und PWA, lesende Agenten, konkrete Dateivorschlaege mit einmaliger Sprachbestaetigung.
 - [ ] Besitzerpruefung: echtes Handy-Mikrofon/Vorlesen, Tailscale HTTPS, Headset-Taste und gewaehlter CLI-Anbieter; Verifikation siehe HANDOFF.
+
+- [ ] RIDING-FOLLOWUP: Nautilus/Enderit-Ruestung, serverseitige Gesamtgrenzen und Paketvalidierung, vollstaendige Modul-/Integrations-/26.3-Pruefung (codex-riding-followup).

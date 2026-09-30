@@ -61,7 +61,7 @@ enchantability to zero disables table utility enchanting without changing anvil 
   above the small tolerance requires an accepted grounded jump or a grounded step; jump height is bounded.
 - NaN/infinity, impossible steering pitch, border-crossing bounding boxes and unloaded/out-of-height
   targets are refused before Vanilla moves anything. Dismount/remount or changing mounts never
-  refills a same-tick budget. Vanilla collision, teleport, floating and move checks remain in place.
+  refills a same-tick budget. Ground flags for landing/fall checks are derived from server collision instead of trusting client claims. Vanilla collision, teleport, floating and move checks remain in place.
 - Feature switches allow disabling Tailwind, Leaping, armor utilities or Nautilus bonuses. Security
   checks stay enabled even when bonuses are disabled. Rejected floods produce at most one position correction per tick. No new teleport, spawn, chunk ticket, inventory
   transfer or claim-permission path exists. External claim mods still enforce their own permissions;
@@ -110,7 +110,7 @@ Experimental Trade Rebalance limitation: Vanilla replaces librarian tags when th
 
 ## Follow-up verification (2026-09-30, codex-riding-followup)
 
-The expanded catalogue has 25 tests per loader, including actual packet dispatch with a teleport
+The expanded catalogue has 26 tests per loader, including actual packet dispatch with a teleport
 acknowledgment, valid movement control, out-of-range/replayed commands, all mount speed caps,
 combined Nautilus dash caps, feature toggles, every config leaf/default/bound, language completeness,
 Enderite armor, and bounded weighted loot/trade codecs. Run outcomes are appended to HANDOFF.

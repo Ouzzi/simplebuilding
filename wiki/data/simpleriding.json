@@ -197,7 +197,8 @@
           "Movement has a cumulative server-tick distance cap of 4 blocks and 20 packets by default, plus an envelope from server attributes and accepted nautilus dash. Dismounting or changing mounts cannot refill that tick budget. Horse ascent needs a server-accepted grounded jump or a grounded step.",
           "Targets must remain in loaded chunks and inside the world border including the mount bounding box. Vanilla collision and teleport checks still run; no claim permission, teleport, chunk ticket or entity spawn is introduced. External claim mods retain their own enforcement.",
           "Rejected packet floods cause at most one position correction per server tick.",
-          "Accepted camel dashes include the Vanilla impulse in the movement envelope and enforce Vanilla's 55-tick cooldown on the server."
+          "Accepted camel dashes include the Vanilla impulse in the movement envelope and enforce Vanilla's 55-tick cooldown on the server.",
+          "Landing and fall checks derive the mount's ground flag from server collision instead of accepting the client's on-ground claim."
         ]
       },
       "de": {
@@ -209,7 +210,8 @@
           "Standardmäßig höchstens insgesamt 4 Blöcke Bewegung und 20 Pakete je Servertick, zusätzlich durch Serverattribute und akzeptierten Nautilus-Dash begrenzt. Absteigen oder Reittierwechsel erneuern das Tickbudget nicht. Pferde-Aufstieg braucht einen serverseitig akzeptierten Sprung vom Boden oder einen bodengestützten Schritt.",
           "Ziele müssen in geladenen Chunks und mit dem gesamten Reittier innerhalb der Weltgrenze liegen. Vanillas Kollisions- und Teleportprüfungen laufen weiter; keine Claimberechtigung, Teleportation, Chunktickets oder Entitäten werden hinzugefügt. Externe Claimmods behalten ihre eigene Durchsetzung.",
           "Verweigerte Paketfluten erzeugen höchstens eine Positionskorrektur je Servertick.",
-          "Akzeptierte Kamel-Dashes ber?cksichtigen den Vanilla-Impuls in der Bewegungsgrenze und erzwingen Vanillas 55-Tick-Abklingzeit auf dem Server."
+          "Akzeptierte Kamel-Dashes berücksichtigen den Vanilla-Impuls in der Bewegungsgrenze und erzwingen Vanillas 55-Tick-Abklingzeit auf dem Server.",
+          "Landungs- und Fallprüfungen ermitteln den Bodenstatus des Reittiers aus Server-Kollisionen statt aus Clientangaben."
         ]
       }
     },
