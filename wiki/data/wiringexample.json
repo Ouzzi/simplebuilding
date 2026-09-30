@@ -13,7 +13,8 @@
     ],
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ]
   },
   "features": [
