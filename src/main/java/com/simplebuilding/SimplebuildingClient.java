@@ -73,6 +73,8 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Abgestelltes Buendel: das gezeigte Item schwebt darueber, solange man schleichend hinschaut.
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_BUNDLE_BE, com.simplebuilding.client.render.PlacedBundleRenderer::new);
+        if (com.simplebuilding.version.McVersion.END_SYSTEMS) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                net.minecraft.world.level.block.entity.BlockEntityTypes.ENDER_CHEST, com.simplebuilding.client.render.AstralVaultRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.TIERED_CHEST_BE, com.simplebuilding.client.render.TieredChestRenderer::new);

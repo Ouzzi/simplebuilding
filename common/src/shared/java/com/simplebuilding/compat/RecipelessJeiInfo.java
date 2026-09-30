@@ -34,6 +34,10 @@ public final class RecipelessJeiInfo {
         map.put("nihilith_shard", List.of(ModItems.NIHILITH_SHARD));
         map.put("enchanted_netherite_apple", List.of(ModItems.ENCHANTED_NETHERITE_APPLE));
         map.put("enchanted_enderite_apple", List.of(ModItems.ENCHANTED_ENDERITE_APPLE));
+        if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
+            map.put("end_signals", List.of(ModItems.NIHILITH_POWDER, ModItems.ASTRALIT_POWDER, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));
+            map.put("astral_vault", List.of(ModItems.ASTRAL_VAULT));
+        }
         return map;
     }
 }

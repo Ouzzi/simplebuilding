@@ -232,3 +232,6 @@ Verlauf im Detail: git log.
 - [x] Zwei getrennte Mega-Handbuecher, gespeicherte Kapitel, Migration, kein Starterbuch, saubere Texturen und begrenzte Tabs (26.3, Branch codex-ll).
 - [x] Guide-/DataIntegrity-Tab-/Testzentrale-Tests auf beiden 26.3-Loadern: 50/50, alles gruen; Testzentrale neu gebaut und Abdeckung vollstaendig.
 - [ ] Besitzer-Abnahme: Mega-Handbuecher im Client ansehen und Testzentrale in der Besitzerwelt neu bauen.
+
+## Codex KK2 (26.3)
+- [ ] Enderit-Signalpulver und Astralgewölbe: Implementierung und gefilterte Verifikation auf codex-kk2; kein Push/Merge.

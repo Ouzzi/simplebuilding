@@ -1191,6 +1191,18 @@ public final class TestCentreSections {
      */
     public static TcCanvas devices(TcContext ctx) {
         TcCanvas c = new TcCanvas();
+        if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
+            for (int lane = 0; lane < 2; lane++) {
+                Block source = lane == 0 ? ModBlocks.NIHILITH_SWITCH : ModBlocks.ASTRALIT_SWITCH;
+                Block powder = lane == 0 ? ModBlocks.NIHILITH_POWDER : ModBlocks.ASTRALIT_POWDER;
+                Block lamp = lane == 0 ? ModBlocks.NIHILITH_LAMP : ModBlocks.ASTRALIT_LAMP;
+                int z = 5 + lane;
+                for (int x = 0; x <= 17; x++) c.place(x, -1, z, Blocks.STONE);
+                c.place(0, 0, z, source);
+                for (int x = 1; x <= 15; x++) c.place(x, 0, z, powder);
+                c.place(16, 0, z, lamp);
+            }
+        }
         int wallZ = 3;
         List<TcCanvas.Line> lines = new ArrayList<>();
         int bx = 1;

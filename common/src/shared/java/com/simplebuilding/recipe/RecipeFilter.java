@@ -29,7 +29,7 @@ public final class RecipeFilter {
     public static boolean anyDisabled() {
         ServerTuningConfig.Features f = ServerTuning.get().features;
         TweaksConfig t = SimpleTweaks.config();
-        return !f.backpack || !f.attractor || !f.echoSounder || !f.blueprint || !f.oreDetector || !f.levitatingBlocks
+        return !f.endSignals || !f.astralVault || !f.backpack || !f.attractor || !f.echoSounder || !f.blueprint || !f.oreDetector || !f.levitatingBlocks
                 || !t.pads.enableChunkLoaders || !t.pads.enableElytraPads || !t.pads.enableFlypads
                 || !t.pads.enableSpawnTeleporters || !t.pads.enableLaunchpads || !t.pads.enablePotionPads
                 || !t.laserPointer.enable;
@@ -43,7 +43,9 @@ public final class RecipeFilter {
         String p = recipe.getPath();
         ServerTuningConfig.Features f = ServerTuning.get().features;
         TweaksConfig t = SimpleTweaks.config();
-        return (!f.backpack && p.contains("backpack"))
+        return (!f.astralVault && p.equals("astral_vault"))
+                || (!f.endSignals && java.util.Set.of("nihilith_powder", "astralit_powder", "nihilith_switch", "astralit_switch", "nihilith_lamp", "astralit_lamp").contains(p))
+                || (!f.backpack && p.contains("backpack"))
                 || (!f.attractor && (p.contains("magnet") || p.contains("attractor")))
                 || (!f.echoSounder && (p.contains("echo_compass") || p.contains("echo_sounder")))
                 || (!f.blueprint && p.contains("blueprint"))

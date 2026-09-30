@@ -281,6 +281,10 @@ public final class BlockInfo {
                 }
             }
             case CHEST_SLOTS -> {
+                if (state.getBlock() instanceof com.simplebuilding.blocks.custom.AstralVaultBlock) {
+                    lines.add(Line.of("jade.simplebuilding.chest.slots", Arg.literal(54)));
+                    lines.add(Line.of("jade.simplebuilding.astral_vault.shared"));
+                }
                 if (state.getBlock() instanceof TieredChestBlock chest) {
                     boolean isDouble = state.hasProperty(ChestBlock.TYPE) && state.getValue(ChestBlock.TYPE) != ChestType.SINGLE;
                     lines.add(Line.of("jade.simplebuilding.chest.slots", Arg.literal(chest.tier().slots() * (isDouble ? 2 : 1))));

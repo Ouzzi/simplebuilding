@@ -101,6 +101,13 @@ import static net.minecraft.world.item.Rarity.UNCOMMON;
  */
 
 public class ModItems {
+    public static final Item NIHILITH_POWDER = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihilith_powder", s -> new BlockItem(ModBlocks.NIHILITH_POWDER, s)) : null;
+    public static final Item NIHILITH_SWITCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihilith_switch", s -> new BlockItem(ModBlocks.NIHILITH_SWITCH, s)) : null;
+    public static final Item NIHILITH_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihilith_lamp", s -> new BlockItem(ModBlocks.NIHILITH_LAMP, s)) : null;
+    public static final Item ASTRALIT_POWDER = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_powder", s -> new BlockItem(ModBlocks.ASTRALIT_POWDER, s)) : null;
+    public static final Item ASTRALIT_SWITCH = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_switch", s -> new BlockItem(ModBlocks.ASTRALIT_SWITCH, s)) : null;
+    public static final Item ASTRALIT_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_lamp", s -> new BlockItem(ModBlocks.ASTRALIT_LAMP, s)) : null;
+    public static final Item ASTRAL_VAULT = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_vault", s -> new BlockItem(ModBlocks.ASTRAL_VAULT, s)) : null;
 
 
 

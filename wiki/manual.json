@@ -3559,6 +3559,74 @@
           "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt, der Stapelfaktor in der Titelzeile."
         ]
       }
+    },
+    {
+      "id": "end_signals",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+      ],
+      "related": [
+        "simplebuilding:nihilith_powder",
+        "simplebuilding:astralit_powder",
+        "simplebuilding:nihilith_switch",
+        "simplebuilding:astralit_switch",
+        "simplebuilding:nihilith_lamp",
+        "simplebuilding:astralit_lamp"
+      ],
+      "en": {
+        "title": "Isolated End Signals",
+        "summary": "Nihilith and Astralit each form a private horizontal signal channel.",
+        "details": [
+          "A Nihilith Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+          "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+          "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+        ]
+      },
+      "de": {
+        "title": "Getrennte End-Signale",
+        "summary": "Nihilith und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+        "details": [
+          "Nihilithscherbe oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+          "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+        ]
+      }
+    },
+    {
+      "id": "astral_vault",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/AstralVaultBlock.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AstralStorageMixin.java",
+        "common/src/shared/java/com/simplebuilding/util/AstralStorage.java",
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+      ],
+      "related": [
+        "simplebuilding:astral_vault"
+      ],
+      "en": {
+        "title": "Astral Vault",
+        "summary": "54 personal slots, including the 27 shared vanilla ender chest slots.",
+        "details": [
+          "Craft an ender chest with two Enderite Ingots and two Astralit Dust. Slots 1–27 directly use the vanilla personal ender inventory; slots 28–54 belong to that same player and are reachable through a vault. Ordinary ender chests still expose 27 slots.",
+          "The extra slots are saved in the personal ender inventory data with slot indices 27–53. Respawn uses the same ender inventory. Players and dimensions do not create shared public storage.",
+          "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault, not its personal contents; hoppers cannot access them.",
+          "server.features.astralVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astralgewölbe",
+        "summary": "54 persoenliche Plaetze, darunter die 27 geteilten Vanilla-Endertruhenplaetze.",
+        "details": [
+          "Rezept: Endertruhe mit zwei Enderitbarren und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
+          "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
+          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
+          "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
     }
   ],
   "notes": {

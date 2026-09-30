@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "simplebuilding:astralit_powder",
+    "minecraft:lever"
+  ],
+  "result": {
+    "id": "simplebuilding:astralit_switch",
+    "count": 1
+  }
+}

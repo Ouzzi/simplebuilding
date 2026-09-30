@@ -1,0 +1,28 @@
+{
+  "textures": {
+    "all": "simplebuilding:block/astralit_powder",
+    "particle": "simplebuilding:block/astralit_powder"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0.1,
+        0
+      ],
+      "to": [
+        16,
+        0.1,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#all"
+        },
+        "down": {
+          "texture": "#all"
+        }
+      }
+    }
+  ]
+}

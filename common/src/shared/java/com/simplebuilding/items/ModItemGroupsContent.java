@@ -317,7 +317,12 @@ public final class ModItemGroupsContent {
      * seit 2026-09-29 in SimplePads ({@link #padsRows()}), die Bauplanung in SimpleTools.
      */
     public static List<CreativeTabLayout.Row> functionalRows() {
-        return baseFunctionalRows();
+        var rows = new java.util.ArrayList<>(baseFunctionalRows());
+        if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
+            rows.add(CreativeTabLayout.Row.of("astral_storage", Items.ENDER_CHEST, ModItems.ASTRAL_VAULT));
+            rows.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHILITH_POWDER, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, CreativeTabLayout.GAP, ModItems.ASTRALIT_POWDER, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP));
+        }
+        return rows;
     }
 
     /**
