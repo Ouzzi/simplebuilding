@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[66,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplefun"
+version="${version}"
+displayName="Simple Fun"
+[[dependencies.simplefun]]
+modId="forge"
+mandatory=true
+versionRange="[66,)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.simplefun]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"

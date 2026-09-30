@@ -49,3 +49,8 @@ Not verified: NeoForge client/UI, an actual upgraded 1.21.11 world, the owner's 
 
 Forge 26.3 needs its own entrypoint, trade/command/client/test adapters. Minecraft 26.2, 1.21.11 and 26.4 are deferred release ports. Source repository and existing SimpleBuilding directories remain untouched.
 `nFinal full Gradle check: **GRADLE_EXIT=0**, including shared 26.2 compilation, balance, module data, atlas/Jade checks and all-module wiki validation. Default and all-module wiki generation/checks passed. Final namespace wiki generation/check also passed after LAN wording was synchronized.
+
+## Experimental Forge 26.3
+Opt-in `-Pforge263=true` adapter: shared bounded mechanics, registries, conditional trades, loot, JSON configuration, and server tests. Same catalogue IDs and shared bodies; module-owned loader hooks and isolated test world. No speculative optional Forge dependencies. Cloth GUI unavailable; existing server JSON settings retained. Forge client, real multiplayer and optional integrations remain unverified.
+
+Forge catalogue: **32/32, alles gruen**, `2026-09-30T17-05-12Z-3196`. Registry, recipes, conditional trades/loot, config/security bounds, Piggy and cross-mod tests passed. Piggy uses tracked entity data on Forge; remote-player rendering still needs real multiplayer/client acceptance. Build generates the canonical config minus inert Cloth annotations, avoiding duplicate shim packages; field values/normalization remain canonical. JEI plugin and Cloth GUI are excluded because no Forge 26.3 integration is declared.

@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simplebuilding.modules.simplefun.forge.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "RegistryLoadTaskMixin",
+    "ReloadableServerRegistriesMixin",
+    "PlayerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

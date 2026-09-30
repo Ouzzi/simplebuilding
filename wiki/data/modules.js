@@ -104,7 +104,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "cloth_config"
@@ -114,7 +115,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "fafc901add3e"
+    "dataHash": "d4e01b392241"
   },
   {
     "id": "simplevisuals",

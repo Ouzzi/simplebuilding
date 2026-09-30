@@ -337,7 +337,8 @@
       "description": "Bounded playful mechanics, throwable bricks, cosmetic transformations and farm-animal heads.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth_config"
@@ -370,6 +371,18 @@
           "neoforge": {
             "task": ":modules:simplefun:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplefun/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplefun:forge:runGameTestServer",
+            "report": "modules/simplefun/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -386,7 +399,7 @@
         "shared": "modules/simplefun/shared",
         "fabric": "modules/simplefun/fabric",
         "neoforge": "modules/simplefun/neoforge",
-        "forge": null,
+        "forge": "modules/simplefun/forge",
         "generated": "modules/simplefun/generated/resources",
         "lang": "modules/simplefun/shared/resources/assets/simplefun/lang",
         "wikiManual": "modules/simplefun/wiki/manual.json",
@@ -394,7 +407,8 @@
       },
       "projects": {
         "fabric": ":modules:simplefun:fabric",
-        "neoforge": ":modules:simplefun:neoforge"
+        "neoforge": ":modules:simplefun:neoforge",
+        "forge": ":modules:simplefun:forge"
       }
     },
     {
