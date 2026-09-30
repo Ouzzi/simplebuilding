@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "simplequalityoflife",
+  "version": "${version}",
+  "name": "Simple Quality of Life",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplequalityoflife.FabricExample"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplequalityoflife.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplequalityoflife.QolFabricClient"
+    ],
+    "modmenu": [
+      "com.simplebuilding.modules.simplequalityoflife.QolModMenu"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "cloth-config": "*",
+    "fabric-api": "*"
+  },
+  "mixins": [
+    "simplequalityoflife-common.mixins.json"
+  ]
+}

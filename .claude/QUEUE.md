@@ -86,3 +86,8 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 - Simple Sounds: neues 26.3-Modul, zw?lf datengetriebene Soundgegenst?cke, lokale Stufen/Overrides und harte Spam-/Lautst?rkegrenzen; Besitzerabnahme offen.
 - Simple Sounds umgesetzt/verifiziert: 34 Modul-Servertests, drei Fabric-Clientpunkte, zehn Testzentralenfaelle und finales Gradle-Gate gruen; akustische Besitzerabnahme offen, kein Push/Merge.
+
+## Simple Quality of Life 26.3 (Codex, codex-port-qol)
+- [ ] Port der aktiven 1.0.6-Multiloaderquelle auf Fabric/NeoForge 26.3, Server-Caps/Anti-Cheat, vollstaendige Modulpruefungen, Wiki/Daten und Ideenliste. Keine neuen Ideen implementieren; Forge und andere Linien bleiben separat.
+
+- [x] Simple Quality of Life 26.3 fertig: Fabric/NeoForge, 48/48 Modul-Servertests und 5/5 Fabric-Client-Pruefpunkte gruen; Bestand 1562/1562, Integration 1/1 und check gruen. Wiki/Config/Balancedaten/Ideenliste vorhanden. Besitzer-Abnahme, NeoForge-Client/alte Welt/Fremd-Claims sowie Forge/andere Linien bleiben offen; kein Push/Merge.

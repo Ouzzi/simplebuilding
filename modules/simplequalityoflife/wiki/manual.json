@@ -1,0 +1,537 @@
+{
+  "features": [
+    {
+      "id": "crawl",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/PlayerEntityCrawlMixin.java"
+      ],
+      "en": {
+        "title": "Manual crawling",
+        "summary": "P or /crawl sets the synchronized swimming pose. Jump exits. Commands are limited to one change per 10 ticks; spectators and passengers are refused."
+      },
+      "de": {
+        "title": "Manuelles Kriechen",
+        "summary": "P oder /crawl setzt die synchronisierte Schwimmpose. Springen beendet das Kriechen. Maximal eine Aenderung je 10 Ticks; Zuschauer und Passagiere werden abgewiesen."
+      }
+    },
+    {
+      "id": "autowalk",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/client/SimplequalityoflifeClient.java"
+      ],
+      "en": {
+        "title": "Auto-walk",
+        "summary": "R toggles ordinary forward input only when the server enables qOL.enableAutowalk (default false). Opening a screen or leaving the world stops it. A click sound signals the change. It adds no speed or reach."
+      },
+      "de": {
+        "title": "Automatisch laufen",
+        "summary": "R schaltet normale Vorwaertseingabe nur bei Serverfreigabe qOL.enableAutowalk (Standard false). Bildschirm oeffnen oder Welt verlassen beendet sie. Ein Klickton meldet die Aenderung. Kein Tempo- oder Reichweitenbonus."
+      }
+    },
+    {
+      "id": "climbing",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/LadderSpeedMixin.java"
+      ],
+      "en": {
+        "title": "Climbing and sliding",
+        "summary": "Climbing speed defaults to 0.4 blocks/tick (range 0.2–0.4). Slide speed defaults to 0.8 (range 0.15–0.8). CAMERA requires looking down and sneaking; ALWAYS requires looking down without sneaking. The server rejects excess vertical movement on climbable blocks with a bounded latency allowance."
+      },
+      "de": {
+        "title": "Klettern und Rutschen",
+        "summary": "Klettertempo standardmaessig 0.4 Bloecke/Tick (0.2–0.4), Rutschtempo 0.8 (0.15–0.8). CAMERA verlangt Blick nach unten und Schleichen; ALWAYS Blick nach unten ohne Schleichen. Der Server weist ueberhoehte Bewegung auf kletterbaren Bloecken mit begrenztem Latenzspielraum ab."
+      }
+    },
+    {
+      "id": "powder_snow",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/PowderSnowWalkMixin.java"
+      ],
+      "en": {
+        "title": "Frost Walker on powder snow",
+        "summary": "Frost Walker permits walking on powder snow. Enabled by frostWalkerWalkOnPowderSnow, default true."
+      },
+      "de": {
+        "title": "Eislaeufer auf Pulverschnee",
+        "summary": "Eislaeufer erlaubt das Gehen auf Pulverschnee. frostWalkerWalkOnPowderSnow ist standardmaessig true."
+      }
+    },
+    {
+      "id": "farmland",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/util/Protection.java"
+      ],
+      "en": {
+        "title": "Feather Falling farmland protection",
+        "summary": "Feather Falling boots prevent trampling. This complements SimpleBuilding Breeze head protection. Enabled by qOL.preventFarmlandTrampleWithFeatherFalling, default true."
+      },
+      "de": {
+        "title": "Federfall schuetzt Ackerland",
+        "summary": "Federfallstiefel verhindern Zertrampeln. Dies ergaenzt den Breezekopf-Schutz aus SimpleBuilding. qOL.preventFarmlandTrampleWithFeatherFalling ist standardmaessig true."
+      }
+    },
+    {
+      "id": "hoe_harvest",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/event/HoeHarvestHandler.java"
+      ],
+      "en": {
+        "title": "Hoe harvest and replant",
+        "summary": "Main-hand hoes harvest mature wheat, carrots, potatoes, beetroot, nether wart, and cocoa. One seed is taken from the actual loot; survival costs one durability. Server reach, world border, spawn protection, build rights, loader break vetoes, and a four-tick action limit are enforced."
+      },
+      "de": {
+        "title": "Mit Hacke ernten und nachpflanzen",
+        "summary": "Hacke in der Haupthand erntet reifen Weizen, Karotten, Kartoffeln, Rote Bete, Netherwarzen und Kakao. Ein Samen stammt aus echter Beute; im Ueberleben kostet es eine Haltbarkeit. Server prueft Reichweite, Weltgrenze, Spawnschutz, Baurechte, Loader-Abbruch und vier Ticks Aktionspause."
+      }
+    },
+    {
+      "id": "furnace_lava",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/event/FurnaceLavaFillHandler.java"
+      ],
+      "en": {
+        "title": "Furnace lava fill",
+        "summary": "Either hand inserts one lava bucket into a furnace, blast furnace, or smoker with an empty fuel slot or one leftover empty bucket. Locked furnaces and sneaking are excluded. Survival consumes the lava bucket; an existing empty bucket is returned exactly once. SimpleBuilding furnace subclasses are supported through the Vanilla interface."
+      },
+      "de": {
+        "title": "Ofen mit Lava fuellen",
+        "summary": "Beide Haende koennen einen Lavaeimer in Ofen, Hochofen oder Raeucherofen mit leerem Brennstoffplatz oder einem leeren Eimer einsetzen. Verschlossene Oefen und Schleichen sind ausgeschlossen. Ueberleben verbraucht Lava; ein vorhandener Eimer wird genau einmal zurueckgegeben. SimpleBuilding-Ofenunterklassen nutzen die Vanilla-Schnittstelle."
+      }
+    },
+    {
+      "id": "grass",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/SharpnessGrassCutMixin.java"
+      ],
+      "en": {
+        "title": "Sharpness cuts vegetation",
+        "summary": "Sharpness III or higher on a sword or axe clears explicit small vegetation overlapping the attacked entity. Sneaking disables it. At most 27 positions within 4.5 blocks are considered; loader break vetoes and action cooldown apply. The matching vegetation outline is hidden."
+      },
+      "de": {
+        "title": "Schaerfe schneidet Pflanzen",
+        "summary": "Schaerfe III oder hoeher auf Schwert oder Axt entfernt kleine Pflanzen am angegriffenen Wesen. Schleichen deaktiviert es. Hoechstens 27 Positionen innerhalb 4.5 Bloecken; Loader-Abbruch und Aktionspause gelten. Passende Pflanzenumrisse werden verborgen."
+      }
+    },
+    {
+      "id": "durability",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/FullDurabilityDamageMixin.java"
+      ],
+      "en": {
+        "title": "Durability bonus",
+        "summary": "Damageable held items with at least 80% durability receive a 1.5× attack damage and mining speed bonus by default. Threshold is bounded to 0.8–1 and multiplier to 1–1.5. Server config controls gameplay."
+      },
+      "de": {
+        "title": "Haltbarkeitsbonus",
+        "summary": "Gehaltene beschaedigbare Items mit mindestens 80% Haltbarkeit erhalten standardmaessig 1.5-fachen Angriffsschaden und Abbaugeschwindigkeit. Schwelle 0.8–1, Faktor 1–1.5. Serverconfig steuert das Spiel."
+      }
+    },
+    {
+      "id": "mute",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/EntityMuteMixin.java"
+      ],
+      "en": {
+        "title": "Mute mobs",
+        "summary": "qOL.mutedEntities selects entity IDs. Names ending in _mute or _shhh are silent by default. Lists accept at most 64 nonempty distinct entries of at most 64 characters. Existing Vanilla silent state remains effective."
+      },
+      "de": {
+        "title": "Kreaturen stummschalten",
+        "summary": "qOL.mutedEntities waehlt Wesen-IDs. Namen mit _mute oder _shhh sind standardmaessig stumm. Listen erlauben maximal 64 verschiedene nichtleere Eintraege mit je 64 Zeichen. Vanilla-Stummzustand bleibt erhalten."
+      }
+    },
+    {
+      "id": "baby",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/PassiveEntityMixin.java"
+      ],
+      "en": {
+        "title": "Permanent babies",
+        "summary": "Every 100 ticks, named ageable mobs ending in _baby or _small are set to age -24000. The source also makes named adults young again; this behavior is preserved. Removing the suffix allows aging again."
+      },
+      "de": {
+        "title": "Dauerhafte Jungtiere",
+        "summary": "Alle 100 Ticks werden benannte alternde Wesen mit _baby oder _small auf Alter -24000 gesetzt. Die Quelle macht damit auch Erwachsene wieder jung; das bleibt erhalten. Suffix entfernen erlaubt Altern."
+      }
+    },
+    {
+      "id": "piglins",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/PiglinGoldMixin.java"
+      ],
+      "en": {
+        "title": "Piglin gold equipment",
+        "summary": "Gold armor trims or a golden sword, spear, pickaxe, axe, shovel, or hoe in either hand count as safe equipment. The two switches default true. This does not prevent anger caused by attacking or opening containers."
+      },
+      "de": {
+        "title": "Goldausruestung fuer Piglins",
+        "summary": "Goldbesatz oder goldenes Schwert, Speer, Spitzhacke, Axt, Schaufel oder Hacke in einer Hand gelten als sichere Ausruestung. Beide Schalter standardmaessig true. Angriff oder Behaelteroeffnen kann weiterhin Wut ausloesen."
+      }
+    },
+    {
+      "id": "weather",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/ServerWeatherMixin.java"
+      ],
+      "en": {
+        "title": "Weather controls",
+        "summary": "qOL.disableWeather (default false) clears rain and thunder and skips weather progression. qOL.clientRainParticleDensity is a local visual preference, default 20, bounded 0–100; it never changes server weather."
+      },
+      "de": {
+        "title": "Wettersteuerung",
+        "summary": "qOL.disableWeather (Standard false) loescht Regen und Gewitter und stoppt Wetterfortschritt. qOL.clientRainParticleDensity ist eine lokale Darstellungseinstellung, Standard 20, Grenze 0–100; Serverwetter bleibt davon unabhaengig."
+      }
+    },
+    {
+      "id": "vault",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/VaultServerDataMixin.java"
+      ],
+      "en": {
+        "title": "Vault cooldown",
+        "summary": "A player may loot a vault again after qOL.vaultCooldownDays, default 100 Minecraft days, bounded 1–36500. The original SimpleBuildingLootTimes UUID-to-time map is retained. Missing timestamps on already rewarded entries start a cooldown rather than granting free repeat loot; backwards time does not unlock rewards."
+      },
+      "de": {
+        "title": "Tresor-Abklingzeit",
+        "summary": "Ein Spieler darf nach qOL.vaultCooldownDays erneut plundern, Standard 100 Minecraft-Tage, Grenze 1–36500. Die originale SimpleBuildingLootTimes-UUID-Zeitkarte bleibt. Fehlende Zeitstempel bereits belohnter Spieler beginnen eine Pause statt Gratisbeute; rueckwaerts laufende Zeit entsperrt nichts."
+      }
+    },
+    {
+      "id": "config_frostWalkerWalkOnPowderSnow",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "frostWalkerWalkOnPowderSnow",
+        "summary": "Server setting (rain density is a local visual preference). Default: true."
+      },
+      "de": {
+        "title": "frostWalkerWalkOnPowderSnow",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
+      }
+    },
+    {
+      "id": "config_qOL_enableAutowalk",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.enableAutowalk",
+        "summary": "Server setting (rain density is a local visual preference). Default: false."
+      },
+      "de": {
+        "title": "qOL.enableAutowalk",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: false."
+      }
+    },
+    {
+      "id": "config_qOL_mutedEntities",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.mutedEntities",
+        "summary": "Server setting (rain density is a local visual preference). Default: []."
+      },
+      "de": {
+        "title": "qOL.mutedEntities",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: []."
+      }
+    },
+    {
+      "id": "config_qOL_nametagMuteSuffixes",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.nametagMuteSuffixes",
+        "summary": "Server setting (rain density is a local visual preference). Default: [\"_mute\", \"_shhh\"]."
+      },
+      "de": {
+        "title": "qOL.nametagMuteSuffixes",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: [\"_mute\", \"_shhh\"]."
+      }
+    },
+    {
+      "id": "config_qOL_nametagBabySuffixes",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.nametagBabySuffixes",
+        "summary": "Server setting (rain density is a local visual preference). Default: [\"_baby\", \"_small\"]."
+      },
+      "de": {
+        "title": "qOL.nametagBabySuffixes",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: [\"_baby\", \"_small\"]."
+      }
+    },
+    {
+      "id": "config_qOL_preventFarmlandTrampleWithFeatherFalling",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.preventFarmlandTrampleWithFeatherFalling",
+        "summary": "Server setting (rain density is a local visual preference). Default: true."
+      },
+      "de": {
+        "title": "qOL.preventFarmlandTrampleWithFeatherFalling",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
+      }
+    },
+    {
+      "id": "config_qOL_sharpnessCutsGrass",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.sharpnessCutsGrass",
+        "summary": "Server setting (rain density is a local visual preference). Default: true."
+      },
+      "de": {
+        "title": "qOL.sharpnessCutsGrass",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
+      }
+    },
+    {
+      "id": "config_qOL_enableHoeHarvest",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.enableHoeHarvest",
+        "summary": "Server setting (rain density is a local visual preference). Default: true."
+      },
+      "de": {
+        "title": "qOL.enableHoeHarvest",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
+      }
+    },
+    {
+      "id": "config_qOL_enableFurnaceLavaFill",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.enableFurnaceLavaFill",
+        "summary": "Server setting (rain density is a local visual preference). Default: true."
+      },
+      "de": {
+        "title": "qOL.enableFurnaceLavaFill",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
+      }
+    },
+    {
+      "id": "config_qOL_ladderClimbingSpeed",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.ladderClimbingSpeed",
+        "summary": "Server setting (rain density is a local visual preference). Default: 0.4."
+      },
+      "de": {
+        "title": "qOL.ladderClimbingSpeed",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 0.4."
+      }
+    },
+    {
+      "id": "config_qOL_enableFastLadderSlide",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.enableFastLadderSlide",
+        "summary": "Server setting (rain density is a local visual preference). Default: true."
+      },
+      "de": {
+        "title": "qOL.enableFastLadderSlide",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
+      }
+    },
+    {
+      "id": "config_qOL_ladderSlideSpeed",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.ladderSlideSpeed",
+        "summary": "Server setting (rain density is a local visual preference). Default: 0.8."
+      },
+      "de": {
+        "title": "qOL.ladderSlideSpeed",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 0.8."
+      }
+    },
+    {
+      "id": "config_qOL_ladderSlideActivation",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.ladderSlideActivation",
+        "summary": "Server setting (rain density is a local visual preference). Default: \"CAMERA\"."
+      },
+      "de": {
+        "title": "qOL.ladderSlideActivation",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: \"CAMERA\"."
+      }
+    },
+    {
+      "id": "config_qOL_vaultCooldownDays",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.vaultCooldownDays",
+        "summary": "Server setting (rain density is a local visual preference). Default: 100."
+      },
+      "de": {
+        "title": "qOL.vaultCooldownDays",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 100."
+      }
+    },
+    {
+      "id": "config_qOL_enableFullDurabilityBonus",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.enableFullDurabilityBonus",
+        "summary": "Server setting (rain density is a local visual preference). Default: true."
+      },
+      "de": {
+        "title": "qOL.enableFullDurabilityBonus",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
+      }
+    },
+    {
+      "id": "config_qOL_fullDurabilityThreshold",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.fullDurabilityThreshold",
+        "summary": "Server setting (rain density is a local visual preference). Default: 0.8."
+      },
+      "de": {
+        "title": "qOL.fullDurabilityThreshold",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 0.8."
+      }
+    },
+    {
+      "id": "config_qOL_fullDurabilityBonusMultiplier",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.fullDurabilityBonusMultiplier",
+        "summary": "Server setting (rain density is a local visual preference). Default: 1.5."
+      },
+      "de": {
+        "title": "qOL.fullDurabilityBonusMultiplier",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 1.5."
+      }
+    },
+    {
+      "id": "config_qOL_piglinsIgnoreGoldTrims",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.piglinsIgnoreGoldTrims",
+        "summary": "Server setting (rain density is a local visual preference). Default: true."
+      },
+      "de": {
+        "title": "qOL.piglinsIgnoreGoldTrims",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
+      }
+    },
+    {
+      "id": "config_qOL_piglinsIgnoreGoldTools",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.piglinsIgnoreGoldTools",
+        "summary": "Server setting (rain density is a local visual preference). Default: true."
+      },
+      "de": {
+        "title": "qOL.piglinsIgnoreGoldTools",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: true."
+      }
+    },
+    {
+      "id": "config_qOL_disableWeather",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.disableWeather",
+        "summary": "Server setting (rain density is a local visual preference). Default: false."
+      },
+      "de": {
+        "title": "qOL.disableWeather",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: false."
+      }
+    },
+    {
+      "id": "config_qOL_clientRainParticleDensity",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.clientRainParticleDensity",
+        "summary": "Server setting (rain density is a local visual preference). Default: 20."
+      },
+      "de": {
+        "title": "qOL.clientRainParticleDensity",
+        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 20."
+      }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\command\\ModCommands.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/crawl is available to players. Owner-level /simplequalityoflife offers vaults cooldown; tweaks fullDurabilityBonus, autowalk, farmlandProtect, frostWalkerSnow, hoeHarvest, furnaceLava, sharpnessCut, ladderSpeed; muteSuffixes and babySuffixes list/add/remove/clear. Changes are saved to config/simplequalityoflife.json."
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/crawl ist fuer Spieler. Besitzerberechtigung: /simplequalityoflife mit vaults cooldown; tweaks fullDurabilityBonus, autowalk, farmlandProtect, frostWalkerSnow, hoeHarvest, furnaceLava, sharpnessCut, ladderSpeed; muteSuffixes und babySuffixes list/add/remove/clear. Speichern in config/simplequalityoflife.json."
+      }
+    },
+    {
+      "id": "config_qOL_enableManualCrawl",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "Manual Crawling",
+        "summary": "Allow /crawl and the crawl key. The server validates and limits changes. Default: true."
+      },
+      "de": {
+        "title": "Manuelles Kriechen",
+        "summary": "/crawl und die Kriechtaste erlauben. Der Server prüft und begrenzt Änderungen. Standard: true."
+      }
+    },
+    {
+      "id": "config_qOL_enableVaultCooldown",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "Repeat Vault Rewards",
+        "summary": "Allow repeat vault rewards after the server cooldown. Disable to retain Vanilla one-time rewards. Default: true."
+      },
+      "de": {
+        "title": "Erneute Tresorbelohnungen",
+        "summary": "Erneute Tresorbelohnungen nach der Serverpause erlauben. Abschalten behält einmalige Vanilla-Belohnungen. Standard: true."
+      }
+    }
+  ],
+  "notes": {}
+}
