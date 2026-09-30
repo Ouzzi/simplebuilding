@@ -29,6 +29,13 @@ public final class MoneyTests {
   ALL.put("money_game_test_config",MoneyTests::config);
   ALL.put("money_game_test_languages_and_assets",MoneyTests::languagesAndAssets);
   ALL.put("money_game_test_simplebuilding_storage",MoneyTests::storage);
+  ALL.put("money_game_test_link_conditions",LinkTests::conditions);
+  ALL.put("money_game_test_link_offers",LinkTests::offers);
+  ALL.put("money_game_test_link_bounds",LinkTests::bounds);
+  ALL.put("money_game_test_link_rarity",LinkTests::rarity);
+  ALL.put("money_game_test_link_budgets",LinkTests::budgets);
+  ALL.put("money_game_test_link_menu",LinkTests::menu);
+  ALL.put("money_game_test_link_no_arbitrage",LinkTests::noArbitrage);
  }
  private static Identifier id(String path) {return Identifier.fromNamespaceAndPath("simplemoney",path);}
  public static void launchSmoke(GameTestHelper h) {

@@ -46,7 +46,7 @@ assert {r["result"]["id"].split(":")[1] for r in recipes.values()
         if r["result"]["id"].startswith("simplemoney:")} == IDS
 
 trades = {"simplemoney:" + p.relative_to(data / "villager_trade").with_suffix("").as_posix(): read(p)
-          for p in (data / "villager_trade").rglob("*.json")}
+          for p in (data / "villager_trade").rglob("*.json") if "links" not in p.parts}
 expected = read(MODULE / "shared/resources/data/simplemoney/testing/source-trades.json")
 assert len(expected) == len(trades) == 47
 # These are distinct source scopes despite repeated local variable names.
@@ -59,7 +59,7 @@ for row in expected:
 
 tags = [read(p) for p in (MODULE / "generated/resources/data/minecraft/tags/villager_trade").rglob("*.json")]
 assert all(not tag["replace"] for tag in tags)
-assert {v["id"] for tag in tags for v in tag["values"]} == trades.keys()
+assert {v["id"] for tag in tags for v in tag["values"] if ":links/" not in v["id"]} == trades.keys()
 assert all(not v["required"] for tag in tags for v in tag["values"]), "Disabled trades need optional tags"
 
 manual = read(MODULE / "wiki/manual.json")
@@ -68,7 +68,8 @@ assert len({f["id"] for f in features}) == len(features)
 assert IDS <= {f["id"] for f in features}
 documented = {source for f in features for source in f["sources"]}
 for path in list((data / "recipe").glob("*.json")) + list((data / "villager_trade").rglob("*.json")):
-    assert path.relative_to(ROOT).as_posix() in documented, f"Missing prose: {path}"
+    if "links" not in path.parts:
+        assert path.relative_to(ROOT).as_posix() in documented, f"Missing prose: {path}"
 for feature in features:
     for locale in ("en", "de"):
         assert feature[locale]["title"] and feature[locale]["summary"] and feature[locale]["details"]
@@ -89,3 +90,63 @@ for row in balance:
     row.pop("level")
     assert row == trades[identity], f"Balance data drift: {identity}"
 print("Simple Money data: 7 items, 8 recipes, 47 trades, bilingual wiki/assets/manifest/balance complete")
+
+from generate_links import outputs
+for path, content in outputs().items():
+    assert read(path) == content, f"Linked data drift: {path}"
+linked = read(data / "money/prices.json")["prices"]
+assert len({p["item"] for p in linked}) == len(linked)
+for p in linked:
+    offer = read(data / f"villager_trade/links/{p['item'].replace(':', '/')}.json")
+    assert offer["wants"]["id"] == "simplemoney:money_bill" and offer["gives"]["count"] == 1
+    assert offer["reputation_discount"] == 0 and offer["xp"] == 0
+    assert 8 <= offer["wants"]["count"] <= 64 and offer["max_uses"] <= 4
+    assert any(c["flag"] == "links:" + p["item"].split(":")[0] for c in offer["fabric:load_conditions"])
+tables = {p.parent.name for p in (MODULE / "shared/resources/data/simplemoney/money").glob("*/prices.json")}
+assert tables == {e["id"] for e in manifest["modules"] if e["id"] != "simplemoney"}, "Missing module price table"
+for language in languages:
+    assert "text.autoconfig.simplemoney.category.links" in language
+    for key, default in {"enabled":"true", "billsPerHour":"1", "rarityStep":"3", "craftWeight":"1", "stock":"2", "dailyLimit":"8", "cooldownTicks":"100"}.items():
+        prefix = "text.autoconfig.simplemoney.option.links." + key
+        assert prefix in language and default in language[prefix + ".tooltip"]
+    assert "jei.simplemoney.links" in language
+print(f"Money links: {len(linked)} bounded buy-only prices, {len(tables)} conditional module tables, additive tags and bilingual options")
+
+# Conservative salvage audit against unchanged Money diamond exchanges: assume
+# the old offer is discounted all the way to ONE diamond for TWO bills. Follow
+# single-material crafting/smelting/stonecutting chains including uncrafting.
+from fractions import Fraction
+recipe_rows = {}
+for directory in (ROOT / "src/main/generated/data/simplebuilding/recipe", ROOT / "mc26_3/generated/data/simplebuilding/recipe"):
+    for path in directory.glob("*.json"):
+        recipe_rows[path.name] = read(path)
+edges = []
+for recipe in recipe_rows.values():
+    output = recipe.get("result", {})
+    if not isinstance(output, dict) or not output.get("id"):
+        continue
+    if "pattern" in recipe:
+        ingredients = [recipe["key"][char] for line in recipe["pattern"] for char in line if char != " "]
+    else:
+        ingredients = recipe.get("ingredients", []) or [recipe[k] for k in ("ingredient", "base", "addition", "template") if k in recipe]
+    names = [x if isinstance(x, str) else x.get("item") if isinstance(x, dict) else None for x in ingredients]
+    if names and all(names) and len(set(names)) == 1 and not names[0].startswith("#"):
+        edges.append((names[0], output["id"], Fraction(output.get("count", 1), len(names))))
+salvage = {"minecraft:diamond": Fraction(2)}
+for _ in range(len(edges) + 1):
+    changed = False
+    for source, result, factor in edges:
+        value = salvage.get(result, 0) * factor
+        if value > salvage.get(source, 0):
+            salvage[source] = value
+            changed = True
+    if not changed:
+        break
+else:
+    raise AssertionError("Profitable material-conversion cycle: requires economic review")
+for row in linked:
+    offer = read(data / f"villager_trade/links/{row['item'].replace(':', '/')}.json")
+    import math
+    minimum = min(64, max(row["safetyFloor"], math.ceil(row["hours"] + row["tier"] * 2 + row["craft"])))
+    assert salvage.get(row["item"], 0) < minimum, f"Salvage can profit at minimum allowed configuration: {row['item']}"
+print("Money links salvage audit: no diamond-exchange profit through single-material recipe/uncrafting chains")

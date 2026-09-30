@@ -1,0 +1,295 @@
+{
+  "armorer/level_2.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:armorer/25",
+        "required": false
+      }
+    ]
+  },
+  "armorer/level_3.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:armorer/26",
+        "required": false
+      },
+      {
+        "id": "simplemoney:armorer/27",
+        "required": false
+      }
+    ]
+  },
+  "armorer/level_4.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:armorer/28",
+        "required": false
+      },
+      {
+        "id": "simplemoney:armorer/29",
+        "required": false
+      }
+    ]
+  },
+  "armorer/level_5.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:armorer/30",
+        "required": false
+      },
+      {
+        "id": "simplemoney:armorer/31",
+        "required": false
+      },
+      {
+        "id": "simplemoney:armorer/32",
+        "required": false
+      }
+    ]
+  },
+  "cleric/level_1.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:cleric/08",
+        "required": false
+      },
+      {
+        "id": "simplemoney:cleric/09",
+        "required": false
+      }
+    ]
+  },
+  "farmer/level_1.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:farmer/18",
+        "required": false
+      },
+      {
+        "id": "simplemoney:farmer/19",
+        "required": false
+      },
+      {
+        "id": "simplemoney:farmer/20",
+        "required": false
+      },
+      {
+        "id": "simplemoney:farmer/21",
+        "required": false
+      },
+      {
+        "id": "simplemoney:farmer/22",
+        "required": false
+      }
+    ]
+  },
+  "farmer/level_2.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:farmer/23",
+        "required": false
+      },
+      {
+        "id": "simplemoney:farmer/24",
+        "required": false
+      }
+    ]
+  },
+  "fletcher/level_1.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:fletcher/00",
+        "required": false
+      },
+      {
+        "id": "simplemoney:fletcher/01",
+        "required": false
+      }
+    ]
+  },
+  "fletcher/level_3.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:fletcher/02",
+        "required": false
+      }
+    ]
+  },
+  "librarian/level_1.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:librarian/03",
+        "required": false
+      }
+    ]
+  },
+  "librarian/level_2.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:librarian/04",
+        "required": false
+      }
+    ]
+  },
+  "librarian/level_3.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:librarian/05",
+        "required": false
+      }
+    ]
+  },
+  "librarian/level_4.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:librarian/06",
+        "required": false
+      }
+    ]
+  },
+  "librarian/level_5.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:librarian/07",
+        "required": false
+      }
+    ]
+  },
+  "mason/level_1.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:mason/10",
+        "required": false
+      },
+      {
+        "id": "simplemoney:mason/11",
+        "required": false
+      },
+      {
+        "id": "simplemoney:mason/12",
+        "required": false
+      },
+      {
+        "id": "simplemoney:mason/13",
+        "required": false
+      },
+      {
+        "id": "simplemoney:mason/14",
+        "required": false
+      }
+    ]
+  },
+  "mason/level_2.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:mason/15",
+        "required": false
+      },
+      {
+        "id": "simplemoney:mason/16",
+        "required": false
+      },
+      {
+        "id": "simplemoney:mason/17",
+        "required": false
+      }
+    ]
+  },
+  "toolsmith/level_3.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:toolsmith/33",
+        "required": false
+      },
+      {
+        "id": "simplemoney:toolsmith/34",
+        "required": false
+      }
+    ]
+  },
+  "toolsmith/level_4.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:toolsmith/35",
+        "required": false
+      },
+      {
+        "id": "simplemoney:toolsmith/36",
+        "required": false
+      }
+    ]
+  },
+  "toolsmith/level_5.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:toolsmith/37",
+        "required": false
+      },
+      {
+        "id": "simplemoney:toolsmith/38",
+        "required": false
+      },
+      {
+        "id": "simplemoney:toolsmith/39",
+        "required": false
+      }
+    ]
+  },
+  "wandering_trader/common.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:wandering_trader/40",
+        "required": false
+      },
+      {
+        "id": "simplemoney:wandering_trader/41",
+        "required": false
+      }
+    ]
+  },
+  "wandering_trader/uncommon.json": {
+    "replace": false,
+    "values": [
+      {
+        "id": "simplemoney:wandering_trader/42",
+        "required": false
+      },
+      {
+        "id": "simplemoney:wandering_trader/43",
+        "required": false
+      },
+      {
+        "id": "simplemoney:wandering_trader/44",
+        "required": false
+      },
+      {
+        "id": "simplemoney:wandering_trader/45",
+        "required": false
+      },
+      {
+        "id": "simplemoney:wandering_trader/46",
+        "required": false
+      }
+    ]
+  }
+}

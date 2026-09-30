@@ -54,10 +54,19 @@ window.WIKI_MODULES = [
       "cloth_config"
     ],
     "optional": [
+      "jei",
+      "modmenu",
       "simplebuilding",
-      "modmenu"
+      "simplefun",
+      "simplemodels",
+      "simplequalityoflife",
+      "simpleriding",
+      "simplesounds",
+      "simpletweaks",
+      "simplevisuals",
+      "wiringexample"
     ],
-    "dataHash": "cfa5d61c1f19"
+    "dataHash": "6d0c27e9ec11"
   },
   {
     "id": "simpleriding",

@@ -20,6 +20,114 @@
     {
       "id": "simplemoney:mason/14",
       "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/backpack",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/blackstone_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/bogged_skull",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/construction_light",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/copper_spatula",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/exposed_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/funny_stick",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/lapis_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/leather_sheet",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/oxidized_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_end_stone",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/purpur_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/quiver",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_shulker_box",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_sticky_piston",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/resin_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/spawn_teleporter_tier_3",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/spawn_teleporter_tier_4",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/stone_spatula",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/stray_skull",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/waxed_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/waxed_exposed_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/waxed_oxidized_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/waxed_weathered_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/weathered_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplefun/brick_snowball",
+      "required": false
     }
   ]
 }

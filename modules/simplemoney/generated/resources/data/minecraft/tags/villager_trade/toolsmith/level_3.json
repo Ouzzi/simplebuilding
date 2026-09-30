@@ -8,6 +8,90 @@
     {
       "id": "simplemoney:toolsmith/34",
       "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/detector",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/gold_building_wand",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/gold_chisel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/gold_sledgehammer",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_black",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_blue",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_brown",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_cyan",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_gray",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_green",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_light_blue",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_light_gray",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_lime",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_magenta",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_orange",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_pink",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_purple",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_red",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_white",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/octant_yellow",
+      "required": false
     }
   ]
 }

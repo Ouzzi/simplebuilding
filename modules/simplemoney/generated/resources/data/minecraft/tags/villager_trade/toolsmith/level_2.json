@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:links/simplebuilding/amethyst_lens",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/iron_building_wand",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/iron_chisel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/iron_sledgehammer",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/magnet",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/rotator",
+      "required": false
+    }
+  ]
+}

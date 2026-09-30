@@ -1,0 +1,33 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 21
+  },
+  "gives": {
+    "id": "simplebuilding:octant_purple",
+    "count": 1
+  },
+  "max_uses": 2,
+  "xp": 0,
+  "reputation_discount": 0,
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "links:simplebuilding"
+    },
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "links:simplebuilding"
+    },
+    {
+      "type": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ]
+}

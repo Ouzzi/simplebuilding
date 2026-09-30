@@ -111,3 +111,6 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - Forge Modules 2: experimental Forge 26.3 adapters for Simple Sounds, Simple Quality of Life and Simple Tweaks; separate commits, no push/merge.
 
 - [x] Forge Modules 2: Simple Sounds, Simple Quality of Life and Simple Tweaks experimental Forge 26.3 adapters; separate module commits, final 2828/2828 alles gruen and default check exit 0. Forge client/owner acceptance remains open; no push/merge.
+- [ ] MONEY-LINKS (codex-money-links): additive conditional 26.3 money trades, per-module price tables, bounded server formula and persistent anti-spam budgets; no push/merge.
+
+- [x] MONEY-LINKS 26.3 on codex-money-links: 243 buy-only conditional offers, bounded formula/budgets, nine tables, EN/DE/wiki/JEI; Money 34/34, off-switch 2/2, integration 1/1, centres 10/10, Fabric client 4/4 and final check Exit 0. Owner price/pool/buy-only acceptance remains open; no push/merge.

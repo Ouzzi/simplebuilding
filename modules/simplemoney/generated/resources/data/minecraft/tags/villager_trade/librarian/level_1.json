@@ -4,6 +4,30 @@
     {
       "id": "simplemoney:librarian/03",
       "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/basic_upgrade_template",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/emitting_trim_template",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/glowing_trim_template",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/guide_book",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/guide_book_vanilla_start",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/pulsating_trim_template",
+      "required": false
     }
   ]
 }

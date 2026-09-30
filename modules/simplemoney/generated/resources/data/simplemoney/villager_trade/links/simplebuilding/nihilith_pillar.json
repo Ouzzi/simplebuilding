@@ -1,0 +1,37 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 46
+  },
+  "gives": {
+    "id": "simplebuilding:nihilith_pillar",
+    "count": 1
+  },
+  "max_uses": 1,
+  "xp": 0,
+  "reputation_discount": 0,
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "links:simplebuilding"
+    },
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableWanderingTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "links:simplebuilding"
+    },
+    {
+      "type": "simplemoney:config",
+      "flag": "enableWanderingTrades"
+    }
+  ],
+  "merchant_predicate": {
+    "type": "minecraft:random_chance",
+    "chance": 0.1
+  }
+}

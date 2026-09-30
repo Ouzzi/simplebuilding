@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.simplemoney.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "LinkedOfferMixin",
+    "LinkedTradeMixin",
+    "LinkedResultMixin",
+    "LinkedMenuMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

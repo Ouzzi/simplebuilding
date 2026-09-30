@@ -8,6 +8,18 @@
     {
       "id": "simplemoney:toolsmith/36",
       "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/diamond_building_wand",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/diamond_chisel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/diamond_sledgehammer",
+      "required": false
     }
   ]
 }
