@@ -4,6 +4,23 @@ Zuerst `AGENTS.md` vollständig lesen, dann diese Datei und `docs/ai/WORKFLOW.md
 Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alten Run-Berichten.
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
+## Stand Abend 2026-09-30 (Orchestrator)
+
+- Auf master: SimpleBuilding plus neun Module unter `modules/` (siehe `modules/modules.json`):
+  simplemoney, simpleriding, simplemodels, simplefun, simplevisuals, simplesounds,
+  simplequalityoflife, simpletweaks, simpledimensions. Fabric + NeoForge 26.3 immer, Forge 26.3
+  experimentell und opt-in (`-Pforge263=true`) fuer alle Module ausser simpledimensions.
+  Dazu: Money-Links (243 Kaufangebote), SimpleBuilding-Haertung (`docs/SB-HARDEN.md`),
+  Faktenpass, Sprach-Bridge (`tools/voicebridge`, `docs/ai/VOICE-HANDS-FREE.md`).
+- Gate auf 7c540a06: 1600/1600 Server (fabric-263 + neoforge-263), 393/393 Integration + alle Modulsuiten, alles gruen. Client-Smokes und Abnahmen im Spiel stehen aus (Liste in `.claude/QUEUE.md`).
+- Weiterarbeiten (auch am Laptop): `docs/ai/LAPTOP-SETUP.md`, `docs/ai/WORKFLOW.md`,
+  `python tools/ai/aitool.py status|codex|merge-module|gate`. Neue Module: `python tools/newmod.py`
+  (Vertrag `docs/MULTIMOD.md`, Forge-Rezept dort). Briefs liegen in `docs/ai/briefs/`, Memory in `docs/ai/memory/`.
+- Keine Laeufe mehr offen; alle `codex-*` Branches sind gemergt. Andere Linien (26.2, 1.21.11, 26.4)
+  warten auf die Release-Ankuendigung des Besitzers (Port-Run).
+- Bekannte Grenzen: NeoForge-Clients, echte Altwelten und Besitzerwelt ungeprueft; Forge ohne Cloth-Dialog;
+  Claims bleiben ausgeschaltet; Dimensions sperrt erkannte Claim-Mods ohne Adapter.
+
 ## VOICEBRIDGE (2026-09-30, Codex, Branch codex-voicebridge)
 - tools/voicebridge: stdlib-Server (8772, Loopback oder explizite Tailscale-IP), private Token-/CSRF-/Host-/Origin-Pruefung, Rate-/Body-Limits, Audit, Notaus und persistente Projekt-Sitzungen/Berichte. Kein pip im Standard, kein Minecraft-Code oder Port geaendert.
 - Handy/Laptop-PWA: grosse Tap-start/Tap-stop-Taste, Space, de-DE Browser-STT, Satzweise Vorlesen, Stop/Repeat, Haptik/Beep, Wake Lock, Media Session, Shell-Serviceworker und Raster-Installationsicons. Optional Whisper/Piper hinter getrennten Interfaces, standardmaessig aus.

@@ -23,3 +23,4 @@
 - [Immersion Welle 23 R](immersion-2026-09-28.md) — Pad-Zustaende, InfoTooltips, HUD-Taste, Jade/REI; EMI nicht verfuegbar
 - [Push nur nach gruenem Ergebnis](push-nur-nach-gruenem-ergebnis.md) — run.py endet auch bei Rot mit Exit 0; Push nie ungeprueft verketten
 - [Hauptlinie 26.3 zuerst](hauptlinie-26-3-zuerst.md) — ab 2026-09-29: erst 26.3 fertig + getestet, dann Port-Run fuer 26.2/Forge/1.21.11/26.4
+- [Teil-Pushes erlaubt](push-freigabe-teilweise-2026-09-30.md) — nach gruenem Gate nur die gategte SHA pushen; Filter blockt ohne Chat-Freigabe; rote Merges vom master nehmen

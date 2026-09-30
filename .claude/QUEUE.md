@@ -53,73 +53,22 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Rucksack-Sortierung (Reihenfolge vorbereitet), sobald eine Sortierfunktion kommt
 - [ ] Besitzer-Abnahme: Mega-Handbuecher im Client ansehen und Testzentrale in der Besitzerwelt neu bauen.
 - [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen
-- [ ] Weitere Ports als Module: riding, qol, visuals, models, dimensions, tweaks und fun; Money-Implementierung fertig, Abnahme separat offen.
-- [ ] Forge 26.3 für weitere Module und modulübergreifende Integrationstests/Gesamtgate; vorhandene Module sind bereits in Wiki und Zentrale.
+- [x] Weitere Ports als Module: riding, qol, visuals, models, dimensions, tweaks, fun, sounds und Money-Links (siehe Welle 25 unten); Abnahmen im Spiel offen.
+- [x] Forge 26.3 fuer acht Module (experimentell, opt-in) und modulübergreifende Integrationstests/Gesamtgate; offen nur simpledimensions.
 - [ ] Besitzer-Abnahme: 26.3-Signalkanaele und Astralgewoelbe im Client; Testzentrale in Besitzerwelt neu bauen.
 - [ ] Desktop-/Handy-Sichtprüfung von Wiki und Balancing-Zentrale.
 - [ ] Forge: echte Clientdarstellung, Config-Persistenz/optionale Integrationen und spätere Default-Einschaltung abnehmen.
 - [ ] Besitzer-Abnahme von Simple Money; NeoForge-Client/alte Spielwelt noch prüfen. Forge 26.3 und andere Linien später im Port-Run.
 - [x] TASK FACTS PASS: Texte/Code-Rezepte abgeglichen, DE/EN beider Sprachorte, Generatoren aktuell; check und 1562/1562 Server grün. Kein Gameplay, Push oder Merge; Besitzerabnahmen bleiben oben offen.
 
-- Besitzer-Wuensche 2026-09-30 (Briefs im Scratchpad codex/, erzeugt mit mkports2.py; erst NACH dem Plugin-Umbau der Modul-Registrierung, branch codex-port-riding, starten): visuals + mehr Vanilla-Partikel mit Stufen Off/Subtle/Normal/Strong/Maximum; NEUER Mod simplesounds (Klang-Gegenstueck je Visual-Effekt, gleiche Stufen); fun + weitere Spielereien + Schweine-/Kuh-/Huhn-/Schafkoepfe (Charged Creeper); money-links (Simple Money als Addon: zusaetzliche Handelsangebote fuer Items der anderen Mods, alte bleiben, keine Arbitrage); qol (Ideenliste docs/modules/simplequalityoflife-ideas.md, serverseitige Caps, Client darf nicht cheaten); riding (Nautilus falls fehlend, Caps); tweaks gruendlich pruefen; dimensions (konfigurierbare Custom-Dimensionen, nachvollziehbar/mysterioes, schlichte Configs); models (Ordner mit eigenen Modellen, Zuweisung per Amboss, Browser-Screen). Qualitaetslatte fuer alle Mods: Vorbild SimpleBuilding (UI/UX), alle nicht ausnutzbaren Config-Optionen serverseitig mit Caps, umfangreiche Tests gruen.
-
-## Simple Riding 26.3 (Codex)
-- [x] Port des read-only Quellrepos 1.0.5 auf 26.3: Fabric/NeoForge, eigener Integrationskatalog, Client-Smoke, Wiki/Balancedaten, Launch-Hub-Testanbindung. Details: docs/modules/simpleriding.md; kein Push/Merge. Forge und andere Linien erst im eigenen Release-Port.
-
-- [x] MERGE-RIDING: master integrieren; Modulregistrierung aus Manifest entdecken,
-  beide Modulkataloge/Client-Smokes erhalten, neue Ports ohne gemeinsame Wiring-Bloecke.
-
-## Orchestrator-Stand 2026-09-30 17:00 (Welle 25, Fortsetzung)
-- [x] Plugin-Umbau der Modul-Registrierung und Simple Riding nach master gemergt (7ef79212); Gate laeuft. Briefe tragen jetzt die Plugin-Regel (docs/ai/briefs/mm-contract.md).
-- [ ] Laufende Laeufe: facts (Faktenpass), voicebridge (Sprach-Bridge), port-visuals, port-fun. Danach in Wellen (max. 4 gleichzeitig): new-sounds (nach visuals), port-qol, port-tweaks, port-dimensions, port-models, riding-followup (Nautilus, Obergrenzen), zuletzt money-links; dann Forge 26.3 fuer alle Module, Gesamtgate.
-
-## VOICEBRIDGE (2026-09-30, codex-voicebridge)
-- [x] Besitzerwunsch: Handy/Laptop, eine grosse Sprechtaste, kurze vorgelesene Antworten, mehrere Projekte; stdlib-Server und PWA, lesende Agenten, konkrete Dateivorschlaege mit einmaliger Sprachbestaetigung.
-- [ ] Besitzerpruefung: echtes Handy-Mikrofon/Vorlesen, Tailscale HTTPS, Headset-Taste und gewaehlter CLI-Anbieter; Verifikation siehe HANDOFF.
-- [ ] Simple Models (codex-port-models): renamed-Skelett nach 26.3 Fabric/NeoForge; servervalidierte Ambossmodelle, Ordnerkatalog, Browser, EN/DE, Modul-/Clienttests. Keine Ports/Push/Merge.
-- [x] Simple Models 26.3 umgesetzt und committed; finale Modtests 32/32, Fabric-Client 5/5 gruen. Besitzerabnahme echter Modellpack/UI offen; Forge und andere Linien bleiben eigener Port. Details docs/modules/simplemodels.md.
-`n- Simple Fun: 26.3 Fabric/NeoForge port, complete feature/security tests, eight cosmetic delights and charged-creeper farm-animal heads; work branch codex-port-fun, no push/merge.
-`n- Simple Fun 26.3 complete on codex-port-fun: 1627/1627 full server tests + 2/2 LAN safety, 4/4 Fabric client checkpoints, final Gradle check Exit 0; see docs/modules/simplefun.md and HANDOFF. Owner visual acceptance and deferred loader/MC ports remain. No push/merge.
-## Simple Visuals (Codex, 26.3)
-- Port der Quellvisuals als Pluginmodul simplevisuals; zusaetzlich zwoelf Vanilla-Partikeleffekte mit stabiler Registry, Stufen und festen Caps. Eigene Server-/Clienttests, Wiki, Config-/Balancedaten. Kein Push/Merge; andere Linien bleiben separat.
-- [x] Simple Visuals 26.3 Fabric/NeoForge: Port, 12 Vanilla-Effekte, getrennte Amboss-Serverpolicy, manifestbasierte Modulziele/Wiki/Balancedaten. Server 1599/1599, Modul 36/36, Client 5/5, Sicherheitsgegenprobe 2/2, Gradle-check Exit 0. Besitzerabnahme der Optik und spaetere Ports bleiben offen.
-
-- Simple Sounds: neues 26.3-Modul, zw?lf datengetriebene Soundgegenst?cke, lokale Stufen/Overrides und harte Spam-/Lautst?rkegrenzen; Besitzerabnahme offen.
-- Simple Sounds umgesetzt/verifiziert: 34 Modul-Servertests, drei Fabric-Clientpunkte, zehn Testzentralenfaelle und finales Gradle-Gate gruen; akustische Besitzerabnahme offen, kein Push/Merge.
-
-## Simple Quality of Life 26.3 (Codex, codex-port-qol)
-- [ ] Port der aktiven 1.0.6-Multiloaderquelle auf Fabric/NeoForge 26.3, Server-Caps/Anti-Cheat, vollstaendige Modulpruefungen, Wiki/Daten und Ideenliste. Keine neuen Ideen implementieren; Forge und andere Linien bleiben separat.
-
-- [x] Simple Quality of Life 26.3 fertig: Fabric/NeoForge, 48/48 Modul-Servertests und 5/5 Fabric-Client-Pruefpunkte gruen; Bestand 1562/1562, Integration 1/1 und check gruen. Wiki/Config/Balancedaten/Ideenliste vorhanden. Besitzer-Abnahme, NeoForge-Client/alte Welt/Fremd-Claims sowie Forge/andere Linien bleiben offen; kein Push/Merge.
-
-## Simple Tweaks (2026-09-30, codex-port-tweaks)
-- [x] Besitzerwunsch gruendlicher Vollabgleich: Quelle/claims-only Branch/Libraries, alle Features/Configs/Rezepte/IDs/Mixins und Quellabweichungen dokumentiert; source unveraendert.
-- [x] 26.3-Kompatibilitaetsmodul ohne doppelte Spielinhalte: alte IDs und Daten erhalten, Urkunde wirkungslos; 1587/1587 Server und 3/3 Fabric-Client gruen. Details docs/modules/simpletweaks.md.
-- [ ] Besitzerentscheidung: Claim-System weiterhin zurueckstellen oder eigener sicherer Claimport? Alte Urkunden bieten derzeit keinen Schutz.
-- [x] SB-Sicherheit eigener Run: Boost-Staerke/Velocity/Packet-Rate, XP-Radius/Launchmultiplikator/Killradius/Spawnradius und weitere Config-Caps samt Runtime-Gegenproben; umgesetzt in SimpleBuilding, siehe docs/SB-HARDEN.md.
-- [ ] Besitzerentscheidung: alte Echo-Library-Vanilla-Compasse automatisch zu Echo Soundern migrieren? Quelleninventar vorhanden, Library nicht mitgeliefert.
-- [ ] Simple Tweaks: NeoForge-Client und echte alte Welt/Besitzerwelt abnehmen; Forge26.3 und26.2/1.21.11/26.4 erst eigener freigegebener Port.
-- [x] Simple Tweaks: abschliessendes Worktree-Gate check -q --no-daemon GRADLE_EXIT=0, einschliesslich shared26.2-Kompilierbarkeit; kein Push/Merge.
-- Forge-Modules: experimentelle opt-in Forge-26.3-Adapter fuer Money, Riding, Models, Fun und Visuals; eigene Manifestziele, gleiche Testkataloge, Modulcommits ohne Push/Merge.
-
-- [x] Forge-Modules: Money/Riding/Models/Fun/Visuals experimentell opt-in portiert; finale Modulpruefung 89/89 gruen, Standardregression 1775/1775 gruen. Forge-Client-/Mehrspielerabnahme und Standardaktivierung bleiben Besitzerpunkte. Kein Push/Merge.
-
-- [x] TASK SB-HARDEN: bestehende SimpleBuilding-Caps, Boost-Paketbudget/Velocity, Rezeptfilter und echte 26.3-Servergegenproben; 1600/1600 Hauptlinien-Tests und Integration 1/1 alles gruen, kein Push/Merge.
-
-- [ ] RIDING-FOLLOWUP: Nautilus/Enderit-Ruestung, serverseitige Gesamtgrenzen und Paketvalidierung, vollstaendige Modul-/Integrations-/26.3-Pruefung (codex-riding-followup).
-- [x] RIDING-FOLLOWUP verification complete: Nautilus/Enderite armor, 18 bounded server options, packet/ground/dash bounds; 1562/1562 full + 53/53 module/integration + 3/3 Fabric client, alles gruen; final check GRADLE_EXIT=0. See HANDOFF and docs/modules/simpleriding.md. Owner acceptance/NeoForge client remain open; no push/merge.
-- Forge Modules 2: experimental Forge 26.3 adapters for Simple Sounds, Simple Quality of Life and Simple Tweaks; separate commits, no push/merge.
-
-- [x] Forge Modules 2: Simple Sounds, Simple Quality of Life and Simple Tweaks experimental Forge 26.3 adapters; separate module commits, final 2828/2828 alles gruen and default check exit 0. Forge client/owner acceptance remains open; no push/merge.
-- [ ] MONEY-LINKS (codex-money-links): additive conditional 26.3 money trades, per-module price tables, bounded server formula and persistent anti-spam budgets; no push/merge.
-
-- [x] MONEY-LINKS 26.3 on codex-money-links: 243 buy-only conditional offers, bounded formula/budgets, nine tables, EN/DE/wiki/JEI; Money 34/34, off-switch 2/2, integration 1/1, centres 10/10, Fabric client 4/4 and final check Exit 0. Owner price/pool/buy-only acceptance remains open; no push/merge.
-
-## Simple Dimensions 26.3 (codex-port-dimensions, 2026-09-30)
-- [x] Erster Dimensionsentwurf und Quellvergleich: docs/modules/simpledimensions.md, Commit e7625a9d.
-- [ ] Portierung noch NICHT umgesetzt: sichere Portal-/Rueckweglogik, Pack-Anbindung beider Loader, Legacy-IDs, Config-GUI, Datenvertrag und alle vorgeschriebenen Modultests fehlen. Kein Token-Geruest als fertige Mod registriert.
-- [ ] Standardzugang Skyblock klaeren: instructions+ fordert sechs Glowstone-Boegen + Zusatzlicht; neueste Quelle nutzt Kupfer/Blau-Eis ohne Lichtpflicht. Bestehende JSONs und simpledimension-IDs erhalten.
-
-2026-09-30: Simple Dimensions Implementierung abgeschlossen (codex-port-dimensions); Besitzerabnahme und spaeterer Port-Run offen. Kupfer/Blau-Eis bleibt JSON-Alternative; kein Push/Merge.
-
-- [x] TASK DIMFIX: nonblocking arrival vegetation reproduced as a product defect; WORLD_SURFACE fix, preserved plants and safe landing regression. Three fixed Fabric suites green, 68/68 modules, 1600/1600 base, 379/379 integration/all modules, check GRADLE_EXIT=0. Historical unlogged terrain attribution remains an inference; details docs/modules/simpledimensions.md. No push/merge.
+## Welle 25 (2026-09-30): Multi-Mod, Forge 26.3, Haertung - Stand Abend
+- [x] Neun Module (Fabric + NeoForge 26.3, Forge experimentell opt-in ausser simpledimensions): simplemoney, simpleriding (+ Nautilus, 18 Serveroptionen), simplemodels, simplefun (8 Mechaniken, 4 Tierkoepfe, 26 Optionen), simplevisuals (12 Partikeleffekte, 5 Stufen, 50 Optionen), simplesounds (12 Klanggegenstuecke), simplequalityoflife, simpletweaks (Kompatibilitaet, Claims inaktiv), simpledimensions (Skyblock, Mining, Travel).
+- [x] Simple Money verknuepft die anderen Mods: 243 bedingte reine Kaufangebote, serverseitige Preisgrenzen, dauerhafte Kaufgrenzen, kein Rueckkauf.
+- [x] SimpleBuilding-Haertung (Boost-Paketbudget, Geschwindigkeitscap, Config-Obergrenzen, Laser-Rezeptfilter), Faktenpass, Sprach-Bridge (tools/voicebridge), Plugin-Registrierung der Module (tools/newmod.py, aitool merge-module).
+- [x] Gate auf 7c540a06: 1600/1600 Server (fabric-263 + neoforge-263), 393/393 Integration + alle Modulsuiten, alles gruen.
+- [x] Alle Codex-Laeufe sind gemergt; keine offenen Branches mit ungemergter Arbeit (codex-* lokal, Stand in master).
+- [ ] Abnahme im Spiel (Client schliessen, Testzentrale in der Besitzerwelt neu bauen): Pulsating-Trim, Astralgewoelbe + Enderit-Pulver, Mega-Handbuecher, Hammer-Tempo (Formel 2/3 oder 3/4 der Pickaxe-Geschwindigkeit?), Attractor/Echolot, Boost und Pads nach der Haertung, Client-Neustart fuer den Architectury-Mixin-Fix.
+- [ ] Abnahme neue Module im Spiel: Simple Models (UI, eigenes Modellpack), Simple Fun (Koepfe, Effekte; Glasbruch nur Einzelspieler), Simple Visuals/Simple Sounds (Stufen, Staerke), Simple Quality of Life, Simple Riding (Nautilus, Fahrgrenzen bei Latenz), Simple Dimensions (Portal bauen, reisen, zurueck), Simple Money (Preise, Haendlerpools der 243 Kaufangebote), Forge-Clients und Mehrspieler.
+- [ ] Entscheidungen: Claim-System portieren oder zurueckstellen (alte Urkunden schuetzen nichts)? Alte Echo-Library-Compasse zum Echolot migrieren? Dimensions-Standardform: sechs Glowstone-Boegen (aktuell) oder Kupfer/Blau-Eis? QoL-Haltbarkeitsbonus 1,5x wirkt auch auf SimpleBuilding-Werkzeuge: behalten? Sounds-Intensitaet an Visuals koppeln? Echolot 3 s halten oder Ein-Klick? Forge 26.3 spaeter als Standard?
+- [ ] Sprach-Bridge einrichten (docs/ai/VOICE-HANDS-FREE.md): Tailscale am Handy, `tailscale serve`, Anbieter und Modell waehlen, Headset testen; offen ob ein gesprochener Morgenbericht gewuenscht ist.
+- [ ] Technisch offen: Forge fuer simpledimensions, Claim-Adapter fuer Dimensions, Cloth-Config-Dialog auf Forge, Wiki-UX-Ideen (oben), Port-Run 26.2/1.21.11/26.4 erst nach Release-Ankuendigung des Besitzers.

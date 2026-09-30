@@ -25,6 +25,11 @@ This file, `AGENTS.md` (rules), `docs/HANDOFF.md` (state) and `.claude/QUEUE.md`
 - Codex's own sandbox cannot write the shared Gradle cache or worktree git metadata; the helper starts it with `--dangerously-bypass-approvals-and-sandbox` inside its worktree and every branch is reviewed before merging.
 - Killing a session can kill child runs; check `status` after a crash and restart a continuation run with a note that uncommitted work exists in the worktree.
 
+- A run can end early: a model capacity error ("Selected model is at capacity") stops it without a commit, a run can stall (log without growth for 25+ minutes while the codex process idles, `aitool status` shows the log size), or it can stop after a partial deliverable (for example only the design document). Stop a stalled tree with `taskkill /PID <cmd pid> /T /F`, then start a continuation: same name, same worktree, a notice in front of the original brief (see `docs/ai/briefs/dimfix.md` for the style). Move a stale `out-<name>.txt` away first, otherwise watchers think the run is done.
+- `check` includes `checkModuleData`: every module script in the manifest `checks` list runs. Simple Money requires a price table for every module in the manifest (`modules/simplemoney/shared/resources/data/simplemoney/money/<id>/prices.json`, an empty `prices` list is fine, with `excluded` reasons): add it when adding a module.
+- Keep a red merge off master: put it on a side branch (`git branch merge-<name> <sha>`), reset the local master to the last green SHA and let a fix run start from the side branch. Push only the gated SHA (`git push origin <sha>:master`); the permission filter may refuse a push that the owner has not approved in chat.
+- Disk and search: remove the worktree of every merged run (`git worktree remove <path>`, frees about 1.5 GB each; the branch stays). Do not run Glob/ripgrep over the repo root: `.claude/worktrees` holds many old agent checkouts and searches time out, search inside sub folders.
+
 ## Memory
 The assistant's long-term notes live in `docs/ai/memory/` (copy of `~/.claude/projects/<project>/memory`). Sync: `python tools/ai/aitool.py sync-memory --to-repo` (before committing) and `--from-repo` (on a new machine). Treat them as background facts that may be outdated: the code wins.
 
