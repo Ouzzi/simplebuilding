@@ -225,11 +225,10 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Dimensions",
-      "description": "Simple Dimensions module.",
+      "description": "Configurable dimensions, light arches, and safe linked portals.",
       "loaders": [
         "fabric",
-        "neoforge",
-        "forge"
+        "neoforge"
       ],
       "requires": [],
       "optional": [],
@@ -242,6 +241,7 @@
           "modules/simpledimensions/fabric/src/main/java/com/simplebuilding/modules/simpledimensions/ModuleGameTest.java"
         ],
         "requires": [
+          "simplebuilding",
           "simpledimensions"
         ],
         "devMods": [],
@@ -269,16 +269,15 @@
         "shared": "modules/simpledimensions/shared",
         "fabric": "modules/simpledimensions/fabric",
         "neoforge": "modules/simpledimensions/neoforge",
-        "forge": "modules/simpledimensions/forge",
+        "forge": null,
         "generated": "modules/simpledimensions/generated/resources",
-        "lang": "modules/simpledimensions/shared/resources/assets/simpledimensions/lang",
+        "lang": "modules/simpledimensions/shared/resources/assets/simpledimension/lang",
         "wikiManual": "modules/simpledimensions/wiki/manual.json",
         "balanceDir": "balance/simpledimensions"
       },
       "projects": {
         "fabric": ":modules:simpledimensions:fabric",
-        "neoforge": ":modules:simpledimensions:neoforge",
-        "forge": ":modules:simpledimensions:forge"
+        "neoforge": ":modules:simpledimensions:neoforge"
       }
     }
   ]

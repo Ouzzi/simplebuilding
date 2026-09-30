@@ -2,10 +2,10 @@ modLoader="javafml"
 loaderVersion="[11,)"
 license="CC0-1.0"
 [[mods]]
-modId="simpledimensions"
+modId="simpledimension"
 version="${version}"
 displayName="Simple Dimensions"
-[[dependencies.simpledimensions]]
+[[dependencies.simpledimension]]
 modId="minecraft"
 type="required"
 versionRange="[26.3,26.4)"

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "simpledimensions",
+  "id": "simpledimension",
   "version": "${version}",
   "name": "Simple Dimensions",
   "environment": "*",
