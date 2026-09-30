@@ -1,6 +1,6 @@
 # Quests & Advancements
 
-Stand 2026-09-28. Gilt für alle Linien (26.2 Fabric/NeoForge/Forge, 26.3, 26.4-Snapshot, 1.21.11
+Stand 2026-09-30. Grundsystem für die bisherigen Linien (26.2 Fabric/NeoForge/Forge, 26.3, 26.4-Snapshot, 1.21.11
 Fabric/NeoForge).
 
 ## Fortschritte (Advancements)
@@ -13,7 +13,7 @@ Vier eigene Tabs wie bei Vanilla (Story / Nether / End / Abenteuer), Quelle
 |---|---|---|---|
 | SimpleBuilding (`root`) | Stein | Werkbank | Vorschlaghammer, Werkzeugstufen Kupfer→Netherit, Maschinen, Lager |
 | Bauen & Blaupausen (`building/root`) | Ziegel | irgendein Meißel/Baustab/Oktant/Rotator/Baulicht | Meißel, Kerne & Baustab, Oktant, Blaupausen, Deko-Blöcke |
-| Gadgets & Kniffe (`tweaks/root`) | Kupferblock | Kupfer-/Diamant-Druckplatte, Magnet, Detektor, Messer, Linse, Netherit-Essen, Lohenkopf | Gadgets, alle Pads, Netherit-Apfel |
+| Gadgets & Kniffe (`tweaks/root`) | Kupferblock | Kupfer-/Diamant-Druckplatte, Attraktor, Detektor, Messer, Linse, Netherit-Essen, Lohenkopf | Gadgets, alle Pads, Netherit-Apfel |
 | Jenseits des Endes (`end/root`) | End | Endstein | End-Minerale & -Blöcke, Enderit und alles daraus |
 
 Dazu die zwei Teaser in Vanilla-Tabs (`story/hammer_time`, `nether/nugget_of_wisdom`) und die
@@ -45,7 +45,7 @@ nichts; die Mod hat keine Abhängigkeit und keine FTB-Klasse.
 | Stufe 4: Das Ende und darüber hinaus | Stufe 4 | Stufe 3 fertig (Abschluss: Enderauge folgen) | Ende, Drache, Endsiedlung, Astralit/Nihilith, Enderquarz, Rohenderit → Platten → Barren, Enderit-Vorlage, Rüstung, Werkzeug, Hammer, Maschine; Abschluss: volle Enderit-Rüstung |
 | Bauen & Blaupausen | Nebenkapitel | erster Steinmeißel | Oktant, Baulicht, Schachbrett, Besatz-Vorlagen, Diamantmeißel, Rotator, End-Paletten, Schwebeblöcke, Blaupause (nach Enderquarz), Scannen/Kopieren/Bauen |
 | Lagerung | Nebenkapitel | erster Rucksack | Bündel, Köcher, verstärkte und Netherit-/Enderit-Stufen |
-| Gadgets & Kniffe | Nebenkapitel | Start | Kupfer-Druckplatte, Geschwindigkeitsmesser, Magnet/Linse/Detektor (optional, seltene Kerne), Netherit-/Enderit-Essen, Chunk-Lader, Spawn-Teleporter, Elytra-/Flug-/Trank-Pad-Stufen |
+| Gadgets & Kniffe | Nebenkapitel | Start | Kupfer-Druckplatte, Geschwindigkeitsmesser, Attraktor/Resonanzstab/Detektor (optional, seltene Kerne), Netherit-/Enderit-Essen, Chunk-Lader, Spawn-Teleporter, Elytra-/Flug-/Trank-Pad-Stufen |
 
 109 Quests, davon die seltenen/teuren (Basis-Vorlage, Wither, Kerne ab Eisen, Echolot, verzauberte
 Äpfel, höchste Pad-Stufen, Themen-Handbücher) **optional**.
@@ -129,3 +129,10 @@ in einem Temp-Ordner).
   nicht mehr zweisprachig.
 - Aufgaben mit "eins von mehreren Items" gibt es in FTB Quests nur über Filter-Items; wo mehrere
   Stufen zählen sollen, nutzt die Quest deshalb den passenden Mod-Fortschritt (der jede Stufe zählt).
+
+## Hauptlinie 26.3
+
+Guide-Quests verwenden serverseitige Kapitel-Erfolge. Kapitel werden im geöffneten
+Mega-Handbuch per Reiter/Bestätigung und einem verbrauchten Schlüsselitem freigeschaltet,
+nicht im Handwerksraster. Der Generator pflegt diese Erklärung in beiden Sprachorten.
+Andere Linien behalten ihre Aufgabenstruktur bis zum separaten Port-Run.

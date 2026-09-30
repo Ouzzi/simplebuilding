@@ -703,7 +703,7 @@ def updated_lang(path: Path, entries: dict[str, str]) -> str:
             "Schmiede eine schwere Wägeplatte mit einem Eisenkern im Vorlagenfeld und einem Trial-Chamber-Mobkopf als Zusatz."
             if german else
             "Smith a heavy weighted pressure plate with an Iron Core in the template slot and a Trial Chamber mob head as the addition.")
-    if path.is_relative_to(REPO / "mc26_3/overlay/resources"):
+    if path.is_relative_to(REPO / "mc26_3/overlay/resources") or path.is_relative_to(REPO / "src/main/resources"):
         entries = dict(entries)
         german = path.stem == "de_de"
         for suffix, en, de in [

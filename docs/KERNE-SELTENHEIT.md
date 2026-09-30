@@ -63,8 +63,8 @@ einem Viertel bis Fuenftel; alle Zeiten unten dann mal 4 bis 5.
 | Kern | beste Truhenquelle (gezielt) | Kerne je Stunde | erster Kern: Mittel (Median / 90 %) | ~10 Kerne: Mittel | Kisten je Kern | Chance je Struktur | braucht der Kern (Rezepte) |
 |---|---|---|---|---|---|---|---|
 | Kupferkern | keine | 0 | nie aus Truhen (Steinmetz sofort) | - | - | - | **2**: Kupfer-Baustab, Geschwindigkeitsmesser |
-| Eisenkern | Waldanwesen | 0,064 | **16 h** (11 h / 36 h) | 156 h | 125 | ~15 % je Anwesen | **5**: Eisen-Baustab, Aufwertung Kupfer->Eisen-Baustab, Amethystlinse (Laserpointer), Magnet, Rotator |
-| Goldkern | Bastionen (Festungen: 31 h) | 0,038 | **26 h** (18 h / 60 h) | 261 h | 167 | ~2,5 % je Bastion | **3**: Gold-Baustab, Aufwertung Eisen->Gold-Baustab, Erzdetektor |
+| Eisenkern | Waldanwesen | 0,064 | **16 h** (11 h / 36 h) | 156 h | 125 | ~15 % je Anwesen | **5**: Eisen-Baustab, Aufwertung Kupfer->Eisen-Baustab, Amethyst-Resonanzstab (Laserpointer), Attraktor, Rotator |
+| Goldkern | Bastionen (Festungen: 31 h) | 0,038 | **26 h** (18 h / 60 h) | 261 h | 167 | ~2,5 % je Bastion | **3**: Gold-Baustab, Aufwertung Eisen->Gold-Baustab, Detektor |
 | Diamantkern | normale + unheilvolle Tresore (nur normale: 39 h) | 0,036 | **28 h** (19 h / 64 h) | 276 h | 156 | ~3,8 % je Kammer | **3**: Diamant-Baustab, Aufwertung Gold->Diamant-Baustab, Netheritkern (Schmiedetisch) |
 | Netheritkern | nur Schatz-Bastionen (allgemein: 67 h) | 0,027 | **37 h** (26 h / 86 h) | 373 h | 25 | 4 % je Schatz-Bastion | **1**: Enderit-Kern (Schmiedetisch) |
 | Enderit-Kern | Endsiedlungen mit Elytren | 0,0375 | **27 h** (18 h / 61 h) | 267 h | 400 | ~1,2 % je Stadt | **3**: Echolot (Echo Sounder), Flugpad I, Durchtraenktes Trank-Pad III (dazu 2 Oster-Varianten derselben Ergebnisse) |

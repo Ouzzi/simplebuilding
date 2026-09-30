@@ -81,7 +81,7 @@ public final class GuideBooks {
     public enum Shelf {
         MOD, VANILLA;
 
-        /** Das Einstiegsbuch des Regals: es nennt die Themenbuecher und ist ihr wiederverwendbarer Zutatenersatz. */
+        /** The shelf hub: on 26.3 its chapters unlock in the screen; older lines use it as a recipe ingredient. */
         public Book hub() {
             return this == MOD ? Book.GUIDE : Book.VANILLA_START;
         }
@@ -116,10 +116,10 @@ public final class GuideBooks {
         END("end", "guide_book_end", Shelf.MOD),
         /** Pads & Druckplatten. Die Item-ID bleibt {@code guide_book_tweaks} (frueher "Pads & Geraete"), damit Spielstaende sie behalten. */
         PADS("pads", "guide_book_tweaks", Shelf.MOD),
-        /** Geraete: Attractor, Rotator, Erzdetektor, Echolot, Linse, Tachometer (2026-09-29 aus dem Pad-Buch geloest). */
+        /** Geraete: Attractor, Rotator, Detector, Echolot, Resonanzstab, Messuhr (2026-09-29 aus dem Pad-Buch geloest). */
         GADGETS("gadgets", "guide_book_gadgets", Shelf.MOD),
         TRIMS("trims", "guide_book_trims", Shelf.MOD),
-        /** Befehle und Config-Schalter fuer Server-Betreiber; nur Operatoren koennen es herstellen ({@link #operatorOnly}). */
+        /** Server commands and config: on 26.3 only operators can unlock/read the topic ({@link #operatorOnly}). */
         ADMIN("admin", "guide_book_admin", Shelf.MOD),
         VANILLA_START("vanilla_start", "guide_book_vanilla_start", Shelf.VANILLA),
         VANILLA_OVERWORLD("vanilla_overworld", "guide_book_vanilla_overworld", Shelf.VANILLA),

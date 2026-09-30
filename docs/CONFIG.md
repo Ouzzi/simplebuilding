@@ -10,10 +10,8 @@ unter `/simplebuilding config list`.
 - Datei: `config/simplebuilding.json` (Cloth Config / AutoConfig, Gson).
 - Klassen: `common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java` mit den
   Gruppen `tools`, `worldGen`, `tweaks` (`tweaks/TweaksConfig.java`) und `server`
-  (`config/ServerTuningConfig.java`, Zugriff und Grenzen in `config/ServerTuning.java`). Die
-  1.21.11-Linie hat identische Kopien unter `mc1_21_11/shared/...` – immer gleich halten
-  (`ServerTuning` unterscheidet sich nur in der Meldungszeile: `sendOverlayMessage` vs.
-  `displayClientMessage`).
+  (`config/ServerTuningConfig.java`, Zugriff und Grenzen in `config/ServerTuning.java`).
+  Andere Linien bleiben bis zum eigenen Port-Run unverändert; keine Identität der Kopien annehmen.
 - Fabric: ModMenu öffnet den Bildschirm (`ModMenuIntegration`). NeoForge: Config-Knopf in der
   Mod-Liste (`SimplebuildingNeoForgeClient#buildConfigScreen`). 26.3 wie 26.2.
 - Forge: kein Cloth Config für 26.x. Der Shim unter `forge/src/main/java/me/shedaniel/autoconfig/`
@@ -28,11 +26,11 @@ Acht Reiter, Reihenfolge = erstes Feld jeder Kategorie in `SimplebuildingConfig`
 
 | Reiter (`category`) | Inhalt |
 |---|---|
-| Werkzeuge & Bauen (`building`) | `tools.*`: Baustab-Hunger + Faktor, Magnet-Reichweite, Rotator-Kosten, Bündel-/Oktant-Bedienung, Vorschau-Deckkraft, Animationen |
+| Werkzeuge & Bauen (`building`) | `tools.*`: Baustab-Hunger + Faktor, Attraktor-Reichweite, Rotator-Kosten, Bündel-/Oktant-Bedienung, Vorschau-Deckkraft, Animationen |
 | Verzauberungen & Rüstung (`equipment`) | Luftsprung + Abklingzeit, Besatz-Vorteile, Resonanz-Multiplikator |
 | Kolben (`pistons`) | Verschleißbudgets, Endportalrahmen, Unzerstörbares anderer Mods |
-| Pads & Tweaks (`tweaks`) | `tweaks.*` in Gruppen: Pads an/aus, Pad-Zeiten & -Stärke, Amethystlinse, Abstimmung, Spawn, Dimensionen, Befehle, Leistung |
-| Beute, Handel & Welt (`world`) | `worldGen.*` (Loot, Kern-Chancen, Handel) und das Einsteiger-Handbuch |
+| Pads & Tweaks (`tweaks`) | `tweaks.*` in Gruppen: Pads an/aus, Pad-Zeiten & -Stärke, Amethyst-Resonanzstab, Abstimmung, Spawn, Dimensionen, Befehle, Leistung |
+| Beute, Handel & Welt (`world`) | `worldGen.*` (Loot, Kern-Chancen, Handel) und den alten Handbuch-Schalter (auf 26.3 wirkungslos) |
 | Darstellung (Client) (`visuals`) | Buch-Texturen, Besatz-Icons |
 | Kompatibilität & Erweitert (`advanced`) | Kolben-Abbau-Ereignisse (Schutz-Mods), Dev-Kreativ-Tab |
 | Server & Modpack Tuning (`server`) | `server.*`: alle Gameplay-Stellschrauben für Server-/Modpack-Ersteller, serverseitig verbindlich (siehe unten) |
@@ -73,7 +71,7 @@ Stimme. Ohne Meldung (Hauptmenü, Server ohne Mod) gilt die eigene Datei. Abweic
 | Option | Standard | Wirkung |
 |---|---|---|
 | `tools.wandHungerMultiplier` | 1.0 | Faktor auf die Baustab-Erschöpfung je bezahltem Block (0 = kostenlos) |
-| `tools.magnetRangeMultiplier` | 1.0 | Faktor auf die Magnet-Reichweite |
+| `tools.magnetRangeMultiplier` | 1.0 | Faktor auf die Attraktor-Reichweite |
 | `tools.rotatorChargePerTurn` | 1 | Ladung je Rotator-Drehung (0 = kostenlos) |
 | `worldGen.buildingCoreLootChanceMultiplier` | 1.0 | Faktor auf die Baukern-Chancen in Truhen (0 = keine; bei `/reload`) |
 | `tweaks.pads.enablePotionPads` | true | Trank-Pads an/aus |
@@ -83,7 +81,7 @@ Stimme. Ohne Meldung (Hauptmenü, Server ohne Mod) gilt die eigene Datei. Abweic
 | `tweaks.padTuning.launchpadStrengthMultiplier` | 1.0 | Faktor auf den Startrampen-Schub |
 | `tweaks.padTuning.potionPadChargeStepTicks` | 20 | Länge eines Trank-Pad-Ladeschritts |
 | `tweaks.padTuning.potionPadCooldownFactor` | 2.0 | Trank-Pad-Abklingzeit × Wirkdauer (0 = keine) |
-| `tweaks.laserPointer.beamCostPerSecond` | 1 | Linsen-Ladung je Sekunde Strahlen |
+| `tweaks.laserPointer.chargePerSecond` | 4 | Stab-Ladung je Sekunde Strahlen; alter beamCostPerSecond-Schlüssel ohne Wirkung |
 | `tweaks.laserPointer.effectCost` | 5 | Linsen-Ladung je Wirkung |
 | `tweaks.balancing.echoSounderJumpCooldownTicks` | 480 | Echolot-Abklingzeit nach dem Sprung (24 s; ersetzt `echoSounderCooldownTicks` = 120, neue Namen, damit gespeicherte Altwerte nicht weiter gelten) |
 | `tweaks.commands.killCommandRadius` | 100 | Reichweite von `/killboats`, `/killcarts` |
@@ -120,8 +118,8 @@ ihr Besitzer online ist. Grenzen stehen in `ServerTuning` (Konstanten) und werde
 
 **Rezepte abgeschalteter Funktionen** (`recipe/RecipeFilter` + `mixin/RecipeMapFilterMixin`): der private
 `RecipeMap`-Konstruktor ist auf 1.21.11/26.2/26.3/26.4 gleich; dort fallen Rezepte im Namensraum
-`simplebuilding` weg, deren ID zur Funktion passt (`backpack`, `magnet`/`attractor`, `echo_compass`,
-`blueprint`, `ore_detector`, `levitating_`/`suspended_`, und für die Pad-Schalter `chunk_loader`,
+`simplebuilding` weg, deren ID zur Funktion passt (`backpack`, `magnet`/`attractor`, `echo_sounder`/`echo_compass`,
+`blueprint`, `detector`, `levitating_`/`suspended_`, und für die Pad-Schalter `chunk_loader`,
 `elytra_pad`, `flypad`, `spawn_teleporter`, `launchpad`, `potion_pad`, `laser_pointer`). Wirkt beim Laden
 der Datenpakete; der Befehl sagt es (`ConfigOptions.RECIPES_ON_RELOAD`).
 
@@ -154,3 +152,9 @@ Maschinen); `ConfigOptionTests` pinnt jedes Feld samt Reiter.
 5. `ConfigOptionTests.EXPECTED_OPTIONS` (und für `tweaks.*` `TweaksTests`) nachziehen, eine
    Verhaltens-Assertion schreiben; `everyOptionHasNameTooltipAndTab` prüft Lang-Schlüssel und Reiter.
 6. `python wiki/generate.py` (Wiki-Config-Seite) und die Zeile in `wiki/manual.json` → `configuration`.
+
+### Bekannte Rezeptfilter-Grenze (Faktenpass 26.3)
+
+`RecipeFilter.removes` prüft beim Strahlschalter noch `laser_pointer`. Das aktuelle
+Resonanzstab-Rezept `amethyst_lens` bleibt deshalb verfügbar, obwohl die Benutzung
+abgeschaltet wird. Dieser Faktenpass dokumentiert die Abweichung und ändert kein Gameplay.

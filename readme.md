@@ -16,8 +16,8 @@ Browser oeffnen; die Daten erzeugt `python wiki/generate.py` direkt aus der Mod)
 | 1.21.11 | Fabric API 0.141.6+1.21.11 | 21.11.45 | 21 |
 | 26.4-snapshot-1 (experimentell) | Loader 0.19.5, Fabric API 0.161.1+26.4 | - | 25 |
 
-- Forge (nur 26.2, Forge 65.1.3) wird mitgebaut und hat Server-Spieltests, ist aber zurueckgestellt
-  (`MULTILOADER_TODO.md`).
+- Forge 26.2 wird mitgebaut; Forge 26.3 ist additiv mit `-Pforge263=true` verfügbar
+  (Server-Testziel `forge-263`, Details und offene Clientprüfung: `docs/FORGE-26.3.md`).
 - Die 26.4-Snapshot-Linie wird nur mit `-Pmc264=true` gebaut und gehoert nicht zum Release-Tor.
 - Abhaengigkeiten: Cloth Config; Mod Menu (Fabric) fuer den Config-Bildschirm; JEI optional.
 
@@ -25,7 +25,7 @@ Browser oeffnen; die Daten erzeugt `python wiki/generate.py` direkt aus der Mod)
 
 - **Werkzeuge:** Baustaebe (Kupfer bis Enderit, Flaeche 3x3 bis 13x13, mit Modi per Verzauberung),
   Vorschlaghammer (3x3-Abbau, Radius/Durchbruch), Meissel (Bloecke in der Welt umwandeln), Oktant
-  (Vermessen, Formen, Oktant-Manager), Erzdetektor, Magnet, Rotator, Tacho.
+  (Vermessen, Formen, Oktant-Manager), Detektor, Attraktor, Rotator, Tacho.
 - **Blaupause:** ein Bauwerk als lesbarer Bau-Code - im Editor schreiben, am Kartentisch aus einer
   Oktant-Auswahl scannen und mit dem Baustab in der anderen Hand bauen.
 - **Rucksaecke:** vier Stufen (9 bis 50 Plaetze) im Brust-Slot, eigene Taste (Standard B), als Block
@@ -47,9 +47,20 @@ Browser oeffnen; die Daten erzeugt `python wiki/generate.py` direkt aus der Mod)
 
 Fast alles aus Simple Tweaks steckt jetzt in SimpleBuilding (Einzelheiten:
 `docs/SIMPLETWEAKS-UEBERNAHME.md`): Diamant-, Netherit-, Enderit- und Kupfer-Druckplatten,
-Elytra-Pads und Flypads (fuenf Stufen), Spawn-Teleporter, Launchpads, Chunk-Loader, die Spawn-Elytra
-im Spawnbereich, Echo-Kompass, Laserpointer, XP-Verklumpung, Raketen-Stapelgrenze und das Sperren
+Elytra-Pads (fuenf Stufen) und Flypads (drei Stufen), Spawn-Teleporter, Launchpads, Chunk-Loader, die Spawn-Elytra
+im Spawnbereich, Echolot, Amethyst-Resonanzstab, XP-Verklumpung, Raketen-Stapelgrenze und das Sperren
 von Nether/End. Jede Pad-Familie ist in der Config abschaltbar.
+
+## Hauptlinie und Zusatzmodule
+
+26.3 Fabric + NeoForge ist die Hauptlinie. Zwei Mega-Handbücher schalten Kapitel im Buch
+per Reiter und einem verbrauchten Schlüsselitem frei. Zwei getrennte End-Signalkanäle
+nutzen eigenes Pulver, Schalter und Lampen; das Astralgewölbe hat 54 persönliche Plätze
+(die ersten 27 gemeinsam mit der Vanilla-Endertruhe).
+
+Zusatzmods liegen unter `modules/<id>/`, registriert in `modules/modules.json`.
+Launch Hub: `python tools/launchhub/server.py` (8771); Balancing-Zentrale: Port 8770.
+Siehe `docs/MULTIMOD.md` und `docs/LAUNCHHUB.md`.
 
 ## Befehle
 

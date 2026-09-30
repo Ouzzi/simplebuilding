@@ -59,8 +59,8 @@ Das ist der Kern des Aufbaus, deshalb ausführlich.
 | Fortschritte (Advancement-Baum mit Titeln, Hinweisen, Symbolen, Eltern) | `src/main/generated/data/simplebuilding/advancement/**` ohne `recipes/` und die geheime Kette `easter/` – vom Datagen-Provider `ModAdvancementProvider` geschrieben |
 | Tags | `.../tags/**` (generiert und Ressourcen) |
 | Konfiguration | `common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java` + `tweaks/TweaksConfig.java` (alle Optionen als Punkt-Pfad, Reiter, Namen/Tooltips en+de aus den Sprachdateien) |
-| Haltbarkeit, Stapelgröße, Verzauberbarkeit, Angriffswerte, Zauberstab-Durchmesser, Meißel-Abklingzeit | `src/main/generated/wiki/items.json` – vom Datagen-Provider `WikiDataProvider` aus der **Item-Registry** geschrieben |
-| Umwandlungen in der Welt (Maschinen-Aufwertung, Umformen, Diamantblock, Meißel, Schere auf Wolle, Besatzvorlage im Rahmen, Waschen im Kessel) | `src/main/generated/wiki/inworld.json` – vom Datagen-Provider über `InWorldTransformations` aus denselben Tabellen und Konstanten geschrieben, die das Spiel benutzt |
+| Haltbarkeit, Stapelgröße, Verzauberbarkeit, Angriffswerte, Zauberstab-Durchmesser, Meißel-Abklingzeit | `mc26_3/generated/wiki/items.json` (26.3; ältere Linien separat) – vom Datagen-Provider `WikiDataProvider` aus der **Item-Registry** geschrieben |
+| Umwandlungen in der Welt (Maschinen-Aufwertung, Umformen, Diamantblock, Meißel, Schere auf Wolle, abgelegte Besatzvorlage, Waschen im Kessel) | `mc26_3/generated/wiki/inworld.json` (26.3; ältere Linien separat) – vom Datagen-Provider über `InWorldTransformations` aus denselben Tabellen und Konstanten geschrieben, die das Spiel benutzt |
 | Umwandlungen ohne Tabelle im Code (derzeit keine) und die Prosa je Art | `wiki/manual.json` → `inWorld` |
 | Vanilla-Rezepte für den Rezeptbaum, je Minecraft-Linie | `minecraft-client.jar` der Linie im Gradle-Cache → `wiki/data/vanilla-<linie>.js` (committet, nur Rezeptdaten und Item-Tags) |
 | Welche Items eigenes Verhalten haben | Registrierungen in `ModItems.java` / `ModBlocks.java` gegen die Klassen in `items/custom/` und `blocks/custom/` |
@@ -77,7 +77,7 @@ Haltbarkeit und Verwandtes liegen in keiner Datendatei, sondern in Konstanten in
 schreibt der Datagen-Provider
 `src/main/java/com/simplebuilding/datagen/WikiDataProvider.java` beim gewohnten
 `gradlew runDatagen` die **tatsächlichen** Werte aus der Item-Registry nach
-`src/main/generated/wiki/items.json`. Wer eine Konstante ändert, ändert Mod und
+`mc26_3/generated/wiki/items.json` (26.3; ältere Linien separat). Wer eine Konstante ändert, ändert Mod und
 Wiki mit einem Datagen-Lauf.
 
 Das ist nicht dasselbe wie die Konstante: Minecraft überschreibt manche Werte.
@@ -101,7 +101,7 @@ Die Kategorie „In der Welt“ (`#/inworld`) und der gleichnamige Abschnitt auf
 Item-Seite zeigen, was sich ohne Werkbank verwandelt – mit Werkzeug, Dauer, Schlägen,
 Haltbarkeit und Mindeststufe. Die Zahlen und Tabellen schreibt der Datagen-Provider aus
 `InWorldTransformations` (geteilter Code, beide Linien) nach
-`src/main/generated/wiki/inworld.json`; die Spieltests `InWorldExportTests` halten den
+`mc26_3/generated/wiki/inworld.json` (26.3; ältere Linien separat); die Spieltests `InWorldExportTests` halten den
 Export gegen das Spiel. Derselbe Export speist das JEI-Plugin (`InWorldRecipeCatalog`). Was
 keine Tabelle im Code hat, stuende in `manual.json` unter `inWorld.entries` mit Quellen (derzeit leer), die Prosa je Art unter `inWorld.kinds` (en + de, von
 `--check` verlangt).

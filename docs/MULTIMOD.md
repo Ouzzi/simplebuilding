@@ -48,7 +48,9 @@ loaded. SimpleBuilding requires Cloth Config; an incompatible selection is rejec
 The harness test requires SimpleBuilding and wiringexample and proves storing/removing the foreign
 token in a SimpleBuilding reinforced hopper through public registry ids and Vanilla Container.
 It has its own namespace, catalogue, report and target; existing counts/default targets are unchanged.
-NeoForge example projects compile, but a NeoForge integration launcher is deferred.
+The generic cross-mod harness above is Fabric-only. Simple Money also has a dedicated
+NeoForge module-test runtime under integration/run-neoforge-263; this is not a general
+NeoForge cross-mod integration launcher. See docs/modules/simplemoney.md.
 
 ## Dev mods and Launch Hub
 
