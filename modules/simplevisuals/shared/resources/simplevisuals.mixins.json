@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "package": "com.simplevisuals.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "AnvilMenuMixin"
+  ],
+  "client": [
+    "HudMixin",
+    "MinecraftMixin",
+    "PickupMixin",
+    "ChatMixin",
+    "AnvilScreenMixin",
+    "TooltipMixin",
+    "ItemModelMixin",
+    "LocatorMixin",
+    "ClientTooltipMixin",
+    "EffectBarsMixin",
+    "InventoryEffectBarsMixin",
+    "PackRepositoryAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

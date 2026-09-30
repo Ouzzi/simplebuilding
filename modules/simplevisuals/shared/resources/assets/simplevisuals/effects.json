@@ -1,0 +1,74 @@
+[
+  {
+    "id": "footstep_dust",
+    "category": "movement",
+    "particle": "minecraft:poof",
+    "interval": 4
+  },
+  {
+    "id": "cold_breath",
+    "category": "weather",
+    "particle": "minecraft:white_smoke",
+    "interval": 40
+  },
+  {
+    "id": "fireflies",
+    "category": "nature",
+    "particle": "minecraft:firefly",
+    "interval": 40
+  },
+  {
+    "id": "pollen",
+    "category": "nature",
+    "particle": "minecraft:wax_on",
+    "interval": 40
+  },
+  {
+    "id": "fire_sparks",
+    "category": "environment",
+    "particle": "minecraft:small_flame",
+    "interval": 20
+  },
+  {
+    "id": "water_ripples",
+    "category": "water",
+    "particle": "minecraft:splash",
+    "interval": 8
+  },
+  {
+    "id": "water_droplets",
+    "category": "water",
+    "particle": "minecraft:dripping_water",
+    "interval": 12
+  },
+  {
+    "id": "leaf_fall",
+    "category": "nature",
+    "particle": "minecraft:cherry_leaves",
+    "interval": 30
+  },
+  {
+    "id": "enchanted_items",
+    "category": "magic",
+    "particle": "minecraft:enchant",
+    "interval": 20
+  },
+  {
+    "id": "beacon_aura",
+    "category": "magic",
+    "particle": "minecraft:end_rod",
+    "interval": 20
+  },
+  {
+    "id": "damage_feedback",
+    "category": "reactive",
+    "particle": "minecraft:damage_indicator",
+    "interval": 1
+  },
+  {
+    "id": "healing_feedback",
+    "category": "reactive",
+    "particle": "minecraft:heart",
+    "interval": 1
+  }
+]

@@ -80,3 +80,6 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Simple Models 26.3 umgesetzt und committed; finale Modtests 32/32, Fabric-Client 5/5 gruen. Besitzerabnahme echter Modellpack/UI offen; Forge und andere Linien bleiben eigener Port. Details docs/modules/simplemodels.md.
 `n- Simple Fun: 26.3 Fabric/NeoForge port, complete feature/security tests, eight cosmetic delights and charged-creeper farm-animal heads; work branch codex-port-fun, no push/merge.
 `n- Simple Fun 26.3 complete on codex-port-fun: 1627/1627 full server tests + 2/2 LAN safety, 4/4 Fabric client checkpoints, final Gradle check Exit 0; see docs/modules/simplefun.md and HANDOFF. Owner visual acceptance and deferred loader/MC ports remain. No push/merge.
+## Simple Visuals (Codex, 26.3)
+- Port der Quellvisuals als Pluginmodul simplevisuals; zusaetzlich zwoelf Vanilla-Partikeleffekte mit stabiler Registry, Stufen und festen Caps. Eigene Server-/Clienttests, Wiki, Config-/Balancedaten. Kein Push/Merge; andere Linien bleiben separat.
+- [x] Simple Visuals 26.3 Fabric/NeoForge: Port, 12 Vanilla-Effekte, getrennte Amboss-Serverpolicy, manifestbasierte Modulziele/Wiki/Balancedaten. Server 1599/1599, Modul 36/36, Client 5/5, Sicherheitsgegenprobe 2/2, Gradle-check Exit 0. Besitzerabnahme der Optik und spaetere Ports bleiben offen.

@@ -1,0 +1,18 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplevisuals"
+version="${version}"
+displayName="Simple Visuals"
+[[dependencies.simplevisuals]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+[[dependencies.simplevisuals]]
+modId="cloth_config"
+type="required"
+versionRange="[26.3,)"
+
+[[mixins]]
+config="simplevisuals.mixins.json"
