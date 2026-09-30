@@ -62,7 +62,7 @@ public final class AdvancementTreeTests {
 
     /** The mod's own tabs, like vanilla's Story/Nether/End/Adventure: the only entries without a parent. */
     private static final Set<String> TAB_ROOTS = Set.of(MOD_ID + ":root", MOD_ID + ":building/root", MOD_ID + ":tweaks/root",
-            MOD_ID + ":end/root");
+            MOD_ID + ":end/root", MOD_ID + ":guides/root");
 
     /**
      * Every advancement file of the tree loads, and every loaded one is complete: it has a display
