@@ -304,3 +304,12 @@ shape editor or activation mechanics are added.
 Both loader builds consume the module's shared `en_us.json` and `de_de.json`; they have
 no separate 26.3 language overlay. Runtime tests inspect both shipped locales on each
 loader; the data check also verifies category, scope, defaults and GUI save bindings.
+
+### Settings verification
+
+- Branch `codex-next-dimensions`; plan `37293dc4`, implementation `f83a75c4`.
+- Both complete module catalogues: `2026-09-30T20-51-56Z-7330`, **alles gruen: 76/76 bestanden, 0 rot**, 38 per loader. Four new cases per loader cover the three independent switches plus old-file defaults/persistence. Journeys invoke Vanilla `useItemOn` and wait for registered server tick hooks: disabled ignition and first/linked outbound access, reenablement, exact safe return while off after disk reload, and unchanged definition files. Existing 34 cases per loader remain intact.
+- Isolated Fabric/NeoForge test centres: `2026-09-30T21-05-46Z-cc12`, **alles gruen: 10/10 bestanden, 0 rot**; rebuild and complete SimpleBuilding item/block coverage passed. Owner world untouched.
+- Final `gradlew.bat check -q`: **GRADLE_EXIT=0**, log `scratchpad/dimensions-settings/final-check.log`, output read. All 23 JUnit cases passed (five catalogues, no skipped cases), 19 wiki tests passed; balance/module/atlas/Jade/wiki gates and existing shared/26.2 compilation passed. Default/module wiki generation and checks passed.
+- Automatic generated-output exception to the module folder boundary: the module's `wiki/data/simpledimensions.json`/JS and manifest-driven wiki index were regenerated. No shared implementation, build, runner, Hub, other module language or deferred-line source changes.
+- Not verified: clients/visual settings interaction, owner-world travel, a physical dedicated-server process restart, external claim adapters, full merged server/integration/all-module gate, Forge or other Minecraft runtime lines. Runtime reconstruction from disk proves settings persistence; it is not a process-restart acceptance test. The orchestrator runs the complete merged gate; owner client/multiplayer acceptance remains. No new owner decision, push or merge.

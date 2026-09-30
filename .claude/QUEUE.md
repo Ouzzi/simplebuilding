@@ -83,3 +83,6 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Noch offen: Echolot 3 Sekunden halten oder Ein-Klick? Morgenbericht der Sprach-Bridge ja oder nein?
 
 - [ ] DIMENSIONS-SETTINGS gestartet (codex-next-dimensions): sechs Glowstoneboegen behalten, Kupfer/Blaueis-Beispiel entfernen; Skyblock/Mining/Travel als persistente Serveroptionen im eigenen Reiter, Rueckwege immer erhalten. Plan: modules/simpledimensions/DIMENSIONS-SETTINGS-PLAN.md.
+
+- [x] DIMENSIONS-SETTINGS abgeschlossen (codex-next-dimensions, Plan 37293dc4, Umsetzung f83a75c4): eigener Dimensions-Reiter, drei persistente Default-on-Serverschalter, offene Rueckwege; Kupfer/Blaueis-Beispiel/Preset entfernt. 76/76 Modulserver und 10/10 Testzentrale alles gruen; final check Exit 0, 23 JUnit- und 19 Wiki-Tests gruen. Details/Abweichungen im Modulplan und docs/modules/simpledimensions.md.
+- [ ] DIMENSIONS-SETTINGS Abnahme: Orchestrator-Gesamtgate nach Integration; Besitzer prueft Reiter/Reisen auf beiden Clients, echten Dedicated-Neustart/Mehrspieler und Zentrale in eigener Welt. Keine neuen Portalformen/Aktivierungen, Forge oder Ports in diesem Run; kein Push/Merge.
