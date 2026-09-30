@@ -1,0 +1,24 @@
+plugins { id 'java-library'; id 'net.minecraftforge.gradle' version '7.0.36' }
+ext.moduleVersion = '1.3.0'
+ext.forgeExcludedSources = ['**/client/FunConfigScreen.java', '**/client/FunJeiPlugin.java']
+ext.forgeMixinConfigs = ['simplefun.mixins.json', 'simplefun.forge.mixins.json']
+apply from: rootProject.file('gradle/module-forge.gradle')
+
+// Compile the canonical config without inert Cloth GUI annotations; no copied values or shim packages.
+def configSource = rootProject.file('modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java')
+def configOutput = layout.buildDirectory.dir('forgeConfigSource')
+tasks.register('prepareForgeConfig') {
+    inputs.file(configSource); outputs.dir(configOutput)
+    doLast {
+        def target = configOutput.get().file('com/simplefun/config/SimplefunConfig.java').asFile
+        target.parentFile.mkdirs()
+        target.setText(configSource.getText('UTF-8')
+            .replaceAll(/(?m)^import me\.shedaniel\.autoconfig[^;]*;\s*/, '')
+            .replaceAll(/@Config\(name = Constants\.MOD_ID\)\s*/, '')
+            .replace(' implements ConfigData', '')
+            .replaceAll(/@ConfigEntry\.Gui\.\w+\s*/, ''), 'UTF-8')
+    }
+}
+sourceSets.main.java.srcDir(configOutput)
+sourceSets.main.java.exclude { e -> e.file == configSource }
+tasks.named('compileJava') { dependsOn 'prepareForgeConfig' }

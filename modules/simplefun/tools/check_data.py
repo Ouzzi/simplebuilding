@@ -11,7 +11,7 @@ def unique(pairs):
  return d
 def read(p):return json.loads(p.read_text(encoding='utf-8'),object_pairs_hook=unique)
 for p in MODULE.rglob('*.json'):
- if 'build' not in p.parts:read(p)
+ if not any(part == 'build' or part == 'run' or part.startswith('run-') for part in p.relative_to(MODULE).parts):read(p)
 en,de=[read(MODULE/f'shared/resources/assets/simplefun/lang/{l}.json') for l in ['en_us','de_de']]
 assert en.keys()==de.keys(),'lang keys differ'
 manual=read(MODULE/'wiki/manual.json');ids=[f['id'] for f in manual['features']];assert len(ids)==len(set(ids))

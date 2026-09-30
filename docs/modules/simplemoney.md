@@ -49,3 +49,8 @@ Forge 26.3 und 26.2/1.21.11/26.4 folgen erst im freigegebenen Port-Run. Dazu Loa
 - Entscheidungen: Quell-Balancing erhalten; README-Abweichungen nach Code korrigiert, leere Features/Sprachreste nicht übernommen. Keine Registry-Kollisionen; Händler/Beute additiv. Besitzer-Abnahme von Bedienung/Balancing bleibt offen. Kein Push, kein Merge.
 
 - Abschließender kombinierter Harness-/Modlauf nach Trennung der Fabric-Tasks: **21/21 alles gruen**, `2026-09-30T13-35-03Z-5946`. Eigene Berichte/Filter, gemeinsame Fabric-Instanz seriell. Danach vollständiges `gradlew.bat --no-daemon check -q` erneut **Exit 0**, Ausgabe gelesen.
+
+## Experimental Forge 26.3
+Opt-in `-Pforge263=true` adapter: shared registry, recipes, JSON configuration, conditional trades and loot. Module-owned test/loot mixins; same server catalogue. No Cloth GUI or speculative JEI/Jade/Curios dependencies; Forge client and optional integrations remain unverified.
+
+Forge server catalogue: **10/10, alles gruen**, run `2026-09-30T16-55-58Z-2ac0`. Real recipes, conditional trades, loot and cross-mod storage passed. Isolated module test world; owner saves untouched.

@@ -47,7 +47,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "cloth_config"
@@ -56,7 +57,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "d7564d9000e4"
+    "dataHash": "cfa5d61c1f19"
   },
   {
     "id": "simpleriding",
@@ -66,7 +67,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "cloth_config"
@@ -74,7 +76,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "ffdd075a8adb"
+    "dataHash": "3257b2f5b5b5"
   },
   {
     "id": "simplemodels",
@@ -84,14 +86,15 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [],
     "optional": [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "30a7b6f560f4"
+    "dataHash": "c8c701aaff8e"
   },
   {
     "id": "simplefun",
@@ -101,7 +104,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "cloth_config"
@@ -111,7 +115,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "fafc901add3e"
+    "dataHash": "d4e01b392241"
   },
   {
     "id": "simplevisuals",
@@ -121,7 +125,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "cloth_config"
@@ -131,7 +136,7 @@ window.WIKI_MODULES = [
       "simplemodels",
       "modmenu"
     ],
-    "dataHash": "817359ef2a6e"
+    "dataHash": "01baf1f68bef"
   },
   {
     "id": "simplesounds",

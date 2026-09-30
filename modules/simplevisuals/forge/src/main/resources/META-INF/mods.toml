@@ -9,7 +9,7 @@ displayName="Simple Visuals"
 modId="forge"
 mandatory=true
 versionRange="[66,)"
-ordering="NONE"
+ordering="AFTER"
 side="BOTH"
 [[dependencies.simplevisuals]]
 modId="minecraft"

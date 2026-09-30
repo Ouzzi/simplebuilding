@@ -173,3 +173,8 @@ of UI and resource distribution with their actual custom model pack remains nece
   the administrator's filesystem via the browser's import-folder/help workflow.
 - Final `gradlew.bat check -q --no-daemon`: **GRADLE_EXIT=0**, output read; includes
   shared 26.2 compilation, module compilation/data, balance, wiki and existing gates.
+
+## Experimental Forge 26.3
+Opt-in `-Pforge263=true` adapter: server-approved anvil models, catalogue networking, JSON configuration, and server tests. Same catalogue IDs and shared bodies; module-owned loader hooks and isolated test world. No speculative optional Forge dependencies. Cloth GUI unavailable; existing server JSON settings retained. Forge client, real multiplayer and optional integrations remain unverified.
+
+Forge catalogue: **16/16, alles gruen**, `2026-09-30T17-00-36Z-2eea`. Server assignment/anvil, permission, stale-result, folder/reload and catalogue bounds passed. Forge client handler is isolated and logout clears the cache; real-player channel delivery and client UI remain unverified. Browser access remains the shared inventory/anvil button; no Forge mod-list config button is registered.

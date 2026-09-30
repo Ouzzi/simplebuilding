@@ -14,7 +14,8 @@ window.WIKI_MODULE_DATA["simplevisuals"] = {
     ],
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ]
   },
   "features": [
@@ -1549,6 +1550,29 @@ window.WIKI_MODULE_DATA["simplevisuals"] = {
           "Beobachteter Lebensgewinn eines nahen Lebewesens. Vanilla-Typ minecraft:heart; Intervall 1 Ticks. Stufen: Aus, Dezent, Normal, Stark, Maximum; standardmäßig globale Stufe Dezent. Anzahl je Gelegenheit 0/1/2/3/4 unter gemeinsamen Grenzen."
         ]
       }
+    },
+    {
+      "id": "forge_263",
+      "en": {
+        "title": "Experimental Forge 26.3",
+        "summary": "Opt-in Forge adapter with shared cosmetic mixins, local commands, server formatting policy, JSON configuration, and server tests.",
+        "details": [
+          "Enable -Pforge263=true. Forge client display and optional integrations require separate acceptance.",
+          "Cloth Config screens are unavailable on Forge 26.3; edit the module JSON configuration instead."
+        ]
+      },
+      "de": {
+        "title": "Experimentelles Forge 26.3",
+        "summary": "Opt-in-Forge-Adapter mit gemeinsamem Modulcode, JSON-Konfiguration und gleichem Servertestkatalog.",
+        "details": [
+          "Mit -Pforge263=true aktivieren. Forge-Clientdarstellung und optionale Integrationen brauchen eine eigene Abnahme.",
+          "Cloth-Config-Seiten fehlen auf Forge 26.3; stattdessen die Modul-JSON-Konfiguration bearbeiten."
+        ]
+      },
+      "sources": [
+        "modules/simplevisuals/forge/build.gradle"
+      ],
+      "related": []
     }
   ],
   "recipes": [],
@@ -1572,7 +1596,7 @@ window.WIKI_MODULE_DATA["simplevisuals"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 76,
+    "features": 77,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

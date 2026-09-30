@@ -87,13 +87,15 @@
       "defaultEnabled": true,
       "projects": {
         "fabric": ":modules:simplemoney:fabric",
-        "neoforge": ":modules:simplemoney:neoforge"
+        "neoforge": ":modules:simplemoney:neoforge",
+        "forge": ":modules:simplemoney:forge"
       },
       "displayName": "Simple Money",
       "description": "Currency production, weighted villager trades and treasure loot.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth_config"
@@ -134,6 +136,18 @@
           "neoforge": {
             "task": ":modules:simplemoney:neoforge:runMoneyIntegrationGameTest",
             "report": "modules/simplemoney/neoforge/build/money-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplemoney:forge:runGameTestServer",
+            "report": "modules/simplemoney/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -157,13 +171,15 @@
       "defaultEnabled": true,
       "projects": {
         "fabric": ":modules:simpleriding:fabric",
-        "neoforge": ":modules:simpleriding:neoforge"
+        "neoforge": ":modules:simpleriding:neoforge",
+        "forge": ":modules:simpleriding:forge"
       },
       "displayName": "Simple Riding",
       "description": "Saddle speed and horse jump enchantments, mount armor utilities, loot, and trades.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth_config"
@@ -176,7 +192,7 @@
         "shared": "modules/simpleriding/shared",
         "fabric": "modules/simpleriding/fabric",
         "neoforge": "modules/simpleriding/neoforge",
-        "forge": null,
+        "forge": "modules/simpleriding/forge",
         "generated": "modules/simpleriding/generated/resources",
         "lang": "modules/simpleriding/shared/resources/assets/simpleriding/lang",
         "wikiManual": "modules/simpleriding/wiki/manual.json",
@@ -203,6 +219,18 @@
           "neoforge": {
             "task": ":modules:simpleriding:neoforge:runRidingIntegrationGameTest",
             "report": "modules/simpleriding/neoforge/build/riding-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simpleriding:forge:runGameTestServer",
+            "report": "modules/simpleriding/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -228,7 +256,8 @@
       "description": "Server-approved custom item models, anvil assignment, and a searchable model browser.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [],
       "optional": [
@@ -258,6 +287,18 @@
           "neoforge": {
             "task": ":modules:simplemodels:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplemodels/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplemodels:forge:runGameTestServer",
+            "report": "modules/simplemodels/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -274,7 +315,7 @@
         "shared": "modules/simplemodels/shared",
         "fabric": "modules/simplemodels/fabric",
         "neoforge": "modules/simplemodels/neoforge",
-        "forge": null,
+        "forge": "modules/simplemodels/forge",
         "generated": "modules/simplemodels/generated/resources",
         "lang": "modules/simplemodels/shared/resources/assets/simplemodels/lang",
         "wikiManual": "modules/simplemodels/wiki/manual.json",
@@ -282,7 +323,8 @@
       },
       "projects": {
         "fabric": ":modules:simplemodels:fabric",
-        "neoforge": ":modules:simplemodels:neoforge"
+        "neoforge": ":modules:simplemodels:neoforge",
+        "forge": ":modules:simplemodels:forge"
       }
     },
     {
@@ -295,7 +337,8 @@
       "description": "Bounded playful mechanics, throwable bricks, cosmetic transformations and farm-animal heads.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth_config"
@@ -328,6 +371,18 @@
           "neoforge": {
             "task": ":modules:simplefun:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplefun/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplefun:forge:runGameTestServer",
+            "report": "modules/simplefun/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -344,7 +399,7 @@
         "shared": "modules/simplefun/shared",
         "fabric": "modules/simplefun/fabric",
         "neoforge": "modules/simplefun/neoforge",
-        "forge": null,
+        "forge": "modules/simplefun/forge",
         "generated": "modules/simplefun/generated/resources",
         "lang": "modules/simplefun/shared/resources/assets/simplefun/lang",
         "wikiManual": "modules/simplefun/wiki/manual.json",
@@ -352,7 +407,8 @@
       },
       "projects": {
         "fabric": ":modules:simplefun:fabric",
-        "neoforge": ":modules:simplefun:neoforge"
+        "neoforge": ":modules:simplefun:neoforge",
+        "forge": ":modules:simplefun:forge"
       }
     },
     {
@@ -365,7 +421,8 @@
       "description": "Bounded client HUD, tooltips, anvil formatting, and Vanilla immersion particles.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth_config"
@@ -398,6 +455,18 @@
           "neoforge": {
             "task": ":modules:simplevisuals:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplevisuals/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplevisuals:forge:runGameTestServer",
+            "report": "modules/simplevisuals/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -414,7 +483,7 @@
         "shared": "modules/simplevisuals/shared",
         "fabric": "modules/simplevisuals/fabric",
         "neoforge": "modules/simplevisuals/neoforge",
-        "forge": null,
+        "forge": "modules/simplevisuals/forge",
         "generated": "modules/simplevisuals/generated/resources",
         "lang": "modules/simplevisuals/shared/resources/assets/simplevisuals/lang",
         "wikiManual": "modules/simplevisuals/wiki/manual.json",
@@ -422,7 +491,8 @@
       },
       "projects": {
         "fabric": ":modules:simplevisuals:fabric",
-        "neoforge": ":modules:simplevisuals:neoforge"
+        "neoforge": ":modules:simplevisuals:neoforge",
+        "forge": ":modules:simplevisuals:forge"
       }
     },
     {

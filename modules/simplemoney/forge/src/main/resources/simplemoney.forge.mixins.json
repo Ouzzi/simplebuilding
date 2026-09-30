@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.modules.simplemoney.forge.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "RegistryLoadTaskMixin",
+    "ReloadableServerRegistriesMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

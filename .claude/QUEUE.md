@@ -100,3 +100,6 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Besitzerentscheidung: alte Echo-Library-Vanilla-Compasse automatisch zu Echo Soundern migrieren? Quelleninventar vorhanden, Library nicht mitgeliefert.
 - [ ] Simple Tweaks: NeoForge-Client und echte alte Welt/Besitzerwelt abnehmen; Forge26.3 und26.2/1.21.11/26.4 erst eigener freigegebener Port.
 - [x] Simple Tweaks: abschliessendes Worktree-Gate check -q --no-daemon GRADLE_EXIT=0, einschliesslich shared26.2-Kompilierbarkeit; kein Push/Merge.
+- Forge-Modules: experimentelle opt-in Forge-26.3-Adapter fuer Money, Riding, Models, Fun und Visuals; eigene Manifestziele, gleiche Testkataloge, Modulcommits ohne Push/Merge.
+
+- [x] Forge-Modules: Money/Riding/Models/Fun/Visuals experimentell opt-in portiert; finale Modulpruefung 89/89 gruen, Standardregression 1775/1775 gruen. Forge-Client-/Mehrspielerabnahme und Standardaktivierung bleiben Besitzerpunkte. Kein Push/Merge.

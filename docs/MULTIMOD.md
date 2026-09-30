@@ -201,3 +201,46 @@ without a second module registration. Reports and client screenshot expectations
 remain isolated per target. Fabric run tasks form a `mustRunAfter` chain, as do
 NeoForge module tasks, preventing simultaneous use of each shared integration
 test directory even under `--parallel`.
+
+## Repeatable experimental Forge module adapter (26.3)
+
+Keep Forge opt-in; add only the module's `projects.forge`, `paths.forge`, `loaders`
+and `tests.loaders.forge` manifest fields. The test declaration supplies
+`task: ":modules:<id>:forge:runGameTestServer"`, an isolated report,
+`gradleArgs` with `-Pforge263=true`, `-Pforge_runs=true` and the Java 8 toolchain
+path, plus optional `testMods` (runtime jar ids, for example `simplebuilding`).
+The existing Forge convention discovers these settings; no root/runner/Hub block
+is needed. Include module-owned `pack.mcmeta` (the SimpleBuilding Forge resource
+format range is the current reference); Forge otherwise omits the module data pack.
+Each module uses its own `forge/run-gametest` world. Test mods are runtime jars
+enabled only when the
+fully qualified manifest test task is requested; ordinary standalone module
+client/server invocations stay independent. Do not combine a module test and its
+ordinary client/server task in one Gradle invocation.
+
+In `forge/build.gradle`, apply `gradle/module-forge.gradle` with the module version.
+Declare `forgeMixinConfigs` for shared and Forge-only configs; they enter both the
+jar manifest and development launcher, with Forge's supported JAVA_21 Mixin level.
+`forgeExcludedSources` excludes optional Cloth GUI/JEI classes when no Forge 26.3
+artifact exists. Do not bundle fake Cloth GUI APIs or require another mod's shim.
+If the canonical config only uses inert Cloth annotations, generate a compile copy
+without those markers (Fun demonstrates this); never copy field values or normalization.
+Avoid duplicate shim packages between module jars. Server JSON configuration remains
+the shared loader-neutral code.
+
+Use `FMLJavaModLoadingContext.getModBusGroup()` and the typed event's `getBus(bus)`
+for registry/lifecycle events; game events expose `BUS`. Keep client setup behind
+a Dist.CLIENT entrypoint. Register shared test bodies as TEST_FUNCTION entries;
+a module-owned RegistryLoadTask mixin adds identical TEST_INSTANCE ids only on the
+GameTest server, before registry freeze, using the already loaded default environment.
+Do not register test instances in normal worlds or on client network registry loading.
+The Forge convention adds `forge:condition` from each existing `neoforge:conditions`
+object in built resources, preserving canonical datagen and other loader behavior.
+Register the matching condition codec with Forge CONDITION_SERIALIZERS.
+Loot involving holders must run in createAndValidateFullContext, after holders bind
+and before validation; a module-owned mixin receives the current reload lookup.
+
+Verify each module target and commit it before the next module. At completion run
+default `check`, all Forge compile tasks, existing Forge/26.3/integration suites and
+all declared module server targets. Read the actual "alles gruen" lines. A server
+suite does not constitute Forge client, optional integration or owner-world acceptance.

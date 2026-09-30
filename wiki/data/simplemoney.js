@@ -14,7 +14,8 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
     ],
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ]
   },
   "features": [
@@ -1348,6 +1349,28 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "modules/simplemoney/generated/resources/data/simplemoney/recipe/rocket_from_paper.json"
       ],
       "related": []
+    },
+    {
+      "id": "forge_263",
+      "en": {
+        "title": "Experimental Forge 26.3",
+        "summary": "Opt-in Forge adapter with shared items, recipes, trades, loot, JSON configuration, and the same server test catalogue.",
+        "details": [
+          "Enable -Pforge263=true. Cloth Config screens are unavailable on Forge 26.3; use the server JSON file. Forge client display and optional integrations require separate acceptance."
+        ]
+      },
+      "de": {
+        "title": "Experimentelles Forge 26.3",
+        "summary": "Opt-in-Forge-Adapter mit gemeinsamen Items, Rezepten, Handel, Beute, JSON-Konfiguration und gleichem Servertestkatalog.",
+        "details": [
+          "Mit -Pforge263=true aktivieren. Cloth-Config-Seiten fehlen auf Forge 26.3; die Server-JSON-Datei verwenden. Forge-Clientdarstellung und optionale Integrationen brauchen eine eigene Abnahme."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/forge/build.gradle",
+        "modules/simplemoney/forge/src/main/java/com/simplebuilding/modules/simplemoney/forge/MoneyForge.java"
+      ],
+      "related": []
     }
   ],
   "recipes": [
@@ -1832,7 +1855,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 57,
+    "features": 58,
     "recipes": 8,
     "lootTables": 0,
     "tags": 0,

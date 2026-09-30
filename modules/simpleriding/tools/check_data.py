@@ -20,7 +20,7 @@ def read(path):
 
 def check():
     for path in MODULE.rglob('*.json'):
-        if 'build' not in path.parts:
+        if not any(part == 'build' or part == 'run' or part.startswith('run-') for part in path.relative_to(MODULE).parts):
             read(path)
     manifest = read(ROOT / 'modules/modules.json')
     fields = {'id', 'name', 'displayName', 'description', 'version', 'loaders', 'minecraft', 'paths', 'requires', 'optional'}
@@ -31,7 +31,7 @@ def check():
         assert set(entry['loaders']) <= {'fabric', 'neoforge', 'forge'}
         assert entry['minecraft'] == '26.3'
     entry = next(e for e in manifest['modules'] if e['id'] == 'simpleriding')
-    assert entry['version'] == '1.0.5' and entry['loaders'] == ['fabric', 'neoforge']
+    assert entry['version'] == '1.0.5' and entry['loaders'] == ['fabric', 'neoforge', 'forge']
     lang_dir = MODULE / 'shared/resources/assets/simpleriding/lang'
     en, de = [read(lang_dir / f'{language}.json') for language in ('en_us', 'de_de')]
     assert en.keys() == de.keys(), 'language completeness'
@@ -45,7 +45,7 @@ def check():
             assert 'text.autoconfig.simpleriding.option.' + option['tab'] in language
     manual = read(MODULE / 'wiki/manual.json')['features']
     assert len({f['id'] for f in manual}) == len(manual)
-    assert len(manual) == 12, 'all gameplay/registry chapters and six config options'
+    assert len(manual) == 13 and any(f['id'] == 'forge_263' for f in manual), 'gameplay, config and Forge support chapters'
     for feature in manual:
         for language in ('en', 'de'):
             assert feature[language]['title'] and feature[language]['summary'] and feature[language]['details']

@@ -14,7 +14,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
     ],
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ]
   },
   "features": [
@@ -1002,6 +1003,29 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "Kopfbeute und Bibliothekarhandel werden beim Laden der Serverdaten ausgewählt; Dateischalter brauchen einen Neustart."
         ]
       }
+    },
+    {
+      "id": "forge_263",
+      "en": {
+        "title": "Experimental Forge 26.3",
+        "summary": "Opt-in Forge adapter with shared bounded mechanics, registries, conditional trades, loot, JSON configuration, and server tests.",
+        "details": [
+          "Enable -Pforge263=true. Forge client display and optional integrations require separate acceptance.",
+          "Cloth Config screens are unavailable on Forge 26.3; edit the module JSON configuration instead."
+        ]
+      },
+      "de": {
+        "title": "Experimentelles Forge 26.3",
+        "summary": "Opt-in-Forge-Adapter mit gemeinsamem Modulcode, JSON-Konfiguration und gleichem Servertestkatalog.",
+        "details": [
+          "Mit -Pforge263=true aktivieren. Forge-Clientdarstellung und optionale Integrationen brauchen eine eigene Abnahme.",
+          "Cloth-Config-Seiten fehlen auf Forge 26.3; stattdessen die Modul-JSON-Konfiguration bearbeiten."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/forge/build.gradle"
+      ],
+      "related": []
     }
   ],
   "recipes": [
@@ -1478,7 +1502,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 47,
+    "features": 48,
     "recipes": 1,
     "lootTables": 4,
     "tags": 1,

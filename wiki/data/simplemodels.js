@@ -14,7 +14,8 @@ window.WIKI_MODULE_DATA["simplemodels"] = {
     ],
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ]
   },
   "features": [
@@ -186,6 +187,27 @@ window.WIKI_MODULE_DATA["simplemodels"] = {
       "de": {
         "summary": "JSON-Definitionsbytes, begrenzt auf 256–16384. Ungültige, zu tief verschachtelte oder übergroße Dateien werden verworfen. Standard: 16384."
       }
+    },
+    {
+      "id": "forge_263",
+      "en": {
+        "title": "Experimental Forge 26.3",
+        "summary": "Opt-in Forge adapter with server-approved anvil models, catalogue networking, JSON configuration, and server tests.",
+        "details": [
+          "Enable -Pforge263=true. Forge client display, catalogue networking with real players, and resource-pack delivery require separate acceptance."
+        ]
+      },
+      "de": {
+        "title": "Experimentelles Forge 26.3",
+        "summary": "Opt-in-Forge-Adapter mit gemeinsamem Modulcode, JSON-Konfiguration und gleichem Servertestkatalog.",
+        "details": [
+          "Mit -Pforge263=true aktivieren. Forge-Clientdarstellung, Katalognetzwerk mit echten Spielern und Ressourcenpaketverteilung brauchen eine eigene Abnahme."
+        ]
+      },
+      "sources": [
+        "modules/simplemodels/forge/build.gradle"
+      ],
+      "related": []
     }
   ],
   "recipes": [],
@@ -209,7 +231,7 @@ window.WIKI_MODULE_DATA["simplemodels"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 13,
+    "features": 14,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,
