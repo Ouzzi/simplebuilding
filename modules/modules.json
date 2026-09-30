@@ -107,7 +107,7 @@
         "shared": "modules/simplemoney/shared",
         "fabric": "modules/simplemoney/fabric",
         "neoforge": "modules/simplemoney/neoforge",
-        "forge": null,
+        "forge": "modules/simplemoney/forge",
         "generated": "modules/simplemoney/generated/resources",
         "lang": "modules/simplemoney/shared/resources/assets/simplemoney/lang",
         "wikiManual": "modules/simplemoney/wiki/manual.json",
