@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[66,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpletweaks"
+version="${version}"
+displayName="Simple Tweaks"
+[[dependencies.simpletweaks]]
+modId="forge"
+mandatory=true
+versionRange="[66,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.simpletweaks]]
+modId="minecraft"
+mandatory=true
+versionRange="[26.3,26.4)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpletweaks]]
+modId="simplebuilding"
+mandatory=true
+versionRange="[1,)"
+ordering="AFTER"
+side="BOTH"

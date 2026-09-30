@@ -671,7 +671,8 @@
       "description": "Legacy-world compatibility for features now provided by SimpleBuilding; claims remain deferred.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "simplebuilding"
@@ -700,6 +701,18 @@
           "neoforge": {
             "task": ":modules:simpletweaks:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simpletweaks/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simpletweaks:forge:runGameTestServer",
+            "report": "modules/simpletweaks/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -716,7 +729,7 @@
         "shared": "modules/simpletweaks/shared",
         "fabric": "modules/simpletweaks/fabric",
         "neoforge": "modules/simpletweaks/neoforge",
-        "forge": null,
+        "forge": "modules/simpletweaks/forge",
         "generated": "modules/simpletweaks/generated/resources",
         "lang": "modules/simpletweaks/shared/resources/assets/simpletweaks/lang",
         "wikiManual": "modules/simpletweaks/wiki/manual.json",
@@ -724,7 +737,8 @@
       },
       "projects": {
         "fabric": ":modules:simpletweaks:fabric",
-        "neoforge": ":modules:simpletweaks:neoforge"
+        "neoforge": ":modules:simpletweaks:neoforge",
+        "forge": ":modules:simpletweaks:forge"
       }
     }
   ]

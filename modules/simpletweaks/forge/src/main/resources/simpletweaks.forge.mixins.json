@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simplebuilding.modules.simpletweaks.forge.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "RegistryLoadTaskMixin",
+    "NamespacedWrapperAliasMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
