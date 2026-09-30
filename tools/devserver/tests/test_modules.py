@@ -21,7 +21,7 @@ class ModuleTests(unittest.TestCase):
         self.repo = Path(self.temp.name)
         self.module = dict(next(m for m in load(helpers.REPO) if m['id'] == 'wiringexample'))
         self.module['id'] = 'fixturemod'
-        self.module['paths'] = {k: v.replace('wiringexample', 'fixturemod') for k, v in self.module['paths'].items()}
+        self.module['paths'] = {k: (v.replace('wiringexample', 'fixturemod') if isinstance(v, str) else v) for k, v in self.module['paths'].items()}
         self.write('modules/modules.json', {'modules': [self.module]})
         self.java = self.module['paths']['shared'] + '/demo/Tuning.java'
         self.write(self.java, 'package demo; public class Tuning { public static final int COOLDOWN_TICKS = 20; }\r\n')
@@ -99,7 +99,7 @@ class ModuleTests(unittest.TestCase):
         self.assertFalse((root / 'simplebuilding').exists())
 
     def test_two_modules_do_not_share_store_or_snapshot(self):
-        other = dict(self.module, id='secondmod', paths={k: v.replace('fixturemod', 'secondmod') for k, v in self.module['paths'].items()})
+        other = dict(self.module, id='secondmod', paths={k: (v.replace('fixturemod', 'secondmod') if isinstance(v, str) else v) for k, v in self.module['paths'].items()})
         self.write('modules/modules.json', {'modules': [self.module, other]})
         registry = Registry(self.repo)
         with patch('sbdev.vanilla.load', return_value=({}, {}, [])):
