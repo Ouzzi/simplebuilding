@@ -30,6 +30,10 @@ for name in ['brick_snowball','pig_head','cow_head','chicken_head','sheep_head']
  assert f'item.simplefun.{name}' in en and f'item.simplefun.{name}' in de
  assert (MODULE/f'generated/resources/data/simplefun/advancement/content/{name}.json').is_file()
  assert name in ids
+ if name.endswith('_head'):
+  model=read(MODULE/f'generated/resources/assets/simplefun/items/{name}.json')['model']
+  assert model['type']=='minecraft:special' and model['base']=='minecraft:item/template_skull'
+  assert model['model']=={'type':'minecraft:head','kind':'simplefun:'+name.removesuffix('_head')}
 assert read(MODULE/'shared/resources/data/simplefun/recipe/brick_snowball.json')['result']=={'count':1,'id':'simplefun:brick_snowball'}
 assert read(MODULE/'generated/resources/data/simplefun/villager_trade/librarian/1/no_damage.json')['wants']['count']==25
 client=Path.home()/'.gradle/caches/fabric-loom/26.3/minecraft-client.jar'

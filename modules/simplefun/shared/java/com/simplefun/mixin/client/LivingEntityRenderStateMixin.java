@@ -8,16 +8,15 @@ import org.spongepowered.asm.mixin.Unique;
 @Mixin(LivingEntityRenderState.class)
 public class LivingEntityRenderStateMixin implements PiggyStateExtension {
 
-    @Unique
-    private boolean simplefun$piggy = false;
+  @Unique private boolean simplefun$piggy = false;
 
-    @Override
-    public void simplefun$setPiggy(boolean isPiggy) {
-        this.simplefun$piggy = isPiggy;
-    }
+  @Override
+  public void simplefun$setPiggy(boolean isPiggy) {
+    this.simplefun$piggy = isPiggy;
+  }
 
-    @Override
-    public boolean simplefun$isPiggy() {
-        return this.simplefun$piggy;
-    }
+  @Override
+  public boolean simplefun$isPiggy() {
+    return this.simplefun$piggy;
+  }
 }

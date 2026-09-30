@@ -94,6 +94,6 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "653098a9aeaa"
+    "dataHash": "fafc901add3e"
   }
 ];

@@ -1,8 +1,86 @@
 package com.simplefun.client;
-import com.simplefun.*;import com.simplefun.config.*;import net.minecraft.client.gui.screens.Screen;import net.minecraft.network.chat.Component;import me.shedaniel.clothconfig2.api.ConfigBuilder;
+
+import com.simplefun.*;
+import com.simplefun.config.*;
+import me.shedaniel.clothconfig2.api.ConfigBuilder;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+
 public final class FunConfigScreen {
- public static Screen build(Screen parent){var gson=new com.google.gson.GsonBuilder().setPrettyPrinting().create();var c=gson.fromJson(gson.toJson(SimplefunCommon.getConfig()),SimplefunConfig.class);var defaults=new SimplefunConfig();var b=ConfigBuilder.create().setParentScreen(parent).setTitle(Component.translatable("text.autoconfig.simplefun.title"));var eb=b.entryBuilder();
- for(var field:SimplefunConfig.Fun.class.getFields()){String key=field.getName();String prefix="text.autoconfig.simplefun.option.fun."+key;var cat=b.getOrCreateCategory(Component.translatable("simplefun.config.tab."+(key.endsWith("Greeting")||key.equals("enableAnimalHeads")?"heads":key.endsWith("Crumbs")||java.util.Set.of("flowerSniff","appleSparkle","carrotCrunch","melonSplash","honeyBubbles","berryBlush").contains(key)?"delights":"gameplay")));
- try{if(field.getType()==boolean.class)cat.addEntry(eb.startBooleanToggle(Component.translatable(prefix),field.getBoolean(c.fun)).setDefaultValue(field.getBoolean(defaults.fun)).setTooltip(Component.translatable(prefix+".@Tooltip")).setSaveConsumer(v->{try{field.setBoolean(c.fun,v);}catch(Exception e){throw new IllegalStateException(e);}}).build());else cat.addEntry(eb.startFloatField(Component.translatable(prefix),field.getFloat(c.fun)).setDefaultValue(field.getFloat(defaults.fun)).setMin(key.equals("yeetStrength")?.1f:0).setMax(key.equals("yeetStrength")?3:4).setTooltip(Component.translatable(prefix+".@Tooltip")).setSaveConsumer(v->{try{field.setFloat(c.fun,v);}catch(Exception e){throw new IllegalStateException(e);}}).build());}catch(Exception e){throw new IllegalStateException(e);}}
- b.setSavingRunnable(()->{c.normalize();try{java.nio.file.Files.writeString(java.nio.file.Path.of("config/simplefun.json"),gson.toJson(c));}catch(Exception e){throw new IllegalStateException(e);}});return b.build();}
+  public static Screen build(Screen parent) {
+    var gson = new com.google.gson.GsonBuilder().setPrettyPrinting().create();
+    var c = gson.fromJson(gson.toJson(SimplefunCommon.getConfig()), SimplefunConfig.class);
+    var defaults = new SimplefunConfig();
+    var b =
+        ConfigBuilder.create()
+            .setParentScreen(parent)
+            .setTitle(Component.translatable("text.autoconfig.simplefun.title"));
+    var eb = b.entryBuilder();
+    for (var field : SimplefunConfig.Fun.class.getFields()) {
+      String key = field.getName();
+      String prefix = "text.autoconfig.simplefun.option.fun." + key;
+      var cat =
+          b.getOrCreateCategory(
+              Component.translatable(
+                  "simplefun.config.tab."
+                      + (key.endsWith("Greeting") || key.equals("enableAnimalHeads")
+                          ? "heads"
+                          : key.endsWith("Crumbs")
+                                  || java.util.Set.of(
+                                          "flowerSniff",
+                                          "appleSparkle",
+                                          "carrotCrunch",
+                                          "melonSplash",
+                                          "honeyBubbles",
+                                          "berryBlush")
+                                      .contains(key)
+                              ? "delights"
+                              : "gameplay")));
+      try {
+        if (field.getType() == boolean.class)
+          cat.addEntry(
+              eb.startBooleanToggle(Component.translatable(prefix), field.getBoolean(c.fun))
+                  .setDefaultValue(field.getBoolean(defaults.fun))
+                  .setTooltip(Component.translatable(prefix + ".@Tooltip"))
+                  .setSaveConsumer(
+                      v -> {
+                        try {
+                          field.setBoolean(c.fun, v);
+                        } catch (Exception e) {
+                          throw new IllegalStateException(e);
+                        }
+                      })
+                  .build());
+        else
+          cat.addEntry(
+              eb.startFloatField(Component.translatable(prefix), field.getFloat(c.fun))
+                  .setDefaultValue(field.getFloat(defaults.fun))
+                  .setMin(key.equals("yeetStrength") ? .1f : 0)
+                  .setMax(key.equals("yeetStrength") ? 3 : 4)
+                  .setTooltip(Component.translatable(prefix + ".@Tooltip"))
+                  .setSaveConsumer(
+                      v -> {
+                        try {
+                          field.setFloat(c.fun, v);
+                        } catch (Exception e) {
+                          throw new IllegalStateException(e);
+                        }
+                      })
+                  .build());
+      } catch (Exception e) {
+        throw new IllegalStateException(e);
+      }
+    }
+    b.setSavingRunnable(
+        () -> {
+          c.normalize();
+          try {
+            java.nio.file.Files.writeString(
+                java.nio.file.Path.of("config/simplefun.json"), gson.toJson(c));
+          } catch (Exception e) {
+            throw new IllegalStateException(e);
+          }
+        });
+    return b.build();
+  }
 }

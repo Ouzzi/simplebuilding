@@ -1,3 +1,48 @@
 package com.simplebuilding.modules.simplefun;
-import com.simplefun.heads.AnimalHeads;import com.simplefun.test.FunTests;import net.minecraft.core.registries.Registries;import net.minecraft.gametest.framework.*;import net.minecraft.resources.*;import java.util.List;
-public final class ModuleNeoTests {public static void register(net.neoforged.bus.api.IEventBus bus){bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e)->e.register(Registries.TEST_FUNCTION,r->FunTests.ALL.forEach((n,b)->r.register(AnimalHeads.id("module_game_test_"+n),b))));bus.addListener((net.neoforged.neoforge.event.RegisterGameTestsEvent e)->{var env=e.registerEnvironment(AnimalHeads.id("default"),new TestEnvironmentDefinition.AllOf(List.of()));FunTests.ALL.forEach((n,b)->{var id=AnimalHeads.id("module_game_test_"+n);var d=new TestData<>(env,net.minecraft.world.level.Level.OVERWORLD,AnimalHeads.id("empty"),200,0,true,net.minecraft.world.level.block.Rotation.NONE,false,1,1,false,1);e.registerTest(id,new FunctionGameTestInstance(ResourceKey.create(Registries.TEST_FUNCTION,id),d));});});}}
+
+import com.simplefun.heads.AnimalHeads;
+import com.simplefun.test.FunTests;
+import java.util.List;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.gametest.framework.*;
+import net.minecraft.resources.*;
+
+public final class ModuleNeoTests {
+  public static void register(net.neoforged.bus.api.IEventBus bus) {
+    bus.addListener(
+        (net.neoforged.neoforge.registries.RegisterEvent e) ->
+            e.register(
+                Registries.TEST_FUNCTION,
+                r ->
+                    FunTests.ALL.forEach(
+                        (n, b) -> r.register(AnimalHeads.id("module_game_test_" + n), b))));
+    bus.addListener(
+        (net.neoforged.neoforge.event.RegisterGameTestsEvent e) -> {
+          var env =
+              e.registerEnvironment(
+                  AnimalHeads.id("default"), new TestEnvironmentDefinition.AllOf(List.of()));
+          FunTests.ALL.forEach(
+              (n, b) -> {
+                var id = AnimalHeads.id("module_game_test_" + n);
+                var d =
+                    new TestData<>(
+                        env,
+                        net.minecraft.world.level.Level.OVERWORLD,
+                        AnimalHeads.id("empty"),
+                        200,
+                        0,
+                        true,
+                        net.minecraft.world.level.block.Rotation.NONE,
+                        false,
+                        1,
+                        1,
+                        false,
+                        1);
+                e.registerTest(
+                    id,
+                    new FunctionGameTestInstance(
+                        ResourceKey.create(Registries.TEST_FUNCTION, id), d));
+              });
+        });
+  }
+}

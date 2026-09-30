@@ -13,11 +13,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntityRenderer.class)
 public class LivingEntityRendererMixin {
 
-    @Inject(method = "extractRenderState", at = @At("TAIL"))
-    private void simplefun$updatePiggyState(LivingEntity entity, LivingEntityRenderState state, float partialTick, CallbackInfo ci) {
-        if (state instanceof PiggyStateExtension piggyState) {
-            // The loader-specific synced state (entity data on Fabric, data attachment on NeoForge).
-            piggyState.simplefun$setPiggy(Services.PLATFORM.isPiggySynced(entity));
-        }
+  @Inject(method = "extractRenderState", at = @At("TAIL"))
+  private void simplefun$updatePiggyState(
+      LivingEntity entity, LivingEntityRenderState state, float partialTick, CallbackInfo ci) {
+    if (state instanceof PiggyStateExtension piggyState) {
+      // The loader-specific synced state (entity data on Fabric, data attachment on NeoForge).
+      piggyState.simplefun$setPiggy(Services.PLATFORM.isPiggySynced(entity));
     }
+  }
 }

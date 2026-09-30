@@ -280,3 +280,4 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 - [x] MERGE-RIDING: master integrieren; Modulregistrierung aus Manifest entdecken,
   beide Modulkataloge/Client-Smokes erhalten, neue Ports ohne gemeinsame Wiring-Bloecke.
 `n- Simple Fun: 26.3 Fabric/NeoForge port, complete feature/security tests, eight cosmetic delights and charged-creeper farm-animal heads; work branch codex-port-fun, no push/merge.
+`n- Simple Fun 26.3 complete on codex-port-fun: 1627/1627 full server tests + 2/2 LAN safety, 4/4 Fabric client checkpoints, final Gradle check Exit 0; see docs/modules/simplefun.md and HANDOFF. Owner visual acceptance and deferred loader/MC ports remain. No push/merge.

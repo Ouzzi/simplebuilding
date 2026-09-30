@@ -9,14 +9,14 @@ import net.minecraft.world.level.Level;
 
 public class BrickSnowballItem extends Item {
 
-    public BrickSnowballItem(Properties properties) {
-        super(properties);
-    }
+  public BrickSnowballItem(Properties properties) {
+    super(properties);
+  }
 
-    @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        // Dedicated item - not gated by the enableThrowableBricks flag.
-        BrickProjectileEntity.throwFrom(level, player, player.getItemInHand(hand));
-        return InteractionResult.SUCCESS;
-    }
+  @Override
+  public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    // Dedicated item - not gated by the enableThrowableBricks flag.
+    BrickProjectileEntity.throwFrom(level, player, player.getItemInHand(hand));
+    return InteractionResult.SUCCESS;
+  }
 }

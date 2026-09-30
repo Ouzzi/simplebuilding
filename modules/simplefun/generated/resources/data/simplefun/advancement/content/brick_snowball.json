@@ -15,5 +15,20 @@
     [
       "has_item"
     ]
-  ]
+  ],
+  "display": {
+    "icon": {
+      "id": "simplefun:brick_snowball"
+    },
+    "title": {
+      "translate": "item.simplefun.brick_snowball"
+    },
+    "description": {
+      "translate": "jei.simplefun.brick_snowball"
+    },
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:block/white_wool"
+  }
 }

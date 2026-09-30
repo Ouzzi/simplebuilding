@@ -11,20 +11,21 @@ import net.minecraft.world.effect.MobEffect;
 
 public class ModEffects {
 
-    public static final ResourceKey<MobEffect> PIGGY_KEY =
-            ResourceKey.create(Registries.MOB_EFFECT, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "piggy_effect"));
+  public static final ResourceKey<MobEffect> PIGGY_KEY =
+      ResourceKey.create(
+          Registries.MOB_EFFECT, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "piggy_effect"));
 
-    public static final MobEffect PIGGY_EFFECT = new PiggyEffect();
+  public static final MobEffect PIGGY_EFFECT = new PiggyEffect();
 
-    private static Holder<MobEffect> piggyHolder;
+  private static Holder<MobEffect> piggyHolder;
 
-    /** Lazily resolved at first use (after registries are frozen) - safe on both loaders. */
-    public static Holder<MobEffect> holder() {
-        Holder<MobEffect> h = piggyHolder;
-        if (h == null) {
-            h = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(PIGGY_EFFECT);
-            piggyHolder = h;
-        }
-        return h;
+  /** Lazily resolved at first use (after registries are frozen) - safe on both loaders. */
+  public static Holder<MobEffect> holder() {
+    Holder<MobEffect> h = piggyHolder;
+    if (h == null) {
+      h = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(PIGGY_EFFECT);
+      piggyHolder = h;
     }
+    return h;
+  }
 }

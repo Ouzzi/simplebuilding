@@ -10,13 +10,15 @@ import net.minecraft.world.entity.MobCategory;
 
 public class ModEntities {
 
-    public static final ResourceKey<EntityType<?>> BRICK_PROJECTILE_KEY =
-            ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "brick_projectile"));
+  public static final ResourceKey<EntityType<?>> BRICK_PROJECTILE_KEY =
+      ResourceKey.create(
+          Registries.ENTITY_TYPE,
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, "brick_projectile"));
 
-    public static final EntityType<BrickProjectileEntity> BRICK_PROJECTILE =
-            EntityType.Builder.<BrickProjectileEntity>of(BrickProjectileEntity::new, MobCategory.MISC)
-                    .sized(0.25f, 0.25f)
-                    .clientTrackingRange(4)
-                    .updateInterval(10)
-                    .build(BRICK_PROJECTILE_KEY);
+  public static final EntityType<BrickProjectileEntity> BRICK_PROJECTILE =
+      EntityType.Builder.<BrickProjectileEntity>of(BrickProjectileEntity::new, MobCategory.MISC)
+          .sized(0.25f, 0.25f)
+          .clientTrackingRange(4)
+          .updateInterval(10)
+          .build(BRICK_PROJECTILE_KEY);
 }

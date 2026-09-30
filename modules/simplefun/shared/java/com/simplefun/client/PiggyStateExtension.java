@@ -1,7 +1,7 @@
 package com.simplefun.client;
 
 public interface PiggyStateExtension {
-    void simplefun$setPiggy(boolean isPiggy);
+  void simplefun$setPiggy(boolean isPiggy);
 
-    boolean simplefun$isPiggy();
+  boolean simplefun$isPiggy();
 }

@@ -22,42 +22,42 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       "id": "yeet",
       "en": {
         "title": "Sneak Throw",
-        "summary": "Sneak while dropping items. Server multiplier 0.1â€“3, velocity capped at 1.5 blocks/tick, pickup delay 20 ticks.",
+        "summary": "Sneak while dropping items. Server multiplier 0.1–3, velocity capped at 1.5 blocks/tick, pickup delay 20 ticks.",
         "details": [
-          "Sneak while dropping items. Server multiplier 0.1â€“3, velocity capped at 1.5 blocks/tick, pickup delay 20 ticks."
+          "Sneak while dropping items. Server multiplier 0.1–3, velocity capped at 1.5 blocks/tick, pickup delay 20 ticks."
         ]
       },
       "de": {
         "title": "Schleichwurf",
-        "summary": "Beim Wegwerfen schleichen. Serverfaktor 0,1â€“3, Tempo hÃ¶chstens 1,5 BlÃ¶cke/Tick, Aufhebesperre 20 Ticks.",
+        "summary": "Beim Wegwerfen schleichen. Serverfaktor 0,1–3, Tempo höchstens 1,5 Blöcke/Tick, Aufhebesperre 20 Ticks.",
         "details": [
-          "Beim Wegwerfen schleichen. Serverfaktor 0,1â€“3, Tempo hÃ¶chstens 1,5 BlÃ¶cke/Tick, Aufhebesperre 20 Ticks."
+          "Beim Wegwerfen schleichen. Serverfaktor 0,1–3, Tempo höchstens 1,5 Blöcke/Tick, Aufhebesperre 20 Ticks."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/mixin/YeetMixin.java"
       ]
     },
     {
       "id": "bricks",
       "en": {
         "title": "Throwable Bricks",
-        "summary": "Brick, nether brick and resin brick: throw with use. Server cooldown 10 ticks, lifetime 200 ticks, damage 0â€“4. Glass breaking defaults off.",
+        "summary": "Brick, nether brick and resin brick: throw with use. Server cooldown 10 ticks, lifetime 200 ticks, damage 0–4. Glass breaking defaults off.",
         "details": [
-          "Brick, nether brick and resin brick: throw with use. Server cooldown 10 ticks, lifetime 200 ticks, damage 0â€“4. Glass breaking defaults off.",
-          "Glass destruction is available only in single-player; dedicated servers refuse it even if enabled."
+          "Brick, nether brick and resin brick: throw with use. Server cooldown 10 ticks, lifetime 200 ticks, damage 0–4. Glass breaking defaults off.",
+          "Glass destruction is available only in private single-player; published LAN and dedicated servers refuse it even if enabled."
         ]
       },
       "de": {
         "title": "Wurfziegel",
-        "summary": "Ziegel, Netherziegel und Harzziegel werfen. Serversperre 10 Ticks, Lebensdauer 200 Ticks, Schaden 0â€“4. Glasbrechen standardmÃ¤ÃŸig aus.",
+        "summary": "Ziegel, Netherziegel und Harzziegel werfen. Serversperre 10 Ticks, Lebensdauer 200 Ticks, Schaden 0–4. Glasbrechen standardmäßig aus.",
         "details": [
-          "Ziegel, Netherziegel und Harzziegel werfen. Serversperre 10 Ticks, Lebensdauer 200 Ticks, Schaden 0â€“4. Glasbrechen standardmÃ¤ÃŸig aus.",
-          "Glaszerstörung nur im Einzelspieler; dedizierte Server verweigern sie auch bei aktiviertem Schalter."
+          "Ziegel, Netherziegel und Harzziegel werfen. Serversperre 10 Ticks, Lebensdauer 200 Ticks, Schaden 0–4. Glasbrechen standardmäßig aus.",
+          "Glaszerst?rung nur im privaten Einzelspieler; veröffentlichte LAN-Welten und dedizierte Server verweigern sie auch bei aktiviertem Schalter."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/entity/BrickProjectileEntity.java"
       ]
     },
     {
@@ -66,18 +66,21 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "title": "Piggy Transformation",
         "summary": "Eating raw or cooked pork grants a cosmetic pig head for five minutes; milk removes the effect.",
         "details": [
-          "Eating raw or cooked pork grants a cosmetic pig head for five minutes; milk removes the effect."
+          "Eating raw or cooked pork grants a cosmetic pig head for five minutes; milk removes the effect.",
+          "The five-minute duration is fixed and capped by the server."
         ]
       },
       "de": {
         "title": "Schweinverwandlung",
-        "summary": "Rohes oder gebratenes Schweinefleisch gibt fÃ¼nf Minuten einen kosmetischen Schweinekopf; Milch entfernt den Effekt.",
+        "summary": "Rohes oder gebratenes Schweinefleisch gibt fünf Minuten einen kosmetischen Schweinekopf; Milch entfernt den Effekt.",
         "details": [
-          "Rohes oder gebratenes Schweinefleisch gibt fÃ¼nf Minuten einen kosmetischen Schweinekopf; Milch entfernt den Effekt."
+          "Rohes oder gebratenes Schweinefleisch gibt fünf Minuten einen kosmetischen Schweinekopf; Milch entfernt den Effekt.",
+          "Der Server begrenzt die feste Dauer auf fünf Minuten."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/mixin/PiggyFoodMixin.java",
+        "modules/simplefun/shared/java/com/simplefun/client/PigHeadFeatureRenderer.java"
       ]
     },
     {
@@ -91,13 +94,14 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       },
       "de": {
         "title": "Kein Schaden",
-        "summary": "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit RÃ¼ckstoÃŸ. AnfÃ¤ngerbibliothekare bieten das Buch fÃ¼r 25 Smaragde, dreimal. Effekt und Handel abschaltbar.",
+        "summary": "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar.",
         "details": [
-          "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit RÃ¼ckstoÃŸ. AnfÃ¤ngerbibliothekare bieten das Buch fÃ¼r 25 Smaragde, dreimal. Effekt und Handel abschaltbar."
+          "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/mixin/NoDamageMixin.java",
+        "modules/simplefun/generated/resources/data/simplefun/villager_trade/librarian/1/no_damage.json"
       ]
     },
     {
@@ -110,34 +114,35 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "de": {
-        "title": "RÃ¼ckstoÃŸ V",
-        "summary": "Vanilla-RÃ¼ckstoÃŸ erlaubt Federn/StÃ¶cke und Stufe fÃ¼nf; Ã¼berschreibt Vanilla-Daten und kann mit Datenpaketen kollidieren.",
+        "title": "Rückstoß V",
+        "summary": "Vanilla-Rückstoß erlaubt Federn/Stöcke und Stufe fünf; überschreibt Vanilla-Daten und kann mit Datenpaketen kollidieren.",
         "details": [
-          "Vanilla-RÃ¼ckstoÃŸ erlaubt Federn/StÃ¶cke und Stufe fÃ¼nf; Ã¼berschreibt Vanilla-Daten und kann mit Datenpaketen kollidieren."
+          "Vanilla-Rückstoß erlaubt Federn/Stöcke und Stufe fünf; überschreibt Vanilla-Daten und kann mit Datenpaketen kollidieren."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/mixin/KnockbackCapMixin.java",
+        "modules/simplefun/shared/resources/data/minecraft/enchantment/knockback.json"
       ]
     },
     {
       "id": "player_heads",
       "en": {
         "title": "Player Heads",
-        "summary": "PvP death drops the victimâ€™s vanilla player head with skin; server switch.",
+        "summary": "PvP death drops the victim’s vanilla player head with skin; server switch.",
         "details": [
-          "PvP death drops the victimâ€™s vanilla player head with skin; server switch."
+          "PvP death drops the victim’s vanilla player head with skin; server switch."
         ]
       },
       "de": {
-        "title": "SpielerkÃ¶pfe",
-        "summary": "PvP-Tod lÃ¤sst den Vanilla-Spielerkopf mit Skin fallen; Serverschalter.",
+        "title": "Spielerköpfe",
+        "summary": "PvP-Tod lässt den Vanilla-Spielerkopf mit Skin fallen; Serverschalter.",
         "details": [
-          "PvP-Tod lÃ¤sst den Vanilla-Spielerkopf mit Skin fallen; Serverschalter."
+          "PvP-Tod lässt den Vanilla-Spielerkopf mit Skin fallen; Serverschalter."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/event/PlayerHeadDrop.java"
       ]
     },
     {
@@ -157,27 +162,28 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
       "id": "brick_snowball",
       "en": {
         "title": "Brick Snowball",
-        "summary": "Four snowballs around one brick craft one. Stack 16. Separate switch; damage 0â€“4, throw cooldown 10 ticks.",
+        "summary": "Four snowballs around one brick craft one. Stack 16. Separate switch; damage 0–4, throw cooldown 10 ticks.",
         "details": [
-          "Four snowballs around one brick craft one. Stack 16. Separate switch; damage 0â€“4, throw cooldown 10 ticks."
+          "Four snowballs around one brick craft one. Stack 16. Separate switch; damage 0–4, throw cooldown 10 ticks."
         ]
       },
       "de": {
         "title": "Ziegelschneeball",
-        "summary": "Vier SchneebÃ¤lle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0â€“4, Wurfsperre 10 Ticks.",
+        "summary": "Vier Schneebälle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0–4, Wurfsperre 10 Ticks.",
         "details": [
-          "Vier SchneebÃ¤lle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0â€“4, Wurfsperre 10 Ticks."
+          "Vier Schneebälle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0–4, Wurfsperre 10 Ticks."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/entity/BrickProjectileEntity.java"
       ]
     },
     {
@@ -191,13 +197,15 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       },
       "de": {
         "title": "Schweinkopf",
-        "summary": "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden.",
+        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden.",
         "details": [
-          "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden."
+          "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/heads/AnimalHeads.java",
+        "modules/simplefun/shared/java/com/simplefun/FunLoot.java",
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
       ]
     },
     {
@@ -211,13 +219,15 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       },
       "de": {
         "title": "Kuhkopf",
-        "summary": "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden.",
+        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden.",
         "details": [
-          "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden."
+          "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/heads/AnimalHeads.java",
+        "modules/simplefun/shared/java/com/simplefun/FunLoot.java",
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
       ]
     },
     {
@@ -231,13 +241,15 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       },
       "de": {
         "title": "Huhnkopf",
-        "summary": "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden.",
+        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden.",
         "details": [
-          "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden."
+          "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/heads/AnimalHeads.java",
+        "modules/simplefun/shared/java/com/simplefun/FunLoot.java",
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
       ]
     },
     {
@@ -251,173 +263,175 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       },
       "de": {
         "title": "Schafkopf",
-        "summary": "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden.",
+        "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden.",
         "details": [
-          "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden."
+          "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/heads/AnimalHeads.java",
+        "modules/simplefun/shared/java/com/simplefun/FunLoot.java",
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
       ]
     },
     {
       "id": "flowerSniff",
       "en": {
-        "title": "flowerSniff",
+        "title": "Flower Sniff",
         "summary": "Cosmetic delight: hold a flower and sneak. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
         "details": [
           "Cosmetic delight: hold a flower and sneak. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
         ]
       },
       "de": {
-        "title": "flowerSniff",
-        "summary": "Kosmetische Freude: Blume halten und schleichen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen.",
+        "title": "Blumenschnuppern",
+        "summary": "Kosmetische Freude: Blume halten und schleichen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Blume halten und schleichen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Blume halten und schleichen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
       ]
     },
     {
       "id": "cookieCrumbs",
       "en": {
-        "title": "cookieCrumbs",
+        "title": "Cookie Crumbs",
         "summary": "Cosmetic delight: eat a cookie. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
         "details": [
           "Cosmetic delight: eat a cookie. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
         ]
       },
       "de": {
-        "title": "cookieCrumbs",
-        "summary": "Kosmetische Freude: Keks essen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen.",
+        "title": "Kekskrümel",
+        "summary": "Kosmetische Freude: Keks essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Keks essen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Keks essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
       ]
     },
     {
       "id": "appleSparkle",
       "en": {
-        "title": "appleSparkle",
+        "title": "Apple Sparkle",
         "summary": "Cosmetic delight: eat an apple. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
         "details": [
           "Cosmetic delight: eat an apple. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
         ]
       },
       "de": {
-        "title": "appleSparkle",
-        "summary": "Kosmetische Freude: Apfel essen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen.",
+        "title": "Apfelglitzer",
+        "summary": "Kosmetische Freude: Apfel essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Apfel essen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Apfel essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
       ]
     },
     {
       "id": "carrotCrunch",
       "en": {
-        "title": "carrotCrunch",
+        "title": "Carrot Crunch",
         "summary": "Cosmetic delight: eat a carrot. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
         "details": [
           "Cosmetic delight: eat a carrot. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
         ]
       },
       "de": {
-        "title": "carrotCrunch",
-        "summary": "Kosmetische Freude: Karotte essen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen.",
+        "title": "Karottenknuspern",
+        "summary": "Kosmetische Freude: Karotte essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Karotte essen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Karotte essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
       ]
     },
     {
       "id": "melonSplash",
       "en": {
-        "title": "melonSplash",
+        "title": "Melon Splash",
         "summary": "Cosmetic delight: eat melon. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
         "details": [
           "Cosmetic delight: eat melon. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
         ]
       },
       "de": {
-        "title": "melonSplash",
-        "summary": "Kosmetische Freude: Melone essen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen.",
+        "title": "Melonenspritzer",
+        "summary": "Kosmetische Freude: Melone essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Melone essen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Melone essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
       ]
     },
     {
       "id": "honeyBubbles",
       "en": {
-        "title": "honeyBubbles",
+        "title": "Honey Bubbles",
         "summary": "Cosmetic delight: drink honey. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
         "details": [
           "Cosmetic delight: drink honey. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
         ]
       },
       "de": {
-        "title": "honeyBubbles",
-        "summary": "Kosmetische Freude: Honig trinken. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen.",
+        "title": "Honigblasen",
+        "summary": "Kosmetische Freude: Honig trinken. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Honig trinken. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Honig trinken. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
       ]
     },
     {
       "id": "breadCrumbs",
       "en": {
-        "title": "breadCrumbs",
+        "title": "Bread Crumbs",
         "summary": "Cosmetic delight: eat bread. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
         "details": [
           "Cosmetic delight: eat bread. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
         ]
       },
       "de": {
-        "title": "breadCrumbs",
-        "summary": "Kosmetische Freude: Brot essen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen.",
+        "title": "Brotkrümel",
+        "summary": "Kosmetische Freude: Brot essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: Brot essen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Brot essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
       ]
     },
     {
       "id": "berryBlush",
       "en": {
-        "title": "berryBlush",
+        "title": "Berry Blush",
         "summary": "Cosmetic delight: eat sweet or glow berries. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards.",
         "details": [
           "Cosmetic delight: eat sweet or glow berries. Server switch; at most six particles and a quiet sound every five seconds, shared with head greetings. No gameplay rewards."
         ]
       },
       "de": {
-        "title": "berryBlush",
-        "summary": "Kosmetische Freude: SÃ¼ÃŸ- oder Leuchtbeeren essen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen.",
+        "title": "Beerenfreude",
+        "summary": "Kosmetische Freude: Süß- oder Leuchtbeeren essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen.",
         "details": [
-          "Kosmetische Freude: SÃ¼ÃŸ- oder Leuchtbeeren essen. Serverschalter; hÃ¶chstens sechs Partikel und leiser Ton alle fÃ¼nf Sekunden, gemeinsam mit KopfgrÃ¼ÃŸen. Keine Spielbelohnungen."
+          "Kosmetische Freude: Süß- oder Leuchtbeeren essen. Serverschalter; höchstens sechs Partikel und leiser Ton alle fünf Sekunden, gemeinsam mit Kopfgrüßen. Keine Spielbelohnungen."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/FunDelights.java"
       ]
     },
     {
@@ -431,13 +445,14 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       },
       "de": {
         "title": "Spielerkopf-Drops",
-        "summary": "Wenn aktiviert, lassen Spieler ihren Kopf fallen, wenn sie von einem anderen Spieler getÃƒÂ¶tet werden. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "summary": "Wenn aktiviert, lassen Spieler ihren Kopf fallen, wenn sie von einem anderen Spieler getötet werden. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
         "details": [
-          "Wenn aktiviert, lassen Spieler ihren Kopf fallen, wenn sie von einem anderen Spieler getÃƒÂ¶tet werden. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+          "Wenn aktiviert, lassen Spieler ihren Kopf fallen, wenn sie von einem anderen Spieler getötet werden. Standard: true. Server bestimmt Werte; Neustart erforderlich."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -457,7 +472,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -471,13 +487,14 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       },
       "de": {
         "title": "Kein Schaden / Feder",
-        "summary": "Federn und die Verzauberung Ã¢â‚¬Å¾Kein SchadenÃ¢â‚¬Å“ lassen Nahkampfangriffe von Spielern 0 Schaden machen (Knockback bleibt erhalten). Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "summary": "Federn und die Verzauberung „Kein Schaden“ lassen Nahkampfangriffe von Spielern 0 Schaden machen (Knockback bleibt erhalten). Standard: true. Server bestimmt Werte; Neustart erforderlich.",
         "details": [
-          "Federn und die Verzauberung Ã¢â‚¬Å¾Kein SchadenÃ¢â‚¬Å“ lassen Nahkampfangriffe von Spielern 0 Schaden machen (Knockback bleibt erhalten). Standard: true. Server bestimmt Werte; Neustart erforderlich."
+          "Federn und die Verzauberung „Kein Schaden“ lassen Nahkampfangriffe von Spielern 0 Schaden machen (Knockback bleibt erhalten). Standard: true. Server bestimmt Werte; Neustart erforderlich."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -497,7 +514,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -510,14 +528,15 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "de": {
-        "title": "Yeet-StÃƒÂ¤rke",
-        "summary": "Geschwindigkeits-Multiplikator beim Werfen wÃƒÂ¤hrend des Schleichens. Standard: 3.0. Server bestimmt Werte; Neustart erforderlich.",
+        "title": "Yeet-Stärke",
+        "summary": "Geschwindigkeits-Multiplikator beim Werfen während des Schleichens. Standard: 3.0. Server bestimmt Werte; Neustart erforderlich.",
         "details": [
-          "Geschwindigkeits-Multiplikator beim Werfen wÃƒÂ¤hrend des Schleichens. Standard: 3.0. Server bestimmt Werte; Neustart erforderlich."
+          "Geschwindigkeits-Multiplikator beim Werfen während des Schleichens. Standard: 3.0. Server bestimmt Werte; Neustart erforderlich."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -531,33 +550,35 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       },
       "de": {
         "title": "Werfbare Ziegel",
-        "summary": "Wenn aktiviert, kÃƒÂ¶nnen Ziegel, Netherziegel und Harzziegel geworfen werden. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "summary": "Wenn aktiviert, können Ziegel, Netherziegel und Harzziegel geworfen werden. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
         "details": [
-          "Wenn aktiviert, kÃƒÂ¶nnen Ziegel, Netherziegel und Harzziegel geworfen werden. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+          "Wenn aktiviert, können Ziegel, Netherziegel und Harzziegel geworfen werden. Standard: true. Server bestimmt Werte; Neustart erforderlich."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
       "id": "config_throwableBricksBreakBlocks",
       "en": {
         "title": "Throwable Bricks Break Glass",
-        "summary": "Breaks only ordinary/stained glass in single-player, subject to server protection and world border. Disabled on dedicated multiplayer servers to avoid claim bypass. Default: false.",
+        "summary": "Breaks ordinary/stained glass only in private single-player, with server protection and world border checks. Published LAN and dedicated servers refuse terrain destruction. Default: false.",
         "details": [
-          "Breaks only ordinary/stained glass in single-player, subject to server protection and world border. Disabled on dedicated multiplayer servers to avoid claim bypass. Default: false."
+          "Breaks ordinary/stained glass only in private single-player, with server protection and world border checks. Published LAN and dedicated servers refuse terrain destruction. Default: false."
         ]
       },
       "de": {
         "title": "Ziegel brechen Glas",
-        "summary": "Bricht nur normales/buntes Glas im Einzelspieler, mit Serverschutz und Weltgrenze. Auf dedizierten Mehrspielerservern gesperrt, damit Claims sicher bleiben. Standard: false.",
+        "summary": "Bricht normales/buntes Glas nur im privaten Einzelspieler, mit Serverschutz und Weltgrenze. Veröffentlichte LAN-Welten und dedizierte Server verweigern Geländezerstörung. Standard: false.",
         "details": [
-          "Bricht nur normales/buntes Glas im Einzelspieler, mit Serverschutz und Weltgrenze. Auf dedizierten Mehrspielerservern gesperrt, damit Claims sicher bleiben. Standard: false."
+          "Bricht normales/buntes Glas nur im privaten Einzelspieler, mit Serverschutz und Weltgrenze. Veröffentlichte LAN-Welten und dedizierte Server verweigern Geländezerstörung. Standard: false."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -577,7 +598,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -591,13 +613,14 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       },
       "de": {
         "title": "Schneeball-Ziegel-Schaden",
-        "summary": "Schaden durch geworfene Ziegel-SchneebÃƒÂ¤lle. Standard: 2.0. Server bestimmt Werte; Neustart erforderlich.",
+        "summary": "Schaden durch geworfene Ziegel-Schneebälle. Standard: 2.0. Server bestimmt Werte; Neustart erforderlich.",
         "details": [
-          "Schaden durch geworfene Ziegel-SchneebÃƒÂ¤lle. Standard: 2.0. Server bestimmt Werte; Neustart erforderlich."
+          "Schaden durch geworfene Ziegel-Schneebälle. Standard: 2.0. Server bestimmt Werte; Neustart erforderlich."
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -617,7 +640,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -637,7 +661,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -657,7 +682,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -677,7 +703,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -697,7 +724,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -717,7 +745,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -737,7 +766,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -757,7 +787,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -777,7 +808,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -797,7 +829,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -817,7 +850,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -837,7 +871,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -857,7 +892,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -877,7 +913,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
@@ -897,13 +934,15 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         ]
       },
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ]
     },
     {
       "id": "config_enableHigherKnockback",
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ],
       "en": {
         "title": "Enable higher knockback",
@@ -923,7 +962,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
     {
       "id": "config_maxKnockback",
       "sources": [
-        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
       ],
       "en": {
         "title": "Max knockback",
@@ -937,6 +977,29 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "summary": "Serveroption. Standard: 4.0. Server bestimmt Werte; Neustart erforderlich.",
         "details": [
           "Serveroption. Standard: 4.0. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      }
+    },
+    {
+      "id": "configuration",
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/client/FunConfigScreen.java",
+        "modules/simplefun/shared/java/com/simplefun/SimplefunCommon.java"
+      ],
+      "en": {
+        "title": "Server Configuration",
+        "summary": "Three tabs cover gameplay, heads and small delights; every option explains its default. Gameplay uses only server settings.",
+        "details": [
+          "The client screen edits the local simplefun.json for the next local server start. Remote clients cannot submit settings. Remote admins use the original level-4 commands or change the server file and restart.",
+          "Head loot and librarian trades are selected when server data loads; changing their file switches requires restart."
+        ]
+      },
+      "de": {
+        "title": "Serverkonfiguration",
+        "summary": "Drei Reiter für Spielmechanik, Köpfe und kleine Freuden; jede Option erklärt ihren Standardwert. Nur Serverwerte bestimmen das Spiel.",
+        "details": [
+          "Der Clientbildschirm bearbeitet die lokale simplefun.json für den nächsten lokalen Serverstart. Fremde Clients können keine Einstellungen senden. Entfernte Administratoren nutzen die alten Befehle mit Stufe 4 oder ändern die Serverdatei und starten neu.",
+          "Kopfbeute und Bibliothekarhandel werden beim Laden der Serverdaten ausgewählt; Dateischalter brauchen einen Neustart."
         ]
       }
     }
@@ -1086,7 +1149,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
     {
       "id": "simplefun:content/brick_snowball",
       "parent": null,
-      "icon": null,
+      "icon": "simplefun:brick_snowball",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -1109,8 +1172,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
     },
     {
       "id": "simplefun:content/chicken_head",
-      "parent": null,
-      "icon": null,
+      "parent": "simplefun:content/brick_snowball",
+      "icon": "simplefun:chicken_head",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -1133,8 +1196,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
     },
     {
       "id": "simplefun:content/cow_head",
-      "parent": null,
-      "icon": null,
+      "parent": "simplefun:content/brick_snowball",
+      "icon": "simplefun:cow_head",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -1157,8 +1220,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
     },
     {
       "id": "simplefun:content/pig_head",
-      "parent": null,
-      "icon": null,
+      "parent": "simplefun:content/brick_snowball",
+      "icon": "simplefun:pig_head",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -1181,8 +1244,8 @@ window.WIKI_MODULE_DATA["simplefun"] = {
     },
     {
       "id": "simplefun:content/sheep_head",
-      "parent": null,
-      "icon": null,
+      "parent": "simplefun:content/brick_snowball",
+      "icon": "simplefun:sheep_head",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -1237,9 +1300,9 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         },
         "de": {
           "title": "Kein Schaden",
-          "summary": "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit RÃ¼ckstoÃŸ. AnfÃ¤ngerbibliothekare bieten das Buch fÃ¼r 25 Smaragde, dreimal. Effekt und Handel abschaltbar.",
+          "summary": "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar.",
           "details": [
-            "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit RÃ¼ckstoÃŸ. AnfÃ¤ngerbibliothekare bieten das Buch fÃ¼r 25 Smaragde, dreimal. Effekt und Handel abschaltbar."
+            "Feder und Kein Schaden I verursachen keinen direkten Nahkampfschaden, mit Rückstoß. Anfängerbibliothekare bieten das Buch für 25 Smaragde, dreimal. Effekt und Handel abschaltbar."
           ]
         }
       }
@@ -1254,10 +1317,10 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       },
       "note": {
         "en": {
-          "summary": "Four snowballs around one brick craft one. Stack 16. Separate switch; damage 0â€“4, throw cooldown 10 ticks."
+          "summary": "Four snowballs around one brick craft one. Stack 16. Separate switch; damage 0–4, throw cooldown 10 ticks."
         },
         "de": {
-          "summary": "Vier SchneebÃ¤lle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0â€“4, Wurfsperre 10 Ticks."
+          "summary": "Vier Schneebälle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0–4, Wurfsperre 10 Ticks."
         }
       },
       "texture": "assets/textures/simplefun/item/brick_snowball.png"
@@ -1267,6 +1330,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
     {
       "id": "simplefun:chicken_head",
       "kind": "block",
+      "hasItem": true,
       "name": {
         "en_us": "Chicken Head",
         "de_de": "Huhnkopf"
@@ -1276,7 +1340,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
         },
         "de": {
-          "summary": "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden."
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
       }
     },
@@ -1293,13 +1357,14 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
         },
         "de": {
-          "summary": "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden."
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
       }
     },
     {
       "id": "simplefun:cow_head",
       "kind": "block",
+      "hasItem": true,
       "name": {
         "en_us": "Cow Head",
         "de_de": "Kuhkopf"
@@ -1309,7 +1374,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
         },
         "de": {
-          "summary": "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden."
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
       }
     },
@@ -1326,13 +1391,14 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
         },
         "de": {
-          "summary": "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden."
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
       }
     },
     {
       "id": "simplefun:pig_head",
       "kind": "block",
+      "hasItem": true,
       "name": {
         "en_us": "Pig Head",
         "de_de": "Schweinkopf"
@@ -1342,7 +1408,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
         },
         "de": {
-          "summary": "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden."
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
       }
     },
@@ -1359,13 +1425,14 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
         },
         "de": {
-          "summary": "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden."
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
       }
     },
     {
       "id": "simplefun:sheep_head",
       "kind": "block",
+      "hasItem": true,
       "name": {
         "en_us": "Sheep Head",
         "de_de": "Schafkopf"
@@ -1375,7 +1442,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
         },
         "de": {
-          "summary": "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden."
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
       }
     },
@@ -1392,7 +1459,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Only a charged creeper killing this animal drops its head; at most one head per creeper. No recipe. Place on floor/wall, wear, or put above a note block. Sneaking while wearing it gives a quiet cosmetic greeting, at most every five seconds."
         },
         "de": {
-          "summary": "Nur ein geladener Creeper, der dieses Tier tÃ¶tet, lÃ¤sst den Kopf fallen; hÃ¶chstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder Ã¼ber Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer GruÃŸ, hÃ¶chstens alle fÃ¼nf Sekunden."
+          "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
       }
     }
@@ -1411,7 +1478,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 46,
+    "features": 47,
     "recipes": 1,
     "lootTables": 4,
     "tags": 1,

@@ -16,15 +16,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Item.class)
 public class ItemMixin {
 
-    @Inject(method = "use", at = @At("HEAD"), cancellable = true)
-    private void simplefun$useThrowableBrick(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        if (!SimplefunCommon.getConfig().fun.enableThrowableBricks) {
-            return;
-        }
-        Item self = (Item) (Object) this;
-        if (self == Items.BRICK || self == Items.NETHER_BRICK || self == Items.RESIN_BRICK) {
-            BrickProjectileEntity.throwFrom(level, player, player.getItemInHand(hand));
-            cir.setReturnValue(InteractionResult.SUCCESS);
-        }
+  @Inject(method = "use", at = @At("HEAD"), cancellable = true)
+  private void simplefun$useThrowableBrick(
+      Level level,
+      Player player,
+      InteractionHand hand,
+      CallbackInfoReturnable<InteractionResult> cir) {
+    if (!SimplefunCommon.getConfig().fun.enableThrowableBricks) {
+      return;
     }
+    Item self = (Item) (Object) this;
+    if (self == Items.BRICK || self == Items.NETHER_BRICK || self == Items.RESIN_BRICK) {
+      BrickProjectileEntity.throwFrom(level, player, player.getItemInHand(hand));
+      cir.setReturnValue(InteractionResult.SUCCESS);
+    }
+  }
 }

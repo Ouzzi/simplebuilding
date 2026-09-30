@@ -8,12 +8,12 @@ import net.minecraft.world.entity.player.Player;
 
 public class NeoForgePlatformHelper implements IPlatformHelper {
 
-    @Override
-    public boolean isPiggySynced(LivingEntity entity) {
-        // Players carry a synced data attachment; mobs sync their effects via the entity tracker.
-        if (entity instanceof Player) {
-            return entity.getData(SimplefunAttachments.PIGGY);
-        }
-        return entity.hasEffect(ModEffects.holder());
+  @Override
+  public boolean isPiggySynced(LivingEntity entity) {
+    // Players carry a synced data attachment; mobs sync their effects via the entity tracker.
+    if (entity instanceof Player) {
+      return entity.getData(SimplefunAttachments.PIGGY);
     }
+    return entity.hasEffect(ModEffects.holder());
+  }
 }
