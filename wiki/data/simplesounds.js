@@ -14,7 +14,8 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
     ],
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ]
   },
   "features": [
@@ -377,6 +378,26 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
           "Keine Pakete, Gameplay?nderungen, Entities, Inventar?nderungen oder Suche nach fremden Spielern. H?chstens vier Sounds je Tick, zwei je Spieler und acht budgetierte Spieler; ?berz?hlige Anfragen entfallen. Weltwechsel l?scht Verl?ufe. Aus oder Nullgrenzen deaktivieren Sounds. Vanilla-Sounds und Untertitel werden verwendet; keine eigenen Audiodateien."
         ]
       }
+    },
+    {
+      "id": "forge_support",
+      "sources": [
+        "modules/simplesounds/forge/build.gradle"
+      ],
+      "en": {
+        "title": "Experimental Forge 26.3",
+        "summary": "Opt-in Forge adapter with the same bounded local sound engine.",
+        "details": [
+          "Enable -Pforge263=true. Cloth configuration screen is unavailable; module JSON configuration remains supported. Forge client audio has not been verified."
+        ]
+      },
+      "de": {
+        "title": "Experimentelles Forge 26.3",
+        "summary": "Opt-in-Forge-Adapter mit derselben begrenzten lokalen Sound-Engine.",
+        "details": [
+          "Mit -Pforge263=true aktivieren. Cloth-Konfigurationsoberfläche fehlt; Modul-JSON-Konfiguration bleibt unterstützt. Forge-Clientaudio wurde nicht geprüft."
+        ]
+      }
     }
   ],
   "recipes": [],
@@ -400,7 +421,7 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 18,
+    "features": 19,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

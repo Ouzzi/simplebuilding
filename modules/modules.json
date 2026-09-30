@@ -505,7 +505,8 @@
       "description": "Bounded local Vanilla sound counterparts for the twelve Simple Visuals immersion effects.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth_config"
@@ -538,6 +539,18 @@
           "neoforge": {
             "task": ":modules:simplesounds:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplesounds/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplesounds:forge:runGameTestServer",
+            "report": "modules/simplesounds/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -554,7 +567,7 @@
         "shared": "modules/simplesounds/shared",
         "fabric": "modules/simplesounds/fabric",
         "neoforge": "modules/simplesounds/neoforge",
-        "forge": null,
+        "forge": "modules/simplesounds/forge",
         "generated": "modules/simplesounds/generated/resources",
         "lang": "modules/simplesounds/shared/resources/assets/simplesounds/lang",
         "wikiManual": "modules/simplesounds/wiki/manual.json",
@@ -562,7 +575,8 @@
       },
       "projects": {
         "fabric": ":modules:simplesounds:fabric",
-        "neoforge": ":modules:simplesounds:neoforge"
+        "neoforge": ":modules:simplesounds:neoforge",
+        "forge": ":modules:simplesounds:forge"
       }
     },
     {
@@ -575,7 +589,8 @@
       "description": "Server-controlled movement, farming, mob, weather, and vault utilities.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth_config"
@@ -606,6 +621,18 @@
           "neoforge": {
             "task": ":modules:simplequalityoflife:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplequalityoflife/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simplequalityoflife:forge:runGameTestServer",
+            "report": "modules/simplequalityoflife/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -622,7 +649,7 @@
         "shared": "modules/simplequalityoflife/shared",
         "fabric": "modules/simplequalityoflife/fabric",
         "neoforge": "modules/simplequalityoflife/neoforge",
-        "forge": null,
+        "forge": "modules/simplequalityoflife/forge",
         "generated": "modules/simplequalityoflife/generated/resources",
         "lang": "modules/simplequalityoflife/shared/resources/assets/simplequalityoflife/lang",
         "wikiManual": "modules/simplequalityoflife/wiki/manual.json",
@@ -630,7 +657,8 @@
       },
       "projects": {
         "fabric": ":modules:simplequalityoflife:fabric",
-        "neoforge": ":modules:simplequalityoflife:neoforge"
+        "neoforge": ":modules:simplequalityoflife:neoforge",
+        "forge": ":modules:simplequalityoflife:forge"
       }
     },
     {
@@ -643,7 +671,8 @@
       "description": "Legacy-world compatibility for features now provided by SimpleBuilding; claims remain deferred.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "simplebuilding"
@@ -672,6 +701,18 @@
           "neoforge": {
             "task": ":modules:simpletweaks:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simpletweaks/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simpletweaks:forge:runGameTestServer",
+            "report": "modules/simpletweaks/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -688,7 +729,7 @@
         "shared": "modules/simpletweaks/shared",
         "fabric": "modules/simpletweaks/fabric",
         "neoforge": "modules/simpletweaks/neoforge",
-        "forge": null,
+        "forge": "modules/simpletweaks/forge",
         "generated": "modules/simpletweaks/generated/resources",
         "lang": "modules/simpletweaks/shared/resources/assets/simpletweaks/lang",
         "wikiManual": "modules/simpletweaks/wiki/manual.json",
@@ -696,7 +737,8 @@
       },
       "projects": {
         "fabric": ":modules:simpletweaks:fabric",
-        "neoforge": ":modules:simpletweaks:neoforge"
+        "neoforge": ":modules:simpletweaks:neoforge",
+        "forge": ":modules:simpletweaks:forge"
       }
     }
   ]

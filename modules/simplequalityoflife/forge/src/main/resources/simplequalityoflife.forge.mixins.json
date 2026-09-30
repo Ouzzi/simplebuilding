@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simplebuilding.modules.simplequalityoflife.forge.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "RegistryLoadTaskMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

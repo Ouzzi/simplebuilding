@@ -14,7 +14,8 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
     ],
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ]
   },
   "features": [
@@ -58,6 +59,27 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
       "sources": [
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/LegacyDeed.java"
       ]
+    },
+    {
+      "id": "forge_support",
+      "sources": [
+        "modules/simpletweaks/forge/src/main/java/com/simplebuilding/modules/simpletweaks/forge/TweaksForge.java",
+        "modules/simpletweaks/forge/src/main/java/com/simplebuilding/modules/simpletweaks/forge/mixin/NamespacedWrapperAliasMixin.java"
+      ],
+      "en": {
+        "title": "Experimental Forge 26.3",
+        "summary": "Opt-in Forge compatibility adapter, with SimpleBuilding required.",
+        "details": [
+          "Native Forge aliases and wrapper lookups resolve only the existing legacy whitelist. Canonical IDs are saved; no duplicate gameplay is registered. Claims remain inactive. Forge client and actual upgraded worlds remain unverified."
+        ]
+      },
+      "de": {
+        "title": "Experimentelles Forge 26.3",
+        "summary": "Opt-in-Forge-Kompatibilitätsadapter; SimpleBuilding ist erforderlich.",
+        "details": [
+          "Native Forge-Aliase und Wrapper-Lookups lösen nur die bestehende Alt-ID-Allowlist auf. Gespeichert werden kanonische IDs; keine doppelten Spielmechaniken. Claims bleiben inaktiv. Forge-Client und echte hochgestufte Welten bleiben ungeprüft."
+        ]
+      }
     }
   ],
   "recipes": [],
@@ -99,7 +121,7 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 2,
+    "features": 3,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

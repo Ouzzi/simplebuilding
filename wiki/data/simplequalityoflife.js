@@ -14,7 +14,8 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     ],
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ]
   },
   "features": [
@@ -549,6 +550,29 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
         "title": "Erneute Tresorbelohnungen",
         "summary": "Erneute Tresorbelohnungen nach der Serverpause erlauben. Abschalten behält einmalige Vanilla-Belohnungen. Standard: true."
       }
+    },
+    {
+      "id": "forge_support",
+      "sources": [
+        "modules/simplequalityoflife/forge/build.gradle",
+        "modules/simplequalityoflife/forge/src/main/java/com/simplebuilding/modules/simplequalityoflife/forge/QolForge.java"
+      ],
+      "en": {
+        "title": "Experimental Forge 26.3",
+        "summary": "Opt-in Forge adapter for the same server-controlled utilities.",
+        "details": [
+          "Enable -Pforge263=true. Clientbound config and crawl channels, key bindings, break veto and farmland hooks are Forge-owned. JSON configuration retains canonical fields and bounds. Cloth GUI is unavailable. Forge clients and real-player networking remain unverified.",
+          "The experimental Forge transport currently requires the module on both server and client."
+        ]
+      },
+      "de": {
+        "title": "Experimentelles Forge 26.3",
+        "summary": "Opt-in-Forge-Adapter für dieselben servergesteuerten Hilfen.",
+        "details": [
+          "Mit -Pforge263=true aktivieren. Config-/Kriechpakete nur zum Client, Tasten, Abbau-Veto und Ackerschutz nutzen Forge-Hooks. JSON-Konfiguration behält Felder und Grenzen. Cloth-GUI fehlt. Forge-Clients und Netzwerk mit echten Spielern bleiben ungeprüft.",
+          "Der experimentelle Forge-Transport benötigt das Modul derzeit auf Server und Client."
+        ]
+      }
     }
   ],
   "recipes": [],
@@ -572,7 +596,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 38,
+    "features": 39,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

@@ -387,9 +387,7 @@ Implementierungs-/Infrastrukturzuordnung (nicht jede Klasse ist eine eigenstaend
   Legacy-Deed im Inventar gerendert, drei Screenshotpunkte. Kein SB-Clientsuite-Run.
 - NeoForge-Client, echte hochgestufte Quellwelt, Vanilla-Upgrade aller NBT-Konstellationen,
   subjektive Klaenge, deutsche Screenshots, echte JEI/Jade-Bedienung und Besitzerwelt offen.
-- Forge26.3: eigener Registrywrapper-/Aliasadapter (MappedRegistry allein reicht dort nicht),
-  Loaderdependency/Mixinmetadata, Modultests und Clientanbindung; unbenutztes Forge-Scaffold entfernt, kein Release.
-  Manifest liefert absichtlich nur Fabric/NeoForge. Forgeprojekt-/pfad null und kein Testziel.
+- Forge 26.3 hat jetzt einen experimentellen Opt-in-Adapter; Details unten.
 - 26.2/1.21.11/26.4 erst nach Besitzer-Releaseentscheidung; keine Quelltexte dieser Linien geaendert.
 - Launch Hub entdeckt Mods und Tests aus dem Manifest. Kein shared Wiringblock geaendert;
   enabled-mods ist die vom Scaffold aktualisierte Integrationsauswahl.
@@ -414,3 +412,9 @@ Aktuelle Run-IDs/Gate-Ausgaenge werden nach Abschluss unten ergaenzt.
   Itemidentitaet sichern, finale echte Lagerungspruefungen auf beiden Loadern gruen.
 
 - Abschliessendes Worktree-Gate `gradlew.bat check -q --no-daemon`: **GRADLE_EXIT=0**, Ausgabe gelesen, einschliesslich shared/26.2-Kompilierung, Modul-Daten, Wiki/Balancing/Atlas/Jade und Integrations-/Client-Harness-Kompilierung.
+
+## Experimentelles Forge 26.3
+
+Mit `-Pforge263=true`; SimpleBuilding ist verpflichtend und wird vorher geladen. Native ForgeRegistry-Aliase und ein eigener NamespacedWrapper-Mixin ergänzen die gemeinsamen MappedRegistry-Lookups. Alle 12 kanonischen Fälle prüfen echte alte Item-/Block-/BE-/Komponenten-Codecs, Owner/Charges/Stacks, Canonical-Saves und Verweigerung unbekannter IDs. Keine zusätzlichen Config-/Netzwerk-/Client-Hooks nötig: das Modul besitzt keine davon; die Urkunde nutzt Vanilla-Itemdarstellung. Claims bleiben inaktiv. Forge-Client, echte alte Welt und Besitzerwelt sind nicht abgenommen.
+
+Forge follow-up verification: 12/12 canonical cases passed in the combined run `2026-09-30T17-52-13Z-77a1`; **2828/2828, alles gruen** across existing Fabric/NeoForge/Forge 26.3, integration and all manifest module server suites. Explicit Forge compile without `forge_runs`: exit 0. Client and owner-world limits above remain open.

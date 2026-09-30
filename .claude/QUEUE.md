@@ -108,3 +108,6 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 - [ ] RIDING-FOLLOWUP: Nautilus/Enderit-Ruestung, serverseitige Gesamtgrenzen und Paketvalidierung, vollstaendige Modul-/Integrations-/26.3-Pruefung (codex-riding-followup).
 - [x] RIDING-FOLLOWUP verification complete: Nautilus/Enderite armor, 18 bounded server options, packet/ground/dash bounds; 1562/1562 full + 53/53 module/integration + 3/3 Fabric client, alles gruen; final check GRADLE_EXIT=0. See HANDOFF and docs/modules/simpleriding.md. Owner acceptance/NeoForge client remain open; no push/merge.
+- Forge Modules 2: experimental Forge 26.3 adapters for Simple Sounds, Simple Quality of Life and Simple Tweaks; separate commits, no push/merge.
+
+- [x] Forge Modules 2: Simple Sounds, Simple Quality of Life and Simple Tweaks experimental Forge 26.3 adapters; separate module commits, final 2828/2828 alles gruen and default check exit 0. Forge client/owner acceptance remains open; no push/merge.
