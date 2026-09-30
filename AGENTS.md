@@ -32,7 +32,7 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge) ist die H
    Eckfüllungen in Konturen, alte Besitzer-Texturen respektieren, keine weichgezeichneten Skalierungen.
    Generatoren: `python tools/textures/generate_textures.py` und `--check`.
 8. **Server-Autorität:** alle Gameplay-Stellschrauben serverseitig, mit Obergrenzen, die Vanilla nicht gefährden.
-9. Commit auf `master`, Nachricht endet mit `Co-Authored-By: <Assistent> <noreply@anthropic.com>` (bei Claude), sonst passende Zeile.
+9. Orchestrator committet auf `master`; Worker auf ihrem Arbeitsbranch (kein Push/Merge). Nachricht endet mit `Co-Authored-By: <Assistent> <noreply@anthropic.com>` (bei Claude), sonst passende Zeile.
 10. Gegenprobe/Mutationstests **nie** mit `git checkout` zurücksetzen – vorher committen. Nie `find` über das ganze Laufwerk.
 11. Vor jedem Löschen/Überschreiben das Ziel ansehen; keine destruktiven Git-Befehle ohne Rückfrage.
 12. Testläufe sparsam: Server-Ziele parallel, Client-Tests seriell und nur bei Anzeigeänderungen, Agenten nur Server-Tests.
@@ -45,7 +45,8 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge) ist die H
 - Client-Tests: `python tools/testrunner/run.py --targets client` (seriell; Umgebungsvariable `SIMPLEBUILDING_CLIENT_ONLY`
   für einzelne Tests). Nur laufen lassen, wenn keine Besitzer-Clients offen sind.
 - Texturen prüfen: `python tools/textures/generate_textures.py --check`. Handbücher: `python tools/guide_book_pages.py` (0 Probleme).
-- Zuletzt grüner Stand: Server-Gate 5063/5063 (Commit fdcccdf4); Client-Suiten 732/732 nach der Testreparatur.
+- Historische Gate-Zahlen stehen in `docs/HANDOFF.md`; Ziele und Testanzahl ändern sich.
+  Für jeden aktuellen Lauf die Ausgabe und „alles gruen“ lesen; alte Zahlen sind kein aktueller Beleg.
 
 ## 5. Merge-Hinweise (aus Erfahrung)
 - Lang-Dateien (`src/main/resources/assets/simplebuilding/lang/*.json`): nach Merge auf doppelte Schlüssel prüfen.
@@ -94,5 +95,5 @@ Multimod-Datenvertrag: Manifest-Pfade/Abhaengigkeiten vollstaendig halten; Modul
 `checkWiki` prueft alle Module. Details und Datagen-Exports: `docs/MULTIMOD.md`.
 Balancing-Multimod: Manifest-Pfade/Mod-Auswahl nutzen; Ablage `balance/<id>/`, SimpleBuilding weiter `balance/` (keine Migration). Schreibziele/Datagen nur 26.3; `checkBalance` prueft alle Module. Details/Lesergrenzen: `docs/BALANCING-ZENTRALE.md`.
 
-## 10. AI workflow and continuity (added 2026-09-30)
+## 11. AI workflow and continuity (added 2026-09-30)
 Read `docs/ai/WORKFLOW.md` (roles, loop, traps), `docs/ai/LAPTOP-SETUP.md` (new machine) and `docs/ai/VOICE-HANDS-FREE.md` (voice plan). Helper: `python tools/ai/aitool.py` (`codex` = start a worker run in its own worktree, `status`, `gate [--integration] [--push]`, `sync-memory`, `merge-help`). Task briefs and the module-brief generator live in `docs/ai/briefs/`; the assistant's memory notes are mirrored in `docs/ai/memory/` (background facts, the code wins). Multi-mod rules: `docs/MULTIMOD.md`; modules are plugin-style (a new module touches only `modules/<id>/` and its manifest entry).

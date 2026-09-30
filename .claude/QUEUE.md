@@ -1,183 +1,36 @@
-# Warteschlange SimpleBuilding (Stand 2026-09-25 spaet, alles gepusht)
+# Warteschlange SimpleBuilding (Stand 2026-09-30, Hauptlinie 26.3)
 
-Regeln: Umsetzung mit Teiltests (Kompilierung + gefilterte Server-Tests), volles Gate einmal am Ende einer Welle, gruen = direkt pushen.
-Verlauf im Detail: git log.
+Regeln: AGENTS.md; aktueller Bestand/Belege in docs/HANDOFF.md. Worker committen auf
+ihrem Branch ohne Push/Merge. Alte Wellen und Run-Details sind in der Git-Historie erhalten.
+Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
-## Erledigt (alle gepusht, letztes Gate 2345/2345 auf 5eb3bbb)
-- [x] Welle 1-3: Kolben-Durchbruch, Rucksack (4 Stufen), Enderit-Maschinen, Hammer-Aufwertung in der Welt, Lederplatte, Koecher, Loot-/Handel-/Angel-Balancing, Quarz-Schachbretter, Wiki-Umbau
-- [x] Forge-Dev-Instanz laeuft (Paket-Fix, Bus-Registrierung, Buecher-Texturen, HUD, Vorschau, Forge-Testziel, Trade-Schalter, Rohre)
-- [x] Vorschlaghammer: Tempo nach Blockzahl, Sneak = 1 Block, Umformen findet Bretter/Ziegel/*_block
-- [x] Schere auf Wolle -> 4 Faden; Oktant waschen behaelt Verzauberungen/Haltbarkeit
-- [x] Strip-Miner-Verlangsamung auf allen Loadern
-- [x] Rucksack: Shift-Klick nahtlos, Fenster ohne harte Kanten, 3D auf dem Ruecken, faerbbar (auch als Block), Rezept mit schweren Waegeplatten
-- [x] Buendel faerbbar + Offen-Ansicht; Oktant-Figur-Taste getrennt; toter Netherit-Trichter entfernt
-- [x] Hammer-Aufwertung: Ausholen, Fortschritt als Risse am Block, Hinweis-Neigung, kein Aktionsleisten-Text
-- [x] Paletten Astralit/Nihilith/Enderquarz (Steinmetz, Umfaerben, Quarz -> Enderquarz), gemeisselte Texturen (9 Runden), schwebender Sand mit Hitbox
-- [x] Kreativ-Tabs SimpleTools/Blocks/Materials/Machines + SimpleEnchants (Dev), Vanilla-Maschinen im Tab, Zeilen-Layout (Konzept SimpleMachines)
-- [x] Erzsensor: Durchdringung nach Materialdichte, Reichweiten-Upgrade, Randschimmer
-- [x] JEI-Plugin (In-World-Umwandlungen inkl. Besatz-Vorlage + Oktant waschen), Dev-Mods (JEI/Jade/Mouse Tweaks/AppleSkin/Mod Menu), Metadaten + docs/PUBLISHING.md
-- [x] Upgrade-Kosten 2x Vanilla, Kupferwerkzeuge aufwertbar, Baustab-Upgrade kostet Kern der Zielstufe
-- [x] Besatz-/Resonanz-Balancing, Vanilla-Attribute, Radiance-Licht (Rahmen/Staender/Mobs) + Partikel, UI im Vanilla-Stil
-- [x] Blaupause komplett (DSL, 3-Spalten-Editor, Hilfe, Einfuege-Suche, Beispiel-Knopf je Biom, Autospeichern, Scan nach Oktant-Form am Kartografentisch, Kopieren, Bauen nur signiert, gestaffelter Bau, rote Fehlstellen mit Zwei-Klick, Wuerfel 16/32/48/64/128/256)
-- [x] Wiki: Rezept-Tab mit Karten/Filtern/"alle Rezepte zu X", einklappbar, 3D-Bloecke, Key Feature Tempo
-- [x] Texturen Enderquarz (Stern), Enderit-Barren/-Schrott/-Nugget
-- [x] Test-Infrastruktur: Server-Ziele parallel, Paket-Barriere in allen Client-Treibern, Port-Werkzeug-Regeln
+## Integriert / implementiert
+- [x] Wellen 1–23: Werkzeuge, Lager/Maschinen, Config/Modpack, Erfolge/Quests, Immersion,
+  Balancing-Zentrale und frühere Ports (historische Gate-Zahlen nicht als aktuelles Gate verwenden).
+- [x] Welle 24 BB–GG: Detector/Rezepte, Handbücher, platzierte Bündel/Oktanten,
+  Pad-Aktivzustände, Spawnzielwahl, Kerne und Neunerreihen/Kreativreiter.
+- [x] Welle 24 HH/II/JJ: Materialkern-Padrezepte und Mobköpfe, Shulkerkisten-Stufen,
+  Resonanzstab, Attraktor/Range/Touch und Gauge. GG+: nur Eichen-Holzdruckplatte im Modreiter.
+- [x] Z: Luftsprung 20/10 s, XP-Leisten-Priorität, Linear/Bridge und Oktant-Rezept.
+- [x] Welle 25 KK2/FIX16: zwei isolierte End-Signalkanäle, Schalter/Lampen und Astralgewölbe;
+  EndSystemsTests, Rezept-/Sprach-/Config-/Tab-Integrität und Testzentralen-Abdeckung.
+- [x] BUGS/MM: Hammer-Zeitmodell 1,5/+0,8/+0,7, Oktant 2 je Block, Eckenschlag,
+  Transformationshinweise; Basisbuch-Rezeptfreischaltung und Kapitel per Tab/Itemverbrauch.
+- [x] Verstaerktes Bündel: Rezept/Datagen/Abdeckung, kein Gameplay-Fix auf Verdacht.
+- [x] Spawn: jede Signalstärkeänderung setzt die Ladung sofort zurück (auch kurze Impulse).
+- [x] Multimod-Grundlage, Wiki-Modauswahl, getrennte Balancing-Ablagen, Scaffold/Manifest;
+  Launch Hub integriert, Forge 26.3 opt-in (`-Pforge263=true`).
+- [x] Simple Money als eigenes Modul; Wiki-Vertrag und sieben Item-Notizen korrigiert.
+- [x] Amerikanisches Englisch und Zeilen-Layout umgesetzt; laufende Textpflege bleibt nötig.
 
-## Laeuft
-- [x] Welle 9: MC 26.3 als dritte Linie (Fabric + NeoForge), alle 13 Ziele gruen, gepusht
-- [x] Welle 12 26.3-Reste: Wiki-Umschalter 26.3, Erzdetektor-Kalibrierung aus 26.2-Welten (id statt Name), dunklere Trim-Variante, Jade/AppleSkin/Mouse Tweaks fuer 26.3, NeoForge-Upload als Beta
-
-## Welle 10 (erledigt, auf master, noch nicht gepusht)
-- [x] Ausstehende Gegenproben: Hammer-Risse (Client), Anstossen schwebender Bloecke am Sand, Vorwaerts-Umformen Bretter/Ziegel
-- [x] Blaupause: Bauauftrag ueberlebt Logout/Neustart (fortsetzen), Materialliste fuer Mehrfach-Bloecke (Kerzen, Seegurken, Schneeschichten), Fehlstellen-Pruefung ohne 400.000er-Grenze
-- [x] Kleinkram: ungenutzte Farbwerte des Entfernungsmessers entfernen, Platzhalter-Item aus /give-Vorschlaegen, leerer Tab-Platz des Dev-Tabs auf Fabric pruefen, Wiki-Texturreste aus 1.21.11-Laeufen
-
-## Welle 11 (erledigt, gepusht a33b420b, Gate 3010/3010)
-- [x] Visual Armor Trims: Muster auf Ruestungs-Icons (erst Mod-Ruestung, dann Vanilla), Farbe nach Material
-- [x] Besatzmuster nachbessern (laeuft): Randpixel dunkler/ausgespart, exakt mittig (z. B. Flow-Brust), nur Overlays
-- [x] Radiance-Partikel stark reduzieren; Tooltip "Radiance: 5" statt "5/5"
-- [x] Texturen: Enderit-Aufwertung (Enderit-Farbe, Netherit innen + im Pfeil), Einfache Aufwertung (Gold-Stil, Eisenblock innen), Umbenennung "Basic Upgrade"/"Enderite Upgrade", Barren 2 px schmaler, Schrott 1 px breiter, Diamant-Kiesel schaerfer, Lederplatte schoener
-
-- [x] Texturen Runde 7: zwei Alternativ-Sets fuer alle Enderit-Werkzeuge/-Waffen/-Ruestung (Icons + getragen), Hammer, Baustab, Meissel - Besitzer waehlt
-- [x] SimpleTools: Vanilla-Werkzeuge/-Waffen/-Ruestungen aller Stufen, Reihenfolge Werkzeuge > Waffen > Ruestung > Geraete > Buecher, zeilenweise
-- [x] SimpleMachines: Zeile Bauplanung (Blaupause, Kartografentisch, Oktant, alle Baustaebe)
-- [x] Enderquarz-Schachbrett (Bodenblock)
-
-- [x] Texturen Runde 8: Barren-Kante parallel, Aufwertungen = Umfaerbung der alten Besitzer-Umfaerbung, Enderit-Set B mit braunen Griffen uebernehmen
-- [x] Texturen Runde 9: eigenes Buch-Icon fuer jede Vanilla-Verzauberung + Config-Schalter (Konflikte mit Ressourcenpaketen)
-- [x] Rezepte: Erzdetektor + Echosplitter links/rechts vom Kompass; Oktant mit Gold-/Eisen-Waegeplatten und Blitzableiter
-- [x] Experimentell: Hunger-Kosten beim Bauen mit Baustab/Blaupause (Kupfer 16^3 = 1/4 Balken, Enderit 128^3 = voller Balken), per Config abschaltbar
-- [x] Doku docs/BAUWERKZEUGE-INTERAKTIONEN.md: Zusammenspiel Baustab/Blaupause/Oktant/Hammer/Meissel/Buendel/Rucksack mit und ohne Constructor's Touch, Verbesserungsvorschlaege, Vorschlaege fuer die Kerne -> danach Besitzer entscheidet, dann Wiki-Kapitel
-
-- [x] Baustab (auf master): Linear/Bridge/Cover/Color Palette wirken, Ausrichtung wie ein Spieler, Rueckgaengig nur in derselben Sitzung, Oktant-Form fuellen, Dach-Modus
-- [x] Koecher: 3D auf dem Ruecken (flach mit Tiefe); aktuelles Verhalten dokumentieren
-
-- [x] Hunger beim Bauen entschaerfen: Freibetrag pro Vorgang (>=256 Bloecke), nur sichtbare Hungerleiste als Massstab
-- [x] Texturen Runde 10: Barren wie Netherit (1 px niedriger, Glimmer), Werkzeug-Griffe wie Netherit mit lila statt schwarz + Glow, analog Hammer/Baustab/Meissel
-
-## Welle 13 (erledigt, gepusht)
-- [x] Config-Schalter: Vanilla-Buecher (gibt es), Mod-Buecher custom/vanilla, sichtbare Besatzmuster Vanilla-Ruestung, sichtbare Besatzmuster Enderit-Ruestung
-
-- [x] 26.4-Snapshot-Linie vorbereiten (Fabric, Forge falls vorhanden), experimentell, blockiert das Gate nicht
-- [x] Nahtloses Welt-Upgrade 26.2 -> 26.3: Audit aller Mod-Daten, tolerante Leser, Fixture-Rundlauftest, docs/UPGRADE-26.2-26.3.md
-
-## Welle 14 (erledigt, gepusht): Simple Tweaks uebernehmen
-- [x] Inventur + docs/SIMPLETWEAKS-UEBERNAHME.md (inkl. vollstaendiger Claim-Notiz, Claims NICHT portieren)
-- [x] Port aller Druckplatten (Chunkloader, Elytra-Pad, Fly-Pad, Spawn-Teleporter + Modi), Spawn-/Erstbeitritt, Spawn-Elytra, XP-Kugeln, Laser, Echo-Kompass, Befehle, Config (jede Variante abschaltbar) - alle Linien/Loader
-- [x] Enderit-Stufe nach Netherit, Netherstern-Stufe rueckt eins hoch (z. B. Enderite Elytra Pad IV, Fine Elytra Pad V); Enderit-Platte mit Zusatzfunktion
-- [x] Echo-Kompass: Rezept Bergungskompass + Enderit-Kern + Netherit-Druckplatte links/rechts; Unbreaking-Bug fixen
-- [x] Tests alle Linien; danach in simpletweaks Branch remove-ported-features (nicht gepusht)
-
-## Welle 15 (erledigt, gepusht): Testzentrale
-- [x] /sbtestcentre build: reproduzierbare Testwelt aus Code (Ruestung/Trims/Upgrades, alle Buecher, Werkzeuge plain+verzaubert, Meissel-Tuerme + In-World-Stationen, Lager, Bloecke, Maschinen-Demos, Erzdetektor-Feld, Essen, Oktant/Blaupause/Baustab-Modi, Versatility/Vein/Strip, Command-Block-Knoepfe)
-- [x] Abdeckungstest: jedes Mod-Item/-Block steht in der Zentrale (neue Features fallen automatisch auf); docs/TESTZENTRALE.md; Regel: am Ende jedes Runs pruefen
-
-## Welle 16 (erledigt, gepusht; Server-Gate 3096/3096, Client-Gate offen): Fehler + Optik aus dem Testen
-- [x] Enderit-Besatzfarbe im Tooltip lesbar (#9A7BD8)
-- [x] Bridge geht nicht; B-Taste schliesst Rucksack-Inventar nicht; Dach-Modus mit Enderit-Baustab; Testzentrale-Command-Blocks feuern doppelt/versetzt; Enderit-Kolben in der Zentrale pruefen
-- [x] Koecher faerbbar und richtig dargestellt; Faerbe-Tönung sanfter, Stufen bleiben unterscheidbar
-- [x] Enderit-Trichter-Item vanilla-nah; verst. klebriger Kolben mit Vanilla-Schleim
-- [x] Enderit-Glimmer: Apfel, Karotte, Koecher, Rucksack, Buendel; Enderit-Maschinen und -Kolben im Barren-Look
-
-## Welle 17 (erledigt, gepusht; Server-Gate 3110/3110)
-- [x] Eigene Kolbenkoepfe je Stufe (+ klebrig); beim Kolben-Abbau Partikel, Block-Abbau-Sound + eigener Bohr-Sound
-- [x] Erstbeitritt: Spawn-Teleporter und Pad standardmaessig 0 (zwei Config-Werte)
-- [x] Enderit-Tweaks-Bloecke: neue Pixelart statt Umfaerbung
-- [x] Audit: alle Auffaelligkeiten der Mod auflisten -> docs/AUDIT-2026-09-26.md (52 Punkte)
-- [ ] Client-Gate (6 Ziele) sobald Besitzer-Client/-Server geschlossen; Testzentrale neu bauen
-
-## Welle 18 (erledigt, gepusht; Server-Gate 3313/3313): Audit-Fixes P1+P2 (docs/AUDIT-2026-09-26.md)
-- [x] A1 Blaupause/Oktant/Netzwerk (#2,#8,#9,#11 + Materialverlust)
-- [x] A2 Werkzeug-Schutz (#1,#6,#7,#10 + Befehlsbloecke, Undo)
-- [x] B Tweaks + Doku (#3,#4,#5,#16,#17,#20,#21 + kleine P3)
-- [x] C Maschinen/Lager/Config (#12-#15,#18,#19, Portalrahmen standardmaessig aus)
-- [x] Server-Gate, Push
-- [x] Nach-Audit: N1 (P1 Hammer-Regression) behoben; N2-N16 in docs/AUDIT-2026-09-26.md
-
-## Welle 19 (erledigt, gepusht; Gate 3523 Tests, Rest-Fehler behoben und gezielt nachgeprueft): Rest-P3/P4 aus Audit + Nach-Audit
-- [x] W1 Blaupause/Oktant/Baustab: N2, N3, N8, N9, N13-N16, ShapeFill-Tests
-- [x] W2 Kolben/Trichter/Lager: Brecher-Verschleiss (#23), Config-Schalter Fake-Spieler-Guard (N4), Loader-Guard-Tests (N5), N6, N7, #24, #36, #48
-- [x] W3 Werkzeuge/Texte/Tasten: #25, #26, #27, #30, #37, #38, #39, #46
-- [x] W4 Tweaks-Rest + Hygiene: #35, #51, N10-N12, #43-#45, #49, #52
-- [x] wiki/manual.json: 6 doppelte Feature-Eintraege (welcome x4, building_wand, blueprint, enchant_storage_player, enderite_void_protection, configuration) mit abweichendem Text zusammenfuehren (Altlast aus JSON-Merges)
-- [x] Server-Gate, Push
-
-## Welle 20
-- [x] Texturen (freigegeben, gepusht): Maschinen (Kolben, Oefen, Raeucherofen, Schmelzofen, Trichter) vanilla-naeher; Enderit-Block + andere Mod-Bloecke neu; Netherit-Griff fuer Netherit-Hammer/-Meissel/-Baustab; Enderquarz lesbarer; Laser-Textur
-- [x] Echo-Kompass (gepusht, Gate 3649/3649): 3 s Aktivierung, Sounds/Partikel/FOV, 1. Nutzung -> kaputt, 2. Nutzung doppelt lang + Warnung -> zerbricht, eigene + kaputte Textur, Werkzeug-Tab, Rezept (N N/NRN/NEN, 6 Enderit-Nuggets), Mending: 1500 Punkte Aufladung, Glanz nur repariert; Velocity-Gauge-Rezept (Quarz oben in den Ecken, unten Kupfer-Kern)
-- [x] Tweaks-Stufen (gepusht, Gate 3719/3719): Launchpad (4/8/16 Ladungen, doppelte Staerke je Ladung, Shift = alle Windladungen rein), Chunk-Loader (1 / 5 / 3x3), Upgrades kosten Druckplatten, Flypad Stufe 1 mit Elytra (+ ? offen); Rotator-Rezept + Perle in der Textur
-- [x] Elytra-Pad 5 Stufen (Elytra+Vorlage 1x1, Diamant 5x5, Netherit+Vorlage 16x16, Enderit 32x32, 128x128); Flypad neu: 3 Stufen aus Enderit-Druckplatte (Kern+Vorlage, +Enderit-Platte, 2x Stufe 2), 4x4x6 / 8x8x12 / 16x16x24; Magnet-Rezept " R "/"I  "/"CIL" (laeuft im Stufen-Agenten)
-- [x] Kupfer-Druckplatten: gewachste Varianten (Honigwabe, Axt schabt Wachs ab, wie Vanilla-Kupfer); Namen bleiben (Vanilla-Muster reicht); Kupferplatte: Abschalten dauert so lang wie Einschalten, Platte senkt sich sichtbar wie Vanilla (pressed-Modell); Creative-Tab aufraeumen + Vanilla-Druckplatten dazu
-- [x] Echo-Kompass -> "Echo Sounder" (Name), Partikel weiter gestreut (Nutzung + Landung), keine Perle mehr noetig, Rezept + Nugget oben (NNN/NRN/NEN); Laser zuendet auch TNT, verliert auch beim normalen Zielen Haltbarkeit; Velocity Gauge QAQ/NCN/NKN (Kupfer-Nuggets); Kerne in Beutekisten sehr selten (Enderit-Kern besonders)
-- [x] Trank-Pad (laeuft): Wurftrank auf Netherit-Pad speichern, Effekt beim Drueberlaufen 30 s / 60 s / 120 s; Stufe I Netherit-Druckplatte + Lohenkopf (Lohe durch geladenen Creeper), II Enderit-Upgrade, III Enderit-Kern; alte Flypad-Texturen in Netherit-Palette
-- [x] Easter Egg (laeuft): letzte Stufe -> Stufe 1 im Schmiedetisch = "Don't do it" (Erfolg "What have you done?"), naechste "Seriously?", Stufen 3/4 ausdenken, 5 = Pad-Name verschleiert + Texteffekte, 2x staerker; + Netherit -> "Funny Stick" (Partikel); Erfolge fuer 2x-Stufe-5 und Funny Stick
-- [x] Laser (Amethystlinse, gepusht, Gate 3614/3614): in den Werkzeug-Tab; Vanilla-Name, Punktgroesse, Abstand der Meterzahl, Rezept (Eisen-Kern/Amethyst/Eisen-U/Redstone), Eis/Schnee schmelzen, Brennbares entzuenden, Seelenfeuer, Lagerfeuer, kein Netherportal, Ladung statt Bruch, Amboss-Aufladen mit Redstone ohne Level (64 = voll)
-- [x] JEI-Infoseiten fuer Items ohne Rezept (+ Test)
-- [x] Blaupausen-Code: Formen und Variablen
-- [x] 26.4 geprueft 2026-09-27: kein Forge/NeoForge/Cloth/Dev-Mod-Build fuer 26.4-snapshot-1; Fabric Loader/API/ModMenu aktuell; kein neuer Snapshot
-- [x] Enderit-Kolben-Verschleiss nach Brecher-Muster + dunklere Enderit-Geraete
-- [x] Testzentrale neu (laeuft): Befehlsbloecke wirklich isoliert (Test je Knopf), Give-Knopf an jeder Station (Haupt-/Nebenhand fuer Interaktionstests, ganze Blockpalette ins Inventar), alle Bloecke abgebildet, Flypad-Station sauber
-- [x] Pad-Texturen konsistent (laeuft): Basis-Druckplatte des Materials + Overlay; Elytra-Pad blau (Enderit-Stufe mit Enderit-Details, V mit mehr Glanz); Flypads auf Enderit-Platte; Spawn-Teleporter V auf Gold-Platte + Name ohne "Enderite"; Launchpad I Eisen+Diamant, II alte Launchpad-I-Textur, III Eisen+Enderit; Chunk-Loader immer Kupfer-Basis
-- [x] Laser: Sounds am Auftreffpunkt (Brummen / Zischen bei Brennbarem), Zeit steigt mit Entfernung (~3 s nah, ~20 s bei 200 m), Lebewesen anzuendbar (2x Zeit, PvP beachten) - im Echo-Sounder-Agenten
-- [x] Tabs: SimpleTools-Kompasszeile (Kompass, Bergungskompass, Echo Sounder, Velocity Gauge, Erzdetektor, Magnet, Rotator, Amethystlinse, Oktant) + farbige Oktanten; Spawn-Elytra hinter die Elytra-Pads - im Kupfer-Agenten
-- [x] Kartografietisch: signierte Blaupause oben -> Vorschau im Kartenfeld wie im Tooltip
-- [x] Rotator wie Linse (nie kaputt, Amboss + 16 Enderperlen = voll), zweiter Ender-Sound + Teleport-Partikel; Magnet-Rezept Lapis rechts Mitte; Erzdetektor-Rezept 6 Echoscherben (4 Ecken dazu); Erzdetektor als Kompass (lila Nadel zum naechsten Erz, heller je naeher, viel weniger Partikel, Nebenhand leiser/schwaecher/langsamer)
-- [x] Rucksack: Shift-Tooltip mit Inhalts-Vorschau wie Buendel
-- [x] Laufwerk C voll gewesen: 60 gemergte Agenten-Arbeitskopien entfernt
-- [x] Velocity-Gauge-HUD als Tacho (Nadel unten links -> unten rechts), Titel "Velocity"; Namen/Texte aller Werkzeuge konsistent; Linse: normal nur "Laser", Entfernung nur verzaubert + letzte Messung gespeichert
-- [x] Buendel schliesst wie Vanilla; Enderit-Meissel zusaetzliche Bloecke
-- [x] Texturen: Enderit-Vorlage (Innenteil dunkler, Glimmer), Kerne, Lederbogen, Diamant-Kiesel runder
-- [x] Rotator/Magnet/Erzdetektor ohne HUD-Overlay (im Rotator-Agenten)
-- [x] Erfolge/Advancements mit Hinweisen fuer den naechsten Schritt (ganzer Baum)
-- [x] Schmiedevorlagen platzierbar (flach, 3D, wasserfest), Leucht-Transformation am Boden in 3 Schlaegen, Hinweis-Partikel bei Glowstone/Leuchttinte
-- [x] Anfaengerbuch beim Erstbeitritt + Themenbuecher an der Werkbank
-- [x] Trank-Pad ins Easter Egg aufnehmen (Endstufe doppelt so lange Wirkdauer)
-- [x] 26.3-Absturz Hammer+Ofen: kein Code-Fehler, Build waehrend laufendem Client (Regel gemerkt)
-- [x] Trank-Pad: Abklingzeit 2x Wirkdauer (nur platziert, abgebaut eigener nicht stapelbarer Zustand mit Restzeit, animierte Textur), Anwendung ueber 3 s (25/50/100 %); alle Pads nicht stapelbar 
-- [x] Namen- und Raritaeten-Konsistenz aller Items
-- [x] Wiki: bessere UI/UX, Wichtigstes oben je Item, Navigation, URL-Suchparameter
-- [x] Vollstaendigkeits-Audit aller Wuensche
-- [x] Minecraft-Stand 2026-09-28: neuestes Stable 26.3 (abgedeckt), Snapshot 26.4-snapshot-1 (vorbereitet)
-- [ ] Client-Gate: wartet auf geschlossene Besitzer-Clients
-- [ ] Entscheidung Besitzer: Mending/Unbreaking fuer Amethystlinse und Rotator sperren?
-
-## Welle 22 (Server-Gate 4440/4440 nach Fix, gepusht 01b51669)
-- [x] A: fehlende Item-/Blockanzeige (Mauern, Creative Spacer, Echo Sounder), Nihilith -> Nihilit (Anzeigetext), Texte konsistent, Trank-Pad ohne Trank-Symbol, Diamant-Kiesel als Raute mit Krallenspitze
-- [x] B: Wiki echte Blockformen (Treppen/Stufen/Mauern/Kolben/Vorlagen), fehlende Eintraege (gewachste Kupferplatten, Lohenkopf-Textur), Beschaffungskarten ohne Rezept (Charged Creeper + Lohe -> Kopf, Vanilla-Koepfe, Schallplatten, Loot), Verzauberungen woher; dasselbe in JEI
-- [x] C: Truhen-Stufen ab Kupfertruhe (verstaerkt/Netherit/Enderit, einzeln + doppelt, mehr Slots, Netherit 2x / Enderit 4x Stapel)
-- [x] D: alle Configs durchgehen, mehr Optionen, Config-Menue mit guter UX
-- [x] E: Performance aller Entities/Block-Entities, Kompatibilitaet mit Optimierungs-Mods
-- [x] F: Erfolge wie grosse Modpacks, FTB-Quests-Kapitel in Stufen (optional, falls installiert)
-- [x] G: Liste "was fehlt noch" an den Besitzer (58 Punkte, wartet auf Ja/Nein)
-- [x] H: Spawn-Teleporter 3 Stufen (50/20/5 s, Endermankopf), Trank-/Elytra-/Chunk-/Launchpad-Rezepte am Schmiedetisch (Kupfer-/Eisen-Kern), keine Bildschirmtexte, Echo Sounder Abklingzeit x4 + kein Neuverknuepfen, Tab-Layout SimpleMachines + SimpleMaterials
-- [x] I: Kerne nicht stapelbar + Rechtsklick-Animation (70/20/10), Netherstern-Kern-Textur, Kern-Seltenheitsanalyse, Blaupause 3 Texturen (leer/bearbeitet/signiert), Linear + Bridge reparieren
-- [x] L: Handbuch-Oberflaeche wie Eidolon: Repraised (eigener Buch-Screen, Tooltip mit Unterzeile)
-- [x] J: Buendel platzierbar (3D nur am Boden, Sneak blaettert, Rechtsklick nimmt oberstes Item), platzierte Vorlagen: eigener Name, Pixel-Luecke, pixelgenaue Hitbox; Blaupause platzierbar
-- [x] K: Kolben-Haltbarkeit statt Verschleiss (1/9 der Spitzhacke, nur Abbau kostet, Enderit -> Netherit -> verstaerkt, Balken am Item)
-- [x] SimpleMaterials: alle Schmiedevorlagen (auch Vanilla) in einen Tab (im H-Run)
-- [ ] Rueckfragen Besitzer: Excavator/Diamond Ingots im Vorlagen-Tooltip, Centre/Color britisch oder amerikanisch, Cover-Buecher im Loot (Code vs HANDOFF), Liste G (58 Punkte), Mending Rotator
-- [x] Server-Gate + Push
-- [ ] Client-Gate + Testzentrale im Spiel (wenn Besitzer-Clients zu): Buch-Screen, Truhen, platziertes Buendel, Kern-Animation
+## Offen (inklusive Besitzerpunkte)
+- [ ] Separater Gameplay-Fix: Strahlschalter-Rezeptfilter von laser_pointer auf aktuelles amethyst_lens prüfen/umstellen; Faktenpass hat nur die tatsächliche Grenze dokumentiert.
+- [ ] Client-Gate Fabric/NeoForge 26.3 seriell bei geschlossenen Besitzer-Clients; Buch-Screen, Truhen, platzierte Bündel, Kern-Animation und neue Gadgets prüfen.
+- [ ] Testzentrale in der Besitzerwelt neu bauen; automatische GameTest-Welten ersetzen keine Abnahme.
+- [ ] Besitzerentscheidung zu Reparatur/Haltbarkeit des Resonanzstabs; Rotator sperrt Mending bereits.
+- [ ] Rueckfragen Besitzer: Excavator/Diamond Ingots im Vorlagen-Tooltip, Cover-Buecher im Loot (Code vs HANDOFF), Liste G (58 Punkte) (Rotator hat bereits kein Mending)
 - [ ] Rueckfragen neu: 12 Config-Ideen (Run D), Kern-Vorschlaege (Maurer-Diamantkern, 2. Eisenkern-Quelle, Enderit 0,5 %)
-
-## Welle 23 (Server-Gate gruen nach Fixes, gepusht 2026-09-29; Antworten Besitzer 2026-09-28, siehe Memory besitzer-entscheidungen-2026-09-28)
-- [x] M Config/Server: Luftsprung-Serverschalter, Chunk-Loader nur online + Admin-Befehl, Laser-Schalter, Erz-Gen-Schalter, dyn. Licht, Pad-Abbauzeit, max. Ladungen, Hammer/Meissel, Trichter/Ofen-Tempo, Erzdetektor, Loot-/Preis-Multiplikatoren, Blaupausen-Tempo, Trim-Staerken, Feature-Schalter samt Rezept, Server-Werte in Tooltip/JEI, Dimensionssperre erweitert; alles serverseitig, Obergrenzen, eigener Profi-Tab
-- [x] N Modpack: Claim-Schutz, Vein-Miner-Erztag, c:-Tags, Tabellen als Datapack, Loot als Tabellen, Sperr-Tags, Statistiken
-- [x] O Erfolge 33-37 + Handbuecher 38-42 (Admin-Buch)
-- [x] P1 Beute/Handel: Rotator (kein Mending, entladen statt kaputt), Vorlagen-Tooltip, Cover-Doku, Steinmetz ohne Kerne, Kupferkern selten beim fahrenden Haendler, 2. Eisenkern-Quelle, Enderit-Kern 30-40 h, Quellen fuer Drawer/Bridge/Kinetic Protection (Bridge im End), Drawer-Umbau (nur gleicher Item-Typ)
-- [x] P2 Items: Enderit ueberall Leere-Schutz + doppelte Despawnzeit, Netherit-Koecher explosionsfest, alte Spachtel aus JEI, ID-Umbenennung mit Datenfix, Enderit-Pferde-/Nautilusruestung
-- [x] Q Zusammenspiel: B oeffnet Rucksack aus Inventar, Koecher->Armbrust + Rucksack nur mit Master Builder, Pfeile->Koecher nur mit Funnel, Redstone/Komparator Pads, Trichter nur Windladungen ins Launchpad (Trank-Pad nur per Wurftrank), Rucksack-Komparator, Hammer baut Oktant-Auswahl ab + Hammer-Tempo-Balance
-- [x] R Immersion: Sounds/Partikel, sichtbare Zustaende, Tooltips, HUD-Taste, HUD Position/Groesse, Jade-Plugin, EMI/REI
-- [x] S Optik: Pulsating Armor Trim (Warden, Echoscherbe+Hammer), Vorlagen ohne "Smithing" im Namen, Magnet->Attractor + platzierbar zieht Items an, Kern-Texturen bunter (Netherstern-Mitte), JEI-Schmiedeanzeige der Trims reparieren
-- [ ] T danach: amerikanisches Englisch, Zeilen-Layout alle Tabs
-- [x] V: Pulsating-Vorlage (Muster wie Glowing/Emitting, Deep-Dark-Stil, Warden-Gesicht), Kerne mit Stern-Rahmen, Leuchtregeln (Glowing II steady, Helligkeit nur Pulsating+Glowing, Pulsating allein Saettigung)
-- [x] X Fix: Tippen im Blaupausen-Editor geht nicht (Einfuegen/Loeschen geht) - Start sobald Worktrees wieder angelegt werden
-- [x] Y: Endermankopf + Lohenkopf mit echter Vanilla-Mob-Textur (Item, Boden, Wand, getragen)
-- [ ] Z: Luftsprung-Abklingzeit Stufe I 20 s / II 10 s; Anzeige als Leiste an der XP-Leiste (Prioritaet: XP-Aenderung > Luftsprung-Abklingzeit > Locator-Leiste), sonst nichts auf dem Bildschirm; Linear baut nur eine Linie; Bridge baut von einem Ende aus, doppelt so schnell; Oktant-Rezept Goldkern + Goldnuggets statt Druckplatten, Oktant seltener in Beute (nach M/R-Merge)
-- [x] W1: Balancing-Zentrale Phase 1 (gemergt; Start: python tools/devserver/serve.py)
 - [ ] W2: Balancing-Zentrale Phase 2 nach Merge von M/N/P2/R: gespeicherte Werte wirken im Mod (Konstanten -> Variablen/Datapack) - Plan: docs/BALANCING-ZENTRALE.md Abschnitt 5
-
-## Wiki-UX aus Balancing-Zentrale (Ideen aus tools/devserver, die auch dem Wiki helfen)
 - [ ] Beschaffungszeit je Item: Zeit bis zum 1. (und k.) Stueck je Quelle, gezielt vs. normales Spiel, mit Zeitalter-Einordnung ("vor Braustand & Traenke") auf Item-Seiten und in der Beschaffungs-Uebersicht (Modell: tools/devserver/sbdev/model.py)
 - [ ] Diagramm "Zeit bis k Stueck" mit logarithmischer Zeitachse und Zeitalter-Linien auf Item-Seiten
 - [ ] Handel: "im Angebot je Haendler/Dorfbewohner" (aus Poolgroesse, Ziehungen und Angebots-Chance) statt nur der rohen Angebots-Chance
@@ -189,88 +42,23 @@ Verlauf im Detail: git log.
 - [ ] Config-Seite: Wertebereich (min ... max aus @BoundedDiscrete/validate()), Client/Server und "wirkt bei /reload" als eigene Spalten
 - [ ] Leere Zustaende mit Handlungsanweisung statt nur "keine Eintraege"
 - [ ] Offen beim Besitzer: Kern-Chancen-Vorschlag fuer Eisen/Gold/Diamant/Netherit uebernehmen?
-
-## Spaeter (Besitzer 2026-09-28)
 - [ ] Vorlagen teurer machen (mehrere Materialien statt 1 Glowstone/Tintenbeutel/Echoscherbe)
-- [x] U: Curios/Trinkets fuer Rucksack/Koecher (optional, nach Q; Besitzer 2026-09-28: ja)
 - [ ] Punkte 64-69: Sprachen, Attractor mit Ladung, neue Bloecke, Baustab ueber Planer, Kern-Module, Rucksack-Sortierung/Multi-Mod-Repo
-
-## Welle 24 (Besitzer 2026-09-29; BB-GG gemergt, HH/II/JJ als WIP-Branches, siehe docs/HANDOFF.md) - NEUE REGEL: 26.3 Hauptlinie, erst dort fertig, dann Port-Run
-- [x] BB Items/Rezepte: Attractor-Arme laenger, Ore Detector -> Detector (Rezept gedreht, 4 Echoscherben, Kern unten links, kalibrierter Sculk oben rechts), Detector platzierbar + aktiv + Trigger durch Item in Hand, Tacho-Rezept analog, Oktant-Rezept (Goldnuggets, Leine unten rechts, Blitzableiter oben rechts), Blaupause mit Leuchttinte, Enderit-Namen (Raw Enderite Scrap Part / Raw Enderite Scrap), klebriger verstaerkter Kolben -> Netherit, Diamantblock erst ab Eisenhammer
-- [x] CC Buecher: alles aktuell + Formatierung, Pads/Gadgets getrennt, Admin-Buch nur OP, 9 Vanilla-Buecher, Buch pausiert nicht, Resonanz erklaert + Inventar nur Wert mit Hover, Max-Werte
-- [x] DD Platziertes Buendel (Sneak+Scroll, Rechtsklick raus, Sneak+Rechtsklick rein, Item zum Spieler gedreht), platzierter Oktant (Umriss an/aus, Leuchten fuer Aktivierer)
-- [x] EE Aktiv-Texturen + Partikel fuer alle Pads, Spawn-Teleporter zum eigenen Spawn / Redstone -> Weltspawn + Sounds, Hammer ohne GUI-Text + Nugget neigt sich, Echolot Klick einmal + Sperre bis 5 s
-- [x] FF Kerne verwandeln Wirtsblock selten in Erz (Enderit ~1/2000, Kupfer ~1/10000), coolere Kern-Animation, Warden-Gesicht gerade
-- [x] GG Tabs: Pads/Druckplatten eigener Tab, Blaupause+Kartentisch+Enderit-Baustab zu Tools, Zeilen-Layout ueberall
-- [ ] HH Pads Stufe I mit Materialkern statt Vorlage; Chunkloader I + Launchpad I nehmen einen Trial-Chamber-Mobkopf (Tag); neue Mobkoepfe mit Vanilla-Textur (nur Charged Creeper), jeder mit geheimer harmloser Faehigkeit (Silberfisch schrumpft den Spieler); Koepfe-Zeile im Tab
-- [ ] GG+: im Tab nur Eichen-Druckplatte, in derselben Zeile wie die anderen Platten
-- [ ] Danach: Buecher-Faktenpass, Server-Gate 26.3, Port-Run 26.2/Forge/1.21.11/26.4
-
-- [x] Launch- und Testzentrale (tools/launchhub, Port 8771) auf Branch `hub`: Besitzer prueft Start/Test/KI-Fix mit echten Clients und CLIs, dann mergen
-
-## Wartet auf den Besitzer
-- [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
-
-## Enderit-Redstone / Astralgewoelbe / Spawn-Sicherheit (codex-kk)
-- [ ] Zwei getrennte Pulver aus Nihilith bzw. Astralit + Redstone, begrenzte Kanaele, Zusatznutzen, Server-Config, Rezepte, JEI/Jade/Wiki, Texturen und Testzentrale (noch nicht umgesetzt).
-- [ ] Astral Vault / Astralgewoelbe: 54 persoenliche Slots, erste 27 mit Vanilla synchron, weitere 27 separat; Animation, Sounds, Config und Integrationen (noch nicht umgesetzt).
-- [x] Spawn-Teleporter: jede Signalstaerkeaenderung verwirft die Ladung sofort, auch Impulse zwischen Ticks. Beide 26.3-Loader kompilieren; Spawn-Tests 14/14 und Testzentrale samt Neubau/Abdeckung 8/8 gruen. Wiki DE/EN aktualisiert. Kein Push/Merge.
-
-## Spaeter
+- [ ] Port-Run 26.2/1.21.11/26.4 erst nach Besitzer-Abnahme; Faktenpass und aktuelles 26.3-Gate siehe HANDOFF.
+- [ ] Besitzer-Abnahme des bereits implementierten Zeilen-Layouts in allen Kreativreitern.
 - [ ] 26.4: Forge einschalten sobald Build da (-Pmc264_forge_version), Cloth-Config-Screen/Dev-Mods sobald 26.4-Builds da, NeoForge-26.4-Linie
 - [ ] Baustab V1: normale Flaechen ueber den Blaupausen-Planer (Schutzpruefung pro Position) - ca. 40 Tests pinnen das heutige Verhalten
 - [ ] Kerne als Baustab-Module + eigene Funktionen (Vorschlaege in docs/BAUWERKZEUGE-INTERAKTIONEN.md) - Besitzer: erst spaeter
 - [ ] Kerne: Netherstern nur ab Diamant, Netherit-/Enderit-Baustab aus Kern, goldener Baustab mehr Haltbarkeit - nicht gewaehlt, spaeter neu besprechen
 - [ ] Rucksack-Sortierung (Reihenfolge vorbereitet), sobald eine Sortierfunktion kommt
-- [ ] Mehrere Mods in einem Repo (build-logic + framework/)
-
-## 26.3 recipe / attractor / trim / bundle corrections (2026-09-30)
-- [x] Echo Sounder core swap; Resonance Rod clockwise recipe; configurable attractor dead zone; Pulsating brightness modulation; accurate storage tooltip capacity/colors. 26.3 server checks green; visual owner check pending (no client tests).
-## Codex MM (26.3, 2026-09-30)
-- [x] Gezielter Hammer-Eckenschlag, gemeinsame Transformationsanimation beider Haende, Rahmenroute nur als Legacy-Fallback (26.3, Server 1552/1552; visuelle Abnahme offen).
-## Mega guides (26.3, Codex)
-- [x] Zwei getrennte Mega-Handbuecher, gespeicherte Kapitel, Migration, kein Starterbuch, saubere Texturen und begrenzte Tabs (26.3, Branch codex-ll).
-- [x] Guide-/DataIntegrity-Tab-/Testzentrale-Tests auf beiden 26.3-Loadern: 50/50, alles gruen; Testzentrale neu gebaut und Abdeckung vollstaendig.
 - [ ] Besitzer-Abnahme: Mega-Handbuecher im Client ansehen und Testzentrale in der Besitzerwelt neu bauen.
-## Multimod-Grundlage (Besitzerauftrag 2026-09-30, eigener Branch)
-- [x] Additive Module + framework + Scaffold + Registry-Validator
-- [x] Fabric-Integration, Beispielmod und Cross-Mod-Testziel ohne bestehende Testaenderungen
-- [x] Launch Hub: einzelne Mod-Schalter, Presets, Integrationsstarts und Trockenlauf-Tests
-- [x] check, 1548/1548 Server, 1/1 Integration, 34 Hub-Tests und Trockenlauf gruen; kein Push/Merge
 - [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen
-
-## Welle 25 (Besitzer 2026-09-30): Multi-Mod, Fehler, Forge 26.3 - alles mit Codex-CLI, Hauptlinie 26.3
-Regel: erst 26.3 (Fabric + NeoForge, dazu Forge 26.3) komplett und gruen, alle parallelen Laeufe fertig; 1.21.11/26.2/26.4 erst, wenn der Besitzer das Release ankuendigt.
-Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad codex/; Start: `codex exec --dangerously-bypass-approvals-and-sandbox -C <worktree> -o <out> - < <brief>`):
-- [ ] codex-kk2: Enderit-Redstone (zwei Pulver), Astral Vault (Enderit-Endertruhe)
-- [ ] codex-bugs: Hammer-Tempo (1,5x / +0,8x / +0,7x), Buch-Rezept, Buch-Erweiterung per Klick auf den Tab (Item wird verbraucht), Rezept verstaerktes Buendel
-- [ ] codex-infra-w: Wiki mit Mod-Umschalter fuer alle Module; codex-infra-b: Balancing-Zentrale je Mod; codex-infra-f: Forge 26.3
-- [ ] Ports als Module (jeweils ein Lauf, Brief brief-port-<kuerzel>.md, erzeugt mit scratchpad codex/mkports.py): money, riding (laufen), danach qol, visuals, models (aus `renamed`, Anzeigename Simple Models), dimensions, tweaks (nur Nicht-Portiertes), fun (gross)
-- [ ] danach: Forge 26.3 fuer alle Module, alle Module im Wiki und in der Zentrale, Integrationstests ueber alle Module, Gesamtgate
-
-## Codex KK2 (26.3)
-- [x] Enderit-Signalpulver und Astralgewölbe: Implementierung und gefilterte Verifikation auf codex-kk2; kein Push/Merge.
+- [ ] Weitere Ports als Module: riding, qol, visuals, models, dimensions, tweaks und fun; Money-Implementierung fertig, Abnahme separat offen.
+- [ ] Forge 26.3 für weitere Module und modulübergreifende Integrationstests/Gesamtgate; vorhandene Module sind bereits in Wiki und Zentrale.
 - [ ] Besitzer-Abnahme: 26.3-Signalkanaele und Astralgewoelbe im Client; Testzentrale in Besitzerwelt neu bauen.
-## INFRA-W (26.3, Codex)
-- [x] Manifest-driven wiki generation, mod switcher, per-module completeness and static hosting. check green; visual browser review pending (no browser surface available).
-## INFRA-B: Multimod-Balancing (2026-09-30)
-- [x] Manifest, isolierte Ablagen/Leser, Mod-Auswahl, Tests und Dokumentation; 1554/1554 Server und check gruen.
-- [ ] Desktop-/Handy-Sichtpruefung: Browser-Werkzeug meldet keine verfuegbare Oberflaeche.
-## INFRA-F Forge 26.3 (2026-09-30)
-- [x] Official Forge 26.3-66.0.8 / MDK verified; opt-in 26.3 overlay, loader hooks, server 778/778 green, Hub and module scaffolding; no push/merge.
-- [ ] Owner acceptance: actual Forge client display, config persistence/optional integrations, eventual default enablement.
-
-## FIX16 (26.3, Codex)
-- [x] KK2-Integritaetsfehler korrigiert; komplette 26.3-Server-Suite 1562/1562 gruen; Abschlussgate siehe HANDOFF.
-## Vier Fehlerkorrekturen (26.3, codex-bugs)
-- [x] Hammer: 1,5 + 0,8 fuer Bloecke 2-9 + 0,7 ab Block 10; Oktant 2 je Block.
-- [x] Basis-Handbuecher im Rezeptbuch; Kapitel im Buch serverseitig freischalten statt Werkbank.
-- [x] Verstaerktes Buendel: Rezept/Datagen/Abdeckung sichern.
-- Verifiziert: 178/178 gefilterte Serverpruefungen, beide gezielten Clientablaeufe, Testzentralen neu gebaut, check gruen. Kein Push/Merge.
-## Simple Money (26.3, Codex)
-- [x] Vollport als eigenes Modul: sieben Items, acht Rezepte, 47 Handelsangebote, sieben Beutetypen; eigene Integrationstests, Wiki und Balancevertrag. Bestand/Integration 1555/1555, Modsuite 20/20, Config-Gegenprobe 2/2 grün; Fabric-Client-Smoke und check Exit 0, 35 Hub-Tests grün.
+- [ ] Desktop-/Handy-Sichtprüfung von Wiki und Balancing-Zentrale.
+- [ ] Forge: echte Clientdarstellung, Config-Persistenz/optionale Integrationen und spätere Default-Einschaltung abnehmen.
 - [ ] Besitzer-Abnahme von Simple Money; NeoForge-Client/alte Spielwelt noch prüfen. Forge 26.3 und andere Linien später im Port-Run.
-- Besitzer-Wuensche 2026-09-30 (Briefs im Scratchpad codex/, erzeugt mit mkports2.py; erst NACH dem Plugin-Umbau der Modul-Registrierung, branch codex-port-riding, starten): visuals + mehr Vanilla-Partikel mit Stufen Off/Subtle/Normal/Strong/Maximum; NEUER Mod simplesounds (Klang-Gegenstueck je Visual-Effekt, gleiche Stufen); fun + weitere Spielereien + Schweine-/Kuh-/Huhn-/Schafkoepfe (Charged Creeper); money-links (Simple Money als Addon: zusaetzliche Handelsangebote fuer Items der anderen Mods, alte bleiben, keine Arbitrage); qol (Ideenliste docs/modules/simplequalityoflife-ideas.md, serverseitige Caps, Client darf nicht cheaten); riding (Nautilus falls fehlend, Caps); tweaks gruendlich pruefen; dimensions (konfigurierbare Custom-Dimensionen, nachvollziehbar/mysterioes, schlichte Configs); models (Ordner mit eigenen Modellen, Zuweisung per Amboss, Browser-Screen). Qualitaetslatte fuer alle Mods: Vorbild SimpleBuilding (UI/UX), alle nicht ausnutzbaren Config-Optionen serverseitig mit Caps, umfangreiche Tests gruen.
+- [x] TASK FACTS PASS: Texte/Code-Rezepte abgeglichen, DE/EN beider Sprachorte, Generatoren aktuell; check und 1562/1562 Server grün. Kein Gameplay, Push oder Merge; Besitzerabnahmen bleiben oben offen.
 
-## FIX-MONEY-WIKI (26.3, Codex)
-- [x] Sieben bilingual dokumentierte Money-Items; Kreativtab aus Item-Inventar korrekt ausgeschlossen; alle Modul-Wikis/Originaltexturen aktuell. Wiki 15, Hub 38, Devserver 121 (1 skipped), Gradle check Exit 0. Kein Push/Merge.
+- Besitzer-Wuensche 2026-09-30 (Briefs im Scratchpad codex/, erzeugt mit mkports2.py; erst NACH dem Plugin-Umbau der Modul-Registrierung, branch codex-port-riding, starten): visuals + mehr Vanilla-Partikel mit Stufen Off/Subtle/Normal/Strong/Maximum; NEUER Mod simplesounds (Klang-Gegenstueck je Visual-Effekt, gleiche Stufen); fun + weitere Spielereien + Schweine-/Kuh-/Huhn-/Schafkoepfe (Charged Creeper); money-links (Simple Money als Addon: zusaetzliche Handelsangebote fuer Items der anderen Mods, alte bleiben, keine Arbitrage); qol (Ideenliste docs/modules/simplequalityoflife-ideas.md, serverseitige Caps, Client darf nicht cheaten); riding (Nautilus falls fehlend, Caps); tweaks gruendlich pruefen; dimensions (konfigurierbare Custom-Dimensionen, nachvollziehbar/mysterioes, schlichte Configs); models (Ordner mit eigenen Modellen, Zuweisung per Amboss, Browser-Screen). Qualitaetslatte fuer alle Mods: Vorbild SimpleBuilding (UI/UX), alle nicht ausnutzbaren Config-Optionen serverseitig mit Caps, umfangreiche Tests gruen.

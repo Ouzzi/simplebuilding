@@ -12,7 +12,7 @@ This file, `AGENTS.md` (rules), `docs/HANDOFF.md` (state) and `.claude/QUEUE.md`
 2. Write a brief per task (pieces in `docs/ai/briefs/`: `pre.md` = rules preamble, `mm-contract.md` = multi-mod contract, `port.md` = module port task, `mkports2.py` = generator for the module briefs). Keep each brief self-contained and testable: state the verification commands and the "green" lines to read.
 3. Start runs: `python tools/ai/aitool.py codex <name> <brief.md>` (creates `%TEMP%/cx-<name>`, branch `codex-<name>`, log in `.ai-runs/`). Watch with `python tools/ai/aitool.py status`. Start at most 4 runs at once (CPU, RAM, disk: each worktree + Gradle build costs several GB; check `status` for free disk).
 4. When a run finishes read only its final answer (`.ai-runs/out-<name>.txt`), then `git merge --no-ff codex-<name>` into master. Conflicts: lang JSON -> 3-way merge by key (`tools/ai/merge_helpers/jsonmerge3.py <path>` while the merge is open); docs/queue -> `aitool.py merge-help union <files>`; generated wiki data -> take theirs and regenerate (`python wiki/generate.py --all`). Never resolve by dropping a module's tests.
-5. Regenerate derived files after merges: `python wiki/generate.py --all`, `python tools/quests/generate_quests.py`, `python tools/textures/generate_textures.py`, `python tools/guide_book_pages.py` (all have `--check`).
+5. On the 26.3 main line, regenerate derived files after merges: `python wiki/generate.py --all`, `python tools/quests/generate_quests.py`, `python tools/textures/generate_textures.py --check` (regenerate only after intentional texture changes), `python tools/guide_book_pages.py` (all have `--check`).
 6. Gate: `python tools/ai/aitool.py gate --integration` (runs `check`, the 26.3 server suites and the integration suite in the gate worktree and prints `VERDICT`). Push only after GREEN: `python tools/ai/aitool.py gate --integration --push`.
 7. Update `docs/HANDOFF.md` and the queue, commit, push.
 
@@ -33,3 +33,11 @@ The assistant's long-term notes live in `docs/ai/memory/` (copy of `~/.claude/pr
 - Wiki `python -m http.server 8765 --directory wiki` and Balancing-Zentrale `python tools/devserver/serve.py` (port 8770); both have per-mod switchers.
 - Codex CLI (`npm install -g @openai/codex`, `codex login`), Claude Code (`claude`).
 - Dev mods for the test instances are listed and switchable in `tools/devmods.json`.
+
+## Current facts and historical notes
+
+HANDOFF describes the integrated 26.3 state, not the last worker branch. Queue checkboxes
+mean implementation/verification complete, not owner acceptance. Keep client gates, visual
+acceptance and owner decisions open separately. Old briefs and memory are historical inputs;
+recipes, constants and executable code are evidence. Forge 26.3 is opt-in (`-Pforge263=true`);
+the normal task gate remains Fabric/NeoForge 26.3 plus shared compilation.
