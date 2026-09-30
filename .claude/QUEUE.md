@@ -107,3 +107,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] TASK SB-HARDEN: bestehende SimpleBuilding-Caps, Boost-Paketbudget/Velocity, Rezeptfilter und echte 26.3-Servergegenproben; 1600/1600 Hauptlinien-Tests und Integration 1/1 alles gruen, kein Push/Merge.
 
 - Forge Modules 2: experimental Forge 26.3 adapters for Simple Sounds, Simple Quality of Life and Simple Tweaks; separate commits, no push/merge.
+
+- [x] Forge Modules 2: Simple Sounds, Simple Quality of Life and Simple Tweaks experimental Forge 26.3 adapters; separate module commits, final 2828/2828 alles gruen and default check exit 0. Forge client/owner acceptance remains open; no push/merge.

@@ -65,7 +65,7 @@ includes SimpleBuilding via public registry/Vanilla test contracts. Own generate
 path remains empty because there is no gameplay datagen. balance/simplesounds reserves history;
 authoritative tuning is the mapping JSON plus named Java config/budget constants.
 Wiki manual and both language files are module-owned. Generated wiki data and the manifest-driven index were refreshed by the generator;
-no hand-edited generated data or shared implementation changes. Forge scaffold is not declared or validated.
+no hand-edited generated data or shared implementation changes. Forge is now declared as experimental opt-in support; see the later Forge status.
 
 Tests: launch/zero-item integrity, hostile config bounds, flood/player budgets, cooldown/reset,
 SimpleBuilding coexistence and unchanged inventory, each of twelve Vanilla sound IDs and
@@ -91,7 +91,7 @@ Other Minecraft lines are deferred; shared 26.2 compatibility is checked by the 
   18 wiki unit tests and shared 26.2 compilation. No deferred-line source edits.
 - Not verified: NeoForge client/UI, German UI rendering, subjective listening, every ambient
   condition in gameplay, long-duration/performance and arbitrary modpacks, owner world,
-  complete existing SimpleBuilding server/client suites. No Forge or deferred-line runtime.
+  complete existing SimpleBuilding server/client suites. This earlier port run did not verify Forge or deferred-line runtime.
 - Decisions for owner acceptance: Vanilla-only audio, local-player-only observation, independent
   intensity settings (no automatic live following of Simple Visuals). Fireflies/pollen use soft
   rustling. No blocking owner question, no push/merge.
@@ -99,3 +99,5 @@ Other Minecraft lines are deferred; shared 26.2 compatibility is checked by the 
 ## Experimental Forge 26.3
 
 Opt-in with `-Pforge263=true`; same 17 server catalogue cases and client-only sound tick mixin. JSON settings and sound budgets are unchanged. Cloth GUI/client harness sources are excluded because a compatible Forge artifact is unavailable. Forge client audio, UI and owner-world behavior remain unverified.
+
+Forge follow-up verification: 17/17 canonical cases passed in the combined run `2026-09-30T17-52-13Z-77a1`; **2828/2828, alles gruen** across existing Fabric/NeoForge/Forge 26.3, integration and all manifest module server suites. Explicit Forge compile without `forge_runs`: exit 0. Client and owner-world limits above remain open.

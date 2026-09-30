@@ -146,7 +146,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "cloth_config"
@@ -156,7 +157,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "91dea4ead5ae"
+    "dataHash": "6de06b9b679e"
   },
   {
     "id": "simplequalityoflife",
@@ -166,7 +167,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "cloth_config"
@@ -174,7 +176,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "8a5c6bc75d4e"
+    "dataHash": "fd2af1540f4e"
   },
   {
     "id": "simpletweaks",
@@ -184,12 +186,13 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "simplebuilding"
     ],
     "optional": [],
-    "dataHash": "903cfae3adb3"
+    "dataHash": "45a14b9cca94"
   }
 ];

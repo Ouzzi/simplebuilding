@@ -416,3 +416,5 @@ Aktuelle Run-IDs/Gate-Ausgaenge werden nach Abschluss unten ergaenzt.
 ## Experimentelles Forge 26.3
 
 Mit `-Pforge263=true`; SimpleBuilding ist verpflichtend und wird vorher geladen. Native ForgeRegistry-Aliase und ein eigener NamespacedWrapper-Mixin ergänzen die gemeinsamen MappedRegistry-Lookups. Alle 12 kanonischen Fälle prüfen echte alte Item-/Block-/BE-/Komponenten-Codecs, Owner/Charges/Stacks, Canonical-Saves und Verweigerung unbekannter IDs. Keine zusätzlichen Config-/Netzwerk-/Client-Hooks nötig: das Modul besitzt keine davon; die Urkunde nutzt Vanilla-Itemdarstellung. Claims bleiben inaktiv. Forge-Client, echte alte Welt und Besitzerwelt sind nicht abgenommen.
+
+Forge follow-up verification: 12/12 canonical cases passed in the combined run `2026-09-30T17-52-13Z-77a1`; **2828/2828, alles gruen** across existing Fabric/NeoForge/Forge 26.3, integration and all manifest module server suites. Explicit Forge compile without `forge_runs`: exit 0. Client and owner-world limits above remain open.

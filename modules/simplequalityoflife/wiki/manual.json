@@ -548,10 +548,10 @@
       },
       "de": {
         "title": "Experimentelles Forge 26.3",
-        "summary": "Opt-in-Forge-Adapter f?r dieselben servergesteuerten Hilfen.",
+        "summary": "Opt-in-Forge-Adapter für dieselben servergesteuerten Hilfen.",
         "details": [
-          "Mit -Pforge263=true aktivieren. Config-/Kriechpakete nur zum Client, Tasten, Abbau-Veto und Ackerschutz nutzen Forge-Hooks. JSON-Konfiguration beh?lt Felder und Grenzen. Cloth-GUI fehlt. Forge-Clients und Netzwerk mit echten Spielern bleiben ungepr?ft.",
-          "Der experimentelle Forge-Transport ben?tigt das Modul derzeit auf Server und Client."
+          "Mit -Pforge263=true aktivieren. Config-/Kriechpakete nur zum Client, Tasten, Abbau-Veto und Ackerschutz nutzen Forge-Hooks. JSON-Konfiguration behält Felder und Grenzen. Cloth-GUI fehlt. Forge-Clients und Netzwerk mit echten Spielern bleiben ungeprüft.",
+          "Der experimentelle Forge-Transport benötigt das Modul derzeit auf Server und Client."
         ]
       }
     }

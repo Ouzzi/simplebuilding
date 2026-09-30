@@ -376,7 +376,7 @@
         "title": "Experimentelles Forge 26.3",
         "summary": "Opt-in-Forge-Adapter mit derselben begrenzten lokalen Sound-Engine.",
         "details": [
-          "Mit -Pforge263=true aktivieren. Cloth-Konfigurationsoberfl?che fehlt; Modul-JSON-Konfiguration bleibt unterst?tzt. Forge-Clientaudio wurde nicht gepr?ft."
+          "Mit -Pforge263=true aktivieren. Cloth-Konfigurationsoberfläche fehlt; Modul-JSON-Konfiguration bleibt unterstützt. Forge-Clientaudio wurde nicht geprüft."
         ]
       }
     }
