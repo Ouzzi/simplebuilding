@@ -2,8 +2,8 @@
   "block.simpledimension.sky_portal": "Himmelsportal",
   "block.simpledimension.light_blue_portal": "Altes hellblaues Portal",
   "item.simpledimension.light_blue_portal": "Altes hellblaues Portal",
-  "simpledimension.config.title": "Simple Dimensions ? Servereinstellungen",
-  "simpledimension.config.remote": "Servereinstellungen ? Nur lesen",
+  "simpledimension.config.title": "Simple Dimensions: Servereinstellungen",
+  "simpledimension.config.remote": "Servereinstellungen: Nur lesen",
   "simpledimension.config.access": "Zugang",
   "simpledimension.config.safety": "Sicherheit",
   "simpledimension.config.accessEnabled": "Portalzugang erlauben",
@@ -96,5 +96,6 @@
   "simpledimension.config.worldGeneration.flatLayers.block.tooltip": "Erweiterte serverseitige JSON-Option. Standard: \"minecraft:stone\". Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
   "simpledimension.config.worldGeneration.flatLayers.height": "worldGeneration.flatLayers.height",
   "simpledimension.config.worldGeneration.flatLayers.height.tooltip": "Erweiterte serverseitige JSON-Option. Standard: 1. Weltgeneration ben?tigt einen Weltneustart; preset und orePreset sind nur alte Bezeichnungen.",
-  "simpledimension.config.advanced": "Erweitertes JSON"
+  "simpledimension.config.advanced": "Erweitertes JSON",
+  "simpledimension.config.remoteNotice": "Diese Werte werden auf dem Server verwaltet. config/simpledimension/server.json auf dem Server bearbeiten. Serverwerte werden nicht an diese Seite ?bertragen."
 }

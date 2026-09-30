@@ -2,8 +2,8 @@
   "block.simpledimension.sky_portal": "Sky Portal",
   "block.simpledimension.light_blue_portal": "Legacy Light Blue Portal",
   "item.simpledimension.light_blue_portal": "Legacy Light Blue Portal",
-  "simpledimension.config.title": "Simple Dimensions ? Server Settings",
-  "simpledimension.config.remote": "Server Settings ? Read Only",
+  "simpledimension.config.title": "Simple Dimensions: Server Settings",
+  "simpledimension.config.remote": "Server Settings: Read Only",
   "simpledimension.config.access": "Access",
   "simpledimension.config.safety": "Safety",
   "simpledimension.config.accessEnabled": "Enable Portal Access",
@@ -96,5 +96,6 @@
   "simpledimension.config.worldGeneration.flatLayers.block.tooltip": "Advanced server JSON option. Default: \"minecraft:stone\". World generation requires a world restart; preset and orePreset are legacy labels only.",
   "simpledimension.config.worldGeneration.flatLayers.height": "worldGeneration.flatLayers.height",
   "simpledimension.config.worldGeneration.flatLayers.height.tooltip": "Advanced server JSON option. Default: 1. World generation requires a world restart; preset and orePreset are legacy labels only.",
-  "simpledimension.config.advanced": "Advanced JSON"
+  "simpledimension.config.advanced": "Advanced JSON",
+  "simpledimension.config.remoteNotice": "These values are managed on the server. Edit config/simpledimension/server.json on the server. Server values are not synchronized to this screen."
 }

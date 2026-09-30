@@ -1,7 +1,7 @@
 # Simple Dimensions — Entwurf und Quellvergleich (26.3)
 
-Status: Entwurf vor Implementierung. Die folgenden Sicherheitsregeln sind Zielverhalten,
-kein Nachweis einer bereits fertigen Mod. Modul-ID: simpledimensions; persistenter
+Status: Entwurf abgenommen; Implementierung und Pr?fkatalog f?r Fabric/NeoForge 26.3 vorhanden.
+Aktuelle Pr?fergebnisse und Grenzen stehen am Ende dieses Dokuments. Modul-ID: simpledimensions; persistenter
 Registry-/Loader-Namensraum: simpledimension. Fabric und NeoForge zuerst.
 
 ## Quellen und Entscheidung
@@ -18,8 +18,8 @@ Glowstone selbst. Diese Umsetzung beweist die spätere Besitzeranweisung nicht.
 Der neuere README nennt einfache Rahmen, während defaultSkyblock/miningDimensionPreset/
 travelDimensionPreset im Java bereits gemischte Rezeptformen definieren. Java gewinnt.
 Geplanter Skyblock-Standard: sechs Besitzerbögen und separates Licht; neue Quellrezepte
-bleiben über bestehende JSON-Konfigurationen verwendbar. Besitzerentscheidung zur
-abweichenden Standardform ist angefragt. Keine bestehende Konfiguration überschreiben.
+bleiben über bestehende JSON-Konfigurationen verwendbar. Standardentscheidung f?r diesen Run: sechs Glowstoneb?gen plus separates Licht.
+Kupfer/Blaueis bleibt als konfigurierbare Alternative und sp?tere Besitzerentscheidung offen. Keine bestehende Konfiguration überschreiben.
 
 ## Dimensionskatalog
 
@@ -145,3 +145,103 @@ Forge 26.3: später eigener Registry-/Event-/Pack-/Client-/Testadapter. 26.2, 1.
 26.4 vollständig deferred bis Release-Port; keine Quellen dort ändern. Paper ist kein
 Loader für denselben Clientmod-JAR und bleibt separates Projekt. Echte alte Spielwelt
 muss zusätzlich abgenommen werden; IDs allein beweisen keinen erfolgreichen Weltupgrade.
+
+
+## Implementierung (Fortsetzung 2026-09-30)
+
+Modulger?st mit tools/newmod.py; Modul-/Launch-Hub-ID simpledimensions, tats?chliche
+Loader-, Block-, Item-, BE- und Dimensions-IDs weiterhin simpledimension. Fabric/NeoForge
+26.3 werden gebaut; Forge-Ger?st ist nicht im aktiven Manifest und gilt nicht als Port.
+Kein SimpleBuilding-Feature wurde kopiert. Vanilla-TeleportTransition respektiert dessen
+Nether-/End-Sperr-Mixin; keine Befehlsreise und keine internen SimpleBuilding-Imports.
+
+Stufencommits: 4d8c3af9 Ger?st, f901cdb2 Registry/BE, 049597b3 JSON/Caps,
+dfd10ef7 Formen/Z?ndung, b12d1399 Reisen/R?ckadressen, e864f622 Pack/Generation,
+111baec0 Spiel-/Quelltests samt Client-/Configadaptern. Abschlie?ende Daten/Belege folgen.
+
+Serverdatei config/simpledimension/server.json hat Zugang, automatische Zielanlage,
+Mindestwartezeit und Mindestcooldown. NonplayerTravel ist ein reservierter Legacywert,
+der immer false normalisiert wird: Mobs, Items, Reittiere und Passagiere sind verweigert.
+Portaldefinitionen behalten die Quellschl?ssel in config/simpledimension/dimensions/*.json.
+Die Einzeldefinition kann gr??ere Wartezeiten als den globalen Mindestwert verlangen.
+Bestehende JSON-Dateien werden nicht ?berschrieben. Beispiele entstehen nur, wenn die
+jeweilige Datei fehlt. Das alternative Quellrezept steht in
+modules/simpledimensions/examples/skyblock-copper.json; es ersetzt bei Bedarf die
+Skyblock-Datei, wird aber nicht automatisch aktiviert. Alle Optionsnamen, Reiter,
+Tooltips und Defaults sind in config-options.json mit EN/DE-Schl?sseln beschrieben.
+
+GeneratedPack l?dt denselben verpflichtenden Pack auf beiden Loadern, vor dem Laden der
+Weltregistries. Gen.natural w?hlt Oberweltuhr/Timelines; ultraWarm wird zu Wasserverdunstung
+und schneller Lava ?bersetzt. Beds/Anker setzen bewusst keinen Spawn in den Moddimensionen.
+Legacy preset/orePreset bleiben Bezeichnungen. Noise verwendet Quell-Settings
+(overworld bei generateOres=true, sonst caves); das ist kein Schalter zum garantierten
+Entfernen aller Erze. Mining verwendet Vanilla-Flat-Biomfeatures statt eigener Erzalgorithmen.
+Ziele sind konservativ auf simpledimension:<id> beschr?nkt; Vanilla-Zieldimensionen sind
+nicht ?ber JSON freischaltbar. Datapacks k?nnen diese eigenen Dimensionen definieren.
+
+Zielplan: runde Bedrockinsel mit ebener Oberfl?che, keine abbaubaren wertvollen Rahmen.
+Existierende Bl?cke werden nie gel?scht/?berschrieben. Eine erste Reise braucht Insel und
+R?ckportal; Legacy-One-way-/Plattform-Aus schaltet diese Reise ab. H?chstens neun Chunks
+je Zielplan, ein Zielbau pro Servertick, 1.024 dauerhaft gez?hlte Portalanker und 4.096
+Spieler-R?ckadressen. Die Ankerobergrenze z?hlt auch fr?here Portale (kein billiges
+Abbauen/Neusetzen zum Umgehen). Es gibt keine dauerhaften Chunk-Tickets.
+
+Jede erzeugte R?ckfl?che speichert das exakte sichere Ursprungsziel; alle Quellfl?chen
+speichern die exakte Zielverbindung. config entfernt/Zugang aus sperrt erzeugte Ausg?nge
+nicht. R?ckadressen ?berleben einen Serverneustart unter <world>/simpledimension-returns.json.
+Ein zerst?rter/unsicherer Ursprung f?hrt zur gepr?ften Oberweltoberfl?che nahe Spawn.
+Sollte auch dort kein sicheres, erlaubtes Feld existieren, verweigert die Mod die unsichere
+Teleportation; sie ?berschreibt keine Spawn-/Claimbauten. Auf einer vollst?ndig absichtlich
+unbewohnbaren Oberwelt kann ein Administrator daher weiterhin eingreifen m?ssen.
+
+Claim-Sicherheit: Vanilla mayInteract plus eine ?ffentliche modulinterne Permission-Schnittstelle.
+Erkannte flan/ftbchunks/openpartiesandclaims/griefdefender/claimchunk sperren Portal?nderungen
+und Reisen ohne registrierten Adapter. Konkrete Drittanbieteradapter sind nicht implementiert;
+die Mod behauptet keinen universellen Claim-Nachweis. Keine eigenen Clientpakete existieren.
+Z?ndposition und Reichweite werden serverseitig gepr?ft (h?chstens f?nf Bl?cke); h?chstens
+ein Z?ndversuch je Spieler pro zehn Serverticks. Framezerfall pr?ft h?chstens acht geladene
+Anker je Tick; keine Chunkladung durch die Wartung.
+
+Config-GUI: zwei Cloth-Reiter Zugang/Sicherheit. Lokaler integrierter Server ist editierbar;
+Mehrspieleransicht ausdr?cklich nur lesend. Kein unsicheres OP-Edit-Paket wird eingef?hrt:
+Dedizierte Server bearbeiten JSON und starten f?r Definitionen/Weltgeneration neu.
+Fabric-Mod-Men? und NeoForge-Konfigurationsbutton ?ffnen die Seite. Quellanimation bleibt
+erhalten; Farbwert synchronisiert per Blockentit?t und eigener Tintquelle auf beiden Loadern.
+Keine neue Pixelkunst; keine Chat-/Aktionsleistenmeldungen. Keine eigenen Craftingrezepte,
+Beutetabellen, Entities, Enchantments, Commands oder Keybinds; das Weltrezept ist die Quelle.
+
+Pr?farchitektur: eigener Manifestkatalog und Modulziele f?r beide Loader. SimpleBuilding
+ist in beiden Modulinstanzen geladen. Die 26.3-GameTestServer-Klasse verwirft normalerweise
+Datapack-Dimensionen; DimensionTestWorldMixin l?sst nur diesen Testserver echte Datapack-
+LevelStems ?bernehmen. Normale Welten verwenden unver?ndert Vanilla-WorldLoader.
+Die f?nf JUnit-Quellkataloge sind ?bernommen: Alternative Kupferform explizit, alte
+unbegrenzte Ratios jetzt geklemmt, Cooldown-Uhren instanzgebunden mit Serverticks.
+
+Derzeitiger gr?ner Modulbeleg: 60/60 Spieltests, beide Loader, Run
+2026-09-30T16-50-58Z-7109. Dieser Beleg ersetzt das abschlie?ende Gate nach den letzten
+?nderungen nicht. Client-/Bestands-/Gatebelege werden nach tats?chlichem Lauf erg?nzt.
+Echte alte Besitzerwelt, Forge 26.3 und 26.2/1.21.11/26.4 sind separate sp?tere Abnahmen.
+
+### Abschlussbelege (2026-09-30)
+
+Bestand Fabric/NeoForge 26.3: 1.562/1.562, Integration 1/1 und damaliger
+Modulkatalog 60/60 gemeinsam gruen (Run 2026-09-30T17-01-21Z-ad92).
+Erweiterter Modulkatalog: 68/68 gruen (2026-09-30T17-30-24Z-c774),
+23 uebernommene JUnit-Pruefungen ohne Fehler; Fabric-Client 3/3 gruen
+(2026-09-30T17-24-34Z-f4ba), Portal- und Konfigurationsscreenshots angesehen.
+Legacy-Dimensionstyp simpledimension:skyblock bleibt neben skyblock_type ladbar.
+Beide Portal-BlockEntityTypes verweigern nicht autorisierte Creative-Item-NBT;
+gefaelschte Rueckverbindungen wurden auf beiden Loadern abgewiesen (2/2,
+2026-09-30T17-35-34Z-65d2). Endlauf/Gate siehe abschliessenden Commit und Run-Daten.
+
+Generische Infrastrukturkorrekturen: Wiki liest optional namespace aus dem Manifest
+(statt Modulordnernamen als Welt-ID); Integration verwendet optional modId fuer
+Client-Abhaengigkeiten. Beide behalten id als Default und enthalten keine Mod-Sonderzweige.
+Launch Hub entdeckt das Modul und seine Tests aus dem Manifest; keine eigene Registryzeile.
+Nicht verifiziert: echte alte Besitzerwelt, NeoForge-Client, externe Claim-Adapter.
+Forge 26.3 und 26.2/1.21.11/26.4 bleiben ausdruecklich zurueckgestellt.
+Offene spaetere Besitzerentscheidung: Kupfer/Blau-Eis als Standard statt der sechs
+abgenommenen Glowstoneboegen; derzeit nur dokumentierte JSON-Alternative.
+
+Endlauf 2026-09-30T17-38-55Z-8a8a: alles gruen, 68/68, 0 rot (34 je Loader).
+Abschliessendes ./gradlew.bat check -q --no-daemon: Exit 0; Wiki aktuell, 19 Wiki-Tests gruen, checkBalance 0 Fehler, Modul-Datenpruefung gruen.

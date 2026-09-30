@@ -82,13 +82,13 @@ public final class DimensionRuntime {
     if(l.getBlockEntity(touched) instanceof SkyPortalBlockEntity be){
      var cfg=config(be.definition);
      int delay=Math.max(settings.portalDelayTicks,cfg==null?0:cfg.portalDelayTicks);
-     if(++c.warmup>delay){c.warmup=0;if(travel(p,touched)) {c.cooldown=server.getTickCount()+Math.max(settings.teleportCooldownTicks,cfg==null?60:cfg.teleportCooldownTicks);c.exit=true;}}
+     if(++c.warmup>delay){c.warmup=0;if(travel(p,touched)) {c.cooldown=server.getTickCount()+Math.max(settings.teleportCooldownTicks,cfg==null?60:cfg.teleportCooldownTicks);c.exit=true;}else{c.cooldown=server.getTickCount()+20;signal(l,touched,false);}}
     }
    }
-   if(l.dimension().identifier().getNamespace().equals("simpledimension")&&(p.getY()<l.getMinY()+3||configs.stream().noneMatch(d->d.targetDimensionId.equals(l.dimension().identifier().toString())))) emergencyReturn(p);
+   if(p.level()==l&&l.dimension().identifier().getNamespace().equals("simpledimension")&&(p.getY()<l.getMinY()+3||configs.stream().noneMatch(d->d.targetDimensionId.equals(l.dimension().identifier().toString())))) emergencyReturn(p);
  }
  private BlockPos findTouched(ServerLevel l,ServerPlayer p){
-  var box=p.getBoundingBox();for(var q:BlockPos.betweenClosed(BlockPos.containing(box.minX,box.minY,box.minZ),BlockPos.containing(box.maxX,box.maxY,box.maxZ)))if(DimensionRegistry.portal(l.getBlockState(q)))return q.immutable();return null;
+  var box=p.getBoundingBox();if(box.maxX-box.minX>3||box.maxY-box.minY>5||box.maxZ-box.minZ>3)return null;for(var q:BlockPos.betweenClosed(BlockPos.containing(box.minX,box.minY,box.minZ),BlockPos.containing(box.maxX,box.maxY,box.maxZ)))if(DimensionRegistry.portal(l.getBlockState(q)))return q.immutable();return null;
  }
  public static boolean safe(ServerLevel l,BlockPos p){
   if(p.getY()<=l.getMinY()||p.getY()+2>=l.getMaxY()||!l.getWorldBorder().isWithinBounds(p)||!l.hasChunkAt(p))return false;
@@ -137,8 +137,6 @@ public final class DimensionRuntime {
   var center=pos(mapped);if(center.getY()<target.getMinY()+8||center.getY()>target.getMaxY()-24||!target.getWorldBorder().isWithinBounds(center))return false;
   // Terrain can be read after a bounded chunk generation; no persistent ticket is installed.
   target.getChunk(center.getX()>>4,center.getZ()>>4);
-  int surface=target.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,center.getX(),center.getZ());
-  if(surface>center.getY())center=new BlockPos(center.getX(),surface+2,center.getZ());
   int width=(shape.axis()==PortalAxis.X?shape.interiorBounds().maxX()-shape.interiorBounds().minX():shape.interiorBounds().maxZ()-shape.interiorBounds().minZ())+3; // interior + two frame sides
   var plan=DestinationPlatform.plan(center,width+4);
   var chunks=new HashSet<Long>();for(var p:plan.keySet()){
@@ -147,10 +145,18 @@ public final class DimensionRuntime {
   }
   if(chunks.size()>ConfigLimits.MAX_CHUNKS_PER_BUILD)return false;
   for(long chunk:chunks)target.getChunk(net.minecraft.world.level.ChunkPos.getX(chunk),net.minecraft.world.level.ChunkPos.getZ(chunk));
+  boolean terrain="noise".equals(cfg.worldGeneration.generatorType)||!cfg.worldGeneration.flatLayers.isEmpty();
+  if(terrain){
+   int highest=target.getMinY();
+   for(var p:plan.keySet())highest=Math.max(highest,target.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING,p.getX(),p.getZ()));
+   int depth=plan.keySet().stream().mapToInt(p->p.getY()).max().orElseThrow()-plan.keySet().stream().mapToInt(p->p.getY()).min().orElseThrow()+1;
+   if(highest+depth>center.getY()){center=center.atY(highest+depth);plan=DestinationPlatform.plan(center,width+4);}
+  }
   if(center.getY()+3>=target.getMaxY())return false;
   for(var p:plan.keySet()) {if(!target.getWorldBorder().isWithinBounds(p)||p.getY()<target.getMinY()||p.getY()>=target.getMaxY()||!target.hasChunkAt(p)||!target.getBlockState(p).isAir()||!permitted(player,target,p))return false;}
   // Check all headroom and portal cells before changing any block.
   for(int dx=-2;dx<=2;dx++)for(int dz=-2;dz<=2;dz++)for(int dy=0;dy<4;dy++) {var p=center.offset(dx,dy,dz);if(!target.hasChunkAt(p)||!target.getBlockState(p).isAir()||!permitted(player,target,p))return false;}
+  var previous=returns.put(player.getUUID(),new ReturnAddress(source.dimension().identifier().toString(),origin.asLong()));save();
   lastBuildTick=server.getTickCount();
   for(var e:plan.entrySet())target.setBlock(e.getKey(),e.getValue(),3);
   for(int dy=0;dy<2;dy++){
@@ -158,7 +164,6 @@ public final class DimensionRuntime {
    if(target.getBlockEntity(p) instanceof SkyPortalBlockEntity exit){exit.configure(cfg.portalColorRgb(),source.dimension().identifier().toString());exit.define(cfg.id,center,true);exit.connect(source.dimension().identifier().toString(),origin);}
   }
   if(!safe(target,center))throw new IllegalStateException("Destination plan did not create safe ground");
-  var previous=returns.put(player.getUUID(),new ReturnAddress(source.dimension().identifier().toString(),origin.asLong()));save();
   if(!move(player,target,center,false)){
    for(int dy=0;dy<2;dy++)target.setBlock(center.above(dy),Blocks.AIR.defaultBlockState(),3);
    for(var p:plan.keySet())target.setBlock(p,Blocks.AIR.defaultBlockState(),3);

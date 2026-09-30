@@ -21,7 +21,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 /**
  * The portal block itself. Renders as a thin pane (like a nether portal),
  * carries a horizontal axis, and owns a {@link SkyPortalBlockEntity} that stores
- * the tint colour + destination for this particular portal.
+ * the tint color + destination for this particular portal.
  */
 public final class SkyPortalBlock extends Block implements EntityBlock {
 

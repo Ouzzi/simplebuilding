@@ -285,7 +285,9 @@
       "projects": {
         "fabric": ":modules:simpledimensions:fabric",
         "neoforge": ":modules:simpledimensions:neoforge"
-      }
+      },
+      "namespace": "simpledimension",
+      "modId": "simpledimension"
     }
   ]
 }

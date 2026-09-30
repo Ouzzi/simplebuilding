@@ -11,12 +11,12 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
   try(var world=context.worldBuilder().create()){
    world.getConnection().waitForClientboundPackets();world.getConnection().waitForChunksRender();
    world.getServer().runOnServer(server->{
-    for(String name:java.util.List.of("skyblock","mining","travel"))if(server.getLevel(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,DimensionRegistry.id(name)))==null)throw new AssertionError("Normal world dimension "+name);
+    for(String name:java.util.List.of("skyblock","mining","travel"))if(server.getLevel(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,net.minecraft.resources.Identifier.fromNamespaceAndPath("simpledimension",name)))==null)throw new AssertionError("Normal world dimension "+name);
     var p=server.getPlayerList().getPlayers().getFirst();var l=p.level();var base=p.blockPosition().offset(-2,0,-5);
     for(int x=0;x<4;x++)for(int y=0;y<4;y++){
      var q=base.offset(x,y,0);boolean inside=x>0&&x<3&&y<3;
-     l.setBlock(q,inside?DimensionRegistry.PORTAL.defaultBlockState():((y<3||x==1||x==2)?Blocks.GLOWSTONE:Blocks.AIR).defaultBlockState(),3);
-     if(inside&&l.getBlockEntity(q) instanceof SkyPortalBlockEntity b){b.configure(0x66D9FF,"simpledimension:skyblock");l.sendBlockUpdated(q,l.getBlockState(q),l.getBlockState(q),3);}
+     l.setBlock(q,inside?net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.parse("simpledimension:sky_portal")).defaultBlockState():((y<3||x==1||x==2)?Blocks.GLOWSTONE:Blocks.AIR).defaultBlockState(),3);
+     if(inside&&l.getBlockEntity(q)!=null){try{var b=l.getBlockEntity(q);b.getClass().getMethod("configure",int.class,String.class).invoke(b,0x66D9FF,"simpledimension:skyblock");}catch(Exception e){throw new AssertionError(e);}l.sendBlockUpdated(q,l.getBlockState(q),l.getBlockState(q),3);}
     }
     l.setBlock(base.offset(0,0,2),Blocks.SEA_LANTERN.defaultBlockState(),3);
     p.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES,net.minecraft.world.phys.Vec3.atCenterOf(base.offset(2,1,0)));
@@ -24,7 +24,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
    world.getConnection().waitForClientboundPackets();world.getConnection().waitForChunksRender();context.waitTicks(20);
    context.runOnClient(client->{if(client.level==null||client.player==null)throw new AssertionError("Title to world");});
    context.takeScreenshot("simpledimensions-portal");
-   context.runOnClient(client->client.setScreenAndShow(com.simplebuilding.modules.simpledimensions.client.DimensionConfigScreen.create(client.gui.screen())));
+   context.runOnClient(client->{try{var cls=Class.forName("com.simplebuilding.modules.simpledimensions.client.DimensionConfigScreen");client.setScreenAndShow((net.minecraft.client.gui.screens.Screen)cls.getMethod("create",net.minecraft.client.gui.screens.Screen.class).invoke(null,client.gui.screen()));}catch(Exception e){throw new AssertionError("Config opens",e);}});
    context.waitTicks(5);context.takeScreenshot("simpledimensions-config");
    context.runOnClient(client->client.setScreenAndShow(null));
   }

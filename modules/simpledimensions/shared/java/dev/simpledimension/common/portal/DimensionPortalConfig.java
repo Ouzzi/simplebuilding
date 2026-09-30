@@ -47,7 +47,7 @@ public final class DimensionPortalConfig {
     public int minPortalHeight = 3;
     public int maxPortalHeight = 21;
 
-    // ---- travel behaviour -------------------------------------------------------
+    // ---- travel behavior -------------------------------------------------------
     /** Ticks the player must stand inside the portal before being sent across (vanilla-like delay). */
     public int portalDelayTicks = 0;
     /** Cooldown after a teleport so the player does not bounce straight back. */

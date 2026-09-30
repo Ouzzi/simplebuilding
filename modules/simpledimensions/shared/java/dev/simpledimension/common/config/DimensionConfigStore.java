@@ -115,6 +115,8 @@ public final class DimensionConfigStore {
         for (DimensionPortalConfig cfg : configs) {
             String id = safeId(cfg.id);
             writeJson(dimensionTypeDir.resolve(id + "_type.json"), toDimensionTypeJson(cfg));
+            // Older owner's worlds stored the type key simpledimension:skyblock.
+            if (id.equals("skyblock")) writeJson(dimensionTypeDir.resolve("skyblock.json"), toDimensionTypeJson(cfg));
             writeJson(dimensionDir.resolve(id + ".json"), toDimensionJson(cfg));
         }
     }

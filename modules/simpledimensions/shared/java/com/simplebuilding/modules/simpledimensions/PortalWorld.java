@@ -13,7 +13,7 @@ public record PortalWorld(ServerLevel level,DimensionPortalConfig config) implem
  public boolean separateLight(MatchedPortal shape){
   for(var c:shape.interior())for(int dx=-3;dx<=3;dx++)for(int dy=-3;dy<=3;dy++)for(int dz=-3;dz<=3;dz++) {
    var s=level.getBlockState(new BlockPos(c.x()+dx,c.y()+dy,c.z()+dz));
-   if(!s.is(Blocks.GLOWSTONE)&&!s.is(Blocks.FIRE)&&!s.is(Blocks.SOUL_FIRE)&&!DimensionRegistry.portal(s)&&s.getLightEmission()>0)return true;
+   if(!s.is(Blocks.GLOWSTONE)&&!s.is(Blocks.FIRE)&&!s.is(Blocks.SOUL_FIRE)&&!s.is(Blocks.NETHER_PORTAL)&&!s.is(Blocks.END_PORTAL)&&!s.is(Blocks.END_GATEWAY)&&!DimensionRegistry.portal(s)&&s.getLightEmission()>0)return true;
   }
   return false;
  }

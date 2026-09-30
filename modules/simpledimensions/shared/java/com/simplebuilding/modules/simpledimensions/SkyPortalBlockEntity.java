@@ -13,7 +13,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 
 /**
  * Stores per-portal data: the tint applied to the nether-style texture and the
- * dimension this portal sends players to. The colour is synced to the client so
+ * dimension this portal sends players to. The color is synced to the client so
  * the block tint factory can hue the texture; the destination is read on the
  * server when a player walks through.
  */

@@ -3,7 +3,7 @@ package dev.simpledimension.common.portal;
 import java.util.Optional;
 
 /**
- * Detects a rectangular portal frame around a position, mirroring the behaviour
+ * Detects a rectangular portal frame around a position, mirroring the behavior
  * of vanilla's nether portal ({@code net.minecraft.world.level.block.PortalShape}).
  *
  * <p>Activation requires only a complete frame of the configured block with an

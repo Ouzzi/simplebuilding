@@ -17,8 +17,8 @@ public final class NeoForgeExample {
   bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e)-> {
    if(e.getRegistryKey().equals(Registries.BLOCK)) DimensionRegistry.blocks();
    if(e.getRegistryKey().equals(Registries.ITEM)) DimensionRegistry.items();
-   if(e.getRegistryKey().equals(Registries.BLOCK_ENTITY_TYPE)) DimensionRegistry.PORTAL_ENTITY=Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,DimensionRegistry.id("sky_portal"),new BlockEntityType<>(SkyPortalBlockEntity::new,java.util.Set.of(DimensionRegistry.PORTAL,DimensionRegistry.LEGACY)));
-   if(e.getRegistryKey().equals(Registries.BLOCK_ENTITY_TYPE)) DimensionRegistry.LEGACY_ENTITY=Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,DimensionRegistry.id("light_blue_portal"),new BlockEntityType<>(SkyPortalBlockEntity::new,java.util.Set.of(DimensionRegistry.LEGACY)));
+   if(e.getRegistryKey().equals(Registries.BLOCK_ENTITY_TYPE)) DimensionRegistry.PORTAL_ENTITY=Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,DimensionRegistry.id("sky_portal"),new BlockEntityType<>(SkyPortalBlockEntity::new,java.util.Set.of(DimensionRegistry.PORTAL,DimensionRegistry.LEGACY),true));
+   if(e.getRegistryKey().equals(Registries.BLOCK_ENTITY_TYPE)) DimensionRegistry.LEGACY_ENTITY=Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,DimensionRegistry.id("light_blue_portal"),new BlockEntityType<>(SkyPortalBlockEntity::new,java.util.Set.of(DimensionRegistry.LEGACY),true));
   });
  }
 }

@@ -81,3 +81,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Erster Dimensionsentwurf und Quellvergleich: docs/modules/simpledimensions.md, Commit e7625a9d.
 - [ ] Portierung noch NICHT umgesetzt: sichere Portal-/Rueckweglogik, Pack-Anbindung beider Loader, Legacy-IDs, Config-GUI, Datenvertrag und alle vorgeschriebenen Modultests fehlen. Kein Token-Geruest als fertige Mod registriert.
 - [ ] Standardzugang Skyblock klaeren: instructions+ fordert sechs Glowstone-Boegen + Zusatzlicht; neueste Quelle nutzt Kupfer/Blau-Eis ohne Lichtpflicht. Bestehende JSONs und simpledimension-IDs erhalten.
+
+2026-09-30: Simple Dimensions Implementierung abgeschlossen (codex-port-dimensions); Besitzerabnahme und spaeterer Port-Run offen. Kupfer/Blau-Eis bleibt JSON-Alternative; kein Push/Merge.

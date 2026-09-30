@@ -1,4 +1,21 @@
 {
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simpledimensions",
+    "name": "Simple Dimensions",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ]
+  },
   "features": [
     {
       "id": "skyblock",
@@ -219,22 +236,74 @@
       }
     }
   ],
-  "notes": {
-    "simpledimension:sky_portal": {
-      "en": {
-        "summary": "An ignited in-world portal surface, not a craftable item. It has no survival drop. Tint and destination are saved in its block entity."
+  "recipes": [],
+  "lootTables": [],
+  "tags": [],
+  "advancements": [],
+  "enchantments": [],
+  "items": [],
+  "blocks": [
+    {
+      "id": "simpledimension:light_blue_portal",
+      "kind": "block",
+      "name": {
+        "en_us": "Legacy Light Blue Portal",
+        "de_de": "Altes hellblaues Portal"
       },
-      "de": {
-        "summary": "Gez?ndete Portalfl?che, kein herstellbares Item und kein Survivaldrop. Farbe und Ziel werden in der Blockentit?t gespeichert."
+      "note": {
+        "en": {
+          "summary": "Legacy block, block entity, and item ID retained for world loading. No survival crafting recipe, loot source, or creative tab entry."
+        },
+        "de": {
+          "summary": "Alte Block-, Blockentit?ts- und Item-ID bleiben ladbar. Kein Survivalrezept, Beutequelle oder Kreativtab-Eintrag."
+        }
       }
     },
-    "simpledimension:light_blue_portal": {
-      "en": {
-        "summary": "Legacy block, block entity, and item ID retained for world loading. No survival crafting recipe, loot source, or creative tab entry."
+    {
+      "id": "simpledimension:sky_portal",
+      "kind": "block",
+      "name": {
+        "en_us": "Sky Portal",
+        "de_de": "Himmelsportal"
       },
-      "de": {
-        "summary": "Alte Block-, Blockentit?ts- und Item-ID bleiben ladbar. Kein Survivalrezept, Beutequelle oder Kreativtab-Eintrag."
+      "note": {
+        "en": {
+          "summary": "An ignited in-world portal surface, not a craftable item. It has no survival drop. Tint and destination are saved in its block entity."
+        },
+        "de": {
+          "summary": "Gez?ndete Portalfl?che, kein herstellbares Item und kein Survivaldrop. Farbe und Ziel werden in der Blockentit?t gespeichert."
+        }
       }
     }
+  ],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 6,
+    "recipes": 0,
+    "lootTables": 0,
+    "tags": 0,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 0,
+    "blocks": 2,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
   }
 }

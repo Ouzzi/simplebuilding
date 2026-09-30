@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Matches explicit {@link PortalRecipe}s against the world. Tries both horizontal
  * orientations and aligns every interior cell of the recipe to the given (ignition or
- * existing-portal) cell, so the structure is recognised regardless of which interior cell
+ * existing-portal) cell, so the structure is recognized regardless of which interior cell
  * the player lit. The first complete match wins.
  */
 public final class PortalRecipeMatcher {
