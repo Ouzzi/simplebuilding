@@ -6,6 +6,7 @@
     python tools/ai/aitool.py gate [--ref master] [--integration] [--push]
     python tools/ai/aitool.py sync-memory --to-repo | --from-repo
     python tools/ai/aitool.py merge-help union|ours|theirs <files...>
+    python tools/ai/aitool.py merge-module <branch> [--coauthor "Name <mail>"]
 
 Everything is stdlib only. Paths derive from the repository location, never from a user name.
 """
@@ -170,6 +171,55 @@ def cmd_merge_help(a):
         print("resolved", f, "with", a.mode)
 
 
+def cmd_merge_module(a):
+    """Merge a finished module branch: registries per id, docs per union, derived data regenerated, checks, commit.
+
+    Stops (merge left open) when a file other than the known registries/docs conflicts."""
+    branch = a.branch if a.branch.startswith("codex-") else f"codex-{a.branch}"
+    r = run(["git", "merge", "--no-ff", "--no-commit", branch], check=False, capture=True)
+    conflicts = out(["git", "diff", "--name-only", "--diff-filter=U"]).split()
+    registries = {"modules/modules.json", "integration/enabled-mods.json"}
+    docs = {".claude/QUEUE.md", "docs/HANDOFF.md"}
+    generated = [c for c in conflicts if c.startswith("wiki/data/")]
+    unknown = [c for c in conflicts if c not in registries | docs and c not in generated]
+    if unknown:
+        print("unresolved conflicts (merge left open):")
+        for name in unknown:
+            print("  " + name)
+        return 1
+    if registries & set(conflicts):
+        run([sys.executable, "tools/ai/merge_helpers/jsonreg3.py"])
+    for f in sorted(docs & set(conflicts)):
+        cmd_merge_help(argparse.Namespace(mode="union", files=[f]))
+    steps = [
+        ("multimod", [sys.executable, "tools/multimod.py", "--check"]),
+        ("wiki", [sys.executable, "wiki/generate.py", "--all"]),
+        ("quests", [sys.executable, "tools/quests/generate_quests.py"]),
+        ("wiki tests", [sys.executable, "-m", "unittest", "discover", "-s", "wiki/tests"]),
+        ("guide pages", [sys.executable, "tools/guide_book_pages.py"]),
+        ("textures", [sys.executable, "tools/textures/generate_textures.py", "--check"]),
+    ]
+    ok = True
+    for label, argv in steps:
+        res = run(argv, check=False, capture=True)
+        print(f"{label}: {'OK' if res.returncode == 0 else 'FAILED'}")
+        if res.returncode:
+            print((res.stdout + res.stderr)[-1500:])
+        ok &= res.returncode == 0
+    run(["git", "add", "-A", ".claude/QUEUE.md", "docs/HANDOFF.md", "modules/modules.json", "integration/enabled-mods.json", "wiki"])
+    left = out(["git", "diff", "--name-only", "--diff-filter=U"])
+    if left or not ok:
+        print("not committed: fix the points above, then `git commit`")
+        return 1
+    msg = f"Merge {branch}"
+    trailer = a.coauthor or os.environ.get("AITOOL_COAUTHOR")
+    if trailer:
+        msg += "\n\nCo-Authored-By: " + trailer
+    run(["git", "commit", "-q", "-m", msg])
+    print("committed", out(["git", "log", "--oneline", "-1"]))
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -183,6 +233,7 @@ def main():
     m.add_argument("--force", action="store_true"); m.set_defaults(fn=cmd_sync_memory)
     h = sub.add_parser("merge-help"); h.add_argument("mode", choices=["union", "ours", "theirs"]); h.add_argument("files", nargs="+")
     h.set_defaults(fn=cmd_merge_help)
+    mm = sub.add_parser("merge-module"); mm.add_argument("branch"); mm.add_argument("--coauthor"); mm.set_defaults(fn=cmd_merge_module)
     a = ap.parse_args()
     sys.exit(a.fn(a) or 0)
 
