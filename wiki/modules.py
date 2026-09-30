@@ -83,14 +83,24 @@ def extract(entry, g, check=False):
         code = re.sub(r'/\*.*?\*/|//[^\n]*', '', source.read_text(encoding='utf-8'), flags=re.S)
         if 'Registry.register' not in code or 'BuiltInRegistries.' not in code:
             continue
-        for namespace, name in re.findall(r'Identifier\.fromNamespaceAndPath\("([\w]+)",\s*"([\w/]+)"\)', code):
-            if namespace == mid:
-                kind = 'blocks' if 'BuiltInRegistries.BLOCK' in code else 'items'
-                inventory[kind].add(mid + ':' + name)
+        literal = r'Identifier\.fromNamespaceAndPath\(\s*"([\w]+)"\s*,\s*"([\w/]+)"\s*\)'
+        for registration in re.finditer(
+                r'Registry\.register\(\s*BuiltInRegistries\.(ITEM|BLOCK)\s*,\s*(' + literal + r'|\w+)\s*,', code):
+            registry, argument = registration.group(1, 2)
+            identifier = re.fullmatch(literal, argument)
+            if identifier is None:
+                # Resolve the nearest preceding literal assignment to this variable.
+                assignments = list(re.finditer(r'\b' + re.escape(argument) + r'\s*=\s*(' + literal + r')\s*;', code[:registration.start()]))
+                identifier = re.fullmatch(literal, assignments[-1].group(1)) if assignments else None
+            if identifier and identifier.group(1) == mid:
+                inventory['blocks' if registry == 'BLOCK' else 'items'].add(mid + ':' + identifier.group(2))
     # Block items inherit the block's translation key and are documented on the
     # block page; their item model/export must not demand a phantom item key.
     inventory['items'].difference_update(inventory['blocks'])
     notes, undocumented, incomplete, problems = manual.get('notes', {}), [], {}, []
+    if not isinstance(notes, dict):
+        problems.append(f'{paths["wikiManual"]}: notes must be an object keyed by item/block id or glob')
+        notes = {}
     def record(identifier, note):
         languages = g.prose_languages(note)
         if not languages:

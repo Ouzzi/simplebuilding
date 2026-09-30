@@ -97,7 +97,9 @@ simpledimensions, simplemodels (formerly renamed), simpletweaks (only unported f
 Register a planned module when its projects exist, not as an empty Gradle project.
 
 Keep bilingual chapters/notes in `modules/<id>/wiki/manual.json` using the same schema as
-`wiki/manual.json`; language keys use the module namespace. Datagen belongs under the
+`wiki/manual.json`. A module's `manual.json` `notes` is an object keyed by item/block
+id or glob; every registered item/block needs a bilingual note (English and German).
+Language keys use the module namespace. Datagen belongs under the
 manifest's `generated` directory. Keep tunable values/loot/trades/recipes in data or named
 constants that balance extractors can read. No destructive migration of existing balance data.
 
