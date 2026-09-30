@@ -108,7 +108,8 @@ client can always lie about its own visuals; inventory identity/gameplay remains
 IDs are parsed and length-limited; absolute/backslash/traversal paths, unknown/air base items,
 control characters, oversized names/authors/tags, deep/malformed JSON and nonregular/symlink
 definition files are rejected. At most 256 candidate filenames, 64 accepted models and
-28,000 wire characters; files are read with a hard byte limit. Duplicate IDs keep the first
+28,000 wire characters; files are read with a hard byte limit. More than 256 candidate files
+disable the catalogue instead of accepting a filesystem-dependent subset. Duplicate IDs keep the first
 sorted entry. Invalid policy fails closed. Folder enumeration is nonrecursive. Admin filesystem
 permissions remain the boundary; no untrusted client writes or chosen file paths exist.
 

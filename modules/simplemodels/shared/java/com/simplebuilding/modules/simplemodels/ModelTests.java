@@ -110,6 +110,12 @@ public final class ModelTests {
             h.assertTrue(ModelCatalogue.load(root).models().size() == 1, "Duplicate/malformed/oversized/directory/deep JSON rejected without crashing");
             ioRejects(folder.resolve("deep.json"), 16384); ioRejects(folder.resolve("directory.json"), 16384); ioRejects(folder.resolve("oversized.json"), 16384);
             h.assertTrue(ModelCatalogue.load(root).models().getFirst().matches("FOOD"), "Case-insensitive tags");
+            Path overflow = Files.createTempDirectory("simplemodels-overflow-");
+            ModelCatalogue.load(overflow);
+            for (int i = 0; i < 257; i++) Files.writeString(overflow.resolve("catalogue/" + i + ".json"), "{}");
+            boolean refused = false;
+            try { ModelCatalogue.load(overflow); } catch (java.io.IOException expected) { refused = true; }
+            h.assertTrue(refused, "Too many files refuse the catalogue instead of selecting filesystem-dependent entries");
         } catch (java.io.IOException e) { throw new AssertionError(e); } h.succeed();
     }
     public static void reloadFailClosed(GameTestHelper h) {

@@ -29,11 +29,11 @@
     {
       "id": "import",
       "title": {
-        "en": "Folder Catalogue and Resource Packs",
+        "en": "Folder Catalog and Resource Packs",
         "de": "Ordnerkatalog und Ressourcenpakete"
       },
       "en": {
-        "summary": "Add or remove JSON definitions in config/simplemodels/catalogue on the server, then run /simplemodels reload. Put rendering assets in an enabled folder resource pack (assets/<namespace>/items, models, textures). Reload Assets refreshes previews. Multiplayer servers distribute assets with the standard server resource pack URL and SHA-1 settings; never share private files. Assignment requires an anvil and an empty second slot. Model changes do not change item names or stats. Server Settings is read-only; admins edit config/simplemodels/config.json. See docs/modules/simplemodels.md for the JSON format."
+        "summary": "Add or remove JSON definitions in config/simplemodels/catalog on the server, then run /simplemodels reload. Put rendering assets in an enabled folder resource pack (assets/<namespace>/items, models, textures). Reload Assets refreshes previews. Multiplayer servers distribute assets with the standard server resource pack URL and SHA-1 settings; never share private files. Assignment requires an anvil and an empty second slot. Model changes do not change item names or stats. Server Settings is read-only; admins edit config/simplemodels/config.json. See docs/modules/simplemodels.md for the JSON format."
       },
       "de": {
         "summary": "JSON-Definitionen auf dem Server unter config/simplemodels/catalogue hinzufügen oder entfernen, dann /simplemodels reload ausführen. Grafikdateien in ein aktiviertes Ordner-Ressourcenpaket legen (assets/<Namensraum>/items, models, textures). Ressourcen laden aktualisiert die Vorschau. Mehrspielerserver verteilen Dateien über die normalen Ressourcenpaket-URL- und SHA-1-Einstellungen; keine privaten Dateien teilen. Zuweisung braucht einen Amboss mit leerem zweitem Platz. Modellwechsel ändern weder Namen noch Werte. Servereinstellungen sind schreibgeschützt; Admins bearbeiten config/simplemodels/config.json. JSON-Format: docs/modules/simplemodels.md."
@@ -46,7 +46,7 @@
         "de": "Mehrspielersicherheit"
       },
       "en": {
-        "summary": "The server owns the catalogue and policy. It syncs definitions to clients; clients cannot upload models or select an arbitrary item_model. Default operator-only assignment. Disabling assignment refuses new changes; existing saved cosmetic components remain. No hidden item identity, automatic downloads, arbitrary file paths, or gameplay stats."
+        "summary": "The server owns the catalog and policy. It syncs definitions to clients; clients cannot upload models or select an arbitrary item_model. Default operator-only assignment. Disabling assignment refuses new changes; existing saved cosmetic components remain. No hidden item identity, automatic downloads, arbitrary file paths, or gameplay stats."
       },
       "de": {
         "summary": "Der Server verwaltet Katalog und Regeln und synchronisiert Definitionen. Clients können keine Modelle hochladen oder beliebige item_model-Werte setzen. Standard: nur Operatoren. Abschalten verweigert neue Änderungen; gespeicherte kosmetische Komponenten bleiben. Keine versteckte Itemidentität, automatischen Downloads, beliebigen Dateipfade oder Spielwerte."
@@ -72,7 +72,7 @@
         "de": "/simplemodels reload"
       },
       "en": {
-        "summary": "Game master permission is required. Rescan the server folder and policy, then synchronize the new catalogue to connected players. Add/remove files without restarting. Malformed policy disables assignment; bad definitions are skipped with server logs."
+        "summary": "Game master permission is required. Rescan the server folder and policy, then synchronize the new catalog to connected players. Add/remove files without restarting. Malformed policy disables assignment; bad definitions are skipped with server logs."
       },
       "de": {
         "summary": "Spielleiterrechte erforderlich. Serverordner und Regeln neu lesen, dann Katalog an verbundene Spieler synchronisieren. Dateien ohne Neustart hinzufügen/entfernen. Fehlerhafte Regeln sperren die Zuweisung; fehlerhafte Definitionen werden mit Serverlog übersprungen."
@@ -146,7 +146,7 @@
     {
       "id": "config_maxModels",
       "title": {
-        "en": "Catalogue Limit",
+        "en": "Catalog Limit",
         "de": "Kataloggrenze"
       },
       "en": {

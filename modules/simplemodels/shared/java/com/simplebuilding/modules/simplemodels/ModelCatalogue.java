@@ -49,7 +49,10 @@ public final class ModelCatalogue {
         // Enumerate at most 256 paths, not an unbounded sort of an attacker-controlled directory.
         var files = new ArrayList<Path>();
         try (var entries = Files.newDirectoryStream(folder, "*.json")) {
-            for (Path file : entries) { if (files.size() == 256) break; files.add(file); }
+            for (Path file : entries) {
+                if (files.size() == 256) throw new IOException("Catalogue file limit exceeded");
+                files.add(file);
+            }
         }
         files.sort(Comparator.comparing(p -> p.getFileName().toString()));
         int length = 0;
