@@ -1,0 +1,18 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplefun"
+version="${version}"
+displayName="Simple Fun"
+[[dependencies.simplefun]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[mixins]]
+config="simplefun.mixins.json"
+[[dependencies.simplefun]]
+modId="cloth_config"
+type="required"
+versionRange="[0,)"

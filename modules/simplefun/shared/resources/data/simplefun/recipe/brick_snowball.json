@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:brick",
+    "S": "minecraft:snowball"
+  },
+  "pattern": [
+    " S ",
+    "SBS",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplefun:brick_snowball"
+  }
+}

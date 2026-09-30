@@ -1,0 +1,264 @@
+{
+  "options": [
+    {
+      "path": "fun.playerHeadDrops",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.playerHeadDrops",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.playerHeadDrops.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.enablePiggyEffect",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.enablePiggyEffect",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.enablePiggyEffect.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.enableNoDamage",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.enableNoDamage",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.enableNoDamage.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.enableYeet",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.enableYeet",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.enableYeet.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.yeetStrength",
+      "default": 3.0,
+      "nameKey": "text.autoconfig.simplefun.option.fun.yeetStrength",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.yeetStrength.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0.1,
+      "max": 3,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.enableThrowableBricks",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.enableThrowableBricks",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.enableThrowableBricks.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.throwableBricksBreakBlocks",
+      "default": false,
+      "nameKey": "text.autoconfig.simplefun.option.fun.throwableBricksBreakBlocks",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.throwableBricksBreakBlocks.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.brickDamage",
+      "default": 2.0,
+      "nameKey": "text.autoconfig.simplefun.option.fun.brickDamage",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.brickDamage.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0,
+      "max": 4,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.brickSnowballDamage",
+      "default": 2.0,
+      "nameKey": "text.autoconfig.simplefun.option.fun.brickSnowballDamage",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.brickSnowballDamage.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0,
+      "max": 4,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.enableHigherKnockback",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.enableHigherKnockback",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.enableHigherKnockback.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.maxKnockback",
+      "default": 4.0,
+      "nameKey": "text.autoconfig.simplefun.option.fun.maxKnockback",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.maxKnockback.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0,
+      "max": 4,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.enableBrickSnowball",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.enableBrickSnowball",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.enableBrickSnowball.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.enableNoDamageTrades",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.enableNoDamageTrades",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.enableNoDamageTrades.@Tooltip",
+      "tab": "simplefun.config.tab.gameplay",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.enableAnimalHeads",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.enableAnimalHeads",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.enableAnimalHeads.@Tooltip",
+      "tab": "simplefun.config.tab.heads",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.pigHeadGreeting",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.pigHeadGreeting",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.pigHeadGreeting.@Tooltip",
+      "tab": "simplefun.config.tab.heads",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.cowHeadGreeting",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.cowHeadGreeting",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.cowHeadGreeting.@Tooltip",
+      "tab": "simplefun.config.tab.heads",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.chickenHeadGreeting",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.chickenHeadGreeting",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.chickenHeadGreeting.@Tooltip",
+      "tab": "simplefun.config.tab.heads",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.sheepHeadGreeting",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.sheepHeadGreeting",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.sheepHeadGreeting.@Tooltip",
+      "tab": "simplefun.config.tab.heads",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.flowerSniff",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.flowerSniff",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.flowerSniff.@Tooltip",
+      "tab": "simplefun.config.tab.delights",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.cookieCrumbs",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.cookieCrumbs",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.cookieCrumbs.@Tooltip",
+      "tab": "simplefun.config.tab.delights",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.appleSparkle",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.appleSparkle",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.appleSparkle.@Tooltip",
+      "tab": "simplefun.config.tab.delights",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.carrotCrunch",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.carrotCrunch",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.carrotCrunch.@Tooltip",
+      "tab": "simplefun.config.tab.delights",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.melonSplash",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.melonSplash",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.melonSplash.@Tooltip",
+      "tab": "simplefun.config.tab.delights",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.honeyBubbles",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.honeyBubbles",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.honeyBubbles.@Tooltip",
+      "tab": "simplefun.config.tab.delights",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.breadCrumbs",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.breadCrumbs",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.breadCrumbs.@Tooltip",
+      "tab": "simplefun.config.tab.delights",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    },
+    {
+      "path": "fun.berryBlush",
+      "default": true,
+      "nameKey": "text.autoconfig.simplefun.option.fun.berryBlush",
+      "tooltipKey": "text.autoconfig.simplefun.option.fun.berryBlush.@Tooltip",
+      "tab": "simplefun.config.tab.delights",
+      "min": 0,
+      "max": 1,
+      "source": "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java"
+    }
+  ]
+}

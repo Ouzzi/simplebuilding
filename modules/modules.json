@@ -217,6 +217,76 @@
       "checks": [
         "modules/simpleriding/tools/check_data.py"
       ]
+    },
+    {
+      "id": "simplefun",
+      "name": "Simple Fun",
+      "version": "1.3.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Fun",
+      "description": "Bounded playful mechanics, throwable bricks, cosmetic transformations and farm-animal heads.",
+      "loaders": [
+        "fabric",
+        "neoforge"
+      ],
+      "requires": [
+        "cloth_config"
+      ],
+      "optional": [
+        "modmenu",
+        "jei",
+        "jade"
+      ],
+      "checks": [
+        "modules/simplefun/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplefun",
+        "catalogues": [
+          "modules/simplefun/fabric/src/main/java/com/simplebuilding/modules/simplefun/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplefun",
+          "simplebuilding"
+        ],
+        "devMods": [
+          "cloth_config"
+        ],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplefunGameTest",
+            "report": "integration/build/simplefun-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplefun:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simplefun/neoforge/build/module-junit.xml"
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplefun.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplefun/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplefun",
+        "shared": "modules/simplefun/shared",
+        "fabric": "modules/simplefun/fabric",
+        "neoforge": "modules/simplefun/neoforge",
+        "forge": null,
+        "generated": "modules/simplefun/generated/resources",
+        "lang": "modules/simplefun/shared/resources/assets/simplefun/lang",
+        "wikiManual": "modules/simplefun/wiki/manual.json",
+        "balanceDir": "balance/simplefun"
+      },
+      "projects": {
+        "fabric": ":modules:simplefun:fabric",
+        "neoforge": ":modules:simplefun:neoforge"
+      }
     }
   ]
 }

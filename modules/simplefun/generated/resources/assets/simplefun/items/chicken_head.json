@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "minecraft:head",
+    "kind": "simplefun:chicken"
+  },
+  "oversized_in_gui": true
+}

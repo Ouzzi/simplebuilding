@@ -1,0 +1,23 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.147'
+}
+ext.moduleVersion = '1.3.0'
+apply from: rootProject.file('gradle/module-neoforge.gradle')
+
+neoForge.runs {
+    moduleIntegrationGameTest {
+        type = 'gameTestServer'
+        gameDirectory = rootProject.layout.projectDirectory.dir('integration/run-neoforge-263')
+        programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simplefun:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
+    }
+}
+
+repositories { maven { url = "https://maven.shedaniel.me/" }; maven { url = "https://maven.terraformersmc.com/releases/" } }
+dependencies { implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.mc263_cloth_version}" }
+dependencies { implementation project(':common') }
+evaluationDependsOn(":mc26_3:neoforge")
+neoForge { mods { simplebuilding { sourceSet project(":mc26_3:neoforge").sourceSets.main } }; runs { moduleIntegrationGameTest { loadedMods=[mods.simplefun,mods.simplebuilding] } } }
+
+repositories { maven { url = "https://maven.blamejared.com" } }
+dependencies { compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}" }

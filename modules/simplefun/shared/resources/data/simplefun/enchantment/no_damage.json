@@ -1,0 +1,20 @@
+{
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.simplefun.no_damage"
+  },
+  "max_cost": {
+    "base": 10,
+    "per_level_above_first": 20
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#simplefun:knockback_allowed",
+  "weight": 1
+}

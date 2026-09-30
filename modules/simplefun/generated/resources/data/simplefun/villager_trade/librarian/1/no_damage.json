@@ -1,0 +1,30 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simplefun:trades_enabled"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplefun:trades_enabled"
+    }
+  ],
+  "wants": {
+    "id": "minecraft:emerald",
+    "count": 25
+  },
+  "gives": {
+    "id": "minecraft:enchanted_book"
+  },
+  "max_uses": 3,
+  "xp": 15,
+  "reputation_discount": 0.3,
+  "given_item_modifier": [
+    {
+      "type": "minecraft:set_enchantments",
+      "enchantments": {
+        "simplefun:no_damage": 1
+      }
+    }
+  ]
+}

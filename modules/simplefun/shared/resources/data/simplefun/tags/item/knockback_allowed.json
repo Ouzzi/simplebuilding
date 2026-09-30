@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:feather",
+    "minecraft:stick",
+    "#minecraft:swords",
+    "#minecraft:axes",
+    "#minecraft:enchantable/mace",
+    "#minecraft:enchantable/trident",
+    "#minecraft:enchantable/bow",
+    "#minecraft:enchantable/crossbow",
+    "#minecraft:enchantable/lunge"
+  ]
+}
