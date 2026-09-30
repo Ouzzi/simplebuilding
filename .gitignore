@@ -94,3 +94,6 @@ scratchpad/
 tools/launchhub/settings.json
 tools/launchhub/logs/
 tools/launchhub/data/
+
+# AI run logs (tools/ai/aitool.py)
+.ai-runs/

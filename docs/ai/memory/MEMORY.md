@@ -1,0 +1,25 @@
+- [Multiloader-Paritäts-Audit 2026-08](multiloader-parity-audit-2026-08.md) — bestätigte Port-Regressionen + Fix-Status
+- [Trades sind ab MC 26.1 datengetrieben](mc-26-1-trades-data-driven.md) — TradeOfferHelper weg; JSON-Layout, Tag-Merge, Enchant-Komponenten
+- [MC-26.2-Portierung](mc-26.2-port.md) — Zielversionen aller Loader, API-Brueche, Toolchain-Fallen
+- [Mod-Befunde 2026-09](offene-mod-befunde-2026-09.md) — was behoben ist; 27 P4-Defekte + isDestroying am 2026-09-24 aufgelöst
+- [Gametest-Harness-Fallen](gametest-harness-fallen.md) — was Tests still falsch grün oder falsch rot macht (Server + Client, Mutationsläufe)
+- [MC-26-APIs nachschlagen](mc-26-api-nachschlagen.md) — wo die gemappten Jars und die dekompilierten Quellen liegen
+- [Multiloader-Struktur](multiloader-structure.md) — wie das Repo Fabric/NeoForge teilt, Fallen für Client-Klassen
+- [Testabdeckung 2026-09](testabdeckung-2026-09.md) — Stand 2026-09-24: 1260 Server, 4×104 Client; Mutationen P6–P10 rot (beide Linien)
+- [Kommentar ist kein Beweis](kommentar-ist-kein-beweis.md) — bei Widerspruch zum Code ist oft der Kommentar veraltet
+- [Client-Test-Gerüst](client-test-geruest.md) — warum Fabric-Tests nicht nach NeoForge kopierbar sind
+- [Kein find ueber das ganze Laufwerk](kein-find-ueber-das-ganze-laufwerk.md) — haengende Suchprozesse haben den PC vier Tage gebremst
+- [Gegenprobe nie mit git checkout zuruecksetzen](gegenprobe-nie-mit-git-checkout-zuruecksetzen.md) — uncommittete Arbeit geht verloren; vor mutations.py --run committen
+- [MC-26.4-Snapshot-Linie](mc-26.4-snapshot-linie.md) — nur mit -Pmc264=true; Overlay-Kette 26.3->26.4, Brueche snapshot-1
+- [Feature-Paket 2026-09-24](feature-paket-2026-09-24.md) — Kolben-Durchbruch, Rucksack, Enderit-Maschinen, Hammer-Aufwertung: Entscheidungen des Besitzers
+- [Testlaeufe sparsam](testlaeufe-sparsam.md) — Server parallel, Clients seriell und nur bei Anzeige-Aenderungen, Agenten nur Server-Tests
+- [Blaupause 2026-09-25](blaupause-2026-09-25.md) — Bau-Code, Editor, Scan, Baumodus; GUI-3D ohne PIP; Heredoc-Falle
+- [Pixelart-Stil des Besitzers](pixelart-stil-des-besitzers.md) — neue Pixelkunst, nicht an den Rand, keine dunklen Eckfuellungen in Konturen, alte Besitzer-Texturen respektieren
+- [MC-26.3-Overlay-Linie](mc-26.3-overlay-linie.md) — dritte Linie ohne Kopie: Overlay/Shim-Struktur, API-Brueche 26.2->26.3, Fallen (fast_cooking, flaches End)
+- [Welt-Upgrade 26.2->26.3](welt-upgrade-26.2-26.3.md) — ModDataFixer-Nachlauf am DataFixer, Fixtures, Explorer-Map-Falle
+- [Testzentrale am Run-Ende](testzentrale-am-run-ende.md) — /sbtestcentre neu bauen und durchgehen; Abdeckungstest meldet fehlende Items
+- [Nicht bauen waehrend Besitzer-Client laeuft](nicht-bauen-waehrend-besitzer-client-laeuft.md) — Checks/Gates dann nur im Worktree; sonst NoClassDefFoundError im Spiel
+- [Besitzer-Entscheidungen 2026-09-28](besitzer-entscheidungen-2026-09-28.md) — Welle 23: Config serverseitig+Obergrenzen, Hammer-Balance, Trims, Kerne/Handel, Attractor
+- [Immersion Welle 23 R](immersion-2026-09-28.md) — Pad-Zustaende, InfoTooltips, HUD-Taste, Jade/REI; EMI nicht verfuegbar
+- [Push nur nach gruenem Ergebnis](push-nur-nach-gruenem-ergebnis.md) — run.py endet auch bei Rot mit Exit 0; Push nie ungeprueft verketten
+- [Hauptlinie 26.3 zuerst](hauptlinie-26-3-zuerst.md) — ab 2026-09-29: erst 26.3 fertig + getestet, dann Port-Run fuer 26.2/Forge/1.21.11/26.4

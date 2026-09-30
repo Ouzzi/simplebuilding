@@ -93,3 +93,6 @@ Multimod-Datenvertrag: Manifest-Pfade/Abhaengigkeiten vollstaendig halten; Modul
 `modules/<id>/wiki/manual.json` (EN/DE). Wiki: `python wiki/generate.py --all` und `--all --check`;
 `checkWiki` prueft alle Module. Details und Datagen-Exports: `docs/MULTIMOD.md`.
 Balancing-Multimod: Manifest-Pfade/Mod-Auswahl nutzen; Ablage `balance/<id>/`, SimpleBuilding weiter `balance/` (keine Migration). Schreibziele/Datagen nur 26.3; `checkBalance` prueft alle Module. Details/Lesergrenzen: `docs/BALANCING-ZENTRALE.md`.
+
+## 10. AI workflow and continuity (added 2026-09-30)
+Read `docs/ai/WORKFLOW.md` (roles, loop, traps), `docs/ai/LAPTOP-SETUP.md` (new machine) and `docs/ai/VOICE-HANDS-FREE.md` (voice plan). Helper: `python tools/ai/aitool.py` (`codex` = start a worker run in its own worktree, `status`, `gate [--integration] [--push]`, `sync-memory`, `merge-help`). Task briefs and the module-brief generator live in `docs/ai/briefs/`; the assistant's memory notes are mirrored in `docs/ai/memory/` (background facts, the code wins). Multi-mod rules: `docs/MULTIMOD.md`; modules are plugin-style (a new module touches only `modules/<id>/` and its manifest entry).
