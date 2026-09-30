@@ -279,3 +279,4 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 
 - [x] MERGE-RIDING: master integrieren; Modulregistrierung aus Manifest entdecken,
   beide Modulkataloge/Client-Smokes erhalten, neue Ports ohne gemeinsame Wiring-Bloecke.
+`n- Simple Fun: 26.3 Fabric/NeoForge port, complete feature/security tests, eight cosmetic delights and charged-creeper farm-animal heads; work branch codex-port-fun, no push/merge.
