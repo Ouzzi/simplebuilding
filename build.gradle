@@ -439,4 +439,13 @@ tasks.named('check') { dependsOn 'checkMultimod', ':framework:check', ':integrat
 
 // Also compile new loader entrypoints in the gate; no existing suite gains a test.
 def extraModules = new groovy.json.JsonSlurper().parse(file('modules/modules.json')).modules.findAll { it.id != 'simplebuilding' }
-tasks.named('check') { dependsOn extraModules.collectMany { it.projects.values().collect { path -> "${path}:classes" } } }
+def forge263Enabled = providers.gradleProperty('forge263').getOrElse('false').toBoolean()
+def moduleCompileTasks = extraModules.collectMany { entry ->
+    entry.projects.findAll { loader, path -> loader != 'forge' || forge263Enabled }
+            .values().collect { path -> "${path}:classes" }
+}
+tasks.named('check') { dependsOn moduleCompileTasks }
+
+if (forge263Enabled) {
+    tasks.named('check') { dependsOn ':mc26_3:forge:check', ':mc26_3:forge:classes' }
+}

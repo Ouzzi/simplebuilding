@@ -283,7 +283,14 @@ INTEGRATION_TARGETS = (Target(
     report="integration/build/junit.xml",
     catalogue="integration/src/main/java/com/simplebuilding/integration/CrossModGameTest.java",
 ),)
-ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS
+# Forge 26.3 is opt in while stabilizing; existing default/release selections are unchanged.
+FORGE263_TARGETS = (Target(
+    id="forge-263", label="Forge - MC 26.3", loader="forge", mc_line="26.3",
+    gradle_task=":mc26_3:forge:runGameTestServer", report="mc26_3/forge/build/forge-junit.xml",
+    catalogue="common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
+    gradle_args=("-Pforge263=true",) + FORGE_GRADLE_ARGS,
+),)
+ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS + FORGE263_TARGETS
 
 BY_ID = {t.id: t for t in ALL_TARGETS}
 
@@ -870,7 +877,7 @@ def execute(
         else:
             target_records.append(run_target(target, run_id, test_filter, timeout, on_line))
 
-    for target in TARGETS:
+    for target in TARGETS + FORGE263_TARGETS:
         if target not in selected:
             target_records.append(
                 {
@@ -1046,7 +1053,7 @@ def print_list() -> None:
     print()
     print("  Ziele")
     for target in ALL_TARGETS:
-        flag = "  (experimentell, nicht im Release-Tor)" if target in SNAPSHOT_TARGETS else ""
+        flag = "  (experimentell, nicht im Release-Tor)" if target in SNAPSHOT_TARGETS + FORGE263_TARGETS else ""
         print(f"    {target.id:<23}{target.label:<34}{target.gradle_task}{flag}")
     catalogue = read_catalogue()
     print()
@@ -1129,7 +1136,7 @@ LINE_DIFFERENCES: tuple[tuple[tuple[str, ...], tuple[str, ...], str], ...] = (
 LOADER_ONLY_TESTS: dict[str, dict[str, str]] = {
     "forge-262": {
         "forge_network_game_test_serverbound_payloads_are_marked_handled":
-            "Forge 65 only: its payload channel must mark packets handled, or vanilla decodes "
+            "Forge payload channel must mark packets handled, or vanilla decodes "
             "them a second time (a67aac8) - forge/src/main/java/.../gametest/ForgeOnlyGameTests.java",
     },
 }
@@ -1142,6 +1149,8 @@ LOADER_ONLY_TESTS: dict[str, dict[str, str]] = {
 #: EMPTY since 2026-09-24: the two Forge gaps it held are closed - the trade jsons carry a
 #: "forge:condition" read by com.simplebuilding.forge.ConfigLoadCondition, and ForgeItemAutomation
 #: answers through ForgeCapabilities.ITEM_HANDLER.
+LOADER_ONLY_TESTS["forge-263"] = dict(LOADER_ONLY_TESTS["forge-262"])
+
 LOADER_KNOWN_FAILURES: dict[str, dict[str, str]] = {}
 
 

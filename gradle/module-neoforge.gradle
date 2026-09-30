@@ -10,3 +10,5 @@ neoForge {
     mods { "${project.parent.name}" { sourceSet sourceSets.main } }
 }
 processResources { filesMatching('META-INF/neoforge.mods.toml') { expand version: project.version } }
+
+sourceSets.main.resources.srcDir '../generated/resources'

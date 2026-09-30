@@ -83,3 +83,22 @@ Module toggles apply to integration; SimpleBuilding remains the normal run's mai
 Root `check` includes that validator and integration compilation. Launch Hub tests exercise
 rejected selections, presets, safe scaffolding and dry-run argv. Keep loader metadata, manifest
 versions and registry coordinates synchronized, and add interaction tests when contracts grow.
+
+## Forge 26.3 and producer data contract
+
+Forge loader projects from the manifest are discovered only with `-Pforge263=true`.
+The module scaffold includes `forge/` alongside Fabric/NeoForge, using ForgeGradle 7
+and Java 25. See `docs/FORGE-26.3.md` for run-toolchain requirements and validation.
+The existing Fabric integration harness and selections are unchanged; Forge integration
+runtime is deferred. A declared loader identifies a project, not a verified release.
+
+Every manifest entry provides id/name/displayName/description/version/loaders/minecraft,
+projects, paths and requires/optional lists. Paths name root, shared, fabric, neoforge,
+forge, generated, lang, wikiManual and balanceDir. Module producers keep hand-written
+chapters in `modules/<id>/wiki/manual.json` (the root manual schema), module-prefixed
+lang keys, generated resources under their own generated directory and tunable data or
+named constants readable by balance extractors. Loader conventions include
+`generated/resources`. Balance storage is `balance/<id>/`; SimpleBuilding keeps its
+existing `balance/` working without moving any history. Output directories need not
+exist before the first generated output. Consumer extraction/rendering is a separate
+infra task; the manifest paths are its contract.

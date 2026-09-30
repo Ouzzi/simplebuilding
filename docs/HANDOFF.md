@@ -158,3 +158,42 @@ Dieser Branch wird nicht gepusht oder gemergt; Verifikation siehe abschliessende
   lehnte Headless-Edge-Bildpruefung mit "blocked by policy" ab. Kein Client-Testlauf, Push oder Merge.
 - Beim ersten parallelen Gate/Serverlauf fehlten NeoForge-Ressourcen; gezieltes `processResources --rerun-tasks`
   stellte sie wieder her. Anschliessend Gate und Server-Gates nacheinander gruen. Kein Gameplay-Fix noetig.
+
+## INFRA-F Forge 26.3 (Codex, 2026-09-30, Branch codex-infra-f)
+- Offizielle Forge-Seite, Maven-Metadaten und MDK verifiziert: 26.3-66.0.8 (2026-09-28).
+  MDK-SHA1 stimmt mit der Downloadseite ueberein. Java 25, ForgeGradle [7.0.17,8),
+  MDK-Wrapper 9.7.1; hier Pin 7.0.36. Runs brauchen zusaetzlich Java 8 fuer Slime Launcher.
+  Kein fehlender Upstream-Build als Blocker. Details/Quellen: `docs/FORGE-26.3.md`.
+- Additives `mc26_3/forge`, standardmaessig aus (`-Pforge263=true`). Bestehende Forge-26.2-
+  und andere Linien unveraendert. Nur Forge-Adapter-Overlays: KeyMapping, dimensionierte
+  GameTest-Metadaten, Loot-Holders nach Registry-Laden/vor Validierung, Suchtab-Platzierung,
+  Breezekopf-Ackerlandschutz, Shulkerkisten-Waschen/Werfer und HUD-Umschalttaste.
+- Testziel `forge-263`, eigene Run-/Reportpfade, Aufzeichnungen/Tabellen und Launch Hub
+  (Server, Client, Client + frische Welt, Tests). Bestehende Standard-/Release-Auswahl bleibt
+  unveraendert. Forge263 kann nach Besitzer-Abnahme separat zum Default werden.
+- Modulmanifest-Vertrag fuer alle vorhandenen Eintraege ergaenzt; sichere Pfadvalidierung,
+  Forge-Modulvorlage/Beispielprojekt, eigene Manuals/Generated-/Balance-Pfade. Kein Verschieben
+  von SimpleBuilding oder Balance-Historie. Forge-Integrationsruntime weiterhin zurueckgestellt.
+- Server Forge: **778/778, alles gruen**, Run `2026-09-30T13-04-03Z-0963`:
+  dieselben 777 gemeinsamen Tests wie pro Fabric/NeoForge plus ein Forge-Netzwerktest.
+  **Keine Forge-Skips/known failures.** Nach erstem Voll-Lauf (774/778) fehlende Loader-Hooks
+  repariert; Shulker-Gegenprobe 8/8 (`2026-09-30T13-02-07Z-6500`), dann Voll-Lauf gruen.
+- Testzentrale in separaten Forge/Fabric/NeoForge-GameTest-Welten gebaut; alle Mod-Items/-Bloecke
+  abgedeckt. Fabric/NeoForge-Centre-Filter **10/10, alles gruen**, Run `2026-09-30T13-06-59Z-6972`.
+  Besitzerwelt nicht angefasst, keine Wiederholung der gesamten Fabric/NeoForge-Suiten.
+- Echter `:mc26_3:forge:runDatagen` (delegiert Fabric + syncGenerated263) Exit 0.
+  Gate fand zwei JSON-identische Overlay-Rezepte nur wegen Schluss-Zeilenumbruch; Sync-Vergleich
+  normalisiert nun Rand-Leerraum. Korrigierter Sync Exit 0, keine redundanten Rezept-Overlays.
+  Reine Generator-Zeilenenden-Aenderungen nach Inhaltsvergleich zurueckgesetzt.
+  Wiki generiert, anschliessend --check aktuell. Keine Wiki-Inhaltsaenderung erforderlich.
+- **37 Hub-/Registry-/Scaffold-Tests gruen**, inklusive Forge-Client/Server/frische-Welt-Trockenlauf;
+  Testing-UI-JavaScript-Syntax gruen. Vollstaendiges `gradlew.bat -Pforge263=true check -q`
+  im Worktree **gruen (Exit 0)**, Ausgabe gelesen; Forge-Ressourcen/Atlanten und Modul kompilieren.
+- Offene Besitzerpunkte: echte Forge-Clientdarstellung/Bedienung abnehmen und eigene Testwelt
+  neu bauen; bestehender AutoConfig-Shim hat keine Datei-Persistenz/Cloth-GUI. Optionale
+  JEI/Jade/Curios/Cloth-Integrationen und Forge-Integrationsinstance nicht verifiziert.
+  Kein Clienttest, kein separater normaler Dedicated-Serverstart, kein Port anderer Linien,
+  keine Pixelkunst, kein Push/Merge.
+- Abschliessendes normales `gradlew.bat check -q` (Forge263 standardmaessig aus) ebenfalls
+  **gruen, Exit 0**, Ausgabe gelesen. Beide Gate-Konfigurationen bestaetigt; keine Dateien
+  in mc1_21_11, mc26_4, forge/, common/ oder src/ geaendert.

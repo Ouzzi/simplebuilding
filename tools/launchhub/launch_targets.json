@@ -11,10 +11,38 @@
       "id": "26.3",
       "label": "MC 26.3",
       "main": true,
-      "note": "Main line (Fabric + NeoForge)",
+      "note": "Main line (Fabric + NeoForge; Forge opt in)",
       "loaders": [
-        {"id": "fabric-263", "loader": "fabric", "prefix": ":mc26_3:fabric:", "runDir": "mc26_3/fabric/run", "gradleArgs": [], "testTarget": "fabric-263", "clientTestTarget": "client-fabric-263"},
-        {"id": "neoforge-263", "loader": "neoforge", "prefix": ":mc26_3:neoforge:", "runDir": "mc26_3/neoforge/run", "gradleArgs": [], "testTarget": "neoforge-263", "clientTestTarget": "client-neoforge-263"}
+        {
+          "id": "fabric-263",
+          "loader": "fabric",
+          "prefix": ":mc26_3:fabric:",
+          "runDir": "mc26_3/fabric/run",
+          "gradleArgs": [],
+          "testTarget": "fabric-263",
+          "clientTestTarget": "client-fabric-263"
+        },
+        {
+          "id": "neoforge-263",
+          "loader": "neoforge",
+          "prefix": ":mc26_3:neoforge:",
+          "runDir": "mc26_3/neoforge/run",
+          "gradleArgs": [],
+          "testTarget": "neoforge-263",
+          "clientTestTarget": "client-neoforge-263"
+        },
+        {
+          "id": "forge-263",
+          "loader": "forge",
+          "prefix": ":mc26_3:forge:",
+          "runDir": "mc26_3/forge/run",
+          "gradleArgs": [
+            "-Pforge263=true",
+            "@forge"
+          ],
+          "testTarget": "forge-263",
+          "clientTestTarget": null
+        }
       ]
     },
     {
@@ -23,9 +51,35 @@
       "main": false,
       "note": "Port line (after owner approval of 26.3)",
       "loaders": [
-        {"id": "fabric-262", "loader": "fabric", "prefix": ":", "runDir": "run", "gradleArgs": [], "testTarget": "fabric-262", "clientTestTarget": "client-fabric-262"},
-        {"id": "neoforge-262", "loader": "neoforge", "prefix": ":neoforge:", "runDir": "neoforge/run", "gradleArgs": [], "testTarget": "neoforge-262", "clientTestTarget": "client-neoforge-262"},
-        {"id": "forge-262", "loader": "forge", "prefix": ":forge:", "runDir": "forge/run", "gradleArgs": ["@forge"], "testTarget": "forge-262", "clientTestTarget": null}
+        {
+          "id": "fabric-262",
+          "loader": "fabric",
+          "prefix": ":",
+          "runDir": "run",
+          "gradleArgs": [],
+          "testTarget": "fabric-262",
+          "clientTestTarget": "client-fabric-262"
+        },
+        {
+          "id": "neoforge-262",
+          "loader": "neoforge",
+          "prefix": ":neoforge:",
+          "runDir": "neoforge/run",
+          "gradleArgs": [],
+          "testTarget": "neoforge-262",
+          "clientTestTarget": "client-neoforge-262"
+        },
+        {
+          "id": "forge-262",
+          "loader": "forge",
+          "prefix": ":forge:",
+          "runDir": "forge/run",
+          "gradleArgs": [
+            "@forge"
+          ],
+          "testTarget": "forge-262",
+          "clientTestTarget": null
+        }
       ]
     },
     {
@@ -34,8 +88,24 @@
       "main": false,
       "note": "Full copy in mc1_21_11/",
       "loaders": [
-        {"id": "fabric-12111", "loader": "fabric", "prefix": ":mc1_21_11:fabric:", "runDir": "mc1_21_11/fabric/run", "gradleArgs": [], "testTarget": "fabric-12111", "clientTestTarget": "client-fabric-12111"},
-        {"id": "neoforge-12111", "loader": "neoforge", "prefix": ":mc1_21_11:neoforge:", "runDir": "mc1_21_11/neoforge/run", "gradleArgs": [], "testTarget": "neoforge-12111", "clientTestTarget": "client-neoforge-12111"}
+        {
+          "id": "fabric-12111",
+          "loader": "fabric",
+          "prefix": ":mc1_21_11:fabric:",
+          "runDir": "mc1_21_11/fabric/run",
+          "gradleArgs": [],
+          "testTarget": "fabric-12111",
+          "clientTestTarget": "client-fabric-12111"
+        },
+        {
+          "id": "neoforge-12111",
+          "loader": "neoforge",
+          "prefix": ":mc1_21_11:neoforge:",
+          "runDir": "mc1_21_11/neoforge/run",
+          "gradleArgs": [],
+          "testTarget": "neoforge-12111",
+          "clientTestTarget": "client-neoforge-12111"
+        }
       ]
     },
     {
@@ -44,7 +114,17 @@
       "main": false,
       "note": "Experimental, only with -Pmc264=true",
       "loaders": [
-        {"id": "fabric-264", "loader": "fabric", "prefix": ":mc26_4:fabric:", "runDir": "mc26_4/fabric/run", "gradleArgs": ["-Pmc264=true"], "testTarget": "fabric-264", "clientTestTarget": "client-fabric-264"}
+        {
+          "id": "fabric-264",
+          "loader": "fabric",
+          "prefix": ":mc26_4:fabric:",
+          "runDir": "mc26_4/fabric/run",
+          "gradleArgs": [
+            "-Pmc264=true"
+          ],
+          "testTarget": "fabric-264",
+          "clientTestTarget": "client-fabric-264"
+        }
       ]
     }
   ]

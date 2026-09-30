@@ -1,0 +1,165 @@
+plugins {
+    id 'java'
+    id 'net.minecraftforge.gradle' version '7.0.36'
+}
+
+description = 'MinecraftForge 26.3 loader module (opt in with -Pforge263=true)'
+
+def resolveSetting = { String key, String defaultValue = null ->
+    def fromProject = project.findProperty(key)
+    return fromProject != null ? fromProject.toString() : defaultValue
+}
+
+def forgeVersion = rootProject.mc263_forge_version
+def minecraftVersion = rootProject.mc263_minecraft_version
+def forgeLoaderVersionRange = '[66,)'
+def minecraftVersionRange = rootProject.mc263_minecraft_version_range
+
+group = rootProject.group
+version = rootProject.version
+
+base {
+    archivesName = "${rootProject.archives_base_name}-26.3-forge"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+    withSourcesJar()
+}
+
+// Recompile shared code and the 26.3 overlay; loader-specific overrides replace only
+// files with the same relative path in forge/src/main/java. The 26.2 tree stays intact.
+def root = rootProject.layout.projectDirectory
+sourceSets.main.java {
+    srcDir root.dir('common/src/shared/java')
+    srcDir root.dir('mc26_3/overlay/java')
+    srcDir root.dir('forge/src/main/java')
+    exclude { e -> e.file.toPath().startsWith(root.dir('forge/src/main/java').asFile.toPath()) &&
+            new File(projectDir, 'src/main/java/' + e.relativePath.pathString).isFile() }
+}
+// Forge laedt einen Klassenpfad-Mod als EIN Verzeichnis: liegen Klassen und Ressourcen getrennt
+// (build/classes/java/main vs. build/resources/main), findet es die @Mod-Klasse nicht ("has mods
+// that were not found"). Wie im Forge-MDK beide Ausgaben in denselben Ordner legen.
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
+}
+
+apply from: rootProject.file('mc26_3/resources.gradle')
+mc263ConfigureResources(sourceSets.main, ['forge/src/main/resources'])
+sourceSets.main.resources.exclude 'fabric.mod.json'
+
+// ForgeGradle 7.0.36 run task creation also requires Java 8 for Slime Launcher.
+// Compilation needs only Java 25; run configuration remains separately opt in.
+def forgeRunsEnabled = Boolean.parseBoolean(resolveSetting('forge_runs', 'false'))
+
+minecraft {
+    runs {
+        configureEach {
+            workingDir = layout.projectDirectory.dir('run')
+            systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
+            systemProperty 'forge.enabledGameTestNamespaces', rootProject.archives_base_name
+            // Im Dev-Lauf gibt es kein Jar-Manifest: die Mixin-Konfigs direkt an den Launcher geben.
+            args '-mixin.config=simplebuilding.mixins.json', '-mixin.config=simplebuilding.client.mixins.json', '-mixin.config=simplebuilding.forge.mixins.json', '-mixin.config=simplebuilding.tweaks.mixins.json', '-mixin.config=simplebuilding.tweaks.stack.mixins.json', '-mixin.config=simplebuilding.tweaks.forge.mixins.json'
+        }
+        if (forgeRunsEnabled) {
+            register('client')
+            register('server') {
+                args '--nogui'
+            }
+            // Headless in-game tests (tools/testrunner/run.py, Ziel forge-263): Forges
+            // 'gameTestServer' startet net.minecraft.gametest.Main mit --tests/--report wie auf
+            // NeoForge. Die Tests selbst meldet com.simplebuilding.forge.gametest.ForgeGameTests an.
+            // Eigenes Arbeitsverzeichnis, damit die Testwelt nicht in run/ des Dev-Servers landet.
+            // Task: :mc26_3:forge:runGameTestServer
+            register('gameTestServer') {
+                workingDir = layout.projectDirectory.dir('run-gametest')
+                args '--tests', (project.findProperty('gametestFilter') ?: "${rootProject.archives_base_name}:*").toString(),
+                        '--report', layout.buildDirectory.file('forge-junit.xml').get().asFile.absolutePath
+            }
+        }
+    }
+}
+
+repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    maven { url = 'https://maven.shedaniel.me/' }
+    exclusiveContent {
+        forRepository { maven { url = 'https://api.modrinth.com/maven' } }
+        filter { includeGroup 'maven.modrinth' }
+    }
+    mavenCentral()
+}
+
+// No 26.2 dev-mod jars are staged into this 26.3 instance.
+dependencies {
+    implementation project(':common')
+    implementation minecraft.dependency("net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}")
+    // NOTE: cloth-config has no MinecraftForge build for the 26.x line (Fabric +
+    // NeoForge only). A minimal me.shedaniel.autoconfig shim is bundled in this
+    // module (see src/main/java/me/shedaniel/autoconfig) so the shared config code
+    // compiles and runs on Forge with default values (no config GUI/persistence).
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    def replaceProperties = [
+            modVersion           : project.version,
+            modId                : rootProject.archives_base_name,
+            loaderVersionRange   : forgeLoaderVersionRange,
+            minecraftVersionRange: minecraftVersionRange,
+    ]
+    inputs.properties replaceProperties
+    inputs.property 'forgeMixinLevel', 'JAVA_21'
+    filesMatching('META-INF/mods.toml') {
+        expand replaceProperties
+    }
+    // Forges Mixin 0.8.7 kennt hoechstens JAVA_21; die gemeinsamen Konfigs (Fabric/NeoForge) sagen JAVA_25.
+    filesMatching('*.mixins.json') {
+        filter { String line -> line.replace('"JAVA_25"', '"JAVA_21"') }
+    }
+}
+
+tasks.withType(Jar).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.named('jar').configure {
+    manifest {
+        attributes([
+                'Specification-Title'   : 'simplebuilding',
+                'Specification-Vendor'  : 'simplebuilding',
+                'Specification-Version' : project.version,
+                'Implementation-Title'  : project.name,
+                'Implementation-Version': project.version,
+                // Forge 65 liest Mixin-Konfigs nur aus diesem Manifest-Attribut, nicht aus [[mixins]] der mods.toml.
+                'MixinConfigs'          : 'simplebuilding.mixins.json,simplebuilding.client.mixins.json,simplebuilding.forge.mixins.json,simplebuilding.tweaks.mixins.json,simplebuilding.tweaks.stack.mixins.json,simplebuilding.tweaks.forge.mixins.json',
+        ])
+    }
+}
+
+// Texture atlas sources vs. the textures the game finds (gradle/check-atlases.gradle).
+apply from: rootProject.file('gradle/check-atlases.gradle')
+
+// Fabric owns the canonical datagen; all 26.3 loaders consume the same layered output.
+tasks.register('runDatagen') { dependsOn ':mc26_3:fabric:runDatagen' }
+
+// Fail on accidental copies/new shared class collisions in the loader overlay.
+tasks.register('checkForgeOverlay') {
+    doLast {
+        fileTree('src/main/java').matching { include '**/*.java' }.each { f ->
+            def rel = file('src/main/java').toPath().relativize(f.toPath()).toString()
+            def original = new File(rootProject.file('forge/src/main/java'), rel)
+            if (['common/src/shared/java', 'mc26_3/overlay/java'].any { new File(rootProject.file(it), rel).isFile() })
+                throw new GradleException("Forge class shadows shared code: ${rel}")
+            if (original.isFile() && original.getText('UTF-8').replace('\r\n', '\n') == f.getText('UTF-8').replace('\r\n', '\n'))
+                throw new GradleException("Unnecessary Forge override: ${rel}")
+        }
+    }
+}
+tasks.named('check') { dependsOn 'checkForgeOverlay' }

@@ -1,7 +1,72 @@
 {
   "schemaVersion": 1,
   "modules": [
-    {"id":"simplebuilding","name":"SimpleBuilding","version":"${mod_version}","minecraft":"26.3","defaultEnabled":true,"projects":{"fabric":":mc26_3:fabric","neoforge":":mc26_3:neoforge"}},
-    {"id":"wiringexample","name":"Wiring Example","version":"0.1.0","minecraft":"26.3","defaultEnabled":true,"example":true,"projects":{"fabric":":modules:wiringexample:fabric","neoforge":":modules:wiringexample:neoforge"}}
+    {
+      "id": "simplebuilding",
+      "name": "SimpleBuilding",
+      "version": "${mod_version}",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "projects": {
+        "fabric": ":mc26_3:fabric",
+        "neoforge": ":mc26_3:neoforge",
+        "forge": ":mc26_3:forge"
+      },
+      "displayName": "SimpleBuilding",
+      "description": "Building tools, storage, pads, and materials.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [],
+      "optional": [],
+      "paths": {
+        "root": ".",
+        "shared": "common/src/shared",
+        "fabric": "mc26_3/fabric",
+        "neoforge": "mc26_3/neoforge",
+        "forge": "mc26_3/forge",
+        "generated": "mc26_3/generated",
+        "lang": "src/main/resources/assets/simplebuilding/lang",
+        "wikiManual": "wiki/manual.json",
+        "balanceDir": "balance",
+        "langOverlay": "mc26_3/overlay/resources/assets/simplebuilding/lang",
+        "generatedBase": "src/main/generated"
+      }
+    },
+    {
+      "id": "wiringexample",
+      "name": "Wiring Example",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "example": true,
+      "projects": {
+        "fabric": ":modules:wiringexample:fabric",
+        "neoforge": ":modules:wiringexample:neoforge",
+        "forge": ":modules:wiringexample:forge"
+      },
+      "displayName": "Wiring Example",
+      "description": "Minimal cross-mod wiring example.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [],
+      "optional": [],
+      "paths": {
+        "root": "modules/wiringexample",
+        "shared": "modules/wiringexample/shared",
+        "fabric": "modules/wiringexample/fabric",
+        "neoforge": "modules/wiringexample/neoforge",
+        "forge": "modules/wiringexample/forge",
+        "generated": "modules/wiringexample/generated/resources",
+        "lang": "modules/wiringexample/shared/resources/assets/wiringexample/lang",
+        "wikiManual": "modules/wiringexample/wiki/manual.json",
+        "balanceDir": "balance/wiringexample"
+      }
+    }
   ]
 }
