@@ -1374,6 +1374,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("pad_overhaul_game_test_the_spawn_teleporter_takes_players_to_their_bed_and_with_redstone_to_the_world_spawn", PadOverhaulTests::theSpawnTeleporterTakesPlayersToTheirBedAndWithRedstoneToTheWorldSpawn)
                     .maxTicks(PadOverhaulTests.DESTINATION_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("pad_overhaul_game_test_spawn_teleporter_signal_changes_reset_the_entire_warmup", PadOverhaulTests::spawnTeleporterSignalChangesResetTheEntireWarmup)
+                    .build(),
             GameTestSpec.named("pad_overhaul_game_test_the_echo_sounder_locks_for_up_to_five_seconds_after_an_attempt_depending_on_the_distance", PadOverhaulTests::theEchoSounderLocksForUpToFiveSecondsAfterAnAttemptDependingOnTheDistance)
                     .build(),
             GameTestSpec.named("pad_overhaul_game_test_a_wrong_nugget_on_the_sledgehammer_writes_nothing_and_does_not_tilt", PadOverhaulTests::aWrongNuggetOnTheSledgehammerWritesNothingAndDoesNotTilt)

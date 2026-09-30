@@ -10,6 +10,11 @@ import net.minecraft.gametest.framework.GameTestHelper;
  */
 public final class PadOverhaulGameTest {
 
+    @GameTest
+    public void spawnTeleporterSignalChangesResetTheEntireWarmup(GameTestHelper helper) {
+        PadOverhaulTests.spawnTeleporterSignalChangesResetTheEntireWarmup(helper);
+    }
+
     @GameTest(maxTicks = PadOverhaulTests.WAIT_MAX_TICKS)
     public void spawnTeleporterTiersWaitFiftyTwentyAndFiveSeconds(GameTestHelper helper) {
         PadOverhaulTests.spawnTeleporterTiersWaitFiftyTwentyAndFiveSeconds(helper);

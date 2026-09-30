@@ -1,5 +1,12 @@
 # Übergabe (Stand 2026-09-29) – weiterarbeiten mit jedem Assistenten
 
+## Zwischenstand auf codex-kk (Codex, 2026-09-30)
+- Spawn-Teleporter: sofortiger Reset bei jeder Redstone-Signalstaerkeaenderung, inklusive Impulsen zwischen Ticks; Zielwahl unveraendert. Gemeinsamer Code, Regressionstest in Fabric-Adapter und NeoForge-Katalog, Wiki DE/EN aktualisiert.
+- Globaler Loom-Cache bleibt gesperrt. Umgangen mit separatem `GRADLE_USER_HOME=$PWD/scratchpad/gradle-home` (Loom-Cache kopiert, modules-2 und Wrapper verknuepft; keine Besitzer-Prozesse beendet). Beide 26.3-Loader kompilieren erfolgreich.
+- Gefilterte Spawn-Tests **14/14, alles gruen**, Run `2026-09-30T00-34-20Z-fc28`. Regression prueft Ein-/Ausschalten, 15 -> 7 -> 15, kurze Impulse zwischen Ticks, unveraenderte Nachbarbenachrichtigung und die volle neue Wartezeit. Filter braucht den Namensraum: `simplebuilding:*spawn_teleporter*`; ohne Namensraum werden keine Tests ausgewaehlt.
+- Testzentrale in beiden 26.3-GameTest-Welten neu gebaut, Abdeckung und Stationspruefungen **8/8, alles gruen**, Run `2026-09-30T00-35-31Z-2e08`. Besitzerwelt nicht angefasst. Wiki generiert und `--check` gruen, Texturen **470 + 9 mcmeta aktuell**, Buecher **0 Probleme**. Abschliessendes `gradlew.bat check -q` im Worktree **gruen, Exit 0** (auch 26.2-Kompilierbarkeit). Keine Client-Pruefung und kein vollstaendiger Server-Testlauf; kein Push/Merge.
+- Enderit-Redstone und die 54-Slot-Endertruhe sind noch NICHT umgesetzt. Vorschlaege: zwei isolierte Kanaele, Reichweite hoechstens 15; Truhenname Astral Vault / Astralgewoelbe. Keine Besitzer-Abnahme dieser Vorschlaege behaupten. Kein Port, mc1_21_11 unveraendert.
+
 Zuerst `AGENTS.md` lesen (alle Regeln). Diese Datei sagt, was fertig ist und was als Nächstes kommt.
 Der Besitzer schreibt Deutsch, will kurze Antworten, Fragen als Liste, und möchte **erst 26.3 fertig**, dann Port-Run.
 

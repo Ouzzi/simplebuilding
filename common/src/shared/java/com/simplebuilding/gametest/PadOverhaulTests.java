@@ -541,6 +541,49 @@ public final class PadOverhaulTests {
 
     // ---- owner decisions 2026-09-29 (begin)
 
+    /** Signal edges and strength changes restart the complete warmup, even between server ticks. */
+    public static void spawnTeleporterSignalChangesResetTheEntireWarmup(GameTestHelper helper) {
+        BlockPos pad = new BlockPos(2, 1, 2);
+        helper.setBlock(pad, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
+        helper.setBlock(pad.west().below(), Blocks.STONE);
+        ServerLevel level = helper.getLevel();
+        BlockPos absolute = helper.absolutePos(pad);
+        SpawnTeleporterBlockEntity be = helper.getBlockEntity(pad, SpawnTeleporterBlockEntity.class);
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 1.1, 2.5));
+        Vec3 start = player.position();
+        int required = SpawnTeleporterBlockEntity.requiredTicks(level, absolute, 3);
+        Runnable tick = () -> SpawnTeleporterBlockEntity.serverTick(level, absolute, level.getBlockState(absolute), be);
+        for (int input : new int[] {15, 7, 15, 0, 15}) {
+            for (int i = 0; i < required - 1; i++) tick.run();
+            helper.assertTrue(be.comparatorSignal() > 0, "fixture did not charge");
+            // An unrelated neighbor notification must leave the existing charge intact.
+            int before = be.comparatorSignal();
+            helper.setBlock(pad.east(), Blocks.STONE);
+            helper.assertValueEqual(be.comparatorSignal(), before, "unchanged signal reset the charge");
+            helper.setBlock(pad.east(), Blocks.AIR);
+            var source = input == 0 ? Blocks.AIR.defaultBlockState()
+                    : Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE.defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWER, input);
+            helper.setBlock(pad.west(), source);
+            helper.assertValueEqual(level.getBestNeighborSignal(absolute), input, "signal fixture strength");
+            helper.assertValueEqual(be.comparatorSignal(), 0, "signal change kept the charge");
+            helper.assertFalse(be.isTracking(), "signal change kept player progress");
+            tick.run();
+            helper.assertTrue(player.position().distanceTo(start) < 0.01, "signal change caused an accidental teleport");
+            helper.assertValueEqual(SpawnTeleporterBlockEntity.destinationAt(level, absolute),
+                    input > 0 ? SpawnTeleporterBlockEntity.Destination.WORLD_SPAWN : SpawnTeleporterBlockEntity.Destination.OWN_SPAWN,
+                    "signal change changed the existing destination design");
+            helper.setBlock(pad.west(), input > 0 ? Blocks.AIR : Blocks.REDSTONE_BLOCK);
+            helper.setBlock(pad.west(), source);
+            helper.assertValueEqual(be.comparatorSignal(), 0, "a short pulse kept the charge");
+        }
+        for (int i = 0; i < required - 1; i++) tick.run();
+        helper.assertTrue(player.position().distanceTo(start) < 0.01, "warmup was shorter after reset");
+        tick.run();
+        helper.assertTrue(player.position().distanceTo(start) > 2, "a complete new warmup did not teleport");
+        helper.succeed();
+    }
+
     /**
      * The spawn teleporter takes a player to his own spawn and, powered by redstone, to the world spawn
      * (owner, 2026-09-29): a player whose respawn point is a bed lands next to that bed, whatever the

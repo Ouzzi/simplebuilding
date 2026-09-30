@@ -96,6 +96,15 @@ public class SpawnTeleporterBlock extends WaterloggedPadBlock {
     }
 
     @Override
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block,
+            @Nullable net.minecraft.world.level.redstone.Orientation orientation, boolean movedByPiston) {
+        super.neighborChanged(state, level, pos, block, orientation, movedByPiston);
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof SpawnTeleporterBlockEntity teleporter) {
+            teleporter.resetOnSignalChange(level, pos);
+        }
+    }
+
+    @Override
     protected boolean isRedstoneControlled() {
         return true;
     }
