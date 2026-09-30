@@ -260,6 +260,10 @@ def main():
     for locale in ("en_us", "de_de"):
         with open(os.path.join(REPO, LANG_DIR, locale + ".json"), encoding="utf-8") as f:
             langs[locale] = json.load(f)
+        overlay = os.path.join(REPO, "mc26_3/overlay/resources/assets/simplebuilding/lang", locale + ".json")
+        if os.path.isfile(overlay):
+            with open(overlay, encoding="utf-8") as f:
+                langs[locale].update(json.load(f))
     bad = 0
     for locale in ("en_us", "de_de"):
         lang = langs[locale]

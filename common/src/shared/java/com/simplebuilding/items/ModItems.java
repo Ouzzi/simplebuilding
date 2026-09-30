@@ -820,7 +820,7 @@ public class ModItems {
     public static final Item GUIDE_BOOK_VANILLA_FARMING = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.VANILLA_FARMING);
 
     static {
-        // Handbuch + Schluesselitem ergibt ein Themenbuch, das Handbuch bleibt im Raster liegen: es ist
+        // Nur Legacy-Linien: Handbuch + Schluesselitem ergibt ein Themenbuch, das Handbuch bleibt im Raster liegen: es ist
         // sein eigener Rest. Item.Properties kann das Item vor seiner Erzeugung nicht nennen, darum
         // wird der Rest nach der Registrierung gesetzt (ItemCraftRemainderAccessor).
         com.simplebuilding.guide.GuideBooks.makeSelfRemainder(GUIDE_BOOK);

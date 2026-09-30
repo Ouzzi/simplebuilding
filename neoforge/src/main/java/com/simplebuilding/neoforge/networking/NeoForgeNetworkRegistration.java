@@ -77,6 +77,9 @@ public final class NeoForgeNetworkRegistration {
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleTrimBenefit(payload, player)));
         registrar.playToServer(ReinforcedBundleSelectionPayload.ID, ReinforcedBundleSelectionPayload.CODEC,
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleReinforcedBundleSelection(payload, player)));
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES)
+            registrar.playToServer(GuideUnlockPayload.ID, GuideUnlockPayload.CODEC,
+                    (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleGuideUnlock(payload, player)));
         registrar.playToServer(OctantConfigurePayload.ID, OctantConfigurePayload.CODEC,
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleOctantConfigure(payload, player)));
         registrar.playToServer(OctantScrollPayload.ID, OctantScrollPayload.CODEC,

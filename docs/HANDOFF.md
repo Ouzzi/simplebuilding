@@ -75,7 +75,7 @@ im Haupt-Repo und wurden nicht angefasst. Redundante Wiki-Sicherungen liegen als
 - Luftsprung 20 s / 10 s, Balken am XP-Balken (Priorität XP-Änderung > Luftsprung > Locator), Server erzwingt (≤ 1 s Lag).
 - Linear baut eine Linie, Bridge von einem Ende mit doppelter Geschwindigkeit.
 - Glowing hat eine Stufe (volle Helligkeit, Name „Glowing“); Pulsating allein pulsiert Sättigung, Pulsating+Glowing die Helligkeit 1–15.
-- Hammer: 1×1 = 1,2× gleiche Spitzhacke, Fläche wie eine Stufe darunter, Haltbarkeit unverändert bis der Besitzer testet.
+- Hammer auf 26.3: Gesamtzeit 1,5x + 0,8x je Block 2-9 + 0,7x ab Block 10; Oktant 2x je Block gleicher Stufe. Haltbarkeit unveraendert. 26.2 behaelt die alte Formel bis zum Port-Run.
 - Kerne nicht stapelbar; Enderman-/Lohenkopf nutzen die echten Vanilla-Texturen.
 - Placed-Bundle/Oktant/Detector nutzen den Block `placed_smithing_template`.
 - Zuletzt gepushter grüner Stand: siehe `git log origin/master`; danach nur, was im Commit „Handoff“ steht.
@@ -158,3 +158,41 @@ Dieser Branch wird nicht gepusht oder gemergt; Verifikation siehe abschliessende
   lehnte Headless-Edge-Bildpruefung mit "blocked by policy" ab. Kein Client-Testlauf, Push oder Merge.
 - Beim ersten parallelen Gate/Serverlauf fehlten NeoForge-Ressourcen; gezieltes `processResources --rerun-tasks`
   stellte sie wieder her. Anschliessend Gate und Server-Gates nacheinander gruen. Kein Gameplay-Fix noetig.
+
+## Vier Besitzer-Fehlerberichte (codex-bugs, 26.3, 2026-09-30)
+Dieser Abschnitt ersetzt die Werkbank-Erweiterung aus dem historischen Mega-Handbuch-Eintrag oben.
+- Hammer: stueckweise Gesamtzeit relativ zur gleichstufigen Spitzhacke (1,5 / 0,8 / 0,7; Grenze 9),
+  Oktant bewusst linear 2 je Block. Benannte Balance-Konstanten; keine neue Haltbarkeitsaenderung.
+- Basisbuecher bleiben normale formlose Rezepte. Rezeptfreischaltung mit Buch ODER Regal-Schluesselitem,
+  auch beim Wiedereintritt mit vorhandenen Zutaten. JEI-Infoseite erklaert das Freischalten im Buch.
+- Kapitel im Buch: gesperrten Reiter anklicken, Bedarf oder Bestaetigung im Buch; Server bindet die
+  Anfrage an das geoeffnete gehaltene Buch und validiert Inventar-Menue, Regal, Kapitel und OP-Stufe.
+  Genau ein Item, auch in Creative; Nebenhand-Zutaten werden akzeptiert. Ton und Komponentensync.
+  Crafting-Erweiterungen und Kombination entfernt; vorhandene Masken und Legacy-Migration bleiben.
+- Buendel-Rezept war in Quelle und gemeinsamem Datagen bereits DSD/DBD/DXD (6 Kiesel); neu erzeugt
+  und um Kiesel als zusaetzlichen Rezept-Unlock erweitert. Koecher bleibt DSD/DQD/DXD, Rucksack
+  DSD/DBD/LLL. Fester craftable-Tag mit 185 Ergebnissen verhindert still verschwundene Rezepte.
+- Gefilterte Serverpruefungen auf Fabric/NeoForge 26.3: **178/178, alles gruen**:
+  Guides 22 (2026-09-30T13-12-08Z-6404), Hammer 70 (2026-09-30T13-14-58Z-9198),
+  Buendel 76 (2026-09-30T13-18-42Z-eff0), Rezeptabdeckung 2 (2026-09-30T13-20-46Z-5607),
+  Testzentrale 8 (2026-09-30T13-34-37Z-c786). Testzentralen in beiden GameTest-Welten neu gebaut;
+  alle Items/Bloecke abgedeckt, Besitzerwelt nicht angefasst.
+- Neuer Clientfall mega-guide: echter Tab-Klick ohne Item, Bestaetigung nach Eintreffen des Items,
+  genau ein Itemverbrauch im Creative-Modus, C2S-Paket und Komponentensync, doppelte Anfrage ohne Verbrauch.
+  Beide Loader seriell: je 55 Schritte fertig und 2/2 frische Screenshots, alles gruen.
+  NeoForge 2026-09-30T13-29-32Z-e3d8, Fabric 2026-09-30T13-31-29Z-d029.
+  Bestaetigung und offenes Kapitel auf beiden Screenshots angesehen (englische Sprache).
+- Testrunner korrigiert: SIMPLEBUILDING_CLIENT_ONLY grenzt nun auch erwartete Screenshots ein.
+  Vorher funktionierte der Test, der Runner verlangte jedoch 119 nicht ausgewaehlte Bilder.
+  Vollauswahl, Einzelauswahl und unbekannte Auswahl ohne Clientstart gegengeprueft.
+- Echter 26.3-Datagen-Lauf Exit 0; gemeinsame Containerrezepte fuer alle Loader haben unveraendert
+  die korrekten 6/4/6 Kiesel. Datagen zieht auch die bereits im Quellcode geaenderten
+  Echolot-/Resonanzstab-Rezepte in das 26.3-Overlay nach (keine neue Gameplay-Aenderung). Fehlendes Buendelrezept im laufenden Modpack nicht reproduziert;
+  geladene Rezepte, Freischaltung und feste Abdeckung abgesichert.
+- Wiki erzeugt und --check aktuell; Buchpruefung 0 Probleme, Questgenerator aktuell,
+  keine doppelten Schluessel in den vier Sprachdateien. checkBalance 0 Fehler (380 erzeugte Stellen),
+  alle vier Hammer-Konstanten in der Balancing-Zentrale nachgewiesen.
+- Abschliessendes gradlew.bat check -q --no-daemon im Worktree: **Exit 0**, Ausgabe gelesen;
+  auch 26.2/shared kompiliert. Keine Dateien in mc1_21_11/mc26_4 geaendert.
+- Nicht verifiziert: kompletter Server-/Client-Suitenlauf, deutsche UI-Darstellung, echte JEI-Bedienung
+  und Rezeptbuch-Autofuellen im Besitzer-Modpack sowie Besitzerwelt. Keine Ports, kein Push/Merge.

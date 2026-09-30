@@ -399,7 +399,7 @@ window.WIKI_DATA = {
           "The basics: when you mine a block with the hammer in your main hand, the eight neighbouring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
           "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
           "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at.",
-          "Speed and cost: the pickaxe stays the main tool. A single block (sneaking, or when nothing around it qualifies) takes 1.2 times as long as with a pickaxe of the hammer's material. The area takes, per block, as long as the pickaxe one tier below (wood 2, stone 4, copper 5, iron 6, diamond 8, netherite 9, enderite 10, gold 12 - the next slower one; for gold that is enderite): an Enderite hammer breaking 9 blocks takes as long as a Netherite pickaxe mining those 9 one by one, a 5x5x2 takes 50 such blocks. Efficiency counts for the hammer as it counts for that pickaxe. Every block the hammer breaks costs 2 durability (a pickaxe: 1), one more for a block it is not the correct tool for; in exchange each hammer has four times the durability of its base value (Diamond 6244, Netherite 8124, Enderite 10000).",
+          "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
           "Preview: before the swing you see every neighbouring block that will be taken with a black outline and a grey fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
           "Octant selection: with an Octant holding both corners in your off hand, a swing on a block inside its figure breaks the whole selection (every block of the figure the hammer may take, with the same Override rules). It costs the durability of mining each block and takes, per block, twice as long as the area action; the cracks run over the whole selection. Selections longer than 32 blocks on an edge or larger than 4096 positions are ignored (the hammer mines its normal area), and sneaking still mines a single block.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
@@ -427,7 +427,7 @@ window.WIKI_DATA = {
           "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
           "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
           "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab.",
-          "Tempo und Kosten: Die Spitzhacke bleibt das Hauptwerkzeug. Ein einzelner Block (beim Schleichen oder wenn ringsum nichts passt) dauert 1,2-mal so lange wie mit einer Spitzhacke aus dem Material des Hammers. Das Feld dauert je Block so lange wie mit der Spitzhacke eine Stufe darunter (Holz 2, Stein 4, Kupfer 5, Eisen 6, Diamant 8, Netherit 9, Enderit 10, Gold 12 - jeweils die nächst langsamere; für Gold ist das Enderit): Ein Enderit-Hammer, der 9 Blöcke bricht, braucht so lange wie eine Netherit-Spitzhacke für diese 9 nacheinander, ein 5x5x2 so lange wie 50 solcher Blöcke. Effizienz zählt für den Hammer wie für diese Spitzhacke. Jeder Block, den der Hammer bricht, kostet 2 Haltbarkeit (eine Spitzhacke: 1), einen mehr bei einem Block, für den er nicht das richtige Werkzeug ist; dafür haben die Hämmer einen mit 4 multiplizierten Haltbarkeits-Basiswert (z. B. Diamant 6244, Netherit 8124, Enderit 10000).",
+          "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
           "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
           "Oktant-Auswahl: Mit einem Oktanten mit beiden Ecken in der Nebenhand bricht ein Schlag auf einen Block in seiner Figur die ganze Auswahl (jeder Block der Figur, den der Hammer nehmen darf, nach denselben Override-Regeln). Das kostet die Haltbarkeit, als würde jeder Block einzeln abgebaut, und dauert je Block doppelt so lange wie das Feld; die Risse laufen über die ganze Auswahl. Auswahlen mit einer Kante über 32 Blöcke oder mehr als 4096 Plätzen zählen nicht (der Hammer baut sein normales Feld ab), und Schleichen baut weiter nur einen Block ab.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
@@ -9571,32 +9571,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/guide_book.png",
       "craftedBy": [
-        "simplebuilding:guide_book",
-        "simplebuilding:guide_book_admin",
-        "simplebuilding:guide_book_building",
-        "simplebuilding:guide_book_combine",
-        "simplebuilding:guide_book_enchantments",
-        "simplebuilding:guide_book_end",
-        "simplebuilding:guide_book_gadgets",
-        "simplebuilding:guide_book_machines",
-        "simplebuilding:guide_book_storage",
-        "simplebuilding:guide_book_tools",
-        "simplebuilding:guide_book_trims",
-        "simplebuilding:guide_book_tweaks"
+        "simplebuilding:guide_book"
       ],
-      "usedIn": [
-        "simplebuilding:guide_book_admin",
-        "simplebuilding:guide_book_building",
-        "simplebuilding:guide_book_combine",
-        "simplebuilding:guide_book_enchantments",
-        "simplebuilding:guide_book_end",
-        "simplebuilding:guide_book_gadgets",
-        "simplebuilding:guide_book_machines",
-        "simplebuilding:guide_book_storage",
-        "simplebuilding:guide_book_tools",
-        "simplebuilding:guide_book_trims",
-        "simplebuilding:guide_book_tweaks"
-      ],
+      "usedIn": [],
       "trades": [],
       "properties": {
         "maxStackSize": 1
@@ -9606,25 +9583,25 @@ window.WIKI_DATA = {
           "summary": "On 26.3, two separate Mega Guides hold the Minecraft and SimpleBuilding shelves. Only the base guides are items; topic books are inserted content. Older lines retain their previous books until the port run.",
           "details": [
             "Craft the SimpleBuilding guide from a book and a crafting table, or the Minecraft guide from a book and a wooden pickaxe. Guides are never first-join gifts on 26.3, even with the old gift option enabled. No guide-book chest loot is registered; enchanted books with cover textures remain in loot.",
-            "Insert topics by crafting the guide with its matching key item. The guide is consumed and returned as one upgraded guide, preserving existing components and inserted chapters. Two guides from the same shelf can combine their inserted chapters; the two shelves cannot mix. Duplicate inserts do not craft.",
+            "Open the guide and click a locked topic tab. With its key item in your inventory, confirm the prompt inside the book to consume exactly one item and unlock the chapter. Without the item, the book names what is required. The server validates the reading session, held book, shelf, chapter and operator permissions. Creative players also consume one item. Repeated requests cannot consume another item for an unlocked chapter. Chapters cannot be extended or combined in the crafting grid. Existing chapter components and migrated legacy books remain valid.",
             "Inserted chapters persist in simplebuilding:guide_chapters and appear with miniature book textures and localized names in the tooltip. Old chapter IDs alias to the corresponding base guide; the data fixer preserves their chapter on world load, including same-version saves.",
-            "The screen shows only the opened guide shelf, with eight tabs on the right and at most four on the left (including Contents). Locked chapters are gray and name their unlock item. Server Admin requires operator permission level 2 to insert and read. Reading does not pause the game.",
-            "Upgrade recipes are displayed by JEI and the guide recipe cards. Optional building, storage and pad quests use chapter advancements on 26.3."
+            "The screen shows only the opened guide shelf, with eight tabs on the right and at most four on the left (including Contents). Locked chapters are gray and name their unlock item. Server Admin requires operator permission level 2 to unlock and read. Reading does not pause the game.",
+            "JEI displays normal base recipes and an information page explaining chapter unlocking. Topic cards name the required item. Optional building, storage and pad quests use chapter advancements awarded by the server on 26.3."
           ]
         },
         "de": {
           "summary": "Auf 26.3 enthalten zwei getrennte Mega-Handbuecher die Regale fuer Minecraft und SimpleBuilding. Nur die Basis-Handbuecher sind Items; Themenbuecher sind eingefuegte Inhalte. Aeltere Linien behalten ihre bisherigen Buecher bis zum Port-Run.",
           "details": [
             "Mod-Handbuch: Buch + Werkbank. Minecraft-Handbuch: Buch + Holzspitzhacke. Auf 26.3 gibt es kein Handbuch beim Erstbeitritt, auch bei eingeschaltetem altem Config-Schalter. Im Code ist kein Handbuch-Truhenloot registriert; verzauberte Buecher mit Cover-Texturen bleiben in der Beute.",
-            "Handbuch + Schluesselitem fuegt das Thema ein. Das Handbuch wird verbraucht und als ein verbessertes Buch mit allen bisherigen Komponenten und Kapiteln zurueckgegeben. Zwei Handbuecher desselben Regals vereinen ihre Inhalte; die Regale lassen sich nicht mischen. Doppelte Themen ergeben kein Rezept.",
+            "Oeffne das Handbuch und klicke einen gesperrten Themenreiter. Mit dem Schluesselitem im Inventar bestaetigst du im Buch: genau ein Item wird verbraucht und das Kapitel freigeschaltet. Ohne Item nennt das Buch den Bedarf. Der Server prueft Lesesitzung, gehaltenes Buch, Regal, Kapitel und OP-Rechte. Auch Kreativspieler verbrauchen ein Item. Wiederholte Anfragen verbrauchen nichts fuer bereits offene Kapitel. Erweiterung und Vereinigung im Handwerksraster entfallen. Vorhandene Kapitelkomponenten und migrierte alte Buecher bleiben gueltig.",
             "simplebuilding:guide_chapters speichert die Themen dauerhaft. Im Tooltip erscheinen kleine Buchtexturen und uebersetzte Namen. Alte Themen-IDs zeigen auf das Basisbuch; der Datenfixer erhaelt das Thema beim Laden, auch ohne Minecraft-Versionswechsel.",
-            "Der Bildschirm zeigt nur das geoeffnete Regal: acht Tabs rechts, hoechstens vier links inklusive Inhalt. Gesperrte Themen sind grau und nennen ihr Schluesselitem. Server-Admin erfordert Operatorstufe 2 zum Einfuegen und Lesen. Lesen pausiert das Spiel nicht.",
-            "JEI und Rezeptkarten zeigen die Upgrades. Optionale Bau-, Lager- und Pad-Quests verwenden auf 26.3 Kapitel-Erfolge."
+            "Der Bildschirm zeigt nur das geoeffnete Regal: acht Tabs rechts, hoechstens vier links inklusive Inhalt. Gesperrte Themen sind grau und nennen ihr Schluesselitem. Server-Admin erfordert Operatorstufe 2 zum Freischalten und Lesen. Lesen pausiert das Spiel nicht.",
+            "JEI zeigt die normalen Basisrezepte und eine Infoseite zum Freischalten im Buch. Themenkarten nennen das benoetigte Item. Optionale Bau-, Lager- und Pad-Quests verwenden auf 26.3 serverseitig verliehene Kapitel-Erfolge."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/recipe/GuideUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideUnlocks.java",
           "common/src/shared/java/com/simplebuilding/datafix/ModDataFixer.java",
           "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
           "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
@@ -9643,28 +9620,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/guide_book_vanilla_start.png",
       "craftedBy": [
-        "simplebuilding:guide_book_vanilla_caves",
-        "simplebuilding:guide_book_vanilla_end",
-        "simplebuilding:guide_book_vanilla_farming",
-        "simplebuilding:guide_book_vanilla_gear",
-        "simplebuilding:guide_book_vanilla_nether",
-        "simplebuilding:guide_book_vanilla_ocean",
-        "simplebuilding:guide_book_vanilla_overworld",
-        "simplebuilding:guide_book_vanilla_redstone",
-        "simplebuilding:guide_book_vanilla_start",
-        "simplebuilding:guide_book_vanilla_start_combine"
+        "simplebuilding:guide_book_vanilla_start"
       ],
-      "usedIn": [
-        "simplebuilding:guide_book_vanilla_caves",
-        "simplebuilding:guide_book_vanilla_end",
-        "simplebuilding:guide_book_vanilla_farming",
-        "simplebuilding:guide_book_vanilla_gear",
-        "simplebuilding:guide_book_vanilla_nether",
-        "simplebuilding:guide_book_vanilla_ocean",
-        "simplebuilding:guide_book_vanilla_overworld",
-        "simplebuilding:guide_book_vanilla_redstone",
-        "simplebuilding:guide_book_vanilla_start_combine"
-      ],
+      "usedIn": [],
       "trades": [],
       "properties": {
         "maxStackSize": 1
@@ -9674,25 +9632,25 @@ window.WIKI_DATA = {
           "summary": "On 26.3, two separate Mega Guides hold the Minecraft and SimpleBuilding shelves. Only the base guides are items; topic books are inserted content. Older lines retain their previous books until the port run.",
           "details": [
             "Craft the SimpleBuilding guide from a book and a crafting table, or the Minecraft guide from a book and a wooden pickaxe. Guides are never first-join gifts on 26.3, even with the old gift option enabled. No guide-book chest loot is registered; enchanted books with cover textures remain in loot.",
-            "Insert topics by crafting the guide with its matching key item. The guide is consumed and returned as one upgraded guide, preserving existing components and inserted chapters. Two guides from the same shelf can combine their inserted chapters; the two shelves cannot mix. Duplicate inserts do not craft.",
+            "Open the guide and click a locked topic tab. With its key item in your inventory, confirm the prompt inside the book to consume exactly one item and unlock the chapter. Without the item, the book names what is required. The server validates the reading session, held book, shelf, chapter and operator permissions. Creative players also consume one item. Repeated requests cannot consume another item for an unlocked chapter. Chapters cannot be extended or combined in the crafting grid. Existing chapter components and migrated legacy books remain valid.",
             "Inserted chapters persist in simplebuilding:guide_chapters and appear with miniature book textures and localized names in the tooltip. Old chapter IDs alias to the corresponding base guide; the data fixer preserves their chapter on world load, including same-version saves.",
-            "The screen shows only the opened guide shelf, with eight tabs on the right and at most four on the left (including Contents). Locked chapters are gray and name their unlock item. Server Admin requires operator permission level 2 to insert and read. Reading does not pause the game.",
-            "Upgrade recipes are displayed by JEI and the guide recipe cards. Optional building, storage and pad quests use chapter advancements on 26.3."
+            "The screen shows only the opened guide shelf, with eight tabs on the right and at most four on the left (including Contents). Locked chapters are gray and name their unlock item. Server Admin requires operator permission level 2 to unlock and read. Reading does not pause the game.",
+            "JEI displays normal base recipes and an information page explaining chapter unlocking. Topic cards name the required item. Optional building, storage and pad quests use chapter advancements awarded by the server on 26.3."
           ]
         },
         "de": {
           "summary": "Auf 26.3 enthalten zwei getrennte Mega-Handbuecher die Regale fuer Minecraft und SimpleBuilding. Nur die Basis-Handbuecher sind Items; Themenbuecher sind eingefuegte Inhalte. Aeltere Linien behalten ihre bisherigen Buecher bis zum Port-Run.",
           "details": [
             "Mod-Handbuch: Buch + Werkbank. Minecraft-Handbuch: Buch + Holzspitzhacke. Auf 26.3 gibt es kein Handbuch beim Erstbeitritt, auch bei eingeschaltetem altem Config-Schalter. Im Code ist kein Handbuch-Truhenloot registriert; verzauberte Buecher mit Cover-Texturen bleiben in der Beute.",
-            "Handbuch + Schluesselitem fuegt das Thema ein. Das Handbuch wird verbraucht und als ein verbessertes Buch mit allen bisherigen Komponenten und Kapiteln zurueckgegeben. Zwei Handbuecher desselben Regals vereinen ihre Inhalte; die Regale lassen sich nicht mischen. Doppelte Themen ergeben kein Rezept.",
+            "Oeffne das Handbuch und klicke einen gesperrten Themenreiter. Mit dem Schluesselitem im Inventar bestaetigst du im Buch: genau ein Item wird verbraucht und das Kapitel freigeschaltet. Ohne Item nennt das Buch den Bedarf. Der Server prueft Lesesitzung, gehaltenes Buch, Regal, Kapitel und OP-Rechte. Auch Kreativspieler verbrauchen ein Item. Wiederholte Anfragen verbrauchen nichts fuer bereits offene Kapitel. Erweiterung und Vereinigung im Handwerksraster entfallen. Vorhandene Kapitelkomponenten und migrierte alte Buecher bleiben gueltig.",
             "simplebuilding:guide_chapters speichert die Themen dauerhaft. Im Tooltip erscheinen kleine Buchtexturen und uebersetzte Namen. Alte Themen-IDs zeigen auf das Basisbuch; der Datenfixer erhaelt das Thema beim Laden, auch ohne Minecraft-Versionswechsel.",
-            "Der Bildschirm zeigt nur das geoeffnete Regal: acht Tabs rechts, hoechstens vier links inklusive Inhalt. Gesperrte Themen sind grau und nennen ihr Schluesselitem. Server-Admin erfordert Operatorstufe 2 zum Einfuegen und Lesen. Lesen pausiert das Spiel nicht.",
-            "JEI und Rezeptkarten zeigen die Upgrades. Optionale Bau-, Lager- und Pad-Quests verwenden auf 26.3 Kapitel-Erfolge."
+            "Der Bildschirm zeigt nur das geoeffnete Regal: acht Tabs rechts, hoechstens vier links inklusive Inhalt. Gesperrte Themen sind grau und nennen ihr Schluesselitem. Server-Admin erfordert Operatorstufe 2 zum Freischalten und Lesen. Lesen pausiert das Spiel nicht.",
+            "JEI zeigt die normalen Basisrezepte und eine Infoseite zum Freischalten im Buch. Themenkarten nennen das benoetigte Item. Optionale Bau-, Lager- und Pad-Quests verwenden auf 26.3 serverseitig verliehene Kapitel-Erfolge."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/recipe/GuideUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideUnlocks.java",
           "common/src/shared/java/com/simplebuilding/datafix/ModDataFixer.java",
           "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
           "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
@@ -15389,9 +15347,7 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:stone_chisel"
       ],
-      "usedIn": [
-        "simplebuilding:guide_book_tools"
-      ],
+      "usedIn": [],
       "trades": [],
       "properties": {
         "cooldownTicks": 30,
@@ -23415,7 +23371,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:amethyst_lens",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/amethyst_lens.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/amethyst_lens.json",
       "ingredients": [
         "minecraft:amethyst_shard",
         "minecraft:iron_ingot",
@@ -25979,7 +25935,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:echo_sounder",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/echo_sounder.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/echo_sounder.json",
       "ingredients": [
         "minecraft:recovery_compass",
         "simplebuilding:enderite_core",
@@ -28756,1879 +28712,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:guide_book_admin",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 1024
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_admin.json",
-      "ingredients": [
-        "minecraft:comparator",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:comparator"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Server Admin",
-        "de_de": "Server-Admin"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Server Admin",
-                "de_de": "Server-Admin"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:comparator"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:comparator"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:comparator",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:comparator",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 1024
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_admin",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_admin.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_building",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 8
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_building.json",
-      "ingredients": [
-        "minecraft:brick",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:brick"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Building",
-        "de_de": "Bauen"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Building",
-                "de_de": "Bauen"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:brick"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:brick"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:brick",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:brick",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 8
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_building",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_building.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_combine",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 0
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_combine.json",
-      "ingredients": [
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "simplebuilding:guide_book"
-        ]
-      ],
-      "guideCombine": true,
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_enchantments",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 4
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_enchantments.json",
-      "ingredients": [
-        "minecraft:lapis_lazuli",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:lapis_lazuli"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Enchantments",
-        "de_de": "Verzauberungen"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Enchantments",
-                "de_de": "Verzauberungen"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:lapis_lazuli"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:lapis_lazuli"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:lapis_lazuli",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:lapis_lazuli",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 4
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_enchantments",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_enchantments.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_end",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 64
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_end.json",
-      "ingredients": [
-        "minecraft:ender_pearl",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:ender_pearl"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "End & Enderite",
-        "de_de": "Ende & Enderit"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "End & Enderite",
-                "de_de": "Ende & Enderit"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:ender_pearl"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:ender_pearl"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:ender_pearl",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:ender_pearl",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 64
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_end",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_end.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_gadgets",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 256
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_gadgets.json",
-      "ingredients": [
-        "minecraft:copper_ingot",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:copper_ingot"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Gadgets",
-        "de_de": "Geräte"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Gadgets",
-                "de_de": "Geräte"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:copper_ingot"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:copper_ingot"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:copper_ingot",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:copper_ingot",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 256
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_gadgets",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_gadgets.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_machines",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 32
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_machines.json",
-      "ingredients": [
-        "minecraft:piston",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:piston"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Machines & Pistons",
-        "de_de": "Maschinen & Kolben"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Machines & Pistons",
-                "de_de": "Maschinen & Kolben"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:piston"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:piston"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:piston",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:piston",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 32
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_machines",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_machines.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_storage",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 16
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_storage.json",
-      "ingredients": [
-        "minecraft:chest",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:chest"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Storage",
-        "de_de": "Lagerung"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Storage",
-                "de_de": "Lagerung"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:chest"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:chest"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:chest",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:chest",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 16
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_storage",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_storage.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_tools",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 2
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_tools.json",
-      "ingredients": [
-        "simplebuilding:guide_book",
-        "simplebuilding:stone_chisel"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "simplebuilding:stone_chisel"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Tools & Upgrades",
-        "de_de": "Werkzeuge & Aufwertungen"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Tools & Upgrades",
-                "de_de": "Werkzeuge & Aufwertungen"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "simplebuilding:stone_chisel"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "simplebuilding:stone_chisel"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:guide_book",
-                "simplebuilding:stone_chisel"
-              ],
-              "other": [
-                "minecraft:book",
-                "simplebuilding:guide_book",
-                "simplebuilding:stone_chisel"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 2
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_tools",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_tools.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_trims",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 512
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_trims.json",
-      "ingredients": [
-        "minecraft:amethyst_shard",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:amethyst_shard"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Trims & Radiance",
-        "de_de": "Besätze & Strahlkraft"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Trims & Radiance",
-                "de_de": "Besätze & Strahlkraft"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:amethyst_shard"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:amethyst_shard"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:amethyst_shard",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:amethyst_shard",
-                "minecraft:book",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 512
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_trims",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_trims.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_tweaks",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 128
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_tweaks.json",
-      "ingredients": [
-        "minecraft:stone_pressure_plate",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:stone_pressure_plate"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Pads",
-        "de_de": "Pads"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Pads",
-                "de_de": "Pads"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:stone_pressure_plate"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:stone_pressure_plate"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:stone_pressure_plate",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:stone_pressure_plate",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 128
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_tweaks",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_tweaks.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_caves",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 8192
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_caves.json",
-      "ingredients": [
-        "minecraft:torch",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:torch"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Caves & Underground",
-        "de_de": "Höhlen & Untergrund"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Caves & Underground",
-                "de_de": "Höhlen & Untergrund"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:torch"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:torch"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:torch",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:torch",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 8192
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_caves",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_caves.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_end",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 65536
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_end.json",
-      "ingredients": [
-        "minecraft:ender_eye",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:ender_eye"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "The End",
-        "de_de": "Das Ende"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "The End",
-                "de_de": "Das Ende"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:ender_eye"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:ender_eye"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:ender_eye",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:ender_eye",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 65536
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_end",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_end.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_farming",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 524288
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_farming.json",
-      "ingredients": [
-        "minecraft:wheat_seeds",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:wheat_seeds"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Farming & Mobs",
-        "de_de": "Landwirtschaft & Tiere"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Farming & Mobs",
-                "de_de": "Landwirtschaft & Tiere"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:wheat_seeds"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:wheat_seeds"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:wheat_seeds",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:wheat_seeds",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 524288
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_farming",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_farming.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_gear",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 262144
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_gear.json",
-      "ingredients": [
-        "minecraft:stone_sword",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:stone_sword"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Tools, Armor & Weapons",
-        "de_de": "Werkzeuge, Rüstung & Waffen"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Tools, Armor & Weapons",
-                "de_de": "Werkzeuge, Rüstung & Waffen"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:stone_sword"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:stone_sword"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:stone_sword",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:stone_sword",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 262144
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_gear",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_gear.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_nether",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 32768
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_nether.json",
-      "ingredients": [
-        "minecraft:flint_and_steel",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:flint_and_steel"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "The Nether",
-        "de_de": "Der Nether"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "The Nether",
-                "de_de": "Der Nether"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:flint_and_steel"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:flint_and_steel"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:flint_and_steel",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:flint_and_steel",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 32768
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_nether",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_nether.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_ocean",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 16384
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_ocean.json",
-      "ingredients": [
-        "minecraft:oak_boat",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:oak_boat"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "The Ocean",
-        "de_de": "Der Ozean"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "The Ocean",
-                "de_de": "Der Ozean"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:oak_boat"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:oak_boat"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:oak_boat",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:oak_boat",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 16384
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_ocean",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_ocean.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_overworld",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 4096
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_overworld.json",
-      "ingredients": [
-        "minecraft:oak_sapling",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:oak_sapling"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "The Overworld",
-        "de_de": "Die Oberwelt"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "The Overworld",
-                "de_de": "Die Oberwelt"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:oak_sapling"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:oak_sapling"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:oak_sapling",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:oak_sapling",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 4096
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_overworld",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_overworld.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_redstone",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 131072
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_redstone.json",
-      "ingredients": [
-        "minecraft:redstone",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:redstone"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Redstone",
-        "de_de": "Redstone"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Redstone",
-                "de_de": "Redstone"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:redstone"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:redstone"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:redstone",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:redstone",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 131072
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_redstone",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_redstone.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:guide_book_vanilla_start",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -30652,35 +28735,6 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_start_combine",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 0
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_start_combine.json",
-      "ingredients": [
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ]
-      ],
-      "guideCombine": true,
-      "lines": [
         "26.3"
       ]
     },
@@ -45266,6 +43320,753 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/copper_chests.json"
+    },
+    {
+      "id": "simplebuilding:item/craftable",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:amethyst_lens",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_end_stone",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_purpur_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_brick_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_brick_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_brick_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_pillar",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:backpack",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:basic_upgrade_template",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:blackstone_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:blueprint",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:chiseled_astralit_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:chiseled_ender_quartz_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:chiseled_nihilith_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:chunk_loader",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:construction_light",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:copper_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:copper_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:copper_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:copper_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:copper_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cracked_diamond",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cracked_diamond_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:detector",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:diamond_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:diamond_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:diamond_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:diamond_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:diamond_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:echo_sounder",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:elytra_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:emitting_trim_template",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_brick_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_brick_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_brick_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_pillar",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_apple",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_axe",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_backpack",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_boots",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_bundle",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_carrot",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chestplate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chunk_loader",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_elytra_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_helmet",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_hoe",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_horse_armor",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_ingot",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_launchpad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_leggings",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_nautilus_armor",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_nugget",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_pickaxe",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_scrap",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_shovel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_shulker_box",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_spawn_teleporter",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_spear",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_sword",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_upgrade_template",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:fine_elytra_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:flypad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:glowing_trim_template",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:gold_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:gold_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:gold_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:gold_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:guide_book",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:guide_book_vanilla_start",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:infused_potion_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:iron_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:iron_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:iron_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:iron_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:lapis_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:launchpad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:layered_raw_enderite",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:leather_sheet",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:levitating_gravel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:levitating_sand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:magnet",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_apple",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_backpack",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_bundle",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_carrot",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_chunk_loader",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_elytra_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_launchpad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_nugget",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_shulker_box",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihil_end_stone",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihil_purpur_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_brick_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_brick_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_brick_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_pillar",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_black",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_blue",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_brown",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_cyan",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_gray",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_green",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_light_blue",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_light_gray",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_lime",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_magenta",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_orange",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_pink",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_purple",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_red",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_white",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_yellow",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_astralit",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_astralit_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_astralit_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_astralit_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_end_stone",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_ender_quartz",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_ender_quartz_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_ender_quartz_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_ender_quartz_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_nihilith",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_nihilith_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_nihilith_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_nihilith_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:potion_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:pulsating_trim_template",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:purpur_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:raw_enderite",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_backpack",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_blast_furnace",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_bundle",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_chest",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_elytra_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_flypad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_furnace",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_hopper",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_piston",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_potion_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_shulker_box",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_smoker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_sticky_piston",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:resin_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:rotator",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:spawn_teleporter",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:spawn_teleporter_tier_2",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:stellar_flypad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:stone_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:stone_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:suspended_gravel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:suspended_sand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:velocity_gauge",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:waxed_copper_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:waxed_exposed_copper_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:waxed_oxidized_copper_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:waxed_weathered_copper_pressure_plate",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/tags/item/craftable.json"
     },
     {
       "id": "simplebuilding:item/deep_pockets_enchantable",
@@ -65305,8 +64106,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65326,8 +64127,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65347,8 +64148,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65368,8 +64169,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65389,8 +64190,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65410,8 +64211,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65456,8 +64257,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65477,8 +64278,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65498,8 +64299,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65519,8 +64320,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65540,8 +64341,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65561,8 +64362,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65582,8 +64383,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65603,8 +64404,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65624,8 +64425,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65645,8 +64446,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65666,8 +64467,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65687,8 +64488,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -67497,8 +66298,8 @@ window.WIKI_DATA = {
             "de_de": "Ein Buch für Einsteiger"
           },
           "description": {
-            "en_us": "Book + crafting table: Mega Guide. Add matching items to unlock its topics.",
-            "de_de": "Buch + Werkbank: Mega-Handbuch. Weitere Gegenstaende schalten darin Themen frei."
+            "en_us": "Book + crafting table: Mega Guide. Open it, click a locked tab and confirm with the required item in your inventory.",
+            "de_de": "Buch + Werkbank: Mega-Handbuch. Öffne es, klicke einen gesperrten Reiter und bestätige mit dem benötigten Item im Inventar."
           },
           "dependencies": [
             "stage_1.welcome"
@@ -67584,8 +66385,8 @@ window.WIKI_DATA = {
             "de_de": "Stein-Vorschlaghammer"
           },
           "description": {
-            "en_us": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once. On 26.3, sneak without Constructor's Touch to remove one aimed corner at 1.5x speed: inner corner, straight stair, outer corner, slab.",
-            "de_de": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab. Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs eine Zielecke mit 1,5-fachem Tempo ab: Innenecke, gerade Treppe, Außenecke, Stufe."
+            "en_us": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once.",
+            "de_de": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab."
           },
           "dependencies": [
             "stage_1.iron"
@@ -68209,8 +67010,8 @@ window.WIKI_DATA = {
             "stage_2.done"
           ],
           "hint": {
-            "en_us": "Smith a heavy weighted pressure plate with an Iron Core in the template slot and a Trial Chamber mob head as the addition.",
-            "de_de": "Schmiede eine schwere Wägeplatte mit einem Eisenkern im Vorlagenfeld und einem Trial-Chamber-Mobkopf als Zusatz."
+            "en_us": "Smith a heavy weighted pressure plate with an Iron Core and any template.",
+            "de_de": "Schmiede eine schwere Wägeplatte mit einem Eisenkern und einer beliebigen Vorlage."
           }
         },
         {
@@ -68706,8 +67507,8 @@ window.WIKI_DATA = {
             "de_de": "Handbuch: Bauen"
           },
           "description": {
-            "en_us": "Guide + brick unlocks Building.",
-            "de_de": "Handbuch + Ziegel schaltet Bauen frei."
+            "en_us": "Open the guide, click Building and confirm to consume one brick.",
+            "de_de": "Öffne das Handbuch, klicke Bauen und bestätige zum Verbrauch eines Ziegels."
           },
           "dependencies": [
             "building.toolkit",
@@ -69134,8 +67935,8 @@ window.WIKI_DATA = {
             "de_de": "Handbuch: Lagerung"
           },
           "description": {
-            "en_us": "Everything about backpacks, bundles and quivers in one topic guide.",
-            "de_de": "Alles über Rucksäcke, Bündel und Köcher in einem Themen-Handbuch."
+            "en_us": "Open the guide, click Storage and confirm to consume one chest.",
+            "de_de": "Öffne das Handbuch, klicke Lager und bestätige zum Verbrauch einer Truhe."
           },
           "dependencies": [
             "stage_1.backpack",
@@ -69374,8 +68175,8 @@ window.WIKI_DATA = {
             "de_de": "Handbuch: Pads & Geräte"
           },
           "description": {
-            "en_us": "Every pad and gadget explained in one topic guide.",
-            "de_de": "Jedes Pad und jedes Gerät in einem Themen-Handbuch erklärt."
+            "en_us": "Open the guide, click Pads and confirm to consume one stone pressure plate.",
+            "de_de": "Öffne das Handbuch, klicke Pads und bestätige zum Verbrauch einer Steindruckplatte."
           },
           "dependencies": [
             "gadgets.intro",
@@ -69806,11 +68607,11 @@ window.WIKI_DATA = {
   "counts": {
     "items": 178,
     "blocks": 147,
-    "recipes": 439,
+    "recipes": 419,
     "lootTables": 148,
     "trades": 20,
     "enchantments": 19,
-    "tags": 41,
+    "tags": 42,
     "config": 169,
     "inWorld": 396,
     "advancements": 121,

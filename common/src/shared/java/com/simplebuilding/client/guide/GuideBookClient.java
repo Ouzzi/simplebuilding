@@ -9,6 +9,6 @@ public final class GuideBookClient {
     }
 
     public static void init() {
-        GuideBookItem.setClientOpener(book -> Minecraft.getInstance().gui.setScreen(new GuideBookScreen(book)));
+        GuideBookItem.setClientOpener((book, hand) -> Minecraft.getInstance().gui.setScreen(new GuideBookScreen(book, hand)));
     }
 }

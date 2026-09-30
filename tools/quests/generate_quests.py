@@ -703,6 +703,15 @@ def updated_lang(path: Path, entries: dict[str, str]) -> str:
             "Schmiede eine schwere Wägeplatte mit einem Eisenkern im Vorlagenfeld und einem Trial-Chamber-Mobkopf als Zusatz."
             if german else
             "Smith a heavy weighted pressure plate with an Iron Core in the template slot and a Trial Chamber mob head as the addition.")
+    if path.is_relative_to(REPO / "mc26_3/overlay/resources"):
+        entries = dict(entries)
+        german = path.stem == "de_de"
+        for suffix, en, de in [
+            ("stage_1.guide_book.description", "Book + crafting table: Mega Guide. Open it, click a locked tab and confirm with the required item in your inventory.", "Buch + Werkbank: Mega-Handbuch. Öffne es, klicke einen gesperrten Reiter und bestätige mit dem benötigten Item im Inventar."),
+            ("building.guide.description", "Open the guide, click Building and confirm to consume one brick.", "Öffne das Handbuch, klicke Bauen und bestätige zum Verbrauch eines Ziegels."),
+            ("storage.guide.description", "Open the guide, click Storage and confirm to consume one chest.", "Öffne das Handbuch, klicke Lager und bestätige zum Verbrauch einer Truhe."),
+            ("gadgets.guide.description", "Open the guide, click Pads and confirm to consume one stone pressure plate.", "Öffne das Handbuch, klicke Pads und bestätige zum Verbrauch einer Steindruckplatte.")]:
+            entries[LANG_KEY + "." + suffix] = de if german else en
     items = [(k, v) for k, v in data.items() if not k.startswith(LANG_KEY + ".")]
     anchor = max((i for i, (k, _) in enumerate(items) if k.startswith("advancements." + NS + ".")), default=len(items) - 1)
     items = items[:anchor + 1] + list(entries.items()) + items[anchor + 1:]
@@ -727,7 +736,7 @@ def main(argv: list[str]) -> int:
         if shared.exists() and shared.read_text(encoding="utf-8") == text:
             continue
         outputs[mega_base / rel] = text
-    for path, loc in lang_paths():
+    for path, loc in lang_paths() + [(REPO / "mc26_3/overlay/resources/assets/simplebuilding/lang" / (loc + ".json"), loc) for loc in ("en_us", "de_de")]:
         outputs[path] = updated_lang(path, book.lang_en if loc == "en_us" else book.lang_de)
     if book.errors:
         print("FTB Quests book is invalid:")

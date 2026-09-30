@@ -238,3 +238,9 @@ Verlauf im Detail: git log.
 - [x] Launch Hub: einzelne Mod-Schalter, Presets, Integrationsstarts und Trockenlauf-Tests
 - [x] check, 1548/1548 Server, 1/1 Integration, 34 Hub-Tests und Trockenlauf gruen; kein Push/Merge
 - [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen
+
+## Vier Fehlerkorrekturen (26.3, codex-bugs)
+- [x] Hammer: 1,5 + 0,8 fuer Bloecke 2-9 + 0,7 ab Block 10; Oktant 2 je Block.
+- [x] Basis-Handbuecher im Rezeptbuch; Kapitel im Buch serverseitig freischalten statt Werkbank.
+- [x] Verstaerktes Buendel: Rezept/Datagen/Abdeckung sichern.
+- Verifiziert: 178/178 gefilterte Serverpruefungen, beide gezielten Clientablaeufe, Testzentralen neu gebaut, check gruen. Kein Push/Merge.

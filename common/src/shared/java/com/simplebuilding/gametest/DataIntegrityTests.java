@@ -4163,6 +4163,17 @@ public final class DataIntegrityTests {
                 }
             }
         }
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+            TagKey<Item> craftable = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(MOD_ID, "craftable"));
+            int expected = 0;
+            for (Item item : BuiltInRegistries.ITEM) {
+                if (new ItemStack(item).is(craftable)) {
+                    expected++;
+                    helper.assertTrue(obtainable.contains(item), "craftable item lost its loaded recipe: " + BuiltInRegistries.ITEM.getKey(item));
+                }
+            }
+            helper.assertTrue(expected > 100, "craftable recipe coverage catalog missing");
+        }
         com.simplebuilding.compat.InWorldRecipeCatalog.Catalog catalog = com.simplebuilding.compat.InWorldRecipeCatalog.build();
         for (com.simplebuilding.compat.InWorldRecipeCatalog.Entry entry : catalog.entries()) {
             obtainable.addAll(entry.output().items());

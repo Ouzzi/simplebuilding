@@ -11,6 +11,16 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "has_crafting_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:crafting_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_the_recipe": {
       "conditions": {
         "recipes": "simplebuilding:guide_book"
@@ -21,7 +31,8 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_book"
+      "has_book",
+      "has_crafting_table"
     ]
   ],
   "rewards": {
