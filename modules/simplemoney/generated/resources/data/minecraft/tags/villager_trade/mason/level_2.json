@@ -12,6 +12,18 @@
     {
       "id": "simplemoney:mason/17",
       "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/chunk_loader",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/iron_spatula",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/launchpad",
+      "required": false
     }
   ]
 }

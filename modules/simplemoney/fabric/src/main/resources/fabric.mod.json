@@ -30,5 +30,8 @@
   "icon": "assets/simplemoney/icon.png",
   "suggests": {
     "modmenu": "*"
-  }
+  },
+  "mixins": [
+    "simplemoney.links.mixins.json"
+  ]
 }

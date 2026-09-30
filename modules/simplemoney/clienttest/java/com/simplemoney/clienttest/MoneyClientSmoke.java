@@ -28,6 +28,25 @@ public final class MoneyClientSmoke implements FabricClientGameTest {
     } catch(ReflectiveOperationException e) { throw new AssertionError("Module config screen failed",e); }
    });
    context.waitTicks(5);context.takeScreenshot("simplemoney_config");
+   context.runOnClient(client-> {
+    try {
+     var screen=client.gui.screen();
+     var field=screen.getClass().getDeclaredField("tabButtons");field.setAccessible(true);
+     String name=net.minecraft.network.chat.Component.translatable("text.autoconfig.simplemoney.category.links").getString();
+     boolean selected=false;
+     for(Object button:(java.util.List<?>)field.get(screen)) {
+      if(((net.minecraft.client.gui.components.AbstractWidget)button).getMessage().getString().equals(name)) {
+       button.getClass().getMethod("onPress",Class.forName("net.minecraft.client.input.InputWithModifiers")).invoke(button,new Object[]{null});selected=true;
+      }
+     }
+     if(!selected)throw new AssertionError("Money Links tab missing");
+     var category=(net.minecraft.network.chat.Component)screen.getClass().getMethod("getSelectedCategory").invoke(screen);
+     if(!category.getString().equals(name))throw new AssertionError("Money Links tab did not open");
+     var entries=(java.util.Map<?,?>)screen.getClass().getMethod("getCategorizedEntries").invoke(screen);
+     if(((java.util.List<?>)entries.get(category)).size()!=7)throw new AssertionError("All seven linked settings must appear");
+    }catch(ReflectiveOperationException e){throw new AssertionError("Money Links tab failed",e);}
+   });
+   context.waitTicks(5);context.takeScreenshot("simplemoney_links");
    context.runOnClient(client->client.gui.setScreen(null));
   }
  }

@@ -12,6 +12,7 @@ import net.neoforged.neoforge.event.LootTableLoadEvent;
 @Mod("simplemoney")
 public final class MoneyNeoForge {
  public MoneyNeoForge(IEventBus bus) {
+  MoneyLinks.loaded=id->net.neoforged.fml.ModList.get().isLoaded(id);
   SimpleMoney.loadConfig(FMLPaths.CONFIGDIR.get()); MoneyGameTests.register(bus);
   var conditions=DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS,"simplemoney");
   conditions.register("config",()->MoneyCondition.CODEC);conditions.register(bus);

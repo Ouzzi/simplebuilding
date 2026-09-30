@@ -12,4 +12,11 @@ public final class MoneyGameTest {
  @GameTest(maxTicks=100) public void recipeOutputs(GameTestHelper h) { com.simplemoney.testing.MoneyTests.recipeOutputs(h); }
  @GameTest(maxTicks=100) public void configWorld(GameTestHelper h) { com.simplemoney.testing.MoneyTests.configWorld(h); }
  @GameTest(maxTicks=100) public void billUse(GameTestHelper h) { com.simplemoney.testing.MoneyTests.billUse(h); }
+ @GameTest(maxTicks=100) public void linkConditions(GameTestHelper h) { com.simplemoney.testing.LinkTests.conditions(h); }
+ @GameTest(maxTicks=100) public void linkOffers(GameTestHelper h) { com.simplemoney.testing.LinkTests.offers(h); }
+ @GameTest(maxTicks=100) public void linkBounds(GameTestHelper h) { com.simplemoney.testing.LinkTests.bounds(h); }
+ @GameTest(maxTicks=100) public void linkRarity(GameTestHelper h) { com.simplemoney.testing.LinkTests.rarity(h); }
+ @GameTest(maxTicks=100) public void linkBudgets(GameTestHelper h) { com.simplemoney.testing.LinkTests.budgets(h); }
+ @GameTest(maxTicks=100) public void linkMenu(GameTestHelper h) { com.simplemoney.testing.LinkTests.menu(h); }
+ @GameTest(maxTicks=100) public void linkNoArbitrage(GameTestHelper h) { com.simplemoney.testing.LinkTests.noArbitrage(h); }
 }

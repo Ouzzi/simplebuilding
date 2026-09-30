@@ -6,3 +6,6 @@ apply from: rootProject.file('gradle/module-fabric.gradle')
 repositories { maven { url = 'https://maven.shedaniel.me/' }; maven { url = 'https://maven.terraformersmc.com/releases/' } }
 dependencies { implementation "me.shedaniel.cloth:cloth-config-fabric:${rootProject.mc263_cloth_version}" }
 dependencies { compileOnly "com.terraformersmc:modmenu:${rootProject.mc263_modmenu_version}" }
+
+repositories { maven { url = "https://maven.blamejared.com" } }
+dependencies { compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}" }

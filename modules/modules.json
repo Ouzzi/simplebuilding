@@ -101,8 +101,17 @@
         "cloth_config"
       ],
       "optional": [
+        "jei",
+        "modmenu",
         "simplebuilding",
-        "modmenu"
+        "simplefun",
+        "simplemodels",
+        "simplequalityoflife",
+        "simpleriding",
+        "simplesounds",
+        "simpletweaks",
+        "simplevisuals",
+        "wiringexample"
       ],
       "paths": {
         "root": "modules/simplemoney",
@@ -161,7 +170,12 @@
       },
       "checks": [
         "modules/simplemoney/tools/check_data.py"
-      ]
+      ],
+      "moneyLinks": {
+        "tables": "modules/simplemoney/shared/resources/data/simplemoney/money",
+        "generator": "modules/simplemoney/tools/generate_links.py",
+        "sellEnabled": false
+      }
     },
     {
       "id": "simpleriding",

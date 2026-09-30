@@ -1,0 +1,7 @@
+{
+  "formulaSource": "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java",
+  "tables": "modules/simplemoney/shared/resources/data/simplemoney/money",
+  "runtimeIndex": "modules/simplemoney/generated/resources/data/simplemoney/money/prices.json",
+  "generatedBy": "modules/simplemoney/tools/generate_links.py",
+  "buyOnly": true
+}

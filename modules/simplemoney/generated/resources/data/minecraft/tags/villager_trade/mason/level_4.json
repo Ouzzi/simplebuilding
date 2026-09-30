@@ -1,0 +1,73 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:links/simplebuilding/cracked_diamond",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/cracked_diamond_block",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/diamond_pebble",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/diamond_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/diamond_spatula",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/elytra_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_backpack",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_blast_furnace",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_bundle",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_chest",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_elytra_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_furnace",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_hopper",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_piston",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_quiver",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_smoker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/spawn_teleporter",
+      "required": false
+    }
+  ]
+}

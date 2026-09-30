@@ -1,0 +1,62 @@
+{
+  "module": "simplefun",
+  "derivation": "Age-of-game tier from KERNE-SELTENHEIT section 5.3; maximum ingredient tier and recipe slot count; scarce heads tier 3. Tables are curated, not a claim of measured play time.",
+  "excluded": {},
+  "prices": [
+    {
+      "item": "simplefun:brick_snowball",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplefun:pig_head",
+      "tier": 3,
+      "hours": 15.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 4,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplefun:cow_head",
+      "tier": 3,
+      "hours": 15.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 4,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplefun:chicken_head",
+      "tier": 3,
+      "hours": 15.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 4,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplefun:sheep_head",
+      "tier": 3,
+      "hours": 15.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 4,
+      "stock": 1,
+      "chance": 0.1
+    }
+  ]
+}

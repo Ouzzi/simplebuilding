@@ -1,0 +1,37 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 24
+  },
+  "gives": {
+    "id": "simplefun:pig_head",
+    "count": 1
+  },
+  "max_uses": 1,
+  "xp": 0,
+  "reputation_discount": 0,
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "links:simplefun"
+    },
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableWanderingTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "links:simplefun"
+    },
+    {
+      "type": "simplemoney:config",
+      "flag": "enableWanderingTrades"
+    }
+  ],
+  "merchant_predicate": {
+    "type": "minecraft:random_chance",
+    "chance": 0.1
+  }
+}

@@ -1,0 +1,617 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:links/simplebuilding/astral_end_stone",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astral_purpur_block",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astral_vault",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_block",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_brick_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_brick_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_brick_wall",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_bricks",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_dust",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_lamp",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_ore",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_pillar",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_powder",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_switch",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/blaze_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/blueprint",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/breeze_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/cave_spider_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/chiseled_astralit_bricks",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/chiseled_ender_quartz_bricks",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/chiseled_nihilith_bricks",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/copper_core",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/diamond_core",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/drowned_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/echo_sounder",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enchanted_enderite_apple",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enchanted_netherite_apple",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_quartz",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_quartz_block",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_quartz_brick_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_quartz_brick_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_quartz_brick_wall",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_quartz_bricks",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_quartz_pillar",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_quartz_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_quartz_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_apple",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_axe",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_backpack",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_blast_furnace",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_block",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_boots",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_building_wand",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_bundle",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_carrot",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_chest",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_chestplate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_chisel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_chunk_loader",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_core",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_elytra_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_flypad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_furnace",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_helmet",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_hoe",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_hopper",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_horse_armor",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_ingot",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_launchpad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_leggings",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_nautilus_armor",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_nugget",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_pickaxe",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_piston",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_quiver",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_scrap",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_shovel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_shulker_box",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_sledgehammer",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_smoker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_spawn_teleporter",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_spear",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_sword",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderite_upgrade_template",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/enderman_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/fine_elytra_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/flypad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/gold_core",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/husk_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/infused_potion_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/iron_core",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/layered_raw_enderite",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/levitating_gravel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/levitating_sand",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_apple",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_backpack",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_blast_furnace",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_building_wand",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_bundle",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_carrot",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_chest",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_chisel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_chunk_loader",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_core",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_elytra_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_flypad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_furnace",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_hopper",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_launchpad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_nugget",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_piston",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_quiver",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_shulker_box",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_sledgehammer",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_smoker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/netherite_spatula",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihil_end_stone",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihil_purpur_block",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_block",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_brick_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_brick_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_brick_wall",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_bricks",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_lamp",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_ore",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_pillar",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_powder",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_quartz_checker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_shard",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_switch",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_astralit",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_astralit_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_astralit_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_astralit_wall",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_ender_quartz",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_ender_quartz_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_ender_quartz_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_ender_quartz_wall",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_nihilith",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_nihilith_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_nihilith_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/polished_nihilith_wall",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/potion_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/raw_enderite",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_flypad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/reinforced_potion_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/shulker_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/silverfish_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/slime_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/spawn_elytra",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/spawn_teleporter_tier_2",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/spider_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/stellar_flypad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/suspended_gravel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/suspended_sand",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplefun/pig_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplefun/cow_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplefun/chicken_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplefun/sheep_head",
+      "required": false
+    }
+  ]
+}

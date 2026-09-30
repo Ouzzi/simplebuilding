@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:links/simplebuilding/copper_building_wand",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/copper_chisel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/copper_sledgehammer",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/stone_chisel",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/stone_sledgehammer",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/velocity_gauge",
+      "required": false
+    }
+  ]
+}

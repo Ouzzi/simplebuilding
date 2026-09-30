@@ -103,3 +103,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - Forge-Modules: experimentelle opt-in Forge-26.3-Adapter fuer Money, Riding, Models, Fun und Visuals; eigene Manifestziele, gleiche Testkataloge, Modulcommits ohne Push/Merge.
 
 - [x] Forge-Modules: Money/Riding/Models/Fun/Visuals experimentell opt-in portiert; finale Modulpruefung 89/89 gruen, Standardregression 1775/1775 gruen. Forge-Client-/Mehrspielerabnahme und Standardaktivierung bleiben Besitzerpunkte. Kein Push/Merge.
+
+- [ ] MONEY-LINKS (codex-money-links): additive conditional 26.3 money trades, per-module price tables, bounded server formula and persistent anti-spam budgets; no push/merge.
+
+- [x] MONEY-LINKS 26.3 on codex-money-links: 243 buy-only conditional offers, bounded formula/budgets, nine tables, EN/DE/wiki/JEI; Money 34/34, off-switch 2/2, integration 1/1, centres 10/10, Fabric client 4/4 and final check Exit 0. Owner price/pool/buy-only acceptance remains open; no push/merge.
