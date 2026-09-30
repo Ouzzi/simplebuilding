@@ -1,0 +1,98 @@
+[
+  {
+    "id": "footstep_dust",
+    "category": "movement",
+    "interval": 40,
+    "sound": "minecraft:block.sand.step",
+    "volume": 0.12,
+    "pitch": 1.0
+  },
+  {
+    "id": "cold_breath",
+    "category": "weather",
+    "interval": 40,
+    "sound": "minecraft:entity.player.breath",
+    "volume": 0.12,
+    "pitch": 1.0
+  },
+  {
+    "id": "fireflies",
+    "category": "nature",
+    "interval": 40,
+    "sound": "minecraft:block.grass.step",
+    "volume": 0.12,
+    "pitch": 1.0
+  },
+  {
+    "id": "pollen",
+    "category": "nature",
+    "interval": 40,
+    "sound": "minecraft:block.azalea_leaves.step",
+    "volume": 0.12,
+    "pitch": 1.0
+  },
+  {
+    "id": "fire_sparks",
+    "category": "environment",
+    "interval": 40,
+    "sound": "minecraft:block.fire.ambient",
+    "volume": 0.12,
+    "pitch": 1.0
+  },
+  {
+    "id": "water_ripples",
+    "category": "water",
+    "interval": 40,
+    "sound": "minecraft:entity.generic.swim",
+    "volume": 0.12,
+    "pitch": 1.0
+  },
+  {
+    "id": "water_droplets",
+    "category": "water",
+    "interval": 40,
+    "sound": "minecraft:block.pointed_dripstone.drip_water",
+    "volume": 0.12,
+    "pitch": 1.0
+  },
+  {
+    "id": "leaf_fall",
+    "category": "nature",
+    "interval": 40,
+    "sound": "minecraft:block.cherry_leaves.step",
+    "volume": 0.12,
+    "pitch": 1.0
+  },
+  {
+    "id": "enchanted_items",
+    "category": "magic",
+    "interval": 40,
+    "sound": "minecraft:block.amethyst_block.chime",
+    "volume": 0.12,
+    "pitch": 1.0
+  },
+  {
+    "id": "beacon_aura",
+    "category": "magic",
+    "interval": 40,
+    "sound": "minecraft:block.beacon.ambient",
+    "volume": 0.12,
+    "pitch": 1.0
+  },
+  {
+    "id": "damage_feedback",
+    "category": "reactive",
+    "interval": 40,
+    "sound": "minecraft:entity.player.hurt",
+    "volume": 0.22,
+    "pitch": 1.0
+  },
+  {
+    "id": "healing_feedback",
+    "category": "reactive",
+    "interval": 40,
+    "sound": "minecraft:block.amethyst_block.chime",
+    "volume": 0.22,
+    "pitch": 1.0
+  }
+]

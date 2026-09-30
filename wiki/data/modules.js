@@ -132,5 +132,25 @@ window.WIKI_MODULES = [
       "modmenu"
     ],
     "dataHash": "817359ef2a6e"
+  },
+  {
+    "id": "simplesounds",
+    "displayName": "Simple Sounds",
+    "description": "Bounded local Vanilla sound counterparts for the twelve Simple Visuals immersion effects.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplevisuals",
+      "simplebuilding",
+      "modmenu"
+    ],
+    "dataHash": "91dea4ead5ae"
   }
 ];
