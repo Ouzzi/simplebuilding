@@ -2,26 +2,21 @@ package com.simplebuilding.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.simplebuilding.items.custom.ChiselItem;
 import com.simplebuilding.util.SledgehammerUpgrades;
 import net.minecraft.world.item.ItemUseAnimation;
-import com.simplebuilding.items.custom.SledgehammerItem;
 import me.shedaniel.autoconfig.AutoConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import com.simplebuilding.config.SimplebuildingConfig;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.FirstPersonHandsAndItemsRenderer;
 import net.minecraft.client.renderer.state.level.FirstPersonHandsAndItemsRenderState;
 import net.minecraft.client.renderer.state.level.PlayerRenderState;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -42,12 +37,15 @@ public class HeldItemRendererMixin {
 
     @Shadow @Final private Minecraft minecraft;
 
+    @Unique private int hintTick = -1;
+    @Unique private BlockHitResult hintHit;
+    @Unique private boolean mainHint;
+    @Unique private boolean offHint;
     @Unique private float mainHandChiselProgress = 0.0F;
     @Unique private float offHandChiselProgress = 0.0F;
     /**
-     * Neigung des Nuggets in der Nebenhand (0..1, Besitzer 2026-09-29): kann es die Maschine unter dem
-     * Fadenkreuz mit dem Hammer in der Haupthand aufwerten, kippt es der Maschine entgegen und wippt.
-     * Ersetzt den frueheren Aktionsleisten-Hinweis. Feldname fest, der Client-Test liest ihn per Reflexion.
+     * Compatibility alias for the previous nugget hint; client tests read this field by reflection.
+     * All items now share the per-hand progress and a single mirrored tilt/bob path.
      */
     @Unique private float offHandNuggetProgress = 0.0F;
     /**
@@ -87,46 +85,20 @@ public class HeldItemRendererMixin {
         SimplebuildingConfig config = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
         boolean animationsEnabled = config.tools.enableToolAnimations && config.tools.enableChiselAnimation;
         float targetProgress = 0.0F;
-        float nuggetTarget = 0.0F;
 
-        if (animationsEnabled) {
-            HitResult hit = this.minecraft.hitResult;
-
-            if (hit instanceof BlockHitResult blockHit) {
-                // CHISEL
-                if (item.getItem() instanceof ChiselItem chiselItem) {
-                    // canChisel prüft jetzt GENAU auf Sneaking + Map + Enchantment
-                    if (chiselItem.canChisel(this.minecraft.level, blockHit.getBlockPos(), item, player)) {
-                        targetProgress = 1.0F;
-                    }
-                }
-                // SLEDGEHAMMER: neigt sich vor einer Maschine, die er mit dem Nugget in der
-                // Nebenhand jetzt aufwerten koennte, genau wie vor einem umformbaren Block
-                else if (item.getItem() instanceof SledgehammerItem sledgehammerItem) {
-                    if (hand == InteractionHand.MAIN_HAND
-                            && (SledgehammerUpgrades.showsUpgradeHint(this.minecraft.level, blockHit.getBlockPos(), player)
-                            || com.simplebuilding.util.PlacedTemplates.isHammerTarget(this.minecraft.level, blockHit.getBlockPos(), player))) {
-                        targetProgress = 1.0F;
-                    }
-                    net.minecraft.world.phys.Vec3 relativeHit = blockHit.getLocation().subtract(net.minecraft.world.phys.Vec3.atLowerCornerOf(blockHit.getBlockPos()));
-                    if (sledgehammerItem.getTransformationState(
-                            this.minecraft.level.getBlockState(blockHit.getBlockPos()),
-                            blockHit.getBlockPos(), // FIX: Position übergeben
-                            blockHit.getDirection(),
-                            relativeHit,
-                            (Player)player,
-                            item
-                    ) != null) {
-                        targetProgress = 1.0F;
-                    }
-                }
-                // NUGGET in der Nebenhand: neigt sich nur, wenn genau dieses Nugget mit diesem Hammer die
-                // Maschine aufwerten kann (falsches Nugget, zu schwacher Hammer: bleibt ruhig)
-                else if (hand == InteractionHand.OFF_HAND && SledgehammerUpgrades.isUpgradeNugget(item)
-                        && SledgehammerUpgrades.showsUpgradeHint(this.minecraft.level, blockHit.getBlockPos(), player)) {
-                    nuggetTarget = 1.0F;
-                }
+        if (animationsEnabled && this.minecraft.hitResult instanceof BlockHitResult blockHit) {
+            if (hintTick != player.tickCount || hintHit == null || !hintHit.getBlockPos().equals(blockHit.getBlockPos())
+                    || hintHit.getDirection() != blockHit.getDirection()
+                    || com.simplebuilding.util.HammerCorners.corner(hintHit.getLocation().subtract(net.minecraft.world.phys.Vec3.atLowerCornerOf(hintHit.getBlockPos())))
+                       != com.simplebuilding.util.HammerCorners.corner(blockHit.getLocation().subtract(net.minecraft.world.phys.Vec3.atLowerCornerOf(blockHit.getBlockPos())))
+                    || (hintHit.getLocation().y - hintHit.getBlockPos().getY() < 0.5)
+                       != (blockHit.getLocation().y - blockHit.getBlockPos().getY() < 0.5)) {
+                hintTick = player.tickCount;
+                hintHit = blockHit;
+                mainHint = com.simplebuilding.util.TransformTargets.canTransformTarget(this.minecraft.level, blockHit, player, InteractionHand.MAIN_HAND);
+                offHint = com.simplebuilding.util.TransformTargets.canTransformTarget(this.minecraft.level, blockHit, player, InteractionHand.OFF_HAND);
             }
+            targetProgress = (hand == InteractionHand.MAIN_HAND ? mainHint : offHint) ? 1.0F : 0.0F;
         }
 
         // Waehrend einer Aufwertung holt der Hammer aus, statt sich zu neigen.
@@ -156,7 +128,7 @@ public class HeldItemRendererMixin {
         if (hand == InteractionHand.MAIN_HAND) {
             this.mainHandChiselProgress += (targetProgress - this.mainHandChiselProgress) * smoothingSpeed;
             if (this.mainHandChiselProgress > 0.001F) {
-                this.applyChiselTransform(matrices, this.mainHandChiselProgress);
+                this.applyTransformHint(matrices, this.mainHandChiselProgress, player.tickCount + tickProgress, hand);
             }
             // Aufwertung: zwischen zwei Schlaegen wie ein Bogen ausholen, kurz vor dem Schlag nach
             // vorn sausen; den Schlag selbst zeigt der Armschwung, den der Server schickt.
@@ -172,26 +144,23 @@ public class HeldItemRendererMixin {
         } else {
             this.offHandChiselProgress += (targetProgress - this.offHandChiselProgress) * smoothingSpeed;
             if (this.offHandChiselProgress > 0.001F) {
-                this.applyChiselTransform(matrices, this.offHandChiselProgress);
+                this.applyTransformHint(matrices, this.offHandChiselProgress, player.tickCount + tickProgress, hand);
             }
-            this.offHandNuggetProgress += (nuggetTarget - this.offHandNuggetProgress) * smoothingSpeed;
-            if (this.offHandNuggetProgress > 0.001F) {
-                this.applyNuggetTilt(matrices, this.offHandNuggetProgress, player.tickCount + tickProgress);
-            }
+            this.offHandNuggetProgress = SledgehammerUpgrades.isUpgradeNugget(item) ? this.offHandChiselProgress : 0.0F; // compatibility with existing client tests
         }
     }
 
     /**
-     * Nugget der Maschine entgegenkippen (Nebenhand, also zur Bildmitte hin gespiegelt) und dabei sachte
-     * wippen - wie ein Angebot "das passt hier".
+     * The same tilt and bob for every valid transformation item, mirrored toward the center per hand.
      */
     @Unique
-    private void applyNuggetTilt(PoseStack matrices, float progress, float time) {
+    private void applyTransformHint(PoseStack matrices, float progress, float time, InteractionHand hand) {
+        float sign = hand == InteractionHand.OFF_HAND ? 1.0F : -1.0F;
         float wobble = (float) Math.sin(time * 0.35F) * 4.0F * progress;
-        matrices.translate(0.06 * progress, 0.08 * progress, -0.04 * progress);
-        matrices.rotate(Axis.YP.rotationDegrees(18.0F * progress));
+        matrices.translate(sign * 0.06 * progress, 0.08 * progress, -0.04 * progress);
+        matrices.rotate(Axis.YP.rotationDegrees(sign * 18.0F * progress));
         matrices.rotate(Axis.XP.rotationDegrees(-22.0F * progress));
-        matrices.rotate(Axis.ZP.rotationDegrees(12.0F * progress + wobble));
+        matrices.rotate(Axis.ZP.rotationDegrees(sign * (12.0F * progress + wobble)));
     }
 
     /**
@@ -228,10 +197,4 @@ public class HeldItemRendererMixin {
         matrices.rotate(Axis.XP.rotationDegrees(-30.0F * progress));
     }
 
-    @Unique
-    private void applyChiselTransform(PoseStack matrices, float progress) {
-        matrices.rotate(Axis.YP.rotationDegrees(-15.0F * progress));
-        matrices.rotate(Axis.XP.rotationDegrees(-10.0F * progress));
-        matrices.translate(0.05 * progress, 0.05 * progress, 0.05 * progress);
-    }
 }

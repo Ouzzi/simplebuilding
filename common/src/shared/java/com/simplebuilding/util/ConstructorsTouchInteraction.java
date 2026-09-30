@@ -137,6 +137,17 @@ public final class ConstructorsTouchInteraction {
         return InteractionResult.SUCCESS;
     }
 
+    /** Read-only counterpart of the stick interaction, used by the 26.3 hand hint. */
+    public static boolean canTransformTarget(Player player, Level world, InteractionHand hand, BlockHitResult hit) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (hand != InteractionHand.MAIN_HAND || !stack.is(Items.STICK)
+                || !hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH)) return false;
+        BlockPos pos = hit.getBlockPos();
+        BlockState state = world.getBlockState(pos);
+        Property<?> property = firstTurnableProperty(state, player);
+        return property != null && nextSurvivingState(world, pos, state, property, player.isShiftKeyDown()) != null;
+    }
+
     /** The first orientation property of {@code state} the stick may turn, or null. */
     private static Property<?> firstTurnableProperty(BlockState state, Player player) {
         if (isLockedStructure(state)

@@ -209,12 +209,12 @@ public class SledgehammerItem extends Item {
         return player.level().isClientSide() ? CLIENT_CHARGE_TARGETS : SERVER_CHARGE_TARGETS;
     }
 
-    private record ChargeTarget(BlockPos pos, Block block) {
+    private record ChargeTarget(BlockPos pos, Block block, BlockState initialState, BlockState cornerResult) {
     }
 
     /** Remembers the block a reshape or crush charge was started on. */
     private static void rememberTarget(Player player, BlockPos pos, BlockState state) {
-        chargeTargets(player).put(player, new ChargeTarget(pos.immutable(), state.getBlock()));
+        chargeTargets(player).put(player, new ChargeTarget(pos.immutable(), state.getBlock(), state, null));
     }
 
     /**
@@ -269,6 +269,9 @@ public class SledgehammerItem extends Item {
 
         if (transformState != null) {
             rememberTarget(player, pos, state);
+            if (isCornerMode(player, stack)) {
+                chargeTargets(player).put(player, new ChargeTarget(pos.immutable(), state.getBlock(), state, transformState));
+            }
             player.startUsingItem(context.getHand());
             return InteractionResult.CONSUME;
         }
@@ -324,7 +327,11 @@ public class SledgehammerItem extends Item {
             Vec3 relativeHit = hitResult.getLocation().subtract(Vec3.atLowerCornerOf(pos));
 
             // Transformation abrufen (FIX: pos übergeben)
-            BlockState newState = getTransformationState(state, pos, side, relativeHit, player, stack);
+            boolean cornerCharge = target.cornerResult() != null;
+            if (!state.is(Blocks.DIAMOND_BLOCK) && (cornerCharge != isCornerMode(player, stack)
+                    || (cornerCharge && state != target.initialState()))) return stack;
+            BlockState newState = cornerCharge ? target.cornerResult()
+                    : getTransformationState(state, pos, side, relativeHit, player, stack);
 
             if (state.is(net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK)) {
                 if (!world.isClientSide()) {
@@ -374,7 +381,13 @@ public class SledgehammerItem extends Item {
              }
         }
 
-        return reshapeTicks(this.getMaterial().speed(), efficiencyLevel);
+        int ticks = reshapeTicks(this.getMaterial().speed(), efficiencyLevel);
+        if (user instanceof Player player) {
+            ChargeTarget target = chargeTargets(player).get(player);
+            boolean corner = target != null ? target.cornerResult() != null : isCornerMode(player, stack);
+            if (corner) return com.simplebuilding.util.HammerCorners.ticks(ticks);
+        }
+        return ticks;
     }
 
     /**
@@ -394,10 +407,18 @@ public class SledgehammerItem extends Item {
         return ItemUseAnimation.BOW;
     }
 
+    public static boolean isCornerMode(Player player, ItemStack stack) {
+        return com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
+                && player.isShiftKeyDown() && !hasConstructorsTouch(stack, player.level());
+    }
+
     public BlockState getTransformationState(BlockState state, BlockPos pos, Direction side, Vec3 hit, Player player, ItemStack stack) {
         Block block = state.getBlock();
         Level world = player.level();
 
+        if (isCornerMode(player, stack)) {
+            return com.simplebuilding.util.HammerCorners.subtract(state, state.isCollisionShapeFullBlock(world, pos), side, hit);
+        }
         // STRIKTE TRENNUNG:
         if (player.isShiftKeyDown()) {
             // === SNEAKING = REVERSE ===

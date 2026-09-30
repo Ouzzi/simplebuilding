@@ -1191,7 +1191,7 @@
   "book.simplebuilding.guide.3.title": "Vorschlaghammer",
   "book.simplebuilding.guide.3.text": "Baut eine 3x3-Fläche des getroffenen Blocks ab, aber nur Blöcke derselben Art. Schleichend nur einen.\nEr ist etwas langsamer als eine Spitzhacke und nutzt sich schneller ab: 2 Haltbarkeit pro Block.",
   "book.simplebuilding.guide.4.title": "Umformen",
-  "book.simplebuilding.guide.4.text": "Halte mit dem Vorschlaghammer Rechtsklick auf einem Block: er wird zur Treppe, dann zur Stufe, genau an seinem Platz.\nBeispiel: eine Steinmauer wird zur Treppe, ohne einen Block abzubauen.",
+  "book.simplebuilding.guide.4.text": "Rechtsklick halten: Block, Treppe, Stufe.\n26.3: Schleichen ohne Touch trägt eine Zielecke 1,5× schneller ab: Innenecke, gerade, Außenecke, Stufe.",
   "book.simplebuilding.guide.5.title": "Diamantkiesel",
   "book.simplebuilding.guide.5.text": "Halte mit einem Hammer Rechtsklick auf einem Diamantblock: 81 Diamantkiesel.\nNeun Kiesel ergeben einen Rissigen Diamanten, das Material aller verstärkten Maschinen und Truhen.",
   "book.simplebuilding.guide.6.title": "Aufwerten",
@@ -2331,7 +2331,7 @@
   "quests.simplebuilding.stage_1.stone_chisel.title": "Steinmeißel",
   "quests.simplebuilding.stage_1.stone_chisel.description": "Bruchstein, ein Kupferklumpen und ein Stock ergeben einen Steinmeißel.",
   "quests.simplebuilding.stage_1.stone_sledgehammer.title": "Stein-Vorschlaghammer",
-  "quests.simplebuilding.stage_1.stone_sledgehammer.description": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab.",
+  "quests.simplebuilding.stage_1.stone_sledgehammer.description": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab. Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs eine Zielecke mit 1,5-fachem Tempo ab: Innenecke, gerade Treppe, Außenecke, Stufe.",
   "quests.simplebuilding.stage_1.leather_sheet.title": "Lederplatte",
   "quests.simplebuilding.stage_1.leather_sheet.description": "Neun Leder ergeben eine Lederplatte - daraus werden Rucksäcke, Bündel und Köcher geschnitten.",
   "quests.simplebuilding.stage_1.trade.hint": "Fahrende Händler verkaufen ab und zu einen Kupferkern - als einzige Händler.",
@@ -2397,5 +2397,10 @@
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.chargePerSecond": "Ladung je Sekunde Strahlen",
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.chargePerSecond.@Tooltip": "Ladung, die der Stab je angefangener Sekunde Strahlen verbraucht (voll sind 640, eine Amethystscherbe lädt 40 auf). 0 = Strahlen kostet nichts. Standard: 4.",
   "book.simplebuilding.storage.9.title": "Shulkerkisten",
-  "book.simplebuilding.storage.9.text": "Verstärkt: 36 Plätze. Netherit: 45, Stapel x2. Enderit: 54, Stapel x4.\nGesetzte Kiste: 10 Hammerschläge und 2 Stufenmaterialien zum Aufwerten. Inhalt, Name und Farbe bleiben."
+  "book.simplebuilding.storage.9.text": "Verstärkt: 36 Plätze. Netherit: 45, Stapel x2. Enderit: 54, Stapel x4.\nGesetzte Kiste: 10 Hammerschläge und 2 Stufenmaterialien zum Aufwerten. Inhalt, Name und Farbe bleiben.",
+  "tooltip.simplebuilding.sledgehammer.corner": "Schleichen: Zielecke 1,5× schneller abtragen. Berührung des Konstrukteurs: rückwärts umformen.",
+  "jei.simplebuilding.note.reshape.corner": "Schleichen: Innenecke → gerade Treppe → Außenecke → Stufe; ein Zieleckenviertel pro Schlag, 1,5× schneller (ohne Berührung des Konstrukteurs).",
+  "jei.simplebuilding.note.trim_template.legacy": "Abgelegte Vorlage schlagen; Rahmen funktionieren nur als Legacy-Fallback ohne andere Weltumwandlung.",
+  "simplebuilding.testcentre.inworld.reshape.corner": "Schleichen = Ecke",
+  "simplebuilding.testcentre.inworld.trim.legacy": "Rahmen: nur Legacy"
 }

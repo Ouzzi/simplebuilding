@@ -72,3 +72,16 @@ im Haupt-Repo und wurden nicht angefasst. Redundante Wiki-Sicherungen liegen als
 - Kerne nicht stapelbar; Enderman-/Lohenkopf nutzen die echten Vanilla-Texturen.
 - Placed-Bundle/Oktant/Detector nutzen den Block `placed_smithing_template`.
 - Zuletzt gepushter grüner Stand: siehe `git log origin/master`; danach nur, was im Commit „Handoff“ steht.
+
+## Codex MM – 26.3-Transformationen (2026-09-30, Branch codex-mm)
+- Eckenschlag: Schleichen ohne Constructor’s Touch, ein Zieleckenviertel, 1,5-faches Tempo (auf volle Ticks aufgerundet). Constructor’s Touch behält die Rückwärtsumformung. Diagonale Zwei-Viertel-Reste werden verweigert; fehlende Ecken/Sockel nicht getroffen.
+- Gemeinsames `TransformTargets.canTransformTarget`: beide Hände, Hammer/Material, Meißel, Schere/Wolle, Oktantwäsche, Kerne, Rotator, Kupferplatten, Wachs/Schilder und Vanillas 26.3-BlockTransformer (Äxte, Hacken, Schaufeln; datengetrieben). Echoscherben sind derzeit Werkbank-/Schmiederezepte und erhalten keinen Blockhinweis.
+- Eine gespiegelte Neige-/Wippanimation im 26.3-Handrenderer, pro Tick/Ziel zwischengespeichert. **26.2-HeldItemRenderer und Vanilla-Transformationsabfrage müssen im eigenen Port-Run nach Abnahme portiert werden.**
+- Rahmenroute: für ablegbare Vorlagen auf 26.3 gesperrt; Inhalte alter Rahmen bleiben unverändert, nicht ablegbare Fremdvorlagen behalten den Legacy-Fallback.
+- Gemeinsamer Code bleibt über `McVersion.TRANSFORM_HINTS_AND_CORNERS` auf 26.2 im alten Verhalten; mc1_21_11 unverändert.
+
+- Verifikation: kompletter 26.3-Serverlauf **1552/1552, alles gruen**, Run `2026-09-30T01-01-13Z-9eda`. Testzentrale in beiden separaten GameTest-Welten vollständig neu gebaut; Item-/Blockabdeckung grün. Alte Haltbarkeitserwartung für den unverzauberten Schleichhammer an die neue Eckenumformung angepasst und zunächst **2/2** gezielt nachgetestet (`2026-09-30T01-00-10Z-290b`).
+- Wiki: 26.3 erzeugt und `--check` grün; standardmäßige 26.2-Wiki-Ausgabe anschließend neu erzeugt. 26.3-InWorld-Export jetzt separat unter `mc26_3/generated/wiki/inworld.json`, damit die Legacy- und Eckenfakten je Linie stimmen. Bücherprüfung 0 Probleme, Questgenerator aktuell, keine doppelten Lang-Schlüssel.
+- Ecktreppen speichern ihre Form über `simplebuilding_carved`; Nachbarupdates, Blockstate-Serialisierung und Survival-Blaupausen erhalten die Geometrie. Ladung bindet die Zielecke beim Beginn und verweigert geänderten Blockzustand oder gewechselten Modus.
+- Visuelle Clienttests und Besitzerwelt nicht geprüft/angefasst: Bestätigung geschlossener Besitzerclients war noch ausstehend. Keine neue Pixelkunst. Kein Push/Merge, Port-Run weiter separat nach Abnahme.
+- Abschließendes `gradlew.bat --no-daemon check -q` **grün (Exit 0)**, Ausgabe gelesen. 26.2/shared kompiliert; Ressourcen-Gate behandelt die ausdrücklich nicht verpackten Wiki-Metadaten wie der Ressourcen-Merger.

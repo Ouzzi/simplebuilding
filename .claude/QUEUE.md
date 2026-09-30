@@ -218,3 +218,6 @@ Verlauf im Detail: git log.
 - [ ] Kerne: Netherstern nur ab Diamant, Netherit-/Enderit-Baustab aus Kern, goldener Baustab mehr Haltbarkeit - nicht gewaehlt, spaeter neu besprechen
 - [ ] Rucksack-Sortierung (Reihenfolge vorbereitet), sobald eine Sortierfunktion kommt
 - [ ] Mehrere Mods in einem Repo (build-logic + framework/)
+
+## Codex MM (26.3, 2026-09-30)
+- [x] Gezielter Hammer-Eckenschlag, gemeinsame Transformationsanimation beider Haende, Rahmenroute nur als Legacy-Fallback (26.3, Server 1552/1552; visuelle Abnahme offen).

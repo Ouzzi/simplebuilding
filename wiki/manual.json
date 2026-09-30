@@ -380,11 +380,12 @@
           "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
           "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
           "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-          "Smithing templates: hit an item frame holding a smithing template with the hammer while a Glow Ink Sac or Glowstone Dust sits in your off hand, and you get a Glowing or an Emitting Armor Trim.",
+          "On 26.3, upgrade a placed armor trim template with the hammer and off-hand material. The item-frame route is a legacy fallback only for targets without another in-world route; existing frames keep their contents. Older lines still support the frame route.",
           "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
           "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
           "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
-          "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected."
+          "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected.",
+          "On 26.3, sneaking without Constructor's Touch removes one aimed quarter at 1.5x speed: full block → inner-corner stair (three quarters) → straight stair → outer-corner stair → slab. Aim at the upper half to retain a lower base, or the lower half to retain an upper base. Missing quarters and diagonal two-quarter remnants cannot be cut; aim at an adjacent remaining quarter. Carved shapes persist through neighbor updates. Constructor's Touch keeps sneak reverse reshaping."
         ]
       },
       "de": {
@@ -407,11 +408,12 @@
           "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
           "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
           "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-          "Schmiedevorlagen: Schlägst du mit dem Hammer auf einen Rahmen mit einer Schmiedevorlage und hast einen Leuchttintenbeutel bzw. Leuchtsteinstaub in der Nebenhand, entsteht eine Leuchtende bzw. Strahlender Rüstungsbesatz.",
+          "Auf 26.3 werden abgelegte Besatzvorlagen mit Hammer und Nebenhand-Material aufgewertet. Rahmen sind nur ein Legacy-Fallback ohne andere Weltumwandlung; vorhandene Rahmen behalten ihren Inhalt. Ältere Linien unterstützen weiterhin die Rahmenroute.",
           "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
           "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
           "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
-          "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht."
+          "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht.",
+          "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel mit 1,5-fachem Tempo ab: Vollblock → Innenecktreppe (drei Viertel) → gerade Treppe → Außenecktreppe → Stufe. Obere Hälfte treffen behält den unteren Sockel, untere Hälfte treffen den oberen. Fehlende Viertel und diagonale Zwei-Viertel-Reste können nicht geschlagen werden; ein benachbartes verbleibendes Viertel anvisieren. Abgetragene Formen bleiben bei Nachbaränderungen erhalten. Berührung des Konstrukteurs behält die Rückwärtsumformung beim Schleichen."
         ]
       }
     },
@@ -441,7 +443,7 @@
           "Water does not wash it away: a template can be placed into water (it becomes waterlogged), and flowing water runs around it. Breaking it - by hand, explosion, piston or by taking away the block it lies on - drops exactly the stored template with all its data (name, enchantments). Middle-click picks the template itself.",
           "A placed template carries the name of the template it holds (for example \"Glowing Armor Trim\", or its anvil name) wherever the game or a mod like Jade names the block.",
           "Blueprints can be placed the same way: sneak + right-click lays one flat on the floor, on a wall or under the ceiling as a thin plate showing the blueprint's current look. It keeps all its data (code, title, author) and drops itself when broken; its hitbox is the plate, and it is named like the blueprint.",
-          "Placed armor trim templates can be upgraded with the sledgehammer just like in an item frame, but it takes 3 hits instead of 1: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the third turns it into the Glowing or Emitting Armor Trim and uses up the off-hand item (not in creative). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target.",
+          "Placed armor trim templates can be upgraded with the sledgehammer with 3 hits: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the third turns it into the Glowing or Emitting Armor Trim and uses up the off-hand item (not in creative). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target.",
           "Hint: while a player holding Glow Ink Sac or Glowstone Dust (either hand) is within 6 blocks, an upgradable placed template shows a few sparks circling over it every half second and chimes quietly at most every 3 seconds.",
           "The Attractor can be placed the same way (sneak + right-click) and then pulls loose items toward itself, see the Attractor chapter.",
           "A locked Octant can be put down the same way (sneak + right-click; an unlocked one still sets Pos 2 with that click) and keeps its corners, shape and colour. Right-click the placed octant to show its selection for yourself - corners and the full figure, as at the cartography table - and right-click again to hide it. While it is shown for you, the placed octant also glows in its colour through walls, so you can find it again to switch it off. The switch is per player: others only see what they switched on themselves. It is saved with the block and also works while the mod's highlights are hidden with the toggle key."
@@ -7429,7 +7431,7 @@
           "Copper/Iron chisel adds: Bricks -> Mud Bricks (stairs and slabs as well); every wood block (the same nine wood types) -> stripped wood; Crimson and Warped Planks -> Stairs -> Slab.",
           "Gold/Diamond chisel adds: Prismarine -> Prismarine Bricks (stairs and slabs as well); Smooth Stone -> Stone (slab as well); End Stone -> End Stone Bricks; Purpur Pillar -> Purpur Block; Copper Block -> Cut Copper -> Chiseled Copper -> Copper Grate; the five dead coral blocks in a cycle; the five living coral blocks in a cycle.",
           "Netherite/Enderite chisel adds: Polished Diorite -> Diorite -> Calcite -> Dripstone Block; Obsidian -> Crying Obsidian; Crimson and Warped Stems -> stripped; each of the 16 concrete colours -> the matching concrete powder. Each tier also contains everything from the tiers below it (the maps are chained together with merge).",
-          "Sledgehammer: sneak + right-click (held down, bow-drawing animation, 4 to 40 ticks depending on material and Efficiency) undoes conversions when the enchantment is present - slab -> stairs and stairs -> full block; that costs 2 durability instead of 1. Without the enchantment the sneaking branch returns null and nothing happens (forwards, block -> stairs -> slab, works without it too).",
+          "Sledgehammer: sneak + right-click (held down, bow-drawing animation, 4 to 40 ticks depending on material and Efficiency) undoes conversions when the enchantment is present - slab -> stairs and stairs -> full block; that costs 2 durability instead of 1. On older lines, without the enchantment the sneaking branch returns null; on 26.3 it instead cuts the aimed corner (forwards, block -> stairs -> slab, works without it too).",
           "Building Wand: only with this enchantment does the \"Open Tool Settings\" key (key.simplebuilding.simple_settings, default: G) open the BuildingWandScreen (window title \"Building Wand Settings\", on-screen heading \"Configuration\") with the buttons \"Radius: n / max\" (0 up to the tier's maximum, cycling) and \"Axis: Face (Auto) -> X -> Y -> Z\", plus \"Done\". The values are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; without the enchantment the key does nothing for a Building Wand (Fabric, NeoForge and Forge all check the same way).",
           "Detector: the signal loss of every block along the line of sight is multiplied by 0.5 (TOUCH_LOSS_FACTOR), so an ore's signal gets through twice as much rock (signals: 18 common, 13 gold, 9 diamond and emerald, 5 ancient debris and End ores); the range stays the same.",
           "Attractor: pull range 8.0 instead of 4.0 blocks (each Range level adds another 2.0). On top of that, right-clicking an item frame that holds an item with the enchanted Attractor sets the magnet filter to that item (respawn anchor sound, no text on screen; ItemFrameEntityMixin).",
@@ -7463,7 +7465,7 @@
           "Meißel Kupfer/Eisen zusätzlich: Ziegel → Schlammziegel (auch Treppen und Stufen); alle Holzblöcke (dieselben neun Holzarten) → entrindetes Holz; Karmesin- und Wirrbretter → Treppe → Stufe.",
           "Meißel Gold/Diamant zusätzlich: Prismarin → Prismarinziegel (auch Treppen und Stufen); glatter Stein → Stein (auch Stufe); Endstein → Endsteinziegel; Purpursäule → Purpurblock; Kupferblock → geschnittener Kupferblock → gemeißelter Kupferblock → Kupfergitter; die fünf toten Korallenblöcke im Kreis; die fünf lebenden Korallenblöcke im Kreis.",
           "Meißel Netherit/Enderit zusätzlich: polierter Diorit → Diorit → Kalzit → Tropfsteinblock; Obsidian → weinender Obsidian; Karmesin- und Wirrstiel → entrindet; jede der 16 Betonfarben → passendes Betonpulver. Höhere Stufen enthalten immer die Reihen der niedrigeren (die Maps werden per merge verkettet).",
-          "Vorschlaghammer: Schleichen + Rechtsklick (gedrückt halten, Bogen-Animation, Dauer 4 bis 40 Ticks je nach Material und Effizienz) macht mit der Verzauberung Umwandlungen rückgängig – Stufe → Treppe und Treppe → ganzer Block; das kostet 2 Haltbarkeit statt 1. Ohne die Verzauberung liefert der Schleich-Zweig null, es passiert nichts (vorwärts Block → Treppe → Stufe geht auch ohne).",
+          "Vorschlaghammer: Schleichen + Rechtsklick (gedrückt halten, Bogen-Animation, Dauer 4 bis 40 Ticks je nach Material und Effizienz) macht mit der Verzauberung Umwandlungen rückgängig – Stufe → Treppe und Treppe → ganzer Block; das kostet 2 Haltbarkeit statt 1. Auf älteren Linien liefert der Schleich-Zweig ohne die Verzauberung null; auf 26.3 wird stattdessen die Zielecke abgetragen (vorwärts Block → Treppe → Stufe geht auch ohne).",
           "Baustab: Nur mit dieser Verzauberung öffnet die Taste „Werkzeug-Einstellungen öffnen“ (key.simplebuilding.simple_settings, Standard: G) den BuildingWandScreen (Fenstertitel „Baustab-Einstellungen“, Überschrift im Bild „Konfiguration“) mit den Knöpfen „Radius: n / max“ (0 bis zum Maximum der Stufe, zyklisch) und „Achse: Face (Auto) → X → Y → Z“ sowie „Fertig“. Die Werte werden als SettingsRadius/SettingsAxis im Stab gespeichert und per BuildingWandConfigurePayload an den Server geschickt; ohne die Verzauberung tut die Taste beim Baustab nichts (Fabric, NeoForge und Forge prüfen gleich).",
           "Detektor: Der Signalverlust jedes Blocks entlang der Sichtlinie wird mit 0.5 multipliziert (TOUCH_LOSS_FACTOR), das Signal eines Erzes durchdringt also doppelt so viel Gestein (Signale: 18 gewöhnlich, 13 Gold, 9 Diamant und Smaragd, 5 Antiker Schrott und End-Erze); die Reichweite bleibt gleich.",
           "Attraktor: Anziehungsreichweite 8.0 statt 4.0 Blöcke (jede Stufe „Reichweite“ addiert weitere 2.0). Außerdem setzt ein Rechtsklick mit dem verzauberten Attraktor auf einen Rahmen mit Item den Attraktor-Filter auf dieses Item (Ton des Seelenankers, kein Text auf dem Bildschirm; ItemFrameEntityMixin).",
@@ -10012,18 +10014,20 @@
       "sledgehammer_reshape": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-          "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+          "common/src/shared/java/com/simplebuilding/util/HammerCorners.java"
         ],
         "en": {
           "title": "Reshaping with the sledgehammer",
           "summary": "Hold right-click with a sledgehammer on a block: when the charge is full, a full block becomes its stairs and stairs become their slab. Sneaking with Constructor's Touch walks back from slab to stairs to full block. This works for every block whose stairs or slab exist under the matching id, vanilla blocks included.",
           "details": [
             "Forward (not sneaking): a block with a full collision shape turns into <id>_stairs, stairs turn into <base>_slab - if that block exists.",
-            "Backward (sneaking) needs the Constructor's Touch enchantment: a slab turns into <base>_stairs, stairs into <base>, <base>s or <base>_planks. Without the enchantment, sneaking reshapes nothing.",
+            "Backward (sneaking) needs the Constructor's Touch enchantment: a slab turns into <base>_stairs, stairs into <base>, <base>s or <base>_planks. On older lines, sneaking without the enchantment reshapes nothing.",
             "The new stairs or slab are oriented by the clicked face and the hit position.",
             "Charge time in ticks: 200 / (material speed + 5 x Efficiency level), cut off at the lower and upper limit below. The table lists every hammer without Efficiency.",
             "Every reshape costs the listed durability, a backward reshape more. Creative mode costs none.",
-            "If no matching stairs or slab exists, the hammer does not start charging."
+            "If no matching stairs or slab exists, the hammer does not start charging.",
+            "On 26.3, sneak without Constructor's Touch to cut one aimed quarter 1.5x faster: inner corner, straight stair, outer corner, slab. Only a remaining quarter in the stair's non-solid half can be cut; diagonal two-quarter remnants are refused. Constructor's Touch retains backward reshaping."
           ]
         },
         "de": {
@@ -10031,11 +10035,12 @@
           "summary": "Rechtsklick mit dem Vorschlaghammer auf einem Block halten: Ist die Ladung voll, wird ein Vollblock zu seiner Treppe und eine Treppe zu ihrer Stufe. Schleichen mit Berührung des Konstrukteurs geht zurück, von der Stufe zur Treppe zum Vollblock. Das gilt für jeden Block, dessen Treppe oder Stufe unter der passenden Id existiert, auch für Vanilla-Blöcke.",
           "details": [
             "Vorwärts (ohne Schleichen): Ein Block mit voller Kollisionsform wird zu <id>_stairs, eine Treppe zu <basis>_slab - sofern es diesen Block gibt.",
-            "Rückwärts (Schleichen) braucht die Verzauberung Berührung des Konstrukteurs: Eine Stufe wird zu <basis>_stairs, eine Treppe zu <basis>, <basis>s oder <basis>_planks. Ohne die Verzauberung formt Schleichen nichts um.",
+            "Rückwärts (Schleichen) braucht die Verzauberung Berührung des Konstrukteurs: Eine Stufe wird zu <basis>_stairs, eine Treppe zu <basis>, <basis>s oder <basis>_planks. Auf älteren Linien formt Schleichen ohne die Verzauberung nichts um.",
             "Die neue Treppe oder Stufe richtet sich nach der angeklickten Fläche und der Trefferstelle aus.",
             "Ladezeit in Ticks: 200 / (Materialtempo + 5 x Effizienzstufe), auf die untere und obere Grenze unten beschnitten. Die Tabelle nennt jeden Hammer ohne Effizienz.",
             "Jede Umformung kostet die angegebene Haltbarkeit, rückwärts mehr. Im Kreativmodus kostet sie nichts.",
-            "Gibt es keine passende Treppe oder Stufe, beginnt der Hammer gar nicht zu laden."
+            "Gibt es keine passende Treppe oder Stufe, beginnt der Hammer gar nicht zu laden.",
+            "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel 1,5× schneller ab: Innenecke, gerade Treppe, Außenecke, Stufe. Nur verbleibende Viertel in der offenen Treppenhälfte können abgetragen werden; diagonale Zwei-Viertel-Reste werden verweigert. Berührung des Konstrukteurs behält die Rückwärtsumformung."
           ]
         }
       },
@@ -10121,23 +10126,23 @@
           "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedTemplateBlock.java"
         ],
         "en": {
-          "title": "Trim template in an item frame",
-          "summary": "Put an armor trim smithing template into an item frame, hold a sledgehammer in the main hand and Glow Ink Sac or Glowstone Dust in the off hand, and hit the item frame (left-click): the template in the frame becomes a Glowing or Emitting Trim Template.",
+          "title": "Trim template transformation",
+          "summary": "On 26.3, hit a placed armor trim template three times with a main-hand sledgehammer and Glow Ink Sac or Glowstone Dust in the off hand. Item frames are a legacy fallback only when that target has no other in-world route. Older lines also allow one hit on a framed template.",
           "details": [
             "Glow Ink Sac gives the Glowing Trim Template, Glowstone Dust the Emitting Trim Template.",
             "Every item whose id contains trim_smithing_template counts as a template - all vanilla armor trim templates.",
             "One off-hand item and 1 durability of the hammer are used; nothing in creative mode.",
-            "A placed trim template (sneak + right-click with it on a block) takes 3 hits instead of 1; the third uses the off-hand item."
+            "Placed templates use three hits and three hammer durability; the third hit consumes the material. Existing item-frame contents are preserved."
           ]
         },
         "de": {
-          "title": "Besatzvorlage im Rahmen",
-          "summary": "Eine Rüstungsbesatz-Schmiedevorlage in einen Rahmen legen, Vorschlaghammer in die Haupthand, Leuchttintenbeutel oder Glowstonestaub in die Nebenhand und auf den Rahmen schlagen (Linksklick): Die Vorlage im Rahmen wird zur leuchtenden bzw. strahlenden Besatzvorlage.",
+          "title": "Besatzvorlage umwandeln",
+          "summary": "Auf 26.3 eine abgelegte Besatzvorlage dreimal mit Vorschlaghammer in der Haupthand und Leuchttinte oder Glowstonestaub in der Nebenhand schlagen. Rahmen sind nur ein Legacy-Fallback ohne andere Weltumwandlung des Ziels. Ältere Linien erlauben auch einen Schlag auf eine gerahmte Vorlage.",
           "details": [
             "Leuchttintenbeutel ergibt die leuchtende Besatzvorlage, Glowstonestaub die strahlende.",
             "Als Vorlage zählt jedes Item, dessen Id trim_smithing_template enthält - alle Rüstungsbesatz-Vorlagen aus Vanilla.",
             "Verbraucht werden ein Item aus der Nebenhand und 1 Haltbarkeit des Hammers; im Kreativmodus nichts.",
-            "Eine abgelegte Besatzvorlage (Schleichen + Rechtsklick damit auf einen Block) braucht 3 Schläge statt einem; der dritte verbraucht das Item aus der Nebenhand."
+            "Abgelegte Vorlagen brauchen drei Schläge und drei Hammerhaltbarkeit; der dritte Schlag verbraucht das Material. Bestehende Rahmeninhalte bleiben erhalten."
           ]
         }
       },

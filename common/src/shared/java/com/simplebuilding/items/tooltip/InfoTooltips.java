@@ -60,6 +60,10 @@ public final class InfoTooltips {
     public static List<Component> lines(ItemStack stack) {
         List<Component> out = new ArrayList<>();
         Item item = stack.getItem();
+        if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
+                && item instanceof com.simplebuilding.items.custom.SledgehammerItem) {
+            out.add(gray("tooltip.simplebuilding.sledgehammer.corner"));
+        }
         if (item instanceof BlockItem blockItem) {
             blockLines(blockItem.getBlock(), out);
         }

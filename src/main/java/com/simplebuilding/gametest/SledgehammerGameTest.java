@@ -90,4 +90,12 @@ public final class SledgehammerGameTest {
     public void sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock(GameTestHelper helper) {
         SledgehammerTests.sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock(helper);
     }
+    @GameTest
+    public void sledgehammerCornersSubtractOnlyTheAimedQuarter(GameTestHelper helper) {
+        SledgehammerTests.sledgehammerCornersSubtractOnlyTheAimedQuarter(helper);
+    }
+    @GameTest
+    public void sledgehammerTransformHintsCoverBothHandsWithoutSideEffects(GameTestHelper helper) {
+        SledgehammerTests.sledgehammerTransformHintsCoverBothHandsWithoutSideEffects(helper);
+    }
 }

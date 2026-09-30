@@ -442,7 +442,8 @@ public final class TestCentreSections {
         }
         c.wallFrame(x, 3, wallZ, hammer);
         c.wallSign(x, 2, wallZ, TcText.bold(TcText.t("inworld.reshape", "Reshape")),
-                TcText.t("inworld.reshape.sub", "hold right-click"), TcText.t("inworld.reshape.sub2", "sneak = back"));
+                TcText.t("inworld.reshape.sub", "hold right-click"), com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
+                        ? TcText.t("inworld.reshape.corner", "sneak = corner") : TcText.t("inworld.reshape.sub2", "sneak = back"));
         for (int i = 0; i < chains.size(); i++) {
             int tx = x + 1 + 2 * i;
             c.place(tx, 0, 1, chains.get(i).getFirst());
@@ -513,7 +514,8 @@ public final class TestCentreSections {
             }
         }
         c.wallSign(x, 3, wallZ, TcText.bold(TcText.t("inworld.trim", "Trim template")),
-                TcText.t("inworld.trim.sub", "hit frame with hammer"), TcText.t("inworld.trim.sub2", "catalyst in off hand"));
+                com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
+                        ? TcText.t("inworld.trim.legacy", "frame: legacy only") : TcText.t("inworld.trim.sub", "hit frame with hammer"), TcText.t("inworld.trim.sub2", "catalyst in off hand"));
         x++;
         for (Map.Entry<Item, Item> upgrade : SledgehammerEntityInteraction.trimUpgrades().entrySet()) {
             if (template != null) {

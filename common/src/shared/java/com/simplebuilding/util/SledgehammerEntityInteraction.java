@@ -52,7 +52,7 @@ public final class SledgehammerEntityInteraction {
         Item result = trimUpgrades().get(offStack.getItem());
 
         if (result == null || !(mainStack.getItem() instanceof SledgehammerItem)
-                || !(entity instanceof ItemFrame itemFrame) || !isTrimTemplate(itemFrame.getItem().getItem())) {
+                || !(entity instanceof ItemFrame itemFrame) || !isLegacyFrameTarget(itemFrame.getItem().getItem())) {
             return InteractionResult.PASS;
         }
 
@@ -74,6 +74,12 @@ public final class SledgehammerEntityInteraction {
                 itemFrame.getX(), itemFrame.getY(), itemFrame.getZ(), 0.0, 0.1, 0.0);
 
         return InteractionResult.SUCCESS;
+    }
+
+    /** Placed vanilla templates already have an in-world route; retain only unsupported legacy items. */
+    public static boolean isLegacyFrameTarget(Item item) {
+        return isTrimTemplate(item) && (!com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
+                || !PlacedTemplates.isPlaceableTemplate(new ItemStack(item)));
     }
 
     /**

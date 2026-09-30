@@ -443,14 +443,16 @@ public final class ConsumptionAndDurabilityTests {
         helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
         helper.assertValueEqual(hammer.getDamageValue(), 1, "wear for one forward transformation");
 
-        // --- sneaking without Constructor's Touch: no transformation, and nothing charged ---
+        // 26.3 cuts one corner; older lines refuse the plain sneaking hammer.
         survival.setShiftKeyDown(true);
         chargeAndFinish(hammer, level, survival);
 
         helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
-        helper.assertValueEqual(hammer.getDamageValue(), 1,
-                "a plain hammer either reversed the block or charged for trying; the reverse "
-                        + "direction is supposed to need Constructor's Touch");
+        boolean cornerHit = com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS;
+        helper.assertValueEqual(hammer.getDamageValue(), cornerHit ? 2 : 1,
+                "plain sneak action charged the wrong durability");
+        if (cornerHit) helper.assertValueEqual(Integer.bitCount(com.simplebuilding.util.HammerCorners.mask(
+                level.getBlockState(helper.absolutePos(target)))), 1, "plain sneak action did not cut exactly one stair quarter");
 
         // --- reverse with Constructor's Touch costs two ---
         ItemStack touchHammer = enchantedStack(helper, ModItems.DIAMOND_SLEDGEHAMMER,
@@ -517,7 +519,7 @@ public final class ConsumptionAndDurabilityTests {
         helper.assertValueEqual(pebbleStackSizes(helper), List.of(64, 17),
                 "the 81 pebbles did not come out as one full stack plus a rest; the batching in "
                         + "crushDiamondBlock is what keeps them within a stack size");
-        helper.assertValueEqual(hammer.getDamageValue(), 2, "wear after also crushing a diamond block");
+        helper.assertValueEqual(hammer.getDamageValue(), cornerHit ? 3 : 2, "wear after also crushing a diamond block");
 
         helper.killAllEntitiesOfClass(ItemEntity.class);
 

@@ -232,9 +232,12 @@ public final class InWorldRecipeCatalog {
             maxTicks = Math.max(maxTicks, ticks);
         }
         Component charge = Component.translatable("jei.simplebuilding.note.reshape.charge", minTicks, maxTicks);
-        List<Component> forwardNotes = List.of(
-                Component.translatable("jei.simplebuilding.note.reshape.forward"), charge,
-                Component.translatable("jei.simplebuilding.note.damage", reshape.get("damage").getAsInt()));
+        List<Component> forwardNotes = new ArrayList<>();
+        forwardNotes.add(Component.translatable("jei.simplebuilding.note.reshape.forward"));
+        if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS)
+            forwardNotes.add(Component.translatable("jei.simplebuilding.note.reshape.corner"));
+        forwardNotes.add(charge);
+        forwardNotes.add(Component.translatable("jei.simplebuilding.note.damage", reshape.get("damage").getAsInt()));
         List<Component> reverseNotes = List.of(
                 Component.translatable("jei.simplebuilding.note.reshape.reverse"),
                 touchNote(), charge,
@@ -390,7 +393,8 @@ public final class InWorldRecipeCatalog {
             return;
         }
         List<Component> notes = List.of(
-                Component.translatable("jei.simplebuilding.note.trim_template.how"),
+                Component.translatable(com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
+                        ? "jei.simplebuilding.note.trim_template.legacy" : "jei.simplebuilding.note.trim_template.how"),
                 Component.translatable("jei.simplebuilding.note.trim_template.placed",
                         trim.has("placedHits") ? trim.get("placedHits").getAsInt() : 1),
                 Component.translatable("jei.simplebuilding.note.damage", trim.get("damage").getAsInt()));
