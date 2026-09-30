@@ -95,8 +95,8 @@ Die detaillierten früheren Laufberichte bleiben in der Git-Historie dieser Date
 - Simple Money: Besitzer-Abnahme, NeoForge-Client, alte Welt. Zukünftige Modulports und
   Forge-Integrationsruntime bleiben separat. Offene Wunschentscheidungen in der Queue.
 - Ein-Klick-Echolot ist ein abweichender Wunsch, kein belegtes Verhalten auf master.
-- Rezeptfilter des Strahlschalters erkennt noch laser_pointer statt amethyst_lens;
-  Benutzung wird abgeschaltet, das Rezept bleibt. Separater Gameplay-Fix, hier nur dokumentiert.
+- Rezeptfilter des Strahlschalters erkennt jetzt amethyst_lens und die Legacy-ID laser_pointer;
+  SB-HARDEN hat die Abschaltung samt Regressionstest korrigiert (siehe docs/SB-HARDEN.md).
 - Erst nach Besitzer-Abnahme Port-Run 26.2/1.21.11/26.4; mc1_21_11 unverändert lassen.
 
 ## Prüfbelege
@@ -252,3 +252,11 @@ letzten Text-/Wiki-Korrektur ebenfalls GRADLE_EXIT=0 (Log lokal scratchpad/facts
 - Offene Besitzerentscheidungen: Claims freigeben? Separater SB-Sicherheitsrun fuer Booststaerke/absolute Velocity/Rate und XP-/Launch-/Kill-/Spawn-Radiuscaps; Bestand hat hier weiterhin keine ausreichenden Obergrenzen. Alte Library-Compasse bleiben ladbare Vanilla-Compasse mit Daten, ohne Library-Teleport; automatische Echo-Sounder-Migration separat entscheiden.
 - Nicht verifiziert: NeoForge-Client, echte hochgestufte Quell-/Besitzerwelt, deutsche Screenshots, interaktives JEI/Jade, subjektive Sounds. Forge26.3 braucht Registrywrapper-/Aliasadapter, Loader-/Test-/Clientwiring; kein Forge-Release im Manifest.26.2/1.21.11/26.4 erst separater Release-Port nach Abnahme; Quellen dort unveraendert.
 - Abschliessendes gradlew.bat check -q --no-daemon: GRADLE_EXIT=0, Ausgabe gelesen, shared26.2 kompiliert und alle Standardgates gruen. Keine Release-Freigabe fuer die oben dokumentierten SB-Cap-Luecken.
+
+## SB-HARDEN (2026-09-30, Codex, codex-sb-harden)
+- Bestehende SimpleBuilding-Luecken aus dem Tweaks-Audit geschlossen; kein Modul-Duplikat. Alle 13 betroffenen Optionen mit benannten Obergrenzen, finite Pruefung, Warnung und reinem In-Memory-Clamping beim Laden. Defaults/Namen/Reiter unveraendert; Bereiche in EN/DE beider Ressourcenorte und generierter Wiki-Tabelle. Werte/Begruendungen: docs/SB-HARDEN.md.
+- Boost: Staerke maximal 1,2; gesamte Velocity maximal 3 Bloecke/Tick; drei Boosts je 100 Server-Ticks, Budget unabhaengig von Spawn-/Pad-Refill und Ausruestung. Gleitflug/Ladung/Ausruestung weiterhin serverseitig geprueft. XP/Launch/Kill/Spawn/Zeiten/Cooldown/Laser auch an Runtime-Lesern begrenzt. Rezeptfilter erkennt amethyst_lens samt Legacy-ID.
+- 19 neue Serverfaelle je Loader: jede Option mit Extremwert und NaN/Infinity-Verweigerung/Fallback, alle Defaults, echte Handler-Spam-/Refill-/Fenstergegenproben, falscher Zustand/Ausruestung/Ladung, riesige/nicht endliche Staerke, echte Configbefehle, XP/Launch-Runtime und Rezeptregression. Bestehender Default-Katalog um die neuen statischen Konstanten erweitert, keine Default-Erwartung geaendert. Balancing-Extractor liest alle Caps; 12 Extractor-Tests gruen.
+- Voller Hauptlinienlauf **1600/1600, alles gruen**, Fabric/NeoForge je 800, Run `2026-09-30T17-23-20Z-45d2`; Integration **1/1, alles gruen**, Run `2026-09-30T17-25-45Z-47ff`. Testzentralen samt Item-/Blockabdeckung in beiden isolierten GameTest-Welten gruen. Fruehere rote Laeufe durch Float-Testvergleich/Namensformat und fehlende statische Katalogeintraege korrigiert.
+- Abschliessendes `gradlew.bat check -q`: **GRADLE_EXIT=0**, Ausgabe gelesen (scratchpad/harden-complete-gate.log), einschliesslich shared/26.2-Kompilierung und aller Standardgates. Wiki --all/--all --check Exit 0; vier Sprachdateien ohne doppelte Schluessel, Tweaks-Texte beider Orte identisch. Keine neue Pixelkunst, keine mc1_21_11-/mc26_4-Quellaenderung, kein Push/Merge.
+- Nicht verifiziert: Minecraft-Clients/gerenderte Config, subjektives Boost-/Pad-Balancing, Besitzerwelt/Testzentralenbau dort, echte Mehrspieler-/Modpack-Langzeitlast, Forge und andere MC-Laufzeitlinien. Besitzer sollte die festen Bewegungsgrenzen im Spiel abnehmen; kein weiterer Implementierungsentscheid noetig.
