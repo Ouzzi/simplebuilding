@@ -148,7 +148,8 @@ public final class DimensionRuntime {
   boolean terrain="noise".equals(cfg.worldGeneration.generatorType)||!cfg.worldGeneration.flatLayers.isEmpty();
   if(terrain){
    int highest=target.getMinY();
-   for(var p:plan.keySet())highest=Math.max(highest,target.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING,p.getX(),p.getZ()));
+   // Include nonblocking vegetation: every planned block must remain strictly above all existing blocks.
+   for(var p:plan.keySet())highest=Math.max(highest,target.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE,p.getX(),p.getZ()));
    int depth=plan.keySet().stream().mapToInt(p->p.getY()).max().orElseThrow()-plan.keySet().stream().mapToInt(p->p.getY()).min().orElseThrow()+1;
    if(highest+depth>center.getY()){center=center.atY(highest+depth);plan=DestinationPlatform.plan(center,width+4);}
   }

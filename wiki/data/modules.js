@@ -209,6 +209,6 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "301a2bd21e26"
+    "dataHash": "4ebc80683c65"
   }
 ];

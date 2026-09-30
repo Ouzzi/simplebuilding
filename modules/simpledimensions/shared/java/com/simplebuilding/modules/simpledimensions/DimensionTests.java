@@ -139,8 +139,22 @@ public final class DimensionTests {
  private static void presetTrip(GameTestHelper h,DimensionPortalConfig cfg,int tick){h.runAfterDelay(tick,()->{
   var cell=build(h,cfg,0,Direction.Axis.X);var p=player(h,cell,Items.FLINT_AND_STEEL);yes(h,ignite(p,cell)==InteractionResult.SUCCESS,"Source preset activates "+cfg.id);
   var anchor=((SkyPortalBlockEntity)h.getLevel().getBlockEntity(cell)).anchor;var rt=DimensionRuntime.get(h.getLevel().getServer());
+  BlockPos vegetation=null;
+  ServerLevel mining=null;
+  if(cfg.id.equals("mining")){
+   mining=h.getLevel().getServer().getLevel(ResourceKey.create(Registries.DIMENSION,Identifier.parse(cfg.targetDimensionId)));
+   var mapped=DimensionRuntime.pos(PortalTravelRules.toTarget(new BlockPos3i(anchor.getX(),anchor.getY(),anchor.getZ()),cfg.travelCoordinateScale));
+   int highest=mining.getMinY();
+   for(int dx=-4;dx<=3;dx++)for(int dz=-4;dz<=3;dz++){var column=mapped.offset(dx,0,dz);mining.getChunk(column.getX()>>4,column.getZ()>>4);highest=Math.max(highest,mining.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE,column.getX(),column.getZ()));}
+   // Reproduce a nonblocking plant above the solid surface, independent of the world seed.
+   var soil=mapped.atY(highest+8);
+   mining.setBlock(soil,Blocks.DIRT.defaultBlockState(),3);vegetation=soil.above();
+   mining.setBlock(vegetation,Blocks.SHORT_GRASS.defaultBlockState(),3);
+   yes(h,mining.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING,mapped.getX(),mapped.getZ())==vegetation.getY(),"Motion height excludes arrival vegetation");
+  }
   yes(h,rt.travel(p,cell),"Real "+cfg.id+" outbound");yes(h,p.level().dimension().identifier().toString().equals(cfg.targetDimensionId),"Correct registry destination");
   yes(h,p.blockPosition().getX()==(int)Math.floor(anchor.getX()/cfg.travelCoordinateScale)&&p.blockPosition().getZ()==(int)Math.floor(anchor.getZ()/cfg.travelCoordinateScale),"Real coordinate ratio");
+  if(vegetation!=null){yes(h,mining.getBlockState(vegetation).is(Blocks.SHORT_GRASS),"Arrival preserves vegetation");yes(h,DimensionRuntime.safe(mining,p.blockPosition()),"Mining landing is safe above vegetation");}
   var exit=p.blockPosition();yes(h,rt.travel(p,exit)&&p.level()==h.getLevel(),"Exact return from "+cfg.id);h.succeed();
  });}
  public static void miningTravel(GameTestHelper h){presetTrip(h,DimensionPortalConfig.miningDimensionPreset(),100);}
