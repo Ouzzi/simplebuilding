@@ -105,3 +105,6 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Forge-Modules: Money/Riding/Models/Fun/Visuals experimentell opt-in portiert; finale Modulpruefung 89/89 gruen, Standardregression 1775/1775 gruen. Forge-Client-/Mehrspielerabnahme und Standardaktivierung bleiben Besitzerpunkte. Kein Push/Merge.
 
 - [x] TASK SB-HARDEN: bestehende SimpleBuilding-Caps, Boost-Paketbudget/Velocity, Rezeptfilter und echte 26.3-Servergegenproben; 1600/1600 Hauptlinien-Tests und Integration 1/1 alles gruen, kein Push/Merge.
+
+- [ ] RIDING-FOLLOWUP: Nautilus/Enderit-Ruestung, serverseitige Gesamtgrenzen und Paketvalidierung, vollstaendige Modul-/Integrations-/26.3-Pruefung (codex-riding-followup).
+- [x] RIDING-FOLLOWUP verification complete: Nautilus/Enderite armor, 18 bounded server options, packet/ground/dash bounds; 1562/1562 full + 53/53 module/integration + 3/3 Fabric client, alles gruen; final check GRADLE_EXIT=0. See HANDOFF and docs/modules/simpleriding.md. Owner acceptance/NeoForge client remain open; no push/merge.

@@ -37,15 +37,21 @@ def check():
     assert en.keys() == de.keys(), 'language completeness'
     assert all(isinstance(v, str) and v for language in (en, de) for v in language.values())
     options = read(ROOT / 'balance/simpleriding/options.json')['options']
-    assert len(options) == 6 and len({o['path'] for o in options}) == 6
+    assert len(options) == 18 and len({o['path'] for o in options}) == 18
+    catalogue = (MODULE / 'shared/java/com/simpleriding/RidingOptions.java').read_text()
+    screen = (MODULE / 'shared/java/com/simpleriding/client/RidingConfigScreen.java').read_text()
+    assert 'for(var option:RidingOptions.ALL)' in screen
     for option in options:
+        assert f'new Option("{option["path"]}"' in catalogue, 'GUI catalogue covers producer metadata'
+        if option['maximum'] is not None:
+            assert option.get('minimum', 0) <= option['default'] <= option['maximum']
         for language in (en, de):
             assert option['nameKey'] in language and option['tooltipKey'] in language
             assert str(option['default']).lower() in language[option['tooltipKey']]
             assert 'text.autoconfig.simpleriding.option.' + option['tab'] in language
     manual = read(MODULE / 'wiki/manual.json')['features']
     assert len({f['id'] for f in manual}) == len(manual)
-    assert len(manual) == 13 and any(f['id'] == 'forge_263' for f in manual), 'gameplay, config and Forge support chapters'
+    assert len(manual) == 8 + len(options) and any(f['id'] == 'forge_263' for f in manual), 'all gameplay/registry/security chapters, config options and the Forge support chapter'
     for feature in manual:
         for language in ('en', 'de'):
             assert feature[language]['title'] and feature[language]['summary'] and feature[language]['details']
@@ -64,6 +70,10 @@ def check():
         assert not tag.get('replace') and {'id': trade_id, 'required': False} in tag['values']
     armor = read(resources / 'simpleriding/tags/item/horse_armor_enchantable.json')
     assert {'id': 'simplebuilding:enderite_horse_armor', 'required': False} in armor['values']
+    nautilus = read(resources / 'simpleriding/tags/item/nautilus_armor_enchantable.json')
+    assert {'id': 'simplebuilding:enderite_nautilus_armor', 'required': False} in nautilus['values']
+    assert len(nautilus['values']) == 6
+    assert read(resources / 'simpleriding/enchantment/leaping.json')['supported_items'] == '#simpleriding:mount_armor_enchantable'
     assert not list((MODULE / 'shared/resources/assets/simpleriding').glob('items/*.json')), 'no invented item models'
     print('Simple Riding: manifest, bilingual wiki/config, legacy IDs, and 26.3 trade data valid')
 

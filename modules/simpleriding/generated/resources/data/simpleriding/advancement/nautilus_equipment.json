@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:diamond_nautilus_armor"
+    },
+    "title": {
+      "translate": "advancement.simpleriding.nautilus.title"
+    },
+    "description": {
+      "translate": "advancement.simpleriding.nautilus.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "armor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#simpleriding:nautilus_armor_enchantable"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "armor"
+    ]
+  ]
+}

@@ -62,7 +62,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleriding",
     "displayName": "Simple Riding",
-    "description": "Saddle speed and horse jump enchantments, mount armor utilities, loot, and trades.",
+    "description": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and trades.",
     "version": "1.0.5",
     "minecraft": "26.3",
     "loaders": [
@@ -76,7 +76,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "3257b2f5b5b5"
+    "dataHash": "a4c683270a07"
   },
   {
     "id": "simplemodels",

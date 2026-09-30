@@ -14,5 +14,17 @@ public final class RidingGameTest {
  @GameTest(maxTicks=100) public void trades(GameTestHelper h){com.simpleriding.test.RidingTests.trades(h);}
  @GameTest(maxTicks=100) public void lootAndToggle(GameTestHelper h){com.simpleriding.test.RidingTests.lootAndToggle(h);}
  @GameTest(maxTicks=100) public void configAndLang(GameTestHelper h){com.simpleriding.test.RidingTests.configAndLang(h);}
- @GameTest(maxTicks=100) public void crossModStorageAndArmor(GameTestHelper h){com.simpleriding.test.RidingTests.crossModStorageAndArmor(h);}
+ @GameTest(maxTicks=100) public void crossModStorageAndArmor(GameTestHelper h){com.simpleriding.test.RidingTests.crossModStorageAndArmor(h);} @GameTest(maxTicks=100) public void nautilusSpeedAndArmor(GameTestHelper h){com.simpleriding.test.RidingTests.nautilusSpeedAndArmor(h);}
+ @GameTest(maxTicks=100) public void nautilusDash(GameTestHelper h){com.simpleriding.test.RidingTests.nautilusDash(h);}
+ @GameTest(maxTicks=100) public void attributeCaps(GameTestHelper h){com.simpleriding.test.RidingTests.attributeCaps(h);}
+ @GameTest(maxTicks=100) public void featureSwitches(GameTestHelper h){com.simpleriding.test.RidingTests.featureSwitches(h);}
+ @GameTest(maxTicks=100) public void allConfigBounds(GameTestHelper h){com.simpleriding.test.RidingTests.allConfigBounds(h);}
+ @GameTest(maxTicks=100) public void movementPackets(GameTestHelper h){com.simpleriding.test.RidingTests.movementPackets(h);}
+ @GameTest(maxTicks=100) public void jumpPackets(GameTestHelper h){com.simpleriding.test.RidingTests.jumpPackets(h);}
+ @GameTest(maxTicks=100) public void movementBudget(GameTestHelper h){com.simpleriding.test.RidingTests.movementBudget(h);}
+ @GameTest(maxTicks=100) public void weightedDataBounds(GameTestHelper h){com.simpleriding.test.RidingTests.weightedDataBounds(h);}
+ @GameTest(maxTicks=100) public void steeringAndBorder(GameTestHelper h){com.simpleriding.test.RidingTests.steeringAndBorder(h);}
+ @GameTest(maxTicks=100) public void allMountSpeedCaps(GameTestHelper h){com.simpleriding.test.RidingTests.allMountSpeedCaps(h);}
+ @GameTest(maxTicks=100) public void camelDashBounds(GameTestHelper h){com.simpleriding.test.RidingTests.camelDashBounds(h);}
+ @GameTest(maxTicks=100) public void groundFlags(GameTestHelper h){com.simpleriding.test.RidingTests.groundFlags(h);}
 }

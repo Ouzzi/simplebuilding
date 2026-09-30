@@ -30,9 +30,63 @@ public final class RidingClientGameTest implements FabricClientGameTest {
     for(String id:new String[]{"tailwind","leaping"})if(client.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getValue(Identifier.fromNamespaceAndPath("simpleriding",id))==null)throw new AssertionError("Enchantment reaches client");
     if(BuiltInRegistries.CREATIVE_MODE_TAB.getValue(Identifier.fromNamespaceAndPath("simpleriding","riding_items"))==null)throw new AssertionError("Creative tab reaches client");
    });
+   world.getServer().runOnServer(server->{
+    var player=server.getPlayerList().getPlayers().getFirst();var level=player.level();
+    var mount=net.minecraft.world.entity.EntityTypes.NAUTILUS.create(level,net.minecraft.world.entity.EntitySpawnReason.COMMAND);
+    mount.snapTo(player.getX()+2,player.getY(),player.getZ(),0,0);mount.tame(player);
+    var lookup=level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+    var saddle=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SADDLE);
+    saddle.enchant(lookup.getOrThrow(net.minecraft.resources.ResourceKey.create(Registries.ENCHANTMENT,Identifier.parse("simpleriding:tailwind"))),3);
+    var armor=new net.minecraft.world.item.ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_nautilus_armor")));
+    armor.enchant(lookup.getOrThrow(net.minecraft.resources.ResourceKey.create(Registries.ENCHANTMENT,Identifier.parse("simpleriding:leaping"))),3);
+    mount.setItemSlot(net.minecraft.world.entity.EquipmentSlot.SADDLE,saddle);mount.setItemSlot(net.minecraft.world.entity.EquipmentSlot.BODY,armor);
+    level.addFreshEntity(mount);player.startRiding(mount,true,true);
+   });
+   context.waitTicks(10);world.getConnection().waitForClientboundPackets();
+   context.runOnClient(client->{
+    if(!(client.player.getVehicle() instanceof net.minecraft.world.entity.animal.nautilus.AbstractNautilus mount))throw new AssertionError("Nautilus riding reaches client");
+    var bonus=mount.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED).getModifier(Identifier.parse("simpleriding:tailwind_boost"));
+    if(bonus==null||Math.abs(bonus.amount()-.6)>1e-5)throw new AssertionError("Server Tailwind attribute reaches client");
+    client.getConnection().send(new net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket(client.player,net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket.Action.START_RIDING_JUMP,Integer.MAX_VALUE));
+   });
+   context.waitTicks(2);
+   world.getServer().runOnServer(server->{var mount=(net.minecraft.world.entity.animal.nautilus.AbstractNautilus)server.getPlayerList().getPlayers().getFirst().getVehicle();if(mount.getJumpCooldown()!=0)throw new AssertionError("Server refuses forged client dash charge");});
+   context.runOnClient(client->client.getConnection().send(new net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket(client.player,net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket.Action.START_RIDING_JUMP,100)));
+   context.waitTicks(2);
+   world.getServer().runOnServer(server->{var player=server.getPlayerList().getPlayers().getFirst();var mount=(net.minecraft.world.entity.animal.nautilus.AbstractNautilus)player.getVehicle();if(mount.getJumpCooldown()<=0)throw new AssertionError("Server executes valid client dash");player.stopRiding();mount.discard();});
+   double[] ghastStart=new double[2];
+   world.getServer().runOnServer(server->{
+    var player=server.getPlayerList().getPlayers().getFirst();var mount=net.minecraft.world.entity.EntityTypes.HAPPY_GHAST.create(player.level(),net.minecraft.world.entity.EntitySpawnReason.COMMAND);
+    mount.snapTo(player.getX(),player.getY()+6,player.getZ(),0,0);
+    var harness=new net.minecraft.world.item.ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("white_harness")));
+    harness.enchant(player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(net.minecraft.resources.ResourceKey.create(Registries.ENCHANTMENT,Identifier.parse("simpleriding:tailwind"))),3);
+    mount.setItemSlot(net.minecraft.world.entity.EquipmentSlot.BODY,harness);player.level().addFreshEntity(mount);player.startRiding(mount,true,true);
+    ghastStart[0]=mount.getX();ghastStart[1]=mount.getZ();
+   });
+   context.waitTicks(10);world.getConnection().waitForClientboundPackets();
+   context.runOnClient(client->client.options.keyUp.setDown(true));
+   context.waitTicks(60);
+   context.runOnClient(client->{
+    client.options.keyUp.setDown(false);var mount=(net.minecraft.world.entity.animal.happyghast.HappyGhast)client.player.getVehicle();
+    double velocity=mount.getDeltaMovement().length();if(velocity<.4||velocity>1)throw new AssertionError("Happy Ghast flight remains useful and physically capped: "+velocity);
+   });
+   context.runOnClient(client->{client.player.setXRot(-60);client.options.keyUp.setDown(true);client.options.keyLeft.setDown(true);client.options.keyJump.setDown(true);});
+   context.waitTicks(40);
+   context.runOnClient(client->{
+    client.options.keyUp.setDown(false);client.options.keyLeft.setDown(false);client.options.keyJump.setDown(false);
+    double velocity=client.player.getVehicle().getDeltaMovement().length();if(velocity<.4||velocity>1.4)throw new AssertionError("Combined Ghast steering/ascending remains bounded: "+velocity);
+   });
+   world.getServer().runOnServer(server->{
+    var player=server.getPlayerList().getPlayers().getFirst();var mount=player.getVehicle();
+    double travel=Math.hypot(mount.getX()-ghastStart[0],mount.getZ()-ghastStart[1]);if(travel<5||travel>70)throw new AssertionError("Server accepts bounded Ghast flight: "+travel);
+    player.stopRiding();mount.discard();
+   });
    context.takeScreenshot("riding-world");
    context.runOnClient(client->{try{
-    var cls=Class.forName("com.simpleriding.client.RidingConfigScreen");client.setScreenAndShow((Screen)cls.getMethod("create",Screen.class).invoke(null,client.gui.screen()));
+    var cls=Class.forName("com.simpleriding.client.RidingConfigScreen");var screen=(Screen)cls.getMethod("create",Screen.class).invoke(null,client.gui.screen());
+    var categories=(java.util.Map<?,?>)screen.getClass().getMethod("getCategorizedEntries").invoke(screen);
+    if(categories.size()!=3||categories.values().stream().mapToInt(v->((java.util.List<?>)v).size()).sum()!=18)throw new AssertionError("All server options appear in three config tabs");
+    client.setScreenAndShow(screen);
    }catch(Exception e){throw new AssertionError("Module config screen opens",e);}});
    context.waitTicks(5);
    context.takeScreenshot("riding-config");

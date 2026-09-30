@@ -175,7 +175,7 @@
         "forge": ":modules:simpleriding:forge"
       },
       "displayName": "Simple Riding",
-      "description": "Saddle speed and horse jump enchantments, mount armor utilities, loot, and trades.",
+      "description": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot, and trades.",
       "loaders": [
         "fabric",
         "neoforge",
