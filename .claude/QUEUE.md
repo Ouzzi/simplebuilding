@@ -232,3 +232,9 @@ Verlauf im Detail: git log.
 - [x] Zwei getrennte Mega-Handbuecher, gespeicherte Kapitel, Migration, kein Starterbuch, saubere Texturen und begrenzte Tabs (26.3, Branch codex-ll).
 - [x] Guide-/DataIntegrity-Tab-/Testzentrale-Tests auf beiden 26.3-Loadern: 50/50, alles gruen; Testzentrale neu gebaut und Abdeckung vollstaendig.
 - [ ] Besitzer-Abnahme: Mega-Handbuecher im Client ansehen und Testzentrale in der Besitzerwelt neu bauen.
+## Multimod-Grundlage (Besitzerauftrag 2026-09-30, eigener Branch)
+- [x] Additive Module + framework + Scaffold + Registry-Validator
+- [x] Fabric-Integration, Beispielmod und Cross-Mod-Testziel ohne bestehende Testaenderungen
+- [x] Launch Hub: einzelne Mod-Schalter, Presets, Integrationsstarts und Trockenlauf-Tests
+- [x] check, 1548/1548 Server, 1/1 Integration, 34 Hub-Tests und Trockenlauf gruen; kein Push/Merge
+- [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen

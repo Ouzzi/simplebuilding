@@ -1,0 +1,1737 @@
+{
+  "schemaVersion": 1,
+  "mods": [
+    {
+      "id": "jei",
+      "name": "JEI",
+      "purpose": "Recipe viewer",
+      "version": "${mc263_jei_version}",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "sources": {
+        "fabric": {
+          "maven": "mezz.jei:jei-26.3-fabric:${mc263_jei_version}"
+        },
+        "neoforge": {
+          "maven": "mezz.jei:jei-26.3-neoforge:${mc263_jei_version}"
+        }
+      },
+      "requiredBy": []
+    },
+    {
+      "id": "jade",
+      "name": "Jade",
+      "purpose": "Block and entity information",
+      "version": "${mc263_dev_jade_fabric}",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "sources": {
+        "fabric": {
+          "maven": "maven.modrinth:jade:${mc263_dev_jade_fabric}"
+        },
+        "neoforge": {
+          "maven": "maven.modrinth:jade:${mc263_dev_jade_neoforge}"
+        }
+      },
+      "requiredBy": []
+    },
+    {
+      "id": "mousetweaks",
+      "name": "Mouse Tweaks",
+      "purpose": "Inventory mouse controls",
+      "version": "${mc263_dev_mousetweaks_fabric}",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "sources": {
+        "fabric": {
+          "maven": "maven.modrinth:mouse-tweaks:${mc263_dev_mousetweaks_fabric}"
+        },
+        "neoforge": {
+          "maven": "maven.modrinth:mouse-tweaks:${mc263_dev_mousetweaks_neoforge}"
+        }
+      },
+      "requiredBy": []
+    },
+    {
+      "id": "appleskin",
+      "name": "AppleSkin",
+      "purpose": "Food information",
+      "version": "${mc263_dev_appleskin_fabric}",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "sources": {
+        "fabric": {
+          "maven": "maven.modrinth:appleskin:${mc263_dev_appleskin_fabric}"
+        },
+        "neoforge": {
+          "maven": "maven.modrinth:appleskin:${mc263_dev_appleskin_neoforge}"
+        }
+      },
+      "requiredBy": []
+    },
+    {
+      "id": "modmenu",
+      "name": "Mod Menu",
+      "purpose": "Fabric mod settings menu",
+      "version": "${mc263_modmenu_version}",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "sources": {
+        "fabric": {
+          "maven": "com.terraformersmc:modmenu:${mc263_modmenu_version}"
+        }
+      },
+      "requiredBy": []
+    },
+    {
+      "id": "cloth_config",
+      "name": "Cloth Config",
+      "purpose": "Required SimpleBuilding configuration API",
+      "version": "${mc263_cloth_version}",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "sources": {
+        "fabric": {
+          "maven": "me.shedaniel.cloth:cloth-config-fabric:${mc263_cloth_version}"
+        },
+        "neoforge": {
+          "maven": "me.shedaniel.cloth:cloth-config-neoforge:${mc263_cloth_version}"
+        }
+      },
+      "requiredBy": [
+        "simplebuilding"
+      ],
+      "loaderIds": {
+        "fabric": "cloth-config",
+        "neoforge": "cloth_config"
+      }
+    },
+    {
+      "id": "architectury",
+      "name": "Architectury",
+      "version": "22.0.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "An intermediary api aimed to ease developing multiplatform mods.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/architectury-fabric-22.0.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": ">=26.3",
+        "fabricloader": ">=0.19.5",
+        "fabric-api": ">=0.160.5"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "axiom",
+      "name": "Axiom",
+      "version": "6.1.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Client-side building utility mod",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/Axiom-6.1.3-for-MC26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.14.21",
+        "fabric-api": "*",
+        "minecraft": ">26.2 <26.4",
+        "java": ">=17"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "badoptimizations",
+      "name": "BadOptimizations",
+      "version": "2.4.1",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Optimization mod that focuses on things other than rendering",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/BadOptimizations-2.4.1-26.3-fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": ">=26.3",
+        "fabricloader": ">=0.18.4"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "balm",
+      "name": "Balm",
+      "version": "26.3.0.2",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Abstraction Layer (but not really) for Blay's multiplatform mods",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/balm-fabric-26.3-26.3.0.2.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "fabric-api": ">=0.160.5+26.3",
+        "minecraft": "~26.3-",
+        "java": ">=25"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "betteradvancements",
+      "name": "Better Advancements",
+      "version": "0.6.0.78",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Improvements to the advancements screen.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/BetterAdvancements-Fabric-26.3-0.6.0.78.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19",
+        "fabric-api": "*",
+        "minecraft": "26.3.x",
+        "java": ">=25"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "betterstats",
+      "name": "Better Statistics Screen",
+      "version": "5.6.0-beta.2+fabric-26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A Minecraft mod that improves the statistics screen and makes it more useful.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/betterstats-5.6.0-beta.2+fn-26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "java": ">=25",
+        "minecraft": ">=26.3- <26.4",
+        "fabricloader": ">=0.19.5",
+        "fabric-api": "*",
+        "tcdcommons": ">=5.6.0-beta.1"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "boatiview",
+      "name": "Boat Item View",
+      "version": "0.0.10",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "View your held items whilst you sit in a moving boat!",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/boatiview-fabric-0.0.10-26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "minecraft": ">=26.3 <=26.4",
+        "java": ">=25"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "bundlesbeyond",
+      "name": "Bundles Beyond",
+      "version": "1.7+26.3+fabric",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Allows you to access every item in the bundle beyond the vanilla 12 item limit",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/bundles-beyond-1.7+26.3+fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "minecraft": ">=26.3",
+        "fabric-api": "*",
+        "java": ">=21"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "c2me",
+      "name": "Concurrent Chunk Management Engine",
+      "version": "0.4.2-alpha.0.88+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A Fabric mod designed to improve the chunk performance of Minecraft.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/c2me-fabric-mc26.3-0.4.2-alpha.0.88.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.18.3",
+        "java": ">=25",
+        "minecraft": ">1.21.11",
+        "c2me-base": "*"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "camerautils",
+      "name": "Camera Utils",
+      "version": "1.1.2+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Camera Utils",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/camerautils-fabric-1.1.2+26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.3",
+        "minecraft": "26.3.x"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "cicada",
+      "name": "CICADA",
+      "version": "0.15.2+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Confusing, Interesting and Considerably Agnostic Development Aid",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/cicada-lib-0.15.3+26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "java": ">=17",
+        "minecraft": ">=26.3- <26.4",
+        "fabricloader": ">=0.15.0"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "clientsort",
+      "name": "ClientSort",
+      "version": "3.104.1",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Versatile and easy inventory sorting.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/clientsort-fabric-3.104.1+26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "java": [
+          ">=25"
+        ],
+        "minecraft": [
+          ">26.2 <27"
+        ],
+        "fabricloader": [
+          ">=0.18.5"
+        ],
+        "fabric-api": [
+          "*"
+        ]
+      },
+      "environment": "*"
+    },
+    {
+      "id": "clienttweaks",
+      "name": "Client Tweaks",
+      "version": "26.3.0.1",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "There, I fixed Minecraft for you. Various optional tweaks to improve Minecraft Quality of Life.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/clienttweaks-fabric-26.3-26.3.0.1.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "fabric-api": "*",
+        "balm-fabric": ">=26.3.0.1",
+        "minecraft": "~26.3-",
+        "java": ">=25"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "collective",
+      "name": "Collective",
+      "version": "8.40",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Collective is a shared library with common code for all of Serilum's mods.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/collective-26.3.0-8.40.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.0",
+        "fabric-api": "*",
+        "minecraft": ">=26.3",
+        "java": ">=25"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "commandkeys",
+      "name": "CommandKeys",
+      "version": "3.104.0+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Send pre-written chat messages and commands using hotkeys.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/commandkeys-fabric-3.104.0+26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "java": [
+          ">=25"
+        ],
+        "minecraft": [
+          ">26.2 <27"
+        ],
+        "fabricloader": [
+          ">=0.18.5"
+        ],
+        "fabric-api": [
+          "*"
+        ]
+      },
+      "environment": "client"
+    },
+    {
+      "id": "config_manager",
+      "name": "Config Manager",
+      "version": "1.1.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A mod that allows modpack developers to ship configuration files without messing with user's preferences",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/ConfigManager-fabric-26.1_26.2-1.1.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": ">=26.1"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "controlify",
+      "name": "Controlify",
+      "version": "3.5.3+mc26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "The most advanced controller mod for Minecraft.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/controlify-3.5.3+mc26.3-universal.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": ">=26.3 <26.4",
+        "yet_another_config_lib_v3": "*",
+        "fabricloader": ">=0.19"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "controlling",
+      "name": "Controlling",
+      "version": "26.3.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Adds the ability to search for keybinds using their name in the KeyBinding menu, this allows players to easily find a key binding in the menu.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/Controlling-fabric-26.3-26.3.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "java": ">=25",
+        "minecraft": "26.3",
+        "searchables": ">=1.0.2",
+        "fabric-api": "*"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "mr_deadly_deadlydungeon",
+      "name": "Deadly Deadly Dungeon",
+      "version": "1.0.6",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Deadly Deadly Dungeon add new sprawling randomly generated dungeons with multiple levels of difficulty, loot and bosses. The datapack is ideal if you want an adventure or a real ch",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/deadly-deadly-dungeon-1.0.6.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabric-resource-loader-v0": "*"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "defaultoptions",
+      "name": "Default Options",
+      "version": "26.3.0.1",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A way for modpacks to ship a default (key) configuration without having to include an options.txt file. Also allows local options from any mod .cfg file.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/defaultoptions-fabric-26.3-26.3.0.1.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "fabric-api": "*",
+        "balm-fabric": ">=26.3.0.1",
+        "minecraft": "~26.3-",
+        "java": ">=25"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "do_a_barrel_roll",
+      "name": "Do a Barrel Roll",
+      "version": "3.8.5",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Microsoft flight simulator for Minecraft elytras.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/do_a_barrel_roll-fabric-3.8.5+26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.15",
+        "minecraft": ">=26.3 <26.4",
+        "fabric-api": "*",
+        "java": ">=17",
+        "cicada": ">=0.6.0 <1.0.0"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "dynamiccrosshair",
+      "name": "Dynamic Crosshair",
+      "version": "9.15",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Makes the crosshair change shape based on what is targeted.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/dynamiccrosshair-9.15+26.3-fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.18.4",
+        "fabric-api": ">=0.152.0",
+        "minecraft": "~26.3",
+        "java": ">=25"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "easyshulkerboxes",
+      "name": "Easy Shulker Boxes",
+      "version": "26.3.1",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Supercharge shulkes boxes, bundles and backpacks! Fully useable in your inventory with many intuitive interactions.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/easyshulkerboxes-v26.3.1-mc26.3.x+fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": "~26.3-",
+        "fabricloader": ">=0.19.5",
+        "fabric-api": ">=0.160.6",
+        "forgeconfigapiport": "*",
+        "iteminteractions": "*",
+        "puzzleslib": ">=26.3.4"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "enchantmentinsights",
+      "name": "Enchantment Insights",
+      "version": "26.3.0",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Pretty enchantment tooltips with colorful names and clear descriptions. No mystery, just magic!",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/enchantmentinsights-v26.3.0-mc26.3.x+fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": "~26.3-",
+        "fabricloader": ">=0.19.5",
+        "fabric-api": ">=0.160.6",
+        "forgeconfigapiport": "*",
+        "puzzleslib": ">=26.3.6",
+        "tooltipinsights": "*"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "entityculling",
+      "name": "EntityCulling",
+      "version": "1.11.2",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "This mod uses async path-tracing to hide Tiles/Entities that are not visible.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/entityculling-fabric-1.11.2-mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": "~26.3",
+        "fabric-api": "*"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "fabric-language-kotlin",
+      "name": "Fabric Language Kotlin",
+      "version": "1.14.1+kotlin.2.4.20",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Fabric language module for Kotlin.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/fabric-language-kotlin-1.14.1+kotlin.2.4.20.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "fastipping",
+      "name": "Fast IP Ping",
+      "version": "1.0.12",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Yeet the laggy reversed DNS lookup for literal IP server addresses",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/fast-ip-ping-v1.0.12-mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.11.4",
+        "minecraft": ">=26.3"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "ferritecore",
+      "name": "FerriteCore",
+      "version": "9.0.0",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Reduces memory usage",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/ferritecore-9.0.0-fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.14.21",
+        "minecraft": ">=26.1 <27"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "forgeconfigapiport",
+      "name": "Forge Config API Port",
+      "version": "26.3.1",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Provides NeoForge's & Forge's config systems to other modding ecosystems. Designed for a multi-loader architecture.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/ForgeConfigAPIPort-v26.3.1-mc26.3.x-Fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": "~26.3-",
+        "fabricloader": ">=0.19.4",
+        "fabric-api": ">=0.160.6"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "freecam",
+      "name": "Freecam",
+      "version": "1.5.0-alpha.2",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A highly customizable freecam mod.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/freecam-fabric-1.5.0-alpha.2+mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": ">=26.3.0 <26.4.0-0",
+        "fabricloader": ">=0.18.0",
+        "fabric-api-base": "*",
+        "fabric-key-mapping-api-v1": "*",
+        "fabric-lifecycle-events-v1": "*",
+        "fabric-resource-loader-v1": "*"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "fusion",
+      "name": "Fusion",
+      "version": "1.3.15+a",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Fusion allows resource packs to use additional texture and model types such as connected textures!",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/fusion-1.3.15a-fabric-mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.0",
+        "fabric-api": "*",
+        "minecraft": ">=26.3 <26.4",
+        "java": ">=25"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "gammautils",
+      "name": "Gamma Utils",
+      "version": "3.2.0",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Gamma / Brightness / Night Vision mod, making it easy to see in the dark.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/Gamma-Utils-Fabric-3.2.0+mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": ">=26.3",
+        "fabricloader": ">=0.16.0",
+        "fabric-api": "*",
+        "cloth-config": "*"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "immediatelyfast",
+      "name": "ImmediatelyFast",
+      "version": "1.17.1+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Speed up and optimize immediate mode rendering in Minecraft",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/ImmediatelyFast-Fabric-1.17.1+26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "java": ">=25",
+        "minecraft": "26.3.x",
+        "fabricloader": ">=0.19.3"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "immersive-hotbar",
+      "name": "Immersive Hotbar",
+      "version": "1.2.2-26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Adds animations to the hotbar that make it more immersive.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/immersive-hotbar-1.2.2-26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.17",
+        "minecraft": ">=26.3- <26.4-",
+        "java": ">=25",
+        "fabric-api": "*",
+        "yet_another_config_lib_v3": ">=3.9.0"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "invview",
+      "name": "InvView",
+      "version": "1.4.22-26.3+",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Allows you to open the inventory and ender chest of online and offline players",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/InvView-1.4.22-26.3+.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.17.0",
+        "fabric-api": "*",
+        "minecraft": ">=26.3",
+        "java": ">=25"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "iris",
+      "name": "Iris",
+      "version": "1.11.6+mc26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A modern shaders mod for Minecraft intended to be compatible with existing OptiFine shader packs",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/iris-fabric-1.11.6+mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.12.3",
+        "sodium": [
+          "0.9.x"
+        ]
+      },
+      "environment": "client"
+    },
+    {
+      "id": "ktnilcks",
+      "name": "ItemLocks",
+      "version": "1.3.14",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Enables the client to lock slots to prevent accidental loss of items. Does not bypass server behavior.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/ItemLocks-Fabric-26.3-1.3.14.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "cloth-config": ">=26.3.158",
+        "fabricloader": ">=0.19.5",
+        "fabric-api": "*",
+        "minecraft": ">=26.3",
+        "java": ">=25"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "journeymap",
+      "name": "Journeymap",
+      "version": "26.3-6.0.9",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "JourneyMap: Real-time map in-game or in a web browser as you explore. JourneyMap API: v26.3-2.0.0. Built: 2026-09-19-18:37:08.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/journeymap-fabric-26.3-6.0.9.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.15.11",
+        "fabric-api": ">=0.100.4",
+        "minecraft": ">=1.20.6",
+        "java": ">=21",
+        "commonnetworking": ">=1.0.17-1.21.4"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "journeymap_webmap",
+      "name": "JourneyMap WebMap",
+      "version": "1.0.13",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Client WebMap for Journeymap",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/journeymap-webmap-fabric-26.3-1.0.13.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "journeymap": ">=26.3-6.0.0",
+        "fabricloader": ">=0.14.11",
+        "fabric-api": "*",
+        "minecraft": ">=26.3",
+        "java": ">=21"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "justenoughprofessions",
+      "name": "Just Enough Professions (JEP)",
+      "version": "130.0",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Adds info about professions to JEI",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/JustEnoughProfessions-fabric-26.3-130.0.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "minecraft": "~26.3",
+        "java": ">=25",
+        "fabric-api": "*",
+        "jei": ">=31.0.0.5"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "mr_katters_structures",
+      "name": "Katters Structures v2.6",
+      "version": "2.6",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Katters Structures v2.6 packaged as a universal data/resource mod.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/Katters Structures v2.6.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabric-resource-loader-v0": "*"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "lambdynlights",
+      "name": "LambDynamicLights",
+      "version": "4.13.0+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "The most feature-complete dynamic lighting mod.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/lambdynamiclights-4.13.0+26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "minecraft": "~26.3-",
+        "java": ">=25",
+        "lambdynlights_api": ">=4.13.0+26.3",
+        "spruceui": ">=12.0.0+26.3",
+        "yumi_mc_core": ">=1.1.3+26.2",
+        "fabric-lifecycle-events-v1": ">=4.1.9+ffef5f672d",
+        "fabric-resource-loader-v1": ">=3.0.4+fcdff87f2d",
+        "fabric-resource-conditions-api-v1": ">=6.1.5+3434d6d92d"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "ledger",
+      "name": "Ledger",
+      "version": "1.3.24",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Logs world events and allows for them to be rolled back",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/ledger-1.3.24.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "fabric-language-kotlin": ">=1.13.9+kotlin.2.3.10",
+        "minecraft": "~26.3",
+        "fabric-api": ">=0.160.5+26.3"
+      },
+      "environment": "server"
+    },
+    {
+      "id": "litematica",
+      "name": "Litematica",
+      "version": "0.29.1",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A modern schematic mod for LiteLoader, Rift, Fabric etc.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/litematica-fabric-26.3-0.29.1.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": ">=26.3 <26.4",
+        "malilib": ">=0.30.2- <0.31.0-"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "lithium",
+      "name": "Lithium",
+      "version": "0.26.2+mc26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Lithium is a free and open-source optimization mod for Minecraft which makes a wide range of performance improvements to the game.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/lithium-fabric-0.26.2+mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "minecraft": "~26.3",
+        "mixinextras": ">=0.5.5"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "lithostitched",
+      "name": "Lithostitched",
+      "version": "2.0.4",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "An expansive library mod with new configurability and compatibility enhancements for worldgen",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/lithostitched-2.0.4-fabric-26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.17",
+        "minecraft": ">=26.2"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "make_bubbles_pop",
+      "name": "Make Bubbles Pop",
+      "version": "0.3.4-fabric",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "This client-side mod makes bubble particles pop and lets them realistically rise to the water surface.\\nIt also adds bubble particles to opening chests, opening barrels and explosi",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/make_bubbles_pop-0.3.4-fabric-mc26.2.x.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.17.3",
+        "minecraft": ">=26.2",
+        "java": ">=25"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "malilib",
+      "name": "MaLiLib",
+      "version": "0.30.2",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A library mod required by masa's client-side mods",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/malilib-fabric-26.3-0.30.2.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": ">=26.3 <26.4",
+        "fabric-networking-api-v1": "*",
+        "fabric-resource-loader-v1": "*"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "mezz_config",
+      "name": "MezzConfig",
+      "version": "0.6.5",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Lightweight client and server-authoritative config support for Minecraft mods.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/mezz_config-26.3-fabric-0.6.5.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.0",
+        "fabric-api": ">=0.156.3+26.3",
+        "minecraft": "26.3",
+        "java": ">=25"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "midnightlib",
+      "name": "MidnightLib",
+      "version": "1.9.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Lightweight config library with config screens and commands.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/midnightlib-fabric-1.9.3+26.3-rc-2.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabric-resource-loader-v0": "*",
+        "minecraft": ">=26.3-rc.2"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "modernfix",
+      "name": "ModernFix",
+      "version": "5.27.20-build.2",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Egregious, yet effective performance improvements for modern Minecraft",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/modernfix-5.27.20-build.2.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": "~26.3-",
+        "fabricloader": ">=0.16.10"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "moreculling",
+      "name": "More Culling",
+      "version": "1.9.0-beta.1",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Processes main resources.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/moreculling-fabric-26.3-1.9.0-beta.1.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.15.0",
+        "minecraft": ">=26.3",
+        "java": ">=25",
+        "cloth-config": ">=16.0.0"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "mr_nice_name_tags",
+      "name": "Nice Name Tags",
+      "version": "1.4",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Change entity behavior with name tags - make mobs silent, keep them as babies, change villager types, and more.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/nice-name-tags-1.4.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabric-resource-loader-v0": "*"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "no-resource-pack-warnings",
+      "name": "No Resource Pack Warnings",
+      "version": "1.5.0",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Disable warnings for outdated resource packs",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/no-resource-pack-warnings-1.5.0.jar"
+        }
+      },
+      "runtimeDependencies": {},
+      "environment": "*"
+    },
+    {
+      "id": "no-telemetry",
+      "name": "No Telemetry",
+      "version": "1.10.0",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Disable the telemetry introduced in 21w38a",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/no-telemetry-1.10.0.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.14.0",
+        "minecraft": ">=1.18-alpha.21.38.a",
+        "java": ">=16"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "notenoughanimations",
+      "name": "NotEnoughAnimations",
+      "version": "1.12.6",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Adding and improving animations in Third-Person.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/notenoughanimations-fabric-1.12.6-mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": "~26.3",
+        "fabric-api": "*"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "placeholder-api",
+      "name": "Placeholder API",
+      "version": "3.2.0+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Simple api for mods allowing for user friendly formatting and universal placeholders!",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/placeholder-api-3.2.0+26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.18.4",
+        "minecraft": ">=26.2-"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "puzzleslib",
+      "name": "Puzzles Lib",
+      "version": "26.3.8",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Why is it called Puzzles? That's the puzzle.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/puzzleslib-v26.3.8-mc26.3.x+fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": "~26.3-",
+        "fabricloader": ">=0.19.5",
+        "fabric-api": ">=0.160.6",
+        "forgeconfigapiport": "*"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "mr_qraftyfied",
+      "name": "qraftyfied: STRUCTURES",
+      "version": "13.0.0-26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "This pack adds many well built and lore-friendly STRUCTURES to your minecraft world that invite you to explore them. Now with TERRALITH support! 🫐",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/qraftyfied-13.0.0-26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabric-resource-loader-v0": "*"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "reeses-sodium-options",
+      "name": "Reese's Sodium Options",
+      "version": "2.2.5+mc26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Replaces Sodium's Options Screen",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/reeses-sodium-options-fabric-2.2.5+mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": "~26.3",
+        "sodium": "=0.9.2+mc26.3"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "scalablelux",
+      "name": "ScalableLux",
+      "version": "0.3.0-alpha.0.6+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Rewrites the light engine to fix lighting performance and lighting errors",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/ScalableLux-fabric-mc26.3-0.3.0-alpha.0.6-all.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "minecraft": ">=26.3-rc.1"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "scribble",
+      "name": "Scribble",
+      "version": "2.1.0-beta1",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Expertly edit your books with rich formatting options, page utilities and more!",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/scribble-2.1.0-beta1+mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": ">=26.3 <26.4",
+        "fabric-resource-loader-v1": "*",
+        "tapestry_config": "*",
+        "tapestry": "*"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "searchables",
+      "name": "Searchables",
+      "version": "1.0.2",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A library mod to facilitate adding search bars with auto complete and search types.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/Searchables-fabric-26.3-1.0.2.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "java": ">=25",
+        "minecraft": "26.3"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "servercore",
+      "name": "ServerCore",
+      "version": "1.5.20+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A Fabric mod that aims to optimize the minecraft server.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/servercore-fabric-1.5.20+26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "minecraft": ">=26.3-",
+        "fabric-api-base": "*",
+        "fabric-command-api-v2": "*",
+        "fabric-lifecycle-events-v1": "*"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "shulkerboxtooltip",
+      "name": "Shulker Box Tooltip",
+      "version": "5.4.2+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "What's in my shulker box?",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/shulkerboxtooltip-fabric-5.4.2+26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabric-api": "*",
+        "fabricloader": ">=0.16.0",
+        "minecraft": ">=26.3"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "skinlayers3d",
+      "name": "3d-Skin-Layers",
+      "version": "1.11.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Renders the player skin layer in 3d",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/skinlayers3d-fabric-1.11.3-mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": "~26.3",
+        "fabric-api": "*"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "skyboxify",
+      "name": "Skyboxify",
+      "version": "3.4",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A skybox mod that allows you to use OptiFine skies in Fabric 1.21+",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/skyboxify-3.4+26.3-fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.18.4",
+        "minecraft": "26.3",
+        "fabric-resource-loader-v1": "*",
+        "fabric-command-api-v2": "*",
+        "yet_another_config_lib_v3": "*"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "smoothgui",
+      "name": "SmoothGui",
+      "version": "2.0.6",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Adds animation to gui opening.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/smoothgui-fabric-2.0.6+mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": "*",
+        "minecraft": ">=26.3"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "sodium-extra",
+      "name": "Sodium Extra",
+      "version": "0.9.4+mc26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Features that shouldn't be in Sodium.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/sodium-extra-fabric-0.9.4+mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.5",
+        "sodium": ">=0.9.2+mc26.3",
+        "minecraft": "26.3"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "sodium",
+      "name": "Sodium",
+      "version": "0.9.2+mc26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Sodium is a powerful rendering engine for Minecraft which greatly improves frame rates and micro-stutter, while fixing many graphical issues",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/sodium-fabric-0.9.2+mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": "26.3.x",
+        "fabricloader": ">=0.16.0",
+        "fabric-block-getter-api-v2": "*",
+        "fabric-rendering-fluids-v1": ">=2.0.0",
+        "fabric-resource-loader-v0": "*"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "sound_physics_remastered",
+      "name": "Sound Physics Remastered",
+      "version": "1.5.1+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Provides realistic sound attenuation, reverberation, and absorption through blocks.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/sound-physics-remastered-fabric-1.5.1+26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.3",
+        "minecraft": "26.3.x",
+        "java": ">=25"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "speedfovlimiter",
+      "name": "SpeedFOVLimiter",
+      "version": "1.3.0",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Set limits for what speed and slowness do to your fov!",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/SpeedFOVLimiter+26.1-1.3.0.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.19.0",
+        "minecraft": ">=26.1",
+        "yet_another_config_lib_v3": ">=3.9.0"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "tcdcommons",
+      "name": "TCDCommons API",
+      "version": "5.6.0-beta.2+fabric-26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "TheCSDev's personal Minecraft modding library.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/tcdcommons-5.6.0-beta.2+fn-26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "java": ">=25",
+        "minecraft": ">=26.3- <26.4",
+        "fabricloader": ">=0.19.5",
+        "fabric-api": "*"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "trimpatcher",
+      "name": "Trim Patcher",
+      "version": "2.1",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Makes Armor Trims and Trim Materials from any mod work together seamlessly on all Armor items!",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/TrimPatcher-2.1-mc26.3-fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabric-api": "*",
+        "minecraft": "~26.3-",
+        "java": ">=25"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "ukulib",
+      "name": "ukulib",
+      "version": "2.2.0+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "small utility library used in my mods",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/ukulib-fabric-2.2.0+26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": "^26.3",
+        "fabricloader": ">=0.19",
+        "fabric-resource-loader-v1": "*",
+        "fabric-command-api-v2": "*",
+        "fabric-key-mapping-api-v1": "*"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "ukus-armor-hud",
+      "name": "uku's Armor HUD",
+      "version": "0.13.0+mc26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "This mod adds a minimalistic vanilla-like widget that shows your armor items and a warning if durability is low enough. Forked by uku.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/ukus-armor-hud-fabric-0.13.0+mc26.3.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": ">=26.3",
+        "fabricloader": ">=0.19",
+        "ukulib": "^2.2.0",
+        "fabric-resource-loader-v1": "*"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "viafabricplus",
+      "name": "ViaFabricPlus",
+      "version": "5.1.1",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Minecraft Fabric mod that allows you to join EVERY Minecraft server version (Classic, Alpha, Beta, Release, April Fools)",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/ViaFabricPlus-5.1.1.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabric-resource-loader-v1": ">=1.0.2",
+        "fabric-networking-api-v1": ">=3.1.1",
+        "fabric-command-api-v2": ">=2.2.18",
+        "fabric-lifecycle-events-v1": ">=2.2.28",
+        "fabric-particles-v1": ">=1.1.6",
+        "fabric-registry-sync-v0": ">=4.0.13",
+        "minecraft": "26.3",
+        "java": ">=25"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "visibletraders",
+      "name": "Visible Traders",
+      "version": "2.5.1",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A simple mod that allows the player to view locked villager trades.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/Visible Traders-2.5.1-universal.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "minecraft": ">=26.2",
+        "fabric-api": ">=0.152.1+26.2"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "vmp",
+      "name": "Very Many Players",
+      "version": "0.2.0+beta.7.238+26.3",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A Fabric mod designed to improve server performance at high playercounts",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/vmp-fabric-mc26.3-0.2.0+beta.7.238-all.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.14.13",
+        "minecraft": ">=1.20.2-beta.2",
+        "java": ">=17"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "yet_another_config_lib_v3",
+      "name": "YetAnotherConfigLib",
+      "version": "3.9.7+26.3-fabric",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "YetAnotherConfigLib (yacl) is just that. A builder-based configuration library for Minecraft.",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/yet_another_config_lib_v3-3.9.7+26.3-fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.18.0",
+        "minecraft": "~26.3",
+        "fabric-resource-loader-v1": "*"
+      },
+      "environment": "*"
+    },
+    {
+      "id": "entity_model_features",
+      "name": "Entity Model Features",
+      "version": "3.3.8",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "This is an expansion of the ETF mod, it adds support for OptiFine format Custom Entity Model (CEM) resource packs. While still allowing you to disable this to use a different model",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/entity_model_features-3.3.8-26.3-fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": "*",
+        "minecraft": "*",
+        "entity_texture_features": ">=7.2"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "entity_texture_features",
+      "name": "Entity Texture Features",
+      "version": "7.2.4",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "Adds support for resource-pack driven features for entity textures including some OptiFine features Supports OptiFine: - Random & Custom textures - Emissive textures With more feat",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/entity_texture_features-7.2.4-26.3-fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": "*",
+        "minecraft": "*"
+      },
+      "environment": "client"
+    },
+    {
+      "id": "euphoria_patcher",
+      "name": "Euphoria Patcher",
+      "version": "1.10.5-r5.9.3-fabric",
+      "minecraft": "26.3",
+      "defaultEnabled": false,
+      "purpose": "A mod that applies the Euphoria Patches add-on to Complementary Shaders. Enable and Change Euphoria Patches Settings in the shaderpack settings menu Report issues on discord!",
+      "sources": {
+        "fabric": {
+          "local": "mc26_3/fabric/run/mods/EuphoriaPatcher-1.10.5-r5.9.3-fabric.jar"
+        }
+      },
+      "runtimeDependencies": {
+        "fabricloader": ">=0.15.0",
+        "minecraft": ">=1.14.0"
+      },
+      "environment": "client"
+    }
+  ]
+}

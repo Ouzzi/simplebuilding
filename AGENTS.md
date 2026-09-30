@@ -75,3 +75,10 @@ Speichern schreibt Zahlen direkt in Java/JSON. Details: `docs/BALANCING-ZENTRALE
 Config serverseitig + Obergrenzen · Chunk-Loader nur bei Online-Besitzer · Steinmetz verkauft keine Kerne, fahrender Händler
 selten · Rotator: kein Mending · Vorlagen ohne „Smithing“ im Namen · Glowing hat eine Stufe · Magnet heißt Attractor ·
 Luftsprung 20 s / 10 s, Server erzwingt · Hammer-Haltbarkeit unverändert bis der Besitzer testet · Reittier-Rüstungen abgenommen.
+
+## 10. Multimod-Grundlage (26.3)
+Zusatzmods liegen additiv unter `modules/<id>/`; bestehende Projekte niemals verschieben.
+Anlage: `python tools/newmod.py <id> "Name"`. Manifest: `modules/modules.json`, Dev-Mods: `tools/devmods.json`.
+Integration nutzt eigene Saves unter `integration/run-fabric-263` und `integration/enabled-mods.json`.
+Module koppeln nur ueber framework-API oder oeffentliche Registry-IDs, nie interne Klassen.
+Details und Grenzen: `docs/MULTIMOD.md`; Integrationstest: `--targets integration-263` (separat vom Bestand).

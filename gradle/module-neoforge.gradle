@@ -1,0 +1,12 @@
+group = 'com.simplebuilding.modules'
+base { archivesName = project.parent.name + '-26.3-' + project.name }
+version = project.findProperty('moduleVersion') ?: '0.1.0'
+java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
+sourceSets.main.java.srcDir '../shared/java'
+sourceSets.main.resources.srcDir '../shared/resources'
+dependencies { implementation project(':framework') }
+neoForge {
+    version = rootProject.mc263_neoforge_version
+    mods { "${project.parent.name}" { sourceSet sourceSets.main } }
+}
+processResources { filesMatching('META-INF/neoforge.mods.toml') { expand version: project.version } }

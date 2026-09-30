@@ -135,3 +135,26 @@ Abschließendes `gradlew.bat check -q` im Worktree grün (Exit 0), einschließli
 - Noch offen: Besitzer-Abnahme der Grafik/Bedienung im Client und Neubau in der Besitzerwelt.
   Keine Client-Sichtpruefung und kein kompletter Server-Testlauf; nur die genannten Filter.
   Keine anderen Linien portieren, bevor der Besitzer 26.3 abnimmt. Kein Push, kein Merge.
+## Multimod-Grundlage (Codex, 2026-09-30)
+Additive 26.3-Modulprojekte, framework-API-Skelett, Manifest/Dev-Mod-Registry, Scaffold-Befehl
+und separate Fabric-Integration mit eigenem Cross-Mod-Test angelegt. Launch Hub hat Mods-Auswahl,
+Presets und Integrationsstarts; normale 26.3-Starts uebernehmen vier optionale Dev-Mod-Schalter.
+Bestehende Verzeichnisse/IDs/Testkataloge unveraendert. Details/Grenzen: `docs/MULTIMOD.md`.
+NeoForge-Integration und optionale Cloth/Mod-Menu-Abhaengigkeiten im normalen Lauf sind zurueckgestellt.
+Dieser Branch wird nicht gepusht oder gemergt; Verifikation siehe abschliessenden Run-Eintrag.
+
+### Multimod-Verifikation (2026-09-30)
+- Abschliessender `gradlew.bat check -q`: Exit 0; beide Beispiel-Loader und Integrationsharness kompilieren.
+- Bestehende 26.3-Server: **1548/1548, alles gruen**, Run `2026-09-30T10-26-33Z-4b06`.
+  Testzentrale in den automatischen Welten gebaut, vorhandene Item-Abdeckung gruen; Besitzerwelt nicht angefasst.
+- Fabric-Integration: **1/1, alles gruen**, Run `2026-09-30T10-29-33Z-7569`.
+- Launch Hub: **34 Unit-Tests gruen**, JavaScript-Syntax gruen; HTTP-Trockenlauf fuer Client/Server/frische Welt/Tests,
+  91 Registry-Zeilen (2 Repo-Module, 89 Dev-Mods; davon 83 lokale Fabric-JARs), lokale JAR-Erkennung geprueft.
+- JAR-Auswahl praktisch geprueft: deaktivierte Repo-/Dev-Mods fehlen im Integrationsordner; normale Fabric-Hub-Vorbereitung
+  konnte gezielt Jade + lokales Sodium bereitstellen. Bestehende run/mods-Ordner bleiben unveraendert.
+- Wiki generiert und `--check` gruen; `-Pmc264=true help` konfiguriert erfolgreich, keine Snapshot-Tests.
+- Nicht verifiziert: echte Clients, visuelles Hub-Rendering, beliebige Kombinationen des lokalen Modpacks,
+  NeoForge-Integration (zurueckgestellt). Browser-Anbindung hatte keine Oberflaechen; automatische Freigabepruefung
+  lehnte Headless-Edge-Bildpruefung mit "blocked by policy" ab. Kein Client-Testlauf, Push oder Merge.
+- Beim ersten parallelen Gate/Serverlauf fehlten NeoForge-Ressourcen; gezieltes `processResources --rerun-tasks`
+  stellte sie wieder her. Anschliessend Gate und Server-Gates nacheinander gruen. Kein Gameplay-Fix noetig.

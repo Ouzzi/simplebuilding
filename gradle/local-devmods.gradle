@@ -1,0 +1,26 @@
+// Called only during run preparation. Worktrees may read jars from the main checkout;
+// never write to its run directories or store an absolute owner location in the registry.
+def rootsCache = null
+ext.localDevModJar = { String pattern, String modId ->
+    if (!rootsCache) {
+        def gitDir = providers.exec {
+            workingDir rootProject.projectDir
+            commandLine 'git', 'rev-parse', '--path-format=absolute', '--git-common-dir'
+        }.standardOutput.asText.get().trim()
+        rootsCache = [rootProject.projectDir, new File(gitDir).parentFile].unique()
+    }
+    for (File repo : rootsCache) {
+        def folder = new File(repo, pattern.substring(0, pattern.lastIndexOf('/')))
+        def matches = folder.exists() ? fileTree(folder) {
+            include pattern.substring(pattern.lastIndexOf('/') + 1)
+        }.files : []
+        if (matches.size() > 1) throw new GradleException("Ambiguous local dev mod ${modId}: ${pattern}")
+        if (matches) {
+            File jar = matches.first()
+            if (!jar.canonicalFile.toPath().startsWith(repo.canonicalFile.toPath()))
+                throw new GradleException("Local dev mod ${modId} resolves outside the repository")
+            return jar
+        }
+    }
+    throw new GradleException("Missing local dev mod ${modId}: ${pattern}")
+}

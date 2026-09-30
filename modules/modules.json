@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "modules": [
+    {"id":"simplebuilding","name":"SimpleBuilding","version":"${mod_version}","minecraft":"26.3","defaultEnabled":true,"projects":{"fabric":":mc26_3:fabric","neoforge":":mc26_3:neoforge"}},
+    {"id":"wiringexample","name":"Wiring Example","version":"0.1.0","minecraft":"26.3","defaultEnabled":true,"example":true,"projects":{"fabric":":modules:wiringexample:fabric","neoforge":":modules:wiringexample:neoforge"}}
+  ]
+}

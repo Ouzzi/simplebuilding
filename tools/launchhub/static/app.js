@@ -153,6 +153,7 @@ let jobs = [];         // /api/processes
 let prevStatus = new Map();
 let view = null;       // aktueller Bereich {cleanup, onJobs, onFinished}
 const SECTIONS = [
+  ['mods', 'Mods', '?'],
   ['launch', 'Starten', '▶'], ['tests', 'Tests', '✔'], ['failures', 'Fehlschlaege', '✖'],
   ['history', 'Verlauf', '⧖'], ['ai', 'KI-Fixes', '✦'], ['worktrees', 'Worktrees', '⑂'], ['settings', 'Einstellungen', '⚙'],
 ];
@@ -826,7 +827,7 @@ async function viewSettings(root) {
 // ---------------------------------------------------------------------------------------------
 // Router, Tastatur, Start
 // ---------------------------------------------------------------------------------------------
-const VIEWS = { launch: viewLaunch, tests: viewTests, failures: viewFailures, history: viewHistory, ai: viewAi, worktrees: viewWorktrees, settings: viewSettings };
+const VIEWS = { mods: viewMods, launch: viewLaunch, tests: viewTests, failures: viewFailures, history: viewHistory, ai: viewAi, worktrees: viewWorktrees, settings: viewSettings };
 function routeName() { const n = (location.hash || '').replace(/^#\/?/, '').split('/')[0]; return VIEWS[n] ? n : (VIEWS[prefs.route] ? prefs.route : 'launch'); }
 async function route() {
   if (view && view.cleanup) view.cleanup();
@@ -873,3 +874,26 @@ $('#theme-btn').addEventListener('click', () => {
   await route();
   setInterval(() => { if (!document.hidden) { refreshState(); refreshJobs(); } }, 3000);
 })();
+
+async function viewMods(root) {
+  const state = await api('/api/mods');
+  const selection = structuredClone(state.selection);
+  const buttons = h('div', {class:'actions'});
+  const table = h('table', {class:'table'}, h('thead', {}, h('tr', {}, ['Aktiv', 'Mod', 'Version', 'JAR', 'Zweck'].map(t => h('th', {}, t)))),
+    h('tbody', {}, state.rows.map(row => h('tr', {},
+      h('td', {}, h('input', {type:'checkbox', class:'mod-switch', role:'switch', checked:row.enabled, 'aria-label':row.name,
+        onchange:e => { const ids=selection[row.kind]; if(e.target.checked) ids.push(row.id); else ids.splice(ids.indexOf(row.id),1); }})),
+      h('td', {}, row.name, h('small', {class:'muted'}, ' ? '+(row.kind==='modules'?'Repo':'Dev'))),
+      h('td', {}, row.version), h('td', {}, row.jarPresent?'vorhanden':'noch nicht gebaut/geladen'),
+      h('td', {}, row.purpose || (row.example?'Beispiel ohne Gameplay':'Repo-Mod'))))));
+  const run = async (path, body) => { try { await api(path,body); toast('Gespeichert / gestartet'); } catch(e) { toast(e.message,'bad'); } };
+  const preset = h('select', {'aria-label':'Mod-Preset'}, Object.keys(state.presets).map(id=>h('option',{value:id},id)));
+  const name = h('input', {placeholder:'Eigenes Preset (a-z, 0-9, _)', 'aria-label':'Preset-Name'});
+  buttons.append(h('button',{class:'btn primary',onclick:()=>run('/api/mods',{selection})},'Auswahl speichern'), preset,
+    h('button',{class:'btn',onclick:async()=>{ await run('/api/mods',{selection:state.presets[preset.value]}); await viewMods(root); }},'Preset laden'),
+    name, h('button',{class:'btn',onclick:async()=>{ await run('/api/mods',{selection,preset:name.value}); await viewMods(root); }},'Preset speichern'));
+  const launches = h('div',{class:'actions'}, [['client','Integration: Client'],['server','Server'],['fresh','Frische Welt'],['tests','Integrationstests']].map(([action,label])=>
+    h('button',{class:'btn',onclick:async()=>{ try { await api('/api/mods',{selection}); const result=await api('/api/integration/launch',{action,workspace:launchWs()}); toast(result.warnings.join(' ') || 'Gestartet'); } catch(e){toast(e.message,'bad');} }},label)));
+  fill(root,h('h1',{},'Mods'),h('p',{class:'muted'},'26.3 ? Eigene Integration mit separaten Saves. Cloth Config ist f?r SimpleBuilding erforderlich. Normale Hub-Starts ?bernehmen JEI, Jade, Mouse Tweaks und AppleSkin sowie lokale Mods auf Fabric; Cloth Config und Mod Menu bleiben dort im Klassenpfad.'),
+    h('section',{class:'card'},buttons,h('div',{class:'table-wrap'},table),launches),processList(j=>j.meta && j.meta.target==='integration-263','Noch keine Integrationsl?ufe.'));
+}
