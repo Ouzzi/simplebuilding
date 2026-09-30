@@ -1,38 +1,143 @@
-# Hands-free / voice-first work with an AI agent (plan, not built yet)
+# Voicebridge: Handy und Laptop (MVP, 2026-09-30)
 
-Goal of the owner: work with a local AI agent (or a voice module) without keyboard and without reading text, for this project and for other projects.
-Safety first: voice interaction while driving must stay legal and minimal (hands-free car kit or headset as allowed where you are, short exchanges, no screens, no long dictation). Long tasks are for rest stops or a passenger. Destructive actions are never triggered by one spoken sentence (see "Confirmations").
+Gebaut: tools/voicebridge, Python-Standardbibliothek und eine PWA mit grosser
+Sprechtaste, Browser-STT und Vorlesen. Standard ist **Lesemodus**. Kein pip erforderlich.
+Eigene headless Unterhaltung, keine Fernsteuerung einer bereits offenen CLI-Sitzung.
+Der PC muss eingeschaltet und erreichbar bleiben.
 
-## What exists today (official Claude Code features, checked 2026-09-30)
-- **Voice dictation in Claude Code** (CLI and desktop app, needs a claude.ai login, local microphone, 20 languages including German): `/voice` toggles, `/voice hold` = push-to-talk (hold Space), `/voice tap` = tap to start and tap to send, `/voice off`; also `"voice": {"enabled": true, "mode": "tap"}` in `~/.claude/settings.json`. Docs: https://code.claude.com/docs/en/voice-dictation
-- **Remote Control** (Pro/Max/Team/Enterprise): drive a running local Claude Code session from the Claude mobile app or claude.ai/code. Start with `claude remote-control` (server mode), `claude --remote-control` or `/remote-control` inside a session; in the app open the Code tab and scan the QR code. Code still runs on the home machine, which must stay on. Docs: https://code.claude.com/docs/en/remote-control
-- **No official text-to-speech** for Claude Code output. Community tools exist (unsupported). The Claude and ChatGPT phone apps have their own voice conversation modes, but those talk to the model only, not to this repo.
-- Codex CLI has no voice mode.
+## PC starten
+1. Im gewuenschten Checkout AGENTS.md lesen. Python 3.12+ verwenden.
+2. tools/voicebridge/projects.example.json nach tools/voicebridge/projects.json
+   kopieren, sofern die lokale Datei noch nicht existiert. Ohne lokale Datei gilt das Beispiel.
+3. Pro Projekt name, root, provider, model, default_mode und brief_folder einstellen.
+   Relative Roots beziehen sich auf den Repo-Root. Andere Projekte duerfen absolute
+   lokale Roots verwenden. Namen: kurze ASCII-Namen, z.B. simplebuilding oder website.
+   default_mode bleibt read-only.
+4. `python tools/voicebridge/server.py` starten. Standard: **127.0.0.1:8772**.
+5. Die ausgegebene URL `http://127.0.0.1:8772/#token=...` im PC-Browser oeffnen.
+   Token wird einmal erzeugt, lokal gespeichert und aus der Adresszeile entfernt.
+   Die Seite merkt ihn per localStorage. Nicht weitergeben.
+6. Grosse Taste antippen, Mikrofon erlauben, sprechen, nochmal tippen.
+   Waehrend du sprichst, schweigt die Bridge. Danach wird die Antwort vorgelesen.
+   Am Laptop ist Space dieselbe Taste, ausser in Formularfeldern/Buttons.
 
-## Recommended stack, in three tiers
-**Tier 1, no build (today):** laptop with Claude Code `/voice tap` + headset; phone with the Claude app connected through Remote Control for status checks and short commands; the phone's dictation for messages. You still have to read answers: use the "spoken summary" habit below.
+Optionen: --port 8772, --host 100.x.y.z oder --tailscale. Externe LAN-/Wildcard-
+Bind-Adressen werden abgelehnt. --tailscale fragt tailscale ip -4 ab und akzeptiert
+nur 100.64.0.0/10. MagicDNS wird aus tailscale status --json fuer Host-Pruefung ermittelt.
 
-**Tier 2, small "voice bridge" (recommended build, about one work session):** a tiny server on the dev machine (reachable only through Tailscale, which is installed) with a phone-friendly page: one huge push-to-talk button, no text needed.
-- Speech-to-text: browser Web Speech API on the phone (no install; needs internet) or local Whisper (`faster-whisper`, offline, German works).
-- Text-to-speech: browser `speechSynthesis` on the phone, or local Piper for offline.
-- Brain: the existing agents: `claude -p` / `codex exec` in a worktree with the standard briefs (`docs/ai/WORKFLOW.md`), or a local Ollama model for plain questions and summaries. The bridge answers in 2-3 spoken sentences ("Gate green, 1562 tests; two runs still going; riding merge is waiting.") and stores the full output as text for later.
-- Commands (allow-list only, no free shell): status, what failed, start run `<task>`, read the last report, run the gate, explain the diff of branch X, add a wish to the queue.
-- Generic for other projects: the bridge reads a list of project roots; each project has its own `AGENTS.md`, queue and brief folder, so the same voice commands work everywhere.
+## Handy ueber Tailscale HTTPS: genaue Reihenfolge
+1. Tailscale am PC und Handy installieren, beide im selben Tailnet anmelden.
+2. Bridge wie oben auf **127.0.0.1** starten; fuer diesen Proxy-Weg kein --tailscale.
+3. Zweite PC-Konsole: `tailscale serve --bg http://127.0.0.1:8772`.
+   Falls aufgefordert, HTTPS fuer das Tailnet ueber den angebotenen Link aktivieren.
+   `tailscale serve status` zeigt die private HTTPS-Adresse. Kein Portforwarding/Funnel.
+4. Handy: Tailscale einschalten, Android Chrome oder iOS Safari oeffnen:
+   `https://<PC-Name>.<Tailnet>.ts.net/#token=<Token-aus-PC-Konsole>`.
+   Die Bridge gibt diese zweite URL aus, wenn MagicDNS bereits erkannt wurde.
+   Bei spaeter aktivierter MagicDNS-Konfiguration die Bridge neu starten.
+5. Mikrofon erlauben, Sprechtaste testen. Android: Browser-Menue → App installieren /
+   Zum Startbildschirm hinzufuegen. iPhone: Teilen → Zum Home-Bildschirm.
+   Bei Bedarf die installierte Seite einmal mit der Token-URL oeffnen: iOS kann
+   Safari-/Home-Bildschirm-Speicher trennen.
+6. Headset verbinden und im Vordergrund testen. Media Session bildet Play/Pause
+   auf Sprechen und Next/Stop auf Stopp ab, soweit Browser/Headset mitmachen.
+   Sperrbildschirm-Aufnahme ist **nicht garantiert**.
+7. Proxy ausschalten: `tailscale serve reset` setzt die lokale Serve-Konfiguration
+   zurueck; vorher andere Serve-Dienste beruecksichtigen.
 
-**Tier 3, fully local:** Ollama (already installed) + whisper.cpp + Piper, for offline Q&A; weaker than the hosted models for coding, fine for status and planning.
+HTTP auf einer 100.x-IP reicht fuer viele Handy-Browser nicht: Mikrofon, Wake Lock,
+Service Worker und Installation brauchen HTTPS. Tailscale verschluesselt den Transport,
+der Browser erkennt eine HTTP-IP trotzdem nicht als sicheren Kontext.
+Offizielle Einrichtung: [Tailscale Serve](https://tailscale.com/docs/reference/tailscale-cli/serve).
 
-## Confirmations and safety rules for voice control
-- Read-only commands run immediately. Anything that changes state (start a run, merge, delete a worktree) needs a spoken two-step: the bridge repeats the action and waits for the phrase "confirm <random word>" that it just said.
-- Push, force operations and deleting data are never available by voice.
-- The bridge binds to the Tailscale interface only, checks the Host header, keeps an audit log and has a kill phrase.
-- Voice input is data, not instructions from files or web pages: the bridge must not execute text found in repositories or logs.
+## Anbieter, Modell und Unterhaltung
+- **claude** ist Standard. Native CLI installieren und am PC anmelden. model leer
+  bedeutet CLI-Standard; sonst einen fuer den Account verfuegbaren Modellnamen angeben.
+  Die Bridge prueft zuerst claude --help, ohne Agentenstart. Fehlen restricted/tools/
+  plan/resume, wird abgebrochen. Hier war Claude nicht installiert; Flags gegen die
+  [offizielle CLI-Referenz](https://code.claude.com/docs/en/cli-reference) geprueft.
+  Verwendet: -p, JSON, --resume, --permission-mode plan, restricted mode, nur
+  Read/Glob/Grep, keine MCP-Werkzeuge, Skills oder Hooks.
+- **codex**: native CLI oder normale npm-Installation, PC-Login. Lokale Hilfen fuer
+  codex, exec und exec resume sowie Features gelesen. JSONL/thread_id wird gespeichert.
+  Resume erhaelt explizit read-only/never; Shell, Unified Exec, Hooks, Apps, Browser,
+  Computer Use und Code Host sind deaktiviert, User-Config wird nicht importiert.
+  Sprachtext geht nie durch Windows-Batchdateien: der npm-Launcher wird direkt ueber
+  Node aufgerufen. Die eingeschraenkte Werkzeugauswahl kann Projektanalyse begrenzen.
+  Vorhandene .codex/config.toml im Projekt oder seinen Vorfahren wird sicher abgelehnt,
+  damit daraus keine ausfuehrbaren MCP-Server geladen werden. Fuer solche Checkouts
+  Claude oder einen konfigurationsfreien Worktree waehlen. Codex/Ollama erhalten einen
+  begrenzten Datenkontext aus AGENTS/README/HANDOFF und explizit genannten relativen
+  Dateipfaden; grosse Dateien werden gekuerzt, nicht automatisch ausgefuehrt.
+- **ollama**: lokale HTTP-Q&A auf 127.0.0.1:11434, model waehlt das Modell, sonst
+  llama3.2. Die letzten zehn aktiven Gespraechsturns sind Kontext, keine Agentenwerkzeuge.
+- **echo**: Fake-Anbieter ohne KI, fuer Mikrofon/Vorlesen und UI-Pruefungen.
 
-## Decisions needed from the owner (list)
-1. Is Web Speech API on the phone acceptable (online, simplest) or must recognition run locally/offline?
-2. Which languages must work (German only, or German + English)?
-3. Which agent should answer by default: Claude (`claude -p`), Codex (`codex exec`) or a local Ollama model?
-4. Does the phone run Android or iOS, and is Tailscale installed on it?
-5. Is an "morning brief" spoken status (what finished, what failed, what needs a decision) wanted as a daily voice message?
+Anbieter/Modell am PC einstellen, Server neu starten. Sitzung je Projekt und Kombination
+Root/Anbieter/Modell; Wechsel beginnt eine neue Unterhaltung. Neues Gespraech verwirft
+nur den aktiven Kontext, Berichte bleiben. Projekt wechseln website waehlt den Namen.
+UI-Einstellungen: Sprache de-DE/EN-US, Stimme, Tempo, Tonhoehe; bevorzugt passende Stimme.
 
-## Build plan for Tier 2 (one Codex run, brief to write when the owner answers)
-`tools/voicebridge/` (Python stdlib server + static PWA), unit tests for the command allow-list, confirmation flow and Host/Tailscale binding, dry-run mode, docs, Launch Hub link. Nothing here replaces the Launch Hub; it reuses its API for status and runs.
+## Sprachbefehle und Sicherheit
+Allowlist: Status, Was ist fehlgeschlagen, Lies den letzten Bericht, Neues Gespraech,
+Projekt wechseln <name>, Stopp/Ruhe, Wiederholen, Notaus. Englische Entsprechungen auch.
+Status liest Branch/Aenderungen, Laufzentrale und gespeicherte testing/runs-Daten, startet
+keine Tests. running?-Eintraege sind Indizien, keine bestaetigten Prozesse.
+Fehlerberichte durchsuchen die letzten 20 Runs. Gespeicherte Ergebnisse sind kein frisches
+Gate. Andere Saetze gehen als Frage an den lesenden Agenten, niemals direkt an eine Shell.
+
+**Aktion <Beschreibung>** erzeugt zuerst konkrete Dateivorschlaege. Die Bridge prueft
+Pfade, Groessen und geschuetzte Linien und liest den Vorschlag mit einem zufaelligen
+zusammengesetzten Wort vor. Nur genau dieses Wort in der **naechsten** Nachricht,
+innerhalb 60 Sekunden, erlaubt diesen einen Vorschlag. Falsches Wort, anderes Projekt,
+Stopp, Notaus oder Timeout verbrauchen die Freigabe. Danach wieder Lesemodus.
+Vorhandene Dateien werden vorher gelesen, auf unveraenderten Inhalt geprueft und
+unveraenderlich gesichert. Maximal acht UTF-8-Dateien zu je 64 KiB, keine leeren Inhalte,
+keine Loeschung, keine Symlink-/Junction-Ziele, Git-Metadaten oder Bridge-Selbstbearbeitung.
+Ein edits-Feld in einer normalen Antwort wird **nie** angewendet. Teilweise Schreibfehler
+koennen trotz Vorpruefung vorkommen; alle schon geschriebenen Dateien haben Backups.
+
+Runs starten, Merges und beliebige Shell-Befehle bleiben im MVP **gesperrt**, da sie
+nicht in der vorgegebenen Befehls-Allowlist stehen. PC/Launch Hub bleiben dafuer zustaendig.
+Push, Force und Datenloeschung sind nie verfuegbar. Sprachbestaetigung entsperrt keinen
+allgemeinen Agenten-Schreib-/Shellmodus. Geschriebener Code wird nicht gestartet.
+Repository-/Log-/Webtexte sind Daten, keine Befehle oder Freigaben. Status verwendet feste
+argv-Befehle, nie shell=True.
+
+Notaus / Emergency stop / Bruecke aus: eigene Agentenprozesse stoppen und Bridge anhalten.
+POST /api/emergency bleibt waehrend Antworten erreichbar und ist vom Rate Limit ausgenommen;
+Token/CSRF bleiben erforderlich. Nur bewusstes Reaktivieren in Einstellungen hebt Notaus auf.
+Keine Besitzer-Clients/fremden Runs werden beendet. Ollama-Antworten werden verworfen;
+dessen laufende HTTP-Berechnung kann bis zum Timeout weiterlaufen. Stopp beendet Aufnahme,
+Vorlesen und eigenen CLI-Turn. Wiederholen/Skip sind immer sichtbar; Betriebssystem-
+Lautstaerke und Bluetooth-Routing gelten weiterhin, auch beim Wiederholen.
+
+API: Bearer-Token plus CSRF fuer POST, Host-/Origin-Pruefung, kein CORS, maximal 1,5 MB
+Body, 6000 Transcript-Zeichen, 2 MB CLI-Ausgabe, 180 Sekunden CLI-Turn. Kein GET aendert
+die Unterhaltung. Ein Besitzer/ein aktiver Turn je Server; Tabs teilen Projekt/Freigabe.
+
+## Lokale Daten, optionale Adapter und Tests
+Unter tools/voicebridge: token.txt, projects.json, audit.log, sessions.json, history.jsonl,
+out/ und backups/, alles gitignored. Vollstaendige Antworten spaeter im Verlauf lesen.
+Audit protokolliert Ereignisse, keine Tokens oder Bestaetigungswoerter. Private Transkripte/
+Berichte liegen lokal; Zugriff auf PC/Tailnet begrenzen. Keine automatische Loeschung oder
+Retention. PWA cached nur Shell, nie API, Token, Audio oder Berichte. Offline-Shell ist
+sichtbar, KI braucht den PC und Browser-STT normalerweise Internet.
+
+Optional und standardmaessig **aus**: --stt whisper braucht separat installiertes
+faster-whisper; --whisper-model small waehlt das Modell (erster Download eventuell online).
+--piper-model <lokale.onnx> braucht separat installiertes Piper und Modell.
+Keine automatische Paketinstallation. Danach lokale STT/TTS in Einstellungen aktivieren.
+Aufnahmen maximal 1,5 MB. Android Chrome ist am verlaesslichsten; iOS Safari, Stimmen,
+Haptik, Autoplay, Bluetooth und Media Session variieren. Wake Lock ist best effort.
+Nicht beim aktiven Fahren bedienen; lange Aufgaben als Passagier oder im Stand besprechen.
+
+PowerShell-Trockenlauf: `$env:SB_VOICE_DRY_RUN='1'`, dann Server starten.
+Kein Agent und keine Dateischreibaktion. Fuer echten Betrieb Variable entfernen:
+`Remove-Item Env:SB_VOICE_DRY_RUN`. .claude/launch.json startet Vorschau auf 8772
+bewusst im Trockenlauf. Echo startet ebenfalls keine echten Agenten.
+
+Tests: `python -m unittest discover tools/voicebridge/tests`,
+`node tools/voicebridge/tests/ui_smoke.cjs`, `node --check tools/voicebridge/static/app.js`.
+Node-Harness prueft Zustaende mit Fake-STT/TTS/HTTP, **kein** gerendertes Layout.
+Launch-Hub-Pythontests sind nicht in Gradle check verdrahtet; Gradle bleibt unveraendert.

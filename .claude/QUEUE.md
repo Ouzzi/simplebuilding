@@ -274,3 +274,7 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 
 ## FIX-MONEY-WIKI (26.3, Codex)
 - [x] Sieben bilingual dokumentierte Money-Items; Kreativtab aus Item-Inventar korrekt ausgeschlossen; alle Modul-Wikis/Originaltexturen aktuell. Wiki 15, Hub 38, Devserver 121 (1 skipped), Gradle check Exit 0. Kein Push/Merge.
+
+## VOICEBRIDGE (2026-09-30, codex-voicebridge)
+- [x] Besitzerwunsch: Handy/Laptop, eine grosse Sprechtaste, kurze vorgelesene Antworten, mehrere Projekte; stdlib-Server und PWA, lesende Agenten, konkrete Dateivorschlaege mit einmaliger Sprachbestaetigung.
+- [ ] Besitzerpruefung: echtes Handy-Mikrofon/Vorlesen, Tailscale HTTPS, Headset-Taste und gewaehlter CLI-Anbieter; Verifikation siehe HANDOFF.
