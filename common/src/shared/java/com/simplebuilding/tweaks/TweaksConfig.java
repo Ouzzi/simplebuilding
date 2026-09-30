@@ -8,6 +8,17 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
  * Druckplatten-Familie ein Schalter in {@link Pads} (docs/SIMPLETWEAKS-UEBERNAHME.md, Abschnitt 5).
  */
 public class TweaksConfig {
+    public static final int MAX_TELEPORTER_WARMUP_TICKS = 12000;
+    public static final double MAX_LAUNCHPAD_STRENGTH_MULTIPLIER = 2.0;
+    public static final int MAX_POTION_CHARGE_STEP_TICKS = 1200;
+    public static final double MAX_POTION_COOLDOWN_FACTOR = 10.0;
+    public static final int MAX_KILL_COMMAND_RADIUS = 256;
+    public static final double MAX_XP_CLUMP_RADIUS = 8.0;
+    public static final int MAX_SPAWN_ELYTRA_RADIUS = 256;
+    public static final float MAX_BOOST_STRENGTH = 1.2f;
+    public static final int MAX_LASER_RANGE = 1024;
+    public static final int MAX_ECHO_COOLDOWN_TICKS = 12000;
+
 
     // Reihenfolge = Anzeige im Reiter "Pads & Tweaks" (Config-Umbau 2026-09-28); Gson liest nach Namen.
     @ConfigEntry.Gui.CollapsibleObject(startExpanded = true)
@@ -44,18 +55,35 @@ public class TweaksConfig {
         if (dimensions == null) dimensions = new Dimensions();
         if (commands == null) commands = new Commands();
         if (optimization == null) optimization = new Optimization();
-        padTuning.teleporterTier1WarmupTicks = Math.max(1, padTuning.teleporterTier1WarmupTicks);
-        padTuning.teleporterTier2WarmupTicks = Math.max(1, padTuning.teleporterTier2WarmupTicks);
-        padTuning.teleporterTier3WarmupTicks = Math.max(1, padTuning.teleporterTier3WarmupTicks);
-        padTuning.launchpadStrengthMultiplier = nonNegative(padTuning.launchpadStrengthMultiplier, 1.0);
-        padTuning.potionPadChargeStepTicks = Math.max(1, padTuning.potionPadChargeStepTicks);
-        padTuning.potionPadCooldownFactor = nonNegative(padTuning.potionPadCooldownFactor, 2.0);
-        commands.killCommandRadius = Math.max(1, commands.killCommandRadius);
-        optimization.xpClumpRadius = nonNegative(optimization.xpClumpRadius, 2.0);
+        padTuning.teleporterTier1WarmupTicks = (int) bounded("padTuning.teleporterTier1WarmupTicks", padTuning.teleporterTier1WarmupTicks, 1, MAX_TELEPORTER_WARMUP_TICKS, 1000);
+        padTuning.teleporterTier2WarmupTicks = (int) bounded("padTuning.teleporterTier2WarmupTicks", padTuning.teleporterTier2WarmupTicks, 1, MAX_TELEPORTER_WARMUP_TICKS, 400);
+        padTuning.teleporterTier3WarmupTicks = (int) bounded("padTuning.teleporterTier3WarmupTicks", padTuning.teleporterTier3WarmupTicks, 1, MAX_TELEPORTER_WARMUP_TICKS, 100);
+        padTuning.launchpadStrengthMultiplier = bounded("padTuning.launchpadStrengthMultiplier", padTuning.launchpadStrengthMultiplier, 0, MAX_LAUNCHPAD_STRENGTH_MULTIPLIER, 1.0);
+        padTuning.potionPadChargeStepTicks = (int) bounded("padTuning.potionPadChargeStepTicks", padTuning.potionPadChargeStepTicks, 1, MAX_POTION_CHARGE_STEP_TICKS, 20);
+        padTuning.potionPadCooldownFactor = bounded("padTuning.potionPadCooldownFactor", padTuning.potionPadCooldownFactor, 0, MAX_POTION_COOLDOWN_FACTOR, 2.0);
+        commands.killCommandRadius = (int) bounded("commands.killCommandRadius", commands.killCommandRadius, 1, MAX_KILL_COMMAND_RADIUS, 100);
+        optimization.xpClumpRadius = bounded("optimization.xpClumpRadius", optimization.xpClumpRadius, 0, MAX_XP_CLUMP_RADIUS, 2.0);
+        spawn.spawnElytraRadius = (int) bounded("spawn.spawnElytraRadius", spawn.spawnElytraRadius, 1, MAX_SPAWN_ELYTRA_RADIUS, 25);
+        spawn.boostStrength = (float) bounded("spawn.boostStrength", spawn.boostStrength, 0.1, MAX_BOOST_STRENGTH, 0.6);
+        laserPointer.range = (int) bounded("laserPointer.range", laserPointer.range, 1, MAX_LASER_RANGE, 512);
         laserPointer.chargePerSecond = Math.max(0, laserPointer.chargePerSecond);
         laserPointer.effectCost = Math.max(0, laserPointer.effectCost);
-        balancing.echoSounderJumpCooldownTicks = Math.max(0, balancing.echoSounderJumpCooldownTicks);
-        balancing.echoSounderAttemptLockTicks = Math.max(0, balancing.echoSounderAttemptLockTicks);
+        balancing.echoSounderJumpCooldownTicks = (int) bounded("balancing.echoSounderJumpCooldownTicks", balancing.echoSounderJumpCooldownTicks, 0, MAX_ECHO_COOLDOWN_TICKS, 480);
+        balancing.echoSounderAttemptLockTicks = (int) bounded("balancing.echoSounderAttemptLockTicks", balancing.echoSounderAttemptLockTicks, 0, MAX_ECHO_COOLDOWN_TICKS, 100);
+    }
+
+    /** Clamp in memory only; never save an invalid file as a side effect. */
+    public static double bounded(String option, double value, double min, double max, double fallback) {
+        double checked = Double.isFinite(value) ? Math.max(min, Math.min(max, value)) : fallback;
+        if (Double.compare(value, checked) != 0) {
+            com.simplebuilding.Simplebuilding.LOGGER.warn("Invalid tweaks.{}: {}; using {} (range {}..{})", option, value, checked, min, max);
+        }
+        return checked;
+    }
+
+    /** Runtime guard without per-packet warning spam. */
+    public static double capped(double value, double min, double max, double fallback) {
+        return Double.isFinite(value) ? Math.max(min, Math.min(max, value)) : fallback;
     }
 
     /** Endliche, nicht negative Zahl; sonst {@code fallback}. */
@@ -120,19 +148,19 @@ public class TweaksConfig {
         /** Wartezeit des Spawn-Teleporters der Stufe 1..3 (hoeher = 3), mindestens 1 Tick. */
         public int teleporterWarmup(int tier) {
             int ticks = tier >= 3 ? teleporterTier3WarmupTicks : tier == 2 ? teleporterTier2WarmupTicks : teleporterTier1WarmupTicks;
-            return Math.max(1, ticks);
+            return (int) capped(ticks, 1, MAX_TELEPORTER_WARMUP_TICKS, 1000);
         }
 
         public double launchpadStrengthFactor() {
-            return nonNegative(launchpadStrengthMultiplier, 1.0);
+            return capped(launchpadStrengthMultiplier, 0, MAX_LAUNCHPAD_STRENGTH_MULTIPLIER, 1.0);
         }
 
         public int potionPadStepTicks() {
-            return Math.max(1, potionPadChargeStepTicks);
+            return (int) capped(potionPadChargeStepTicks, 1, MAX_POTION_CHARGE_STEP_TICKS, 20);
         }
 
         public double potionPadCooldown() {
-            return nonNegative(potionPadCooldownFactor, 2.0);
+            return capped(potionPadCooldownFactor, 0, MAX_POTION_COOLDOWN_FACTOR, 2.0);
         }
     }
 

@@ -86,7 +86,7 @@ public final class SpawnElytra {
             return false;
         }
         BlockPos center = center(player);
-        int radius = SimpleTweaks.config().spawn.spawnElytraRadius;
+        int radius = (int) com.simplebuilding.tweaks.TweaksConfig.capped(SimpleTweaks.config().spawn.spawnElytraRadius, 1, com.simplebuilding.tweaks.TweaksConfig.MAX_SPAWN_ELYTRA_RADIUS, 25);
         return Math.abs(player.getX() - center.getX()) <= radius && Math.abs(player.getZ() - center.getZ()) <= radius;
     }
 

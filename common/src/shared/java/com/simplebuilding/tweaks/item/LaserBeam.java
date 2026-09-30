@@ -171,7 +171,7 @@ public final class LaserBeam {
 
     /** Weiter als Reichweite + Spielraum wirkt nichts (gleiche Grenze wie beim Weiterleiten des Punkts). */
     private static boolean inRange(ServerPlayer player, Vec3 at) {
-        double max = SimpleTweaks.config().laserPointer.range + TweaksNetwork.LASER_RANGE_SLACK;
+        double max = com.simplebuilding.tweaks.TweaksConfig.capped(SimpleTweaks.config().laserPointer.range, 1, com.simplebuilding.tweaks.TweaksConfig.MAX_LASER_RANGE, 512) + TweaksNetwork.LASER_RANGE_SLACK;
         return player.getEyePosition().distanceToSqr(at) <= max * max;
     }
 

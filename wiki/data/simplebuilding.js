@@ -45846,8 +45846,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Teleporter I Warm-up (Ticks)",
       "labelDe": "Teleporter-I-Wartezeit (Ticks)",
-      "tooltip": "How long a player has to stand still on a spawn teleporter I before it teleports, in ticks (20 = 1 s). Default: 1000 (50 s).",
-      "tooltipDe": "Wie lange ein Spieler still auf einem Spawn-Teleporter I stehen muss, bis er springt, in Ticks (20 = 1 s). Standard: 1000 (50 s)."
+      "tooltip": "How long a player has to stand still on a spawn teleporter I before it teleports, in ticks (20 = 1 s). Default: 1000 (50 s). Range: 1–12000.",
+      "tooltipDe": "Wie lange ein Spieler still auf einem Spawn-Teleporter I stehen muss, bis er springt, in Ticks (20 = 1 s). Standard: 1000 (50 s). Bereich: 1–12000,"
     },
     {
       "name": "tweaks.padTuning.teleporterTier2WarmupTicks",
@@ -45861,8 +45861,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Teleporter II Warm-up (Ticks)",
       "labelDe": "Teleporter-II-Wartezeit (Ticks)",
-      "tooltip": "The same for spawn teleporter II. Default: 400 (20 s).",
-      "tooltipDe": "Dasselbe für Spawn-Teleporter II. Standard: 400 (20 s)."
+      "tooltip": "The same for spawn teleporter II. Default: 400 (20 s). Range: 1–12000.",
+      "tooltipDe": "Dasselbe für Spawn-Teleporter II. Standard: 400 (20 s). Bereich: 1–12000,"
     },
     {
       "name": "tweaks.padTuning.teleporterTier3WarmupTicks",
@@ -45876,8 +45876,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Teleporter III Warm-up (Ticks)",
       "labelDe": "Teleporter-III-Wartezeit (Ticks)",
-      "tooltip": "The same for the Enderite spawn teleporter III (the final easter stage waits half as long). Default: 100 (5 s).",
-      "tooltipDe": "Dasselbe für den Enderit-Spawn-Teleporter III (die letzte Easter-Stufe wartet halb so lange). Standard: 100 (5 s)."
+      "tooltip": "The same for the Enderite spawn teleporter III (the final easter stage waits half as long). Default: 100 (5 s). Range: 1–12000.",
+      "tooltipDe": "Dasselbe für den Enderit-Spawn-Teleporter III (die letzte Easter-Stufe wartet halb so lange). Standard: 100 (5 s). Bereich: 1–12000,"
     },
     {
       "name": "tweaks.padTuning.launchpadStrengthMultiplier",
@@ -45891,8 +45891,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Launchpad Strength Multiplier",
       "labelDe": "Startrampen-Stärke-Faktor",
-      "tooltip": "Multiplies the launch strength of launchpads (1.5 plus 0.8 per wind charge). 0.5 = half as high, 2 = twice as strong. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Startstärke der Startrampen (1,5 plus 0,8 je Windkugel). 0,5 = halb so hoch, 2 = doppelt so stark. Standard: 1,0."
+      "tooltip": "Multiplies the launch strength of launchpads (1.5 plus 0.8 per wind charge). 0.5 = half as high, 2 = twice as strong. Default: 1.0. Range: 0–2.0.",
+      "tooltipDe": "Multipliziert die Startstärke der Startrampen (1,5 plus 0,8 je Windkugel). 0,5 = halb so hoch, 2 = doppelt so stark. Standard: 1,0. Bereich: 0–2,0,"
     },
     {
       "name": "tweaks.padTuning.potionPadChargeStepTicks",
@@ -45906,8 +45906,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Potion Pad Charge Step (Ticks)",
       "labelDe": "Trank-Pad-Ladeschritt (Ticks)",
-      "tooltip": "A player standing on a potion pad gets 25 %, 50 % and then 100 % of the effect duration in three steps; this is the length of one step in ticks. Default: 20 (1 s, full after 3 s).",
-      "tooltipDe": "Wer auf einem Trank-Pad steht, bekommt in drei Schritten 25 %, 50 % und dann 100 % der Wirkdauer; das ist die Länge eines Schritts in Ticks. Standard: 20 (1 s, voll nach 3 s)."
+      "tooltip": "A player standing on a potion pad gets 25 %, 50 % and then 100 % of the effect duration in three steps; this is the length of one step in ticks. Default: 20 (1 s, full after 3 s). Range: 1–1200.",
+      "tooltipDe": "Wer auf einem Trank-Pad steht, bekommt in drei Schritten 25 %, 50 % und dann 100 % der Wirkdauer; das ist die Länge eines Schritts in Ticks. Standard: 20 (1 s, voll nach 3 s). Bereich: 1–1200,"
     },
     {
       "name": "tweaks.padTuning.potionPadCooldownFactor",
@@ -45921,8 +45921,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Potion Pad Cooldown Factor",
       "labelDe": "Trank-Pad-Abklingfaktor",
-      "tooltip": "After a full charge the potion pad cools down for this many times the granted effect duration, times the effect's own multiplier (Healing and Harming 2, Night Vision 0.5, see docs/TRANK-PADS.md). 0 = no cooldown. Default: 2.0.",
-      "tooltipDe": "Nach einer vollen Ladung kühlt das Trank-Pad so viele Male die gegebene Wirkdauer lang ab, mal dem eigenen Faktor der Wirkung (Direktheilung und Direktschaden 2, Nachtsicht 0,5, siehe docs/TRANK-PADS.md). 0 = keine Abklingzeit. Standard: 2,0."
+      "tooltip": "After a full charge the potion pad cools down for this many times the granted effect duration, times the effect's own multiplier (Healing and Harming 2, Night Vision 0.5, see docs/TRANK-PADS.md). 0 = no cooldown. Default: 2.0. Range: 0–10.0.",
+      "tooltipDe": "Nach einer vollen Ladung kühlt das Trank-Pad so viele Male die gegebene Wirkdauer lang ab, mal dem eigenen Faktor der Wirkung (Direktheilung und Direktschaden 2, Nachtsicht 0,5, siehe docs/TRANK-PADS.md). 0 = keine Abklingzeit. Standard: 2,0. Bereich: 0–10,0,"
     },
     {
       "name": "tweaks.laserPointer.enable",
@@ -45981,8 +45981,8 @@ window.WIKI_DATA = {
       "groupDe": "Amethyst-Resonanzstab",
       "label": "Max Range (Blocks)",
       "labelDe": "Reichweite (Blöcke)",
-      "tooltip": "How far the beam reaches, in blocks (never beyond the server's view distance). Server-side, sent to clients. Default: 512.",
-      "tooltipDe": "Wie weit der Strahl reicht, in Blöcken (nie über die Sichtweite des Servers hinaus). Serverseitig, an die Clients geschickt. Standard: 512."
+      "tooltip": "How far the beam reaches, in blocks (never beyond the server's view distance). Server-side, sent to clients. Default: 512. Range: 1–1024.",
+      "tooltipDe": "Wie weit der Strahl reicht, in Blöcken (nie über die Sichtweite des Servers hinaus). Serverseitig, an die Clients geschickt. Standard: 512. Bereich: 1–1024,"
     },
     {
       "name": "tweaks.laserPointer.chargePerSecond",
@@ -46041,8 +46041,8 @@ window.WIKI_DATA = {
       "groupDe": "Abstimmung",
       "label": "Echo Sounder Cooldown (Ticks)",
       "labelDe": "Echolot-Abklingzeit (Ticks)",
-      "tooltip": "Cooldown of the Echo Sounder after a jump to its lodestone, in ticks (20 = 1 s). 0 = no cooldown. Default: 480 (24 s).",
-      "tooltipDe": "Abklingzeit des Echolots nach einem Sprung zu seinem Leitstein, in Ticks (20 = 1 s). 0 = keine Abklingzeit. Standard: 480 (24 s)."
+      "tooltip": "Cooldown of the Echo Sounder after a jump to its lodestone, in ticks (20 = 1 s). 0 = no cooldown. Default: 480 (24 s). Range: 0–12000.",
+      "tooltipDe": "Abklingzeit des Echolots nach einem Sprung zu seinem Leitstein, in Ticks (20 = 1 s). 0 = keine Abklingzeit. Standard: 480 (24 s). Bereich: 0–12000,"
     },
     {
       "name": "tweaks.balancing.echoSounderAttemptLockTicks",
@@ -46056,8 +46056,8 @@ window.WIKI_DATA = {
       "groupDe": "Abstimmung",
       "label": "Echo Sounder Attempt Lock (Ticks)",
       "labelDe": "Echolot-Sperre nach Versuch (Ticks)",
-      "tooltip": "Longest lock of the Echo Sounder after an attempt that does not jump (released early, missing lodestone) and after linking, in ticks (20 = 1 s): 1 s right next to the lodestone, the full time from 1000 blocks away or in another dimension. Shown as the item cooldown. 0 = no lock. Default: 100 (5 s).",
-      "tooltipDe": "Längste Sperre des Echolots nach einem Versuch ohne Sprung (zu früh losgelassen, Leitstein fehlt) und nach dem Verknuepfen, in Ticks (20 = 1 s): 1 s direkt am Leitstein, die volle Zeit ab 1000 Blöcken Entfernung oder in einer anderen Dimension. Angezeigt als Abklingzeit des Items. 0 = keine Sperre. Standard: 100 (5 s)."
+      "tooltip": "Longest lock of the Echo Sounder after an attempt that does not jump (released early, missing lodestone) and after linking, in ticks (20 = 1 s): 1 s right next to the lodestone, the full time from 1000 blocks away or in another dimension. Shown as the item cooldown. 0 = no lock. Default: 100 (5 s). Range: 0–12000.",
+      "tooltipDe": "Längste Sperre des Echolots nach einem Versuch ohne Sprung (zu früh losgelassen, Leitstein fehlt) und nach dem Verknuepfen, in Ticks (20 = 1 s): 1 s direkt am Leitstein, die volle Zeit ab 1000 Blöcken Entfernung oder in einer anderen Dimension. Angezeigt als Abklingzeit des Items. 0 = keine Sperre. Standard: 100 (5 s). Bereich: 0–12000,"
     },
     {
       "name": "tweaks.spawn.forceExactSpawn",
@@ -46206,8 +46206,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Spawn Elytra Radius (Blocks)",
       "labelDe": "Spawn-Elytra-Radius (Blöcke)",
-      "tooltip": "Radius around the center where players get the spawn elytra. Default: 25.",
-      "tooltipDe": "Radius um die Mitte, in dem es die Spawn-Elytra gibt. Standard: 25."
+      "tooltip": "Radius around the center where players get the spawn elytra. Default: 25. Range: 1–256.",
+      "tooltipDe": "Radius um die Mitte, in dem es die Spawn-Elytra gibt. Standard: 25. Bereich: 1–256,"
     },
     {
       "name": "tweaks.spawn.useWorldSpawnAsCenter",
@@ -46296,8 +46296,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Boost Strength",
       "labelDe": "Boost-Stärke",
-      "tooltip": "Strength of one spawn elytra boost. Default: 0.6.",
-      "tooltipDe": "Stärke eines Boosts der Spawn-Elytra. Standard: 0,6."
+      "tooltip": "Strength of one spawn elytra boost. Default: 0.6. Range: 0.1–1.2.",
+      "tooltipDe": "Stärke eines Boosts der Spawn-Elytra. Standard: 0,6. Bereich: 0,1–1,2,"
     },
     {
       "name": "tweaks.spawn.spawn1X",
@@ -46416,8 +46416,8 @@ window.WIKI_DATA = {
       "groupDe": "Befehle",
       "label": "/killboats and /killcarts Radius",
       "labelDe": "Reichweite von /killboats und /killcarts",
-      "tooltip": "How far around the player /killboats and /killcarts reach, in blocks. Default: 100.",
-      "tooltipDe": "Wie weit /killboats und /killcarts um den Spieler reichen, in Blöcken. Standard: 100."
+      "tooltip": "How far around the player /killboats and /killcarts reach, in blocks. Default: 100. Range: 1–256.",
+      "tooltipDe": "Wie weit /killboats und /killcarts um den Spieler reichen, in Blöcken. Standard: 100. Bereich: 1–256,"
     },
     {
       "name": "tweaks.optimization.enableXpClumps",
@@ -46446,8 +46446,8 @@ window.WIKI_DATA = {
       "groupDe": "Leistung",
       "label": "XP Merge Radius (Blocks)",
       "labelDe": "XP-Zusammenlege-Radius (Blöcke)",
-      "tooltip": "How far an orb reaches to merge its neighbors, in blocks. Larger = fewer orbs. Default: 2.0.",
-      "tooltipDe": "Wie weit eine Kugel ihre Nachbarn einsammelt, in Blöcken. Größer = weniger Kugeln. Standard: 2,0."
+      "tooltip": "How far an orb reaches to merge its neighbors, in blocks. Larger = fewer orbs. Default: 2.0. Range: 0–8.0.",
+      "tooltipDe": "Wie weit eine Kugel ihre Nachbarn einsammelt, in Blöcken. Größer = weniger Kugeln. Standard: 2,0. Bereich: 0–8,0,"
     },
     {
       "name": "tweaks.optimization.scaleXpOrbs",

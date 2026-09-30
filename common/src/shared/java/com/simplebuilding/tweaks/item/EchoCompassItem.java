@@ -112,12 +112,12 @@ public class EchoCompassItem extends Item {
     /** Ladezeit in Ticks fuer den aktuellen Zustand. */
     /** Abklingzeit nach einem Sprung: Config {@code tweaks.balancing.echoSounderJumpCooldownTicks} (Standard {@link #COOLDOWN_TICKS}). */
     public static int cooldownTicks() {
-        return Math.max(0, com.simplebuilding.tweaks.SimpleTweaks.config().balancing.echoSounderJumpCooldownTicks);
+        return Math.max(0, Math.min(com.simplebuilding.tweaks.TweaksConfig.MAX_ECHO_COOLDOWN_TICKS, com.simplebuilding.tweaks.SimpleTweaks.config().balancing.echoSounderJumpCooldownTicks));
     }
 
     /** Laengste Sperre nach einem Versuch: Config {@code tweaks.balancing.echoSounderAttemptLockTicks} (Standard {@link #ATTEMPT_LOCK_TICKS}). */
     public static int attemptLockMaxTicks() {
-        return Math.max(0, com.simplebuilding.tweaks.SimpleTweaks.config().balancing.echoSounderAttemptLockTicks);
+        return Math.max(0, Math.min(com.simplebuilding.tweaks.TweaksConfig.MAX_ECHO_COOLDOWN_TICKS, com.simplebuilding.tweaks.SimpleTweaks.config().balancing.echoSounderAttemptLockTicks));
     }
 
     /**

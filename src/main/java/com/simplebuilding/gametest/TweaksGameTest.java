@@ -10,7 +10,44 @@ import net.minecraft.gametest.framework.GameTestHelper;
  */
 public final class TweaksGameTest {
     @GameTest
+    public void boostCommandRefusesInvalidStrength(GameTestHelper h) { HardenTests.boostCommandRefusesInvalidStrength(h); }
+    @GameTest
+    public void xpAndLaunchRuntimeCaps(GameTestHelper h) { HardenTests.xpAndLaunchRuntimeCaps(h); }
+    @GameTest
+    public void boostNonfiniteAndWrongEquipment(GameTestHelper h) { HardenTests.boostNonfiniteAndWrongEquipment(h); }
+    @GameTest
+    public void allDefaultsUnchangedByValidation(GameTestHelper h) { HardenTests.allDefaultsUnchangedByValidation(h); }
+    @GameTest
+    public void hardenPadTuningTeleporterTier1WarmupTicks(GameTestHelper h) { HardenTests.hardenPadTuningTeleporterTier1WarmupTicks(h); }
+    @GameTest
+    public void hardenPadTuningTeleporterTier2WarmupTicks(GameTestHelper h) { HardenTests.hardenPadTuningTeleporterTier2WarmupTicks(h); }
+    @GameTest
+    public void hardenPadTuningTeleporterTier3WarmupTicks(GameTestHelper h) { HardenTests.hardenPadTuningTeleporterTier3WarmupTicks(h); }
+    @GameTest
+    public void hardenPadTuningLaunchpadStrengthMultiplier(GameTestHelper h) { HardenTests.hardenPadTuningLaunchpadStrengthMultiplier(h); }
+    @GameTest
+    public void hardenPadTuningPotionPadChargeStepTicks(GameTestHelper h) { HardenTests.hardenPadTuningPotionPadChargeStepTicks(h); }
+    @GameTest
+    public void hardenPadTuningPotionPadCooldownFactor(GameTestHelper h) { HardenTests.hardenPadTuningPotionPadCooldownFactor(h); }
+    @GameTest
+    public void hardenCommandsKillCommandRadius(GameTestHelper h) { HardenTests.hardenCommandsKillCommandRadius(h); }
+    @GameTest
+    public void hardenOptimizationXpClumpRadius(GameTestHelper h) { HardenTests.hardenOptimizationXpClumpRadius(h); }
+    @GameTest
+    public void hardenSpawnSpawnElytraRadius(GameTestHelper h) { HardenTests.hardenSpawnSpawnElytraRadius(h); }
+    @GameTest
+    public void hardenSpawnBoostStrength(GameTestHelper h) { HardenTests.hardenSpawnBoostStrength(h); }
+    @GameTest
+    public void hardenLaserPointerRange(GameTestHelper h) { HardenTests.hardenLaserPointerRange(h); }
+    @GameTest
+    public void hardenBalancingEchoSounderJumpCooldownTicks(GameTestHelper h) { HardenTests.hardenBalancingEchoSounderJumpCooldownTicks(h); }
+    @GameTest
+    public void hardenBalancingEchoSounderAttemptLockTicks(GameTestHelper h) { HardenTests.hardenBalancingEchoSounderAttemptLockTicks(h); }
+    @GameTest(maxTicks = 220)
+    public void boostPacketBudget(GameTestHelper h) { HardenTests.boostPacketBudget(h); }
+    @GameTest
     public void recipeRename(GameTestHelper h) { HardenTests.recipeRename(h); }
+
 
     @GameTest
     public void padTiersGrowAndEnderiteSitsBetweenNetheriteAndTheNetherStarTier(GameTestHelper helper) {
