@@ -2,6 +2,7 @@ package com.simplebuilding.mixin;
 
 import com.simplebuilding.util.EnderiteLifetime;
 import com.simplebuilding.util.ModTags;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -10,9 +11,7 @@ import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemEntity.class)
@@ -70,7 +69,11 @@ public abstract class EnderiteItemMixin extends Entity {
      * ersetzen das Literal in {@code tick} durch ihr Feld {@code lifespan}; dort verlaengern die
      * {@code ItemExpireEvent}-Handler, daher {@code require = 0}.
      */
-    @ModifyConstant(method = {"tick", "isMergable"}, constant = @Constant(intValue = 6000), require = 0)
+    // ModifyExpressionValue instead of ModifyConstant: two @ModifyConstant on the same literal conflict, and
+    // Architectury (MixinItemEntity) changes the very same 6000 - the loser fails and the game crashes at bootstrap.
+    // MixinExtras expression injectors stack with it.
+    @ModifyExpressionValue(method = {"tick", "isMergable"},
+            at = @At(value = "CONSTANT", args = "intValue=6000"), require = 0)
     private int simplebuilding$enderiteLifetime(int vanillaLifetime) {
         return EnderiteLifetime.lifetime(this.getItem(), vanillaLifetime);
     }
