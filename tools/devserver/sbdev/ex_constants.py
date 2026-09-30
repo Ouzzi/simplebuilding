@@ -105,7 +105,7 @@ def read_sites(repo: Path, rel: str, mc: str | None = None) -> dict[str, dict]:
     return out
 
 
-def scan(repo: Path) -> tuple[dict[str, dict[str, dict]], list[dict], list[dict]]:
+def scan(repo: Path, roots=None) -> tuple[dict[str, dict[str, dict]], list[dict], list[dict]]:
     """
     -> (je Klasse: NAME -> Wertdatensatz, alle Werte, Probleme)
 
@@ -116,7 +116,7 @@ def scan(repo: Path) -> tuple[dict[str, dict[str, dict]], list[dict], list[dict]
     values: list[dict] = []
     problems: list[dict] = []
     seen_classes: dict[str, str] = {}
-    for root in ROOTS:
+    for root in (ROOTS if roots is None else roots):
         base = repo / root
         if not base.exists():
             continue

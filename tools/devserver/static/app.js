@@ -6,8 +6,10 @@
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const h = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const LS_DRAFTS = 'bz-drafts-v1';
-const LS_PREFS = 'bz-prefs-v1';
+const activeMod = new URLSearchParams(location.search).get('mod') || loadJson('bz-active-mod', 'simplebuilding');
+const LS_DRAFTS = activeMod === 'simplebuilding' ? 'bz-drafts-v1' : `bz-drafts-v1:${activeMod}`;
+const LS_PREFS = activeMod === 'simplebuilding' ? 'bz-prefs-v1' : `bz-prefs-v1:${activeMod}`;
+let moduleOverview = null;
 
 let S = null;          // Zustand vom Server (/api/state)
 let V = {};            // Werte nach Id
@@ -24,7 +26,7 @@ function saveJson(key, value) { try { localStorage.setItem(key, JSON.stringify(v
 // ---------------------------------------------------------------------------------------------
 async function api(path, body) {
   const opt = body === undefined ? {} : { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Balance-Client': '1' }, body: JSON.stringify(body) };
-  const res = await fetch(path, opt);
+  const res = await fetch(path + (path.includes('?') ? '&' : '?') + 'mod=' + encodeURIComponent(activeMod), opt);
   let data;
   try { data = await res.json(); } catch (e) { data = { error: `Antwort ist kein JSON (${res.status})` }; }
   if (!res.ok) { const err = new Error(data.error || res.statusText); err.status = res.status; err.details = data.details || []; throw err; }
@@ -33,6 +35,12 @@ async function api(path, body) {
 
 async function loadState() {
   S = await api('/api/state');
+  moduleOverview = await api('/api/modules');
+  saveJson('bz-active-mod', activeMod);
+  const switcher = $('#mod-switcher');
+  switcher.innerHTML = moduleOverview.modules.map(m => `<option value="${h(m.id)}" ${m.id === activeMod ? 'selected' : ''}>${h(m.displayName || m.name)}</option>`).join('');
+  switcher.onchange = () => { persistDrafts(); const url = new URL(location.href); url.searchParams.set('mod', switcher.value); location.href = url.href; };
+  $('#brand-name').textContent = S.module?.displayName || 'SimpleBuilding';
   V = S.snapshot.values;
   overviewCache = null;
   baseOverviewCache = null;
@@ -283,7 +291,7 @@ function nameOf(key) {
 }
 function itemRef(key, opts = {}) {
   if (!key) return '<span class="muted">leer</span>';
-  const linkable = key.startsWith('simplebuilding:') || key.startsWith('book:');
+  const linkable = key.startsWith(activeMod + ':') || key.startsWith('book:');
   const inner = `${slot(key, opts.size || 'sm')}<span class="nm">${h(nameOf(key))}</span>${opts.sub ? `<span class="sub">${h(opts.sub)}</span>` : ''}`;
   return linkable ? `<a class="itemref" href="#/item/${encodeURIComponent(key)}">${inner}</a>` : `<span class="itemref">${inner}</span>`;
 }
@@ -325,7 +333,7 @@ function eraFor(t) {
   return best ? `vor „${best.name}“ (~${num(best.hours)} h)` : `nach „${(list[list.length - 1] || {}).name || '–'}“`;
 }
 function kindLabel(kind) {
-  return { structure: 'Truhen', wandering: 'fahrender Händler', villager: 'Dorfbewohner', mob: 'Mob', block: 'Block', recipe: 'Rezept', custom: 'eigene Quelle' }[kind] || kind;
+  return { structure: 'Truhen', wandering: 'fahrender Händler', villager: 'Dorfbewohner', mob: 'Mob', block: 'Block', loot: 'Beute', recipe: 'Rezept', custom: 'eigene Quelle' }[kind] || kind;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -377,7 +385,7 @@ function sourceLabel(item, s) {
 }
 function strategySelect(item, report) {
   const cur = strategyFor(item);
-  const srcs = (S.snapshot.sources[item] || []).filter((s) => ['structure', 'wandering', 'mob', 'block'].includes(s.kind));
+  const srcs = (S.snapshot.sources[item] || []).filter((s) => ['structure', 'wandering', 'mob', 'block', 'loot'].includes(s.kind));
   let opts = `<option value="proportional">alle Quellen proportional (Standard)</option>`;
   opts += srcs.map((s) => `<option value="source:${h(s.key)}" ${cur === 'source:' + s.key ? 'selected' : ''}>nur Quelle: ${h(sourceLabel(item, s))} (${h(kindLabel(s.kind))})</option>`).join('');
   const seen = new Set();
@@ -463,7 +471,7 @@ function changesBox(item, report, opts = {}) {
 // ---------------------------------------------------------------------------------------------
 const NAV = [
   ['Start', [['#/', '⌂', 'Übersicht']]],
-  ['Werte', [['#/items', '◆', 'Gegenstände & Rechner'], ['#/loot', '▣', 'Beute (Truhen)', 'loot'], ['#/trades', '⇄', 'Handel', 'trade'],
+  ['Werte', [['#/module-values', '≡', 'Alle Stellwerte'], ['#/items', '◆', 'Gegenstände & Rechner'], ['#/loot', '▣', 'Beute (Truhen)', 'loot'], ['#/trades', '⇄', 'Handel', 'trade'],
     ['#/drops', '☠', 'Mob-, Block-Drops & Erze', 'worldgen'], ['#/stats', '⚒', 'Werkzeuge & Rüstung', 'item'], ['#/enchant', '✦', 'Verzauberungen', 'enchant'],
     ['#/recipes', '⌗', 'Rezepte', 'recipe'], ['#/constants', 'ƒ', 'Code-Konstanten', 'constant'], ['#/config', '⚙', 'Config-Standards', 'config'],
     ['#/potionpads', '⚗', 'Trank-Pads', 'potionpad']]],
@@ -546,7 +554,7 @@ function runSearch(q) {
 // Router
 // ---------------------------------------------------------------------------------------------
 const routes = [
-  [/^#\/?$/, pageHome], [/^#\/items$/, pageItems], [/^#\/item\/(.+)$/, pageItem], [/^#\/loot$/, pageLoot], [/^#\/trades$/, pageTrades],
+  [/^#\/module-values$/, pageModuleValues], [/^#\/?$/, pageHome], [/^#\/items$/, pageItems], [/^#\/item\/(.+)$/, pageItem], [/^#\/loot$/, pageLoot], [/^#\/trades$/, pageTrades],
   [/^#\/drops$/, pageDrops], [/^#\/stats$/, pageStats], [/^#\/enchant$/, pageEnchant], [/^#\/recipes$/, pageRecipes],
   [/^#\/constants$/, pageConstants], [/^#\/config$/, pageConfig], [/^#\/calc$/, pageCalc], [/^#\/params$/, pageParams],
   [/^#\/potionpads$/, pagePotionPads],
@@ -566,7 +574,8 @@ async function route() {
     if (!m) continue;
     try {
       page = {};
-      const out = await fn(main, ...m.slice(1).map(decodeURIComponent));
+      const generic = S.module?.id !== 'simplebuilding' && {'#/loot':'loot', '#/config':'config', '#/drops':'worldgen', '#/enchant':'enchant', '#/stats':'item'}[path];
+      const out = generic ? pageModuleValues(main, generic) : await fn(main, ...m.slice(1).map(decodeURIComponent));
       if (typeof out === 'string') main.innerHTML = out;
     } catch (err) {
       console.error(err);
@@ -593,6 +602,22 @@ function focusValue(id) {
 // ---------------------------------------------------------------------------------------------
 // Seite: Uebersicht
 // ---------------------------------------------------------------------------------------------
+function pageModuleValues(main, category) {
+  const draw = () => `<h1>${h(category ? S.categories[category] : 'Alle Stellwerte')}</h1><p class="lead">Java-Konstanten und Daten des ausgewählten Mods. Quellen und Schreibwirkung stehen an jedem Wert.</p>${valueTable(Object.values(V).filter(r => !category || r.category === category), { notes: true })}`;
+  main.innerHTML = draw(); page.onDraft = () => { main.innerHTML = draw(); };
+}
+
+function moduleSummary() {
+  if (!moduleOverview) return '';
+  const rows = moduleOverview.modules.map(m => {
+    const key = m.id === 'simplebuilding' ? 'bz-drafts-v1' : `bz-drafts-v1:${m.id}`;
+    const count = m.id === activeMod ? Object.keys(drafts).length : Object.keys(loadJson(key, {}).drafts || {}).length;
+    return `<tr><td><a href="?mod=${encodeURIComponent(m.id)}#/">${h(m.displayName || m.name)}</a></td><td>v${m.balanceVersion}</td><td>${m.changes}</td><td>${m.pending}</td><td>${count}</td></tr>`;
+  }).join('');
+  const m = S.module || {};
+  return `<div class="card"><h2>Alle Mods</h2><p>${moduleOverview.totalChanges} gespeicherte Änderungen · ${moduleOverview.totalPending} offene Pläne</p><div class="table-wrap"><table class="table"><thead><tr><th>Mod</th><th>Stand</th><th>Änderungen</th><th>Offene Pläne</th><th>Entwürfe</th></tr></thead><tbody>${rows}</tbody></table></div><p>${h(m.description)} · Minecraft ${h(m.minecraft)} · ${h((m.loaders || []).join(' / '))} · Mod-Version ${h(m.version)}</p></div>`;
+}
+
 async function pageHome(main) {
   const snap = S.snapshot;
   const entries = S.store.entries;
@@ -606,8 +631,9 @@ async function pageHome(main) {
   const cats = Object.entries(S.categories).filter(([k]) => snap.counts[k]);
   main.innerHTML = `
     <h1>Balancing-Zentrale</h1>
-    <p class="lead">Alle Balance-Werte von SimpleBuilding an einem Ort – direkt aus dem Repo gelesen, mit Plan-Versionen, Rückgängig und Rechnern für die Beschaffungszeit. Geänderte Werte zeigen den alten Wert <del class="diff-old">rot durchgestrichen</del>; gespeichert wird erst nach Bestätigung.</p>
+    <p class="lead">Alle Balance-Werte von ${h(S.module?.displayName || 'SimpleBuilding')} an einem Ort – direkt aus dem Repo gelesen, mit Plan-Versionen, Rückgängig und Rechnern für die Beschaffungszeit. Geänderte Werte zeigen den alten Wert <del class="diff-old">rot durchgestrichen</del>; gespeichert wird erst nach Bestätigung.</p>
     ${S.store.warnings.length ? `<div class="box box-warn"><div class="box-title">Hinweise der Ablage</div><ul>${S.store.warnings.map((w) => `<li>${h(w)}</li>`).join('')}</ul></div>` : ''}
+    ${moduleSummary()}
     <div class="tiles">
       <div class="tile"><div class="big">${num(Object.keys(V).length)}</div><div class="lbl">Werte eingelesen</div></div>
       <div class="tile" title="Speichern schreibt diese Werte in die Mod-Quelle (JSON/Java, alle Linien)"><div class="big">${num(nMod)}</div><div class="lbl">wirken in der Mod</div></div>
@@ -631,7 +657,7 @@ async function pageHome(main) {
     ${pendingApply.length ? `<div class="box box-warn"><div class="box-title">Noch nicht angewendet</div>${pendingApply.length} gespeicherte Werte stehen noch nicht in den Mod-Dateien. <button class="btn small primary" id="apply-planned">Jetzt anwenden …</button></div>` : ''}
     <div class="card" id="modstate"><div class="card-head"><h2>Mod-Stand: checkBalance & Datagen</h2><span class="sp"></span><button class="btn small" id="check-btn">Prüfen</button></div><div id="check-box"><span class="spinner"></span></div><div id="job-box"></div></div>
     <div class="grid2">
-      <div class="card"><h2>Baukerne auf einen Blick</h2><div id="cores"><span class="spinner"></span></div>
+      <div class="card"><h2>${activeMod === 'simplebuilding' ? 'Baukerne' : 'Gegenstände'} auf einen Blick</h2><div id="cores"><span class="spinner"></span></div>
         <p class="tiny muted">Erstes Stück, beste einzelne Quelle gezielt vs. normales Spiel (alle Quellen, normale Raten). Modell wie docs/KERNE-SELTENHEIT.md Abschnitt 2.</p></div>
       <div class="card"><h2>Bereiche</h2><table class="table"><tbody>
         ${cats.map(([k, label]) => `<tr><td><a href="${pageFor({ category: k })}">${h(label)}</a></td><td class="num">${num(snap.counts[k])}</td></tr>`).join('')}
@@ -641,7 +667,7 @@ async function pageHome(main) {
   $('#check-btn').onclick = () => fillCheck();
   fillCheck();
   pollJob(true);
-  const cores = ['copper', 'iron', 'gold', 'diamond', 'netherite', 'enderite'].map((c) => `simplebuilding:${c}_core`);
+  const cores = activeMod === 'simplebuilding' ? ['copper', 'iron', 'gold', 'diamond', 'netherite', 'enderite'].map((c) => `simplebuilding:${c}_core`) : Object.keys(S.snapshot.sources).slice(0, 6);
   page.onDraft = () => fillCores(cores);
   fillCores(cores);
 }
@@ -658,14 +684,13 @@ async function fillCheck() {
     ${res.warnings.length ? `<details><summary class="tiny muted">${res.warnings.length} Hinweise (geplant, nicht angewendet / verwaist)</summary><ul class="tiny">${res.warnings.map((w) => `<li>${h(w.message)}</li>`).join('')}</ul></details>` : ''}
     <div class="row-actions" style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-top:.5rem">
       <button class="btn ${datagen ? 'primary' : ''}" id="datagen-btn">Datagen starten …</button>
-      <label class="tiny"><input type="checkbox" id="dg-264"> auch 26.4-Snapshot</label>
-      <span class="tiny muted">baut die erzeugten Dateien aller Linien neu (Beute-Tabellen, Verzauberungen, Rezepte, Erze, Item-Export, Wiki) – dauert einige Minuten</span></div>`;
+      <span class="tiny muted">baut die erzeugten Dateien des ausgewählten Mods auf 26.3 neu – dauert einige Minuten</span></div>`;
   $('#datagen-btn').onclick = () => startDatagen(false);
 }
 async function startDatagen(force) {
   const box = $('#job-box');
   try {
-    await api('/api/datagen', { force, include264: !!($('#dg-264') || {}).checked });
+    await api('/api/datagen', { force });
   } catch (err) {
     if (err.status === 409 && !force && /Dev-Client/.test(err.message)) {
       openModal(`<h2>Datagen trotzdem starten?</h2>${errorBox(err)}<div class="foot"><button class="btn" onclick="closeModal()">Abbrechen</button><button class="btn danger" id="dg-force">Trotzdem starten</button></div>`);
@@ -1072,7 +1097,7 @@ async function pageTrades(main) {
   for (const t of trades) { const g = (t.pools[0] && t.pools[0].label) || t.professionDe; (groups[g] = groups[g] || []).push(t); }
   const order = Object.keys(groups).sort((a, b) => (a.startsWith('Fahrender') ? 1 : 0) - (b.startsWith('Fahrender') ? 1 : 0) || a.localeCompare(b, DE));
   const draw = (offers) => {
-    let html = `<h1>Handel</h1><p class="lead">Dorfbewohner- und Händler-Angebote aus <code>villager_trade/*.json</code>. <span class="badge b-mod">wirkt in Mod</span> Speichern schreibt diese Werte in die JSON-Dateien (26.2 und 26.3) und, wo die Zuordnung eindeutig ist, in <code>ModTradeDefinitions.java</code> (1.21.11) – die Linien stehen am Wert.</p>`;
+    let html = `<h1>Handel</h1><p class="lead">Dorfbewohner- und Händler-Angebote aus <code>villager_trade/*.json</code>. <span class="badge b-mod">wirkt in Mod</span> Speichern schreibt diese Werte in die JSON-Dateien der Hauptlinie 26.3 – die Linien stehen am Wert.</p>`;
     for (const g of order) {
       const pool = groups[g][0].pools[0];
       html += `<div class="card"><div class="card-head"><h2>${h(g)}</h2><span class="sp"></span>${pool ? `<span class="tiny muted">${pool.vanilla.length} Vanilla + ${pool.mod.length} Mod-Angebote, ${pool.amount ?? '?'} werden gezogen</span>` : ''}</div>
@@ -1118,7 +1143,7 @@ function pageDrops(main) {
     <div class="card"><h2>Block-Drops</h2><p class="tiny muted">Blöcke, die etwas anderes als sich selbst fallen lassen (aus den erzeugten Block-Loot-Tabellen).</p>
       <table class="table"><thead><tr><th>Block</th><th>Drop</th><th class="num">Anzahl</th><th>Glück</th><th class="num">Annahme (abgebaut/h)</th></tr></thead><tbody>
       ${snap.blockDrops.map((d) => `<tr><td>${itemRef(d.block)}</td><td>${itemRef(d.item)}</td><td class="num">${d.count[0]}${d.count[1] !== d.count[0] ? '–' + d.count[1] : ''}</td><td>${h(d.fortune || '–')}</td><td class="num">${ed('param:block.' + d.block)}</td></tr>`).join('')}</tbody></table></div>
-    <div class="card"><h2>Erz-Generierung</h2><span class="tiny muted">aus <code>ModWorldGen.java</code> (26.2, Overlay 26.3/26.4, 1.21.11); die Dateien unter <code>worldgen/</code> baut Datagen</span>
+    <div class="card"><h2>Erz-Generierung</h2><span class="tiny muted">aus <code>ModWorldGen.java</code> (26.3); die Dateien unter <code>worldgen/</code> baut Datagen</span>
       ${Object.entries(byFeature).map(([g, rs]) => `<h3>${h(g)}</h3>${valueTable(rs, { notes: false })}`).join('')}</div>`;
 }
 
@@ -1151,7 +1176,7 @@ function pageEnchant(main) {
 function pageRecipes(main) {
   const recipes = S.snapshot.recipes.filter((r) => !r.easter);
   const types = [...new Set(recipes.map((r) => r.type.split(':').pop()))].sort();
-  main.innerHTML = `<div class="listhead"><div><h1>Rezepte</h1><p class="lead">Ergebnis-Mengen, Garzeiten und Erfahrung aus <code>ModRecipeProvider.java</code> (26.2/26.3 und 1.21.11), wo eine eigene Zahl im Code steht; Mengen aus Vanilla-Mustern (Treppe, Stufe, Steinsäge) sind nur Planung. Zutaten zur Übersicht. Danach Datagen.</p></div>
+  main.innerHTML = `<div class="listhead"><div><h1>Rezepte</h1><p class="lead">Ergebnis-Mengen, Garzeiten und Erfahrung aus <code>ModRecipeProvider.java</code> (26.3), wo eine eigene Zahl im Code steht; Mengen aus Vanilla-Mustern (Treppe, Stufe, Steinsäge) sind nur Planung. Zutaten zur Übersicht. Danach Datagen.</p></div>
     <div class="filters"><input type="search" id="rq" placeholder="Rezept oder Item …"><select id="rt"><option value="">alle Arten</option>${types.map((t) => `<option>${h(t)}</option>`).join('')}</select></div></div>
     <div class="card"><div class="table-wrap"><table class="table" id="rtab"><thead><tr><th class="sortable">Ergebnis</th><th class="num">Menge</th><th class="sortable">Art</th><th>Zutaten</th><th class="num">Garzeit</th><th class="num">XP</th></tr></thead><tbody id="rbody"></tbody></table></div></div>`;
   const ingr = (list) => list.map((i) => `${i.count}× ${h(i.id.split(' / ').map((x) => x.startsWith('#') ? x : nameOf(x)).join(' / '))}`).join(', ');
@@ -1212,7 +1237,7 @@ function pagePotionPads(main) {
 async function pageCalc(main) {
   main.innerHTML = `<h1>Seltenheit & Zeitalter</h1><p class="lead">Für jedes Item mit Quellen: wie lange bis zum ersten Stück – beste einzelne Quelle gezielt und normales Spiel – und zu welchem Zeitalter das passt. Alles rechnet mit deinen Entwürfen.</p>
     <div class="box box-info"><b>Zeiten sind bearbeitbar.</b> Tippe eine Zielzeit in ein Zeitfeld (z. B. <code>12</code>, <code>12,5 h</code>, <code>30 min</code>) und drücke Enter: die Zentrale rechnet aus, welche Werte diese Zeit ergeben (Kisten-Chance/Gewicht, Angebots-Chance, Drop-Annahme …), übernimmt sie als Entwurf und rechnet alle anderen Zeiten neu. Der gespeicherte Stand steht <del class="diff-old">rot durchgestrichen</del> daneben. Welche Werte sich ändern (alt → neu, Datei und Zeile, wirkt in Mod), steht je Item unter „Automatische Änderungen“ (zugeklappt). Bei mehreren Quellen ist die Verteilung dort wählbar – Standard ist proportional. Gespeichert wird erst im Speichern-Dialog.</div>
-    <div class="card"><h2>Baukerne: Median bis zum k-ten Kern (gezielt, beste Quelle)</h2><div id="coretab"><span class="spinner"></span></div></div>
+    <div class="card"><h2>${activeMod === 'simplebuilding' ? 'Baukerne' : 'Gegenstände'}: Median bis zum k-ten Stück (gezielt, beste Quelle)</h2><div id="coretab"><span class="spinner"></span></div></div>
     <div class="card"><div class="card-head"><h2>Alle Items mit Quellen</h2><span class="sp"></span><input type="search" id="cq2" placeholder="Filtern …" style="height:32px;border:1px solid var(--border);border-radius:7px;padding:0 .6rem;background:var(--panel)"></div><div id="ovtab"><span class="spinner"></span></div></div>`;
   let seq = 0;
   const draw = async () => {
@@ -1235,7 +1260,7 @@ async function pageCalc(main) {
       }).join('')}</tbody></table></div>`;
     sortable('#ovt');
     window.scrollTo(0, y);
-    const cores = ['iron', 'gold', 'diamond', 'netherite', 'enderite', 'copper'].map((c) => `simplebuilding:${c}_core`);
+    const cores = activeMod === 'simplebuilding' ? ['iron', 'gold', 'diamond', 'netherite', 'enderite', 'copper'].map((c) => `simplebuilding:${c}_core`) : Object.keys(S.snapshot.sources).slice(0, 6);
     const [reports, baseReports] = await Promise.all([
       Promise.all(cores.map((c) => api('/api/calc', { item: c, overrides: overrides() }))),
       withDrafts ? Promise.all(cores.map((c) => api('/api/calc', { item: c, overrides: {} }))) : null]);

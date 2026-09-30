@@ -124,3 +124,21 @@ Pure Python verification: `python -m unittest discover -s wiki/tests -v` (also i
 The wiki switcher persists `?mod=<id>` and guarded localStorage. Existing SimpleBuilding
 query/hash links remain valid. Cross-module chapter references use full registry ids in
 `related`, which become links when the target module documents the id.
+## Producer/consumer data contract
+
+Every entry, including SimpleBuilding, supplies id, name, displayName, description,
+version, loaders (fabric/neoforge/forge), minecraft (26.3), requires and optional arrays.
+Preserve projects and other existing fields. paths supplies repository-relative root,
+shared, fabric, neoforge, forge, generated, lang, wikiManual and balanceDir. Planned ids:
+simplemoney, simplefun, simplequalityoflife, simpleriding, simplevisuals, simpledimensions,
+simplemodels (formerly renamed, item/block model customization), simpletweaks (only
+features not already in SimpleBuilding). Do not register absent projects as buildable mods.
+
+Keep hand-written chapters at modules/<id>/wiki/manual.json (wiki/manual.json schema),
+localization in the module namespace and datagen output under its own generated path.
+Expose tuning as named Java constants or hand-written JSON. The Balancing-Zentrale
+reads manifest paths with isolated services and stores; see BALANCING-ZENTRALE.md for
+supported extractors and explicit gaps. Extra datagen tasks can be declared as datagenTask.
+Storage is balance/<id>/; SimpleBuilding retains balance/ as the non-destructive legacy
+exception until an explicit migration. Never copy its version sequence into a second
+writable store. checkBalance checks all manifest modules, including empty modules.

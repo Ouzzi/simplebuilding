@@ -406,6 +406,16 @@ def source_rows(ctx: Ctx, item_key: str, mode: str, ks: list[int], seen=None, re
                              tunables=_tunables(ctx, used)))
             if not off:
                 all_streams += [(r, d) for r, d, _, _ in streams]
+        elif kind == 'loot':
+            dist, mean, used = table_distribution(ctx, src['table'], item_key, K)
+            rate_id = 'param:' + src['param']
+            rate = float(ctx.v(rate_id, 1.0)) * (ctx.normal_factor() if mode == 'normal' else 1.0)
+            times = compound_times([(rate, dist)], ks)
+            rows.append(_row(key, kind, src['label'], mode, times, ks, disabled=off,
+                             itemsPerHour=rate * mean, assumptions=[rate_id], valueIds=used,
+                             tunables=_tunables(ctx, used)))
+            if not off:
+                all_streams.append((rate, dist))
         elif kind in ("wandering", "villager"):
             trade = ctx.trades.get(src["trade"])
             if not trade:

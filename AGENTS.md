@@ -86,3 +86,4 @@ Details und Grenzen: `docs/MULTIMOD.md`; Integrationstest: `--targets integratio
 Multimod-Datenvertrag: Manifest-Pfade/Abhaengigkeiten vollstaendig halten; Modul-Prosa in
 `modules/<id>/wiki/manual.json` (EN/DE). Wiki: `python wiki/generate.py --all` und `--all --check`;
 `checkWiki` prueft alle Module. Details und Datagen-Exports: `docs/MULTIMOD.md`.
+Balancing-Multimod: Manifest-Pfade/Mod-Auswahl nutzen; Ablage `balance/<id>/`, SimpleBuilding weiter `balance/` (keine Migration). Schreibziele/Datagen nur 26.3; `checkBalance` prueft alle Module. Details/Lesergrenzen: `docs/BALANCING-ZENTRALE.md`.

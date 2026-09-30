@@ -195,3 +195,24 @@ Dieser Branch wird nicht gepusht oder gemergt; Verifikation siehe abschliessende
   kein voller Serverlauf, keine Besitzerwelt-Pruefung. Kein Push, kein Merge, keine Ports.
 - Besitzer: Desktop/Handy-Wiki visuell pruefen; dynamische Module muessen Registry-Exports
   aus Datagen liefern. Geplante Mods werden erst mit existierenden Projekten registriert.
+## INFRA-B: Multimod-Balancing (2026-09-30, codex-infra-b)
+- Manifest-Vertrag fuer alle vorhandenen Eintraege und Scaffold ergaenzt; Modul-Wiki-Skelett.
+  Balancing-Zentrale: request-lokale Mod-Auswahl, getrennte Services/Ablagen, Browser-Entwuerfe,
+  Quellen/Rechner/Solver/History/Rollback je Mod, Uebersicht und Metadaten. SimpleBuilding bleibt
+  ohne Migration in balance/; Zusatzmods nutzen balance/<id>. Keine bestehenden Versionen verschoben.
+- Leser fuer Balance-Konstanten, gemeinsame/Loader-JSON-Daten, Item-Export, Rezepte, Handel
+  und gewoehnliche JSON-Beute. generated bleibt Planung ohne eindeutige Quellverknuepfung;
+  unbekannte Loot-Bedingungen/Funktionen werden berichtet und nicht als belegte Zeiten modelliert.
+  Grenzen/Producer-Vertrag in docs/BALANCING-ZENTRALE.md und docs/MULTIMOD.md.
+- Hauptlinien-Schreibziele und Datagen nur 26.3; keine separate Port-Kopie geaendert.
+  checkBalance prueft alle Manifest-Module. Voller bestehender Devserver-Lauf: 118 Tests gruen
+  (107 bestehende + damals 11 Modul-Tests; ein vorhandener Skip). Danach finale 14 Modul-Tests
+  sowie 12 bestehende Auslese-Tests gruen; JavaScript-Syntax gruen.
+- Bestehende 26.3-Server: 1554/1554, alles gruen, Run 2026-09-30T13-03-57Z-722d.
+  Testzentralen in beiden GameTest-Welten gebaut; Item-Abdeckung im gruenen Gesamt-Lauf enthalten.
+  Abschliessendes gradlew.bat check -q --no-daemon: Exit 0, Ausgabe gelesen (gemeinsame
+  26.2-Kompilierung bleibt gruen). Wiki generiert und --check aktuell.
+- Offen/unverifiziert: Desktop-/Handy-Sichtpruefung (cua: browsers=[]; In-App-Browser nicht
+  verfuegbar), echte Modul-Datagen-Auftraege zukuenftiger Port-Module und deren spezielle
+  Java-Builder/Loot-Adapter. Keine Minecraft-Clienttests, Besitzerwelt unveraendert.
+  Keine neuen Texturen. Kein Push/Merge; Commit auf dem Arbeitsbranch.

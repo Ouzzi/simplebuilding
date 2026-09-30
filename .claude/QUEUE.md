@@ -253,3 +253,6 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 - [ ] Besitzer-Abnahme: 26.3-Signalkanaele und Astralgewoelbe im Client; Testzentrale in Besitzerwelt neu bauen.
 ## INFRA-W (26.3, Codex)
 - [x] Manifest-driven wiki generation, mod switcher, per-module completeness and static hosting. check green; visual browser review pending (no browser surface available).
+## INFRA-B: Multimod-Balancing (2026-09-30)
+- [x] Manifest, isolierte Ablagen/Leser, Mod-Auswahl, Tests und Dokumentation; 1554/1554 Server und check gruen.
+- [ ] Desktop-/Handy-Sichtpruefung: Browser-Werkzeug meldet keine verfuegbare Oberflaeche.
