@@ -145,6 +145,16 @@ public class GlowingTrimUtils {
         return packLight(GLOW_LIGHT, GLOW_LIGHT);
     }
 
+    /** Vertex brightness also carries the pulse, so bright lightmaps cannot wash it out. */
+    public static int trimColor(int argb, int glowLevel, boolean pulsating, long millis) {
+        if (glowLevel <= 0 || !pulsating) return argb;
+        float brightness = pulseLight(millis) / 15.0F;
+        return (argb & 0xFF000000)
+                | Math.round(((argb >>> 16) & 255) * brightness) << 16
+                | Math.round(((argb >>> 8) & 255) * brightness) << 8
+                | Math.round((argb & 255) * brightness);
+    }
+
     /** Lichtstufe bei Pulsating + Glowing zur Zeit {@code millis}: 15 auf der Spitze, 1 im Tal des Pulses. */
     public static int pulseLight(long millis) {
         return Math.round(PULSE_LIGHT_MIN + (PULSE_LIGHT_MAX - PULSE_LIGHT_MIN) * pulseWave(millis));

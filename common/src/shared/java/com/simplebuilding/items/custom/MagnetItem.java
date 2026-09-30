@@ -150,12 +150,17 @@ public class MagnetItem extends Item {
         return filterId.equals(itemId);
     }
 
+    public static double minimumDistance() {
+        return com.simplebuilding.config.ServerTuningConfig.clamp(
+                com.simplebuilding.config.ServerTuning.get().tools.attractorMinimumDistance, 0.5, 2.0, 1.25);
+    }
+
     private static void applyMagnetForce(ItemEntity itemEntity, Vec3 targetPos) {
         Vec3 itemPos = new Vec3(itemEntity.getX(), itemEntity.getY(), itemEntity.getZ());
         Vec3 vec = targetPos.subtract(itemPos);
         double distanceSq = vec.lengthSqr();
 
-        if (distanceSq > 1.0) {
+        if (distanceSq > minimumDistance() * minimumDistance()) {
             Vec3 pull = vec.normalize().scale(0.10);
             Vec3 newVel = itemEntity.getDeltaMovement().scale(0.80).add(pull);
 

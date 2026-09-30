@@ -560,6 +560,7 @@ public final class ConfigOptionTests {
             "server.charges.lensMaxCharge int=640",
             "server.charges.rotatorMaxCharge int=1024",
             "server.charges.echoSounderMaxCharge int=1500",
+            "server.tools.attractorMinimumDistance double=1.25",
             "server.tools.sledgehammerUpgradeSeconds int=5",
             "server.tools.reinforcedUpgradeDamagePerHit int=2",
             "server.tools.netheriteUpgradeDamagePerHit int=4",

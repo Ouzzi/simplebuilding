@@ -983,6 +983,7 @@ public final class ReinforcedBundleTests {
         helper.assertValueEqual(empty.getItem().getBarWidth(empty), 0, "bar width of an empty bundle");
 
         assertBarAndTooltip(helper, player, new ItemStack(ModItems.REINFORCED_BUNDLE), "a plain bundle");
+        assertBarAndTooltip(helper, player, new ItemStack(ModItems.NETHERITE_BUNDLE), "a netherite bundle");
         assertBarAndTooltip(helper, player, new ItemStack(ModItems.ENDERITE_BUNDLE), "an enderite bundle");
         // Both Deep Pockets levels, because the visuals formula answers them in two separate
         // branches (level == 1 and level >= 2): with only the second one here, deleting the first
@@ -1201,6 +1202,9 @@ public final class ReinforcedBundleTests {
         helper.assertTrue(image.isPresent() && image.get() instanceof ReinforcedBundleTooltipData,
                 "the tooltip of " + what + " is " + image + " instead of a ReinforcedBundleTooltipData");
         ReinforcedBundleTooltipData data = (ReinforcedBundleTooltipData) image.get();
+        helper.assertTrue(data.capacityText().equals(capacity + "/" + capacity), "full capacity text: " + data.capacityText());
+        var halfData = (ReinforcedBundleTooltipData) half.getItem().getTooltipImage(half).orElseThrow();
+        helper.assertTrue(halfData.capacityText().equals(capacity / 2 + "/" + capacity), "half capacity text: " + halfData.capacityText());
         helper.assertValueEqual(data.maxCapacity(), capacity,
                 "the capacity the tooltip of " + what + " hands the client, against the " + capacity
                         + " items it really takes");

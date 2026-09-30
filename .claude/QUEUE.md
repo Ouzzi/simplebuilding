@@ -218,3 +218,6 @@ Verlauf im Detail: git log.
 - [ ] Kerne: Netherstern nur ab Diamant, Netherit-/Enderit-Baustab aus Kern, goldener Baustab mehr Haltbarkeit - nicht gewaehlt, spaeter neu besprechen
 - [ ] Rucksack-Sortierung (Reihenfolge vorbereitet), sobald eine Sortierfunktion kommt
 - [ ] Mehrere Mods in einem Repo (build-logic + framework/)
+
+## 26.3 recipe / attractor / trim / bundle corrections (2026-09-30)
+- [x] Echo Sounder core swap; Resonance Rod clockwise recipe; configurable attractor dead zone; Pulsating brightness modulation; accurate storage tooltip capacity/colors. 26.3 server checks green; visual owner check pending (no client tests).

@@ -546,6 +546,21 @@ public final class PlacedTemplateTests {
         int pulled = PlacedAttractors.pull(level, attractorPos, attractor);
         helper.assertTrue(pulled == 1, "the attractor pulled " + pulled + " items instead of exactly the near one");
         helper.assertTrue(near.getDeltaMovement().x < 0.0, "the near item is not pulled toward the attractor: " + near.getDeltaMovement());
+        ItemEntity settled = new ItemEntity(level, target.x + 0.2, target.y, target.z,
+                new ItemStack(Items.DIAMOND), 0, 0, 0);
+        settled.setDeltaMovement(new Vec3(0.05, 0, 0));
+        settled.setOnGround(true);
+        level.addFreshEntity(settled);
+        double previous = 0.05;
+        for (int step = 0; step < 100; step++) {
+            PlacedAttractors.pull(level, attractorPos, attractor);
+            Vec3 motion = settled.getDeltaMovement();
+            helper.assertTrue(motion.x >= 0 && motion.x <= previous && motion.y == 0 && motion.z == 0,
+                    "placed attractor oscillated at step " + step + ": " + motion);
+            settled.setPos(settled.position().add(motion));
+            previous = motion.x;
+        }
+        settled.discard();
         int keeperPulled = PlacedAttractors.pull(level, helper.absolutePos(new BlockPos(6, 2, 6)), keeper);
         helper.assertTrue(keeperPulled == 0, "the stone-filtered attractor pulled " + keeperPulled + " items (dirt next to it)");
         helper.assertTrue(PlacedAttractors.canPull(far, null) && !PlacedAttractors.canPull(far, "minecraft:stone"),

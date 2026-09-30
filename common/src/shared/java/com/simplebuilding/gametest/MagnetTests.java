@@ -341,9 +341,9 @@ public final class MagnetTests {
      *   <li><b>0.2 braking.</b> Inside one block the magnet must stop feeding the item instead of
      *       accelerating it further; a moving item ends the tick at a fifth of its speed, with the
      *       direction untouched.</li>
-     *   <li><b>The 1.0 braking threshold.</b> Two items straight below the aiming point, 1.07 and
-     *       0.92 blocks away from it: the far one still has to be fed, the near one has to be
-     *       braked already. That clamps {@code distanceSq > 1.0} to the interval (0.85, 1.14);
+     *   <li><b>The default 1.25-block dead zone.</b> Two items straight below the aiming point, 1.32 and
+     *       1.17 blocks away from it: the far one still has to be fed, the near one has to be
+     *       braked already. That brackets the squared threshold between 1.37 and 1.74;
      *       cases 1 and 4 alone left everything between 0.0144 and 10.25 free.</li>
      * </ul>
      *
@@ -434,14 +434,26 @@ public final class MagnetTests {
                 "within one block the magnet has to brake the item to a fifth of its speed and add "
                         + "nothing: (0.5, 0, -0.5) should become (0.1, 0, -0.1) but became " + braked);
 
+        // Simulate 100 force/movement steps inside the dead zone: speed never reverses or grows.
+        arrived.setDeltaMovement(new Vec3(0.05, 0, 0));
+        double previous = 0.05;
+        for (int step = 0; step < 100; step++) {
+            tick(magnet, level, player, EquipmentSlot.MAINHAND);
+            Vec3 motion = arrived.getDeltaMovement();
+            helper.assertTrue(motion.x >= 0 && motion.x <= previous && motion.y == 0 && motion.z == 0,
+                    "held attractor oscillated in its dead zone at step " + step + ": " + motion);
+            arrived.setPos(arrived.position().add(motion));
+            previous = motion.x;
+        }
+
         // --- 5. where exactly that switch sits: both sides of the threshold, half a step apart ---
         // Both stand straight below the aiming point (1.5, 2.12, 1.5), so the distance to it is the
-        // only thing that differs: 1.07 blocks (distanceSq 1.14, still fed) against 0.92 blocks
-        // (0.85, braked). Spawned only now, for the same reason as case 4.
-        ItemEntity beyondBraking = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 1.05, 1.5));
+        // only thing that differs: 1.32 blocks (distanceSq 1.74, still fed) against 1.17 blocks
+        // (1.37, braked). Spawned only now, for the same reason as case 4.
+        ItemEntity beyondBraking = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 0.80, 1.5));
         beyondBraking.setDeltaMovement(Vec3.ZERO);
         beyondBraking.setOnGround(false);
-        ItemEntity withinBraking = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 1.2, 1.5));
+        ItemEntity withinBraking = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 0.95, 1.5));
         withinBraking.setDeltaMovement(new Vec3(0.5, 0.0, 0.0));
         withinBraking.setOnGround(false);
 
@@ -452,14 +464,14 @@ public final class MagnetTests {
         helper.assertTrue(Math.abs(stillFed.y - 0.10) < EXACT
                         && Math.abs(stillFed.x) < EXACT
                         && Math.abs(stillFed.z) < EXACT,
-                "an item 1.07 blocks below the aiming point still has to get the full 0.10 pull, "
-                        + "so the braking threshold has to stay below a distanceSq of 1.14; the "
+                "an item 1.32 blocks below the aiming point still has to get the full 0.10 pull, "
+                        + "so the braking threshold has to stay below a distanceSq of 1.74; the "
                         + "item left the tick with " + stillFed);
         helper.assertTrue(Math.abs(alreadyBraked.x - 0.10) < EXACT
                         && Math.abs(alreadyBraked.y) < EXACT
                         && Math.abs(alreadyBraked.z) < EXACT,
-                "an item 0.92 blocks below the aiming point has to be braked and fed nothing, so "
-                        + "the braking threshold has to stay above a distanceSq of 0.85; (0.5, 0, "
+                "an item 1.17 blocks below the aiming point has to be braked and fed nothing, so "
+                        + "the braking threshold has to stay above a distanceSq of 1.37; (0.5, 0, "
                         + "0) became " + alreadyBraked);
 
         helper.succeed();

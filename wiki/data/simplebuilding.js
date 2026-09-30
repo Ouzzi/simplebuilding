@@ -964,7 +964,8 @@ window.WIKI_DATA = {
           "Range adds 1.5 blocks per level, up to 7.5 before the server multiplier, with a hard limit of 12 afterward. Constructor's Touch unlocks filtering without increasing range.",
           "Only Constructor's Touch enables the stored item-type filter, including on placed Attractors. Sneak-click a block or loose item, or right-click an item in the inventory to select it. Sneak-click empty air to clear it.",
           "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 6 blocks before the server multiplier.",
-          "The Attractor has no durability. Display items, other players' reserved items and death drops, and items in simplebuilding:attractor_ignore stay in place."
+          "The Attractor has no durability. Display items, other players' reserved items and death drops, and items in simplebuilding:attractor_ignore stay in place.",
+          "Held and placed Attractors brake items inside their dead zone without adding pull or lift. server.tools.attractorMinimumDistance defaults to 1.25 blocks and is limited to 0.5–2 blocks."
         ]
       },
       "de": {
@@ -974,7 +975,8 @@ window.WIKI_DATA = {
           "Reichweite ergänzt 1,5 Blöcke je Stufe, bis 7,5 vor dem Serverfaktor und höchstens 12 danach. Berührung des Konstrukteurs schaltet nur den Filter frei.",
           "Nur mit Berührung wirkt der gespeicherte Itemfilter, auch abgelegt. Schleichklick auf einen Block oder ein loses Item oder Rechtsklick auf ein Inventar-Item wählt den Filter. Schleichklick ins Leere löscht ihn.",
           "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 6 Blöcken vor dem Serverfaktor.",
-          "Keine Haltbarkeit. Ausstellungsitems, für andere reservierte Items und Todesbeute sowie simplebuilding:attractor_ignore bleiben liegen."
+          "Keine Haltbarkeit. Ausstellungsitems, für andere reservierte Items und Todesbeute sowie simplebuilding:attractor_ignore bleiben liegen.",
+          "Gehaltene und abgelegte Attraktoren bremsen Items in ihrer Ruhezone ohne Zug oder Anheben. server.tools.attractorMinimumDistance beträgt standardmäßig 1,25 Blöcke und ist auf 0,5–2 Blöcke begrenzt."
         ]
       }
     },
@@ -3616,9 +3618,10 @@ window.WIKI_DATA = {
             "Creatures: players and mobs catch fire (4 s) when the beam rests on them, but it takes twice as long as a flammable block at the same distance (6 s up close). Not: fire-immune or invulnerable creatures, creatures in water or rain, players in creative or spectator mode, and other players only where PvP is allowed (pvp game rule, server setting, team friendly fire). Creatures are searched up to 64 blocks along the beam.",
             "Sounds at the dot, audible to players nearby: a quiet hum about once a second while the beam hits anything, a clearly audible sizzle while ice, snow or a sponge heats up and a crackle while something is about to burn or ignite (also creatures), each at most every 8 ticks; the finishing sound of every effect stays.",
             "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
-            "Recipe (crafting, shaped): redstone, amethyst shard, redstone; iron ingot, iron building core, iron ingot; three iron ingots. In the creative Tools tab it sits with the gadgets.",
+            "Recipe (crafting, shaped): iron ingot, iron ingot, redstone; iron ingot, iron core, amethyst shard; iron ingot, iron ingot, redstone. In the creative Tools tab it sits with the gadgets.",
             "Charge defaults to 640, with 4 spent per started second of aiming and 5 per effect. Empty rods do not break. At an anvil, 16 amethyst shards fully recharge a rod without levels; creative players spend no charge.",
-            "Constructor's Touch enables distance, target and height measurement in the common HUD panel. The server stores the last measurement on the item. The item id stays simplebuilding:amethyst_lens."
+            "Constructor's Touch enables distance, target and height measurement in the common HUD panel. The server stores the last measurement on the item. The item id stays simplebuilding:amethyst_lens.",
+            "Recipe: IIR / ICA / IIR (I = iron ingot, R = redstone, C = Iron Core, A = amethyst shard), rotated clockwise from the earlier recipe."
           ]
         },
         "de": {
@@ -3631,7 +3634,8 @@ window.WIKI_DATA = {
             "Klänge am Punkt, für Spieler in der Nähe hörbar: ein leises Summen etwa einmal pro Sekunde, solange der Strahl etwas trifft, ein deutliches Zischen, während Eis, Schnee oder ein Schwamm heiß wird, und ein Knistern, während etwas gleich brennt oder zündet (auch Lebewesen), jeweils höchstens alle 8 Ticks; der Abschlussklang jeder Wirkung bleibt.",
             "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
             "Standardladung 640: Zielen verbraucht 4 je angefangener Sekunde, eine Wirkung weitere 5. Leer zerbricht der Stab nicht. Am Amboss laden 16 Amethystscherben ihn ohne Levelkosten ganz auf; Kreativspieler verbrauchen keine Ladung.",
-            "Berührung des Konstrukteurs zeigt Entfernung, Ziel und Höhe im gemeinsamen Anzeigefeld. Der Server speichert die letzte Messung am Item. Die Item-ID bleibt simplebuilding:amethyst_lens."
+            "Berührung des Konstrukteurs zeigt Entfernung, Ziel und Höhe im gemeinsamen Anzeigefeld. Der Server speichert die letzte Messung am Item. Die Item-ID bleibt simplebuilding:amethyst_lens.",
+            "Rezept: IIR / ICA / IIR (I = Eisenbarren, R = Redstone, C = Eisenkern, A = Amethystscherbe), gegenüber dem früheren Rezept im Uhrzeigersinn gedreht."
           ]
         },
         "sources": [
@@ -6273,7 +6277,7 @@ window.WIKI_DATA = {
             "Jumping: hold use for 3 seconds (60 ticks). While it charges, sculk souls circle in three arms from well over two blocks out ever closer, widely scattered portal particles are drawn in, an amethyst tone rises, sculk clicks and respawn-anchor charges mark the thirds and a warden sonic charge builds up at the end; the field of view narrows gently and pulses (scaled by the vanilla accessibility option FOV Effects - at 0 it is off). Releasing early does nothing and costs nothing. The jump needs no ender pearl any more (since 2026-09-27) and sets a 24 second cooldown (four times the old 6 seconds, owner 2026-09-28); afterwards blindness, glowing, slow falling, slowness and nausea for a moment, sonic boom and respawn-anchor sound on arrival, where a wide particle cloud and a ring of sculk souls spread out over the ground. Works into any dimension the server knows; a jump that is blocked (for example into a dimension locked by tweaks.dimensions) costs nothing - no charge, no cooldown. The cooldown after a jump is tweaks.balancing.echoSounderCooldownTicks (default 120 ticks, 0 = none).",
             "Charge: the compass has 1500 repair points. A jump empties it completely (Unbreaking works per point as on any tool: with Unbreaking III a jump empties only about a quarter). Empty or not fully recharged it shows a cracked texture in three stages (empty, half, almost full), has no enchantment glint and its bar shows the charge. Recharge it with Mending (2 points per XP point, 750 XP when empty) or at an anvil with echo shards (each restores a quarter, four fill it). Only when it is fully recharged does it jump normally again and get its glint back.",
             "Forcing it: using an echo sounder that is not fully recharged provokes the break - the charge takes twice as long (6 seconds) with warning signs (cracking, sparks, smoke, a sculk shriek halfway, everything louder), the jump still works, then the echo sounder shatters for good. Unbreaking does not save it. In creative mode it neither empties nor shatters.",
-            "Recipe (crafting, shaped \"NNN\" / \"NRN\" / \"NEN\"): seven enderite nuggets around the outside, the recovery compass in the middle, the enderite core bottom middle.",
+            "Recipe (crafting, shaped \"NNN\" / \"NRN\" / \"ENN\"): seven enderite nuggets around the outside, the recovery compass in the middle, the enderite core bottom left.",
             "Replaces the 'Echo Compass' data pack Simple Tweaks shipped; the data pack took durability off directly, so Unbreaking did nothing - fixed."
           ]
         },
@@ -6284,7 +6288,7 @@ window.WIKI_DATA = {
             "Springen: 3 Sekunden (60 Ticks) gedrückt halten. Beim Laden kreisen Sculk-Seelen in drei Armen von gut zwei Blöcken außen immer enger, weit gestreute Portalpartikel werden hineingezogen, ein Amethystton steigt, Sculk-Klicken und Seelenanker-Aufladen markieren die Drittel, zum Schluss lädt der Schallangriff des Wärters; das Sichtfeld zieht sich sanft zusammen und pulsiert (skaliert mit der Vanilla-Barrierefreiheitsoption FOV-Effekte - auf 0 aus). Vorher loslassen tut nichts und kostet nichts. Der Sprung braucht seit dem 27.09.2026 keine Enderperle mehr und setzt 24 Sekunden Abklingzeit (viermal die früheren 6 Sekunden, Besitzer 2026-09-28); danach kurz Blindheit, Leuchten, Sanfter Fall, Langsamkeit und Übelkeit, bei der Ankunft Schallknall und Seelenanker-Klang, dazu eine weite Partikelwolke und ein Ring aus Sculk-Seelen, der über den Boden auseinanderläuft. Funktioniert in jede Dimension, die der Server kennt; ein blockierter Sprung (etwa in eine per tweaks.dimensions gesperrte Dimension) kostet nichts - keine Ladung, keine Abklingzeit. Die Abklingzeit nach einem Sprung ist tweaks.balancing.echoSounderCooldownTicks (Standard 120 Ticks, 0 = keine).",
             "Ladung: Das Echolot hat 1500 Reparaturpunkte. Ein Sprung leert es ganz (Haltbarkeit/Unbreaking wirkt je Punkt wie bei jedem Werkzeug: mit Haltbarkeit III leert ein Sprung nur etwa ein Viertel). Leer oder nicht voll aufgeladen zeigt es eine Riss-Textur in drei Stufen (leer, halb, fast voll), hat keinen Verzauberungsglanz, und sein Balken zeigt die Ladung. Aufladen mit Reparatur/Mending (2 Punkte je XP-Punkt, 750 XP im leeren Zustand) oder am Amboss mit Echoscherben (jede stellt ein Viertel wieder her, vier füllen es). Erst voll aufgeladen springt es wieder normal und glänzt wieder.",
             "Erzwingen: Ein nicht voll aufgeladenes Echolot zu benutzen provoziert den Bruch - das Laden dauert doppelt so lange (6 Sekunden) mit Warnzeichen (Knacken, Funken, Rauch, zur Hälfte ein Sculk-Kreischen, alles lauter), der Sprung gelingt noch, danach zerspringt das Echolot endgültig. Haltbarkeit rettet es dabei nicht. Im Kreativmodus leert und zerspringt es nicht.",
-            "Rezept (Werkbank, geformt \"NNN\" / \"NRN\" / \"NEN\"): sieben Enderitklumpen außen herum, der Bergungskompass in der Mitte, der Enderitkern unten mittig.",
+            "Rezept (Werkbank, geformt \"NNN\" / \"NRN\" / \"ENN\"): sieben Enderitklumpen außen herum, der Bergungskompass in der Mitte, der Enderitkern unten links.",
             "Ersetzt das Datenpaket 'Echo Compass' aus Simple Tweaks; das zog die Haltbarkeit direkt ab, Haltbarkeit (Unbreaking) wirkte deshalb nicht - behoben."
           ]
         },
@@ -12042,7 +12046,8 @@ window.WIKI_DATA = {
             "Range adds 1.5 blocks per level, up to 7.5 before the server multiplier, with a hard limit of 12 afterward. Constructor's Touch unlocks filtering without increasing range.",
             "Only Constructor's Touch enables the stored item-type filter, including on placed Attractors. Sneak-click a block or loose item, or right-click an item in the inventory to select it. Sneak-click empty air to clear it.",
             "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 6 blocks before the server multiplier.",
-            "The Attractor has no durability. Display items, other players' reserved items and death drops, and items in simplebuilding:attractor_ignore stay in place."
+            "The Attractor has no durability. Display items, other players' reserved items and death drops, and items in simplebuilding:attractor_ignore stay in place.",
+            "Held and placed Attractors brake items inside their dead zone without adding pull or lift. server.tools.attractorMinimumDistance defaults to 1.25 blocks and is limited to 0.5–2 blocks."
           ],
           "controls": [
             "Hold in either hand to attract; sneak to pause.",
@@ -12059,7 +12064,8 @@ window.WIKI_DATA = {
             "Reichweite ergänzt 1,5 Blöcke je Stufe, bis 7,5 vor dem Serverfaktor und höchstens 12 danach. Berührung des Konstrukteurs schaltet nur den Filter frei.",
             "Nur mit Berührung wirkt der gespeicherte Itemfilter, auch abgelegt. Schleichklick auf einen Block oder ein loses Item oder Rechtsklick auf ein Inventar-Item wählt den Filter. Schleichklick ins Leere löscht ihn.",
             "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 6 Blöcken vor dem Serverfaktor.",
-            "Keine Haltbarkeit. Ausstellungsitems, für andere reservierte Items und Todesbeute sowie simplebuilding:attractor_ignore bleiben liegen."
+            "Keine Haltbarkeit. Ausstellungsitems, für andere reservierte Items und Todesbeute sowie simplebuilding:attractor_ignore bleiben liegen.",
+            "Gehaltene und abgelegte Attraktoren bremsen Items in ihrer Ruhezone ohne Zug oder Anheben. server.tools.attractorMinimumDistance beträgt standardmäßig 1,25 Blöcke und ist auf 0,5–2 Blöcke begrenzt."
           ],
           "controls": [
             "In einer Hand halten zum Anziehen, schleichen zum Pausieren.",
@@ -24675,9 +24681,9 @@ window.WIKI_DATA = {
         "simplebuilding:iron_core"
       ],
       "pattern": [
-        "RAR",
-        "ICI",
-        "III"
+        "IIR",
+        "ICA",
+        "IIR"
       ],
       "key": {
         "A": [
@@ -24693,8 +24699,30 @@ window.WIKI_DATA = {
           "minecraft:redstone"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "pattern",
+              "this": [
+                "IIR",
+                "ICA",
+                "IIR"
+              ],
+              "other": [
+                "RAR",
+                "ICI",
+                "III"
+              ]
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/amethyst_lens.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -27180,7 +27208,7 @@ window.WIKI_DATA = {
       "pattern": [
         "NNN",
         "NRN",
-        "NEN"
+        "ENN"
       ],
       "key": {
         "E": [
@@ -27193,8 +27221,30 @@ window.WIKI_DATA = {
           "minecraft:recovery_compass"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "pattern",
+              "this": [
+                "NNN",
+                "NRN",
+                "ENN"
+              ],
+              "other": [
+                "NNN",
+                "NRN",
+                "NEN"
+              ]
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/echo_sounder.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -37976,6 +38026,45 @@ window.WIKI_DATA = {
   ],
   "recipesOtherLines": [
     {
+      "id": "simplebuilding:amethyst_lens",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:amethyst_lens",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/amethyst_lens.json",
+      "ingredients": [
+        "minecraft:amethyst_shard",
+        "minecraft:iron_ingot",
+        "minecraft:redstone",
+        "simplebuilding:iron_core"
+      ],
+      "pattern": [
+        "RAR",
+        "ICI",
+        "III"
+      ],
+      "key": {
+        "A": [
+          "minecraft:amethyst_shard"
+        ],
+        "C": [
+          "simplebuilding:iron_core"
+        ],
+        "I": [
+          "minecraft:iron_ingot"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
       "id": "simplebuilding:blueprint",
       "type": "minecraft:crafting_shapeless",
       "category": "equipment",
@@ -38065,6 +38154,41 @@ window.WIKI_DATA = {
         ],
         "addition": [
           "simplebuilding:copper_core"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:echo_sounder",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:echo_sounder",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/echo_sounder.json",
+      "ingredients": [
+        "minecraft:recovery_compass",
+        "simplebuilding:enderite_core",
+        "simplebuilding:enderite_nugget"
+      ],
+      "pattern": [
+        "NNN",
+        "NRN",
+        "NEN"
+      ],
+      "key": {
+        "E": [
+          "simplebuilding:enderite_core"
+        ],
+        "N": [
+          "simplebuilding:enderite_nugget"
+        ],
+        "R": [
+          "minecraft:recovery_compass"
         ]
       },
       "lines": [
@@ -47149,6 +47273,21 @@ window.WIKI_DATA = {
       "labelDe": "Echolot: Höchstladung",
       "tooltip": "Repair points an emptied Echo Sounder needs to be fully charged again, 150 to 6000. This is the item's durability, fixed when the game starts: takes effect after a restart, and clients need the same value in their config file (ship it with the modpack), otherwise they show wrong charge bars. Default: 1500.",
       "tooltipDe": "Reparaturpunkte, die ein geleertes Echolot bis zur vollen Ladung braucht, 150 bis 6000. Das ist die Haltbarkeit des Gegenstands, beim Spielstart festgelegt: wirkt nach einem Neustart, und Clients brauchen denselben Wert in ihrer Config-Datei (mit dem Modpack ausliefern), sonst zeigen sie falsche Ladebalken. Standard: 1500."
+    },
+    {
+      "name": "server.tools.attractorMinimumDistance",
+      "shortName": "attractorMinimumDistance",
+      "type": "double",
+      "default": "1.25",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Sledgehammer & Chisels",
+      "groupDe": "Vorschlaghammer & Meißel",
+      "label": "Attractor: Minimum Distance",
+      "labelDe": "Attraktor: Mindestabstand",
+      "tooltip": "Dead zone for held and placed attractors, 0.5 to 2 blocks. Items inside slow down without receiving pull or lift. Server-side. Default: 1.25.",
+      "tooltipDe": "Ruhezone für gehaltene und platzierte Attraktoren, 0,5 bis 2 Blöcke. Darin werden Items ohne Zug oder Anheben abgebremst. Serverseitig. Standard: 1,25."
     },
     {
       "name": "server.tools.sledgehammerUpgradeSeconds",
@@ -68841,7 +68980,7 @@ window.WIKI_DATA = {
     "trades": 20,
     "enchantments": 19,
     "tags": 41,
-    "config": 168,
+    "config": 169,
     "inWorld": 396,
     "advancements": 102,
     "features": 41,

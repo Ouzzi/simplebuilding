@@ -20,7 +20,6 @@ import net.minecraft.world.item.equipment.trim.ArmorTrim;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 // MC 26.3 twin of common/src/mc26_2/java/.../EquipmentRendererMixin.java: trims are drawn through
@@ -45,22 +44,6 @@ public class EquipmentRendererMixin {
         }
     };
 
-    @ModifyVariable(
-            method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;II)V",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/renderer/rendertype/RenderTypes;armorTrim(Lnet/minecraft/resources/Identifier;Z)Lnet/minecraft/client/renderer/rendertype/RenderType;"
-            ),
-            argsOnly = true,
-            ordinal = 0
-    )
-    private int makeTrimGlow(int light, @Local(argsOnly = true) ItemStack stack) {
-        // Injection-Punkt liegt bereits im "hasTrim"-Zweig von renderLayers; ueberschrieben wird nur
-        // noch das Licht fuer den Trim-Submit (die Ruestungs-Layer sind schon submitted).
-        return GlowingTrimUtils.trimLight(light, GlowingTrimUtils.getGlowLevel(stack),
-                GlowingTrimUtils.isPulsating(stack), System.currentTimeMillis());
-    }
-
     /** Pulsating ohne Glowing: der Besatz-Submit zeichnet die entsaettigte Kopie (siehe 26.2-Zwilling). */
     @WrapOperation(
             method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;II)V",
@@ -74,6 +57,11 @@ public class EquipmentRendererMixin {
                                           @Local(argsOnly = true) ItemStack stack,
                                           @Local(argsOnly = true) EquipmentClientInfo.LayerType layerType,
                                           @Local EquipmentClientInfo equipmentInfo) {
+        long millis = System.currentTimeMillis();
+        int glow = GlowingTrimUtils.getGlowLevel(stack);
+        boolean pulse = GlowingTrimUtils.isPulsating(stack);
+        light = GlowingTrimUtils.trimLight(light, glow, pulse, millis);
+        color = GlowingTrimUtils.trimColor(color, glow, pulse, millis);
         ArmorTrim trim = stack.get(DataComponents.TRIM);
         Identifier texture = trim == null ? null : simplebuilding$desaturatedTrim(stack, trim, layerType, equipmentInfo);
         if (texture == null) {

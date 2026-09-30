@@ -1108,12 +1108,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Versteckt (Spoiler in docs/SIMPLETWEAKS-UEBERNAHME.md): Rezepte und Advancements ueber den Endstufen.
                 com.simplebuilding.tweaks.datagen.EasterEggData.generate(output, items());
 
-                // Echolot/Echo Sounder (Id echo_sounder; Besitzer 2026-09-27): Bergungskompass in der Mitte, Enderit-Kern unten mittig,
+                // Echolot/Echo Sounder (Id echo_sounder; Besitzer 2026-09-27): Bergungskompass in der Mitte, Enderit-Kern unten links,
                 // sieben Enderit-Nuggets aussen herum, oben mittig inzwischen auch ein Nugget
                 shaped(RecipeCategory.TOOLS, TweaksItems.ECHO_COMPASS)
                         .pattern("NNN")
                         .pattern("NRN")
-                        .pattern("NEN")
+                        .pattern("ENN")
                         .define('N', ModItems.ENDERITE_NUGGET)
                         .define('E', ModItems.ENDERITE_CORE)
                         .define('R', Items.RECOVERY_COMPASS)
@@ -1121,12 +1121,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .save(output);
 
                 // Amethystlinse (Id amethyst_lens; Simple Tweaks hatte kein Rezept): Eisen-Baukern in
-                // der Mitte, Amethystsplitter als Linse darueber, Redstone links und rechts oben,
-                // Eisenbarren als U darunter.
+                // der Mitte, Amethystsplitter rechts, Redstone rechts oben und unten,
+                // Eisenbarren links und oben/unten mittig.
                 shaped(RecipeCategory.TOOLS, TweaksItems.LASER_POINTER)
-                        .pattern("RAR")
-                        .pattern("ICI")
-                        .pattern("III")
+                        .pattern("IIR")
+                        .pattern("ICA")
+                        .pattern("IIR")
                         .define('A', Items.AMETHYST_SHARD)
                         .define('C', ModItems.IRON_CORE)
                         .define('I', Items.IRON_INGOT)

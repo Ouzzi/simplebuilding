@@ -88,6 +88,7 @@ public class ServerTuningConfig {
         charges.rotatorMaxCharge = clamp(charges.rotatorMaxCharge, ServerTuning.MIN_ROTATOR, ServerTuning.MAX_ROTATOR);
         charges.echoSounderMaxCharge = clamp(charges.echoSounderMaxCharge, ServerTuning.MIN_ECHO, ServerTuning.MAX_ECHO);
 
+        tools.attractorMinimumDistance = clamp(tools.attractorMinimumDistance, 0.5, 2.0, 1.25);
         tools.sledgehammerUpgradeSeconds = clamp(tools.sledgehammerUpgradeSeconds, 1, ServerTuning.MAX_UPGRADE_SECONDS);
         tools.reinforcedUpgradeDamagePerHit = clamp(tools.reinforcedUpgradeDamagePerHit, 0, ServerTuning.MAX_UPGRADE_DAMAGE);
         tools.netheriteUpgradeDamagePerHit = clamp(tools.netheriteUpgradeDamagePerHit, 0, ServerTuning.MAX_UPGRADE_DAMAGE);
@@ -223,6 +224,9 @@ public class ServerTuningConfig {
     }
 
     public static class Tools {
+        /** Shared held/placed attractor dead zone, in blocks (0.5 to 2). */
+        @ConfigEntry.Gui.Tooltip
+        public double attractorMinimumDistance = 1.25;
         /** Dauer einer Hammer-Aufwertung in Sekunden = Zahl der Schlaege (einer je Sekunde, der letzte baut um). */
         @ConfigEntry.Gui.Tooltip
         public int sledgehammerUpgradeSeconds = 5;

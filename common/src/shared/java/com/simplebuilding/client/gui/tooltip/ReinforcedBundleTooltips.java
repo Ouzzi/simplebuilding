@@ -18,6 +18,8 @@ public final class ReinforcedBundleTooltips {
         ClientBundleTooltip component = new ClientBundleTooltip(data.contents());
         BundleTooltipAccessor accessor = (BundleTooltipAccessor) component;
         accessor.simplebuilding$setCapacityScale((float) data.maxCapacity() / 64.0f);
+        accessor.simplebuilding$setProgressColor(0xFF000000 | com.simplebuilding.util.guiDrawHelper.getColorTheme(
+                data.dyeColor() == DyedStorage.UNDYED ? null : net.minecraft.world.item.DyeColor.byFireworkColor(data.dyeColor())).pos1());
         accessor.simplebuilding$setSlotTint(DyedStorage.spriteTint(data.dyeColor()));
         return component;
     }

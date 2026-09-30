@@ -9,7 +9,7 @@
   "pattern": [
     "NNN",
     "NRN",
-    "NEN"
+    "ENN"
   ],
   "result": {
     "id": "simplebuilding:echo_sounder"
