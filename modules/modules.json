@@ -171,13 +171,15 @@
       "defaultEnabled": true,
       "projects": {
         "fabric": ":modules:simpleriding:fabric",
-        "neoforge": ":modules:simpleriding:neoforge"
+        "neoforge": ":modules:simpleriding:neoforge",
+        "forge": ":modules:simpleriding:forge"
       },
       "displayName": "Simple Riding",
       "description": "Saddle speed and horse jump enchantments, mount armor utilities, loot, and trades.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth_config"
@@ -190,7 +192,7 @@
         "shared": "modules/simpleriding/shared",
         "fabric": "modules/simpleriding/fabric",
         "neoforge": "modules/simpleriding/neoforge",
-        "forge": null,
+        "forge": "modules/simpleriding/forge",
         "generated": "modules/simpleriding/generated/resources",
         "lang": "modules/simpleriding/shared/resources/assets/simpleriding/lang",
         "wikiManual": "modules/simpleriding/wiki/manual.json",
@@ -217,6 +219,18 @@
           "neoforge": {
             "task": ":modules:simpleriding:neoforge:runRidingIntegrationGameTest",
             "report": "modules/simpleriding/neoforge/build/riding-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simpleriding:forge:runGameTestServer",
+            "report": "modules/simpleriding/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true",
+              "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {

@@ -67,7 +67,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "cloth_config"
@@ -75,7 +76,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "ffdd075a8adb"
+    "dataHash": "3257b2f5b5b5"
   },
   {
     "id": "simplemodels",

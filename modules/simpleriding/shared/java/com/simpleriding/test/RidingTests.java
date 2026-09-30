@@ -126,10 +126,10 @@ public final class RidingTests {
   close(c.enchantments.swiftRide.horseSpeedMultiplier,.3,h,"Nonfinite default");close(c.enchantments.swiftRide.ghastSpeedMultiplier,1,h,"Speed cap");close(c.enchantments.swiftRide.otherSpeedMultiplier,0,h,"Nonnegative speed");close(c.enchantments.horseJump.jumpStrengthMultiplier,.5,h,"Jump cap");
   var original=Riding.CONFIG;try{
    var disabled=new RidingConfig();disabled.worldGen.enableVillagerTrades=false;Riding.CONFIG=disabled;
-   Class<?> type;try{type=Class.forName("com.simplebuilding.modules.simpleriding.RidingFabricData");}catch(ClassNotFoundException e){type=Class.forName("com.simplebuilding.modules.simpleriding.RidingNeoData");}
-   var instance=type.getConstructor().newInstance();var method=Arrays.stream(type.getMethods()).filter(m->m.getName().equals("test")&&m.getParameterCount()==1).findFirst().orElseThrow();
-   h.assertTrue(!(Boolean)method.invoke(instance,new Object[]{null}),"Actual loader condition disables trade loading");disabled.worldGen.enableVillagerTrades=true;
-   h.assertTrue((Boolean)method.invoke(instance,new Object[]{null}),"Actual loader condition allows trades by default");
+   Class<?> type;try{type=Class.forName("com.simplebuilding.modules.simpleriding.RidingFabricData");}catch(ClassNotFoundException e){try{type=Class.forName("com.simplebuilding.modules.simpleriding.RidingNeoData");}catch(ClassNotFoundException absent){type=Class.forName("com.simplebuilding.modules.simpleriding.forge.RidingCondition");}}
+   var instance=type.getConstructor().newInstance();var method=Arrays.stream(type.getMethods()).filter(m->m.getName().equals("test")&&(m.getParameterCount()==1||m.getParameterCount()==2)).findFirst().orElseThrow();
+   h.assertTrue(!(Boolean)method.invoke(instance,new Object[method.getParameterCount()]),"Actual loader condition disables trade loading");disabled.worldGen.enableVillagerTrades=true;
+   h.assertTrue((Boolean)method.invoke(instance,new Object[method.getParameterCount()]),"Actual loader condition allows trades by default");
    var dir=java.nio.file.Files.createTempDirectory(h.getLevel().getServer().getServerDirectory(),"riding-config-test-");
    java.nio.file.Files.writeString(dir.resolve("simpleriding.json"),"{\"worldGen\":{\"enableVillagerTrades\":false},\"enchantments\":{\"swiftRide\":{\"horseSpeedMultiplier\":0.7}}}");
    var loaded=RidingConfig.load(dir);h.assertTrue(!loaded.worldGen.enableVillagerTrades&&loaded.worldGen.enableLootTableChanges,"Legacy switch and missing default survive JSON loading");close(loaded.enchantments.swiftRide.horseSpeedMultiplier,.7,h,"Legacy nested numeric key");
