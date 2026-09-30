@@ -5,6 +5,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.renderpearl.api.pipeline.RenderPipeline;
 import com.simplebuilding.util.BundleTooltipAccessor;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.component.BundleContents;
@@ -81,6 +85,38 @@ public abstract class BundleTooltipComponentMixin implements BundleTooltipAccess
         if (this.capacityScale <= 1.0f) {
             return occupancy;
         }
-        return occupancy.divideBy(Fraction.getFraction((int) this.capacityScale, 1));
+        return occupancy.divideBy(Fraction.getFraction((double) this.capacityScale));
+    }
+
+    @Unique private int simplebuilding$progressColor = -1;
+    @Override public void simplebuilding$setProgressColor(int argb) { simplebuilding$progressColor = argb; }
+
+    @Shadow @Final private static Identifier PROGRESSBAR_BORDER_SPRITE;
+    @Shadow private static Identifier getProgressBarTexture(Fraction occupancy) { throw new AssertionError(); }
+    @Shadow private static int getProgressBarFill(Fraction occupancy) { throw new AssertionError(); }
+    @Shadow private static void extractEmptyBundleDescriptionText(int x, int y, Font font, GuiGraphicsExtractor graphics) { throw new AssertionError(); }
+    @Shadow private static int getEmptyBundleDescriptionTextHeight(Font font) { throw new AssertionError(); }
+
+    @WrapOperation(method = "extractBundleWithItemsTooltip", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientBundleTooltip;extractProgressbar(IILnet/minecraft/client/gui/Font;Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lorg/apache/commons/lang3/math/Fraction;)V"))
+    private void simplebuilding$progress(int x, int y, Font font, GuiGraphicsExtractor graphics, Fraction occupancy, Operation<Void> original) {
+        if (simplebuilding$progressColor == -1) { original.call(x, y, font, graphics, occupancy); return; }
+        simplebuilding$drawProgress(x, y, font, graphics, occupancy);
+    }
+
+    @WrapOperation(method = "extractImage", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientBundleTooltip;extractEmptyBundleTooltip(Lnet/minecraft/client/gui/Font;IIIILnet/minecraft/client/gui/GuiGraphicsExtractor;)V"))
+    private void simplebuilding$empty(Font font, int x, int y, int width, int height, GuiGraphicsExtractor graphics, Operation<Void> original) {
+        if (simplebuilding$progressColor == -1) { original.call(font, x, y, width, height, graphics); return; }
+        int left = x + (width - 96) / 2;
+        extractEmptyBundleDescriptionText(left, y, font, graphics);
+        simplebuilding$drawProgress(left, y + getEmptyBundleDescriptionTextHeight(font) + 4, font, graphics, Fraction.ZERO);
+    }
+
+    @Unique private void simplebuilding$drawProgress(int x, int y, Font font, GuiGraphicsExtractor graphics, Fraction occupancy) {
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, getProgressBarTexture(occupancy), x + 1, y, getProgressBarFill(occupancy), 13);
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, PROGRESSBAR_BORDER_SPRITE, x, y, 96, 13);
+        var data = new ReinforcedBundleTooltipData(contents, Math.round(capacityScale * 64));
+        graphics.centeredText(font, Component.literal(data.capacityText()), x + 48, y + 3, simplebuilding$progressColor);
     }
 }

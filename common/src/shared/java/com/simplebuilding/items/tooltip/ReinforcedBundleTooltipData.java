@@ -9,6 +9,11 @@ import net.minecraft.world.item.component.BundleContents;
  * Buendels ({@link DyedStorage#UNDYED} ohne Farbstoff), in der die Felder leicht getoent werden.
  */
 public record ReinforcedBundleTooltipData(BundleContents contents, int maxCapacity, int dyeColor) implements TooltipComponent {
+    public String capacityText() {
+        int used = (int) Math.floor(contents.weight().getOrThrow().doubleValue() * 64.0);
+        return used + "/" + maxCapacity;
+    }
+
     public ReinforcedBundleTooltipData(BundleContents contents, int maxCapacity) {
         this(contents, maxCapacity, DyedStorage.UNDYED);
     }

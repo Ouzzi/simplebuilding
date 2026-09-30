@@ -1303,6 +1303,10 @@ public final class QuiverTests {
                 helper.assertValueEqual(countInBundle(container, Items.ARROW), inserted,
                         "arrows really stored in " + container.getItem() + " versus the amount it reported "
                                 + "taking - an insert answered true without storing everything");
+                var data = (com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData)
+                        container.getItem().getTooltipImage(container).orElseThrow();
+                helper.assertTrue(data.capacityText().equals(inserted + "/" + inserted),
+                        "quiver tooltip capacity differs from actual capacity: " + data.capacityText());
                 return inserted;
             }
             inserted += 64 - arrows.getCount();

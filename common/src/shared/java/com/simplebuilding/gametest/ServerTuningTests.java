@@ -139,6 +139,7 @@ public final class ServerTuningTests {
             s.loot.tradePriceMultiplier = Double.NaN;
             s.tools.stoneChiselCooldownTicks = 0;
             s.tools.sledgehammerUpgradeSeconds = 500;
+            s.tools.attractorMinimumDistance = 10.0;
             s.blueprint.maxBlocksPerTick = 999_999;
             s.pads.strangerPadBreakSeconds = 0;
             s.charges.lensMaxCharge = 1;
@@ -157,6 +158,13 @@ public final class ServerTuningTests {
             check(problems, s.loot.tradePriceMultiplier == 1.0, "a NaN price multiplier became " + s.loot.tradePriceMultiplier);
             check(problems, s.tools.stoneChiselCooldownTicks == ServerTuning.MIN_CHISEL_COOLDOWN, "chisel cooldown " + s.tools.stoneChiselCooldownTicks);
             check(problems, SledgehammerUpgrades.blows() == ServerTuning.MAX_UPGRADE_SECONDS, "hammer blows " + SledgehammerUpgrades.blows());
+            check(problems, s.tools.attractorMinimumDistance == 2.0, "attractor maximum distance " + s.tools.attractorMinimumDistance);
+            s.tools.attractorMinimumDistance = -1.0;
+            config.validatePostLoad();
+            check(problems, s.tools.attractorMinimumDistance == 0.5, "attractor minimum distance " + s.tools.attractorMinimumDistance);
+            s.tools.attractorMinimumDistance = Double.NaN;
+            config.validatePostLoad();
+            check(problems, s.tools.attractorMinimumDistance == 1.25, "attractor fallback distance " + s.tools.attractorMinimumDistance);
             check(problems, s.blueprint.maxBlocksPerTick == ServerTuning.MAX_BLUEPRINT_BLOCKS_PER_TICK, "blueprint speed " + s.blueprint.maxBlocksPerTick);
             check(problems, s.pads.strangerPadBreakSeconds == 1, "pad break seconds " + s.pads.strangerPadBreakSeconds);
             check(problems, s.charges.lensMaxCharge == ServerTuning.MIN_LENS, "lens charge " + s.charges.lensMaxCharge);

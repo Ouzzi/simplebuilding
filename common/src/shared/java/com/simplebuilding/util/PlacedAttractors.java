@@ -37,8 +37,6 @@ public final class PlacedAttractors {
     public static final double PULL = 0.16;
     /** Hoechstgeschwindigkeit eines gezogenen Items. */
     public static final double MAX_SPEED = 0.6;
-    /** Naeher als das ist ein Item angekommen und wird nur noch abgebremst. */
-    public static final double ARRIVED = 0.6;
     /** Items in diesem Tag zieht kein Attractor an (Modpacks, Datapacks). */
     public static final TagKey<Item> IGNORE = TagKey.create(Registries.ITEM,
             Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "attractor_ignore"));
@@ -104,8 +102,8 @@ public final class PlacedAttractors {
         double distance = offset.length();
         Vec3 velocity = entity.getDeltaMovement();
         Vec3 next;
-        if (distance < ARRIVED) {
-            next = velocity.scale(0.5);
+        if (distance <= MagnetItem.minimumDistance()) {
+            next = velocity.scale(0.2);
         } else {
             next = velocity.scale(0.8).add(offset.scale(PULL / distance));
             if (entity.onGround() && (offset.y > 0.2 || entity.horizontalCollision)) {

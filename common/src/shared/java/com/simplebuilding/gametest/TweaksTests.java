@@ -187,13 +187,14 @@ public final class TweaksTests {
 
     /**
      * Echolot / Echo Sounder (Id echo_sounder; Besitzer-Rezept 2026-09-27): Bergungskompass in der
-     * Mitte, Enderit-Kern unten mittig, sieben Enderit-Nuggets aussen herum - seit der zweiten Runde
-     * auch oben mittig ("NNN" / "NRN" / "NEN").
+     * Mitte, Enderit-Kern unten links, sieben Enderit-Nuggets aussen herum - seit der zweiten Runde
+     * auch oben mittig ("NNN" / "NRN" / "ENN").
      */
     public static void theEchoSounderIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSevenEnderiteNuggets(GameTestHelper helper) {
         Item n = ModItems.ENDERITE_NUGGET;
-        CraftingInput grid = grid(n, n, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n);
+        CraftingInput grid = grid(n, n, n, n, Items.RECOVERY_COMPASS, n, ModItems.ENDERITE_CORE, n, n);
         expectCrafting(helper, grid, TweaksItems.ECHO_COMPASS, "simplebuilding:echo_sounder");
+        helper.assertTrue(craftingResult(helper, grid(n, n, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n)).isEmpty(), "the previous bottom-middle core recipe still works");
         CraftingInput swapped = grid(n, n, n, n, ModItems.ENDERITE_CORE, n, n, Items.RECOVERY_COMPASS, n);
         helper.assertTrue(craftingResult(helper, swapped).isEmpty(), "core and compass swapped still craft an echo sounder");
         CraftingInput topEmpty = grid(n, null, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n);
@@ -1430,8 +1431,9 @@ public final class TweaksTests {
     public static void theAmethystLensIsCraftedAroundAnIronCore(GameTestHelper helper) {
         Item i = Items.IRON_INGOT;
         Item r = Items.REDSTONE;
-        CraftingInput grid = grid(r, Items.AMETHYST_SHARD, r, i, ModItems.IRON_CORE, i, i, i, i);
+        CraftingInput grid = grid(i, i, r, i, ModItems.IRON_CORE, Items.AMETHYST_SHARD, i, i, r);
         expectCrafting(helper, grid, TweaksItems.LASER_POINTER, "simplebuilding:amethyst_lens");
+        helper.assertTrue(craftingResult(helper, grid(r, Items.AMETHYST_SHARD, r, i, ModItems.IRON_CORE, i, i, i, i)).isEmpty(), "the unrotated rod recipe still works");
         Optional<ItemStack> oldPattern = craftingResult(helper, grid(null, Items.AMETHYST_SHARD, null, i, Items.GLASS, i, i, r, i));
         helper.assertTrue(oldPattern.isEmpty() || !oldPattern.get().is(TweaksItems.LASER_POINTER), "the old glass pattern still makes the lens");
         ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);

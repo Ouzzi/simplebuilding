@@ -72,3 +72,13 @@ im Haupt-Repo und wurden nicht angefasst. Redundante Wiki-Sicherungen liegen als
 - Kerne nicht stapelbar; Enderman-/Lohenkopf nutzen die echten Vanilla-Texturen.
 - Placed-Bundle/Oktant/Detector nutzen den Block `placed_smithing_template`.
 - Zuletzt gepushter grüner Stand: siehe `git log origin/master`; danach nur, was im Commit „Handoff“ steht.
+
+## Branch codex-nn (2026-09-30), Gadget-Korrekturen
+
+Echolot `NNN/NRN/ENN`, Amethyst Resonance Rod (ID `amethyst_lens`) `IIR/ICA/IIR`; Datagen, Rezepttests, Wiki, JEI-Texte und dynamische Buch-Rezeptkarten stimmen damit überein. Attraktor-Ruhezone `server.tools.attractorMinimumDistance` (1,25 Blöcke, begrenzt auf 0,5–2) für gehaltene und abgelegte Attraktoren; 100 simulierte Zug-/Bewegungsschritte ohne Oszillation geprüft. 26.3-Bündel/Köcher zeigen die echte tier- und verzauberungsabhängige Kapazität und die Textfarbe des gemeinsamen Oktant-/Entfernungsmesser-Helfers. Rucksäcke verwenden eine eigene Slot-Anzeige und haben den `/64`-Fehler nicht.
+
+Pulsating+Glowing moduliert im Trim-Submit Licht und Vertex-Helligkeit; Pulsating allein behält die Sättigungsanimation. Der Vanilla-Shader multipliziert Textur, Vertexfarbe und Lightmap: zusätzliche Farbmodulation verhindert einen durch die Lightmap abgeschwächten Helligkeitspuls. Beide 26.3-Loader verwenden denselben Mixin. Ohne Clientreproduktion bleibt die Ursache des ursprünglich gemeldeten Fehlers unbestätigt; Besitzerprüfung in `docs/TRIM-BALANCE.md`.
+
+26.3 Fabric/NeoForge kompilieren. Gefilterte Serverprüfungen: **110/110, alles gruen** (Attraktor 16, platziert 2, Pulsating 6, Rezept-/Tweaks-Auswahl 68, Bündel 2, Köcher 2, Config-Grenzen 2, Config-Katalog 2, gespeicherte Defaults 2, Testzentrale 8). Testzentrale in beiden GameTest-Welten neu gebaut und vollständige Item-/Block-Abdeckung bestätigt (Run `2026-09-30T00-43-33Z-6fae`). Wiki `--check` aktuell, Bücherprüfung 0 Probleme, keine doppelten Lang-Schlüssel. Alte Gradle-Daemons aus dem Sandbox-Run hatten weiter Zugriffsschwierigkeiten; ein frischer Prozess (`--no-daemon` bzw. `GRADLE_OPTS=-Dorg.gradle.daemon=false`) funktioniert.
+
+Abschließendes `gradlew.bat check -q` im Worktree grün (Exit 0), einschließlich gemeinsamer 26.2-Kompilierung, Balance, Atlanten, Jade-Split und Wiki. Keine Clienttests; Darstellung und Besitzerwelt-Neubau bleiben der Besitzerprüfung vorbehalten. Keine Ports, kein Push, kein Merge.

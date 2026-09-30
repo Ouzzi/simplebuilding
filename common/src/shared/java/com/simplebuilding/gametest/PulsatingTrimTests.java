@@ -195,6 +195,16 @@ public final class PulsatingTrimTests {
                         && GlowingTrimUtils.desaturationStep(period / 2) == GlowingTrimUtils.DESATURATION_STEPS - 1
                         && GlowingTrimUtils.desaturationStep(period) == 0,
                 "the saturation pulse does not run color -> gray -> color");
+        for (long t = 0; t <= period * 2; t += 20) {
+            int value = GlowingTrimUtils.pulseLight(t);
+            helper.assertTrue(value >= 1 && value <= 15, "pulse outside 1..15: " + value);
+            helper.assertTrue(value == GlowingTrimUtils.pulseLight(t + period), "pulse is not periodic");
+            helper.assertTrue(GlowingTrimUtils.trimColor(0xFFFFFFFF, 0, true, t) == 0xFFFFFFFF,
+                    "Pulsating alone changed brightness");
+        }
+        helper.assertTrue(GlowingTrimUtils.trimColor(0xFFFFFFFF, 1, true, 0) == 0xFFFFFFFF
+                && GlowingTrimUtils.trimColor(0xFFFFFFFF, 1, true, period / 2) == 0xFF111111,
+                "the render color does not visibly pulse");
         int gold = 0xFFDEB12D;
         int gray = GlowingTrimUtils.desaturate(gold, 1.0F);
         int r = (gray >> 16) & 0xFF, g = (gray >> 8) & 0xFF, b = gray & 0xFF;

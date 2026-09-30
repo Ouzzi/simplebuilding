@@ -181,3 +181,9 @@ strahlenden Teilen setzen jetzt auch Licht (`DynamicLightHandler.tickWearer`/`ti
 Position über `OwnedLightHolder` mit der Entity gespeichert, Aufräumen in `Entity.setRemoved`), und
 getragene/ausgestellte strahlende Teile geben feine Wachs-Glanz-Partikel ab (Chance je Tick
 0,5 % × Strahlkraft des ganzen Trägers, höchstens 2,5 % – Stufe 1 etwa alle 10 s, höchstens alle 2 s; bis 2026-09: 2 % / 12 %). Der Tooltip zeigt nur die Stufe („Strahlkraft: 3“). Seit der zweiten Runde setzen auch Mobs Licht (`DynamicLightHandler.tickWearer`, alle 4 Ticks, Position mit dem Mob gespeichert; Rüstungsständer alle 10 Ticks).
+
+## Pulsating – 26.3 (2026-09-30)
+
+Pulsating allein entsättigt einen vorhandenen Besatz im 2,4-Sekunden-Takt; sein Licht bleibt unverändert. Pulsating + Glowing setzt das Besatzlicht auf 1–15 und moduliert zusätzlich die Vertex-Helligkeit mit derselben Stufe. Der Vanilla-Entity-Shader multipliziert Textur, Vertexfarbe und Lightmap; eine helle Lightmap kann einen reinen Lichtpuls abschwächen. Die Farbmodulation macht die Helligkeit unabhängig davon veränderlich. Der 26.3-Submit-Wrapper setzt beide Werte direkt für den Besatz und gilt auf Fabric und NeoForge. Die Grundrüstung wird nicht moduliert.
+
+Besitzerprüfung (keine Clienttests in diesem Run): einen farbigen Besatz, z. B. Smaragd oder Gold, auf Rüstung anbringen, dann Pulsating-Vorlage + Echoscherbe am Schmiedetisch. Auf einem Rüstungsständer in beiden 26.3-Loadern mindestens 5 Sekunden ansehen: Farbe → Grau → Farbe. Danach Glowing-Vorlage + Leuchttintenbeutel ergänzen: hell → dunkel → hell, auch bei Tageslicht. Ohne bestehenden Besatz gibt es keine Besatzfläche zum Animieren. Die tatsächliche Ursache des bisherigen sichtbaren Fehlers ist ohne Clientreproduktion nicht bestätigt.
