@@ -82,3 +82,5 @@ Anlage: `python tools/newmod.py <id> "Name"`. Manifest: `modules/modules.json`, 
 Integration nutzt eigene Saves unter `integration/run-fabric-263` und `integration/enabled-mods.json`.
 Module koppeln nur ueber framework-API oder oeffentliche Registry-IDs, nie interne Klassen.
 Details und Grenzen: `docs/MULTIMOD.md`; Integrationstest: `--targets integration-263` (separat vom Bestand).
+
+Balancing-Multimod: Manifest-Pfade/Mod-Auswahl nutzen; Ablage `balance/<id>/`, SimpleBuilding weiter `balance/` (keine Migration). Schreibziele/Datagen nur 26.3; `checkBalance` prueft alle Module. Details/Lesergrenzen: `docs/BALANCING-ZENTRALE.md`.

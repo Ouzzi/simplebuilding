@@ -238,3 +238,7 @@ Verlauf im Detail: git log.
 - [x] Launch Hub: einzelne Mod-Schalter, Presets, Integrationsstarts und Trockenlauf-Tests
 - [x] check, 1548/1548 Server, 1/1 Integration, 34 Hub-Tests und Trockenlauf gruen; kein Push/Merge
 - [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen
+
+## INFRA-B: Multimod-Balancing (2026-09-30)
+- [x] Manifest, isolierte Ablagen/Leser, Mod-Auswahl, Tests und Dokumentation; 1554/1554 Server und check gruen.
+- [ ] Desktop-/Handy-Sichtpruefung: Browser-Werkzeug meldet keine verfuegbare Oberflaeche.

@@ -1,256 +1,117 @@
-# Balancing-Zentrale (Stand 2026-09-29, Phase 2)
+# Balancing-Zentrale (Multimod, 26.3)
 
-Lokaler Entwicklungs-Server fuer **alle** Balance-Werte der Mod: Beute, Handel, Mob-/Block-Drops, Erze,
-Werkzeug- und Ruestungswerte, Verzauberungen, Rezepte, Code-Konstanten (Ladungen, Abklingzeiten,
-Reichweiten, Tempo), Config-Standards, Trank-Pad-Regeln - mit Versionen, Rueckgaengig, Rechnern fuer die
-Beschaffungszeit und den Entwickler-Dokumenten. **Seit Phase 2 wirken gespeicherte Werte in der Mod**:
-Speichern schreibt die Zahl an ihre Stelle im Java- oder JSON-Quelltext - in allen Minecraft-Linien -,
-"Datagen starten" baut die erzeugten Dateien neu, und `gradlew checkBalance` (im `check`) haelt Ablage,
-Code und erzeugte Dateien zusammen.
+Start: `python tools/devserver/serve.py --no-browser` auf http://127.0.0.1:8770/.
+Der Eintrag `balancing-zentrale` in `.claude/launch.json` startet denselben Server.
+Nur Python-Standardbibliothek; API-Schreibzugriffe brauchen JSON und `X-Balance-Client: 1`.
 
-## 1. Starten und der Ablauf in einem Satz
+## Mod-Auswahl und Arbeitsablauf
 
-```
-python tools/devserver/serve.py            # Zentrale auf http://127.0.0.1:8770/
-python tools/devserver/serve.py --check    # checkBalance (Exit-Code 1 bei Abweichung); gradlew checkBalance ruft das auf
-```
+Die Kopfzeile bietet alle Eintraege aus `modules/modules.json` an. `?mod=<id>` waehlt
+auch bei direkten Links den Mod; ohne URL-Auswahl wird die letzte Auswahl aus localStorage
+verwendet (Zugriff in try/catch). Entwuerfe und Rechner-Praeferenzen sind je Mod getrennt.
+Die bisherigen SimpleBuilding-Browser-Schluessel bleiben erhalten.
 
-Optionen: `--no-browser`, `--port 8771`, `--store <ordner>` (andere Ablage, z. B. zum Ausprobieren),
-`--repo <ordner>` (anderer Checkout, z. B. ein Worktree), `--refresh-vanilla` (Vanilla-Handelspools und
--Namen neu aus dem Client-Jar lesen), `--check --json`. In Claude Code gibt es den Eintrag
-`balancing-zentrale` in `.claude/launch.json`. Nur Python-Standardbibliothek.
+Alle Seiten, Quellen, Zeitrechner, Solver, Auslese-Berichte, Versionen und Rollbacks
+verwenden denselben ausgewaehlten Service. Die Uebersicht zeigt pro Mod die gespeicherten
+Werte, offenen Plaene und Browser-Entwuerfe sowie Name, Beschreibung, Version, MC und Loader.
+"Aenderungen" zaehlt die aktuell gespeicherten Werte, nicht die historische Zahl der Klicks.
+"Offene Plaene" umfasst gespeicherte Werte, die nicht ihrem Quellwert entsprechen,
+inklusive Rechner-Annahmen und verwaister Werte. Browser-Entwuerfe werden gesondert gezaehlt.
 
-**Ablauf:** Wert aendern (Entwurf, alter Wert rot durchgestrichen) -> *Speichern* zeigt je Wert alt/neu,
-die Stellen je Linie (Datei:Zeile), betroffene Items, Spieltests, die den Wert festhalten -> *Bestaetigen*
-legt Version `vN` an und schreibt in die Mod -> auf der *Uebersicht* "Datagen starten" (baut die
-erzeugten Dateien aller Linien neu, zeigt die geaenderten Dateien und das Ergebnis von checkBalance) ->
-committen. *Versionen -> auf diesen Stand* setzt alles zurueck, mit den Original-Literalen: danach ist
-`git diff` leer.
+Wert bearbeiten -> alter Wert rot durchgestrichen -> Speichern mit Zusammenfassung
+(alt/neu, Datei/Zeile, Wirkung, betroffene Items) -> Bestaetigen -> neue Version.
+Rechner-Zeiten bleiben editierbar: der Solver berechnet Entwuerfe; erst der normale
+Speichern-Dialog schreibt. Ohne "Werte direkt in die Mod schreiben" bleibt ein Plan.
+Rollback legt eine neue Version an und stellt Quellen mit den gespeicherten
+Original-Literalen wieder her. Vor dem Schreiben werden alle Stellen auf Konflikte
+geprueft; teilweise fehlgeschlagene Schreibvorgaenge werden zurueckgenommen.
 
-Laufen Dev-Clients/-Server des Besitzers im selben Checkout, verweigert "Datagen starten" (sonst stuerzt
-das Spiel mit `NoClassDefFoundError` ab) - "trotzdem starten" nur bewusst.
+## Manifest und Quellen
 
-Tests: `python -m unittest discover -s tools/devserver/tests` (Auslesen, Rechner, Ablage inkl.
-gleichzeitiger Schreibzugriffe und Absturz-Wiederherstellung, Pruefung ungueltiger Werte, Schreiben in
-JSON und Java auf Repo-Kopien inkl. Rueckgaengig bis aufs Byte, checkBalance, Datagen-Auftrag, HTTP-API).
-Die Tests auf dem echten Repo laufen mit einem schreibgeschuetzten Service (`read_only`).
+Jeder Manifest-Eintrag enthaelt `id`, `name`, `displayName`, `description`, `version`,
+`loaders`, `minecraft: "26.3"`, `paths`, `requires`, `optional` sowie bisherige Felder.
+Pfade sind repo-relativ; absolute Pfade ausserhalb des Repos und `..`-Ausbrueche werden
+abgewiesen. Unbekannte Mod-Ids werden vor jedem API-Schreibzugriff abgewiesen.
 
-## 2. Was die Zentrale liest und wohin Speichern schreibt
+`paths`: `root`, `shared`, `fabric`, `neoforge`, `forge`, `generated`, `lang`,
+`wikiManual`, `balanceDir`. Das Scaffold `tools/newmod.py` erzeugt diesen Vertrag mit.
+Fehlende Daten/Loader-Verzeichnisse und Mods ohne Stellwerte sind erlaubt.
+Modell-/Textur-Aufloesung beruecksichtigt Modul-Assets und deren generated-Verzeichnisse.
 
-Gelesen wird die Linie 26.2. Jeder schreibbare Wert kennt seine **Stelle** (Java: Datei + Zeichenbereich
-des Literals; JSON: Datei + Pfad) und die **Zwillinge** in den anderen Linien (`sbdev/sites.py`):
+SimpleBuilding behaelt seine spezialisierten Leser (Config, Beute, Materialien,
+Verzauberungen, Handel, Rezepte, Erze, Item-Export, Trank-Pads). Die Mod-UI schreibt
+nur eindeutige 26.3-Stellen: gemeinsame Dateien bleiben gemeinsam, separate Port-Kopien
+werden nicht beschrieben. Overlay-Konstanten haben Vorrang. Ohne eindeutige 26.3-Stelle
+ist der Wert nur lesbar. Das aeltere, nicht modulgebundene `Service`-Interface bleibt
+fuer Regressionstests mit seinen bisherigen Linienregeln verfuegbar.
 
-| Datei der Linie 26.2 | gilt fuer | Zwillinge |
-|---|---|---|
-| `common/src/shared/java/X` | 26.2, 26.3, 26.4 | 1.21.11: `mc1_21_11/shared/java/X` |
-| `common/src/mc26_2/java/X` | 26.2 | 26.3: `mc26_3/overlay/java/X` (26.4 erbt ihn), 26.4: `mc26_4/overlay/java/X`, 1.21.11 |
-| `src/main/java/X` (Datagen) | 26.2, 26.3 | 1.21.11: `mc1_21_11/fabric/src/main/java/X` |
-| `src/main/resources/data/...` (Handel) | 26.2, 26.3 | 1.21.11: `ModTradeDefinitions.java`, wo eindeutig |
+Zusatzmodule lesen:
 
-Ein Zwilling wird mitgeschrieben, wenn dort dieselbe Id (derselbe Leser, andere Datei) mit **demselben
-Wert** steht. Weicht er ab oder fehlt er, steht das am Wert (Tooltip der Linien, Speichern-Dialog) und die
-Linie bleibt, wie sie ist - nie eine stille Luecke.
+- Balance-benannte `static final int/long/float/double`-Konstanten aus `shared` und
+  Loader-Java-Baeumen, inklusive ausrechenbarer Ausdruecke und Alias/Transform-Regeln.
+- Numerische und boolesche Blaetter handgeschriebener JSON-Daten im eigenen Namespace
+  unter gemeinsamen oder Loader-Resources; diese werden an Ort und Stelle geschrieben.
+- Item-Exporte (`generated/wiki/items.json`) und numerische Blaetter aus
+  `generated/data/<id>` bleiben Planung: generated ist keine
+  schreibbare Quelle. Ein Producer sollte Stellwerte als benannte Java-Konstanten oder
+  handgeschriebene Daten halten. Automatische Rueckzuordnung beliebiger Java-Datagen-
+  Builder zu generated JSON ist nicht implementiert; dafuer braucht es einen Adapter.
+- Rezeptdaten und 26.3-`villager_trade`-Angebote nutzen die bestehenden Strukturen der
+  Rechner. Lang-Namen verwenden den eigenen Namespace aus `paths.lang`.
+- Gewoehnliche JSON-Beute mit item/empty-Eintraegen, festen/uniformen Wuerfen und
+  festen/uniformen `set_count`-Mengen wird modelliert. Ereignisse/h sind editierbare
+  Rechner-Annahmen (Standard 1/h, bewusst kein belegter Gameplay-Wert). Der Solver
+  verwendet Item-Gewichte, gemeinsame Wuerfe oder als Fallback die Ereignisrate.
+  Unbekannte Bedingungen/Funktionen/Provider werden im Bericht genannt und nicht
+  mit einer unbewiesenen Beschaffungszeit angezeigt. Zahlen bleiben in "Alle Stellwerte".
 
-| Bereich | Quelle / Stelle | Linien | danach |
-|---|---|---|---|
-| Beute (Gewichte, Wuerfe, Mengen) | Literale in `ModLootTableModifications.java` (`sbdev/ex_loot.py`) | 26.2-26.4 + 1.21.11 | Datagen (Inject-Tabellen `loot_table/inject/...`) |
-| Kern-Chancen | Konstanten `*_CORE_CHANCE` derselben Datei; Faktor `worldGen.buildingCoreLootChanceMultiplier` = Config | 26.2-26.4 + 1.21.11 | Datagen |
-| Handel | `villager_trade/**.json` (jsonedit) + `ModTradeDefinitions.java` (Preis, 2. Preis, Menge, Nutzungen, XP, Rabatt, Angebots-Chance, Pool-Gewichte wo der Pool nur einem Angebot gehoert) | 26.2/26.3 (+ 1.21.11) | - |
-| Config-Standards (167) | Feldinitialisierer in `SimplebuildingConfig`, `TweaksConfig`, `ServerTuningConfig` (Zahl, an/aus, Text) | 26.2-26.4 + 1.21.11 | Wiki (`python wiki/generate.py`, laeuft im Datagen mit) |
-| Code-Konstanten | `static final` mit Balance-Namen (`sbdev/ex_constants.py`); Ausdruecke `64*4`, `190 * BASE_...`, `-3.0f - OFFSET`: das Literal wird zurueckgerechnet ("transform"); `NAME * 2`: Verweis auf NAME | 26.2-26.4 + 1.21.11 | Datagen, wenn ein Item sie nutzt |
-| Enderit-Materialien | Konstruktor-Argumente `ModToolMaterials.ENDERITE`, `ModArmorMaterials.ENDERITE` (Haltbarkeit, Tempo, Bonus, Verzauberbarkeit, Schutz je Teil, Haerte, Rueckstoss) | 26.2-26.4 + 1.21.11 | Datagen (Item-Export) |
-| Werkzeug-/Ruestungswerte | Export `items.json`; jeder Wert zeigt auf seine Quelle: Konstante (`alias`, z. B. `DURABILITY_IRON`, Material, Config-Standard der Ladungen) oder Zahl im Registrierungs-Code (`enchantable(15)`, `stacksTo(16)`, Ruestungsfaktor 42 x Vanilla-Grundwert) | wie die Quelle | Datagen |
-| Verzauberungen | `Enchantment.definition(...)` und `LevelBasedValue.perLevel(...)` in `ModEnchantments.java` (Gewicht, Stufen, Kosten, Amboss, Wirkungswerte) | 26.2-26.4 + 1.21.11 | Datagen |
-| Rezepte | Menge `shaped/shapeless(..., n)`, Erfahrung und Garzeit `oreBlasting(...)` in `ModRecipeProvider.java` | 26.2/26.3 + 1.21.11 | Datagen |
-| Erz-Generierung | `OreConfiguration`/`OreFeature` (Adergroesse), `CountPlacement`, `HeightRangePlacement` in `ModWorldGen.java` | 26.2, 26.3/26.4 (Overlay), 1.21.11 | Datagen |
-| Trank-Pads | `PotionPadRules.TABLE` und `DEFAULT` (Lauf AA) - sobald die Datei existiert, Seite *Trank-Pads* | 26.2-26.4 (+ 1.21.11) | - |
-| Annahmen der Rechner | `sbdev/params.py` | - | wirken nie in der Mod |
+## Ablage: keine Migration und kein Datenverlust
 
-Erzeugte Werte (Verzauberungen, Rezepte, Erze, Item-Export) zeigt die Zentrale mit der **Java-Stelle**
-als Quelle; die erzeugte JSON-Stelle steht als `source.generated` daneben, `generatedValue` ist, was dort
-steht. Was sich nicht eindeutig einer Zahl im Code zuordnen laesst, bleibt **nur Planung** - mit Grund
-(Tooltip und Auslese-Bericht), z. B. Rezeptmengen aus Vanilla-Mustern (Treppe 4, Stufe 6, Steinsaege),
-Angriffswerte und Kapazitaeten (berechnet), die Verzauberbarkeit der Vorschlaghaemmer (setzt das
-Werkzeugmaterial, die `ENCHANTABILITY_*`-Konstante im Aufruf ist dort wirkungslos).
+SimpleBuilding nutzt weiterhin **`balance/`**, genau wie `paths.balanceDir` im Manifest.
+Dies ist die ausdrueckliche Legacy-Ausnahme. Es gibt keinen zweiten aktiven Store, keine Kopie, kein Verschieben
+und keine Synchronisation zweier Versionierungsfolgen. Saemtliche vorhandenen Versionen,
+angewendeten Stellen und Rollback-Originaltexte werden unveraendert gelesen.
 
-Was **nicht** auslesbar ist, steht auf der Seite *Auslese-Bericht* (Datei, Zeile, Grund).
-
-## 3. Bearbeiten, Speichern, Versionen
-
-* Jedes Feld ist ein Entwurf, sobald es sich aendert: der **alte Wert steht rot durchgestrichen daneben**,
-  die Leiste unten zaehlt die ungespeicherten Aenderungen. Entwuerfe liegen im Browser (localStorage).
-* Ein Item-Wert, der auf eine Konstante zeigt, bearbeitet **die Konstante** (angezeigt x Faktor; ein
-  Baustab mit `DURABILITY_COPPER_SLEDGEHAMMER * 2` nimmt nur gerade Zahlen). Der Speichern-Dialog nennt
-  alle Items, die sich mit aendern.
-* **Speichern** zeigt immer erst die Zusammenfassung: alt -> neu, je Wert die Stellen je Linie
-  (`26.2/26.3/26.4: ModLootTableModifications.java:95 · 1.21.11: ...:94`), "danach Datagen",
-  Zwillinge, die abweichen, betroffene Items, Spieltests, die den Wert festhalten
-  (`ConfigOptionTests.EXPECTED_OPTIONS`, die Kern-Baender `CORE_CHANCES`). Ungueltiges (keine Zahl,
-  ausserhalb der Grenzen, kein Vielfaches bei `64*4`, nur lesbare Werte, unbekannte Ids) blockiert.
-* Vor dem Schreiben prueft die Zentrale **alle Stellen**: steht irgendwo nicht mehr der eingelesene Wert
-  (paralleler Lauf, Editor), wird nichts gespeichert und nichts geschrieben ("Neu einlesen"). Scheitert
-  das Schreiben einer spaeteren Datei, werden die schon geschriebenen zurueckgesetzt.
-* Schreibweise bleibt: Suffix (`f`, `F`, `L`), Hex, Unterstriche, Nullen am Ende (`0.10f` -> `0.20f`),
-  CRLF/LF. Das Original-Literal jeder Stelle steht in der Ablage (`originText`); Rueckgaengig schreibt
-  genau dieses zurueck.
-* Jede Bestaetigung ist eine neue **Version** `vN`, keine wird geloescht. **Zuruecksetzen** auf eine alte
-  Version legt eine neue Version mit deren Inhalt an (gleiche Vorschau), schreibt die Mod mit zurueck und
-  entfernt Plaene, die es damals nicht gab.
-* Ohne den Haken "Werte direkt in die Mod schreiben" bleibt ein Wert **geplant**; die Uebersicht bietet
-  spaeter "Jetzt anwenden".
-
-### Ablage
+Andere Mods nutzen **`balance/<id>/`**, entsprechend `paths.balanceDir`:
 
 ```
-balance/balance.json                 aktueller Stand (atomar ersetzt)
-balance/versions/v0001.json          jede Version, unveraenderlich (Aenderungsliste + kompletter Stand)
-balance/versions/v0001.applied.json  welche Stellen diese Version geschrieben hat (Datei, Linie, alt/neu)
-balance/applied-log.jsonl            spaeteres "Jetzt anwenden"
+balance/<id>/balance.json
+balance/<id>/versions/v0001.json
+balance/<id>/versions/v0001.applied.json
+balance/<id>/applied-log.jsonl
 ```
 
-Eintrag je Wert: `{"value": Plan, "mod": Mod-Wert beim Speichern, "origin": Mod-Wert beim ersten Planen,
-"applied": true (in die Mod geschrieben), "originText": [Original-Literal je Stelle]}`. Nur geplante Werte
-stehen in der Ablage. `balance/` gehoert ins Repo (die Sperrdatei `balance/.lock` nicht). Schutz gegen
-Verlust wie in Phase 1: Commit-Punkt ist die Versionsdatei, Sperrdatei, `baseVersion`.
+Versionsdateien sind unveraenderlich; aktueller Stand wird atomar geschrieben.
+Die vorhandenen Regeln fuer Sperre, `baseVersion`, Konflikte und Absturz-Wiederherstellung
+bleiben je Mod bestehen. `--store <ordner>` verwendet fuer SimpleBuilding genau diesen
+Ordner und fuer Zusatzmods dessen Unterordner `<id>`; Tests schreiben nur Temp-Ablagen.
 
-### Anzeigen
+## Datagen und Gate
 
-| Anzeige | Bedeutung |
-|---|---|
-| **wirkt in Mod** + Linien (`26.2-26.4 + 1.21.11`) | Speichern schreibt den Wert an diese Stellen |
-| **wirkt in Mod** + "ueber X" | Item-Wert: geaendert wird die Konstante/der Standard X |
-| **nur Planung** | die Zentrale kann ihn nicht schreiben (Grund im Tooltip) |
-| **Rechner** | Annahme der Rechner; wirkt nie in der Mod |
-| geplant | gespeicherter Plan weicht vom Mod-Wert ab (nicht angewendet) |
-| in Mod | gespeicherter Plan steht so in der Mod |
-| **Code weicht ab** | angewendet, aber im Code steht inzwischen etwas anderes - checkBalance rot |
-| Mod geaendert | der Mod-Wert hat sich seit dem Speichern bewegt (z. B. paralleler Lauf) |
-| Export alt | der Item-Export ist aelter als der Code - Datagen fehlt |
-| verwaist | den Wert gibt es in der Mod nicht mehr (Umbenennung?) - bleibt, bis er bewusst entfernt wird |
+`python tools/devserver/serve.py --check` prueft **jeden Manifest-Mod**, auch wenn er
+in der Integration deaktiviert ist. `--check --json` liefert Ergebnisse nach Mod sowie
+aggregierte Fehler, Hinweise und Zaehler. Gradles bestehendes `checkBalance` (Teil von
+`check`) ruft diesen Einstieg auf. Angewendete Werte gegen Code und vorhandene
+Source/generated-Verknuepfungen bleiben geprueft; Plaene/verwaiste Werte sind Hinweise.
 
-## 4. Datagen und checkBalance
+SimpleBuilding-Datagen in der Mod-UI startet ausschliesslich
+`:mc26_3:fabric:runDatagen`, danach `python wiki/generate.py`.
+Zusatzmods koennen einen expliziten `datagenTask` im Manifest hinterlegen, z. B.
+`:modules:simplemoney:fabric:runDatagen`; ohne Task gibt es eine erklaerte Fehlermeldung.
+Der Befehl wird als Argumentliste ausgefuehrt. Laufende Spiele dieses Checkouts werden
+vorher erkannt. Auftrag, Abbrechen, Ergebnis und Diff bleiben je Mod sichtbar.
+Andere Minecraft-Linien werden erst im eigenen Port-Run bearbeitet.
 
-**Datagen starten** (Uebersicht, `POST /api/datagen`) laeuft als Auftrag im Hintergrund, Schritt fuer
-Schritt (eigene Gradle-Aufrufe, weil `syncGenerated263` die 26.3-Ausgabe mit dem frischen
-`src/main/generated` vergleicht):
+## API und Tests
 
-1. `gradlew runDatagen` (26.2, danach `generateWiki`)
-2. `gradlew :mc26_3:fabric:runDatagen` (+ `syncGenerated263`)
-3. `gradlew :mc1_21_11:fabric:runDatagen`
-4. auf Wunsch `gradlew -Pmc264=true :mc26_4:fabric:runDatagen`
-5. `python wiki/generate.py`
+Alle vorhandenen JSON-Routen akzeptieren `?mod=<id>`: state, preview/save,
+version/history, rollback, calc/reverse/solve-time, overview, reload, check,
+pending-apply/apply-planned, handover, docs, datagen und cancel.
+`GET /api/modules` liefert Metadaten und die moduebergreifende Uebersicht.
+Die Auswahl ist request-lokal, kein globaler veraenderlicher "aktiver Mod" auf dem Server.
 
-Danach liest die Zentrale neu ein, prueft (checkBalance) und zeigt `git diff --stat`. Ein Schritt, der
-scheitert, stoppt den Auftrag (Ausgabe sichtbar); abbrechen geht jederzeit.
-
-**checkBalance** (`sbdev/check.py`, `gradlew checkBalance`, haengt an `check`) scheitert, wenn
-
-1. ein gespeicherter und **angewendeter** Wert nicht mehr im Code steht (jemand hat die Zahl an der
-   Zentrale vorbei geaendert) - Loesung: im Code zuruecksetzen oder den neuen Wert in der Zentrale
-   speichern;
-2. bei einem gespeicherten Wert eine andere Linie eine andere Zahl hat;
-3. erzeugte Dateien nicht zu den Java-Zahlen passen: Inject-Tabellen (26.2, 1.21.11, 26.3 - Pools,
-   Wuerfe, Gewichte, Mengen, Kern-Chancen), Verzauberungen und Rezepte (26.2, 1.21.11), Erze, Item-Export.
-
-Hinweise (kein Fehler): geplante, noch nicht angewendete Werte; verwaiste Werte. `-PskipWiki` ueberspringt
-auch checkBalance (nur wo Python fehlt).
-
-## 5. Warum keine erzeugte `Balance.java`
-
-Der Plan aus Phase 1 sah eine erzeugte Klasse `Balance.java` vor, auf die der Mod-Code verweist. Umgesetzt
-ist stattdessen das **chirurgische Schreiben der Literale an ihrer Stelle**, weil
-
-* der Mod-Code unveraendert bleibt (kein Umbau hunderter Literale in zwei Linien, keine Merge-Konflikte mit
-  parallelen Laeufen, die dieselben Dateien bearbeiten; das Verhalten bei den heutigen Werten ist
-  trivial gleich);
-* die Zahl im Code die eine Quelle der Wahrheit bleibt - wer den Code liest, sieht den wirksamen Wert,
-  mit seinem Kommentar daneben;
-* die Leser jede Stelle schon exakt kennen (Datei, Zeichenbereich) und die Vorab-Pruefung jede fremde
-  Aenderung erkennt;
-* checkBalance dieselbe Sicherheit gibt wie eine Pruefung von `Balance.java`: Ablage gegen Code, Linien
-  gegeneinander, erzeugte Dateien gegen Code.
-
-Datapack-Werte (Loot-Inject-Tabellen) schreibt die Zentrale nicht direkt: sie entstehen aus
-`ModLootTableModifications` (die Spieltests vergleichen die geladenen Tabellen mit dieser Klasse); ein
-Datapack eines Servers kann sie weiter ueberschreiben.
-
-## 6. Was (noch) nicht in der Mod wirkt
-
-Die Seite **Uebergabe** (`GET /api/handover`, frueher `/api/phase2`) listet jeden gespeicherten Plan, der
-nicht in der Mod steht, mit Grund, Datei und Zeile:
-
-| Was | warum |
-|---|---|
-| geplante Quellen (`source:*`) | eine neue Quelle ist ein neuer Pool/Eintrag im Code (Struktur, nicht Zahl) - von Hand oder per Lauf |
-| abgeschaltete Quellen (`sourceoff:*`) | Planung; eine vorhandene Beute-Quelle schaltest du ab, indem du ihr Gewicht auf 0 setzt (wirkt) |
-| Werte ohne eigene Zahl im Code | Rezeptmengen aus Vanilla-Mustern, berechnete Item-Werte, fehlende Felder in Handelsdateien |
-| Zwillinge, die abweichen | die Linie bleibt, wie sie ist (am Wert und im Speichern-Dialog sichtbar) |
-| Zutaten und Muster der Rezepte, Wirkungen ohne eigene Zahl | Struktur statt Zahl |
-
-## 7. Die Rechner
-
-* **Zeit bis 1-6 Stueck** je Item und Quelle (Mittel, Median, 90 %), gezielt je Quelle, alle Quellen
-  gezielt zusammen und normales Spiel. Modell aus `docs/KERNE-SELTENHEIT.md` Abschnitt 2, verallgemeinert:
-  jede Quelle ist ein Strom von Ereignissen (Oeffnungen, Haendlerbesuche, Toetungen, Abbau) mit der exakt
-  aus den Pools berechneten Stueckzahl je Ereignis; zusammen ein zusammengesetzter Poisson-Prozess, Mittel
-  in geschlossener Form, Median per Bisektion - deterministisch, keine Simulation. Die Tests pruefen die
-  Zahlen aus KERNE-SELTENHEIT 5.3 (z. B. Enderitkern 38,1 h Mittel, Median 26,4 / ... / 216 h).
-* **Angebotschance im Handel**: Ziehen ohne Zuruecklegen mit Angebots-Chancen, exakt ueber ein Integral
-  (Gauss-Legendre). Ergibt die ~10,1 / 4,9 / 2,4 / 1,0 % der Kerne beim fahrenden Haendler.
-* **Dorfbewohner**: passenden Dorfbewohner finden (ausgebildete je Stunde x Angebotschance) plus
-  Auffuellungen. **Rezepte**: Zeit fuer die verfolgten Zutaten (informativ, nicht "beste Quelle").
-* **Rueckwaerts**: Zielzeit (oder Zeitalter x Zielanteil 0,85, Regel aus KERNE-SELTENHEIT 5.3) -> welcher
-  Wert eines Stellwerts (Kern-Chance, Gewicht, Angebots-Chance, Nutzungen, geplante Quelle) sie erreicht;
-  "Als Entwurf uebernehmen" setzt ihn.
-* **Zeiten bearbeiten** (Seite *Seltenheit & Zeitalter* und jede Item-Seite): jede Zeit (1.-6. Stueck,
-  Mittel/Median/90 %, je Quelle gezielt, "Alle Quellen gezielt", "Normales Spiel") ist ein Eingabefeld
-  (`12`, `12,5 h`, `30 min`, Enter). Die Zentrale sucht die Werte, die diese Zeit ergeben
-  (`sbdev/solver.py`, `POST /api/solve-time`), uebernimmt sie als **Entwuerfe** und rechnet alle anderen
-  Zeiten neu; der gespeicherte Stand steht rot durchgestrichen daneben. Stellwerte je Quelle: Truhen - das
-  Gewicht des Items in jedem Pool, die Kern-Chance eigener Kern-Pools; Haendler/Dorfbewohner - die
-  Angebots-Chance (Buecher: ihr Gewicht im Verzauberungs-Pool); Mob/Block - nur die Annahme
-  Toetungen/Abbau je Stunde (die Mod hat dort keine Chance, der Drop ist sicher; **Rechner**, wirkt nie in
-  der Mod); geplante Quellen - ihre Chance. Geteilte Werte (Wuerfe eines gemischten Pools, Angebots-Chance
-  eines Buch-Angebots, Nutzungen) kommen nur dazu, wenn die eigenen das Ziel nicht erreichen. Preise gehen
-  nicht in die Zeit ein und bleiben. **Verteilung** bei mehreren Quellen (je Item gemerkt): alle
-  proportional (Standard, ein gemeinsamer Faktor), nur eine Quelle, oder nur ein Wert. Chancen werden an
-  0/100 % gekappt (die anderen Werte uebernehmen den Rest, sonst "nicht ganz erreichbar" mit dem
-  Grenzwert), ganze Zahlen gerundet und schrittweise nachgestellt; die gemeldete Zeit ist immer die mit den
-  gerundeten Werten neu gerechnete. Rezept-Zeilen rechnen aus den Zutaten (dort aendern).
-  Je Item klappt **"Automatische Aenderungen"** (standardmaessig zu) auf: die eingetippten Zeiten (alt ->
-  neu) und jeder Wert, den sie geaendert haben - alt rot durchgestrichen -> neu, Datei:Zeile je Linie,
-  "wirkt in Mod"/Rechner, Kappung, "wirkt auch auf" (andere Items im selben Pool/Angebot), einzeln
-  verwerfen. Gespeichert wird nur ueber den normalen Weg (Zusammenfassung -> Bestaetigen -> neue Version ->
-  Datagen).
-* **Quellen planen/abschalten** je Item (Struktur, Mob, Haendler, Block, eigene) - wirkt sofort in den
-  Rechnern, landet als Planung in der Uebergabe.
-* **Annahmen** (Seite *Annahmen*): Oeffnungen je Stunde je Struktur und Behaelter (gezielt, normal
-  optional), Faktor normales Spiel (0,22), Haendlerbesuche, Dorfbewohner, Toetungen, Abbau, Zeitalter.
-  Standards aus KERNE-SELTENHEIT Abschnitt 2, der Rest geschaetzt und so beschrieben.
-
-## 8. Aufbau
-
-```
-tools/devserver/serve.py        HTTP-Server (ThreadingHTTPServer, nur 127.0.0.1), Routen, Start, --check
-tools/devserver/sbdev/          extract + ex_* (Leser), ex_javadata (Java-Quelle hinter erzeugten Dateien,
-                                Materialien, 1.21.11-Handel, Trank-Pads), sites (Linien und Zwillinge),
-                                values (Wertdatensatz, Pruefung), store (Ablage), service (Vorschau/Speichern/
-                                Rollback/Rechner/Datagen), apply (alle Stellen schreiben), javaedit (Java-
-                                Literale), jsonedit (JSON), check (checkBalance), jobs (Datagen-Auftrag),
-                                model (Rechner), solver (Zeit -> Stellwerte), params (Annahmen),
-                                icons (Bilder: Wiki-Bild, sonst Modell -> Textur aus Mod-Assets/Client-Jar),
-                                docs (Markdown)
-tools/devserver/static/         Oberflaeche (index.html, app.css, app.js - ohne Framework)
-tools/devserver/data/           Vanilla-Handelspools (aus dem Client-Jar, versioniert)
-tools/devserver/tests/          unittest (fixtures/: PotionPadRules aus Lauf AA fuer den Leser-Test)
-```
-
-API (JSON): `GET /api/state`, `/api/check`, `/api/datagen` (Stand des Auftrags), `/api/handover`
-(= `/api/phase2`), `/api/pending-apply`, `/api/version/<n>`, `/api/docs/<name>`; `POST /api/preview`,
-`/api/save`, `/api/rollback/preview`, `/api/rollback`, `/api/apply-planned`, `/api/datagen` (starten,
-`{"force", "include264"}`), `/api/datagen/cancel`, `/api/calc`, `/api/reverse`, `/api/solve-time`
-(`{"item", "row", "stat", "k", "hours", "strategy": "proportional" | "source:<Quelle>" | "value:<Id>",
-"overrides"}` - schreibt nichts), `/api/overview`, `/api/reload`. Bilder: `GET /wiki/assets/...`,
-`/modtex/<ns>/<pfad>.png` (Mod-Texturen), `/vanilla/<pfad>.png` (aus dem Client-Jar); jede Id, die eine
-Seite zeigt, hat ein Bild (Test `test_icons.py`: kein 404, keine Textkachel). Schreibende Anfragen brauchen den Header `X-Balance-Client: 1` (Schutz gegen fremde
-Webseiten) und JSON.
+`python -m unittest discover -s tools/devserver/tests`: bestehende 107 Tests plus
+Modul-Fixtures fuer Java/JSON, Vorschau, Schreiben, Drift, bytegenauen Rollback,
+Legacy-Historie, getrennte Stores, HTTP-Routing, Quellen/Rechner/Solver,
+generated-Planung, unmodellierte Beute und das wiringexample-Modul ohne Stellwerte.
+Desktop-/Handy-Sichtpruefung ist ein eigener Schritt; HTTP und Syntaxpruefung ersetzen sie nicht.

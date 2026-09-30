@@ -50,6 +50,15 @@ class Resolver:
         self._archive: zipfile.ZipFile | None = None
         self._lock = threading.Lock()
         self.wiki = self._wiki_icons()
+        from .modules import load
+        self.asset_roots = list(MOD_ASSETS)
+        for module in load(repo):
+            if module['id'] == 'simplebuilding':
+                continue
+            paths = module['paths']
+            self.asset_roots.append(paths['root'] + '/shared/resources/assets')
+            self.asset_roots += [paths[k] + '/src/main/resources/assets' for k in ('fabric', 'neoforge', 'forge') if paths.get(k)]
+            self.asset_roots.append(paths['generated'] + '/assets')
 
     # ---- Quellen ------------------------------------------------------------------------------
 
@@ -98,7 +107,7 @@ class Resolver:
                 return json.loads(raw.decode("utf-8"))
             except (UnicodeDecodeError, json.JSONDecodeError):
                 return None
-        for root in MOD_ASSETS:
+        for root in self.asset_roots:
             path = self.repo / root / ns / rel
             if path.is_file():
                 try:
@@ -113,7 +122,7 @@ class Resolver:
             return None
         if ns == "minecraft":
             return f"vanilla/{path}.png" if f"assets/minecraft/textures/{path}.png" in self.jar_names() else None
-        for root in MOD_ASSETS:
+        for root in self.asset_roots:
             if (self.repo / root / ns / "textures" / f"{path}.png").is_file():
                 return f"modtex/{ns}/{path}.png"
         return None
@@ -188,6 +197,10 @@ class Resolver:
             candidates += self._model_textures(model)
         candidates += self._model_textures(f"{ns}:item/{name}") + self._model_textures(f"{ns}:block/{name}")
         candidates += [f"{ns}:item/{name}", f"{ns}:block/{name}", f"{ns}:item/{name}_00"]
+        # Special-rendered Vanilla heads have no flat item model texture.
+        if ns == 'minecraft':
+            candidates += {'skeleton_skull': ['minecraft:entity/skeleton/skeleton'],
+                           'zombie_head': ['minecraft:entity/zombie/zombie']}.get(name, [])
         for ref in candidates:
             icon = self._texture(ref)
             if icon:
@@ -217,7 +230,7 @@ class Resolver:
             ns, _, rest = url[len("modtex/"):].partition("/")
             if not SAFE.match(ns) or not SAFE.match(rest):
                 return None
-            for root in MOD_ASSETS:
+            for root in self.asset_roots:
                 base = (self.repo / root / ns / "textures").resolve()
                 path = (base / rest).resolve()
                 if base in path.parents and path.is_file():

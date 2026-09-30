@@ -66,9 +66,10 @@ def load_lang(repo: Path) -> dict:
 class Names:
     """Anzeigenamen für Mod- und Vanilla-Ids (Items, Blöcke, Verzauberungen, Mobs)."""
 
-    def __init__(self, lang: dict, vanilla: dict):
+    def __init__(self, lang: dict, vanilla: dict, namespace='simplebuilding'):
         self.lang = lang
         self.vanilla = vanilla
+        self.namespace = namespace
 
     def _pretty(self, ident: str) -> str:
         return ident.split(":")[-1].split("/")[-1].replace("_", " ").title()
@@ -77,9 +78,9 @@ class Names:
         if not ident:
             return {"de": "leer", "en": "empty"}
         ns, short = ident.split(":", 1) if ":" in ident else ("minecraft", ident)
-        if ns == "simplebuilding":
+        if ns == self.namespace:
             for kind in ("item", "block"):
-                key = f"{kind}.simplebuilding.{short}"
+                key = f"{kind}.{ns}.{short}"
                 en = self.lang.get("en_us", {}).get(key)
                 if en:
                     return {"en": en, "de": self.lang.get("de_de", {}).get(key, en)}
@@ -92,8 +93,8 @@ class Names:
 
     def enchantment(self, ident: str, level=None) -> dict:
         ns, short = ident.split(":", 1)
-        if ns == "simplebuilding":
-            key = f"enchantment.simplebuilding.{short}"
+        if ns == self.namespace:
+            key = f"enchantment.{ns}.{short}"
             en = self.lang.get("en_us", {}).get(key, self._pretty(short))
             de = self.lang.get("de_de", {}).get(key, en)
         else:
@@ -134,9 +135,10 @@ def icons(repo: Path) -> dict[str, str]:
     return out
 
 
-def extract_items(repo: Path, names: Names) -> tuple[list[dict], list[dict], list[dict]]:
+def extract_items(repo: Path, names: Names, module=None) -> tuple[list[dict], list[dict], list[dict]]:
     problems, values, items = [], [], []
-    path = repo / ITEMS_EXPORT
+    export = module['paths']['generated'] + '/wiki/items.json' if module else ITEMS_EXPORT
+    path = repo / export
     if not path.exists():
         return [], [], [problem("item", "Item-Export fehlt", file=ITEMS_EXPORT,
                                 why="gradlew runDatagen erzeugt ihn (WikiDataProvider); ohne ihn keine Haltbarkeiten/Angriffswerte")]
@@ -153,7 +155,7 @@ def extract_items(repo: Path, names: Names) -> tuple[list[dict], list[dict], lis
             span = spans.get(("items", index, prop))
             record = value(f"item:{ident}:{prop}", "item", label, kind, entry[prop], group=family(ident),
                            min=lo, max=hi, unit=unit,
-                           source={"file": ITEMS_EXPORT, "line": jsonedit.line_of(text, span["start"]) if span else None,
+                           source={"file": export, "line": jsonedit.line_of(text, span["start"]) if span else None,
                                    "path": ["items", index, prop], "generated": True},
                            refs={"item": ident}, note=EXPORT_NOTE)
             if prop == "maxStackSize" and entry[prop] == 1 and len(entry) <= 2:
@@ -183,15 +185,27 @@ def _ingredient(value_) -> list[str]:
     return []
 
 
-def extract_recipes(repo: Path) -> tuple[list[dict], list[dict], list[dict]]:
+def extract_recipes(repo: Path, module=None) -> tuple[list[dict], list[dict], list[dict]]:
     problems, values, recipes = [], [], []
-    for base in (GEN, RES):
+    namespace = module["id"] if module else "simplebuilding"
+    gen = module["paths"]["generated"] + "/data/" + namespace if module else GEN
+    res = module["paths"]["fabric"] + "/src/main/resources/data/" + namespace if module else RES
+    if module:
+        from .modules import resources
+        bases = [r + '/data/' + namespace for r in resources(module)] + [gen]
+    else:
+        bases = (gen, res)
+    seen = set()
+    for base in bases:
         root = repo / base / "recipe"
         if not root.exists():
             continue
         for path in sorted(root.rglob("*.json")):
             rel = path.relative_to(repo).as_posix()
-            rid = "simplebuilding:" + path.relative_to(root).with_suffix("").as_posix()
+            rid = namespace + ":" + path.relative_to(root).with_suffix("").as_posix()
+            if module and rid in seen:
+                continue
+            seen.add(rid)
             text = path.read_text(encoding="utf-8")
             try:
                 data = json.loads(text)
@@ -220,7 +234,7 @@ def extract_recipes(repo: Path) -> tuple[list[dict], list[dict], list[dict]]:
                         key = " / ".join(_ingredient(data[field]))
                         ingredients[key] = ingredients.get(key, 0) + 1
             ids = {}
-            generated = base == GEN
+            generated = base == gen
             short = rid.split(":")[1]
 
             def add(field, label, kind, path_, lo, hi, unit=""):
