@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -52,12 +53,16 @@ def cmd_codex(a):
                 "-o", str(last), "-"]
     else:
         argv = ["claude", "-p", "--permission-mode", "acceptEdits"]
-    flags = subprocess.CREATE_NEW_PROCESS_GROUP | getattr(subprocess, "DETACHED_PROCESS", 0) if os.name == "nt" else 0
-    with open(log, "wb") as lf:
-        p = subprocess.Popen(argv, cwd=wt, stdin=subprocess.PIPE, stdout=lf, stderr=subprocess.STDOUT,
-                             creationflags=flags)
-        p.stdin.write(brief.encode("utf-8"))
-        p.stdin.close()
+    exe = shutil.which(argv[0])  # npm installs codex as codex.cmd on Windows
+    if not exe:
+        sys.exit(f"'{argv[0]}' not found in PATH; install it first (see docs/ai/LAPTOP-SETUP.md)")
+    argv[0] = exe
+    flags = subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0
+    # The brief goes in through a file handle (a pipe can deadlock on Windows when the child is a .cmd shim).
+    brief_file = RUNS / f"brief-{a.name}.md"
+    brief_file.write_text(brief, encoding="utf-8")
+    with open(log, "wb") as lf, open(brief_file, "rb") as bf:
+        p = subprocess.Popen(argv, cwd=wt, stdin=bf, stdout=lf, stderr=subprocess.STDOUT, creationflags=flags)
     print(f"started {a.provider} run '{a.name}' pid {p.pid}\n worktree {wt}\n branch   {branch}\n log      {log}\n answer   {last}")
 
 

@@ -9,6 +9,13 @@ Safety first: voice interaction while driving must stay legal and minimal (hands
 - **No official text-to-speech** for Claude Code output. Community tools exist (unsupported). The Claude and ChatGPT phone apps have their own voice conversation modes, but those talk to the model only, not to this repo.
 - Codex CLI has no voice mode.
 
+## Research result 2026-09-30 (what a phone can do today)
+- Claude phone app: has its own voice mode (hands-free and push-to-talk, spoken replies) for normal chats. It does NOT read aloud the replies of a Remote Control session: those are text only. Remote Control needs the home machine and the session to stay running.
+- Claude Code: `/voice` is input only (no text-to-speech). Community add-ons exist for spoken replies and a full voice loop (for example `mbailey/voicemode` as MCP server with Whisper + Kokoro/Piper, `claude-speak` as hook with Kokoro, `tts-companion` with Piper for German); they are unofficial, check their status before relying on them. Kokoro is English-first; Piper has German voices.
+- Siri/Google Assistant cannot route a spoken request to a Claude session today (only rumors about later iOS versions).
+- Fast fallback with zero build: phone + Remote Control + the phone's system read-aloud (Android "Select to Speak", iOS "Speak Screen") + keyboard dictation.
+- Chosen build: `tools/voicebridge/` (brief `docs/ai/briefs/voicebridge.md`): one big talk button, browser speech recognition and speech synthesis, German by default, the bridge continues a headless Claude session (`claude -p --resume`) so it feels like talking to the same agent, read-only by default, spoken confirmation for actions, reachable only over Tailscale.
+
 ## Recommended stack, in three tiers
 **Tier 1, no build (today):** laptop with Claude Code `/voice tap` + headset; phone with the Claude app connected through Remote Control for status checks and short commands; the phone's dictation for messages. You still have to read answers: use the "spoken summary" habit below.
 
