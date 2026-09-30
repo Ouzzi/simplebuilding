@@ -78,6 +78,46 @@
         "wikiManual": "modules/wiringexample/wiki/manual.json",
         "balanceDir": "balance/wiringexample"
       }
+    },
+    {
+      "id": "simplemoney",
+      "name": "Simple Money",
+      "version": "1.2.16",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "projects": {
+        "fabric": ":modules:simplemoney:fabric",
+        "neoforge": ":modules:simplemoney:neoforge"
+      },
+      "displayName": "Simple Money",
+      "description": "Currency production, weighted villager trades and treasure loot.",
+      "loaders": [
+        "fabric",
+        "neoforge"
+      ],
+      "requires": [
+        "cloth_config"
+      ],
+      "optional": [
+        "simplebuilding",
+        "modmenu"
+      ],
+      "paths": {
+        "root": "modules/simplemoney",
+        "shared": "modules/simplemoney/shared",
+        "fabric": "modules/simplemoney/fabric",
+        "neoforge": "modules/simplemoney/neoforge",
+        "forge": null,
+        "generated": "modules/simplemoney/generated/resources",
+        "lang": "modules/simplemoney/shared/resources/assets/simplemoney/lang",
+        "wikiManual": "modules/simplemoney/wiki/manual.json",
+        "balanceDir": "balance/simplemoney"
+      },
+      "testTargets": [
+        "module-simplemoney-fabric-263",
+        "module-simplemoney-neoforge-263"
+      ],
+      "clientSmokeTask": ":integration:runClientGameTest"
     }
   ]
 }

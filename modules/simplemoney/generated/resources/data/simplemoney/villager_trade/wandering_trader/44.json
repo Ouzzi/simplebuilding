@@ -1,0 +1,29 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": {
+      "type": "minecraft:uniform",
+      "min": 5,
+      "max": 6
+    }
+  },
+  "gives": {
+    "id": "minecraft:diamond_ore",
+    "count": 6
+  },
+  "max_uses": 5,
+  "xp": 150,
+  "reputation_discount": 0.5,
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableWanderingTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "enableWanderingTrades"
+    }
+  ]
+}

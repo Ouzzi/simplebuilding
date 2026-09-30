@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:farmer/18",
+      "required": false
+    },
+    {
+      "id": "simplemoney:farmer/19",
+      "required": false
+    },
+    {
+      "id": "simplemoney:farmer/20",
+      "required": false
+    },
+    {
+      "id": "simplemoney:farmer/21",
+      "required": false
+    },
+    {
+      "id": "simplemoney:farmer/22",
+      "required": false
+    }
+  ]
+}

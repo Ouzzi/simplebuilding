@@ -60,6 +60,13 @@ loom {
             vmArg "-Dfabric-api.gametest.report-file=${layout.buildDirectory.get()}/junit.xml"
             vmArg "-Dfabric-api.gametest.filter=${project.findProperty('gametestFilter') ?: 'sbintegration:*'}"
         }
+        moneyIntegrationGameTest {
+            server()
+            runDir 'run-fabric-263'
+            vmArg '-Dfabric-api.gametest'
+            vmArg "-Dfabric-api.gametest.report-file=${layout.buildDirectory.get()}/money-junit.xml"
+            vmArg "-Dfabric-api.gametest.filter=${project.findProperty('gametestFilter') ?: 'simplemoney:*'}"
+        }
     }
 }
 tasks.matching { it.name in ['runIntegrationClient','runIntegrationServer','runIntegrationGameTest'] }.configureEach {
@@ -71,4 +78,24 @@ tasks.named('runIntegrationGameTest') {
         if (!selected.modules.containsAll(['simplebuilding', 'wiringexample']))
             throw new GradleException('The cross-mod test requires simplebuilding and wiringexample')
     }
+}
+
+tasks.named('runMoneyIntegrationGameTest') {
+    dependsOn prepare
+    // Both catalogues share the isolated Fabric instance. A mixed target request
+    // must serialize them even when the runner invokes Gradle with --parallel.
+    mustRunAfter tasks.named('runIntegrationGameTest')
+    doFirst {
+        def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
+        if (!selected.modules.containsAll(['simplebuilding', 'simplemoney']))
+            throw new GradleException('Simple Money interaction tests require simplebuilding and simplemoney')
+    }
+}
+
+// Isolated module smoke driver; this source set is never shipped.
+fabricApi { configureTests { createSourceSet = true; modId = 'simplemoney-clienttest'; enableGameTests = false } }
+tasks.matching { it.name == 'runClientGameTest' }.configureEach { dependsOn prepare }
+
+loom.runs.configureEach {
+ if (name.toLowerCase().contains('clientgametest')) vmArg "-Dfabric.modsFolder=${rootProject.file('integration/run-fabric-263/mods').absolutePath}"
 }

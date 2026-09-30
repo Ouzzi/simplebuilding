@@ -267,3 +267,6 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 - [x] Basis-Handbuecher im Rezeptbuch; Kapitel im Buch serverseitig freischalten statt Werkbank.
 - [x] Verstaerktes Buendel: Rezept/Datagen/Abdeckung sichern.
 - Verifiziert: 178/178 gefilterte Serverpruefungen, beide gezielten Clientablaeufe, Testzentralen neu gebaut, check gruen. Kein Push/Merge.
+## Simple Money (26.3, Codex)
+- [x] Vollport als eigenes Modul: sieben Items, acht Rezepte, 47 Handelsangebote, sieben Beutetypen; eigene Integrationstests, Wiki und Balancevertrag. Bestand/Integration 1555/1555, Modsuite 20/20, Config-Gegenprobe 2/2 grün; Fabric-Client-Smoke und check Exit 0, 35 Hub-Tests grün.
+- [ ] Besitzer-Abnahme von Simple Money; NeoForge-Client/alte Spielwelt noch prüfen. Forge 26.3 und andere Linien später im Port-Run.

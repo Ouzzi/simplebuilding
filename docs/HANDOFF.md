@@ -300,3 +300,17 @@ Dieser Abschnitt ersetzt die Werkbank-Erweiterung aus dem historischen Mega-Hand
   auch 26.2/shared kompiliert. Keine Dateien in mc1_21_11/mc26_4 geaendert.
 - Nicht verifiziert: kompletter Server-/Client-Suitenlauf, deutsche UI-Darstellung, echte JEI-Bedienung
   und Rezeptbuch-Autofuellen im Besitzer-Modpack sowie Besitzerwelt. Keine Ports, kein Push/Merge.
+## Simple Money (Branch codex-port-money, 26.3)
+- Vollständiges Quellinventar: `docs/modules/simplemoney.md`. Original-IDs, Texturen und Configschlüssel erhalten; Fabric/NeoForge additiv unter `modules/simplemoney`.
+- Eigener Integrations-Testkatalog; NeoForge-Testwelt separat unter `integration/run-neoforge-263`. Keine Besitzerwelt verändert.
+- Forge 26.3 und 26.2/1.21.11/26.4 weiterhin separat nach Freigabe: Einstieg/Config/Loot/GUI/Testadapter portieren. Verifikationsergebnisse folgen unten.
+
+### Simple Money — abschließende Ergebnisse
+- Branch `codex-port-money`, keine Ports/kein Push/kein Merge. Quelle `a9c12a7` sauber und nur gelesen.
+- Vollport: sieben Original-Items/Texturen, acht Rezepte, 47 Angebote mit originalen gewichteten Pools, sieben Truhenbeuten, zwei serverseitige Configschalter. Zweisprachige Module-Wiki (57 Kapitel), Balance-Daten und vollständiger Manifestvertrag für alle bisherigen Einträge. Launch-Hub-Tests starten ausgewählte Modul-Kataloge separat.
+- Bestand/Integration **1555/1555 alles gruen** (`2026-09-30T13-22-27Z-8711`); finale Modsuite **20/20 alles gruen** (`2026-09-30T13-26-13Z-38db`); ausgeschaltete Handelsschalter **2/2 alles gruen** (`2026-09-30T13-16-41Z-43e8`). Testzentralen im Bestand neu gebaut und Item-/Blockabdeckung grün. Eigene Namespace-Abdeckung prüft alle Money-Items.
+- Fabric-Client-Smoke mit Titel/Welt, sieben Itembildern und Configseite **Exit 0**, Screenshots unter `docs/previews/simplemoney`; 35 Hub-Tests grün. Wiki erzeugt und --check aktuell; vollständiges `gradlew.bat --no-daemon check -q` **Exit 0**, Ausgabe gelesen (inklusive gemeinsamer 26.2-Kompilierung).
+- Ein früher Modlauf wurde durch eine zu früh geänderte Testconfig gestört; Originalconfigs wiederhergestellt und beide Loader stabil wiederholt. Quellenvergleich korrigierte drei Bibliothekar-Pools mit gleichnamigen lokalen Variablen; finale Modsuite prüft die richtigen Pools.
+- Offen: Besitzer-Abnahme, NeoForge-Client, echte alte Spielwelt und Besitzerwelt-Testzentrale. Forge 26.3 und 26.2/1.21.11/26.4 bleiben eigener freigegebener Port-Run; Details `docs/modules/simplemoney.md`.
+
+- Abschließender kombinierter Harness-/Modlauf nach Trennung der Fabric-Tasks: **21/21 alles gruen**, `2026-09-30T13-35-03Z-5946`. Eigene Berichte/Filter, gemeinsame Fabric-Instanz seriell. Danach vollständiges `gradlew.bat --no-daemon check -q` erneut **Exit 0**, Ausgabe gelesen.

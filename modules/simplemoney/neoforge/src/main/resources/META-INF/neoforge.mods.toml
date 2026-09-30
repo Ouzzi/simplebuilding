@@ -1,0 +1,18 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simplemoney"
+version="${version}"
+displayName="Simple Money"
+[[dependencies.simplemoney]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[dependencies.simplemoney]]
+modId="cloth_config"
+type="required"
+versionRange="[26.3,)"
+ordering="AFTER"
+side="BOTH"

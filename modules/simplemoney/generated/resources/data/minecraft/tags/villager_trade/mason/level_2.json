@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:mason/15",
+      "required": false
+    },
+    {
+      "id": "simplemoney:mason/16",
+      "required": false
+    },
+    {
+      "id": "simplemoney:mason/17",
+      "required": false
+    }
+  ]
+}

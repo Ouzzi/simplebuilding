@@ -1,0 +1,16 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+ext.moduleVersion = '1.2.16'
+apply from: rootProject.file('gradle/module-fabric.gradle')
+
+sourceSets.main.resources.srcDir "../generated/resources"
+
+repositories { maven { url = 'https://maven.shedaniel.me/' }; maven { url = 'https://maven.terraformersmc.com/releases/' } }
+dependencies { implementation "me.shedaniel.cloth:cloth-config-fabric:${rootProject.mc263_cloth_version}" }
+dependencies { compileOnly "com.terraformersmc:modmenu:${rootProject.mc263_modmenu_version}" }
+
+def moneyDataGate = tasks.register('checkModuleData', Exec) {
+ workingDir rootProject.rootDir
+ commandLine "python", 'modules/simplemoney/tools/check_data.py'
+}
+tasks.named('check') { dependsOn moneyDataGate }
+rootProject.tasks.named('check') { dependsOn moneyDataGate }

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:farmer/23",
+      "required": false
+    },
+    {
+      "id": "simplemoney:farmer/24",
+      "required": false
+    }
+  ]
+}

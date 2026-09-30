@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:toolsmith/33",
+      "required": false
+    },
+    {
+      "id": "simplemoney:toolsmith/34",
+      "required": false
+    }
+  ]
+}

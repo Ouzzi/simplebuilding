@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:cleric/08",
+      "required": false
+    },
+    {
+      "id": "simplemoney:cleric/09",
+      "required": false
+    }
+  ]
+}
