@@ -58,6 +58,12 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge) ist die H
   Client-Handler; eigene `trimmed_armor`-Itemmodelle → Mod lädt `ordering="AFTER"` neoforge und liefert auf 26.3 keine
   `textures/*/trims/color_palettes`.
 - Forge: umbenannte IDs brauchen `ForgeRegistry#addAlias`; `BreakEvent` verweigern mit `Result.DENY`.
+  26.3 ist separat mit `-Pforge263=true`; ForgeGradle-7-Runs brauchen zusaetzlich Java 8 fuer Slime Launcher,
+  Spiel/Compiler Java 25. Klassen/Ressourcen im selben Ausgabeordner, MixinConfigs im Jar-Manifest.
+  26.3: kein KEYSYM mehr (KeyMapping-Konstruktor ohne Type); GameTest-TestData braucht die Dimension
+  (`McVersion.testData`). LootTableLoadEvent kommt vor verfuegbaren Loot-Holders: Injektion erst nach
+  dem Registry-Laden, vor Validierung. FarmlandTrampleEvent braucht einen eigenen Breeze-Handler.
+  Details und verifizierter Stand: `docs/FORGE-26.3.md`.
 - 26.3 (SDL-Texteingabe): eigene Textfelder müssen `Minecraft.onTextInputFocusChange(this, focused)` aufrufen.
 - Jade: ein Provider darf nicht `IServerDataProvider` und `IComponentProvider` zugleich sein (Split in Server-/Client-Provider).
 - ModDataFixer läuft am DataFixer nach; umbenannte Item-IDs brauchen Alias in `LegacyItemIds`.
@@ -82,3 +88,8 @@ Anlage: `python tools/newmod.py <id> "Name"`. Manifest: `modules/modules.json`, 
 Integration nutzt eigene Saves unter `integration/run-fabric-263` und `integration/enabled-mods.json`.
 Module koppeln nur ueber framework-API oder oeffentliche Registry-IDs, nie interne Klassen.
 Details und Grenzen: `docs/MULTIMOD.md`; Integrationstest: `--targets integration-263` (separat vom Bestand).
+
+Multimod-Datenvertrag: Manifest-Pfade/Abhaengigkeiten vollstaendig halten; Modul-Prosa in
+`modules/<id>/wiki/manual.json` (EN/DE). Wiki: `python wiki/generate.py --all` und `--all --check`;
+`checkWiki` prueft alle Module. Details und Datagen-Exports: `docs/MULTIMOD.md`.
+Balancing-Multimod: Manifest-Pfade/Mod-Auswahl nutzen; Ablage `balance/<id>/`, SimpleBuilding weiter `balance/` (keine Migration). Schreibziele/Datagen nur 26.3; `checkBalance` prueft alle Module. Details/Lesergrenzen: `docs/BALANCING-ZENTRALE.md`.

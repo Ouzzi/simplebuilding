@@ -74,6 +74,7 @@ public final class ConfigOptions {
      * once, the recipes with the next datapack load. The command says so.
      */
     public static final Set<String> RECIPES_ON_RELOAD = Set.of(
+            "server.features.endSignals", "server.features.astralVault",
             "server.features.backpack",
             "server.features.attractor",
             "server.features.echoSounder",

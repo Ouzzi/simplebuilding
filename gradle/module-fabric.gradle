@@ -11,3 +11,5 @@ dependencies {
     implementation project(':framework')
 }
 processResources { filesMatching('fabric.mod.json') { expand version: project.version } }
+
+sourceSets.main.resources.srcDir '../generated/resources'

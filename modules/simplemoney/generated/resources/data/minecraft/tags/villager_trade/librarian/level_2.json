@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:librarian/04",
+      "required": false
+    }
+  ]
+}

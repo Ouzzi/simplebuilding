@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:fletcher/02",
+      "required": false
+    }
+  ]
+}

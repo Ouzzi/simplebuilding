@@ -26,6 +26,48 @@ def write(path, value):
     temporary.write_text(json.dumps(value, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
     temporary.replace(path)
 
+def validate_relative_path(value, root, label):
+    if (not isinstance(value, str) or not value or "\\" in value or ":" in value
+            or value.startswith('/') or '..' in value.split('/')
+            or not (root / value).resolve().is_relative_to(root.resolve())):
+        raise ValueError(f'Invalid {label}: {value}')
+
+
+def validate_tests(entry, tests, root):
+    mid = entry['id']
+    if not isinstance(tests, dict) or not ID.fullmatch(tests.get('namespace', mid)):
+        raise ValueError(f'Invalid test namespace: {mid}')
+    catalogues = tests.get('catalogues')
+    if not isinstance(catalogues, list) or not catalogues or len(set(catalogues)) != len(catalogues):
+        raise ValueError(f'Invalid test catalogues: {mid}')
+    for path in catalogues:
+        validate_relative_path(path, root, f'{mid}: catalogue')
+    suites = tests.get('loaders', {})
+    if not isinstance(suites, dict) or not suites or not set(suites) <= set(entry['loaders']):
+        raise ValueError(f'Invalid test loaders: {mid}')
+    for loader, spec in suites.items():
+        if not isinstance(spec, dict) or not re.fullmatch(r'(?::[A-Za-z][A-Za-z0-9_]*)+', spec.get('task', '')):
+            raise ValueError(f'Invalid test task: {mid}/{loader}')
+        expected_prefix = ':integration:run' if loader == 'fabric' else entry['projects'][loader] + ':run'
+        if not spec['task'].startswith(expected_prefix) or len(spec['task']) <= len(expected_prefix):
+            raise ValueError(f'Invalid test task owner: {mid}/{loader}')
+        validate_relative_path(spec.get('report'), root, f'{mid}: report')
+        if not isinstance(spec.get('gradleArgs', []), list) or any(not isinstance(arg, str) for arg in spec.get('gradleArgs', [])):
+            raise ValueError(f'Invalid test Gradle arguments: {mid}')
+    for field in ('requires', 'devMods'):
+        values = tests.get(field, [])
+        if not isinstance(values, list) or any(not isinstance(value, str) or not ID.fullmatch(value) for value in values):
+            raise ValueError(f'Invalid test {field}: {mid}')
+    client = tests.get('client')
+    if client is not None:
+        if not isinstance(client, dict) or not client.get('entrypoints') or any(not re.fullmatch(r'[A-Za-z_][\w]*(?:\.[A-Za-z_][\w]*)+', value) for value in client['entrypoints']):
+            raise ValueError(f'Invalid client entrypoints: {mid}')
+        for field in ('sources', 'screenshots'):
+            validate_relative_path(client.get(field), root, f'{mid}: client {field}')
+        if client.get('task') != ':integration:runClientGameTest':
+            raise ValueError(f'Invalid client smoke task: {mid}')
+
+
 def registries(root=ROOT):
     manifest = read(root / 'modules/modules.json')
     dev_registry = read(root / 'tools/devmods.json')
@@ -49,18 +91,50 @@ def registries(root=ROOT):
             if not entry['version'] or entry['minecraft'] != '26.3':
                 raise ValueError(f'invalid compatibility: {mid}')
             for loader, value in entry.get('projects', {}).items():
-                if loader not in ('fabric', 'neoforge') or not isinstance(value, str) or not re.fullmatch(r'(?::[a-z][a-z0-9_]*)+', value):
+                if loader not in ('fabric', 'neoforge', 'forge') or not isinstance(value, str) or not re.fullmatch(r'(?::[a-z][a-z0-9_]*)+', value):
                     raise ValueError(f'invalid project: {mid}')
                 path = root.joinpath(*value.strip(':').split(':')).resolve()
                 if not path.is_relative_to(root.resolve()) or not (path / 'build.gradle').is_file():
                     raise ValueError(f'missing project: {mid}: {path}')
             if entry in modules and not entry.get('projects'):
                 raise ValueError(f'missing projects: {mid}')
+            if entry in modules:
+                for field in ('displayName', 'description'):
+                    if not isinstance(entry.get(field), str) or not entry[field].strip():
+                        raise ValueError(f'missing {field}: {mid}')
+                loaders = entry.get('loaders')
+                if (not isinstance(loaders, list) or not loaders or len(set(loaders)) != len(loaders)
+                        or not set(loaders) <= {'fabric', 'neoforge', 'forge'}
+                        or set(loaders) != set(entry['projects'])):
+                    raise ValueError(f'invalid loaders: {mid}')
+                paths = entry.get('paths', {})
+                for field in ('root', 'shared', 'fabric', 'neoforge', 'forge', 'generated', 'lang', 'wikiManual', 'balanceDir'):
+                    value = paths.get(field)
+                    if field in ('fabric', 'neoforge', 'forge') and field not in loaders and value is None:
+                        continue
+                    if (not isinstance(value, str) or not value or '\\' in value or ':' in value
+                            or value.startswith('/') or '..' in value.split('/')
+                            or not (root / value).resolve().is_relative_to(root.resolve())):
+                        raise ValueError(f'invalid {field} path: {mid}')
+                for field in ('requires', 'optional'):
+                    value = entry.get(field)
+                    if (not isinstance(value, list) or any(not isinstance(i, str) or not ID.fullmatch(i) for i in value)
+                            or len(value) != len(set(value)) or mid in value):
+                        raise ValueError(f'invalid {field}: {mid}')
+
+                if not isinstance(entry.get('checks', []), list):
+                    raise ValueError(f'Invalid check scripts: {mid}')
+                for script in entry.get('checks', []):
+                    validate_relative_path(script, root, f'{mid}: check script')
+                tests = entry.get('tests')
+                if tests is not None:
+                    validate_tests(entry, tests, root)
+
             if entry in dev:
                 if not entry['purpose'] or not entry['sources']:
                     raise ValueError(f'missing source/purpose: {mid}')
                 for loader, source in entry['sources'].items():
-                    if loader not in ('fabric', 'neoforge') or set(source) not in ({'maven'}, {'local'}):
+                    if loader not in ('fabric', 'neoforge', 'forge') or set(source) not in ({'maven'}, {'local'}):
                         raise ValueError(f'invalid source: {mid}')
                     if 'maven' in source and (not isinstance(source['maven'], str) or len(source['maven'].split(':')) != 3):
                         raise ValueError(f'invalid Maven source: {mid}')

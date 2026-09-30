@@ -2249,6 +2249,7 @@ public final class DataIntegrityTests {
                 Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")), Items.SHULKER_BOX)) {
             vanillaHome.put(counterpart, ModItemGroupsContent.Tab.FUNCTIONAL);
         }
+        if (McVersion.END_SYSTEMS) vanillaHome.put(Items.ENDER_CHEST, ModItemGroupsContent.Tab.FUNCTIONAL);
         vanillaHome.put(Items.CARTOGRAPHY_TABLE, ModItemGroupsContent.Tab.TOOLS);
         // Die Vanilla-Druckplatten neben den Mod-Platten in SimplePads - von den Holzplatten nur Eiche
         // (Besitzer 2026-09-29); die anderen Holzarten stehen in keinem Mod-Tab.
@@ -2288,7 +2289,7 @@ public final class DataIntegrityTests {
         if (trims < 18) {
             problems.add("only " + trims + " vanilla armour trim templates are registered");
         }
-        if (vanillaHome.size() != 11 + 5 + 42 + 28 + 11 + 2 + 1 + trims
+        if (vanillaHome.size() != 11 + 5 + 42 + 28 + 11 + 2 + 1 + trims + (McVersion.END_SYSTEMS ? 1 : 0)
                 || vanillaHome.containsKey(Items.AIR)) {
             problems.add("the vanilla tool and armour list names an item that does not exist: " + vanillaHome.size() + " entries");
         }
@@ -2447,6 +2448,12 @@ public final class DataIntegrityTests {
         neighbours.put(Items.PIGLIN_HEAD, TweaksItems.BLAZE_HEAD);
         neighbours.put(Items.NETHERITE_SWORD, ModItems.ENDERITE_SWORD);
         neighbours.put(Items.FURNACE, ModItems.REINFORCED_FURNACE);
+        if (McVersion.END_SYSTEMS) {
+            neighbours.put(Items.REDSTONE, ModItems.NIHILITH_POWDER);
+            neighbours.put(Items.LEVER, ModItems.NIHILITH_SWITCH);
+            neighbours.put(Items.REDSTONE_LAMP, ModItems.NIHILITH_LAMP);
+            neighbours.put(Items.ENDER_CHEST, ModItems.ASTRAL_VAULT);
+        }
         neighbours.forEach((vanilla, mod) -> {
             int at = indexOf(search, new ItemStack(vanilla));
             if (at < 0 || at + 1 >= search.size() || !search.get(at + 1).is(mod)) {
@@ -2508,7 +2515,8 @@ public final class DataIntegrityTests {
      * one empty cell ({@code simplebuilding:creative_spacer}): 4 hoppers, gap, 4 furnaces; 4 smokers,
      * gap, 4 blast furnaces; the 6 pistons; 4 bundles, gap, 4 quivers; the 4 backpacks; last the chests
      * (vanilla chest, copper chest, reinforced, netherite, enderite). The plates and pads moved into
-     * their own tab and the building planning into SimpleTools (owner 2026-09-29), so nothing follows.
+     * their own tab and the building planning into SimpleTools (owner 2026-09-29). On 26.3, the
+     * ender chest/vault row and the two isolated signal families follow the shulker boxes.
      *
      * <p>Read back slot by slot from what the tab really emits ({@link #tabSlots}): every cell has to
      * hold the expected item or be a spacer where a gap or the rest of a row belongs; spacers are only
@@ -2521,7 +2529,7 @@ public final class DataIntegrityTests {
     public static void machinesAndStorageTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
         Item gap = Items.AIR;
-        List<List<Item>> expected = List.of(
+        List<List<Item>> expected = new ArrayList<>(List.of(
                 List.of(Items.HOPPER, ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_HOPPER, gap,
                         Items.FURNACE, ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, ModItems.ENDERITE_FURNACE),
                 List.of(Items.SMOKER, ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, ModItems.ENDERITE_SMOKER, gap,
@@ -2535,7 +2543,13 @@ public final class DataIntegrityTests {
                 // Truhen: Vanilla-Truhe, Kupfertruhe (die erste Aufwertungsstufe), dann die Mod-Stufen.
                 List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
                         ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST),
-                List.of(Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
+                List.of(Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX)));
+        if (McVersion.END_SYSTEMS) {
+            expected.add(List.of(Items.ENDER_CHEST, ModItems.ASTRAL_VAULT));
+            expected.add(List.of(ModItems.NIHILITH_POWDER, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, gap,
+                    ModItems.ASTRALIT_POWDER, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP));
+        }
+
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.FUNCTIONAL, problems), expectedSlots(expected), "SimpleMachines", problems);
         helper.assertTrue(problems.isEmpty(), "machines and storage layout: " + problems);
         helper.succeed();
@@ -4162,6 +4176,17 @@ public final class DataIntegrityTests {
                     obtainable.add(stack.getItem());
                 }
             }
+        }
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+            TagKey<Item> craftable = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(MOD_ID, "craftable"));
+            int expected = 0;
+            for (Item item : BuiltInRegistries.ITEM) {
+                if (new ItemStack(item).is(craftable)) {
+                    expected++;
+                    helper.assertTrue(obtainable.contains(item), "craftable item lost its loaded recipe: " + BuiltInRegistries.ITEM.getKey(item));
+                }
+            }
+            helper.assertTrue(expected > 100, "craftable recipe coverage catalog missing");
         }
         com.simplebuilding.compat.InWorldRecipeCatalog.Catalog catalog = com.simplebuilding.compat.InWorldRecipeCatalog.build();
         for (com.simplebuilding.compat.InWorldRecipeCatalog.Entry entry : catalog.entries()) {

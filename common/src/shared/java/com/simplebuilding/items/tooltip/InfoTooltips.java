@@ -63,6 +63,7 @@ public final class InfoTooltips {
         if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
                 && item instanceof com.simplebuilding.items.custom.SledgehammerItem) {
             out.add(gray("tooltip.simplebuilding.sledgehammer.corner"));
+            out.add(gray("tooltip.simplebuilding.sledgehammer.mining_time"));
         }
         if (item instanceof BlockItem blockItem) {
             blockLines(blockItem.getBlock(), out);

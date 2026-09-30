@@ -33,6 +33,10 @@ public final class ModMessageHandlers {
     private ModMessageHandlers() {
     }
 
+    public static void handleGuideUnlock(GuideUnlockPayload payload, ServerPlayer player) {
+        com.simplebuilding.guide.GuideUnlocks.unlock(player, payload.chapter());
+    }
+
     public static void handleDoubleJump(DoubleJumpPayload payload, ServerPlayer player) {
         var registry = player.level().registryAccess();
         var enchantments = registry.lookupOrThrow(Registries.ENCHANTMENT);

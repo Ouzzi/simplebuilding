@@ -4,7 +4,7 @@ group = 'com.simplebuilding.integration'
 apply from: rootProject.file('gradle/local-devmods.gradle')
 java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
 fabricApi {
-    configureTests { createSourceSet = true; modId = 'simpleriding-clienttest'; enableGameTests = false }
+    configureTests { createSourceSet = true; modId = 'sbmodules-clienttest'; enableGameTests = false }
 }
 loom.runs.named('clientGameTest') { runDir 'run-fabric-263' }
 repositories {
@@ -64,29 +64,87 @@ loom {
             vmArg "-Dfabric-api.gametest.report-file=${layout.buildDirectory.get()}/junit.xml"
             vmArg "-Dfabric-api.gametest.filter=${project.findProperty('gametestFilter') ?: 'sbintegration:*'}"
         }
-        ridingGameTest {
-            server()
-            runDir 'run-fabric-263'
-            vmArg '-Dfabric-api.gametest'
-            vmArg "-Dfabric-api.gametest.report-file=${layout.buildDirectory.get()}/riding-junit.xml"
-            vmArg "-Dfabric-api.gametest.filter=${project.findProperty('gametestFilter') ?: 'simpleriding:*'}"
+    }
+}
+
+// Every producer declares its suite once. Fabric suites share this isolated instance.
+def moduleSuites = registry.modules.findAll { it.tests?.loaders?.fabric }
+moduleSuites.each { entry ->
+    def spec = entry.tests.loaders.fabric
+    def taskName = spec.task.tokenize(':').last()
+    def runName = taskName.substring(3).uncapitalize()
+    loom.runs.create(runName) {
+        server()
+        runDir 'run-fabric-263'
+        vmArg '-Dfabric-api.gametest'
+        vmArg "-Dfabric-api.gametest.report-file=${rootProject.file(spec.report).absolutePath}"
+        vmArg "-Dfabric-api.gametest.filter=${project.findProperty('gametestFilter') ?: (entry.tests.namespace ?: entry.id) + ':*'}"
+    }
+    tasks.named(taskName) {
+        dependsOn prepare
+        doFirst {
+            def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
+            if (!selected.modules.containsAll(entry.tests.requires ?: [entry.id]) || !selected.devMods.containsAll(entry.tests.devMods ?: []))
+                throw new GradleException("Missing integration selection for ${entry.id}")
         }
     }
 }
-tasks.matching { it.name in ['runIntegrationClient','runIntegrationServer','runIntegrationGameTest','runRidingGameTest','runClientGameTest'] }.configureEach {
-    dependsOn prepare
+// Compile smoke sources directly; module implementation classes remain in runtime jars.
+registry.modules.findAll { it.tests?.client }.each { entry ->
+    sourceSets.gametest.java.srcDir rootProject.file(entry.tests.client.sources)
+    dependencies.add('gametestCompileOnly', project(entry.projects.fabric))
 }
-tasks.named('runRidingGameTest') {
-    doFirst {
-        def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
-        if (!selected.modules.containsAll(['simplebuilding', 'simpleriding']) || !selected.devMods.contains('cloth_config'))
-            throw new GradleException('Simple Riding integration requires simplebuilding, simpleriding, and cloth_config')
+def clientMetadata = layout.buildDirectory.dir('generated/clienttestResources')
+def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
+    inputs.file rootProject.file('modules/modules.json')
+    inputs.property 'moduleClientTest', project.findProperty('moduleClientTest') ?: ''
+    outputs.dir clientMetadata
+    doLast {
+        def requested = project.findProperty('moduleClientTest')
+        def entries = registry.modules.findAll { it.tests?.client && (!requested || it.id == requested) }
+        if (requested && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
+        def metadata = [schemaVersion:1, id:'sbmodules-clienttest', version:'1.0.0',
+            name:'Module Client Tests', environment:'client',
+            entrypoints:['fabric-client-gametest':entries.collectMany { it.tests.client.entrypoints }],
+            depends:entries.collectMany { it.tests.requires ?: [it.id] }.unique().collectEntries { [(it):'*'] }]
+        def output = clientMetadata.get().file('fabric.mod.json').asFile
+        output.parentFile.mkdirs()
+        output.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(metadata)) + '\n'
     }
 }
+sourceSets.gametest.resources.srcDir clientMetadata
+tasks.named('processGametestResources') { dependsOn generateClientTestMetadata }
+tasks.named('runClientGameTest') {
+    dependsOn prepare
+    doFirst {
+        def requested = project.findProperty('moduleClientTest')
+        def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
+        registry.modules.findAll { it.tests?.client && (!requested || it.id == requested) }.each { entry ->
+            if (!selected.modules.containsAll(entry.tests.requires ?: [entry.id]) || !selected.devMods.containsAll(entry.tests.devMods ?: []))
+                throw new GradleException("Missing client integration selection for ${entry.id}")
+        }
+    }
+}
+tasks.matching { it.name in ['runIntegrationClient','runIntegrationServer','runIntegrationGameTest'] }.configureEach { dependsOn prepare }
 tasks.named('runIntegrationGameTest') {
     doFirst {
         def selected = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
-        if (!selected.modules.containsAll(['simplebuilding', 'wiringexample']))
+        if (!selected.modules.containsAll(['simplebuilding','wiringexample']))
             throw new GradleException('The cross-mod test requires simplebuilding and wiringexample')
     }
+}
+def sharedRuns = ['runIntegrationGameTest'] + moduleSuites.collect { it.tests.loaders.fabric.task.tokenize(':').last() } + ['runClientGameTest']
+sharedRuns.eachWithIndex { name, index ->
+    if (index) tasks.named(name) { mustRunAfter sharedRuns.take(index).collect { tasks.named(it) } }
+}
+// NeoForge module adapters own their runs; impose a cross-project order for the shared world.
+def neoRuns = registry.modules.findAll { it.tests?.loaders?.neoforge }.collect { it.tests.loaders.neoforge.task }
+gradle.projectsEvaluated {
+    neoRuns.eachWithIndex { path, index ->
+        if (index) rootProject.tasks.getByPath(path).mustRunAfter(neoRuns.take(index).collect { rootProject.tasks.getByPath(it) })
+    }
+}
+
+loom.runs.configureEach {
+ if (name.toLowerCase().contains('clientgametest')) vmArg "-Dfabric.modsFolder=${rootProject.file('integration/run-fabric-263/mods').absolutePath}"
 }

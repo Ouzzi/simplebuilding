@@ -23,7 +23,7 @@ import traceback
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import unquote, urlparse
+from urllib.parse import unquote, urlparse, parse_qs
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -76,6 +76,9 @@ def make_handler(service: Service, repo: Path):
                 return self._error(403, "Nur lokal erreichbar.")
             path = urlparse(self.path).path
             try:
+                selected = service.select(parse_qs(urlparse(self.path).query).get("mod", ["simplebuilding"])[0]) if hasattr(service, "select") else service
+                if path == "/api/modules":
+                    return self._json(service.overview() if hasattr(service, "select") else {"modules": []})
                 if path in ("/", "/index.html"):
                     return self._file(STATIC / "index.html")
                 if path.startswith("/static/"):
@@ -89,23 +92,23 @@ def make_handler(service: Service, repo: Path):
                         return self._error(404, "Bild nicht gefunden.")
                     return self._send(200, data, "image/png", cache="max-age=300")
                 if path == "/api/state":
-                    return self._json(service.state_payload())
+                    return self._json(dict(selected.state_payload(), module=selected.module))
                 if path.startswith("/api/version/"):
                     number = int(path.rsplit("/", 1)[1])
-                    data = service.store.version(number)
-                    data = dict(data, applied=service.store.applied_for(number))
+                    data = selected.store.version(number)
+                    data = dict(data, applied=selected.store.applied_for(number))
                     return self._json(data)
                 if path.startswith("/api/docs/"):
-                    return self._json(service.doc(unquote(path.rsplit("/", 1)[1])))
+                    return self._json(selected.doc(unquote(path.rsplit("/", 1)[1])))
                 if path in ("/api/phase2", "/api/handover"):
-                    data = service.phase2()
+                    data = selected.phase2()
                     return self._json(data, extra={"Content-Disposition": 'attachment; filename="balance-phase2.json"'})
                 if path == "/api/pending-apply":
-                    return self._json({"pending": service.pending_apply()})
+                    return self._json({"pending": selected.pending_apply()})
                 if path == "/api/check":
-                    return self._json(service.balance_check())
+                    return self._json(selected.balance_check())
                 if path == "/api/datagen":
-                    return self._json(service.datagen_status())
+                    return self._json(selected.datagen_status())
                 return self._error(404, f"Nicht gefunden: {path}")
             except FileNotFoundError:
                 return self._error(404, "Nicht gefunden.")
@@ -151,19 +154,23 @@ def make_handler(service: Service, repo: Path):
             if not isinstance(payload, dict):
                 return self._error(400, "Erwartet ein JSON-Objekt.")
             path = urlparse(self.path).path
+            try:
+                selected = service.select(parse_qs(urlparse(self.path).query).get("mod", ["simplebuilding"])[0]) if hasattr(service, "select") else service
+            except ValueError as err:
+                return self._error(400, str(err))
             routes = {
-                "/api/preview": service.preview,
-                "/api/save": service.save,
-                "/api/rollback/preview": service.rollback_preview,
-                "/api/rollback": service.rollback,
-                "/api/calc": service.calc,
-                "/api/reverse": service.reverse,
-                "/api/solve-time": service.solve_time,
-                "/api/overview": service.overview,
-                "/api/apply-planned": service.apply_planned,
-                "/api/reload": lambda _p: service.reload(),
-                "/api/datagen": service.start_datagen,
-                "/api/datagen/cancel": service.cancel_datagen,
+                "/api/preview": selected.preview,
+                "/api/save": selected.save,
+                "/api/rollback/preview": selected.rollback_preview,
+                "/api/rollback": selected.rollback,
+                "/api/calc": selected.calc,
+                "/api/reverse": selected.reverse,
+                "/api/solve-time": selected.solve_time,
+                "/api/overview": selected.overview,
+                "/api/apply-planned": selected.apply_planned,
+                "/api/reload": lambda _p: selected.reload(),
+                "/api/datagen": selected.start_datagen,
+                "/api/datagen/cancel": selected.cancel_datagen,
             }
             handler = routes.get(path)
             if handler is None:
@@ -212,8 +219,9 @@ def main(argv=None) -> int:
     repo = Path(args.repo).resolve() if args.repo else REPO
     store = Path(args.store).resolve() if args.store else repo / "balance"
     print("Balancing-Zentrale: lese die Werte aus", repo)
-    service = Service(repo, store, refresh_vanilla=args.refresh_vanilla)
-    snap = service.snapshot
+    from sbdev.modules import Registry
+    service = Registry(repo, Path(args.store).resolve() if args.store else None, refresh_vanilla=args.refresh_vanilla)
+    snap = service.select().snapshot
     print(f"  {len(snap['values'])} Werte in {snap['buildSeconds']} s, "
           f"{len(snap['report']['problems'])} nicht auslesbare Stellen (Seite 'Auslese-Bericht')")
     server = start(service, repo, args.host, args.port)
@@ -234,8 +242,16 @@ def run_check(args) -> int:
     from sbdev import check as balance_checker
     repo = Path(args.repo).resolve() if args.repo else REPO
     store = Path(args.store).resolve() if args.store else repo / "balance"
-    service = Service(repo, store)
-    result = service.balance_check()
+    from sbdev.modules import Registry, load
+    if load(repo):
+        registry = Registry(repo, Path(args.store).resolve() if args.store else None)
+        results = {m["id"]: registry.select(m["id"]).balance_check() for m in registry.modules}
+        result = {"ok": all(r["ok"] for r in results.values()), "modules": results,
+                  "errors": [dict(e, module=mid) for mid, r in results.items() for e in r["errors"]],
+                  "warnings": [dict(e, module=mid) for mid, r in results.items() for e in r["warnings"]],
+                  "stats": {k: sum(r["stats"][k] for r in results.values()) for k in next(iter(results.values()))["stats"]}}
+    else:
+        result = Service(repo, store).balance_check()
     if args.json:
         print(json.dumps(result, ensure_ascii=False, indent=1))
     else:

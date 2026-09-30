@@ -99,9 +99,8 @@ LINES = {
         "resource_data": "src/main/resources/data/simplebuilding",
         "resource_assets": "build/wiki-lines/26.3/assets/simplebuilding",
         "config": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-        # WikiDataProvider's export is not kept per line (syncGenerated263 skips wiki/**);
-        # the item constants are the same shared Java code on 26.2 and 26.3.
-        "item_properties": "src/main/generated/wiki/items.json",
+        # Registrations and item properties can differ on the main line.
+        "item_properties": "mc26_3/generated/wiki/items.json",
         "inworld_export": "mc26_3/generated/wiki/inworld.json",
         "client_jar_version": "26.3",
         "furnace_cooking_time": True,
@@ -790,7 +789,7 @@ def collect_recipes(roots: dict) -> list[dict]:
             relative = path.relative_to(root).with_suffix('').as_posix()
             if relative.startswith(SECRET_RECIPE_PREFIX):
                 continue
-            recipe_id = f"{NS}:{relative}"
+            recipe_id = f"{roots.get('namespace', NS)}:{relative}"
             recipes.append(recipe_entry(data, recipe_id, rel(path), roots.get("furnace_cooking_time", False)))
     recipes.sort(key=lambda r: r["id"])
     return recipes
@@ -830,7 +829,7 @@ def collect_loot_tables(roots: dict) -> list[dict]:
         data = read_json(path)
         relative = path.relative_to(root).with_suffix("").as_posix()
         tables.append({
-            "id": f"{NS}:{relative}",
+            "id": f"{roots.get('namespace', NS)}:{relative}",
             "kind": relative.split("/")[0],
             "type": data.get("type"),
             "pools": [summarise_pool(p) for p in data.get("pools", []) or []],
@@ -982,9 +981,9 @@ def collect_enchantments(roots: dict, lang: dict) -> tuple[list[dict], list[str]
         effects = sorted((data.get("effects") or {}).keys())
         in_code = name in used_in_code
         out.append({
-            "id": f"{NS}:{name}",
-            "name": display_name(lang, f"enchantment.{NS}.{name}", name),
-            "description": display_name(lang, f"enchantment.{NS}.{name}.desc", ""),
+            "id": f"{roots.get('namespace', NS)}:{name}",
+            "name": display_name(lang, f"enchantment.{roots.get('namespace', NS)}.{name}", name),
+            "description": display_name(lang, f"enchantment.{roots.get('namespace', NS)}.{name}.desc", ""),
             "maxLevel": data.get("max_level"),
             "weight": data.get("weight"),
             "anvilCost": data.get("anvil_cost"),
@@ -1020,7 +1019,7 @@ def collect_tags(roots: dict) -> list[dict]:
                 else:
                     values.append({"id": value.get("id"), "required": value.get("required", True)})
             out.append({
-                "id": f"{NS}:{path.relative_to(root).with_suffix('').as_posix()}",
+                "id": f"{roots.get('namespace', NS)}:{path.relative_to(root).with_suffix('').as_posix()}",
                 "replace": data.get("replace", False),
                 "values": values,
                 "source": rel(path),
@@ -2063,7 +2062,7 @@ def collect_advancements(roots: dict, lang: dict) -> list[dict]:
             continue
         data = read_json(path)
         display = data.get("display") or {}
-        key = f"advancements.{NS}." + relpath.replace("/", ".")
+        key = f"advancements.{roots.get('namespace', NS)}." + relpath.replace("/", ".")
         criteria = []
         for name, criterion in (data.get("criteria") or {}).items():
             entry = {"name": name, "trigger": criterion.get("trigger")}
@@ -2079,7 +2078,7 @@ def collect_advancements(roots: dict, lang: dict) -> list[dict]:
             criteria.append(entry)
         requirements = data.get("requirements") or []
         out.append({
-            "id": f"{NS}:{relpath}",
+            "id": f"{roots.get('namespace', NS)}:{relpath}",
             "parent": data.get("parent"),
             "icon": (display.get("icon") or {}).get("id"),
             "frame": display.get("frame", "task"),
@@ -2382,7 +2381,19 @@ def main() -> int:
                         help="write nothing; fail if the committed wiki data differs from what the "
                              "mod would generate now, or if anything is undocumented. This is what "
                              "the Gradle checkWiki task runs.")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--module", help="generate one manifest module (default: simplebuilding)")
+    selection.add_argument("--all", action="store_true", help="generate/check every manifest module")
     args = parser.parse_args()
+    import modules as module_wiki
+    entries = module_wiki.discover(REPO)
+    selected = {e['id'] for e in entries} if args.all else {args.module or 'simplebuilding'}
+    unknown = selected - {e['id'] for e in entries}
+    if unknown:
+        parser.error('Unknown module: ' + ', '.join(sorted(unknown)))
+    module_result = module_wiki.sync(sys.modules[__name__], entries, selected, args.check, args.strict)
+    if 'simplebuilding' not in selected:
+        return module_result
 
     merge_overlay_lines()
     data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed, in_world_problems = build(args.line, args.check)
@@ -2409,6 +2420,12 @@ def main() -> int:
         target = WIKI / "data" / "simplebuilding.json"
         current = target.read_text(encoding="utf-8") if target.exists() else ""
         stale = current != payload + "\n"
+        js_path = WIKI / 'data/simplebuilding.js'
+        try:
+            js_data = json.loads(js_path.read_text(encoding='utf-8').split('window.WIKI_DATA = ', 1)[1].rstrip().rstrip(';'))
+            stale = stale or js_data != data
+        except (OSError, ValueError, IndexError):
+            stale = True
         if missing_props:
             print(f"{props_state['source']} is MISSING.")
             print("Durability, stack size, enchantability, attack values, wand diameter,")
@@ -2435,7 +2452,7 @@ def main() -> int:
                 or duplicates):
             return 1
         print("wiki: up to date, everything documented.")
-        return 0
+        return module_result
 
     if missing_props:
         print(f"WARNING: {props_state['source']} is missing - item properties are omitted.")
@@ -2482,7 +2499,7 @@ def main() -> int:
 
     print(f"\nWrote {rel(WIKI / 'data' / 'simplebuilding.json')}")
     print(f"Open  {rel(WIKI / 'index.html')} in a browser.")
-    return 0
+    return module_result
 
 
 if __name__ == "__main__":

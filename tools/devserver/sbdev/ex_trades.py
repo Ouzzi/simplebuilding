@@ -29,8 +29,11 @@ PROFESSIONS_DE = {
 WANDERING_POOLS_DE = {"buying": "Ankauf", "common": "häufig", "uncommon": "selten"}
 
 
-def extract(repo: Path, vanilla_pools: dict) -> tuple[list[dict], list[dict], list[dict]]:
-    trade_root = repo / TRADE_DIR
+def extract(repo: Path, vanilla_pools: dict, module=None, resource_root=None) -> tuple[list[dict], list[dict], list[dict]]:
+    namespace = module["id"] if module else "simplebuilding"
+    resources = module["paths"]["fabric"] + "/src/main/resources" if module else "src/main/resources"
+    resources = resource_root or resources
+    trade_root = repo / (resources + "/data/" + namespace + "/villager_trade")
     problems: list[dict] = []
     values: list[dict] = []
     trades: list[dict] = []
@@ -38,7 +41,7 @@ def extract(repo: Path, vanilla_pools: dict) -> tuple[list[dict], list[dict], li
         return [], [], [problem("trade", "Ordner fehlt", file=TRADE_DIR, why="Handel nicht gefunden")]
 
     membership: dict[str, list[str]] = {}
-    tag_root = repo / TAG_DIR
+    tag_root = repo / (resources + "/data/minecraft/tags/villager_trade")
     if tag_root.exists():
         for tag in sorted(tag_root.rglob("*.json")):
             key = tag.relative_to(tag_root).with_suffix("").as_posix()
@@ -54,7 +57,7 @@ def extract(repo: Path, vanilla_pools: dict) -> tuple[list[dict], list[dict], li
     for path in sorted(trade_root.rglob("*.json")):
         rel = path.relative_to(repo).as_posix()
         relid = path.relative_to(trade_root).with_suffix("").as_posix()
-        trade_id = f"simplebuilding:{relid}"
+        trade_id = f"{namespace}:{relid}"
         text = path.read_text(encoding="utf-8")
         try:
             data = json.loads(text)
@@ -138,7 +141,7 @@ def extract(repo: Path, vanilla_pools: dict) -> tuple[list[dict], list[dict], li
                 "label": _pool_label(key),
                 "amount": trade_set.get("amount"),
                 "vanilla": [{"id": e["id"], "chance": e.get("chance", 1.0), "condition": e.get("condition")} for e in vanilla_entries],
-                "mod": [m for m, keys in membership.items() if key in keys and m.startswith("simplebuilding:")],
+                "mod": [m for m, keys in membership.items() if key in keys and m.startswith(namespace + ":")],
             })
             if trade_set.get("amount") is None:
                 problems.append(problem("trade", f"Pool {key}: Anzahl der Ziehungen unbekannt",

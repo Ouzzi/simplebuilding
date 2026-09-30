@@ -29,24 +29,63 @@ DYNAMIC_RATE = re.compile(r"^param:(rate)\.([a-z_]+)\.([a-z_]+)@(.+)$")
 
 
 class Service:
-    def __init__(self, repo: Path, store_root: Path, *, refresh_vanilla: bool = False, read_only: bool = False):
+    def __init__(self, repo: Path, store_root: Path, *, refresh_vanilla: bool = False, read_only: bool = False, module=None):
         self.repo = Path(repo)
+        self.module = module
+        from . import ex_module
+        self._build = (lambda refresh=False: ex_module.build(self.repo, module)) if module and module["id"] != "simplebuilding" else (lambda refresh=False: extract.build(self.repo, refresh))
+        self._fingerprint = (lambda: ex_module.fingerprint(self.repo, module)) if module and module["id"] != "simplebuilding" else (lambda: extract.fingerprint(self.repo))
         # read_only: nie in Mod-Dateien schreiben und kein Datagen (Tests auf dem echten Repo)
         self.read_only = read_only
         self.store = Store(store_root)
         self._lock = threading.RLock()
-        self.snapshot = extract.build(self.repo, refresh_vanilla)
-        self.fingerprint = extract.fingerprint(self.repo)
+        self.snapshot = self._build(refresh_vanilla)
+        self.fingerprint = self._fingerprint()
         self.checked = time.time()
         self.job: jobs.Job | None = None
         self.datagen_steps = None  # Tests setzen hier eigene Schritte statt Gradle
+        self._main_line_sites()
+
+    def _main_line_sites(self):
+        if not self.module or self.module['id'] != 'simplebuilding':
+            return
+        from . import ex_constants, sites
+        # Overlay constants are the 26.3 source of truth, including values differing from 26.2.
+        _, overlays, problems = ex_constants.scan(self.repo, ['mc26_3/overlay/java/com/simplebuilding'])
+        self.snapshot['report']['problems'] += problems
+        for record in overlays:
+            record['source']['lines'] = ['26.3']
+            self.snapshot['values'][record['id']] = record
+        self.snapshot['line'] = '26.3'
+        self.snapshot['report']['gaps'] = [g for g in self.snapshot['report']['gaps'] if g['area'] not in ('Linien', 'Datagen')]
+        self.snapshot['report']['gaps'].append({'area': 'Linien', 'message': 'Schreibziele: Hauptlinie 26.3.',
+            'why': 'Gemeinsame Dateien bleiben gemeinsam. Separate Port-Kopien werden nicht geschrieben; ohne eindeutige 26.3-Stelle bleibt ein Wert nur lesbar.'})
+        for record in self.snapshot['values'].values():
+            source = record.get('source', {})
+            if record.get('apply') != 'mod' or record.get('alias'):
+                continue
+            if '26.3' not in (source.get('lines') or sites.main_lines(source.get('file', ''))):
+                twin = next((t for t in source.get('twins', []) if t.get('mc') == '26.3'), None)
+                if twin:
+                    record['source'] = source = dict(twin)
+                else:
+                    record['apply'] = 'plan'
+                    record['readonly'] = True
+                    record['note'] = 'Keine eindeutige schreibbare Stelle auf 26.3.'
+            source.pop('twins', None)
+            source.pop('twinsDiffer', None)
+            source.pop('twinNotes', None)
+            source['lines'] = ['26.3']
+            record['lines'] = ['26.3'] if record['apply'] == 'mod' else []
+        self.snapshot['counts'] = {cat: sum(r['category'] == cat for r in self.snapshot['values'].values()) for cat in CATEGORIES}
 
     # ---- Schnappschuss -------------------------------------------------------------------
 
     def reload(self) -> dict:
         with self._lock:
-            self.snapshot = extract.build(self.repo)
-            self.fingerprint = extract.fingerprint(self.repo)
+            self.snapshot = self._build()
+            self._main_line_sites()
+            self.fingerprint = self._fingerprint()
             self.checked = time.time()
             return {"builtAt": self.snapshot["builtAt"], "seconds": self.snapshot["buildSeconds"]}
 
@@ -55,7 +94,7 @@ class Service:
             if time.time() - self.checked < 5:
                 return False
             self.checked = time.time()
-            fp = extract.fingerprint(self.repo)
+            fp = self._fingerprint()
             if fp != self.fingerprint:
                 self.reload()
                 return True
@@ -641,7 +680,7 @@ class Service:
                     raise StoreError(409, "Es laufen Dev-Clients/-Server (runClient/runServer). Datagen übersetzt die Mod in "
                                           "diesem Checkout neu - das laufende Spiel stürzt dann mit NoClassDefFoundError ab. "
                                           "Spiel beenden oder 'trotzdem starten'.", [{"message": g} for g in games[:5]])
-            steps = self.datagen_steps or jobs.default_steps(self.repo, bool(payload.get("include264")))
+            steps = self.datagen_steps or (jobs.module_steps(self.repo, self.module) if self.module else jobs.default_steps(self.repo, bool(payload.get("include264"))))
 
             def done(job):
                 self.reload()

@@ -1,73 +1,37 @@
-# Vorschlaghammer: Tempo und Abnutzung (Besitzer 2026-09-28)
+# Vorschlaghammer: Abbauzeit (Besitzer 2026-09-30, Hauptlinie 26.3)
 
-Vorgabe des Besitzers (Welle 23): Die Spitzhacke bleibt das Hauptwerkzeug. 1x1 etwas langsamer als
-die Spitzhacke gleicher Stufe; der Flaechenabbau (3x3, 5x5, 3x3x2, 5x5x2) dauert je Block so lange
-wie die Spitzhacke eine Stufe darunter (Beispiel: ein Enderit-Hammer, der 9 Bloecke bricht, braucht
-so lange wie eine Netherit-Spitzhacke fuer diese 9 nacheinander); der Hammer nutzt sich schneller ab
-als eine Spitzhacke. Der Code-Stand hat Vorrang - die Struktur (Item-Tempo = Spitzhacke seines
-Materials, Teiler je Schlag in `BlockStateBaseMixin`) bleibt, nur die Zahlen ruecken zur Vorgabe.
+`x` ist die ungerundete Abbauzeit der Spitzhacke gleichen Materials mit derselben Effizienz.
+Ein Schlag mit `n` wirklich abgebauten Bloecken braucht:
 
-Code: `SledgehammerUtils#miningSpeedDivisor`, `#lowerTierSpeed`, `#lowerTierFactor`,
-`SledgehammerItem#mineBlock`, `SledgehammerUsageEvent`. Tests: `SledgehammerTests`
-(`sledgehammer_game_test_sledgehammer_area_mines_each_block_like_the_pickaxe_one_tier_below`,
-`..._speed_and_block_count_scale_with_its_enchantments`,
-`..._bills_two_durability_per_block_and_three_for_the_wrong_tool`,
-`..._breaks_the_octant_selection_at_twice_the_area_time_per_block`).
+`x * (FIRST_BLOCK_TIME_FACTOR + min(n - 1, 8) * EARLY_BLOCK_TIME_FACTOR + max(n - 9, 0) * LATE_BLOCK_TIME_FACTOR)`
 
-## Regeln
+| Bloecke | Gesamte Spitzhackenzeit |
+|---|---|
+| 1 | 1,5x |
+| 2 | 2,3x |
+| 9 | 7,9x |
+| 10 | 8,6x |
+| 18 | 14,2x |
 
-| | vorher | nachher |
-|---|---|---|
-| 1x1 (Schleichen, oder nur der Ursprung passt) | wie die Spitzhacke gleichen Materials | 1,2-mal so lange (`SINGLE_BLOCK_SLOWDOWN`) |
-| Flaeche mit `n` wirklich abgebauten Bloecken | `sqrt(min(n, 25))`-mal ein Block der eigenen Spitzhacke | `n` Bloecke der Spitzhacke eine Stufe darunter, keine Obergrenze |
-| Oktant-Auswahl (neu) | - | wie die Flaeche, je Block doppelt so lange (`OCTANT_TIME_FACTOR` = 2) |
-| Haltbarkeit je Block | Ursprung 1, jeder mitgenommene Block 2 (3 mit falschem Werkzeug) | jeder Block 2 (`WEAR_PER_BLOCK`), mitgenommene mit falschem Werkzeug 3 |
+Konstanten in `SledgehammerUtils`: erster Block 1,5; Bloecke 2-9 je 0,8; ab Block 10 je 0,7;
+`EARLY_BLOCK_COUNT_LIMIT` = 9. Die Balancing-Zentrale liest diese benannten Konstanten aus dem Code
+und kann ihre Literale bearbeiten; `balance/` ist ein lokaler, nicht eingecheckter Speicher fuer Entwuerfe.
+Die Zahlenformel hat Vorrang vor der ungefaehren Angabe "0,75-mal so schnell": 1,5x Zeit ergibt 2/3 Tempo.
+Client und Server wenden denselben Teiler in `BlockStateBaseMixin` an. Vanilla rundet den gesamten
+Abbau auf Ticks; weder jeden Block noch jeden Summanden einzeln runden. Effizienz, Eile und
+Umgebung wirken wie bei der gleichstufigen Spitzhacke. Es gibt keinen Wechsel zur niedrigeren Stufe.
 
-"Eine Stufe darunter" ist das naechst langsamere Material der Leiter Holz 2, Stein 4, Kupfer 5,
-Eisen 6, Diamant 8, Netherit 9, Enderit 10, Gold 12. Gold ist das schnellste Material, seine Stufe
-darunter also Enderit (Gold hat die Abbaustufe von Holz, darunter gaebe es nichts; die Tempo-Leiter
-ist die einzige Lesart, die fuer alle sieben Haemmer eine Antwort hat).
+Die Oktant-Auswahl bleibt absichtlich linear: `n * OCTANT_TIME_FACTOR`, also **2x je Block** der
+gleichstufigen Spitzhacke (18 Bloecke = 36x). Sie verwendet keine Flaechenrabatte.
+Oktant mit beiden Ecken in der Nebenhand, Ursprung in der Figur, hoechstens 32 Bloecke je Kante
+und 4096 Plaetze in der Box. Override, Werkzeug-, Spawnschutz- und Claimpruefungen gelten je Block.
+Schleichen waehlt genau einen Block, ohne Oktant-Modus: 1,5x Zeit.
 
-**Effizienz** zaehlt auf beiden Seiten gleich: Teiler = `n * (s + e) / (s_u + e)` mit dem Tempo `s`
-des Hammers auf dem Block, dem Tempo `s_u` der Spitzhacke darunter (auf denselben Block umgerechnet)
-und der Abbau-Effizienz `e` des Spielers (Effizienz V: 26). Ein Hammer mit Effizienz baut die Flaeche
-also je Block so schnell ab wie die Spitzhacke darunter mit derselben Effizienz; beim 1x1 bleibt es
-beim festen Faktor 1,2. Eile, Unterwasser und Luft wirken wie bei Vanilla auf den ganzen Abbau.
+Haltbarkeit bleibt unveraendert: 2 je Block, bei einem mitgenommenen Block mit falschem Werkzeug 3;
+Basiswerte x4 (Diamant 6244, Netherit 8124, Enderit 10000). Kein neuer GUI-Text fuer den Hammer.
 
-## Zahlen: Ticks auf Stein (Haerte 1,5), ohne Effizienz
+26.2 behaelt bis zum gesonderten Port-Run seine alte Formel (1,2 fuer einen Block, sonst n mal die
+Zeit der Spitzhacke eine Stufe darunter, beim Oktant nochmals x2). Keine 1.21.11-/26.4-Portierung.
 
-Spitzhacke: `ceil(30 * 1,5 / Tempo)` Ticks je Block. Flaeche = der ganze Schlag.
-
-| Hammer (Tempo) | Spitzhacke 1 Block | 1x1 vorher | 1x1 nachher | 3x3 vorher | 3x3 nachher | 5x5x2 vorher | 5x5x2 nachher |
-|---|---|---|---|---|---|---|---|
-| Stein (4) | 12 | 12 | 14 | 34 | 203 | 57 | 1125 |
-| Kupfer (5) | 9 | 9 | 11 | 27 | 102 | 45 | 563 |
-| Eisen (6) | 8 | 8 | 9 | 23 | 81 | 38 | 450 |
-| Gold (12) | 4 | 4 | 5 | 12 | 41 | 19 | 225 |
-| Diamant (8) | 6 | 6 | 7 | 17 | 68 | 29 | 375 |
-| Netherit (9) | 5 | 5 | 6 | 15 | 51 | 25 | 282 |
-| Enderit (10) | 5 | 5 | 6 | 14 | 45 | 23 | 250 |
-
-Vorher war ein 3x3 je Block ein Drittel so teuer wie mit der eigenen Spitzhacke und ein 5x5x2 ein
-Zehntel - der Hammer schlug die Spitzhacke in jeder Lage. Nachher lohnt er sich fuer Klicks und
-Kontrolle (ein Schlag, eine Flaeche), nicht mehr fuer Zeit: Enderit-3x3 = 9 Netherit-Bloecke
-(9 * 5 = 45 Ticks), genau das Beispiel des Besitzers.
-
-## Haltbarkeit
-
-Vorher kostete der angeschlagene Block 1 (Vanillas Werkzeug-Komponente) und jeder mitgenommene 2 -
-beim 1x1 nutzte sich der Hammer also genau wie eine Spitzhacke ab, bei vierfacher Haltbarkeit.
-Nachher kostet jeder Block 2 (`SledgehammerItem#mineBlock` legt einen Punkt auf Vanillas einen), ein
-mitgenommener Block mit falschem Werkzeug 3. Die Haltbarkeitswerte (Basis x 4) bleiben unveraendert:
-ein Diamant-Hammer (6244) bricht also 3122 Bloecke statt der 1561 einer Diamant-Spitzhacke - bei
-Flaechenabbau braucht er dafuer aber ein Vielfaches der Zeit.
-
-## Oktant-Auswahl
-
-Oktant mit beiden Ecken in der Nebenhand, der Schlag trifft einen Block in dessen Figur: der Hammer
-bricht die ganze Figur (`SledgehammerUtils#octantSelection`, dieselben Override-Regeln wie die
-Flaeche, Spawnschutz/Claims je Block). Haltbarkeit = Summe ueber alle Bloecke, als waeren sie einzeln
-abgebaut; Zeit je Block = 2x die Flaechenzeit je Block; die Risse laufen ueber die ganze Auswahl
-(`MultiBlockBreakingSupport`, dieselbe Positionsliste). Grenzen: hoechstens 32 Bloecke je Kante und
-4096 Plaetze in der Box - groessere Auswahlen zaehlen nicht, der Hammer baut dann sein normales Feld
-ab. Schleichen baut weiter genau einen Block ab.
+Verifikation: `SledgehammerTests` prueft n=1,2,9,10,18 am echten Block-Abbaufortschritt,
+Schleichen und den 18-Block-Oktant; `checkBalance` prueft die Balance-Quellen.

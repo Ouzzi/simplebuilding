@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simplemoney:armorer/26",
+      "required": false
+    },
+    {
+      "id": "simplemoney:armorer/27",
+      "required": false
+    }
+  ]
+}

@@ -159,7 +159,7 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    // Cloth Config API (für das Config System)
+    // Cloth Config API (fÃ¼r das Config System)
     implementation("me.shedaniel.cloth:cloth-config-fabric:26.2.155") {
         exclude(group: "net.fabricmc.fabric-api")
     }
@@ -253,7 +253,7 @@ tasks.register('generateWiki', Exec) {
 	group = 'documentation'
 	description = 'Regenerates wiki/data from the mod (python wiki/generate.py). Runs after runDatagen.'
 	workingDir = rootDir
-	commandLine wikiPython, 'wiki/generate.py'
+	commandLine wikiPython, 'wiki/generate.py', '--all'
 	onlyIf { !project.hasProperty('skipWiki') }
 	// A finalizer runs even when runDatagen failed; half-written datagen output is no base
 	// for a wiki.
@@ -266,10 +266,11 @@ tasks.register('checkWiki', Exec) {
 	group = 'verification'
 	description = 'Fails when wiki/data is out of date with the mod or something is undocumented.'
 	workingDir = rootDir
-	commandLine wikiPython, 'wiki/generate.py', '--check'
+	commandLine wikiPython, 'wiki/generate.py', '--all', '--check'
 	onlyIf { !project.hasProperty('skipWiki') }
 	mustRunAfter 'generateWiki'
 	inputs.dir('wiki')
+	inputs.files(fileTree('modules') { exclude '**/build/**', '**/.gradle/**' })
 	inputs.dir('src/main/generated')
 	inputs.dir('src/main/resources/data')
 	inputs.dir('src/main/resources/assets/simplebuilding/lang')
@@ -278,7 +279,13 @@ tasks.register('checkWiki', Exec) {
 	inputs.file('common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java')
 	outputs.upToDateWhen { false }
 }
-tasks.named('check') { dependsOn 'checkWiki' }
+tasks.register('testWikiModules', Exec) {
+    group = 'verification'
+    workingDir = rootDir
+    commandLine wikiPython, '-m', 'unittest', 'discover', '-s', 'wiki/tests', '-v'
+    onlyIf { !project.hasProperty('skipWiki') }
+}
+tasks.named('check') { dependsOn 'checkWiki', 'testWikiModules' }
 
 // The Balancing-Zentrale (python tools/devserver/serve.py, docs/BALANCING-ZENTRALE.md) writes balance
 // values into the Java/JSON sources of every line and keeps each confirmed save in balance/.
@@ -287,7 +294,7 @@ tasks.named('check') { dependsOn 'checkWiki' }
 //     behind the Zentrale's back) or another line (1.21.11, 26.3 overlay) holds a different number,
 //   - generated files (loot inject tables, enchantments, recipes, ore features, the item export) no
 //     longer match the Java numbers they are made from - runDatagen is missing.
-//   fix:   python tools/devserver/serve.py (page Übersicht: "Datagen starten"), or
+//   fix:   python tools/devserver/serve.py (page Ãœbersicht: "Datagen starten"), or
 //          gradlew runDatagen :mc26_3:fabric:runDatagen :mc1_21_11:fabric:runDatagen
 //   skip:  -PskipWiki (like checkWiki: only where python is unavailable)
 tasks.register('checkBalance', Exec) {
@@ -438,11 +445,28 @@ tasks.register('checkMultimod', Exec) {
 tasks.named('check') { dependsOn 'checkMultimod', ':framework:check', ':integration:classes' }
 
 // Also compile new loader entrypoints in the gate; no existing suite gains a test.
-def extraModules = new groovy.json.JsonSlurper().parse(file('modules/modules.json')).modules.findAll { it.id != 'simplebuilding' }
-tasks.named('check') { dependsOn extraModules.collectMany { it.projects.values().collect { path -> "${path}:classes" } } }
-tasks.register('checkSimpleRidingData', Exec) {
-    group = 'verification'
-    workingDir = rootDir
-    commandLine wikiPython, 'tools/modules/check_simpleriding.py'
+def moduleRegistry = new groovy.json.JsonSlurper().parse(file('modules/modules.json')).modules
+def extraModules = moduleRegistry.findAll { it.id != 'simplebuilding' }
+def forge263Enabled = providers.gradleProperty('forge263').getOrElse('false').toBoolean()
+def moduleCompileTasks = extraModules.collectMany { entry ->
+    entry.projects.findAll { loader, path -> loader != 'forge' || forge263Enabled }
+            .values().collect { path -> "${path}:classes" }
 }
-tasks.named('check') { dependsOn 'checkSimpleRidingData', ':integration:compileGametestJava' }
+tasks.named('check') { dependsOn moduleCompileTasks }
+
+if (forge263Enabled) {
+    tasks.named('check') { dependsOn ':mc26_3:forge:check', ':mc26_3:forge:classes' }
+}
+tasks.register('checkModuleData') {
+    group = 'verification'
+    doLast {
+        moduleRegistry.each { entry ->
+            (entry.checks ?: []).each { script ->
+                def process = providers.exec { workingDir rootDir; commandLine wikiPython, script }
+                println process.standardOutput.asText.get().trim()
+                process.result.get().assertNormalExitValue()
+            }
+        }
+    }
+}
+tasks.named('check') { dependsOn 'checkModuleData', ':integration:compileGametestJava' }

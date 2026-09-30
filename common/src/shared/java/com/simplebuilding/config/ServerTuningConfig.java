@@ -64,6 +64,7 @@ public class ServerTuningConfig {
     /** Begrenzt handeditierte oder per Befehl gesetzte Werte; fehlende Gruppen neu. */
     public void validate() {
         if (features == null) features = new Features();
+        if (machines != null) machines.endSignalRange = clamp(machines.endSignalRange, 1, 15);
         if (chunkLoaders == null) chunkLoaders = new ChunkLoaders();
         if (dimensionLocks == null) dimensionLocks = new DimensionLocks();
         if (laser == null) laser = new Laser();
@@ -134,6 +135,10 @@ public class ServerTuningConfig {
      * ({@code /reload}, Weltstart). Gesetzte Bloecke und vorhandene Gegenstaende bleiben.
      */
     public static class Features {
+        @ConfigEntry.Gui.Tooltip
+        public boolean endSignals = true;
+        @ConfigEntry.Gui.Tooltip
+        public boolean astralVault = true;
         /** Die Verzauberung Luftsprung wirkt (unabhaengig vom Client-Schalter enableDoubleJump). */
         @ConfigEntry.Gui.Tooltip
         public boolean airJump = true;
@@ -255,6 +260,8 @@ public class ServerTuningConfig {
 
     /** Tempo der Maschinenstufen als Vielfaches von Vanilla (1..8). */
     public static class Machines {
+        @ConfigEntry.Gui.Tooltip
+        public int endSignalRange = 15;
         @ConfigEntry.Gui.Tooltip
         public int reinforcedHopperSpeed = 2;
         @ConfigEntry.Gui.Tooltip

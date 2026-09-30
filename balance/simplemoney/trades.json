@@ -1,0 +1,1957 @@
+{
+  "trades": [
+    {
+      "id": "fletcher/00",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "gives": {
+        "id": "minecraft:emerald",
+        "count": 3
+      },
+      "max_uses": 10,
+      "xp": 10,
+      "reputation_discount": 0.05,
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 3,
+            "max": 35
+          },
+          "type": "minecraft:set_count"
+        }
+      ]
+    },
+    {
+      "id": "fletcher/01",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "max_uses": 4,
+      "xp": 5,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:firework_rocket",
+        "count": 10
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "fletcher/02",
+      "level": 3,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 2
+      },
+      "max_uses": 6,
+      "xp": 10,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:firework_rocket",
+        "count": 16
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "librarian/03",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 3
+      },
+      "max_uses": 2,
+      "xp": 10,
+      "reputation_discount": 0.5,
+      "gives": {
+        "id": "minecraft:enchanted_book"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:efficiency",
+              "level": 5,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:unbreaking",
+              "level": 3,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:fire_aspect",
+              "level": 2,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:fortune",
+              "level": 3,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:knockback",
+              "level": 2,
+              "weight": 5
+            },
+            {
+              "enchantment": "minecraft:feather_falling",
+              "level": 4,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:mending",
+              "level": 1,
+              "weight": 2
+            },
+            {
+              "enchantment": "minecraft:silk_touch",
+              "level": 1,
+              "weight": 10
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "librarian/04",
+      "level": 2,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 3
+      },
+      "max_uses": 2,
+      "xp": 10,
+      "reputation_discount": 0.5,
+      "gives": {
+        "id": "minecraft:enchanted_book"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 5,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:protection",
+              "level": 4,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:feather_falling",
+              "level": 4,
+              "weight": 10
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "librarian/05",
+      "level": 3,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 4
+      },
+      "max_uses": 1,
+      "xp": 50,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:enchanted_book"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:respiration",
+              "level": 3,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:impaling",
+              "level": 5,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:power",
+              "level": 5,
+              "weight": 15
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "librarian/06",
+      "level": 4,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 4
+      },
+      "max_uses": 1,
+      "xp": 50,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:enchanted_book"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:depth_strider",
+              "level": 3,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:frost_walker",
+              "level": 2,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:looting",
+              "level": 3,
+              "weight": 15
+            },
+            {
+              "enchantment": "minecraft:piercing",
+              "level": 4,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:power",
+              "level": 5,
+              "weight": 15
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "librarian/07",
+      "level": 5,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 5
+      },
+      "max_uses": 1,
+      "xp": 50,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:enchanted_book"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:swift_sneak",
+              "level": 1,
+              "weight": 2
+            },
+            {
+              "enchantment": "minecraft:soul_speed",
+              "level": 1,
+              "weight": 2
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "cleric/08",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "gives": {
+        "id": "minecraft:emerald",
+        "count": 3
+      },
+      "max_uses": 10,
+      "xp": 10,
+      "reputation_discount": 0.05,
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 3,
+            "max": 35
+          },
+          "type": "minecraft:set_count"
+        }
+      ]
+    },
+    {
+      "id": "cleric/09",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "max_uses": 4,
+      "xp": 10,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:ender_pearl",
+        "count": 8
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "mason/10",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "gives": {
+        "id": "minecraft:emerald",
+        "count": 3
+      },
+      "max_uses": 10,
+      "xp": 10,
+      "reputation_discount": 0.05,
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 3,
+            "max": 35
+          },
+          "type": "minecraft:set_count"
+        }
+      ]
+    },
+    {
+      "id": "mason/11",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "max_uses": 4,
+      "xp": 3,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:smooth_stone",
+        "count": 64
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "mason/12",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "max_uses": 4,
+      "xp": 3,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:stone_bricks",
+        "count": 64
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "mason/13",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "max_uses": 4,
+      "xp": 3,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:deepslate_bricks",
+        "count": 52
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "mason/14",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "max_uses": 4,
+      "xp": 3,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:mossy_cobblestone",
+        "count": 32
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "mason/15",
+      "level": 2,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "max_uses": 6,
+      "xp": 5,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:smooth_stone",
+        "count": 64
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "mason/16",
+      "level": 2,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "max_uses": 6,
+      "xp": 6,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:stone_bricks",
+        "count": 64
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "mason/17",
+      "level": 2,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "max_uses": 3,
+      "xp": 6,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:prismarine_bricks",
+        "count": 16
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "farmer/18",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "gives": {
+        "id": "minecraft:emerald",
+        "count": 3
+      },
+      "max_uses": 10,
+      "xp": 10,
+      "reputation_discount": 0.05,
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 3,
+            "max": 35
+          },
+          "type": "minecraft:set_count"
+        }
+      ]
+    },
+    {
+      "id": "farmer/19",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "max_uses": 16,
+      "xp": 5,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:wheat_seeds",
+        "count": 52
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "farmer/20",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "max_uses": 6,
+      "xp": 5,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:carrot",
+        "count": 20
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "farmer/21",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 1
+      },
+      "max_uses": 6,
+      "xp": 5,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:potato",
+        "count": 24
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "farmer/22",
+      "level": 1,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 2
+      },
+      "max_uses": 4,
+      "xp": 10,
+      "reputation_discount": 0.05,
+      "gives": {
+        "id": "minecraft:apple",
+        "count": 28
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "farmer/23",
+      "level": 2,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 2
+      },
+      "max_uses": 2,
+      "xp": 15,
+      "reputation_discount": 0.1,
+      "gives": {
+        "id": "minecraft:cake",
+        "count": 1
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "farmer/24",
+      "level": 2,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 2
+      },
+      "max_uses": 4,
+      "xp": 20,
+      "reputation_discount": 0.1,
+      "gives": {
+        "id": "minecraft:golden_carrot",
+        "count": 16
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "armorer/25",
+      "level": 2,
+      "wants": {
+        "id": "minecraft:diamond",
+        "count": 15
+      },
+      "max_uses": 2,
+      "xp": 10,
+      "reputation_discount": 0.2,
+      "gives": {
+        "id": "simplemoney:money_bill",
+        "count": 2
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "armorer/26",
+      "level": 3,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 3
+      },
+      "max_uses": 2,
+      "xp": 15,
+      "reputation_discount": 0.2,
+      "gives": {
+        "id": "minecraft:diamond_helmet"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1,
+              "weight": 40
+            },
+            {
+              "enchantment": "minecraft:thorns",
+              "level": 1,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:aqua_affinity",
+              "level": 1,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:respiration",
+              "level": 2,
+              "weight": 20
+            }
+          ],
+          "second_chance": 0.05,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "armorer/27",
+      "level": 3,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 3
+      },
+      "max_uses": 2,
+      "xp": 15,
+      "reputation_discount": 0.2,
+      "gives": {
+        "id": "minecraft:diamond_boots"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:feather_falling",
+              "level": 1,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:depth_strider",
+              "level": 1,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:frost_walker",
+              "level": 1,
+              "weight": 20
+            }
+          ],
+          "second_chance": 0.05,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "armorer/28",
+      "level": 4,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 5
+      },
+      "max_uses": 1,
+      "xp": 50,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:diamond_chestplate"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 3,
+              "weight": 40
+            },
+            {
+              "enchantment": "minecraft:protection",
+              "level": 4,
+              "weight": 40
+            },
+            {
+              "enchantment": "minecraft:blast_protection",
+              "level": 3,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:blast_protection",
+              "level": 4,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:projectile_protection",
+              "level": 3,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:projectile_protection",
+              "level": 4,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:fire_protection",
+              "level": 3,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:fire_protection",
+              "level": 4,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:unbreaking",
+              "level": 2,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:unbreaking",
+              "level": 3,
+              "weight": 20
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "armorer/29",
+      "level": 4,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 4
+      },
+      "max_uses": 1,
+      "xp": 50,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:diamond_leggings"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 3,
+              "weight": 40
+            },
+            {
+              "enchantment": "minecraft:protection",
+              "level": 4,
+              "weight": 40
+            },
+            {
+              "enchantment": "minecraft:blast_protection",
+              "level": 3,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:blast_protection",
+              "level": 4,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:projectile_protection",
+              "level": 3,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:projectile_protection",
+              "level": 4,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:fire_protection",
+              "level": 3,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:fire_protection",
+              "level": 4,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:swift_sneak",
+              "level": 1,
+              "weight": 5
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "armorer/30",
+      "level": 5,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 5
+      },
+      "max_uses": 1,
+      "xp": 50,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:diamond_chestplate"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 4,
+              "weight": 50
+            },
+            {
+              "enchantment": "minecraft:projectile_protection",
+              "level": 4,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:fire_protection",
+              "level": 4,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:blast_protection",
+              "level": 4,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:thorns",
+              "level": 3,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:unbreaking",
+              "level": 3,
+              "weight": 20
+            }
+          ],
+          "second_chance": 0.3,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "armorer/31",
+      "level": 5,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 3
+      },
+      "max_uses": 2,
+      "xp": 15,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:diamond_boots"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:feather_falling",
+              "level": 4,
+              "weight": 40
+            },
+            {
+              "enchantment": "minecraft:depth_strider",
+              "level": 3,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:protection",
+              "level": 4,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:projectile_protection",
+              "level": 4,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:fire_protection",
+              "level": 4,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:blast_protection",
+              "level": 4,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:soul_speed",
+              "level": 1,
+              "weight": 10
+            }
+          ],
+          "second_chance": 0.3,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "armorer/32",
+      "level": 5,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 5
+      },
+      "max_uses": 1,
+      "xp": 50,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:diamond_helmet"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 4,
+              "weight": 50
+            },
+            {
+              "enchantment": "minecraft:projectile_protection",
+              "level": 4,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:fire_protection",
+              "level": 4,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:blast_protection",
+              "level": 4,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:aqua_affinity",
+              "level": 1,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:respiration",
+              "level": 3,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:thorns",
+              "level": 3,
+              "weight": 30
+            }
+          ],
+          "second_chance": 0.3,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith/33",
+      "level": 3,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 2
+      },
+      "max_uses": 2,
+      "xp": 15,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:diamond_hoe"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:efficiency",
+              "level": 1,
+              "weight": 50
+            },
+            {
+              "enchantment": "minecraft:unbreaking",
+              "level": 1,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:efficiency",
+              "level": 2,
+              "weight": 10
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith/34",
+      "level": 3,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 2
+      },
+      "max_uses": 2,
+      "xp": 10,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:diamond_shovel"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:efficiency",
+              "level": 1,
+              "weight": 50
+            },
+            {
+              "enchantment": "minecraft:unbreaking",
+              "level": 1,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:efficiency",
+              "level": 2,
+              "weight": 10
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith/35",
+      "level": 4,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 3
+      },
+      "max_uses": 1,
+      "xp": 15,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:diamond_pickaxe"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:efficiency",
+              "level": 2,
+              "weight": 40
+            },
+            {
+              "enchantment": "minecraft:unbreaking",
+              "level": 2,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:fortune",
+              "level": 1,
+              "weight": 15
+            },
+            {
+              "enchantment": "minecraft:silk_touch",
+              "level": 1,
+              "weight": 10
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith/36",
+      "level": 4,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 3
+      },
+      "max_uses": 1,
+      "xp": 15,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:diamond_axe"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:efficiency",
+              "level": 2,
+              "weight": 40
+            },
+            {
+              "enchantment": "minecraft:unbreaking",
+              "level": 2,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:fortune",
+              "level": 1,
+              "weight": 15
+            },
+            {
+              "enchantment": "minecraft:silk_touch",
+              "level": 1,
+              "weight": 10
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith/37",
+      "level": 5,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 4
+      },
+      "max_uses": 1,
+      "xp": 30,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:diamond_pickaxe"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:efficiency",
+              "level": 4,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:efficiency",
+              "level": 5,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:fortune",
+              "level": 2,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:fortune",
+              "level": 3,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:mending",
+              "level": 1,
+              "weight": 5
+            },
+            {
+              "enchantment": "minecraft:unbreaking",
+              "level": 3,
+              "weight": 20
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith/38",
+      "level": 5,
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": 4
+      },
+      "max_uses": 1,
+      "xp": 30,
+      "reputation_discount": 0.7,
+      "gives": {
+        "id": "minecraft:diamond_sword"
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "pool": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 5,
+              "weight": 30
+            },
+            {
+              "enchantment": "minecraft:smite",
+              "level": 5,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:bane_of_arthropods",
+              "level": 5,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:unbreaking",
+              "level": 3,
+              "weight": 20
+            },
+            {
+              "enchantment": "minecraft:sweeping_edge",
+              "level": 3,
+              "weight": 10
+            },
+            {
+              "enchantment": "minecraft:mending",
+              "level": 1,
+              "weight": 5
+            }
+          ],
+          "second_chance": 0.1,
+          "type": "simplemoney:weighted_enchant"
+        }
+      ]
+    },
+    {
+      "id": "toolsmith/39",
+      "level": 5,
+      "wants": {
+        "id": "minecraft:diamond",
+        "count": 7
+      },
+      "max_uses": 5,
+      "xp": 10,
+      "reputation_discount": 0.1,
+      "gives": {
+        "id": "simplemoney:money_bill",
+        "count": 2
+      },
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableVillagerTrades"
+        }
+      ]
+    },
+    {
+      "id": "wandering_trader/40",
+      "level": "SELL_COMMON_ITEMS_POOL",
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": {
+          "type": "minecraft:uniform",
+          "min": 6,
+          "max": 9
+        }
+      },
+      "gives": {
+        "id": "minecraft:chorus_fruit",
+        "count": 16
+      },
+      "max_uses": 3,
+      "xp": 10,
+      "reputation_discount": 0.1,
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 16,
+            "max": 23
+          },
+          "type": "minecraft:set_count"
+        }
+      ]
+    },
+    {
+      "id": "wandering_trader/41",
+      "level": "SELL_COMMON_ITEMS_POOL",
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": {
+          "type": "minecraft:uniform",
+          "min": 2,
+          "max": 3
+        }
+      },
+      "gives": {
+        "id": "minecraft:apple",
+        "count": 30
+      },
+      "max_uses": 3,
+      "xp": 10,
+      "reputation_discount": 0.1,
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ],
+      "given_item_modifier": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 30,
+            "max": 49
+          },
+          "type": "minecraft:set_count"
+        }
+      ]
+    },
+    {
+      "id": "wandering_trader/42",
+      "level": "SELL_SPECIAL_ITEMS_POOL",
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": {
+          "type": "minecraft:uniform",
+          "min": 30,
+          "max": 44
+        }
+      },
+      "gives": {
+        "id": "minecraft:netherite_scrap",
+        "count": 7
+      },
+      "max_uses": 1,
+      "xp": 100,
+      "reputation_discount": 0.5,
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ]
+    },
+    {
+      "id": "wandering_trader/43",
+      "level": "SELL_SPECIAL_ITEMS_POOL",
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": {
+          "type": "minecraft:uniform",
+          "min": 30,
+          "max": 39
+        }
+      },
+      "gives": {
+        "id": "minecraft:shulker_shell",
+        "count": 2
+      },
+      "max_uses": 1,
+      "xp": 200,
+      "reputation_discount": 0.5,
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ]
+    },
+    {
+      "id": "wandering_trader/44",
+      "level": "SELL_SPECIAL_ITEMS_POOL",
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": {
+          "type": "minecraft:uniform",
+          "min": 5,
+          "max": 6
+        }
+      },
+      "gives": {
+        "id": "minecraft:diamond_ore",
+        "count": 6
+      },
+      "max_uses": 5,
+      "xp": 150,
+      "reputation_discount": 0.5,
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ]
+    },
+    {
+      "id": "wandering_trader/45",
+      "level": "SELL_SPECIAL_ITEMS_POOL",
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": {
+          "type": "minecraft:uniform",
+          "min": 5,
+          "max": 6
+        }
+      },
+      "gives": {
+        "id": "minecraft:deepslate_diamond_ore",
+        "count": 4
+      },
+      "max_uses": 7,
+      "xp": 150,
+      "reputation_discount": 0.5,
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ]
+    },
+    {
+      "id": "wandering_trader/46",
+      "level": "SELL_SPECIAL_ITEMS_POOL",
+      "wants": {
+        "id": "simplemoney:money_bill",
+        "count": {
+          "type": "minecraft:uniform",
+          "min": 14,
+          "max": 18
+        }
+      },
+      "gives": {
+        "id": "minecraft:budding_amethyst",
+        "count": 1
+      },
+      "max_uses": 3,
+      "xp": 150,
+      "reputation_discount": 0.5,
+      "fabric:load_conditions": [
+        {
+          "condition": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ],
+      "neoforge:conditions": [
+        {
+          "type": "simplemoney:config",
+          "flag": "enableWanderingTrades"
+        }
+      ]
+    }
+  ]
+}

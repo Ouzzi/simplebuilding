@@ -50,7 +50,9 @@
     "CompoundContainerAccessor",
     "HopperBlockEntityMixin",
     "CauldronInteractionDispatcherAccessor",
-    "ItemCraftRemainderAccessor"
+    "ItemCraftRemainderAccessor",
+    "AstralStorageMixin",
+    "AstralBlockEntityTypeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -59,4 +61,3 @@
     "requireAnnotations": true
   }
 }
-

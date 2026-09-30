@@ -9,28 +9,41 @@
       "defaultEnabled": true,
       "projects": {
         "fabric": ":mc26_3:fabric",
-        "neoforge": ":mc26_3:neoforge"
+        "neoforge": ":mc26_3:neoforge",
+        "forge": ":mc26_3:forge"
       },
       "displayName": "SimpleBuilding",
-      "description": "Building tools, storage, pads, and Enderite.",
+      "description": "Building tools, storage, machines, and enchantments.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
-        "cloth_config"
+        "cloth-config"
       ],
-      "optional": [],
+      "optional": [
+        "jei",
+        "roughlyenoughitems",
+        "modmenu",
+        "jade",
+        "appleskin",
+        "mousetweaks",
+        "trinkets_updated",
+        "curios"
+      ],
       "paths": {
         "root": ".",
         "shared": "common/src/shared",
         "fabric": "mc26_3/fabric",
         "neoforge": "mc26_3/neoforge",
-        "forge": null,
-        "generated": "src/main/generated",
+        "forge": "mc26_3/forge",
+        "generated": "mc26_3/generated",
         "lang": "src/main/resources/assets/simplebuilding/lang",
         "wikiManual": "wiki/manual.json",
-        "balanceDir": "balance"
+        "balanceDir": "balance",
+        "langOverlay": "mc26_3/overlay/resources/assets/simplebuilding/lang",
+        "generatedBase": "src/main/generated"
       }
     },
     {
@@ -42,13 +55,15 @@
       "example": true,
       "projects": {
         "fabric": ":modules:wiringexample:fabric",
-        "neoforge": ":modules:wiringexample:neoforge"
+        "neoforge": ":modules:wiringexample:neoforge",
+        "forge": ":modules:wiringexample:forge"
       },
       "displayName": "Wiring Example",
-      "description": "Development-only cross-mod wiring example.",
+      "description": "Minimal module used to verify loader and integration wiring.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [],
       "optional": [],
@@ -57,12 +72,82 @@
         "shared": "modules/wiringexample/shared",
         "fabric": "modules/wiringexample/fabric",
         "neoforge": "modules/wiringexample/neoforge",
-        "forge": null,
-        "generated": "modules/wiringexample/shared/resources",
+        "forge": "modules/wiringexample/forge",
+        "generated": "modules/wiringexample/generated/resources",
         "lang": "modules/wiringexample/shared/resources/assets/wiringexample/lang",
         "wikiManual": "modules/wiringexample/wiki/manual.json",
         "balanceDir": "balance/wiringexample"
       }
+    },
+    {
+      "id": "simplemoney",
+      "name": "Simple Money",
+      "version": "1.2.16",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "projects": {
+        "fabric": ":modules:simplemoney:fabric",
+        "neoforge": ":modules:simplemoney:neoforge"
+      },
+      "displayName": "Simple Money",
+      "description": "Currency production, weighted villager trades and treasure loot.",
+      "loaders": [
+        "fabric",
+        "neoforge"
+      ],
+      "requires": [
+        "cloth_config"
+      ],
+      "optional": [
+        "simplebuilding",
+        "modmenu"
+      ],
+      "paths": {
+        "root": "modules/simplemoney",
+        "shared": "modules/simplemoney/shared",
+        "fabric": "modules/simplemoney/fabric",
+        "neoforge": "modules/simplemoney/neoforge",
+        "forge": null,
+        "generated": "modules/simplemoney/generated/resources",
+        "lang": "modules/simplemoney/shared/resources/assets/simplemoney/lang",
+        "wikiManual": "modules/simplemoney/wiki/manual.json",
+        "balanceDir": "balance/simplemoney"
+      },
+      "tests": {
+        "namespace": "simplemoney",
+        "catalogues": [
+          "modules/simplemoney/fabric/src/main/java/com/simplemoney/MoneyGameTest.java"
+        ],
+        "mcLine": "module-simplemoney-263",
+        "requires": [
+          "simplebuilding",
+          "simplemoney"
+        ],
+        "devMods": [
+          "cloth_config"
+        ],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runMoneyIntegrationGameTest",
+            "report": "integration/build/money-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simplemoney:neoforge:runMoneyIntegrationGameTest",
+            "report": "modules/simplemoney/neoforge/build/money-junit.xml"
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplemoney.clienttest.MoneyClientSmoke"
+          ],
+          "sources": "modules/simplemoney/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "checks": [
+        "modules/simplemoney/tools/check_data.py"
+      ]
     },
     {
       "id": "simpleriding",
@@ -96,7 +181,42 @@
         "lang": "modules/simpleriding/shared/resources/assets/simpleriding/lang",
         "wikiManual": "modules/simpleriding/wiki/manual.json",
         "balanceDir": "balance/simpleriding"
-      }
+      },
+      "tests": {
+        "namespace": "simpleriding",
+        "catalogues": [
+          "modules/simpleriding/fabric/src/main/java/com/simplebuilding/modules/simpleriding/RidingGameTest.java"
+        ],
+        "mcLine": "simpleriding-26.3",
+        "requires": [
+          "simplebuilding",
+          "simpleriding"
+        ],
+        "devMods": [
+          "cloth_config"
+        ],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runRidingGameTest",
+            "report": "integration/build/riding-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simpleriding:neoforge:runRidingIntegrationGameTest",
+            "report": "modules/simpleriding/neoforge/build/riding-junit.xml"
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.integration.RidingClientGameTest"
+          ],
+          "sources": "modules/simpleriding/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "checks": [
+        "modules/simpleriding/tools/check_data.py"
+      ]
     }
   ]
 }

@@ -75,7 +75,7 @@ im Haupt-Repo und wurden nicht angefasst. Redundante Wiki-Sicherungen liegen als
 - Luftsprung 20 s / 10 s, Balken am XP-Balken (Priorität XP-Änderung > Luftsprung > Locator), Server erzwingt (≤ 1 s Lag).
 - Linear baut eine Linie, Bridge von einem Ende mit doppelter Geschwindigkeit.
 - Glowing hat eine Stufe (volle Helligkeit, Name „Glowing“); Pulsating allein pulsiert Sättigung, Pulsating+Glowing die Helligkeit 1–15.
-- Hammer: 1×1 = 1,2× gleiche Spitzhacke, Fläche wie eine Stufe darunter, Haltbarkeit unverändert bis der Besitzer testet.
+- Hammer auf 26.3: Gesamtzeit 1,5x + 0,8x je Block 2-9 + 0,7x ab Block 10; Oktant 2x je Block gleicher Stufe. Haltbarkeit unveraendert. 26.2 behaelt die alte Formel bis zum Port-Run.
 - Kerne nicht stapelbar; Enderman-/Lohenkopf nutzen die echten Vanilla-Texturen.
 - Placed-Bundle/Oktant/Detector nutzen den Block `placed_smithing_template`.
 - Zuletzt gepushter grüner Stand: siehe `git log origin/master`; danach nur, was im Commit „Handoff“ steht.
@@ -197,3 +197,158 @@ Dieser Branch wird nicht gepusht oder gemergt; Verifikation siehe abschliessende
   Besitzerwelt-Neubau. Forge 26.3 braucht eigene Loader-, Registry-, Bedingungs-/Loot- und Testadapter.
   26.2/1.21.11/26.4 erst im separaten Release-Port nach Besitzerfreigabe; keine Quelltexte dort geaendert.
   Kein Push, kein Merge; Quellrepo unveraendert.
+## End systems (2026-09-30, Codex, codex-kk2)
+- Fortsetzung des unterbrochenen Runs; Implementierung frueh als eee5aa09 gesichert. Nur 26.3 registriert neue Bloecke/Items; END_SYSTEMS=false auf 26.2, keine Ports und keine Aenderungen an mc1_21_11/mc26_4.
+- Nihilithscherbe bzw. Astralitstaub + Redstone ergibt 4 getrennte Pulver. Je Pulver + Hebel: eigener Schalter; Pulver + Redstone-Lampe: eigene Lampe (Lichtstaerke 12). Nur horizontale Nachbarn desselben Materials, kein Vanilla-Signaleingang/-ausgang. Maximal 15 Pulversegmente, server.machines.endSignalRange=15 mit Cap 1..15, Updates alle 2 Ticks; Lampen leiten nicht weiter. server.features.endSignals deaktiviert Gameplay/Rezepte (Rezepte nach Reload).
+- Astral Vault / Astralgewoelbe: 54 persoenliche Plaetze, erste 27 direkt Vanilla-Enderinventar, letzte 27 gespeichert am selben Container. Rezept: Endertruhe + 2 Enderitbarren + 2 Astralitstaub. Vanilla-Blockentity fuer Deckel, Sounds, Partikel und Waterlogging; server.features.astralVault sperrt Nutzung ohne Inhaltsverlust.
+- Rezepte, JEI-Infoseiten (getrennt von rezeptlosen Items), Jade-Kapazitaet, Erfolge ohne Toast/Chat, Handbuchkapitel, Wiki-Notizen und Features, Testzentralen-Leitungen; DE/EN in beiden Sprachorten, neue Schluessel identisch und ohne Duplikate.
+- Deterministischer Generator tools/textures/end_system_textures.py mit --check (14 Texturen); 16x Alt/Neu unter docs/previews/end-signals-16x.png und astral-vault-16x.png. Vorhandene Enderittruhen-Textur bewahrt und um Astralzeichen ergaenzt.
+- 26.3-Datagen erfolgreich. Registry-/Itemexport jetzt je Linie unter mc26_3/generated/wiki/items.json, da neue Registrierungen nicht in der 26.2-Registry stehen. Wiki generate/--check gruen, Haupttexturpruefung 470 + 9 mcmeta, Buecher 0 Probleme.
+- Funktionspruefung 8/8 alles gruen (2026-09-30T11-31-00Z-a7f1); Testzentrale in beiden separaten GameTest-Welten neu gebaut, vollstaendige Item-/Blockabdeckung: 10/10 alles gruen (2026-09-30T12-37-08Z-3da9).
+- Vollstaendiges gradlew.bat check -q im Worktree gruen (Exit 0), Ausgabe gelesen. Erstes Gate verlangte Quest-Lang-Neusortierung; Generator ausgefuehrt.
+- Keine Clienttests oder Sicht-/Soundpruefung im Spiel, kein voller Serverlauf; Besitzerwelt unveraendert. Besitzer-Abnahme der Grafik und Bedienung sowie /sbtestcentre build in der Besitzerwelt bleiben offen. Kein Push/Merge.
+- Rezept-/JEI-Integritaet nach Korrektur: 48/48 alles gruen (2026-09-30T12-45-41Z-d259). Paralleler Gate-/Testversuch zuvor mit Fabric-Ausgabekollision verworfen; serieller Wiederholungslauf gruen.
+## INFRA-W: Multimod-Wiki (2026-09-30, Codex, Branch codex-infra-w)
+- Manifest-Datenvertrag fuer alle vorhandenen Module ergaenzt. Generator: --module/--all,
+  eigener datenorientierter Extraktor, Vollstaendigkeit EN/DE pro Modul, dynamische Registry-
+  und komplexe Daten ueber dokumentierte Datagen-Exports. Wiringexample voll dokumentiert.
+- Header-Modauswahl mit URL/localStorage, getrennte Uebersichten/Navigation/Suche,
+  optionale Gesamtsuche mit Mod-Abzeichen, Cross-Mod-IDs und Abhaengigkeits-/Versionsdaten.
+  Asynchroner Modulloader funktioniert ohne fetch, auch bei lokalen Dateien.
+- SimpleBuilding-JSON/JS bytegenau wie HEAD; keine Java-Logik/Testkataloge oder anderen Linien
+  geaendert. Neues Scaffold erfuellt den Datenvertrag und liefert Token-Prosa mit.
+- checkWiki/CI/Hook/Hosting pruefen alle Manifest-Module; statisches Paket enthaelt alle
+  Modskripte, Loader und Texturen mit Cache-Hashes. Dokumentation aktualisiert.
+- Verifikation: finales gradlew.bat check -q --no-daemon Exit 0; 12 Python-Wiki-Tests,
+  8 bestehende Launch-Hub-Modtests, 9 DOM-Integrationsfaelle ohne JS-/Console-Fehler
+  (URL/alte Links/Cross-Mod-Suche/Storage-Ausfall, 1280/390 als simulierte Fensterbreiten).
+  Das DOM hat KEIN visuelles Layout gerendert; keine echte Desktop-/Handy-Sichtpruefung.
+- Testzentrale in beiden 26.3-GameTest-Welten neu gebaut; vollstaendige Item-/Block-Abdeckung
+  und Stationspruefungen 8/8, alles gruen, Run 2026-09-30T13-08-12Z-9879.
+  Erstversuch hatte versehentlich testcentre statt test_centre im Filter und waehlte null Tests;
+  kein Gameplayfehler. Erstes Gate scheiterte an zu breiten modules/-Inputs, behoben durch
+  Ausschluss der Buildverzeichnisse. Finale Gate-Ausgabe einschliesslich Exitcode gelesen.
+- Browser-Vorschau blockiert: cua.getState meldet keine Browser/Apps, IAB nicht verfuegbar.
+  Vorschau-Server gemaess launch.json/wiki auf 127.0.0.1:8765 gestartet. Kein echter Client,
+  kein voller Serverlauf, keine Besitzerwelt-Pruefung. Kein Push, kein Merge, keine Ports.
+- Besitzer: Desktop/Handy-Wiki visuell pruefen; dynamische Module muessen Registry-Exports
+  aus Datagen liefern. Geplante Mods werden erst mit existierenden Projekten registriert.
+## INFRA-B: Multimod-Balancing (2026-09-30, codex-infra-b)
+- Manifest-Vertrag fuer alle vorhandenen Eintraege und Scaffold ergaenzt; Modul-Wiki-Skelett.
+  Balancing-Zentrale: request-lokale Mod-Auswahl, getrennte Services/Ablagen, Browser-Entwuerfe,
+  Quellen/Rechner/Solver/History/Rollback je Mod, Uebersicht und Metadaten. SimpleBuilding bleibt
+  ohne Migration in balance/; Zusatzmods nutzen balance/<id>. Keine bestehenden Versionen verschoben.
+- Leser fuer Balance-Konstanten, gemeinsame/Loader-JSON-Daten, Item-Export, Rezepte, Handel
+  und gewoehnliche JSON-Beute. generated bleibt Planung ohne eindeutige Quellverknuepfung;
+  unbekannte Loot-Bedingungen/Funktionen werden berichtet und nicht als belegte Zeiten modelliert.
+  Grenzen/Producer-Vertrag in docs/BALANCING-ZENTRALE.md und docs/MULTIMOD.md.
+- Hauptlinien-Schreibziele und Datagen nur 26.3; keine separate Port-Kopie geaendert.
+  checkBalance prueft alle Manifest-Module. Voller bestehender Devserver-Lauf: 118 Tests gruen
+  (107 bestehende + damals 11 Modul-Tests; ein vorhandener Skip). Danach finale 14 Modul-Tests
+  sowie 12 bestehende Auslese-Tests gruen; JavaScript-Syntax gruen.
+- Bestehende 26.3-Server: 1554/1554, alles gruen, Run 2026-09-30T13-03-57Z-722d.
+  Testzentralen in beiden GameTest-Welten gebaut; Item-Abdeckung im gruenen Gesamt-Lauf enthalten.
+  Abschliessendes gradlew.bat check -q --no-daemon: Exit 0, Ausgabe gelesen (gemeinsame
+  26.2-Kompilierung bleibt gruen). Wiki generiert und --check aktuell.
+- Offen/unverifiziert: Desktop-/Handy-Sichtpruefung (cua: browsers=[]; In-App-Browser nicht
+  verfuegbar), echte Modul-Datagen-Auftraege zukuenftiger Port-Module und deren spezielle
+  Java-Builder/Loot-Adapter. Keine Minecraft-Clienttests, Besitzerwelt unveraendert.
+  Keine neuen Texturen. Kein Push/Merge; Commit auf dem Arbeitsbranch.
+## INFRA-F Forge 26.3 (Codex, 2026-09-30, Branch codex-infra-f)
+- Offizielle Forge-Seite, Maven-Metadaten und MDK verifiziert: 26.3-66.0.8 (2026-09-28).
+  MDK-SHA1 stimmt mit der Downloadseite ueberein. Java 25, ForgeGradle [7.0.17,8),
+  MDK-Wrapper 9.7.1; hier Pin 7.0.36. Runs brauchen zusaetzlich Java 8 fuer Slime Launcher.
+  Kein fehlender Upstream-Build als Blocker. Details/Quellen: `docs/FORGE-26.3.md`.
+- Additives `mc26_3/forge`, standardmaessig aus (`-Pforge263=true`). Bestehende Forge-26.2-
+  und andere Linien unveraendert. Nur Forge-Adapter-Overlays: KeyMapping, dimensionierte
+  GameTest-Metadaten, Loot-Holders nach Registry-Laden/vor Validierung, Suchtab-Platzierung,
+  Breezekopf-Ackerlandschutz, Shulkerkisten-Waschen/Werfer und HUD-Umschalttaste.
+- Testziel `forge-263`, eigene Run-/Reportpfade, Aufzeichnungen/Tabellen und Launch Hub
+  (Server, Client, Client + frische Welt, Tests). Bestehende Standard-/Release-Auswahl bleibt
+  unveraendert. Forge263 kann nach Besitzer-Abnahme separat zum Default werden.
+- Modulmanifest-Vertrag fuer alle vorhandenen Eintraege ergaenzt; sichere Pfadvalidierung,
+  Forge-Modulvorlage/Beispielprojekt, eigene Manuals/Generated-/Balance-Pfade. Kein Verschieben
+  von SimpleBuilding oder Balance-Historie. Forge-Integrationsruntime weiterhin zurueckgestellt.
+- Server Forge: **778/778, alles gruen**, Run `2026-09-30T13-04-03Z-0963`:
+  dieselben 777 gemeinsamen Tests wie pro Fabric/NeoForge plus ein Forge-Netzwerktest.
+  **Keine Forge-Skips/known failures.** Nach erstem Voll-Lauf (774/778) fehlende Loader-Hooks
+  repariert; Shulker-Gegenprobe 8/8 (`2026-09-30T13-02-07Z-6500`), dann Voll-Lauf gruen.
+- Testzentrale in separaten Forge/Fabric/NeoForge-GameTest-Welten gebaut; alle Mod-Items/-Bloecke
+  abgedeckt. Fabric/NeoForge-Centre-Filter **10/10, alles gruen**, Run `2026-09-30T13-06-59Z-6972`.
+  Besitzerwelt nicht angefasst, keine Wiederholung der gesamten Fabric/NeoForge-Suiten.
+- Echter `:mc26_3:forge:runDatagen` (delegiert Fabric + syncGenerated263) Exit 0.
+  Gate fand zwei JSON-identische Overlay-Rezepte nur wegen Schluss-Zeilenumbruch; Sync-Vergleich
+  normalisiert nun Rand-Leerraum. Korrigierter Sync Exit 0, keine redundanten Rezept-Overlays.
+  Reine Generator-Zeilenenden-Aenderungen nach Inhaltsvergleich zurueckgesetzt.
+  Wiki generiert, anschliessend --check aktuell. Keine Wiki-Inhaltsaenderung erforderlich.
+- **37 Hub-/Registry-/Scaffold-Tests gruen**, inklusive Forge-Client/Server/frische-Welt-Trockenlauf;
+  Testing-UI-JavaScript-Syntax gruen. Vollstaendiges `gradlew.bat -Pforge263=true check -q`
+  im Worktree **gruen (Exit 0)**, Ausgabe gelesen; Forge-Ressourcen/Atlanten und Modul kompilieren.
+- Offene Besitzerpunkte: echte Forge-Clientdarstellung/Bedienung abnehmen und eigene Testwelt
+  neu bauen; bestehender AutoConfig-Shim hat keine Datei-Persistenz/Cloth-GUI. Optionale
+  JEI/Jade/Curios/Cloth-Integrationen und Forge-Integrationsinstance nicht verifiziert.
+  Kein Clienttest, kein separater normaler Dedicated-Serverstart, kein Port anderer Linien,
+  keine Pixelkunst, kein Push/Merge.
+- Abschliessendes normales `gradlew.bat check -q` (Forge263 standardmaessig aus) ebenfalls
+  **gruen, Exit 0**, Ausgabe gelesen. Beide Gate-Konfigurationen bestaetigt; keine Dateien
+  in mc1_21_11, mc26_4, forge/, common/ oder src/ geaendert.
+
+## FIX16 (2026-09-30, Codex, codex-fix16)
+- KK2-Integritaet repariert: sieben item.*-Namensschluessel parallel zu block.* in beiden DE/EN-Sprachorten; Nihilit-Anzeigenamen gemaess bestehender Familienregel, IDs unveraendert. Signal-Buchseite auf passende Laenge gekuerzt (Rezepte bleiben als Karten im Kapitel).
+- Suchtab: Pulver neben Redstone, Schalter neben Hebel, Lampen im zuerst eingesammelten Functional-Tab neben der Vanilla-Lampe, Astral Vault neben Endertruhe. Exakte Nachbarschaften im bestehenden Test gepinnt.
+- Erwartungsupdates fuer beabsichtigtes KK2-Design: Endertruhe genau einmal in SimpleMachines (inklusive exakter Vanilla-Anzahl); nach Shulkerkisten die Endertruhe/Vault-Zeile und beide Signalfamilien mit Abstand, weiter neun Spalten. Drei neue Config-Felder mit Namen/Defaults true,true,15 gepinnt; Tooltip-Annotationen und korrekte DE/EN-Erklaerungen samt Default ergaenzt. Keine Tests abgeschwaecht.
+- Finale volle 26.3-Server-Suite: 1562/1562, alles gruen (je Loader 781), Run 2026-09-30T13-46-59Z-c843. Testzentralen in beiden separaten GameTest-Welten gebaut, volle Item-/Blockabdeckung gruen. Gezielte Integritaet zuvor 82/82 gruen, Run 2026-09-30T13-45-14Z-4190.
+- Wiki generiert und --check aktuell; neue KK2-Items jetzt im Wiki-Itemkatalog, Prosa mit Nihilit-Namen konsistent. Buecher 0 Probleme; vier Sprachdateien ohne doppelte Schluessel.
+- Abschliessendes gradlew.bat check -q im Worktree gruen, nativer GRADLE_EXIT=0 ausdruecklich gelesen; gemeinsame 26.2-Kompilierung enthalten. Erster PowerShell-Aufruf meldete wegen stderr-Warnungen Exit 1 ohne Gradle-Fehler; Wiederholung mit explizitem LASTEXITCODE gruen.
+- Keine Clienttests/Sicht- oder Soundpruefung, Besitzerwelt nicht angefasst. Keine neue Pixelkunst; mc1_21_11/mc26_4 unveraendert, keine Ports. Kein Push/Merge; Commit auf Arbeitsbranch.
+## Vier Besitzer-Fehlerberichte (codex-bugs, 26.3, 2026-09-30)
+Dieser Abschnitt ersetzt die Werkbank-Erweiterung aus dem historischen Mega-Handbuch-Eintrag oben.
+- Hammer: stueckweise Gesamtzeit relativ zur gleichstufigen Spitzhacke (1,5 / 0,8 / 0,7; Grenze 9),
+  Oktant bewusst linear 2 je Block. Benannte Balance-Konstanten; keine neue Haltbarkeitsaenderung.
+- Basisbuecher bleiben normale formlose Rezepte. Rezeptfreischaltung mit Buch ODER Regal-Schluesselitem,
+  auch beim Wiedereintritt mit vorhandenen Zutaten. JEI-Infoseite erklaert das Freischalten im Buch.
+- Kapitel im Buch: gesperrten Reiter anklicken, Bedarf oder Bestaetigung im Buch; Server bindet die
+  Anfrage an das geoeffnete gehaltene Buch und validiert Inventar-Menue, Regal, Kapitel und OP-Stufe.
+  Genau ein Item, auch in Creative; Nebenhand-Zutaten werden akzeptiert. Ton und Komponentensync.
+  Crafting-Erweiterungen und Kombination entfernt; vorhandene Masken und Legacy-Migration bleiben.
+- Buendel-Rezept war in Quelle und gemeinsamem Datagen bereits DSD/DBD/DXD (6 Kiesel); neu erzeugt
+  und um Kiesel als zusaetzlichen Rezept-Unlock erweitert. Koecher bleibt DSD/DQD/DXD, Rucksack
+  DSD/DBD/LLL. Fester craftable-Tag mit 185 Ergebnissen verhindert still verschwundene Rezepte.
+- Gefilterte Serverpruefungen auf Fabric/NeoForge 26.3: **178/178, alles gruen**:
+  Guides 22 (2026-09-30T13-12-08Z-6404), Hammer 70 (2026-09-30T13-14-58Z-9198),
+  Buendel 76 (2026-09-30T13-18-42Z-eff0), Rezeptabdeckung 2 (2026-09-30T13-20-46Z-5607),
+  Testzentrale 8 (2026-09-30T13-34-37Z-c786). Testzentralen in beiden GameTest-Welten neu gebaut;
+  alle Items/Bloecke abgedeckt, Besitzerwelt nicht angefasst.
+- Neuer Clientfall mega-guide: echter Tab-Klick ohne Item, Bestaetigung nach Eintreffen des Items,
+  genau ein Itemverbrauch im Creative-Modus, C2S-Paket und Komponentensync, doppelte Anfrage ohne Verbrauch.
+  Beide Loader seriell: je 55 Schritte fertig und 2/2 frische Screenshots, alles gruen.
+  NeoForge 2026-09-30T13-29-32Z-e3d8, Fabric 2026-09-30T13-31-29Z-d029.
+  Bestaetigung und offenes Kapitel auf beiden Screenshots angesehen (englische Sprache).
+- Testrunner korrigiert: SIMPLEBUILDING_CLIENT_ONLY grenzt nun auch erwartete Screenshots ein.
+  Vorher funktionierte der Test, der Runner verlangte jedoch 119 nicht ausgewaehlte Bilder.
+  Vollauswahl, Einzelauswahl und unbekannte Auswahl ohne Clientstart gegengeprueft.
+- Echter 26.3-Datagen-Lauf Exit 0; gemeinsame Containerrezepte fuer alle Loader haben unveraendert
+  die korrekten 6/4/6 Kiesel. Datagen zieht auch die bereits im Quellcode geaenderten
+  Echolot-/Resonanzstab-Rezepte in das 26.3-Overlay nach (keine neue Gameplay-Aenderung). Fehlendes Buendelrezept im laufenden Modpack nicht reproduziert;
+  geladene Rezepte, Freischaltung und feste Abdeckung abgesichert.
+- Wiki erzeugt und --check aktuell; Buchpruefung 0 Probleme, Questgenerator aktuell,
+  keine doppelten Schluessel in den vier Sprachdateien. checkBalance 0 Fehler (380 erzeugte Stellen),
+  alle vier Hammer-Konstanten in der Balancing-Zentrale nachgewiesen.
+- Abschliessendes gradlew.bat check -q --no-daemon im Worktree: **Exit 0**, Ausgabe gelesen;
+  auch 26.2/shared kompiliert. Keine Dateien in mc1_21_11/mc26_4 geaendert.
+- Nicht verifiziert: kompletter Server-/Client-Suitenlauf, deutsche UI-Darstellung, echte JEI-Bedienung
+  und Rezeptbuch-Autofuellen im Besitzer-Modpack sowie Besitzerwelt. Keine Ports, kein Push/Merge.
+## Simple Money (Branch codex-port-money, 26.3)
+- Vollständiges Quellinventar: `docs/modules/simplemoney.md`. Original-IDs, Texturen und Configschlüssel erhalten; Fabric/NeoForge additiv unter `modules/simplemoney`.
+- Eigener Integrations-Testkatalog; NeoForge-Testwelt separat unter `integration/run-neoforge-263`. Keine Besitzerwelt verändert.
+- Forge 26.3 und 26.2/1.21.11/26.4 weiterhin separat nach Freigabe: Einstieg/Config/Loot/GUI/Testadapter portieren. Verifikationsergebnisse folgen unten.
+
+### Simple Money — abschließende Ergebnisse
+- Branch `codex-port-money`, keine Ports/kein Push/kein Merge. Quelle `a9c12a7` sauber und nur gelesen.
+- Vollport: sieben Original-Items/Texturen, acht Rezepte, 47 Angebote mit originalen gewichteten Pools, sieben Truhenbeuten, zwei serverseitige Configschalter. Zweisprachige Module-Wiki (57 Kapitel), Balance-Daten und vollständiger Manifestvertrag für alle bisherigen Einträge. Launch-Hub-Tests starten ausgewählte Modul-Kataloge separat.
+- Bestand/Integration **1555/1555 alles gruen** (`2026-09-30T13-22-27Z-8711`); finale Modsuite **20/20 alles gruen** (`2026-09-30T13-26-13Z-38db`); ausgeschaltete Handelsschalter **2/2 alles gruen** (`2026-09-30T13-16-41Z-43e8`). Testzentralen im Bestand neu gebaut und Item-/Blockabdeckung grün. Eigene Namespace-Abdeckung prüft alle Money-Items.
+- Fabric-Client-Smoke mit Titel/Welt, sieben Itembildern und Configseite **Exit 0**, Screenshots unter `docs/previews/simplemoney`; 35 Hub-Tests grün. Wiki erzeugt und --check aktuell; vollständiges `gradlew.bat --no-daemon check -q` **Exit 0**, Ausgabe gelesen (inklusive gemeinsamer 26.2-Kompilierung).
+- Ein früher Modlauf wurde durch eine zu früh geänderte Testconfig gestört; Originalconfigs wiederhergestellt und beide Loader stabil wiederholt. Quellenvergleich korrigierte drei Bibliothekar-Pools mit gleichnamigen lokalen Variablen; finale Modsuite prüft die richtigen Pools.
+- Offen: Besitzer-Abnahme, NeoForge-Client, echte alte Spielwelt und Besitzerwelt-Testzentrale. Forge 26.3 und 26.2/1.21.11/26.4 bleiben eigener freigegebener Port-Run; Details `docs/modules/simplemoney.md`.
+
+- Abschließender kombinierter Harness-/Modlauf nach Trennung der Fabric-Tasks: **21/21 alles gruen**, `2026-09-30T13-35-03Z-5946`. Eigene Berichte/Filter, gemeinsame Fabric-Instanz seriell. Danach vollständiges `gradlew.bat --no-daemon check -q` erneut **Exit 0**, Ausgabe gelesen.

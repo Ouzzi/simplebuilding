@@ -93,19 +93,21 @@ def check_index(html: str) -> list[str]:
     return problems
 
 
-def check_data(data: dict) -> list[str]:
+def check_data(data: dict, mid="simplebuilding") -> list[str]:
     problems = []
-    js = DATA_JS.read_text(encoding="utf-8") if DATA_JS.exists() else ""
-    if JS_MARKER not in js:
-        problems.append("wiki/data/simplebuilding.js fehlt oder setzt window.WIKI_DATA nicht")
+    js_path = WIKI / 'data' / (mid + '.js')
+    marker = JS_MARKER if mid == 'simplebuilding' else 'window.WIKI_MODULE_DATA[' + json.dumps(mid) + '] = '
+    js = js_path.read_text(encoding="utf-8") if js_path.exists() else ""
+    if marker not in js:
+        problems.append(f"wiki/data/{mid}.js fehlt oder setzt keine Mod-Daten")
     else:
-        body = js.split(JS_MARKER, 1)[1].rstrip().rstrip(";")
+        body = js.split(marker, 1)[1].rstrip().rstrip(";")
         try:
             if json.loads(body) != data:
-                problems.append("wiki/data/simplebuilding.js weicht von simplebuilding.json ab - "
+                problems.append(f"wiki/data/{mid}.js weicht von {mid}.json ab - "
                                 "python wiki/generate.py laufen lassen")
         except json.JSONDecodeError as error:
-            problems.append(f"wiki/data/simplebuilding.js ist nach der Markierung kein JSON: {error}")
+            problems.append(f"wiki/data/{mid}.js ist nach der Markierung kein JSON: {error}")
     for line in vanilla_lines(data):
         path = WIKI / VANILLA_RECIPES.format(line=line)
         text = path.read_text(encoding="utf-8") if path.is_file() else ""
@@ -135,12 +137,21 @@ def stage(out: Path, data: dict) -> None:
     # Eine neue index.html soll nie eine alte, zwischengespeicherte Datendatei bekommen.
     version = hashlib.sha256(DATA_JS.read_bytes()).hexdigest()[:12]
     html = html.replace(DATA_SCRIPT, f'src="data/simplebuilding.js?v={version}"')
-    (out / "index.html").write_text(html, encoding="utf-8", newline="\n")
-    shutil.copyfile(DATA_JS, out / "data" / "simplebuilding.js")
+    catalog = (WIKI / 'data/modules.js').read_text(encoding='utf-8')
+    catalog_version = hashlib.sha256(catalog.encode()).hexdigest()[:12]
+    html = html.replace('src="data/modules.js"', 'src="data/modules.js?v=' + catalog_version + '"')
+    loader_hash = hashlib.sha256((WIKI / 'assets/module-loader.js').read_bytes()).hexdigest()[:12]
+    html = html.replace('src="assets/module-loader.js"', 'src="assets/module-loader.js?v=' + loader_hash + '"')
+    (out / 'index.html').write_text(html, encoding='utf-8', newline='\n')
+    shutil.copyfile(WIKI / 'data/modules.js', out / 'data/modules.js')
+    (out / 'assets').mkdir(exist_ok=True)
+    shutil.copyfile(WIKI / 'assets/module-loader.js', out / 'assets/module-loader.js')
+    for module in site_modules():
+        shutil.copyfile(WIKI / 'data' / (module['id'] + '.js'), out / 'data' / (module['id'] + '.js'))
     for line in vanilla_lines(data):
         name = VANILLA_RECIPES.format(line=line)
         shutil.copyfile(WIKI / name, out / name)
-    refs = sorted(referenced_textures(data))
+    refs = sorted(set().union(*(referenced_textures(payload) for payload in site_payloads())))
     for ref in refs:
         target = out / ref
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -150,6 +161,14 @@ def stage(out: Path, data: dict) -> None:
     files = [p for p in out.rglob("*") if p.is_file()]
     total = sum(p.stat().st_size for p in files)
     print(f"{len(files)} Dateien, {total / 1048576:.1f} MB -> {out}")
+
+
+def site_modules():
+    return json.loads((REPO / 'modules/modules.json').read_text(encoding='utf-8'))['modules']
+
+
+def site_payloads():
+    return [json.loads((WIKI / 'data' / (module['id'] + '.json')).read_text(encoding='utf-8')) for module in site_modules()]
 
 
 def main() -> int:
@@ -164,6 +183,15 @@ def main() -> int:
         return 1
     data = json.loads(DATA_JSON.read_text(encoding="utf-8"))
     problems = check_index((WIKI / "index.html").read_text(encoding="utf-8")) + check_data(data)
+    try:
+        catalog = (WIKI / 'data/modules.js').read_text(encoding='utf-8')
+        if {e['id'] for e in json.loads(catalog.split(' = ', 1)[1].rstrip().rstrip(';'))} != {e['id'] for e in site_modules()}:
+            problems.append('Module catalog does not match manifest')
+        for module, payload in zip(site_modules(), site_payloads()):
+            if module['id'] != 'simplebuilding':
+                problems += [module['id'] + ': ' + problem for problem in check_data(payload, module['id'])]
+    except (OSError, ValueError, IndexError) as error:
+        problems.append('Missing/invalid module data: ' + str(error))
     if problems:
         prefix = "::error::" if os.environ.get("GITHUB_ACTIONS") == "true" else "FEHLER: "
         for problem in problems:
@@ -171,7 +199,7 @@ def main() -> int:
         print(f"{len(problems)} Problem(e): so ist das Wiki nicht statisch hostbar.")
         return 1
 
-    refs = referenced_textures(data)
+    refs = set().union(*(referenced_textures(payload) for payload in site_payloads()))
     orphans = sorted(p.relative_to(WIKI).as_posix() for p in TEXTURES.rglob("*.png")
                      if not p.relative_to(WIKI).as_posix().startswith(VANILLA_PREFIX)
                      and p.relative_to(WIKI).as_posix() not in refs)

@@ -1,0 +1,9 @@
+{
+  "features": [],
+  "notes": {
+    "__MODID__:token": {
+      "en": {"summary": "A plain integration token using the Vanilla paper model, without custom behavior or a creative tab."},
+      "de": {"summary": "Eine einfache Integrationstest-Marke mit Vanilla-Papiermodell, ohne eigenes Verhalten oder Kreativtab."}
+    }
+  }
+}

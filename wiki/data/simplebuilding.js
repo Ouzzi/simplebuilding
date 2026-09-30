@@ -9,9 +9,9 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py",
     "warning": "Generated file - do not edit by hand. Every section below is read out of the mod's own data files; edit the mod, then regenerate.",
     "itemProperties": {
-      "source": "src/main/generated/wiki/items.json",
+      "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 250,
+      "count": 239,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -399,7 +399,7 @@ window.WIKI_DATA = {
           "The basics: when you mine a block with the hammer in your main hand, the eight neighbouring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
           "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
           "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at.",
-          "Speed and cost: the pickaxe stays the main tool. A single block (sneaking, or when nothing around it qualifies) takes 1.2 times as long as with a pickaxe of the hammer's material. The area takes, per block, as long as the pickaxe one tier below (wood 2, stone 4, copper 5, iron 6, diamond 8, netherite 9, enderite 10, gold 12 - the next slower one; for gold that is enderite): an Enderite hammer breaking 9 blocks takes as long as a Netherite pickaxe mining those 9 one by one, a 5x5x2 takes 50 such blocks. Efficiency counts for the hammer as it counts for that pickaxe. Every block the hammer breaks costs 2 durability (a pickaxe: 1), one more for a block it is not the correct tool for; in exchange each hammer has four times the durability of its base value (Diamond 6244, Netherite 8124, Enderite 10000).",
+          "On 26.3, let x be one block with a same-tier pickaxe and the same Efficiency. A hammer swing costs 1.5x for its first block, +0.8x for each of blocks 2-9, and +0.7x per block from the tenth on: 1 block = 1.5x, 2 = 2.3x, 9 = 7.9x, 10 = 8.6x, 18 = 14.2x. Only blocks that actually qualify count; sneaking takes one block. Octant selections cost 2x per block without area discounts. Each block costs 2 durability, with one extra for an additional block with the wrong tool. Durability values stay unchanged. 26.2 retains its previous formula until the port run.",
           "Preview: before the swing you see every neighbouring block that will be taken with a black outline and a grey fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
           "Octant selection: with an Octant holding both corners in your off hand, a swing on a block inside its figure breaks the whole selection (every block of the figure the hammer may take, with the same Override rules). It costs the durability of mining each block and takes, per block, twice as long as the area action; the cracks run over the whole selection. Selections longer than 32 blocks on an edge or larger than 4096 positions are ignored (the hammer mines its normal area), and sneaking still mines a single block.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
@@ -427,7 +427,7 @@ window.WIKI_DATA = {
           "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
           "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
           "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab.",
-          "Tempo und Kosten: Die Spitzhacke bleibt das Hauptwerkzeug. Ein einzelner Block (beim Schleichen oder wenn ringsum nichts passt) dauert 1,2-mal so lange wie mit einer Spitzhacke aus dem Material des Hammers. Das Feld dauert je Block so lange wie mit der Spitzhacke eine Stufe darunter (Holz 2, Stein 4, Kupfer 5, Eisen 6, Diamant 8, Netherit 9, Enderit 10, Gold 12 - jeweils die nächst langsamere; für Gold ist das Enderit): Ein Enderit-Hammer, der 9 Blöcke bricht, braucht so lange wie eine Netherit-Spitzhacke für diese 9 nacheinander, ein 5x5x2 so lange wie 50 solcher Blöcke. Effizienz zählt für den Hammer wie für diese Spitzhacke. Jeder Block, den der Hammer bricht, kostet 2 Haltbarkeit (eine Spitzhacke: 1), einen mehr bei einem Block, für den er nicht das richtige Werkzeug ist; dafür haben die Hämmer einen mit 4 multiplizierten Haltbarkeits-Basiswert (z. B. Diamant 6244, Netherit 8124, Enderit 10000).",
+          "Auf 26.3 ist x die Zeit der gleichstufigen Spitzhacke mit derselben Effizienz. Ein Hammerschlag kostet fuer den ersten Block 1,5x, fuer Bloecke 2-9 je +0,8x und ab dem zehnten je +0,7x: 1 Block = 1,5x, 2 = 2,3x, 9 = 7,9x, 10 = 8,6x, 18 = 14,2x. Nur wirklich passende Bloecke zaehlen; Schleichen nimmt einen Block. Oktant-Auswahlen kosten ohne Flaechenrabatt 2x je Block. Haltbarkeit bleibt unveraendert: 2 je Block, bei einem zusaetzlichen Block mit falschem Werkzeug einen mehr. 26.2 behaelt bis zum Port-Run seine alte Formel.",
           "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
           "Oktant-Auswahl: Mit einem Oktanten mit beiden Ecken in der Nebenhand bricht ein Schlag auf einen Block in seiner Figur die ganze Auswahl (jeder Block der Figur, den der Hammer nehmen darf, nach denselben Override-Regeln). Das kostet die Haltbarkeit, als würde jeder Block einzeln abgebaut, und dauert je Block doppelt so lange wie das Feld; die Risse laufen über die ganze Auswahl. Auswahlen mit einer Kante über 32 Blöcke oder mehr als 4096 Plätzen zählen nicht (der Hammer baut sein normales Feld ab), und Schleichen baut weiter nur einen Block ab.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
@@ -756,7 +756,7 @@ window.WIKI_DATA = {
           "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
           "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
           "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-          "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+          "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
           "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
         ]
       }
@@ -3591,6 +3591,74 @@ window.WIKI_DATA = {
           "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt, der Stapelfaktor in der Titelzeile."
         ]
       }
+    },
+    {
+      "id": "end_signals",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+      ],
+      "related": [
+        "simplebuilding:nihilith_powder",
+        "simplebuilding:astralit_powder",
+        "simplebuilding:nihilith_switch",
+        "simplebuilding:astralit_switch",
+        "simplebuilding:nihilith_lamp",
+        "simplebuilding:astralit_lamp"
+      ],
+      "en": {
+        "title": "Isolated End Signals",
+        "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+        "details": [
+          "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+          "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+          "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+        ]
+      },
+      "de": {
+        "title": "Getrennte End-Signale",
+        "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+        "details": [
+          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+          "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+        ]
+      }
+    },
+    {
+      "id": "astral_vault",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/AstralVaultBlock.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AstralStorageMixin.java",
+        "common/src/shared/java/com/simplebuilding/util/AstralStorage.java",
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+      ],
+      "related": [
+        "simplebuilding:astral_vault"
+      ],
+      "en": {
+        "title": "Astral Vault",
+        "summary": "54 personal slots, including the 27 shared vanilla ender chest slots.",
+        "details": [
+          "Craft an ender chest with two Enderite Ingots and two Astralit Dust. Slots 1–27 directly use the vanilla personal ender inventory; slots 28–54 belong to that same player and are reachable through a vault. Ordinary ender chests still expose 27 slots.",
+          "The extra slots are saved in the personal ender inventory data with slot indices 27–53. Respawn uses the same ender inventory. Players and dimensions do not create shared public storage.",
+          "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault, not its personal contents; hoppers cannot access them.",
+          "server.features.astralVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astralgewölbe",
+        "summary": "54 persoenliche Plaetze, darunter die 27 geteilten Vanilla-Endertruhenplaetze.",
+        "details": [
+          "Rezept: Endertruhe mit zwei Enderitbarren und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
+          "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
+          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
+          "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
     }
   ],
   "items": [
@@ -3697,6 +3765,49 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/astral_purpur_block.png",
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_vault",
+      "name": {
+        "en_us": "Astral Vault",
+        "de_de": "Astralgewölbe"
+      },
+      "texture": "assets/textures/block/astral_vault.png",
+      "craftedBy": [
+        "simplebuilding:astral_vault"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_vault.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AstralVaultBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/AstralStorageMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/AstralStorage.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Astral Vault",
+          "summary": "54 personal slots, including the 27 shared vanilla ender chest slots.",
+          "details": [
+            "Craft an ender chest with two Enderite Ingots and two Astralit Dust. Slots 1–27 directly use the vanilla personal ender inventory; slots 28–54 belong to that same player and are reachable through a vault. Ordinary ender chests still expose 27 slots.",
+            "The extra slots are saved in the personal ender inventory data with slot indices 27–53. Respawn uses the same ender inventory. Players and dimensions do not create shared public storage.",
+            "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault, not its personal contents; hoppers cannot access them.",
+            "server.features.astralVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Astralgewölbe",
+          "summary": "54 persoenliche Plaetze, darunter die 27 geteilten Vanilla-Endertruhenplaetze.",
+          "details": [
+            "Rezept: Endertruhe mit zwei Enderitbarren und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
+            "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
+            "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
+            "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astralit_block",
@@ -3827,6 +3938,7 @@ window.WIKI_DATA = {
       "usedIn": [
         "simplebuilding:astral_end_stone",
         "simplebuilding:astral_purpur_block",
+        "simplebuilding:astral_vault",
         "simplebuilding:astralit_block",
         "simplebuilding:astralit_block_from_end_stone",
         "simplebuilding:astralit_brick_slab_from_end_stone_brick_slab",
@@ -3834,6 +3946,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_brick_wall_from_end_stone_brick_wall",
         "simplebuilding:astralit_bricks_from_end_stone_bricks",
         "simplebuilding:astralit_pillar_from_purpur_pillar",
+        "simplebuilding:astralit_powder",
         "simplebuilding:astralit_quartz_checker",
         "simplebuilding:ender_quartz",
         "simplebuilding:levitating_gravel",
@@ -3844,6 +3957,47 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_lamp",
+      "name": {
+        "en_us": "Astralit Signal Lamp",
+        "de_de": "Astralit-Signallampe"
+      },
+      "texture": "assets/textures/block/astralit_lamp.png",
+      "craftedBy": [
+        "simplebuilding:astralit_lamp"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astralit_ore",
@@ -3876,6 +4030,50 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/astralit_pillar.png",
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_powder",
+      "name": {
+        "en_us": "Astralit Signal Powder",
+        "de_de": "Astralit-Signalpulver"
+      },
+      "texture": "assets/textures/block/astralit_powder.png",
+      "craftedBy": [
+        "simplebuilding:astralit_powder"
+      ],
+      "usedIn": [
+        "simplebuilding:astralit_lamp",
+        "simplebuilding:astralit_switch"
+      ],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astralit_quartz_checker",
@@ -3919,6 +4117,47 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_switch",
+      "name": {
+        "en_us": "Astralit Signal Switch",
+        "de_de": "Astralit-Signalschalter"
+      },
+      "texture": "assets/textures/block/astralit_switch.png",
+      "craftedBy": [
+        "simplebuilding:astralit_switch"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:backpack",
@@ -4911,7 +5150,7 @@ window.WIKI_DATA = {
             "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -5957,7 +6196,7 @@ window.WIKI_DATA = {
             "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -7639,7 +7878,7 @@ window.WIKI_DATA = {
             "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -7897,6 +8136,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_ingot_from_scrap"
       ],
       "usedIn": [
+        "simplebuilding:astral_vault",
         "simplebuilding:enderite_axe_smithing",
         "simplebuilding:enderite_backpack_smithing",
         "simplebuilding:enderite_block",
@@ -9287,7 +9527,7 @@ window.WIKI_DATA = {
             "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -9571,32 +9811,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/guide_book.png",
       "craftedBy": [
-        "simplebuilding:guide_book",
-        "simplebuilding:guide_book_admin",
-        "simplebuilding:guide_book_building",
-        "simplebuilding:guide_book_combine",
-        "simplebuilding:guide_book_enchantments",
-        "simplebuilding:guide_book_end",
-        "simplebuilding:guide_book_gadgets",
-        "simplebuilding:guide_book_machines",
-        "simplebuilding:guide_book_storage",
-        "simplebuilding:guide_book_tools",
-        "simplebuilding:guide_book_trims",
-        "simplebuilding:guide_book_tweaks"
+        "simplebuilding:guide_book"
       ],
-      "usedIn": [
-        "simplebuilding:guide_book_admin",
-        "simplebuilding:guide_book_building",
-        "simplebuilding:guide_book_combine",
-        "simplebuilding:guide_book_enchantments",
-        "simplebuilding:guide_book_end",
-        "simplebuilding:guide_book_gadgets",
-        "simplebuilding:guide_book_machines",
-        "simplebuilding:guide_book_storage",
-        "simplebuilding:guide_book_tools",
-        "simplebuilding:guide_book_trims",
-        "simplebuilding:guide_book_tweaks"
-      ],
+      "usedIn": [],
       "trades": [],
       "properties": {
         "maxStackSize": 1
@@ -9606,25 +9823,25 @@ window.WIKI_DATA = {
           "summary": "On 26.3, two separate Mega Guides hold the Minecraft and SimpleBuilding shelves. Only the base guides are items; topic books are inserted content. Older lines retain their previous books until the port run.",
           "details": [
             "Craft the SimpleBuilding guide from a book and a crafting table, or the Minecraft guide from a book and a wooden pickaxe. Guides are never first-join gifts on 26.3, even with the old gift option enabled. No guide-book chest loot is registered; enchanted books with cover textures remain in loot.",
-            "Insert topics by crafting the guide with its matching key item. The guide is consumed and returned as one upgraded guide, preserving existing components and inserted chapters. Two guides from the same shelf can combine their inserted chapters; the two shelves cannot mix. Duplicate inserts do not craft.",
+            "Open the guide and click a locked topic tab. With its key item in your inventory, confirm the prompt inside the book to consume exactly one item and unlock the chapter. Without the item, the book names what is required. The server validates the reading session, held book, shelf, chapter and operator permissions. Creative players also consume one item. Repeated requests cannot consume another item for an unlocked chapter. Chapters cannot be extended or combined in the crafting grid. Existing chapter components and migrated legacy books remain valid.",
             "Inserted chapters persist in simplebuilding:guide_chapters and appear with miniature book textures and localized names in the tooltip. Old chapter IDs alias to the corresponding base guide; the data fixer preserves their chapter on world load, including same-version saves.",
-            "The screen shows only the opened guide shelf, with eight tabs on the right and at most four on the left (including Contents). Locked chapters are gray and name their unlock item. Server Admin requires operator permission level 2 to insert and read. Reading does not pause the game.",
-            "Upgrade recipes are displayed by JEI and the guide recipe cards. Optional building, storage and pad quests use chapter advancements on 26.3."
+            "The screen shows only the opened guide shelf, with eight tabs on the right and at most four on the left (including Contents). Locked chapters are gray and name their unlock item. Server Admin requires operator permission level 2 to unlock and read. Reading does not pause the game.",
+            "JEI displays normal base recipes and an information page explaining chapter unlocking. Topic cards name the required item. Optional building, storage and pad quests use chapter advancements awarded by the server on 26.3."
           ]
         },
         "de": {
           "summary": "Auf 26.3 enthalten zwei getrennte Mega-Handbuecher die Regale fuer Minecraft und SimpleBuilding. Nur die Basis-Handbuecher sind Items; Themenbuecher sind eingefuegte Inhalte. Aeltere Linien behalten ihre bisherigen Buecher bis zum Port-Run.",
           "details": [
             "Mod-Handbuch: Buch + Werkbank. Minecraft-Handbuch: Buch + Holzspitzhacke. Auf 26.3 gibt es kein Handbuch beim Erstbeitritt, auch bei eingeschaltetem altem Config-Schalter. Im Code ist kein Handbuch-Truhenloot registriert; verzauberte Buecher mit Cover-Texturen bleiben in der Beute.",
-            "Handbuch + Schluesselitem fuegt das Thema ein. Das Handbuch wird verbraucht und als ein verbessertes Buch mit allen bisherigen Komponenten und Kapiteln zurueckgegeben. Zwei Handbuecher desselben Regals vereinen ihre Inhalte; die Regale lassen sich nicht mischen. Doppelte Themen ergeben kein Rezept.",
+            "Oeffne das Handbuch und klicke einen gesperrten Themenreiter. Mit dem Schluesselitem im Inventar bestaetigst du im Buch: genau ein Item wird verbraucht und das Kapitel freigeschaltet. Ohne Item nennt das Buch den Bedarf. Der Server prueft Lesesitzung, gehaltenes Buch, Regal, Kapitel und OP-Rechte. Auch Kreativspieler verbrauchen ein Item. Wiederholte Anfragen verbrauchen nichts fuer bereits offene Kapitel. Erweiterung und Vereinigung im Handwerksraster entfallen. Vorhandene Kapitelkomponenten und migrierte alte Buecher bleiben gueltig.",
             "simplebuilding:guide_chapters speichert die Themen dauerhaft. Im Tooltip erscheinen kleine Buchtexturen und uebersetzte Namen. Alte Themen-IDs zeigen auf das Basisbuch; der Datenfixer erhaelt das Thema beim Laden, auch ohne Minecraft-Versionswechsel.",
-            "Der Bildschirm zeigt nur das geoeffnete Regal: acht Tabs rechts, hoechstens vier links inklusive Inhalt. Gesperrte Themen sind grau und nennen ihr Schluesselitem. Server-Admin erfordert Operatorstufe 2 zum Einfuegen und Lesen. Lesen pausiert das Spiel nicht.",
-            "JEI und Rezeptkarten zeigen die Upgrades. Optionale Bau-, Lager- und Pad-Quests verwenden auf 26.3 Kapitel-Erfolge."
+            "Der Bildschirm zeigt nur das geoeffnete Regal: acht Tabs rechts, hoechstens vier links inklusive Inhalt. Gesperrte Themen sind grau und nennen ihr Schluesselitem. Server-Admin erfordert Operatorstufe 2 zum Freischalten und Lesen. Lesen pausiert das Spiel nicht.",
+            "JEI zeigt die normalen Basisrezepte und eine Infoseite zum Freischalten im Buch. Themenkarten nennen das benoetigte Item. Optionale Bau-, Lager- und Pad-Quests verwenden auf 26.3 serverseitig verliehene Kapitel-Erfolge."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/recipe/GuideUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideUnlocks.java",
           "common/src/shared/java/com/simplebuilding/datafix/ModDataFixer.java",
           "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
           "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
@@ -9643,28 +9860,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/guide_book_vanilla_start.png",
       "craftedBy": [
-        "simplebuilding:guide_book_vanilla_caves",
-        "simplebuilding:guide_book_vanilla_end",
-        "simplebuilding:guide_book_vanilla_farming",
-        "simplebuilding:guide_book_vanilla_gear",
-        "simplebuilding:guide_book_vanilla_nether",
-        "simplebuilding:guide_book_vanilla_ocean",
-        "simplebuilding:guide_book_vanilla_overworld",
-        "simplebuilding:guide_book_vanilla_redstone",
-        "simplebuilding:guide_book_vanilla_start",
-        "simplebuilding:guide_book_vanilla_start_combine"
+        "simplebuilding:guide_book_vanilla_start"
       ],
-      "usedIn": [
-        "simplebuilding:guide_book_vanilla_caves",
-        "simplebuilding:guide_book_vanilla_end",
-        "simplebuilding:guide_book_vanilla_farming",
-        "simplebuilding:guide_book_vanilla_gear",
-        "simplebuilding:guide_book_vanilla_nether",
-        "simplebuilding:guide_book_vanilla_ocean",
-        "simplebuilding:guide_book_vanilla_overworld",
-        "simplebuilding:guide_book_vanilla_redstone",
-        "simplebuilding:guide_book_vanilla_start_combine"
-      ],
+      "usedIn": [],
       "trades": [],
       "properties": {
         "maxStackSize": 1
@@ -9674,25 +9872,25 @@ window.WIKI_DATA = {
           "summary": "On 26.3, two separate Mega Guides hold the Minecraft and SimpleBuilding shelves. Only the base guides are items; topic books are inserted content. Older lines retain their previous books until the port run.",
           "details": [
             "Craft the SimpleBuilding guide from a book and a crafting table, or the Minecraft guide from a book and a wooden pickaxe. Guides are never first-join gifts on 26.3, even with the old gift option enabled. No guide-book chest loot is registered; enchanted books with cover textures remain in loot.",
-            "Insert topics by crafting the guide with its matching key item. The guide is consumed and returned as one upgraded guide, preserving existing components and inserted chapters. Two guides from the same shelf can combine their inserted chapters; the two shelves cannot mix. Duplicate inserts do not craft.",
+            "Open the guide and click a locked topic tab. With its key item in your inventory, confirm the prompt inside the book to consume exactly one item and unlock the chapter. Without the item, the book names what is required. The server validates the reading session, held book, shelf, chapter and operator permissions. Creative players also consume one item. Repeated requests cannot consume another item for an unlocked chapter. Chapters cannot be extended or combined in the crafting grid. Existing chapter components and migrated legacy books remain valid.",
             "Inserted chapters persist in simplebuilding:guide_chapters and appear with miniature book textures and localized names in the tooltip. Old chapter IDs alias to the corresponding base guide; the data fixer preserves their chapter on world load, including same-version saves.",
-            "The screen shows only the opened guide shelf, with eight tabs on the right and at most four on the left (including Contents). Locked chapters are gray and name their unlock item. Server Admin requires operator permission level 2 to insert and read. Reading does not pause the game.",
-            "Upgrade recipes are displayed by JEI and the guide recipe cards. Optional building, storage and pad quests use chapter advancements on 26.3."
+            "The screen shows only the opened guide shelf, with eight tabs on the right and at most four on the left (including Contents). Locked chapters are gray and name their unlock item. Server Admin requires operator permission level 2 to unlock and read. Reading does not pause the game.",
+            "JEI displays normal base recipes and an information page explaining chapter unlocking. Topic cards name the required item. Optional building, storage and pad quests use chapter advancements awarded by the server on 26.3."
           ]
         },
         "de": {
           "summary": "Auf 26.3 enthalten zwei getrennte Mega-Handbuecher die Regale fuer Minecraft und SimpleBuilding. Nur die Basis-Handbuecher sind Items; Themenbuecher sind eingefuegte Inhalte. Aeltere Linien behalten ihre bisherigen Buecher bis zum Port-Run.",
           "details": [
             "Mod-Handbuch: Buch + Werkbank. Minecraft-Handbuch: Buch + Holzspitzhacke. Auf 26.3 gibt es kein Handbuch beim Erstbeitritt, auch bei eingeschaltetem altem Config-Schalter. Im Code ist kein Handbuch-Truhenloot registriert; verzauberte Buecher mit Cover-Texturen bleiben in der Beute.",
-            "Handbuch + Schluesselitem fuegt das Thema ein. Das Handbuch wird verbraucht und als ein verbessertes Buch mit allen bisherigen Komponenten und Kapiteln zurueckgegeben. Zwei Handbuecher desselben Regals vereinen ihre Inhalte; die Regale lassen sich nicht mischen. Doppelte Themen ergeben kein Rezept.",
+            "Oeffne das Handbuch und klicke einen gesperrten Themenreiter. Mit dem Schluesselitem im Inventar bestaetigst du im Buch: genau ein Item wird verbraucht und das Kapitel freigeschaltet. Ohne Item nennt das Buch den Bedarf. Der Server prueft Lesesitzung, gehaltenes Buch, Regal, Kapitel und OP-Rechte. Auch Kreativspieler verbrauchen ein Item. Wiederholte Anfragen verbrauchen nichts fuer bereits offene Kapitel. Erweiterung und Vereinigung im Handwerksraster entfallen. Vorhandene Kapitelkomponenten und migrierte alte Buecher bleiben gueltig.",
             "simplebuilding:guide_chapters speichert die Themen dauerhaft. Im Tooltip erscheinen kleine Buchtexturen und uebersetzte Namen. Alte Themen-IDs zeigen auf das Basisbuch; der Datenfixer erhaelt das Thema beim Laden, auch ohne Minecraft-Versionswechsel.",
-            "Der Bildschirm zeigt nur das geoeffnete Regal: acht Tabs rechts, hoechstens vier links inklusive Inhalt. Gesperrte Themen sind grau und nennen ihr Schluesselitem. Server-Admin erfordert Operatorstufe 2 zum Einfuegen und Lesen. Lesen pausiert das Spiel nicht.",
-            "JEI und Rezeptkarten zeigen die Upgrades. Optionale Bau-, Lager- und Pad-Quests verwenden auf 26.3 Kapitel-Erfolge."
+            "Der Bildschirm zeigt nur das geoeffnete Regal: acht Tabs rechts, hoechstens vier links inklusive Inhalt. Gesperrte Themen sind grau und nennen ihr Schluesselitem. Server-Admin erfordert Operatorstufe 2 zum Freischalten und Lesen. Lesen pausiert das Spiel nicht.",
+            "JEI zeigt die normalen Basisrezepte und eine Infoseite zum Freischalten im Buch. Themenkarten nennen das benoetigte Item. Optionale Bau-, Lager- und Pad-Quests verwenden auf 26.3 serverseitig verliehene Kapitel-Erfolge."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
-          "common/src/shared/java/com/simplebuilding/recipe/GuideUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideUnlocks.java",
           "common/src/shared/java/com/simplebuilding/datafix/ModDataFixer.java",
           "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
           "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
@@ -10215,7 +10413,7 @@ window.WIKI_DATA = {
             "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -11814,7 +12012,7 @@ window.WIKI_DATA = {
             "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -12838,6 +13036,47 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihilith_lamp",
+      "name": {
+        "en_us": "Nihilit Signal Lamp",
+        "de_de": "Nihilit-Signallampe"
+      },
+      "texture": "assets/textures/block/nihilith_lamp.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_lamp"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:nihilith_ore",
       "name": {
         "en_us": "Nihilit Ore",
@@ -12868,6 +13107,50 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/nihilith_pillar.png",
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_powder",
+      "name": {
+        "en_us": "Nihilit Signal Powder",
+        "de_de": "Nihilit-Signalpulver"
+      },
+      "texture": "assets/textures/block/nihilith_powder.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_powder"
+      ],
+      "usedIn": [
+        "simplebuilding:nihilith_lamp",
+        "simplebuilding:nihilith_switch"
+      ],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:nihilith_quartz_checker",
@@ -12931,6 +13214,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_brick_wall_from_end_stone_brick_wall",
         "simplebuilding:nihilith_bricks_from_end_stone_bricks",
         "simplebuilding:nihilith_pillar_from_purpur_pillar",
+        "simplebuilding:nihilith_powder",
         "simplebuilding:nihilith_quartz_checker",
         "simplebuilding:polished_nihilith_slab_from_purpur_slab",
         "simplebuilding:polished_nihilith_stairs_from_purpur_stairs",
@@ -12940,6 +13224,47 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_switch",
+      "name": {
+        "en_us": "Nihilit Signal Switch",
+        "de_de": "Nihilit-Signalschalter"
+      },
+      "texture": "assets/textures/block/nihilith_switch.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_switch"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:octant",
@@ -15389,9 +15714,7 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:stone_chisel"
       ],
-      "usedIn": [
-        "simplebuilding:guide_book_tools"
-      ],
+      "usedIn": [],
       "trades": [],
       "properties": {
         "cooldownTicks": 30,
@@ -16085,6 +16408,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_vault",
+      "name": {
+        "en_us": "Astral Vault",
+        "de_de": "Astralgewölbe"
+      },
+      "texture": "assets/textures/block/astral_vault.png",
+      "craftedBy": [
+        "simplebuilding:astral_vault"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_vault.png",
+      "lootTable": "simplebuilding:blocks/astral_vault",
+      "drops": [
+        "simplebuilding:astral_vault"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/AstralVaultBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/AstralStorageMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/AstralStorage.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Astral Vault",
+          "summary": "54 personal slots, including the 27 shared vanilla ender chest slots.",
+          "details": [
+            "Craft an ender chest with two Enderite Ingots and two Astralit Dust. Slots 1–27 directly use the vanilla personal ender inventory; slots 28–54 belong to that same player and are reachable through a vault. Ordinary ender chests still expose 27 slots.",
+            "The extra slots are saved in the personal ender inventory data with slot indices 27–53. Respawn uses the same ender inventory. Players and dimensions do not create shared public storage.",
+            "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault, not its personal contents; hoppers cannot access them.",
+            "server.features.astralVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Astralgewölbe",
+          "summary": "54 persoenliche Plaetze, darunter die 27 geteilten Vanilla-Endertruhenplaetze.",
+          "details": [
+            "Rezept: Endertruhe mit zwei Enderitbarren und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
+            "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
+            "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
+            "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:astralit_block",
       "name": {
         "en_us": "Block of Astralit",
@@ -16223,6 +16593,52 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astralit_lamp",
+      "name": {
+        "en_us": "Astralit Signal Lamp",
+        "de_de": "Astralit-Signallampe"
+      },
+      "texture": "assets/textures/block/astralit_lamp.png",
+      "craftedBy": [
+        "simplebuilding:astralit_lamp"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/astralit_lamp.png",
+      "lootTable": "simplebuilding:blocks/astralit_lamp",
+      "drops": [
+        "simplebuilding:astralit_lamp"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:astralit_ore",
       "name": {
         "en_us": "Astralit Ore",
@@ -16262,6 +16678,55 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_pillar"
       ],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_powder",
+      "name": {
+        "en_us": "Astralit Signal Powder",
+        "de_de": "Astralit-Signalpulver"
+      },
+      "texture": "assets/textures/block/astralit_powder.png",
+      "craftedBy": [
+        "simplebuilding:astralit_powder"
+      ],
+      "usedIn": [
+        "simplebuilding:astralit_lamp",
+        "simplebuilding:astralit_switch"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/astralit_powder.png",
+      "lootTable": "simplebuilding:blocks/astralit_powder",
+      "drops": [
+        "simplebuilding:astralit_powder"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astralit_quartz_checker",
@@ -16309,6 +16774,52 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_switch",
+      "name": {
+        "en_us": "Astralit Signal Switch",
+        "de_de": "Astralit-Signalschalter"
+      },
+      "texture": "assets/textures/block/astralit_switch.png",
+      "craftedBy": [
+        "simplebuilding:astralit_switch"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/astralit_switch.png",
+      "lootTable": "simplebuilding:blocks/astralit_switch",
+      "drops": [
+        "simplebuilding:astralit_switch"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:backpack",
@@ -18093,7 +18604,7 @@ window.WIKI_DATA = {
         "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:337",
         "cooldownTicks": 1,
         "vanillaCooldownTicks": 8,
-        "vanillaCooldownSource": "src/main/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
+        "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
       },
       "hasCustomBehaviour": true
     },
@@ -19940,7 +20451,7 @@ window.WIKI_DATA = {
         "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:332",
         "cooldownTicks": 2,
         "vanillaCooldownTicks": 8,
-        "vanillaCooldownSource": "src/main/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
+        "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
       },
       "hasCustomBehaviour": true
     },
@@ -20613,6 +21124,52 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihilith_lamp",
+      "name": {
+        "en_us": "Nihilit Signal Lamp",
+        "de_de": "Nihilit-Signallampe"
+      },
+      "texture": "assets/textures/block/nihilith_lamp.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_lamp"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/nihilith_lamp.png",
+      "lootTable": "simplebuilding:blocks/nihilith_lamp",
+      "drops": [
+        "simplebuilding:nihilith_lamp"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:nihilith_ore",
       "name": {
         "en_us": "Nihilit Ore",
@@ -20652,6 +21209,55 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_pillar"
       ],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_powder",
+      "name": {
+        "en_us": "Nihilit Signal Powder",
+        "de_de": "Nihilit-Signalpulver"
+      },
+      "texture": "assets/textures/block/nihilith_powder.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_powder"
+      ],
+      "usedIn": [
+        "simplebuilding:nihilith_lamp",
+        "simplebuilding:nihilith_switch"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/nihilith_powder.png",
+      "lootTable": "simplebuilding:blocks/nihilith_powder",
+      "drops": [
+        "simplebuilding:nihilith_powder"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:nihilith_quartz_checker",
@@ -20699,6 +21305,52 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_switch",
+      "name": {
+        "en_us": "Nihilit Signal Switch",
+        "de_de": "Nihilit-Signalschalter"
+      },
+      "texture": "assets/textures/block/nihilith_switch.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_switch"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/nihilith_switch.png",
+      "lootTable": "simplebuilding:blocks/nihilith_switch",
+      "drops": [
+        "simplebuilding:nihilith_switch"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:oxidized_copper_pressure_plate",
@@ -21984,7 +22636,7 @@ window.WIKI_DATA = {
         "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:334",
         "cooldownTicks": 4,
         "vanillaCooldownTicks": 8,
-        "vanillaCooldownSource": "src/main/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
+        "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
       },
       "hasCustomBehaviour": true
     },
@@ -23415,7 +24067,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:amethyst_lens",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/amethyst_lens.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/amethyst_lens.json",
       "ingredients": [
         "minecraft:amethyst_shard",
         "minecraft:iron_ingot",
@@ -23532,6 +24184,41 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:astral_vault",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_vault",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_vault.json",
+      "ingredients": [
+        "minecraft:ender_chest",
+        "simplebuilding:astralit_dust",
+        "simplebuilding:enderite_ingot"
+      ],
+      "pattern": [
+        " A ",
+        "NEN",
+        " A "
+      ],
+      "key": {
+        "A": [
+          "simplebuilding:astralit_dust"
+        ],
+        "N": [
+          "simplebuilding:enderite_ingot"
+        ],
+        "E": [
+          "minecraft:ender_chest"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -24225,6 +24912,32 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:astralit_lamp",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_lamp",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_lamp.json",
+      "ingredients": [
+        "minecraft:redstone_lamp",
+        "simplebuilding:astralit_powder"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:astralit_powder"
+        ],
+        [
+          "minecraft:redstone_lamp"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:astralit_pillar",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -24358,6 +25071,32 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:astralit_powder",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_powder",
+        "count": 4
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_powder.json",
+      "ingredients": [
+        "minecraft:redstone",
+        "simplebuilding:astralit_dust"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:astralit_dust"
+        ],
+        [
+          "minecraft:redstone"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:astralit_quartz_checker",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -24386,6 +25125,32 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:astralit_switch",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_switch",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_switch.json",
+      "ingredients": [
+        "minecraft:lever",
+        "simplebuilding:astralit_powder"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:astralit_powder"
+        ],
+        [
+          "minecraft:lever"
+        ]
+      ],
+      "lines": [
         "26.3"
       ]
     },
@@ -25979,7 +26744,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:echo_sounder",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/echo_sounder.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/echo_sounder.json",
       "ingredients": [
         "minecraft:recovery_compass",
         "simplebuilding:enderite_core",
@@ -28756,1879 +29521,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:guide_book_admin",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 1024
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_admin.json",
-      "ingredients": [
-        "minecraft:comparator",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:comparator"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Server Admin",
-        "de_de": "Server-Admin"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Server Admin",
-                "de_de": "Server-Admin"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:comparator"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:comparator"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:comparator",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:comparator",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 1024
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_admin",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_admin.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_building",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 8
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_building.json",
-      "ingredients": [
-        "minecraft:brick",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:brick"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Building",
-        "de_de": "Bauen"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Building",
-                "de_de": "Bauen"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:brick"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:brick"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:brick",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:brick",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 8
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_building",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_building.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_combine",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 0
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_combine.json",
-      "ingredients": [
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "simplebuilding:guide_book"
-        ]
-      ],
-      "guideCombine": true,
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_enchantments",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 4
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_enchantments.json",
-      "ingredients": [
-        "minecraft:lapis_lazuli",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:lapis_lazuli"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Enchantments",
-        "de_de": "Verzauberungen"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Enchantments",
-                "de_de": "Verzauberungen"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:lapis_lazuli"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:lapis_lazuli"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:lapis_lazuli",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:lapis_lazuli",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 4
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_enchantments",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_enchantments.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_end",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 64
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_end.json",
-      "ingredients": [
-        "minecraft:ender_pearl",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:ender_pearl"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "End & Enderite",
-        "de_de": "Ende & Enderit"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "End & Enderite",
-                "de_de": "Ende & Enderit"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:ender_pearl"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:ender_pearl"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:ender_pearl",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:ender_pearl",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 64
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_end",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_end.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_gadgets",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 256
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_gadgets.json",
-      "ingredients": [
-        "minecraft:copper_ingot",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:copper_ingot"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Gadgets",
-        "de_de": "Geräte"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Gadgets",
-                "de_de": "Geräte"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:copper_ingot"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:copper_ingot"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:copper_ingot",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:copper_ingot",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 256
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_gadgets",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_gadgets.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_machines",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 32
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_machines.json",
-      "ingredients": [
-        "minecraft:piston",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:piston"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Machines & Pistons",
-        "de_de": "Maschinen & Kolben"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Machines & Pistons",
-                "de_de": "Maschinen & Kolben"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:piston"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:piston"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:piston",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:piston",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 32
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_machines",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_machines.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_storage",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 16
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_storage.json",
-      "ingredients": [
-        "minecraft:chest",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:chest"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Storage",
-        "de_de": "Lagerung"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Storage",
-                "de_de": "Lagerung"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:chest"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:chest"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:chest",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:chest",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 16
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_storage",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_storage.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_tools",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 2
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_tools.json",
-      "ingredients": [
-        "simplebuilding:guide_book",
-        "simplebuilding:stone_chisel"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "simplebuilding:stone_chisel"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Tools & Upgrades",
-        "de_de": "Werkzeuge & Aufwertungen"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Tools & Upgrades",
-                "de_de": "Werkzeuge & Aufwertungen"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "simplebuilding:stone_chisel"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "simplebuilding:stone_chisel"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "simplebuilding:guide_book",
-                "simplebuilding:stone_chisel"
-              ],
-              "other": [
-                "minecraft:book",
-                "simplebuilding:guide_book",
-                "simplebuilding:stone_chisel"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 2
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_tools",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_tools.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_trims",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 512
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_trims.json",
-      "ingredients": [
-        "minecraft:amethyst_shard",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:amethyst_shard"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Trims & Radiance",
-        "de_de": "Besätze & Strahlkraft"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Trims & Radiance",
-                "de_de": "Besätze & Strahlkraft"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:amethyst_shard"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:amethyst_shard"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:amethyst_shard",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:amethyst_shard",
-                "minecraft:book",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 512
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_trims",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_trims.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_tweaks",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 128
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_tweaks.json",
-      "ingredients": [
-        "minecraft:stone_pressure_plate",
-        "simplebuilding:guide_book"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book"
-        ],
-        [
-          "minecraft:stone_pressure_plate"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Pads",
-        "de_de": "Pads"
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11",
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Pads",
-                "de_de": "Pads"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:stone_pressure_plate"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book"
-                ],
-                [
-                  "minecraft:stone_pressure_plate"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:stone_pressure_plate",
-                "simplebuilding:guide_book"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:stone_pressure_plate",
-                "simplebuilding:guide_book"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 128
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_tweaks",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book_tweaks.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_caves",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 8192
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_caves.json",
-      "ingredients": [
-        "minecraft:torch",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:torch"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Caves & Underground",
-        "de_de": "Höhlen & Untergrund"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Caves & Underground",
-                "de_de": "Höhlen & Untergrund"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:torch"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:torch"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:torch",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:torch",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 8192
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_caves",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_caves.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_end",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 65536
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_end.json",
-      "ingredients": [
-        "minecraft:ender_eye",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:ender_eye"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "The End",
-        "de_de": "Das Ende"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "The End",
-                "de_de": "Das Ende"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:ender_eye"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:ender_eye"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:ender_eye",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:ender_eye",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 65536
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_end",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_end.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_farming",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 524288
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_farming.json",
-      "ingredients": [
-        "minecraft:wheat_seeds",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:wheat_seeds"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Farming & Mobs",
-        "de_de": "Landwirtschaft & Tiere"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Farming & Mobs",
-                "de_de": "Landwirtschaft & Tiere"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:wheat_seeds"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:wheat_seeds"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:wheat_seeds",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:wheat_seeds",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 524288
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_farming",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_farming.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_gear",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 262144
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_gear.json",
-      "ingredients": [
-        "minecraft:stone_sword",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:stone_sword"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Tools, Armor & Weapons",
-        "de_de": "Werkzeuge, Rüstung & Waffen"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Tools, Armor & Weapons",
-                "de_de": "Werkzeuge, Rüstung & Waffen"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:stone_sword"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:stone_sword"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:stone_sword",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:stone_sword",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 262144
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_gear",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_gear.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_nether",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 32768
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_nether.json",
-      "ingredients": [
-        "minecraft:flint_and_steel",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:flint_and_steel"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "The Nether",
-        "de_de": "Der Nether"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "The Nether",
-                "de_de": "Der Nether"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:flint_and_steel"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:flint_and_steel"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:flint_and_steel",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:flint_and_steel",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 32768
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_nether",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_nether.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_ocean",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 16384
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_ocean.json",
-      "ingredients": [
-        "minecraft:oak_boat",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:oak_boat"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "The Ocean",
-        "de_de": "Der Ozean"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "The Ocean",
-                "de_de": "Der Ozean"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:oak_boat"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:oak_boat"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:oak_boat",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:oak_boat",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 16384
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_ocean",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_ocean.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_overworld",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 4096
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_overworld.json",
-      "ingredients": [
-        "minecraft:oak_sapling",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:oak_sapling"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "The Overworld",
-        "de_de": "Die Oberwelt"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "The Overworld",
-                "de_de": "Die Oberwelt"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:oak_sapling"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:oak_sapling"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:oak_sapling",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:oak_sapling",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 4096
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_overworld",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_overworld.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_redstone",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 131072
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_redstone.json",
-      "ingredients": [
-        "minecraft:redstone",
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "minecraft:redstone"
-        ]
-      ],
-      "guideChapter": {
-        "en_us": "Redstone",
-        "de_de": "Redstone"
-      },
-      "variants": [
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "guideChapter",
-              "this": {
-                "en_us": "Redstone",
-                "de_de": "Redstone"
-              },
-              "other": null
-            },
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:redstone"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:book",
-                  "simplebuilding:guide_book_vanilla_start"
-                ],
-                [
-                  "minecraft:redstone"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:redstone",
-                "simplebuilding:guide_book_vanilla_start"
-              ],
-              "other": [
-                "minecraft:book",
-                "minecraft:redstone",
-                "simplebuilding:guide_book_vanilla_start"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:guide_book_vanilla_start",
-                "count": 1,
-                "components": {
-                  "simplebuilding:guide_chapters": 131072
-                }
-              },
-              "other": {
-                "id": "simplebuilding:guide_book_vanilla_redstone",
-                "count": 1
-              }
-            },
-            {
-              "field": "type",
-              "this": "simplebuilding:guide_upgrade",
-              "other": "minecraft:crafting_shapeless"
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_redstone.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:guide_book_vanilla_start",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -30652,35 +29544,6 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:guide_book_vanilla_start_combine",
-      "type": "simplebuilding:guide_upgrade",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book_vanilla_start",
-        "count": 1,
-        "components": {
-          "simplebuilding:guide_chapters": 0
-        }
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/guide_book_vanilla_start_combine.json",
-      "ingredients": [
-        "simplebuilding:guide_book_vanilla_start"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ],
-        [
-          "simplebuilding:guide_book_vanilla_start"
-        ]
-      ],
-      "guideCombine": true,
-      "lines": [
         "26.3"
       ]
     },
@@ -32803,6 +31666,32 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:nihilith_lamp",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_lamp",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_lamp.json",
+      "ingredients": [
+        "minecraft:redstone_lamp",
+        "simplebuilding:nihilith_powder"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:nihilith_powder"
+        ],
+        [
+          "minecraft:redstone_lamp"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:nihilith_pillar",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -32936,6 +31825,32 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:nihilith_powder",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_powder",
+        "count": 4
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_powder.json",
+      "ingredients": [
+        "minecraft:redstone",
+        "simplebuilding:nihilith_shard"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:nihilith_shard"
+        ],
+        [
+          "minecraft:redstone"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:nihilith_quartz_checker",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -32964,6 +31879,32 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:nihilith_switch",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_switch",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_switch.json",
+      "ingredients": [
+        "minecraft:lever",
+        "simplebuilding:nihilith_powder"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:nihilith_powder"
+        ],
+        [
+          "minecraft:lever"
+        ]
+      ],
+      "lines": [
         "26.3"
       ]
     },
@@ -39470,6 +38411,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_block.json"
     },
     {
+      "id": "simplebuilding:blocks/astral_vault",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_vault"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astral_vault.json"
+    },
+    {
       "id": "simplebuilding:blocks/astralit_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -39550,6 +38509,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_bricks.json"
     },
     {
+      "id": "simplebuilding:blocks/astralit_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_lamp.json"
+    },
+    {
       "id": "simplebuilding:blocks/astralit_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -39583,6 +38560,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_pillar.json"
     },
     {
+      "id": "simplebuilding:blocks/astralit_powder",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_powder"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_powder.json"
+    },
+    {
       "id": "simplebuilding:blocks/astralit_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -39597,6 +38592,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_quartz_checker.json"
+    },
+    {
+      "id": "simplebuilding:blocks/astralit_switch",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_switch"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_switch.json"
     },
     {
       "id": "simplebuilding:blocks/backpack",
@@ -40719,6 +39732,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_bricks.json"
     },
     {
+      "id": "simplebuilding:blocks/nihilith_lamp",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_lamp"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_lamp.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihilith_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -40752,6 +39783,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_pillar.json"
     },
     {
+      "id": "simplebuilding:blocks/nihilith_powder",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_powder"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_powder.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihilith_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -40766,6 +39815,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_quartz_checker.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihilith_switch",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_switch"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_switch.json"
     },
     {
       "id": "simplebuilding:blocks/oxidized_copper_pressure_plate",
@@ -44665,7 +43732,7 @@ window.WIKI_DATA = {
             "Nicht mit Tunnelgräber kombinierbar: Aderabbau deklariert das Exklusiv-Set simplebuilding:exclusive_set/mining (enthält strip_miner und vein_miner); der Datentest der Mod prüft, dass Enchantment.areCompatible(vein_miner, strip_miner) false liefert.",
             "Löst nur aus, wenn beim Abbauen geschlichen wird; ohne Schleichen wird ganz normal nur der eine Block abgebaut.",
             "Das Werkzeug in der Haupthand muss den angeschlagenen Block regulär abbauen können (isCorrectToolForDrops), sonst passiert nichts.",
-            "Mit Spitzhacke zählen nur Blöcke aus dem Block-Tag simplebuilding:vein_miner_ores: #c:ores des Loaders (also jedes Mod-Erz nach Konvention), die Vanilla-Tags Kohle-, Eisen-, Kupfer-, Gold-, Redstone-, Lapislazuli-, Diamant- und Smaragderz, Netherquarzerz, Nethergolderz, Antiker Schutt und die Mod-Erze Nihilith- und Astralit-Erz; mit Axt nur Blöcke aus dem Stämme-Tag #minecraft:logs. Ein Datapack kann den Tag erweitern. Die Riss-Vorschau fragt genau dieselbe Liste (MiningUtils.isOre, die auch VeinMinerUsageEvent aufruft), es wird also nichts angezeigt, was der Server danach stehen lässt.",
+            "Mit Spitzhacke zählen nur Blöcke aus dem Block-Tag simplebuilding:vein_miner_ores: #c:ores des Loaders (also jedes Mod-Erz nach Konvention), die Vanilla-Tags Kohle-, Eisen-, Kupfer-, Gold-, Redstone-, Lapislazuli-, Diamant- und Smaragderz, Netherquarzerz, Nethergolderz, Antiker Schutt und die Mod-Erze Nihilit- und Astralit-Erz; mit Axt nur Blöcke aus dem Stämme-Tag #minecraft:logs. Ein Datapack kann den Tag erweitern. Die Riss-Vorschau fragt genau dieselbe Liste (MiningUtils.isOre, die auch VeinMinerUsageEvent aufruft), es wird also nichts angezeigt, was der Server danach stehen lässt.",
             "Zur Ader gehören nur Blöcke, die exakt derselbe Block wie der angeschlagene sind (Vergleich über getBlock()); Kohleerz und Tiefenschiefer-Kohleerz bilden deshalb getrennte Adern.",
             "Die Suche läuft über alle 26 Nachbarn eines Blocks, also auch diagonal, und arbeitet sich von dort per Breitensuche weiter.",
             "Blockbudget je Stufe, den angeschlagenen Block eingerechnet: I = 3, II = 6, III = 9, IV = 12, V = 18.",
@@ -45266,6 +44333,753 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/copper_chests.json"
+    },
+    {
+      "id": "simplebuilding:item/craftable",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:amethyst_lens",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_end_stone",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_purpur_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_brick_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_brick_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_brick_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_pillar",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:backpack",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:basic_upgrade_template",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:blackstone_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:blueprint",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:chiseled_astralit_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:chiseled_ender_quartz_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:chiseled_nihilith_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:chunk_loader",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:construction_light",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:copper_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:copper_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:copper_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:copper_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:copper_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cracked_diamond",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cracked_diamond_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:detector",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:diamond_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:diamond_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:diamond_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:diamond_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:diamond_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:echo_sounder",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:elytra_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:emitting_trim_template",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_brick_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_brick_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_brick_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_pillar",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_apple",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_axe",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_backpack",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_boots",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_bundle",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_carrot",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chestplate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chunk_loader",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_elytra_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_helmet",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_hoe",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_horse_armor",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_ingot",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_launchpad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_leggings",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_nautilus_armor",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_nugget",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_pickaxe",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_scrap",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_shovel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_shulker_box",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_spawn_teleporter",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_spear",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_sword",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_upgrade_template",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:fine_elytra_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:flypad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:glowing_trim_template",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:gold_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:gold_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:gold_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:gold_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:guide_book",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:guide_book_vanilla_start",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:infused_potion_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:iron_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:iron_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:iron_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:iron_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:lapis_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:launchpad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:layered_raw_enderite",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:leather_sheet",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:levitating_gravel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:levitating_sand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:magnet",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_apple",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_backpack",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_bundle",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_carrot",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_chunk_loader",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_elytra_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_launchpad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_nugget",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_shulker_box",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihil_end_stone",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihil_purpur_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_brick_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_brick_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_brick_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_pillar",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_black",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_blue",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_brown",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_cyan",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_gray",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_green",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_light_blue",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_light_gray",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_lime",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_magenta",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_orange",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_pink",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_purple",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_red",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_white",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:octant_yellow",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_astralit",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_astralit_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_astralit_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_astralit_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_end_stone",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_ender_quartz",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_ender_quartz_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_ender_quartz_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_ender_quartz_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_nihilith",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_nihilith_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_nihilith_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_nihilith_wall",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:potion_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:pulsating_trim_template",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:purpur_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:raw_enderite",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_backpack",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_blast_furnace",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_bundle",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_chest",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_elytra_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_flypad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_furnace",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_hopper",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_piston",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_potion_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_shulker_box",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_smoker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_sticky_piston",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:resin_quartz_checker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:rotator",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:spawn_teleporter",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:spawn_teleporter_tier_2",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:stellar_flypad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:stone_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:stone_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:suspended_gravel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:suspended_sand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:velocity_gauge",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:waxed_copper_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:waxed_exposed_copper_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:waxed_oxidized_copper_pressure_plate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:waxed_weathered_copper_pressure_plate",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/tags/item/craftable.json"
     },
     {
       "id": "simplebuilding:item/deep_pockets_enchantable",
@@ -47483,6 +47297,36 @@ window.WIKI_DATA = {
       "tooltipDe": "Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“ auch außerhalb von Entwicklungsumgebungen: die beste Stufe jedes verzauberbaren Gegenstands, vorverzaubert auf Höchststufe. Wirkt beim Neuaufbau der Kreativ-Tabs (spätestens nach erneutem Betreten). Standard: aus."
     },
     {
+      "name": "server.features.endSignals",
+      "shortName": "endSignals",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "End Signal Channels",
+      "labelDe": "End-Signalkanaele",
+      "tooltip": "Enable isolated End channels. Recipes update on datapack reload. Default: true.",
+      "tooltipDe": "End-Signalkanaele aktivieren. Rezepte nach Datenpaket-Neuladen. Standard: true."
+    },
+    {
+      "name": "server.features.astralVault",
+      "shortName": "astralVault",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Astral Vault",
+      "labelDe": "Astralgewölbe",
+      "tooltip": "Enable Astral Vault use. Disabling preserves contents. Recipes update on datapack reload. Default: true.",
+      "tooltipDe": "Astralgewoelbe aktivieren. Abschalten bewahrt den Inhalt. Rezepte nach Datenpaket-Neuladen. Standard: true."
+    },
+    {
       "name": "server.features.airJump",
       "shortName": "airJump",
       "type": "boolean",
@@ -48006,6 +47850,21 @@ window.WIKI_DATA = {
       "labelDe": "Enderit-Meißel: Abklingzeit (Ticks)",
       "tooltip": "Cooldown after each use of the enderite chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 5.",
       "tooltipDe": "Abklingzeit nach jeder Benutzung von Enderit-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 5."
+    },
+    {
+      "name": "server.machines.endSignalRange",
+      "shortName": "endSignalRange",
+      "type": "int",
+      "default": "15",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "End Signal Range (1–15)",
+      "labelDe": "End-Signalreichweite (1–15)",
+      "tooltip": "Maximum powder segments per channel, limited to 1-15. Default: 15.",
+      "tooltipDe": "Maximale Pulversegmente pro Kanal, begrenzt auf 1-15. Standard: 15."
     },
     {
       "name": "server.machines.reinforcedHopperSpeed",
@@ -64212,6 +64071,29 @@ window.WIKI_DATA = {
   },
   "advancements": [
     {
+      "id": "simplebuilding:astral_vault",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:astral_vault",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Astral Vault",
+        "de_de": "Astralgewölbe"
+      },
+      "description": {
+        "en_us": "Craft a vault: 27 shared slots and 27 extra personal slots.",
+        "de_de": "Stelle ein Gewölbe her: 27 geteilte und 27 zusaetzliche persoenliche Plaetze."
+      },
+      "criteria": [
+        {
+          "name": "astral_vault",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/astral_vault.json"
+    },
+    {
       "id": "simplebuilding:blueprint/carbon_copy",
       "parent": "simplebuilding:blueprint/copy_that",
       "icon": "minecraft:cartography_table",
@@ -64647,6 +64529,33 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/end/stardust.json"
+    },
+    {
+      "id": "simplebuilding:end_signals",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:nihilith_powder",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Private Signals",
+        "de_de": "Eigene Signale"
+      },
+      "description": {
+        "en_us": "Craft both powders; build separate switch-to-lamp channels.",
+        "de_de": "Stelle beide Pulver her; baue getrennte Schalter-Lampen-Kanaele."
+      },
+      "criteria": [
+        {
+          "name": "nihilith_powder",
+          "trigger": "minecraft:recipe_crafted"
+        },
+        {
+          "name": "astralit_powder",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/end_signals.json"
     },
     {
       "id": "simplebuilding:enderite/beyond_netherite",
@@ -65305,8 +65214,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65326,8 +65235,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65347,8 +65256,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65368,8 +65277,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65389,8 +65298,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65410,8 +65319,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65456,8 +65365,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65477,8 +65386,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65498,8 +65407,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65519,8 +65428,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65540,8 +65449,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65561,8 +65470,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65582,8 +65491,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65603,8 +65512,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65624,8 +65533,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65645,8 +65554,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65666,8 +65575,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -65687,8 +65596,8 @@ window.WIKI_DATA = {
       },
       "criteria": [
         {
-          "name": "crafted",
-          "trigger": "minecraft:recipe_crafted"
+          "name": "unlocked",
+          "trigger": "minecraft:impossible"
         }
       ],
       "needs": "any",
@@ -67497,8 +67406,8 @@ window.WIKI_DATA = {
             "de_de": "Ein Buch für Einsteiger"
           },
           "description": {
-            "en_us": "Book + crafting table: Mega Guide. Add matching items to unlock its topics.",
-            "de_de": "Buch + Werkbank: Mega-Handbuch. Weitere Gegenstaende schalten darin Themen frei."
+            "en_us": "Book + crafting table: Mega Guide. Open it, click a locked tab and confirm with the required item in your inventory.",
+            "de_de": "Buch + Werkbank: Mega-Handbuch. Öffne es, klicke einen gesperrten Reiter und bestätige mit dem benötigten Item im Inventar."
           },
           "dependencies": [
             "stage_1.welcome"
@@ -67584,8 +67493,8 @@ window.WIKI_DATA = {
             "de_de": "Stein-Vorschlaghammer"
           },
           "description": {
-            "en_us": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once. On 26.3, sneak without Constructor's Touch to remove one aimed corner at 1.5x speed: inner corner, straight stair, outer corner, slab.",
-            "de_de": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab. Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs eine Zielecke mit 1,5-fachem Tempo ab: Innenecke, gerade Treppe, Außenecke, Stufe."
+            "en_us": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once.",
+            "de_de": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab."
           },
           "dependencies": [
             "stage_1.iron"
@@ -68209,8 +68118,8 @@ window.WIKI_DATA = {
             "stage_2.done"
           ],
           "hint": {
-            "en_us": "Smith a heavy weighted pressure plate with an Iron Core in the template slot and a Trial Chamber mob head as the addition.",
-            "de_de": "Schmiede eine schwere Wägeplatte mit einem Eisenkern im Vorlagenfeld und einem Trial-Chamber-Mobkopf als Zusatz."
+            "en_us": "Smith a heavy weighted pressure plate with an Iron Core and any template.",
+            "de_de": "Schmiede eine schwere Wägeplatte mit einem Eisenkern und einer beliebigen Vorlage."
           }
         },
         {
@@ -68706,8 +68615,8 @@ window.WIKI_DATA = {
             "de_de": "Handbuch: Bauen"
           },
           "description": {
-            "en_us": "Guide + brick unlocks Building.",
-            "de_de": "Handbuch + Ziegel schaltet Bauen frei."
+            "en_us": "Open the guide, click Building and confirm to consume one brick.",
+            "de_de": "Öffne das Handbuch, klicke Bauen und bestätige zum Verbrauch eines Ziegels."
           },
           "dependencies": [
             "building.toolkit",
@@ -69134,8 +69043,8 @@ window.WIKI_DATA = {
             "de_de": "Handbuch: Lagerung"
           },
           "description": {
-            "en_us": "Everything about backpacks, bundles and quivers in one topic guide.",
-            "de_de": "Alles über Rucksäcke, Bündel und Köcher in einem Themen-Handbuch."
+            "en_us": "Open the guide, click Storage and confirm to consume one chest.",
+            "de_de": "Öffne das Handbuch, klicke Lager und bestätige zum Verbrauch einer Truhe."
           },
           "dependencies": [
             "stage_1.backpack",
@@ -69374,8 +69283,8 @@ window.WIKI_DATA = {
             "de_de": "Handbuch: Pads & Geräte"
           },
           "description": {
-            "en_us": "Every pad and gadget explained in one topic guide.",
-            "de_de": "Jedes Pad und jedes Gerät in einem Themen-Handbuch erklärt."
+            "en_us": "Open the guide, click Pads and confirm to consume one stone pressure plate.",
+            "de_de": "Öffne das Handbuch, klicke Pads und bestätige zum Verbrauch einer Steindruckplatte."
           },
           "dependencies": [
             "gadgets.intro",
@@ -69804,17 +69713,17 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 178,
-    "blocks": 147,
-    "recipes": 439,
-    "lootTables": 148,
+    "items": 185,
+    "blocks": 154,
+    "recipes": 426,
+    "lootTables": 155,
     "trades": 20,
     "enchantments": 19,
-    "tags": 41,
-    "config": 169,
+    "tags": 42,
+    "config": 172,
     "inWorld": 396,
-    "advancements": 121,
-    "features": 41,
+    "advancements": 123,
+    "features": 43,
     "undocumented": 0,
     "incompleteProse": 0
   },

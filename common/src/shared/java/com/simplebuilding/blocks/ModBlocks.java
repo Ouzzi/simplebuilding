@@ -26,6 +26,13 @@ import java.util.List;
 import java.util.function.Function;
 
 public class ModBlocks {
+    public static final Block NIHILITH_POWDER = McVersion.END_SYSTEMS ? registerBlock("nihilith_powder", s -> new EndSignalBlock(false, EndSignalBlock.Kind.POWDER, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
+    public static final Block NIHILITH_SWITCH = McVersion.END_SYSTEMS ? registerBlock("nihilith_switch", s -> new EndSignalBlock(false, EndSignalBlock.Kind.SWITCH, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
+    public static final Block NIHILITH_LAMP = McVersion.END_SYSTEMS ? registerBlock("nihilith_lamp", s -> new EndSignalBlock(false, EndSignalBlock.Kind.LAMP, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 12 : 0))) : null;
+    public static final Block ASTRALIT_POWDER = McVersion.END_SYSTEMS ? registerBlock("astralit_powder", s -> new EndSignalBlock(true, EndSignalBlock.Kind.POWDER, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
+    public static final Block ASTRALIT_SWITCH = McVersion.END_SYSTEMS ? registerBlock("astralit_switch", s -> new EndSignalBlock(true, EndSignalBlock.Kind.SWITCH, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
+    public static final Block ASTRALIT_LAMP = McVersion.END_SYSTEMS ? registerBlock("astralit_lamp", s -> new EndSignalBlock(true, EndSignalBlock.Kind.LAMP, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 12 : 0))) : null;
+    public static final Block ASTRAL_VAULT = McVersion.END_SYSTEMS ? registerBlock("astral_vault", Blocks.ENDER_CHEST, s -> new AstralVaultBlock(s.strength(50.0F, 1200.0F))) : null;
 
 
 

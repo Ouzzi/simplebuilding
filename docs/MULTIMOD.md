@@ -83,3 +83,117 @@ Module toggles apply to integration; SimpleBuilding remains the normal run's mai
 Root `check` includes that validator and integration compilation. Launch Hub tests exercise
 rejected selections, presets, safe scaffolding and dry-run argv. Keep loader metadata, manifest
 versions and registry coordinates synchronized, and add interaction tests when contracts grow.
+
+## Shared module data contract and wiki
+
+Every manifest entry (including SimpleBuilding) has `id`, `name`, `displayName`,
+`description`, `version`, `loaders` (fabric/neoforge/forge subset), `minecraft: "26.3"`,
+`requires`, `optional`, and `paths`: `root`, `shared`, `fabric`, `neoforge`, `forge`,
+`generated`, `lang`, `wikiManual`, `balanceDir`. Paths are repository-relative; unavailable
+loader paths are null. Keep existing fields. SimpleBuilding stays in its existing trees,
+including its existing `balance/` storage; additional modules use `balance/<id>/`.
+Planned ids: simplemoney, simplefun, simplequalityoflife, simpleriding, simplevisuals,
+simpledimensions, simplemodels (formerly renamed), simpletweaks (only unported features).
+Register a planned module when its projects exist, not as an empty Gradle project.
+
+Keep bilingual chapters/notes in `modules/<id>/wiki/manual.json` using the same schema as
+`wiki/manual.json`; language keys use the module namespace. Datagen belongs under the
+manifest's `generated` directory. Keep tunable values/loot/trades/recipes in data or named
+constants that balance extractors can read. No destructive migration of existing balance data.
+
+`python wiki/generate.py --all` generates every manifest module;
+`--module <id>` selects one; no selection preserves the SimpleBuilding default.
+`--all --check` checks JSON, JS, metadata and bilingual completeness for all modules.
+`wiki/modules.py` is the additional-module extraction interface; SimpleBuilding retains its
+specialized extractor and byte-compatible payload. Resource precedence for additional modules:
+generated, shared resources, then loader resources in manifest order (later recipe ids win;
+tags append unless replace=true). Keep common facts shared; export explicit loader differences
+as prose until separate per-loader views exist.
+
+Small modules may contain only manual/lang files. Item definitions, blockstates, language
+keys and literal Java Identifier registrations contribute inventory evidence. Dynamic registries
+must export `<generated>/wiki/items.json` as `{"items":[{"id":"mod:item",...}]}`; include
+`kind: "block"` for blocks. Do not rely on Java parsing for dynamic ids. Every discovered item,
+block and feature needs English/German prose; exact/namespaced/glob notes work. Complex trades,
+config, enchantments, advancements, quests, inWorld and obtain sections may be exported in
+`<generated>/wiki/data.json` using the corresponding generated wiki UI schema. This export
+must be produced from actual registries/data, never a second hand-maintained balance source.
+Absent sections are empty. Module textures are isolated under `assets/textures/<id>/`.
+
+Pure Python verification: `python -m unittest discover -s wiki/tests -v` (also in `check`).
+The wiki switcher persists `?mod=<id>` and guarded localStorage. Existing SimpleBuilding
+query/hash links remain valid. Cross-module chapter references use full registry ids in
+`related`, which become links when the target module documents the id.
+## Producer/consumer data contract
+
+Every entry, including SimpleBuilding, supplies id, name, displayName, description,
+version, loaders (fabric/neoforge/forge), minecraft (26.3), requires and optional arrays.
+Preserve projects and other existing fields. paths supplies repository-relative root,
+shared, fabric, neoforge, forge, generated, lang, wikiManual and balanceDir. Planned ids:
+simplemoney, simplefun, simplequalityoflife, simpleriding, simplevisuals, simpledimensions,
+simplemodels (formerly renamed, item/block model customization), simpletweaks (only
+features not already in SimpleBuilding). Do not register absent projects as buildable mods.
+
+Keep hand-written chapters at modules/<id>/wiki/manual.json (wiki/manual.json schema),
+localization in the module namespace and datagen output under its own generated path.
+Expose tuning as named Java constants or hand-written JSON. The Balancing-Zentrale
+reads manifest paths with isolated services and stores; see BALANCING-ZENTRALE.md for
+supported extractors and explicit gaps. Extra datagen tasks can be declared as datagenTask.
+Storage is balance/<id>/; SimpleBuilding retains balance/ as the non-destructive legacy
+exception until an explicit migration. Never copy its version sequence into a second
+writable store. checkBalance checks all manifest modules, including empty modules.
+## Forge 26.3 and producer data contract
+
+Forge loader projects from the manifest are discovered only with `-Pforge263=true`.
+The module scaffold includes `forge/` alongside Fabric/NeoForge, using ForgeGradle 7
+and Java 25. See `docs/FORGE-26.3.md` for run-toolchain requirements and validation.
+The existing Fabric integration harness and selections are unchanged; Forge integration
+runtime is deferred. A declared loader identifies a project, not a verified release.
+
+Every manifest entry provides id/name/displayName/description/version/loaders/minecraft,
+projects, paths and requires/optional lists. Paths name root, shared, fabric, neoforge,
+forge, generated, lang, wikiManual and balanceDir. Module producers keep hand-written
+chapters in `modules/<id>/wiki/manual.json` (the root manual schema), module-prefixed
+lang keys, generated resources under their own generated directory and tunable data or
+named constants readable by balance extractors. Loader conventions include
+`generated/resources`. Balance storage is `balance/<id>/`; SimpleBuilding keeps its
+existing `balance/` working without moving any history. Output directories need not
+exist before the first generated output. Consumer extraction/rendering is a separate
+infra task; the manifest paths are its contract.
+
+## Plugin-style test registration
+
+Adding a module touches only `modules/<id>/` and the manifest. `tools/newmod.py`
+creates the producer files, adds the manifest entry and automatically updates the
+integration selection (`integration/enabled-mods.json` is selection state).
+No module-specific blocks belong in the root build, integration build, runner,
+Launch Hub registry or shared client-test metadata.
+
+An optional `tests` object in each manifest entry declares:
+- `namespace`: the report/test id namespace (defaults to the module id).
+- `catalogues`: Fabric Java GameTest adapter source files. Class and annotated method
+  names form catalogue ids; multiple adapters are supported. Both loaders register
+  the same ids. Optional `mcLine` retains historical result grouping.
+- `loaders`: each loader declares `task`, repository-relative `report`, and optional
+  `gradleArgs`. Target ids are `module-<id>-<loader>-263`. Fabric tasks belong to
+  `:integration`; their run configurations are created from the declared task names.
+  NeoForge adapters and runs live in the module. Forge remains explicitly opt-in.
+- `requires` and `devMods`: ids required in the integration selection for the suite.
+- Optional `client`: `entrypoints`, `sources`, `screenshots`, and
+  `task: ":integration:runClientGameTest"`. Sources live in `modules/<id>/clienttest/java`.
+  Target `module-<id>-client-263` sets `-PmoduleClientTest=<id>`; only that module's
+  entrypoints enter the generated build resource. Without a selector, the shared
+  smoke task runs all declared client entrypoints. This resource is never shipped.
+
+`checks` lists module-owned Python data scripts, executed by root `checkModuleData`.
+The scaffold provides Fabric/NeoForge token registration tests, a Fabric client
+smoke, empty structure and bilingual data hook. Extend these when replacing the token.
+Loader metadata retains the server GameTest entrypoint. Generated resources are
+already included by loader conventions; do not add them twice.
+
+Launch Hub derives module test targets from `tests.loaders` and queues selected
+suites after `integration-263`. `launch_targets.json` contains base launch lines,
+without a second module registration. Reports and client screenshot expectations
+remain isolated per target. Fabric run tasks form a `mustRunAfter` chain, as do
+NeoForge module tasks, preventing simultaneous use of each shared integration
+test directory even under `--parallel`.

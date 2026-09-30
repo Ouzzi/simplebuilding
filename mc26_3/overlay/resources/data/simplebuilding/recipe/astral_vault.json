@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " A ",
+    "NEN",
+    " A "
+  ],
+  "key": {
+    "A": "simplebuilding:astralit_dust",
+    "N": "simplebuilding:enderite_ingot",
+    "E": "minecraft:ender_chest"
+  },
+  "result": {
+    "id": "simplebuilding:astral_vault",
+    "count": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "simplebuilding:astralit_dust",
+    "minecraft:redstone"
+  ],
+  "result": {
+    "id": "simplebuilding:astralit_powder",
+    "count": 4
+  }
+}

@@ -345,6 +345,19 @@ public final class GuideContent {
                 ch("minecraft:iron_block", List.of(), List.of("minecraft:iron_block", "minecraft:carved_pumpkin", "minecraft:snow_block", "minecraft:copper_block")))));
     }
 
+    static {
+        if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
+            for (GuideBooks.Book book : List.of(GuideBooks.Book.STORAGE, GuideBooks.Book.END)) {
+                BookStyle old = STYLES.get(book);
+                var chapters = new ArrayList<>(old.chapters());
+                chapters.add(book == GuideBooks.Book.STORAGE
+                        ? ch("simplebuilding:astral_vault", List.of("simplebuilding:astral_vault"), List.of("minecraft:ender_chest"))
+                        : ch("simplebuilding:nihilith_powder", List.of("simplebuilding:nihilith_powder", "simplebuilding:astralit_powder", "simplebuilding:nihilith_switch", "simplebuilding:astralit_switch", "simplebuilding:nihilith_lamp", "simplebuilding:astralit_lamp"), List.of()));
+                STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
+            }
+        }
+    }
+
     public static BookStyle style(GuideBooks.Book book) {
         return STYLES.get(book);
     }

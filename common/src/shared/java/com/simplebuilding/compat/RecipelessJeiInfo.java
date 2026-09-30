@@ -36,4 +36,14 @@ public final class RecipelessJeiInfo {
         map.put("enchanted_enderite_apple", List.of(ModItems.ENCHANTED_ENDERITE_APPLE));
         return map;
     }
+
+    /** Usage hints for craftable items, separate from the recipeless coverage contract. */
+    public static Map<String, List<ItemLike>> supplementalPages() {
+        Map<String, List<ItemLike>> map = new LinkedHashMap<>();
+        if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
+            map.put("end_signals", List.of(ModItems.NIHILITH_POWDER, ModItems.ASTRALIT_POWDER, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));
+            map.put("astral_vault", List.of(ModItems.ASTRAL_VAULT));
+        }
+        return map;
+    }
 }

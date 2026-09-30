@@ -241,3 +241,37 @@ Verlauf im Detail: git log.
 
 ## Simple Riding 26.3 (Codex)
 - [x] Port des read-only Quellrepos 1.0.5 auf 26.3: Fabric/NeoForge, eigener Integrationskatalog, Client-Smoke, Wiki/Balancedaten, Launch-Hub-Testanbindung. Details: docs/modules/simpleriding.md; kein Push/Merge. Forge und andere Linien erst im eigenen Release-Port.
+## Welle 25 (Besitzer 2026-09-30): Multi-Mod, Fehler, Forge 26.3 - alles mit Codex-CLI, Hauptlinie 26.3
+Regel: erst 26.3 (Fabric + NeoForge, dazu Forge 26.3) komplett und gruen, alle parallelen Laeufe fertig; 1.21.11/26.2/26.4 erst, wenn der Besitzer das Release ankuendigt.
+Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad codex/; Start: `codex exec --dangerously-bypass-approvals-and-sandbox -C <worktree> -o <out> - < <brief>`):
+- [ ] codex-kk2: Enderit-Redstone (zwei Pulver), Astral Vault (Enderit-Endertruhe)
+- [ ] codex-bugs: Hammer-Tempo (1,5x / +0,8x / +0,7x), Buch-Rezept, Buch-Erweiterung per Klick auf den Tab (Item wird verbraucht), Rezept verstaerktes Buendel
+- [ ] codex-infra-w: Wiki mit Mod-Umschalter fuer alle Module; codex-infra-b: Balancing-Zentrale je Mod; codex-infra-f: Forge 26.3
+- [ ] Ports als Module (jeweils ein Lauf, Brief brief-port-<kuerzel>.md, erzeugt mit scratchpad codex/mkports.py): money, riding (laufen), danach qol, visuals, models (aus `renamed`, Anzeigename Simple Models), dimensions, tweaks (nur Nicht-Portiertes), fun (gross)
+- [ ] danach: Forge 26.3 fuer alle Module, alle Module im Wiki und in der Zentrale, Integrationstests ueber alle Module, Gesamtgate
+
+## Codex KK2 (26.3)
+- [x] Enderit-Signalpulver und Astralgewölbe: Implementierung und gefilterte Verifikation auf codex-kk2; kein Push/Merge.
+- [ ] Besitzer-Abnahme: 26.3-Signalkanaele und Astralgewoelbe im Client; Testzentrale in Besitzerwelt neu bauen.
+## INFRA-W (26.3, Codex)
+- [x] Manifest-driven wiki generation, mod switcher, per-module completeness and static hosting. check green; visual browser review pending (no browser surface available).
+## INFRA-B: Multimod-Balancing (2026-09-30)
+- [x] Manifest, isolierte Ablagen/Leser, Mod-Auswahl, Tests und Dokumentation; 1554/1554 Server und check gruen.
+- [ ] Desktop-/Handy-Sichtpruefung: Browser-Werkzeug meldet keine verfuegbare Oberflaeche.
+## INFRA-F Forge 26.3 (2026-09-30)
+- [x] Official Forge 26.3-66.0.8 / MDK verified; opt-in 26.3 overlay, loader hooks, server 778/778 green, Hub and module scaffolding; no push/merge.
+- [ ] Owner acceptance: actual Forge client display, config persistence/optional integrations, eventual default enablement.
+
+## FIX16 (26.3, Codex)
+- [x] KK2-Integritaetsfehler korrigiert; komplette 26.3-Server-Suite 1562/1562 gruen; Abschlussgate siehe HANDOFF.
+## Vier Fehlerkorrekturen (26.3, codex-bugs)
+- [x] Hammer: 1,5 + 0,8 fuer Bloecke 2-9 + 0,7 ab Block 10; Oktant 2 je Block.
+- [x] Basis-Handbuecher im Rezeptbuch; Kapitel im Buch serverseitig freischalten statt Werkbank.
+- [x] Verstaerktes Buendel: Rezept/Datagen/Abdeckung sichern.
+- Verifiziert: 178/178 gefilterte Serverpruefungen, beide gezielten Clientablaeufe, Testzentralen neu gebaut, check gruen. Kein Push/Merge.
+## Simple Money (26.3, Codex)
+- [x] Vollport als eigenes Modul: sieben Items, acht Rezepte, 47 Handelsangebote, sieben Beutetypen; eigene Integrationstests, Wiki und Balancevertrag. Bestand/Integration 1555/1555, Modsuite 20/20, Config-Gegenprobe 2/2 grün; Fabric-Client-Smoke und check Exit 0, 35 Hub-Tests grün.
+- [ ] Besitzer-Abnahme von Simple Money; NeoForge-Client/alte Spielwelt noch prüfen. Forge 26.3 und andere Linien später im Port-Run.
+
+- [ ] MERGE-RIDING: master integrieren; Modulregistrierung aus Manifest entdecken,
+  beide Modulkataloge/Client-Smokes erhalten, neue Ports ohne gemeinsame Wiring-Bloecke.

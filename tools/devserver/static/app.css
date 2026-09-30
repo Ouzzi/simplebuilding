@@ -326,3 +326,12 @@ details.tchanges[open] { background: var(--panel-2); border: 1px solid var(--bor
 .tchg-table td, .tchg-table th { font-size: .8rem; }
 .tstrat { height: 28px; border: 1px solid var(--border); border-radius: 6px; background: var(--panel); color: var(--text); max-width: 100%; }
 .tstrat-l { display: inline-flex; gap: .4rem; align-items: center; flex-wrap: wrap; }
+
+#mod-switcher { min-width: 0; max-width: 180px; padding: .35rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); font: inherit; }
+@media (max-width: 560px) {
+  :root { --topbar-h: 98px; }
+  .topbar { flex-wrap: wrap; gap: .4rem; padding: .4rem .6rem; }
+  #mod-switcher { flex: 1; max-width: none; }
+  .topbar .search { order: 5; flex-basis: 100%; }
+  .brand { display: none; }
+}

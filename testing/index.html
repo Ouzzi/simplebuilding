@@ -203,10 +203,11 @@ pre.tail { background: var(--code-bg); border: 1px solid var(--border); border-r
     { id: 'fabric-262', label: 'Fabric – MC 26.2', line: '26.2' },
     { id: 'neoforge-262', label: 'NeoForge – MC 26.2', line: '26.2' },
     { id: 'fabric-12111', label: 'Fabric – MC 1.21.11', line: '1.21.11' },
-    { id: 'neoforge-12111', label: 'NeoForge – MC 1.21.11', line: '1.21.11' }
+    { id: 'neoforge-12111', label: 'NeoForge – MC 1.21.11', line: '1.21.11' },
+    { id: 'forge-263', label: 'Forge - MC 26.3 (opt in)', line: '26.3', optIn: true }
   ];
 
-  var selection = { targets: TARGETS.map(function (t) { return t.id; }), filter: '' };
+  var selection = { targets: TARGETS.filter(function (t) { return !t.optIn; }).map(function (t) { return t.id; }), filter: '' };
   var status = null;
   var poll = null;
 

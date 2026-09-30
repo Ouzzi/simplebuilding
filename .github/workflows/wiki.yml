@@ -36,14 +36,14 @@ jobs:
       # Dasselbe Gate wie 'gradlew checkWiki': wiki/data entspricht dem, was die committeten
       # Datagen-Ausgaben, Ressourcen, die Config-Klasse und manual.json ergeben; jedes Item mit
       # eigenem Verhalten und jedes Feature hat Prosa auf Englisch und Deutsch.
-      - name: python wiki/generate.py --check
-        run: python wiki/generate.py --check
+      - name: python wiki/generate.py --all --check
+        run: python wiki/generate.py --all --check
 
       # Was --check nicht vergleicht: die .js, die die Seite tatsaechlich laedt, und die
       # Texturkopien unter wiki/assets (die --check nebenbei neu schreibt).
       - name: Neu erzeugen aendert nichts
         run: |
-          python wiki/generate.py > /dev/null
+          python wiki/generate.py --all > /dev/null
           if ! git diff --quiet -- wiki; then
             git diff --stat -- wiki
             echo "::error::wiki/ aendert sich beim Neuerzeugen - 'python wiki/generate.py' laufen lassen und wiki/ committen"

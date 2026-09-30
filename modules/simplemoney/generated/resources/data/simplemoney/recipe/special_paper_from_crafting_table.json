@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#M#"
+  ],
+  "key": {
+    "#": "minecraft:paper",
+    "M": "minecraft:honeycomb"
+  },
+  "result": {
+    "id": "simplemoney:special_paper",
+    "count": 1
+  }
+}

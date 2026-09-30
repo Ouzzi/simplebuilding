@@ -42,6 +42,23 @@ def default_steps(repo: Path, include_264: bool = False) -> list[dict]:
     return steps
 
 
+def module_steps(repo, module):
+    """Main-line only; never launch a deferred port from the module UI."""
+    gradle = str(repo / ('gradlew.bat' if os.name == 'nt' else 'gradlew'))
+    if module['id'] == 'simplebuilding':
+        return [{'key': '26.3', 'label': 'Datagen 26.3', 'cmd':
+                 [gradle, ':mc26_3:fabric:runDatagen', '--console=plain']},
+                {'key': 'wiki', 'label': 'Wiki', 'cmd': [sys.executable, 'wiki/generate.py']}]
+    # Scaffold projects have no datagen task. Producers opt in with an explicit task.
+    task = module.get('datagenTask')
+    if not task:
+        raise ValueError('Dieses Modul hat noch keinen datagenTask im Manifest.')
+    import re
+    if not re.fullmatch(r'(?::[a-zA-Z][a-zA-Z0-9_]*)+', task):
+        raise ValueError('Ungueltiger datagenTask')
+    return [{'key': module['id'], 'label': 'Datagen 26.3', 'cmd': [gradle, task, '--console=plain']}]
+
+
 def running_dev_games(repo: Path | None = None) -> list[str]:
     """Kommandozeilen laufender Dev-Clients/-Server dieses Checkouts (nur Bordmittel, im Zweifel leer).
     Spiele aus anderen Checkouts (Haupt-Repo, andere Worktrees) stoeren nicht und zaehlen nicht."""

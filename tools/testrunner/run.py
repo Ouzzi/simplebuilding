@@ -281,25 +281,43 @@ SNAPSHOT_TARGETS: tuple[Target, ...] = (
 INTEGRATION_TARGETS = (Target(
     id="integration-263", label="Integration Fabric - MC 26.3", loader="fabric",
     mc_line="integration-26.3", gradle_task=":integration:runIntegrationGameTest",
-    report="integration/build/junit.xml",
+    report="integration/build/junit.xml", namespace="sbintegration",
     catalogue="integration/src/main/java/com/simplebuilding/integration/CrossModGameTest.java",
-), Target(
-    id="module-simpleriding-fabric-263", label="Simple Riding integration Fabric - MC 26.3", loader="fabric",
-    mc_line="simpleriding-26.3", gradle_task=":integration:runRidingGameTest",
-    report="integration/build/riding-junit.xml", catalogue="modules/simpleriding/fabric/src/main/java/com/simplebuilding/modules/simpleriding/RidingGameTest.java",
-    namespace="simpleriding",
-), Target(
-    id="module-simpleriding-neoforge-263", label="Simple Riding integration NeoForge - MC 26.3", loader="neoforge",
-    mc_line="simpleriding-26.3", gradle_task=":modules:simpleriding:neoforge:runRidingIntegrationGameTest",
-    report="modules/simpleriding/neoforge/build/riding-junit.xml", catalogue="modules/simpleriding/fabric/src/main/java/com/simplebuilding/modules/simpleriding/RidingGameTest.java",
-    namespace="simpleriding",
-), Target(
-    id="module-simpleriding-client-263", label="Simple Riding integration client - MC 26.3", loader="fabric",
-    mc_line="simpleriding-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="", kind="client",
-    sources="integration/src/gametest/java/com/simplebuilding/integration", screenshots="integration/run-fabric-263/screenshots",
-    namespace="simpleriding",
-))
-ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS
+),)
+
+
+def module_targets(root=REPO):
+    """Discover opt-in module suites from the producer-owned manifest contract."""
+    result = []
+    for module in json.loads((root / "modules/modules.json").read_text(encoding="utf-8"))["modules"]:
+        tests = module.get("tests")
+        if not tests:
+            continue
+        common = dict(mc_line=tests.get("mcLine", f"module-{module['id']}-263"),
+                      namespace=tests.get("namespace", module["id"]))
+        for loader, spec in tests.get("loaders", {}).items():
+            result.append(Target(id=f"module-{module['id']}-{loader}-263",
+                label=f"{module['displayName']} {loader} integration", loader=loader,
+                gradle_task=spec["task"], report=spec["report"],
+                catalogue=tests["catalogues"][0], gradle_args=tuple(spec.get("gradleArgs", [])), **common))
+        client = tests.get("client")
+        if client:
+            result.append(Target(id=f"module-{module['id']}-client-263",
+                label=f"{module['displayName']} client smoke", loader="fabric", kind="client",
+                gradle_task=client["task"], report="", catalogue="", sources=client["sources"],
+                screenshots=client["screenshots"], gradle_args=(f"-PmoduleClientTest={module['id']}",), **common))
+    return tuple(result)
+
+
+MODULE_TARGETS = module_targets()
+# Forge 26.3 is opt in while stabilizing; existing default/release selections are unchanged.
+FORGE263_TARGETS = (Target(
+    id="forge-263", label="Forge - MC 26.3", loader="forge", mc_line="26.3",
+    gradle_task=":mc26_3:forge:runGameTestServer", report="mc26_3/forge/build/forge-junit.xml",
+    catalogue="common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
+    gradle_args=("-Pforge263=true",) + FORGE_GRADLE_ARGS,
+),)
+ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS + MODULE_TARGETS + FORGE263_TARGETS
 
 BY_ID = {t.id: t for t in ALL_TARGETS}
 
@@ -429,10 +447,20 @@ def read_catalogue() -> dict[str, list[dict]]:
                 integration.append({"id": f"sbintegration:{snake(cls[1])}_{snake(method)}",
                                     "testClass": cls[1], "method": method})
     out["integration-26.3"] = integration
-    path = REPO / "modules/simpleriding/fabric/src/main/java/com/simplebuilding/modules/simpleriding/RidingGameTest.java"
-    source = path.read_text(encoding="utf-8")
-    out["simpleriding-26.3"] = [{"id": f"simpleriding:riding_game_test_{snake(method)}", "testClass": "RidingGameTest", "method": method}
-        for method in re.findall(r"@GameTest(?:\([^)]*\))?\s+public void (\w+)\(GameTestHelper", source)]
+    for module in json.loads((REPO / "modules/modules.json").read_text(encoding="utf-8"))["modules"]:
+        tests = module.get("tests")
+        if not tests:
+            continue
+        entries = []
+        for catalogue in tests["catalogues"]:
+            source = (REPO / catalogue).read_text(encoding="utf-8")
+            cls = re.search(r"public (?:final )?class (\w+)", source)
+            if not cls:
+                raise ValueError(f"Missing test class in {catalogue}")
+            for method in re.findall(r"@GameTest(?:\([^)]*\))?\s+public void (\w+)\(GameTestHelper", source):
+                entries.append({"id": f"{tests.get('namespace', module['id'])}:{snake(cls[1])}_{snake(method)}",
+                                "testClass": cls[1], "method": method})
+        out[tests.get("mcLine", f"module-{module['id']}-263")] = entries
     return out
 
 
@@ -542,6 +570,8 @@ SHARED_CLIENT_SOURCES = {
 
 #: Screenshots a line's shared client tests skip on purpose (ClientTestVersion flags).
 SKIPPED_SHOTS = {
+    # The mega-guide screen is a 26.3 feature, pending the separate port run.
+    "26.2": {"mega-guide-confirm", "mega-guide-unlocked"},
     # No Cloth Config for 26.4 yet: the config screen is hidden and not tested there.
     "26.4-snapshot": {"screen-h-mod-config"},
 }
@@ -562,17 +592,33 @@ def expected_shots(target: Target) -> list[str]:
     if shared:
         directories.append(REPO / shared)
 
+    selected = {name.strip() for name in os.environ.get("SIMPLEBUILDING_CLIENT_ONLY", "").split(",") if name.strip()}
+    selected_classes = None
+    if selected:
+        entries = {}
+        for directory in directories:
+            catalogue = directory / "ClientTests.java"
+            if catalogue.is_file():
+                entries.update(re.findall(r'new Entry\("([^"]+)",\s*(\w+)::', catalogue.read_text(encoding="utf-8")))
+        unknown = selected - entries.keys()
+        if unknown:
+            raise ValueError("Unknown SIMPLEBUILDING_CLIENT_ONLY entries: " + ", ".join(sorted(unknown)))
+        selected_classes = {entries[name] for name in selected}
+
     names: set[str] = set()
     for directory in directories:
         if not directory.is_dir():
             continue
-        for source in sorted(directory.glob("*.java")):
+        for source in sorted(directory.rglob("*.java")):
+            if selected_classes is not None and source.stem not in selected_classes:
+                continue
             text = source.read_text(encoding="utf-8", errors="replace")
             # Only files that actually take a screenshot; a helper beside them can hold strings
             # of the same shape without promising anything.
             if "takeScreenshot(" not in text and "shot(" not in text:
                 continue
             names.update(SHOT_NAME.findall(text))
+            names.update(re.findall(r'takeScreenshot\(\s*"([a-z0-9_-]+)"', text))
             names.difference_update(LOGGER_NAME.findall(text))
     return sorted(names - SKIPPED_SHOTS.get(target.mc_line, set()))
 
@@ -625,7 +671,7 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     """
     started_at = now_utc()
     started_clock = time.time() - 1
-    command = gradlew() + [target.gradle_task]
+    command = gradlew() + list(target.gradle_args) + [target.gradle_task]
     exit_code, output, timed_out = run_capture(command, timeout)
     duration_ms = int((now_utc() - started_at).total_seconds() * 1000)
 
@@ -682,7 +728,7 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
         # Each screenshot stands in for one checkpoint the test reached.
         "tests": [
             {
-                "id": f"{MOD_ID}:{name}",
+                "id": f"{target.namespace}:{name}",
                 "status": "passed" if name in fresh else "failed",
                 "message": None if name in fresh else "kein frischer Screenshot",
                 "durationMs": 0,
@@ -739,7 +785,7 @@ def run_target(
     log_path = RUNS_DIR / f"{run_id}-{target.id}.log"
     log_path.write_text(strip_ansi(output), encoding="utf-8")
 
-    report = parse_report(REPO / target.report, fresh_after, "sbintegration" if target.id == "integration-263" else target.namespace)
+    report = parse_report(REPO / target.report, fresh_after, target.namespace)
 
     # Tests this loader is known not to pass yet (LOADER_KNOWN_FAILURES): their red is recorded
     # as "known" and does not move the numbers - but only while it is red. A listed test that
@@ -890,7 +936,7 @@ def execute(
         else:
             target_records.append(run_target(target, run_id, test_filter, timeout, on_line))
 
-    for target in TARGETS:
+    for target in TARGETS + FORGE263_TARGETS:
         if target not in selected:
             target_records.append(
                 {
@@ -1066,7 +1112,7 @@ def print_list() -> None:
     print()
     print("  Ziele")
     for target in ALL_TARGETS:
-        flag = "  (experimentell, nicht im Release-Tor)" if target in SNAPSHOT_TARGETS else ""
+        flag = "  (experimentell, nicht im Release-Tor)" if target in SNAPSHOT_TARGETS + FORGE263_TARGETS else ""
         print(f"    {target.id:<23}{target.label:<34}{target.gradle_task}{flag}")
     catalogue = read_catalogue()
     print()
@@ -1149,7 +1195,7 @@ LINE_DIFFERENCES: tuple[tuple[tuple[str, ...], tuple[str, ...], str], ...] = (
 LOADER_ONLY_TESTS: dict[str, dict[str, str]] = {
     "forge-262": {
         "forge_network_game_test_serverbound_payloads_are_marked_handled":
-            "Forge 65 only: its payload channel must mark packets handled, or vanilla decodes "
+            "Forge payload channel must mark packets handled, or vanilla decodes "
             "them a second time (a67aac8) - forge/src/main/java/.../gametest/ForgeOnlyGameTests.java",
     },
 }
@@ -1162,6 +1208,8 @@ LOADER_ONLY_TESTS: dict[str, dict[str, str]] = {
 #: EMPTY since 2026-09-24: the two Forge gaps it held are closed - the trade jsons carry a
 #: "forge:condition" read by com.simplebuilding.forge.ConfigLoadCondition, and ForgeItemAutomation
 #: answers through ForgeCapabilities.ITEM_HANDLER.
+LOADER_ONLY_TESTS["forge-263"] = dict(LOADER_ONLY_TESTS["forge-262"])
+
 LOADER_KNOWN_FAILURES: dict[str, dict[str, str]] = {}
 
 
@@ -1197,7 +1245,7 @@ def check_parity() -> tuple[bool, list[str]]:
     notes: list[str] = []
     ok = True
 
-    catalogue = read_catalogue()
+    catalogue = {line: entries for line, entries in read_catalogue().items() if line in ("26.2", "26.3", "1.21.11")}
     # The 26.3 line has no catalogue of its own - it compiles the 26.2 one. Should it ever grow a
     # 26.3-only catalogue (an overlay test), the two must still name the same tests.
     third = catalogue.pop("26.3", None)

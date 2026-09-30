@@ -153,7 +153,7 @@ public class SledgehammerItem extends Item {
         }
 
         // Kein Tempo-Bonus: das Item liefert das Tempo einer Spitzhacke seines Materials. Die
-        // Verlangsamung (1x1 etwas langsamer, Flaeche je Block wie die Spitzhacke eine Stufe darunter)
+        // Verlangsamung (26.3: stueckweise Gesamtzeit; 26.2: altes Stufenmodell)
         // rechnet SledgehammerUtils#miningSpeedDivisor, angewendet in BlockStateBaseMixin, weil erst
         // dort Spieler und Position bekannt sind.
         return baseSpeed;

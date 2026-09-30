@@ -1,0 +1,72 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 3
+  },
+  "max_uses": 2,
+  "xp": 10,
+  "reputation_discount": 0.5,
+  "gives": {
+    "id": "minecraft:enchanted_book"
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "given_item_modifier": [
+    {
+      "pool": [
+        {
+          "enchantment": "minecraft:efficiency",
+          "level": 5,
+          "weight": 20
+        },
+        {
+          "enchantment": "minecraft:unbreaking",
+          "level": 3,
+          "weight": 20
+        },
+        {
+          "enchantment": "minecraft:fire_aspect",
+          "level": 2,
+          "weight": 10
+        },
+        {
+          "enchantment": "minecraft:fortune",
+          "level": 3,
+          "weight": 10
+        },
+        {
+          "enchantment": "minecraft:knockback",
+          "level": 2,
+          "weight": 5
+        },
+        {
+          "enchantment": "minecraft:feather_falling",
+          "level": 4,
+          "weight": 10
+        },
+        {
+          "enchantment": "minecraft:mending",
+          "level": 1,
+          "weight": 2
+        },
+        {
+          "enchantment": "minecraft:silk_touch",
+          "level": 1,
+          "weight": 10
+        }
+      ],
+      "second_chance": 0.1,
+      "type": "simplemoney:weighted_enchant"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "simplebuilding:nihilith_powder",
+    "minecraft:redstone_lamp"
+  ],
+  "result": {
+    "id": "simplebuilding:nihilith_lamp",
+    "count": 1
+  }
+}

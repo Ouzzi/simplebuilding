@@ -90,6 +90,14 @@ def row_drivers(ctx: model.Ctx, item_key: str, row_key: str) -> tuple[list[dict]
                     for entry in pool["entries"]:
                         if model.matches(entry, item_key):
                             own.append(_driver(ctx, (entry.get("ids") or {}).get("weight")))
+    elif kind == 'loot':
+        for pool in (ctx.tables.get(src['table']) or {}).get('pools', []):
+            for entry in pool['entries']:
+                if model.matches(entry, item_key):
+                    own.append(_driver(ctx, (entry.get('ids') or {}).get('weight')))
+            shared += [_driver(ctx, vid) for vid in pool['rolls'].get('ids', {}).values()]
+        if not _unique(own):
+            own.append(_driver(ctx, 'param:' + src['param']))
     elif kind in ("wandering", "villager"):
         trade = ctx.trades.get(src["trade"]) or {}
         ids = trade.get("ids") or {}

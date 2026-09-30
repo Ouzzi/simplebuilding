@@ -38,6 +38,7 @@ import java.util.stream.Stream;
  * overlay class has a counterpart on the other line.
  */
 public final class McVersion {
+    public static final boolean END_SYSTEMS = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = false;
 
@@ -51,6 +52,7 @@ public final class McVersion {
         sign.setText(new net.minecraft.world.level.block.entity.SignText().setMessage(0, text).setHasGlowingText(glowing),
                 sign.isFacingFrontText(player));
     }
+    public static final boolean PIECEWISE_HAMMER_TIME = false;
     public static final boolean MEGA_GUIDES = false;
 
     private McVersion() {

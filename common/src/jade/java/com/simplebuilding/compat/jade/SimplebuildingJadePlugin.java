@@ -62,6 +62,7 @@ public class SimplebuildingJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.HOPPER_FILTER), Block.class);
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.PISTON_DURABILITY), NetheriteBreakerPistonBlock.class);
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.CHEST_SLOTS), TieredChestBlock.class);
+        registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.CHEST_SLOTS), net.minecraft.world.level.block.EnderChestBlock.class);
         // Gestufte Shulkerkisten (BlockInfo antwortet nur fuer sie); ueber die Vanilla-Klasse, weil die
         // 1.21.11-Linie dieses Plugin mit ihrer eigenen Kopie des gemeinsamen Codes baut.
         registration.registerBlockComponent(PROVIDERS.get(BlockInfo.Topic.CHEST_SLOTS), net.minecraft.world.level.block.ShulkerBoxBlock.class);

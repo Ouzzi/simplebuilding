@@ -5,7 +5,6 @@ plugins {
 ext.moduleVersion = '1.0.5'
 apply from: rootProject.file('gradle/module-neoforge.gradle')
 
-sourceSets.main.resources.srcDir '../generated/resources'
 
 repositories { maven { url = "https://maven.shedaniel.me/" }; maven { url = "https://maven.terraformersmc.com/releases/" } }
 dependencies { implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.mc263_cloth_version}"; implementation project(':common') }
