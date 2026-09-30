@@ -584,6 +584,24 @@ a.chip:hover { text-decoration: none; }
   .recipe-body { gap: .6rem; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.modsel { max-width: 190px; border: 2px solid var(--accent); }
+.allmods { display: flex; align-items: center; gap: .25rem; font-size: .8rem; white-space: nowrap; }
+@media (max-width: 700px) {
+  :root { --topbar-h: 144px; }
+  .topbar { height: var(--topbar-h); display: grid; grid-template-columns: 32px minmax(0, 1fr) 32px 48px; gap: .4rem; align-content: center; }
+  .topbar .brand { grid-column: 2; grid-row: 1; }
+  .topbar #theme-btn { grid-column: 3; grid-row: 1; }
+  .topbar #lang { grid-column: 4; grid-row: 1; }
+  .topbar .modsel { grid-column: 1 / 3; grid-row: 2; max-width: 100%; width: 100%; }
+  .topbar .allmods { grid-column: 3 / 5; grid-row: 2; }
+  .topbar .search { grid-column: 1 / 5; grid-row: 3; }
+  .topbar .brand-icon { display: none; }
+  .modsel { max-width: 150px; }
+  .brand { flex: 1; min-width: 0; }
+  .brand-text { font-size: .85rem; }
+  .allmods { margin-left: auto; }
+  .topbar .search { order: 10; flex: 1 0 100%; width: 100%; }
+}
 </style>
 </head>
 <body>
@@ -591,6 +609,8 @@ a.chip:hover { text-decoration: none; }
   <header class="topbar">
     <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
     <a class="brand" href="#/" id="brand"><span class="brand-icon" id="brand-icon"></span><span class="brand-text">SimpleBuilding <small>Wiki</small></span></a>
+    <select class="langsel modsel" id="mod-select" aria-label="Mod"></select>
+    <label class="allmods"><input type="checkbox" id="all-mods"> <span id="all-mods-label">All mods</span></label>
     <div class="search" role="search">
       <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="q" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="qs">
@@ -608,8 +628,10 @@ a.chip:hover { text-decoration: none; }
   </div>
 </div>
 <script src="data/simplebuilding.js"></script>
+<script src="data/modules.js"></script>
+<script src="assets/module-loader.js"></script>
 <script>
-(function () {
+window.WIKI_READY.then(function () {
 'use strict';
 
 /* ------------------------------------------------------------------ */
@@ -1656,7 +1678,41 @@ function fmtNum(x) { var n = Number(x); if (!isFinite(n)) return String(x); var 
 /* ------------------------------------------------------------------ */
 /* Daten und Indizes                                                  */
 /* ------------------------------------------------------------------ */
-var D = isObj(window.WIKI_DATA) ? window.WIKI_DATA : null;
+var MODULES = arr(window.WIKI_MODULES);
+var MODULE_DATA = window.WIKI_MODULE_DATA || { simplebuilding: window.WIKI_DATA };
+var modParams = new URLSearchParams(location.search);
+var selectedMod = modParams.get('mod');
+// Old item links belong to their namespace; other legacy links stay SimpleBuilding.
+if (!selectedMod && (location.hash || modParams.has('item') || modParams.has('page'))) selectedMod = 'simplebuilding';
+if (!selectedMod) { try { selectedMod = localStorage.getItem('simple-wiki-mod'); } catch (err) {} }
+if (!MODULE_DATA[selectedMod]) selectedMod = 'simplebuilding';
+var D = isObj(MODULE_DATA[selectedMod]) ? MODULE_DATA[selectedMod] : null;
+try { localStorage.setItem('simple-wiki-mod', selectedMod); } catch (err) {}
+var modSelect = document.getElementById('mod-select');
+MODULES.forEach(function (m, i) {
+  var option = document.createElement('option'); option.value = m.id;
+  option.textContent = (i % 2 ? '◆ ' : '● ') + m.displayName;
+  option.selected = m.id === selectedMod; modSelect.appendChild(option);
+});
+modSelect.addEventListener('change', function () {
+  var url = new URL(location.href); url.searchParams.set('mod', modSelect.value);
+  ['item', 'block', 'page', 'tab', 'recipe', 'feature', 'q', 'loot', 'trade', 'ench', 'tag', 'config', 'inworld', 'make', 'use', 'tree', 'cat'].forEach(function (key) { url.searchParams.delete(key); });
+  url.hash = '#/'; location.assign(url.href);
+});
+function crossModHref(mid, section, id) {
+  var url = new URL(location.href); url.searchParams.set('mod', mid);
+  ['item', 'block', 'page', 'tab', 'recipe', 'feature', 'q', 'loot', 'trade', 'ench', 'tag', 'config', 'inworld', 'make', 'use', 'tree', 'cat'].forEach(function (key) { url.searchParams.delete(key); });
+  url.hash = '#/' + section + (id ? '/' + id : ''); return url.href;
+}
+function moduleInfo() {
+  var m = MODULES.find(function (e) { return e.id === selectedMod; });
+  if (!m) return '';
+  function dependencies(ids) { return ids.length ? ids.map(function (id) {
+    var target = MODULES.find(function (e) { return e.id === id; });
+    return target ? '<a href="' + esc(crossModHref(id, '', '')) + '">' + esc(target.displayName) + '</a>' : esc(id);
+  }).join(', ') : (LANG === 'de' ? 'Keine' : 'None'); }
+  return '<section class="box"><h2>' + (LANG === 'de' ? 'Mod & Kompatibilität' : 'Mod & compatibility') + '</h2><p>' + esc(m.description) + '</p><p>' + esc(m.displayName + ' · v' + m.version + ' · Minecraft ' + m.minecraft + ' · ' + m.loaders.join(', ')) + '</p><p>' + (LANG === 'de' ? 'Benötigt: ' : 'Requires: ') + dependencies(m.requires) + '</p><p>' + (LANG === 'de' ? 'Optional: ' : 'Optional: ') + dependencies(m.optional) + '</p></section>';
+}
 var MOD = D && isObj(D.mod) ? D.mod : {};
 var MODID = MOD.id || 'simplebuilding';
 
@@ -1755,6 +1811,14 @@ function hrefFor(id, hint) {
   if (IX.tags.has(id)) return '#/tags/' + id;
   if (IX.config.has(id)) return '#/config/' + id;
   if (IX.features.has(id)) return '#/features/' + id;
+  var foreign = MODULES.find(function (m) { return m.id === nsOf(id) && m.id !== selectedMod; });
+  if (foreign && MODULE_DATA[foreign.id]) {
+    var data = MODULE_DATA[foreign.id];
+    var sections = ['items', 'blocks', 'enchantments', 'recipes', 'features', 'tags'];
+    for (var i = 0; i < sections.length; i++) {
+      if (arr(data[sections[i]]).some(function (e) { return e.id === id; })) return crossModHref(foreign.id, sections[i], id);
+    }
+  }
   return null;
 }
 function refLink(id, opts) {
@@ -1873,7 +1937,19 @@ function sourceLine(src) { return src ? '<div class="src">' + esc(T('srcSource')
 function hintNoText(what) {
   return '<p class="hint">' + T('hintNoTextLead') + (what ? ' – ' + esc(what) : '') + T('hintNoTextTail') + '</p>';
 }
-function listHtml(items, cls) { return '<ul' + (cls ? ' class="' + cls + '"' : '') + '>' + items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; }
+function proseHtml(text) {
+  var raw = String(text == null ? '' : text), html = '', cursor = 0;
+  var regex = /\b[a-z][a-z0-9_-]*:[a-z0-9_./-]+/g, match;
+  while ((match = regex.exec(raw))) {
+    var id = match[0].replace(/\.+$/, ''), href = nsOf(id) !== selectedMod ? hrefFor(id) : null;
+    html += esc(raw.slice(cursor, match.index));
+    html += href ? '<a href="' + esc(href) + '"><code>' + esc(id) + '</code></a>' : esc(id);
+    cursor = match.index + id.length;
+    regex.lastIndex = match.index + match[0].length;
+  }
+  return html + esc(raw.slice(cursor));
+}
+function listHtml(items, cls) { return '<ul' + (cls ? ' class="' + cls + '"' : '') + '>' + items.map(function (x) { return '<li>' + proseHtml(x) + '</li>'; }).join('') + '</ul>'; }
 
 /* ------------------------------------------------------------------ */
 /* Prosa (note / feature)                                             */
@@ -1911,7 +1987,7 @@ function noteBlock(note, what, opts) {
   if (!noteHasContent(note)) return hintNoText(what);
   var loc = localised(note), n = loc.v;
   var h = loc.fallback ? '<p class="hint tiny">' + esc(T('proseOtherLangOnly')) + '</p>' : '';
-  if (strs([n.summary]).length) h += '<p class="lead">' + esc(n.summary) + '</p>';
+  if (strs([n.summary]).length) h += '<p class="lead">' + proseHtml(n.summary) + '</p>';
   var det = strs(n.details);
   if (det.length && opts.clamp && det.length > opts.clamp + 1) h += listHtml(det.slice(0, opts.clamp)) + '<details class="more"><summary>' + esc(T('showMore', det.length - opts.clamp)) + '</summary>' + listHtml(det.slice(opts.clamp)) + '</details>';
   else if (det.length) h += listHtml(det);
@@ -1930,7 +2006,7 @@ function featureCard(f, full) {
   var h = '<article class="card" id="feature-' + esc(f.id || '') + '">';
   h += full ? '<h1>' + esc(title) + '</h1>' : '<h2 style="border:0;padding:0;margin-bottom:.3rem"><a href="#/features/' + esc(f.id || '') + '">' + esc(title) + '</a></h2>';
   if (loc.fallback) h += '<p class="hint tiny">' + esc(T('proseOtherLangOnly')) + '</p>';
-  if (strs([fl.summary]).length) h += '<p class="lead">' + esc(fl.summary) + '</p>'; else h += '<p class="hint">' + esc(T('featureNoSummary')) + '</p>';
+  if (strs([fl.summary]).length) h += '<p class="lead">' + proseHtml(fl.summary) + '</p>'; else h += '<p class="hint">' + esc(T('featureNoSummary')) + '</p>';
   var det = strs(fl.details); if (det.length) h += listHtml(det);
   var rel = strs(f.related); if (rel.length) h += '<h3>' + esc(T('headingRelated')) + '</h3><div class="reflist">' + rel.map(function (r) { return refLink(r); }).join('') + '</div>';
   h += sourcesList(strs(f.sources));
@@ -2395,6 +2471,12 @@ function pageGuides() {
 }
 
 function pageOverview() {
+  if (MODID !== 'simplebuilding') {
+    return '<section class="home-hero"><h1>' + esc(MOD.name) + ' Wiki</h1></section>' + moduleInfo() +
+      '<h2>' + esc(T('homeGuides')) + '</h2><div class="guide-grid">' + arr(D.features).map(guideLink).join('') + '</div>' +
+      '<h2>' + esc(T('navItems')) + '</h2><div class="tile-grid">' + arr(D.items).map(itemTile).join('') + '</div>' +
+      '<h2>' + esc(T('navBlocks')) + '</h2><div class="tile-grid">' + arr(D.blocks).map(itemTile).join('') + '</div>';
+  }
   var g = isObj(D.generatedFrom) ? D.generatedFrom : {};
   var counts = isObj(D.counts) ? D.counts : {};
   var undoc = strs(D.undocumented);
@@ -2406,6 +2488,7 @@ function pageOverview() {
   if (welcome) h += '<p class="muted" style="margin:0">' + esc(T('homeTagline')) + '</p>';
   h += '<button type="button" class="home-search" data-open-search><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="grow">' + esc(T('homeSearch')) + '</span><kbd>Ctrl</kbd><kbd>K</kbd></button></section>';
 
+  h += moduleInfo();
   h += '<h2>' + esc(T('homeBrowse')) + '</h2><div class="cat-grid">' + CATS.map(catCard).join('') + '</div>';
 
   var tiles = [['items', T('navItems'), arr(D.items).length], ['blocks', T('navBlocks'), arr(D.blocks).length], ['allrecipes', T('navAllRecipes'), arr(D.recipes).length], ['inworld', T('navInWorld'), IW.entries.length], ['enchantments', T('navEnchantments'), arr(D.enchantments).length], ['advancements', T('navAdvancements'), arr(D.advancements).length], ['trades', T('navTrades'), arr(D.trades).length], ['loot', T('navLoot'), arr(D.lootTables).length], ['tags', T('navTags'), arr(D.tags).length], ['config', T('navConfig'), arr(D.config).length]];
@@ -2447,7 +2530,7 @@ function pageFeature(id) {
   var loc = localised(f), fl = isObj(loc.v) ? loc.v : {};
   h += '<article class="hero-card"><h1>' + esc(featureTitle(f)) + '</h1>';
   if (loc.fallback) h += '<p class="hint tiny">' + esc(T('proseOtherLangOnly')) + '</p>';
-  h += strs([fl.summary]).length ? '<p class="lead">' + esc(fl.summary) + '</p>' : '<p class="hint">' + esc(T('featureNoSummary')) + '</p>';
+  h += strs([fl.summary]).length ? '<p class="lead">' + proseHtml(fl.summary) + '</p>' : '<p class="hint">' + esc(T('featureNoSummary')) + '</p>';
   var det = strs(fl.details); if (det.length) h += listHtml(det);
   h += '</article>';
   var rel = strs(f.related);
@@ -3788,7 +3871,24 @@ function search(q) {
   var tokens = norm(q).split(/\s+/).filter(Boolean);
   if (!tokens.length) return [];
   var out = [];
-  SEARCH.forEach(function (e) {
+  var pool = SEARCH.map(function (entry) { return Object.assign({}, entry); });
+  if (document.getElementById('all-mods').checked) {
+    pool.forEach(function (e) { e.modBadge = MOD.name; });
+    MODULES.forEach(function (m) {
+      if (m.id === selectedMod || !MODULE_DATA[m.id]) return;
+      var data = MODULE_DATA[m.id];
+      ['features', 'items', 'blocks', 'recipes', 'enchantments', 'tags', 'config', 'lootTables', 'trades'].forEach(function (key) {
+        var section = key === 'lootTables' ? 'loot' : key;
+        arr(data[key]).forEach(function (e) {
+          var id = e.id || e.name, title = key === 'features' ? featureTitle(e) : (nameOf(e) || id);
+          var text = norm(JSON.stringify(e));
+          pool.push({section: section, id: id, title: title, sub: id, text: text,
+            ntitle: norm(title), nid: norm(id), modBadge: m.displayName, href: crossModHref(m.id, section, id)});
+        });
+      });
+    });
+  }
+  pool.forEach(function (e) {
     var score = 0;
     for (var i = 0; i < tokens.length; i++) {
       var t = tokens[i];
@@ -3854,7 +3954,7 @@ function pageSearch(q) {
 }
 function searchRow(e, tokens) {
   var tex = (e.section === 'items' || e.section === 'blocks') ? slotHtml(e.id, 1, { noLink: true }) : '';
-  return '<a class="row" href="' + esc(e.href) + '">' + tex + '<div class="row-main"><div class="row-title">' + highlight(e.title, tokens) + '</div><div class="row-sub">' + highlight(e.sub, tokens) + '</div></div><div class="row-right">' + badge(sectionLabel(e.section)) + '</div></a>';
+  return '<a class="row" href="' + esc(e.href) + '">' + tex + '<div class="row-main"><div class="row-title">' + highlight(e.title, tokens) + '</div><div class="row-sub">' + highlight(e.sub, tokens) + '</div></div><div class="row-right">' + (e.modBadge ? badge(e.modBadge) : '') + badge(sectionLabel(e.section)) + '</div></a>';
 }
 
 /* ------------------------------------------------------------------ */
@@ -3868,6 +3968,7 @@ var $meta = document.getElementById('topmeta');
 var $lang = document.getElementById('lang');
 var $theme = document.getElementById('theme-btn');
 var $menu = document.getElementById('menu-btn');
+document.getElementById('all-mods').addEventListener('change', function () { if (currentRoute().section === 'search') render({ keepScroll: true }); else if (!$qs.hidden) renderQs(); });
 
 /* ------------------------------------------------------------------ */
 /* Adressen: jede Ansicht hat eine teilbare URL mit Suchparametern.    */
@@ -3915,6 +4016,7 @@ function paramsToRoute(sp) {
 }
 function routeToSearch(r) {
   var sp = new URLSearchParams();
+  sp.set('mod', selectedMod);
   var s = r.section;
   if (s === 'search') sp.set('q', r.id || '');
   else if (ROUTE_PARAM[s] && r.id) sp.set(ROUTE_PARAM[s], r.id);
@@ -3945,7 +4047,13 @@ function go(r, opts) {
   }
   render(opts);
 }
-function goHref(href, opts) { go(hrefToRoute(href), opts); }
+function goHref(href, opts) {
+  if (String(href).charAt(0) !== '#') {
+    var url = new URL(href, location.href);
+    if (url.searchParams.get('mod') && url.searchParams.get('mod') !== selectedMod) { location.assign(url.href); return; }
+  }
+  go(hrefToRoute(href), opts);
+}
 function hrefToRoute(href) {
   href = String(href || '');
   if (href.indexOf('#/') === 0) return hashToRoute(href);
@@ -4020,6 +4128,16 @@ var NAV_PROG = [
 ];
 function renderSidebar(active) {
   if (!D) { $side.innerHTML = ''; return; }
+  if (MODID !== 'simplebuilding') {
+    var links = [['', T('navOverview')], ['features', T('navGuides')]];
+    NAV_REF.concat(NAV_PROG).forEach(function (entry) {
+      var field = entry.key === 'loot' ? 'lootTables' : entry.key === 'allrecipes' ? 'recipes' : entry.key;
+      var count = field === 'inworld' ? IW.entries.length : arr(D[field]).length;
+      if (entry.key !== 'features' && count) links.push([entry.key, T(entry.labelKey) + ' · ' + count]);
+    });
+    $side.innerHTML = links.map(function (entry) { return '<a href="#/' + entry[0] + '"' + ((active === entry[0] || (!entry[0] && active === 'overview')) ? ' aria-current="page" class="active"' : '') + '>' + esc(entry[1]) + '</a>'; }).join('');
+    return;
+  }
   function link(href, key, label, ico, c) {
     return '<a href="' + esc(href) + '"' + (key === active ? ' class="active" aria-current="page"' : '') + '><span class="sb-ico">' + ico + '</span><span>' + esc(label) + '</span>' + (c != null ? '<span class="n">' + esc(c) + '</span>' : '') + '</a>';
   }
@@ -4046,7 +4164,9 @@ function renderMeta() {
   if (!D) { $meta.innerHTML = ''; return; }
   var g = isObj(D.generatedFrom) ? D.generatedFrom : {};
   $meta.innerHTML = (MOD.version ? '<span>v' + esc(MOD.version) + '</span>' : '') + '<span>MC ' + esc(arr(MOD.minecraftLines).join(' / ') || '?') + '</span>' + (g.line ? '<span title="' + esc(T('metaDataTitle')) + '">' + esc(T('metaData', g.line)) + '</span>' : '');
-  var tex = textureOf('simplebuilding:iron_chisel');
+  document.getElementById('all-mods-label').textContent = LANG === 'de' ? 'Alle Mods' : 'All mods';
+  modSelect.setAttribute('aria-label', LANG === 'de' ? 'Mod auswählen' : 'Select mod');
+  var tex = MODID === 'simplebuilding' ? textureOf('simplebuilding:iron_chisel') : null;
   document.getElementById('brand-icon').innerHTML = tex ? '<img src="' + esc(tex) + '" alt="">' : '';
   document.querySelector('.brand-text').innerHTML = esc(MOD.name || 'SimpleBuilding') + ' <small>Wiki</small>';
   if (tex && !document.querySelector('link[rel="icon"]')) { var l = document.createElement('link'); l.rel = 'icon'; l.href = tex; document.head.appendChild(l); }
@@ -4174,7 +4294,7 @@ function renderQs() {
   if (QS.idx < 0) QS.idx = 0;
   var h = res.length ? res.map(function (r, i) {
     var e = r.e, ico = (e.section === 'items' || e.section === 'blocks') ? slotHtml(e.id, 1, { noLink: true }) : e.section === 'categories' && catDef(e.id) ? slotHtml(catDef(e.id).icon, 1, { noLink: true }) : '<span class="qs-ico" aria-hidden="true">' + (SEC_GLYPH[e.section] || '•') + '</span>';
-    return '<a class="qs-item" id="qs-' + i + '" role="option" aria-selected="' + (i === QS.idx) + '" href="' + esc(e.href) + '" data-qi="' + i + '">' + ico + '<span class="qs-main"><span class="qs-title">' + highlight(e.title, tokens) + '</span><span class="qs-sub">' + highlight(e.sub, tokens) + '</span></span><span class="qs-sec">' + esc(sectionLabel(e.section)) + '</span></a>';
+    return '<a class="qs-item" id="qs-' + i + '" role="option" aria-selected="' + (i === QS.idx) + '" href="' + esc(e.href) + '" data-qi="' + i + '">' + ico + '<span class="qs-main"><span class="qs-title">' + highlight(e.title, tokens) + '</span><span class="qs-sub">' + highlight(e.sub, tokens) + '</span></span>' + (e.modBadge ? badge(e.modBadge) : '') + '<span class="qs-sec">' + esc(sectionLabel(e.section)) + '</span></a>';
   }).join('') : '<div class="qs-empty">' + esc(T('qsNone')) + '</div>';
   var ai = QS.items.length - 1;
   h += '<a class="qs-item qs-all" id="qs-' + ai + '" role="option" aria-selected="' + (QS.idx === ai) + '" href="#/search/' + esc(encodeURIComponent(q)) + '" data-qi="' + ai + '">' + esc(T('qsAll', q)) + '</a>';
@@ -4403,7 +4523,10 @@ renderMeta();
   rewriteLinks(document.body);
 })();
 render();
-})();
+}).catch(function (error) {
+  document.getElementById('main').textContent = 'Wiki data could not be loaded / Wiki-Daten konnten nicht geladen werden: ' + error.message;
+  console.error(error);
+});
 </script>
 </body>
 </html>

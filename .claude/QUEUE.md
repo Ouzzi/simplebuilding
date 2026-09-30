@@ -238,3 +238,6 @@ Verlauf im Detail: git log.
 - [x] Launch Hub: einzelne Mod-Schalter, Presets, Integrationsstarts und Trockenlauf-Tests
 - [x] check, 1548/1548 Server, 1/1 Integration, 34 Hub-Tests und Trockenlauf gruen; kein Push/Merge
 - [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen
+
+## INFRA-W (26.3, Codex)
+- [x] Manifest-driven wiki generation, mod switcher, per-module completeness and static hosting. check green; visual browser review pending (no browser surface available).

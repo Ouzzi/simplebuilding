@@ -1,7 +1,7 @@
 # Wiki: immer aktuell, kostenlos gehostet
 
 Das Wiki (`wiki/index.html` + `wiki/data/`) ist eine rein statische Seite: CSS und JS stehen in
-der HTML-Datei, geladen wird nur `data/simplebuilding.js`, Texturen kommen relativ aus
+der HTML-Datei, geladen werden `data/simplebuilding.js`, `data/modules.js` und die Mod-Daten aus dem Manifest, Texturen kommen relativ aus
 `assets/textures/…`, navigiert wird über `#/…`. Es braucht also keinen Server-Code und läuft auch
 unter einem Unterpfad wie `https://ouzzi.github.io/simplebuilding/`.
 
@@ -9,10 +9,10 @@ unter einem Unterpfad wie `https://ouzzi.github.io/simplebuilding/`.
 
 | Wo | Was passiert | Abschalten |
 |---|---|---|
-| `./gradlew runDatagen` | danach läuft automatisch `generateWiki` (= `python wiki/generate.py`). Wer eine Konstante ändert und Datagen laufen lässt, bekommt Mod-Daten **und** Wiki neu; `git status` zeigt beides. Schlägt Datagen fehl, wird kein Wiki gebaut. | `-PskipWiki` |
-| `./gradlew check` / `build` | `checkWiki` (= `python wiki/generate.py --check`) schlägt fehl, wenn `wiki/data` veraltet ist oder Prosa fehlt. | `-PskipWiki` |
-| `git commit` (optional) | der Hook `tools/git-hooks/pre-commit` führt `--check` aus und hält den Commit an, wenn das Wiki nicht passt. | `git commit --no-verify` |
-| GitHub Actions (`.github/workflows/wiki.yml`) | bei jedem Push auf `master` und jedem Pull Request: `--check`, dann „Neu erzeugen ändert nichts" (fängt auch die `.js` und die Texturkopien ab), dann `tools/wiki_site.py`; parallel der Sprachdatei-Test. Nur auf `master` und nur bei grüner Prüfung wird veröffentlicht. | – |
+| `./gradlew runDatagen` | danach läuft automatisch `generateWiki` (= `python wiki/generate.py --all`). Wer eine Konstante ändert und Datagen laufen lässt, bekommt Mod-Daten **und** Wiki neu; `git status` zeigt beides. Schlägt Datagen fehl, wird kein Wiki gebaut. | `-PskipWiki` |
+| `./gradlew check` / `build` | `checkWiki` (= `python wiki/generate.py --all --check`) schlägt fehl, wenn `wiki/data` veraltet ist oder Prosa fehlt. | `-PskipWiki` |
+| `git commit` (optional) | der Hook `tools/git-hooks/pre-commit` führt `--all --check` aus und hält den Commit an, wenn das Wiki nicht passt. | `git commit --no-verify` |
+| GitHub Actions (`.github/workflows/wiki.yml`) | bei jedem Push auf `master` und jedem Pull Request: `--all --check`, dann „Neu erzeugen ändert nichts" (fängt auch die `.js` und die Texturkopien ab), dann `tools/wiki_site.py`; parallel der Sprachdatei-Test. Nur auf `master` und nur bei grüner Prüfung wird veröffentlicht. | – |
 
 Ein anderes Python als `python`: `-PwikiPython=<pfad>` (Gradle) bzw. `WIKI_PYTHON=<pfad>` (Hook).
 
@@ -30,7 +30,7 @@ Index – nicht gestagte Änderungen zählen mit. Ohne Python lässt er den Comm
 Die Seite bleibt dann auf der letzten grünen Fassung stehen. Beheben:
 
 ```bash
-python wiki/generate.py          # fehlende Prosa vorher in wiki/manual.json ergänzen (en + de)
+python wiki/generate.py --all    # fehlende Prosa vorher in wiki/manual.json ergänzen (en + de)
 git add wiki && git commit -m "wiki: neu erzeugt"
 git push
 ```
@@ -51,7 +51,7 @@ Workflow ohnehin nie.
 ## Was veröffentlicht wird – und was nicht
 
 `tools/wiki_site.py` stellt nach `build/wiki-site/` genau das zusammen, was die Seite lädt:
-`index.html`, `data/simplebuilding.js`, die referenzierten eigenen Texturen und eine leere
+`index.html`, `assets/module-loader.js`, `data/modules.js`, alle `data/<id>.js`, die referenzierten eigenen Texturen und eine leere
 `.nojekyll`. Vorher prüft es, dass `index.html` nichts Absolutes oder Fremdes lädt, dass die `.js`
 dasselbe Objekt enthält wie die `.json` und dass jede Textur in exakt dieser Schreibweise existiert
 (Windows ignoriert Groß/Klein, die Hosts nicht).
@@ -81,7 +81,7 @@ Beide bauen direkt aus dem GitHub-Repository. Einstellungen:
 
 | Feld | Wert |
 |---|---|
-| Build-Befehl | `python wiki/generate.py --check && python tools/wiki_site.py --out build/wiki-site` |
+| Build-Befehl | `python wiki/generate.py --all --check && python tools/wiki_site.py --out build/wiki-site` |
 | Ausgabeverzeichnis | `build/wiki-site` |
 | Produktions-Branch | `master` |
 | Umgebungsvariable | `PYTHON_VERSION=3.12` |
@@ -99,7 +99,21 @@ solange Pages nicht eingerichtet ist) oder den `deploy`-Job aus `.github/workflo
 - Gebaut wird aus den **committeten** Datagen-Ausgaben. Wer eine Java-Konstante ändert und
   `runDatagen` nicht laufen lässt, fällt keinem Check auf; genau dafür hängt `generateWiki` jetzt an
   `runDatagen`.
-- Geprüft und veröffentlicht wird die 26.2-Linie (`python wiki/generate.py` ohne `--line`).
+- Hauptlinie ist 26.3; `--all` prueft und veroeffentlicht alle registrierten Module.
 - Die Action-Versionen im Workflow (`checkout@v4`, `setup-python@v5`, `setup-java@v4`,
   `upload-pages-artifact@v3`, `deploy-pages@v4`) sind bewusst ältere, sicher vorhandene Hauptversionen;
   sie lassen sich später anheben.
+
+## Mehrere Mods
+
+Der Header bietet einen Mod-Umschalter; `?mod=<id>` ist teilbar und bleibt bei Navigation
+erhalten. Ohne Mod-Angabe funktionieren alte SimpleBuilding-Deep-Links weiterhin.
+Die Auswahl wird zusaetzlich in localStorage gespeichert (Storage-Ausfaelle sind abgefangen).
+Jeder Mod hat eine eigene Uebersicht, Navigation und Suche; **Alle Mods** erweitert die Suche
+mit Mod-Abzeichen. Kapitel verlinken fremde Registry-IDs in `related`. Abhaengigkeiten,
+optionale Integrationen, Version und Loader kommen aus `modules/modules.json`.
+
+`python wiki/generate.py --module wiringexample --check` prueft gezielt den Beispielmod.
+`python wiki/generate.py --all --check` ist das Gate fuer alle Mods, einschliesslich neuer
+Manifest-Eintraege. Das Hosting-Skript verifiziert und kopiert ebenfalls alle Mod-Daten.
+Lokal: `.claude/launch.json` Eintrag `wiki` (http://127.0.0.1:8765/).

@@ -158,3 +158,29 @@ Dieser Branch wird nicht gepusht oder gemergt; Verifikation siehe abschliessende
   lehnte Headless-Edge-Bildpruefung mit "blocked by policy" ab. Kein Client-Testlauf, Push oder Merge.
 - Beim ersten parallelen Gate/Serverlauf fehlten NeoForge-Ressourcen; gezieltes `processResources --rerun-tasks`
   stellte sie wieder her. Anschliessend Gate und Server-Gates nacheinander gruen. Kein Gameplay-Fix noetig.
+
+## INFRA-W: Multimod-Wiki (2026-09-30, Codex, Branch codex-infra-w)
+- Manifest-Datenvertrag fuer alle vorhandenen Module ergaenzt. Generator: --module/--all,
+  eigener datenorientierter Extraktor, Vollstaendigkeit EN/DE pro Modul, dynamische Registry-
+  und komplexe Daten ueber dokumentierte Datagen-Exports. Wiringexample voll dokumentiert.
+- Header-Modauswahl mit URL/localStorage, getrennte Uebersichten/Navigation/Suche,
+  optionale Gesamtsuche mit Mod-Abzeichen, Cross-Mod-IDs und Abhaengigkeits-/Versionsdaten.
+  Asynchroner Modulloader funktioniert ohne fetch, auch bei lokalen Dateien.
+- SimpleBuilding-JSON/JS bytegenau wie HEAD; keine Java-Logik/Testkataloge oder anderen Linien
+  geaendert. Neues Scaffold erfuellt den Datenvertrag und liefert Token-Prosa mit.
+- checkWiki/CI/Hook/Hosting pruefen alle Manifest-Module; statisches Paket enthaelt alle
+  Modskripte, Loader und Texturen mit Cache-Hashes. Dokumentation aktualisiert.
+- Verifikation: finales gradlew.bat check -q --no-daemon Exit 0; 12 Python-Wiki-Tests,
+  8 bestehende Launch-Hub-Modtests, 9 DOM-Integrationsfaelle ohne JS-/Console-Fehler
+  (URL/alte Links/Cross-Mod-Suche/Storage-Ausfall, 1280/390 als simulierte Fensterbreiten).
+  Das DOM hat KEIN visuelles Layout gerendert; keine echte Desktop-/Handy-Sichtpruefung.
+- Testzentrale in beiden 26.3-GameTest-Welten neu gebaut; vollstaendige Item-/Block-Abdeckung
+  und Stationspruefungen 8/8, alles gruen, Run 2026-09-30T13-08-12Z-9879.
+  Erstversuch hatte versehentlich testcentre statt test_centre im Filter und waehlte null Tests;
+  kein Gameplayfehler. Erstes Gate scheiterte an zu breiten modules/-Inputs, behoben durch
+  Ausschluss der Buildverzeichnisse. Finale Gate-Ausgabe einschliesslich Exitcode gelesen.
+- Browser-Vorschau blockiert: cua.getState meldet keine Browser/Apps, IAB nicht verfuegbar.
+  Vorschau-Server gemaess launch.json/wiki auf 127.0.0.1:8765 gestartet. Kein echter Client,
+  kein voller Serverlauf, keine Besitzerwelt-Pruefung. Kein Push, kein Merge, keine Ports.
+- Besitzer: Desktop/Handy-Wiki visuell pruefen; dynamische Module muessen Registry-Exports
+  aus Datagen liefern. Geplante Mods werden erst mit existierenden Projekten registriert.

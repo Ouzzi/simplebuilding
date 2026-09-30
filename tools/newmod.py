@@ -22,7 +22,14 @@ def create(mid, name, root=ROOT):
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(template_file.read_text(encoding='utf-8').replace('__MODID__', mid)
                             .replace('__DISPLAY_NAME__', name), encoding='utf-8')
-    modules.append(dict(id=mid, name=name, version='0.1.0', minecraft='26.3', defaultEnabled=True,
+    modules.append(dict(id=mid, name=name, displayName=name, description=name + ' module.',
+                        version='0.1.0', minecraft='26.3', defaultEnabled=True,
+                        loaders=['fabric', 'neoforge'], requires=[], optional=[],
+                        paths=dict(root=f'modules/{mid}', shared=f'modules/{mid}/shared',
+                                   fabric=f'modules/{mid}/fabric', neoforge=f'modules/{mid}/neoforge', forge=None,
+                                   generated=f'modules/{mid}/fabric/src/main/generated',
+                                   lang=f'modules/{mid}/shared/resources/assets/{mid}/lang',
+                                   wikiManual=f'modules/{mid}/wiki/manual.json', balanceDir=f'balance/{mid}'),
                         projects={loader: f':modules:{mid}:{loader}' for loader in ('fabric','neoforge')}))
     write(root / 'modules/modules.json', {'schemaVersion':1, 'modules':modules})
     enabled['modules'].append(mid)
