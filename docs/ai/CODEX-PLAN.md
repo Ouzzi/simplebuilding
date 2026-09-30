@@ -10,6 +10,14 @@ Git, Node, gh und RTK vorhanden. Python 3.12 und Codex CLI werden eingerichtet,
 Java 25 wird installiert. Memory-Sync ist erfolgt (28 Dateien, vorhandene erhalten).
 Das alte lokale Claim-Quellrepo fehlt; GitHub `Ouzzi/simpletweaks` ist verfügbar.
 
+Fortsetzung: Der Desktop-Chat startet im leeren Ordner `minecraft-mods`; das
+maßgebliche Repository liegt weiterhin unter `C:/Users/o_o/code/simplebuilding`.
+Auf `3e8152e6` ist `git pull --ff-only` aktuell. Java 25 und Java 21 sind vorhanden;
+die lokale `.ai-runs/env.ps1` setzt die benötigten Laufzeitpfade. Die drei vorhandenen
+Worker sind noch aktiv und werden weiterverwendet. Der erste Check mit Java 21
+scheiterte beim Forge-Mavenizer an einem unvollständigen Archiv (EOFException);
+ein frischer Check muss die inzwischen weiterbefüllten Caches verifizieren.
+
 ## Umsetzung in Prioritätsreihenfolge
 
 1. Setup vervollständigen; Brief aus `pre.md`, `mm-contract.md`, `next-claims.md`
