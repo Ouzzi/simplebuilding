@@ -159,6 +159,44 @@ Dieser Branch wird nicht gepusht oder gemergt; Verifikation siehe abschliessende
 - Beim ersten parallelen Gate/Serverlauf fehlten NeoForge-Ressourcen; gezieltes `processResources --rerun-tasks`
   stellte sie wieder her. Anschliessend Gate und Server-Gates nacheinander gruen. Kein Gameplay-Fix noetig.
 
+## Simple Riding 26.3 (Codex, 2026-09-30, Branch codex-port-riding)
+
+- Read-only Quelle: Simple Riding 1.0.5 / Fabric 1.21.11, sauberer Commit `ff83701`.
+  Vollstaendiges Inventar, Kollisionen, Config, IDs, Bezugsquellen und Grenzen: `docs/modules/simpleriding.md`.
+- Additives Modul `modules/simpleriding` fuer Fabric + NeoForge 26.3: Tailwind, Leaping,
+  Pferderuestungs-Verzauberungen, Kreativtab, Beute, Bibliothekarhandel und sechs serverseitige
+  Config-Optionen mit Obergrenzen. Alle alten IDs/Config-Pfade und die ungenutzte coordinates-Komponente bleiben.
+  Keine eigenen Items/Bloecke/Mobs/Rezepte/Befehle/Keybinds in der Quelle; keine Duplikat-Ruestungen.
+  Optionales Enderit-Pferderuestungs-Tag nutzt nur eine oeffentliche SimpleBuilding-ID; Nautilus bleibt ausserhalb.
+- Quellfehler korrigiert: keine Gratis-Tailwind-Stufe fuer Ghasts, keine Reflection/Debug-Spam-Suche,
+  sofortiges Entfernen veralteter Fahrboni; Protection nur einmal ueber Vanillas BODY-Pipeline.
+  Finale Quell-Whitelist beibehalten: kein Mending/Unbreaking/Thorns auf Pferderuestung.
+  README-Versprechen fahrender Haendler/Meisterhandel gibt es im Quellcode nicht (nur Bibliothekar 2–4).
+- Manifestvertrag fuer alle Eintraege vervollstaendigt; eigener zweisprachiger Wiki-Manual-Katalog,
+  eigene generierte Ressourcen und `balance/simpleriding` als Produzentendaten. Keine nichtdestruktive
+  Migration bestehender SimpleBuilding-Daten noetig; deren Speicherort bleibt unveraendert.
+  Launch Hub zeigt das Modul und fuehrt seine Serverpruefungen nach dem separaten Wiring-Test aus.
+  Fabric-Tests/Client nutzen die eigene Integration; NeoForge-Modulpruefungen `integration/run-neoforge-263`.
+- Voller Serverlauf **1580/1580, alles gruen**: bestehende 26.3-Ziele **1554/1554**, Modulkatalog
+  **26/26** (13 je Loader, SimpleBuilding mitgeladen), Run `2026-09-30T13-31-20Z-5d9f`.
+  Echte Fahr-/Flug-/Sprungattribute, Ausruestungswechsel, alle Schutzarten, Amboss/Zaubertisch,
+  geladene Beute, Handelsangebote, Config-Schalter/alte JSON-Pfade und Cross-Mod-Lagerung geprueft.
+  Testzentrale in beiden automatischen Bestandstestwelten gebaut; Item-/Block-Abdeckung gruen.
+- Bestehende Integration **1/1, alles gruen**, Run `2026-09-30T13-34-31Z-962c`.
+  Fabric-Modulclient: Titel -> Welt, normale Bibliothekar-Pools, Enchantment-/Tab-Sync und Config-Seite;
+  **3/3 Screenshot-Pruefpunkte, alles gruen**, Run `2026-09-30T13-28-14Z-ead5`. Config-Bild angesehen.
+  Besitzerclient war vor dem Start nicht aktiv; keine SimpleBuilding-Clientsuite ausgefuehrt.
+- Launch Hub **35 Unit-Tests gruen**. Wiki generiert und --check gruen, Modul-Datengate gruen,
+  Buecher **0 Probleme**, Texturen **470 + 9 mcmeta aktuell**. Keine neue Pixelkunst; Quell-Icon erhalten.
+  Abschliessendes **gradlew.bat check -q --no-daemon: GRADLE_EXIT=0**, Ausgabe gelesen,
+  einschliesslich gemeinsamer 26.2-Kompilierbarkeit und Client-Harness-Kompilierung.
+- Grenze: experimentelles Trade Rebalance ersetzt Vanilla-Bibliothekar-Tags und versteckt dabei
+  auch Mod-Angebote. Servertests pruefen die ausgelieferten Verknuepfungen und echte Angebote;
+  der normale Clientwelt-Test beweist die aufgeloesten Pools ohne dieses Experiment.
+- Nicht verifiziert: NeoForge-Clientdarstellung/Config-Oeffnung, echte hochgestufte Quellmod-Welt,
+  Besitzerwelt-Neubau. Forge 26.3 braucht eigene Loader-, Registry-, Bedingungs-/Loot- und Testadapter.
+  26.2/1.21.11/26.4 erst im separaten Release-Port nach Besitzerfreigabe; keine Quelltexte dort geaendert.
+  Kein Push, kein Merge; Quellrepo unveraendert.
 ## End systems (2026-09-30, Codex, codex-kk2)
 - Fortsetzung des unterbrochenen Runs; Implementierung frueh als eee5aa09 gesichert. Nur 26.3 registriert neue Bloecke/Items; END_SYSTEMS=false auf 26.2, keine Ports und keine Aenderungen an mc1_21_11/mc26_4.
 - Nihilithscherbe bzw. Astralitstaub + Redstone ergibt 4 getrennte Pulver. Je Pulver + Hebel: eigener Schalter; Pulver + Redstone-Lampe: eigene Lampe (Lichtstaerke 12). Nur horizontale Nachbarn desselben Materials, kein Vanilla-Signaleingang/-ausgang. Maximal 15 Pulversegmente, server.machines.endSignalRange=15 mit Cap 1..15, Updates alle 2 Ticks; Lampen leiten nicht weiter. server.features.endSignals deaktiviert Gameplay/Rezepte (Rezepte nach Reload).
@@ -321,3 +359,46 @@ Dieser Abschnitt ersetzt die Werkbank-Erweiterung aus dem historischen Mega-Hand
 - Multimod-Vertrag dokumentiert; vorhandenes newmod-Template bereits konform, durch Regressionstest abgesichert. Alle Modul-Wikis regeneriert, sieben unveraenderte Originaltexturen unter wiki/assets/textures/simplemoney kopiert.
 - Verifiziert: wiki/generate.py --all und --all --check Exit 0; Wiki 15 Tests, Launch Hub 38 Tests; Devserver 121 Tests OK (1 skipped, bestehende ResourceWarnings). gradlew.bat check -q im Worktree GRADLE_EXIT=0, einschliesslich checkBalance/checkQuests/Multimod und shared-26.2-Kompilierung; Ausgabe gelesen.
 - Keine Server-/Client-Spieltests, Browser-Sichtpruefung oder Testzentralen-Neubau in diesem reinen Wiki-/Extractor-Run; Besitzerwelt unangetastet. Keine Aenderungen an mc1_21_11/mc26_4, kein Port, Push oder Merge. Keine offenen Besitzerentscheidungen fuer diesen Fix.
+
+## MERGE-RIDING / Plugin-Registrierung (Codex, 2026-09-30)
+
+- Branch `codex-port-riding`: lokales `master` (`bf1012f9`) integriert; Merge-/Code-Commit
+  `5f7aa7de`. Money und Riding samt allen Tests erhalten, Forge-26.3-Projekte und
+  Multi-Mod-Wiki/Balance-Vertrag aus master erhalten; Queue/Handoff vereinigt.
+- Manifest `tests` beschreibt Katalogdateien, Namespace, Gradle-Tasks/Reports pro Loader,
+  Auswahlvoraussetzungen und Client-Entrypoints. Runner entdeckt Ziel-IDs, Kataloge und
+  Ergebnisnamensraeume generisch; bestehende Ziel-IDs und historische mcLine-Gruppen bleiben.
+- Integration erzeugt Fabric-Runs und Client-Metadaten im Build-Verzeichnis. Clientquellen
+  und Datenhooks liegen jetzt in ihren Modulen. Fabric- und NeoForge-Modultasks werden fuer
+  ihre gemeinsamen Testverzeichnisse auch unter `--parallel` serialisiert. Compile-only
+  Modulabhaengigkeiten umgehen die Laufzeit-Auswahl nicht. Root `checkModuleData` fuehrt
+  alle deklarierten Scripts aus. Launch Hub nutzt nur noch den Manifestvertrag.
+- `newmod.py` liefert Fabric-/NeoForge-Serveradapter, Struktur, Client-Smoke und Datenhook;
+  Auswahl wird automatisch aktualisiert. Vertrag: `docs/MULTIMOD.md`. Doppelte Resource-
+  Wurzeln aus den zusammengefuehrten Loaderbuilds entfernt. Wiki erkennt Kreativtab-IDs
+  nicht mehr als Items und nutzt exakte Featurekapitel als Registry-Prosa.
+- Voller Bestand 26.3: **1562/1562, alles gruen**, Run `2026-09-30T14-28-00Z-a00d`.
+  Testzentrale in beiden separaten GameTest-Welten vollstaendig gebaut; alle Items/Bloecke
+  abgedeckt, Stations-/Befehlstests gruen. Besitzerwelt nicht angefasst.
+- Integration + Money + Riding: **47/47, alles gruen** (1 + 10 + 10 + 13 + 13),
+  Run `2026-09-30T14-29-34Z-e94b`. Beide Fabric-Modulclients seriell nach Prozesspruefung:
+  **6/6 Screenshot-Pruefpunkte, alles gruen**, Run `2026-09-30T14-30-55Z-9035`.
+- Neue reine Python-Registrierungstests: Launch Hub **44 Tests gruen**, inklusive
+  Scaffold-Discovery, mehrerer Katalogdateien, Namespace-/Reporttrennung, Clientselector
+  und unsicherer Pfade/Tasks. Wiki **13 Tests gruen**; Devserver **121 Tests gruen,
+  ein bestehender Skip**. `wiki/generate.py --all` und `--all --check` gruen;
+  Lang-Schluessel eindeutig. Quest-Lang-Reihenfolge fuer gemeinsame/26.3-Ressourcen aktuell.
+- Echte Gegenprobe nach dem Codecommit: `newmod.py pluginprobe "Plugin Probe"` ohne
+  manuelle gemeinsame Wiring-Aenderungen. **2/2 Servertests, alles gruen** auf Fabric/NeoForge,
+  Run `2026-09-30T14-36-39Z-e66b`; **1/1 Client-Smoke, alles gruen**,
+  Run `2026-09-30T14-37-51Z-065d`. Generischer Datenhook ebenfalls gruen; Clientresultat
+  traegt `pluginprobe:pluginprobe-title`. Probe anschliessend unter dem ignorierten
+  `scratchpad/plugin-probe-completed` archiviert, Manifest/Auswahl exakt wiederhergestellt,
+  laufender Katalog aktualisiert und Integrations-JAR-Auswahl neu vorbereitet.
+- Abschliessendes `gradlew.bat :integration:prepareIntegrationMods check -q --no-daemon`:
+  **GRADLE_EXIT=0**, Ausgabe gelesen; gemeinsamer Code kompiliert auch fuer 26.2.
+- Nicht geprueft: Forge-Ziel (ausdruecklich nicht gestartet), andere MC-Laufzeitlinien,
+  NeoForge-Clientdarstellung, vollstaendige SimpleBuilding-Clientsuite, Besitzerwelt und
+  beliebige Modpackkombinationen. `mc1_21_11` und `mc26_4` unveraendert. Keine neue Pixelkunst.
+  Keine Besitzerentscheidung fuer diesen Infrastrukturvertrag erforderlich. Kein Push,
+  kein Merge dieses Branches in master; Integration dort bleibt der Besitzersession.

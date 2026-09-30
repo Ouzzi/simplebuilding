@@ -239,6 +239,8 @@ Verlauf im Detail: git log.
 - [x] check, 1548/1548 Server, 1/1 Integration, 34 Hub-Tests und Trockenlauf gruen; kein Push/Merge
 - [ ] Besitzer-Abnahme: visuelles Hub-Rendering/echte Clients, lokale Modpack-Kombinationen
 
+## Simple Riding 26.3 (Codex)
+- [x] Port des read-only Quellrepos 1.0.5 auf 26.3: Fabric/NeoForge, eigener Integrationskatalog, Client-Smoke, Wiki/Balancedaten, Launch-Hub-Testanbindung. Details: docs/modules/simpleriding.md; kein Push/Merge. Forge und andere Linien erst im eigenen Release-Port.
 ## Welle 25 (Besitzer 2026-09-30): Multi-Mod, Fehler, Forge 26.3 - alles mit Codex-CLI, Hauptlinie 26.3
 Regel: erst 26.3 (Fabric + NeoForge, dazu Forge 26.3) komplett und gruen, alle parallelen Laeufe fertig; 1.21.11/26.2/26.4 erst, wenn der Besitzer das Release ankuendigt.
 Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad codex/; Start: `codex exec --dangerously-bypass-approvals-and-sandbox -C <worktree> -o <out> - < <brief>`):
@@ -274,3 +276,6 @@ Codex-Laeufe (Branches codex-*, Worktrees %TEMP%/cx-*, Briefs/Logs im Scratchpad
 
 ## FIX-MONEY-WIKI (26.3, Codex)
 - [x] Sieben bilingual dokumentierte Money-Items; Kreativtab aus Item-Inventar korrekt ausgeschlossen; alle Modul-Wikis/Originaltexturen aktuell. Wiki 15, Hub 38, Devserver 121 (1 skipped), Gradle check Exit 0. Kein Push/Merge.
+
+- [x] MERGE-RIDING: master integrieren; Modulregistrierung aus Manifest entdecken,
+  beide Modulkataloge/Client-Smokes erhalten, neue Ports ohne gemeinsame Wiring-Bloecke.

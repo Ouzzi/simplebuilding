@@ -93,6 +93,7 @@ class Target:
     screenshots: str = ""
     #: Extra Gradle arguments this target needs (Forge: its run configurations are opt in).
     gradle_args: tuple[str, ...] = ()
+    namespace: str = MOD_ID
 
 
 #: ForgeGradle 7 builds its run tasks only with -Pforge_runs=true, and creating them needs a
@@ -280,13 +281,35 @@ SNAPSHOT_TARGETS: tuple[Target, ...] = (
 INTEGRATION_TARGETS = (Target(
     id="integration-263", label="Integration Fabric - MC 26.3", loader="fabric",
     mc_line="integration-26.3", gradle_task=":integration:runIntegrationGameTest",
-    report="integration/build/junit.xml",
+    report="integration/build/junit.xml", namespace="sbintegration",
     catalogue="integration/src/main/java/com/simplebuilding/integration/CrossModGameTest.java",
 ),)
-MONEY_TARGETS = (
- Target(id="module-simplemoney-fabric-263", label="Simple Money Fabric integration", loader="fabric", mc_line="module-simplemoney-263", gradle_task=":integration:runMoneyIntegrationGameTest", report="integration/build/money-junit.xml", catalogue="modules/simplemoney/fabric/src/main/java/com/simplemoney/MoneyGameTest.java"),
- Target(id="module-simplemoney-neoforge-263", label="Simple Money NeoForge integration", loader="neoforge", mc_line="module-simplemoney-263", gradle_task=":modules:simplemoney:neoforge:runMoneyIntegrationGameTest", report="modules/simplemoney/neoforge/build/money-junit.xml", catalogue="modules/simplemoney/fabric/src/main/java/com/simplemoney/MoneyGameTest.java"),
-)
+
+
+def module_targets(root=REPO):
+    """Discover opt-in module suites from the producer-owned manifest contract."""
+    result = []
+    for module in json.loads((root / "modules/modules.json").read_text(encoding="utf-8"))["modules"]:
+        tests = module.get("tests")
+        if not tests:
+            continue
+        common = dict(mc_line=tests.get("mcLine", f"module-{module['id']}-263"),
+                      namespace=tests.get("namespace", module["id"]))
+        for loader, spec in tests.get("loaders", {}).items():
+            result.append(Target(id=f"module-{module['id']}-{loader}-263",
+                label=f"{module['displayName']} {loader} integration", loader=loader,
+                gradle_task=spec["task"], report=spec["report"],
+                catalogue=tests["catalogues"][0], gradle_args=tuple(spec.get("gradleArgs", [])), **common))
+        client = tests.get("client")
+        if client:
+            result.append(Target(id=f"module-{module['id']}-client-263",
+                label=f"{module['displayName']} client smoke", loader="fabric", kind="client",
+                gradle_task=client["task"], report="", catalogue="", sources=client["sources"],
+                screenshots=client["screenshots"], gradle_args=(f"-PmoduleClientTest={module['id']}",), **common))
+    return tuple(result)
+
+
+MODULE_TARGETS = module_targets()
 # Forge 26.3 is opt in while stabilizing; existing default/release selections are unchanged.
 FORGE263_TARGETS = (Target(
     id="forge-263", label="Forge - MC 26.3", loader="forge", mc_line="26.3",
@@ -294,7 +317,7 @@ FORGE263_TARGETS = (Target(
     catalogue="common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
     gradle_args=("-Pforge263=true",) + FORGE_GRADLE_ARGS,
 ),)
-ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS + MONEY_TARGETS + FORGE263_TARGETS
+ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS + INTEGRATION_TARGETS + MODULE_TARGETS + FORGE263_TARGETS
 
 BY_ID = {t.id: t for t in ALL_TARGETS}
 
@@ -424,8 +447,20 @@ def read_catalogue() -> dict[str, list[dict]]:
                 integration.append({"id": f"sbintegration:{snake(cls[1])}_{snake(method)}",
                                     "testClass": cls[1], "method": method})
     out["integration-26.3"] = integration
-    source = (REPO / "modules/simplemoney/fabric/src/main/java/com/simplemoney/MoneyGameTest.java").read_text(encoding="utf-8")
-    out["module-simplemoney-263"] = [{"id": "simplemoney:money_game_test_" + snake(method), "testClass": "MoneyGameTest", "method": method} for method in re.findall(r"@GameTest(?:\([^)]*\))?\s+public void (\w+)\(GameTestHelper", source)]
+    for module in json.loads((REPO / "modules/modules.json").read_text(encoding="utf-8"))["modules"]:
+        tests = module.get("tests")
+        if not tests:
+            continue
+        entries = []
+        for catalogue in tests["catalogues"]:
+            source = (REPO / catalogue).read_text(encoding="utf-8")
+            cls = re.search(r"public (?:final )?class (\w+)", source)
+            if not cls:
+                raise ValueError(f"Missing test class in {catalogue}")
+            for method in re.findall(r"@GameTest(?:\([^)]*\))?\s+public void (\w+)\(GameTestHelper", source):
+                entries.append({"id": f"{tests.get('namespace', module['id'])}:{snake(cls[1])}_{snake(method)}",
+                                "testClass": cls[1], "method": method})
+        out[tests.get("mcLine", f"module-{module['id']}-263")] = entries
     return out
 
 
@@ -574,7 +609,7 @@ def expected_shots(target: Target) -> list[str]:
     for directory in directories:
         if not directory.is_dir():
             continue
-        for source in sorted(directory.glob("*.java")):
+        for source in sorted(directory.rglob("*.java")):
             if selected_classes is not None and source.stem not in selected_classes:
                 continue
             text = source.read_text(encoding="utf-8", errors="replace")
@@ -583,6 +618,7 @@ def expected_shots(target: Target) -> list[str]:
             if "takeScreenshot(" not in text and "shot(" not in text:
                 continue
             names.update(SHOT_NAME.findall(text))
+            names.update(re.findall(r'takeScreenshot\(\s*"([a-z0-9_-]+)"', text))
             names.difference_update(LOGGER_NAME.findall(text))
     return sorted(names - SKIPPED_SHOTS.get(target.mc_line, set()))
 
@@ -635,7 +671,7 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     """
     started_at = now_utc()
     started_clock = time.time() - 1
-    command = gradlew() + [target.gradle_task]
+    command = gradlew() + list(target.gradle_args) + [target.gradle_task]
     exit_code, output, timed_out = run_capture(command, timeout)
     duration_ms = int((now_utc() - started_at).total_seconds() * 1000)
 
@@ -692,7 +728,7 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
         # Each screenshot stands in for one checkpoint the test reached.
         "tests": [
             {
-                "id": f"{MOD_ID}:{name}",
+                "id": f"{target.namespace}:{name}",
                 "status": "passed" if name in fresh else "failed",
                 "message": None if name in fresh else "kein frischer Screenshot",
                 "durationMs": 0,
@@ -749,7 +785,7 @@ def run_target(
     log_path = RUNS_DIR / f"{run_id}-{target.id}.log"
     log_path.write_text(strip_ansi(output), encoding="utf-8")
 
-    report = parse_report(REPO / target.report, fresh_after, "simplemoney" if target.id.startswith("module-simplemoney-") else "sbintegration" if target.id == "integration-263" else MOD_ID)
+    report = parse_report(REPO / target.report, fresh_after, target.namespace)
 
     # Tests this loader is known not to pass yet (LOADER_KNOWN_FAILURES): their red is recorded
     # as "known" and does not move the numbers - but only while it is red. A listed test that

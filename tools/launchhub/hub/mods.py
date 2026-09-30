@@ -96,7 +96,7 @@ class ModsMixin:
             modules, _ = multimod.registries(self.repo)
             module_targets = [target for module in modules
                               if module['id'] in selected['modules']
-                              for target in module.get('testTargets', [])]
+                              for target in [f"module-{module['id']}-{loader}-263" for loader in module.get('tests', {}).get('loaders', {})]]
             if module_targets:
                 # Keep the harness and module runs sequential: they can share a run
                 # directory, and each suite needs its own namespace filter.

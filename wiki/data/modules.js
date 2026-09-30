@@ -57,5 +57,23 @@ window.WIKI_MODULES = [
       "modmenu"
     ],
     "dataHash": "d7564d9000e4"
+  },
+  {
+    "id": "simpleriding",
+    "displayName": "Simple Riding",
+    "description": "Saddle speed and horse jump enchantments, mount armor utilities, loot, and trades.",
+    "version": "1.0.5",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge"
+    ],
+    "requires": [
+      "cloth_config"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "dataHash": "ffdd075a8adb"
   }
 ];

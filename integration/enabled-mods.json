@@ -3,7 +3,8 @@
   "modules": [
     "simplebuilding",
     "wiringexample",
-    "simplemoney"
+    "simplemoney",
+    "simpleriding"
   ],
   "devMods": [
     "jei",

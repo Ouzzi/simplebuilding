@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "module": "simpleriding",
+  "configFile": "config/simpleriding.json",
+  "options": [
+    {
+      "path": "worldGen.enableVillagerTrades",
+      "default": true,
+      "tab": "worldGen",
+      "nameKey": "text.autoconfig.simpleriding.option.worldGen.enableVillagerTrades",
+      "tooltipKey": "text.autoconfig.simpleriding.option.worldGen.enableVillagerTrades.@Tooltip",
+      "maximum": null
+    },
+    {
+      "path": "worldGen.enableLootTableChanges",
+      "default": true,
+      "tab": "worldGen",
+      "nameKey": "text.autoconfig.simpleriding.option.worldGen.enableLootTableChanges",
+      "tooltipKey": "text.autoconfig.simpleriding.option.worldGen.enableLootTableChanges.@Tooltip",
+      "maximum": null
+    },
+    {
+      "path": "enchantments.swiftRide.ghastSpeedMultiplier",
+      "default": 0.85,
+      "tab": "enchantments",
+      "nameKey": "text.autoconfig.simpleriding.option.enchantments.swiftRide.ghastSpeedMultiplier",
+      "tooltipKey": "text.autoconfig.simpleriding.option.enchantments.swiftRide.ghastSpeedMultiplier.@Tooltip",
+      "maximum": 1
+    },
+    {
+      "path": "enchantments.swiftRide.horseSpeedMultiplier",
+      "default": 0.3,
+      "tab": "enchantments",
+      "nameKey": "text.autoconfig.simpleriding.option.enchantments.swiftRide.horseSpeedMultiplier",
+      "tooltipKey": "text.autoconfig.simpleriding.option.enchantments.swiftRide.horseSpeedMultiplier.@Tooltip",
+      "maximum": 1
+    },
+    {
+      "path": "enchantments.swiftRide.otherSpeedMultiplier",
+      "default": 0.2,
+      "tab": "enchantments",
+      "nameKey": "text.autoconfig.simpleriding.option.enchantments.swiftRide.otherSpeedMultiplier",
+      "tooltipKey": "text.autoconfig.simpleriding.option.enchantments.swiftRide.otherSpeedMultiplier.@Tooltip",
+      "maximum": 1
+    },
+    {
+      "path": "enchantments.horseJump.jumpStrengthMultiplier",
+      "default": 0.2,
+      "tab": "enchantments",
+      "nameKey": "text.autoconfig.simpleriding.option.enchantments.horseJump.jumpStrengthMultiplier",
+      "tooltipKey": "text.autoconfig.simpleriding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip",
+      "maximum": 0.5
+    }
+  ]
+}

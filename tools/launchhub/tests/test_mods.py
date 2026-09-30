@@ -107,6 +107,18 @@ class ModTests(unittest.TestCase):
         self.assertEqual(len(runner.read_catalogue()['integration-26.3']), 1)
         self.assertEqual(runner.read_catalogue()['26.3'], runner.read_catalogue()['26.2'])
 
+    def test_selected_riding_suite_is_queued_after_wiring(self):
+        with patch.dict(os.environ, {'SB_HUB_DRY_RUN':'1'}), patch.object(self.hub, 'require_disk'):
+            result = self.hub.launch_integration({'action':'tests'})
+            job = self.hub.manager.get(result['job']['id'])
+            test_steps = [step for step in job.steps if 'argv' in step]
+            self.assertIn('integration-263', test_steps[-2]['argv'])
+            self.assertIn('module-simpleriding-fabric-263', ' '.join(test_steps[-1]['argv']))
+            self.assertIn('module-simpleriding-neoforge-263', ' '.join(test_steps[-1]['argv']))
+            deadline = time.monotonic() + 5
+            while job.status in ('starting', 'running', 'stopping') and time.monotonic() < deadline:
+                time.sleep(0.02)
+            self.assertEqual(job.exit_code, 0)
     def test_data_contract_rejects_missing_fields_and_escaping_paths(self):
         path = self.root / 'modules/modules.json'
         original = multimod.read(path)
@@ -154,9 +166,73 @@ class ModTests(unittest.TestCase):
             job = self.hub.manager.get(result['job']['id'])
             test_steps = [step for step in job.steps if 'argv' in step]
             self.assertIn('integration-263', test_steps[-2]['argv'])
-            self.assertIn('module-simplemoney-fabric-263,module-simplemoney-neoforge-263',
-                          test_steps[-1]['argv'])
+            self.assertIn('module-simplemoney-fabric-263', ' '.join(test_steps[-1]['argv']))
+            self.assertIn('module-simplemoney-neoforge-263', ' '.join(test_steps[-1]['argv']))
             deadline = time.monotonic() + 5
             while job.status in ('starting', 'running', 'stopping') and time.monotonic() < deadline:
                 time.sleep(0.02)
             self.assertEqual(job.exit_code, 0)
+
+    def test_manifest_discovers_new_module_without_shared_registration(self):
+        newmod.create('pluginprobe', 'Plugin Probe', self.root)
+        found = {t.id: t for t in targets.runner().module_targets(self.root)}
+        for loader in ('fabric', 'neoforge', 'client'):
+            self.assertIn(f'module-pluginprobe-{loader}-263', found)
+        module = next(m for m in multimod.registries(self.root)[0] if m['id'] == 'pluginprobe')
+        self.assertTrue((self.root / module['tests']['catalogues'][0]).is_file())
+        self.assertTrue((self.root / module['tests']['client']['sources']).is_dir())
+        self.assertTrue((self.root / module['checks'][0]).is_file())
+        self.assertEqual(found['module-pluginprobe-fabric-263'].namespace, 'pluginprobe')
+        self.assertEqual(found['module-pluginprobe-client-263'].gradle_args, ('-PmoduleClientTest=pluginprobe',))
+
+    def test_registration_preserves_both_module_catalogues_and_client_evidence(self):
+        runner = targets.runner()
+        catalogues = runner.read_catalogue()
+        self.assertEqual(len(catalogues['simpleriding-26.3']), 13)
+        self.assertGreater(len(catalogues['module-simplemoney-263']), 0)
+        for mid in ('simplemoney', 'simpleriding'):
+            for loader in ('fabric', 'neoforge'):
+                target = runner.BY_ID[f'module-{mid}-{loader}-263']
+                self.assertEqual(target.namespace, mid)
+                self.assertTrue(all(row['id'].startswith(mid + ':') for row in catalogues[target.mc_line]))
+            self.assertEqual(len(runner.expected_shots(runner.BY_ID[f'module-{mid}-client-263'])), 3)
+
+    def test_registration_rejects_unsafe_manifest_paths_and_tasks(self):
+        path = self.root / 'modules/modules.json'
+        original = multimod.read(path)
+        for field, bad in (('report', '../outside.xml'), ('task', ':integration:run;bad')):
+            data = json.loads(json.dumps(original))
+            module = next(m for m in data['modules'] if m['id'] == 'simpleriding')
+            module['tests']['loaders']['fabric'][field] = bad
+            multimod.write(path, data)
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                multimod.registries(self.root)
+
+    def test_discovery_reads_multiple_adapter_files_and_namespaces(self):
+        runner = targets.runner()
+        entry = dict(id='probe', tests=dict(namespace='probe', catalogues=['modules/probe/First.java', 'modules/probe/Second.java']))
+        multimod.write(self.root / 'modules/modules.json', {'schemaVersion': 1, 'modules': [entry]})
+        for name in ('First', 'Second'):
+            path = self.root / f'modules/probe/{name}.java'
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(f'public final class {name} {{ @GameTest(maxTicks=100) public void tokenPresent(GameTestHelper h) {{}} }}')
+        with patch.object(runner, 'REPO', self.root):
+            catalogue = runner.read_catalogue()['module-probe-263']
+        self.assertEqual([test['id'] for test in catalogue], ['probe:first_token_present', 'probe:second_token_present'])
+        report = self.root / 'report.xml'
+        report.write_text('<testsuite><testcase name="probe:first_token_present"/><testcase name="other:foreign"/></testsuite>')
+        parsed = runner.parse_report(report, 0, 'probe')
+        self.assertEqual(parsed['counts']['passed'], 1)
+        self.assertEqual(parsed['counts']['foreign'], 1)
+
+    def test_client_result_uses_producer_namespace_and_selector(self):
+        runner = targets.runner()
+        target = runner.BY_ID['module-simpleriding-client-263']
+        with patch.object(runner, 'RUNS_DIR', self.root / 'runs'), \
+             patch.object(runner, 'run_capture', return_value=(0, '', False)) as capture, \
+             patch.object(runner, 'expected_shots', return_value=['riding-config']), \
+             patch.object(runner, 'taken_shots', return_value=(['riding-config'], [])):
+            result = runner.run_client_target(target, 'unit-probe', 10)
+        self.assertEqual(result['tests'][0]['id'], 'simpleriding:riding-config')
+        self.assertIn('-PmoduleClientTest=simpleriding', capture.call_args.args[0])
+        self.assertEqual(result['counts']['passed'], 1)

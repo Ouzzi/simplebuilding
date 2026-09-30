@@ -1,0 +1,44 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "simpleriding:trades_enabled"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simpleriding:trades_enabled"
+    }
+  ],
+  "wants": {
+    "id": "minecraft:emerald",
+    "count": {
+      "min": 15,
+      "max": 49,
+      "type": "minecraft:uniform"
+    }
+  },
+  "gives": {
+    "id": "minecraft:enchanted_book"
+  },
+  "max_uses": 1,
+  "xp": 80,
+  "reputation_discount": 1,
+  "given_item_modifier": [
+    {
+      "pool": [
+        {
+          "enchantment": "simpleriding:tailwind",
+          "level": 3,
+          "weight": 20
+        },
+        {
+          "enchantment": "simpleriding:leaping",
+          "level": 3,
+          "weight": 20
+        }
+      ],
+      "second_chance": 0.35,
+      "type": "simpleriding:weighted_enchant"
+    }
+  ]
+}

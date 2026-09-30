@@ -127,23 +127,5 @@
         }
       ]
     }
-  ],
-  "moduleTargets": {
-    "simplemoney": {
-      "minecraft": "26.3",
-      "fabric": {
-        "clientTask": ":integration:runIntegrationClient",
-        "serverTask": ":integration:runIntegrationServer",
-        "clientSmokeTask": ":integration:runClientGameTest",
-        "testTarget": "module-simplemoney-fabric-263",
-        "runDir": "integration/run-fabric-263",
-        "gameTestTask": ":integration:runMoneyIntegrationGameTest"
-      },
-      "neoforge": {
-        "testTarget": "module-simplemoney-neoforge-263",
-        "gameTestTask": ":modules:simplemoney:neoforge:runMoneyIntegrationGameTest",
-        "runDir": "integration/run-neoforge-263"
-      }
-    }
-  }
+  ]
 }

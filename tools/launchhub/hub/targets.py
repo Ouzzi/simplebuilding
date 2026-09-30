@@ -43,7 +43,11 @@ def runner():
 
 
 def load_launch(path: Path = LAUNCH_FILE) -> dict:
-    return json.loads(path.read_text(encoding="utf-8"))
+    data = json.loads(path.read_text(encoding="utf-8"))
+    manifest = path.parents[2] / "modules/modules.json"
+    if manifest.exists():
+        data["moduleTargets"] = {m["id"]: m["tests"] for m in json.loads(manifest.read_text(encoding="utf-8"))["modules"] if m.get("tests")}
+    return data
 
 
 def loaders(data: dict | None = None) -> dict[str, dict]:

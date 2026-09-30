@@ -162,3 +162,40 @@ named constants readable by balance extractors. Loader conventions include
 existing `balance/` working without moving any history. Output directories need not
 exist before the first generated output. Consumer extraction/rendering is a separate
 infra task; the manifest paths are its contract.
+
+## Plugin-style test registration
+
+Adding a module touches only `modules/<id>/` and the manifest. `tools/newmod.py`
+creates the producer files, adds the manifest entry and automatically updates the
+integration selection (`integration/enabled-mods.json` is selection state).
+No module-specific blocks belong in the root build, integration build, runner,
+Launch Hub registry or shared client-test metadata.
+
+An optional `tests` object in each manifest entry declares:
+- `namespace`: the report/test id namespace (defaults to the module id).
+- `catalogues`: Fabric Java GameTest adapter source files. Class and annotated method
+  names form catalogue ids; multiple adapters are supported. Both loaders register
+  the same ids. Optional `mcLine` retains historical result grouping.
+- `loaders`: each loader declares `task`, repository-relative `report`, and optional
+  `gradleArgs`. Target ids are `module-<id>-<loader>-263`. Fabric tasks belong to
+  `:integration`; their run configurations are created from the declared task names.
+  NeoForge adapters and runs live in the module. Forge remains explicitly opt-in.
+- `requires` and `devMods`: ids required in the integration selection for the suite.
+- Optional `client`: `entrypoints`, `sources`, `screenshots`, and
+  `task: ":integration:runClientGameTest"`. Sources live in `modules/<id>/clienttest/java`.
+  Target `module-<id>-client-263` sets `-PmoduleClientTest=<id>`; only that module's
+  entrypoints enter the generated build resource. Without a selector, the shared
+  smoke task runs all declared client entrypoints. This resource is never shipped.
+
+`checks` lists module-owned Python data scripts, executed by root `checkModuleData`.
+The scaffold provides Fabric/NeoForge token registration tests, a Fabric client
+smoke, empty structure and bilingual data hook. Extend these when replacing the token.
+Loader metadata retains the server GameTest entrypoint. Generated resources are
+already included by loader conventions; do not add them twice.
+
+Launch Hub derives module test targets from `tests.loaders` and queues selected
+suites after `integration-263`. `launch_targets.json` contains base launch lines,
+without a second module registration. Reports and client screenshot expectations
+remain isolated per target. Fabric run tasks form a `mustRunAfter` chain, as do
+NeoForge module tasks, preventing simultaneous use of each shared integration
+test directory even under `--parallel`.

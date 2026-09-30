@@ -20,11 +20,20 @@ def create(mid, name, root=ROOT):
         if template_file.is_file():
             path = dest / template_file.relative_to(template).as_posix().replace('wiringexample', mid)
             path.parent.mkdir(parents=True, exist_ok=True)
+            if template_file.suffix == '.nbt':
+                path.write_bytes(template_file.read_bytes())
+                continue
             path.write_text(template_file.read_text(encoding='utf-8').replace('__MODID__', mid)
                             .replace('__DISPLAY_NAME__', name), encoding='utf-8')
     modules.append(dict(id=mid, name=name, version='0.1.0', minecraft='26.3', defaultEnabled=True,
                         displayName=name, description=f'{name} module.', loaders=['fabric','neoforge','forge'],
-                        requires=[], optional=[],
+                        requires=[], optional=[], checks=[f'modules/{mid}/tools/check_data.py'],
+                        tests=dict(namespace=mid, catalogues=[f'modules/{mid}/fabric/src/main/java/com/simplebuilding/modules/{mid}/ModuleGameTest.java'],
+                                   requires=[mid], devMods=[], loaders={
+                                       'fabric': dict(task=f':integration:run{mid.capitalize()}GameTest', report=f'integration/build/{mid}-junit.xml'),
+                                       'neoforge': dict(task=f':modules:{mid}:neoforge:runModuleIntegrationGameTest', report=f'modules/{mid}/neoforge/build/module-junit.xml')},
+                                   client=dict(entrypoints=[f'com.simplebuilding.modules.{mid}.ModuleClientSmoke'], sources=f'modules/{mid}/clienttest/java',
+                                               screenshots='integration/run-fabric-263/screenshots', task=':integration:runClientGameTest')),
                         paths=dict(root=f'modules/{mid}', shared=f'modules/{mid}/shared',
                                    fabric=f'modules/{mid}/fabric', neoforge=f'modules/{mid}/neoforge',
                                    forge=f'modules/{mid}/forge', generated=f'modules/{mid}/generated/resources',

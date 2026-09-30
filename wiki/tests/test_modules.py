@@ -183,6 +183,15 @@ class ModuleWikiTests(unittest.TestCase):
         self.assertIsInstance(template['notes'], dict)
         self.assertEqual(g.prose_languages(template['notes']['__MODID__:token']), {'en', 'de'})
 
+    def test_creative_tab_literal_is_not_an_item(self):
+        self.token()
+        path = self.root / self.entry['paths']['shared'] / 'java/Items.java'
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text('public class Items { void register() { var id = Identifier.fromNamespaceAndPath("wiringexample", "token"); Registry.register(BuiltInRegistries.ITEM, id, item); Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath("wiringexample", "tab"), tab); } }')
+        data, problems = module_wiki.extract(self.entry, g)
+        self.assertEqual([item['id'] for item in data['items']], ['wiringexample:token'])
+        self.assertEqual(problems, [])
+
 
 if __name__ == '__main__':
     unittest.main()

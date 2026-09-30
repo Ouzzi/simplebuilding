@@ -101,6 +101,11 @@ def extract(entry, g, check=False):
     if not isinstance(notes, dict):
         problems.append(f'{paths["wikiManual"]}: notes must be an object keyed by item/block id or glob')
         notes = {}
+    # An exact feature chapter can document its registry id without duplicating prose.
+    feature_notes = {f["id"] if ':' in f["id"] else mid + ':' + f["id"]:
+                     {locale: f[locale] for locale in ('en', 'de') if locale in f}
+                     for f in manual.get('features', [])}
+    notes = feature_notes | notes
     def record(identifier, note):
         languages = g.prose_languages(note)
         if not languages:
