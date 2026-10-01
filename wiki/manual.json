@@ -1,5 +1,5 @@
 {
-  "_readme": "Zweisprachig: jede Notiz und jedes Feature traegt einen en- und einen de-Block. sources und related stehen sprachneutral daneben. Jede Behauptung muss sich im Code belegen lassen; siehe wiki/README.md.",
+  "_readme": "Zweisprachig: jede Notiz und jedes Feature traegt einen en- und einen de-Block. sources und related stehen sprachneutral daneben. Jede Behauptung muss sich im Code belegen lassen; siehe wiki/README.md. Optional items: vollständige Item-ID -> en/de-Kurzsatz und optionale sources; der Generator stellt den Kurzsatz vor die Familienzusammenfassung.",
   "features": [
     {
       "id": "welcome",
@@ -369,7 +369,7 @@
           "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
           "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
-          "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
+          "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with three right-click strikes. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
           "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
           "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
           "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
@@ -397,7 +397,7 @@
           "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
           "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
-          "Ein Eisenhammer oder besser zerlegt einen Diamantblock in 81 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+          "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit drei Rechtsklick-Schlägen in 81 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
           "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
           "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
           "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -859,7 +859,7 @@
           "Limits: at most 32000 characters of code, a 256 x 256 x 256 grid and at most 4 194 304 filled positions (256 x 256 x 64) - a structure may span the whole grid but not fill it solid. Errors are shown inline; the line under the cursor (or the first error) is explained below the editor.",
           "Signing works like a book: enter a title and sign - afterwards the blueprint is read-only and shows title and author. The server checks every edit again; signing reads the whole code, so each player can sign at most two full-length codes at once and then about one per second (signing faster says so on the action bar).",
           "Scanning: put an Octant with both corners set into the top slot of a cartography table and an empty or unsigned blueprint into the bottom slot. The result is the filled blueprint; taking it uses up only the blueprint, the octant stays. Only the octant's figure is scanned - sphere, cylinder, pyramid, prism, ellipse or box, exactly the blocks its preview shows. The selection must be loaded, at most 256 blocks per edge, and the table within 32 blocks of it. Large selections are scanned over several ticks (262 144 positions per tick, a full 256 cube in about 3 seconds) with the progress on the action bar. Air is skipped, and of chests and other block entities only the block itself is copied, not the contents. While the octant lies in the table its selection is drawn in the world.",
-          "Building: hold a building wand in the main hand and a signed blueprint in the off hand. A ghost preview shows exactly what a click would place at the block you aim at; the structure stands in front of you, centred, and grows in your viewing direction. Ctrl + mouse wheel turns it by 90 degrees. In survival the code only decides orientation and shape (facing, axis, top/bottom half, stair shape, hinge, connections) and paid amounts such as candles or snow layers; growth and fill states (age, composter or cauldron level, honey, anchor charges, portal-frame eyes, waterlogged) start from the block's normal state, leaves stay persistent and a filled cauldron becomes an empty one - one item never gives a ripe crop or a full composter. A note block keeps the instrument from the code. Command, structure and jigsaw blocks are only built for players who may place them by hand, in creative too. Creative mode builds the code exactly. If a block cannot be placed after all, its item goes back into your inventory.",
+          "Building: hold a building wand in the main hand and a signed blueprint in the off hand. A ghost preview shows exactly what a click would place at the block you aim at; the structure stands in front of you, centered, and grows in your viewing direction. Ctrl + mouse wheel turns it by 90 degrees. In survival the code only decides orientation and shape (facing, axis, top/bottom half, stair shape, hinge, connections) and paid amounts such as candles or snow layers; growth and fill states (age, composter or cauldron level, honey, anchor charges, portal-frame eyes, waterlogged) start from the block's normal state, leaves stay persistent and a filled cauldron becomes an empty one - one item never gives a ripe crop or a full composter. A note block keeps the instrument from the code. Command, structure and jigsaw blocks are only built for players who may place them by hand, in creative too. Creative mode builds the code exactly. If a block cannot be placed after all, its item goes back into your inventory.",
           "Wand size limits (longest edge of the bounding box): copper 16, iron 32, gold 48, diamond 64, netherite 128, enderite 256. A wand that is too small refuses with a hint.",
           "Tooltip: hovering a filled blueprint shows the structure as a slowly turning 3D miniature; hold Shift for the material list.",
           "Empty code: the preview says how to start and offers \"Insert example\": a random example structure from the biome you are standing in - a village house or another typical build (well, desert temple ruin, igloo, cherry pavilion, witch hut, taiga camp, ruined portal remains ...), each at most 16 x 16 x 16 and written as commented example code.",
@@ -2472,7 +2472,7 @@
         "title": "Enderite Void Protection",
         "summary": "Every enderite item of the mod is safe from the void and lies twice as long when dropped: if it falls below the world's bottom it hangs in place and is pulled back up when needed, and it despawns only after 10 minutes. Enderite armor also slows void damage for the wearer and lets you drift down gently while the jump key is held.",
         "details": [
-          "One item tag decides: simplebuilding:enderite_items. Datagen fills it from every mod item whose id contains \"enderite\" (so raw_enderite and enchanted_enderite_apple too) plus the enderite tiers whose id does not say so - the three Flypads (all smithed from the Enderite Pressure Plate), the Fine Elytra Pad V, the Infused Potion Pad III and the Echo Sounder (enderite core and nuggets). That covers ingot, scrap, raw enderite fragments and scrap, nugget, block, tools, weapons, armor, horse and nautilus armor, bundle, quiver, backpack, chest, core, apples, carrot, upgrade template, machines and pads. The tags simplebuilding:void_protected (void protection) and simplebuilding:double_despawn_time (lifetime) each contain #simplebuilding:enderite_items, so a modpack can widen either one on its own. A game test finds every item named \"Enderite\" in English or with \"enderite\" in its id and fails if one is missing from the tag.",
+          "One item tag decides: simplebuilding:enderite_items. Datagen fills it from every mod item whose id contains \"enderite\" (so raw_enderite and enchanted_enderite_apple too) plus the enderite tiers whose id does not say so - the three Flypads (tier I crafted shapelessly from an Enderite Core, an Enderite Pressure Plate, a Shulker Head and an elytra with Mending; tiers II and III upgraded at the smithing table), the Fine Elytra Pad V, the Infused Potion Pad III and the Echo Sounder (enderite core and nuggets). That covers ingot, scrap, raw enderite fragments and scrap, nugget, block, tools, weapons, armor, horse and nautilus armor, bundle, quiver, backpack, chest, core, apples, carrot, upgrade template, machines and pads. The tags simplebuilding:void_protected (void protection) and simplebuilding:double_despawn_time (lifetime) each contain #simplebuilding:enderite_items, so a modpack can widen either one on its own. A game test finds every item named \"Enderite\" in English or with \"enderite\" in its id and fails if one is missing from the tag.",
           "If such an item falls below the dimension's minimum height, its motion is zeroed and gravity is switched off - it floats.",
           "If it ends up more than 10 blocks below the minimum height, it is moved back to 5 blocks above the minimum height.",
           "The check runs on the server only, on every tick of the item entity.",
@@ -2488,7 +2488,7 @@
         "title": "Enderit-Schutz vor der Leere",
         "summary": "Jeder Enderit-Gegenstand der Mod ist vor der Leere sicher und bleibt fallengelassen doppelt so lange liegen: Fällt er unter die Weltgrenze, bleibt er schweben und wird bei Bedarf wieder nach oben geholt, und er verschwindet erst nach 10 Minuten. Zusätzlich verlangsamt Enderit-Rüstung den Leere-Schaden für den Träger und erlaubt bei gedrückter Sprungtaste sanftes Fallen.",
         "details": [
-          "Ein Item-Tag entscheidet: simplebuilding:enderite_items. Der Datagen füllt es aus allen Mod-Items, deren Kennung „enderite“ enthält (also auch raw_enderite und enchanted_enderite_apple), dazu die Enderit-Stufen, deren Kennung das nicht sagt – die drei Flypads (alle aus der Enderit-Druckplatte geschmiedet), das Feine Elytra-Pad V, das Durchtränkte Trank-Pad III und das Echolot (Enderit-Kern und -Klumpen). Das umfasst Barren, Platten, Rohe Enderitfragmente und -platten, Klumpen, Block, Werkzeuge, Waffen, Rüstung, Ross- und Nautilusrüstung, Bündel, Köcher, Rucksack, Truhe, Kern, Äpfel, Karotte, Upgrade-Vorlage, Maschinen und Pads. Die Tags simplebuilding:void_protected (Leere-Schutz) und simplebuilding:double_despawn_time (Liegezeit) enthalten jeweils #simplebuilding:enderite_items, ein Modpack kann also jedes für sich erweitern. Ein Spieltest sucht jeden Gegenstand mit „Enderite“ im englischen Namen oder „enderite“ in der Kennung und schlägt fehl, wenn einer im Tag fehlt.",
+          "Ein Item-Tag entscheidet: simplebuilding:enderite_items. Der Datagen füllt es aus allen Mod-Items, deren Kennung „enderite“ enthält (also auch raw_enderite und enchanted_enderite_apple), dazu die Enderit-Stufen, deren Kennung das nicht sagt – die drei Flypads (Stufe I formlos aus Enderitkern, Enderit-Druckplatte, Shulkerkopf und Elytra mit Reparatur hergestellt; Stufen II und III am Schmiedetisch aufgewertet), das Feine Elytra-Pad V, das Durchtränkte Trank-Pad III und das Echolot (Enderit-Kern und -Klumpen). Das umfasst Barren, Platten, Rohe Enderitfragmente und -platten, Klumpen, Block, Werkzeuge, Waffen, Rüstung, Ross- und Nautilusrüstung, Bündel, Köcher, Rucksack, Truhe, Kern, Äpfel, Karotte, Upgrade-Vorlage, Maschinen und Pads. Die Tags simplebuilding:void_protected (Leere-Schutz) und simplebuilding:double_despawn_time (Liegezeit) enthalten jeweils #simplebuilding:enderite_items, ein Modpack kann also jedes für sich erweitern. Ein Spieltest sucht jeden Gegenstand mit „Enderite“ im englischen Namen oder „enderite“ in der Kennung und schlägt fehl, wenn einer im Tag fehlt.",
           "Fällt ein solches Item unter die Mindesthöhe der jeweiligen Dimension, wird seine Bewegung gestoppt und die Schwerkraft abgeschaltet – es schwebt.",
           "Liegt es mehr als 10 Blöcke unter der Mindesthöhe, wird es auf 5 Blöcke über der Mindesthöhe zurückversetzt.",
           "Die Prüfung erfolgt nur auf dem Server, jeden Tick des Item-Objekts.",
@@ -3441,7 +3441,7 @@
         "title": "Astral Vault",
         "summary": "54 personal slots, including the 27 shared vanilla ender chest slots.",
         "details": [
-          "Craft an ender chest with two Enderite Ingots and two Astralit Dust. Slots 1–27 directly use the vanilla personal ender inventory; slots 28–54 belong to that same player and are reachable through a vault. Ordinary ender chests still expose 27 slots.",
+          "Craft an ender chest with six Enderite Nuggets and two Astralit Dust. Slots 1–27 directly use the vanilla personal ender inventory; slots 28–54 belong to that same player and are reachable through a vault. Ordinary ender chests still expose 27 slots.",
           "The extra slots are saved in the personal ender inventory data with slot indices 27–53. Respawn uses the same ender inventory. Players and dimensions do not create shared public storage.",
           "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault, not its personal contents; hoppers cannot access them.",
           "server.features.astralVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
@@ -3451,7 +3451,7 @@
         "title": "Astralgewölbe",
         "summary": "54 persoenliche Plaetze, darunter die 27 geteilten Vanilla-Endertruhenplaetze.",
         "details": [
-          "Rezept: Endertruhe mit zwei Enderitbarren und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
+          "Rezept: Endertruhe mit sechs Enderitklumpen und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
           "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
           "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
           "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
@@ -3471,7 +3471,7 @@
           "Preview: before the swing you see every neighboring block that will be taken with a black outline and a gray fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
           "Octant selection: mine inside the shape with both corners set in the off-hand Octant. At most 32 blocks per edge and 4096 positions; 2x same-tier pickaxe time per qualifying block. Sneaking mines one block.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
-          "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
+          "An iron-tier hammer or better crushes a diamond block into 81 Diamond Pebbles with three right-click strikes. Nine make a Cracked Diamond; Reinforced Bundle and Quiver recipes use six pebbles, Reinforced Backpack four.",
           "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
           "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
           "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
@@ -3492,7 +3492,7 @@
           "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
           "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
           "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-          "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
+          "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
           "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
           "Hit a placed trim template three times with Glow Ink or Glowstone Dust in your off hand."
         ],
@@ -3534,7 +3534,7 @@
           "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
           "Oktantauswahl: Mit beiden Ecken im Nebenhand-Oktanten innerhalb der Figur abbauen. Höchstens 32 Blöcke je Kante und 4096 Plätze; 2x gleichstufige Spitzhackenzeit je passendem Block. Schleichen baut einen Block ab.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
-          "Ein Eisenhammer oder besser zerlegt einen Diamantblock in 81 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
+          "Ein Eisenhammer oder besser zerlegt einen Diamantblock mit drei Rechtsklick-Schlägen in 81 Diamantkiesel. Neun ergeben einen Rissigen Diamanten; verstärkte Bündel und Köcher brauchen sechs Kiesel, verstärkte Rucksäcke vier.",
           "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
           "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
           "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -3555,7 +3555,7 @@
           "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
           "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
           "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
-          "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
+          "Drei Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
           "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtender Rüstungsbesatz; mit Leuchtsteinstaub: Strahlender Rüstungsbesatz.",
           "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
           "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand dreimal schlagen."
@@ -3648,7 +3648,65 @@
         "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
         "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
         "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java"
-      ]
+      ],
+      "items": {
+        "simplebuilding:stone_sledgehammer": {
+          "en": "Stone Sledgehammer: 760 durability and 5 enchantability.",
+          "de": "Stein-Vorschlaghammer: 760 Haltbarkeit und 5 Verzauberbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "mc26_3/generated/wiki/items.json"
+          ]
+        },
+        "simplebuilding:copper_sledgehammer": {
+          "en": "Copper Sledgehammer: 760 durability and 13 enchantability.",
+          "de": "Kupfer-Vorschlaghammer: 760 Haltbarkeit und 13 Verzauberbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "mc26_3/generated/wiki/items.json"
+          ]
+        },
+        "simplebuilding:iron_sledgehammer": {
+          "en": "Iron Sledgehammer: 1000 durability and 14 enchantability.",
+          "de": "Eisen-Vorschlaghammer: 1000 Haltbarkeit und 14 Verzauberbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "mc26_3/generated/wiki/items.json"
+          ]
+        },
+        "simplebuilding:gold_sledgehammer": {
+          "en": "Gold Sledgehammer: 128 durability and 22 enchantability.",
+          "de": "Gold-Vorschlaghammer: 128 Haltbarkeit und 22 Verzauberbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "mc26_3/generated/wiki/items.json"
+          ]
+        },
+        "simplebuilding:diamond_sledgehammer": {
+          "en": "Diamond Sledgehammer: 6244 durability and 10 enchantability.",
+          "de": "Diamant-Vorschlaghammer: 6244 Haltbarkeit und 10 Verzauberbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "mc26_3/generated/wiki/items.json"
+          ]
+        },
+        "simplebuilding:netherite_sledgehammer": {
+          "en": "Netherite Sledgehammer: 8124 durability and 15 enchantability.",
+          "de": "Netherit-Vorschlaghammer: 8124 Haltbarkeit und 15 Verzauberbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "mc26_3/generated/wiki/items.json"
+          ]
+        },
+        "simplebuilding:enderite_sledgehammer": {
+          "en": "Enderite Sledgehammer: 10000 durability and 18 enchantability.",
+          "de": "Enderit-Vorschlaghammer: 10000 Haltbarkeit und 18 Verzauberbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "mc26_3/generated/wiki/items.json"
+          ]
+        }
+      }
     },
     "*_chisel": {
       "en": {
@@ -3837,7 +3895,58 @@
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "config/simplebuilding.json"
-      ]
+      ],
+      "items": {
+        "simplebuilding:stone_chisel": {
+          "en": "Stone Chisel: 192 durability; base cooldown 30 ticks.",
+          "de": "Steinmeißel: 192 Haltbarkeit; Basis-Abklingzeit 30 Ticks.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        },
+        "simplebuilding:copper_chisel": {
+          "en": "Copper Chisel: 192 durability; base cooldown 25 ticks.",
+          "de": "Kupfermeißel: 192 Haltbarkeit; Basis-Abklingzeit 25 Ticks.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        },
+        "simplebuilding:iron_chisel": {
+          "en": "Iron Chisel: 256 durability; base cooldown 25 ticks.",
+          "de": "Eisenmeißel: 256 Haltbarkeit; Basis-Abklingzeit 25 Ticks.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        },
+        "simplebuilding:gold_chisel": {
+          "en": "Gold Chisel: 128 durability; base cooldown 20 ticks.",
+          "de": "Goldmeißel: 128 Haltbarkeit; Basis-Abklingzeit 20 Ticks.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        },
+        "simplebuilding:diamond_chisel": {
+          "en": "Diamond Chisel: 392 durability; base cooldown 10 ticks.",
+          "de": "Diamantmeißel: 392 Haltbarkeit; Basis-Abklingzeit 10 Ticks.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        },
+        "simplebuilding:netherite_chisel": {
+          "en": "Netherite Chisel: 512 durability; base cooldown 5 ticks.",
+          "de": "Netheritmeißel: 512 Haltbarkeit; Basis-Abklingzeit 5 Ticks.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        },
+        "simplebuilding:enderite_chisel": {
+          "en": "Enderite Chisel: 600 durability; base cooldown 5 ticks.",
+          "de": "Enderitmeißel: 600 Haltbarkeit; Basis-Abklingzeit 5 Ticks.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        }
+      }
     },
     "*_spatula": {
       "en": {
@@ -3931,7 +4040,7 @@
           "Axis X (mode 1): the plane is spanned by Y and Z (wall across the X axis).",
           "Axis Y (mode 2): the plane lies flat in X/Z (floor or ceiling).",
           "Axis Z (mode 3): the plane is spanned by X and Y (wall across the Z axis).",
-          "A set axis only turns the plane: it stays centred on the block in front of the clicked face. If the axis lies in the clicked face (axis Y on a wall, say), one of the cells is the clicked block itself; it cannot be replaced, so it is skipped and costs neither material nor durability - radius 1 then places eight blocks.",
+          "A set axis only turns the plane: it stays centered on the block in front of the clicked face. If the axis lies in the clicked face (axis Y on a wall, say), one of the cells is the clicked block itself; it cannot be replaced, so it is skipped and costs neither material nor durability - radius 1 then places eight blocks.",
           "Radius and axis are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; the server only applies them while you are holding a building wand in the main hand.",
           "Master Builder enchantment: widens the material search to the whole inventory and allows taking blocks out of reinforced bundles.",
           "Color Palette enchantment: every position gets one of the building blocks you carry, chosen by a hash of the position - the same in preview and build, and mixed on floors too; every stack counts once, so more stacks of a kind make it more frequent. The build places exactly the block the preview showed at each position; when a stack runs out, the palette shrinks to what is left.",
@@ -4136,7 +4245,57 @@
         "src/main/resources/assets/minecraft/items/enchanted_book.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json"
-      ]
+      ],
+      "items": {
+        "simplebuilding:copper_building_wand": {
+          "en": "Copper Building Wand: base building area up to 3x3 blocks; 1520 durability.",
+          "de": "Kupfer-Baustab: Basis-Baufläche bis zu 3x3 Blöcke; 1520 Haltbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        },
+        "simplebuilding:iron_building_wand": {
+          "en": "Iron Building Wand: base building area up to 5x5 blocks; 2000 durability.",
+          "de": "Eisen-Baustab: Basis-Baufläche bis zu 5x5 Blöcke; 2000 Haltbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        },
+        "simplebuilding:gold_building_wand": {
+          "en": "Gold Building Wand: base building area up to 7x7 blocks; 256 durability.",
+          "de": "Gold-Baustab: Basis-Baufläche bis zu 7x7 Blöcke; 256 Haltbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        },
+        "simplebuilding:diamond_building_wand": {
+          "en": "Diamond Building Wand: base building area up to 9x9 blocks; 12488 durability.",
+          "de": "Diamant-Baustab: Basis-Baufläche bis zu 9x9 Blöcke; 12488 Haltbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        },
+        "simplebuilding:netherite_building_wand": {
+          "en": "Netherite Building Wand: base building area up to 11x11 blocks; 16248 durability.",
+          "de": "Netherit-Baustab: Basis-Baufläche bis zu 11x11 Blöcke; 16248 Haltbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        },
+        "simplebuilding:enderite_building_wand": {
+          "en": "Enderite Building Wand: base building area up to 13x13 blocks; 20000 durability.",
+          "de": "Enderit-Baustab: Basis-Baufläche bis zu 13x13 Blöcke; 20000 Haltbarkeit.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+            "common/src/shared/java/com/simplebuilding/items/ModItems.java"
+          ]
+        }
+      }
     },
     "octant": {
       "en": {
@@ -4150,7 +4309,7 @@
           "While the octant is locked, right-clicking a block only puts a red lock icon on the action bar: it costs no durability and changes nothing. Clearing the selection with a sneak-click in the air is blocked as well.",
           "The item name shows the selected shape in brackets as soon as it is not Cuboid, e.g. \"Octant (Cylinder)\".",
           "Tooltip: a locked octant shows a red, bold lock; Pos 1 is listed in yellow and Pos 2 in green as coordinates (Pos 2 only when Pos 1 exists).",
-          "HUD on the left edge of the screen (x = 10, vertically centred) as soon as an octant is in your main hand or off hand (the main hand wins); it is hidden while the Octant Manager is open.",
+          "HUD on the left edge of the screen (x = 10, vertically centered) as soon as an octant is in your main hand or off hand (the main hand wins); it is hidden while the Octant Manager is open.",
           "HUD content: item name (aqua when enchanted, otherwise white), Pos 1, Pos 2, or the hints \"Right-Click block to set Pos 1\" and \"Sneak + R-Click to set Pos 2\" (the latter only once Pos 1 is set).",
           "HUD measurement with two positions: if both sit at the same height and in a line it reads \"Distance: N blocks\"; at the same height but as an area, \"Area: N blocks²\" with \"(width x depth)\"; otherwise \"Volume: N blocks³\" with \"(width x height x depth)\". Both corner blocks count (edge length = difference + 1).",
           "If a Velocity Gauge is held at the same time, the octant box moves 35 pixels up and the Velocity Gauge box 35 pixels down so the two do not overlap.",
@@ -8267,6 +8426,36 @@
           "Der Inhalt des getragenen Rucksacks gehört zum Brust-Item und erreicht deshalb mit jeder Ausrüstungs-Aktualisierung die Spieler in der Nähe, wie eine gehaltene Shulkerkiste.",
           "Geöffnet wird ein Rucksack immer über die Taste, während er getragen wird, oder als abgestellter Block; ein Rucksack woanders im Inventar lässt sich nicht öffnen."
         ]
+      },
+      "items": {
+        "simplebuilding:backpack": {
+          "en": "Backpack: 9 storage slots; grants 1 armor when worn.",
+          "de": "Rucksack: 9 Lagerplätze; gibt getragen 1 Rüstungspunkte.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java"
+          ]
+        },
+        "simplebuilding:reinforced_backpack": {
+          "en": "Reinforced Backpack: 18 storage slots; grants 2 armor when worn.",
+          "de": "Verstärkter Rucksack: 18 Lagerplätze; gibt getragen 2 Rüstungspunkte.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java"
+          ]
+        },
+        "simplebuilding:netherite_backpack": {
+          "en": "Netherite Backpack: 33 storage slots; grants 3 armor when worn.",
+          "de": "Netherit-Rucksack: 33 Lagerplätze; gibt getragen 3 Rüstungspunkte.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java"
+          ]
+        },
+        "simplebuilding:enderite_backpack": {
+          "en": "Enderite Backpack: 50 storage slots; grants 4 armor when worn.",
+          "de": "Enderit-Rucksack: 50 Lagerplätze; gibt getragen 4 Rüstungspunkte.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java"
+          ]
+        }
       }
     },
     "enderite_hopper": {
@@ -8587,6 +8776,57 @@
           "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
           "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
         ]
+      },
+      "items": {
+        "simplebuilding:purpur_quartz_checker": {
+          "en": "Purpur Quartz Checker: craft 4 from 2 Purpur Blocks and 2 Quartz Blocks in a diagonal checker pattern.",
+          "de": "Purpur-Quarz-Schachbrett: 2 Purpurblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
+          "sources": [
+            "src/main/generated/data/simplebuilding/recipe/purpur_quartz_checker.json"
+          ]
+        },
+        "simplebuilding:lapis_quartz_checker": {
+          "en": "Lapis Quartz Checker: craft 4 from 2 Lapis Lazuli Blocks and 2 Quartz Blocks in a diagonal checker pattern.",
+          "de": "Lapis-Quarz-Schachbrett: 2 Lapislazuliblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
+          "sources": [
+            "src/main/generated/data/simplebuilding/recipe/lapis_quartz_checker.json"
+          ]
+        },
+        "simplebuilding:blackstone_quartz_checker": {
+          "en": "Blackstone Quartz Checker: craft 4 from 2 Blackstone blocks and 2 Quartz Blocks in a diagonal checker pattern.",
+          "de": "Schwarzstein-Quarz-Schachbrett: 2 Schwarzsteinblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
+          "sources": [
+            "src/main/generated/data/simplebuilding/recipe/blackstone_quartz_checker.json"
+          ]
+        },
+        "simplebuilding:resin_quartz_checker": {
+          "en": "Resin Quartz Checker: craft 4 from 2 Red Nether Bricks blocks and 2 Quartz Blocks in a diagonal checker pattern.",
+          "de": "Harz-Quarz-Schachbrett: 2 rote Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
+          "sources": [
+            "src/main/generated/data/simplebuilding/recipe/resin_quartz_checker.json"
+          ]
+        },
+        "simplebuilding:nihilith_quartz_checker": {
+          "en": "Nihilit Quartz Checker: craft 4 from 2 Nihilit Shards and 2 Quartz Blocks in a diagonal checker pattern.",
+          "de": "Nihilit-Quarz-Schachbrett: 2 Nihilitsplitter und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
+          "sources": [
+            "src/main/generated/data/simplebuilding/recipe/nihilith_quartz_checker.json"
+          ]
+        },
+        "simplebuilding:astralit_quartz_checker": {
+          "en": "Astralit Quartz Checker: craft 4 from 2 Astralit Dust and 2 Quartz Blocks in a diagonal checker pattern.",
+          "de": "Astralit-Quarz-Schachbrett: 2 Astralitstaub und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
+          "sources": [
+            "src/main/generated/data/simplebuilding/recipe/astralit_quartz_checker.json"
+          ]
+        },
+        "simplebuilding:ender_quartz_checker": {
+          "en": "Ender Quartz Checker: craft 4 from 2 Ender Quartz and 2 Quartz Blocks in a diagonal checker pattern.",
+          "de": "Enderquarz-Schachbrett: 2 Enderquarz und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
+          "sources": [
+            "src/main/generated/data/simplebuilding/recipe/ender_quartz_checker.json"
+          ]
+        }
       }
     },
     "chiseled_*_bricks": {
@@ -8598,9 +8838,9 @@
       "en": {
         "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilit and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colors, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilit) and a dragon eye with a vertical slit (Ender Quartz).",
         "details": [
-          "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilit also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
+          "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilit also from the coated end stone). The Ender Quartz version is also recolored from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
           "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilit and Ender Quartz versions not at all.",
-          "Despite the name it has nothing to do with the Chisel tool: the Chisel does not convert it into anything."
+          "The Enderite Chisel transforms each chiseled block into its palette's base block; sneaking returns it to the brick variant."
         ]
       },
       "de": {
@@ -8608,8 +8848,31 @@
         "details": [
           "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilit auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
           "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilit- und die Enderquarz-Fassung gar nicht.",
-          "Trotz des Namens hat er mit dem Werkzeug Meißel nichts zu tun: Der Meißel formt ihn in nichts um."
+          "Der Enderitmeißel formt jeden gemeißelten Block zum Grundblock seiner Palette um; beim Schleichen zurück zur Ziegelvariante."
         ]
+      },
+      "items": {
+        "simplebuilding:chiseled_astralit_bricks": {
+          "en": "Chiseled Astralit Bricks: the Enderite Chisel transforms this block into a Block of Astralit; sneaking reverses it to Astralit Bricks.",
+          "de": "Gemeißelte Astralitziegel: Der Enderitmeißel formt diesen Block zum Astralitblock um; beim Schleichen zurück zu Astralitziegeln.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
+          ]
+        },
+        "simplebuilding:chiseled_nihilith_bricks": {
+          "en": "Chiseled Nihilit Bricks: the Enderite Chisel transforms this block into a Block of Nihilit; sneaking reverses it to Nihilit Bricks.",
+          "de": "Gemeißelte Nihilitziegel: Der Enderitmeißel formt diesen Block zum Nihilitblock um; beim Schleichen zurück zu Nihilitziegeln.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
+          ]
+        },
+        "simplebuilding:chiseled_ender_quartz_bricks": {
+          "en": "Chiseled Ender Quartz Bricks: the Enderite Chisel transforms this block into a Block of Ender Quartz; sneaking reverses it to Ender Quartz Bricks.",
+          "de": "Gemeißelte Enderquarzziegel: Der Enderitmeißel formt diesen Block zum Enderquarzblock um; beim Schleichen zurück zu Enderquarzziegeln.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
+          ]
+        }
       }
     },
     "ender_quartz": {
@@ -8676,8 +8939,8 @@
           "Putting an elytra on you plays the vanilla elytra equip sound - no text on the screen.",
           "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
           "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
-          "Area per tier (width x width x height): I 1x1x15 (only the pad column), II 5x5x31, III 16x16x63, IV (Enderite) 32x32x95, V (Fine) 128x128x127, centred on the pad. The area reaches one block below the pad. Existing pads keep their id and tier; only the areas changed.",
-          "Recipes (smithing): I = Diamond Core + Diamond Pressure Plate + elytra; II = any trim template or netherite upgrade + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+          "Base horizontal area by tier: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 blocks, centered on the pad. Vertically it starts 1 block below the pad and ends 15 / 31 / 63 / 95 / 127 blocks above its bottom, respectively.",
+          "Recipe I (shapeless crafting): Diamond Core + Diamond Pressure Plate + elytra with Mending. Smithing upgrades: II = any trim template or netherite upgrade + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
           "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
           "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
           "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
@@ -8690,8 +8953,8 @@
           "Beim Anlegen klingt Vanillas Elytra-Anlegegeräusch - kein Text auf dem Bildschirm.",
           "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
           "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
-          "Bereich je Stufe (Breite x Breite x Höhe): I 1x1x15 (nur die Säule über dem Pad), II 5x5x31, III 16x16x63, IV (Enderit) 32x32x95, V (Fein) 128x128x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad. Bestehende Pads behalten ID und Stufe; nur die Bereiche haben sich geändert.",
-          "Rezepte (Schmiede): I = Diamantkern + Diamant-Druckplatte + Elytra; II = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertung + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+          "Horizontale Basisfläche je Stufe: I 1x1, II 5x5, III 16x16, IV 32x32, V 128x128 Blöcke, mittig um das Pad. Vertikal beginnt der Bereich 1 Block unter dem Pad und endet je nach Stufe 15 / 31 / 63 / 95 / 127 Blöcke über seiner Unterkante.",
+          "Rezept I (formlose Werkbank): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur. Schmiede-Aufwertungen: II = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertung + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
           "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
           "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
           "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
@@ -8708,7 +8971,44 @@
         "docs/SIMPLETWEAKS-UEBERNAHME.md",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json"
-      ]
+      ],
+      "items": {
+        "simplebuilding:elytra_pad": {
+          "en": "Elytra Pad I: tier 1, base area 1x1 blocks, from 1 block below the pad to 15 blocks above its bottom.",
+          "de": "Elytra-Pad I: Stufe 1, Basisfläche 1x1 Blöcke, von 1 Block unter dem Pad bis 15 Blöcke über seiner Unterkante.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
+          ]
+        },
+        "simplebuilding:reinforced_elytra_pad": {
+          "en": "Reinforced Elytra Pad II: tier 2, base area 5x5 blocks, from 1 block below the pad to 31 blocks above its bottom.",
+          "de": "Verstärktes Elytra-Pad II: Stufe 2, Basisfläche 5x5 Blöcke, von 1 Block unter dem Pad bis 31 Blöcke über seiner Unterkante.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
+          ]
+        },
+        "simplebuilding:netherite_elytra_pad": {
+          "en": "Netherite Elytra Pad III: tier 3, base area 16x16 blocks, from 1 block below the pad to 63 blocks above its bottom.",
+          "de": "Netherit-Elytra-Pad III: Stufe 3, Basisfläche 16x16 Blöcke, von 1 Block unter dem Pad bis 63 Blöcke über seiner Unterkante.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
+          ]
+        },
+        "simplebuilding:enderite_elytra_pad": {
+          "en": "Enderite Elytra Pad IV: tier 4, base area 32x32 blocks, from 1 block below the pad to 95 blocks above its bottom.",
+          "de": "Enderit-Elytra-Pad IV: Stufe 4, Basisfläche 32x32 Blöcke, von 1 Block unter dem Pad bis 95 Blöcke über seiner Unterkante.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
+          ]
+        },
+        "simplebuilding:fine_elytra_pad": {
+          "en": "Fine Elytra Pad V: tier 5, base area 128x128 blocks, from 1 block below the pad to 127 blocks above its bottom.",
+          "de": "Feines Elytra-Pad V: Stufe 5, Basisfläche 128x128 Blöcke, von 1 Block unter dem Pad bis 127 Blöcke über seiner Unterkante.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
+          ]
+        }
+      }
     },
     "*flypad": {
       "en": {
@@ -8717,7 +9017,7 @@
           "Every 5 ticks: players in the area may fly and glow briefly. A survival player who leaves the area loses flight; creative and spectator players are left alone.",
           "Every tier is made of enderite and has the safety net: whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
           "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever) - but not while another flypad still covers them, and never flight that did not come from a flypad (creative, other mods).",
-          "Area per tier (width x depth x height, starting at the bottom of the pad, centred on it): I 4x4x6, II 8x8x12, III 16x16x24.",
+          "Area per tier (width x depth x height, starting at the bottom of the pad, centered on it): I 4x4x6, II 8x8x12, III 16x16x24.",
           "Recipes: craft tier I with an Enderite Core, Enderite Pressure Plate, Shulker Head and an elytra enchanted with Mending (shapeless). Smithing upgrades use an enderite upgrade template: II = Flypad I + Enderite Pressure Plate; III = two Reinforced Flypads II.",
           "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
           "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
@@ -8744,7 +9044,46 @@
         "docs/SIMPLETWEAKS-UEBERNAHME.md",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json"
-      ]
+      ],
+      "items": {
+        "simplebuilding:flypad": {
+          "en": "Flypad I: tier 1, base flight area 4x4x6 blocks (width, depth, height).",
+          "de": "Flugpad I: Stufe 1, Basis-Flugbereich 4x4x6 Blöcke (Breite, Tiefe, Höhe).",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
+          ]
+        },
+        "simplebuilding:reinforced_flypad": {
+          "en": "Reinforced Flypad II: tier 2, base flight area 8x8x12 blocks (width, depth, height).",
+          "de": "Verstärktes Flugpad II: Stufe 2, Basis-Flugbereich 8x8x12 Blöcke (Breite, Tiefe, Höhe).",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
+          ]
+        },
+        "simplebuilding:stellar_flypad": {
+          "en": "Stellar Flypad III: tier 3, base flight area 16x16x24 blocks (width, depth, height).",
+          "de": "Stellares Flugpad III: Stufe 3, Basis-Flugbereich 16x16x24 Blöcke (Breite, Tiefe, Höhe).",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java"
+          ]
+        },
+        "simplebuilding:netherite_flypad": {
+          "en": "Netherite Flypad (Legacy): legacy item; migrates to simplebuilding:reinforced_flypad (current tier 2).",
+          "de": "Netherit-Flugpad (alt): Alt-Item; wird zu simplebuilding:reinforced_flypad (heutige Stufe 2) umgestellt.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/item/LegacyTierBlockItem.java"
+          ]
+        },
+        "simplebuilding:enderite_flypad": {
+          "en": "Enderite Flypad (Legacy): legacy item; migrates to simplebuilding:stellar_flypad (current tier 3).",
+          "de": "Enderit-Flugpad (alt): Alt-Item; wird zu simplebuilding:stellar_flypad (heutige Stufe 3) umgestellt.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/item/LegacyTierBlockItem.java"
+          ]
+        }
+      }
     },
     "*spawn_teleporter*": {
       "en": {
@@ -8782,12 +9121,52 @@
         "docs/SIMPLETWEAKS-UEBERNAHME.md",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json"
-      ]
+      ],
+      "items": {
+        "simplebuilding:spawn_teleporter_tier_3": {
+          "en": "Spawn Teleporter III (Legacy): legacy item; migrates to simplebuilding:spawn_teleporter_tier_2 (current tier 2).",
+          "de": "Spawn-Teleporter III (alt): Alt-Item; wird zu simplebuilding:spawn_teleporter_tier_2 (heutige Stufe 2) umgestellt.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/item/LegacyTierBlockItem.java"
+          ]
+        },
+        "simplebuilding:spawn_teleporter_tier_4": {
+          "en": "Spawn Teleporter IV (Legacy): legacy item; migrates to simplebuilding:enderite_spawn_teleporter (current tier 3).",
+          "de": "Spawn-Teleporter IV (alt): Alt-Item; wird zu simplebuilding:enderite_spawn_teleporter (heutige Stufe 3) umgestellt.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/item/LegacyTierBlockItem.java"
+          ]
+        },
+        "simplebuilding:spawn_teleporter": {
+          "en": "Spawn Teleporter I: tier 1, default warmup 50 seconds; configurable by the server.",
+          "de": "Spawn-Teleporter I: Stufe 1, standardmäßig 50 Sekunden Wartezeit; serverseitig einstellbar.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java"
+          ]
+        },
+        "simplebuilding:spawn_teleporter_tier_2": {
+          "en": "Spawn Teleporter II: tier 2, default warmup 20 seconds; configurable by the server.",
+          "de": "Spawn-Teleporter II: Stufe 2, standardmäßig 20 Sekunden Wartezeit; serverseitig einstellbar.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java"
+          ]
+        },
+        "simplebuilding:enderite_spawn_teleporter": {
+          "en": "Spawn Teleporter III: tier 3, default warmup 5 seconds; configurable by the server.",
+          "de": "Spawn-Teleporter III: Stufe 3, standardmäßig 5 Sekunden Wartezeit; serverseitig einstellbar.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java"
+          ]
+        }
+      }
     },
     "*chunk_loader": {
       "en": {
         "summary": "Chunk Loaders (from Simple Tweaks) keep chunks loaded, in three tiers: Chunk Loader I only its own chunk, Netherite Chunk Loader II also the four chunks sharing an edge with it (5 chunks in a cross), Enderite Chunk Loader III the 3x3 chunks around it.",
         "details": [
+          "With the default server settings, loaders with an assigned owner run only while that owner is online; blocked dimensions and server limits also apply.",
           "It remembers which chunks it forced itself and releases exactly those when it is broken or switched off (tweaks.pads.enableChunkLoaders) - chunks forced by /forceload or anything else stay forced. It keeps working after a server restart (in Simple Tweaks it stopped). Replacing it with /setblock or /fill releases its chunks as well; where two loaders overlap, breaking one leaves the shared chunks to the other - only those inside the other loader's own area (a Netherite loader takes no diagonal chunk).",
           "Recipes (smithing): I = Copper Core + Copper Pressure Plate + a Trial Chamber mob head; II = netherite upgrade + Chunk Loader I + Netherite Pressure Plate; III = enderite upgrade + Chunk Loader II + Enderite Pressure Plate.",
           "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally.",
@@ -8797,6 +9176,7 @@
       "de": {
         "summary": "Chunk-Lader (aus Simple Tweaks) halten Chunks geladen, in drei Stufen: Chunk-Lader I nur den eigenen, Netherit-Chunk-Lader II dazu die vier Chunks mit gemeinsamer Kante (5 Chunks im Kreuz), Enderit-Chunk-Lader III die 3x3 Chunks darum.",
         "details": [
+          "Bei Standard-Servereinstellungen laufen Loader mit zugewiesenem Besitzer nur, solange dieser online ist; gesperrte Dimensionen und Serverlimits gelten ebenfalls.",
           "Er merkt sich, welche Chunks er selbst erzwungen hat, und gibt genau diese frei, wenn er abgebaut oder abgeschaltet wird (tweaks.pads.enableChunkLoaders) - von /forceload oder anderem erzwungene Chunks bleiben erzwungen. Er arbeitet auch nach einem Neustart weiter (in Simple Tweaks nicht). Auch ein Ersetzen per /setblock oder /fill gibt seine Chunks frei; überlappen sich zwei Lader, übernimmt beim Abbau des einen der andere die gemeinsamen Chunks - nur die in seinem eigenen Bereich (ein Netherit-Lader übernimmt keinen Diagonal-Chunk).",
           "Rezepte (Schmiede): I = Kupferkern + Kupfer-Druckplatte + Trial-Chamber-Mobkopf; II = Netherit-Aufwertung + Chunk-Loader I + Netherit-Druckplatte; III = Enderit-Aufwertung + Chunk-Loader II + Enderit-Druckplatte.",
           "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt.",
@@ -8812,7 +9192,36 @@
         "docs/SIMPLETWEAKS-UEBERNAHME.md",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json"
-      ]
+      ],
+      "items": {
+        "simplebuilding:chunk_loader": {
+          "en": "Chunk Loader I: Base coverage: 1 chunk: its own. With the default server settings, an assigned owner must be online.",
+          "de": "Chunk-Lader I: Basisbereich: 1 Chunk: der eigene. Bei Standard-Servereinstellungen muss ein zugewiesener Besitzer online sein.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java",
+            "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java"
+          ]
+        },
+        "simplebuilding:netherite_chunk_loader": {
+          "en": "Netherite Chunk Loader II: Base coverage: 5 chunks in a cross, excluding diagonals. With the default server settings, an assigned owner must be online.",
+          "de": "Netherit-Chunk-Lader II: Basisbereich: 5 Chunks im Kreuz, ohne Diagonalen. Bei Standard-Servereinstellungen muss ein zugewiesener Besitzer online sein.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java",
+            "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java"
+          ]
+        },
+        "simplebuilding:enderite_chunk_loader": {
+          "en": "Enderite Chunk Loader III: Base coverage: 9 chunks in a 3x3 square. With the default server settings, an assigned owner must be online.",
+          "de": "Enderit-Chunk-Lader III: Basisbereich: 9 Chunks im 3x3-Quadrat. Bei Standard-Servereinstellungen muss ein zugewiesener Besitzer online sein.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java",
+            "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java"
+          ]
+        }
+      }
     },
     "*launchpad": {
       "en": {
@@ -8852,7 +9261,30 @@
         "docs/SIMPLETWEAKS-UEBERNAHME.md",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json"
-      ]
+      ],
+      "items": {
+        "simplebuilding:launchpad": {
+          "en": "Launchpad I: tier 1, base capacity 4 wind charges.",
+          "de": "Startrampe I: Stufe 1, Basiskapazität 4 Windkugeln.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java"
+          ]
+        },
+        "simplebuilding:netherite_launchpad": {
+          "en": "Netherite Launchpad II: tier 2, base capacity 8 wind charges.",
+          "de": "Netherit-Startrampe II: Stufe 2, Basiskapazität 8 Windkugeln.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java"
+          ]
+        },
+        "simplebuilding:enderite_launchpad": {
+          "en": "Enderite Launchpad III: tier 3, base capacity 16 wind charges.",
+          "de": "Enderit-Startrampe III: Stufe 3, Basiskapazität 16 Windkugeln.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java"
+          ]
+        }
+      }
     },
     "*potion_pad": {
       "en": {
@@ -8894,7 +9326,33 @@
         "docs/SIMPLETWEAKS-UEBERNAHME.md",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json"
-      ]
+      ],
+      "items": {
+        "simplebuilding:potion_pad": {
+          "en": "Potion Pad I: tier 1, base duration cap 30 seconds after a full charge; shorter potions and per-effect limits still apply.",
+          "de": "Trank-Pad I: Stufe 1, Basis-Dauergrenze 30 Sekunden nach voller Ladung; kürzere Trankdauern und Effektgrenzen gelten weiterhin.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/PotionPadBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/PotionPadRules.java"
+          ]
+        },
+        "simplebuilding:reinforced_potion_pad": {
+          "en": "Reinforced Potion Pad II: tier 2, base duration cap 60 seconds after a full charge; shorter potions and per-effect limits still apply.",
+          "de": "Verstärktes Trank-Pad II: Stufe 2, Basis-Dauergrenze 60 Sekunden nach voller Ladung; kürzere Trankdauern und Effektgrenzen gelten weiterhin.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/PotionPadBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/PotionPadRules.java"
+          ]
+        },
+        "simplebuilding:infused_potion_pad": {
+          "en": "Infused Potion Pad III: tier 3, base duration cap 120 seconds after a full charge; shorter potions and per-effect limits still apply.",
+          "de": "Durchtränktes Trank-Pad III: Stufe 3, Basis-Dauergrenze 120 Sekunden nach voller Ladung; kürzere Trankdauern und Effektgrenzen gelten weiterhin.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/PotionPadBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/PotionPadRules.java"
+          ]
+        }
+      }
     },
     "blaze_head": {
       "en": {
@@ -9063,7 +9521,73 @@
         "docs/SIMPLETWEAKS-UEBERNAHME.md",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json"
-      ]
+      ],
+      "items": {
+        "simplebuilding:copper_pressure_plate": {
+          "en": "Copper Pressure Plate: 1-second activation and release delay; unwaxed; can oxidize further.",
+          "de": "Kupfer-Druckplatte: Je 1 Sekunden Verzögerung beim Aktivieren und Loslassen; ungewachst; kann weiter oxidieren.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java"
+          ]
+        },
+        "simplebuilding:waxed_copper_pressure_plate": {
+          "en": "Waxed Copper Pressure Plate: 1-second activation and release delay; waxed; does not oxidize.",
+          "de": "Gewachste Kupfer-Druckplatte: Je 1 Sekunden Verzögerung beim Aktivieren und Loslassen; gewachst; oxidiert nicht.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java"
+          ]
+        },
+        "simplebuilding:exposed_copper_pressure_plate": {
+          "en": "Exposed Copper Pressure Plate: 2-second activation and release delay; unwaxed; can oxidize further.",
+          "de": "Angelaufene Kupfer-Druckplatte: Je 2 Sekunden Verzögerung beim Aktivieren und Loslassen; ungewachst; kann weiter oxidieren.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java"
+          ]
+        },
+        "simplebuilding:waxed_exposed_copper_pressure_plate": {
+          "en": "Waxed Exposed Copper Pressure Plate: 2-second activation and release delay; waxed; does not oxidize.",
+          "de": "Gewachste angelaufene Kupfer-Druckplatte: Je 2 Sekunden Verzögerung beim Aktivieren und Loslassen; gewachst; oxidiert nicht.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java"
+          ]
+        },
+        "simplebuilding:weathered_copper_pressure_plate": {
+          "en": "Weathered Copper Pressure Plate: 3-second activation and release delay; unwaxed; can oxidize further.",
+          "de": "Verwitterte Kupfer-Druckplatte: Je 3 Sekunden Verzögerung beim Aktivieren und Loslassen; ungewachst; kann weiter oxidieren.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java"
+          ]
+        },
+        "simplebuilding:waxed_weathered_copper_pressure_plate": {
+          "en": "Waxed Weathered Copper Pressure Plate: 3-second activation and release delay; waxed; does not oxidize.",
+          "de": "Gewachste verwitterte Kupfer-Druckplatte: Je 3 Sekunden Verzögerung beim Aktivieren und Loslassen; gewachst; oxidiert nicht.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java"
+          ]
+        },
+        "simplebuilding:oxidized_copper_pressure_plate": {
+          "en": "Oxidized Copper Pressure Plate: 4-second activation and release delay; fully oxidized.",
+          "de": "Oxidierte Kupfer-Druckplatte: Je 4 Sekunden Verzögerung beim Aktivieren und Loslassen; vollständig oxidiert.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java"
+          ]
+        },
+        "simplebuilding:waxed_oxidized_copper_pressure_plate": {
+          "en": "Waxed Oxidized Copper Pressure Plate: 4-second activation and release delay; waxed; does not oxidize.",
+          "de": "Gewachste oxidierte Kupfer-Druckplatte: Je 4 Sekunden Verzögerung beim Aktivieren und Loslassen; gewachst; oxidiert nicht.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+            "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java"
+          ]
+        }
+      }
     },
     "spawn_elytra": {
       "en": {
@@ -9232,7 +9756,23 @@
         "common/src/shared/java/com/simplebuilding/client/gui/tooltip/GuideTooltip.java",
         "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "mc26_3/overlay/resources/data/simplebuilding/advancement/guides/root.json"
-      ]
+      ],
+      "items": {
+        "simplebuilding:guide_book": {
+          "en": "Mega Guide: SimpleBuilding: craft shapelessly from a book and a crafting table.",
+          "de": "Mega-Handbuch: SimpleBuilding: Formlos aus einem Buch und einer Werkbank hergestellt.",
+          "sources": [
+            "src/main/generated/data/simplebuilding/recipe/guide_book.json"
+          ]
+        },
+        "simplebuilding:guide_book_vanilla_start": {
+          "en": "Mega Guide: Minecraft: craft shapelessly from a book and a wooden pickaxe.",
+          "de": "Mega-Handbuch: Minecraft: Formlos aus einem Buch und einer Holzspitzhacke hergestellt.",
+          "sources": [
+            "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_start.json"
+          ]
+        }
+      }
     },
     "reinforced_chest": {
       "sources": [
@@ -9396,6 +9936,50 @@
           "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
           "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
         ]
+      },
+      "items": {
+        "simplebuilding:copper_core": {
+          "en": "Copper Core: ore conversion chance is 1 in 10000 per eligible block use.",
+          "de": "Kupferkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 10000.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
+          ]
+        },
+        "simplebuilding:iron_core": {
+          "en": "Iron Core: ore conversion chance is 1 in 7000 per eligible block use.",
+          "de": "Eisenkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 7000.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
+          ]
+        },
+        "simplebuilding:gold_core": {
+          "en": "Gold Core: ore conversion chance is 1 in 5000 per eligible block use.",
+          "de": "Goldkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 5000.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
+          ]
+        },
+        "simplebuilding:diamond_core": {
+          "en": "Diamond Core: ore conversion chance is 1 in 3500 per eligible block use.",
+          "de": "Diamantkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 3500.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
+          ]
+        },
+        "simplebuilding:netherite_core": {
+          "en": "Netherite Core: ore conversion chance is 1 in 2500 per eligible block use.",
+          "de": "Netheritkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 2500.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
+          ]
+        },
+        "simplebuilding:enderite_core": {
+          "en": "Enderite Core: ore conversion chance is 1 in 2000 per eligible block use.",
+          "de": "Enderitkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 2000.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
+          ]
+        }
       }
     },
     "placed_blueprint": {
@@ -9466,7 +10050,23 @@
         "src/main/resources/assets/simplebuilding/equipment/enderite.json",
         "tools/textures/mount_armor_textures.py",
         "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java"
-      ]
+      ],
+      "items": {
+        "simplebuilding:enderite_horse_armor": {
+          "en": "Enderite Horse Armor: upgrade Netherite Horse Armor with an Enderite Upgrade and an Enderite Ingot at the smithing table.",
+          "de": "Enderitrossharnisch: Am Schmiedetisch aus Netheritrossharnisch, Enderit-Aufwertung und Enderitbarren hergestellt.",
+          "sources": [
+            "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+          ]
+        },
+        "simplebuilding:enderite_nautilus_armor": {
+          "en": "Enderite Nautilus Armor: upgrade Netherite Nautilus Armor with an Enderite Upgrade and an Enderite Ingot at the smithing table.",
+          "de": "Enderit-Nautilusrüstung: Am Schmiedetisch aus Netherit-Nautilusrüstung, Enderit-Aufwertung und Enderitbarren hergestellt.",
+          "sources": [
+            "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+          ]
+        }
+      }
     },
     "velocity_gauge": {
       "en": {
@@ -9772,6 +10372,16 @@
           "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
           "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
         ]
+      },
+      "items": {
+        "simplebuilding:nihil_redstone": {
+          "en": "Nihil Redstone: craft 2 from a Nihilit Shard and redstone; carries only the Nihilit channel.",
+          "de": "Nihil-Redstone: Aus einem Nihilitsplitter und Redstone entstehen 2 Stück; leitet nur den Nihilit-Kanal.",
+          "sources": [
+            "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone.json",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java"
+          ]
+        }
       }
     },
     "astral_redstone": {
@@ -9799,6 +10409,16 @@
           "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
           "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
         ]
+      },
+      "items": {
+        "simplebuilding:astral_redstone": {
+          "en": "Astral Redstone: craft 2 from Astralit Dust and redstone; carries only the Astralit channel.",
+          "de": "Astral-Redstone: Aus Astralitstaub und Redstone entstehen 2 Stück; leitet nur den Astralit-Kanal.",
+          "sources": [
+            "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone.json",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java"
+          ]
+        }
       }
     },
     "nihilith_switch": {
@@ -9826,6 +10446,16 @@
           "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
           "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
         ]
+      },
+      "items": {
+        "simplebuilding:nihilith_switch": {
+          "en": "Nihilit Signal Switch: a lever plus Nihilit channel redstone makes this channel's switch.",
+          "de": "Nihilit-Signalschalter: Ein Hebel und Redstone des Nihilit-Kanals ergeben dessen Schalter.",
+          "sources": [
+            "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_switch.json",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java"
+          ]
+        }
       }
     },
     "astralit_switch": {
@@ -9853,6 +10483,16 @@
           "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
           "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
         ]
+      },
+      "items": {
+        "simplebuilding:astralit_switch": {
+          "en": "Astralit Signal Switch: a lever plus Astralit channel redstone makes this channel's switch.",
+          "de": "Astralit-Signalschalter: Ein Hebel und Redstone des Astralit-Kanals ergeben dessen Schalter.",
+          "sources": [
+            "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_switch.json",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java"
+          ]
+        }
       }
     },
     "nihilith_lamp": {
@@ -9880,6 +10520,16 @@
           "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
           "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
         ]
+      },
+      "items": {
+        "simplebuilding:nihilith_lamp": {
+          "en": "Nihilit Signal Lamp: a redstone lamp plus Nihilit channel redstone makes this channel's receiving lamp.",
+          "de": "Nihilit-Signallampe: Eine Redstone-Lampe und Redstone des Nihilit-Kanals ergeben dessen Empfängerlampe.",
+          "sources": [
+            "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_lamp.json",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java"
+          ]
+        }
       }
     },
     "astralit_lamp": {
@@ -9907,6 +10557,16 @@
           "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
           "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
         ]
+      },
+      "items": {
+        "simplebuilding:astralit_lamp": {
+          "en": "Astralit Signal Lamp: a redstone lamp plus Astralit channel redstone makes this channel's receiving lamp.",
+          "de": "Astralit-Signallampe: Eine Redstone-Lampe und Redstone des Astralit-Kanals ergeben dessen Empfängerlampe.",
+          "sources": [
+            "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_lamp.json",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java"
+          ]
+        }
       }
     },
     "astral_vault": {
@@ -9920,7 +10580,7 @@
         "title": "Astral Vault",
         "summary": "54 personal slots, including the 27 shared vanilla ender chest slots.",
         "details": [
-          "Craft an ender chest with two Enderite Ingots and two Astralit Dust. Slots 1–27 directly use the vanilla personal ender inventory; slots 28–54 belong to that same player and are reachable through a vault. Ordinary ender chests still expose 27 slots.",
+          "Craft an ender chest with six Enderite Nuggets and two Astralit Dust. Slots 1–27 directly use the vanilla personal ender inventory; slots 28–54 belong to that same player and are reachable through a vault. Ordinary ender chests still expose 27 slots.",
           "The extra slots are saved in the personal ender inventory data with slot indices 27–53. Respawn uses the same ender inventory. Players and dimensions do not create shared public storage.",
           "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault, not its personal contents; hoppers cannot access them.",
           "server.features.astralVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
@@ -9930,7 +10590,7 @@
         "title": "Astralgewölbe",
         "summary": "54 persoenliche Plaetze, darunter die 27 geteilten Vanilla-Endertruhenplaetze.",
         "details": [
-          "Rezept: Endertruhe mit zwei Enderitbarren und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
+          "Rezept: Endertruhe mit sechs Enderitklumpen und zweimal Astralitstaub. Plaetze 1–27 nutzen direkt das persoenliche Vanilla-Enderinventar; 28–54 gehoeren demselben Spieler und sind im Gewölbe erreichbar. Normale Endertruhen zeigen weiterhin 27 Plaetze.",
           "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
           "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
           "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."

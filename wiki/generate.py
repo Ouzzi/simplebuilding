@@ -227,6 +227,51 @@ def prose_languages(entry) -> set[str]:
     return {"de"} if has_prose(entry) else set()
 
 
+def item_note(note, identifier: str):
+    """Prepend an optional bilingual item sentence without changing family prose."""
+    if not isinstance(note, dict) or "items" not in note:
+        return note
+    result = {key: value for key, value in note.items() if key != "items"}
+    items = note["items"]
+    extra = items.get(identifier, {}) if isinstance(items, dict) else {}
+    if not isinstance(extra, dict):
+        return result
+    for language in LANGUAGES:
+        sentence = extra.get(language)
+        if isinstance(sentence, str) and sentence.strip():
+            prose = dict(result.get(language, {}))
+            prose["summary"] = " ".join(filter(None, [sentence.strip(), prose.get("summary", "")]))
+            result[language] = prose
+    if isinstance(extra.get("sources"), list) and all(isinstance(s, str) for s in extra["sources"]):
+        result["sources"] = list(dict.fromkeys(note.get("sources", []) + extra["sources"]))
+    return result
+
+
+def item_note_problems(notes, identifiers):
+    """Validate supplements separately so family text cannot hide missing translations."""
+    problems = []
+    for pattern, note in notes.items():
+        if not isinstance(note, dict) or "items" not in note:
+            continue
+        if not isinstance(note["items"], dict):
+            problems.append(f"{pattern}: items must be an object keyed by full registry id")
+            continue
+        for identifier, extra in note["items"].items():
+            if identifier not in identifiers or not (
+                    fnmatch.fnmatchcase(identifier, pattern)
+                    or fnmatch.fnmatchcase(identifier.split(":", 1)[-1], pattern)):
+                problems.append(f"{pattern}: unknown or mismatched item supplement {identifier}")
+            for language in LANGUAGES:
+                sentence = extra.get(language) if isinstance(extra, dict) else None
+                if not isinstance(sentence, str) or not sentence.strip():
+                    problems.append(f"{identifier}: item supplement needs nonempty {language} text")
+            if isinstance(extra, dict) and "sources" in extra and (
+                    not isinstance(extra["sources"], list)
+                    or not all(isinstance(source, str) for source in extra["sources"])):
+                problems.append(f"{identifier}: item supplement sources must be a list of paths")
+    return problems
+
+
 def is_ours(identifier: str) -> bool:
     return isinstance(identifier, str) and identifier.startswith(NS + ":")
 
@@ -2181,12 +2226,12 @@ def build(line: str, check: bool = False) -> tuple[dict, list[str]]:
         still override the family text with its own exact key.
         """
         if identifier in notes:
-            return notes[identifier], True
+            return item_note(notes[identifier], identifier), True
         if short(identifier) in notes:
-            return notes[short(identifier)], True
+            return item_note(notes[short(identifier)], identifier), True
         for pattern, note in notes.items():
             if "*" in pattern and fnmatch.fnmatch(short(identifier), pattern):
-                return note, True
+                return item_note(note, identifier), True
         return None, False
 
     for collection in (items, blocks, enchantments):
@@ -2197,7 +2242,8 @@ def build(line: str, check: bool = False) -> tuple[dict, list[str]]:
 
     in_world, in_world_problems = collect_in_world(roots, manual, {e["id"] for e in items})
     obtain, obtain_problems = collect_obtain(roots, line, items, blocks, enchantments, check)
-    in_world_problems = in_world_problems + obtain_problems
+    in_world_problems = in_world_problems + obtain_problems + item_note_problems(
+        notes, {entry["id"] for entry in items + blocks})
 
     # Beide Minecraft-Linien in einer Rezeptansicht: jedes Rezept und jede Umwandlung
     # sagt, in welchen Linien es existiert, und was es nur in der anderen Linie gibt,

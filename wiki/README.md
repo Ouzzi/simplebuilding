@@ -47,6 +47,17 @@ Kopfzeilen in scrollbaren, per Tastatur erreichbaren Bereichen.
 
 ## Wie die Doku aktuell bleibt
 
+Familiennotizen in `manual.json` können ein optionales `items`-Objekt enthalten:
+`"items": {"simplebuilding:iron_chisel": {"en": "Iron Chisel: 256 durability.",
+"de": "Eisenmeißel: 256 Haltbarkeit.", "sources": ["common/src/shared/java/com/simplebuilding/items/ModItems.java"]}}`.
+Die Schlüssel sind vollständige registrierte Item-/Block-IDs, passend zur Familiennotiz.
+Beide Sprachsätze müssen nichtleer sein; `sources` ist optional.
+`generate.py` und `modules.py` stellen den passenden Satz vor die jeweilige
+Familienzusammenfassung und übernehmen seine Quellen. Das ausgegebene `note` bleibt
+im bisherigen Format: `index.html` zeigt `summary` zuerst und durchsucht sie bereits;
+`tools/wiki_site.py` verpackt diese Daten unverändert. `--check` prüft auch unbekannte
+IDs, unpassende Familien und fehlende Sprachsätze.
+
 Das ist der Kern des Aufbaus, deshalb ausführlich.
 
 **Nichts in `wiki/data/` ist von Hand geschrieben.** `generate.py` liest die Mod selbst:

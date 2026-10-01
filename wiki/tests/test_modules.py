@@ -57,6 +57,19 @@ class ModuleWikiTests(unittest.TestCase):
     def test_discovery_preserves_contract(self):
         self.assertEqual(module_wiki.discover(self.root), [self.entry])
 
+    def test_module_item_supplement_and_language_validation(self):
+        self.token()
+        note = self.prose()
+        note['items'] = {'wiringexample:token': {'en': 'Specific.', 'de': 'Individuell.'}}
+        self.write(self.entry['paths']['wikiManual'], {'notes': {'*': note}})
+        data, problems = module_wiki.extract(self.entry, g)
+        self.assertEqual(problems, [])
+        self.assertEqual(data['items'][0]['note']['en']['summary'], 'Specific. Test token.')
+        del note['items']['wiringexample:token']['de']
+        self.write(self.entry['paths']['wikiManual'], {'notes': {'*': note}})
+        _, problems = module_wiki.extract(self.entry, g)
+        self.assertTrue(any('nonempty de' in problem for problem in problems))
+
     def test_discovery_rejects_duplicate_and_unsafe_paths(self):
         self.write('modules/modules.json', {'modules': [self.entry, self.entry]})
         with self.assertRaises(ValueError):
