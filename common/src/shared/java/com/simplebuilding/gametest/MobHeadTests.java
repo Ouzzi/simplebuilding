@@ -192,6 +192,17 @@ public final class MobHeadTests {
             }
         }
         helper.assertTrue(shown, "recipe book and JEI do not show the elytra as enchanted");
+
+        // Elytra-Pad I genauso (Besitzer 2026-10-01): Diamantkern + Diamant-Druckplatte + Elytra mit Reparatur.
+        ItemStack diamondCore = new ItemStack(ModItems.DIAMOND_CORE);
+        ItemStack diamondPlate = new ItemStack(TweaksBlocks.DIAMOND_PRESSURE_PLATE);
+        Optional<RecipeHolder<CraftingRecipe>> pad = crafting(helper, List.of(diamondPlate, mending, diamondCore));
+        helper.assertTrue(pad.isPresent() && pad.get().value().assemble(input(List.of(diamondPlate, mending, diamondCore)))
+                .is(TweaksBlocks.ELYTRA_PAD.asItem()), "diamond core + diamond plate + mending elytra made no elytra pad");
+        helper.assertTrue(crafting(helper, List.of(diamondCore, diamondPlate, new ItemStack(Items.ELYTRA))).isEmpty(),
+                "a plain elytra made an elytra pad");
+        helper.assertTrue(crafting(helper, List.of(diamondCore, diamondPlate, unbreaking)).isEmpty(),
+                "an elytra with Unbreaking but no Mending made an elytra pad");
         helper.succeed();
     }
 

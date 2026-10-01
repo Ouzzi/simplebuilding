@@ -587,7 +587,11 @@ public class SledgehammerItem extends Item {
 
     /** Ein Schlag auf den Diamantblock; liefert die neue Zahl gezaehlter Schlaege (0 = nicht gezaehlt). */
     static int strikeDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
-        long now = world.getGameTime();
+        return strikeDiamondBlock(world, pos, player, stack, world.getGameTime());
+    }
+
+    /** {@link #strikeDiamondBlock(ServerLevel, BlockPos, Player, ItemStack)} at game time {@code now} (tests). */
+    public static int strikeDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack, long now) {
         DiamondStrikes last = DIAMOND_STRIKES.get(player);
         boolean same = last != null && last.level() == world.dimension() && last.pos().equals(pos)
                 && now - last.lastTick() <= DIAMOND_STRIKE_RESET_TICKS;

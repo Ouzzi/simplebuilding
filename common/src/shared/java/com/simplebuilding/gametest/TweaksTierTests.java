@@ -309,8 +309,8 @@ public final class TweaksTierTests {
         expect(helper, net, TweaksBlocks.REINFORCED_ELYTRA_PAD, netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD);
         expect(helper, end, TweaksBlocks.NETHERITE_ELYTRA_PAD, enderite, TweaksBlocks.ENDERITE_ELYTRA_PAD);
 
-        // Elytra-Pad I: Diamantkern + Diamant-Druckplatte + Elytra (2026-09-29; vorher beliebige Vorlage)
-        expect(helper, ModItems.DIAMOND_CORE, diamond, Items.ELYTRA, TweaksBlocks.ELYTRA_PAD);
+        // Elytra-Pad I: formlos an der Werkbank mit Reparatur-Elytra (Besitzer 2026-10-01, MobHeadTests)
+        expectNothing(helper, ModItems.DIAMOND_CORE, diamond, Items.ELYTRA);
         expectNothing(helper, any, diamond, Items.ELYTRA);
         expectNothing(helper, any, Items.ELYTRA, null);
         // Flypads aus Enderit: I aus der Werkbank (MobHeadTests), II = I + Platte, III = zwei II

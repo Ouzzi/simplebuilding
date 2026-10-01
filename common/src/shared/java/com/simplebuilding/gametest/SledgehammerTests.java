@@ -491,12 +491,12 @@ public final class SledgehammerTests {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, true);
         ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
 
-        // --- a diamond block starts the crush ---
+        // --- a diamond block takes a strike, never a charge (owner 2026-10-01: three strikes) ---
         helper.setBlock(CENTRE, Blocks.DIAMOND_BLOCK);
-        helper.assertValueEqual(useOnTop(helper, player, hammer, CENTRE), InteractionResult.CONSUME,
-                "right clicking a diamond block did not start the charge");
-        helper.assertTrue(player.isUsingItem(), "the player is not winding up after a diamond block click");
-        player.stopUsingItem();
+        helper.assertValueEqual(useOnTop(helper, player, hammer, CENTRE), InteractionResult.SUCCESS,
+                "right clicking a diamond block did not strike it");
+        helper.assertFalse(player.isUsingItem(), "the player winds up after a diamond block click");
+        helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, CENTRE);
 
         // --- a full block with a stairs variant starts the reshaping ---
         helper.setBlock(CENTRE, Blocks.STONE);
@@ -1434,11 +1434,15 @@ public final class SledgehammerTests {
         helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, PROBE);
         helper.assertValueEqual(hammer.getDamageValue(), 0, "a finish that did nothing still cost durability");
 
-        // --- the charge's own block, still aimed at, is crushed ---
+        // --- the diamond block itself breaks on three strikes, not on a charge (owner 2026-10-01) ---
         InteractionResult onDiamond = useOnTop(helper, player, hammer, PROBE);
-        helper.assertTrue(onDiamond == InteractionResult.CONSUME, "the hammer did not charge on the diamond block, got " + onDiamond);
-        hammer.getItem().finishUsingItem(hammer, helper.getLevel(), player);
-        player.stopUsingItem();
+        helper.assertTrue(onDiamond == InteractionResult.SUCCESS, "the hammer did not strike the diamond block, got " + onDiamond);
+        helper.assertFalse(player.isUsingItem(), "a diamond block strike started a charge");
+        long now = helper.getLevel().getGameTime() + SledgehammerItem.DIAMOND_STRIKE_MIN_INTERVAL + 1;
+        SledgehammerItem.strikeDiamondBlock(helper.getLevel(), helper.absolutePos(PROBE), player, hammer, now);
+        helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, PROBE);
+        SledgehammerItem.strikeDiamondBlock(helper.getLevel(), helper.absolutePos(PROBE), player, hammer,
+                now + SledgehammerItem.DIAMOND_STRIKE_MIN_INTERVAL + 1);
         helper.assertBlockPresent(Blocks.AIR, PROBE);
         int pebbles = 0;
         for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, around)) {

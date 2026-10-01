@@ -512,7 +512,7 @@ public final class ConsumptionAndDurabilityTests {
         // --- crushing a diamond block: 81 pebbles either way, one point of wear in survival ---
         helper.setBlock(target, Blocks.DIAMOND_BLOCK);
         survival.setItemInHand(InteractionHand.MAIN_HAND, hammer);
-        chargeAndFinish(hammer, level, survival);
+        strikeThrice(helper, hammer, survival, target);
 
         helper.assertBlockPresent(Blocks.AIR, target);
         helper.assertItemEntityCountIs(ModItems.DIAMOND_PEBBLE, target, 2.0, 81);
@@ -525,7 +525,7 @@ public final class ConsumptionAndDurabilityTests {
 
         helper.setBlock(target, Blocks.DIAMOND_BLOCK);
         creative.setItemInHand(InteractionHand.MAIN_HAND, creativeHammer);
-        chargeAndFinish(creativeHammer, level, creative);
+        strikeThrice(helper, creativeHammer, creative, target);
 
         helper.assertBlockPresent(Blocks.AIR, target);
         helper.assertItemEntityCountIs(ModItems.DIAMOND_PEBBLE, target, 2.0, 81);
@@ -834,5 +834,15 @@ public final class ConsumptionAndDurabilityTests {
         }
         hammer.getItem().finishUsingItem(hammer, level, player);
         player.stopUsingItem();
+    }
+
+    /** Owner 2026-10-01: a diamond block breaks on the third strike; strikes spaced past the repeat guard. */
+    private static void strikeThrice(GameTestHelper helper, ItemStack hammer, net.minecraft.world.entity.player.Player player,
+                                     net.minecraft.core.BlockPos relative) {
+        long now = helper.getLevel().getGameTime();
+        for (int i = 0; i < com.simplebuilding.items.custom.SledgehammerItem.DIAMOND_BLOCK_STRIKES; i++) {
+            com.simplebuilding.items.custom.SledgehammerItem.strikeDiamondBlock(helper.getLevel(), helper.absolutePos(relative),
+                    player, hammer, now + (long) i * (com.simplebuilding.items.custom.SledgehammerItem.DIAMOND_STRIKE_MIN_INTERVAL + 1));
+        }
     }
 }

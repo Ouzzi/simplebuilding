@@ -229,27 +229,33 @@ public final class TweaksItems {
                         TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
                         TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
                         TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE),
-                // Kupfer (Chunk-Loader + Kupferkern), Luecke, Eisen (Launchpad + Eisenkern)
-                CreativeTabLayout.Row.of("chunk_loaders_and_launchpads",
-                        TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER,
-                        com.simplebuilding.items.ModItems.COPPER_CORE, CreativeTabLayout.GAP,
-                        TweaksBlocks.LAUNCHPAD, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD,
-                        com.simplebuilding.items.ModItems.IRON_CORE),
-                // Gold: Spawn-Teleporter I-III + Goldkern
-                CreativeTabLayout.Row.of("spawn_teleporters",
-                        TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER,
-                        com.simplebuilding.items.ModItems.GOLD_CORE),
-                // Diamant: Elytra-Pads I-V, dann die Spawn-Elytra
-                CreativeTabLayout.Row.of("elytra_pads",
-                        TweaksBlocks.ELYTRA_PAD, TweaksBlocks.REINFORCED_ELYTRA_PAD, TweaksBlocks.NETHERITE_ELYTRA_PAD,
-                        TweaksBlocks.ENDERITE_ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD, SPAWN_ELYTRA),
-                // Netherit (Trank-Pad + Netheritkern), Luecke, Enderit (Flypad + Enderit-Kern)
-                CreativeTabLayout.Row.of("potion_pads_and_flypads",
-                        TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD,
-                        com.simplebuilding.items.ModItems.NETHERITE_CORE, CreativeTabLayout.GAP,
-                        TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD,
-                        com.simplebuilding.items.ModItems.ENDERITE_CORE)));
-        // Alle Mod-Mobkoepfe in einer eigenen Zeile unter den Pads.
+                // Spezial-Pads spaltenweise (Besitzer 2026-10-01): je Familie eine Spalte in Erz-Reihenfolge
+                // (Kupfer Chunk-Loader, Eisen Launchpad, Gold Spawn-Teleporter, Diamant Elytra-Pad, Netherit
+                // Trank-Pad, Enderit Flypad) - oben der Kern, darunter die zweite Zutat (Kopf oder Elytra), dann
+                // die Stufen. Chunk-Loader und Launchpad nehmen jeden Trial-Chamber-Kopf; die stehen unten bei
+                // den Mobkoepfen, ihr Feld bleibt frei.
+                CreativeTabLayout.Row.of("pad_cores",
+                        com.simplebuilding.items.ModItems.COPPER_CORE, com.simplebuilding.items.ModItems.IRON_CORE,
+                        com.simplebuilding.items.ModItems.GOLD_CORE, com.simplebuilding.items.ModItems.DIAMOND_CORE,
+                        com.simplebuilding.items.ModItems.NETHERITE_CORE, com.simplebuilding.items.ModItems.ENDERITE_CORE),
+                CreativeTabLayout.Row.of("pad_materials",
+                        CreativeTabLayout.GAP, CreativeTabLayout.GAP, ENDERMAN_HEAD, Items.ELYTRA, BLAZE_HEAD, SHULKER_HEAD),
+                CreativeTabLayout.Row.of("pad_tier_1",
+                        TweaksBlocks.CHUNK_LOADER, TweaksBlocks.LAUNCHPAD, TweaksBlocks.SPAWN_TELEPORTER,
+                        TweaksBlocks.ELYTRA_PAD, TweaksBlocks.POTION_PAD, TweaksBlocks.FLYPAD),
+                CreativeTabLayout.Row.of("pad_tier_2",
+                        TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.SPAWN_TELEPORTER_TIER_2,
+                        TweaksBlocks.REINFORCED_ELYTRA_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.REINFORCED_FLYPAD),
+                CreativeTabLayout.Row.of("pad_tier_3",
+                        TweaksBlocks.ENDERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER,
+                        TweaksBlocks.NETHERITE_ELYTRA_PAD, TweaksBlocks.INFUSED_POTION_PAD, TweaksBlocks.STELLAR_FLYPAD),
+                CreativeTabLayout.Row.of("pad_tier_4",
+                        CreativeTabLayout.GAP, CreativeTabLayout.GAP, CreativeTabLayout.GAP, TweaksBlocks.ENDERITE_ELYTRA_PAD),
+                CreativeTabLayout.Row.of("pad_tier_5",
+                        CreativeTabLayout.GAP, CreativeTabLayout.GAP, CreativeTabLayout.GAP, TweaksBlocks.FINE_ELYTRA_PAD),
+                CreativeTabLayout.Row.of("pad_spawn_elytra",
+                        CreativeTabLayout.GAP, CreativeTabLayout.GAP, CreativeTabLayout.GAP, SPAWN_ELYTRA)));
+        // Die uebrigen Mod-Mobkoepfe nach Fundort im Spielverlauf: Oberwelt (Biom), Unterwelt, End.
         List<ItemLike> heads = extraMobHeads();
         if (!heads.isEmpty()) {
             rows.add(CreativeTabLayout.Row.of("mob_heads", heads.toArray(ItemLike[]::new)));
@@ -257,9 +263,29 @@ public final class TweaksItems {
         return List.copyOf(rows);
     }
 
-    /** Alle Mod-Mobkoepfe fuer die eigene Zeile im SimplePads-Tab. */
+    /**
+     * Fundort-Reihenfolge der Mod-Mobkoepfe (Besitzer 2026-10-01): Oberwelt ueber Tage nach Biom (ueberall,
+     * Wueste, Schnee, Wasser, Sumpf), dann unter Tage (Mineshaft, Trial Chamber, Festung), Unterwelt, End.
+     */
+    public static final List<String> HEAD_SPAWN_ORDER = List.of("spider_head", "husk_head", "stray_skull", "drowned_head",
+            "bogged_skull", "slime_head", "cave_spider_head", "breeze_head", "silverfish_head", "blaze_head",
+            "enderman_head", "shulker_head");
+
+    /** Die Mod-Mobkoepfe ohne die drei, die schon in den Pad-Spalten stehen, in Fundort-Reihenfolge. */
     public static List<ItemLike> extraMobHeads() {
-        return new ArrayList<>(heads());
+        List<ItemLike> rest = mobHeadsInSpawnOrder();
+        rest.removeAll(List.of(ENDERMAN_HEAD, BLAZE_HEAD, SHULKER_HEAD));
+        return rest;
+    }
+
+    /** Alle Mod-Mobkoepfe in {@link #HEAD_SPAWN_ORDER} (Suchtab, Testzentrale). */
+    public static List<ItemLike> mobHeadsInSpawnOrder() {
+        List<Item> sorted = new ArrayList<>(heads());
+        sorted.sort(java.util.Comparator.comparingInt(item -> {
+            int i = HEAD_SPAWN_ORDER.indexOf(BuiltInRegistries.ITEM.getKey(item).getPath());
+            return i < 0 ? HEAD_SPAWN_ORDER.size() : i;
+        }));
+        return new ArrayList<>(sorted);
     }
 
     private static Item register(String name, Function<Item.Properties, Item> factory) {

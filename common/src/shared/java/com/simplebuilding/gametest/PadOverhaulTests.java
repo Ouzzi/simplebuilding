@@ -217,8 +217,6 @@ public final class PadOverhaulTests {
                 new Entry(TweaksFamilies.Family.LAUNCHPAD, ModItems.IRON_CORE, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, trialHeads, TweaksBlocks.LAUNCHPAD),
                 new Entry(TweaksFamilies.Family.SPAWN_TELEPORTER, ModItems.GOLD_CORE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE,
                         List.of(TweaksItems.ENDERMAN_HEAD), TweaksBlocks.SPAWN_TELEPORTER),
-                new Entry(TweaksFamilies.Family.ELYTRA_PAD, ModItems.DIAMOND_CORE, TweaksBlocks.DIAMOND_PRESSURE_PLATE,
-                        List.of(Items.ELYTRA), TweaksBlocks.ELYTRA_PAD),
                 new Entry(TweaksFamilies.Family.POTION_PAD, ModItems.NETHERITE_CORE, TweaksBlocks.NETHERITE_PRESSURE_PLATE,
                         List.of(TweaksItems.BLAZE_HEAD), TweaksBlocks.POTION_PAD));
         for (int i = 0; i < entries.size(); i++) {
@@ -250,6 +248,8 @@ public final class PadOverhaulTests {
             expectNothing(helper, ModItems.COPPER_CORE, TweaksBlocks.COPPER_PRESSURE_PLATE, other);
             expectNothing(helper, ModItems.IRON_CORE, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, other);
         }
+        // Elytra-Pad I ist seit 2026-10-01 formlos an der Werkbank mit Reparatur-Elytra (MobHeadTests), nicht mehr geschmiedet.
+        expectNothing(helper, ModItems.DIAMOND_CORE, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.ELYTRA);
         // Flypad I ist kein Schmiederezept mehr (Enderit-Vorlage + Platte + Kern).
         expectNothing(helper, ModItems.ENDERITE_UPGRADE_TEMPLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE, ModItems.ENDERITE_CORE);
         // Die alten Wege sind weg: Elytra ohne Zutat, Diamant-Druckplatte als Zutat von Launchpad/Chunk-Loader,

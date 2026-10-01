@@ -129,7 +129,7 @@ public final class SearchTabPlacement {
                 ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST));
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SHULKER_BOX,
                 ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
-        List<ItemLike> heads = new ArrayList<>(TweaksItems.extraMobHeads());
+        List<ItemLike> heads = new ArrayList<>(TweaksItems.mobHeadsInSpawnOrder());
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.PIGLIN_HEAD, heads.toArray(ItemLike[]::new)));
 
         // --- Redstone: Trichter, Kolben, und die Pads hinter den Waegeplatten (Pads sind Druckplatten-Bloecke).

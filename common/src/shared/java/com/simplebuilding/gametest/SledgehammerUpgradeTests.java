@@ -437,12 +437,10 @@ public final class SledgehammerUpgradeTests {
                     arm(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), new ItemStack(ModItems.NETHERITE_NUGGET, NUGGETS));
                     standOn(helper, player, diamondBlock);
                     click(helper, player, diamondBlock);
-                    helper.assertTrue(player.isUsingItem(),
-                            "with a nugget in the off hand the hammer no longer charges its crush on a diamond block");
-                    helper.assertTrue(player.getUseItemRemainingTicks() < UPGRADE_TICKS,
-                            "the crush charge on a diamond block is set to " + player.getUseItemRemainingTicks()
-                                    + " ticks, the length of an upgrade - the stance hijacked a block it cannot upgrade");
-                    player.releaseUsingItem();
+                    // A diamond block takes a crushing strike (owner 2026-10-01), never an upgrade charge.
+                    helper.assertFalse(player.isUsingItem(),
+                            "with a nugget in the off hand the hammer winds up on a diamond block - the stance hijacked a block it cannot upgrade");
+                    helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, diamondBlock);
 
                     // --- the two controls: the same rig does start where it should ---
                     arm(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), new ItemStack(ModItems.NETHERITE_NUGGET, NUGGETS));

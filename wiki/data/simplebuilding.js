@@ -45568,8 +45568,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Transformation Hint Strength",
       "labelDe": "Stärke des Umwandlungshinweises",
-      "tooltip": "How strongly the held item tilts when it can transform the block you aim at, in percent of the original motion. A partial hint (hammer or material missing) shows half of it.",
-      "tooltipDe": "Wie stark sich das gehaltene Item neigt, wenn es den anvisierten Block umwandeln kann, in Prozent der ursprünglichen Bewegung. Ein Teil-Hinweis (Hammer oder Material fehlt) zeigt die Hälfte davon."
+      "tooltip": "How strongly the held item tilts when it can transform the block you aim at, in percent of the original motion. A partial hint (hammer or material missing) shows half of it. Client-side. Default: 50.",
+      "tooltipDe": "Wie stark sich das gehaltene Item neigt, wenn es den anvisierten Block umwandeln kann, in Prozent der ursprünglichen Bewegung. Ein Teil-Hinweis (Hammer oder Material fehlt) zeigt die Hälfte davon. Clientseitig. Standard: 50."
     },
     {
       "name": "enableDoubleJump",

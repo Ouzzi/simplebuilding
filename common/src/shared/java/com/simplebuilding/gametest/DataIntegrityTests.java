@@ -2222,7 +2222,9 @@ public final class DataIntegrityTests {
         // Bewusst doppelt (Besitzer 2026-09-28): Kupfer-, Eisen- und Enderit-Kern stehen als Freischalt-Zutat
         // neben Chunk-Loader, Launchpad und Flypad in SimplePads - und bei den Kernen in SimpleMaterials.
         // Sonst kein Mod-Item doppelt; Oktant und Baustaebe stehen seit 2026-09-29 nur noch in SimpleTools.
-        Set<Item> materialsAndMachines = Set.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE);
+        // Seit 2026-10-01 stehen alle sechs Kerne oben in den Pad-Spalten, also auch der Diamantkern.
+        Set<Item> materialsAndMachines = Set.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE, ModItems.DIAMOND_CORE,
+                ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE);
         for (Identifier id : modItems) {
             if (id.equals(BuiltInRegistries.ITEM.getKey(ModItems.CREATIVE_SPACER))) {
                 continue;
@@ -2279,6 +2281,12 @@ public final class DataIntegrityTests {
         // Alle Schmiedevorlagen an einem Ort (Besitzer 2026-09-28): Vanillas Netherit-Aufwertung und jeder
         // Vanilla-Besatz stehen in SimpleMaterials neben den Mod-Vorlagen (18 Besaetze, neuere Versionen mehr).
         vanillaHome.put(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItemGroupsContent.Tab.MATERIALS);
+        // Die Vanilla-Stufen der Werkstoffketten Diamant und Netherit (Besitzer 2026-10-01) und die Elytra als
+        // zweite Zutat des Elytra-Pads in der Pad-Spalte.
+        for (Item resource : List.of(Items.DIAMOND, Items.ANCIENT_DEBRIS, Items.NETHERITE_SCRAP, Items.NETHERITE_INGOT)) {
+            vanillaHome.put(resource, ModItemGroupsContent.Tab.MATERIALS);
+        }
+        vanillaHome.put(Items.ELYTRA, ModItemGroupsContent.Tab.PADS);
         int trims = 0;
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             if ("minecraft".equals(id.getNamespace()) && id.getPath().endsWith("_armor_trim_smithing_template")) {
@@ -2289,7 +2297,7 @@ public final class DataIntegrityTests {
         if (trims < 18) {
             problems.add("only " + trims + " vanilla armour trim templates are registered");
         }
-        if (vanillaHome.size() != 11 + 5 + 42 + 28 + 11 + 2 + 1 + trims + (McVersion.END_SYSTEMS ? 1 : 0)
+        if (vanillaHome.size() != 11 + 5 + 42 + 28 + 11 + 2 + 1 + 5 + trims + (McVersion.END_SYSTEMS ? 1 : 0)
                 || vanillaHome.containsKey(Items.AIR)) {
             problems.add("the vanilla tool and armour list names an item that does not exist: " + vanillaHome.size() + " entries");
         }
@@ -2445,7 +2453,7 @@ public final class DataIntegrityTests {
         neighbours.put(Items.HOPPER, ModItems.REINFORCED_HOPPER);
         neighbours.put(Items.NETHERITE_HOE, ModItems.ENDERITE_SHOVEL);
         neighbours.put(Items.DIAMOND_BLOCK, ModItems.CRACKED_DIAMOND_BLOCK);
-        neighbours.put(Items.PIGLIN_HEAD, TweaksItems.BLAZE_HEAD);
+        neighbours.put(Items.PIGLIN_HEAD, TweaksItems.mobHeadsInSpawnOrder().getFirst().asItem());
         neighbours.put(Items.NETHERITE_SWORD, ModItems.ENDERITE_SWORD);
         neighbours.put(Items.FURNACE, ModItems.REINFORCED_FURNACE);
         if (McVersion.END_SYSTEMS) {
@@ -2580,20 +2588,21 @@ public final class DataIntegrityTests {
                         TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE.asItem(), TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.asItem(),
                         TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE.asItem(), TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE.asItem(),
                         TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE.asItem(), TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.asItem()),
-                // Pads in Erz-Reihenfolge: Kupfer | Eisen, Gold, Diamant, Netherit | Enderit
-                List.of(TweaksBlocks.CHUNK_LOADER.asItem(), TweaksBlocks.NETHERITE_CHUNK_LOADER.asItem(),
-                        TweaksBlocks.ENDERITE_CHUNK_LOADER.asItem(), ModItems.COPPER_CORE, gap,
-                        TweaksBlocks.LAUNCHPAD.asItem(), TweaksBlocks.NETHERITE_LAUNCHPAD.asItem(),
-                        TweaksBlocks.ENDERITE_LAUNCHPAD.asItem(), ModItems.IRON_CORE),
-                List.of(TweaksBlocks.SPAWN_TELEPORTER.asItem(), TweaksBlocks.SPAWN_TELEPORTER_TIER_2.asItem(),
-                        TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem(), ModItems.GOLD_CORE),
-                List.of(TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.REINFORCED_ELYTRA_PAD.asItem(),
-                        TweaksBlocks.NETHERITE_ELYTRA_PAD.asItem(), TweaksBlocks.ENDERITE_ELYTRA_PAD.asItem(),
-                        TweaksBlocks.FINE_ELYTRA_PAD.asItem(), TweaksItems.SPAWN_ELYTRA),
-                List.of(TweaksBlocks.POTION_PAD.asItem(), TweaksBlocks.REINFORCED_POTION_PAD.asItem(),
-                        TweaksBlocks.INFUSED_POTION_PAD.asItem(), ModItems.NETHERITE_CORE, gap,
-                        TweaksBlocks.FLYPAD.asItem(), TweaksBlocks.REINFORCED_FLYPAD.asItem(),
-                        TweaksBlocks.STELLAR_FLYPAD.asItem(), ModItems.ENDERITE_CORE)));
+                // Spezial-Pads spaltenweise (Besitzer 2026-10-01): Kern, zweite Zutat, Stufen I-V.
+                List.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE, ModItems.DIAMOND_CORE,
+                        ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
+                List.of(gap, gap, TweaksItems.ENDERMAN_HEAD, Items.ELYTRA, TweaksItems.BLAZE_HEAD, TweaksItems.SHULKER_HEAD),
+                List.of(TweaksBlocks.CHUNK_LOADER.asItem(), TweaksBlocks.LAUNCHPAD.asItem(), TweaksBlocks.SPAWN_TELEPORTER.asItem(),
+                        TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.POTION_PAD.asItem(), TweaksBlocks.FLYPAD.asItem()),
+                List.of(TweaksBlocks.NETHERITE_CHUNK_LOADER.asItem(), TweaksBlocks.NETHERITE_LAUNCHPAD.asItem(),
+                        TweaksBlocks.SPAWN_TELEPORTER_TIER_2.asItem(), TweaksBlocks.REINFORCED_ELYTRA_PAD.asItem(),
+                        TweaksBlocks.REINFORCED_POTION_PAD.asItem(), TweaksBlocks.REINFORCED_FLYPAD.asItem()),
+                List.of(TweaksBlocks.ENDERITE_CHUNK_LOADER.asItem(), TweaksBlocks.ENDERITE_LAUNCHPAD.asItem(),
+                        TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem(), TweaksBlocks.NETHERITE_ELYTRA_PAD.asItem(),
+                        TweaksBlocks.INFUSED_POTION_PAD.asItem(), TweaksBlocks.STELLAR_FLYPAD.asItem()),
+                List.of(gap, gap, gap, TweaksBlocks.ENDERITE_ELYTRA_PAD.asItem()),
+                List.of(gap, gap, gap, TweaksBlocks.FINE_ELYTRA_PAD.asItem()),
+                List.of(gap, gap, gap, TweaksItems.SPAWN_ELYTRA)));
         List<Item> heads = TweaksItems.extraMobHeads().stream().map(net.minecraft.world.level.ItemLike::asItem).toList();
         if (!heads.isEmpty()) {
             expected.add(heads);
@@ -2681,9 +2690,11 @@ public final class DataIntegrityTests {
         List<List<Item>> expected = List.of(
                 List.of(ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, gap, ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST,
                         gap, ModItems.ENDER_QUARTZ),
-                List.of(ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, ModItems.NETHERITE_NUGGET, ModItems.RAW_ENDERITE,
-                        ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_NUGGET, ModItems.ENDERITE_INGOT,
+                List.of(ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND),
+                List.of(Items.ANCIENT_DEBRIS, Items.NETHERITE_SCRAP, ModItems.NETHERITE_NUGGET, Items.NETHERITE_INGOT, gap,
                         ModItems.LEATHER_SHEET),
+                List.of(ModItems.RAW_ENDERITE, ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_NUGGET,
+                        ModItems.ENDERITE_INGOT),
                 List.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE, ModItems.DIAMOND_CORE,
                         ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
                 List.of(ModItems.BASIC_UPGRADE_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE),
