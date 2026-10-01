@@ -27,7 +27,8 @@
     "client.ExperienceOrbRendererMixin",
     "client.ExperienceOrbRenderStateMixin",
     "client.HudExperienceLevelMixin",
-    "client.SkullModelMixin"
+    "client.SkullModelMixin",
+    "client.WornModHeadMixin"
   ],
   "injectors": {
     "defaultRequire": 1

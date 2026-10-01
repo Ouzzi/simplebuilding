@@ -16,7 +16,8 @@
   "client": [
     "client.LivingEntityRendererMixin",
     "client.LivingEntityRenderStateMixin",
-    "client.AnimalSkullRendererMixin"
+    "client.AnimalSkullRendererMixin",
+    "client.WornModHeadMixin"
   ],
   "server": [],
   "injectors": {
