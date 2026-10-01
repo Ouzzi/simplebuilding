@@ -454,6 +454,21 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       }
     },
     {
+      "id": "config_qOL_anvilRepairKeepsCost",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java",
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\mixin\\AnvilRepairCostMixin.java"
+      ],
+      "en": {
+        "title": "qOL.anvilRepairKeepsCost",
+        "summary": "Server setting. Default: true. Repairing with material, combining two items without new enchantments or renaming keeps the higher anvil cost of the inputs instead of raising it; only a change of enchantments raises it like vanilla."
+      },
+      "de": {
+        "title": "qOL.anvilRepairKeepsCost",
+        "summary": "Servereinstellung. Standard: true. Reparieren mit Material, Zusammenlegen zweier Gegenstände ohne neue Verzauberung oder Umbenennen behält die höhere Ambosskosten der Zutaten, statt sie zu erhöhen; nur eine Änderung der Verzauberungen erhöht sie wie in Vanilla."
+      }
+    },
+    {
       "id": "config_qOL_piglinsIgnoreGoldTrims",
       "sources": [
         "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
@@ -596,7 +611,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 39,
+    "features": 40,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,
