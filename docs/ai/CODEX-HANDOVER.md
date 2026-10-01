@@ -1,53 +1,50 @@
-﻿# Offene Orchestrator-Arbeit – 2026-10-01
+# Offene Orchestrator-Arbeit – 2026-10-01
 
-## Aktuelle Folgewelle
+## Aktueller Stand
 
-Die erste Welle ist mit `17c5c754` nach GREEN gepusht. Der frühere
-CLI-Orchestrator PID 20744 ist beendet. Der Desktop-Orchestrator übernimmt die
-vom Besitzer beauftragte Folgearbeit gemäß `FOLLOWUP-PLAN-2026-10-01.md`.
-Keine parallele Übernahme, solange dessen Worker oder Gate aktiv sind.
+Die erste Welle ist auf `17c5c754` mit GREEN gepusht. Der frühere
+CLI-Orchestrator PID 20744 ist beendet; der Desktop-Orchestrator hat die vom
+Besitzer autorisierte Folgewelle übernommen. Plan:
+`FOLLOWUP-PLAN-2026-10-01.md`; Belege:
+`FOLLOWUP-VERIFICATION-2026-10-01.md`.
 
-- `codex-next-dimensions`: Bett-/Mehrblockplatzierung und echte Regressionen.
-- `codex-next-small`: Crafter, Kupfergolem und gezielte Blitzfolgen;
-  Claims bleiben standardmäßig aus.
-- Wiki-UX `a51ac895` bereits integriert: Filter merken, leere Ergebnisse
-  zurücksetzen, feste Tabellenköpfe; Browser- und 19 Python-Tests grün.
-- Launch-Auswahl `57e50ff3`: einklappbare Projektmod-Auswahl, standardmäßig
-  alle elf Module. Browser-Speichern/Neuladen sowie 45 Hub-Tests grün.
-  Die tatsächliche Gradle-Ladung wird in `codex-next-merge-review` geprüft.
-- Erst nach allen Merges den gemeinsamen exakten Commit im separaten Gate
-  prüfen und ausschließlich dessen GREEN-SHA pushen. Noch kein Folge-Push.
-- Besitzer-Client PID 22244 läuft weiterhin; nicht stoppen, keine Builds im
-  Hauptcheckout. GUI-/Audio-Abnahmen bleiben deshalb offen.
+Integriert sind Wiki-UX (`a51ac895`), Bett-/Mehrblockplatzierung (`b13ebe3a`),
+Claims-Automations-/Blitzschutz (`c800630a`) und der gemeinsame Bettkopf-Test
+(`1ab309b1`). Die Launch-Zentrale erhält eine einklappbare Mod-Auswahl,
+standardmäßig alle elf Projektmods, wirksam beim nächsten 26.3-Client-/Serverstart.
+Die Gradle-Ladung wird auf Fabric, NeoForge und Forge mit echten isolierten
+Serverstarts und Abwahl-Gegenproben geprüft; Details im Verifikationsbericht.
 
-## Abschluss der ersten Welle und historische Restpunkte
+## Abschluss und Fortsetzung bei Unterbrechung
 
-Branch `master`, letzter Feature-Merge `39fd85b1` (Forge-Worker `6786b545`).
-Quellfixes `a5d8151e` (Test-Cleanup) und `f23d1004` (JAR-Bootstrap).
-Plan: `docs/ai/CODEX-PLAN.md`. Erledigte Merges und tatsächliche Prüfbelege:
-`docs/ai/CODEX-VERIFICATION-2026-10-01.md`.
+- Laufende Worker/Gates zuerst prüfen, keine parallele Übernahme. Der aktuelle
+  Orchestrator besitzt Merge und Push. Keine Builds im Hauptcheckout.
+- Vollständiges gemeinsames Gate mit Integration im separaten `%TEMP%/sbgate`.
+  `.ai-runs/followup-full-gate.log` muss die geprüfte SHA und `VERDICT: GREEN`
+  enthalten. Nur exakt diese SHA nach `master` pushen und Remote-SHA bestätigen.
+  Falls ein Schritt fehlt, dort fortsetzen; alte grüne Zahlen sind kein Ersatz.
+- Keine ungetrackten Serena-Dateien oder `CODEX-ORCHESTRATOR-PROMPT.md` löschen.
 
-- Abschlussnachweis dieses Runs: `.ai-runs/final-full-gate.log` enthält die
-  geprüfte SHA und den abschließenden VERDICT. Bei einer Unterbrechung ohne GREEN
-  oder ohne bestätigten Remote-SHA das Gate beziehungsweise den exakten SHA-Push
-  fortsetzen. Vor jedem späteren Push ist ein neuer Nachweis für dessen SHA nötig.
-- Claims bleiben nicht freigabereif: Kupfergolem-Transfers, Crafter-Ersatzauswurf,
-  Blitzentzündung/Kupferreinigung, unbekannte Container, entfernte Storage-Ziele
-  und weitere Sekundäreffekte. Dateien/Grenzen: `modules/simpletweaks/CLAIMS-STAGE4.md`.
-  Vor Aktivierung reale Pfade schützen und mit aktivem, ausgeschaltetem und
-  fehlendem Anbieter prüfen. Keine Aktivierung in dieser Welle.
-- Client-/GUI-Abnahme offen. Besitzer-Client PID 22244 läuft seit 01:15 MESZ;
-  vor seriellen Tests erneut kontrollieren, niemals stoppen. Dimensions-Kommando
-  und sieben Screenshots: `modules/simpledimensions/DIMENSIONS-UI-PLAN.md`.
-  Sounds/Visuals und neue Forge-Dialoge noch nicht gesehen/gehört. Forge ohne
-  Clientnachweis weiter experimentell. Besitzerwelt/Testzentrale dort unberührt;
-  automatisierter Zentrumsneubau und SimpleBuilding-Abdeckung wurden geprüft.
-  Forge-Befehle/Abnahmefälle: `docs/FORGE-26.3.md`; Server-/Paketbelege und
-  Prüfsummen: `docs/FORGE-FOLLOWUP-RESULTS.md`. Separater Produktionsinstaller-
-  beziehungsweise normaler Dedicated-Server-Start ebenfalls noch ungeprüft.
-- Separater Bestandsfehler: `WandPlacement.stateFor` in
-  `common/src/shared/java/com/simplebuilding/util/WandPlacement.java` verwirft
-  einen neuen Bettfuß vor `afterPlace`, auch ohne Claims. Vor späterem Fix echte
-  Bettplatzierung und andere mehrteilige Blöcke prüfen. Kein Fix in dieser Welle.
-- Besitzerfragen: Echolot 3 Sekunden halten oder Ein-Klick? Morgenbericht der
-  Sprach-Bridge ja oder nein?
+## Noch offen
+
+- Claims bleiben AUS. Crafter, Kupfergolem-Endpunkte und die geprüften
+  Blitz-Blockänderungen sind geschützt; Blitzableiter-/Entity-Sekundärfolgen,
+  vertrauenswürdige mobile Besitzer, unbekannte Container und weitere entfernte
+  Mod-/Storage-/Physikpfade bleiben unvollständig. Grenzen und Tests:
+  `modules/simpletweaks/CLAIMS-STAGE4.md`.
+- Besitzer-Client PID 22244 bleibt unangetastet. Vor serieller Clientprüfung
+  erneut kontrollieren, niemals stoppen. Dimensions-UI:
+  `modules/simpledimensions/DIMENSIONS-UI-PLAN.md`; GUI/Sounds/Visuals und
+  Forge-Dialoge weiterhin ohne tatsächliche Clientabnahme. Forge bleibt opt-in.
+- Der aktive Hub auf Port 8773 verwaltet diesen Client. Sein statisches Frontend
+  aktualisiert sich beim Neuladen; Python-Backendänderungen brauchen einen
+  Hub-Neustart. Diesen bei beendetem Besitzerlauf durchführen, damit dessen
+  Prozessverfolgung und Log-Pipe erhalten bleiben. Insbesondere die neue
+  Forge-Auswahlweitergabe benötigt das aktualisierte Backend.
+- Besitzerwelt/Testzentrale dort unberührt. Automatisierte Zentren- und
+  Abdeckungstests in isolierten Welten ersetzen diese Abnahme nicht.
+- Weiterer Backlog: `.claude/QUEUE.md` (unter anderem Config-Spalten,
+  Tabellenzeilen-Direktlinks und Beschaffungsdarstellung). Neue Portalformen,
+  Kern-/Balancing-Entscheidungen und Ports erst nach Besitzerfreigabe.
+- Besitzerfragen: Echolot drei Sekunden halten oder Ein-Klick?
+  Morgenbericht der Sprach-Bridge ja oder nein?

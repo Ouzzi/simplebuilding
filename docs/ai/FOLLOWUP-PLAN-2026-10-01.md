@@ -45,3 +45,15 @@ Browserprüfung kontrollieren. Gemeinsame Quellen müssen weiterhin kompilieren.
 Nach Integration Generatoren und vollständiges Gate mit Integration ausführen;
 nur die exakte GREEN-SHA pushen. Testzentralen-Abdeckung in isolierten Welten
 erhalten. Offene Abnahmen und verbleibende Schutzlücken ehrlich dokumentieren.
+
+## Plan-Abgleich
+
+Alle vier Arbeitspakete sind integriert: Mehrblockplatzierung, Claims-Folgepfade,
+Wiki-UX und Launch-Mod-Auswahl. Notwendige Korrekturen bei der Verifikation:
+NeoForge nutzt das distributierbare `jar` statt des Ressourcen-Tasks `jarJar`;
+Modularchive werden erst nach Konfiguration ihrer Producer aufgelöst. Der
+NF-Kurzstart mit `--initSettings` wurde wegen seiner Serverthread-Erwartung durch
+einen normalen isolierten Serverlauf mit sauberem Stopp ersetzt. Abwahl und
+gemeinsame Claims-/Bett-Regression sind geprüft. Einzelbelege und Grenzen:
+`FOLLOWUP-VERIFICATION-2026-10-01.md`. Abschluss ist das gemeinsame exakte Gate,
+keine Clientabnahme wurde aus Serverergebnissen abgeleitet.
