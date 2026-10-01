@@ -16,6 +16,10 @@ das ist noch kein Gesamtgate.
   bei Erfolg/Fehler, Timeout-Fallback bleibt. Zwei aufeinanderfolgende vollständige
   Modulprüfungen mit unveränderten Config-Bytes und neues Gesamtgate noch offen.
   Noch kein Push. Forge-Worker muss diese shared Testkorrektur ebenfalls erhalten.
+- Weiterer Paketbefund: Beide normalen 26.3-JARs enthielten keinen der vier
+  `com.simplebuilding.common`-Bootstrap-Typen. `mc26_3/fabric/build.gradle` und
+  `mc26_3/neoforge/build.gradle` nehmen nun den bestehenden Common-Output auf.
+  Neue JARs und isolierter Bootstrap-Aufruf daraus müssen noch geprüft werden.
 
 - Claims bleiben AUS und nicht freigabereif. Offene Automation: Kupfergolem,
   Crafter-Ersatzauswurf, Blitzentzündung/Kupferreinigung, unbekannte Container,

@@ -110,3 +110,8 @@ Sprach-Bridge-Morgenbericht ja/nein.
   Cleanup bei Erfolg, Fehler und Timeout. Verifikation: zwei vollständige
   Modulregressionen ohne zwischenzeitliches Zurücksetzen der Testkonfiguration;
   deren Bytes müssen vor/nach jedem Lauf gleich sein. Dann erneut Gesamtgate.
+- Die Forge-Paketprüfung deckte fehlende gemeinsame Bootstrap-Klassen auf.
+  Direkte ZIP-Prüfung bestätigte denselben Bestandsfehler in beiden normalen
+  26.3-JARs. Fabric und NeoForge nehmen deshalb ebenfalls den bestehenden
+  `:common`-Output in ihr Produktions-JAR auf. Keine Änderung anderer MC-Linien.
+  Nachweis: Archive erneut bauen und Bootstrap isoliert aus beiden JARs laden.
