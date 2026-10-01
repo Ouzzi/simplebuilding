@@ -12,6 +12,11 @@ import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -64,7 +69,33 @@ public final class WandPlacement {
         if (state == null) {
             return null;
         }
-        state = Block.updateFromNeighbourShapes(state, level, pos);
+        // Their counterpart does not exist until setPlacedBy. Updating shapes now turns
+        // a valid fresh bed/door/plant into air before the placement callback can run.
+        if (!createsSecondPart(state.getBlock())) {
+            state = Block.updateFromNeighbourShapes(state, level, pos);
+        }
+        if (state.isAir()) return null;
+        BlockPos second = null;
+        BlockState secondState = state;
+        if (state.getBlock() instanceof BedBlock) {
+            if (state.getValue(BedBlock.PART) != BedPart.FOOT) return null;
+            second = pos.relative(state.getValue(BedBlock.FACING));
+            secondState = state.setValue(BedBlock.PART, BedPart.HEAD);
+        } else if (state.getBlock() instanceof DoorBlock || state.getBlock() instanceof DoublePlantBlock) {
+            if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER) return null;
+            second = pos.above();
+            secondState = state.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER);
+        }
+        if (second != null && (!level.isInWorldBounds(second) || !level.isLoaded(second)
+                || !level.getWorldBorder().isWithinBounds(second)
+                || !level.getBlockState(second).canBeReplaced()
+                || !level.isUnobstructed(secondState, second, CollisionContext.placementContext(player))
+                || !com.simplebuilding.api.WorldPermissions.mayAct(level, player, second)
+                || (player != null && (!level.mayInteract(player, second)
+                    || !player.mayUseItemAt(second, face, item)
+                    || !BuildPermissions.mayPlace(level, player, second, secondState))))) {
+            return null;
+        }
         if (!state.canSurvive(level, pos)) {
             return null;
         }
@@ -95,6 +126,19 @@ public final class WandPlacement {
         BlockHitResult hit = new BlockHitResult(location, face, support, false);
         BlockPlaceContext context = new BlockPlaceContext(level, player, InteractionHand.MAIN_HAND, item, hit) {
             @Override
+            public Direction getHorizontalDirection() {
+                // BedBlock validates its head before we copy orientation. Validate the
+                // actual final direction, including item components, rather than player yaw.
+                if (block instanceof BedBlock) {
+                    BlockState oriented = block.defaultBlockState().setValue(BedBlock.FACING, super.getHorizontalDirection());
+                    if (clicked != null && clicked.getBlock() == block) oriented = copyOrientation(clicked, oriented);
+                    return item.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY)
+                            .apply(oriented).getValue(BedBlock.FACING);
+                }
+                return super.getHorizontalDirection();
+            }
+
+            @Override
             public BlockPos getClickedPos() {
                 return pos;
             }
@@ -113,6 +157,11 @@ public final class WandPlacement {
         }
         state = item.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY).apply(state);
         return com.simplebuilding.api.WorldPermissions.mayPlace(level, player, pos, state) ? state : null;
+    }
+
+    /** Vanilla placement callbacks create these blocks' second occupied cell. */
+    public static boolean createsSecondPart(Block block) {
+        return block instanceof BedBlock || block instanceof DoorBlock || block instanceof DoublePlantBlock;
     }
 
     /** Uebernimmt die Ausrichtung eines Blocks gleicher Sorte; doppelte Stufen bleiben beim Platzierten. */

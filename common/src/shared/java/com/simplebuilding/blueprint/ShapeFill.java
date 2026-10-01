@@ -377,6 +377,12 @@ public final class ShapeFill {
             if (refused[m]) {
                 return null;
             }
+            // A fill layout stores one independent state per cell and does not run item
+            // callbacks. Multipart blocks need explicit blueprint parts, not a fill material.
+            if (WandPlacement.createsSecondPart(((BlockItem) materials.get(m).getItem()).getBlock())) {
+                refused[m] = true;
+                return null;
+            }
             if (base[m] == null) {
                 base[m] = WandPlacement.baseState(level, player, materials.get(m), c, Direction.UP, WandPlacement.TOP_CENTER, null);
                 if (base[m] == null) {

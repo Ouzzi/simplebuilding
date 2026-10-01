@@ -130,4 +130,19 @@ public final class WandModeGameTest {
     public void undoKeepsBlockEntityContentsSpreadFacesAndProtectedCells(GameTestHelper helper) {
         WandModeTests.undoKeepsBlockEntityContentsSpreadFacesAndProtectedCells(helper);
     }
+    @GameTest(rotation = Rotation.NONE)
+    public void multipartPlacesBedsDoorsAndPlants(GameTestHelper helper) {
+        WandModeTests.wandMultipartPlacesBedsDoorsAndPlants(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void multipartRefusesBlockedOrProtectedSecondCells(GameTestHelper helper) {
+        WandModeTests.wandMultipartRefusesBlockedOrProtectedSecondCells(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void multipartOctantRefusesWithoutSpending(GameTestHelper helper) {
+        WandModeTests.wandMultipartOctantRefusesWithoutSpending(helper);
+    }
+
 }

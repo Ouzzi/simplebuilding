@@ -357,6 +357,15 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("wand_mode_game_test_wand_neither_builds_nor_undoes_without_build_rights", WandModeTests::wandNeitherBuildsNorUndoesWithoutBuildRights)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("wand_mode_game_test_multipart_places_beds_doors_and_plants", WandModeTests::wandMultipartPlacesBedsDoorsAndPlants)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_multipart_refuses_blocked_or_protected_second_cells", WandModeTests::wandMultipartRefusesBlockedOrProtectedSecondCells)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_multipart_octant_refuses_without_spending", WandModeTests::wandMultipartOctantRefusesWithoutSpending)
+                    .rotation(Rotation.NONE)
+                    .build(),
             GameTestSpec.named("wand_mode_game_test_wand_supply_passes_over_stacks_with_components", WandModeTests::wandSupplyPassesOverStacksWithComponents)
                     .rotation(Rotation.NONE)
                     .build(),
