@@ -319,7 +319,7 @@ def module_targets(root=REPO):
 
 
 MODULE_TARGETS = module_targets()
-# Forge 26.3 is opt in while stabilizing; existing default/release selections are unchanged.
+# Forge 26.3 is part of the main line (owner decision 2026-10-01) and of the gate.
 FORGE263_TARGETS = (Target(
     id="forge-263", label="Forge - MC 26.3", loader="forge", mc_line="26.3",
     gradle_task=":mc26_3:forge:runGameTestServer", report="mc26_3/forge/build/forge-junit.xml",
@@ -1121,7 +1121,7 @@ def print_list() -> None:
     print()
     print("  Ziele")
     for target in ALL_TARGETS:
-        flag = "  (experimentell, nicht im Release-Tor)" if target in SNAPSHOT_TARGETS + FORGE263_TARGETS else ""
+        flag = "  (experimentell, nicht im Release-Tor)" if target in SNAPSHOT_TARGETS else ""
         print(f"    {target.id:<23}{target.label:<34}{target.gradle_task}{flag}")
     catalogue = read_catalogue()
     print()

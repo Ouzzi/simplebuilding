@@ -115,7 +115,7 @@ def cmd_gate(a):
             print("\n".join(l for l in text.splitlines() if "ROT " in l or "FEHLER" in l)[:3000])
         return bool(green)
 
-    ok &= runner("fabric-263,neoforge-263")
+    ok &= runner("fabric-263,neoforge-263,forge-263")
     if a.integration:
         # The integration suite plus every module suite the manifest at this ref declares (client smokes stay manual).
         listing = run([sys.executable, "tools/testrunner/run.py", "--list"], cwd=GATE, check=False, capture=True).stdout

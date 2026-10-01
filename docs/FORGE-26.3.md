@@ -147,7 +147,7 @@ after the owner clients have closed, build and stage the module jars into that
 worktree's base Forge instance. Do not reuse the owner's saves or mods directory.
 
 ```powershell
-$env:SIMPLEBUILDING_JAVA8_HOME = 'C:/Users/o_o/AppData/Local/Temp/cx-next-small/scratchpad/next-small/java8/jdk8u504-b01'
+$env:SIMPLEBUILDING_JAVA8_HOME = 'C:/Users/o_o/.jdks/jdk8u504-b01'  # dauerhaft als Benutzervariable gesetzt
 $forgeArgs = @('-Pforge263=true', '-Pforge_runs=true', '-PforgePackaged=true',
     '-Dorg.gradle.workers.max=1', "-Porg.gradle.java.installations.paths=$env:SIMPLEBUILDING_JAVA8_HOME")
 $modules = (Get-Content modules/modules.json -Raw | ConvertFrom-Json).modules |

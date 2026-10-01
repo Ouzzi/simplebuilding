@@ -44,5 +44,7 @@ The assistant's long-term notes live in `docs/ai/memory/` (copy of `~/.claude/pr
 HANDOFF describes the integrated 26.3 state, not the last worker branch. Queue checkboxes
 mean implementation/verification complete, not owner acceptance. Keep client gates, visual
 acceptance and owner decisions open separately. Old briefs and memory are historical inputs;
-recipes, constants and executable code are evidence. Forge 26.3 is opt-in (`-Pforge263=true`);
-the normal task gate remains Fabric/NeoForge 26.3 plus shared compilation.
+recipes, constants and executable code are evidence. Forge 26.3 is built by default
+(`forge263=true`); the task gate covers Fabric, NeoForge and Forge 26.3 plus shared compilation.
+Develop on Fabric first, then roll bundled work out to NeoForge and Forge; other MC lines only after
+the main line is finished.

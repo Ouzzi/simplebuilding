@@ -6,7 +6,7 @@ Besitzer spricht Deutsch. Antworten kurz, Ergebnis zuerst, Fragen an den Besitze
 
 ## 1. Projekt in einem Absatz
 Minecraft-Mod „SimpleBuilding“ (Baustäbe, Blaupause, Oktant, Hammer, Rucksack, Pads, Enderit, Kerne, Handbücher).
-Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge) ist die Hauptlinie.**
+Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge + Forge) ist die Hauptlinie; Hauptloader ist Fabric.**
 
 ## 2. Repo-Struktur
 - `common/src/shared` = gemeinsamer Code für 26.2 und 26.3. `common/src/mc26_2` = 26.2-Overlays.
@@ -17,7 +17,8 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge) ist die H
 - `wiki/` (Wiki, `wiki/manual.json` von Hand, `wiki/data/*` generiert), `tools/` (Textur-Generatoren, Testrunner, Balancing-Zentrale), `docs/` (Konzepte).
 
 ## 3. Harte Regeln des Besitzers
-1. **Hauptlinie 26.3 zuerst.** Neue Features nur für 26.3 (`fabric-263`, `neoforge-263`) bauen und testen, bis der Besitzer
+1. **Hauptlinie 26.3 zuerst, Fabric zuerst.** Neue Features zuerst auf 26.3 Fabric fertigstellen und bündeln, dann
+   gebündelt auf NeoForge und Forge 26.3 ausrollen (`fabric-263`, `neoforge-263`, `forge-263`), bis der Besitzer
    die Welle abgenommen hat. Erst dann ein eigener **Port-Run** für 26.2 Fabric/NeoForge/Forge, die 1.21.11-Kopie und 26.4.
    Gemeinsamer Code muss trotzdem für 26.2 kompilieren (`check` bleibt grün).
 2. **Push nur nach grünem Ergebnis.** Test-/Gate-Ausgabe lesen, erst dann pushen. `tools/testrunner/run.py` endet auch bei
@@ -59,7 +60,7 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge) ist die H
   Client-Handler; eigene `trimmed_armor`-Itemmodelle → Mod lädt `ordering="AFTER"` neoforge und liefert auf 26.3 keine
   `textures/*/trims/color_palettes`.
 - Forge: umbenannte IDs brauchen `ForgeRegistry#addAlias`; `BreakEvent` verweigern mit `Result.DENY`.
-  26.3 ist separat mit `-Pforge263=true`; ForgeGradle-7-Runs brauchen zusaetzlich Java 8 fuer Slime Launcher,
+  26.3 wird standardmäßig mitgebaut (`forge263=true`, abschaltbar mit `-Pforge263=false`); ForgeGradle-7-Runs brauchen zusaetzlich Java 8 fuer Slime Launcher,
   Spiel/Compiler Java 25. Klassen/Ressourcen im selben Ausgabeordner, MixinConfigs im Jar-Manifest.
   26.3: kein KEYSYM mehr (KeyMapping-Konstruktor ohne Type); GameTest-TestData braucht die Dimension
   (`McVersion.testData`). LootTableLoadEvent kommt vor verfuegbaren Loot-Holders: Injektion erst nach
