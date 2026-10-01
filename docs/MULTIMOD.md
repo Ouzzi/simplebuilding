@@ -207,8 +207,10 @@ test directory even under `--parallel`.
 Keep Forge opt-in; add only the module's `projects.forge`, `paths.forge`, `loaders`
 and `tests.loaders.forge` manifest fields. The test declaration supplies
 `task: ":modules:<id>:forge:runGameTestServer"`, an isolated report,
-`gradleArgs` with `-Pforge263=true`, `-Pforge_runs=true` and the Java 8 toolchain
-path, plus optional `testMods` (runtime jar ids, for example `simplebuilding`).
+`gradleArgs` with `-Pforge263=true`, `-Pforge_runs=true`, plus optional `testMods`
+(runtime jar ids, for example `simplebuilding`). The runner supplies the Java 8
+toolchain path; `SIMPLEBUILDING_JAVA8_HOME` takes precedence over legacy manifest
+paths, and explicit manifest overrides remain supported when that variable is unset.
 The existing Forge convention discovers these settings; no root/runner/Hub block
 is needed. Include module-owned `pack.mcmeta` (the SimpleBuilding Forge resource
 format range is the current reference); Forge otherwise omits the module data pack.
@@ -219,14 +221,27 @@ client/server invocations stay independent. Do not combine a module test and its
 ordinary client/server task in one Gradle invocation.
 
 In `forge/build.gradle`, apply `gradle/module-forge.gradle` with the module version.
+The convention uses `com.simplebuilding.modules.<id>` as the group: all loader
+projects are named `forge`, so a common group would make Gradle substitute one
+module for another in multi-module runtime dependencies.
 Declare `forgeMixinConfigs` for shared and Forge-only configs; they enter both the
 jar manifest and development launcher, with Forge's supported JAVA_21 Mixin level.
-`forgeExcludedSources` excludes optional Cloth GUI/JEI classes when no Forge 26.3
-artifact exists. Do not bundle fake Cloth GUI APIs or require another mod's shim.
+`forgeExcludedSources` excludes unavailable optional integration classes such as JEI.
+For configuration, declare module-local `forgeNativeConfig` (id, source root,
+canonical screen paths and factory) and apply `gradle/forge-native-config.gradle`.
+It reuses the option declarations with native Minecraft widgets and relocates the
+builder into the module's namespace. See `docs/FORGE-26.3.md` for official evidence
+that no compatible Cloth Forge artifact exists. Do not bundle fake Cloth GUI APIs
+or require another mod's shim.
 If the canonical config only uses inert Cloth annotations, generate a compile copy
 without those markers (Fun demonstrates this); never copy field values or normalization.
 Avoid duplicate shim packages between module jars. Server JSON configuration remains
-the shared loader-neutral code.
+the shared loader-neutral code. `forge-framework.gradle` supplies framework as a
+compile-only dependency and embeds it with Forge Jar-in-Jar metadata in resources,
+so development output and distributables resolve the same version-selected library.
+Never also add a loose framework runtime dependency: JPMS would load duplicate APIs.
+Use `-PforgePackaged=true` to run the built jar without development classes or loose
+project libraries, and `-PforgeTestMods=id,id` for optional-provider test combinations.
 
 Use `FMLJavaModLoadingContext.getModBusGroup()` and the typed event's `getBus(bus)`
 for registry/lifecycle events; game events expose `BUS`. Keep client setup behind

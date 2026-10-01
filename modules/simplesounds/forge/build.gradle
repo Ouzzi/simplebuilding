@@ -1,5 +1,8 @@
 plugins { id 'java-library'; id 'net.minecraftforge.gradle' version '7.0.36' }
 ext.moduleVersion = '0.1.0'
-ext.forgeExcludedSources = ['**/SoundScreen.java', '**/SoundClientAssertions.java']
+ext.forgeExcludedSources = ['**/SoundClientAssertions.java']
 ext.forgeMixinConfigs = ['simplesounds.mixins.json', 'simplesounds.forge.mixins.json']
 apply from: rootProject.file('gradle/module-forge.gradle')
+
+ext.forgeNativeConfig = [id: 'simplesounds', modId: 'simplesounds', root: 'modules/simplesounds/shared/java', screens: ['com/simplebuilding/modules/simplesounds/SoundScreen.java'], factory: 'com.simplebuilding.modules.simplesounds.SoundScreen.create(parent)']
+apply from: rootProject.file('gradle/forge-native-config.gradle')

@@ -727,7 +727,8 @@
               "-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431"
             ],
             "testMods": [
-              "simplebuilding"
+              "simplebuilding",
+              "simpledimensions"
             ]
           }
         },
@@ -767,7 +768,8 @@
       "description": "Configurable dimensions, light arches, and safe linked portals.",
       "loaders": [
         "fabric",
-        "neoforge"
+        "neoforge",
+        "forge"
       ],
       "requires": [
         "cloth_config"
@@ -799,6 +801,17 @@
           "neoforge": {
             "task": ":modules:simpledimensions:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simpledimensions/neoforge/build/module-junit.xml"
+          },
+          "forge": {
+            "task": ":modules:simpledimensions:forge:runGameTestServer",
+            "report": "modules/simpledimensions/forge/build/module-junit.xml",
+            "gradleArgs": [
+              "-Pforge263=true",
+              "-Pforge_runs=true"
+            ],
+            "testMods": [
+              "simplebuilding"
+            ]
           }
         },
         "client": {
@@ -815,7 +828,7 @@
         "shared": "modules/simpledimensions/shared",
         "fabric": "modules/simpledimensions/fabric",
         "neoforge": "modules/simpledimensions/neoforge",
-        "forge": null,
+        "forge": "modules/simpledimensions/forge",
         "generated": "modules/simpledimensions/generated/resources",
         "lang": "modules/simpledimensions/shared/resources/assets/simpledimension/lang",
         "wikiManual": "modules/simpledimensions/wiki/manual.json",
@@ -823,7 +836,8 @@
       },
       "projects": {
         "fabric": ":modules:simpledimensions:fabric",
-        "neoforge": ":modules:simpledimensions:neoforge"
+        "neoforge": ":modules:simpledimensions:neoforge",
+        "forge": ":modules:simpledimensions:forge"
       },
       "namespace": "simpledimension",
       "modId": "simpledimension"

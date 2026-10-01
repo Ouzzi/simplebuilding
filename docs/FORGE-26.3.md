@@ -93,6 +93,81 @@ argv and Forge target isolation. Testing-page JavaScript syntax passed. Wiki gen
 `gradlew.bat check -q`. Fabric/NeoForge centre checks passed 10/10; their full server suites
 were not repeated. Both loaders' centre worlds were rebuilt with full item/block coverage.
 Client display and a separate normal dedicated-server launch were not verified. See HANDOFF.
-The existing Forge AutoConfig shim provides validated defaults without file persistence
-or a Cloth Config GUI. This port does not claim support for Forge builds of optional
-JEI/Jade/Curios/Cloth integrations. These dependencies are not added speculatively.
+These are historical results, not evidence for later changes. See
+`FORGE-FOLLOWUP-PLAN.md` for the merged Claims/Dimensions/configuration follow-up
+and `FORGE-FOLLOWUP-RESULTS.md` for its current run IDs, counts and limits.
+This port does not claim support for Forge builds of optional JEI/Jade/Curios/Cloth
+integrations. These dependencies are not added speculatively.
+
+## Native settings and packaged runtime (2026-10-01 follow-up)
+
+The pinned Forge remains 66.0.8 (66.0.9 is now listed on the official files page).
+Cloth's [official Forge Maven metadata](https://maven.shedaniel.me/me/shedaniel/cloth/cloth-config-forge/maven-metadata.xml)
+ends at 17.0.144, with no 26.x artifact. Cloth 26.3.159 exists for Fabric and
+NeoForge; the actual NeoForge jar requires `neoforge [26.3.0.3-beta,)` and cannot
+serve as a Forge dependency. Therefore Forge uses native Minecraft widgets.
+
+`gradle/forge-native-config.gradle` adapts the existing module screen declarations
+at build time, replacing their builder import with a module-local native widget
+implementation. Categories, localized labels/tooltips, defaults and bounds remain
+defined by the canonical screens. Each module registers its own Forge Mods-menu
+screen; SimpleModels keeps its existing native browser. No fake Cloth GUI classes
+or cross-module implementation imports are packaged. Tweaks' separate Claims JSON
+does not use the AutoConfig shim and is unchanged by this screen convention.
+
+SimpleBuilding's 26.3 AutoConfig compatibility entrypoint now reads validated JSON
+and writes atomically. Malformed originals remain untouched when loading falls
+back to defaults; missing groups recover and server bounds apply. Its native screen
+uses a local draft: Cancel discards edits, server options require restart, remote
+connections disable gameplay edits, and only cosmetic options update the live
+config. Dimensions retains its canonical server-thread update for a local
+integrated server and its read-only remote-server notice. Module screens retain
+their existing persistence/server-authority behavior. GUI rendering and interaction
+still require the orchestrator's serial client verification.
+
+`gradle/forge-framework.gradle` embeds the framework jar with version-selected
+Forge Jar-in-Jar metadata. The API is a library, not a required mod id. The 26.3
+SimpleBuilding Forge artifact also includes the existing protection service bridge.
+Its four common bootstrap classes are included directly in the base jar.
+`python tools/forge/inspect_jars.py` inspects actual distributables and nested APIs.
+
+For server verification, set `ORG_GRADLE_PROJECT_forgePackaged=true`. The generic
+run convention substitutes the built mod jar for project output and removes the
+loose framework/common dependencies from both ForgeGradle's runtime token and
+JavaExec classpath. Module test dependencies come from the manifest's
+`tests.loaders.forge.testMods`; `-PforgeTestMods=id,id` can override them for
+provider presence/absence probes. Dependencies activate only for the explicitly
+requested module test task. `SIMPLEBUILDING_JAVA8_HOME` overrides legacy absolute
+manifest toolchain arguments; explicit manifest paths remain valid without it.
+
+## Serial client verification for the orchestrator
+
+No client was launched by the follow-up worker. In a fresh verification worktree,
+after the owner clients have closed, build and stage the module jars into that
+worktree's base Forge instance. Do not reuse the owner's saves or mods directory.
+
+```powershell
+$env:SIMPLEBUILDING_JAVA8_HOME = 'C:/Users/o_o/AppData/Local/Temp/cx-next-small/scratchpad/next-small/java8/jdk8u504-b01'
+$forgeArgs = @('-Pforge263=true', '-Pforge_runs=true', '-PforgePackaged=true',
+    '-Dorg.gradle.workers.max=1', "-Porg.gradle.java.installations.paths=$env:SIMPLEBUILDING_JAVA8_HOME")
+$modules = (Get-Content modules/modules.json -Raw | ConvertFrom-Json).modules |
+    Where-Object { $_.id -notin @('simplebuilding', 'wiringexample') -and $_.projects.forge }
+./gradlew.bat @forgeArgs :mc26_3:forge:jar @($modules | ForEach-Object { $_.projects.forge + ':jar' })
+$modsDir = Join-Path (Get-Location) 'mc26_3/forge/run/mods'
+New-Item -ItemType Directory -Path $modsDir -Force
+foreach ($module in $modules) {
+    Copy-Item "modules/$($module.id)/forge/build/libs/*.jar" $modsDir
+}
+./gradlew.bat @forgeArgs :mc26_3:forge:runClient
+```
+
+Check the Forge Mods-menu screens in EN and DE: tabs, names/tooltips, defaults and
+ranges, text entry/focus, paging, invalid values, reset, Cancel, save and restart.
+Verify local Dimensions toggles apply on the server thread while safe return stays
+available; remote server settings cannot be changed from these client screens.
+Check portal tint synchronization, Claims interactions, QoL packets, and Visuals/
+Sounds together and separately in fresh instances. The server GameTests and jar
+inspection do not prove rendering, mouse/keyboard interaction, real network-client
+delivery, audio, or a production installer launch. Keep Forge experimental/opt-in
+until those checks pass. The orchestrator also owns the full merged normal-loader
+and `integration-263` gate.

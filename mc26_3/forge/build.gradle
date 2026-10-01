@@ -33,6 +33,7 @@ java {
 // files with the same relative path in forge/src/main/java. The 26.2 tree stays intact.
 def root = rootProject.layout.projectDirectory
 sourceSets.main.java {
+    srcDir root.dir('common/src/main/java')
     srcDir root.dir('common/src/shared/java')
     srcDir root.dir('mc26_3/overlay/java')
     srcDir root.dir('forge/src/main/java')
@@ -98,12 +99,9 @@ repositories {
 
 // No 26.2 dev-mod jars are staged into this 26.3 instance.
 dependencies {
-    implementation project(':common')
     implementation minecraft.dependency("net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}")
-    // NOTE: cloth-config has no MinecraftForge build for the 26.x line (Fabric +
-    // NeoForge only). A minimal me.shedaniel.autoconfig shim is bundled in this
-    // module (see src/main/java/me/shedaniel/autoconfig) so the shared config code
-    // compiles and runs on Forge with default values (no config GUI/persistence).
+    // Cloth has no Forge 26.x artifact. The 26.3 AutoConfig compatibility layer
+    // persists validated JSON; forge-native-config supplies Minecraft widgets.
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -163,3 +161,11 @@ tasks.register('checkForgeOverlay') {
     }
 }
 tasks.named('check') { dependsOn 'checkForgeOverlay' }
+
+apply from: rootProject.file('gradle/forge-framework.gradle')
+sourceSets.main.java.srcDir rootProject.file('mc26_3/framework/java')
+sourceSets.main.resources.srcDir rootProject.file('mc26_3/framework/resources')
+
+ext.forgeNativeConfig = [id: 'simplebuilding', root: 'mc26_3/forge/src/main/java', screens: [], factory: 'com.simplebuilding.forge.client.ForgeConfigScreen.create(parent)']
+apply from: rootProject.file('gradle/forge-native-config.gradle')
+apply from: rootProject.file('gradle/forge-packaged-run.gradle')

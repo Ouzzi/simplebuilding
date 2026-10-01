@@ -1,0 +1,7 @@
+{
+  "simplemods.config.default": "Default: %s",
+  "simplemods.config.range": "Range: %s to %s",
+  "simplemods.config.saveFailed": "Could not save. Check the log and try again.",
+  "simplemods.config.restart": "Local settings file; restart the game to apply server settings.",
+  "simplemods.config.remote": "The remote server controls gameplay settings."
+}
