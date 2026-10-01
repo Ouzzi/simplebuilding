@@ -69,7 +69,11 @@ public final class WorldPermissions {
     public static boolean mayPlace(Level level,Player player,BlockPos pos,BlockState state) {
         if(!active(level))return true;
         if(!mayAct(level,player,pos))return false;
-        if(state.hasProperty(BedBlock.PART)&&!mayAct(level,player,pos.relative(state.getValue(BedBlock.FACING))))return false;
+        if(state.hasProperty(BedBlock.PART)){
+            var direction=state.getValue(BedBlock.FACING);
+            if(state.getValue(BedBlock.PART)==net.minecraft.world.level.block.state.properties.BedPart.HEAD)direction=direction.getOpposite();
+            if(!mayAct(level,player,pos.relative(direction)))return false;
+        }
         if(state.getBlock() instanceof ChestBlock)for(var direction:net.minecraft.core.Direction.Plane.HORIZONTAL){var neighbor=pos.relative(direction);if(level.getBlockState(neighbor).getBlock() instanceof ChestBlock&&!mayAct(level,player,neighbor))return false;}
         return true;
     }

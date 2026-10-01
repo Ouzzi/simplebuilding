@@ -268,6 +268,105 @@ public final class WandModeTests {
         helper.succeed();
     }
 
+    private static net.minecraft.world.level.block.Block redBed() {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace("red_bed"));
+    }
+
+    /** Real inventory ticks must finish both parts and charge exactly one item. */
+    public static void wandMultipartPlacesBedsDoorsAndPlants(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        BlockPos floor = new BlockPos(3, 1, 3);
+        for (Item material : new Item[]{redBed().asItem(), Items.OAK_DOOR, Items.SUNFLOWER}) {
+            clearRoom(helper);
+            helper.setBlock(floor, Blocks.DIRT);
+            ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 0, null);
+            stock(player, wand, new ItemStack(material, 4));
+            click(helper, player, wand, floor, Direction.UP, new Vec3(0.5, 1, 0.5));
+            runUntilIdle(helper, player, wand);
+            BlockState first = helper.getBlockState(floor.above());
+            var block = ((net.minecraft.world.item.BlockItem) material).getBlock();
+            helper.assertTrue(first.is(block), "multipart first cell missing for " + material + ": " + first);
+            BlockPos second = material == redBed().asItem() ? floor.above().south() : floor.above(2);
+            BlockState other = helper.getBlockState(second);
+            helper.assertTrue(other.is(block), "multipart second cell missing for " + material + ": " + other);
+            if (material == redBed().asItem()) {
+                helper.assertTrue(first.getValue(BlockStateProperties.BED_PART) == net.minecraft.world.level.block.state.properties.BedPart.FOOT
+                        && other.getValue(BlockStateProperties.BED_PART) == net.minecraft.world.level.block.state.properties.BedPart.HEAD,
+                        "bed parts are reversed");
+            } else {
+                helper.assertTrue(first.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER
+                        && other.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER,
+                        "vertical parts are reversed");
+            }
+            helper.assertValueEqual(countIn(player, material), 3, "multipart placement must cost one item");
+        }
+        helper.succeed();
+    }
+
+    /** Refused callbacks must never overwrite obstacles or spend an item. */
+    public static void wandMultipartRefusesBlockedOrProtectedSecondCells(GameTestHelper helper) {
+        BlockPos floor = new BlockPos(3, 1, 3);
+        for (Item material : new Item[]{redBed().asItem(), Items.OAK_DOOR, Items.SUNFLOWER}) {
+            for (boolean protectedCell : new boolean[]{false, true}) {
+                clearRoom(helper);
+                helper.setBlock(floor, Blocks.DIRT);
+                BlockPos second = material == redBed().asItem() ? floor.above().south() : floor.above(2);
+                ServerPlayer player = claimPlayer(helper, p -> protectedCell && p.equals(helper.absolutePos(second)));
+                if (!protectedCell) helper.setBlock(second, Blocks.STONE);
+                ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 0, null);
+                stock(player, wand, new ItemStack(material, 4));
+                click(helper, player, wand, floor, Direction.UP, new Vec3(0.5, 1, 0.5));
+                runUntilIdle(helper, player, wand);
+                helper.assertTrue(helper.getBlockState(floor.above()).isAir(), "refused multipart left a first part: " + material);
+                helper.assertValueEqual(countIn(player, material), 4, "refused multipart consumed material");
+                helper.assertTrue(protectedCell ? helper.getBlockState(second).isAir() : helper.getBlockState(second).is(Blocks.STONE),
+                        "refused multipart changed its second cell");
+            }
+        }
+        // Copying an east-facing bed must validate east, not the player's south-facing yaw.
+        clearRoom(helper);
+        ServerPlayer player = mockPlayer(helper);
+        BlockPos foot = helper.absolutePos(floor.above());
+        BlockState clicked = redBed().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST);
+        helper.setBlock(floor.above().south(), Blocks.STONE);
+        BlockState valid = com.simplebuilding.util.WandPlacement.stateFor(helper.getLevel(), player, new ItemStack(redBed().asItem()),
+                foot, Direction.UP, com.simplebuilding.util.WandPlacement.TOP_CENTER, clicked);
+        helper.assertTrue(valid != null && valid.getValue(BlockStateProperties.HORIZONTAL_FACING) == Direction.EAST,
+                "copied bed direction was checked against player yaw");
+        helper.setBlock(floor.above().east(), Blocks.STONE);
+        helper.assertTrue(com.simplebuilding.util.WandPlacement.stateFor(helper.getLevel(), player, new ItemStack(redBed().asItem()),
+                foot, Direction.UP, com.simplebuilding.util.WandPlacement.TOP_CENTER, clicked) == null,
+                "copied bed direction overwrites its blocked head cell");
+        // A real entity in the head cell must not be overwritten by the callback.
+        helper.setBlock(floor.above().east(), Blocks.AIR);
+        Vec3 atHead = helper.absoluteVec(new Vec3(4.5, 2, 3.5));
+        player.snapTo(atHead.x, atHead.y, atHead.z, 0, 0);
+        helper.assertTrue(com.simplebuilding.util.WandPlacement.stateFor(helper.getLevel(), player, new ItemStack(redBed().asItem()),
+                foot, Direction.UP, com.simplebuilding.util.WandPlacement.TOP_CENTER, clicked) == null,
+                "bed callback ignored entity in head cell");
+        helper.succeed();
+    }
+
+    /** Octant cells are independent; callback-created parts require an explicit blueprint. */
+    public static void wandMultipartOctantRefusesWithoutSpending(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        for (Item material : new Item[]{redBed().asItem(), Items.OAK_DOOR, Items.SUNFLOWER}) {
+            clearRoom(helper);
+            BlockPos anchor = new BlockPos(6, 1, 6);
+            helper.setBlock(anchor, Blocks.STONE);
+            helper.setBlock(new BlockPos(3, 1, 3), Blocks.DIRT);
+            ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 0, null);
+            stock(player, wand, new ItemStack(material, 4));
+            player.setItemInHand(InteractionHand.OFF_HAND, octant(helper, new BlockPos(3, 2, 3), new BlockPos(3, 2, 3), "BOX", false, false));
+            click(helper, player, wand, anchor, Direction.UP, new Vec3(0.5, 1, 0.5));
+            BlueprintBuilder.completeJob(player);
+            helper.assertTrue(helper.getBlockState(new BlockPos(3, 2, 3)).isAir(), "octant created partial multipart block");
+            helper.assertValueEqual(countIn(player, material), 4, "octant spent refused multipart material");
+            helper.assertValueEqual(wand.getDamageValue(), 0, "octant damaged wand for refused material");
+        }
+        helper.succeed();
+    }
+
     // =====================================================================================
     // UNDO
     // =====================================================================================
