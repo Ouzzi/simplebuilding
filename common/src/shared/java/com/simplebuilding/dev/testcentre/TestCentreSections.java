@@ -461,7 +461,7 @@ public final class TestCentreSections {
                 .findFirst().map(ItemStack::new).orElse(hammer);
         c.wallFrame(x, 2, wallZ, crusher);
         c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("inworld.crush", "Crush")),
-                TcText.t("inworld.crush.sub", "hold use, iron+ hammer"), TcText.t("inworld.crush.sub2", "-> diamond pebbles"));
+                TcText.t("inworld.crush.sub", "3 strikes, iron+ hammer"), TcText.t("inworld.crush.sub2", "-> diamond pebbles"));
         x += 3;
 
         // c) Maschinen-Aufwertung mit Nugget und Hammer.

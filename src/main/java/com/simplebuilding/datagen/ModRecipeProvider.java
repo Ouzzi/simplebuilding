@@ -1066,7 +1066,11 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // Elytra-Pads I-V: I = Diamantkern + Diamant-Druckplatte + Elytra (2026-09-29; vorher beliebige
                 // Vorlage), dann Diamant-, Netherit-, Enderit-Druckplatte, V mit Netherstern
-                tweaksSmithing(Ingredient.of(ModItems.DIAMOND_CORE), diamondPlate, Items.ELYTRA, TweaksBlocks.ELYTRA_PAD, "elytra_pad_smithing");
+                // Elytra-Pad I braucht eine Elytra mit Reparatur wie Flypad I (Besitzer 2026-10-01); formlos an
+                // der Werkbank, weil der Schmiedetisch keine Verzauberung pruefen kann.
+                enchantedShapeless(TweaksBlocks.ELYTRA_PAD, "elytra_pad_crafting", Items.ELYTRA,
+                        net.minecraft.world.item.enchantment.Enchantments.MENDING,
+                        ModItems.DIAMOND_CORE, diamondPlate, Items.ELYTRA);
                 tweaksSmithing(anyTemplate, TweaksBlocks.ELYTRA_PAD, diamondPlate, TweaksBlocks.REINFORCED_ELYTRA_PAD, "reinforced_elytra_pad_smithing");
                 tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.REINFORCED_ELYTRA_PAD, netheritePlate, TweaksBlocks.NETHERITE_ELYTRA_PAD, "netherite_elytra_pad_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_ELYTRA_PAD, enderitePlate, TweaksBlocks.ENDERITE_ELYTRA_PAD, "enderite_elytra_pad_smithing");

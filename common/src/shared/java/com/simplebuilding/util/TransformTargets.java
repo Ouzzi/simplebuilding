@@ -48,4 +48,28 @@ public final class TransformTargets {
         if (stack.is(Items.HONEYCOMB) && HoneycombItem.WAXABLES.get().containsKey(state.getBlock())) return true;
         return com.simplebuilding.version.McVersion.canVanillaTransform(level, hit, player, hand);
     }
+
+    /**
+     * Teil-Hinweis (Besitzer 2026-10-01): das Item in dieser Hand passt zu einer Hammer-Aufwertung am
+     * Ziel, aber das Gegenstueck fehlt - Hammer ohne Material oder Material ohne Hammer. Die Hand neigt
+     * sich dann nur halb so stark wie bei {@link #canTransformTarget}.
+     */
+    public static boolean partialTransformTarget(Level level, BlockHitResult hit, Player player, InteractionHand hand) {
+        if (level == null || player == null || player.isSpectator() || !player.mayBuild()) return false;
+        ItemStack stack = player.getItemInHand(hand);
+        var pos = hit.getBlockPos();
+        if (stack.isEmpty() || !level.mayInteract(player, pos)) return false;
+        var state = level.getBlockState(pos);
+        boolean machine = SledgehammerUpgrades.upgradeOf(state.getBlock()) != null;
+        boolean template = PlacedTemplates.isUpgradable(level, pos);
+        if (!machine && !template) return false;
+        boolean hammerInMain = player.getMainHandItem().getItem() instanceof SledgehammerItem;
+        ItemStack off = player.getOffhandItem();
+        boolean material = machine && SledgehammerUpgrades.isUpgradeNugget(off)
+                || template && SledgehammerEntityInteraction.trimUpgrades().containsKey(off.getItem());
+        if (stack.getItem() instanceof SledgehammerItem) return hand == InteractionHand.MAIN_HAND && !material;
+        boolean fits = machine && SledgehammerUpgrades.isUpgradeNugget(stack)
+                || template && SledgehammerEntityInteraction.trimUpgrades().containsKey(stack.getItem());
+        return fits && !hammerInMain;
+    }
 }

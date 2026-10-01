@@ -5904,7 +5904,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:diamond_building_wand",
-        "simplebuilding:elytra_pad_smithing",
+        "simplebuilding:elytra_pad_crafting",
         "simplebuilding:netherite_core_smithing",
         "simplebuilding:upgrade_gold_building_wand_to_diamond_building_wand"
       ],
@@ -7818,7 +7818,6 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_ingot_from_scrap"
       ],
       "usedIn": [
-        "simplebuilding:astral_vault",
         "simplebuilding:enderite_axe_smithing",
         "simplebuilding:enderite_backpack_smithing",
         "simplebuilding:enderite_block",
@@ -7920,6 +7919,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_nugget_from_ingot"
       ],
       "usedIn": [
+        "simplebuilding:astral_vault",
         "simplebuilding:echo_sounder",
         "simplebuilding:enderite_apple",
         "simplebuilding:enderite_carrot",
@@ -16925,7 +16925,7 @@ window.WIKI_DATA = {
         "simplebuilding:diamond_pressure_plate"
       ],
       "usedIn": [
-        "simplebuilding:elytra_pad_smithing",
+        "simplebuilding:elytra_pad_crafting",
         "simplebuilding:netherite_pressure_plate_smithing",
         "simplebuilding:reinforced_elytra_pad_smithing"
       ],
@@ -16999,7 +16999,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/elytra_pad.png",
       "craftedBy": [
-        "simplebuilding:elytra_pad_smithing"
+        "simplebuilding:elytra_pad_crafting"
       ],
       "usedIn": [
         "simplebuilding:reinforced_elytra_pad_smithing"
@@ -23474,7 +23474,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:amethyst_lens",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/amethyst_lens.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/amethyst_lens.json",
       "ingredients": [
         "minecraft:amethyst_shard",
         "minecraft:iron_ingot",
@@ -23607,19 +23607,19 @@ window.WIKI_DATA = {
       "ingredients": [
         "minecraft:ender_chest",
         "simplebuilding:astralit_dust",
-        "simplebuilding:enderite_ingot"
+        "simplebuilding:enderite_nugget"
       ],
       "pattern": [
-        " A ",
+        "NAN",
         "NEN",
-        " A "
+        "NAN"
       ],
       "key": {
         "A": [
           "simplebuilding:astralit_dust"
         ],
         "N": [
-          "simplebuilding:enderite_ingot"
+          "simplebuilding:enderite_nugget"
         ],
         "E": [
           "minecraft:ender_chest"
@@ -26151,7 +26151,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:echo_sounder",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/echo_sounder.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/echo_sounder.json",
       "ingredients": [
         "minecraft:recovery_compass",
         "simplebuilding:enderite_core",
@@ -26202,117 +26202,32 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:elytra_pad_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
+      "id": "simplebuilding:elytra_pad_crafting",
+      "type": "simplebuilding:enchanted_shapeless",
+      "category": "equipment",
       "group": null,
       "result": {
         "id": "simplebuilding:elytra_pad",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/elytra_pad_smithing.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/elytra_pad_crafting.json",
       "ingredients": [
         "minecraft:elytra",
         "simplebuilding:diamond_core",
         "simplebuilding:diamond_pressure_plate"
       ],
-      "slots": {
-        "template": [
+      "ingredientGroups": [
+        [
           "simplebuilding:diamond_core"
         ],
-        "base": [
+        [
           "simplebuilding:diamond_pressure_plate"
         ],
-        "addition": [
+        [
           "minecraft:elytra"
         ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:elytra",
-                "simplebuilding:diamond_core",
-                "simplebuilding:diamond_pressure_plate"
-              ],
-              "other": [
-                "minecraft:bolt_armor_trim_smithing_template",
-                "minecraft:coast_armor_trim_smithing_template",
-                "minecraft:dune_armor_trim_smithing_template",
-                "minecraft:elytra",
-                "minecraft:eye_armor_trim_smithing_template",
-                "minecraft:flow_armor_trim_smithing_template",
-                "minecraft:host_armor_trim_smithing_template",
-                "minecraft:netherite_upgrade_smithing_template",
-                "minecraft:raiser_armor_trim_smithing_template",
-                "minecraft:rib_armor_trim_smithing_template",
-                "minecraft:sentry_armor_trim_smithing_template",
-                "minecraft:shaper_armor_trim_smithing_template",
-                "minecraft:silence_armor_trim_smithing_template",
-                "minecraft:snout_armor_trim_smithing_template",
-                "minecraft:spire_armor_trim_smithing_template",
-                "minecraft:tide_armor_trim_smithing_template",
-                "minecraft:vex_armor_trim_smithing_template",
-                "minecraft:ward_armor_trim_smithing_template",
-                "minecraft:wayfinder_armor_trim_smithing_template",
-                "minecraft:wild_armor_trim_smithing_template",
-                "simplebuilding:diamond_pressure_plate"
-              ]
-            },
-            {
-              "field": "slots",
-              "this": {
-                "template": [
-                  "simplebuilding:diamond_core"
-                ],
-                "base": [
-                  "simplebuilding:diamond_pressure_plate"
-                ],
-                "addition": [
-                  "minecraft:elytra"
-                ]
-              },
-              "other": {
-                "template": [
-                  "minecraft:netherite_upgrade_smithing_template",
-                  "minecraft:sentry_armor_trim_smithing_template",
-                  "minecraft:dune_armor_trim_smithing_template",
-                  "minecraft:coast_armor_trim_smithing_template",
-                  "minecraft:wild_armor_trim_smithing_template",
-                  "minecraft:ward_armor_trim_smithing_template",
-                  "minecraft:eye_armor_trim_smithing_template",
-                  "minecraft:vex_armor_trim_smithing_template",
-                  "minecraft:tide_armor_trim_smithing_template",
-                  "minecraft:snout_armor_trim_smithing_template",
-                  "minecraft:rib_armor_trim_smithing_template",
-                  "minecraft:spire_armor_trim_smithing_template",
-                  "minecraft:wayfinder_armor_trim_smithing_template",
-                  "minecraft:shaper_armor_trim_smithing_template",
-                  "minecraft:silence_armor_trim_smithing_template",
-                  "minecraft:raiser_armor_trim_smithing_template",
-                  "minecraft:host_armor_trim_smithing_template",
-                  "minecraft:flow_armor_trim_smithing_template",
-                  "minecraft:bolt_armor_trim_smithing_template"
-                ],
-                "base": [
-                  "simplebuilding:diamond_pressure_plate"
-                ],
-                "addition": [
-                  "minecraft:elytra"
-                ]
-              }
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/elytra_pad_smithing.json"
-        }
       ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
@@ -36919,6 +36834,36 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:elytra_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:elytra_pad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/elytra_pad_smithing.json",
+      "ingredients": [
+        "minecraft:elytra",
+        "simplebuilding:diamond_core",
+        "simplebuilding:diamond_pressure_plate"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:diamond_core"
+        ],
+        "base": [
+          "simplebuilding:diamond_pressure_plate"
+        ],
+        "addition": [
+          "minecraft:elytra"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:flypad_tier1_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -45612,6 +45557,21 @@ window.WIKI_DATA = {
       "tooltipDe": "Kippt den gehaltenen Meißel, wenn du auf einen Block zielst, den er umwandeln kann. Spielt nur, wenn auch Werkzeug-Animationen an ist. Clientseitig. Standard: an."
     },
     {
+      "name": "tools.transformHintStrength",
+      "shortName": "transformHintStrength",
+      "type": "int",
+      "default": "50",
+      "note": null,
+      "category": "Tools & Building",
+      "categoryDe": "Werkzeuge & Bauen",
+      "group": "Tools & Building",
+      "groupDe": "Werkzeuge & Bauen",
+      "label": "Transformation Hint Strength",
+      "labelDe": "Stärke des Umwandlungshinweises",
+      "tooltip": "How strongly the held item tilts when it can transform the block you aim at, in percent of the original motion. A partial hint (hammer or material missing) shows half of it.",
+      "tooltipDe": "Wie stark sich das gehaltene Item neigt, wenn es den anvisierten Block umwandeln kann, in Prozent der ursprünglichen Bewegung. Ein Teil-Hinweis (Hammer oder Material fehlt) zeigt die Hälfte davon."
+    },
+    {
       "name": "enableDoubleJump",
       "shortName": "enableDoubleJump",
       "type": "boolean",
@@ -48210,20 +48170,20 @@ window.WIKI_DATA = {
           ],
           "en": {
             "title": "Crushing a Block of Diamond",
-            "summary": "Hold right-click with a sledgehammer of the iron tier or better (iron, gold, diamond, netherite, enderite) on a Block of Diamond: when the charge is full, the block breaks without its normal drop and releases Diamond Pebbles.",
+            "summary": "Strike a Block of Diamond three times with right-click, using a sledgehammer of the iron tier or better (iron, gold, diamond, netherite, enderite): on the third strike, the block breaks without its normal drop and releases Diamond Pebbles.",
             "details": [
-              "The charge takes as long as a reshape with the same hammer.",
+              "Each strike rings higher and chips off particles. Strikes count per block; after 5 seconds without a strike the count starts over. Holding right-click strikes at most every 8 ticks.",
               "The pebbles drop in stacks of at most 64 at the block's position.",
-              "Costs the listed durability; creative mode costs none."
+              "Only the crushing strike costs the listed durability; creative mode costs none."
             ]
           },
           "de": {
             "title": "Diamantblock zerschlagen",
-            "summary": "Rechtsklick mit einem Vorschlaghammer ab der Eisenstufe (Eisen, Gold, Diamant, Netherit, Enderit) auf einem Diamantblock halten: Ist die Ladung voll, zerbricht der Block ohne seinen normalen Drop und gibt Diamantsplitter frei.",
+            "summary": "Einen Diamantblock mit einem Vorschlaghammer ab der Eisenstufe (Eisen, Gold, Diamant, Netherit, Enderit) dreimal per Rechtsklick schlagen: Beim dritten Schlag zerbricht der Block ohne seinen normalen Drop und gibt Diamantsplitter frei.",
             "details": [
-              "Die Ladung dauert so lange wie eine Umformung mit demselben Hammer.",
+              "Jeder Schlag klingt höher und schlägt Partikel ab. Die Schläge zählen je Block; nach 5 Sekunden ohne Schlag beginnt die Zählung von vorn. Gehaltener Rechtsklick schlägt höchstens alle 8 Ticks.",
               "Die Splitter fallen in Stapeln zu höchstens 64 an der Stelle des Blocks.",
-              "Kostet die angegebene Haltbarkeit; im Kreativmodus nichts."
+              "Nur der zerschlagende Schlag kostet die angegebene Haltbarkeit; im Kreativmodus nichts."
             ]
           }
         }
@@ -69115,7 +69075,7 @@ window.WIKI_DATA = {
     "trades": 20,
     "enchantments": 19,
     "tags": 42,
-    "config": 172,
+    "config": 173,
     "inWorld": 396,
     "advancements": 123,
     "features": 43,

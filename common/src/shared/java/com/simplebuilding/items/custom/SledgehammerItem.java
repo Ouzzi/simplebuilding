@@ -257,9 +257,12 @@ public class SledgehammerItem extends Item {
                 }
                 return InteractionResult.FAIL;
             }
-            rememberTarget(player, pos, state);
-            player.startUsingItem(context.getHand());
-            return InteractionResult.CONSUME;
+            // Drei einzelne Schlaege statt Gedrueckthalten (Besitzer 2026-10-01), wie bei der abgelegten
+            // Vorlage: jeder Schlag zaehlt, der dritte zerschlaegt den Block.
+            if (!world.isClientSide()) {
+                strikeDiamondBlock((ServerLevel) world, pos, player, stack);
+            }
+            return InteractionResult.SUCCESS;
         }
 
         // Relativer Hit Vector
@@ -333,13 +336,6 @@ public class SledgehammerItem extends Item {
                     || (cornerCharge && state != target.initialState()))) return stack;
             BlockState newState = cornerCharge ? target.cornerResult()
                     : getTransformationState(state, pos, side, relativeHit, player, stack);
-
-            if (state.is(net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK)) {
-                if (!world.isClientSide()) {
-                    crushDiamondBlock((ServerLevel) world, pos, player, stack);
-                }
-                return stack;
-            }
 
             if (newState != null) {
                 if (!world.isClientSide()) {
@@ -575,6 +571,41 @@ public class SledgehammerItem extends Item {
             }
         }
         return positions;
+    }
+
+    /** Schlaege, nach denen ein Diamantblock zerspringt. */
+    public static final int DIAMOND_BLOCK_STRIKES = 3;
+    /** Ohne weiteren Schlag verfaellt die Zaehlung nach so vielen Ticks (wie bei der abgelegten Vorlage). */
+    public static final int DIAMOND_STRIKE_RESET_TICKS = 100;
+    /** Gehaltener Rechtsklick wiederholt alle 4 Ticks; ein Schlag zaehlt erst nach dieser Pause. */
+    public static final int DIAMOND_STRIKE_MIN_INTERVAL = 8;
+
+    private record DiamondStrikes(net.minecraft.resources.ResourceKey<Level> level, BlockPos pos, int count, long lastTick) {
+    }
+
+    private static final Map<Player, DiamondStrikes> DIAMOND_STRIKES = Collections.synchronizedMap(new WeakHashMap<>());
+
+    /** Ein Schlag auf den Diamantblock; liefert die neue Zahl gezaehlter Schlaege (0 = nicht gezaehlt). */
+    static int strikeDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
+        long now = world.getGameTime();
+        DiamondStrikes last = DIAMOND_STRIKES.get(player);
+        boolean same = last != null && last.level() == world.dimension() && last.pos().equals(pos)
+                && now - last.lastTick() <= DIAMOND_STRIKE_RESET_TICKS;
+        if (same && now - last.lastTick() < DIAMOND_STRIKE_MIN_INTERVAL) {
+            return 0;
+        }
+        int count = same ? last.count() + 1 : 1;
+        if (count >= DIAMOND_BLOCK_STRIKES) {
+            DIAMOND_STRIKES.remove(player);
+            crushDiamondBlock(world, pos, player, stack);
+            return count;
+        }
+        DIAMOND_STRIKES.put(player, new DiamondStrikes(world.dimension(), pos.immutable(), count, now));
+        world.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 0.8F, 0.9F + 0.25F * count);
+        world.sendParticles(new net.minecraft.core.particles.BlockParticleOption(net.minecraft.core.particles.ParticleTypes.BLOCK,
+                        Blocks.DIAMOND_BLOCK.defaultBlockState()),
+                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 4 + 2 * count, 0.3, 0.3, 0.3, 0.05);
+        return count;
     }
 
     private static void crushDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {

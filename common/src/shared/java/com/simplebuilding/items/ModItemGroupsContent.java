@@ -253,7 +253,8 @@ public final class ModItemGroupsContent {
     /**
      * Zeilen des Tabs "SimpleMaterials" (Besitzer 2026-09-28: saubere Zeilen wie SimpleTools/SimpleMachines):
      * End-Erze mit ihrer Ausbeute (Nihilit, Astralit, dann Enderquarz), die Werkstoffe in Erz-Reihenfolge
-     * (Diamant, Netherit, Enderit vom Rohstoff zum Barren; der Lederfetzen nach einer Luecke), die Baukerne
+     * (je eine Zeile Diamant, Netherit, Enderit vom Rohstoff zum Barren, Vanilla-Stufen eingeschlossen;
+     * der Lederfetzen nach einer Luecke hinter Netherit), die Baukerne
      * Kupfer bis Enderit, alle Schmiedevorlagen an einem Ort - erst die Aufwertungen (Basis, Vanillas
      * Netherit, Enderit), dann die Besatzvorlagen (alle Vanilla-Besaetze in Vanillas Reihenfolge, dann
      * Leuchtend und Strahlend) - und die Nahrung (Netherit, Luecke, Enderit).
@@ -268,10 +269,15 @@ public final class ModItemGroupsContent {
                         ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, CreativeTabLayout.GAP,
                         ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST, CreativeTabLayout.GAP,
                         ModItems.ENDER_QUARTZ),
-                CreativeTabLayout.Row.of("resources",
-                        ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, ModItems.NETHERITE_NUGGET,
-                        ModItems.RAW_ENDERITE, ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_NUGGET, ModItems.ENDERITE_INGOT,
-                        ModItems.LEATHER_SHEET),
+                // Vanilla-Diamant und -Netherit gehoeren zur Werkstoffkette (Besitzer 2026-10-01): je Material
+                // eine Zeile vom Rohstoff zum fertigen Werkstoff, der Lederfetzen hinter Netherit.
+                CreativeTabLayout.Row.of("resources_diamond",
+                        ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND),
+                CreativeTabLayout.Row.of("resources_netherite",
+                        Items.ANCIENT_DEBRIS, Items.NETHERITE_SCRAP, ModItems.NETHERITE_NUGGET, Items.NETHERITE_INGOT,
+                        CreativeTabLayout.GAP, ModItems.LEATHER_SHEET),
+                CreativeTabLayout.Row.of("resources_enderite",
+                        ModItems.RAW_ENDERITE, ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_NUGGET, ModItems.ENDERITE_INGOT),
                 CreativeTabLayout.Row.of("building_cores",
                         ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
                         ModItems.DIAMOND_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),

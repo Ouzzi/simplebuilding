@@ -10020,20 +10020,20 @@
         ],
         "en": {
           "title": "Crushing a Block of Diamond",
-          "summary": "Hold right-click with a sledgehammer of the iron tier or better (iron, gold, diamond, netherite, enderite) on a Block of Diamond: when the charge is full, the block breaks without its normal drop and releases Diamond Pebbles.",
+          "summary": "Strike a Block of Diamond three times with right-click, using a sledgehammer of the iron tier or better (iron, gold, diamond, netherite, enderite): on the third strike, the block breaks without its normal drop and releases Diamond Pebbles.",
           "details": [
-            "The charge takes as long as a reshape with the same hammer.",
+            "Each strike rings higher and chips off particles. Strikes count per block; after 5 seconds without a strike the count starts over. Holding right-click strikes at most every 8 ticks.",
             "The pebbles drop in stacks of at most 64 at the block's position.",
-            "Costs the listed durability; creative mode costs none."
+            "Only the crushing strike costs the listed durability; creative mode costs none."
           ]
         },
         "de": {
           "title": "Diamantblock zerschlagen",
-          "summary": "Rechtsklick mit einem Vorschlaghammer ab der Eisenstufe (Eisen, Gold, Diamant, Netherit, Enderit) auf einem Diamantblock halten: Ist die Ladung voll, zerbricht der Block ohne seinen normalen Drop und gibt Diamantsplitter frei.",
+          "summary": "Einen Diamantblock mit einem Vorschlaghammer ab der Eisenstufe (Eisen, Gold, Diamant, Netherit, Enderit) dreimal per Rechtsklick schlagen: Beim dritten Schlag zerbricht der Block ohne seinen normalen Drop und gibt Diamantsplitter frei.",
           "details": [
-            "Die Ladung dauert so lange wie eine Umformung mit demselben Hammer.",
+            "Jeder Schlag klingt höher und schlägt Partikel ab. Die Schläge zählen je Block; nach 5 Sekunden ohne Schlag beginnt die Zählung von vorn. Gehaltener Rechtsklick schlägt höchstens alle 8 Ticks.",
             "Die Splitter fallen in Stapeln zu höchstens 64 an der Stelle des Blocks.",
-            "Kostet die angegebene Haltbarkeit; im Kreativmodus nichts."
+            "Nur der zerschlagende Schlag kostet die angegebene Haltbarkeit; im Kreativmodus nichts."
           ]
         }
       },

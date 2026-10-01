@@ -272,9 +272,17 @@ public class SimplebuildingConfig implements ConfigData {
         public boolean enableToolAnimations = true; // Hauptschalter
         @ConfigEntry.Gui.Tooltip
         public boolean enableChiselAnimation = true;
+        /**
+         * Staerke der Hinweis-Neigung in Prozent der urspruenglichen Bewegung (Besitzer 2026-10-01:
+         * halb so stark). Ein reiner Teil-Hinweis (Werkzeug oder Material fehlt) zeigt die Haelfte davon.
+         */
+        @ConfigEntry.Gui.Tooltip
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int transformHintStrength = 50;
 
         void validate() {
             wandHungerMultiplier = nonNegative(wandHungerMultiplier, 1.0);
+            transformHintStrength = Math.max(0, Math.min(100, transformHintStrength));
             magnetRangeMultiplier = nonNegative(magnetRangeMultiplier, 1.0);
             rotatorChargePerTurn = Math.max(0, rotatorChargePerTurn);
         }

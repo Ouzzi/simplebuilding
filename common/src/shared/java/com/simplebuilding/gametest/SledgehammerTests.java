@@ -1455,8 +1455,8 @@ public final class SledgehammerTests {
      * Owner 2026-09-29: a diamond block is only crushed by sledgehammers from the iron tier up -
      * iron, gold, diamond, netherite and enderite (gold sits above iron in the mod's ages). Stone
      * and copper hammers bounce off: the click is refused ({@code FAIL}, no wind-up), a finish
-     * behind it crushes nothing and the block stays. The iron hammer, the weakest allowed one, still
-     * charges and crushes the block into its 81 pebbles. JEI and the wiki list exactly the allowed
+     * behind it crushes nothing and the block stays. The iron hammer, the weakest allowed one, crushes
+     * the block into its 81 pebbles with three strikes (owner 2026-10-01). JEI and the wiki list exactly the allowed
      * hammers ({@code InWorldTransformations#diamondCrush}).
      *
      * <p><strong>What breaks this test:</strong> dropping the tier gate in {@code useOn} or in
@@ -1494,21 +1494,32 @@ public final class SledgehammerTests {
         helper.assertTrue(helper.getLevel().getEntitiesOfClass(ItemEntity.class, around).isEmpty(),
                 "a stone or copper hammer crushed the diamond block");
 
+        // Owner 2026-10-01: three single strikes instead of a held charge. A repeat inside the
+        // minimum interval (held right-click) does not count, the third counted strike crushes.
         ItemStack iron = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
-        InteractionResult started = useOnTop(helper, player, iron, CENTRE);
-        helper.assertTrue(started == InteractionResult.CONSUME, "the iron hammer did not charge on the diamond block, got " + started);
-        iron.getItem().finishUsingItem(iron, helper.getLevel(), player);
-        player.stopUsingItem();
-        helper.assertBlockPresent(Blocks.AIR, CENTRE);
-        int pebbles = 0;
-        for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, around)) {
-            if (entity.getItem().is(ModItems.DIAMOND_PEBBLE)) {
-                pebbles += entity.getItem().getCount();
-            }
-            entity.discard();
-        }
-        helper.assertValueEqual(pebbles, 81, "pebbles from the diamond block crushed with the iron hammer");
-        helper.succeed();
+        InteractionResult first = useOnTop(helper, player, iron, CENTRE);
+        helper.assertTrue(first == InteractionResult.SUCCESS, "the iron hammer did not strike the diamond block, got " + first);
+        helper.assertFalse(player.isUsingItem(), "the iron hammer still winds up on a diamond block");
+        useOnTop(helper, player, iron, CENTRE);
+        helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, CENTRE);
+        int interval = SledgehammerItem.DIAMOND_STRIKE_MIN_INTERVAL + 1;
+        helper.runAfterDelay(interval, () -> {
+            useOnTop(helper, player, iron, CENTRE);
+            helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, CENTRE);
+            helper.runAfterDelay(interval, () -> {
+                useOnTop(helper, player, iron, CENTRE);
+                helper.assertBlockPresent(Blocks.AIR, CENTRE);
+                int pebbles = 0;
+                for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, around)) {
+                    if (entity.getItem().is(ModItems.DIAMOND_PEBBLE)) {
+                        pebbles += entity.getItem().getCount();
+                    }
+                    entity.discard();
+                }
+                helper.assertValueEqual(pebbles, 81, "pebbles from the diamond block crushed with three iron hammer strikes");
+                helper.succeed();
+            });
+        });
     }
 
     /** Right clicks the centre of a block's top face, server side. */

@@ -1,0 +1,14 @@
+{
+  "type": "simplebuilding:enchanted_shapeless",
+  "category": "equipment",
+  "enchanted_item": "minecraft:elytra",
+  "enchantment": "minecraft:mending",
+  "ingredients": [
+    "simplebuilding:diamond_core",
+    "simplebuilding:diamond_pressure_plate",
+    "minecraft:elytra"
+  ],
+  "result": {
+    "id": "simplebuilding:elytra_pad"
+  }
+}

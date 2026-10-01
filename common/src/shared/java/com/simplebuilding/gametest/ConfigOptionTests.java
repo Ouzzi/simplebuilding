@@ -455,6 +455,7 @@ public final class ConfigOptionTests {
             "tools.buildingHighlightOpacity int=40",
             "tools.enableToolAnimations boolean=true",
             "tools.enableChiselAnimation boolean=true",
+            "tools.transformHintStrength int=50",
             "tweaks.pads group:Pads",
             "tweaks.padTuning group:PadTuning",
             "tweaks.laserPointer group:LaserPointer",

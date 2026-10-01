@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    " A ",
+    "NAN",
     "NEN",
-    " A "
+    "NAN"
   ],
   "key": {
     "A": "simplebuilding:astralit_dust",
-    "N": "simplebuilding:enderite_ingot",
+    "N": "simplebuilding:enderite_nugget",
     "E": "minecraft:ender_chest"
   },
   "result": {

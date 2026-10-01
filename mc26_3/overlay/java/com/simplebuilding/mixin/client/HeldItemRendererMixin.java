@@ -41,6 +41,11 @@ public class HeldItemRendererMixin {
     @Unique private BlockHitResult hintHit;
     @Unique private boolean mainHint;
     @Unique private boolean offHint;
+    @Unique private boolean mainPartial;
+    @Unique private boolean offPartial;
+    /** Teil-Hinweis halb so stark; der Fortschritt selbst bleibt 0..1 (die Client-Tests lesen ihn). */
+    @Unique private float mainScale = 1.0F;
+    @Unique private float offScale = 1.0F;
     @Unique private float mainHandChiselProgress = 0.0F;
     @Unique private float offHandChiselProgress = 0.0F;
     /**
@@ -97,8 +102,16 @@ public class HeldItemRendererMixin {
                 hintHit = blockHit;
                 mainHint = com.simplebuilding.util.TransformTargets.canTransformTarget(this.minecraft.level, blockHit, player, InteractionHand.MAIN_HAND);
                 offHint = com.simplebuilding.util.TransformTargets.canTransformTarget(this.minecraft.level, blockHit, player, InteractionHand.OFF_HAND);
+                mainPartial = !mainHint && com.simplebuilding.util.TransformTargets.partialTransformTarget(this.minecraft.level, blockHit, player, InteractionHand.MAIN_HAND);
+                offPartial = !offHint && com.simplebuilding.util.TransformTargets.partialTransformTarget(this.minecraft.level, blockHit, player, InteractionHand.OFF_HAND);
             }
-            targetProgress = (hand == InteractionHand.MAIN_HAND ? mainHint : offHint) ? 1.0F : 0.0F;
+            boolean partial = hand == InteractionHand.MAIN_HAND ? mainPartial : offPartial;
+            targetProgress = (hand == InteractionHand.MAIN_HAND ? mainHint : offHint) || partial ? 1.0F : 0.0F;
+            if (hand == InteractionHand.MAIN_HAND) {
+                mainScale = partial ? 0.5F : 1.0F;
+            } else {
+                offScale = partial ? 0.5F : 1.0F;
+            }
         }
 
         // Waehrend einer Aufwertung holt der Hammer aus, statt sich zu neigen.
@@ -128,7 +141,8 @@ public class HeldItemRendererMixin {
         if (hand == InteractionHand.MAIN_HAND) {
             this.mainHandChiselProgress += (targetProgress - this.mainHandChiselProgress) * smoothingSpeed;
             if (this.mainHandChiselProgress > 0.001F) {
-                this.applyTransformHint(matrices, this.mainHandChiselProgress, player.tickCount + tickProgress, hand);
+                this.applyTransformHint(matrices, this.mainHandChiselProgress * this.mainScale * config.tools.transformHintStrength / 100.0F,
+                        player.tickCount + tickProgress, hand);
             }
             // Aufwertung: zwischen zwei Schlaegen wie ein Bogen ausholen, kurz vor dem Schlag nach
             // vorn sausen; den Schlag selbst zeigt der Armschwung, den der Server schickt.
@@ -144,7 +158,8 @@ public class HeldItemRendererMixin {
         } else {
             this.offHandChiselProgress += (targetProgress - this.offHandChiselProgress) * smoothingSpeed;
             if (this.offHandChiselProgress > 0.001F) {
-                this.applyTransformHint(matrices, this.offHandChiselProgress, player.tickCount + tickProgress, hand);
+                this.applyTransformHint(matrices, this.offHandChiselProgress * this.offScale * config.tools.transformHintStrength / 100.0F,
+                        player.tickCount + tickProgress, hand);
             }
             this.offHandNuggetProgress = SledgehammerUpgrades.isUpgradeNugget(item) ? this.offHandChiselProgress : 0.0F; // compatibility with existing client tests
         }

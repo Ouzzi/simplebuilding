@@ -54,6 +54,8 @@ data/simplebuilding/advancement/recipes/misc/guide_book_vanilla_nether.json
 data/simplebuilding/advancement/recipes/misc/guide_book_vanilla_ocean.json
 data/simplebuilding/advancement/recipes/misc/guide_book_vanilla_overworld.json
 data/simplebuilding/advancement/recipes/misc/guide_book_vanilla_redstone.json
+data/simplebuilding/advancement/recipes/tools/elytra_pad_smithing.json
+data/simplebuilding/recipe/elytra_pad_smithing.json
 data/simplebuilding/recipe/guide_book_admin.json
 data/simplebuilding/recipe/guide_book_building.json
 data/simplebuilding/recipe/guide_book_enchantments.json
