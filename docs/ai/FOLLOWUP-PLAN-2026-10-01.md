@@ -57,3 +57,15 @@ einen normalen isolierten Serverlauf mit sauberem Stopp ersetzt. Abwahl und
 gemeinsame Claims-/Bett-Regression sind geprüft. Einzelbelege und Grenzen:
 `FOLLOWUP-VERIFICATION-2026-10-01.md`. Abschluss ist das gemeinsame exakte Gate,
 keine Clientabnahme wurde aus Serverergebnissen abgeleitet.
+
+## Clientabnahme: belegte Testkorrekturen
+
+Nach Ende der Besitzer-Clients folgen serielle Fabric-/NeoForge-26.3-Tests.
+Der erste Fabric-Lauf beanstandet beim Bundle-Tooltip die Zahl der Textelemente:
+Die Produktionsanzeige zeigt inzwischen `64/192` statt Vanillas `Full`.
+Der Test muss zuerst diesen tatsächlichen Kapazitätstext prüfen und anschließend
+für seine bestehenden Skalierungs-Gegenproben nur die zusätzliche Beschriftung
+abschalten. Faktoren 3, 6 und 1 sowie Wiederholbarkeit bleiben geprüft.
+Keine Produktionsänderung; gezielte HUD-Tests auf beiden Loadern und vollständiges
+exaktes SHA-Gate vor Push. Dimensions' Cloth-Unterklassenkorrektur und deren
+sieben UI-Aufnahmen sind im modul-eigenen UI-Plan beschrieben.

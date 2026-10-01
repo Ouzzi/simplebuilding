@@ -611,7 +611,9 @@ public final class HudAndTooltipClientTest {
      * exactly the one the real tooltip runs every frame - and the resulting element geometry is
      * compared.
      *
-     * <p>Structure, the same three steps as the pixel tests:
+     * <p>First verify the factory's custom capacity label. Then disable that decoration on this
+     * test component so the following geometry comparison isolates the capacity scale.
+     * Structure, the same three steps as the pixel tests:
      * <ul>
      *   <li><b>Noise floor</b> - the same component extracted twice has to give the identical
      *       geometry, otherwise nothing below it means anything.</li>
@@ -674,6 +676,14 @@ public final class HudAndTooltipClientTest {
                         + "not applied - ClientBundleTooltip does not implement BundleTooltipAccessor");
             }
 
+            GuiRenderState decorated = new GuiRenderState();
+            modComponent.extractImage(client.font, 0, 0, modComponent.getWidth(client.font),
+                    modComponent.getHeight(client.font), new GuiGraphicsExtractor(client, decorated, 0, 0));
+            if (drawnTexts(decorated).stream().noneMatch(text -> text.text().equals("64/192"))) {
+                throw new AssertionError("Reinforced bundle tooltip must render its actual capacity: 64/192");
+            }
+            // Preserve the factory's scale while isolating it from the custom capacity label.
+            accessor.simplebuilding$setProgressColor(-1);
             TooltipShape scaled = extractShape(client, modComponent);
             TooltipShape scaledAgain = extractShape(client, modComponent);
 
