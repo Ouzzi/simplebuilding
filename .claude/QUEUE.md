@@ -103,3 +103,4 @@ Claims (Hauptschalter AUS, Stage-4-Lücken dokumentiert), Dimensions-Einstellung
 kompilierter UI-Test und QoL/Sounds sind auf master gemergt (bis `6bb478cd`).
 Einzel-Worker-Gates grün; gemeinsames Gate und SHA-Push stehen aus. Forge beginnt
 jetzt auf dem vereinigten Stand. Besitzer-Client läuft, keine Clienttests gestartet.
+`n- [ ] FORGE-FOLLOWUP 2026-10-01: codex-next-forge on merged 5f294df9; Dimensions/Claims adapters, real config/persistence, framework packaging and server verification. Plan: docs/FORGE-FOLLOWUP-PLAN.md. No clients/push/merge; Forge stays opt-in pending runtime/client evidence.
