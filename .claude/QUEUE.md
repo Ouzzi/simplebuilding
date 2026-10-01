@@ -78,38 +78,30 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - Fortsetzung 2026-10-01: Claims-Stufen 1–3 auf `7422a3ab` geprüft (36/36 Claims, 70/70 Hammer-Regressionsfälle). `next-claims` bearbeitet Stufe 4; `next-claims-access` parallel Stufen 5–6. Dimensions (`8657e3d2`) und QoL/Sounds (`7faca095`) geprüft und mergebereit. Noch kein Feature-Merge/Push dieser Welle.
 - [ ] 1. CLAIMS (als Allererstes): das Claim-System der Quelle (ClaimState, ClaimProtectionHandler, ClaimDeedItem, /claim-Befehle) jetzt portieren, aber als DEAKTIVIERTES Feature: Hauptschalter standardmaessig aus, Stufe fuer Stufe weiter ausbauen und erst nach Fertigstellung freigeben. Anforderungen, Fallen und Testliste: docs/modules/simpletweaks.md Abschnitt "Sicherheitsbefunde und Entscheidungen" (Caps, atomare Persistenz, Rechte an jedem Ziel, Explosion/Feuer/Kolben/Fluessigkeit, Zwei-Spieler-Tests). Brief: docs/ai/briefs/next-claims.md. Danach ein Claim-Adapter fuer Dimensions.
 - [x] 2. Alte Echo-Library-Kompasse: NICHT migrieren (entschieden: die neue Loesung ersetzt sie, die alten braucht niemand). Keine Arbeit.
-- [ ] 3. DIMENSIONS: (a) Standardform bleibt der Bogen (sechs Glowstone-Boegen mit Zusatzlicht); keine Kupfer/Blaueis-Variante in den Configs anbieten. (b) Die vorinstallierten Dimensionen (Skyblock, Mining, Travel) sind einzeln in den EINSTELLUNGEN (Server-Optionen, eigener Reiter im Config-Bildschirm) ein- und ausschaltbar, nicht ueber die Config-Dateien der Dimensionen. (c) SPAETER, erst nach dem gemeinsamen Durchgehen mit dem Besitzer: beliebige erlaubte Portalformen frei konfigurierbar und ueber waehlbare Mechaniken aktivierbar (nicht jetzt beginnen). Brief fuer (a) und (b): docs/ai/briefs/next-dimensions-settings.md.
-- [ ] 4. QUALITY OF LIFE Haltbarkeitsbonus: gilt auch fuer Mod-Werkzeuge (SimpleBuilding und andere), aber der Standard ist 1 (kein Bonus); per Config erhoehbar (serverseitig, harte Obergrenze). Brief: docs/ai/briefs/next-small.md.
-- [ ] 5. SOUNDS: Intensitaet an die Stufe von Simple Visuals koppeln (Off/Subtle/Normal/Strong/Maximum); ohne Visuals gilt eine eigene Einstellung. Brief: docs/ai/briefs/next-small.md.
-- [ ] 6. FORGE spaeter: Forge 26.3 auch fuer Dimensions, Cloth-Dialog auf Forge und die Frage der Standardaktivierung kommen nach 1 bis 5.
+- [x] 3. DIMENSIONS: (a) Standardform bleibt der Bogen (sechs Glowstone-Boegen mit Zusatzlicht); keine Kupfer/Blaueis-Variante in den Configs anbieten. (b) Die vorinstallierten Dimensionen (Skyblock, Mining, Travel) sind einzeln in den EINSTELLUNGEN (Server-Optionen, eigener Reiter im Config-Bildschirm) ein- und ausschaltbar, nicht ueber die Config-Dateien der Dimensionen. (c) SPAETER, erst nach dem gemeinsamen Durchgehen mit dem Besitzer: beliebige erlaubte Portalformen frei konfigurierbar und ueber waehlbare Mechaniken aktivierbar (nicht jetzt beginnen). Brief fuer (a) und (b): docs/ai/briefs/next-dimensions-settings.md.
+- [x] 4. QUALITY OF LIFE Haltbarkeitsbonus: gilt auch fuer Mod-Werkzeuge (SimpleBuilding und andere), aber der Standard ist 1 (kein Bonus); per Config erhoehbar (serverseitig, harte Obergrenze). Brief: docs/ai/briefs/next-small.md.
+- [x] 5. SOUNDS: Intensitaet an die Stufe von Simple Visuals koppeln (Off/Subtle/Normal/Strong/Maximum); ohne Visuals gilt eine eigene Einstellung. Brief: docs/ai/briefs/next-small.md.
+- [x] 6. FORGE spaeter: Forge 26.3 auch fuer Dimensions, Cloth-Dialog auf Forge und die Frage der Standardaktivierung kommen nach 1 bis 5.
 - [ ] Noch offen: Echolot 3 Sekunden halten oder Ein-Klick? Morgenbericht der Sprach-Bridge ja oder nein?
 
-- [ ] CLAIMS worker codex-next-claims: sechs getrennte Stufen, standardmaessig AUS; Plan modules/simpletweaks/CLAIMS-PLAN.md. Kein Push/Merge, keine Forge-/anderen Linien-Ports.
+## Orchestrator-Abschluss 2026-10-01
 
-- [ ] CLAIMS Stage 4 (codex-next-claims, 2026-10-01): vorhandenen Entwurf erhalten; Naturschaden, Multipart-Explosionen, Kolbenrueckzug und eigene Automation geprueft. Claims bleibt AUS/nicht einschaltbereit: Kupfergolem-/Crafter-Pfade und fremde Remote-Automation offen. Stage 5/6 unveraendert beim Access-Worker. Belege: modules/simpletweaks/CLAIMS-STAGE4.md.
-- [ ] CLAIMS access worker: Stufen 5/6 auf 7422a3ab, Plan modules/simpletweaks/CLAIMS-ACCESS-PLAN.md; Stufe 4 separat/ungemergt, nicht als fertig bestätigt. Default AUS, kein Push/Merge.
-
-- [x] CLAIMS access worker: Stufen 5/6 implementiert und relevante Fabric-/NeoForge-26.3-Modulprüfungen grün; Stufe 5 4ac2875a, Stufe 6 separat. Verifikation: modules/simpletweaks/CLAIMS-ACCESS-VERIFICATION.md. Stufe 4 ungemergt/unbestätigt, Claims weiterhin AUS; Besitzerabnahme und gemergte Gesamtmatrix offen. Kein Push/Merge.
-- [ ] DIMENSIONS-SETTINGS gestartet (codex-next-dimensions): sechs Glowstoneboegen behalten, Kupfer/Blaueis-Beispiel entfernen; Skyblock/Mining/Travel als persistente Serveroptionen im eigenen Reiter, Rueckwege immer erhalten. Plan: modules/simpledimensions/DIMENSIONS-SETTINGS-PLAN.md.
-
-- [x] DIMENSIONS-SETTINGS abgeschlossen (codex-next-dimensions, Plan 37293dc4, Umsetzung f83a75c4): eigener Dimensions-Reiter, drei persistente Default-on-Serverschalter, offene Rueckwege; Kupfer/Blaueis-Beispiel/Preset entfernt. 76/76 Modulserver und 10/10 Testzentrale alles gruen; final check Exit 0, 23 JUnit- und 19 Wiki-Tests gruen. Details/Abweichungen im Modulplan und docs/modules/simpledimensions.md.
-- [ ] DIMENSIONS-SETTINGS Abnahme: Orchestrator-Gesamtgate nach Integration; Besitzer prueft Reiter/Reisen auf beiden Clients, echten Dedicated-Neustart/Mehrspieler und Zentrale in eigener Welt. Keine neuen Portalformen/Aktivierungen, Forge oder Ports in diesem Run; kein Push/Merge.
-- [ ] NEXT-SMALL (codex-next-small): QoL-Standardbonus 1 bei Cap 1.5; Sounds folgen optional der Visuals-Stufe. Plan: modules/simplesounds/docs/next-small-plan.md; Modul-/Integrationspruefung, gefilterte Testzentrale und finales check, kein Push/Merge.
-
-- [x] NEXT-SMALL Worker-Umsetzung (codex-next-small): QoL-Standard 1/Cap 1.5 mit Altconfig-Erhalt; Sounds folgen aktiver Visuals-Stufe ueber optionale Framework-API. 48/48 + 71/71 + 2/2 + Testzentrale 10/10 alles gruen; finales check Exit 0. Details/Scope-Erweiterung: modules/simplesounds/docs/next-small-plan.md. Besitzer-Abnahme und komplettes zusammengefuehrtes Orchestrator-Gate bleiben offen; kein Push/Merge.
-# Orchestrator-Merge 2026-10-01
-
-Gesamtgate `354b1ae3` zunächst ROT: check und 1600/1600 Hauptlinie grün,
-Integrations-Portalfehler durch liegengebliebene Testeinstellungen. Fix `a5d8151e`
-zweimal 176/176 grün mit bytegleichen Configs. Paketfix `f23d1004`: gemeinsamer
-Bootstrap in beiden 26.3-JARs, isolierter Aufruf aus beiden Archiven grün.
-Forge läuft weiter; gemeinsames Abschlussgate/Push bleiben offen. Details:
-`docs/ai/CODEX-VERIFICATION-2026-10-01.md`.
-
-Claims (Hauptschalter AUS, Stage-4-Lücken dokumentiert), Dimensions-Einstellungen,
-kompilierter UI-Test und QoL/Sounds sind auf master gemergt (bis `6bb478cd`).
-Einzel-Worker-Gates grün; gemeinsames Gate und SHA-Push stehen aus. Forge beginnt
-jetzt auf dem vereinigten Stand. Besitzer-Client läuft, keine Clienttests gestartet.
-`n- [ ] FORGE-FOLLOWUP 2026-10-01: codex-next-forge on merged 5f294df9; Dimensions/Claims adapters, real config/persistence, framework packaging and server verification. Plan: docs/FORGE-FOLLOWUP-PLAN.md. No clients/push/merge; Forge stays opt-in pending runtime/client evidence.
-
-- [x] FORGE-FOLLOWUP 2026-10-01 abgeschlossen auf codex-next-forge: df354b5e Testisolation/Cleanup, e4b1320b native Konfiguration und Framework-JARs, 2049fd48 Dimensions/Claims/Money/Sounds-Adapter. Default-/Forge-check Exit 0; Forge-Kataloge 1039 Faelle belegt, letzte Dimensions/Tweaks-Wiederholung 88/88 und unveraenderte Settings. Exakte Runs, Grenzen und Clientbefehle: docs/FORGE-FOLLOWUP-RESULTS.md / docs/FORGE-26.3.md. Kein Push/Merge/Client; Forge bleibt opt-in.
+- [x] Claims-Stufen 1-6 integriert, Hauptschalter AUS. Stage 4 bleibt teilweise
+  offen; keine Freigabe. Grenzen: modules/simpletweaks/CLAIMS-STAGE4.md.
+- [x] Dimensions: sechs Glowstone-Boegen, drei persistente Serverschalter im
+  eigenen Reiter; Kupfer/Blaueis-Preset entfernt. Freie Formen spaeter.
+- [x] QoL: Standard 1, Cap 1.5, auch Mod-Werkzeuge; bestehende Werte erhalten.
+- [x] Sounds folgt Visuals optional, eigene Stufe ohne Anbieter.
+- [x] Forge integriert mit 39fd85b1 (Worker 6786b545): Dimensions/Claims-Adapter,
+  native Dialoge, validierte Persistenz und korrigierte Laufzeitverpackung.
+  Forge bleibt experimentell/opt-in; kein passendes Cloth-Forge-Artefakt.
+- [x] Default-/Forge-Worker-check gruen; 1039 verschiedene Forge-Faelle belegt,
+  finale Drei-Loader-Regression 264/264, Wiederholung 88/88, Settings bytegleich.
+  Testzentralen in isolierten Welten neu gebaut, SimpleBuilding-Abdeckung komplett.
+- Abschlussgate der zusammengefuehrten SHA: .ai-runs/final-full-gate.log.
+  Push ausschliesslich fuer deren GREEN-SHA; Remote-Bestaetigung im Abschlussbericht.
+- [ ] Claims-Schutzluecken, Client-/Audio-/GUI-Abnahmen und Besitzerwelt bleiben
+  offen. Besitzer-Client laeuft; keine Clients gestartet oder gestoppt.
+  Konkrete Fortsetzung: docs/ai/CODEX-HANDOVER.md.
+- Pruefbelege: docs/ai/CODEX-VERIFICATION-2026-10-01.md und
+  docs/FORGE-FOLLOWUP-RESULTS.md. Erstes rotes Gesamtgate und Korrekturen erhalten.

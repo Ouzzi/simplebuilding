@@ -80,3 +80,12 @@ Die Ergebniszeilen der Worker-Protokolle wurden separat gelesen:
   isolierten Fabric-/NeoForge-Welten: **10/10**, `2026-10-01T02-16-20Z-36d6`.
 
 Diese Einzelbelege ersetzen weiterhin nicht das gemeinsame Abschlussgate.
+
+Forge-Worker `6786b545` ist mit `39fd85b1` konfliktfrei integriert. Beide Worker-
+Checks (Default und `-Pforge263=true`) endeten mit Exit 0; die vollständigen
+Forge-Kataloge belegen zusammen 1.039 unterschiedliche Fälle. Dateiinventar,
+Run-IDs, Artefaktprüfsummen und Grenzen: `docs/FORGE-FOLLOWUP-RESULTS.md`.
+Beim Merge waren Manifest, Wiki, Quests, Wiki-Tests, Bücher und Texturen grün.
+Das gemeinsame Abschlussgate wird gegen den nachfolgenden Dokumentationscommit
+ausgeführt; SHA und VERDICT stehen in `.ai-runs/final-full-gate.log` und im
+Abschlussbericht. Nur diese SHA darf nach GREEN gepusht werden.

@@ -115,3 +115,10 @@ Sprach-Bridge-Morgenbericht ja/nein.
   26.3-JARs. Fabric und NeoForge nehmen deshalb ebenfalls den bestehenden
   `:common`-Output in ihr Produktions-JAR auf. Keine Änderung anderer MC-Linien.
   Nachweis: Archive erneut bauen und Bootstrap isoliert aus beiden JARs laden.
+- Plan-Abgleich nach Forge-Merge `39fd85b1`: alle beauftragten Implementierungen
+  integriert; Claims bleiben wegen Stage-4-Lücken ausgeschaltet. Forge verwendet
+  mangels passendem Cloth-Artefakt native Dialoge mit den bestehenden Optionen
+  und bleibt ohne Client-Abnahme opt-in. Gemeinsame Testisolation und generische
+  Forge-Verpackung waren notwendige, belegte Erweiterungen. Keine anderen
+  Minecraft-Quelllinien portiert. Besitzer-Client weiter aktiv; GUI/Audio und
+  Besitzerwelt ausdrücklich ungeprüft. Abschließend gemeinsames SHA-Gate/Push.
