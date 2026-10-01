@@ -18,6 +18,7 @@ public final class SoundConfig {
     }
 
     public Level globalLevel = Level.SUBTLE;
+    public boolean followVisuals = true;
     public Map<String, Level> overrides = new HashMap<>();
     public float volumeCap = MAX_VOLUME;
     public int soundsPerTick = 2;
@@ -37,7 +38,18 @@ public final class SoundConfig {
     }
 
     public float volume(SoundsRegistry.Effect effect) {
+        var visuals = followVisuals ? com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals") : null;
+        return volume(effect, visuals == null ? null : Level.valueOf(visuals.name()));
+    }
+
+    public Level level(String effectId, Level visualsLevel) {
         normalize();
-        return Math.min(volumeCap, effect.volume() * overrides.getOrDefault(effect.id(), globalLevel).gain());
+        Level inherited = followVisuals && visualsLevel != null ? visualsLevel : globalLevel;
+        return overrides.getOrDefault(effectId, inherited);
+    }
+
+    public float volume(SoundsRegistry.Effect effect, Level visualsLevel) {
+        Level level = level(effect.id(), visualsLevel);
+        return Math.min(volumeCap, effect.volume() * level.gain());
     }
 }

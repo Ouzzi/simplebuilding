@@ -17,9 +17,12 @@ if visuals.exists():
  v=read(visuals);assert {(e['id'],e['category']) for e in effects}=={(e['id'],e['category']) for e in v}
 langs=[read(MODULE/f'shared/resources/assets/simplesounds/lang/{l}.json') for l in ('en_us','de_de')]
 assert langs[0].keys()==langs[1].keys()
+for lang in langs:
+ for level in ('inherit','off','subtle','normal','strong','maximum'):assert lang['simplesounds.level.'+level]
+ assert all('?' not in value for value in lang.values()), 'Damaged translated text'
 manual=read(MODULE/'wiki/manual.json');features={f['id'] for f in manual['features']}
 assert manual['notes']=={} and not list((MODULE/'shared/resources/assets/simplesounds/items').glob('*.json'))
-for key,default in [('globalLevel','SUBTLE'),('volumeCap','0.25'),('soundsPerTick','2'),('soundsPerPlayer','1'),('cooldownTicks','40')]+[(e['id'],'INHERIT') for e in effects]:
+for key,default in [('followVisuals','true'),('globalLevel','SUBTLE'),('volumeCap','0.25'),('soundsPerTick','2'),('soundsPerPlayer','1'),('cooldownTicks','40')]+[(e['id'],'INHERIT') for e in effects]:
  for lang in langs:assert lang['simplesounds.option.'+key] and default in lang['simplesounds.option.'+key+'.tooltip']
  assert ('effect_' if key in {e['id'] for e in effects} else 'config_')+key in features
 for e in effects:
@@ -28,4 +31,4 @@ for e in effects:
 for f in manual['features']:
  for locale in ('en','de'):assert f[locale]['title'] and f[locale]['summary'] and f[locale]['details']
 mixins=read(MODULE/'shared/resources/simplesounds.mixins.json');assert not mixins.get('mixins') and mixins['client']==['SoundTickMixin']
-print('simplesounds: 12 complete mappings, 17 bilingual options, bounds, zero-item and client-only data valid')
+print('simplesounds: 12 complete mappings, 18 bilingual options, bounds, zero-item and client-only data valid')

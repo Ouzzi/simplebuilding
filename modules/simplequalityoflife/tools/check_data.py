@@ -13,6 +13,9 @@ def unique(p):
 en=unique(MODULE/'shared/resources/assets/simplequalityoflife/lang/en_us.json')
 de=unique(MODULE/'shared/resources/assets/simplequalityoflife/lang/de_de.json')
 assert en.keys()==de.keys()
+bonus='text.autoconfig.simplequalityoflife.option.qOL.fullDurabilityBonusMultiplier.@Tooltip'
+for lang in (en,de):
+ assert '1.0' in lang[bonus] and '1.0–1.5' in lang[bonus], 'Bonus default/range documented'
 assert all(chr(195) not in v and chr(194) not in v for v in de.values()), 'German text has mojibake'
 config=(MODULE/'shared/java/com/simplequalityoflife/config/SimplequalityoflifeConfig.java').read_text()
 nested=False

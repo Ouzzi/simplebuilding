@@ -8,7 +8,11 @@ new Case("module_game_test_launch_smoke",h->{SoundTests.launch(h);}),
 new Case("module_game_test_config_bounds",h->{SoundTests.bounds(h);}),
 new Case("module_game_test_sound_flood_safety",h->{SoundTests.flood(h);}),
 new Case("module_game_test_cooldown_and_world_reset",h->{SoundTests.cooldown(h);}),
-new Case("module_game_test_simple_building_integration",h->{SoundTests.integration(h);}),
+new Case("module_game_test_simple_building_integration",h->{
+ h.assertTrue(net.neoforged.fml.ModList.get().isLoaded("simplevisuals") ==
+  (com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals") != null), "Optional provider presence matches the actual loader selection");
+ SoundTests.integration(h);
+}),
 new Case("module_game_test_effect_footstep_dust",h->{SoundTests.effect(h,"footstep_dust");}),
 new Case("module_game_test_effect_cold_breath",h->{SoundTests.effect(h,"cold_breath");}),
 new Case("module_game_test_effect_fireflies",h->{SoundTests.effect(h,"fireflies");}),

@@ -137,11 +137,11 @@
       ],
       "en": {
         "title": "Durability bonus",
-        "summary": "Damageable held items with at least 80% durability receive a 1.5× attack damage and mining speed bonus by default. Threshold is bounded to 0.8–1 and multiplier to 1–1.5. Server config controls gameplay."
+        "summary": "Damageable held Vanilla and mod tools above the durability threshold can gain attack damage and mining speed. The default multiplier is 1.0 (no bonus), with a server-enforced range of 1–1.5. The threshold defaults to 80% (range 80–100%). Item durability itself is unchanged."
       },
       "de": {
         "title": "Haltbarkeitsbonus",
-        "summary": "Gehaltene beschaedigbare Items mit mindestens 80% Haltbarkeit erhalten standardmaessig 1.5-fachen Angriffsschaden und Abbaugeschwindigkeit. Schwelle 0.8–1, Faktor 1–1.5. Serverconfig steuert das Spiel."
+        "summary": "Gehaltene beschaedigbare Vanilla- und Mod-Werkzeuge ueber der Haltbarkeitsschwelle koennen mehr Angriffsschaden und Abbaugeschwindigkeit erhalten. Standardfaktor 1.0 (kein Bonus), serverseitiger Bereich 1–1.5. Schwelle standardmaessig 80% (Bereich 80–100%). Die Haltbarkeit selbst bleibt unveraendert."
       }
     },
     {
@@ -445,11 +445,11 @@
       ],
       "en": {
         "title": "qOL.fullDurabilityBonusMultiplier",
-        "summary": "Server setting (rain density is a local visual preference). Default: 1.5."
+        "summary": "Server setting. Default: 1.0 (no bonus). Range: 1.0–1.5. Saved 1.5 remains 1.5; absent keys use 1.0. Nonfinite values fall back to 1.0; finite out-of-range values are clamped."
       },
       "de": {
         "title": "qOL.fullDurabilityBonusMultiplier",
-        "summary": "Servereinstellung (Regendichte ist eine lokale Darstellungseinstellung). Standard: 1.5."
+        "summary": "Servereinstellung. Standard: 1.0 (kein Bonus). Bereich: 1.0–1.5. Gespeicherte 1.5 bleiben 1.5; fehlende Schluessel nutzen 1.0. Nicht endliche Werte fallen auf 1.0 zurueck; endliche Werte ausserhalb des Bereichs werden begrenzt."
       }
     },
     {

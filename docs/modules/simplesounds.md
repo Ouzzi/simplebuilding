@@ -10,12 +10,15 @@ Fabric Mod Menu / NeoForge Mods. All tooltips state their defaults.
 
 The stable IDs and categories mirror Simple Visuals' effects.json exactly. The module-owned
 assets/simplesounds/effects.json is the runtime mapping; the data gate compares both registries
-when Simple Visuals is present. No implementation-class imports or dependency on its runtime.
+when Simple Visuals is present. No implementation-class imports or hard dependency on its runtime.
 Both mods independently observe the local synchronized player and loaded adjacent blocks.
 Simple Sounds deliberately observes only the local player: no remote health/location tracking,
 no extra server packets, no chunk loads and no gameplay authority delegated to the client.
-Simple Visuals is a soft dependency. Automatic following of its live intensity is not implemented;
-the independent global default is SUBTLE, with explicit INHERIT/OFF/four intensity overrides.
+Simple Visuals is a soft dependency. Client-local `followVisuals` defaults to true and follows
+its active global Off/Subtle/Normal/Strong/Maximum level one-to-one. Each explicit sound effect
+override still wins, including OFF and an override above a global OFF. With following disabled,
+Visuals absent, or an older Visuals version without the API, the independent global level applies
+(default SUBTLE). Visuals effect overrides do not override sound effect settings.
 
 | Effect ID | Vanilla sound | Minimum interval |
 |---|---|---|
@@ -34,15 +37,15 @@ the independent global default is SUBTLE, with explicit INHERIT/OFF/four intensi
 
 No exclusions. Firefly/pollen sounds are soft rustling interpretations rather than new recordings.
 Vanilla audio and its available subtitles are reused; no sounds.json or custom subtitles needed.
-Pitch varies 0.95?1.05. Ambient base volume .12, reactions .22; gains OFF/SUBTLE/NORMAL/
+Pitch varies 0.95–1.05. Ambient base volume .12, reactions .22; gains OFF/SUBTLE/NORMAL/
 STRONG/MAXIMUM are 0/.35/.6/.8/1. Vanilla Ambient/Environment and Master sliders still apply.
 No gain exceeds 1 and final volume never exceeds .25. Existing Vanilla feedback remains audible.
 
 ## Configuration and security
 
 Local config/simplesounds.json, maximum 64 KiB read; malformed input uses defaults. Tab General:
-globalLevel SUBTLE, volumeCap .25 (0?.25), soundsPerTick 2 (0?4), soundsPerPlayer 1 (0?2),
-cooldownTicks 40 (20?1200). Other tabs follow the six effect categories plus reactive feedback.
+followVisuals true, globalLevel SUBTLE, volumeCap .25 (0–.25), soundsPerTick 2 (0–4), soundsPerPlayer 1 (0–2),
+cooldownTicks 40 (20–1200). Other tabs follow the six effect categories plus reactive feedback.
 Each effect defaults to INHERIT; OFF always silences it. Nonfinite volume uses default; unknown
 IDs/null overrides are dropped. Local cosmetics have no server gameplay settings to synchronize.
 
@@ -50,7 +53,7 @@ Every playback passes a bounded budget. Excess requests are dropped, never queue
 four sounds/tick, two/player/tick, eight budgeted player IDs and 96 cooldown keys; runtime
 observes only one player. Repeating one effect waits the greater of config cooldown and mapping
 interval. Effect priority rotates, history resets on world or player changes (including respawn).
-Global OFF, per-effect OFF, volume zero and either count zero are independent spam switches.
+Effective OFF (after effect overrides), volume zero and either count zero disable playback.
 No C2S receiver, inventory mutation, movement/reach amplification, world/claim modification,
 chunk/entity creation, trading or duplication path exists. Six loaded neighbor samples per
 condition, no radius scan. Fire conditions may inspect three such sets. Health changes are
@@ -93,7 +96,7 @@ Other Minecraft lines are deferred; shared 26.2 compatibility is checked by the 
   condition in gameplay, long-duration/performance and arbitrary modpacks, owner world,
   complete existing SimpleBuilding server/client suites. This earlier port run did not verify Forge or deferred-line runtime.
 - Decisions for owner acceptance: Vanilla-only audio, local-player-only observation, independent
-  intensity settings (no automatic live following of Simple Visuals). Fireflies/pollen use soft
+  intensity settings (historical; superseded by default-on followVisuals below). Fireflies/pollen use soft
   rustling. No blocking owner question, no push/merge.
 
 ## Experimental Forge 26.3
@@ -101,3 +104,44 @@ Other Minecraft lines are deferred; shared 26.2 compatibility is checked by the 
 Opt-in with `-Pforge263=true`; same 17 server catalogue cases and client-only sound tick mixin. JSON settings and sound budgets are unchanged. Cloth GUI/client harness sources are excluded because a compatible Forge artifact is unavailable. Forge client audio, UI and owner-world behavior remain unverified.
 
 Forge follow-up verification: 17/17 canonical cases passed in the combined run `2026-09-30T17-52-13Z-77a1`; **2828/2828, alles gruen** across existing Fabric/NeoForge/Forge 26.3, integration and all manifest module server suites. Explicit Forge compile without `forge_runs`: exit 0. Client and owner-world limits above remain open.
+
+## Following Simple Visuals (2026-09-30)
+
+`followVisuals` is a local cosmetic preference in the General tab, default true even when
+loading an old Sounds JSON without the key. It sends no packets and grants no gameplay
+authority. The server remains irrelevant to cosmetic audio preferences. Explicit false
+persists. Both loaders use the module's shared EN/DE language resources.
+
+The generic public `framework` 0.1.1 `CosmeticIntensity` API publishes a supplier by mod id.
+Visuals registers its current local global level when loaded. The supplier reads the active
+config each time, so replacing the config or editing its level takes effect immediately
+without disk polling. Sounds resolves the API in the existing playback volume path. No
+provider means fallback to Sounds' own level; no implementation imports, reflection or
+Visuals config-file parsing. Providers are process-local, not server-synchronized.
+
+The framework library is bundled through Fabric include and NeoForge jarJar in both
+participating modules, with loader deduplication of the same version. This task necessarily
+extends the framework and Visuals producer beyond the two original module folders. Shared
+root/runner/Hub wiring remains unchanged; the API is generic by module id. Visuals' options,
+translations, particle budgets and effects remain unchanged.
+
+All previous audio caps remain: volume 0.25, four sounds/tick, two/player/tick, and the greater
+of the configured cooldown (20–1200 ticks) and each mapping interval (currently 40 ticks).
+No effective level or override bypasses SoundBudget. Server tests cover the resolution path,
+the actual loaded producer on both loaders, the loaded Fabric consumer and the standalone
+NeoForge consumer. They do not prove client playback, UI rendering or subjective audio.
+
+Verification: complete Sounds/Visuals Fabric and NeoForge catalogues plus integration
+passed **71/71, alles gruen**, run `2026-09-30T21-22-48Z-11f3` (Sounds 17+17,
+Visuals 18+18, integration 1). A strengthened loader-presence assertion then passed
+**2/2, alles gruen**, run `2026-09-30T21-27-22Z-2913`: actual loaded Visuals on
+Fabric and actual absence on the standalone NeoForge Sounds runtime. Existing cases
+were retained and extended. Fabric jars were inspected for the nested framework API.
+No client tests were run; playback/UI, real installed modpacks and subjective audio
+remain owner acceptance work. Forge runtime and its library packaging remain deferred.
+
+Final archive inspection also verified the API class and jarJar coordinates/version in
+both NeoForge jars. The final standard Gradle check passed (FINAL_CHECK_EXIT=0),
+including all module data/wiki gates and shared 26.2 compilation. Test-centre filter
+passed 10/10 on the two isolated 26.3 base worlds; the owner world was not touched.
+Full merged suites remain the orchestrator's next step, as requested.

@@ -18,7 +18,7 @@ public class SimplequalityoflifeConfig implements ConfigData {
     public static final double DEFAULT_CLIMB_SPEED = 0.4;
     public static final double DEFAULT_SLIDE_SPEED = 0.8;
     public static final double DEFAULT_DURABILITY_THRESHOLD = 0.8;
-    public static final double DEFAULT_DURABILITY_BONUS_MULTIPLIER = 1.5;
+    public static final double DEFAULT_DURABILITY_BONUS_MULTIPLIER = 1.0;
     public static final int DEFAULT_VAULT_COOLDOWN_DAYS = 100;
     public static final int DEFAULT_RAIN_PARTICLE_DENSITY = 20;
     public static double bounded(double v, double min, double max, double fallback) {
@@ -29,7 +29,7 @@ public class SimplequalityoflifeConfig implements ConfigData {
         qOL.ladderClimbingSpeed = bounded(qOL.ladderClimbingSpeed, 0.2, MAX_CLIMB_SPEED, 0.4);
         qOL.ladderSlideSpeed = bounded(qOL.ladderSlideSpeed, 0.15, MAX_SLIDE_SPEED, 0.8);
         qOL.fullDurabilityThreshold = bounded(qOL.fullDurabilityThreshold, 0.8, 1, 0.8);
-        qOL.fullDurabilityBonusMultiplier = bounded(qOL.fullDurabilityBonusMultiplier, 1, MAX_BONUS, 1.5);
+        qOL.fullDurabilityBonusMultiplier = bounded(qOL.fullDurabilityBonusMultiplier, 1, MAX_BONUS, DEFAULT_DURABILITY_BONUS_MULTIPLIER);
         qOL.vaultCooldownDays = Math.clamp(qOL.vaultCooldownDays, 1, 36500);
         qOL.clientRainParticleDensity = Math.clamp(qOL.clientRainParticleDensity, 0, 100);
         if (qOL.ladderSlideActivation == null) qOL.ladderSlideActivation = SlideActivationMode.CAMERA;

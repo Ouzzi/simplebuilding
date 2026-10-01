@@ -46,7 +46,7 @@ public final class QolTests {
  }
  public static void configBounds(GameTestHelper h){
   var c=new SimplequalityoflifeConfig();c.qOL.ladderClimbingSpeed=100;c.qOL.ladderSlideSpeed=Double.NaN;c.qOL.fullDurabilityBonusMultiplier=Double.POSITIVE_INFINITY;c.qOL.fullDurabilityThreshold=-5;c.qOL.vaultCooldownDays=0;c.qOL.clientRainParticleDensity=500;c.qOL.nametagMuteSuffixes=new ArrayList<>(Collections.nCopies(100,"x"));c.normalize();
-  close(h,c.qOL.ladderClimbingSpeed,.4,"Climb cap");close(h,c.qOL.ladderSlideSpeed,.8,"Nonfinite slide default");close(h,c.qOL.fullDurabilityBonusMultiplier,1.5,"Nonfinite bonus default");close(h,c.qOL.fullDurabilityThreshold,.8,"Threshold lower bound");h.assertTrue(c.qOL.vaultCooldownDays==1&&c.qOL.clientRainParticleDensity==100&&c.qOL.nametagMuteSuffixes.size()==1,"Integer/list bounds");
+  close(h,c.qOL.ladderClimbingSpeed,.4,"Climb cap");close(h,c.qOL.ladderSlideSpeed,.8,"Nonfinite slide default");close(h,c.qOL.fullDurabilityBonusMultiplier,1,"Nonfinite bonus default");close(h,c.qOL.fullDurabilityThreshold,.8,"Threshold lower bound");h.assertTrue(c.qOL.vaultCooldownDays==1&&c.qOL.clientRainParticleDensity==100&&c.qOL.nametagMuteSuffixes.size()==1,"Integer/list bounds");
   c.qOL.ladderClimbingSpeed=-9;c.qOL.ladderSlideSpeed=99;c.qOL.fullDurabilityBonusMultiplier=999;c.qOL.vaultCooldownDays=Integer.MAX_VALUE;c.qOL.clientRainParticleDensity=-1;c.normalize();close(h,c.qOL.ladderClimbingSpeed,.2,"Climb lower bound");close(h,c.qOL.ladderSlideSpeed,.8,"Slide hard cap");close(h,c.qOL.fullDurabilityBonusMultiplier,1.5,"Bonus hard cap");h.assertTrue(c.qOL.vaultCooldownDays==36500&&c.qOL.clientRainParticleDensity==0,"Upper days/lower rain");h.succeed();
  }
  public static void configLang(GameTestHelper h){
@@ -81,7 +81,39 @@ public final class QolTests {
  public static void permissionsSpam(GameTestHelper h){configured(()->{var pos=new BlockPos(2,2,2);h.setBlock(pos,Blocks.FURNACE);var p=player(h,pos);p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.LAVA_BUCKET));var old=InteractionGuard.permission;try{InteractionGuard.permission=(a,b)->false;h.assertTrue(FurnaceLavaFillHandler.onRightClickBlock(p,InteractionHand.MAIN_HAND,h.absolutePos(pos),Direction.UP)==InteractionResult.PASS,"Claim refusal honored");h.assertTrue(p.getMainHandItem().is(Items.LAVA_BUCKET),"Refusal consumes nothing");}finally{InteractionGuard.permission=old;}
   h.assertTrue(!InteractionGuard.allow(p,h.absolutePos(new BlockPos(20,2,2))),"Forged distant action refused");var other=player(h,pos);h.assertTrue(InteractionGuard.action(other)&&!InteractionGuard.action(other),"Auto-action spam refused");
  });h.succeed();}
- public static void durability(GameTestHelper h){configured(()->{var p=player(h,new BlockPos(2,2,2));var s=new ItemStack(Items.DIAMOND_SWORD);p.setItemSlot(EquipmentSlot.MAINHAND,s);var c=Simplequalityoflife.getConfig().qOL;c.enableFullDurabilityBonus=false;double base=p.getAttributeValue(Attributes.ATTACK_DAMAGE);float mining=p.getDestroySpeed(Blocks.STONE.defaultBlockState());c.enableFullDurabilityBonus=true;c.fullDurabilityBonusMultiplier=999;close(h,p.getAttributeValue(Attributes.ATTACK_DAMAGE),base*1.5,"Actual damage hard cap");close(h,p.getDestroySpeed(Blocks.STONE.defaultBlockState()),mining*1.5,"Actual mining cap");s.setDamageValue(s.getMaxDamage()/2);close(h,p.getAttributeValue(Attributes.ATTACK_DAMAGE),base,"Worn item loses bonus");});h.succeed();}
+ public static void durability(GameTestHelper h){configured(()->{
+  var p=h.makeMockServerPlayerInLevel();p.setGameMode(GameType.SURVIVAL);
+  var vanilla=new ItemStack(Items.DIAMOND_PICKAXE);
+  var hammer=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:diamond_sledgehammer")));
+  // A component-defined tool models third-party stacks without a Vanilla tool subclass.
+  var foreign=new ItemStack(Items.STICK);foreign.set(DataComponents.MAX_STACK_SIZE,1);
+  foreign.set(DataComponents.MAX_DAMAGE,400);foreign.set(DataComponents.DAMAGE,0);
+  foreign.set(DataComponents.TOOL,vanilla.get(DataComponents.TOOL));
+  var c=Simplequalityoflife.getConfig().qOL;
+  close(h,c.fullDurabilityBonusMultiplier,1,"Fresh server default has no bonus");
+  for(var stack:List.of(vanilla,new ItemStack(Items.DIAMOND_SWORD),hammer,foreign)){
+   h.assertTrue(stack.isDamageableItem(),"All tool kinds are damageable");
+   p.setItemSlot(EquipmentSlot.MAINHAND,stack);c.enableFullDurabilityBonus=false;
+   double damage=p.getAttributeValue(Attributes.ATTACK_DAMAGE);float mining=p.getDestroySpeed(Blocks.STONE.defaultBlockState());
+   int max=stack.getMaxDamage(),wear=stack.getDamageValue();c.enableFullDurabilityBonus=true;
+   double[] inputs={1,1.25,1.5,999,Double.NaN,Double.POSITIVE_INFINITY,Double.NEGATIVE_INFINITY,-1};
+   double[] expected={1,1.25,1.5,1.5,1,1,1,1};
+   for(int i=0;i<inputs.length;i++){
+    c.fullDurabilityBonusMultiplier=inputs[i];
+    close(h,p.getAttributeValue(Attributes.ATTACK_DAMAGE),damage*expected[i],"Actual server damage hook "+stack+" / "+inputs[i]);
+    close(h,p.getDestroySpeed(Blocks.STONE.defaultBlockState()),mining*expected[i],"Actual server mining hook "+stack+" / "+inputs[i]);
+    h.assertTrue(stack.getMaxDamage()==max&&stack.getDamageValue()==wear,"Bonus never changes durability capacity or wear");
+   }
+   c.fullDurabilityBonusMultiplier=1.5;stack.setDamageValue(max/2);
+   close(h,p.getAttributeValue(Attributes.ATTACK_DAMAGE),damage,"Worn item loses damage bonus");
+   close(h,p.getDestroySpeed(Blocks.STONE.defaultBlockState()),mining,"Worn item loses mining bonus");
+  }
+  var gson=new com.google.gson.Gson();
+  for(String json:List.of("{}","{\"qOL\":{}}","{\"qOL\":{\"fullDurabilityBonusMultiplier\":1.5}}")){
+   var loaded=gson.fromJson(json,SimplequalityoflifeConfig.class);loaded.normalize();
+   close(h,loaded.qOL.fullDurabilityBonusMultiplier,json.contains("1.5")?1.5:1,"Saved values retained; absent key defaults to one");
+  }
+ });h.succeed();}
  public static void muting(GameTestHelper h){configured(()->{var cow=h.spawn(EntityTypes.COW,2,2,2);cow.setCustomName(net.minecraft.network.chat.Component.literal("Cow_mute"));h.assertTrue(cow.isSilent(),"Mute suffix");cow.setCustomName(null);h.assertTrue(!cow.isSilent(),"No suffix means normal sound");Simplequalityoflife.getConfig().qOL.mutedEntities.add("minecraft:cow");h.assertTrue(cow.isSilent(),"Type mute");});h.succeed();}
  public static void baby(GameTestHelper h){var cow=h.spawn(EntityTypes.COW,2,2,2);cow.setCustomName(net.minecraft.network.chat.Component.literal("Cow_baby"));cow.setAge(-1);cow.tickCount=99;h.runAfterDelay(3,()->{h.assertTrue(cow.isBaby()&&cow.getAge()<-23000,"Actual age tick keeps named baby young");cow.setCustomName(null);cow.setAge(-1);h.runAfterDelay(3,()->{h.assertTrue(!cow.isBaby(),"Removing suffix permits aging");h.succeed();});});}
  public static void piglins(GameTestHelper h){configured(()->{var p=player(h,new BlockPos(2,2,2));p.setItemSlot(EquipmentSlot.OFFHAND,new ItemStack(Items.GOLDEN_HOE));h.assertTrue(net.minecraft.world.entity.monster.piglin.PiglinAi.isWearingSafeArmor(p),"Offhand gold is safe");Simplequalityoflife.getConfig().qOL.piglinsIgnoreGoldTools=false;h.assertTrue(!net.minecraft.world.entity.monster.piglin.PiglinAi.isWearingSafeArmor(p),"Gold tool toggle");});h.succeed();}
@@ -90,7 +122,7 @@ public final class QolTests {
  public static void vegetation(GameTestHelper h){h.assertTrue(VegetationUtil.isCuttable(Blocks.SHORT_GRASS.defaultBlockState())&&VegetationUtil.isCuttable(Blocks.DANDELION.defaultBlockState()),"Grass/flowers supported");h.assertTrue(!VegetationUtil.isCuttable(Blocks.WATER.defaultBlockState())&&!VegetationUtil.isCuttable(Blocks.STONE.defaultBlockState()),"Fluids and building blocks excluded");h.succeed();}
  public static void crossMod(GameTestHelper h){configured(()->{
   var block=BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplebuilding:reinforced_furnace"));h.assertTrue(block!=Blocks.AIR,"Public SimpleBuilding furnace ID");var pos=new BlockPos(2,2,2);h.setBlock(pos,block);var p=player(h,pos);p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.LAVA_BUCKET));h.assertTrue(FurnaceLavaFillHandler.onRightClickBlock(p,InteractionHand.MAIN_HAND,h.absolutePos(pos),Direction.UP)==InteractionResult.SUCCESS,"Foreign furnace follows Vanilla fuel interface");h.assertTrue(((AbstractFurnaceBlockEntity)h.getLevel().getBlockEntity(h.absolutePos(pos))).getItem(1).is(Items.LAVA_BUCKET),"Foreign fuel slot updated");
-  var hammer=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:diamond_sledgehammer")));h.assertTrue(hammer.isDamageableItem(),"Public foreign damageable tool ID");p.setItemSlot(EquipmentSlot.MAINHAND,hammer);Simplequalityoflife.getConfig().qOL.enableFullDurabilityBonus=false;double base=p.getAttributeValue(Attributes.ATTACK_DAMAGE);Simplequalityoflife.getConfig().qOL.enableFullDurabilityBonus=true;close(h,p.getAttributeValue(Attributes.ATTACK_DAMAGE),base*1.5,"Foreign tool receives exactly one capped bonus");
+  var hammer=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:diamond_sledgehammer")));h.assertTrue(hammer.isDamageableItem(),"Public foreign damageable tool ID");p.setItemSlot(EquipmentSlot.MAINHAND,hammer);Simplequalityoflife.getConfig().qOL.enableFullDurabilityBonus=false;double base=p.getAttributeValue(Attributes.ATTACK_DAMAGE);Simplequalityoflife.getConfig().qOL.enableFullDurabilityBonus=true;Simplequalityoflife.getConfig().qOL.fullDurabilityBonusMultiplier=1.5;close(h,p.getAttributeValue(Attributes.ATTACK_DAMAGE),base*1.5,"Foreign tool receives exactly one capped bonus");
   var farm=new BlockPos(3,2,2);h.setBlock(farm,Blocks.FARMLAND);p=h.makeMockPlayer(GameType.CREATIVE);p.setPos(Vec3.atCenterOf(h.absolutePos(farm.above())));p.setItemSlot(EquipmentSlot.HEAD,new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:breeze_head"))));p.setItemSlot(EquipmentSlot.FEET,enchanted(h,Items.DIAMOND_BOOTS,Enchantments.FEATHER_FALLING));var absolute=h.absolutePos(farm);Blocks.FARMLAND.fallOn(h.getLevel(),h.getLevel().getBlockState(absolute),absolute,p,100);h.assertTrue(h.getLevel().getBlockState(absolute).is(Blocks.FARMLAND),"Both farmland protections coexist");Simplequalityoflife.getConfig().qOL.preventFarmlandTrampleWithFeatherFalling=false;Blocks.FARMLAND.fallOn(h.getLevel(),h.getLevel().getBlockState(absolute),absolute,p,100);h.assertTrue(h.getLevel().getBlockState(absolute).is(Blocks.FARMLAND),"Disabling Feather Falling preserves Breeze head protection");
  });h.succeed();}
  public static void realMovementPackets(GameTestHelper h){configured(()->{
