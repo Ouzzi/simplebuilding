@@ -15,15 +15,20 @@ das ist noch kein Gesamtgate.
 - Gesamtverifikation offen. Beim Merge nullable Automation-Actor dokumentiert und
   Dimensions-Testanbieter korrigiert; beide Testkataloge vereinigt. Dimensions-
   Schalter prüfen vor dem Laden verknüpfter Zielchunks; Claim-Fußabdrücke und
-  sichere Rückwege bleiben erhalten. Zunächst Modulregression, abschließend
+  sichere Rückwege bleiben erhalten. Vereinte Modulregression auf `5f294df9`:
+  176/176 grün (`2026-10-01T00-27-20Z-0efa`), beide vollständigen Tweaks- und
+  Dimensions-Kataloge auf Fabric/NeoForge; echte Ergebniszeile gelesen. Abschließend
   `python tools/ai/aitool.py gate --integration`; nur dessen exakte grüne SHA pushen.
 - Bestehender NeoForge-Test `each_button_runs_exactly_its_own_command_block` im
   Centre-Lauf `2026-09-30T23-53-58Z-9ce6` rot (9/10); unverändert einzeln 1/1 grün
   (`23-56-25Z-2d76`). Ursache offen; nichts entfernt/ausgenommen. Gemeinsames Gate
   muss einschließlich dieses Tests vollständig grün sein.
-- Forge folgt mit `docs/ai/briefs/run-next-forge.md`: Dimensions-Adapter,
+- Forge läuft auf `codex-next-forge`, Worktree `%TEMP%/cx-next-forge`, Basis
+  `5f294df9`, mit `docs/ai/briefs/run-next-forge.md`: Dimensions-Adapter,
   persistenter Konfigurationsdialog, Claims-Katalog und Framework-Verpackung.
   Standardaktivierung nur bei belegter Reife, sonst weiter experimentell/opt-in.
+- Erledigte Merge-, Review- und Paketnachweise sind in
+  `docs/ai/CODEX-VERIFICATION-2026-10-01.md` dokumentiert; vollständiges Gate offen.
 - Tatsächliche Client-/GUI-Prüfung offen. Besitzer-Client PID 22244 läuft seit
   2026-10-01 01:15 MESZ; vor serieller Prüfung erneut kontrollieren, niemals stoppen.
   Kommando und sieben Screenshot-Pfade: `modules/simpledimensions/DIMENSIONS-UI-PLAN.md`.
