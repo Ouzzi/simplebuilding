@@ -60,6 +60,78 @@ final class Stage4ClaimTests {
             l.getEntitiesOfClass(ItemEntity.class,new AABB(edge).inflate(16)).forEach(Entity::discard);
         }
     }
+    static void crafter(GameTestHelper h){
+        // Newly loaded neighboring chunks need a server tick before item entities are queryable.
+        var edge=ToolClaimTests.boundary(h);h.getLevel().getChunk(edge);h.getLevel().getChunk(edge.west(16));
+        h.runAfterDelay(5,()->modes(h,(f,enabled)->{
+        for(boolean border:new boolean[]{true,false})for(boolean container:new boolean[]{false,true}){
+            var pos=border?f.edge.west():f.edge.east(3);
+            f.set(pos,Blocks.AIR);f.set(pos.east(),Blocks.AIR);
+            var state=Blocks.CRAFTER.defaultBlockState().setValue(BlockStateProperties.ORIENTATION,FrontAndTop.EAST_UP);
+            f.set(pos,state);if(container)f.set(pos.east(),Blocks.CHEST);
+            var crafter=(CrafterBlockEntity)f.l.getBlockEntity(pos);crafter.setItem(0,new ItemStack(Items.OAK_LOG,2));
+            var area=new AABB(pos).inflate(3);f.l.getEntitiesOfClass(ItemEntity.class,area).forEach(Entity::discard);
+            state.tick(f.l,pos,RandomSource.create(0));boolean denied=enabled&&border;
+            yes(h,crafter.getItem(0).getCount()==(denied?2:1),"Crafter consumes only permitted recipe inputs");
+            int output=container?((Container)f.l.getBlockEntity(pos.east())).countItem(Items.OAK_PLANKS):f.l.getEntitiesOfClass(ItemEntity.class,area).stream().filter(e->e.getItem().is(Items.OAK_PLANKS)).mapToInt(e->e.getItem().getCount()).sum();
+            yes(h,output==(denied?0:4),"Actual Crafter output respects boundary, including fallback ejection: enabled="+enabled+", border="+border+", container="+container+", output="+output);
+            if(denied)yes(h,f.l.getEntitiesOfClass(ItemEntity.class,area).isEmpty(),"Denied crafter never falls back to spawned items");
+            crafter.clearContent();if(container)((Container)f.l.getBlockEntity(pos.east())).clearContent();
+        }
+        var near=f.edge.west();var far=f.edge;var pos=near.south();
+        f.set(near,Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING,Direction.NORTH).setValue(ChestBlock.TYPE,ChestType.LEFT));
+        f.set(far,Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING,Direction.NORTH).setValue(ChestBlock.TYPE,ChestType.RIGHT));
+        var state=Blocks.CRAFTER.defaultBlockState().setValue(BlockStateProperties.ORIENTATION,FrontAndTop.NORTH_UP);f.set(pos,state);
+        var crafter=(CrafterBlockEntity)f.l.getBlockEntity(pos);crafter.setItem(0,new ItemStack(Items.OAK_LOG,2));
+        state.tick(f.l,pos,RandomSource.create(0));
+        yes(h,crafter.getItem(0).getCount()==(enabled?2:1),"Crafter checks both halves of a boundary double chest before consuming inputs");
+        int output=((Container)f.l.getBlockEntity(near)).countItem(Items.OAK_PLANKS)+((Container)f.l.getBlockEntity(far)).countItem(Items.OAK_PLANKS);
+        yes(h,output==(enabled?0:4),"Boundary double chest insertion preserves off behavior");
+    }));}
+    static void copperGolem(GameTestHelper h){modes(h,(f,enabled)->{
+        var behavior=new net.minecraft.world.entity.ai.behavior.TransportItemsBetweenContainers(1,s->true,s->true,16,8,Map.of(),mob->{},target->false);
+        var access=(com.simplebuilding.modules.simpletweaks.mixin.claims.ClaimTransportInvoker)behavior;
+        for(boolean claimed:new boolean[]{true,false}){
+            var pos=claimed?f.edge.east(3):f.edge.west(4);f.set(pos,Blocks.CHEST);
+            var chest=(Container)f.l.getBlockEntity(pos);chest.setItem(0,new ItemStack(Items.APPLE,20));
+            var golem=f.add(EntityTypes.COPPER_GOLEM.create(f.l,EntitySpawnReason.COMMAND),pos.north());
+            access.claims$pickup(golem,chest);boolean denied=enabled&&claimed;
+            yes(h,chest.countItem(Items.APPLE)==(denied?20:4)&&golem.getMainHandItem().getCount()==(denied?0:16),"Actual golem pickup: protected land refuses ownerless mobile automation");
+            chest.clearContent();golem.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.APPLE,7));
+            access.claims$putdown(golem,chest);
+            yes(h,chest.countItem(Items.APPLE)==(denied?0:7)&&golem.getMainHandItem().getCount()==(denied?7:0),"Actual golem putdown retains refused items");
+            chest.clearContent();golem.discard();
+        }
+        var near=f.edge.west();var far=f.edge;f.set(near,Blocks.CHEST);f.set(far,Blocks.CHEST);
+        var first=(Container)f.l.getBlockEntity(near);var second=(Container)f.l.getBlockEntity(far);
+        first.setItem(0,new ItemStack(Items.APPLE,3));var combined=new CompoundContainer(first,second);
+        var visitor=f.add(EntityTypes.COPPER_GOLEM.create(f.l,EntitySpawnReason.COMMAND),near.west());
+        access.claims$pickup(visitor,combined);
+        yes(h,first.countItem(Items.APPLE)==(enabled?3:0),"Golem checks claimed far half even when queried inventory starts in wilderness");
+        visitor.discard();first.clearContent();second.clearContent();
+        // Unknown wrappers cannot supply trustworthy positions while protection is enabled.
+        var golem=f.add(EntityTypes.COPPER_GOLEM.create(f.l,EntitySpawnReason.COMMAND),f.edge.west(4));
+        var unknown=new SimpleContainer(new ItemStack(Items.APPLE,3));access.claims$pickup(golem,unknown);
+        yes(h,unknown.countItem(Items.APPLE)==(enabled?3:0),"Positionless mobile target fails closed only while enabled");
+    });}
+    static void lightning(GameTestHelper h){modes(h,(f,enabled)->{
+        for(int x=-3;x<=3;x++)for(int z=-2;z<=2;z++){f.set(f.edge.offset(x,-1,z),Blocks.NETHERRACK);f.set(f.edge.offset(x,0,z),Blocks.AIR);}
+        for(var pos:List.of(f.edge.west(),f.edge.east())){
+            var bolt=f.add(EntityTypes.LIGHTNING_BOLT.create(f.l,EntitySpawnReason.COMMAND),pos);
+            ((com.simplebuilding.modules.simpletweaks.mixin.claims.ClaimLightningInvoker)bolt).claims$fire(100);
+            yes(h,f.l.getBlockState(pos).is(Blocks.FIRE)==(!enabled||pos.getX()<f.edge.getX()),"Actual lightning ignition checks each central target");
+            bolt.discard();
+        }
+        if(enabled)for(int x=0;x<=2;x++)for(int z=-1;z<=1;z++)yes(h,f.l.getBlockState(f.edge.offset(x,0,z)).isAir(),"Random lightning ignition cannot cross into claim");
+        for(int x=-4;x<=4;x++)for(int z=-3;z<=3;z++)f.set(f.edge.offset(x,0,z),BuiltInRegistries.BLOCK.getValue(Identifier.parse("minecraft:oxidized_copper")));
+        for(int i=0;i<30;i++){
+            com.simplebuilding.modules.simpletweaks.mixin.claims.ClaimLightningInvoker.claims$clean(f.l,f.edge.west());
+            com.simplebuilding.modules.simpletweaks.mixin.claims.ClaimLightningInvoker.claims$clean(f.l,f.edge.east());
+        }
+        yes(h,f.l.getBlockState(f.edge.west()).is(BuiltInRegistries.BLOCK.getValue(Identifier.parse("minecraft:copper_block"))),"Lightning cleans wilderness copper");
+        yes(h,f.l.getBlockState(f.edge.east()).is(enabled?BuiltInRegistries.BLOCK.getValue(Identifier.parse("minecraft:oxidized_copper")):BuiltInRegistries.BLOCK.getValue(Identifier.parse("minecraft:copper_block"))),"Actual lightning copper strike retains protected oxidation");
+        if(enabled)for(int x=0;x<=4;x++)for(int z=-3;z<=3;z++)yes(h,f.l.getBlockState(f.edge.offset(x,0,z)).is(BuiltInRegistries.BLOCK.getValue(Identifier.parse("minecraft:oxidized_copper"))),"Random copper cleaning cannot cross into claim");
+    });}
     static void naturalDamage(GameTestHelper h){modes(h,(f,enabled)->{
         for(var p:List.of(f.edge.west(3),f.edge.east(3))){
             var cow=f.add(EntityTypes.COW.create(f.l,EntitySpawnReason.COMMAND),p);float before=cow.getHealth();

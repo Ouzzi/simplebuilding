@@ -23,7 +23,12 @@
     "ClaimPistonInvoker",
     "ClaimPistonMixin",
     "ClaimPistonResolverMixin",
-    "ClaimProjectileMixin"
+    "ClaimProjectileMixin",
+    "ClaimTransportMixin",
+    "ClaimCrafterMixin",
+    "ClaimLightningMixin",
+    "ClaimTransportInvoker",
+    "ClaimLightningInvoker"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -62,9 +62,11 @@ push or merge; report remaining gaps honestly.
   bilingual key/default checks passed. Final worktree gate/baseline checks follow.
 
 ## Remaining activation blockers
-Known copper-golem direct inventory transfers and crafter fallback item ejection
-are not fully protected. Lightning ignition/copper cleaning bypasses fire tick
-guards; lightning damage currently follows conservative entity-source denial.
+The follow-up below guards copper-golem direct inventory transfers, crafter
+fallback ejection and lightning ignition/copper cleaning. Golems remain unusable
+on claimed land until trusted ownership/provenance exists. Lightning rod redstone
+and entity transformations remain unguarded; lightning damage currently follows
+conservative entity-source denial.
 Unknown positionless containers are refused while enabled;
 advanced dispenser behaviors are refused near claims, with no proof of arbitrary
 mod behavior range. Remote loader storage endpoints, direct mutations by other
@@ -153,3 +155,44 @@ wiki/data/modules.js
 wiki/data/simpletweaks.js
 wiki/data/simpletweaks.json
 ```
+
+## Follow-up plan (2026-10-01)
+Trace the installed 26.3 sources before closing the known Vanilla gaps. Guard
+Crafter dispenseFrom before recipes consume ingredients, checking the facing
+cell and the complete resolved destination container. Guard copper-golem direct
+pickup and putdown before any slot mutation. Because golems carry items across
+land and have no trusted owner, refuse claimed-container interaction rather than
+inferring permission from the golem's current position. Wilderness remains usable.
+For lightning, check each fire/copper mutation target, including random copper
+walk steps; do not skip an entire lightning entity merely because one target is
+protected. Add real entrypoint controls for enabled denial, wilderness, disabled
+and absent-provider behavior. Keep default OFF and all unverified mod/secondary
+paths documented. No client runs or main-checkout builds.
+
+### Follow-up implementation and evidence
+
+- `ClaimCrafterMixin` checks the destination cell and resolved container footprint
+  at `dispenseFrom` entry, before recipe output, remainders or input consumption.
+- `ClaimTransportMixin` guards real pickup/putdown entrypoints. Both the golem
+  footprint and every resolved container half must be unclaimed. Standing on an
+  owner's land does not grant a roaming golem that owner's permissions.
+- `ClaimLightningMixin` rejects individual ignition candidates before Vanilla
+  increments its fire count and rejects copper targets before direct/random-walk
+  changes. A refused random candidate also emits no cleaning particles.
+- Three new GameTests exercise those actual Vanilla methods, enabled/wilderness/
+  disabled/no-provider controls, item conservation, double-container boundaries
+  and unknown container refusal. Tests leave claims disabled by default.
+- First compile run `2026-10-01T03-08-14Z-2b3d` was red because old copper constants
+  no longer exist in 26.3; tests now resolve those blocks by registry ID.
+- `2026-10-01T03-11-07Z-b279`: NeoForge 3/3, Fabric 2/3. The Fabric crafter's
+  positive dropped-item query failed in a newly loaded neighboring chunk.
+  Targeted retry `2026-10-01T03-13-19Z-7b4f` passed 1/1. The test now preloads both
+  chunks and waits five server ticks before its synchronous fixtures; full
+  regression below must establish the final result.
+- All-module wiki generation/check and `modules/simpletweaks/tools/check_data.py`
+  passed. No client or owner world was opened. Parent owns the final combined gate.
+- Final complete Simple Tweaks suites: `2026-10-01T03-23-37Z-f1a5`, Fabric
+  **50/50**, NeoForge **50/50**, **alles gruen: 100/100 bestanden, 0 rot**.
+  This includes the new full-container cases and the chunk-warmed crafter fixture,
+  all existing Claims, portal, compatibility and module tests. Two workers,
+  2 GiB heaps, two active processors. Shared final gate remains with the parent.

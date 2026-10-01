@@ -527,13 +527,16 @@ Konkrete verbleibende Grenzen, deshalb keine Sicherheitsfreigabe:
 - Unbekannte Container ohne aufloesbare Weltposition (beispielsweise Vanilla-
   Composter-Wrapper) werden im aktivierten Hopper-Transfer konservativ verweigert;
   fuer vollstaendige Kompatibilitaet fehlen Adapter und Gameplay-Gegenproben.
-- Kupfergolems (`TransportItemsBetweenContainers`) aendern Container direkt und
-  umgehen Hopper-Hooks. Crafter koennen verweigerte Ausgaben als Item auswerfen.
-  Diese Pfade sind noch nicht vollstaendig geschuetzt.
-- Blitzentzuendung und Kupferreinigung (`LightningBolt.spawnFire` bzw.
-  `clearCopperOnLightningStrike`) mutieren Bloecke ausserhalb der Feuer-Tickhooks.
-  Diese konkreten Vanilla-Pfade bleiben offen; Blitzschaden als Entity-Quelle wird
-  momentan konservativ verweigert. Das ist keine vollstaendige Naturschaden-Policy.
+- Kupfergolem-Transfers pruefen beide vollstaendigen Container-/Entity-Flaechen
+  vor einer Inventaraenderung. Weil mobile Golems keine vertrauenswuerdige
+  Besitzerzuordnung besitzen, sind Transfers mit beanspruchtem Land konservativ
+  gesperrt; wilde Bereiche bleiben nutzbar. Eine Besitzer-/Provenienzloesung fehlt.
+- Crafter pruefen Zielzelle und aufgeloesten Zielcontainer vor Rezeptverbrauch.
+  Verweigerte Transfers koennen dadurch nicht als Ersatzauswurf stattfinden.
+- Blitzentzuendung und Kupferreinigung pruefen jede direkt oder zufaellig
+  betroffene Zielzelle. Blitzableiter-Redstone und Entity-Verwandlungen sind noch
+  nicht abgesichert. Blitzschaden bleibt konservativ verweigert; keine allgemeine
+  Freigabe saemtlicher Blitzfolgen.
 - Ungepruefte Modmaschinen mit direkten Container-/Weltmutationen, entfernten
   Capability-/Storage-Zielen und frei registrierten Dispenser-Behaviors koennen
   ausserhalb der lokalen Pruefungen wirken. Ein 5x5-Chunk-Fenster ist kein Beweis

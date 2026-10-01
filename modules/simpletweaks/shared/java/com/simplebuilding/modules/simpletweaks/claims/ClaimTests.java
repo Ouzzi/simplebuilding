@@ -18,6 +18,9 @@ import net.minecraft.world.level.*;
 public final class ClaimTests {
     public static final Map<String,Consumer<GameTestHelper>> TESTS = new LinkedHashMap<>();
     static {
+        TESTS.put("claims_followup_crafter",Stage4ClaimTests::crafter);
+        TESTS.put("claims_followup_copper_golem",Stage4ClaimTests::copperGolem);
+        TESTS.put("claims_followup_lightning",Stage4ClaimTests::lightning);
         TESTS.put("claims_environment_natural_damage",Stage4ClaimTests::naturalDamage);
         TESTS.put("claims_environment_explosion_multipart",Stage4ClaimTests::explosionMultipart);
         TESTS.put("claims_environment_indirect_cloud",Stage4ClaimTests::indirectCloud);
