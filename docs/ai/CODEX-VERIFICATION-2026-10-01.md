@@ -30,3 +30,37 @@ Ausgang `821dd131`, vereinter Quellstand `5f294df9`. Plan:
 Das vollständige Gate mit Hauptlinie und allen Integrations-/Modulsuiten sowie
 der Push erfordern einen eigenen grünen Lauf auf der endgültig gewählten SHA.
 Einzel- oder Modulprüfungen ersetzen diesen Nachweis nicht.
+
+## Gesamtgate und Korrektur der Testisolation
+
+Gate auf `354b1ae3`: `check: OK`, Hauptlinie **1600/1600** grün
+(`2026-10-01T00-53-59Z-55d1`), Integration **ROT**
+(`2026-10-01T00-59-50Z-bcf2`, 38 Portalfehler). Kein Push.
+
+Der Minecraft-26.3-Bytecode belegt: `GameTestHelper.runBeforeTestEnd` plant
+bei `getTimeoutTicks() - 1`; es ist kein Abschluss-Callback. Erfolgreiche neue
+Settings-Tests ließen alle drei Dimensions-Schalter auf der Platte ausgeschaltet.
+Die nächste Serverinstanz las diesen Zustand korrekt und verweigerte Portale.
+`ClaimPortalTests` verwendete denselben falschen Cleanup-Ansatz.
+
+Fix `a5d8151e` räumt bei Erfolg und Fehler explizit und idempotent auf; der
+Timeout-Fallback bleibt. Alle Test-IDs, Gameplay-Assertions und Verzögerungen
+erhalten. Zwei komplette Tweaks-/Dimensions-Läufe nacheinander, ohne Rücksetzen
+zwischen den Läufen: **176/176** (`2026-10-01T01-19-36Z-79f7`) und **176/176**
+(`2026-10-01T01-23-28Z-ec4c`). Beide `server.json`-Dateien waren nach jedem Lauf
+bytegleich zum Ausgangszustand. Die vorher beschädigten Wegwerf-Konfigurationen
+wurden vor einmaliger Reparatur gesichert; Besitzerdateien blieben unberührt.
+
+Die Forge-Prüfung fand außerdem eine zeitliche Testkollision. Deren getrennte
+Settings-Testumgebung wird vor dem abschließenden Gesamtgate übernommen.
+
+## Produktions-Bootstrap
+
+Die beiden normalen 26.3-JARs enthielten zunächst keinen der vier gemeinsamen
+Bootstrap-Typen. Die isolierte Gegenprobe mit einem URLClassLoader ohne
+Projekt-Classpath scheiterte beim alten Fabric-JAR mit
+`ClassNotFoundException: com.simplebuilding.common.SimplebuildingBootstrap`.
+Fix `f23d1004` nimmt den bestehenden `:common`-Output in beide JARs auf.
+Nach erneutem Build bestanden beide Archive denselben isolierten Aufruf von
+`SimplebuildingBootstrap.initialize`, einschließlich seiner inneren Builder-
+Abhängigkeiten und der einmaligen Initialisierung. Kein Minecraft-Client gestartet.

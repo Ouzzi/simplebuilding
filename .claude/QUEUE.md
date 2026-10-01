@@ -99,6 +99,13 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] NEXT-SMALL Worker-Umsetzung (codex-next-small): QoL-Standard 1/Cap 1.5 mit Altconfig-Erhalt; Sounds folgen aktiver Visuals-Stufe ueber optionale Framework-API. 48/48 + 71/71 + 2/2 + Testzentrale 10/10 alles gruen; finales check Exit 0. Details/Scope-Erweiterung: modules/simplesounds/docs/next-small-plan.md. Besitzer-Abnahme und komplettes zusammengefuehrtes Orchestrator-Gate bleiben offen; kein Push/Merge.
 # Orchestrator-Merge 2026-10-01
 
+Gesamtgate `354b1ae3` zunächst ROT: check und 1600/1600 Hauptlinie grün,
+Integrations-Portalfehler durch liegengebliebene Testeinstellungen. Fix `a5d8151e`
+zweimal 176/176 grün mit bytegleichen Configs. Paketfix `f23d1004`: gemeinsamer
+Bootstrap in beiden 26.3-JARs, isolierter Aufruf aus beiden Archiven grün.
+Forge läuft weiter; gemeinsames Abschlussgate/Push bleiben offen. Details:
+`docs/ai/CODEX-VERIFICATION-2026-10-01.md`.
+
 Claims (Hauptschalter AUS, Stage-4-Lücken dokumentiert), Dimensions-Einstellungen,
 kompilierter UI-Test und QoL/Sounds sind auf master gemergt (bis `6bb478cd`).
 Einzel-Worker-Gates grün; gemeinsames Gate und SHA-Push stehen aus. Forge beginnt
