@@ -25,5 +25,13 @@ public final class ClaimAutomation {
   for(var location:locations)if(origin.level()!=location.level()||!Claims.transfer(origin.level(),origin.pos(),location.pos()))return false;
   return true;
  }
+ /** Mobile automation has no trusted owner: neither endpoint may touch a claim. */
+ public static boolean unowned(Object source,Object target){
+  if(!Claims.anyEnabled())return true;
+  var positions=new ArrayList<Location>();
+  if(!locations(source,0,positions)||!locations(target,0,positions)||positions.isEmpty())return false;
+  for(var location:positions)if(!Claims.environment(location.level(),location.pos()))return false;
+  return true;
+ }
  private ClaimAutomation(){}
 }

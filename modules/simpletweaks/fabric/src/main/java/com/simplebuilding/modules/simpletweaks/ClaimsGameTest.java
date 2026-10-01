@@ -3,6 +3,9 @@ import com.simplebuilding.modules.simpletweaks.claims.ClaimTests;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ClaimsGameTest {
+ @GameTest public void claimsFollowupCrafter(GameTestHelper h) { ClaimTests.TESTS.get("claims_followup_crafter").accept(h); }
+ @GameTest public void claimsFollowupCopperGolem(GameTestHelper h) { ClaimTests.TESTS.get("claims_followup_copper_golem").accept(h); }
+ @GameTest public void claimsFollowupLightning(GameTestHelper h) { ClaimTests.TESTS.get("claims_followup_lightning").accept(h); }
  @GameTest public void claimsEnvironmentNaturalDamage(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_natural_damage").accept(h); }
  @GameTest public void claimsEnvironmentExplosionMultipart(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_explosion_multipart").accept(h); }
  @GameTest public void claimsEnvironmentIndirectCloud(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_indirect_cloud").accept(h); }
