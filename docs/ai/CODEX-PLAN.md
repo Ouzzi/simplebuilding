@@ -1,5 +1,14 @@
 # Orchestrator-Plan – 2026-09-30
 
+## Aktuelle Fortsetzung am 2026-10-01
+
+Die erste Welle ist auf `17c5c754` mit GREEN und bestätigtem Push abgeschlossen.
+Der Besitzer hat selbstständig ausführbare Folgearbeit sowie die standardmäßige
+Ladung aller Projektmods mit einklappbarer Abwahl im Launch-Hub beauftragt.
+Aktueller Arbeitsplan: `FOLLOWUP-PLAN-2026-10-01.md`; aktuelle Zuständigkeiten
+und Prüfstände stehen oben in `CODEX-HANDOVER.md`. Die folgenden Abschnitte
+dokumentieren die erste Welle und ihre damaligen Zwischenschritte.
+
 ## Ist-Zustand
 
 Start auf `master`, Commit `821dd131`; `git pull --ff-only` meldet aktuell.

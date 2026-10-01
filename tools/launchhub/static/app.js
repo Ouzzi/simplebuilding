@@ -934,6 +934,6 @@ async function viewMods(root) {
     name, h('button',{class:'btn',onclick:async()=>{ await run('/api/mods',{selection,preset:name.value}); await viewMods(root); }},'Preset speichern'));
   const launches = h('div',{class:'actions'}, [['client','Integration: Client'],['server','Server'],['fresh','Frische Welt'],['tests','Integrationstests']].map(([action,label])=>
     h('button',{class:'btn',onclick:async()=>{ try { await api('/api/mods',{selection}); const result=await api('/api/integration/launch',{action,workspace:launchWs()}); toast(result.warnings.join(' ') || 'Gestartet'); } catch(e){toast(e.message,'bad');} }},label)));
-  fill(root,h('h1',{},'Mods'),h('p',{class:'muted'},'26.3 ? Eigene Integration mit separaten Saves. Cloth Config ist f?r SimpleBuilding erforderlich. Normale Hub-Starts ?bernehmen JEI, Jade, Mouse Tweaks und AppleSkin sowie lokale Mods auf Fabric; Cloth Config und Mod Menu bleiben dort im Klassenpfad.'),
+  fill(root,h('h1',{},'Mods'),h('p',{class:'muted'},'Minecraft 26.3: Normale Hub-Starts laden die ausgewählten Projektmods; SimpleBuilding ist immer dabei. Entwickler-Mods werden zusätzlich nach Auswahl geladen. Die Integration verwendet separate Saves. Cloth Config ist für SimpleBuilding auf Fabric und NeoForge erforderlich.'),
     h('section',{class:'card'},buttons,h('div',{class:'table-wrap'},table),launches),processList(j=>j.meta && j.meta.target==='integration-263','Noch keine Integrationsl?ufe.'));
 }

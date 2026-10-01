@@ -1,5 +1,27 @@
 ﻿# Offene Orchestrator-Arbeit – 2026-10-01
 
+## Aktuelle Folgewelle
+
+Die erste Welle ist mit `17c5c754` nach GREEN gepusht. Der frühere
+CLI-Orchestrator PID 20744 ist beendet. Der Desktop-Orchestrator übernimmt die
+vom Besitzer beauftragte Folgearbeit gemäß `FOLLOWUP-PLAN-2026-10-01.md`.
+Keine parallele Übernahme, solange dessen Worker oder Gate aktiv sind.
+
+- `codex-next-dimensions`: Bett-/Mehrblockplatzierung und echte Regressionen.
+- `codex-next-small`: Crafter, Kupfergolem und gezielte Blitzfolgen;
+  Claims bleiben standardmäßig aus.
+- Wiki-UX `a51ac895` bereits integriert: Filter merken, leere Ergebnisse
+  zurücksetzen, feste Tabellenköpfe; Browser- und 19 Python-Tests grün.
+- Launch-Auswahl `57e50ff3`: einklappbare Projektmod-Auswahl, standardmäßig
+  alle elf Module. Browser-Speichern/Neuladen sowie 45 Hub-Tests grün.
+  Die tatsächliche Gradle-Ladung wird in `codex-next-merge-review` geprüft.
+- Erst nach allen Merges den gemeinsamen exakten Commit im separaten Gate
+  prüfen und ausschließlich dessen GREEN-SHA pushen. Noch kein Folge-Push.
+- Besitzer-Client PID 22244 läuft weiterhin; nicht stoppen, keine Builds im
+  Hauptcheckout. GUI-/Audio-Abnahmen bleiben deshalb offen.
+
+## Abschluss der ersten Welle und historische Restpunkte
+
 Branch `master`, letzter Feature-Merge `39fd85b1` (Forge-Worker `6786b545`).
 Quellfixes `a5d8151e` (Test-Cleanup) und `f23d1004` (JAR-Bootstrap).
 Plan: `docs/ai/CODEX-PLAN.md`. Erledigte Merges und tatsächliche Prüfbelege:
