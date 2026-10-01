@@ -371,7 +371,7 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
             return false;
         }
         BlockPos fuel = PistonBreach.findFuel(world, pos, facing);
-        if (fuel == null) {
+        if (fuel == null || !com.simplebuilding.api.WorldPermissions.mayAutomate(world, pos, fuel)) {
             return false;
         }
         if (!breach(world, pos, facing)) {
@@ -426,6 +426,7 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     @Override
     public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int type, int data) {
         if (world instanceof ServerLevel server) {
+            if (!com.simplebuilding.api.WorldPermissions.mayAutomate(world, pos, pos.relative(state.getValue(FACING)))) return false;
             if (type == TRIGGER_EXTEND && breachIfPaid(state, server, pos)) {
                 return false;
             }

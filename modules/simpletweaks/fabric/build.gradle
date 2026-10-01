@@ -1,3 +1,6 @@
 plugins { id 'net.fabricmc.fabric-loom' }
 ext.moduleVersion = '1.2.12'
 apply from: rootProject.file('gradle/module-fabric.gradle')
+
+// Package the shared framework API for production, as well as development runs.
+dependencies { include project(':framework') }

@@ -31,12 +31,24 @@ public final class BuildPermissions {
         return probing > 0;
     }
 
+    /** A machine's loader event is a permission probe, not a fake player's tool action. */
+    public static boolean probeAutomation(Level level, BlockPos source, BlockPos target, java.util.function.BooleanSupplier check) {
+        if (!com.simplebuilding.api.WorldPermissions.active(level)) return check.getAsBoolean();
+        if (!com.simplebuilding.api.WorldPermissions.mayAutomate(level, source, target)) return false;
+        probing++;
+        try {
+            return check.getAsBoolean();
+        } finally {
+            probing--;
+        }
+    }
+
     /** Whether {@code player} may break (or melt, dry, light, prime) the block at {@code pos}. */
     public static boolean mayBreak(Level level, Player player, BlockPos pos, BlockState state) {
         if (!(level instanceof ServerLevel serverLevel) || !(player instanceof ServerPlayer serverPlayer)) {
             return true;
         }
-        if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos)) {
+        if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos) || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos)) {
             return false;
         }
         probing++;
@@ -52,12 +64,13 @@ public final class BuildPermissions {
         if (!(level instanceof ServerLevel serverLevel) || !(player instanceof ServerPlayer serverPlayer)) {
             return true;
         }
-        if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos)) {
+        if (!level.getWorldBorder().isWithinBounds(pos) || !level.mayInteract(player, pos) || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos)) {
             return false;
         }
         probing++;
         try {
-            return PlatformServices.buildGuard().mayPlace(serverLevel, serverPlayer, pos.immutable(), state);
+            return com.simplebuilding.api.WorldPermissions.mayPlace(level, player, pos, state)
+                    && PlatformServices.buildGuard().mayPlace(serverLevel, serverPlayer, pos.immutable(), state);
         } finally {
             probing--;
         }

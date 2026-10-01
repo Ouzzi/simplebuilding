@@ -1,6 +1,8 @@
 # Simple Tweaks: Vollabgleich und 26.3-Kompatibilitaetsmodul
 
-Stand 2026-09-30, Arbeitsbranch `codex-port-tweaks`. Diese Datei beschreibt **keinen neuen Claim-Schutz**.
+Historischer Audit vom 2026-09-30, Arbeitsbranch `codex-port-tweaks`. Die folgenden
+Auditabschnitte beschreiben den damaligen Kompatibilitaetsstand. Der neue,
+standardmaessig ausgeschaltete Claim-Port steht im Abschnitt **Claims-Fortsetzung** am Ende.
 
 ## Ergebnis und Abgrenzung
 
@@ -418,3 +420,127 @@ Aktuelle Run-IDs/Gate-Ausgaenge werden nach Abschluss unten ergaenzt.
 Mit `-Pforge263=true`; SimpleBuilding ist verpflichtend und wird vorher geladen. Native ForgeRegistry-Aliase und ein eigener NamespacedWrapper-Mixin ergänzen die gemeinsamen MappedRegistry-Lookups. Alle 12 kanonischen Fälle prüfen echte alte Item-/Block-/BE-/Komponenten-Codecs, Owner/Charges/Stacks, Canonical-Saves und Verweigerung unbekannter IDs. Keine zusätzlichen Config-/Netzwerk-/Client-Hooks nötig: das Modul besitzt keine davon; die Urkunde nutzt Vanilla-Itemdarstellung. Claims bleiben inaktiv. Forge-Client, echte alte Welt und Besitzerwelt sind nicht abgenommen.
 
 Forge follow-up verification: 12/12 canonical cases passed in the combined run `2026-09-30T17-52-13Z-77a1`; **2828/2828, alles gruen** across existing Fabric/NeoForge/Forge 26.3, integration and all manifest module server suites. Explicit Forge compile without `forge_runs`: exit 0. Client and owner-world limits above remain open.
+
+## Claims-Fortsetzung (codex-next-claims, 2026-09-30)
+
+Claims bleiben standardmaessig AUS, auch nach weiteren Ausbaustufen. Taskplan:
+`modules/simpletweaks/CLAIMS-PLAN.md`. Stufe 1 ist die Daten-/Befehlsgrundlage,
+noch kein vollstaendiger Landschutz. Die Config-Tooltiptexte nennen den aktuellen Umfang.
+
+Die dokumentierten lokalen Quellcommits bb8f976 und 9882906 sowie der lokale
+Claims-only-Branch sind auf GitHub nicht verfuegbar; gezielte Fetch-Versuche wurden
+abgelehnt. Die read-only gelesene oeffentliche 1.21.11-Quelle ist 739537ef0f250303be618dff204ccac64fdfff66.
+Dateihashes: `modules/simpletweaks/audit/claims-source.json`. Der fruehere lokale
+Audit bleibt als zusaetzlicher Formatbeleg erhalten. Kein Quellcode wurde dort geaendert.
+
+- Serverdatei `config/simpletweaks-claims.json`, Neustart erforderlich; keine C2S-Konfiguration.
+  Defaults: enabled=false, maxClaimsPerPlayer=16 (1..256), maxTrustedPlayers=8 (0..64),
+  globalCap=4096 (1..10000), cooldownTicks=100 (20..72000), opBypass=false,
+  spawnBuffer=16 (0..256), dimensions=Oberwelt/Nether/Ende (maximal 32 IDs).
+- Neue Claims muessen vollstaendig in der Weltgrenze und ausserhalb des Spawnquadrats
+  liegen. Vanilla-Spawnschutz wird mindestens eingehalten, auch fuer OPs. Die
+  Dimensionsliste beschraenkt neue Claims, nicht den Schutz schon vorhandener Daten.
+- Falls eingeschaltet, gilt ein Schutz-Bypass nur fuer OP4; er hebt keine Claim-Caps,
+  Spawn- oder Weltgrenzenregeln auf. Befehlsadministration ist separat OP4.
+- Globaler Datensatz `<world>/simpletweaks-claims.json`: Datei erst nach aktiviertem
+  Zugriff lesen; atomarer Dateitausch und unveraenderliche Map-/Whitelist-Sichten.
+  Schreiben erfolgt vor Veroeffentlichung der neuen Rechte. Bei Lesefehlern oder
+  Schreibfehlern sperrt die aktivierte Runtime den Zugriff; Originaldateien bleiben erhalten.
+- Alte per-Dimension `data/simpletweaks_claims.dat` werden beim ersten aktivierten
+  Lesen importiert, falls noch kein globaler Datensatz existiert. Es wird dabei noch
+  nichts geschrieben. Originale werden nie ersetzt; unbekannte/defekte Daten werden
+  nicht zu einer leeren, beschreibbaren Claim-Welt umgedeutet. Der Import umfasst
+  auch ungeladene eigene Dimensionen unter `dimensions/` (begrenzter Scan;
+  bei mehr als 100000 Eintraegen wird sicher abgebrochen). Nach dem ersten atomaren Schreiben
+  ist der globale Datensatz massgeblich. Alte Dateikopien bleiben als Archiv erhalten.
+- Urkunden behalten alle CustomData-Felder unveraendert. Diese Felder sind niemals
+  Autoritaet. Aktivierte Verwendung beantragt serverseitig einen Claim; Feedback nur
+  Sound/Partikel, keine Chat-/Aktionsleistentexte. Kein neues Rezept oder neue Pixelkunst.
+- Das Modul besitzt einen gemeinsamen Sprachressourcenort fuer beide Loader, keine
+  separate 26.2-/26.3-Sprachkopie. Beide EN/DE-Dateien enthalten Name, Tooltip, Tab und
+  Default fuer jede eigene Option; fremde SimpleBuilding-Sprachdateien bleiben unveraendert.
+
+Neue Serverchecks liegen im eigenen ClaimsGameTest-Katalog. Bestehende zwoelf
+Kompatibilitaetsfaelle bleiben erhalten; der bisherige Test fuer fehlende Claim-Befehle
+prueft jetzt, dass der ausgeschaltete Claim-Baum unbenutzbar bleibt. Forge-Claims,
+Forge-Katalogerweiterung, Clients, echte Altwelten und Besitzerwelt bleiben separat.
+
+### Claims Stufe 2 (Fortsetzung)
+Vanilla-Serverhooks pruefen Abbau, Benutzung und Platzierung einschliesslich
+Nachbarchunk, Bettkopf und verbundener Truhenhaelfte; Eimer und Entity-Interaktionen
+sowie Nahkampf und Stichangriffe sind angebunden. 13/13 Servertests je Loader
+(Fabric/NeoForge 26.3, Lauf 2026-09-30T21-45-15Z-77ed). Schutz bleibt unvollstaendig
+und standardmaessig aus. Umweltschaden und Automation folgen separat.
+
+### Claims Stufe 3 (Fortsetzung)
+Framework-Vertrag `Protection` ohne Minecraft-Abhaengigkeit; 26.3-Serviceadapter
+und zentrale Geometriepruefungen in SimpleBuilding. Berechtigungen werden vor
+Werkzeug-Zielmutationen und vor Teleports geprueft; Bett-/Truhen-Gegenstuecke und
+beide Teleportenden sind eingeschlossen. Ohne Anbieter keine neuen Weltabfragen.
+36/36 Claims-Servertests gruen (2026-09-30T22-48-57Z-7c6b). Nicht alle Blaupausen-
+und Umformmodi wurden mit aktiven Claims geprueft; keine Sicherheitsfreigabe.
+Bestehender Baustab-Bettfehler: Nachbarupdate vor Kopfplatzierung ergibt Luft;
+dieser unabhaengige Spielfehler wurde hier nicht veraendert.
+
+### Claims Stufe 4: Automation und indirekte Angriffe
+
+Fortsetzung im vorhandenen Worktree ab `7422a3ab`; der vorhandene Stage-4-Entwurf
+und alle bisherigen Tests bleiben erhalten. **Claims bleibt AUS und ist nicht
+einschaltbereit.** Stufen 5/6 gehoeren zum getrennten Access-Run. Der Plan und die
+aktuellen Pruefbelege stehen in `modules/simpletweaks/CLAIMS-STAGE4.md`.
+
+- Automation hat keinen Spieler-Bypass: Quelle, Ziel und bekannte Bett-/Truhen-
+  Gegenstuecke muessen denselben Landbesitzer haben oder alle unbeansprucht sein.
+  Trust ist keine grenzueberschreitende Maschinenfreigabe. Die Framework-Erweiterung
+  ist generisch; der Minecraft-Adapter wird nur auf 26.3 geladen. Ohne Anbieter
+  kehren die neuen SimpleBuilding-Pruefungen vor Geometrie-/Weltabfragen zurueck.
+- Explosionen zerstoeren keine beanspruchten Bloecke, auch nicht ueber das andere
+  Ende eines Betts; beanspruchte Entities erhalten weder Explosionsschaden noch
+  Explosionsschub. Das gilt auch fuer Explosionen des Besitzers. Feuer-Ausbreitung,
+  Abbrennen und Lava-Entzuendung pruefen die Ziel-Footprints. Feuer auf beanspruchtem
+  Land breitet sich nicht aus. Fluessigkeitstransfers und erkannte Lava-Konversionen
+  pruefen beide Seiten; gleichbesitzige Fluessigkeitsautomation bleibt erlaubt.
+- Vanilla-Kolben pruefen die echte Resolver-Liste einschliesslich Schleim/Honig,
+  zerstoerbarer Bloecke und Rueckzug, vor der Mutation. Verstaerkte Kolben pruefen
+  zusaetzlich ihren Brennstoff. Netherit-/Enderitbrecher pruefen vor Zerstoerung,
+  Verschleiss und Brennstoffverbrauch; Enderit darf seinen vorhandenen Teil-Durchbruch
+  vor einem verweigerten tieferen Ziel beenden. Ein gesperrtes Ziel bleibt erhalten.
+- Vanilla- und Mod-Hopper pruefen bekannte Container sowie Item-Entities; beide
+  Haelften einer Doppeltruhe werden beruecksichtigt. Mod-Hopper pruefen vor dem
+  Loader-Transferzugriff auch das lokale Ausgabeziel. Platzierte Attractors pruefen
+  Item und Zugstrecke; der Scan bleibt auf 256 Chunks begrenzt.
+- Dropper und exakte Vanilla-Standardauswuerfe von Dispensern duerfen innerhalb
+  desselben Besitzes arbeiten. Andere Dispenser-Behaviors sind innerhalb eines
+  5x5-Chunk-Fensters um Claims konservativ gesperrt, ohne Itemverbrauch. Das ist eine
+  bewusste Funktionsgrenze, keine vollstaendige Absicherung beliebiger Behaviors.
+- Projektiltreffer, zurechenbare Schadensquellen und schaedliche Effekte verfolgen
+  Projektil-/Wolkenbesitzer bis maximal acht Schritte. Ein unberechtigter Spieler
+  darf nicht ueber einen indirekten Verursacher angreifen. Nichtspielerangriffe
+  ohne berechtigten Spieler werden auf beanspruchten Zielen konservativ verweigert.
+  Schaden ohne angreifende Entity ist dagegen weiterhin Vanilla: Fall, Ertrinken,
+  Hunger, Ersticken, Frieren und natuerlicher Magieschaden sind keine Immunitaet.
+  Explosionsschaden ist die ausdrueckliche Ausnahme. Natuerliche Effekte ohne
+  Verursacher bleiben ebenfalls wirksam.
+
+Konkrete verbleibende Grenzen, deshalb keine Sicherheitsfreigabe:
+
+- Unbekannte Container ohne aufloesbare Weltposition (beispielsweise Vanilla-
+  Composter-Wrapper) werden im aktivierten Hopper-Transfer konservativ verweigert;
+  fuer vollstaendige Kompatibilitaet fehlen Adapter und Gameplay-Gegenproben.
+- Kupfergolems (`TransportItemsBetweenContainers`) aendern Container direkt und
+  umgehen Hopper-Hooks. Crafter koennen verweigerte Ausgaben als Item auswerfen.
+  Diese Pfade sind noch nicht vollstaendig geschuetzt.
+- Blitzentzuendung und Kupferreinigung (`LightningBolt.spawnFire` bzw.
+  `clearCopperOnLightningStrike`) mutieren Bloecke ausserhalb der Feuer-Tickhooks.
+  Diese konkreten Vanilla-Pfade bleiben offen; Blitzschaden als Entity-Quelle wird
+  momentan konservativ verweigert. Das ist keine vollstaendige Naturschaden-Policy.
+- Ungepruefte Modmaschinen mit direkten Container-/Weltmutationen, entfernten
+  Capability-/Storage-Zielen und frei registrierten Dispenser-Behaviors koennen
+  ausserhalb der lokalen Pruefungen wirken. Ein 5x5-Chunk-Fenster ist kein Beweis
+  fuer deren maximale Reichweite. Kein pauschales Modpack-Schutzversprechen.
+- Nicht jede Loader-Capability, jeder Fire-/Fluid-Konversionsfall, jedes modifizierte
+  Projektil und jede physikalische Sekundaerwirkung wurde mit echtem Gameplay
+  verifiziert. Andere Minecraft-Linien, Forge, Clients und Besitzerwelten sind
+  nicht Bestandteil dieses Runs. Off-Modus und fehlender Anbieter bleiben inert.
+
+Aktuelle Stage-4-Belege: Claims 64/64, alles gruen, 2026-09-30T23-45-13Z-23b2; Bestandsfilter ohne Anbieter Kolben 56/56, Hopper 52/52, Attractor 6/6, Testzentralen/Abdeckung 10/10, jeweils alles gruen. Genaue Run-IDs und bekannte Grenzen: `modules/simpletweaks/CLAIMS-STAGE4.md`.

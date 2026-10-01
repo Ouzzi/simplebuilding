@@ -308,7 +308,8 @@ public class EchoCompassItem extends Item {
             lockAfterAttempt(player, stack);
             return false;
         }
-        return true;
+        return com.simplebuilding.api.WorldPermissions.mayAct(targetLevel, player, target.pos())
+                && com.simplebuilding.api.WorldPermissions.mayTeleport(player, targetLevel, Vec3.atBottomCenterOf(target.pos().above()));
     }
 
     /**

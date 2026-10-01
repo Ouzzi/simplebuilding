@@ -305,7 +305,6 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity implements PadS
             return;
         }
         boolean world = destination == Destination.WORLD_SPAWN;
-        level.playSound(null, player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1f, world ? 1.3f : 1f);
 
         ServerLevel targetLevel;
         Vec3 target;
@@ -313,13 +312,15 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity implements PadS
         if (own != null) {
             targetLevel = own.newLevel();
             target = own.position();
-            player.teleport(own);
         } else {
             SpawnTarget spawnTarget = spawnTarget(serverLevel);
             targetLevel = spawnTarget.level();
             target = spawnTarget.position();
-            player.teleportTo(targetLevel, target.x, target.y, target.z, Set.of(), 0f, 0f, false);
         }
+        if (!com.simplebuilding.api.WorldPermissions.mayTeleport(player, targetLevel, target)) return;
+        level.playSound(null, player.blockPosition(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1f, world ? 1.3f : 1f);
+        if (own != null) player.teleport(own);
+        else player.teleportTo(targetLevel, target.x, target.y, target.z, Set.of(), 0f, 0f, false);
         com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.SPAWN_TELEPORT);
         com.simplebuilding.stats.ModStats.award(player, com.simplebuilding.stats.ModStats.TELEPORTS);
 

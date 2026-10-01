@@ -41,23 +41,38 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
       ]
     },
     {
-      "id": "claims_deferred",
+      "id": "claims",
       "en": {
-        "title": "Claims Remain Deferred",
-        "summary": "The legacy deed retains its custom data but grants no land protection. No claim commands, persistence, recipes, packets, enchantments, entities, key bindings, or gameplay configuration are added. Existing claim files are not read or changed.",
+        "title": "Claims: Disabled by Default",
+        "summary": "Stages 1–3 and partial stage-4 protection are implemented. Automation still has unsupported paths, including copper golems, crafters and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data. Development tests only. Default: false.",
         "details": [
-          "The legacy deed retains its custom data but grants no land protection. No claim commands, persistence, recipes, packets, enchantments, entities, key bindings, or gameplay configuration are added. Existing claim files are not read or changed."
+          "Stages 1–3 and partial stage-4 protection are implemented. Automation still has unsupported paths, including copper golems, crafters and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data. Development tests only. Default: false.",
+          "Automation checks source and destination ownership, including known bed/chest counterparts. Known Vanilla and SimpleBuilding piston/hopper hooks and placed attractors are guarded. Natural damage remains active. Explosions are blocked on claimed targets regardless of owner.",
+          "Plain dispenser ejection and droppers work within one owner. Other dispenser behaviors remain blocked near claims. Unknown containers are refused when enabled. Copper golem transfers, crafter fallback ejections and arbitrary remote mod mutations are not fully protected; Claims must remain off.",
+          "Lightning ignition and copper cleaning also bypass the fire tick guards. Lightning entity damage is currently denied conservatively. These paths need further work before activation."
         ]
       },
       "de": {
-        "title": "Claims bleiben zurueckgestellt",
-        "summary": "Die alte Urkunde behaelt ihre Zusatzdaten, bietet aber keinen Landschutz. Keine Claim-Befehle, Speicherung, Rezepte, Pakete, Verzauberungen, Entities, Tastenkombinationen oder Spieleinstellungen werden hinzugefuegt. Alte Claim-Dateien werden nicht gelesen oder veraendert.",
+        "title": "Claims: standardmäßig aus",
+        "summary": "Stufen 1–3 und Teile des Stage-4-Schutzes sind umgesetzt. Automation hat weiterhin ungeschützte Pfade, darunter Kupfergolems, Crafter und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus; ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
         "details": [
-          "Die alte Urkunde behaelt ihre Zusatzdaten, bietet aber keinen Landschutz. Keine Claim-Befehle, Speicherung, Rezepte, Pakete, Verzauberungen, Entities, Tastenkombinationen oder Spieleinstellungen werden hinzugefuegt. Alte Claim-Dateien werden nicht gelesen oder veraendert."
+          "Stufen 1–3 und Teile des Stage-4-Schutzes sind umgesetzt. Automation hat weiterhin ungeschützte Pfade, darunter Kupfergolems, Crafter und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus; ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
+          "Automation prüft Besitz an Quelle und Ziel einschließlich bekannter Bett-/Truhengegenstücke. Bekannte Vanilla- und SimpleBuilding-Kolben-/Hopper-Hooks sowie platzierte Attractors sind angebunden. Naturschaden bleibt wirksam. Explosionen werden auf beanspruchten Zielen unabhängig vom Besitzer verweigert.",
+          "Einfache Dispenser-Auswürfe und Dropper funktionieren innerhalb desselben Besitzes. Andere Dispenser-Behaviors bleiben in Claim-Nähe gesperrt. Unbekannte Container werden bei aktiviertem Schutz verweigert. Kupfergolem-Transfers, Crafter-Ersatzauswürfe und beliebige entfernte Mod-Mutationen sind nicht vollständig geschützt; Claims muss aus bleiben.",
+          "Blitzentzündung und Kupferreinigung umgehen ebenfalls die Feuer-Tickprüfungen. Blitzschaden als Entity-Quelle wird momentan konservativ verweigert. Diese Pfade benötigen vor der Aktivierung weitere Arbeit."
         ]
       },
       "sources": [
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/LegacyDeed.java"
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/LegacyDeed.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/Claims.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimConfig.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimStore.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimGameModeMixin.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/Protection.java",
+        "common/src/shared/java/com/simplebuilding/api/WorldPermissions.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimAutomation.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimDamageMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimExplosionMixin.java"
       ]
     },
     {
@@ -97,10 +112,10 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
       },
       "note": {
         "en": {
-          "summary": "An inert legacy artifact from existing worlds or /give. Stack size 16. Original texture and custom data are preserved. No recipe or land protection."
+          "summary": "Legacy deed from existing worlds or /give. Stack size 16. Original texture and custom data are retained. No recipe. Claims are disabled by default; enabled deeds request ownership from the server."
         },
         "de": {
-          "summary": "Ein wirkungsloses Altitem aus bestehenden Welten oder /give. Stapelgroesse 16. Originaltextur und Zusatzdaten bleiben erhalten. Kein Rezept und kein Landschutz."
+          "summary": "Alte Urkunde aus vorhandenen Welten oder /give. Stapelgröße 16. Originaltextur und Zusatzdaten bleiben erhalten. Kein Rezept. Claims sind standardmäßig aus; aktiviert beantragt die Urkunde Besitz beim Server."
         }
       },
       "texture": "assets/textures/simpletweaks/item/claim_deed.png"

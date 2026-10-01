@@ -145,7 +145,7 @@ public final class CompatibilityTests {
  }
  static void commands(GameTestHelper h) {
   var root=h.getLevel().getServer().getCommands().getDispatcher().getRoot();
-  require(h,root.getChild("claim")==null && root.getChild("simpletweaks")==null,"No duplicate or inactive claim commands");
+  require(h,(root.getChild("claim")==null || !root.getChild("claim").canUse(h.getLevel().getServer().createCommandSourceStack())) && root.getChild("simpletweaks")==null,"No usable disabled claim commands or duplicate old commands");
   require(h,root.getChild("simplebuilding")!=null && root.getChild("killboats")!=null && root.getChild("killcarts")!=null,"Existing commands present");h.succeed();
  }
  private CompatibilityTests() {}

@@ -289,7 +289,7 @@ public final class LaserBeam {
      * schaden darf (PvP-Regel, Server-Einstellung, Team-Freundfeuer).
      */
     public static boolean canIgnite(ServerPlayer player, LivingEntity target) {
-        if (!com.simplebuilding.config.ServerTuning.get().laser.igniteEntities) {
+        if (!com.simplebuilding.api.WorldPermissions.mayAffectEntity(player, target) || !com.simplebuilding.config.ServerTuning.get().laser.igniteEntities) {
             return false;
         }
         // Der Wasser-Merker des Entities wird erst im naechsten Tick aktualisiert; der Block zaehlt sofort.
@@ -337,7 +337,8 @@ public final class LaserBeam {
     }
 
     private static boolean allowed(ServerPlayer player, ServerLevel level, BlockPos pos, Direction face, ItemStack stack, Effect effect) {
-        if (!player.mayInteract(level, pos) || !player.mayUseItemAt(pos, face, stack)) {
+        if (!com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos)
+                || !player.mayInteract(level, pos) || !player.mayUseItemAt(pos, face, stack)) {
             return false;
         }
         com.simplebuilding.config.ServerTuningConfig.Laser switches = com.simplebuilding.config.ServerTuning.get().laser;

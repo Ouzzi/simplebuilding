@@ -1,0 +1,31 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.modules.simpletweaks.mixin.claims",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ClaimLevelMixin",
+    "ClaimGameModeMixin",
+    "ClaimBucketMixin",
+    "ClaimBlockItemMixin",
+    "ClaimPlayerMixin",
+    "ClaimCompoundAccessor",
+    "ClaimDamageMixin",
+    "ClaimDispenserMixin",
+    "ClaimDropperMixin",
+    "ClaimEffectMixin",
+    "ClaimExplosionMixin",
+    "ClaimFireMixin",
+    "ClaimFluidMixin",
+    "ClaimHopperMixin",
+    "ClaimLavaFireMixin",
+    "ClaimLiquidMixin",
+    "ClaimPickupMixin",
+    "ClaimPistonInvoker",
+    "ClaimPistonMixin",
+    "ClaimPistonResolverMixin",
+    "ClaimProjectileMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

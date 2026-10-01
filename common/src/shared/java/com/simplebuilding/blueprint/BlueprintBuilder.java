@@ -893,7 +893,8 @@ public final class BlueprintBuilder {
                     // die inzwischen stehen (die Liste wurde vor dem Bau berechnet).
                     state = Block.updateFromNeighbourShapes(state, level, pos);
                 }
-                if (!level.setBlock(pos, state, Block.UPDATE_ALL)) {
+                if (!com.simplebuilding.api.WorldPermissions.mayPlace(level, player, pos, state)
+                        || !level.setBlock(pos, state, Block.UPDATE_ALL)) {
                     return false;
                 }
                 BlueprintMaterials.Cost paid = BlueprintMaterials.cost(state);

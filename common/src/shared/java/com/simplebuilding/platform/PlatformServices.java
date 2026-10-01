@@ -91,6 +91,7 @@ public final class PlatformServices {
         if (!level.getWorldBorder().isWithinBounds(target)) {
             return false;
         }
-        return pistonBreakGuard.mayBreak(level, piston, facing, target, state);
+        return com.simplebuilding.util.BuildPermissions.probeAutomation(level, piston, target,
+                () -> pistonBreakGuard.mayBreak(level, piston, facing, target, state));
     }
 }

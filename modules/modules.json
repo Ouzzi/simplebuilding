@@ -682,7 +682,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Tweaks",
-      "description": "Legacy-world compatibility for features now provided by SimpleBuilding; claims remain deferred.",
+      "description": "Legacy compatibility and staged server-authoritative claims, disabled by default.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -698,7 +698,8 @@
       "tests": {
         "namespace": "simpletweaks",
         "catalogues": [
-          "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/ModuleGameTest.java"
+          "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/ModuleGameTest.java",
+          "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/ClaimsGameTest.java"
         ],
         "requires": [
           "simpletweaks",

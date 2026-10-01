@@ -60,6 +60,7 @@ public class ReinforcedPistonBlock extends PistonBaseBlock {
             Direction facing = state.getValue(FACING);
             if (PistonBreach.isBreachable(world, pos.relative(facing))) {
                 fuel = PistonBreach.findFuel(world, pos, facing);
+                if (fuel != null && !com.simplebuilding.api.WorldPermissions.mayAutomate(world, pos, fuel)) return false;
             }
         }
         boolean fired = super.triggerEvent(state, world, pos, type, data);

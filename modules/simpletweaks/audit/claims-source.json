@@ -1,0 +1,19 @@
+{
+  "repository": "https://github.com/Ouzzi/simpletweaks",
+  "readOnlyRevision": "739537ef0f250303be618dff204ccac64fdfff66",
+  "availableBranches": [
+    "  origin/1.21.11",
+    "  origin/HEAD -> origin/master",
+    "  origin/master"
+  ],
+  "unavailableDocumentedCommits": [
+    "9882906050294967d229b3c7874c98e73b29c228",
+    "bb8f976bcaf387e72e184354de3f9f16423c618d"
+  ],
+  "files": {
+    "world/ClaimState.java": "84104a8ed81b4f20f3da07d857b331765111fb2339de37769a1fb2e2c3ca4a79",
+    "item/custom/ClaimDeedItem.java": "033b58311693de9abdfc903893a15b721f98de0019fc3bee17128e2d87dd2ed3",
+    "event/ClaimProtectionHandler.java": "ab830f6fa2b3bb55eb5ea285bd633e32b678a9ac93bdb2d2830889fe92bb3dea",
+    "command/ModCommands.java": "2634798fb6f35e526794244b6e097ecb8ad96019585f71ad85f5b682521e04dc"
+  }
+}

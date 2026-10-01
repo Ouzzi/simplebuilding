@@ -111,7 +111,8 @@ public final class WandPlacement {
         if (clicked != null && clicked.getBlock() == block) {
             state = copyOrientation(clicked, state);
         }
-        return item.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY).apply(state);
+        state = item.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY).apply(state);
+        return com.simplebuilding.api.WorldPermissions.mayPlace(level, player, pos, state) ? state : null;
     }
 
     /** Uebernimmt die Ausrichtung eines Blocks gleicher Sorte; doppelte Stufen bleiben beim Platzierten. */

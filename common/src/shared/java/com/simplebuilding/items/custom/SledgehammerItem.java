@@ -222,7 +222,8 @@ public class SledgehammerItem extends Item {
      * asks (spawn protection, claim mods, adventure mode).
      */
     private static boolean mayChange(Level world, Player player, BlockPos pos, Direction side, ItemStack stack) {
-        return player.mayBuild() && world.mayInteract(player, pos) && player.mayUseItemAt(pos, side, stack);
+        return player.mayBuild() && world.mayInteract(player, pos) && player.mayUseItemAt(pos, side, stack)
+                && com.simplebuilding.api.WorldPermissions.mayChange(world, player, pos);
     }
 
     @Override
