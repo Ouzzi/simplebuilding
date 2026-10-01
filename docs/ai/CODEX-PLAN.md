@@ -2,6 +2,10 @@
 
 ## Aktuelle Fortsetzung am 2026-10-01
 
+Die serielle Clientabnahme ist durchgeführt; Ergebnisse und begrenzte
+Testkorrekturen: `CLIENT-ACCEPTANCE-2026-10-01.md`. Maßgebliches neues Gate ist
+`.ai-runs/client-followup-full-gate.log`. Kein weiterer Hub-Neustart vorgemerkt.
+
 Die erste Welle ist auf `17c5c754` mit GREEN und bestätigtem Push abgeschlossen.
 Der Besitzer hat selbstständig ausführbare Folgearbeit sowie die standardmäßige
 Ladung aller Projektmods mit einklappbarer Abwahl im Launch-Hub beauftragt.

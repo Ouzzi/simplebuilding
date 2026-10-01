@@ -2,6 +2,13 @@
 
 ## Aktueller Stand
 
+Aktualisierung 2026-10-01 Abend: Besitzer-Clients beendet, Hub-Neustart bereits
+erledigt. Serielle Clientabnahmen und drei belegte Testkorrekturen sind in
+`CLIENT-ACCEPTANCE-2026-10-01.md` dokumentiert: Dimensions 7/7, HUD auf beiden
+Loadern 32/32, QoL 5/5, Sounds 3/3, Visuals mit/ohne Simple Models je 5/5 grün.
+Neues exaktes Abschlussgate: `.ai-runs/client-followup-full-gate.log`.
+Die nachfolgenden Wellenangaben sind historische Einordnung.
+
 Die erste Welle ist auf `17c5c754` mit GREEN gepusht. Der frühere
 CLI-Orchestrator PID 20744 ist beendet; der Desktop-Orchestrator hat die vom
 Besitzer autorisierte Folgewelle übernommen. Plan:
@@ -32,15 +39,13 @@ Serverstarts und Abwahl-Gegenproben geprüft; Details im Verifikationsbericht.
   vertrauenswürdige mobile Besitzer, unbekannte Container und weitere entfernte
   Mod-/Storage-/Physikpfade bleiben unvollständig. Grenzen und Tests:
   `modules/simpletweaks/CLAIMS-STAGE4.md`.
-- Besitzer-Client PID 22244 bleibt unangetastet. Vor serieller Clientprüfung
-  erneut kontrollieren, niemals stoppen. Dimensions-UI:
-  `modules/simpledimensions/DIMENSIONS-UI-PLAN.md`; GUI/Sounds/Visuals und
-  Forge-Dialoge weiterhin ohne tatsächliche Clientabnahme. Forge bleibt opt-in.
-- Der aktive Hub auf Port 8773 verwaltet diesen Client. Sein statisches Frontend
-  aktualisiert sich beim Neuladen; Python-Backendänderungen brauchen einen
-  Hub-Neustart. Diesen bei beendetem Besitzerlauf durchführen, damit dessen
-  Prozessverfolgung und Log-Pipe erhalten bleiben. Insbesondere die neue
-  Forge-Auswahlweitergabe benötigt das aktualisierte Backend.
+- Vor weiteren Clientstarts laufende Besitzer-Clients direkt per OS prüfen.
+  Dimensions-UI und die dokumentierten Modul-Smokes sind abgenommen; hörbare
+  Audioqualität und Forge-Dialoge bleiben offen. Forge bleibt opt-in.
+- Hub auf Port 8773 wurde auf ausdrücklichen Auftrag neu gestartet; die neue
+  Forge-Auswahlweitergabe ist aktiv. Kein weiterer vorgemerkter Neustart.
+- Sichtbefund: Octant-Manager-Beschriftungen sind zu kontrastarm. Details und
+  weitere Grenzen stehen im Client-Abnahmebericht.
 - Besitzerwelt/Testzentrale dort unberührt. Automatisierte Zentren- und
   Abdeckungstests in isolierten Welten ersetzen diese Abnahme nicht.
 - Weiterer Backlog: `.claude/QUEUE.md` (unter anderem Config-Spalten,

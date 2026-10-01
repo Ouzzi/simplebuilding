@@ -6,6 +6,11 @@ Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Lini
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
 ## Stand Abend 2026-09-30 (Orchestrator)
 
+Aktueller Nachtrag 2026-10-01: Folgewelle auf `09567ce3` mit GREEN gepusht;
+nach Ende der Besitzer-Clients folgten echte serielle UI-Tests und gezielte
+Testkorrekturen. Ergebnisse, offene Sicht-/Audiogrenzen und das neue exakte Gate:
+`docs/ai/CLIENT-ACCEPTANCE-2026-10-01.md`. Hub-Neustart bereits erledigt.
+
 - Auf master: SimpleBuilding plus neun Module unter `modules/` (siehe `modules/modules.json`):
   simplemoney, simpleriding, simplemodels, simplefun, simplevisuals, simplesounds,
   simplequalityoflife, simpletweaks, simpledimensions. Fabric + NeoForge 26.3 immer, Forge 26.3
