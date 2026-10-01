@@ -21,6 +21,24 @@ war bereits um 07:05 MESZ erledigt; kein weiterer Neustart war erforderlich.
 Es wurden Testannahmen korrigiert, keine Gameplay-Funktionen verändert.
 Commits: `71e8722d`, `60b26a4a`, `f7257acf`.
 
+## Zusätzlich gefundene Server-Testisolation
+
+Das Abschlussgate auf `68fbf7b5` bestand `check` und 1606/1606 Hauptlinientests,
+aber nur 467/485 Integrationstests. 18 Fehler betrafen Fabric-Dimensions.
+Log: `.ai-runs/client-followup-full-gate-68fbf7b5-red.log`;
+Run: `2026-10-01T18-38-53Z-1a5c`.
+
+Im Log überlappen Skyblock- und Mining-Settings-Journeys trotz Tick-Abständen.
+Jede restaurierte dieselbe Datei; ein Cleanup überschreibt dadurch den Zustand
+einer anderen Journey und hinterlässt Skyblock ausgeschaltet. Commit `8bab8677`
+gibt jeder Journey eine eigene Testumgebung. Fabric und NeoForge wurden danach
+zweimal vollständig geprüft: **je 82/82 grün**, Konfigurationsbytes beider
+Instanzen nach jedem Lauf unverändert. Beleg:
+`.ai-runs/dimensions-isolation-proof.json` und `dimensions-isolation-{1,2}.log`.
+Der rote isolierte Zustand wurde zuvor gesichert und nur Skyblock wieder
+aktiviert. Kein Besitzerzustand wurde angefasst. Die Forge-Registrierung ist
+konsistent nachgezogen und statisch geprüft, jedoch nicht ausgeführt.
+
 ## Tatsächliche Läufe
 
 Die JSON-Datensätze und vollständigen Logs liegen unter `testing/runs/`.

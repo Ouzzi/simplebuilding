@@ -3,9 +3,11 @@
 ## Aktueller Stand
 
 Aktualisierung 2026-10-01 Abend: Besitzer-Clients beendet, Hub-Neustart bereits
-erledigt. Serielle Clientabnahmen und drei belegte Testkorrekturen sind in
+erledigt. Serielle Clientabnahmen und belegte Testkorrekturen sind in
 `CLIENT-ACCEPTANCE-2026-10-01.md` dokumentiert: Dimensions 7/7, HUD auf beiden
 Loadern 32/32, QoL 5/5, Sounds 3/3, Visuals mit/ohne Simple Models je 5/5 grün.
+Zusätzlich sind überlappende Dimensions-Settings-Tests isoliert: zweimal 82/82
+auf Fabric/NeoForge grün, beide Konfigurationsdateien bytegleich erhalten.
 Neues exaktes Abschlussgate: `.ai-runs/client-followup-full-gate.log`.
 Die nachfolgenden Wellenangaben sind historische Einordnung.
 
