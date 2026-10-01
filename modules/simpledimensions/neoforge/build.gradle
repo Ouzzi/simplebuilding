@@ -4,6 +4,8 @@ plugins {
 }
 apply from: rootProject.file('gradle/module-neoforge.gradle')
 
+dependencies { jarJar project(':framework') }
+
 neoForge.runs {
     moduleIntegrationGameTest {
         type = 'gameTestServer'

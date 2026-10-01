@@ -131,10 +131,42 @@ public final class Claims {
         if (!ready() || !config.dimensions().contains(key.dimension())) return false;
         if (store.view().containsKey(key) || store.view().size()>=config.globalCap()
                 || store.view().values().stream().filter(c->c.owner().equals(owner)).count()>=config.maxClaimsPerPlayer()
-                || tick-cooldowns.getOrDefault(owner,Long.MIN_VALUE/2)<config.cooldownTicks()) return false;
+                || !mutationReady(owner,tick)) return false;
         var next=new HashMap<>(store.view()); next.put(key,new ClaimStore.Claim(owner,Set.of()));
         if (!commit(next)) return false;
         cooldowns.put(owner,tick); return true;
+    }
+    /** Successful ledger mutations share one bounded server-tick budget across dimensions. */
+    private boolean mutationReady(UUID actor,long tick) {
+        cooldowns.entrySet().removeIf(e->tick>=e.getValue() && tick-e.getValue()>=config.cooldownTicks());
+        return !cooldowns.containsKey(actor) && cooldowns.size()<ClaimConfig.MAX_GLOBAL;
+    }
+    public boolean trust(ServerPlayer actor,UUID target,boolean grant) {
+        if (!ready() || target==null || target.equals(new UUID(0,0))) return false;
+        var key=new ClaimStore.Key(actor.level().dimension().identifier().toString(),actor.chunkPosition().pack());
+        var claim=store.view().get(key);
+        // Trust never delegates administration, including when OP4 protection bypass is enabled.
+        if (claim==null || !claim.owner().equals(actor.getUUID()) || target.equals(claim.owner())
+                || claim.whitelist().contains(target)==grant
+                || (grant && claim.whitelist().size()>=config.maxTrustedPlayers())) return false;
+        long tick=actor.level().getServer().overworld().getGameTime();
+        if (!mutationReady(actor.getUUID(),tick)) return false;
+        var trusted=new HashSet<>(claim.whitelist());
+        if (grant) trusted.add(target); else trusted.remove(target);
+        var next=new HashMap<>(store.view());next.put(key,new ClaimStore.Claim(claim.owner(),trusted));
+        if (!commit(next)) return false;
+        cooldowns.put(actor.getUUID(),tick);return true;
+    }
+    public boolean unclaim(ServerPlayer actor,boolean administrative) {
+        if (!ready()) return false;
+        var key=new ClaimStore.Key(actor.level().dimension().identifier().toString(),actor.chunkPosition().pack());
+        var claim=store.view().get(key);
+        if (claim==null || (administrative ? !admin(actor) : !claim.owner().equals(actor.getUUID()))) return false;
+        long tick=actor.level().getServer().overworld().getGameTime();
+        if (!mutationReady(actor.getUUID(),tick)) return false;
+        var next=new HashMap<>(store.view());next.remove(key);
+        if (!commit(next)) return false;
+        cooldowns.put(actor.getUUID(),tick);return true;
     }
     private boolean commit(Map<ClaimStore.Key,ClaimStore.Claim> next) {
         try { store.replace(next); return true; }

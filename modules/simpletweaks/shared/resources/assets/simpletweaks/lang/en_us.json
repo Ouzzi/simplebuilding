@@ -4,7 +4,7 @@
   "tooltip.simpletweaks.claim_deed.data": "Saved deed data is retained; only the server claim ledger grants permission.",
   "config.simpletweaks.claims.tab": "Server Claims",
   "config.simpletweaks.claims.enabled": "Enable Claims",
-  "config.simpletweaks.claims.enabled.tooltip": "Stages 1–3 and partial stage-4 protection are implemented. Automation still has unsupported paths, including copper golems, crafters and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data. Development tests only. Default: false.",
+  "config.simpletweaks.claims.enabled.tooltip": "Stages 1–3, 5 and 6 plus partial stage-4 protection are implemented: atomic claims, Vanilla/tool checks, owner trust, OP4 administration and the Dimensions adapter. Automation still has unsupported paths, including copper golems, crafters and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data. Development tests only. Default: false.",
   "config.simpletweaks.claims.enabled.default": "false",
   "config.simpletweaks.claims.enabled.tab": "Server Claims",
   "config.simpletweaks.claims.maxClaimsPerPlayer": "Claims per Player",
@@ -20,7 +20,7 @@
   "config.simpletweaks.claims.globalCap.default": "4096",
   "config.simpletweaks.claims.globalCap.tab": "Server Claims",
   "config.simpletweaks.claims.cooldownTicks": "Claim Cooldown",
-  "config.simpletweaks.claims.cooldownTicks.tooltip": "Server ticks between successful claims by one player. Range 20–72000. Shared across dimensions. Default: 100 ticks.",
+  "config.simpletweaks.claims.cooldownTicks.tooltip": "Server ticks between successful claim, trust, revocation or removal operations by one player. Range 20–72000, across dimensions; resets on restart. Default: 100 ticks.",
   "config.simpletweaks.claims.cooldownTicks.default": "100 ticks",
   "config.simpletweaks.claims.cooldownTicks.tab": "Server Claims",
   "config.simpletweaks.claims.opBypass": "Operator Protection Bypass",
@@ -38,5 +38,9 @@
   "command.simpletweaks.claim.locked": "Claims are locked because claim data could not be read or saved. Original files were preserved.",
   "command.simpletweaks.claim.empty": "This chunk is unclaimed.",
   "command.simpletweaks.claim.owner": "Claim owner: %s",
-  "command.simpletweaks.claim.stage": "Claims implementation stage: %s. Protection remains incomplete."
+  "command.simpletweaks.claim.stage": "Claims implementation stage: %s. Protection remains incomplete.",
+  "command.simpletweaks.claim.identity": "Use an online player name or a full nonzero UUID for an offline player. Unknown names and selectors are not accepted.",
+  "command.simpletweaks.claim.updated": "Claim permissions saved.",
+  "command.simpletweaks.claim.denied": "Change refused: ownership, trust limit, cooldown, or unchanged permissions. Only explicit OP4 admin removal bypasses ownership.",
+  "command.simpletweaks.claim.list": "Showing %s claims (maximum %s)."
 }

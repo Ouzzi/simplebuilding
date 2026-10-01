@@ -4,6 +4,7 @@ import java.util.*;
 
 /** Loader-neutral, server-owned permission providers. Client requests are never authoritative. */
 public final class Protection {
+    /** actor is null for automation; providers must not assume a player is present. */
     public record Target(UUID actor, String dimension, int x, int y, int z, boolean administrator) {}
     @FunctionalInterface public interface Check {
         boolean allows(Target target);

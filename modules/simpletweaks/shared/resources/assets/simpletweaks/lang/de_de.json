@@ -4,7 +4,7 @@
   "tooltip.simpletweaks.claim_deed.data": "Urkundendaten bleiben erhalten; nur die Claim-Daten des Servers vergeben Rechte.",
   "config.simpletweaks.claims.tab": "Server-Claims",
   "config.simpletweaks.claims.enabled": "Claims aktivieren",
-  "config.simpletweaks.claims.enabled.tooltip": "Stufen 1–3 und Teile des Stage-4-Schutzes sind umgesetzt. Automation hat weiterhin ungeschützte Pfade, darunter Kupfergolems, Crafter und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus; ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
+  "config.simpletweaks.claims.enabled.tooltip": "Stufen 1–3, 5 und 6 sowie Teile des Stage-4-Schutzes sind umgesetzt: atomare Claims, Vanilla-/Werkzeugprüfungen, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter. Automation hat weiterhin ungeschützte Pfade, darunter Kupfergolems, Crafter und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus; ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
   "config.simpletweaks.claims.enabled.default": "false",
   "config.simpletweaks.claims.enabled.tab": "Server-Claims",
   "config.simpletweaks.claims.maxClaimsPerPlayer": "Claims pro Spieler",
@@ -20,7 +20,7 @@
   "config.simpletweaks.claims.globalCap.default": "4096",
   "config.simpletweaks.claims.globalCap.tab": "Server-Claims",
   "config.simpletweaks.claims.cooldownTicks": "Claim-Abklingzeit",
-  "config.simpletweaks.claims.cooldownTicks.tooltip": "Server-Ticks zwischen erfolgreichen Claims eines Spielers. Bereich 20–72000. Gilt über alle Dimensionen. Standard: 100 Ticks.",
+  "config.simpletweaks.claims.cooldownTicks.tooltip": "Server-Ticks zwischen erfolgreichen Claim-, Vertrauens-, Widerrufs- oder Löschvorgängen eines Spielers. Bereich 20–72000, dimensionsübergreifend; Neustart setzt zurück. Standard: 100 Ticks.",
   "config.simpletweaks.claims.cooldownTicks.default": "100 Ticks",
   "config.simpletweaks.claims.cooldownTicks.tab": "Server-Claims",
   "config.simpletweaks.claims.opBypass": "Schutzumgehung für Operatoren",
@@ -38,5 +38,9 @@
   "command.simpletweaks.claim.locked": "Claims sind wegen eines Lade- oder Speicherfehlers gesperrt. Originaldateien wurden erhalten.",
   "command.simpletweaks.claim.empty": "Dieser Chunk ist nicht beansprucht.",
   "command.simpletweaks.claim.owner": "Claim-Besitzer: %s",
-  "command.simpletweaks.claim.stage": "Claim-Implementierungsstufe: %s. Der Schutz ist noch unvollständig."
+  "command.simpletweaks.claim.stage": "Claim-Implementierungsstufe: %s. Der Schutz ist noch unvollständig.",
+  "command.simpletweaks.claim.identity": "Online-Spielername oder vollständige UUID eines Offline-Spielers verwenden. Null-UUID, unbekannte Namen und Selektoren sind nicht erlaubt.",
+  "command.simpletweaks.claim.updated": "Claim-Rechte gespeichert.",
+  "command.simpletweaks.claim.denied": "Änderung verweigert: Besitz, Vertrauenslimit, Abklingzeit oder unveränderte Rechte. Nur ausdrückliches OP4-Admin-Löschen umgeht den Besitz.",
+  "command.simpletweaks.claim.list": "%s Claims angezeigt (höchstens %s)."
 }

@@ -287,3 +287,43 @@ DIMFIX verification (all summary lines read):
 - Both main-line centre build, complete item/block coverage and command/station tests passed; owner world was untouched.
 - Default/all-module wiki generation and checks passed. No client tests, owner-world travel, external claims, Forge or deferred MC runtime lines were verified.
 - Final `./gradlew.bat check -q`: GRADLE_EXIT=0; 19 wiki tests, balance/module gates and existing shared/26.2 compilation passed. Source/test/wiki fix commit: 4fdfebe7.
+
+## Claims adapter, stage 6 (2026-10-01)
+
+DimensionRuntime consumes the existing loader-neutral framework Protection API.
+No Simple Tweaks implementation is imported. Both Dimensions artifacts package
+that API (Fabric include, NeoForge jarJar), including standalone installations.
+The existing foreign-mod detection and explicit permission-adapter gate remain
+separate: a Simple Tweaks/framework provider cannot authorize an unsupported mod.
+
+With an active provider, activation checks every matched frame and interior cell
+before any mutation or igniter cost. Normal travel checks the current source,
+complete source portal, linked destination portal, landing feet/head/floor and
+all cells of a newly generated platform/exit. Legacy portal metadata is not
+upgraded before its footprint is authorized. Permission is rechecked before move.
+Without a provider, the additional source/frame checks return immediately.
+Existing Vanilla interaction/border/safety rules continue to apply.
+
+Generated exits may leave a newly denied source as a conservative escape policy.
+They never grant access to a denied destination. If the original return is denied
+or unsafe, search authorized safe cells near the saved origin, then the existing
+bounded overworld-spawn fallback. Each candidate, including a portal footprint,
+is checked. No safe authorized candidate means refusal, not destructive building
+or a claim bypass; an administrator must help in that case. The policy cannot
+promise rescue from a world whose every safe destination is denied.
+
+DimensionSettings and DimensionConfigScreen, preset definitions, portal forms and
+textures are unchanged. The separate dimensions-settings worker owns the three
+toggles. Claims stage 4 remains separate, unmerged, and not confirmed complete.
+Claims stay disabled by default and are not certified as complete land protection.
+
+Verification so far: complete Dimensions suites 74/74, alles gruen, run
+2026-09-30T23-24-05Z-521d (37 per loader). Existing tests preserved; added per-cell
+frame/interior denial on both axes, actual linked travel/return and unsupported
+foreign-provider rejection. NeoForge Dimensions suite runs without Simple Tweaks;
+Fabric includes the disabled module. Cross-mod real-command/tick proof follows
+in the Simple Tweaks module, through registry IDs and Vanilla APIs only.
+
+Arrival permission checks also include every column touched by the player bounding box and its floor, within the existing 3×5×3 contact envelope. A wider-player regression refuses overlap with an adjacent denied landing column.
+
+Final targeted claim check: 2026-09-30T23-51-37Z-36e1, 10/10, alles gruen (five per loader). Covers off-center source bodies, wide landing bodies, denied destination construction and missing/out-of-border generated return links. Full evidence and limitations: modules/simpletweaks/CLAIMS-ACCESS-VERIFICATION.md.

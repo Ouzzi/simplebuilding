@@ -344,3 +344,22 @@ Simple Dimensions auf codex-port-dimensions implementiert: drei Dimensionen, sec
 - Claims bleibt AUS und nicht einschaltbereit. Kupfergolem-Containertransfers und Crafter-Ersatzauswuerfe sind noch nicht vollstaendig geschuetzt; unbekannte Container konservativ gesperrt, komplexe Dispenser in Claim-Naehe gesperrt, beliebige Remote-/Modmutationen nicht zertifiziert. Vollstaendige Grenzen/Pruefbelege: modules/simpletweaks/CLAIMS-STAGE4.md und docs/modules/simpletweaks.md. Stage 5/6 bleiben separater Worker; kein Push/Merge/Client.
 - Stage-4-Bestand ohne Claim-Anbieter: Kolben 56/56 (2026-09-30T23-48-11Z-d4a1), Hopper 52/52 (23-49-34Z-8de1), Attractor 6/6 (23-51-32Z-e9b7), Testzentralen/Item-/Blockabdeckung 10/10 (23-53-07Z-ac63), jeweils alles gruen auf Fabric+NeoForge 26.3. Konkrete weitere Aktivierungsblocker: Blitzentzuendung/Kupferreinigung ausserhalb der Feuer-Tickhooks. Besitzerwelt unberuehrt.
 - Abschliessendes volles Worktree-Gate am 2026-10-01: gradlew.bat check -q, GRADLE_EXIT=0; Standardpruefungen und bestehende Shared-/26.2-/1.21.11-Kompilierung gruen, zwei Worker/2-GiB-Heaps. Kein Runtime-Port. Praezisierung zur Naturschaden-Policy: Blitzschaden wird als Entity-Quelle weiterhin konservativ verweigert; deshalb keine vollstaendige Naturschaden-Freigabe. Claims bleibt AUS/nicht einschaltbereit. Exakte 44-Dateien-Liste und Pruefprotokolle im Stage-4-Plan.
+## Claims access worker — Stufe 5 (2026-10-01)
+- Branch codex-next-claims-access, Basis 7422a3ab. Besitzer-Trust/Widerruf mit Offline-UUIDs, sicheren Online-Namen, atomarer Veröffentlichung und gemeinsamen Caps/Cooldown; explizite OP4-Verwaltung unabhängig vom optionalen OP4-Schutz-Bypass.
+- Stufen 1–3 und 5 enthalten; Stufe 4 separat, ungemergt und nicht als abgeschlossen bestätigt. Claims bleiben standardmäßig AUS; Werkzeug-/Umwelt-/Automationsmatrix weiterhin nicht vollständig nachgewiesen.
+
+- Stufe-5-Verifikation: 2026-09-30T23-18-06Z-4f7d, Fabric 21/21,
+  NeoForge 21/21, **alles gruen 42/42** (Filter simpletweaks:*claims*).
+  Echte Brigadier-Befehle, Online-Join/Offline-UUID, Zugriff/Widerruf, OP3/OP4,
+  beide Bypass-Konfigurationen, Limits, atomare Fehler und bestehende Hooks geprüft.
+  Der alte Strahl-Test lädt jetzt seinen Zielchunk vor dem Entity-Spawn; vorher
+  war die Zielerfassung abhängig von der zufälligen Testposition.
+  Wiki default/module generate/check und Modul-/EN-DE-Datenprüfung grün.
+  Keine Clients, Besitzerwelt oder vollständige Sicherheitsmatrix geprüft.
+
+## Claims access worker — Stufe 6 (2026-10-01)
+- Stufe 5: 4ac2875a. Separater Stufe-6-Commit auf codex-next-claims-access: Dimensions über vorhandene öffentliche Protection-API, vollständige Portal-/Landeflächen, beide Reiseenden und sichere erlaubte Rückwege; keine interne Modulkopplung oder gemeinsamen API-/Root-Codeänderungen.
+- Claims bleiben AUS; Stufe 4 ist separat/ungemergt und nicht als fertig bestätigt. Dimensions-Schalterbranch ebenfalls nicht enthalten. Vollständige gemergte Normal-/Integrationsmatrix bleibt beim Orchestrator.
+- Modulvollsuiten: Dimensions 74/74 (2026-09-30T23-24-05Z-521d), Tweaks 66/66 (2026-09-30T23-37-40Z-b5cf). Claims-Nachprüfung 44/44 (2026-09-30T23-49-03Z-e365), abschließende Dimensions-Claimprüfung 10/10 (2026-09-30T23-51-37Z-36e1), jeweils beide 26.3-Loader und alles gruen gelesen. Details/Dateien/Grenzen: modules/simpletweaks/CLAIMS-ACCESS-VERIFICATION.md.
+- Abschluss: gradlew.bat check -q mit max. 2 Workern GRADLE_EXIT=0; zusätzliche Dimensions-JARs gebaut und öffentliche Protection-API samt Fabric-/NeoForge-Metadaten in beiden Paketdateien nachgewiesen. Letzter echter Claims-/Portaltest 2/2, alles gruen, 2026-09-30T23-57-47Z-0885.
+- Testzentrale in Testwelten aufgebaut; Abdeckung/Planvergleich auf beiden Loadern grün. Gesamtlauf 2026-09-30T23-53-58Z-9ce6: 9/10, NF-Knopftest einmal rot; unverändert einzeln 1/1 grün (2026-09-30T23-56-25Z-2d76). Sporadische Ursache offen, kein behaupteter sauberer 10/10-Lauf. Keine Besitzerwelt/Clients/anderen Laufzeitlinien geprüft. Kein Push/Merge.

@@ -18,6 +18,10 @@ public final class ClaimsGameTest {
  @GameTest public void claimsEnvironmentProjectiles(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_projectiles").accept(h); }
  @GameTest public void claimsEnvironmentDispenser(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_dispenser").accept(h); }
 
+ @GameTest(environment="simpletweaks:claims_portal",maxTicks=400) public void claimsPortalFlow(GameTestHelper h) { ClaimTests.TESTS.get("claims_portal_flow").accept(h); }
+ @GameTest public void claimsAccessCommands(GameTestHelper h) { ClaimTests.TESTS.get("claims_access_commands").accept(h); }
+ @GameTest public void claimsAccessCapsFailures(GameTestHelper h) { ClaimTests.TESTS.get("claims_access_caps_failures").accept(h); }
+ @GameTest public void claimsAccessAdmin(GameTestHelper h) { ClaimTests.TESTS.get("claims_access_admin").accept(h); }
  @GameTest public void claimsToolsBedHammer(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_bed_hammer").accept(h); }
  @GameTest public void claimsToolsWandHammer(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_wand_hammer").accept(h); }
  @GameTest public void claimsToolsBeam(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_beam").accept(h); }

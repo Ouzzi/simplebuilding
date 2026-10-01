@@ -544,3 +544,69 @@ Konkrete verbleibende Grenzen, deshalb keine Sicherheitsfreigabe:
   nicht Bestandteil dieses Runs. Off-Modus und fehlender Anbieter bleiben inert.
 
 Aktuelle Stage-4-Belege: Claims 64/64, alles gruen, 2026-09-30T23-45-13Z-23b2; Bestandsfilter ohne Anbieter Kolben 56/56, Hopper 52/52, Attractor 6/6, Testzentralen/Abdeckung 10/10, jeweils alles gruen. Genaue Run-IDs und bekannte Grenzen: `modules/simpletweaks/CLAIMS-STAGE4.md`.
+### Claims Stufe 5 (2026-10-01)
+
+Auf Basis 7422a3ab: `/claim trust <player>` und `untrust` ändern ausschließlich
+Rechte des aktuellen Claims und nur durch dessen Besitzer. Vertraute dürfen keine
+Rechte weitergeben. Online-Namen werden serverseitig aufgelöst; Offline-Spieler
+benötigen eine vollständige, nichtleere UUID. Kein externer Profilabruf und keine
+erratene Offline-UUID; unbekannte Namen, Selektoren und verkürzte UUIDs werden
+abgelehnt. Die UUID ist maßgeblich, auch nach einer Namensänderung.
+
+`/claim unclaim` entfernt den eigenen Claim. `/claim admin listall` (höchstens 50),
+`list <player>` (höchstens 10) und `unclaim` benötigen ausdrücklich OP4.
+Admin-Löschen ist unabhängig von `opBypass`; dieser bestehende Schalter erlaubt
+nur OP4 den Schutz-Bypass und ist standardmäßig false. OP3 genügt nie.
+OP4 darf fremde Trust-Listen nicht über den Besitzerbefehl bearbeiten.
+
+Claim-Erstellung, Trust, Widerruf und Löschen teilen die konfigurierte Abklingzeit
+je Akteur über Dimensionen hinweg. Nur erfolgreiche Änderungen verbrauchen sie;
+Neustart setzt die flüchtige Abklingzeit zurück. Abgelaufene Einträge werden entfernt,
+die Historie ist auf 10000 begrenzt. Bereits gespeicherte Rechte bleiben bei einer
+Senkung des Trust-Limits erhalten; Widerruf bleibt möglich. Neue Snapshots werden
+erst nach erfolgreichem atomarem Speichern veröffentlicht. Schreibfehler sperren
+die aktivierte Runtime; die letzte gespeicherte Datei bleibt maßgeblich.
+
+Beide Loader verwenden denselben Modul-Sprachort mit EN/DE, einschließlich Namen,
+Tooltips, Tabs und Defaults. Keine fremden Sprachdateien und keine Bildschirmtexte
+für Urkunden geändert; Befehle geben normale Befehlsantworten aus.
+
+Stufen 1–3 und 5 sind enthalten. Stufe 4 ist eine separate, ungemergte Worker-Arbeit;
+ihre Fertigstellung ist nicht bestätigt. Stufe 6 folgt separat. Claims bleiben aus,
+keine Freigabe als vollständiger Landschutz. Frühere Werkzeug-Testlücken bleiben offen.
+
+- Stufe-5-Verifikation: 2026-09-30T23-18-06Z-4f7d, Fabric 21/21,
+  NeoForge 21/21, **alles gruen 42/42** (Filter simpletweaks:*claims*).
+  Echte Brigadier-Befehle, Online-Join/Offline-UUID, Zugriff/Widerruf, OP3/OP4,
+  beide Bypass-Konfigurationen, Limits, atomare Fehler und bestehende Hooks geprüft.
+  Der alte Strahl-Test lädt jetzt seinen Zielchunk vor dem Entity-Spawn; vorher
+  war die Zielerfassung abhängig von der zufälligen Testposition.
+  Wiki default/module generate/check und Modul-/EN-DE-Datenprüfung grün.
+  Keine Clients, Besitzerwelt oder vollständige Sicherheitsmatrix geprüft.
+
+### Claims Stufe 6 (2026-10-01)
+
+Dimensions liest die vorhandene öffentliche Framework-Protection-API, keine
+Claims-Interna. Vollständige Rahmen-/Innenraumprüfungen, beide Reiseenden und
+geprüfte erzeugte Rückwege: siehe docs/modules/simpledimensions.md. Erkannte
+fremde Claim-Mods ohne eigenen Adapter bleiben gesperrt. Hauptschalter false;
+Stufe 4 separat/ungemergt und weiterhin nicht als abgeschlossen bestätigt.
+
+Der zusätzliche Claims-Portaltest benutzt nur öffentliche Registry-IDs, echte
+Vanilla-Interaktion, Befehlsdispatch und Serverticks mit zwei verbundenen Spielern.
+Dafür deklariert allein der eigene Manifest-Testeintrag Simple Dimensions als
+Testvoraussetzung; NeoForge lädt dessen SourceSet nur bei der expliziten eigenen
+Modul-Testtask. Kein Modul-Sonderblock in Root-Build, Integration oder Runner.
+
+Der echte Claims-/Portalablauf bestand auf beiden Loadern (2/2, alles gruen,
+2026-09-30T23-29-57Z-39f5). Der folgende vollständige Modullauf deckte eine
+Testisolation auf: Der asynchrone Portaltest hielt Claims während einer alten
+Disabled-Urkundenprobe aktiv. Er nutzt jetzt pro Loader eine eigene Vanilla-
+Testumgebung und läuft in einem getrennten Batch. Keine alte Assertion entfernt.
+Der Beam-Test setzt sein Ziel nun im sicher sichtbaren GameTest-Ankerchunk;
+reines Laden des Nachbarchunks garantierte noch keine sichtbare Entity-Sektion.
+Der reale Aim-/Owner-/Fremdzugriffstest bleibt vollständig erhalten.
+Danach vollständige Modulsuiten 66/66, alles gruen, 2026-09-30T23-37-40Z-b5cf
+(33 je Loader). Kein bloßer Exit-Code als Erfolgsnachweis.
+
+Claims including the actual two-player portal flow passed again: 2026-09-30T23-49-03Z-e365, 44/44, alles gruen (22 per loader). Exact files, further gate evidence and limits: modules/simpletweaks/CLAIMS-ACCESS-VERIFICATION.md.

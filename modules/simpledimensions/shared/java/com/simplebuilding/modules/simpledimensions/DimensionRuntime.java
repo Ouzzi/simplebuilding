@@ -14,6 +14,7 @@ import net.minecraft.world.level.storage.LevelResource;
 import java.nio.file.*;
 import java.util.*;
 import com.google.gson.*;
+import com.simplebuilding.framework.api.Protection;
 /** Per-server state: game ticks, exact persisted return addresses, bounded builds, no chunk tickets. */
 public final class DimensionRuntime {
  private static final Map<MinecraftServer,DimensionRuntime> SERVERS=new WeakHashMap<>();
@@ -32,7 +33,43 @@ public final class DimensionRuntime {
  public static boolean claimIntegrationRequired=false;
  public interface Permission {boolean allow(ServerPlayer player,ServerLevel level,BlockPos pos);}
  public static Permission permission=null;
- public boolean permitted(ServerPlayer p,ServerLevel l,BlockPos pos){return l.mayInteract(p,pos)&&(!claimIntegrationRequired||permission!=null)&&(permission==null||permission.allow(p,l,pos));}
+ public boolean permitted(ServerPlayer p,ServerLevel l,BlockPos pos){
+  // A framework provider never satisfies the separate unsupported-foreign-mod gate.
+  return l.mayInteract(p,pos)&&(!claimIntegrationRequired||permission!=null)&&(permission==null||permission.allow(p,l,pos))
+   &&(!Protection.active(server)||Protection.allows(server,new Protection.Target(p.getUUID(),l.dimension().identifier().toString(),pos.getX(),pos.getY(),pos.getZ(),net.minecraft.commands.Commands.hasPermission(net.minecraft.commands.Commands.LEVEL_OWNERS).test(p.createCommandSourceStack()))));
+ }
+ private boolean protectedAccess(){return Protection.active(server)||claimIntegrationRequired||permission!=null;}
+ boolean permittedShape(ServerPlayer p,ServerLevel l,MatchedPortal shape){
+  if(!protectedAccess())return true;
+  for(var cell:shape.frame())if(!permitted(p,l,pos(cell.pos())))return false;
+  for(var cell:shape.interior())if(!permitted(p,l,pos(cell)))return false;
+  return true;
+ }
+ private boolean permittedLanding(ServerPlayer p,ServerLevel l,BlockPos at){
+  if(!permitted(p,l,at))return false;
+  if(!protectedAccess())return true;
+  var box=p.getBoundingBox().move(at.getX()+.5-p.getX(),at.getY()-p.getY(),at.getZ()+.5-p.getZ());
+  return permittedBox(p,l,box);
+ }
+ private boolean permittedBox(ServerPlayer p,ServerLevel l,net.minecraft.world.phys.AABB box){
+  // Same envelope as portal contact scanning; include every occupied column and its supporting floor.
+  if(box.maxX-box.minX>3||box.maxY-box.minY>5||box.maxZ-box.minZ>3)return false;
+  for(var cell:BlockPos.betweenClosed(BlockPos.containing(box.minX,box.minY-1,box.minZ),BlockPos.containing(Math.nextDown(box.maxX),Math.nextDown(box.maxY),Math.nextDown(box.maxZ))))
+   if(!permitted(p,l,cell))return false;
+  return true;
+ }
+ private boolean permittedPortal(ServerPlayer p,ServerLevel l,BlockPos contact,SkyPortalBlockEntity be,DimensionPortalConfig cfg){
+  if(!protectedAccess())return true;
+  if(!permittedLanding(p,l,contact))return false;
+  if(be.generated)return permittedLanding(p,l,be.anchor)&&permitted(p,l,be.anchor.above());
+  if(cfg==null)return false;
+  var shape=PortalActivationService.match(new PortalWorld(l,cfg),cfg,contact.getX(),contact.getY(),contact.getZ());
+  return shape.isPresent()&&permittedShape(p,l,shape.get());
+ }
+ private boolean permittedArrival(ServerPlayer p,ServerLevel l,BlockPos at){
+  return permittedLanding(p,l,at)&&(!protectedAccess()||!(l.getBlockEntity(at) instanceof SkyPortalBlockEntity be)
+   ||permittedPortal(p,l,at,be,config(be.definition)));
+ }
  public record ReturnAddress(String dimension,long pos){}
  private static final class Contact {String portal="";int warmup;long cooldown;boolean exit;}
  public static DimensionRuntime get(MinecraftServer s){return SERVERS.computeIfAbsent(s,DimensionRuntime::new);}
@@ -96,8 +133,8 @@ public final class DimensionRuntime {
    clear(l,p)&&clear(l,p.above());
  }
  private static boolean clear(ServerLevel l,BlockPos p){var s=l.getBlockState(p);return (s.isAir()||DimensionRegistry.portal(s))&&s.getFluidState().isEmpty();}
- private static BlockPos safeNearby(ServerLevel l,BlockPos center){
-  for(int r=0;r<=ConfigLimits.SAFE_SEARCH_RADIUS;r++)for(int dx=-r;dx<=r;dx++)for(int dz=-r;dz<=r;dz++) {if(Math.abs(dx)!=r&&Math.abs(dz)!=r)continue;for(int dy=0;dy<=8;dy++){var p=center.offset(dx,dy,dz);if(safe(l,p))return p;}}
+ private BlockPos safeNearby(ServerPlayer player,ServerLevel l,BlockPos center){
+  for(int r=0;r<=ConfigLimits.SAFE_SEARCH_RADIUS;r++)for(int dx=-r;dx<=r;dx++)for(int dz=-r;dz<=r;dz++) {if(Math.abs(dx)!=r&&Math.abs(dz)!=r)continue;for(int dy=0;dy<=8;dy++){var p=center.offset(dx,dy,dz);if(safe(l,p)&&permittedArrival(player,l,p))return p;}}
   return null;
  }
  private ServerLevel level(String id){var value=Identifier.tryParse(id);return value==null?null:server.getLevel(ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,value));}
@@ -111,25 +148,28 @@ public final class DimensionRuntime {
     boolean legacy=source.getBlockState(contact).is(DimensionRegistry.LEGACY);
     if(!candidate.targetDimensionId.equals(be.getDestination())&&!(legacy&&candidate.id.equals("skyblock")&&be.getDestination().equals("minecraft:overworld")))continue;
     var matched=PortalActivationService.match(new PortalWorld(source,candidate),candidate,contact.getX(),contact.getY(),contact.getZ());
-    if(matched.isPresent()){var shape=matched.get();for(var cell:shape.interior())if(source.getBlockEntity(pos(cell)) instanceof SkyPortalBlockEntity old){old.define(candidate.id,pos(shape.anchor()),false);old.configure(old.getColor(),candidate.targetDimensionId);}cfg=candidate;break;}
+    if(matched.isPresent()){var shape=matched.get();if(!permittedShape(player,source,shape))return false;for(var cell:shape.interior())if(source.getBlockEntity(pos(cell)) instanceof SkyPortalBlockEntity old){old.define(candidate.id,pos(shape.anchor()),false);old.configure(old.getColor(),candidate.targetDimensionId);}cfg=candidate;break;}
    }
   }
+  // Generated exits allow escape from a newly denied source, never entry into a denied destination.
+  if(!permittedPortal(player,source,contact,be,cfg)|| (protectedAccess()&&!permittedBox(player,source,player.getBoundingBox())))return be.generated&&emergencyReturn(player);
   if(be.linked){
-   var target=level(be.linkDimension);if(target==null)return false;var landing=be.link;
-   if(!target.getWorldBorder().isWithinBounds(landing))return false;target.getChunk(landing.getX()>>4,landing.getZ()>>4);
-   if(!safe(target,landing)||!permitted(player,target,landing))return false;
+   var target=level(be.linkDimension);if(target==null)return be.generated&&emergencyReturn(player);var landing=be.link;
+   if(!target.getWorldBorder().isWithinBounds(landing))return be.generated&&emergencyReturn(player);target.getChunk(landing.getX()>>4,landing.getZ()>>4);
+   boolean allowed=safe(target,landing)&&permittedArrival(player,target,landing);
+   if(!allowed)return be.generated&&emergencyReturn(player);
    // A generated exit is independent of config, access and the original frame.
    if(!be.generated&&(cfg==null||!cfg.enabled||!settings.accessEnabled))return false;
    if(!be.generated&&!validFrame(source,contact,be,cfg))return false;
    if(!be.generated){if(returns.size()>=ConfigLimits.MAX_RETURN_RECORDS&&!returns.containsKey(player.getUUID()))return false;
-    var back=safeNearby(source,player.blockPosition());if(back==null)return false;
+    var back=safeNearby(player,source,player.blockPosition());if(back==null)return false;
     returns.put(player.getUUID(),new ReturnAddress(source.dimension().identifier().toString(),back.asLong()));save();}
    return move(player,target,landing,be.generated);
   }
   if(cfg!=null&&source.dimension().identifier().toString().equals(cfg.targetDimensionId)&&cfg.allowIgniteFromTarget)return emergencyReturn(player);
   if(cfg==null||!cfg.enabled||!settings.accessEnabled||!settings.automaticDestination||!cfg.generateReturnPortalOnArrival||!cfg.createDestinationPlatform||!validFrame(source,contact,be,cfg))return false;
   var target=level(be.getDestination());if(target==null||!target.dimension().identifier().toString().equals(cfg.targetDimensionId))return false;
-  var origin=safeNearby(source,player.blockPosition());if(origin==null||!permitted(player,source,origin))return false;
+  var origin=safeNearby(player,source,player.blockPosition());if(origin==null)return false;
   if(returns.size()>=ConfigLimits.MAX_RETURN_RECORDS&&!returns.containsKey(player.getUUID()))return false;
   if(lastBuildTick==server.getTickCount()||portals.size()>=ConfigLimits.MAX_PORTALS)return false;
   var shape=PortalActivationService.match(new PortalWorld(source,cfg),cfg,contact.getX(),contact.getY(),contact.getZ()).orElseThrow();
@@ -157,6 +197,7 @@ public final class DimensionRuntime {
   for(var p:plan.keySet()) {if(!target.getWorldBorder().isWithinBounds(p)||p.getY()<target.getMinY()||p.getY()>=target.getMaxY()||!target.hasChunkAt(p)||!target.getBlockState(p).isAir()||!permitted(player,target,p))return false;}
   // Check all headroom and portal cells before changing any block.
   for(int dx=-2;dx<=2;dx++)for(int dz=-2;dz<=2;dz++)for(int dy=0;dy<4;dy++) {var p=center.offset(dx,dy,dz);if(!target.hasChunkAt(p)||!target.getBlockState(p).isAir()||!permitted(player,target,p))return false;}
+  if(!permittedLanding(player,target,center))return false;
   var previous=returns.put(player.getUUID(),new ReturnAddress(source.dimension().identifier().toString(),origin.asLong()));save();
   lastBuildTick=server.getTickCount();
   for(var e:plan.entrySet())target.setBlock(e.getKey(),e.getValue(),3);
@@ -187,6 +228,7 @@ public final class DimensionRuntime {
   return false;
  }
  private boolean move(ServerPlayer player,ServerLevel target,BlockPos landing,boolean returning){
+  if(!permittedArrival(player,target,landing))return false;
   boolean done=player.teleport(new net.minecraft.world.level.portal.TeleportTransition(target,
    new net.minecraft.world.phys.Vec3(landing.getX()+.5,landing.getY(),landing.getZ()+.5),net.minecraft.world.phys.Vec3.ZERO,
    player.getYRot(),player.getXRot(),net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING))!=null;
@@ -197,15 +239,15 @@ public final class DimensionRuntime {
   var address=returns.get(player.getUUID());var target=address==null?server.overworld():level(address.dimension());if(target==null)target=server.overworld();
   var center=address==null?target.getRespawnData().pos():BlockPos.of(address.pos());
   if(!target.getWorldBorder().isWithinBounds(center))center=target.getRespawnData().pos();
-  target.getChunk(center.getX()>>4,center.getZ()>>4);var safe=safeNearby(target,center);
-  if(safe!=null&&permitted(player,target,safe)&&move(player,target,safe,true))return true;
+  target.getChunk(center.getX()>>4,center.getZ()>>4);var safe=safeNearby(player,target,center);
+  if(safe!=null&&move(player,target,safe,true))return true;
   // A destroyed origin must not strand a traveler: try checked overworld surface near spawn.
   target=server.overworld();center=target.getRespawnData().pos();
   for(int dx=-8;dx<=8;dx++)for(int dz=-8;dz<=8;dz++){
    var column=center.offset(dx,0,dz);if(!target.getWorldBorder().isWithinBounds(column))continue;
    target.getChunk(column.getX()>>4,column.getZ()>>4);
    int y=target.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,column.getX(),column.getZ());
-   var p=column.atY(y);if(safe(target,p)&&permitted(player,target,p))return move(player,target,p,true);
+   var p=column.atY(y);if(safe(target,p)&&permittedArrival(player,target,p))return move(player,target,p,true);
   }
   return false;
 

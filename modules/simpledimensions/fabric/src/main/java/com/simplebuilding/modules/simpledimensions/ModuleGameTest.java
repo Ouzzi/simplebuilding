@@ -2,6 +2,9 @@ package com.simplebuilding.modules.simpledimensions;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
+ @GameTest(structure="simpledimensions:empty",maxTicks=240) public void claimsFootprints(GameTestHelper h){PortalProtectionTests.footprints(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=240) public void claimsLinkedTravel(GameTestHelper h){PortalProtectionTests.linkedTravel(h);}
+ @GameTest(structure="simpledimensions:empty",maxTicks=240) public void claimsUnsupportedProvider(GameTestHelper h){PortalProtectionTests.unsupportedProvider(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void launch(GameTestHelper h){DimensionTests.launch(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void worldGeneration(GameTestHelper h){DimensionTests.worldGeneration(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void sixArchesBothAxes(GameTestHelper h){DimensionTests.sixArchesBothAxes(h);}

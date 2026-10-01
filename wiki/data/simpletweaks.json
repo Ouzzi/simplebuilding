@@ -43,22 +43,26 @@
       "id": "claims",
       "en": {
         "title": "Claims: Disabled by Default",
-        "summary": "Stages 1–3 and partial stage-4 protection are implemented. Automation still has unsupported paths, including copper golems, crafters and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data. Development tests only. Default: false.",
+        "summary": "Stages 1–3, 5 and 6 plus partial stage-4 protection are implemented: atomic claims, Vanilla/tool checks, owner trust, OP4 administration and the Dimensions adapter. Automation still has unsupported paths, including copper golems, crafters and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data. Development tests only. Default: false.",
         "details": [
-          "Stages 1–3 and partial stage-4 protection are implemented. Automation still has unsupported paths, including copper golems, crafters and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data. Development tests only. Default: false.",
+          "Stages 1–3, 5 and 6 plus partial stage-4 protection are implemented: atomic claims, Vanilla/tool checks, owner trust, OP4 administration and the Dimensions adapter. Automation still has unsupported paths, including copper golems, crafters and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data. Development tests only. Default: false.",
           "Automation checks source and destination ownership, including known bed/chest counterparts. Known Vanilla and SimpleBuilding piston/hopper hooks and placed attractors are guarded. Natural damage remains active. Explosions are blocked on claimed targets regardless of owner.",
           "Plain dispenser ejection and droppers work within one owner. Other dispenser behaviors remain blocked near claims. Unknown containers are refused when enabled. Copper golem transfers, crafter fallback ejections and arbitrary remote mod mutations are not fully protected; Claims must remain off.",
-          "Lightning ignition and copper cleaning also bypass the fire tick guards. Lightning entity damage is currently denied conservatively. These paths need further work before activation."
+          "Lightning ignition and copper cleaning also bypass the fire tick guards. Lightning entity damage is currently denied conservatively. These paths need further work before activation.",
+          "/claim trust and untrust accept online names or full offline UUIDs. Only the owner can change trust; trusted players cannot delegate. OP4 may use admin listall, list <UUID/name>, or unclaim, independently of the default-off protection bypass. Changes are saved atomically before becoming effective.",
+          "Server ticks between successful claim, trust, revocation or removal operations by one player. Range 20–72000, across dimensions; resets on restart. Default: 100 ticks."
         ]
       },
       "de": {
         "title": "Claims: standardmäßig aus",
-        "summary": "Stufen 1–3 und Teile des Stage-4-Schutzes sind umgesetzt. Automation hat weiterhin ungeschützte Pfade, darunter Kupfergolems, Crafter und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus; ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
+        "summary": "Stufen 1–3, 5 und 6 sowie Teile des Stage-4-Schutzes sind umgesetzt: atomare Claims, Vanilla-/Werkzeugprüfungen, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter. Automation hat weiterhin ungeschützte Pfade, darunter Kupfergolems, Crafter und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus; ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
         "details": [
-          "Stufen 1–3 und Teile des Stage-4-Schutzes sind umgesetzt. Automation hat weiterhin ungeschützte Pfade, darunter Kupfergolems, Crafter und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus; ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
+          "Stufen 1–3, 5 und 6 sowie Teile des Stage-4-Schutzes sind umgesetzt: atomare Claims, Vanilla-/Werkzeugprüfungen, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter. Automation hat weiterhin ungeschützte Pfade, darunter Kupfergolems, Crafter und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus; ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
           "Automation prüft Besitz an Quelle und Ziel einschließlich bekannter Bett-/Truhengegenstücke. Bekannte Vanilla- und SimpleBuilding-Kolben-/Hopper-Hooks sowie platzierte Attractors sind angebunden. Naturschaden bleibt wirksam. Explosionen werden auf beanspruchten Zielen unabhängig vom Besitzer verweigert.",
           "Einfache Dispenser-Auswürfe und Dropper funktionieren innerhalb desselben Besitzes. Andere Dispenser-Behaviors bleiben in Claim-Nähe gesperrt. Unbekannte Container werden bei aktiviertem Schutz verweigert. Kupfergolem-Transfers, Crafter-Ersatzauswürfe und beliebige entfernte Mod-Mutationen sind nicht vollständig geschützt; Claims muss aus bleiben.",
-          "Blitzentzündung und Kupferreinigung umgehen ebenfalls die Feuer-Tickprüfungen. Blitzschaden als Entity-Quelle wird momentan konservativ verweigert. Diese Pfade benötigen vor der Aktivierung weitere Arbeit."
+          "Blitzentzündung und Kupferreinigung umgehen ebenfalls die Feuer-Tickprüfungen. Blitzschaden als Entity-Quelle wird momentan konservativ verweigert. Diese Pfade benötigen vor der Aktivierung weitere Arbeit.",
+          "/claim trust und untrust nehmen Online-Namen oder vollständige Offline-UUIDs an. Nur der Besitzer ändert Vertrauen; Vertraute dürfen es nicht weitergeben. OP4 darf admin listall, list <UUID/Name> und unclaim nutzen, unabhängig von der standardmäßig ausgeschalteten Schutzumgehung. Änderungen gelten erst nach atomarem Speichern.",
+          "Server-Ticks zwischen erfolgreichen Claim-, Vertrauens-, Widerrufs- oder Löschvorgängen eines Spielers. Bereich 20–72000, dimensionsübergreifend; Neustart setzt zurück. Standard: 100 Ticks."
         ]
       },
       "sources": [
@@ -71,7 +75,8 @@
         "common/src/shared/java/com/simplebuilding/api/WorldPermissions.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimAutomation.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimDamageMixin.java",
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimExplosionMixin.java"
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimExplosionMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimCommands.java"
       ]
     },
     {

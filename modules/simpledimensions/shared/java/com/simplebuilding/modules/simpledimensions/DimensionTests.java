@@ -16,6 +16,9 @@ import java.nio.file.*;
 public final class DimensionTests {
  public static final Map<String,java.util.function.Consumer<GameTestHelper>> ALL=new LinkedHashMap<>();
  static {
+  ALL.put("claims_footprints",PortalProtectionTests::footprints);
+  ALL.put("claims_linked_travel",PortalProtectionTests::linkedTravel);
+  ALL.put("claims_unsupported_provider",PortalProtectionTests::unsupportedProvider);
   ALL.put("launch",DimensionTests::launch);ALL.put("world_generation",DimensionTests::worldGeneration);
   ALL.put("six_arches_both_axes",DimensionTests::sixArchesBothAxes);ALL.put("recipes_and_mutations",DimensionTests::recipesAndMutations);
   ALL.put("separate_light",DimensionTests::separateLight);ALL.put("ignition_costs",DimensionTests::ignitionCosts);
@@ -36,7 +39,7 @@ public final class DimensionTests {
  private static void yes(GameTestHelper h,boolean b,String s){h.assertTrue(b,s);}
  private static void rejects(Runnable r){try{r.run();}catch(IllegalArgumentException e){return;}throw new AssertionError("Hostile input accepted");}
  private static BlockPos base(GameTestHelper h){return h.absolutePos(new BlockPos(12,8,12));}
- private static BlockPos build(GameTestHelper h,DimensionPortalConfig c,int recipe,Direction.Axis axis){return buildAt(h,c,recipe,axis,base(h));}
+ static BlockPos build(GameTestHelper h,DimensionPortalConfig c,int recipe,Direction.Axis axis){return buildAt(h,c,recipe,axis,base(h));}
  private static BlockPos buildAt(GameTestHelper h,DimensionPortalConfig c,int recipe,Direction.Axis axis,BlockPos bottom){
   var l=h.getLevel();var r=c.portalRecipes.get(recipe);int topY=bottom.getY()+r.rows.size()-1;
   for(int x=-3;x<=12;x++)for(int z=-3;z<=12;z++)for(int y=-1;y<=8;y++)l.setBlock(bottom.offset(x,y,z),y==-1?Blocks.STONE.defaultBlockState():Blocks.AIR.defaultBlockState(),3);
@@ -47,9 +50,9 @@ public final class DimensionTests {
   for(int row=r.rows.size()-1;row>=0;row--)for(int col=0;col<r.rows.get(row).length();col++)if(r.rows.get(row).charAt(col)=='.')return new BlockPos(bottom.getX()+(axis==Direction.Axis.X?col:0),topY-row,bottom.getZ()+(axis==Direction.Axis.Z?col:0));
   throw new AssertionError("No interior");
  }
- private static ServerPlayer player(GameTestHelper h,BlockPos at,Item igniter){var p=h.makeMockServerPlayerInLevel();p.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);p.setPos(at.getX()+.5,at.getY(),at.getZ()+1.5);p.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(igniter,2));return p;}
- private static InteractionResult ignite(ServerPlayer p,BlockPos cell){return PortalActivation.ignite(p,InteractionHand.MAIN_HAND,new BlockHitResult(Vec3.atCenterOf(cell.below()),Direction.UP,cell.below(),false));}
- private static BlockPos activate(GameTestHelper h){var c=DimensionPortalConfig.defaultSkyblock();var p=build(h,c,1,Direction.Axis.X);h.getLevel().setBlock(p.offset(0,0,2),Blocks.SEA_LANTERN.defaultBlockState(),3);var player=player(h,p,Items.FLINT_AND_STEEL);yes(h,ignite(player,p)==InteractionResult.SUCCESS,"Owner arch activates");return p;}
+ static ServerPlayer player(GameTestHelper h,BlockPos at,Item igniter){var p=h.makeMockServerPlayerInLevel();p.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);p.setPos(at.getX()+.5,at.getY(),at.getZ()+1.5);p.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(igniter,2));return p;}
+ static InteractionResult ignite(ServerPlayer p,BlockPos cell){return PortalActivation.ignite(p,InteractionHand.MAIN_HAND,new BlockHitResult(Vec3.atCenterOf(cell.below()),Direction.UP,cell.below(),false));}
+ static BlockPos activate(GameTestHelper h){var c=DimensionPortalConfig.defaultSkyblock();var p=build(h,c,1,Direction.Axis.X);h.getLevel().setBlock(p.offset(0,0,2),Blocks.SEA_LANTERN.defaultBlockState(),3);var player=player(h,p,Items.FLINT_AND_STEEL);yes(h,ignite(player,p)==InteractionResult.SUCCESS,"Owner arch activates");return p;}
  public static void launch(GameTestHelper h){
   for(String id:List.of("sky_portal","light_blue_portal")){yes(h,BuiltInRegistries.BLOCK.containsKey(DimensionRegistry.id(id)),"Block "+id);yes(h,BuiltInRegistries.BLOCK_ENTITY_TYPE.containsKey(DimensionRegistry.id(id)),"BE "+id);}
   yes(h,BuiltInRegistries.ITEM.containsKey(DimensionRegistry.id("light_blue_portal")),"Legacy item");
