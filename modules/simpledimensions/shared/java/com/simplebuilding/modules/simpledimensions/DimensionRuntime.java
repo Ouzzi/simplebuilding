@@ -154,12 +154,13 @@ public final class DimensionRuntime {
   // Generated exits allow escape from a newly denied source, never entry into a denied destination.
   if(!permittedPortal(player,source,contact,be,cfg)|| (protectedAccess()&&!permittedBox(player,source,player.getBoundingBox())))return be.generated&&emergencyReturn(player);
   if(be.linked){
+   // Refuse outbound access before loading the linked destination chunk. Return links stay open.
+   if(!be.generated&&!settings.allowsAccess(cfg))return false;
    var target=level(be.linkDimension);if(target==null)return be.generated&&emergencyReturn(player);var landing=be.link;
    if(!target.getWorldBorder().isWithinBounds(landing))return be.generated&&emergencyReturn(player);target.getChunk(landing.getX()>>4,landing.getZ()>>4);
    boolean allowed=safe(target,landing)&&permittedArrival(player,target,landing);
    if(!allowed)return be.generated&&emergencyReturn(player);
    // A generated exit is independent of config, access and the original frame.
-   if(!be.generated&&(cfg==null||!cfg.enabled||!settings.accessEnabled))return false;
    if(!be.generated&&!validFrame(source,contact,be,cfg))return false;
    if(!be.generated){if(returns.size()>=ConfigLimits.MAX_RETURN_RECORDS&&!returns.containsKey(player.getUUID()))return false;
     var back=safeNearby(player,source,player.blockPosition());if(back==null)return false;
@@ -167,7 +168,7 @@ public final class DimensionRuntime {
    return move(player,target,landing,be.generated);
   }
   if(cfg!=null&&source.dimension().identifier().toString().equals(cfg.targetDimensionId)&&cfg.allowIgniteFromTarget)return emergencyReturn(player);
-  if(cfg==null||!cfg.enabled||!settings.accessEnabled||!settings.automaticDestination||!cfg.generateReturnPortalOnArrival||!cfg.createDestinationPlatform||!validFrame(source,contact,be,cfg))return false;
+  if(!settings.allowsAccess(cfg)||!settings.automaticDestination||!cfg.generateReturnPortalOnArrival||!cfg.createDestinationPlatform||!validFrame(source,contact,be,cfg))return false;
   var target=level(be.getDestination());if(target==null||!target.dimension().identifier().toString().equals(cfg.targetDimensionId))return false;
   var origin=safeNearby(player,source,player.blockPosition());if(origin==null)return false;
   if(returns.size()>=ConfigLimits.MAX_RETURN_RECORDS&&!returns.containsKey(player.getUUID()))return false;

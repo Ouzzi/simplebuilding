@@ -90,3 +90,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] CLAIMS access worker: Stufen 5/6 auf 7422a3ab, Plan modules/simpletweaks/CLAIMS-ACCESS-PLAN.md; Stufe 4 separat/ungemergt, nicht als fertig bestätigt. Default AUS, kein Push/Merge.
 
 - [x] CLAIMS access worker: Stufen 5/6 implementiert und relevante Fabric-/NeoForge-26.3-Modulprüfungen grün; Stufe 5 4ac2875a, Stufe 6 separat. Verifikation: modules/simpletweaks/CLAIMS-ACCESS-VERIFICATION.md. Stufe 4 ungemergt/unbestätigt, Claims weiterhin AUS; Besitzerabnahme und gemergte Gesamtmatrix offen. Kein Push/Merge.
+- [ ] DIMENSIONS-SETTINGS gestartet (codex-next-dimensions): sechs Glowstoneboegen behalten, Kupfer/Blaueis-Beispiel entfernen; Skyblock/Mining/Travel als persistente Serveroptionen im eigenen Reiter, Rueckwege immer erhalten. Plan: modules/simpledimensions/DIMENSIONS-SETTINGS-PLAN.md.
+
+- [x] DIMENSIONS-SETTINGS abgeschlossen (codex-next-dimensions, Plan 37293dc4, Umsetzung f83a75c4): eigener Dimensions-Reiter, drei persistente Default-on-Serverschalter, offene Rueckwege; Kupfer/Blaueis-Beispiel/Preset entfernt. 76/76 Modulserver und 10/10 Testzentrale alles gruen; final check Exit 0, 23 JUnit- und 19 Wiki-Tests gruen. Details/Abweichungen im Modulplan und docs/modules/simpledimensions.md.
+- [ ] DIMENSIONS-SETTINGS Abnahme: Orchestrator-Gesamtgate nach Integration; Besitzer prueft Reiter/Reisen auf beiden Clients, echten Dedicated-Neustart/Mehrspieler und Zentrale in eigener Welt. Keine neuen Portalformen/Aktivierungen, Forge oder Ports in diesem Run; kein Push/Merge.

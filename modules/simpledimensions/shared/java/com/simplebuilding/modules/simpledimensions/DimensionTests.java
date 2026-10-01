@@ -34,6 +34,10 @@ public final class DimensionTests {
   ALL.put("warmup_and_no_bounce",DimensionTests::warmupAndNoBounce);ALL.put("no_overwrite",DimensionTests::noOverwrite);
   ALL.put("out_of_range_ignition",DimensionTests::outOfRangeIgnition);ALL.put("removed_definition_return",DimensionTests::removedDefinitionReturn);
   ALL.put("player_inventory_roundtrip",DimensionTests::playerInventoryRoundtrip);ALL.put("config_and_lang",DimensionTests::configAndLang);ALL.put("mining_travel",DimensionTests::miningTravel);ALL.put("compressed_travel",DimensionTests::compressedTravel);ALL.put("exact_origin_links",DimensionTests::exactOriginLinks);ALL.put("destination_claim",DimensionTests::destinationClaim);
+  ALL.put("settings_skyblock",h->DimensionSettingsTests.journey(h,"skyblock",130));
+  ALL.put("settings_mining",h->DimensionSettingsTests.journey(h,"mining",220));
+  ALL.put("settings_travel",h->DimensionSettingsTests.journey(h,"travel",310));
+  ALL.put("settings_persistence",DimensionSettingsTests::persistence);
 
  }
  private static void yes(GameTestHelper h,boolean b,String s){h.assertTrue(b,s);}
@@ -74,7 +78,7 @@ public final class DimensionTests {
   var frame=match.orElseThrow().frame().stream().filter(f->!f.blockId().equals("minecraft:air")).findFirst().orElseThrow();h.getLevel().setBlock(DimensionRuntime.pos(frame.pos()),Blocks.DIRT.defaultBlockState(),3);
   yes(h,PortalActivationService.match(new PortalWorld(h.getLevel(),c),c,p.getX(),p.getY(),p.getZ()).isEmpty(),"Mutated frame refused");
  }h.succeed();}
- public static void recipesAndMutations(GameTestHelper h){for(var c:List.of(DimensionPortalConfig.copperSkyblock(),DimensionPortalConfig.miningDimensionPreset(),DimensionPortalConfig.travelDimensionPreset()))for(var axis:List.of(Direction.Axis.X,Direction.Axis.Z)){
+ public static void recipesAndMutations(GameTestHelper h){for(var c:List.of(DimensionPortalConfig.defaultSkyblock(),DimensionPortalConfig.miningDimensionPreset(),DimensionPortalConfig.travelDimensionPreset()))for(var axis:List.of(Direction.Axis.X,Direction.Axis.Z)){
   var p=build(h,c,0,axis);yes(h,PortalActivationService.match(new PortalWorld(h.getLevel(),c),c,p.getX(),p.getY(),p.getZ()).isPresent(),"Source alternative recipe "+c.id);
  }var c=DimensionPortalConfig.defaultSkyblock();var p=build(h,c,0,Direction.Axis.X);h.getLevel().setBlock(base(h).above(2),Blocks.DIRT.defaultBlockState(),3);yes(h,PortalActivationService.match(new PortalWorld(h.getLevel(),c),c,p.getX(),p.getY(),p.getZ()).isEmpty(),"Empty outer corner checked");h.succeed();}
  public static void separateLight(GameTestHelper h){var c=DimensionPortalConfig.defaultSkyblock();var p=build(h,c,0,Direction.Axis.X);var w=new PortalWorld(h.getLevel(),c);var m=PortalActivationService.match(w,c,p.getX(),p.getY(),p.getZ()).orElseThrow();yes(h,!w.separateLight(m),"Glowstone alone does not count");
@@ -131,8 +135,10 @@ public final class DimensionTests {
    // Lang is a client resource: inspect the shipped module resource, not server pack aliases.
    try(var input=DimensionTests.class.getResourceAsStream("/assets/simpledimension/lang/"+locale+".json")){
     yes(h,input!=null,"Locale shipped");var data=com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(input,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
-    for(String key:List.of("accessEnabled","automaticDestination","portalDelayTicks","teleportCooldownTicks","nonPlayerTravel")){
+    yes(h,data.has("simpledimension.config.dimensions"),"Dedicated dimensions tab translated");
+    for(String key:List.of("accessEnabled","skyblockEnabled","miningEnabled","travelEnabled","automaticDestination","portalDelayTicks","teleportCooldownTicks","nonPlayerTravel")){
      yes(h,data.has("simpledimension.config."+key),"Option name "+key);String tip=data.get("simpledimension.config."+key+".tooltip").getAsString();yes(h,tip.contains(locale.equals("en_us")?"Default:":"Standard:"),"Default in tooltip "+key);
+     if(List.of("skyblockEnabled","miningEnabled","travelEnabled").contains(key))yes(h,tip.contains(locale.equals("en_us")?"Default: On.":"Standard: Ein."),"Correct enabled default "+key);
     }
    }
   }

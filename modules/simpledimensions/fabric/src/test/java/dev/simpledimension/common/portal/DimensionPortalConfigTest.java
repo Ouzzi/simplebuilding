@@ -10,9 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class DimensionPortalConfigTest {
 
     @Test
-    void defaultConfigIsVanillaLikeAndNeedsNoLight() {
-        DimensionPortalConfig cfg = DimensionPortalConfig.copperSkyblock();
+    void defaultConfigUsesArchesAndSeparateLight() {
+        DimensionPortalConfig cfg = DimensionPortalConfig.defaultSkyblock();
         assertNotNull(cfg.worldGeneration);
+        assertTrue(cfg.requireSeparateLight);
+        assertEquals(6, cfg.portalRecipes.size());
+        assertTrue(cfg.portalRecipes.stream().allMatch(r -> r.legend.values().stream().allMatch(b -> b.equals("minecraft:glowstone") || b.equals("minecraft:air"))));
         assertNotNull(cfg.frameBlock);
         // Default frame is not obsidian, so vanilla nether portals are never hijacked.
         assertFalse(cfg.frameBlock.equals("minecraft:obsidian"));
@@ -22,7 +25,7 @@ class DimensionPortalConfigTest {
 
     @Test
     void presetsUseDistinctFrameBlocksForDisambiguation() {
-        String sky = DimensionPortalConfig.copperSkyblock().frameBlock;
+        String sky = DimensionPortalConfig.defaultSkyblock().frameBlock;
         String mining = DimensionPortalConfig.miningDimensionPreset().frameBlock;
         String travel = DimensionPortalConfig.travelDimensionPreset().frameBlock;
         assertEquals(3, java.util.Set.of(sky, mining, travel).size());
@@ -31,7 +34,7 @@ class DimensionPortalConfigTest {
     @Test
     void presetsAreOnlyOpenableFromTheOverworld() {
         for (DimensionPortalConfig cfg : java.util.List.of(
-                DimensionPortalConfig.copperSkyblock(),
+                DimensionPortalConfig.defaultSkyblock(),
                 DimensionPortalConfig.miningDimensionPreset(),
                 DimensionPortalConfig.travelDimensionPreset())) {
             assertEquals("minecraft:overworld", cfg.sourceDimensionId);
@@ -42,20 +45,20 @@ class DimensionPortalConfigTest {
     }
 
     @Test
-    void everyPresetDefinesExactlyOneValidRecipe() {
+    void everyPresetDefinesValidRecipes() {
         for (DimensionPortalConfig cfg : java.util.List.of(
-                DimensionPortalConfig.copperSkyblock(),
+                DimensionPortalConfig.defaultSkyblock(),
                 DimensionPortalConfig.miningDimensionPreset(),
                 DimensionPortalConfig.travelDimensionPreset())) {
             java.util.List<PortalRecipe> recipes = cfg.buildRecipes();
-            assertEquals(1, recipes.size());
-            assertTrue(recipes.get(0).hasInterior());
+            assertEquals(cfg.id.equals("skyblock") ? 6 : 1, recipes.size());
+            assertTrue(recipes.stream().allMatch(PortalRecipe::hasInterior));
         }
     }
 
     @Test
     void travelRatiosMatchTheRequestedSpec() {
-        assertEquals(1.0, DimensionPortalConfig.copperSkyblock().travelCoordinateScale);
+        assertEquals(1.0, DimensionPortalConfig.defaultSkyblock().travelCoordinateScale);
         assertEquals(0.5, DimensionPortalConfig.miningDimensionPreset().travelCoordinateScale); // 1 overworld : 2 mining
         assertEquals(10.0, DimensionPortalConfig.travelDimensionPreset().travelCoordinateScale); // 10 overworld : 1 travel
     }
@@ -70,7 +73,7 @@ class DimensionPortalConfigTest {
 
     @Test
     void buildScannerClampsRangeToSelfConsistentWindow() {
-        DimensionPortalConfig cfg = DimensionPortalConfig.copperSkyblock();
+        DimensionPortalConfig cfg = DimensionPortalConfig.defaultSkyblock();
         cfg.minPortalWidth = 5;
         cfg.maxPortalWidth = 2; // inverted on purpose
         PortalFrameScanner scanner = cfg.buildScanner();

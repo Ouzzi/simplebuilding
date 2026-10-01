@@ -19,6 +19,7 @@ import java.util.Map;
 public final class DimensionPortalConfig {
 
     // ---- identity & travel link -------------------------------------------------
+    /** Legacy switch for custom definitions; built-in access lives in server settings. */
     public boolean enabled = true;
     public boolean requireSeparateLight = false;
     public String id = "skyblock";
@@ -80,33 +81,10 @@ public final class DimensionPortalConfig {
     // ---- destination terrain ----------------------------------------------------
     public WorldGenerationConfig worldGeneration = WorldGenerationConfig.skyblockPreset();
 
-    /** Skyblock: 1:1 travel, empty void (no terrain, no biome). Only openable from the overworld. */
-    public static DimensionPortalConfig copperSkyblock() {
-        DimensionPortalConfig config = new DimensionPortalConfig();
-        config.id = "skyblock";
-        config.targetDimensionId = "simpledimension:skyblock";
-        config.targetDisplayName = "Skyblock";
-        config.portalColorHex = "#66D9FF";
-        config.frameBlock = "minecraft:crying_obsidian"; // arrival-platform block
-        config.travelCoordinateScale = 1.0;
-        onlyFromOverworld(config);
-        config.portalRecipes = singleRecipe(
-                List.of(
-                        "BIIB",
-                        "G..G",
-                        "G..G",
-                        "G..G",
-                        "GIIG"),
-                Map.of(
-                        "B", "minecraft:waxed_oxidized_copper_bulb",
-                        "I", "minecraft:blue_ice",
-                        "G", "minecraft:waxed_oxidized_copper_grate"));
-        config.worldGeneration = WorldGenerationConfig.skyblockPreset();
-        return config;
-    }
-
+    /** Skyblock: six glowstone arches with separate light, 1:1 travel and empty void. */
     public static DimensionPortalConfig defaultSkyblock() {
-        var c = copperSkyblock(); c.requireSeparateLight = true;
+        var c = new DimensionPortalConfig(); c.requireSeparateLight = true;
+        onlyFromOverworld(c);
         c.portalRecipes = new ArrayList<>();
         for (var rows : List.of(List.of("AGA","G.G","G.G"),List.of("AGGA","G..G","G..G","G..G"),
             List.of("AGGGA","G...G","G...G","G...G"),List.of("AAGGAA","AG..GA","G....G","G....G","G....G"),

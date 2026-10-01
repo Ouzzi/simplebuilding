@@ -24,8 +24,8 @@
   "simpledimension.config.targetDimensionId.tooltip": "Advanced server JSON option. Default: \"simpledimension:skyblock\". World generation requires a world restart; preset and orePreset are legacy labels only.",
   "simpledimension.config.targetDisplayName": "Destination Name",
   "simpledimension.config.targetDisplayName.tooltip": "Advanced server JSON option. Default: \"Skyblock\". World generation requires a world restart; preset and orePreset are legacy labels only.",
-  "simpledimension.config.enabled": "Enable Definition",
-  "simpledimension.config.enabled.tooltip": "Advanced server JSON option. Default: true. World generation requires a world restart; preset and orePreset are legacy labels only.",
+  "simpledimension.config.enabled": "Enable Custom Definition (Legacy)",
+  "simpledimension.config.enabled.tooltip": "Custom definitions only. Skyblock, Mining, and Travel use the Dimensions tab in server settings instead. Existing built-in enabled values are ignored. Default: true.",
   "simpledimension.config.requireSeparateLight": "Require Separate Light",
   "simpledimension.config.requireSeparateLight.tooltip": "Advanced server JSON option. Default: true. World generation requires a world restart; preset and orePreset are legacy labels only.",
   "simpledimension.config.portalColorHex": "Portal Color",
@@ -97,5 +97,12 @@
   "simpledimension.config.worldGeneration.flatLayers.height": "worldGeneration.flatLayers.height",
   "simpledimension.config.worldGeneration.flatLayers.height.tooltip": "Advanced server JSON option. Default: 1. World generation requires a world restart; preset and orePreset are legacy labels only.",
   "simpledimension.config.advanced": "Advanced JSON",
-  "simpledimension.config.remoteNotice": "These values are managed on the server. Edit config/simpledimension/server.json on the server. Server values are not synchronized to this screen."
+  "simpledimension.config.remoteNotice": "These values are managed on the server. Edit config/simpledimension/server.json on the server. Server values are not synchronized to this screen.",
+  "simpledimension.config.dimensions": "Dimensions",
+  "simpledimension.config.skyblockEnabled": "Enable Skyblock",
+  "simpledimension.config.skyblockEnabled.tooltip": "Allow new journeys to Skyblock. Turning this off keeps existing return paths and world data. Default: On. Server setting.",
+  "simpledimension.config.miningEnabled": "Enable Mining",
+  "simpledimension.config.miningEnabled.tooltip": "Allow new journeys to Mining. Turning this off keeps existing return paths and world data. Default: On. Server setting.",
+  "simpledimension.config.travelEnabled": "Enable Travel",
+  "simpledimension.config.travelEnabled.tooltip": "Allow new journeys to Travel. Turning this off keeps existing return paths and world data. Default: On. Server setting."
 }

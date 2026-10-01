@@ -20,6 +20,18 @@ for option in read(MODULE/'config-options.json')['options']:
   assert option['name'] in lang and option['tooltip'] in lang
   assert word in lang[option['tooltip']]
   assert 'simpledimension.config.'+option['tab'] in lang
+options={o['key']:o for o in read(MODULE/'config-options.json')['options']}
+screen=(MODULE/'shared/java/com/simplebuilding/modules/simpledimensions/client/DimensionConfigScreen.java').read_text()
+assert 'var dimensions=b.getOrCreateCategory(text("dimensions"))' in screen
+for key in ('skyblockEnabled','miningEnabled','travelEnabled'):
+ option=options[key]
+ assert option['tab']=='dimensions' and option['scope']=='server' and option['default'] is True
+ assert f'dimensions.addEntry(e.startBooleanToggle(text("{key}"),source.{key}).setDefaultValue(true).setTooltip(text("{key}.tooltip")).setSaveConsumer(v->source.{key}=v)' in screen
+ assert f'c.{key}=source.{key}' in screen
+ for lang,default in ((en,'Default: On.'),(de,'Standard: Ein.')):
+  assert default in lang[option['tooltip']]
+assert 'if(!editable)' in screen and 'server.execute(' in screen
+assert not (MODULE/'examples/skyblock-copper.json').exists()
 for id in ('sky_portal','light_blue_portal'):
  assert (a/f'blockstates/{id}.json').is_file()
  assert f'block.simpledimension.{id}' in en
@@ -32,6 +44,8 @@ for texture in model['textures'].values():
  assert (a/f'textures/{name}.png').is_file()
 source=(MODULE/'shared/java/dev/simpledimension/common/portal/DimensionPortalConfig.java').read_text()
 assert 'c.requireSeparateLight = true' in source and source.count('List.of("A')>=6
+assert 'copperSkyblock' not in source and 'blue_ice' not in source
+assert not re.search(r'copper|blue ice|Kupfer|Blaueis',json.dumps(manual),re.I)
 assert not re.search(r'\b(colour|customisation|behaviour)\b',' '.join(en.values()),re.I)
 assert not any('token' in k for k in en)
 print('simpledimensions: bilingual options, portal assets, defaults, and manual valid')
