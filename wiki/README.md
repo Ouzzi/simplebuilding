@@ -39,6 +39,12 @@ der Id ab (erste passende Regel, „End & Enderit“ kommt zusätzlich dazu; was
 trifft, landet unter „Materialien“). Suche: `/` oder `Strg+K`, Pfeiltasten, Enter.
 Farbschema: Umschalter oben rechts (System → hell → dunkel, in `localStorage`).
 
+Listen merken ihren Suchtext je Mod und Bereich. Die Rezeptansicht merkt zusätzlich
+ihre Filter und Ansichtsschalter je Mod. Ohne verfügbaren Browserspeicher bleiben
+Listenfilter während der aktuellen Seitensitzung erhalten. Bei leerem Filterergebnis
+stellt „Filter zurücksetzen“ alle Zeilen wieder her. Lange Tabellen haben feste
+Kopfzeilen in scrollbaren, per Tastatur erreichbaren Bereichen.
+
 ## Wie die Doku aktuell bleibt
 
 Das ist der Kern des Aufbaus, deshalb ausführlich.
