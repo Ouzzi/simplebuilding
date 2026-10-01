@@ -10621,7 +10621,23 @@
         "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
         "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json",
         "common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java"
-      ]
+      ],
+      "items": {
+        "simplebuilding:sage_ore": {
+          "en": "Sage Ore: the stone variant, replaces stone, granite, diorite and andesite; hardness 3 like diamond ore.",
+          "de": "Weisheitserz: die Steinvariante, ersetzt Stein, Granit, Diorit und Andesit; Härte 3 wie Diamanterz.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+          ]
+        },
+        "simplebuilding:deepslate_sage_ore": {
+          "en": "Deepslate Sage Ore: the deepslate variant, replaces deepslate and tuff; hardness 4.5 like deepslate diamond ore.",
+          "de": "Tiefenschiefer-Weisheitserz: die Tiefenschiefervariante, ersetzt Tiefenschiefer und Tuffstein; Härte 4,5 wie Tiefenschiefer-Diamanterz.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+          ]
+        }
+      }
     },
     "deepslate_sage_ore": {
       "en": {
@@ -10647,7 +10663,23 @@
         "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
         "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json",
         "common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java"
-      ]
+      ],
+      "items": {
+        "simplebuilding:sage_ore": {
+          "en": "Sage Ore: the stone variant, replaces stone, granite, diorite and andesite; hardness 3 like diamond ore.",
+          "de": "Weisheitserz: die Steinvariante, ersetzt Stein, Granit, Diorit und Andesit; Härte 3 wie Diamanterz.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+          ]
+        },
+        "simplebuilding:deepslate_sage_ore": {
+          "en": "Deepslate Sage Ore: the deepslate variant, replaces deepslate and tuff; hardness 4.5 like deepslate diamond ore.",
+          "de": "Tiefenschiefer-Weisheitserz: die Tiefenschiefervariante, ersetzt Tiefenschiefer und Tuffstein; Härte 4,5 wie Tiefenschiefer-Diamanterz.",
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
+          ]
+        }
+      }
     },
     "sage_orb": {
       "en": {

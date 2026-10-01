@@ -5325,7 +5325,7 @@ window.WIKI_DATA = {
       "trades": [],
       "note": {
         "en": {
-          "summary": "Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
+          "summary": "Deepslate Sage Ore: the deepslate variant, replaces deepslate and tuff; hardness 4.5 like deepslate diamond ore. Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
           "details": [
             "Stone and deepslate variants. Veins of up to 4 blocks, 7 attempts per chunk, triangular height spread from 80 blocks below to 80 blocks above the world bottom, half of the blocks exposed to air are skipped - the numbers of vanilla's small diamond ore vein.",
             "Needs an iron pickaxe or better. Silk Touch drops the ore block itself and no experience.",
@@ -5334,7 +5334,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
+          "summary": "Tiefenschiefer-Weisheitserz: die Tiefenschiefervariante, ersetzt Tiefenschiefer und Tuffstein; Härte 4,5 wie Tiefenschiefer-Diamanterz. Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
           "details": [
             "Stein- und Tiefenschiefer-Variante. Adern bis 4 Blöcke, 7 Versuche je Chunk, dreieckige Höhenverteilung von 80 Blöcken unter bis 80 Blöcke über dem Weltboden, die Hälfte der Blöcke an Luft entfällt - die Werte von Vanillas kleiner Diamanterz-Ader.",
             "Braucht mindestens eine Eisenspitzhacke. Behutsamkeit liefert den Erzblock selbst und keine Erfahrung.",
@@ -15242,7 +15242,7 @@ window.WIKI_DATA = {
       "trades": [],
       "note": {
         "en": {
-          "summary": "Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
+          "summary": "Sage Ore: the stone variant, replaces stone, granite, diorite and andesite; hardness 3 like diamond ore. Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
           "details": [
             "Stone and deepslate variants. Veins of up to 4 blocks, 7 attempts per chunk, triangular height spread from 80 blocks below to 80 blocks above the world bottom, half of the blocks exposed to air are skipped - the numbers of vanilla's small diamond ore vein.",
             "Needs an iron pickaxe or better. Silk Touch drops the ore block itself and no experience.",
@@ -15251,7 +15251,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
+          "summary": "Weisheitserz: die Steinvariante, ersetzt Stein, Granit, Diorit und Andesit; Härte 3 wie Diamanterz. Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
           "details": [
             "Stein- und Tiefenschiefer-Variante. Adern bis 4 Blöcke, 7 Versuche je Chunk, dreieckige Höhenverteilung von 80 Blöcken unter bis 80 Blöcke über dem Weltboden, die Hälfte der Blöcke an Luft entfällt - die Werte von Vanillas kleiner Diamanterz-Ader.",
             "Braucht mindestens eine Eisenspitzhacke. Behutsamkeit liefert den Erzblock selbst und keine Erfahrung.",
@@ -17095,7 +17095,7 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
+          "summary": "Deepslate Sage Ore: the deepslate variant, replaces deepslate and tuff; hardness 4.5 like deepslate diamond ore. Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
           "details": [
             "Stone and deepslate variants. Veins of up to 4 blocks, 7 attempts per chunk, triangular height spread from 80 blocks below to 80 blocks above the world bottom, half of the blocks exposed to air are skipped - the numbers of vanilla's small diamond ore vein.",
             "Needs an iron pickaxe or better. Silk Touch drops the ore block itself and no experience.",
@@ -17104,7 +17104,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
+          "summary": "Tiefenschiefer-Weisheitserz: die Tiefenschiefervariante, ersetzt Tiefenschiefer und Tuffstein; Härte 4,5 wie Tiefenschiefer-Diamanterz. Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
           "details": [
             "Stein- und Tiefenschiefer-Variante. Adern bis 4 Blöcke, 7 Versuche je Chunk, dreieckige Höhenverteilung von 80 Blöcken unter bis 80 Blöcke über dem Weltboden, die Hälfte der Blöcke an Luft entfällt - die Werte von Vanillas kleiner Diamanterz-Ader.",
             "Braucht mindestens eine Eisenspitzhacke. Behutsamkeit liefert den Erzblock selbst und keine Erfahrung.",
@@ -22859,7 +22859,7 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
+          "summary": "Sage Ore: the stone variant, replaces stone, granite, diorite and andesite; hardness 3 like diamond ore. Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
           "details": [
             "Stone and deepslate variants. Veins of up to 4 blocks, 7 attempts per chunk, triangular height spread from 80 blocks below to 80 blocks above the world bottom, half of the blocks exposed to air are skipped - the numbers of vanilla's small diamond ore vein.",
             "Needs an iron pickaxe or better. Silk Touch drops the ore block itself and no experience.",
@@ -22868,7 +22868,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
+          "summary": "Weisheitserz: die Steinvariante, ersetzt Stein, Granit, Diorit und Andesit; Härte 3 wie Diamanterz. Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
           "details": [
             "Stein- und Tiefenschiefer-Variante. Adern bis 4 Blöcke, 7 Versuche je Chunk, dreieckige Höhenverteilung von 80 Blöcken unter bis 80 Blöcke über dem Weltboden, die Hälfte der Blöcke an Luft entfällt - die Werte von Vanillas kleiner Diamanterz-Ader.",
             "Braucht mindestens eine Eisenspitzhacke. Behutsamkeit liefert den Erzblock selbst und keine Erfahrung.",
