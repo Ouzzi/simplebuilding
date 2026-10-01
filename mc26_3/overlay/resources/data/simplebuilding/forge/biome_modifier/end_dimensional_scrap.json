@@ -1,0 +1,10 @@
+{
+  "forge:condition": {
+    "type": "simplebuilding:config",
+    "flag": "dimensionalScrap"
+  },
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_end",
+  "features": "simplebuilding:end_dimensional_scrap_placed",
+  "step": "underground_ores"
+}

@@ -33,9 +33,11 @@
     "simplebuilding:cracked_diamond_block",
     "simplebuilding:deepslate_sage_ore",
     "simplebuilding:diamond_pressure_plate",
+    "simplebuilding:dimensional_scrap",
     "simplebuilding:drowned_head",
     "simplebuilding:drowned_wall_head",
     "simplebuilding:elytra_pad",
+    "simplebuilding:end_dimensional_scrap",
     "simplebuilding:ender_quartz_block",
     "simplebuilding:ender_quartz_brick_slab",
     "simplebuilding:ender_quartz_brick_stairs",
@@ -73,6 +75,7 @@
     "simplebuilding:launchpad",
     "simplebuilding:levitating_gravel",
     "simplebuilding:levitating_sand",
+    "simplebuilding:nether_dimensional_scrap",
     "simplebuilding:netherite_backpack",
     "simplebuilding:netherite_blast_furnace",
     "simplebuilding:netherite_chest",
@@ -350,6 +353,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:dimensional_scrap"
+    },
+    {
       "id": "simplebuilding:drowned_head"
     },
     {
@@ -370,6 +376,9 @@
     },
     {
       "id": "simplebuilding:enchanted_netherite_apple"
+    },
+    {
+      "id": "simplebuilding:end_dimensional_scrap"
     },
     {
       "id": "simplebuilding:ender_quartz"
@@ -716,6 +725,9 @@
     {
       "id": "simplebuilding:magnet",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:nether_dimensional_scrap"
     },
     {
       "id": "simplebuilding:netherite_apple"

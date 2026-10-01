@@ -265,6 +265,55 @@ public final class OreGenAndItemFrameTests {
         helper.succeed();
     }
 
+    /**
+     * Dimensions-Schrott (Besitzer 2026-10-01): nur Enderit-Spitzhacke und -Vorschlaghammer kommen voran, die
+     * unverzauberte Enderit-Spitzhacke braucht 250 s (5000 Ticks), Netherit und Diamant gar nicht. Je Dimension
+     * eine Platzierung in genau ihren Biomen. Als Item unzerstoerbar, im Void geschuetzt, viermal so lange liegend.
+     */
+    public static void dimensionalScrapIsEnderiteGatedAndIndestructible(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        player.setOnGround(true); // in the air vanilla mines five times slower
+        BlockPos pos = helper.absolutePos(new BlockPos(1, 1, 1));
+        for (net.minecraft.world.level.block.Block scrap : List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP)) {
+            level.setBlockAndUpdate(pos, scrap.defaultBlockState());
+            var state = level.getBlockState(pos);
+            for (net.minecraft.world.item.Item weak : List.of(Items.NETHERITE_PICKAXE, Items.DIAMOND_PICKAXE)) {
+                player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(weak));
+                helper.assertValueEqual(state.getDestroyProgress(player, level, pos), 0.0F, weak + " makes progress on " + scrap);
+            }
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.ENDERITE_PICKAXE));
+            int ticks = Math.round(1.0F / state.getDestroyProgress(player, level, pos));
+            helper.assertTrue(Math.abs(ticks - 5000) <= 2, "an enderite pickaxe needs " + ticks + " ticks for " + scrap + " instead of 5000");
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.ENDERITE_SLEDGEHAMMER));
+            helper.assertTrue(state.getDestroyProgress(player, level, pos) > 0.0F, "an enderite sledgehammer makes no progress on " + scrap);
+            ItemStack stack = new ItemStack(scrap.asItem());
+            helper.assertTrue(stack.is(com.simplebuilding.util.ModTags.Items.INDESTRUCTIBLE), scrap + " is not indestructible");
+            helper.assertTrue(stack.is(com.simplebuilding.util.ModTags.Items.VOID_PROTECTED), scrap + " is not void protected");
+            helper.assertValueEqual(com.simplebuilding.util.EnderiteLifetime.lifetime(stack, 6000), 24000, "lifetime of " + scrap);
+            ItemEntity entity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5, stack);
+            level.addFreshEntity(entity);
+            helper.assertFalse(entity.hurtServer(level, level.damageSources().explosion(null, null), 100.0F), "an explosion hurt " + scrap);
+            helper.assertFalse(entity.hurtServer(level, level.damageSources().lava(), 100.0F), "lava hurt " + scrap);
+            helper.assertFalse(entity.hurtServer(level, level.damageSources().cactus(), 100.0F), "a cactus hurt " + scrap);
+            helper.assertTrue(entity.isAlive() && entity.fireImmune(), scrap + " burned or died");
+            entity.discard();
+        }
+        assertOreInBiome(helper, Biomes.PLAINS, ModWorldGen.SCRAP_OVERWORLD_PLACED_KEY);
+        assertOreInBiome(helper, Biomes.NETHER_WASTES, ModWorldGen.SCRAP_NETHER_PLACED_KEY);
+        for (ResourceKey<Biome> endBiome : END_BIOMES) {
+            assertOreInBiome(helper, endBiome, ModWorldGen.SCRAP_END_PLACED_KEY);
+            assertOreNotInBiome(helper, endBiome, ModWorldGen.SCRAP_OVERWORLD_PLACED_KEY);
+        }
+        assertOreNotInBiome(helper, Biomes.PLAINS, ModWorldGen.SCRAP_NETHER_PLACED_KEY);
+        helper.succeed();
+    }
+
     /** Weisheitskugel: 10 Ticks Laden, dann 50 bis 100 Erfahrungspunkte, die Kugel ist verbraucht. */
     public static void theSageOrbGivesFiftyToOneHundredExperienceAfterTenTicks(GameTestHelper helper) {
         if (!com.simplebuilding.version.McVersion.SAGE_ORE) {

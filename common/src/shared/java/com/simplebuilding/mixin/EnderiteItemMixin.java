@@ -69,6 +69,23 @@ public abstract class EnderiteItemMixin extends Entity {
      * ersetzen das Literal in {@code tick} durch ihr Feld {@code lifespan}; dort verlaengern die
      * {@code ItemExpireEvent}-Handler, daher {@code require = 0}.
      */
+    /** {@link com.simplebuilding.util.ModTags.Items#INDESTRUCTIBLE}: kein Schaden, keine Explosion (Dimensions-Schrott). */
+    @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
+    private void simplebuilding$indestructible(net.minecraft.server.level.ServerLevel level, net.minecraft.world.damagesource.DamageSource source,
+                                              float amount, org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable<Boolean> cir) {
+        if (this.getItem().typeHolder().is(ModTags.Items.INDESTRUCTIBLE)) {
+            cir.setReturnValue(false);
+        }
+    }
+
+    @Inject(method = "ignoreExplosion", at = @At("HEAD"), cancellable = true)
+    private void simplebuilding$ignoresExplosions(net.minecraft.world.level.Explosion explosion,
+                                                 org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable<Boolean> cir) {
+        if (this.getItem().typeHolder().is(ModTags.Items.INDESTRUCTIBLE)) {
+            cir.setReturnValue(true);
+        }
+    }
+
     // ModifyExpressionValue instead of ModifyConstant: two @ModifyConstant on the same literal conflict, and
     // Architectury (MixinItemEntity) changes the very same 6000 - the loser fails and the game crashes at bootstrap.
     // MixinExtras expression injectors stack with it.

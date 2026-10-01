@@ -313,6 +313,14 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         }
         builder(ModTags.Items.VOID_PROTECTED).addTag(ModTags.Items.ENDERITE_ITEMS);
         builder(ModTags.Items.DOUBLE_DESPAWN_TIME).addTag(ModTags.Items.ENDERITE_ITEMS);
+        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
+            for (net.minecraft.world.item.Item scrap : java.util.List.of(com.simplebuilding.items.ModItems.DIMENSIONAL_SCRAP_ITEM,
+                    com.simplebuilding.items.ModItems.NETHER_DIMENSIONAL_SCRAP_ITEM, com.simplebuilding.items.ModItems.END_DIMENSIONAL_SCRAP_ITEM)) {
+                builder(ModTags.Items.QUADRUPLE_DESPAWN_TIME).add(net.minecraft.core.registries.BuiltInRegistries.ITEM.getResourceKey(scrap).orElseThrow());
+                builder(ModTags.Items.INDESTRUCTIBLE).add(net.minecraft.core.registries.BuiltInRegistries.ITEM.getResourceKey(scrap).orElseThrow());
+                builder(ModTags.Items.VOID_PROTECTED).add(net.minecraft.core.registries.BuiltInRegistries.ITEM.getResourceKey(scrap).orElseThrow());
+            }
+        }
     }
 
     /** Befuellt {@link ModTags.Items#ENDERITE_INGOT_TIER} nach derselben Art wie den Void-Tag. */

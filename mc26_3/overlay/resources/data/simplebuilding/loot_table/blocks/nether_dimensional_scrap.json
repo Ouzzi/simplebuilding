@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:nether_dimensional_scrap"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simplebuilding:blocks/nether_dimensional_scrap"
+}

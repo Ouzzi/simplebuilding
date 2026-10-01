@@ -205,6 +205,9 @@ public class ServerTuningConfig {
         /** Weisheitserz in der Oberwelt (Stein und Tiefenschiefer), unabhaengig von den End-Erzen. */
         @ConfigEntry.Gui.Tooltip
         public boolean sageOre = true;
+        /** Dimensions-Schrott in Oberwelt, Nether und End. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean dimensionalScrap = true;
     }
 
     /** Wie lange Fremde (nicht der Besitzer, nicht Kreativ) zum Abbauen fremder Platten brauchen. */

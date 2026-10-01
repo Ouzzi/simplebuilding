@@ -1,6 +1,9 @@
 {
   "values": [
     "simplebuilding:astral_vault",
+    "simplebuilding:dimensional_scrap",
+    "simplebuilding:nether_dimensional_scrap",
+    "simplebuilding:end_dimensional_scrap",
     "simplebuilding:sage_ore",
     "simplebuilding:deepslate_sage_ore",
     "simplebuilding:spawn_teleporter",

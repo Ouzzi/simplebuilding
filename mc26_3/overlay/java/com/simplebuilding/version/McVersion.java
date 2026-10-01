@@ -36,6 +36,8 @@ public final class McVersion {
     public static final boolean END_SYSTEMS = true;
     /** Overworld wave 2026-10-01: Sage Ore and the Sage Orb (main line first, ported later). */
     public static final boolean SAGE_ORE = true;
+    /** Dimensional Scrap (2026-10-01): mysterious endgame block in every dimension, no use before v2. */
+    public static final boolean DIMENSIONAL_SCRAP = true;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = true;
 
@@ -237,5 +239,10 @@ public final class McVersion {
         level.levelEvent(null, net.minecraft.world.level.block.LevelEvent.PARTICLES_WAX_ON, pos, 0);
         level.playSound(null, pos, net.minecraft.sounds.SoundEvents.HONEYCOMB_WAX_ON,
                 net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, 1.0F);
+    }
+
+    /** Pistons can neither push nor pull the block (26.3 renamed BLOCK to IMMOVEABLE). */
+    public static net.minecraft.world.level.material.PushReaction immovable() {
+        return net.minecraft.world.level.material.PushReaction.IMMOVEABLE;
     }
 }

@@ -31,6 +31,15 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider arg) {
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_VAULT));
+        // Dimensions-Schrott: Spitzhacke (Enderit prueft der Block selbst), immun gegen Wither und Drache.
+        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
+            for (var scrap : java.util.List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP)) {
+                builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(scrap));
+                builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(scrap));
+                builder(BlockTags.WITHER_IMMUNE).add(key(scrap));
+                builder(BlockTags.DRAGON_IMMUNE).add(key(scrap));
+            }
+        }
         // Weisheitserz wie Diamanterz: Spitzhacke ab Eisen.
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));

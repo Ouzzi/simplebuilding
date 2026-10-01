@@ -290,6 +290,18 @@ public class ModBlocks {
             BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_ORE).setId(keyOf("sage_ore")))) : null;
     public static final Block DEEPSLATE_SAGE_ORE = McVersion.SAGE_ORE ? registerBlock("deepslate_sage_ore", unused -> new DropExperienceBlock(UniformInt.of(3, 7),
             BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_DIAMOND_ORE).setId(keyOf("deepslate_sage_ore")))) : null;
+    /** Dimensions-Schrott, je Dimension ein Block mit eigener Textur ({@link com.simplebuilding.blocks.custom.DimensionalScrapBlock}). */
+    public static final Block DIMENSIONAL_SCRAP = McVersion.DIMENSIONAL_SCRAP ? scrap("dimensional_scrap", Blocks.DEEPSLATE) : null;
+    public static final Block NETHER_DIMENSIONAL_SCRAP = McVersion.DIMENSIONAL_SCRAP ? scrap("nether_dimensional_scrap", Blocks.ANCIENT_DEBRIS) : null;
+    public static final Block END_DIMENSIONAL_SCRAP = McVersion.DIMENSIONAL_SCRAP ? scrap("end_dimensional_scrap", Blocks.END_STONE) : null;
+
+    private static Block scrap(String name, Block look) {
+        return registerBlock(name, unused -> new com.simplebuilding.blocks.custom.DimensionalScrapBlock(BlockBehaviour.Properties.ofFullCopy(look)
+                .setId(keyOf(name)).strength(com.simplebuilding.blocks.custom.DimensionalScrapBlock.HARDNESS, 3600000.0F)
+                .requiresCorrectToolForDrops().sound(net.minecraft.world.level.block.SoundType.ANCIENT_DEBRIS)
+                .pushReaction(McVersion.immovable())));
+    }
+
     public static final Block ASTRALIT_ORE = registerBlock("astralit_ore", unused -> new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("astralit_ore")).strength(20.0f, 1200.0f).lightLevel(state -> 5).requiresCorrectToolForDrops()));
 
     /**

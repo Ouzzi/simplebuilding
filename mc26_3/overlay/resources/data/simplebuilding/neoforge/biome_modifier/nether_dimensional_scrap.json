@@ -1,0 +1,12 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "simplebuilding:config",
+      "flag": "dimensionalScrap"
+    }
+  ],
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_nether",
+  "features": "simplebuilding:nether_dimensional_scrap_placed",
+  "step": "underground_ores"
+}

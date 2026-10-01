@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplebuilding:block/nether_dimensional_scrap_top",
+    "side": "simplebuilding:block/nether_dimensional_scrap_side"
+  }
+}

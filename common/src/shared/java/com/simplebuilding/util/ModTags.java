@@ -113,7 +113,13 @@ public class ModTags {
 
         /** Die Regel hinter {@link #VOID_PROTECTED}: dieselbe wie {@link #ENDERITE_ITEMS}. */
         public static boolean isVoidProtectedByRule(Identifier id) {
-            return isEnderiteItemByRule(id);
+            return isEnderiteItemByRule(id) || isDimensionalScrap(id);
+        }
+
+        /** Dimensions-Schrott (2026-10-01): unzerstoerbar, im Void geschuetzt, viermal so lange liegend. */
+        public static boolean isDimensionalScrap(Identifier id) {
+            return com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP && Simplebuilding.MOD_ID.equals(id.getNamespace())
+                    && id.getPath().endsWith("dimensional_scrap");
         }
 
         /**
@@ -122,6 +128,11 @@ public class ModTags {
          * {@link #ENDERITE_ITEMS}.
          */
         public static final TagKey<Item> DOUBLE_DESPAWN_TIME = createTag("double_despawn_time");
+        /** Liegt als Item-Entity viermal so lange wie Vanilla ({@link #QUADRUPLE_DESPAWN_LIFETIME}); Dimensions-Schrott. */
+        public static final TagKey<Item> QUADRUPLE_DESPAWN_TIME = createTag("quadruple_despawn_time");
+        public static final int QUADRUPLE_DESPAWN_LIFETIME = 24000;
+        /** Item-Entity nimmt keinerlei Schaden (Feuer, Lava, Explosion, Kaktus, Amboss ...); nur der Despawn entfernt es. */
+        public static final TagKey<Item> INDESTRUCTIBLE = createTag("indestructible");
 
         /** Doppelte Vanilla-Lebensdauer eines Item-Entities (6000 Ticks = 5 Minuten). */
         public static final int DOUBLE_DESPAWN_LIFETIME = 12000;

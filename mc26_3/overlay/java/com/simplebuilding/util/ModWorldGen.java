@@ -55,10 +55,33 @@ public class ModWorldGen {
     public static final float SAGE_ORE_AIR_DISCARD = 0.5F;
     public static final int SAGE_ORE_COUNT = 7;
 
+    /**
+     * Dimensions-Schrott (2026-10-01): seltener als Antiker Schrott - eine Ader von hoechstens 2 Bloecken, die nie
+     * an Luft liegt, im Schnitt nur in jedem {@link #SCRAP_RARITY}. Chunk (Antiker Schrott: zwei Adern je Chunk).
+     */
+    public static final int SCRAP_SIZE = 2;
+    public static final int SCRAP_RARITY = 3;
+    public static final ResourceKey<Feature> SCRAP_OVERWORLD_KEY = registerConfiguredKey("dimensional_scrap");
+    public static final ResourceKey<Feature> SCRAP_NETHER_KEY = registerConfiguredKey("nether_dimensional_scrap");
+    public static final ResourceKey<Feature> SCRAP_END_KEY = registerConfiguredKey("end_dimensional_scrap");
+    public static final ResourceKey<PlacedFeature> SCRAP_OVERWORLD_PLACED_KEY = registerPlacedKey("dimensional_scrap_placed");
+    public static final ResourceKey<PlacedFeature> SCRAP_NETHER_PLACED_KEY = registerPlacedKey("nether_dimensional_scrap_placed");
+    public static final ResourceKey<PlacedFeature> SCRAP_END_PLACED_KEY = registerPlacedKey("end_dimensional_scrap_placed");
+
     public static void bootstrapConfiguredFeatures(BootstrapContext<Feature> context) {
         RuleTest endStoneReplaceables = new BlockMatchTest(Blocks.END_STONE);
         context.register(ASTRALIT_ORE_KEY, new OreFeature(endStoneReplaceables, ModBlocks.ASTRALIT_ORE.defaultBlockState(), 4));
         context.register(NIHILITH_ORE_KEY, new OreFeature(endStoneReplaceables, ModBlocks.NIHILITH_ORE.defaultBlockState(), 5));
+        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
+            context.register(SCRAP_OVERWORLD_KEY, new OreFeature(List.of(net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
+                    new net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest(net.minecraft.tags.BlockTags.DEEPSLATE_ORE_REPLACEABLES),
+                    ModBlocks.DIMENSIONAL_SCRAP.defaultBlockState())), SCRAP_SIZE, 1.0F));
+            context.register(SCRAP_NETHER_KEY, new OreFeature(List.of(net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
+                    new net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest(net.minecraft.tags.BlockTags.BASE_STONE_NETHER),
+                    ModBlocks.NETHER_DIMENSIONAL_SCRAP.defaultBlockState())), SCRAP_SIZE, 1.0F));
+            context.register(SCRAP_END_KEY, new OreFeature(List.of(net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
+                    new BlockMatchTest(Blocks.END_STONE), ModBlocks.END_DIMENSIONAL_SCRAP.defaultBlockState())), SCRAP_SIZE, 1.0F));
+        }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             context.register(SAGE_ORE_KEY, new OreFeature(List.of(
                     net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
@@ -97,6 +120,22 @@ public class ModWorldGen {
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             registerSageOre(context, features);
         }
+        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
+            registerScrap(context, features);
+        }
+    }
+
+    /** Placements of the Dimensional Scrap: Overworld deep in deepslate, Nether like ancient debris, End inside the islands. */
+    private static void registerScrap(BootstrapContext<PlacedFeature> context, net.minecraft.core.HolderGetter<Feature> features) {
+        register(context, SCRAP_OVERWORLD_PLACED_KEY, features.getOrThrow(SCRAP_OVERWORLD_KEY), List.of(
+                net.minecraft.world.level.levelgen.placement.RarityFilter.onAverageOnceEvery(SCRAP_RARITY), InSquarePlacement.spread(),
+                HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(0), VerticalAnchor.aboveBottom(32)), BiomeFilter.biome()));
+        register(context, SCRAP_NETHER_PLACED_KEY, features.getOrThrow(SCRAP_NETHER_KEY), List.of(
+                net.minecraft.world.level.levelgen.placement.RarityFilter.onAverageOnceEvery(SCRAP_RARITY), InSquarePlacement.spread(),
+                HeightRangePlacement.triangle(VerticalAnchor.absolute(8), VerticalAnchor.absolute(24)), BiomeFilter.biome()));
+        register(context, SCRAP_END_PLACED_KEY, features.getOrThrow(SCRAP_END_KEY), List.of(
+                net.minecraft.world.level.levelgen.placement.RarityFilter.onAverageOnceEvery(SCRAP_RARITY), InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(10), VerticalAnchor.absolute(70)), BiomeFilter.biome()));
     }
 
     /** Placement of the Sage Ore; registered from {@link #bootstrapPlacedFeatures}. */

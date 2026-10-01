@@ -22,6 +22,7 @@ public final class ConfigFlags {
     public static final String ASTRALIT_ORE = "astralitOre";
     public static final String NIHILIT_ORE = "nihilitOre";
     public static final String SAGE_ORE = "sageOre";
+    public static final String DIMENSIONAL_SCRAP = "dimensionalScrap";
 
     private ConfigFlags() {
     }
@@ -43,6 +44,8 @@ public final class ConfigFlags {
                 return oreEnabled(config, false);
             case SAGE_ORE:
                 return sageOreEnabled(config);
+            case DIMENSIONAL_SCRAP:
+                return scrapEnabled(config);
             default:
                 ConfigOptions.Option option = ConfigOptions.byPath(flag);
                 if (option != null && option.type() == boolean.class && option.get(config) instanceof Boolean value) {
@@ -67,6 +70,15 @@ public final class ConfigFlags {
     }
 
     /** {@link #oreEnabled(SimplebuildingConfig, boolean)} mit der geladenen Config (Fabric-Biomwahl). */
+    public static boolean scrapEnabled(SimplebuildingConfig config) {
+        return config.server == null || config.server.oreGeneration == null || config.server.oreGeneration.dimensionalScrap;
+    }
+
+    public static boolean scrapEnabled() {
+        SimplebuildingConfig config = Simplebuilding.getConfig();
+        return config == null || scrapEnabled(config);
+    }
+
     public static boolean sageOreEnabled() {
         SimplebuildingConfig config = Simplebuilding.getConfig();
         return config == null || sageOreEnabled(config);

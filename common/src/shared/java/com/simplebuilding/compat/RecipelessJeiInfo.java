@@ -34,6 +34,13 @@ public final class RecipelessJeiInfo {
         map.put("nihilith_shard", List.of(ModItems.NIHILITH_SHARD));
         map.put("enchanted_netherite_apple", List.of(ModItems.ENCHANTED_NETHERITE_APPLE));
         map.put("enchanted_enderite_apple", List.of(ModItems.ENCHANTED_ENDERITE_APPLE));
+        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
+            map.put("sage_ore", List.of(ModBlocks.SAGE_ORE, ModBlocks.DEEPSLATE_SAGE_ORE));
+            map.put("sage_orb", List.of(ModItems.SAGE_ORB));
+        }
+        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
+            map.put("dimensional_scrap", List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP));
+        }
         return map;
     }
 

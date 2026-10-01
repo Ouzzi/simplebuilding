@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplebuilding:block/end_dimensional_scrap_top",
+    "side": "simplebuilding:block/end_dimensional_scrap_side"
+  }
+}

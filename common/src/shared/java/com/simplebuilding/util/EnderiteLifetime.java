@@ -22,13 +22,15 @@ public final class EnderiteLifetime {
 
     /** Die Lebensdauer fuer {@code stack}, ausgehend von der Vanilla-Grenze {@code vanillaLifetime}. */
     public static int lifetime(ItemStack stack, int vanillaLifetime) {
+        if (!stack.isEmpty() && stack.typeHolder().is(ModTags.Items.QUADRUPLE_DESPAWN_TIME)) {
+            return ModTags.Items.QUADRUPLE_DESPAWN_LIFETIME;
+        }
         return hasDoubleDespawnTime(stack) ? ModTags.Items.DOUBLE_DESPAWN_LIFETIME : vanillaLifetime;
     }
 
     /** Wie viele Ticks ein ablaufendes Item mit {@code lifespan} noch dazubekommt; 0 = keine. */
     public static int extraLife(ItemStack stack, int lifespan) {
-        return hasDoubleDespawnTime(stack) && lifespan < ModTags.Items.DOUBLE_DESPAWN_LIFETIME
-                ? ModTags.Items.DOUBLE_DESPAWN_LIFETIME - lifespan
-                : 0;
+        int target = lifetime(stack, lifespan);
+        return target > lifespan ? target - lifespan : 0;
     }
 }

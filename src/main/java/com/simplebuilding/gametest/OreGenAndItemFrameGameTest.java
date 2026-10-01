@@ -71,4 +71,9 @@ public final class OreGenAndItemFrameGameTest {
     public void theSageOrbGivesFiftyToOneHundredExperienceAfterTenTicks(GameTestHelper helper) {
         OreGenAndItemFrameTests.theSageOrbGivesFiftyToOneHundredExperienceAfterTenTicks(helper);
     }
+
+    @GameTest
+    public void dimensionalScrapIsEnderiteGatedAndIndestructible(GameTestHelper helper) {
+        OreGenAndItemFrameTests.dimensionalScrapIsEnderiteGatedAndIndestructible(helper);
+    }
 }

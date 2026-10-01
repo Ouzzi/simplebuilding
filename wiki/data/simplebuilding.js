@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 242,
+      "count": 245,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -6227,6 +6227,43 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:dimensional_scrap",
+      "name": {
+        "en_us": "Dimensional Scrap",
+        "de_de": "Dimensionsschrott"
+      },
+      "texture": "assets/textures/block/dimensional_scrap_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Dimensional Scrap: the Overworld variant, inside deepslate and tuff between Y -64 and -32. Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
+          "details": [
+            "Only an Enderite Pickaxe or Enderite Sledgehammer makes progress; every other tool, and the hand, does not. An unenchanted Enderite Pickaxe needs 250 seconds, about as long as obsidian by hand; Efficiency V brings it down to about 69 seconds.",
+            "Veins of at most 2 blocks that never touch air, on average in one chunk out of 3.",
+            "As a dropped item it takes no damage from fire, lava, explosions, cacti or anything else, floats instead of falling into the void and despawns only after 20 minutes (four times the vanilla time).",
+            "Server option server.oreGeneration.dimensionalScrap (default on) turns the generation off for newly generated chunks."
+          ]
+        },
+        "de": {
+          "summary": "Dimensionsschrott: die Oberwelt-Variante, in Tiefenschiefer und Tuffstein zwischen Y -64 und -32. Dimensionsschrott ist ein geheimnisvoller Block, der in jeder Dimension vorkommt, seltener als Antiker Schrott. Er hat noch kein Rezept und keinen Nutzen.",
+          "details": [
+            "Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran; jedes andere Werkzeug und die Hand nicht. Eine unverzauberte Enderit-Spitzhacke braucht 250 Sekunden, etwa so lange wie Obsidian mit der Hand; Effizienz V verkürzt das auf rund 69 Sekunden.",
+            "Adern aus höchstens 2 Blöcken, die nie an Luft liegen, im Schnitt in einem von 3 Chunks.",
+            "Als fallengelassenes Item nimmt er keinen Schaden durch Feuer, Lava, Explosionen, Kakteen oder anderes, schwebt statt ins Void zu fallen und verschwindet erst nach 20 Minuten (viermal so lange wie in Vanilla).",
+            "Die Server-Option server.oreGeneration.dimensionalScrap (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
+          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
+          "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:echo_sounder",
       "name": {
         "en_us": "Echo Sounder",
@@ -6319,6 +6356,43 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:end_dimensional_scrap",
+      "name": {
+        "en_us": "End Dimensional Scrap",
+        "de_de": "End-Dimensionsschrott"
+      },
+      "texture": "assets/textures/block/end_dimensional_scrap_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "End Dimensional Scrap: the End variant, inside end stone between Y 10 and 70. Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
+          "details": [
+            "Only an Enderite Pickaxe or Enderite Sledgehammer makes progress; every other tool, and the hand, does not. An unenchanted Enderite Pickaxe needs 250 seconds, about as long as obsidian by hand; Efficiency V brings it down to about 69 seconds.",
+            "Veins of at most 2 blocks that never touch air, on average in one chunk out of 3.",
+            "As a dropped item it takes no damage from fire, lava, explosions, cacti or anything else, floats instead of falling into the void and despawns only after 20 minutes (four times the vanilla time).",
+            "Server option server.oreGeneration.dimensionalScrap (default on) turns the generation off for newly generated chunks."
+          ]
+        },
+        "de": {
+          "summary": "End-Dimensionsschrott: die End-Variante, in Endstein zwischen Y 10 und 70. Dimensionsschrott ist ein geheimnisvoller Block, der in jeder Dimension vorkommt, seltener als Antiker Schrott. Er hat noch kein Rezept und keinen Nutzen.",
+          "details": [
+            "Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran; jedes andere Werkzeug und die Hand nicht. Eine unverzauberte Enderit-Spitzhacke braucht 250 Sekunden, etwa so lange wie Obsidian mit der Hand; Effizienz V verkürzt das auf rund 69 Sekunden.",
+            "Adern aus höchstens 2 Blöcken, die nie an Luft liegen, im Schnitt in einem von 3 Chunks.",
+            "Als fallengelassenes Item nimmt er keinen Schaden durch Feuer, Lava, Explosionen, Kakteen oder anderes, schwebt statt ins Void zu fallen und verschwindet erst nach 20 Minuten (viermal so lange wie in Vanilla).",
+            "Die Server-Option server.oreGeneration.dimensionalScrap (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
+          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
+          "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:ender_quartz",
@@ -10637,6 +10711,43 @@ window.WIKI_DATA = {
           "mc1_21_11/neoforge/build.gradle",
           "todo.md",
           "common/src/shared/java/com/simplebuilding/util/AttractorFilter.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:nether_dimensional_scrap",
+      "name": {
+        "en_us": "Nether Dimensional Scrap",
+        "de_de": "Nether-Dimensionsschrott"
+      },
+      "texture": "assets/textures/block/nether_dimensional_scrap_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Nether Dimensional Scrap: the Nether variant, inside netherrack, basalt and blackstone between Y 8 and 24, like the large ancient debris vein. Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
+          "details": [
+            "Only an Enderite Pickaxe or Enderite Sledgehammer makes progress; every other tool, and the hand, does not. An unenchanted Enderite Pickaxe needs 250 seconds, about as long as obsidian by hand; Efficiency V brings it down to about 69 seconds.",
+            "Veins of at most 2 blocks that never touch air, on average in one chunk out of 3.",
+            "As a dropped item it takes no damage from fire, lava, explosions, cacti or anything else, floats instead of falling into the void and despawns only after 20 minutes (four times the vanilla time).",
+            "Server option server.oreGeneration.dimensionalScrap (default on) turns the generation off for newly generated chunks."
+          ]
+        },
+        "de": {
+          "summary": "Nether-Dimensionsschrott: die Nether-Variante, in Netherrack, Basalt und Schwarzstein zwischen Y 8 und 24 wie die große Ader des Antiken Schrotts. Dimensionsschrott ist ein geheimnisvoller Block, der in jeder Dimension vorkommt, seltener als Antiker Schrott. Er hat noch kein Rezept und keinen Nutzen.",
+          "details": [
+            "Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran; jedes andere Werkzeug und die Hand nicht. Eine unverzauberte Enderit-Spitzhacke braucht 250 Sekunden, etwa so lange wie Obsidian mit der Hand; Effizienz V verkürzt das auf rund 69 Sekunden.",
+            "Adern aus höchstens 2 Blöcken, die nie an Luft liegen, im Schnitt in einem von 3 Chunks.",
+            "Als fallengelassenes Item nimmt er keinen Schaden durch Feuer, Lava, Explosionen, Kakteen oder anderes, schwebt statt ins Void zu fallen und verschwindet erst nach 20 Minuten (viermal so lange wie in Vanilla).",
+            "Die Server-Option server.oreGeneration.dimensionalScrap (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
+          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
+          "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -17169,6 +17280,47 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:dimensional_scrap",
+      "name": {
+        "en_us": "Dimensional Scrap",
+        "de_de": "Dimensionsschrott"
+      },
+      "texture": "assets/textures/block/dimensional_scrap_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/dimensional_scrap",
+      "drops": [
+        "simplebuilding:dimensional_scrap"
+      ],
+      "note": {
+        "en": {
+          "summary": "Dimensional Scrap: the Overworld variant, inside deepslate and tuff between Y -64 and -32. Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
+          "details": [
+            "Only an Enderite Pickaxe or Enderite Sledgehammer makes progress; every other tool, and the hand, does not. An unenchanted Enderite Pickaxe needs 250 seconds, about as long as obsidian by hand; Efficiency V brings it down to about 69 seconds.",
+            "Veins of at most 2 blocks that never touch air, on average in one chunk out of 3.",
+            "As a dropped item it takes no damage from fire, lava, explosions, cacti or anything else, floats instead of falling into the void and despawns only after 20 minutes (four times the vanilla time).",
+            "Server option server.oreGeneration.dimensionalScrap (default on) turns the generation off for newly generated chunks."
+          ]
+        },
+        "de": {
+          "summary": "Dimensionsschrott: die Oberwelt-Variante, in Tiefenschiefer und Tuffstein zwischen Y -64 und -32. Dimensionsschrott ist ein geheimnisvoller Block, der in jeder Dimension vorkommt, seltener als Antiker Schrott. Er hat noch kein Rezept und keinen Nutzen.",
+          "details": [
+            "Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran; jedes andere Werkzeug und die Hand nicht. Eine unverzauberte Enderit-Spitzhacke braucht 250 Sekunden, etwa so lange wie Obsidian mit der Hand; Effizienz V verkürzt das auf rund 69 Sekunden.",
+            "Adern aus höchstens 2 Blöcken, die nie an Luft liegen, im Schnitt in einem von 3 Chunks.",
+            "Als fallengelassenes Item nimmt er keinen Schaden durch Feuer, Lava, Explosionen, Kakteen oder anderes, schwebt statt ins Void zu fallen und verschwindet erst nach 20 Minuten (viermal so lange wie in Vanilla).",
+            "Die Server-Option server.oreGeneration.dimensionalScrap (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
+          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
+          "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:drowned_head",
       "name": {
         "en_us": "Drowned Head",
@@ -17263,6 +17415,47 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:end_dimensional_scrap",
+      "name": {
+        "en_us": "End Dimensional Scrap",
+        "de_de": "End-Dimensionsschrott"
+      },
+      "texture": "assets/textures/block/end_dimensional_scrap_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/end_dimensional_scrap",
+      "drops": [
+        "simplebuilding:end_dimensional_scrap"
+      ],
+      "note": {
+        "en": {
+          "summary": "End Dimensional Scrap: the End variant, inside end stone between Y 10 and 70. Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
+          "details": [
+            "Only an Enderite Pickaxe or Enderite Sledgehammer makes progress; every other tool, and the hand, does not. An unenchanted Enderite Pickaxe needs 250 seconds, about as long as obsidian by hand; Efficiency V brings it down to about 69 seconds.",
+            "Veins of at most 2 blocks that never touch air, on average in one chunk out of 3.",
+            "As a dropped item it takes no damage from fire, lava, explosions, cacti or anything else, floats instead of falling into the void and despawns only after 20 minutes (four times the vanilla time).",
+            "Server option server.oreGeneration.dimensionalScrap (default on) turns the generation off for newly generated chunks."
+          ]
+        },
+        "de": {
+          "summary": "End-Dimensionsschrott: die End-Variante, in Endstein zwischen Y 10 und 70. Dimensionsschrott ist ein geheimnisvoller Block, der in jeder Dimension vorkommt, seltener als Antiker Schrott. Er hat noch kein Rezept und keinen Nutzen.",
+          "details": [
+            "Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran; jedes andere Werkzeug und die Hand nicht. Eine unverzauberte Enderit-Spitzhacke braucht 250 Sekunden, etwa so lange wie Obsidian mit der Hand; Effizienz V verkürzt das auf rund 69 Sekunden.",
+            "Adern aus höchstens 2 Blöcken, die nie an Luft liegen, im Schnitt in einem von 3 Chunks.",
+            "Als fallengelassenes Item nimmt er keinen Schaden durch Feuer, Lava, Explosionen, Kakteen oder anderes, schwebt statt ins Void zu fallen und verschwindet erst nach 20 Minuten (viermal so lange wie in Vanilla).",
+            "Die Server-Option server.oreGeneration.dimensionalScrap (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
+          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
+          "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:ender_quartz_block",
@@ -19336,6 +19529,47 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:nether_dimensional_scrap",
+      "name": {
+        "en_us": "Nether Dimensional Scrap",
+        "de_de": "Nether-Dimensionsschrott"
+      },
+      "texture": "assets/textures/block/nether_dimensional_scrap_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/nether_dimensional_scrap",
+      "drops": [
+        "simplebuilding:nether_dimensional_scrap"
+      ],
+      "note": {
+        "en": {
+          "summary": "Nether Dimensional Scrap: the Nether variant, inside netherrack, basalt and blackstone between Y 8 and 24, like the large ancient debris vein. Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
+          "details": [
+            "Only an Enderite Pickaxe or Enderite Sledgehammer makes progress; every other tool, and the hand, does not. An unenchanted Enderite Pickaxe needs 250 seconds, about as long as obsidian by hand; Efficiency V brings it down to about 69 seconds.",
+            "Veins of at most 2 blocks that never touch air, on average in one chunk out of 3.",
+            "As a dropped item it takes no damage from fire, lava, explosions, cacti or anything else, floats instead of falling into the void and despawns only after 20 minutes (four times the vanilla time).",
+            "Server option server.oreGeneration.dimensionalScrap (default on) turns the generation off for newly generated chunks."
+          ]
+        },
+        "de": {
+          "summary": "Nether-Dimensionsschrott: die Nether-Variante, in Netherrack, Basalt und Schwarzstein zwischen Y 8 und 24 wie die große Ader des Antiken Schrotts. Dimensionsschrott ist ein geheimnisvoller Block, der in jeder Dimension vorkommt, seltener als Antiker Schrott. Er hat noch kein Rezept und keinen Nutzen.",
+          "details": [
+            "Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran; jedes andere Werkzeug und die Hand nicht. Eine unverzauberte Enderit-Spitzhacke braucht 250 Sekunden, etwa so lange wie Obsidian mit der Hand; Effizienz V verkürzt das auf rund 69 Sekunden.",
+            "Adern aus höchstens 2 Blöcken, die nie an Luft liegen, im Schnitt in einem von 3 Chunks.",
+            "Als fallengelassenes Item nimmt er keinen Schaden durch Feuer, Lava, Explosionen, Kakteen oder anderes, schwebt statt ins Void zu fallen und verschwindet erst nach 20 Minuten (viermal so lange wie in Vanilla).",
+            "Die Server-Option server.oreGeneration.dimensionalScrap (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
+          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
+          "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -38482,6 +38716,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/diamond_pressure_plate.json"
     },
     {
+      "id": "simplebuilding:blocks/dimensional_scrap",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:dimensional_scrap"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/dimensional_scrap.json"
+    },
+    {
       "id": "simplebuilding:blocks/drowned_head",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -38512,6 +38762,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/elytra_pad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/end_dimensional_scrap",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:end_dimensional_scrap"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/end_dimensional_scrap.json"
     },
     {
       "id": "simplebuilding:blocks/ender_quartz_block",
@@ -39056,6 +39322,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/levitating_sand.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nether_dimensional_scrap",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nether_dimensional_scrap"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nether_dimensional_scrap.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_backpack",
@@ -45178,6 +45460,25 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json"
     },
     {
+      "id": "simplebuilding:item/indestructible",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:dimensional_scrap",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nether_dimensional_scrap",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:end_dimensional_scrap",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/indestructible.json"
+    },
+    {
       "id": "simplebuilding:item/master_builder_enchantable",
       "replace": false,
       "values": [
@@ -45266,6 +45567,25 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/octants_enchantable.json"
+    },
+    {
+      "id": "simplebuilding:item/quadruple_despawn_time",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:dimensional_scrap",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nether_dimensional_scrap",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:end_dimensional_scrap",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/quadruple_despawn_time.json"
     },
     {
       "id": "simplebuilding:item/radius_enchantable",
@@ -45405,9 +45725,21 @@ window.WIKI_DATA = {
         {
           "id": "#simplebuilding:enderite_items",
           "required": true
+        },
+        {
+          "id": "simplebuilding:dimensional_scrap",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nether_dimensional_scrap",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:end_dimensional_scrap",
+          "required": true
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/void_protected.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/void_protected.json"
     },
     {
       "id": "simplebuilding:item/xp_repair_incompatible",
@@ -47276,6 +47608,21 @@ window.WIKI_DATA = {
       "labelDe": "Weisheitserz",
       "tooltip": "Off: no Sage Ore in the Overworld. Takes effect at the next world start in newly generated chunks. Default: on.",
       "tooltipDe": "Aus: kein Weisheitserz in der Oberwelt. Wirkt beim nächsten Weltstart in neu erzeugten Chunks. Standard: an."
+    },
+    {
+      "name": "server.oreGeneration.dimensionalScrap",
+      "shortName": "dimensionalScrap",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "End Ore Generation",
+      "groupDe": "End-Erzvorkommen",
+      "label": "Dimensional Scrap",
+      "labelDe": "Dimensionsschrott",
+      "tooltip": "Off: no Dimensional Scrap in the Overworld, the Nether or the End. Takes effect at the next world start in newly generated chunks. Default: on.",
+      "tooltipDe": "Aus: kein Dimensionsschrott in Oberwelt, Nether und End. Wirkt beim nächsten Weltstart in neu erzeugten Chunks. Standard: an."
     },
     {
       "name": "server.pads.strangerPadBreakSeconds",
@@ -69394,14 +69741,14 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 188,
-    "blocks": 156,
+    "items": 191,
+    "blocks": 159,
     "recipes": 426,
-    "lootTables": 157,
+    "lootTables": 160,
     "trades": 20,
     "enchantments": 19,
-    "tags": 42,
-    "config": 174,
+    "tags": 44,
+    "config": 175,
     "inWorld": 396,
     "advancements": 123,
     "features": 43,

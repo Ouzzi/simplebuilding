@@ -101,7 +101,8 @@ public final class ConfigOptions {
             "server.oreGeneration.endOres",
             "server.oreGeneration.astralitOre",
             "server.oreGeneration.nihilitOre",
-            "server.oreGeneration.sageOre");
+            "server.oreGeneration.sageOre",
+            "server.oreGeneration.dimensionalScrap");
 
     private static final List<Option> ALL;
 

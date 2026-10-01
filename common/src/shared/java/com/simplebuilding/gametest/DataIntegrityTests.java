@@ -177,6 +177,9 @@ public final class DataIntegrityTests {
             "nihilith_ore", ModItems.NIHILITH_SHARD,
             "astralit_ore", ModItems.ASTRALIT_DUST);
 
+    /** Experience ores (owner 2026-10-01): mostly nothing, rarely a Sage Orb; Silk Touch drops the ore. */
+    private static final Set<String> EXPERIENCE_ORES = Set.of("sage_ore", "deepslate_sage_ore");
+
     /**
      * The item tag each mod enchantment's {@code supported_items} has to point at - the single
      * argument in {@code ModEnchantments} that decides what a player may put it on.
@@ -938,6 +941,15 @@ public final class DataIntegrityTests {
                     ? ORE_DROPS.get(blockId.getPath())
                     : BuiltInRegistries.ITEM.getValue(lootOwner);
             List<List<ItemStack>> rolls = rollBlockLoot(helper, block, table);
+            if (EXPERIENCE_ORES.contains(blockId.getPath())) {
+                for (List<ItemStack> produced : rolls) {
+                    if (produced.size() > 1 || produced.stream().anyMatch(s -> !s.is(ModItems.SAGE_ORB) || s.getCount() != 1)) {
+                        problems.add(actual + " handed over " + produced + "; an experience ore drops at most one Sage Orb");
+                        break;
+                    }
+                }
+                continue;
+            }
             Set<Identifier> dropped = new TreeSet<>(Comparator.comparing(Identifier::toString));
             for (List<ItemStack> produced : rolls) {
                 for (ItemStack stack : produced) {
@@ -1225,7 +1237,10 @@ public final class DataIntegrityTests {
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             if (MOD_ID.equals(id.getNamespace())
                     && (id.getPath().contains("enderite") || Set.of("flypad", "reinforced_flypad", "stellar_flypad",
-                            "fine_elytra_pad", "infused_potion_pad", "echo_sounder").contains(id.getPath()))) {
+                            "fine_elytra_pad", "infused_potion_pad", "echo_sounder").contains(id.getPath())
+                    // Dimensions-Schrott (Besitzer 2026-10-01) schwebt ebenfalls ueber dem Void.
+                    || com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP && Set.of("dimensional_scrap",
+                            "nether_dimensional_scrap", "end_dimensional_scrap").contains(id.getPath()))) {
                 byWrittenRule.add(id);
             }
         }
@@ -2690,6 +2705,9 @@ public final class DataIntegrityTests {
         List<List<Item>> expected = new ArrayList<>();
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             expected.add(List.of(ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM, ModItems.SAGE_ORB));
+        }
+        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
+            expected.add(List.of(ModItems.DIMENSIONAL_SCRAP_ITEM, ModItems.NETHER_DIMENSIONAL_SCRAP_ITEM, ModItems.END_DIMENSIONAL_SCRAP_ITEM));
         }
         expected.addAll(List.of(
                 List.of(ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, gap, ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST,
@@ -4307,6 +4325,8 @@ public final class DataIntegrityTests {
             Map.entry("creative_spacer", net.minecraft.world.item.Rarity.EPIC));
     /** Feuerfest ausser allem mit netherite_/enderite_ vorn: alles, was mit Netherit oder Enderit gebaut wird. */
     private static final Set<String> FIRE_RESISTANT_EXTRA = Set.of("enchanted_netherite_apple", "enchanted_enderite_apple",
+            // Dimensions-Schrott (2026-10-01): als Item gegen jede Zerstoerung sicher.
+            "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap",
             "echo_sounder", "spawn_teleporter_tier_2", "spawn_teleporter_tier_3", "spawn_teleporter_tier_4",
             "potion_pad", "reinforced_potion_pad", "infused_potion_pad", "flypad", "reinforced_flypad", "stellar_flypad",
             "fine_elytra_pad",

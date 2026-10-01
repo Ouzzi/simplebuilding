@@ -50,6 +50,15 @@ public class ModWorldGen {
     public static final int SAGE_ORE_SIZE = 4;
     public static final float SAGE_ORE_AIR_DISCARD = 0.5F;
     public static final int SAGE_ORE_COUNT = 7;
+    /** Dimensional Scrap keys (26.3 main line, McVersion.DIMENSIONAL_SCRAP); nothing registered on this line. */
+    public static final int SCRAP_SIZE = 2;
+    public static final int SCRAP_RARITY = 3;
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SCRAP_OVERWORLD_KEY = registerConfiguredKey("dimensional_scrap");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SCRAP_NETHER_KEY = registerConfiguredKey("nether_dimensional_scrap");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SCRAP_END_KEY = registerConfiguredKey("end_dimensional_scrap");
+    public static final ResourceKey<PlacedFeature> SCRAP_OVERWORLD_PLACED_KEY = registerPlacedKey("dimensional_scrap_placed");
+    public static final ResourceKey<PlacedFeature> SCRAP_NETHER_PLACED_KEY = registerPlacedKey("nether_dimensional_scrap_placed");
+    public static final ResourceKey<PlacedFeature> SCRAP_END_PLACED_KEY = registerPlacedKey("end_dimensional_scrap_placed");
 
     public static void bootstrapConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest endStoneReplaceables = new BlockMatchTest(Blocks.END_STONE);

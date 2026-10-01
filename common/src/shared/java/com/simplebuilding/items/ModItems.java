@@ -314,10 +314,15 @@ public class ModItems {
             ? registerItem("sage_ore", s -> new BlockItem(ModBlocks.SAGE_ORE, s)) : null;
     public static final Item DEEPSLATE_SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE
             ? registerItem("deepslate_sage_ore", s -> new BlockItem(ModBlocks.DEEPSLATE_SAGE_ORE, s)) : null;
+    public static final Item DIMENSIONAL_SCRAP_ITEM = com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP
+            ? registerItem("dimensional_scrap", s -> new BlockItem(ModBlocks.DIMENSIONAL_SCRAP, s.fireResistant())) : null;
+    public static final Item NETHER_DIMENSIONAL_SCRAP_ITEM = com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP
+            ? registerItem("nether_dimensional_scrap", s -> new BlockItem(ModBlocks.NETHER_DIMENSIONAL_SCRAP, s.fireResistant())) : null;
+    public static final Item END_DIMENSIONAL_SCRAP_ITEM = com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP
+            ? registerItem("end_dimensional_scrap", s -> new BlockItem(ModBlocks.END_DIMENSIONAL_SCRAP, s.fireResistant())) : null;
     /** Weisheitskugel: seltener Drop des Weisheitserzes, gibt nach kurzem Laden viel Erfahrung. */
     public static final Item SAGE_ORB = com.simplebuilding.version.McVersion.SAGE_ORE
-            ? registerItem("sage_orb", s -> new com.simplebuilding.items.custom.SageOrbItem(s.stacksTo(16)
-                    .rarity(net.minecraft.world.item.Rarity.UNCOMMON))) : null;
+            ? registerItem("sage_orb", s -> new com.simplebuilding.items.custom.SageOrbItem(s.stacksTo(16))) : null;
 
 
 

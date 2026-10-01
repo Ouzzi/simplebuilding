@@ -485,6 +485,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trim_effect_game_test_trim_bonuses_reach_the_player_through_the_mixins", TrimEffectTests::trimBonusesReachThePlayerThroughTheMixins)
                     .build(),
+            GameTestSpec.named("ore_gen_and_item_frame_game_test_dimensional_scrap_is_enderite_gated_and_indestructible", OreGenAndItemFrameTests::dimensionalScrapIsEnderiteGatedAndIndestructible)
+                    .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_sage_ore_generates_in_the_overworld_and_drops_only_with_silk_touch", OreGenAndItemFrameTests::sageOreGeneratesInTheOverworldAndDropsOnlyWithSilkTouch)
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_the_sage_orb_gives_fifty_to_one_hundred_experience_after_ten_ticks", OreGenAndItemFrameTests::theSageOrbGivesFiftyToOneHundredExperienceAfterTenTicks)
