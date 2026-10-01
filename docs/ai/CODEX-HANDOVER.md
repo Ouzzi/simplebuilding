@@ -15,6 +15,9 @@ Plan: `docs/ai/CODEX-PLAN.md`. Erledigte Merges und tatsächliche Prüfbelege:
   zusätzlich Settings- und Claims-Tests auf allen drei 26.3-Loadern in eigene
   Testumgebungen (Kollision Tick 155/Settings ab Tick 130). Diese Änderungen vor
   dem finalen Gate ebenfalls integrieren; keine Testfälle streichen.
+  Der Worker hat inzwischen exakt die beiden Java-Dateien aus `a5d8151e`
+  übernommen; inhaltlicher Vergleich mit master ist identisch. Die zwischenzeitliche
+  alternative Mixin-Lösung entfällt. Abschlussnachweise auf diesem Stand abwarten.
 - Gemeinsames Abschlussgate und exakter SHA-Push offen. Das erste Gesamtgate
   auf `354b1ae3` war rot; check/1600 Hauptlinientests waren grün, der bewiesene
   Cleanupfehler ist inzwischen mit zwei aufeinanderfolgenden 176/176-Läufen und
