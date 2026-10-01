@@ -31,7 +31,7 @@ public final class ClaimCommands {
                         .executes(c->trust(c.getSource(),StringArgumentType.getString(c,"player"),false))))
                 .then(Commands.literal("unclaim").executes(c->result(c.getSource(),Claims.get(c.getSource().getServer()).unclaim(c.getSource().getPlayerOrException(),false))))
                 .then(Commands.literal("admin").requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
-                        .executes(c->{c.getSource().sendSuccess(()->Component.translatable("command.simpletweaks.claim.stage","1–3, 5"),false);return 1;})
+                        .executes(c->{c.getSource().sendSuccess(()->Component.translatable("command.simpletweaks.claim.stage","1–3, 5–6"),false);return 1;})
                         .then(Commands.literal("unclaim").executes(c->result(c.getSource(),Claims.get(c.getSource().getServer()).unclaim(c.getSource().getPlayerOrException(),true))))
                         .then(Commands.literal("listall").executes(c->list(c.getSource(),null)))
                         .then(Commands.literal("list").then(Commands.argument("player",StringArgumentType.word())

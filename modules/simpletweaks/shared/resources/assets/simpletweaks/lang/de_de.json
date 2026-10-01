@@ -4,7 +4,7 @@
   "tooltip.simpletweaks.claim_deed.data": "Urkundendaten bleiben erhalten; nur die Claim-Daten des Servers vergeben Rechte.",
   "config.simpletweaks.claims.tab": "Server-Claims",
   "config.simpletweaks.claims.enabled": "Claims aktivieren",
-  "config.simpletweaks.claims.enabled.tooltip": "Umgesetzt: Stufen 1–3 und 5 mit atomaren Claims, Vanilla-/Werkzeugprüfungen, Besitzer-Vertrauen und OP4-Verwaltung. Stufe 4 läuft separat und ist ungemergt; Umwelt-/Automationsschutz ist nicht bestätigt. Standard aus; nur für Entwicklungstests. Standardwert: false.",
+  "config.simpletweaks.claims.enabled.tooltip": "Umgesetzt: Stufen 1–3, 5 und 6 mit atomaren Claims, Vanilla-/Werkzeugprüfungen, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter. Stufe 4 läuft separat und ist ungemergt; Umwelt-/Automationsschutz ist nicht bestätigt. Standard aus; nur für Entwicklungstests. Standardwert: false.",
   "config.simpletweaks.claims.enabled.default": "false",
   "config.simpletweaks.claims.enabled.tab": "Server-Claims",
   "config.simpletweaks.claims.maxClaimsPerPlayer": "Claims pro Spieler",

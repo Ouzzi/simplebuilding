@@ -521,3 +521,30 @@ keine Freigabe als vollständiger Landschutz. Frühere Werkzeug-Testlücken blei
   war die Zielerfassung abhängig von der zufälligen Testposition.
   Wiki default/module generate/check und Modul-/EN-DE-Datenprüfung grün.
   Keine Clients, Besitzerwelt oder vollständige Sicherheitsmatrix geprüft.
+
+### Claims Stufe 6 (2026-10-01)
+
+Dimensions liest die vorhandene öffentliche Framework-Protection-API, keine
+Claims-Interna. Vollständige Rahmen-/Innenraumprüfungen, beide Reiseenden und
+geprüfte erzeugte Rückwege: siehe docs/modules/simpledimensions.md. Erkannte
+fremde Claim-Mods ohne eigenen Adapter bleiben gesperrt. Hauptschalter false;
+Stufe 4 separat/ungemergt und weiterhin nicht als abgeschlossen bestätigt.
+
+Der zusätzliche Claims-Portaltest benutzt nur öffentliche Registry-IDs, echte
+Vanilla-Interaktion, Befehlsdispatch und Serverticks mit zwei verbundenen Spielern.
+Dafür deklariert allein der eigene Manifest-Testeintrag Simple Dimensions als
+Testvoraussetzung; NeoForge lädt dessen SourceSet nur bei der expliziten eigenen
+Modul-Testtask. Kein Modul-Sonderblock in Root-Build, Integration oder Runner.
+
+Der echte Claims-/Portalablauf bestand auf beiden Loadern (2/2, alles gruen,
+2026-09-30T23-29-57Z-39f5). Der folgende vollständige Modullauf deckte eine
+Testisolation auf: Der asynchrone Portaltest hielt Claims während einer alten
+Disabled-Urkundenprobe aktiv. Er nutzt jetzt pro Loader eine eigene Vanilla-
+Testumgebung und läuft in einem getrennten Batch. Keine alte Assertion entfernt.
+Der Beam-Test setzt sein Ziel nun im sicher sichtbaren GameTest-Ankerchunk;
+reines Laden des Nachbarchunks garantierte noch keine sichtbare Entity-Sektion.
+Der reale Aim-/Owner-/Fremdzugriffstest bleibt vollständig erhalten.
+Danach vollständige Modulsuiten 66/66, alles gruen, 2026-09-30T23-37-40Z-b5cf
+(33 je Loader). Kein bloßer Exit-Code als Erfolgsnachweis.
+
+Claims including the actual two-player portal flow passed again: 2026-09-30T23-49-03Z-e365, 44/44, alles gruen (22 per loader). Exact files, further gate evidence and limits: modules/simpletweaks/CLAIMS-ACCESS-VERIFICATION.md.

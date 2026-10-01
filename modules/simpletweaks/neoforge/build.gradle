@@ -19,3 +19,10 @@ neoForge.runs {
 
 // Package the shared framework API for production, as well as development runs.
 dependencies { jarJar project(':framework') }
+
+// Cross-module test runtime only; production has no Dimensions dependency or internal imports.
+if (gradle.startParameter.taskNames.contains("${project.path}:runModuleIntegrationGameTest".toString())) {
+ evaluationDependsOn(':modules:simpledimensions:neoforge')
+ neoForge.mods { simpledimension { sourceSet project(':modules:simpledimensions:neoforge').sourceSets.main } }
+ neoForge.runs.moduleIntegrationGameTest.loadedMods = [neoForge.mods.simpletweaks, neoForge.mods.simplebuilding, neoForge.mods.simpledimension]
+}

@@ -349,3 +349,10 @@ Simple Dimensions auf codex-port-dimensions implementiert: drei Dimensionen, sec
   war die Zielerfassung abhängig von der zufälligen Testposition.
   Wiki default/module generate/check und Modul-/EN-DE-Datenprüfung grün.
   Keine Clients, Besitzerwelt oder vollständige Sicherheitsmatrix geprüft.
+
+## Claims access worker — Stufe 6 (2026-10-01)
+- Stufe 5: 4ac2875a. Separater Stufe-6-Commit auf codex-next-claims-access: Dimensions über vorhandene öffentliche Protection-API, vollständige Portal-/Landeflächen, beide Reiseenden und sichere erlaubte Rückwege; keine interne Modulkopplung oder gemeinsamen API-/Root-Codeänderungen.
+- Claims bleiben AUS; Stufe 4 ist separat/ungemergt und nicht als fertig bestätigt. Dimensions-Schalterbranch ebenfalls nicht enthalten. Vollständige gemergte Normal-/Integrationsmatrix bleibt beim Orchestrator.
+- Modulvollsuiten: Dimensions 74/74 (2026-09-30T23-24-05Z-521d), Tweaks 66/66 (2026-09-30T23-37-40Z-b5cf). Claims-Nachprüfung 44/44 (2026-09-30T23-49-03Z-e365), abschließende Dimensions-Claimprüfung 10/10 (2026-09-30T23-51-37Z-36e1), jeweils beide 26.3-Loader und alles gruen gelesen. Details/Dateien/Grenzen: modules/simpletweaks/CLAIMS-ACCESS-VERIFICATION.md.
+- Abschluss: gradlew.bat check -q mit max. 2 Workern GRADLE_EXIT=0; zusätzliche Dimensions-JARs gebaut und öffentliche Protection-API samt Fabric-/NeoForge-Metadaten in beiden Paketdateien nachgewiesen. Letzter echter Claims-/Portaltest 2/2, alles gruen, 2026-09-30T23-57-47Z-0885.
+- Testzentrale in Testwelten aufgebaut; Abdeckung/Planvergleich auf beiden Loadern grün. Gesamtlauf 2026-09-30T23-53-58Z-9ce6: 9/10, NF-Knopftest einmal rot; unverändert einzeln 1/1 grün (2026-09-30T23-56-25Z-2d76). Sporadische Ursache offen, kein behaupteter sauberer 10/10-Lauf. Keine Besitzerwelt/Clients/anderen Laufzeitlinien geprüft. Kein Push/Merge.

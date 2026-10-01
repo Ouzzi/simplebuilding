@@ -3,6 +3,7 @@ import com.simplebuilding.modules.simpletweaks.claims.ClaimTests;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ClaimsGameTest {
+ @GameTest(environment="simpletweaks:claims_portal",maxTicks=400) public void claimsPortalFlow(GameTestHelper h) { ClaimTests.TESTS.get("claims_portal_flow").accept(h); }
  @GameTest public void claimsAccessCommands(GameTestHelper h) { ClaimTests.TESTS.get("claims_access_commands").accept(h); }
  @GameTest public void claimsAccessCapsFailures(GameTestHelper h) { ClaimTests.TESTS.get("claims_access_caps_failures").accept(h); }
  @GameTest public void claimsAccessAdmin(GameTestHelper h) { ClaimTests.TESTS.get("claims_access_admin").accept(h); }

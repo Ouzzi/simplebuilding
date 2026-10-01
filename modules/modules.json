@@ -703,7 +703,8 @@
         ],
         "requires": [
           "simpletweaks",
-          "simplebuilding"
+          "simplebuilding",
+          "simpledimensions"
         ],
         "devMods": [
           "cloth_config"

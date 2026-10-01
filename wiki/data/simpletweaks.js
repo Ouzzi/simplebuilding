@@ -44,18 +44,18 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
       "id": "claims",
       "en": {
         "title": "Claims: Disabled by Default",
-        "summary": "Implemented stages 1–3 and 5: atomic claims, Vanilla and tool checks, owner trust and OP4 administration. Stage 4 is a separate unmerged worker; environmental and automation coverage is not established. Default off; enable only for development testing. Default: false.",
+        "summary": "Implemented stages 1–3, 5 and 6: atomic claims, Vanilla/tool checks, owner trust, OP4 administration and the Dimensions adapter. Stage 4 is a separate unmerged worker; environmental and automation coverage is not established. Default off; enable only for development testing. Default: false.",
         "details": [
-          "Implemented stages 1–3 and 5: atomic claims, Vanilla and tool checks, owner trust and OP4 administration. Stage 4 is a separate unmerged worker; environmental and automation coverage is not established. Default off; enable only for development testing. Default: false.",
+          "Implemented stages 1–3, 5 and 6: atomic claims, Vanilla/tool checks, owner trust, OP4 administration and the Dimensions adapter. Stage 4 is a separate unmerged worker; environmental and automation coverage is not established. Default off; enable only for development testing. Default: false.",
           "/claim trust and untrust accept online names or full offline UUIDs. Only the owner can change trust; trusted players cannot delegate. OP4 may use admin listall, list <UUID/name>, or unclaim, independently of the default-off protection bypass. Changes are saved atomically before becoming effective.",
           "Server ticks between successful claim, trust, revocation or removal operations by one player. Range 20–72000, across dimensions; resets on restart. Default: 100 ticks."
         ]
       },
       "de": {
         "title": "Claims: standardmäßig aus",
-        "summary": "Umgesetzt: Stufen 1–3 und 5 mit atomaren Claims, Vanilla-/Werkzeugprüfungen, Besitzer-Vertrauen und OP4-Verwaltung. Stufe 4 läuft separat und ist ungemergt; Umwelt-/Automationsschutz ist nicht bestätigt. Standard aus; nur für Entwicklungstests. Standardwert: false.",
+        "summary": "Umgesetzt: Stufen 1–3, 5 und 6 mit atomaren Claims, Vanilla-/Werkzeugprüfungen, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter. Stufe 4 läuft separat und ist ungemergt; Umwelt-/Automationsschutz ist nicht bestätigt. Standard aus; nur für Entwicklungstests. Standardwert: false.",
         "details": [
-          "Umgesetzt: Stufen 1–3 und 5 mit atomaren Claims, Vanilla-/Werkzeugprüfungen, Besitzer-Vertrauen und OP4-Verwaltung. Stufe 4 läuft separat und ist ungemergt; Umwelt-/Automationsschutz ist nicht bestätigt. Standard aus; nur für Entwicklungstests. Standardwert: false.",
+          "Umgesetzt: Stufen 1–3, 5 und 6 mit atomaren Claims, Vanilla-/Werkzeugprüfungen, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter. Stufe 4 läuft separat und ist ungemergt; Umwelt-/Automationsschutz ist nicht bestätigt. Standard aus; nur für Entwicklungstests. Standardwert: false.",
           "/claim trust und untrust nehmen Online-Namen oder vollständige Offline-UUIDs an. Nur der Besitzer ändert Vertrauen; Vertraute dürfen es nicht weitergeben. OP4 darf admin listall, list <UUID/Name> und unclaim nutzen, unabhängig von der standardmäßig ausgeschalteten Schutzumgehung. Änderungen gelten erst nach atomarem Speichern.",
           "Server-Ticks zwischen erfolgreichen Claim-, Vertrauens-, Widerrufs- oder Löschvorgängen eines Spielers. Bereich 20–72000, dimensionsübergreifend; Neustart setzt zurück. Standard: 100 Ticks."
         ]

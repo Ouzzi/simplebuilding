@@ -18,6 +18,7 @@ import net.minecraft.world.level.*;
 public final class ClaimTests {
     public static final Map<String,Consumer<GameTestHelper>> TESTS = new LinkedHashMap<>();
     static {
+        TESTS.put("claims_portal_flow",ClaimPortalTests::flow);
         TESTS.put("claims_access_commands",ClaimAccessTests::commandsAndAccess);
         TESTS.put("claims_access_caps_failures",ClaimAccessTests::capsAndFailures);
         TESTS.put("claims_access_admin",ClaimAccessTests::adminPolicy);

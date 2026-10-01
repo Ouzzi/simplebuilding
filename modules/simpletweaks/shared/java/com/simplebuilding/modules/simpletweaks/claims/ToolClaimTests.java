@@ -53,7 +53,8 @@ final class ToolClaimTests {
         }
     });h.succeed();}
     static void beam(GameTestHelper h){with(h,c->{
-        var l=h.getLevel();var inside=boundary(h).east(2);var owner=player(h,inside.west(5));var other=player(h,inside.west(5));
+        // Keep the entity in the GameTest anchor chunk, whose entity sections are already visible.
+        var l=h.getLevel();var inside=h.absolutePos(new BlockPos(0,64,0));var owner=player(h,inside.west(5));var other=player(h,inside.west(5));
         yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Beam fixture");
         l.getChunkAt(inside);
         var cow=EntityTypes.COW.create(l,EntitySpawnReason.COMMAND);cow.setPos(Vec3.atBottomCenterOf(inside));yes(h,l.addFreshEntity(cow),"Beam target spawns in a loaded chunk");

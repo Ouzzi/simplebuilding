@@ -43,3 +43,11 @@ is not established. Claims remain disabled by default and are not enabled-ready.
   war die Zielerfassung abhängig von der zufälligen Testposition.
   Wiki default/module generate/check und Modul-/EN-DE-Datenprüfung grün.
   Keine Clients, Besitzerwelt oder vollständige Sicherheitsmatrix geprüft.
+
+## Stage 6 result
+
+Public-framework Dimensions adapter implemented, without internal cross-mod imports,
+settings-screen/preset changes or root implementation changes. Complete module
+catalogues and real owner/guest command/tick flows passed on both 26.3 loaders.
+See CLAIMS-ACCESS-VERIFICATION.md for exact runs, security choices, files and gaps.
+Stage 4 remains separate/unmerged/unconfirmed; Claims remain disabled by default.
