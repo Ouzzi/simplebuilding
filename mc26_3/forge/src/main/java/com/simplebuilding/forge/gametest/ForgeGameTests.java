@@ -118,7 +118,10 @@ public final class ForgeGameTests {
             return;
         }
         event.<Consumer<GameTestHelper>>register(Registries.TEST_FUNCTION, helper -> {
-            SimpleBuildingGameTests.forEach((name, spec) -> helper.register(id(name), spec.body()));
+            SimpleBuildingGameTests.forEach((name, spec) -> helper.register(id(name), test -> {
+                if (name.equals("config_option_game_test_every_config_option_keeps_its_persisted_name_and_default")) ForgeConfigChecks.verify(test);
+                spec.body().accept(test);
+            }));
             ForgeOnlyGameTests.forEach((name, spec) -> helper.register(id(name), spec.body()));
         });
     }

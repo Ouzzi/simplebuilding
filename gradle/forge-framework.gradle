@@ -1,0 +1,27 @@
+// Forge's Jar-in-Jar metadata gives all modules one version-selected API instance.
+dependencies { compileOnly project(':framework') }
+def apiProject = project(':framework')
+evaluationDependsOn(':framework')
+def apiJar = apiProject.tasks.named('jar')
+def metadata = layout.buildDirectory.dir('forgeFrameworkMetadata')
+tasks.register('prepareForgeFramework') {
+    dependsOn apiJar
+    inputs.property('frameworkVersion', apiProject.version.toString())
+    inputs.file(apiJar.flatMap { it.archiveFile })
+    outputs.dir(metadata)
+    doLast {
+        def jarName = apiJar.get().archiveFileName.get()
+        def target = metadata.get().file('META-INF/jarjar/metadata.json').asFile
+        target.parentFile.mkdirs()
+        target.text = groovy.json.JsonOutput.toJson([jars: [[
+            identifier: [group: apiProject.group.toString(), artifact: apiProject.name],
+            version: [range: '[0.1.1,0.2)', artifactVersion: apiProject.version.toString()],
+            path: "META-INF/jarjar/${jarName}"
+        ]]])
+        copy { from(apiJar.flatMap { it.archiveFile }); into target.parentFile }
+    }
+}
+// Development runs and distributables use the same nested library. A loose runtime
+// dependency would collide with a dependency mod's embedded copy in Forge's JPMS layer.
+sourceSets.main.resources.srcDir(metadata)
+tasks.named('processResources') { dependsOn 'prepareForgeFramework' }

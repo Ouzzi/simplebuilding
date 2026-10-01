@@ -70,8 +70,7 @@ public final class SimplebuildingForge {
     }
 
     private void configure() {
-        // cloth-config/AutoConfig has no MinecraftForge build for MC 26.x; the bundled
-        // shim returns default config values (no disk persistence / config GUI on Forge).
+        // The Forge 26.3 compatibility entrypoint loads and validates persistent JSON.
         Simplebuilding.setConfig(AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig());
     }
 

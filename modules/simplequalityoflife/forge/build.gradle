@@ -1,6 +1,6 @@
 plugins { id 'java-library'; id 'net.minecraftforge.gradle' version '7.0.36' }
 ext.moduleVersion = '1.0.6'
-ext.forgeExcludedSources = ['**/client/QolConfigScreen.java']
+ext.forgeExcludedSources = []
 ext.forgeMixinConfigs = ['simplequalityoflife-common.mixins.json', 'simplequalityoflife.forge.mixins.json']
 apply from: rootProject.file('gradle/module-forge.gradle')
 
@@ -25,3 +25,6 @@ tasks.register('prepareForgeConfig') {
 sourceSets.main.java.srcDir(output)
 sourceSets.main.java.exclude { e -> files.any { e.file == new File(canonical, it) } }
 tasks.named('compileJava') { dependsOn 'prepareForgeConfig' }
+
+ext.forgeNativeConfig = [id: 'simplequalityoflife', modId: 'simplequalityoflife', root: 'modules/simplequalityoflife/shared/java', screens: ['com/simplequalityoflife/client/QolConfigScreen.java'], factory: 'com.simplequalityoflife.client.QolConfigScreen.create(parent)', replacements: ['me.shedaniel.autoconfig.AutoConfig.getConfigHolder(SimplequalityoflifeConfig.class)': 'com.simplebuilding.modules.simplequalityoflife.forge.QolForgeConfig.HOLDER']]
+apply from: rootProject.file('gradle/forge-native-config.gradle')

@@ -1,0 +1,7 @@
+{
+  "simplemods.config.default": "Standard: %s",
+  "simplemods.config.range": "Bereich: %s bis %s",
+  "simplemods.config.saveFailed": "Speichern fehlgeschlagen. Log prüfen und erneut versuchen.",
+  "simplemods.config.restart": "Lokale Einstellungsdatei; Servereinstellungen gelten nach Spielneustart.",
+  "simplemods.config.remote": "Der entfernte Server bestimmt die Spieleinstellungen."
+}

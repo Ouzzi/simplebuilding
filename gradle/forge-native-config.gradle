@@ -1,0 +1,37 @@
+// Adapt existing option declarations to real native widgets, never fake Cloth packages.
+def spec = project.forgeNativeConfig
+def canonical = rootProject.file(spec.root)
+def packageName = "com.simplebuilding.forgenative.${spec.id}"
+def generated = layout.buildDirectory.dir('forgeNativeConfig')
+def template = rootProject.file('gradle/native-config/ConfigBuilder.java')
+tasks.register('prepareForgeNativeConfig') {
+    inputs.file(template)
+    inputs.files(spec.screens.collect { new File(canonical, it) })
+    inputs.property('nativeConfigSpec', spec.toString())
+    outputs.dir(generated)
+    doLast {
+        def folder = generated.get().dir(packageName.replace('.', '/')).asFile
+        folder.mkdirs()
+        new File(folder, 'ConfigBuilder.java').setText(template.getText('UTF-8').replace('package nativeconfig;', "package ${packageName};"), 'UTF-8')
+        spec.screens.each { path ->
+            def text = new File(canonical, path).getText('UTF-8').replace('me.shedaniel.clothconfig2.api.ConfigBuilder', packageName + '.ConfigBuilder')
+            spec.replacements?.each { from, to -> text = text.replace(from, to) }
+            def target = generated.get().file(path).asFile
+            target.parentFile.mkdirs(); target.setText(text, 'UTF-8')
+        }
+        new File(folder, 'ConfigRegistration.java').setText("""package ${packageName};
+@net.minecraftforge.fml.common.Mod.EventBusSubscriber(modid="${spec.modId ?: spec.id}", value=net.minecraftforge.api.distmarker.Dist.CLIENT, bus=net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD)
+public final class ConfigRegistration {
+ @net.minecraftforge.eventbus.api.listener.SubscribeEvent
+ public static void setup(net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) {
+  net.minecraftforge.fml.ModLoadingContext.get().registerExtensionPoint(net.minecraftforge.client.ConfigScreenHandler.ConfigScreenFactory.class,
+   () -> new net.minecraftforge.client.ConfigScreenHandler.ConfigScreenFactory((minecraft, parent) -> ${spec.factory}));
+ }
+}
+""", 'UTF-8')
+    }
+}
+sourceSets.main.java.srcDir(generated)
+sourceSets.main.java.exclude { e -> spec.screens.any { e.file == new File(canonical, it) } }
+sourceSets.main.resources.srcDir(rootProject.file('gradle/native-config/resources'))
+tasks.named('compileJava') { dependsOn 'prepareForgeNativeConfig' }

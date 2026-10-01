@@ -1,4 +1,6 @@
-group = 'com.simplebuilding.modules'
+// Loader projects all have the name 'forge'; unique groups prevent Gradle from
+// resolving one module in place of another when both are present at runtime.
+group = 'com.simplebuilding.modules.' + project.parent.name
 base { archivesName = project.parent.name + '-26.3-forge' }
 version = project.findProperty('moduleVersion') ?: '0.1.0'
 java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
@@ -17,9 +19,9 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    implementation project(':framework')
     implementation minecraft.dependency("net.minecraftforge:forge:26.3-${rootProject.mc263_forge_version}")
 }
+apply from: rootProject.file('gradle/forge-framework.gradle')
 processResources { filesMatching('META-INF/mods.toml') { expand version: project.version } }
 if (providers.gradleProperty('forge_runs').getOrElse('false').toBoolean()) {
     minecraft.runs {
@@ -57,12 +59,15 @@ processResources {
 if (forgeTest && providers.gradleProperty('forge_runs').getOrElse('false').toBoolean()) {
     // Required test mods are runtime jars, never implementation imports.
     // Test dependencies are activated only by an explicitly requested manifest test task.
-    if (gradle.startParameter.taskNames.contains(forgeTest.task)) forgeTest.testMods?.each { id ->
+    def runtimeMods = providers.gradleProperty('forgeTestMods').map { it.split(',').findAll { !it.isBlank() } }.getOrElse(forgeTest.testMods ?: [])
+    if (gradle.startParameter.taskNames.contains(forgeTest.task)) runtimeMods.each { id ->
         def dependency = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json')).modules.find { it.id == id }
+        if (!dependency?.projects?.forge || id == moduleId) throw new GradleException("Invalid Forge test dependency: ${id}")
         dependencies { runtimeOnly project(dependency.projects.forge) }
     }
     minecraft.runs.register('gameTestServer') {
         workingDir = layout.projectDirectory.dir('run-gametest')
-        args '--tests', (project.findProperty('gametestFilter') ?: "${moduleId}:*").toString(), '--report', rootProject.file(forgeTest.report).absolutePath
+        args '--tests', (project.findProperty('gametestFilter') ?: "${entry.tests.namespace ?: moduleId}:*").toString(), '--report', rootProject.file(forgeTest.report).absolutePath
     }
 }
+apply from: rootProject.file('gradle/forge-packaged-run.gradle')

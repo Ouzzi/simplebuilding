@@ -1,0 +1,31 @@
+// Opt-in production-artifact probe: no project classes or loose framework on the game classpath.
+if (providers.gradleProperty('forgePackaged').getOrElse('false').toBoolean()) {
+    minecraft.runs.configureEach {
+        environment 'MOD_CLASSES', ''
+    }
+    def runTaskType = plugins.getPlugin('net.minecraftforge.gradle').class.classLoader
+            .loadClass('net.minecraftforge.gradle.internal.SlimeLauncherRunTask')
+    // FG7's registration action initializes these collections after early configureEach
+    // callbacks. Configure last, once all projects have registered their runs.
+    gradle.projectsEvaluated { tasks.withType(runTaskType).configureEach {
+        dependsOn tasks.named('jar')
+        defaultSourceSets.set([])
+        maxHeapSize = '2G'
+        def original = project.files(runtimeClasspath.from.toList())
+        def outputs = sourceSets.main.output
+        def libraries = [project(':framework'), project(':common')]
+        def keep = { f ->
+            !outputs.files.contains(f) && !libraries.any { library ->
+                f == library.tasks.named('jar').get().archiveFile.get().asFile || library.sourceSets.main.output.files.contains(f)
+            }
+        }
+        def artifact = tasks.named('jar').flatMap { it.archiveFile }
+        runtimeClasspath.setFrom(original.filter(keep), artifact)
+        // FG7 also passes SourceSet.runtimeClasspath directly to JavaExec, independently
+        // of the runtime_classpath token. Both paths must exclude development outputs.
+        setClasspath(project.files(classpath.files.findAll(keep), artifact))
+        doFirst {
+            layout.buildDirectory.file('forge-packaged-classpath.txt').get().asFile.text = (runtimeClasspath.files + classpath.files).unique().join('\n') + '\n'
+        }
+    } }
+}

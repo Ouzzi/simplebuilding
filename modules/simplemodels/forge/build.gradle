@@ -3,3 +3,6 @@ ext.moduleVersion = '0.1.0'
 ext.forgeExcludedSources = []
 ext.forgeMixinConfigs = ['simplemodels.mixins.json', 'simplemodels.forge.mixins.json']
 apply from: rootProject.file('gradle/module-forge.gradle')
+
+ext.forgeNativeConfig = [id: 'simplemodels', root: 'modules/simplemodels/shared/java', screens: [], factory: 'new com.simplebuilding.modules.simplemodels.client.ModelBrowser(parent)']
+apply from: rootProject.file('gradle/forge-native-config.gradle')
