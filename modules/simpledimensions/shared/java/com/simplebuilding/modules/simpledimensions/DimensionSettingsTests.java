@@ -30,6 +30,7 @@ public final class DimensionSettingsTests {
         final BlockPos cell;
         BlockPos exactReturn;
         BlockPos arrival;
+        boolean closed;
 
         Journey(GameTestHelper h, String id) {
             this.h = h;
@@ -45,16 +46,34 @@ public final class DimensionSettingsTests {
             player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
             player.setNoGravity(true);
             player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.FLINT_AND_STEEL));
-            h.runBeforeTestEnd(() -> {
-                h.getLevel().getServer().getPlayerList().remove(player);
-                try { Files.write(DimensionRuntime.CONFIG_ROOT.resolve("server.json"), original); }
-                catch (Exception e) { throw new AssertionError(e); }
-                DimensionRuntime.stop(h.getLevel().getServer());
-            });
-            h.assertTrue(h.getLevel().getServer().getPlayerList().getPlayers().contains(player), "Player receives actual server ticks");
-            position(cell.south());
+            // This schedules the timeout fallback, not a callback on successful test completion.
+            h.runBeforeTestEnd(this::cleanup);
+            guarded(() -> {
+                h.assertTrue(h.getLevel().getServer().getPlayerList().getPlayers().contains(player), "Player receives actual server ticks");
+                position(cell.south());
+            }).run();
         }
 
+        void cleanup() {
+            if (closed) return;
+            closed = true;
+            try { h.getLevel().getServer().getPlayerList().remove(player); }
+            finally {
+                try { Files.write(DimensionRuntime.CONFIG_ROOT.resolve("server.json"), original); }
+                catch (Exception e) { throw new AssertionError(e); }
+                finally { DimensionRuntime.stop(h.getLevel().getServer()); }
+            }
+        }
+        Runnable guarded(Runnable step) {
+            return () -> {
+                if (closed) return;
+                try { step.run(); }
+                catch (RuntimeException | Error failure) {
+                    try { cleanup(); } catch (RuntimeException | Error cleanupFailure) { failure.addSuppressed(cleanupFailure); }
+                    throw failure;
+                }
+            };
+        }
         DimensionRuntime runtime() { return DimensionRuntime.get(h.getLevel().getServer()); }
         void position(BlockPos pos) { player.setPos(pos.getX()+.5, pos.getY(), pos.getZ()+.5); }
         void toggle(boolean enabled) {
@@ -79,6 +98,9 @@ public final class DimensionSettingsTests {
             h.assertTrue(DimensionRuntime.safe(player.level(), player.blockPosition()), id + " safe arrival");
         }
         void run() {
+            guarded(this::begin).run();
+        }
+        void begin() {
             toggle(false);
             ignite();
             h.assertTrue(!DimensionRegistry.portal(h.getLevel().getBlockState(cell)), id + " disabled ignition via server hook");
@@ -89,35 +111,39 @@ public final class DimensionSettingsTests {
             h.assertTrue(DimensionRegistry.portal(h.getLevel().getBlockState(cell)), id + " reenabled ignition via server hook");
             toggle(false);
             position(cell);
-            h.startSequence().thenIdle(23).thenExecute(() -> {
+            h.startSequence().thenIdle(23).thenExecute(guarded(() -> {
                 atSource("unlinked outbound refused while off");
                 h.assertTrue(!((SkyPortalBlockEntity) h.getLevel().getBlockEntity(cell)).linked, id + " no destination built while off");
                 toggle(true);
-            }).thenIdle(3).thenExecute(() -> {
+            })).thenIdle(3).thenExecute(guarded(() -> {
                 atTarget();
                 arrival = player.blockPosition();
                 var exit = (SkyPortalBlockEntity) player.level().getBlockEntity(arrival);
                 h.assertTrue(exit.generated && exit.linked, id + " generated return");
                 exactReturn = exit.link;
                 toggle(false);
-            }).thenIdle(3).thenExecute(() -> {
+            })).thenIdle(3).thenExecute(guarded(() -> {
                 atSource("return tick hook works with persisted switch off");
                 h.assertTrue(player.blockPosition().equals(exactReturn), id + " exact return while off");
                 position(cell.south());
-            }).thenIdle(2).thenExecute(() -> position(cell)).thenIdle(23).thenExecute(() -> {
+            })).thenIdle(2).thenExecute(guarded(() -> position(cell))).thenIdle(23).thenExecute(guarded(() -> {
                 atSource("linked outbound refused while off");
                 h.assertTrue(((SkyPortalBlockEntity) h.getLevel().getBlockEntity(cell)).linked, id + " link retained while off");
                 toggle(true);
-            }).thenIdle(3).thenExecute(() -> {
+            })).thenIdle(3).thenExecute(guarded(() -> {
                 atTarget();
                 h.assertTrue(player.blockPosition().equals(arrival), id + " existing connection reopened");
                 toggle(false);
-            }).thenIdle(3).thenExecute(() -> {
+            })).thenIdle(3).thenExecute(guarded(() -> {
                 atSource("second return remains open");
                 try {
                     h.assertTrue(java.util.Arrays.equals(definition, Files.readAllBytes(DimensionRuntime.CONFIG_ROOT.resolve("dimensions/"+id+".json"))), id + " definition untouched");
                 } catch (Exception e) { throw new AssertionError(e); }
-            }).thenSucceed();
+                cleanup();
+                try {
+                    h.assertTrue(java.util.Arrays.equals(original, Files.readAllBytes(DimensionRuntime.CONFIG_ROOT.resolve("server.json"))), "Original settings restored before success");
+                } catch (Exception e) { throw new AssertionError(e); }
+            })).thenSucceed();
         }
     }
 
