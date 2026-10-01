@@ -212,7 +212,8 @@ window.WIKI_MODULES = [
     "minecraft": "26.3",
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ],
     "requires": [
       "cloth_config"
@@ -221,6 +222,6 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "14d3deab7e25"
+    "dataHash": "b6e54488b34b"
   }
 ];

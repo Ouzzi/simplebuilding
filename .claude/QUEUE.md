@@ -104,3 +104,5 @@ kompilierter UI-Test und QoL/Sounds sind auf master gemergt (bis `6bb478cd`).
 Einzel-Worker-Gates grün; gemeinsames Gate und SHA-Push stehen aus. Forge beginnt
 jetzt auf dem vereinigten Stand. Besitzer-Client läuft, keine Clienttests gestartet.
 `n- [ ] FORGE-FOLLOWUP 2026-10-01: codex-next-forge on merged 5f294df9; Dimensions/Claims adapters, real config/persistence, framework packaging and server verification. Plan: docs/FORGE-FOLLOWUP-PLAN.md. No clients/push/merge; Forge stays opt-in pending runtime/client evidence.
+
+- [x] FORGE-FOLLOWUP 2026-10-01 abgeschlossen auf codex-next-forge: df354b5e Testisolation/Cleanup, e4b1320b native Konfiguration und Framework-JARs, 2049fd48 Dimensions/Claims/Money/Sounds-Adapter. Default-/Forge-check Exit 0; Forge-Kataloge 1039 Faelle belegt, letzte Dimensions/Tweaks-Wiederholung 88/88 und unveraenderte Settings. Exakte Runs, Grenzen und Clientbefehle: docs/FORGE-FOLLOWUP-RESULTS.md / docs/FORGE-26.3.md. Kein Push/Merge/Client; Forge bleibt opt-in.

@@ -14,7 +14,8 @@ window.WIKI_MODULE_DATA["simpledimensions"] = {
     ],
     "loaders": [
       "fabric",
-      "neoforge"
+      "neoforge",
+      "forge"
     ]
   },
   "features": [
