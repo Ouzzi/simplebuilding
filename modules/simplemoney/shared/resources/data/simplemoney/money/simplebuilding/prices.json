@@ -167,7 +167,7 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:astralit_powder",
+      "item": "simplebuilding:astral_redstone",
       "tier": 4,
       "hours": 25.0,
       "craft": 0,
@@ -1784,7 +1784,7 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:nihilith_powder",
+      "item": "simplebuilding:nihil_redstone",
       "tier": 4,
       "hours": 25.0,
       "craft": 0,

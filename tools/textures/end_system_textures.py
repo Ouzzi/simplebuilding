@@ -26,7 +26,7 @@ def images():
             else:
                 d.rectangle((6, 5, 9, 8), outline=color)
                 d.point((8, 6), fill=colors[2])
-            out[f"block/{channel}_powder{'_active' if active else ''}.png"] = powder
+            out[f"block/{'astral' if channel == 'astralit' else 'nihil'}_redstone{'_active' if active else ''}.png"] = powder
             switch = Image.new("RGBA", (16, 16))
             d = ImageDraw.Draw(switch)
             d.rectangle((3, 4, 12, 12), fill=(41, 38, 51), outline=(92, 81, 112))
@@ -66,7 +66,7 @@ def models():
         p.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
     for c in ["nihilith", "astralit"]:
         for kind in ["powder", "switch", "lamp"]:
-            name = c + "_" + kind
+            name = ("astral" if c == "astralit" else "nihil") + "_redstone" if kind == "powder" else c + "_" + kind
             variants = {}
             for power in range(16):
                 variants[f"power={power}"] = {"model": f"simplebuilding:block/{name}" + ("_active" if power else "")}
@@ -110,7 +110,7 @@ def main():
     preview = ROOT / "docs/previews"
     preview.mkdir(parents=True, exist_ok=True)
     old = [Image.open(ROOT / "src/main/resources/assets/simplebuilding/textures/item" / name).convert("RGBA") for name in ["nihilith_shard.png", "astralit_dust.png"]]
-    sheets = old + [art[f"block/{c}_{k}.png"] for c in ["nihilith", "astralit"] for k in ["powder", "switch", "lamp"]]
+    sheets = old + [art[f"block/{('astral' if c == 'astralit' else 'nihil') + '_redstone' if k == 'powder' else c + '_' + k}.png"] for c in ["nihilith", "astralit"] for k in ["powder", "switch", "lamp"]]
     canvas = Image.new("RGBA", (256 * len(sheets), 256), (53, 53, 53))
     for i, sheet in enumerate(sheets): canvas.alpha_composite(sheet.resize((256, 256), Image.Resampling.NEAREST), (i * 256, 0))
     canvas.save(preview / "end-signals-16x.png")

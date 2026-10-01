@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
   "ingredients": [
-    "simplebuilding:nihilith_powder",
+    "simplebuilding:nihil_redstone",
     "minecraft:redstone_lamp"
   ],
   "result": {

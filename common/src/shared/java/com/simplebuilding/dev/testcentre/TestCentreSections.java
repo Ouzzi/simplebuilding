@@ -1194,7 +1194,7 @@ public final class TestCentreSections {
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             for (int lane = 0; lane < 2; lane++) {
                 Block source = lane == 0 ? ModBlocks.NIHILITH_SWITCH : ModBlocks.ASTRALIT_SWITCH;
-                Block powder = lane == 0 ? ModBlocks.NIHILITH_POWDER : ModBlocks.ASTRALIT_POWDER;
+                Block powder = lane == 0 ? ModBlocks.NIHIL_REDSTONE : ModBlocks.ASTRAL_REDSTONE;
                 Block lamp = lane == 0 ? ModBlocks.NIHILITH_LAMP : ModBlocks.ASTRALIT_LAMP;
                 int z = 5 + lane;
                 for (int x = 0; x <= 17; x++) c.place(x, -1, z, Blocks.STONE);

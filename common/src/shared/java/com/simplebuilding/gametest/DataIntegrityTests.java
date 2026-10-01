@@ -2457,7 +2457,7 @@ public final class DataIntegrityTests {
         neighbours.put(Items.NETHERITE_SWORD, ModItems.ENDERITE_SWORD);
         neighbours.put(Items.FURNACE, ModItems.REINFORCED_FURNACE);
         if (McVersion.END_SYSTEMS) {
-            neighbours.put(Items.REDSTONE, ModItems.NIHILITH_POWDER);
+            neighbours.put(Items.REDSTONE, ModItems.NIHIL_REDSTONE);
             neighbours.put(Items.LEVER, ModItems.NIHILITH_SWITCH);
             neighbours.put(Items.REDSTONE_LAMP, ModItems.NIHILITH_LAMP);
             neighbours.put(Items.ENDER_CHEST, ModItems.ASTRAL_VAULT);
@@ -2554,8 +2554,8 @@ public final class DataIntegrityTests {
                 List.of(Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX)));
         if (McVersion.END_SYSTEMS) {
             expected.add(List.of(Items.ENDER_CHEST, ModItems.ASTRAL_VAULT));
-            expected.add(List.of(ModItems.NIHILITH_POWDER, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, gap,
-                    ModItems.ASTRALIT_POWDER, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP));
+            expected.add(List.of(ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, gap,
+                    ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP));
         }
 
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.FUNCTIONAL, problems), expectedSlots(expected), "SimpleMachines", problems);

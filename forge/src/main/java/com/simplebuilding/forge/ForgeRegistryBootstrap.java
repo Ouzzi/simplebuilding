@@ -29,6 +29,7 @@ public final class ForgeRegistryBootstrap {
                 blocksInitialized = true;
                 ModBlocks.registerModBlocks();
             }
+            registerLegacyAliases(event);
             return;
         }
         // Forge entsperrt je RegisterEvent nur die eine Registry - Entitaeten gehoeren in ihr eigenes Ereignis.
@@ -42,7 +43,7 @@ public final class ForgeRegistryBootstrap {
         }
         if (event.getRegistryKey().equals(Registries.ITEM)) {
             ModItems.registerModItems();
-            registerLegacyItemAliases(event);
+            registerLegacyAliases(event);
             return;
         }
         if (event.getRegistryKey().equals(Registries.DATA_COMPONENT_TYPE)) {
@@ -63,7 +64,7 @@ public final class ForgeRegistryBootstrap {
     }
 
     /**
-     * Old item ids of renamed items ({@link LegacyItemIds}) as Forge registry aliases. Forge's item
+     * Renamed item and block ids ({@link LegacyItemIds}) as Forge registry aliases. Forge's defaulted
      * registry is a {@code NamespacedDefaultedWrapper} whose {@code getValue}/{@code containsKey} go
      * straight to the {@link ForgeRegistry} (air for an unknown id), so the lookup never reaches
      * {@code NamespacedWrapperAliasMixin}; the ForgeRegistry itself resolves aliases there, and a
@@ -71,11 +72,14 @@ public final class ForgeRegistryBootstrap {
      * The holder lookups ({@code get(Identifier/ResourceKey)}) ignore Forge aliases - those stay with
      * the mixin. Aliases can only be added while the registry is open, i.e. in this event.
      */
-    private static void registerLegacyItemAliases(RegisterEvent event) {
-        if (!(event.getForgeRegistry() instanceof ForgeRegistry<?> items)) {
+    private static void registerLegacyAliases(RegisterEvent event) {
+        if (!(event.getForgeRegistry() instanceof ForgeRegistry<?> registry)) {
             return;
         }
-        LegacyItemIds.RENAMED.forEach((oldPath, newPath) -> items.addAlias(
+        if (event.getRegistryKey().equals(Registries.ITEM)) LegacyItemIds.RENAMED.forEach((oldPath, newPath) -> registry.addAlias(
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, oldPath),
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, newPath)));
+        LegacyItemIds.RENAMED_BLOCKS.forEach((oldPath, newPath) -> registry.addAlias(
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, oldPath),
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, newPath)));
     }

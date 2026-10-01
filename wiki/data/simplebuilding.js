@@ -3430,8 +3430,8 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
       ],
       "related": [
-        "simplebuilding:nihilith_powder",
-        "simplebuilding:astralit_powder",
+        "simplebuilding:nihil_redstone",
+        "simplebuilding:astral_redstone",
         "simplebuilding:nihilith_switch",
         "simplebuilding:astralit_switch",
         "simplebuilding:nihilith_lamp",
@@ -3439,20 +3439,20 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Isolated End Signals",
-        "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+        "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
         "details": [
-          "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-          "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+          "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+          "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
           "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
           "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
         ]
       },
       "de": {
         "title": "Getrennte End-Signale",
-        "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+        "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
         "details": [
-          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+          "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+          "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
           "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
           "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
         ]
@@ -3595,6 +3595,50 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/astral_purpur_block.png",
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astral_redstone",
+      "name": {
+        "en_us": "Astral Redstone",
+        "de_de": "Astral-Redstone"
+      },
+      "texture": "assets/textures/block/astral_redstone.png",
+      "craftedBy": [
+        "simplebuilding:astral_redstone"
+      ],
+      "usedIn": [
+        "simplebuilding:astralit_lamp",
+        "simplebuilding:astralit_switch"
+      ],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astral_vault",
@@ -3768,6 +3812,7 @@ window.WIKI_DATA = {
       "usedIn": [
         "simplebuilding:astral_end_stone",
         "simplebuilding:astral_purpur_block",
+        "simplebuilding:astral_redstone",
         "simplebuilding:astral_vault",
         "simplebuilding:astralit_block",
         "simplebuilding:astralit_block_from_end_stone",
@@ -3776,7 +3821,6 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_brick_wall_from_end_stone_brick_wall",
         "simplebuilding:astralit_bricks_from_end_stone_bricks",
         "simplebuilding:astralit_pillar_from_purpur_pillar",
-        "simplebuilding:astralit_powder",
         "simplebuilding:astralit_quartz_checker",
         "simplebuilding:ender_quartz",
         "simplebuilding:levitating_gravel",
@@ -3808,20 +3852,20 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
           "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
           ]
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
           ]
@@ -3860,50 +3904,6 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/astralit_pillar.png",
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:astralit_powder",
-      "name": {
-        "en_us": "Astralit Signal Powder",
-        "de_de": "Astralit-Signalpulver"
-      },
-      "texture": "assets/textures/block/astralit_powder.png",
-      "craftedBy": [
-        "simplebuilding:astralit_powder"
-      ],
-      "usedIn": [
-        "simplebuilding:astralit_lamp",
-        "simplebuilding:astralit_switch"
-      ],
-      "trades": [],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
-        ],
-        "en": {
-          "title": "Isolated End Signals",
-          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
-          "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-          ]
-        },
-        "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
-          "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astralit_quartz_checker",
@@ -3968,20 +3968,20 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
           "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
           ]
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
           ]
@@ -12380,6 +12380,50 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_redstone",
+      "name": {
+        "en_us": "Nihil Redstone",
+        "de_de": "Nihil-Redstone"
+      },
+      "texture": "assets/textures/block/nihil_redstone.png",
+      "craftedBy": [
+        "simplebuilding:nihil_redstone"
+      ],
+      "usedIn": [
+        "simplebuilding:nihilith_lamp",
+        "simplebuilding:nihilith_switch"
+      ],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:nihilith_block",
       "name": {
         "en_us": "Block of Nihilit",
@@ -12517,20 +12561,20 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
           "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
           ]
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
           ]
@@ -12569,50 +12613,6 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/nihilith_pillar.png",
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:nihilith_powder",
-      "name": {
-        "en_us": "Nihilit Signal Powder",
-        "de_de": "Nihilit-Signalpulver"
-      },
-      "texture": "assets/textures/block/nihilith_powder.png",
-      "craftedBy": [
-        "simplebuilding:nihilith_powder"
-      ],
-      "usedIn": [
-        "simplebuilding:nihilith_lamp",
-        "simplebuilding:nihilith_switch"
-      ],
-      "trades": [],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
-        ],
-        "en": {
-          "title": "Isolated End Signals",
-          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
-          "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-          ]
-        },
-        "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
-          "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:nihilith_quartz_checker",
@@ -12669,6 +12669,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz",
         "simplebuilding:nihil_end_stone",
         "simplebuilding:nihil_purpur_block",
+        "simplebuilding:nihil_redstone",
         "simplebuilding:nihilith_block",
         "simplebuilding:nihilith_block_from_end_stone",
         "simplebuilding:nihilith_brick_slab_from_end_stone_brick_slab",
@@ -12676,7 +12677,6 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_brick_wall_from_end_stone_brick_wall",
         "simplebuilding:nihilith_bricks_from_end_stone_bricks",
         "simplebuilding:nihilith_pillar_from_purpur_pillar",
-        "simplebuilding:nihilith_powder",
         "simplebuilding:nihilith_quartz_checker",
         "simplebuilding:polished_nihilith_slab_from_purpur_slab",
         "simplebuilding:polished_nihilith_stairs_from_purpur_stairs",
@@ -12707,20 +12707,20 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
           "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
           ]
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
           ]
@@ -15820,6 +15820,55 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_redstone",
+      "name": {
+        "en_us": "Astral Redstone",
+        "de_de": "Astral-Redstone"
+      },
+      "texture": "assets/textures/block/astral_redstone.png",
+      "craftedBy": [
+        "simplebuilding:astral_redstone"
+      ],
+      "usedIn": [
+        "simplebuilding:astralit_lamp",
+        "simplebuilding:astralit_switch"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/astral_redstone.png",
+      "lootTable": "simplebuilding:blocks/astral_redstone",
+      "drops": [
+        "simplebuilding:astral_redstone"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:astral_vault",
       "name": {
         "en_us": "Astral Vault",
@@ -16029,20 +16078,20 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
           "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
           ]
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
           ]
@@ -16090,55 +16139,6 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_pillar"
       ],
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:astralit_powder",
-      "name": {
-        "en_us": "Astralit Signal Powder",
-        "de_de": "Astralit-Signalpulver"
-      },
-      "texture": "assets/textures/block/astralit_powder.png",
-      "craftedBy": [
-        "simplebuilding:astralit_powder"
-      ],
-      "usedIn": [
-        "simplebuilding:astralit_lamp",
-        "simplebuilding:astralit_switch"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/block/astralit_powder.png",
-      "lootTable": "simplebuilding:blocks/astralit_powder",
-      "drops": [
-        "simplebuilding:astralit_powder"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
-        ],
-        "en": {
-          "title": "Isolated End Signals",
-          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
-          "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-          ]
-        },
-        "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
-          "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astralit_quartz_checker",
@@ -16212,20 +16212,20 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
           "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
           ]
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
           ]
@@ -20398,6 +20398,55 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_redstone",
+      "name": {
+        "en_us": "Nihil Redstone",
+        "de_de": "Nihil-Redstone"
+      },
+      "texture": "assets/textures/block/nihil_redstone.png",
+      "craftedBy": [
+        "simplebuilding:nihil_redstone"
+      ],
+      "usedIn": [
+        "simplebuilding:nihilith_lamp",
+        "simplebuilding:nihilith_switch"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/nihil_redstone.png",
+      "lootTable": "simplebuilding:blocks/nihil_redstone",
+      "drops": [
+        "simplebuilding:nihil_redstone"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Isolated End Signals",
+          "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
+          "details": [
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
+            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          ]
+        },
+        "de": {
+          "title": "Getrennte End-Signale",
+          "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "details": [
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
+            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:nihilith_block",
       "name": {
         "en_us": "Block of Nihilit",
@@ -20560,20 +20609,20 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
           "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
           ]
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
           ]
@@ -20621,55 +20670,6 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_pillar"
       ],
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:nihilith_powder",
-      "name": {
-        "en_us": "Nihilit Signal Powder",
-        "de_de": "Nihilit-Signalpulver"
-      },
-      "texture": "assets/textures/block/nihilith_powder.png",
-      "craftedBy": [
-        "simplebuilding:nihilith_powder"
-      ],
-      "usedIn": [
-        "simplebuilding:nihilith_lamp",
-        "simplebuilding:nihilith_switch"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/block/nihilith_powder.png",
-      "lootTable": "simplebuilding:blocks/nihilith_powder",
-      "drops": [
-        "simplebuilding:nihilith_powder"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
-        ],
-        "en": {
-          "title": "Isolated End Signals",
-          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
-          "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
-            "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-            "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
-          ]
-        },
-        "de": {
-          "title": "Getrennte End-Signale",
-          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
-          "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
-            "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-            "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:nihilith_quartz_checker",
@@ -20743,20 +20743,20 @@ window.WIKI_DATA = {
         ],
         "en": {
           "title": "Isolated End Signals",
-          "summary": "Nihilit and Astralit each form a private horizontal signal channel.",
+          "summary": "Nihil Redstone and Astral Redstone each form a private horizontal signal channel.",
           "details": [
-            "A Nihilit Shard or Astralit Dust plus redstone crafts four matching powders. Matching powder plus a lever crafts a switch; matching powder plus a redstone lamp crafts a lamp.",
-            "Only horizontal neighbors of the same material exchange signals. Powder must stand on a sturdy top face. Switches power at most 15 powder segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
+            "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
+            "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
             "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
             "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
           ]
         },
         "de": {
           "title": "Getrennte End-Signale",
-          "summary": "Nihilit und Astralit bilden jeweils einen eigenen horizontalen Signalkanal.",
+          "summary": "Nihil-Redstone und Astral-Redstone bilden jeweils einen eigenen horizontalen Signalkanal.",
           "details": [
-            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt vier passende Pulver. Passendes Pulver mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
-            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Pulver braucht eine tragfaehige Oberseite. Schalter versorgen maximal 15 Pulversegmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
+            "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
+            "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
             "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
             "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
           ]
@@ -23600,6 +23600,32 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:astral_redstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_redstone",
+        "count": 2
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astral_redstone.json",
+      "ingredients": [
+        "minecraft:redstone",
+        "simplebuilding:astralit_dust"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:astralit_dust"
+        ],
+        [
+          "minecraft:redstone"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:astral_vault",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -24335,11 +24361,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_lamp.json",
       "ingredients": [
         "minecraft:redstone_lamp",
-        "simplebuilding:astralit_powder"
+        "simplebuilding:astral_redstone"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:astralit_powder"
+          "simplebuilding:astral_redstone"
         ],
         [
           "minecraft:redstone_lamp"
@@ -24483,32 +24509,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:astralit_powder",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:astralit_powder",
-        "count": 4
-      },
-      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_powder.json",
-      "ingredients": [
-        "minecraft:redstone",
-        "simplebuilding:astralit_dust"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:astralit_dust"
-        ],
-        [
-          "minecraft:redstone"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:astralit_quartz_checker",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -24552,11 +24552,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/astralit_switch.json",
       "ingredients": [
         "minecraft:lever",
-        "simplebuilding:astralit_powder"
+        "simplebuilding:astral_redstone"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:astralit_powder"
+          "simplebuilding:astral_redstone"
         ],
         [
           "minecraft:lever"
@@ -30304,6 +30304,32 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:nihil_redstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_redstone",
+        "count": 2
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_redstone.json",
+      "ingredients": [
+        "minecraft:redstone",
+        "simplebuilding:nihilith_shard"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:nihilith_shard"
+        ],
+        [
+          "minecraft:redstone"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:nihilith_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -31004,11 +31030,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_lamp.json",
       "ingredients": [
         "minecraft:redstone_lamp",
-        "simplebuilding:nihilith_powder"
+        "simplebuilding:nihil_redstone"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:nihilith_powder"
+          "simplebuilding:nihil_redstone"
         ],
         [
           "minecraft:redstone_lamp"
@@ -31152,32 +31178,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:nihilith_powder",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:nihilith_powder",
-        "count": 4
-      },
-      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_powder.json",
-      "ingredients": [
-        "minecraft:redstone",
-        "simplebuilding:nihilith_shard"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:nihilith_shard"
-        ],
-        [
-          "minecraft:redstone"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:nihilith_quartz_checker",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -31221,11 +31221,11 @@ window.WIKI_DATA = {
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_switch.json",
       "ingredients": [
         "minecraft:lever",
-        "simplebuilding:nihilith_powder"
+        "simplebuilding:nihil_redstone"
       ],
       "ingredientGroups": [
         [
-          "simplebuilding:nihilith_powder"
+          "simplebuilding:nihil_redstone"
         ],
         [
           "minecraft:lever"
@@ -37768,6 +37768,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_block.json"
     },
     {
+      "id": "simplebuilding:blocks/astral_redstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_redstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astral_redstone.json"
+    },
+    {
       "id": "simplebuilding:blocks/astral_vault",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -37915,24 +37933,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_pillar.json"
-    },
-    {
-      "id": "simplebuilding:blocks/astralit_powder",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:astralit_powder"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/astralit_powder.json"
     },
     {
       "id": "simplebuilding:blocks/astralit_quartz_checker",
@@ -39009,6 +39009,24 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_purpur_block.json"
     },
     {
+      "id": "simplebuilding:blocks/nihil_redstone",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_redstone"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihil_redstone.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihilith_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -39138,24 +39156,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_pillar.json"
-    },
-    {
-      "id": "simplebuilding:blocks/nihilith_powder",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:nihilith_powder"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_powder.json"
     },
     {
       "id": "simplebuilding:blocks/nihilith_quartz_checker",
@@ -47223,8 +47223,8 @@ window.WIKI_DATA = {
       "groupDe": "Maschinentempo",
       "label": "End Signal Range (1–15)",
       "labelDe": "End-Signalreichweite (1–15)",
-      "tooltip": "Maximum powder segments per channel, limited to 1-15. Default: 15.",
-      "tooltipDe": "Maximale Pulversegmente pro Kanal, begrenzt auf 1-15. Standard: 15."
+      "tooltip": "Maximum redstone segments per channel, limited to 1-15. Default: 15.",
+      "tooltipDe": "Maximale Redstone-Segmente pro Kanal, begrenzt auf 1-15. Standard: 15."
     },
     {
       "name": "server.machines.reinforcedHopperSpeed",
@@ -63893,7 +63893,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:end_signals",
       "parent": "simplebuilding:guides/root",
-      "icon": "simplebuilding:nihilith_powder",
+      "icon": "simplebuilding:nihil_redstone",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -63901,16 +63901,16 @@ window.WIKI_DATA = {
         "de_de": "Eigene Signale"
       },
       "description": {
-        "en_us": "Craft both powders; build separate switch-to-lamp channels.",
-        "de_de": "Stelle beide Pulver her; baue getrennte Schalter-Lampen-Kanaele."
+        "en_us": "Craft Astral Redstone and Nihil Redstone; build separate switch-to-lamp channels.",
+        "de_de": "Stelle Astral-Redstone und Nihil-Redstone her; baue getrennte Schalter-Lampen-Kanaele."
       },
       "criteria": [
         {
-          "name": "nihilith_powder",
+          "name": "nihil_redstone",
           "trigger": "minecraft:recipe_crafted"
         },
         {
-          "name": "astralit_powder",
+          "name": "astral_redstone",
           "trigger": "minecraft:recipe_crafted"
         }
       ],

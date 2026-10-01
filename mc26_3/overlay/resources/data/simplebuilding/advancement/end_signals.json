@@ -2,7 +2,7 @@
   "parent": "simplebuilding:guides/root",
   "display": {
     "icon": {
-      "id": "simplebuilding:nihilith_powder"
+      "id": "simplebuilding:nihil_redstone"
     },
     "title": {
       "translate": "advancements.simplebuilding.end_signals.title"
@@ -14,19 +14,19 @@
     "announce_to_chat": false
   },
   "criteria": {
-    "nihilith_powder": {
+    "nihil_redstone": {
       "trigger": "minecraft:recipe_crafted",
       "conditions": {
         "recipes": [
-          "simplebuilding:nihilith_powder"
+          "simplebuilding:nihil_redstone"
         ]
       }
     },
-    "astralit_powder": {
+    "astral_redstone": {
       "trigger": "minecraft:recipe_crafted",
       "conditions": {
         "recipes": [
-          "simplebuilding:astralit_powder"
+          "simplebuilding:astral_redstone"
         ]
       }
     }

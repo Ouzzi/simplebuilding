@@ -71,7 +71,7 @@ public final class SearchTabPlacement {
     public static List<Placement> placements() {
         List<Placement> out = new ArrayList<>();
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
-            out.add(Placement.after(REDSTONE_BLOCKS, Items.REDSTONE, ModItems.NIHILITH_POWDER, ModItems.ASTRALIT_POWDER));
+            out.add(Placement.after(REDSTONE_BLOCKS, Items.REDSTONE, ModItems.NIHIL_REDSTONE, ModItems.ASTRAL_REDSTONE));
             out.add(Placement.after(REDSTONE_BLOCKS, Items.LEVER, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH));
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.REDSTONE_LAMP, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.ENDER_CHEST, ModItems.ASTRAL_VAULT));

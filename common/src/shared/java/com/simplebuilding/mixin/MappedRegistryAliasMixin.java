@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * Old item ids of renamed items resolve to the renamed item, see {@link LegacyItemIds}. Only a
- * lookup that missed is redirected, and only in the item registry; everything else returns
+ * Old item and block ids resolve to their renamed entries, see {@link LegacyItemIds}. Only a
+ * lookup that missed is redirected in the item or block registry; everything else returns
  * exactly what vanilla returned. {@code DefaultedMappedRegistry#getValue} calls
  * {@code super.getValue} first, so the item registry's air fallback comes after the alias.
  * Forge replaces the built-in registries with its own {@code NamespacedWrapper}, which overrides
@@ -71,7 +71,7 @@ public abstract class MappedRegistryAliasMixin<T> {
     @Unique
     @SuppressWarnings("unchecked")
     private Optional<Holder.Reference<T>> simplebuilding$lookup(Identifier now) {
-        // No recursion: new ids are never keys of LegacyItemIds.RENAMED, so this lookup is not redirected again.
+        // No recursion: new ids are never keys of the alias tables, so this lookup is not redirected again.
         return ((MappedRegistry<T>) (Object) this).get(now);
     }
 }

@@ -110,3 +110,6 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   Konkrete Fortsetzung: docs/ai/CODEX-HANDOVER.md.
 - Pruefbelege: docs/ai/CODEX-VERIFICATION-2026-10-01.md und
   docs/FORGE-FOLLOWUP-RESULTS.md. Erstes rotes Gesamtgate und Korrekturen erhalten.
+
+## B7: End redstone rename (26.3)
+- [x] Renamed both End signal powders to Astral Redstone / Nihil Redstone, yield two per recipe, and preserve item and block aliases. Verified on claude-b7: compile targets, 26.3 datagen, wiki, full check, End systems 6/6, migration 1/1, and test centre rebuild/coverage 4/4. No port or push.

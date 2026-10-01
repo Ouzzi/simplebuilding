@@ -1,7 +1,7 @@
 {
   "textures": {
-    "all": "simplebuilding:block/nihilith_powder",
-    "particle": "simplebuilding:block/nihilith_powder"
+    "all": "simplebuilding:block/nihil_redstone",
+    "particle": "simplebuilding:block/nihil_redstone"
   },
   "elements": [
     {

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:nihilith_powder"
+          "name": "simplebuilding:astral_redstone"
         }
       ],
       "conditions": [

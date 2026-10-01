@@ -50,7 +50,7 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/astralit_powder",
+      "id": "simplemoney:links/simplebuilding/astral_redstone",
       "required": false
     },
     {
@@ -482,7 +482,7 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/nihilith_powder",
+      "id": "simplemoney:links/simplebuilding/nihil_redstone",
       "required": false
     },
     {

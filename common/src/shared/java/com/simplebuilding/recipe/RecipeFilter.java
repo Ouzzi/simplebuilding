@@ -44,7 +44,7 @@ public final class RecipeFilter {
         ServerTuningConfig.Features f = ServerTuning.get().features;
         TweaksConfig t = SimpleTweaks.config();
         return (!f.astralVault && p.equals("astral_vault"))
-                || (!f.endSignals && java.util.Set.of("nihilith_powder", "astralit_powder", "nihilith_switch", "astralit_switch", "nihilith_lamp", "astralit_lamp").contains(p))
+                || (!f.endSignals && java.util.Set.of("nihil_redstone", "astral_redstone", "nihilith_switch", "astralit_switch", "nihilith_lamp", "astralit_lamp").contains(p))
                 || (!f.backpack && p.contains("backpack"))
                 || (!f.attractor && (p.contains("magnet") || p.contains("attractor")))
                 || (!f.echoSounder && (p.contains("echo_compass") || p.contains("echo_sounder")))

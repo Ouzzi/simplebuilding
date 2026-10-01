@@ -352,7 +352,7 @@ public final class GuideContent {
                 var chapters = new ArrayList<>(old.chapters());
                 chapters.add(book == GuideBooks.Book.STORAGE
                         ? ch("simplebuilding:astral_vault", List.of("simplebuilding:astral_vault"), List.of("minecraft:ender_chest"))
-                        : ch("simplebuilding:nihilith_powder", List.of("simplebuilding:nihilith_powder", "simplebuilding:astralit_powder", "simplebuilding:nihilith_switch", "simplebuilding:astralit_switch", "simplebuilding:nihilith_lamp", "simplebuilding:astralit_lamp"), List.of()));
+                        : ch("simplebuilding:nihil_redstone", List.of("simplebuilding:nihil_redstone", "simplebuilding:astral_redstone", "simplebuilding:nihilith_switch", "simplebuilding:astralit_switch", "simplebuilding:nihilith_lamp", "simplebuilding:astralit_lamp"), List.of()));
                 STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
             }
         }
