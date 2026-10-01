@@ -571,9 +571,10 @@ Beide Loader verwenden denselben Modul-Sprachort mit EN/DE, einschließlich Name
 Tooltips, Tabs und Defaults. Keine fremden Sprachdateien und keine Bildschirmtexte
 für Urkunden geändert; Befehle geben normale Befehlsantworten aus.
 
-Stufen 1–3 und 5 sind enthalten. Stufe 4 ist eine separate, ungemergte Worker-Arbeit;
-ihre Fertigstellung ist nicht bestätigt. Stufe 6 folgt separat. Claims bleiben aus,
-keine Freigabe als vollständiger Landschutz. Frühere Werkzeug-Testlücken bleiben offen.
+Historischer Stand dieses Stufencommits: Stufen 1–3 und 5 waren enthalten;
+Stufen 4 und 6 liefen separat. Im vereinigten Stand sind auch der partielle
+Stage-4-Schutz und Stufe 6 enthalten. Claims bleiben aus, keine Freigabe als
+vollständiger Landschutz. Die dokumentierten Schutz- und Testlücken bleiben offen.
 
 - Stufe-5-Verifikation: 2026-09-30T23-18-06Z-4f7d, Fabric 21/21,
   NeoForge 21/21, **alles gruen 42/42** (Filter simpletweaks:*claims*).
@@ -590,7 +591,8 @@ Dimensions liest die vorhandene öffentliche Framework-Protection-API, keine
 Claims-Interna. Vollständige Rahmen-/Innenraumprüfungen, beide Reiseenden und
 geprüfte erzeugte Rückwege: siehe docs/modules/simpledimensions.md. Erkannte
 fremde Claim-Mods ohne eigenen Adapter bleiben gesperrt. Hauptschalter false;
-Stufe 4 separat/ungemergt und weiterhin nicht als abgeschlossen bestätigt.
+Der inzwischen vereinigte Stage-4-Schutz bleibt unvollständig; seine offenen
+Automationspfade verhindern weiterhin eine Freigabe.
 
 Der zusätzliche Claims-Portaltest benutzt nur öffentliche Registry-IDs, echte
 Vanilla-Interaktion, Befehlsdispatch und Serverticks mit zwei verbundenen Spielern.

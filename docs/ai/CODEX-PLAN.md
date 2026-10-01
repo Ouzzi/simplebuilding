@@ -96,3 +96,9 @@ Sprach-Bridge-Morgenbericht ja/nein.
   Dimensions-Reiter, UI-Speichern und die Übernahme im integrierten Server.
   Der Worker kompiliert nur; der Orchestrator startet den Client seriell und
   erst nach Prüfung auf laufende Besitzer-Clients.
+- Zusammenführung: Beide Claims- und Dimensions-Kataloge bleiben erhalten;
+  Automation ohne Spieler-ID ist im API-Vertrag dokumentiert und die Dimensions-
+  Testanbieter sind null-sicher. Die drei Dimensions-Schalter werden vor dem
+  Laden verknüpfter Zielchunks geprüft, zusätzlich zu den vollständigen Claims-
+  Ziel-/Körper-/Rückwegprüfungen. Claims bleiben wegen dokumentierter Stage-4-
+  Lücken aus. Forge startet erst auf diesem gemeinsam gemergten Stand.
