@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
   "ingredients": [
-    "simplebuilding:astralit_dust",
+    "simplebuilding:nihilith_shard",
     "minecraft:redstone"
   ],
   "result": {
-    "id": "simplebuilding:astralit_powder",
-    "count": 4
+    "id": "simplebuilding:nihil_redstone",
+    "count": 2
   }
 }

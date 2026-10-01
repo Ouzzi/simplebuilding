@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * Forge twin of {@code MappedRegistryAliasMixin}: Forge wraps the built-in registries in its
  * package-private {@code NamespacedWrapper}, which overrides the lookups without calling
  * {@code super}, so the vanilla mixin never sees them. Same rule: only a missed lookup in the
- * item registry is redirected to the renamed item, see {@link LegacyItemIds}.
+ * item or block registry is redirected to its renamed entry, see {@link LegacyItemIds}.
  */
 @Mixin(targets = "net.minecraftforge.registries.NamespacedWrapper")
 public abstract class NamespacedWrapperAliasMixin<T> {
@@ -60,7 +60,7 @@ public abstract class NamespacedWrapperAliasMixin<T> {
     @Unique
     @SuppressWarnings("unchecked")
     private Optional<Holder.Reference<T>> simplebuilding$lookup(Identifier now) {
-        // No recursion: new ids are never keys of LegacyItemIds.RENAMED.
+        // No recursion: new ids are never keys of the alias tables.
         return ((Registry<T>) (Object) this).get(now);
     }
 }

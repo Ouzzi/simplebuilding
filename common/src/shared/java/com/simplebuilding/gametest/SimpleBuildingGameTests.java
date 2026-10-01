@@ -51,6 +51,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tweaks_game_test_boost_packet_budget", HardenTests::boostPacketBudget).maxTicks(220).build(),
             GameTestSpec.named("tweaks_game_test_recipe_rename", HardenTests::recipeRename).build(),
 
+            GameTestSpec.named("end_systems_game_test_redstone_recipes_yield_two", EndSystemsTests::redstoneRecipesYieldTwo).build(),
+            GameTestSpec.named("end_systems_game_test_redstone_aliases_resolve_items_and_blocks", EndSystemsTests::redstoneAliasesResolveItemsAndBlocks).build(),
             GameTestSpec.named("end_systems_game_test_vault_shares_only_its_first_half_and_persists", EndSystemsTests::vaultSharesOnlyItsFirstHalfAndPersists).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_vault_opens_and_config_preserves_contents", EndSystemsTests::vaultOpensAndConfigPreservesContents).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_channels_stay_isolated_and_stop_at_fifteen", EndSystemsTests::channelsStayIsolatedAndStopAtFifteen).maxTicks(220).build(),

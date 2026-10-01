@@ -23,6 +23,53 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 public final class EndSystemsTests {
+    public static void redstoneRecipesYieldTwo(GameTestHelper helper) {
+        if (!active(helper)) return;
+        for (var entry : java.util.Map.of(com.simplebuilding.items.ModItems.ASTRALIT_DUST,
+                com.simplebuilding.items.ModItems.ASTRAL_REDSTONE, com.simplebuilding.items.ModItems.NIHILITH_SHARD,
+                com.simplebuilding.items.ModItems.NIHIL_REDSTONE).entrySet()) {
+            var input = net.minecraft.world.item.crafting.CraftingInput.of(2, 1,
+                    java.util.List.of(new ItemStack(entry.getKey()), new ItemStack(Items.REDSTONE)));
+            var recipe = helper.getLevel().getServer().getRecipeManager().getRecipeFor(
+                    net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, helper.getLevel()).orElseThrow();
+            ItemStack result = recipe.value().assemble(input);
+            helper.assertTrue(result.is(entry.getValue()) && result.getCount() == 2, "redstone recipe must yield two: " + result);
+        }
+        helper.succeed();
+    }
+
+    public static void redstoneAliasesResolveItemsAndBlocks(GameTestHelper helper) {
+        if (!active(helper)) return;
+        var items = net.minecraft.core.registries.BuiltInRegistries.ITEM;
+        var blocks = net.minecraft.core.registries.BuiltInRegistries.BLOCK;
+        for (var entry : java.util.Map.of("astralit_powder", "astral_redstone",
+                "nihilith_powder", "nihil_redstone").entrySet()) {
+            var oldId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", entry.getKey());
+            var newId = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", entry.getValue());
+            helper.assertTrue(items.get(newId).isPresent() && blocks.get(newId).isPresent(), "new redstone id missing: " + newId);
+            assertAlias(helper, items, oldId, newId);
+            assertAlias(helper, blocks, oldId, newId);
+        }
+        var itemOnly = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "ore_detector");
+        helper.assertTrue(com.simplebuilding.datafix.LegacyItemIds.renamedIn(blocks, itemOnly) == null,
+                "item-only alias leaked into block registry");
+        helper.succeed();
+    }
+
+    private static <T> void assertAlias(GameTestHelper helper, net.minecraft.core.Registry<T> registry,
+            net.minecraft.resources.Identifier oldId, net.minecraft.resources.Identifier newId) {
+        T expected = registry.getValue(newId);
+        var key = net.minecraft.resources.ResourceKey.create(registry.key(), oldId);
+        helper.assertTrue(registry.getValue(oldId) == expected && registry.getValue(key) == expected,
+                "value alias missing in " + registry.key() + ": " + oldId);
+        helper.assertTrue(registry.get(oldId).orElseThrow().value() == expected
+                && registry.get(key).orElseThrow().value() == expected && registry.containsKey(oldId),
+                "holder alias missing in " + registry.key() + ": " + oldId);
+        helper.assertTrue(newId.equals(registry.getKey(expected)), "alias became canonical: " + oldId);
+        helper.assertTrue(net.minecraft.resources.ResourceKey.create(registry.key(), newId).equals(
+                com.simplebuilding.datafix.LegacyItemIds.renamedIn(registry, key)), "alias changed registry key");
+    }
+
     private static boolean active(GameTestHelper helper) {
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) return true;
         helper.succeed();
@@ -99,8 +146,8 @@ public final class EndSystemsTests {
                 new BlockPos(1,1,4), new BlockPos(1,1,5), new BlockPos(2,1,5), new BlockPos(3,1,5), new BlockPos(4,1,5));
         for (int x = 0; x <= 6; x++) for (int z = 0; z <= 6; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
         helper.setBlock(new BlockPos(0, 1, 1), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
-        for (var pos : path) helper.setBlock(pos, ModBlocks.NIHILITH_POWDER);
-        for (int x = 1; x <= 5; x++) helper.setBlock(new BlockPos(x, 1, 6), ModBlocks.ASTRALIT_POWDER);
+        for (var pos : path) helper.setBlock(pos, ModBlocks.NIHIL_REDSTONE);
+        for (int x = 1; x <= 5; x++) helper.setBlock(new BlockPos(x, 1, 6), ModBlocks.ASTRAL_REDSTONE);
         helper.setBlock(new BlockPos(6, 1, 6), Blocks.REDSTONE_BLOCK);
         helper.setBlock(new BlockPos(5, 1, 5), ModBlocks.NIHILITH_LAMP);
         helper.runAfterDelay(90, () -> {
@@ -131,7 +178,7 @@ public final class EndSystemsTests {
             config.machines.endSignalRange = 3;
             for (int x = 0; x <= 5; x++) helper.setBlock(new BlockPos(x, 0, 1), Blocks.STONE);
             helper.setBlock(new BlockPos(0, 1, 1), ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
-            for (int x = 1; x <= 4; x++) helper.setBlock(new BlockPos(x, 1, 1), ModBlocks.ASTRALIT_POWDER);
+            for (int x = 1; x <= 4; x++) helper.setBlock(new BlockPos(x, 1, 1), ModBlocks.ASTRAL_REDSTONE);
             // Explicit scheduled tick calls avoid leaving a global config altered across asynchronous tests.
             for (int pass = 0; pass < 4; pass++) for (int x = 0; x <= 4; x++) {
                 var pos = helper.absolutePos(new BlockPos(x, 1, 1));

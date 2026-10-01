@@ -2,6 +2,7 @@
   "blocks": [
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_purpur_block",
+    "simplebuilding:astral_redstone",
     "simplebuilding:astral_vault",
     "simplebuilding:astralit_block",
     "simplebuilding:astralit_brick_slab",
@@ -11,7 +12,6 @@
     "simplebuilding:astralit_lamp",
     "simplebuilding:astralit_ore",
     "simplebuilding:astralit_pillar",
-    "simplebuilding:astralit_powder",
     "simplebuilding:astralit_quartz_checker",
     "simplebuilding:astralit_switch",
     "simplebuilding:backpack",
@@ -88,6 +88,7 @@
     "simplebuilding:netherite_smoker",
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_purpur_block",
+    "simplebuilding:nihil_redstone",
     "simplebuilding:nihilith_block",
     "simplebuilding:nihilith_brick_slab",
     "simplebuilding:nihilith_brick_stairs",
@@ -96,7 +97,6 @@
     "simplebuilding:nihilith_lamp",
     "simplebuilding:nihilith_ore",
     "simplebuilding:nihilith_pillar",
-    "simplebuilding:nihilith_powder",
     "simplebuilding:nihilith_quartz_checker",
     "simplebuilding:nihilith_switch",
     "simplebuilding:oxidized_copper_pressure_plate",
@@ -169,6 +169,9 @@
       "id": "simplebuilding:astral_purpur_block"
     },
     {
+      "id": "simplebuilding:astral_redstone"
+    },
+    {
       "id": "simplebuilding:astral_vault"
     },
     {
@@ -197,9 +200,6 @@
     },
     {
       "id": "simplebuilding:astralit_pillar"
-    },
-    {
-      "id": "simplebuilding:astralit_powder"
     },
     {
       "id": "simplebuilding:astralit_quartz_checker"
@@ -818,6 +818,9 @@
       "id": "simplebuilding:nihil_purpur_block"
     },
     {
+      "id": "simplebuilding:nihil_redstone"
+    },
+    {
       "id": "simplebuilding:nihilith_block"
     },
     {
@@ -840,9 +843,6 @@
     },
     {
       "id": "simplebuilding:nihilith_pillar"
-    },
-    {
-      "id": "simplebuilding:nihilith_powder"
     },
     {
       "id": "simplebuilding:nihilith_quartz_checker"

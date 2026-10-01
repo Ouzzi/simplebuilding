@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceKey;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Item ids the mod renamed, old -> new (owner decision 2026-09-28: ids match the item names).
+ * Item and block ids the mod renamed, old -> new (ids match the item names).
  *
  * <p><b>Why a registry alias and not a DataFixer step.</b> {@code ModDataFixer} only runs when a
  * world comes from an older <em>Minecraft</em> version ({@code from < to}); a rename inside the mod
@@ -21,14 +21,18 @@ import org.jetbrains.annotations.Nullable;
  * for the holder lookups plus Forge's own registry aliases ({@code ForgeRegistryBootstrap}, for
  * {@code getValue}/{@code containsKey}, which the defaulted item wrapper answers without the
  * mixin) answer a lookup that <em>missed</em> with the item under its new id, so an old stack
- * decodes as the renamed item and is written back under the new id on the next save. One table
- * covers stored data of every age on every Minecraft line (and runs after {@code ModDataFixer}
+ * decodes as the renamed item and is written back under the new id on the next save. The tables
+ * cover stored data of every age on every Minecraft line (and run after {@code ModDataFixer}
  * for upgraded worlds, because decoding comes after fixing), and ids that exist cost nothing.
  *
- * <p>Only item ids are aliased: none of the renamed items has a block, so there are no placed
- * blocks to fix. Only the {@code simplebuilding} namespace is looked at.
+ * <p>Item ids and the renamed End redstone block ids are aliased, preserving both stacks and
+ * placed blocks. Only the {@code simplebuilding} namespace is looked at.
  */
 public final class LegacyItemIds {
+
+    /** Block items renamed on 26.3; their placed blocks use the same aliases. */
+    public static final Map<String, String> RENAMED_BLOCKS = com.simplebuilding.version.McVersion.END_SYSTEMS
+            ? Map.of("astralit_powder", "astral_redstone", "nihilith_powder", "nihil_redstone") : Map.of();
 
     /** Old path -> new path, both in the {@code simplebuilding} namespace. */
     public static final Map<String, String> RENAMED = !com.simplebuilding.version.McVersion.MEGA_GUIDES ? Map.of(
@@ -68,18 +72,21 @@ public final class LegacyItemIds {
             return null;
         }
         if (!com.simplebuilding.version.McVersion.MEGA_GUIDES && id.getPath().startsWith("guide_book_")) return null;
-        String now = RENAMED.get(id.getPath());
+        String now = RENAMED_BLOCKS.getOrDefault(id.getPath(), RENAMED.get(id.getPath()));
         return now == null ? null : Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, now);
     }
 
-    /** {@link #renamedTo(Identifier)}, but only when {@code registry} is the item registry. */
+    /** Resolves item aliases and, in the block registry, only renamed block aliases. */
     @Nullable
     public static Identifier renamedIn(Object registry, @Nullable Identifier id) {
         if (id == null || !Simplebuilding.MOD_ID.equals(id.getNamespace())
-                || !(registry instanceof Registry<?> r) || !r.key().equals(Registries.ITEM)) {
+                || !(registry instanceof Registry<?> r)) {
             return null;
         }
-        return renamedTo(id);
+        if (r.key().equals(Registries.ITEM)) return renamedTo(id);
+        if (!r.key().equals(Registries.BLOCK)) return null;
+        String now = RENAMED_BLOCKS.get(id.getPath());
+        return now == null ? null : Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, now);
     }
 
     /** Same for a resource key; returns the key of the new id in the same registry. */
@@ -90,6 +97,6 @@ public final class LegacyItemIds {
             return null;
         }
         Identifier now = renamedIn(registry, key.identifier());
-        return now == null ? null : ResourceKey.create((ResourceKey<? extends Registry<T>>) (Object) Registries.ITEM, now);
+        return now == null ? null : ResourceKey.create((ResourceKey<? extends Registry<T>>) (Object) ((Registry<?>) registry).key(), now);
     }
 }

@@ -1,7 +1,7 @@
 {
   "textures": {
-    "all": "simplebuilding:block/astralit_powder",
-    "particle": "simplebuilding:block/astralit_powder"
+    "all": "simplebuilding:block/astral_redstone",
+    "particle": "simplebuilding:block/astral_redstone"
   },
   "elements": [
     {

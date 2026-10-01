@@ -41,7 +41,7 @@ public final class RecipelessJeiInfo {
     public static Map<String, List<ItemLike>> supplementalPages() {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
-            map.put("end_signals", List.of(ModItems.NIHILITH_POWDER, ModItems.ASTRALIT_POWDER, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));
+            map.put("end_signals", List.of(ModItems.NIHIL_REDSTONE, ModItems.ASTRAL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));
             map.put("astral_vault", List.of(ModItems.ASTRAL_VAULT));
         }
         return map;
