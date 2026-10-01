@@ -102,3 +102,11 @@ Sprach-Bridge-Morgenbericht ja/nein.
   Laden verknüpfter Zielchunks geprüft, zusätzlich zu den vollständigen Claims-
   Ziel-/Körper-/Rückwegprüfungen. Claims bleiben wegen dokumentierter Stage-4-
   Lücken aus. Forge startet erst auf diesem gemeinsam gemergten Stand.
+- Gesamtgate `354b1ae3`: check und 1600/1600 Hauptlinie grün, Integration rot.
+  Nachgewiesene Ursache: `runBeforeTestEnd` plant bei Timeout minus einem Tick
+  und ist kein Abschluss-Callback. Erfolgreiche Settings-Tests ließen daher alle
+  drei Dimensions-Schalter ausgeschaltet zurück. Beide neuen asynchronen Tests
+  (Dimensions-Einstellungen und Claims-Portal) erhalten explizites idempotentes
+  Cleanup bei Erfolg, Fehler und Timeout. Verifikation: zwei vollständige
+  Modulregressionen ohne zwischenzeitliches Zurücksetzen der Testkonfiguration;
+  deren Bytes müssen vor/nach jedem Lauf gleich sein. Dann erneut Gesamtgate.

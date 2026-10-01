@@ -6,6 +6,17 @@ Gemergt: Claims 1–4 (`bbfc39c6`, Worker `71753fe2`), Zugriffe/Portale 5–6
 kompilierter UI-Test (`295ad36a`) sowie QoL/Sounds (`6bb478cd`). Einzel-Worker-Gates grün;
 das ist noch kein Gesamtgate.
 
+- Gesamtgate auf `354b1ae3` ROT: check OK, Hauptlinie 1600/1600 grün
+  (`2026-10-01T00-53-59Z-55d1`), Integration `2026-10-01T00-59-50Z-bcf2`
+  mit 38 Portalfehlern. Ursache bewiesen per Minecraft-Bytecode:
+  `runBeforeTestEnd` plant nur bei Timeout minus einem Tick. Neue erfolgreiche
+  Tests räumten nicht auf; beide Gate-Dateien `config/simpledimension/server.json`
+  hatten danach alle drei Dimensionen deaktiviert. Fix in
+  `DimensionSettingsTests.java` und `ClaimPortalTests.java`: explizites Cleanup
+  bei Erfolg/Fehler, Timeout-Fallback bleibt. Zwei aufeinanderfolgende vollständige
+  Modulprüfungen mit unveränderten Config-Bytes und neues Gesamtgate noch offen.
+  Noch kein Push. Forge-Worker muss diese shared Testkorrektur ebenfalls erhalten.
+
 - Claims bleiben AUS und nicht freigabereif. Offene Automation: Kupfergolem,
   Crafter-Ersatzauswurf, Blitzentzündung/Kupferreinigung, unbekannte Container,
   entfernte Mod-Storage-Ziele und weitere Sekundäreffekte. Grenzen/Dateien:
