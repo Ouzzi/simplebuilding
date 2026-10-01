@@ -2,4 +2,9 @@ plugins {
     id 'java-library'
     id 'net.minecraftforge.gradle' version '7.0.36'
 }
+ext.forgeMixinConfigs = ['simpledimension.mixins.json', 'simpledimension.forge.mixins.json']
+ext.forgeExcludedSources = []
 apply from: rootProject.file('gradle/module-forge.gradle')
+
+ext.forgeNativeConfig = [id: 'simpledimensions', modId: 'simpledimension', root: 'modules/simpledimensions/shared/java', screens: ['com/simplebuilding/modules/simpledimensions/client/DimensionConfigScreen.java'], factory: 'com.simplebuilding.modules.simpledimensions.client.DimensionConfigScreen.create(parent)']
+apply from: rootProject.file('gradle/forge-native-config.gradle')

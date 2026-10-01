@@ -7,6 +7,7 @@ import net.minecraft.resources.Identifier;
 public final class MoneyForge {
  public MoneyForge(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext context){
   var bus=context.getModBusGroup();
+  MoneyLinks.loaded=net.minecraftforge.fml.ModList::isLoaded;
   SimpleMoney.loadConfig(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
   ModuleForgeTests.register(bus);
   net.minecraftforge.registries.RegisterEvent.getBus(bus).addListener(event->{

@@ -6,6 +6,9 @@ import net.minecraft.resources.Identifier;
 public final class TweaksForge {
  public TweaksForge(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext context){
   ModuleForgeTests.register(context.getModBusGroup());
+  net.minecraftforge.event.server.ServerStartedEvent.BUS.addListener(e->com.simplebuilding.modules.simpletweaks.claims.Claims.start(e.getServer()));
+  net.minecraftforge.event.server.ServerStoppedEvent.BUS.addListener(e->com.simplebuilding.modules.simpletweaks.claims.Claims.stop(e.getServer()));
+  net.minecraftforge.event.RegisterCommandsEvent.BUS.addListener(e->com.simplebuilding.modules.simpletweaks.claims.ClaimCommands.register(e.getDispatcher()));
   net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(event->{
    if(event.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM))LegacyDeed.register();
    if(!(event.getForgeRegistry() instanceof net.minecraftforge.registries.ForgeRegistry<?> registry))return;
