@@ -57,6 +57,9 @@ public final class SimplebuildingForgeClient {
             MenuScreens.register(ForgeModRegistries.NETHERITE_HOPPER_MENU.get(), NetheriteHopperScreen::new);
             MenuScreens.register(ForgeModRegistries.BACKPACK_MENU.get(), com.simplebuilding.client.gui.BackpackScreen::new);
             MenuScreens.register(ForgeModRegistries.TIERED_CHEST_MENU.get(), com.simplebuilding.client.gui.TieredChestScreen::new);
+            if (ForgeModRegistries.FLETCHING_MENU != null) {
+                MenuScreens.register(ForgeModRegistries.FLETCHING_MENU.get(), com.simplebuilding.client.gui.FletchingScreen::new);
+            }
         });
     }
 
@@ -74,6 +77,9 @@ public final class SimplebuildingForgeClient {
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.LEVITATING_BLOCK,
                 net.minecraft.client.renderer.entity.FallingBlockRenderer::new);
+        if (com.simplebuilding.version.McVersion.FLETCHING) {
+            event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.CRAFTED_ARROW, com.simplebuilding.fletching.client.CraftedArrowRenderer::new);
+        }
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.PLACED_TEMPLATE_BE.get(),
                 com.simplebuilding.client.render.PlacedTemplateRenderer::new);

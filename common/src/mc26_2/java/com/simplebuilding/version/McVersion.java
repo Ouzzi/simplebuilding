@@ -43,6 +43,8 @@ public final class McVersion {
     public static final boolean SAGE_ORE = false;
     /** Dimensional Scrap (2026-10-01): mysterious endgame block in every dimension, no use before v2. */
     public static final boolean DIMENSIONAL_SCRAP = false;
+    /** Fletching table and crafted arrows (2026-10-01, main line first). */
+    public static final boolean FLETCHING = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = false;
 

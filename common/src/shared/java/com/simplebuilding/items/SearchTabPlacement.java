@@ -117,6 +117,10 @@ public final class SearchTabPlacement {
             afterDebris.addAll(List.of(ModItems.DIMENSIONAL_SCRAP_ITEM, ModItems.NETHER_DIMENSIONAL_SCRAP_ITEM, ModItems.END_DIMENSIONAL_SCRAP_ITEM));
         }
         out.add(Placement.after(NATURAL_BLOCKS, Items.ANCIENT_DEBRIS, afterDebris.toArray(ItemLike[]::new)));
+        if (com.simplebuilding.version.McVersion.FLETCHING) {
+            out.add(new Placement(COMBAT, Items.ARROW, false, com.simplebuilding.fletching.ArrowParts.allCombinations().stream()
+                    .map(parts -> com.simplebuilding.fletching.ArrowParts.stack(parts, 1)).toList()));
+        }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             out.add(Placement.after(NATURAL_BLOCKS, Items.DEEPSLATE_DIAMOND_ORE, ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM));
             out.add(Placement.after(INGREDIENTS, Items.EXPERIENCE_BOTTLE, ModItems.SAGE_ORB));

@@ -299,6 +299,9 @@
       "id": "simplebuilding:cracked_diamond_block"
     },
     {
+      "id": "simplebuilding:crafted_arrow"
+    },
+    {
       "id": "simplebuilding:creative_spacer",
       "maxStackSize": 1
     },

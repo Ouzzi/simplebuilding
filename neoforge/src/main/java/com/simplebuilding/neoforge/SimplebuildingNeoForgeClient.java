@@ -110,6 +110,9 @@ public final class SimplebuildingNeoForgeClient {
     /** Der aufsteigende Block wird wie fallender Sand gezeichnet. */
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
+        if (com.simplebuilding.version.McVersion.FLETCHING) {
+            event.registerEntityRenderer(ModEntities.CRAFTED_ARROW, com.simplebuilding.fletching.client.CraftedArrowRenderer::new);
+        }
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         event.registerBlockEntityRenderer(NeoForgeModRegistries.PLACED_TEMPLATE_BE.get(), com.simplebuilding.client.render.PlacedTemplateRenderer::new);
         // Abgestelltes Buendel: das gezeigte Item schwebt darueber, solange man schleichend hinschaut.
@@ -143,6 +146,9 @@ public final class SimplebuildingNeoForgeClient {
         event.register(NeoForgeModRegistries.NETHERITE_HOPPER_MENU.get(), NetheriteHopperScreen::new);
         event.register(NeoForgeModRegistries.BACKPACK_MENU.get(), BackpackScreen::new);
         event.register(NeoForgeModRegistries.TIERED_CHEST_MENU.get(), com.simplebuilding.client.gui.TieredChestScreen::new);
+        if (NeoForgeModRegistries.FLETCHING_MENU != null) {
+            event.register(NeoForgeModRegistries.FLETCHING_MENU.get(), com.simplebuilding.client.gui.FletchingScreen::new);
+        }
     }
 
     public static void registerKeys(RegisterKeyMappingsEvent event) {

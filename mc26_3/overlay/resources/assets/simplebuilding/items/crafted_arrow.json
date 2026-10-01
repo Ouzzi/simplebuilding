@@ -1,0 +1,145 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:select",
+        "property": "minecraft:custom_model_data",
+        "index": 1,
+        "cases": [
+          {
+            "when": "stick",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/shaft_stick"
+            }
+          },
+          {
+            "when": "end_rod",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/shaft_end_rod"
+            }
+          },
+          {
+            "when": "blaze_rod",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/shaft_blaze_rod"
+            }
+          },
+          {
+            "when": "breeze_rod",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/shaft_breeze_rod"
+            }
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/arrow/shaft_stick"
+        }
+      },
+      {
+        "type": "minecraft:select",
+        "property": "minecraft:custom_model_data",
+        "index": 2,
+        "cases": [
+          {
+            "when": "feather",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/fletching_feather"
+            }
+          },
+          {
+            "when": "phantom_membrane",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/fletching_phantom_membrane"
+            }
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/arrow/fletching_feather"
+        }
+      },
+      {
+        "type": "minecraft:select",
+        "property": "minecraft:custom_model_data",
+        "index": 0,
+        "cases": [
+          {
+            "when": "flint",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/tip_flint"
+            }
+          },
+          {
+            "when": "copper",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/tip_copper"
+            }
+          },
+          {
+            "when": "iron",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/tip_iron"
+            }
+          },
+          {
+            "when": "gold",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/tip_gold"
+            }
+          },
+          {
+            "when": "diamond",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/tip_diamond"
+            }
+          },
+          {
+            "when": "netherite",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/tip_netherite"
+            }
+          },
+          {
+            "when": "enderite",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/tip_enderite"
+            }
+          },
+          {
+            "when": "amethyst",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/tip_amethyst"
+            }
+          },
+          {
+            "when": "prismarine",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/tip_prismarine"
+            }
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/arrow/tip_flint"
+        }
+      }
+    ]
+  }
+}

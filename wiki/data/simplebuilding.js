@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 245,
+      "count": 246,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -5265,6 +5265,45 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/cracked_diamond_block.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:crafted_arrow",
+      "name": {
+        "en_us": "Crafted Arrow",
+        "de_de": "Gefertigter Pfeil"
+      },
+      "texture": "assets/textures/item/arrow/shaft_stick.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Arrows from the Fletching Table: one tip, one shaft and one fletching make 4 arrows. Right-click the vanilla Fletching Table to open it.",
+          "details": [
+            "Tips: flint (vanilla damage), copper nugget (+2 against drowned), iron nugget (+0.5, +2 against zombies), gold nugget (+2 against undead), diamond pebble (+1), netherite nugget (+1.5, pierces one more target), enderite nugget (+1.5, no gravity for the first second), amethyst shard (shatters: 1 damage within 1.5 blocks), prismarine shard (no water drag).",
+            "The damage bonus adds to the arrow's base damage like Power and grows with the shot's speed.",
+            "Shafts: stick (vanilla), end rod (half gravity, glowing trail), blaze rod (the target burns 3 seconds longer), breeze rod (wind burst on impact). Fletchings: feather (vanilla), phantom membrane (30 % less gravity).",
+            "Bow and crossbow enchantments work as on vanilla arrows; Infinity only saves vanilla arrows.",
+            "The material panel next to the table moves a material from your inventory into its slot; nothing is created. All numbers are fixed, nothing is configurable."
+          ]
+        },
+        "de": {
+          "summary": "Pfeile vom Befiederungstisch: eine Spitze, ein Schaft und eine Befiederung ergeben 4 Pfeile. Rechtsklick auf den Vanilla-Befiederungstisch öffnet ihn.",
+          "details": [
+            "Spitzen: Feuerstein (Vanilla-Schaden), Kupfer-Nugget (+2 gegen Ertrunkene), Eisen-Nugget (+0,5, +2 gegen Zombies), Gold-Nugget (+2 gegen Untote), Diamantkiesel (+1), Netherit-Nugget (+1,5, durchbohrt ein Ziel mehr), Enderit-Nugget (+1,5, die erste Sekunde ohne Schwerkraft), Amethyst-Splitter (zersplittert: 1 Schaden im Umkreis von 1,5 Blöcken), Prismarin-Splitter (kein Wasserwiderstand).",
+            "Der Schadensbonus zählt wie Stärke zum Grundschaden des Pfeils und wächst mit der Geschwindigkeit des Schusses.",
+            "Schäfte: Stock (Vanilla), Endstab (halbe Schwerkraft, Leuchtspur), Lohenrute (das Ziel brennt 3 Sekunden länger), Böenrute (Windstoß beim Aufprall). Befiederungen: Feder (Vanilla), Phantomhaut (30 % weniger Schwerkraft).",
+            "Bogen- und Armbrust-Verzauberungen wirken wie bei Vanilla-Pfeilen; Unendlichkeit spart nur Vanilla-Pfeile.",
+            "Das Material-Panel neben dem Tisch legt ein Material aus dem Inventar in seinen Slot; es entsteht nichts. Alle Zahlen sind fest, nichts ist einstellbar."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/fletching/ArrowParts.java",
+          "common/src/shared/java/com/simplebuilding/fletching/CraftedArrow.java",
+          "common/src/shared/java/com/simplebuilding/fletching/FletchingMenu.java"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -69741,7 +69780,7 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 191,
+    "items": 192,
     "blocks": 159,
     "recipes": 426,
     "lootTables": 160,

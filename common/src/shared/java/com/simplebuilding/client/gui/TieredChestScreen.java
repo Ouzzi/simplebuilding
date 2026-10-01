@@ -70,7 +70,7 @@ public class TieredChestScreen extends AbstractContainerScreen<TieredChestMenu> 
     }
 
     /** Vanillas Fensterrahmen: schwarze Kontur mit runden Ecken, heller Rand oben links, dunkler unten rechts. */
-    private static void panel(GuiGraphicsExtractor g, int x, int y, int w, int h) {
+    static void panel(GuiGraphicsExtractor g, int x, int y, int w, int h) {
         g.fill(x + 2, y, x + w - 2, y + 1, OUTLINE);
         g.fill(x + 2, y + h - 1, x + w - 2, y + h, OUTLINE);
         g.fill(x, y + 2, x + 1, y + h - 2, OUTLINE);
@@ -88,7 +88,7 @@ public class TieredChestScreen extends AbstractContainerScreen<TieredChestMenu> 
     }
 
     /** Ein Vanilla-Platz (18x18 um die 16x16 grosse Itemflaeche). */
-    private static void slot(GuiGraphicsExtractor g, int x, int y) {
+    static void slot(GuiGraphicsExtractor g, int x, int y) {
         g.fill(x - 1, y - 1, x + 17, y + 17, SLOT_FILL);
         g.fill(x - 1, y - 1, x + 16, y, SLOT_DARK);
         g.fill(x - 1, y - 1, x, y + 16, SLOT_DARK);

@@ -268,6 +268,10 @@ public class ModItems {
 
     public static final Item DIAMOND_PEBBLE = registerItem("diamond_pebble", settings -> new Item(settings));
 
+    /** Pfeil vom Befiederungstisch; die Teile stehen in der Komponente {@code arrow_parts}. */
+    public static final Item CRAFTED_ARROW = com.simplebuilding.version.McVersion.FLETCHING
+            ? registerItem("crafted_arrow", s -> new com.simplebuilding.fletching.CraftedArrowItem(s)) : null;
+
     public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
 
     public static final Item CRACKED_DIAMOND_BLOCK = registerItem("cracked_diamond_block", settings -> new BlockItem(ModBlocks.CRACKED_DIAMOND_BLOCK, settings)); // todo: wie diamond_block nur härter

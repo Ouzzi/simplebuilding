@@ -95,6 +95,13 @@ public final class ForgeModRegistries {
                             com.simplebuilding.screen.TieredChestOpenData.STREAM_CODEC.decode(buffer))
             ));
 
+    /** Befiederungstisch (B14), nur Hauptlinie. */
+    public static final RegistryObject<MenuType<com.simplebuilding.fletching.FletchingMenu>> FLETCHING_MENU =
+            com.simplebuilding.version.McVersion.FLETCHING
+                    ? MENUS.register("fletching", () -> new MenuType<>(com.simplebuilding.fletching.FletchingMenu::new,
+                            net.minecraft.world.flag.FeatureFlags.VANILLA_SET))
+                    : null;
+
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity>> TIERED_CHEST_BE =
             BLOCK_ENTITIES.register("tiered_chest", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity>(
                     com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity::new,
@@ -209,6 +216,7 @@ public final class ForgeModRegistries {
         ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER = NETHERITE_HOPPER_MENU.get();
         ModScreenHandlers.BACKPACK_MENU = BACKPACK_MENU.get();
         ModScreenHandlers.TIERED_CHEST_MENU = TIERED_CHEST_MENU.get();
+        if (FLETCHING_MENU != null) ModScreenHandlers.FLETCHING_MENU = FLETCHING_MENU.get();
         ModBlockEntities.TIERED_CHEST_BE = TIERED_CHEST_BE.get();
         ModBlockEntities.TIERED_SHULKER_BOX_BE = TIERED_SHULKER_BOX_BE.get();
         ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();

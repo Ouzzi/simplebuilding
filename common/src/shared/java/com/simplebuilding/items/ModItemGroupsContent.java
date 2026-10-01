@@ -38,7 +38,13 @@ public final class ModItemGroupsContent {
         MATERIALS("materials", () -> new ItemStack(ModItems.ENDERITE_INGOT)),
         FUNCTIONAL("functional", () -> new ItemStack(ModItems.NETHERITE_HOPPER)),
         /** Druckplatten und Pads (Besitzer 2026-09-29: passen nicht zu den Maschinen). */
-        PADS("pads", () -> new ItemStack(com.simplebuilding.tweaks.block.TweaksBlocks.ELYTRA_PAD));
+        PADS("pads", () -> new ItemStack(com.simplebuilding.tweaks.block.TweaksBlocks.ELYTRA_PAD)),
+        /** Pfeile vom Befiederungstisch (B14, nur Hauptlinie; auf 26.2 leer und damit unsichtbar). */
+        ARROWS("arrows", () -> com.simplebuilding.version.McVersion.FLETCHING
+                ? com.simplebuilding.fletching.ArrowParts.stack(new com.simplebuilding.fletching.ArrowParts.Parts(
+                        com.simplebuilding.fletching.ArrowParts.Tip.DIAMOND, com.simplebuilding.fletching.ArrowParts.Shaft.STICK,
+                        com.simplebuilding.fletching.ArrowParts.Fletching.FEATHER), 1)
+                : new ItemStack(Items.ARROW));
 
         public final String id;
         public final Supplier<ItemStack> icon;
@@ -67,6 +73,7 @@ public final class ModItemGroupsContent {
             case MATERIALS -> materials(entries);
             case FUNCTIONAL -> functional(entries);
             case PADS -> CreativeTabLayout.emit(entries, padsRows());
+            case ARROWS -> CreativeTabLayout.emit(entries, arrowsRows());
         }
     }
 
@@ -388,6 +395,27 @@ public final class ModItemGroupsContent {
      * steht die Blaupause direkt beim Enderit-Baustab, der sie baut. Ein Stapel darf in einem Tab nur
      * einmal stehen, darum wiederholt die Zeile den Enderit-Baustab nicht, sondern teilt sich seine Zeile.
      */
+    /**
+     * Zeilen des Tabs "SimpleArrows" (B14): je Spitze eine Zeile mit ihren acht Pfeilen (Schaft, dann Befiederung) in
+     * der Reihenfolge von {@link com.simplebuilding.fletching.ArrowParts#allCombinations()}.
+     */
+    public static List<CreativeTabLayout.Row> arrowsRows() {
+        if (!com.simplebuilding.version.McVersion.FLETCHING) {
+            return List.of();
+        }
+        var rows = new java.util.ArrayList<CreativeTabLayout.Row>();
+        for (var tip : com.simplebuilding.fletching.ArrowParts.Tip.values()) {
+            var stacks = new java.util.ArrayList<ItemStack>();
+            for (var parts : com.simplebuilding.fletching.ArrowParts.allCombinations()) {
+                if (parts.tip() == tip) {
+                    stacks.add(com.simplebuilding.fletching.ArrowParts.stack(parts, 1));
+                }
+            }
+            rows.add(new CreativeTabLayout.Row("arrows_" + tip.getSerializedName(), stacks, false));
+        }
+        return rows;
+    }
+
     public static CreativeTabLayout.Row buildingPlanningRow() {
         return CreativeTabLayout.Row.besides("building_planning", ModItems.BLUEPRINT, Items.CARTOGRAPHY_TABLE);
     }

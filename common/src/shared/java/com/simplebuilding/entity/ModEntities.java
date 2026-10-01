@@ -26,6 +26,10 @@ public final class ModEntities {
      */
     public static final EntityType<LevitatingBlockEntity> LEVITATING_BLOCK = register("levitating_block");
 
+    /** Pfeil vom Befiederungstisch; Masse wie Vanillas Pfeil. */
+    public static final EntityType<com.simplebuilding.fletching.CraftedArrow> CRAFTED_ARROW = com.simplebuilding.version.McVersion.FLETCHING
+            ? registerArrow("crafted_arrow") : null;
+
     private ModEntities() {
     }
 
@@ -36,6 +40,19 @@ public final class ModEntities {
                 .noLootTable()
                 .sized(0.98F, 0.98F)
                 .clientTrackingRange(10)
+                .updateInterval(20)
+                .build(ResourceKey.create(Registries.ENTITY_TYPE, id));
+        return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
+    }
+
+    private static EntityType<com.simplebuilding.fletching.CraftedArrow> registerArrow(String name) {
+        Identifier id = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
+        EntityType<com.simplebuilding.fletching.CraftedArrow> type = EntityType.Builder
+                .<com.simplebuilding.fletching.CraftedArrow>of(com.simplebuilding.fletching.CraftedArrow::new, MobCategory.MISC)
+                .noLootTable()
+                .sized(0.5F, 0.5F)
+                .eyeHeight(0.13F)
+                .clientTrackingRange(4)
                 .updateInterval(20)
                 .build(ResourceKey.create(Registries.ENTITY_TYPE, id));
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);

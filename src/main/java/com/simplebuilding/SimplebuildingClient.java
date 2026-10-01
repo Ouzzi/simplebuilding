@@ -67,6 +67,9 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         // Der aufsteigende Block wird wie fallender Sand gezeichnet.
         EntityRendererRegistry.register(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
+        if (com.simplebuilding.version.McVersion.FLETCHING) {
+            EntityRendererRegistry.register(ModEntities.CRAFTED_ARROW, com.simplebuilding.fletching.client.CraftedArrowRenderer::new);
+        }
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_TEMPLATE_BE, com.simplebuilding.client.render.PlacedTemplateRenderer::new);
@@ -209,6 +212,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         MenuScreens.register(ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER, NetheriteHopperScreen::new);
         MenuScreens.register(ModScreenHandlers.BACKPACK_MENU, BackpackScreen::new);
         MenuScreens.register(ModScreenHandlers.TIERED_CHEST_MENU, com.simplebuilding.client.gui.TieredChestScreen::new);
+        if (ModScreenHandlers.FLETCHING_MENU != null) {
+            MenuScreens.register(ModScreenHandlers.FLETCHING_MENU, com.simplebuilding.client.gui.FletchingScreen::new);
+        }
 
         // --- NETZWERK REGISTRIERUNG CLIENT-SEITE ---
         registerClientReceivers();

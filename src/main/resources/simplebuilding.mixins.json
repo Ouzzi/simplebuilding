@@ -3,6 +3,7 @@
   "package": "com.simplebuilding.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "AbstractArrowAccessor",
     "AbstractFurnaceBlockEntityMixin",
     "CarvedStairMixin",
     "AbstractFurnaceMenuMixin",
@@ -22,6 +23,7 @@
     "EnderiteItemMixin",
     "EntityLightRemovalMixin",
     "EndermanSpawnMixin",
+    "FletchingTableMixin",
     "HostileEntityMixin",
     "ItemEntityMixin",
     "ItemFrameEntityMixin",

@@ -15,6 +15,11 @@ public class ModDataComponentTypes {
             .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT));
     public static final DataComponentType<Integer> OFFSET = register("offset", builder -> builder.persistent(Codec.INT));
 
+    /** Teile eines Pfeils vom Befiederungstisch (2026-10-01). */
+    public static final DataComponentType<com.simplebuilding.fletching.ArrowParts.Parts> ARROW_PARTS = register("arrow_parts", builder -> builder
+            .persistent(com.simplebuilding.fletching.ArrowParts.Parts.CODEC)
+            .networkSynchronized(com.simplebuilding.fletching.ArrowParts.Parts.STREAM_CODEC));
+
     // Glowing hat nur noch eine Stufe (Besitzer 2026-09-29): der Codec liest alte Stufe-2-Ruestung als 1,
     // beim naechsten Speichern steht dann 1 da (GlowingTrimUtils.normalizeGlowLevel). Ohne eigenen
     // Netzwerk-Codec leitet Vanilla ihn aus diesem ab, der Client sieht also ebenfalls nur 1.

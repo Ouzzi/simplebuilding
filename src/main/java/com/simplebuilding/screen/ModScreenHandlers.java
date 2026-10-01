@@ -14,6 +14,7 @@ public final class ModScreenHandlers {
     public static MenuType<NetheriteHopperScreenHandler> NETHERITE_HOPPER_SCREEN_HANDLER;
     public static MenuType<BackpackMenu> BACKPACK_MENU;
     public static MenuType<TieredChestMenu> TIERED_CHEST_MENU;
+    public static MenuType<com.simplebuilding.fletching.FletchingMenu> FLETCHING_MENU;
 
     public static void registerScreenHandlers() {
         Simplebuilding.LOGGER.info("Registering Screen Handlers for " + Simplebuilding.MOD_ID);
@@ -36,5 +37,12 @@ public final class ModScreenHandlers {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "tiered_chest"),
                 new ExtendedMenuType<>(TieredChestMenu::new, TieredChestOpenData.STREAM_CODEC)
         );
+        if (com.simplebuilding.version.McVersion.FLETCHING) {
+            FLETCHING_MENU = Registry.register(
+                    BuiltInRegistries.MENU,
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "fletching"),
+                    new MenuType<>(com.simplebuilding.fletching.FletchingMenu::new, net.minecraft.world.flag.FeatureFlags.VANILLA_SET)
+            );
+        }
     }
 }
