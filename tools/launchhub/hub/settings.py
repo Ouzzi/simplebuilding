@@ -72,7 +72,14 @@ def load() -> dict:
                 pass
     if os.environ.get("SB_HUB_DRY_RUN"):
         data["dryRun"] = True
+    if production():
+        data["dryRun"] = False
     return data
+
+
+def production() -> bool:
+    """Started by the Zentrale (tools/zentrale): always real, never a dry run (owner 2026-10-01)."""
+    return os.environ.get("SB_HUB_PRODUCTION") == "1"
 
 
 def _plain_ref(value) -> bool:
@@ -142,6 +149,8 @@ def save(patch: dict) -> dict:
 
 def dry_run() -> str:
     """'' (real), '1' (echo only) or 'sim' (spawn a harmless simulated process, for UI checks)."""
+    if production():
+        return ""
     env = (os.environ.get("SB_HUB_DRY_RUN") or "").strip().lower()
     if env:
         return "sim" if env == "sim" else "1"

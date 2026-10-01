@@ -1,0 +1,27 @@
+{
+  "comment": "Register der lokalen Zentralen. Neue Zentrale = ein Eintrag. args laufen mit dem Python der Zentrale im Repo-Ordner; Ports nur 127.0.0.1. Jede Zentrale startet hier im Produktivmodus: alle *DRY_RUN*-Variablen werden entfernt, env setzt zusaetzliche Werte.",
+  "centrals": [
+    {
+      "id": "wiki",
+      "name": "Wiki",
+      "port": 8765,
+      "path": "/",
+      "args": ["-m", "http.server", "8765", "--bind", "127.0.0.1", "--directory", "wiki"]
+    },
+    {
+      "id": "balancing",
+      "name": "Balancing-Zentrale",
+      "port": 8770,
+      "path": "/",
+      "args": ["tools/devserver/serve.py", "--no-browser", "--port", "8770"]
+    },
+    {
+      "id": "launchhub",
+      "name": "Launch- und Testzentrale",
+      "port": 8773,
+      "path": "/#/launch",
+      "args": ["tools/launchhub/server.py", "--no-browser", "--port", "8773"],
+      "env": {"SB_HUB_PRODUCTION": "1"}
+    }
+  ]
+}

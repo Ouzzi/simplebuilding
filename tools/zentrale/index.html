@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zentrale</title>
+<style>
+  :root { --bg:#f4f4f2; --card:#fff; --text:#1d1d1b; --muted:#6b6b66; --line:#ddddd8; --ok:#2f7d32; --ext:#2b6cb0; --off:#9a9a94; --btn:#1d1d1b; --btnText:#fff; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#161615; --card:#21211f; --text:#ececea; --muted:#9d9d97; --line:#33332f; --ok:#5cbf61; --ext:#6aa6e8; --off:#6d6d68; --btn:#ececea; --btnText:#161615; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.45 system-ui, sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:24px 16px; }
+  h1 { font-size:22px; margin:0 0 4px; }
+  p.sub { margin:0 0 20px; color:var(--muted); }
+  .bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+  button { font:inherit; border:1px solid var(--btn); background:var(--btn); color:var(--btnText); border-radius:6px; padding:6px 12px; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--text); border-color:var(--line); }
+  button:disabled { opacity:.4; cursor:default; }
+  .card { display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px 14px; margin-bottom:8px; }
+  .dot { width:10px; height:10px; border-radius:50%; background:var(--off); }
+  .dot.own { background:var(--ok); } .dot.external { background:var(--ext); } .dot.starting { background:var(--ok); opacity:.5; }
+  .name { font-weight:600; } .meta { color:var(--muted); font-size:13px; }
+  .actions { display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+  a { color:inherit; }
+  #msg { min-height:20px; color:var(--muted); font-size:13px; }
+  @media (max-width:520px) { .card { grid-template-columns:auto 1fr; } .actions { grid-column:1 / -1; justify-content:flex-start; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Zentrale</h1>
+  <p class="sub">Startet die lokalen Zentralen einzeln oder gemeinsam, immer im Produktivmodus.</p>
+  <div class="bar">
+    <button id="startAll">Alle starten</button>
+    <button class="ghost" id="stopAll">Alle eigenen stoppen</button>
+    <button class="ghost" id="openAll">Alle laufenden öffnen</button>
+  </div>
+  <div id="list"></div>
+  <div id="msg"></div>
+</main>
+<script>
+const STATE = { own: "läuft (von hier gestartet)", external: "läuft (extern gestartet)", starting: "startet …", stopped: "gestoppt" };
+let centrals = [];
+async function api(path, ids) {
+  const opts = ids === undefined ? {} : { method: "POST", headers: { "X-Zentrale-Client": "1", "Content-Type": "application/json" }, body: JSON.stringify({ ids }) };
+  const r = await fetch(path, opts);
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error || r.status);
+  return data;
+}
+function render() {
+  const list = document.getElementById("list");
+  list.replaceChildren(...centrals.map(c => {
+    const card = document.createElement("div"); card.className = "card";
+    const dot = document.createElement("span"); dot.className = "dot " + c.state;
+    const info = document.createElement("div");
+    info.innerHTML = `<div class="name"></div><div class="meta"></div>`;
+    info.firstChild.textContent = c.name;
+    info.lastChild.textContent = `Port ${c.port} · ${STATE[c.state]}`;
+    const actions = document.createElement("div"); actions.className = "actions";
+    const running = c.state === "own" || c.state === "external";
+    const mk = (label, fn, cls, disabled) => { const b = document.createElement("button"); b.textContent = label; if (cls) b.className = cls; b.disabled = disabled; b.onclick = fn; return b; };
+    actions.append(
+      mk("Starten", () => act("/api/start", [c.id]), "", running || c.state === "starting"),
+      mk("Neu starten", () => act("/api/restart", [c.id]), "ghost", c.state !== "own"),
+      mk("Stoppen", () => act("/api/stop", [c.id]), "ghost", c.state !== "own"),
+      mk("Öffnen", () => window.open(c.url, "_blank"), "ghost", !running));
+    card.append(dot, info, actions);
+    return card;
+  }));
+}
+async function refresh() { try { centrals = (await api("/api/centrals")).centrals; render(); } catch (e) { say("Fehler: " + e.message); } }
+function say(t) { document.getElementById("msg").textContent = t; }
+async function act(path, ids) {
+  try { const d = await api(path, ids); centrals = d.centrals; render();
+    const s = (d.started || []).length, st = (d.stopped || []).length;
+    say(`${s ? s + " gestartet" : ""}${s && st ? ", " : ""}${st ? st + " gestoppt" : ""}` || "nichts zu tun"); }
+  catch (e) { say("Fehler: " + e.message); }
+}
+document.getElementById("startAll").onclick = () => act("/api/start", "all");
+document.getElementById("stopAll").onclick = () => act("/api/stop", "all");
+document.getElementById("openAll").onclick = () => centrals.filter(c => c.state === "own" || c.state === "external").forEach(c => window.open(c.url, "_blank"));
+refresh(); setInterval(refresh, 2000);
+</script>
+</body>
+</html>
