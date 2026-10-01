@@ -154,6 +154,18 @@ class TargetTests(unittest.TestCase):
             self.assertNotIn(",", p)
 
 
+class OnboardingTests(unittest.TestCase):
+    def test_client_start_turns_off_only_the_onboarding_option(self):
+        from hub.api import Hub
+        options = Path(tempfile.mkdtemp()) / "run" / "options.txt"
+        logs = []
+        Hub._skip_onboarding(options, logs.append)
+        self.assertEqual(options.read_text(encoding="utf-8"), "onboardAccessibility:false\n")
+        options.write_text("fov:0.5\nonboardAccessibility:true\nlang:de_de\n", encoding="utf-8")
+        Hub._skip_onboarding(options, logs.append)
+        self.assertEqual(options.read_text(encoding="utf-8").splitlines(), ["fov:0.5", "lang:de_de", "onboardAccessibility:false"])
+
+
 class PathSafetyTests(unittest.TestCase):
     def test_safe_join(self):
         with tempfile.TemporaryDirectory() as tmp:
