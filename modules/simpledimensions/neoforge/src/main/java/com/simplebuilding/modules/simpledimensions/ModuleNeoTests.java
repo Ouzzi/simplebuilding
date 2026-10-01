@@ -8,8 +8,9 @@ public final class ModuleNeoTests {
   bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e)->e.register(Registries.TEST_FUNCTION,r->DimensionTests.ALL.forEach((name,body)->r.register(DimensionRegistry.id("module_game_test_"+name),body))));
   bus.addListener((net.neoforged.neoforge.event.RegisterGameTestsEvent e)->{
    var env=e.registerEnvironment(DimensionRegistry.id("default"),new TestEnvironmentDefinition.AllOf(List.of()));
-   var settings=e.registerEnvironment(DimensionRegistry.id("settings"),new TestEnvironmentDefinition.AllOf(List.of()));
-   DimensionTests.ALL.forEach((name,body)->{var id=DimensionRegistry.id("module_game_test_"+name);var data=new TestData<>(name.startsWith("settings_")?settings:env,net.minecraft.world.level.Level.OVERWORLD,Identifier.parse("simpledimensions:empty"),name.startsWith("settings_")?420:240,0,true,net.minecraft.world.level.block.Rotation.NONE,false,1,1,false,1);e.registerTest(id,new FunctionGameTestInstance(ResourceKey.create(Registries.TEST_FUNCTION,id),data));});
+   DimensionTests.ALL.forEach((name,body)->{var id=DimensionRegistry.id("module_game_test_"+name);
+    var testEnv=name.startsWith("settings_")?e.registerEnvironment(DimensionRegistry.id(name),new TestEnvironmentDefinition.AllOf(List.of())):env;
+    var data=new TestData<>(testEnv,net.minecraft.world.level.Level.OVERWORLD,Identifier.parse("simpledimensions:empty"),name.startsWith("settings_")?420:240,0,true,net.minecraft.world.level.block.Rotation.NONE,false,1,1,false,1);e.registerTest(id,new FunctionGameTestInstance(ResourceKey.create(Registries.TEST_FUNCTION,id),data));});
   });
  }
 }

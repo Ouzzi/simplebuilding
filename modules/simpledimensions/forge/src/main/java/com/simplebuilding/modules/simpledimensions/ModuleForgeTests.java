@@ -15,10 +15,11 @@ public final class ModuleForgeTests {
     }
     public static void instances(Registry<TestEnvironmentDefinition<?>> environments, Registry<GameTestInstance> instances) {
         net.minecraft.core.Holder<TestEnvironmentDefinition<?>> env = environments.getOrThrow(GameTestEnvironments.DEFAULT_KEY);
-        var settings = environments.getOrThrow(ResourceKey.create(Registries.TEST_ENVIRONMENT, DimensionRegistry.id("settings")));
         DimensionTests.ALL.forEach((name, body) -> {
             var id = DimensionRegistry.id("module_game_test_" + name);
-            var data = new TestData<>(name.startsWith("settings_") ? settings : env, net.minecraft.world.level.Level.OVERWORLD,
+            var testEnv = name.startsWith("settings_") ? environments.getOrThrow(ResourceKey.create(
+                    Registries.TEST_ENVIRONMENT, DimensionRegistry.id(name.equals("settings_persistence") ? "settings" : name))) : env;
+            var data = new TestData<>(testEnv, net.minecraft.world.level.Level.OVERWORLD,
                     net.minecraft.resources.Identifier.parse("simpledimensions:empty"), name.startsWith("settings_") ? 420 : 240,
                     0, true, net.minecraft.world.level.block.Rotation.NONE, false, 1, 1, false, 1);
             Registry.register(instances, id, new FunctionGameTestInstance(ResourceKey.create(Registries.TEST_FUNCTION, id), data));

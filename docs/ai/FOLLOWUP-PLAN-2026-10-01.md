@@ -76,3 +76,11 @@ diese Funktion. Der Smoke muss die tatsächliche Loader-Auswahl mit dem Guard
 abgleichen, bei Koexistenz die unveränderte Renderkopie prüfen und seine
 positiven Legacy-Prüfungen ohne Simple Models behalten. Beide Konstellationen
 seriell prüfen; die temporäre isolierte Mod-Auswahl bytegleich wiederherstellen.
+
+Das anschließende Gate fand überlappende Dimensions-Settings-Journeys: Tick-
+Offsets sind testlokal und schützen gemeinsame Dateien nicht. Jede Journey
+erhält ein eigenes Test-Environment auf den registrierenden Loadern. Gameplay
+bleibt unverändert. Den vom roten Lauf hinterlassenen isolierten Zustand sichern,
+Skyblock dort wieder aktivieren, danach die vollständigen Fabric-/NeoForge-
+Dimensions-Suiten zweimal ausführen und Konfigurationsbytes vergleichen.
+Anschließend erneut das vollständige exakte Gate vor Push.

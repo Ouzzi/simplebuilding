@@ -17,7 +17,7 @@ import java.util.List;
 /** Exercises Vanilla useItemOn and the registered loader ticks, without direct travel/tick helpers. */
 public final class DimensionSettingsTests {
     public static void journey(GameTestHelper h, String id, int startTick) {
-        // Existing tests share one server. Begin after their mutations and serialize these journeys.
+        // Each mutating journey has its own environment; test-local delays do not serialize shared state.
         h.runAfterDelay(startTick, () -> new Journey(h, id).run());
     }
 
