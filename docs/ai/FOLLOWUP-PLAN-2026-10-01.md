@@ -69,3 +69,10 @@ abschalten. Faktoren 3, 6 und 1 sowie Wiederholbarkeit bleiben geprüft.
 Keine Produktionsänderung; gezielte HUD-Tests auf beiden Loadern und vollständiges
 exaktes SHA-Gate vor Push. Dimensions' Cloth-Unterklassenkorrektur und deren
 sieben UI-Aufnahmen sind im modul-eigenen UI-Plan beschrieben.
+
+Der Visuals-Smoke verlangt außerdem Legacy-CIT-Modelle trotz geladenem Simple
+Models. Das widerspricht der dokumentierten Koexistenz: Simple Models übernimmt
+diese Funktion. Der Smoke muss die tatsächliche Loader-Auswahl mit dem Guard
+abgleichen, bei Koexistenz die unveränderte Renderkopie prüfen und seine
+positiven Legacy-Prüfungen ohne Simple Models behalten. Beide Konstellationen
+seriell prüfen; die temporäre isolierte Mod-Auswahl bytegleich wiederherstellen.

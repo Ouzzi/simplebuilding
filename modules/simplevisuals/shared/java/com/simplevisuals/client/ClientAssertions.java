@@ -38,10 +38,18 @@ public final class ClientAssertions {
   Visuals.CONFIG=new com.google.gson.Gson().fromJson(new com.google.gson.Gson().toJson(saved),com.simplevisuals.config.SimplevisualsConfig.class);VisualsHud.reset();VisualsHud.addPickup(new ItemStack(Items.DIAMOND),3,false);VisualsHud.addPickup(new ItemStack(Items.EXPERIENCE_BOTTLE),8,true);
  }
  public static void prepareModels(Minecraft mc){Visuals.CONFIG.visuals.enableRenamedItemTextures=true;mc.reloadResourcePacks();}
- public static void models(Minecraft mc){
-  require(RenamedModels.entries(Items.STICK).size()>=2,"Legacy CIT resources loaded");var stack=new ItemStack(Items.STICK);stack.set(DataComponents.CUSTOM_NAME,Component.literal("JsonTest"));
-  var originalModel=stack.get(DataComponents.ITEM_MODEL);var result=RenamedModels.renderStack(stack);require(result!=stack&&!java.util.Objects.equals(result.get(DataComponents.ITEM_MODEL),originalModel)&&java.util.Objects.equals(stack.get(DataComponents.ITEM_MODEL),originalModel),"Only render copy receives model selection");
-  require(RenamedModels.entries(Items.STICK).getFirst().weight()==10,"Stable weighted match");
+ public static void models(Minecraft mc,boolean modelsPresent){
+  require(RenamedModels.modelsLoaded==modelsPresent,"Legacy guard matches actual Simple Models presence");
+  var stack=new ItemStack(Items.STICK);stack.set(DataComponents.CUSTOM_NAME,Component.literal("JsonTest"));
+  var originalModel=stack.get(DataComponents.ITEM_MODEL);var result=RenamedModels.renderStack(stack);
+  if(modelsPresent){
+   require(RenamedModels.entries(Items.STICK).isEmpty(),"Simple Models owns renamed models; Legacy rules stay inactive");
+   require(result==stack&&java.util.Objects.equals(stack.get(DataComponents.ITEM_MODEL),originalModel),"Legacy bridge leaves Simple Models rendering untouched");
+  }else{
+   require(RenamedModels.entries(Items.STICK).size()>=2,"Legacy CIT resources loaded");
+   require(result!=stack&&!java.util.Objects.equals(result.get(DataComponents.ITEM_MODEL),originalModel)&&java.util.Objects.equals(stack.get(DataComponents.ITEM_MODEL),originalModel),"Only render copy receives model selection");
+   require(RenamedModels.entries(Items.STICK).getFirst().weight()==10,"Stable weighted match");
+  }
   mc.setScreenAndShow(new ModelBrowser(mc.gui.screen(),Items.STICK));
  }
  public static void anvil(Minecraft mc){var menu=new net.minecraft.world.inventory.AnvilMenu(0,mc.player.getInventory());menu.getSlot(0).set(new ItemStack(Items.STICK));mc.setScreenAndShow(new net.minecraft.client.gui.screens.inventory.AnvilScreen(menu,mc.player.getInventory(),Component.translatable("container.repair")));}

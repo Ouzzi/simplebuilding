@@ -18,8 +18,17 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.takeScreenshot("simplevisuals-anvil");
             context.runOnClient(client->call("config",client));context.waitTicks(3);
             context.takeScreenshot("simplevisuals-config");
+        }finally{
             context.runOnClient(client->call("restore",client));
         }
     }
-    private static void call(String name,net.minecraft.client.Minecraft client){try{Class.forName("com.simplevisuals.client.ClientAssertions").getMethod(name,net.minecraft.client.Minecraft.class).invoke(null,client);}catch(java.lang.reflect.InvocationTargetException e){throw new AssertionError(name,e.getCause());}catch(Exception e){throw new AssertionError(name,e);}}
+    private static void call(String name,net.minecraft.client.Minecraft client){
+        try{
+            var assertions=Class.forName("com.simplevisuals.client.ClientAssertions");
+            if(name.equals("models"))assertions.getMethod(name,net.minecraft.client.Minecraft.class,boolean.class)
+                .invoke(null,client,net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplemodels"));
+            else assertions.getMethod(name,net.minecraft.client.Minecraft.class).invoke(null,client);
+        }catch(java.lang.reflect.InvocationTargetException e){throw new AssertionError(name,e.getCause());}
+        catch(Exception e){throw new AssertionError(name,e);}
+    }
 }
