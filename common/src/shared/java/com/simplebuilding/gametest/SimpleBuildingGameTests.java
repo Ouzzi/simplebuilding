@@ -764,6 +764,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_bundles_close_like_vanilla_when_picked_up_or_left", BundleWiringTests::bundlesCloseLikeVanillaWhenPickedUpOrLeft)
                     .build(),
+            GameTestSpec.named("bundle_wiring_game_test_anvil_repair_keeps_the_cost_unless_enchanting", BundleWiringTests::anvilRepairKeepsTheCostUnlessEnchanting)
+                    .build(),
             GameTestSpec.named("bundle_wiring_game_test_anvil_blanks_the_result_for_colour_palette_without_master_builder", BundleWiringTests::anvilBlanksTheResultForColourPaletteWithoutMasterBuilder)
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_building_wand_builds_from_the_bundle_and_pays_one_piece_per_block", BundleWiringTests::buildingWandBuildsFromTheBundleAndPaysOnePiecePerBlock)

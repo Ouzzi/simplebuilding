@@ -47391,6 +47391,21 @@
       "tooltipDe": "Leuchtende Rüstung erhellt die Umgebung ihres Trägers mit unsichtbaren Lichtblöcken. Aus: keine neuen Lichtblöcke, und die schon gesetzten verschwinden beim nächsten Takt des Trägers. Serverseitig. Standard: an."
     },
     {
+      "name": "server.features.anvilRepairKeepsCost",
+      "shortName": "anvilRepairKeepsCost",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Repairing Keeps Anvil Cost",
+      "labelDe": "Reparieren hält Ambosskosten",
+      "tooltip": "Repairing or renaming at the anvil without new enchantments does not raise the item's anvil cost. Only enchanting does. Server-side. Default: on.",
+      "tooltipDe": "Reparieren oder Umbenennen am Amboss ohne neue Verzauberung erhöht die Ambosskosten des Gegenstands nicht. Nur Verzaubern tut das. Serverseitig. Standard: an."
+    },
+    {
       "name": "server.features.backpack",
       "shortName": "backpack",
       "type": "boolean",
@@ -69784,7 +69799,7 @@
     "trades": 20,
     "enchantments": 19,
     "tags": 44,
-    "config": 175,
+    "config": 176,
     "inWorld": 396,
     "advancements": 123,
     "features": 43,

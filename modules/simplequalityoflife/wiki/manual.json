@@ -569,6 +569,36 @@
           "Der experimentelle Forge-Transport benötigt das Modul derzeit auf Server und Client."
         ]
       }
+    },
+    {
+      "id": "thrift",
+      "sources": [
+        "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/enchantment/thrift.json",
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/ThriftDurabilityMixin.java",
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/registry/Thrift.java"
+      ],
+      "en": {
+        "title": "Thrift",
+        "summary": "Enchantment for every item with durability, levels I-III: +1/3 maximum durability per level, level III doubles it. Not combinable with Mending; Unbreaking still works. Anvil repair with material restores a quarter of the (larger) maximum per item, so the same number of items as without the enchantment repairs it fully. Enchanting table, trades and loot like other non-treasure enchantments."
+      },
+      "de": {
+        "title": "Sparsamkeit",
+        "summary": "Verzauberung für alles mit Haltbarkeit, Stufen I-III: +1/3 maximale Haltbarkeit je Stufe, Stufe III verdoppelt sie. Nicht mit Reparatur kombinierbar; Haltbarkeit (Unbreaking) wirkt weiter. Die Amboss-Reparatur mit Material gibt je Stück ein Viertel des (größeren) Maximums zurück, also repariert dieselbe Anzahl wie ohne Verzauberung vollständig. Verzauberungstisch, Handel und Beute wie andere Nicht-Schatz-Verzauberungen."
+      }
+    },
+    {
+      "id": "anvil_repair_cost",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/mixin/AnvilRepairCostMixin.java"
+      ],
+      "en": {
+        "title": "Repairing keeps the anvil cost",
+        "summary": "Repairing with material, combining two items without new enchantments or renaming keeps the higher anvil cost of the inputs instead of raising it. Only a change of enchantments raises it like vanilla. Server option qOL.anvilRepairKeepsCost (default true)."
+      },
+      "de": {
+        "title": "Reparieren hält die Ambosskosten",
+        "summary": "Reparieren mit Material, Zusammenlegen zweier Gegenstände ohne neue Verzauberung oder Umbenennen behält die höhere Ambosskosten der Zutaten, statt sie zu erhöhen. Nur eine Änderung der Verzauberungen erhöht sie wie in Vanilla. Server-Option qOL.anvilRepairKeepsCost (Standard true)."
+      }
     }
   ],
   "notes": {}

@@ -145,6 +145,9 @@ public class ServerTuningConfig {
         /** Leuchtende Ruestung setzt Lichtbloecke; aus: vorhandene verschwinden beim naechsten Takt. */
         @ConfigEntry.Gui.Tooltip
         public boolean dynamicLight = true;
+        /** Reparieren ohne neue Verzauberung erhoeht die Ambosskosten nicht (2026-10-02). */
+        @ConfigEntry.Gui.Tooltip
+        public boolean anvilRepairKeepsCost = true;
         @ConfigEntry.Gui.Tooltip
         public boolean backpack = true;
         /** Anziehungsgeraet (Attractor, frueher Magnet). */

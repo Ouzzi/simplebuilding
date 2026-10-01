@@ -2048,6 +2048,8 @@
   "text.autoconfig.simplebuilding.option.server.features.airJump.@Tooltip": "Off: the Air Jump enchantment does nothing on this server, whatever a client's own Air Jump switch says. Server-side, sent to clients. Default: on.",
   "text.autoconfig.simplebuilding.option.server.features.dynamicLight": "Dynamic Light",
   "text.autoconfig.simplebuilding.option.server.features.dynamicLight.@Tooltip": "Radiance armor lights up the blocks around its wearer with invisible light blocks. Off: no new light blocks, and the ones already placed disappear on the wearer's next check. Server-side. Default: on.",
+  "text.autoconfig.simplebuilding.option.server.features.anvilRepairKeepsCost": "Repairing Keeps Anvil Cost",
+  "text.autoconfig.simplebuilding.option.server.features.anvilRepairKeepsCost.@Tooltip": "Repairing or renaming at the anvil without new enchantments does not raise the item's anvil cost. Only enchanting does. Server-side. Default: on.",
   "text.autoconfig.simplebuilding.option.server.features.backpack": "Backpacks",
   "text.autoconfig.simplebuilding.option.server.features.backpack.@Tooltip": "Off: a worn backpack no longer opens (a placed one still does, so nobody loses the contents). Its recipes vanish with the next /reload or world start. Server-side, sent to clients. Default: on.",
   "text.autoconfig.simplebuilding.option.server.features.attractor": "Attractor",

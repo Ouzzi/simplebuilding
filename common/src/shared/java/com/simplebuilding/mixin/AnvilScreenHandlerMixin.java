@@ -217,6 +217,14 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
         if (outputStack.getItem() instanceof SledgehammerItem) {
             outputStack.set(DataComponents.REPAIR_COST, 0);
             if (this.cost.get() >= 40) this.cost.set(39);
+        } else if (com.simplebuilding.config.ServerTuning.get().features.anvilRepairKeepsCost
+                && EnchantmentHelper.getEnchantmentsForCrafting(outputStack)
+                        .equals(EnchantmentHelper.getEnchantmentsForCrafting(this.inputSlots.getItem(0)))) {
+            // A2) Reparieren ohne neue Verzauberung macht den Amboss nicht teurer (Besitzer 2026-10-02, wie SimpleQoL
+            // qOL.anvilRepairKeepsCost): das Ergebnis behaelt die hoehere Arbeitskosten der Zutaten, nur Verzaubern erhoeht sie.
+            outputStack.set(DataComponents.REPAIR_COST, Math.max(
+                    this.inputSlots.getItem(0).getOrDefault(DataComponents.REPAIR_COST, 0),
+                    this.inputSlots.getItem(1).getOrDefault(DataComponents.REPAIR_COST, 0)));
         }
 
         // B) COLOR PALETTE RESTRICTION

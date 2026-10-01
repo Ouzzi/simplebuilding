@@ -2048,6 +2048,8 @@
   "text.autoconfig.simplebuilding.option.server.features.airJump.@Tooltip": "Aus: die Verzauberung Luftsprung wirkt auf diesem Server nicht, egal was der eigene Schalter eines Clients sagt. Serverseitig, an die Clients geschickt. Standard: an.",
   "text.autoconfig.simplebuilding.option.server.features.dynamicLight": "Dynamisches Licht",
   "text.autoconfig.simplebuilding.option.server.features.dynamicLight.@Tooltip": "Leuchtende Rüstung erhellt die Umgebung ihres Trägers mit unsichtbaren Lichtblöcken. Aus: keine neuen Lichtblöcke, und die schon gesetzten verschwinden beim nächsten Takt des Trägers. Serverseitig. Standard: an.",
+  "text.autoconfig.simplebuilding.option.server.features.anvilRepairKeepsCost": "Reparieren hält Ambosskosten",
+  "text.autoconfig.simplebuilding.option.server.features.anvilRepairKeepsCost.@Tooltip": "Reparieren oder Umbenennen am Amboss ohne neue Verzauberung erhöht die Ambosskosten des Gegenstands nicht. Nur Verzaubern tut das. Serverseitig. Standard: an.",
   "text.autoconfig.simplebuilding.option.server.features.backpack": "Rucksäcke",
   "text.autoconfig.simplebuilding.option.server.features.backpack.@Tooltip": "Aus: ein getragener Rucksack öffnet sich nicht mehr (ein abgestellter schon, damit niemand den Inhalt verliert). Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig, an die Clients geschickt. Standard: an.",
   "text.autoconfig.simplebuilding.option.server.features.attractor": "Attractor",

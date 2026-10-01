@@ -37,6 +37,11 @@ public final class BundleWiringGameTest {
     }
 
     @GameTest
+    public void anvilRepairKeepsTheCostUnlessEnchanting(GameTestHelper helper) {
+        BundleWiringTests.anvilRepairKeepsTheCostUnlessEnchanting(helper);
+    }
+
+    @GameTest
     public void anvilBlanksTheResultForColourPaletteWithoutMasterBuilder(GameTestHelper helper) {
         BundleWiringTests.anvilBlanksTheResultForColourPaletteWithoutMasterBuilder(helper);
     }

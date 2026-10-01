@@ -552,6 +552,7 @@ public final class ConfigOptionTests {
             "server.features.endSignals boolean=true",
             "server.features.astralVault boolean=true",
             "server.features.dynamicLight boolean=true",
+            "server.features.anvilRepairKeepsCost boolean=true",
             "server.features.backpack boolean=true",
             "server.features.attractor boolean=true",
             "server.features.echoSounder boolean=true",

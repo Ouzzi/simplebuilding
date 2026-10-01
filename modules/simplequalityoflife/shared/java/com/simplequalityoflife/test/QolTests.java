@@ -31,7 +31,7 @@ public final class QolTests {
   ALL.put("muting",QolTests::muting);ALL.put("baby",QolTests::baby);ALL.put("piglins",QolTests::piglins);ALL.put("weather",QolTests::weather);
   ALL.put("vault",QolTests::vault);ALL.put("vegetation",QolTests::vegetation);ALL.put("cross_mod",QolTests::crossMod);
   ALL.put("real_movement_packets",QolTests::realMovementPackets);ALL.put("vault_persistence",QolTests::vaultPersistence);
-  ALL.put("gold_trim",QolTests::goldTrim);ALL.put("anvil_repair_cost",QolTests::anvilRepairCost);ALL.put("feature_switches",QolTests::featureSwitches);ALL.put("sharpness_action",QolTests::sharpnessAction);
+  ALL.put("gold_trim",QolTests::goldTrim);ALL.put("anvil_repair_cost",QolTests::anvilRepairCost);ALL.put("thrift",QolTests::thrift);ALL.put("feature_switches",QolTests::featureSwitches);ALL.put("sharpness_action",QolTests::sharpnessAction);
  }
  public static Identifier id(String s){return Identifier.fromNamespaceAndPath("simplequalityoflife",s);}
  private static void close(GameTestHelper h,double a,double b,String msg){h.assertTrue(Math.abs(a-b)<0.00001,msg+": "+a+" / "+b);}
@@ -132,6 +132,18 @@ public final class QolTests {
   p.connection.handleMovePlayer(new net.minecraft.network.protocol.game.ServerboundMovePlayerPacket.Pos(p.getX(),y+.8,p.getZ(),false,false));h.assertTrue(audit.qol$rejectedMovementPackets()==before+2,"Packet spam cannot buy another climb allowance");
  });h.succeed();}
  public static void vaultPersistence(GameTestHelper h){var pos=new BlockPos(2,2,2);h.setBlock(pos,Blocks.VAULT);var v=(VaultBlockEntity)h.getLevel().getBlockEntity(h.absolutePos(pos));var uuid=UUID.randomUUID();((IVaultCooldown)v.getServerData()).markLooted(uuid,12345);var tag=v.saveWithFullMetadata(h.getLevel().registryAccess());h.assertTrue(tag.contains("SimpleBuildingLootTimes"),"Legacy persistent map key written");var loaded=(VaultBlockEntity)BlockEntity.loadStatic(v.getBlockPos(),v.getBlockState(),tag,h.getLevel().registryAccess());loaded.setLevel(h.getLevel());h.assertTrue(((IVaultCooldown)loaded.getServerData()).getLootTimesMap().get(uuid)==12345,"Actual block-entity save/reload keeps UUID and timestamp");h.succeed();}
+ /** Sparsamkeit: +1/3 Haltbarkeit je Stufe (III = doppelt), nicht mit Reparatur kombinierbar, Materialreparatur je Stueck ein Viertel. */
+ public static void thrift(GameTestHelper h){var reg=h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);var thrift=reg.getOrThrow(com.simplequalityoflife.registry.Thrift.KEY);
+  var plain=new ItemStack(Items.IRON_PICKAXE);int base=plain.getMaxDamage();
+  for(int lvl=1;lvl<=3;lvl++){var s=new ItemStack(Items.IRON_PICKAXE);s.enchant(thrift,lvl);h.assertTrue(s.getMaxDamage()==base+base*lvl/3,"thrift "+lvl+" max damage "+s.getMaxDamage()+" from "+base);}
+  var three=new ItemStack(Items.IRON_PICKAXE);three.enchant(thrift,3);h.assertTrue(three.getMaxDamage()==2*base,"thrift III doubles the durability");
+  h.assertTrue(!Enchantment.areCompatible(thrift,reg.getOrThrow(Enchantments.MENDING)),"thrift and mending are exclusive");
+  h.assertTrue(Enchantment.areCompatible(thrift,reg.getOrThrow(Enchantments.UNBREAKING)),"thrift goes with unbreaking");
+  h.assertTrue(thrift.value().getMaxLevel()==3,"three levels");
+  var p=h.makeMockPlayer(GameType.CREATIVE);var menu=new net.minecraft.world.inventory.AnvilMenu(1,p.getInventory());three.setDamageValue(three.getMaxDamage()-1);
+  menu.getSlot(0).set(three.copy());menu.getSlot(1).set(new ItemStack(Items.IRON_INGOT,4));var fixed=menu.getSlot(2).getItem();
+  h.assertTrue(!fixed.isEmpty()&&fixed.getDamageValue()==0,"four ingots fully repair the thrift III pickaxe like an unenchanted one: damage "+fixed.getDamageValue());
+  h.succeed();}
  /** Reparieren ohne neue Verzauberung behaelt die Ambosskosten, Verzaubern erhoeht sie wie Vanilla (2026-10-02). */
  public static void anvilRepairCost(GameTestHelper h){configured(()->{var p=h.makeMockPlayer(GameType.CREATIVE);var menu=new net.minecraft.world.inventory.AnvilMenu(1,p.getInventory());
   var sword=new ItemStack(Items.DIAMOND_SWORD);sword.setDamageValue(sword.getMaxDamage()-1);sword.set(DataComponents.REPAIR_COST,3);
@@ -141,8 +153,10 @@ public final class QolTests {
   var book=new ItemStack(Items.ENCHANTED_BOOK);book.set(DataComponents.STORED_ENCHANTMENTS,enchanted(h,Items.DIAMOND_SWORD,Enchantments.SHARPNESS).get(DataComponents.ENCHANTMENTS));
   menu.getSlot(1).set(book);var enchantedSword=menu.getSlot(2).getItem();
   h.assertTrue(enchantedSword.getOrDefault(DataComponents.REPAIR_COST,0)==7,"enchanting raises the cost like vanilla (3 -> 7), got "+enchantedSword.getOrDefault(DataComponents.REPAIR_COST,0));
-  Simplequalityoflife.getConfig().qOL.anvilRepairKeepsCost=false;menu.getSlot(1).set(new ItemStack(Items.DIAMOND));
-  h.assertTrue(menu.getSlot(2).getItem().getOrDefault(DataComponents.REPAIR_COST,0)==7,"switched off: vanilla raises the repair cost to 7");
+  // SimpleBuilding has the same rule under its own switch; with it loaded the vanilla fallback is not observable here.
+  boolean sb;try{Class.forName("com.simplebuilding.Simplebuilding");sb=true;}catch(ClassNotFoundException e){sb=false;}
+  if(!sb){Simplequalityoflife.getConfig().qOL.anvilRepairKeepsCost=false;menu.getSlot(1).set(new ItemStack(Items.DIAMOND));
+  h.assertTrue(menu.getSlot(2).getItem().getOrDefault(DataComponents.REPAIR_COST,0)==7,"switched off: vanilla raises the repair cost to 7");}
  });h.succeed();}
  public static void goldTrim(GameTestHelper h){configured(()->{var p=player(h,new BlockPos(2,2,2));var armor=new ItemStack(Items.DIAMOND_CHESTPLATE);var lookup=h.getLevel().registryAccess();armor.set(DataComponents.TRIM,new net.minecraft.world.item.equipment.trim.ArmorTrim(lookup.lookupOrThrow(Registries.TRIM_MATERIAL).getOrThrow(net.minecraft.world.item.equipment.trim.TrimMaterials.GOLD),lookup.lookupOrThrow(Registries.TRIM_PATTERN).getOrThrow(net.minecraft.world.item.equipment.trim.TrimPatterns.SENTRY)));p.setItemSlot(EquipmentSlot.CHEST,armor);h.assertTrue(net.minecraft.world.entity.monster.piglin.PiglinAi.isWearingSafeArmor(p),"Actual gold trim accepted");Simplequalityoflife.getConfig().qOL.piglinsIgnoreGoldTrims=false;h.assertTrue(!net.minecraft.world.entity.monster.piglin.PiglinAi.isWearingSafeArmor(p),"Gold trim toggle enforced");});h.succeed();}
  public static void featureSwitches(GameTestHelper h){configured(()->{var p=player(h,new BlockPos(2,2,2));var abs=h.absolutePos(new BlockPos(2,2,2));h.setBlock(new BlockPos(2,2,2),Blocks.WHEAT.defaultBlockState().setValue(CropBlock.AGE,7));p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.DIAMOND_HOE));Simplequalityoflife.getConfig().qOL.enableHoeHarvest=false;h.assertTrue(HoeHarvestHandler.onRightClickBlock(p,InteractionHand.MAIN_HAND,abs,Direction.UP)==InteractionResult.PASS,"Harvest toggle refuses action");h.setBlock(new BlockPos(2,2,2),Blocks.FURNACE);p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.LAVA_BUCKET));Simplequalityoflife.getConfig().qOL.enableFurnaceLavaFill=false;h.assertTrue(FurnaceLavaFillHandler.onRightClickBlock(p,InteractionHand.MAIN_HAND,abs,Direction.UP)==InteractionResult.PASS,"Lava toggle refuses action");h.assertTrue(!Simplequalityoflife.getConfig().qOL.enableAutowalk,"Autowalk disabled by server default");Simplequalityoflife.getConfig().qOL.enableManualCrawl=false;h.assertTrue(!CrawlLimiter.allow(p),"Disabled crawl refused by server");});h.succeed();}

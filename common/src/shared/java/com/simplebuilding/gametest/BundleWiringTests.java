@@ -595,6 +595,43 @@ public final class BundleWiringTests {
         helper.succeed();
     }
 
+    /**
+     * Owner 2026-10-02: repairing at the anvil without new enchantments keeps the anvil cost of the inputs;
+     * enchanting raises it like vanilla (3 -> 7). {@code server.features.anvilRepairKeepsCost} off restores vanilla.
+     */
+    public static void anvilRepairKeepsTheCostUnlessEnchanting(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        var features = com.simplebuilding.config.ServerTuning.get().features;
+        boolean before = features.anvilRepairKeepsCost;
+        try {
+            features.anvilRepairKeepsCost = true;
+            ItemStack sword = new ItemStack(net.minecraft.world.item.Items.IRON_SWORD);
+            sword.setDamageValue(sword.getMaxDamage() - 1);
+            sword.set(DataComponents.REPAIR_COST, 3);
+            AnvilMenu menu = new AnvilMenu(1, player.getInventory(), ContainerLevelAccess.NULL);
+            menu.getSlot(AnvilMenu.INPUT_SLOT).set(sword.copy());
+            menu.getSlot(AnvilMenu.ADDITIONAL_SLOT).set(new ItemStack(net.minecraft.world.item.Items.IRON_INGOT));
+            ItemStack repaired = menu.getSlot(AnvilMenu.RESULT_SLOT).getItem();
+            helper.assertTrue(!repaired.isEmpty() && repaired.getDamageValue() < sword.getDamageValue(), "the ingot did not repair the sword: " + repaired);
+            helper.assertValueEqual(repaired.getOrDefault(DataComponents.REPAIR_COST, 0), 3, "anvil cost after a plain repair");
+            ItemStack sharp = new ItemStack(net.minecraft.world.item.Items.IRON_SWORD);
+            sharp.enchant(enchantment(helper, net.minecraft.world.item.enchantment.Enchantments.SHARPNESS), 1);
+            menu.getSlot(AnvilMenu.ADDITIONAL_SLOT).set(sharp);
+            helper.assertValueEqual(menu.getSlot(AnvilMenu.RESULT_SLOT).getItem().getOrDefault(DataComponents.REPAIR_COST, 0), 7,
+                    "anvil cost after enchanting");
+            // Simple QoL carries the same rule under its own switch; with it loaded the vanilla fallback is not observable.
+            if (!classPresent("com.simplequalityoflife.Simplequalityoflife")) {
+                features.anvilRepairKeepsCost = false;
+                menu.getSlot(AnvilMenu.ADDITIONAL_SLOT).set(new ItemStack(net.minecraft.world.item.Items.IRON_INGOT));
+                helper.assertValueEqual(menu.getSlot(AnvilMenu.RESULT_SLOT).getItem().getOrDefault(DataComponents.REPAIR_COST, 0), 7,
+                        "switched off, a plain repair raises the cost like vanilla");
+            }
+        } finally {
+            features.anvilRepairKeepsCost = before;
+        }
+        helper.succeed();
+    }
+
     // =====================================================================================
     // BUILDING WAND
     // =====================================================================================
@@ -1251,6 +1288,15 @@ public final class BundleWiringTests {
      * checked because a refused name would leave the output empty for a reason that has nothing to
      * do with the mixin under test.
      */
+    private static boolean classPresent(String name) {
+        try {
+            Class.forName(name);
+            return true;
+        } catch (ClassNotFoundException absent) {
+            return false;
+        }
+    }
+
     private static AnvilMenu renameInAnvil(GameTestHelper helper, ServerPlayer player,
                                            ItemStack input, String name) {
         AnvilMenu menu = new AnvilMenu(1, player.getInventory(), ContainerLevelAccess.NULL);
