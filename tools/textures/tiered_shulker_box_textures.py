@@ -11,15 +11,8 @@ texture itself (vanilla's directory source finds it).
 The geometry (which texels exist: the notch in the lid, the teeth of the base, the open inner faces)
 is vanilla's: the alpha of entity/shulker/shulker.png. Everything visible is new pixel art.
 
-Faces are character grids, top row first, 16 texels wide:
-  0..6   shell, key color K0 (darkest) .. K6 (lightest) - dyed by the palette
-  o      plating outline
-  a..f   plating metal, dark .. light
-  x y z  plating accent (diamond / gold / ender glow), dark .. light
-  space  no plating: the shell shows
-
-Run from the repo root (reads the vanilla textures out of the Minecraft jar):
-  python tools/textures/tiered_shulker_box_textures.py <path to a 26.x client jar> [preview dir]
+Style (owner 2026-10-01): the shell is vanilla's grain snapped to the key colors; the tier shows as
+corner brackets, a rim band and studs in its plating colors (see paint).
 """
 import io
 import os
@@ -45,279 +38,6 @@ PLATING = {
                  "e": (88, 58, 146), "f": (112, 80, 180), "x": (100, 64, 176), "y": (138, 104, 214), "z": (196, 170, 248)},
 }
 
-# ---------------------------------------------------------------------------------------------
-# Shell (shared by all tiers). Painted per face from these grids; plating goes on top.
-# ---------------------------------------------------------------------------------------------
-LID_TOP_SHELL = [
-    "5666666666666665",
-    "6555555555555554",
-    "6543333333333424",
-    "6532222222223324",
-    "6532444443423324",
-    "6532433333423324",
-    "6532433233423324",
-    "6532432223423324",
-    "6532432223423324",
-    "6532433233423324",
-    "6532433333423324",
-    "6532444444423324",
-    "6533322222333324",
-    "6533333333333324",
-    "5444444444444443",
-    "4333333333333332",
-]
-LID_SIDE_SHELL = [
-    "6666666666666665",
-    "5555555555555554",
-    "5444444444444443",
-    "5433343333343343",
-    "5433333433333343",
-    "5434333333433343",
-    "5433333333333343",
-    "5333333333333332",
-    "4333222222223332",
-    "4332111111112332",
-    "4322100000012232",
-    "3211000000001121",
-]
-BASE_SIDE_SHELL = [
-    "5444544445444454",
-    "5443444444434453",
-    "5433333333333343",
-    "4333433334333332",
-    "4333333333333332",
-    "4323333233332332",
-    "3222222222222221",
-    "2111111111111110",
-]
-BASE_BOTTOM_SHELL = [
-    "3333333333333332",
-    "3222222222222221",
-    "3211111111111121",
-    "3212222222222121",
-    "3212111111112121",
-    "3212122222212121",
-    "3212121111212121",
-    "3212121221212121",
-    "3212121221212121",
-    "3212121111212121",
-    "3212122222212121",
-    "3212111111112121",
-    "3212222222222121",
-    "3211111111111121",
-    "3222222222222221",
-    "2111111111111110",
-]
-INNER_SHELL = ["1" * 16] * 16
-
-# ---------------------------------------------------------------------------------------------
-# Plating per tier (space = shell shows).
-# ---------------------------------------------------------------------------------------------
-PLATE = {
-    "reinforced": {
-        "lid_top": [
-            "feeeeeeeeeeeeeed",
-            "eyb          bxa",
-            "eb            ba",
-            "e              a",
-            "e              a",
-            "e              a",
-            "e      dd      a",
-            "e     dzyb     a",
-            "e     dyxb     a",
-            "e      bb      a",
-            "e              a",
-            "e              a",
-            "e              a",
-            "eb            ba",
-            "exb          bxa",
-            "daaaaaaaaaaaaaao",
-        ],
-        "lid_side": [
-            "feeeeeeeeeeeeeed",
-            "dccccccccccccccb",
-            "ec            ba",
-            "eb            ba",
-            "eb            ba",
-            "eb    deed    ba",
-            "eb    dyzb    ba",
-            "eb    cxyb    ba",
-            "eb    bccb    ba",
-            "eb            ba",
-            "eb            ba",
-            "db            ao",
-        ],
-        "base_side": [
-            "eb            ba",
-            "eb            ba",
-            "eb            ba",
-            "eb            ba",
-            "eb            ba",
-            "edddddddddddddda",
-            "dccccccccccccccb",
-            "obbbbbbbbbbbbbbo",
-        ],
-        "base_bottom": [
-            "dccccccccccccccb",
-            "cy            xb",
-            "c              b",
-            "c              b",
-            "c              b",
-            "c              b",
-            "c              b",
-            "c              b",
-            "c              b",
-            "c              b",
-            "c              b",
-            "c              b",
-            "c              b",
-            "c              b",
-            "cx            xa",
-            "bbbbbbbbbbbbbbba",
-        ],
-    },
-    "netherite": {
-        "lid_top": [
-            "dddddddddddddddc",
-            "dzb          bxb",
-            "db            bb",
-            "d              b",
-            "d              b",
-            "d              b",
-            "d      yy      b",
-            "d     yzyx     b",
-            "d     yyxx     b",
-            "d      xx      b",
-            "d              b",
-            "d              b",
-            "d              b",
-            "db            bb",
-            "dxb          bxb",
-            "cbbbbbbbbbbbbbbo",
-        ],
-        "lid_side": [
-            "eddddddddddddddc",
-            "dccccccccccccccb",
-            "dzc          byb",
-            "dcb          bba",
-            "dcb          bba",
-            "dcb   dddc   bba",
-            "dcb   dyzb   bba",
-            "dcb   cyxb   bba",
-            "dcb   bbba   bba",
-            "dcb          bba",
-            "dyb          bxa",
-            "cbb          bao",
-        ],
-        "base_side": [
-            "dcb          bba",
-            "dyb          bxa",
-            "dcb          bba",
-            "dcb          bba",
-            "dcb          bba",
-            "dddddddddddddddc",
-            "dccccczyyxbbbbba",
-            "obbbbbbbbbbbbbao",
-        ],
-        "base_bottom": [
-            "dddddddddddddddc",
-            "dzy          yxb",
-            "dy            xb",
-            "d              b",
-            "d              b",
-            "d              b",
-            "d              b",
-            "d              b",
-            "d              b",
-            "d              b",
-            "d              b",
-            "d              b",
-            "d              b",
-            "dy            xb",
-            "dxx          xxa",
-            "cbbbbbbbbbbbbbba",
-        ],
-    },
-    "enderite": {
-        "lid_top": [
-            "fyyyyyyyyyyyyyyd",
-            "yzc          cxx",
-            "yc            cx",
-            "y              x",
-            "y              x",
-            "y              x",
-            "y      xx      x",
-            "y     xzyx     x",
-            "y     xyxx     x",
-            "y      xx      x",
-            "y              x",
-            "y              x",
-            "y              x",
-            "yc            cx",
-            "yxc          cxx",
-            "xxxxxxxxxxxxxxxo",
-        ],
-        "lid_side": [
-            "fyyyyyyyyyyyyyyd",
-            "yeeeeeeeeeeeeeex",
-            "ye            dx",
-            "yd            dx",
-            "yd            dx",
-            "yd    dccd    dx",
-            "yd    dzyc    dx",
-            "yd    cyxc    dx",
-            "yd    cccb    dx",
-            "yd            dx",
-            "yd            dx",
-            "dd            do",
-        ],
-        "base_side": [
-            "yd            dx",
-            "yd            dx",
-            "yd            dx",
-            "yd            dx",
-            "yd            dx",
-            "yyyyyyyyyyyyyyyx",
-            "deeeeeeeeeeeeeed",
-            "oxxxxxxxxxxxxxxo",
-        ],
-        "base_bottom": [
-            "yyyyyyyyyyyyyyyx",
-            "yz            xx",
-            "y              x",
-            "y              x",
-            "y              x",
-            "y              x",
-            "y              x",
-            "y              x",
-            "y              x",
-            "y              x",
-            "y              x",
-            "y              x",
-            "y              x",
-            "y              x",
-            "xx            xx",
-            "xxxxxxxxxxxxxxxo",
-        ],
-    },
-}
-
-# Face placement in the 64x64 shulker layout: (x, y, width, height, shell grid, plating key or None).
-LID_W, LID_H, BASE_H = 16, 12, 8
-
-
-def faces():
-    out = [(16, 0, 16, 16, LID_TOP_SHELL, "lid_top"), (32, 0, 16, 16, INNER_SHELL, None),
-           (16, 28, 16, 16, INNER_SHELL, None), (32, 28, 16, 16, BASE_BOTTOM_SHELL, "base_bottom")]
-    for i in range(4):
-        out.append((16 * i, 16, 16, LID_H, LID_SIDE_SHELL, "lid_side"))
-        out.append((16 * i, 44, 16, BASE_H, BASE_SIDE_SHELL, "base_side"))
-    return out
-
-
-# ---------------------------------------------------------------------------------------------
-# Palettes
-# ---------------------------------------------------------------------------------------------
 def luminance(c):
     return 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
 
@@ -357,23 +77,41 @@ def load_vanilla(jar):
         return img("shulker"), {dye: img("shulker_" + dye) for dye in DYES}
 
 
+# Owner style 2026-10-01 (preview approved): the shell keeps vanilla's grain - every shell texel snapped to
+# the nearest key color, so the paletted dye permutations still color it - and the tier shows as light
+# corner brackets on every face, a thin metal band along each side's rim and a tier-colored stud on the
+# lid top and on every lid side, like the owner's machines and the tier chests.
+SHELL_FACES = [(x, 16, 16, 12) for x in (0, 16, 32, 48)] + [(x, 44, 16, 8) for x in (0, 16, 32, 48)] +               [(16, 0, 16, 16), (16, 28, 16, 16)]
+
+
+def nearest(key, c):
+    return min(key, key=lambda k: sum((a - b) ** 2 for a, b in zip(k, c[:3])))
+
+
 def paint(tier, key, mask):
     colors = PLATING[tier]
     for c in colors.values():
         assert c not in key, f"{tier}: plating color {c} is a key color and would be dyed"
     image = Image.new("RGBA", (64, 64), (0, 0, 0, 0))
-    for x0, y0, w, h, shell, plate_key in faces():
-        plate = PLATE[tier][plate_key] if plate_key else None
-        assert len(shell) >= h and all(len(r) == 16 for r in shell), shell
-        if plate:
-            assert len(plate) == h and all(len(r) == 16 for r in plate), (tier, plate_key)
-        for y in range(h):
-            for x in range(w):
-                if mask.getpixel((x0 + x, y0 + y))[3] == 0:
-                    continue
-                ch = plate[y][x] if plate and plate[y][x] != " " else shell[y][x]
-                rgb = key[int(ch)] if ch.isdigit() else colors[ch]
-                image.putpixel((x0 + x, y0 + y), rgb + (255,))
+    for y in range(64):
+        for x in range(64):
+            p = mask.getpixel((x, y))
+            if p[3]:
+                image.putpixel((x, y), nearest(key, p) + (255,))
+    bracket, band, dark, light = colors["f"], colors["c"], colors["x"], colors["y"]
+    for x0, y0, w, h in SHELL_FACES:
+        for cx, cy, dx, dy in ((x0, y0, 1, 1), (x0 + w - 1, y0, -1, 1), (x0, y0 + h - 1, 1, -1), (x0 + w - 1, y0 + h - 1, -1, -1)):
+            for i in range(3):
+                for x, y in ((cx + dx * i, cy), (cx, cy + dy * i)):
+                    if image.getpixel((x, y))[3]:
+                        image.putpixel((x, y), bracket + (255,))
+        for x in range(x0 + 3, x0 + w - 3):
+            if image.getpixel((x, y0 + h - 1))[3]:
+                image.putpixel((x, y0 + h - 1), band + (255,))
+    studs = [(23, 7), (16 + 7, 16 + 5)] + [(x0 + 7, 16 + 5) for x0 in (0, 16, 32, 48)]
+    for sx, sy in studs:
+        for dx, dy, c in ((0, 0, light), (1, 0, light), (0, 1, light), (1, 1, dark)):
+            image.putpixel((sx + dx, sy + dy), c + (255,))
     return image
 
 
