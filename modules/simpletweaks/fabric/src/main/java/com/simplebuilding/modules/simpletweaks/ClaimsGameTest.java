@@ -3,6 +3,7 @@ import com.simplebuilding.modules.simpletweaks.claims.ClaimTests;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ClaimsGameTest {
+ @GameTest public void claimsToolsBedHeadFootprint(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_bed_head_footprint").accept(h); }
  @GameTest public void claimsFollowupCrafter(GameTestHelper h) { ClaimTests.TESTS.get("claims_followup_crafter").accept(h); }
  @GameTest public void claimsFollowupCopperGolem(GameTestHelper h) { ClaimTests.TESTS.get("claims_followup_copper_golem").accept(h); }
  @GameTest public void claimsFollowupLightning(GameTestHelper h) { ClaimTests.TESTS.get("claims_followup_lightning").accept(h); }

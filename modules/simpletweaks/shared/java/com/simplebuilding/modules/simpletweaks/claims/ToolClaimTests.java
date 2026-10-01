@@ -21,6 +21,18 @@ import static com.simplebuilding.modules.simpletweaks.claims.ClaimTests.*;
 final class ToolClaimTests {
     static Item item(String id){return BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:"+id));}
     static BlockPos boundary(GameTestHelper h){var p=h.absolutePos(new BlockPos(2,64,2));return new BlockPos((p.getX()>>4)*16+16,p.getY(),(p.getZ()>>4)*16+8);}
+    static void bedHeadFootprint(GameTestHelper h){with(h,c->{
+        var level=h.getLevel();var inside=boundary(h);var head=inside.west();
+        var owner=player(h,head.west(4));var stranger=player(h,head.west(4));
+        yes(h,c.create(new ClaimStore.Key(level.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Bed head footprint fixture");
+        var state=((BlockItem)Items.BED.red()).getBlock().defaultBlockState().setValue(BedBlock.PART,net.minecraft.world.level.block.state.properties.BedPart.HEAD);
+        try {
+            var mayPlace=Class.forName("com.simplebuilding.api.WorldPermissions").getMethod("mayPlace",Level.class,net.minecraft.world.entity.player.Player.class,BlockPos.class,net.minecraft.world.level.block.state.BlockState.class);
+            yes(h,(boolean)mayPlace.invoke(null,level,stranger,head,state.setValue(BedBlock.FACING,Direction.EAST)),"HEAD checks its west FOOT, not an unrelated east cell in a claim");
+            yes(h,!(boolean)mayPlace.invoke(null,level,stranger,head,state.setValue(BedBlock.FACING,Direction.WEST)),"HEAD refuses its east FOOT inside a foreign claim");
+            yes(h,(boolean)mayPlace.invoke(null,level,owner,head,state.setValue(BedBlock.FACING,Direction.WEST)),"Owner may place both bed parts across their own boundary");
+        } catch(ReflectiveOperationException e){throw new AssertionError(e);}
+    });h.succeed();}
     static void wandHammer(GameTestHelper h){with(h,c->{
         var l=h.getLevel();var inside=boundary(h);var origin=inside.west();var owner=player(h,origin.west(4));var other=player(h,origin.west(4));
         yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Tool border fixture");
