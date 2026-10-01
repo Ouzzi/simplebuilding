@@ -6,6 +6,13 @@ Eintrag in `launch.json`; die einzelnen Client-/Server-Einträge sind dort entfe
 `tools/launchhub/launch_targets.json`.
 
 ## Bereiche
+
+Auf der Startseite enthält „Mods für den Start“ die einklappbare Auswahl der
+Projektmods. Standardmäßig sind alle registrierten Projektmods ausgewählt.
+„Auswahl speichern“ übernimmt die Auswahl für den nächsten normalen 26.3-Start
+auf Fabric, NeoForge oder Forge; SimpleBuilding selbst bleibt dabei geladen.
+Die Auswahl gilt für Client, Server und frische Testwelt. Entwickler-Mods und
+Presets bleiben im Bereich „Mods“. Ältere Minecraft-Linien sind unverändert.
 - **Starten**: Karte je MC-Linie (26.3 hervorgehoben), Zeile je Loader mit *Client + frische Testwelt* (Standard), *Client*,
   *Server*, *Tests*, *Client-Tests*. Rechtsklick (oder Umschalt+F10 / Knopf ⋯) öffnet das Kontextmenü mit Stoppen,
   Erzwingen, Log, Laufordner. Jede Instanz ist eine Prozesskarte (Status, Live-Log, Exit-Code).

@@ -1,0 +1,40 @@
+// Hub launches use the saved project-mod selection on the 26.3 main line.
+// Keep ordinary developer runs and test classpaths unchanged.
+if (providers.gradleProperty('hub_mod_selection').getOrElse('false').toBoolean()) {
+    def selection = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
+    def registry = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json')).modules
+    def loader = project.name
+    def selected = registry.findAll { it.id != 'simplebuilding' && selection.modules.contains(it.id) && it.projects[loader] }
+    gradle.projectsEvaluated {
+        def jars = files(selected.collect { entry ->
+            def producer = project(entry.projects[loader])
+            producer.tasks.named(loader == 'neoforge' ? 'jarJar' : 'jar').flatMap { it.archiveFile }
+        })
+        if (loader == 'fabric') {
+            tasks.named('stageHubLocalMods') {
+                dependsOn selected.collect { "${it.projects[loader]}:jar" }
+                // Add to the existing sync source so disabled jars are removed together.
+                doLast { copy { from jars; into layout.buildDirectory.dir('hubLocalMods') } }
+            }
+        } else if (loader == 'neoforge') {
+            def launchSources = sourceSets.findByName('devRuns')
+            if (launchSources == null) {
+                launchSources = sourceSets.create('hubRuns')
+                configurations.getByName(launchSources.runtimeOnlyConfigurationName).extendsFrom(configurations.runtimeOnly)
+                configurations.getByName(launchSources.implementationConfigurationName).extendsFrom(configurations.implementation)
+                neoForge.addModdingDependenciesTo(launchSources)
+            }
+            launchSources.runtimeClasspath += jars
+            ['client', 'server'].each { name -> neoForge.runs.getByName(name).sourceSet = launchSources }
+            tasks.matching { it.name in ['runClient', 'runServer'] }.configureEach {
+                dependsOn selected.collect { "${it.projects[loader]}:jarJar" }
+            }
+        } else if (loader == 'forge') {
+            // These are complete distributable jars, including their mixin manifests.
+            dependencies.add('runtimeOnly', jars)
+            tasks.matching { it.name in ['runClient', 'runServer'] }.configureEach {
+                dependsOn selected.collect { "${it.projects[loader]}:jar" }
+            }
+        }
+    }
+}

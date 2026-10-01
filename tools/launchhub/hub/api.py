@@ -241,7 +241,7 @@ class Hub(ModsMixin):
                 warnings.append(f"World '{data['worldName']}' will not exist: create it once (flat, creative, cheats on); "
                                 "the test centre then builds itself on first join.")
         argv = targets.launch_command(entry, "server" if kind == "server" else "client", ws, data, program_args)
-        if entry['id'] in ('fabric-263', 'neoforge-263'):
+        if entry['id'] in ('fabric-263', 'neoforge-263', 'forge-263'):
             steps.append(self.selection_step(ws))
             argv.append('-Phub_mod_selection=true')
         steps.append({"label": f"{entry['id']} {kind}", "argv": argv, "cwd": str(ws)})

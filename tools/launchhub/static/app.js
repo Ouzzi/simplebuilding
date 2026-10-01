@@ -407,6 +407,7 @@ function openLogModal(job) {
 
 async function viewLaunch(root) {
   fill(root, h('div', { class: 'loading' }, h('span', { class: 'spinner' }), ' Ziele werden geladen ...'));
+  const modPicker = await launchModPicker();
   const list = processList((j) => ['launch', 'gate'].includes(j.kind), 'Starte oben einen Client oder Server. Jede Instanz bekommt hier eine Karte mit Live-Log.');
   const wsSeg = h('div', { class: 'seg', role: 'group', 'aria-label': 'Arbeitsordner fuer Start' }, ['repo', 'gate'].map((w) => h('button', {
     type: 'button', 'aria-pressed': String(launchWs() === w), title: w === 'repo' ? 'Dieses Repo (wie bisher)' : 'Gate-Worktree im Temp-Ordner',
@@ -436,9 +437,48 @@ async function viewLaunch(root) {
     h('p', { class: 'lead' }, 'Jede Zeile: Rechtsklick (oder ', h('kbd', {}, 'Umschalt+F10'), ') zeigt alle Aktionen inklusive Stoppen, Log und Laufordner. Mehrere Instanzen laufen parallel; zwei Server nicht (gleicher Port).'),
     low ? h('div', { class: 'box box-danger' }, h('div', { class: 'box-title' }, 'Zu wenig Platz'), `Nur ${S.disk.freeGb} GB frei. Unter ${S.disk.minFreeGb} GB startet der Hub nichts (Gradle-Ausgabe, Laufordner und Worktrees brauchen mehrere GB).`) : null,
     h('div', { class: 'box box-warn' }, h('div', { class: 'box-title' }, 'Regel 3'), 'Nicht im Haupt-Repo bauen, solange Besitzer-Clients laufen (NoClassDefFoundError im Spiel). Tests und Checks laufen deshalb standardmaessig im Gate-Worktree.'),
-    h('div', { class: 'grid2' }, cards), h('h3', {}, 'Instanzen und Jobs'), list);
+    modPicker, h('div', { class: 'grid2' }, cards), h('h3', {}, 'Instanzen und Jobs'), list);
   view = { onJobs: (all) => { list.sync(all); markLive(all); }, cleanup: () => {} };
   markLive(jobs);
+}
+async function launchModPicker() {
+  const box = h('details', { class: 'card' });
+  const summary = h('summary', {}, 'Mods für den Start');
+  box.append(summary);
+  try {
+    const state = await api('/api/mods');
+    const selection = structuredClone(state.selection);
+    // Normal loader runs always contain SimpleBuilding itself.
+    if (!selection.modules.includes('simplebuilding')) selection.modules.unshift('simplebuilding');
+    const rows = state.rows.filter(row => row.kind === 'modules');
+    const status = h('p', { class: 'muted tiny', role: 'status' });
+    const controls = h('div', { class: 'actions' });
+    const save = h('button', { class: 'btn primary', type: 'button', onclick: async () => {
+      save.disabled = true;
+      try {
+        await api('/api/mods', { selection });
+        status.textContent = 'Gespeichert. Gilt ab dem nächsten Start.';
+        updateSummary();
+      } catch (e) { status.textContent = e.message; }
+      finally { save.disabled = false; }
+    } }, 'Auswahl speichern');
+    function updateSummary() { summary.textContent = `Mods für den Start · ${selection.modules.length}/${rows.length} ausgewählt`; }
+    function draw() {
+      controls.replaceChildren(...rows.map(row => h('label', { class: 'check' },
+        h('input', { type: 'checkbox', checked: selection.modules.includes(row.id), disabled: row.id === 'simplebuilding',
+          onchange: e => {
+            selection.modules = e.target.checked ? [...selection.modules, row.id] : selection.modules.filter(id => id !== row.id);
+            status.textContent = 'Auswahl geändert – bitte speichern.'; updateSummary();
+          } }), row.displayName || row.name)));
+      updateSummary();
+    }
+    draw();
+    box.append(h('p', { class: 'muted' }, 'Projektmods für Minecraft 26.3. Standard: alle. SimpleBuilding ist beim normalen Start immer dabei. Ältere Minecraft-Linien verwenden ihre eigenen Mods.'),
+      controls, h('div', { class: 'actions' }, h('button', { class: 'btn', type: 'button', onclick: () => {
+        selection.modules = rows.map(row => row.id); draw(); status.textContent = 'Alle ausgewählt – bitte speichern.';
+      } }, 'Alle auswählen'), save, h('a', { class: 'btn', href: '#/mods' }, 'Entwickler-Mods und Presets')), status);
+  } catch (e) { box.append(h('p', { role: 'alert' }, 'Modauswahl konnte nicht geladen werden: ' + e.message)); }
+  return box;
 }
 function markLive(all) {
   for (const el of $$('[data-live]')) {

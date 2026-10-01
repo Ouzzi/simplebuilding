@@ -169,3 +169,4 @@ sourceSets.main.resources.srcDir rootProject.file('mc26_3/framework/resources')
 ext.forgeNativeConfig = [id: 'simplebuilding', root: 'mc26_3/forge/src/main/java', screens: [], factory: 'com.simplebuilding.forge.client.ForgeConfigScreen.create(parent)']
 apply from: rootProject.file('gradle/forge-native-config.gradle')
 apply from: rootProject.file('gradle/forge-packaged-run.gradle')
+apply from: rootProject.file('gradle/hub-project-mods.gradle')

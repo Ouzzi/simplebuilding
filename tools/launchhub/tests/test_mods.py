@@ -154,6 +154,8 @@ class ModTests(unittest.TestCase):
                 argv = job.steps[-1]['argv']
                 self.assertIn('-Pforge263=true', argv)
                 self.assertIn('-Pforge_runs=true', argv)
+                self.assertIn('-Phub_mod_selection=true', argv)
+                self.assertEqual(job.steps[-2]['label'], 'apply mod selection')
                 self.assertEqual(job.meta['runDir'], 'mc26_3/forge/run')
                 deadline = time.monotonic() + 5
                 while job.status in ('starting', 'running', 'stopping') and time.monotonic() < deadline:
