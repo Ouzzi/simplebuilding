@@ -2252,6 +2252,10 @@ public final class DataIntegrityTests {
                 continue;
             }
             int expected = ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath()) ? 0 : 1;
+            if (com.simplebuilding.version.McVersion.FLETCHING && BuiltInRegistries.ITEM.getValue(id) == ModItems.CRAFTED_ARROW) {
+                // Ein Item, eine Variante je Teile-Kombination (B14): alle im Tab SimpleArrows, sonst nirgends.
+                tabs = new ArrayList<>(new java.util.LinkedHashSet<>(tabs));
+            }
             if (tabs.size() != expected) {
                 problems.add(id + " is offered " + tabs.size() + "x " + tabs + " instead of " + expected + "x");
             }
@@ -2401,9 +2405,14 @@ public final class DataIntegrityTests {
         List<com.simplebuilding.items.SearchTabPlacement.Placement> placements =
                 com.simplebuilding.items.SearchTabPlacement.placements();
         Set<Item> placed = new HashSet<>();
+        List<ItemStack> placedStacks = new ArrayList<>();
         for (com.simplebuilding.items.SearchTabPlacement.Placement placement : placements) {
             for (ItemStack stack : placement.stacks()) {
-                if (!placed.add(stack.getItem())) {
+                // Varianten eines Items (gefertigte Pfeile, B14) zaehlen einzeln: doppelt ist nur derselbe Stapel.
+                boolean twice = placedStacks.stream().anyMatch(other -> ItemStack.isSameItemSameComponents(other, stack));
+                placedStacks.add(stack);
+                placed.add(stack.getItem());
+                if (twice) {
                     problems.add(BuiltInRegistries.ITEM.getKey(stack.getItem()) + " is placed twice");
                 }
             }

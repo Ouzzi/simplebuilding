@@ -49,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class PlacedTemplates {
     /** Schlaege, die eine abgelegte Vorlage bis zur Aufwertung braucht (im Rahmen: einer). */
-    public static final int PLACED_HITS = 3;
+    public static final int PLACED_HITS = 5;
     /** Wer so lange nicht nachschlaegt, faengt wieder bei null an. */
     public static final int HIT_RESET_TICKS = 100;
     /** So weit (Bloecke) sieht eine abgelegte Vorlage einen Spieler mit Material in der Hand. */

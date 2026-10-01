@@ -23,6 +23,7 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void crossMod(GameTestHelper h){com.simplequalityoflife.test.QolTests.crossMod(h);}
  @GameTest(maxTicks=100) public void realMovementPackets(GameTestHelper h){com.simplequalityoflife.test.QolTests.realMovementPackets(h);}
  @GameTest(maxTicks=100) public void vaultPersistence(GameTestHelper h){com.simplequalityoflife.test.QolTests.vaultPersistence(h);}
+ @GameTest(maxTicks=100) public void anvilRepairCost(GameTestHelper h){com.simplequalityoflife.test.QolTests.anvilRepairCost(h);}
  @GameTest(maxTicks=100) public void goldTrim(GameTestHelper h){com.simplequalityoflife.test.QolTests.goldTrim(h);}
  @GameTest(maxTicks=100) public void featureSwitches(GameTestHelper h){com.simplequalityoflife.test.QolTests.featureSwitches(h);}
  @GameTest(maxTicks=100) public void sharpnessAction(GameTestHelper h){com.simplequalityoflife.test.QolTests.sharpnessAction(h);}

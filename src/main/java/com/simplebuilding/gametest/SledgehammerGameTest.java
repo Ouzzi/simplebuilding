@@ -81,7 +81,7 @@ public final class SledgehammerGameTest {
         SledgehammerTests.chargedHammerOnlyFinishesOnTheBlockItStartedOn(helper);
     }
 
-    @GameTest
+    @GameTest(maxTicks = 100)
     public void onlyIronOrBetterSledgehammersCrushDiamondBlocks(GameTestHelper helper) {
         SledgehammerTests.onlyIronOrBetterSledgehammersCrushDiamondBlocks(helper);
     }

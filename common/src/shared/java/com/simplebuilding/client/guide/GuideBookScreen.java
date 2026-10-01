@@ -710,11 +710,9 @@ public class GuideBookScreen extends Screen {
 
     /** Wie {@link #blit}, aber waagerecht gespiegelt (Lesezeichen an der linken Buchkante). */
     static void blitMirrored(GuiGraphicsExtractor g, int x, int y, int u, int v, int w, int h) {
-        g.pose().pushMatrix();
-        g.pose().translate(x + w, y);
-        g.pose().scale(-1f, 1f);
-        blit(g, 0, 0, u, v, w, h);
-        g.pose().popMatrix();
+        // Gespiegelt ueber vertauschte u-Koordinaten, nicht ueber scale(-1): eine negativ skalierte Flaeche dreht
+        // ihre Wicklung um und wird seit 26.x weggeschnitten - die linken Lesezeichen waren unsichtbar.
+        g.blit(TEXTURE, x, y, x + w, y + h, (u + w) / (float) TEX_W, u / (float) TEX_W, v / (float) TEX_H, (v + h) / (float) TEX_H);
     }
 
     /** Ein Item in einem Rahmen (18x18), mit Tooltip beim Ueberfahren; Leerstapel nur der Rahmen. */

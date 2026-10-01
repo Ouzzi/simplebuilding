@@ -38,6 +38,9 @@ public final class RecipelessJeiInfo {
             map.put("sage_ore", List.of(ModBlocks.SAGE_ORE, ModBlocks.DEEPSLATE_SAGE_ORE));
             map.put("sage_orb", List.of(ModItems.SAGE_ORB));
         }
+        if (com.simplebuilding.version.McVersion.FLETCHING) {
+            map.put("crafted_arrow", List.of(ModItems.CRAFTED_ARROW));
+        }
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             map.put("dimensional_scrap", List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP));
         }

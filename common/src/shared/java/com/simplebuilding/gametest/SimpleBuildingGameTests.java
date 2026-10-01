@@ -809,6 +809,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_game_test_charged_hammer_only_finishes_on_the_block_it_started_on", SledgehammerTests::chargedHammerOnlyFinishesOnTheBlockItStartedOn)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_only_iron_or_better_sledgehammers_crush_diamond_blocks", SledgehammerTests::onlyIronOrBetterSledgehammersCrushDiamondBlocks)
+                    .maxTicks(100)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_breaks_the_octant_selection_at_twice_the_area_time_per_block", SledgehammerTests::sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock)
                     .build(),

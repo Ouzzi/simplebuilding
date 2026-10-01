@@ -461,7 +461,7 @@ public final class TestCentreSections {
                 .findFirst().map(ItemStack::new).orElse(hammer);
         c.wallFrame(x, 2, wallZ, crusher);
         c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("inworld.crush", "Crush")),
-                TcText.t("inworld.crush.sub", "3 strikes, iron+ hammer"), TcText.t("inworld.crush.sub2", "-> diamond pebbles"));
+                TcText.t("inworld.crush.sub", "8 strikes, iron+ hammer"), TcText.t("inworld.crush.sub2", "-> diamond pebbles"));
         x += 3;
 
         // c) Maschinen-Aufwertung mit Nugget und Hammer.
@@ -566,7 +566,7 @@ public final class TestCentreSections {
         int x = 2;
         // a) Uebungsreihe: aufwertbare Besatzvorlagen flach auf dem Boden (Oberkante vom Gang weg).
         c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("templates.hit", "Hammer them")),
-                TcText.t("templates.hit.sub", "glowstone / glow ink"), TcText.t("templates.hit.sub2", "in off hand: 3 hits"));
+                TcText.t("templates.hit.sub", "glowstone / glow ink"), TcText.t("templates.hit.sub2", "in off hand: 5 hits"));
         for (Map.Entry<Item, Item> upgrade : SledgehammerEntityInteraction.trimUpgrades().entrySet()) {
             c.wallFrame(x, 2, wallZ, new ItemStack(upgrade.getKey()));
             x++;
@@ -742,6 +742,24 @@ public final class TestCentreSections {
         c.title(0, 3, wallZ, TcText.t("section.food", "Food"), TcText.t("section.food.sub", "eat to test"));
         int end = c.frameGrid(1, 0, wallZ, items, labels, 2);
         c.backWall(0, end, wallZ, 5);
+        return c;
+    }
+
+    /** Befiederungstisch (B14): der Tisch zum Ausprobieren und alle Pfeile, eine Zeile je Spitze. */
+    public static TcCanvas arrows(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        int wallZ = 2;
+        if (!com.simplebuilding.version.McVersion.FLETCHING) {
+            return c;
+        }
+        List<TcCanvas.Line> lines = new ArrayList<>();
+        for (var row : ModItemGroupsContent.arrowsRows()) {
+            lines.add(new TcCanvas.Line(row.stacks().get(0).getHoverName(), row.stacks()));
+        }
+        c.title(0, lines.size() + 1, wallZ, TcText.t("section.arrows", "Arrows"), TcText.t("section.arrows.sub", "Fletching Table"));
+        int end = c.rowsPanel(0, lines.size(), wallZ, lines);
+        c.place(1, 0, 0, net.minecraft.world.level.block.Blocks.FLETCHING_TABLE);
+        c.backWall(0, end, wallZ, lines.size() + 3);
         return c;
     }
 

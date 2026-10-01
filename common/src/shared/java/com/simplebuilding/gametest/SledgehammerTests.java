@@ -491,7 +491,7 @@ public final class SledgehammerTests {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, true);
         ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
 
-        // --- a diamond block takes a strike, never a charge (owner 2026-10-01: three strikes) ---
+        // --- a diamond block takes a strike, never a charge (owner 2026-10-02: eight strikes) ---
         helper.setBlock(CENTRE, Blocks.DIAMOND_BLOCK);
         helper.assertValueEqual(useOnTop(helper, player, hammer, CENTRE), InteractionResult.SUCCESS,
                 "right clicking a diamond block did not strike it");
@@ -1434,15 +1434,16 @@ public final class SledgehammerTests {
         helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, PROBE);
         helper.assertValueEqual(hammer.getDamageValue(), 0, "a finish that did nothing still cost durability");
 
-        // --- the diamond block itself breaks on three strikes, not on a charge (owner 2026-10-01) ---
+        // --- the diamond block itself breaks on eight strikes, not on a charge (owner 2026-10-02) ---
         InteractionResult onDiamond = useOnTop(helper, player, hammer, PROBE);
         helper.assertTrue(onDiamond == InteractionResult.SUCCESS, "the hammer did not strike the diamond block, got " + onDiamond);
         helper.assertFalse(player.isUsingItem(), "a diamond block strike started a charge");
-        long now = helper.getLevel().getGameTime() + SledgehammerItem.DIAMOND_STRIKE_MIN_INTERVAL + 1;
-        SledgehammerItem.strikeDiamondBlock(helper.getLevel(), helper.absolutePos(PROBE), player, hammer, now);
-        helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, PROBE);
-        SledgehammerItem.strikeDiamondBlock(helper.getLevel(), helper.absolutePos(PROBE), player, hammer,
-                now + SledgehammerItem.DIAMOND_STRIKE_MIN_INTERVAL + 1);
+        long now = helper.getLevel().getGameTime();
+        for (int strike = 2; strike <= SledgehammerItem.DIAMOND_BLOCK_STRIKES; strike++) {
+            helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, PROBE);
+            now += SledgehammerItem.DIAMOND_STRIKE_MIN_INTERVAL + 1;
+            SledgehammerItem.strikeDiamondBlock(helper.getLevel(), helper.absolutePos(PROBE), player, hammer, now);
+        }
         helper.assertBlockPresent(Blocks.AIR, PROBE);
         int pebbles = 0;
         for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, around)) {
@@ -1460,7 +1461,7 @@ public final class SledgehammerTests {
      * iron, gold, diamond, netherite and enderite (gold sits above iron in the mod's ages). Stone
      * and copper hammers bounce off: the click is refused ({@code FAIL}, no wind-up), a finish
      * behind it crushes nothing and the block stays. The iron hammer, the weakest allowed one, crushes
-     * the block into its 81 pebbles with three strikes (owner 2026-10-01). JEI and the wiki list exactly the allowed
+     * the block into its 81 pebbles with eight strikes (owner 2026-10-02). JEI and the wiki list exactly the allowed
      * hammers ({@code InWorldTransformations#diamondCrush}).
      *
      * <p><strong>What breaks this test:</strong> dropping the tier gate in {@code useOn} or in
@@ -1498,31 +1499,36 @@ public final class SledgehammerTests {
         helper.assertTrue(helper.getLevel().getEntitiesOfClass(ItemEntity.class, around).isEmpty(),
                 "a stone or copper hammer crushed the diamond block");
 
-        // Owner 2026-10-01: three single strikes instead of a held charge. A repeat inside the
-        // minimum interval (held right-click) does not count, the third counted strike crushes.
+        // Owner 2026-10-01: single strikes instead of a held charge, eight since 2026-10-02. A repeat inside the
+        // minimum interval (held right-click) does not count, the last counted strike crushes.
         ItemStack iron = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
         InteractionResult first = useOnTop(helper, player, iron, CENTRE);
         helper.assertTrue(first == InteractionResult.SUCCESS, "the iron hammer did not strike the diamond block, got " + first);
         helper.assertFalse(player.isUsingItem(), "the iron hammer still winds up on a diamond block");
         useOnTop(helper, player, iron, CENTRE);
         helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, CENTRE);
-        int interval = SledgehammerItem.DIAMOND_STRIKE_MIN_INTERVAL + 1;
-        helper.runAfterDelay(interval, () -> {
+        strikeLater(helper, player, iron, around, 2);
+    }
+
+    /** Strike {@code strike} of {@link SledgehammerItem#DIAMOND_BLOCK_STRIKES}, spaced past the repeat guard. */
+    private static void strikeLater(GameTestHelper helper, ServerPlayer player, ItemStack iron, net.minecraft.world.phys.AABB around, int strike) {
+        helper.runAfterDelay(SledgehammerItem.DIAMOND_STRIKE_MIN_INTERVAL + 1, () -> {
             useOnTop(helper, player, iron, CENTRE);
-            helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, CENTRE);
-            helper.runAfterDelay(interval, () -> {
-                useOnTop(helper, player, iron, CENTRE);
-                helper.assertBlockPresent(Blocks.AIR, CENTRE);
-                int pebbles = 0;
-                for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, around)) {
-                    if (entity.getItem().is(ModItems.DIAMOND_PEBBLE)) {
-                        pebbles += entity.getItem().getCount();
-                    }
-                    entity.discard();
+            if (strike < SledgehammerItem.DIAMOND_BLOCK_STRIKES) {
+                helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, CENTRE);
+                strikeLater(helper, player, iron, around, strike + 1);
+                return;
+            }
+            helper.assertBlockPresent(Blocks.AIR, CENTRE);
+            int pebbles = 0;
+            for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, around)) {
+                if (entity.getItem().is(ModItems.DIAMOND_PEBBLE)) {
+                    pebbles += entity.getItem().getCount();
                 }
-                helper.assertValueEqual(pebbles, 81, "pebbles from the diamond block crushed with three iron hammer strikes");
-                helper.succeed();
-            });
+                entity.discard();
+            }
+            helper.assertValueEqual(pebbles, 81, "pebbles from the diamond block crushed with iron hammer strikes");
+            helper.succeed();
         });
     }
 

@@ -574,7 +574,7 @@ public class SledgehammerItem extends Item {
     }
 
     /** Schlaege, nach denen ein Diamantblock zerspringt. */
-    public static final int DIAMOND_BLOCK_STRIKES = 3;
+    public static final int DIAMOND_BLOCK_STRIKES = 8;
     /** Ohne weiteren Schlag verfaellt die Zaehlung nach so vielen Ticks (wie bei der abgelegten Vorlage). */
     public static final int DIAMOND_STRIKE_RESET_TICKS = 100;
     /** Gehaltener Rechtsklick wiederholt alle 4 Ticks; ein Schlag zaehlt erst nach dieser Pause. */

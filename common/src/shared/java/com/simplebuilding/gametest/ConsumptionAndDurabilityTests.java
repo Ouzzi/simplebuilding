@@ -836,7 +836,7 @@ public final class ConsumptionAndDurabilityTests {
         player.stopUsingItem();
     }
 
-    /** Owner 2026-10-01: a diamond block breaks on the third strike; strikes spaced past the repeat guard. */
+    /** Owner 2026-10-01: a diamond block breaks on its last strike (eight since 2026-10-02); strikes spaced past the repeat guard. */
     private static void strikeThrice(GameTestHelper helper, ItemStack hammer, net.minecraft.world.entity.player.Player player,
                                      net.minecraft.core.BlockPos relative) {
         long now = helper.getLevel().getGameTime();

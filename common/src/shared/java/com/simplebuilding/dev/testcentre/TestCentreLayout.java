@@ -41,7 +41,7 @@ public final class TestCentreLayout {
 
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
     public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "storage", "food",
-            "materials", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning", "mining", "tweaks", "devices", "gallery", "unsorted");
+            "materials", "arrows", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning", "mining", "tweaks", "devices", "gallery", "unsorted");
 
     /**
      * Mod-Items und -Bloecke, die bewusst NICHT in der Zentrale stehen, mit Grund. Jede Ausnahme muss
@@ -185,6 +185,8 @@ public final class TestCentreLayout {
         builders.put("storage", TestCentreSections::storage);
         builders.put("food", TestCentreSections::food);
         builders.put("materials", TestCentreSections::materials);
+        // Auf Linien ohne Befiederungstisch (26.2) ein leerer Abschnitt ohne Breite.
+        builders.put("arrows", TestCentreSections::arrows);
         builders.put("chisel", TestCentreSections::chisel);
         builders.put("inworld", TestCentreSections::inWorld);
         builders.put("templates", TestCentreSections::templates);

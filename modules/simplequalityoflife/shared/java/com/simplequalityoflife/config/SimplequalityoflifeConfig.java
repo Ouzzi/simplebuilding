@@ -117,6 +117,11 @@ public class SimplequalityoflifeConfig implements ConfigData {
         @ConfigEntry.Gui.Tooltip
         public double fullDurabilityBonusMultiplier = DEFAULT_DURABILITY_BONUS_MULTIPLIER;
 
+        // --- Amboss ---
+        /** Reparieren ohne neue Verzauberung erhoeht die Arbeitskosten am Amboss nicht (2026-10-02). */
+        @ConfigEntry.Gui.Tooltip
+        public boolean anvilRepairKeepsCost = true;
+
         // --- Piglins ---
         @ConfigEntry.Gui.Tooltip
         public boolean piglinsIgnoreGoldTrims = true;

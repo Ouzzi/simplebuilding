@@ -36,6 +36,8 @@
   "text.autoconfig.simplequalityoflife.option.qOL.fullDurabilityThreshold.@Tooltip": "Benötigter Haltbarkeits-Anteil, um den Bonus auszulösen (z.B. 0.9 für 90%). Standard: 0.8. Erlaubter Bereich: 0.8–1.0.",
   "text.autoconfig.simplequalityoflife.option.qOL.fullDurabilityBonusMultiplier": "Bonus-Multiplikator",
   "text.autoconfig.simplequalityoflife.option.qOL.fullDurabilityBonusMultiplier.@Tooltip": "Multiplikator für Geschwindigkeit/Schaden (z.B. 1.15 für +15%). Standard: 1.0. Erlaubter Bereich: 1.0–1.5. Gilt für Vanilla- und Mod-Werkzeuge. 1.0 bedeutet keinen Bonus; gespeicherte Werte bleiben erhalten.",
+  "text.autoconfig.simplequalityoflife.option.qOL.anvilRepairKeepsCost": "Reparieren hält Ambosskosten",
+  "text.autoconfig.simplequalityoflife.option.qOL.anvilRepairKeepsCost.@Tooltip": "Reparieren oder Umbenennen am Amboss ohne neue Verzauberung erhöht die Ambosskosten des Gegenstands nicht. Nur Verzaubern tut das. Standard: true.",
   "text.autoconfig.simplequalityoflife.option.qOL.piglinsIgnoreGoldTrims": "Piglins ignorieren Gold-Trims",
   "text.autoconfig.simplequalityoflife.option.qOL.piglinsIgnoreGoldTrims.@Tooltip": "Piglins greifen nicht an, wenn du Rüstung mit Gold-Trims trägst. Standard: true. Angriffe und Behälterinteraktionen können Piglins weiterhin verärgern.",
   "text.autoconfig.simplequalityoflife.option.qOL.piglinsIgnoreGoldTools": "Piglins ignorieren Gold-Werkzeuge",
