@@ -100,6 +100,42 @@ class LifecycleTests(unittest.TestCase):
             z.start(["nope"])
 
 
+class ExternalStopTests(unittest.TestCase):
+    def test_signature_and_match(self):
+        wiki = {"args": ["-m", "http.server", "8765"]}
+        hub = {"args": ["tools/launchhub/server.py", "--port", "8773"]}
+        self.assertEqual(zentrale.signature(wiki), "-m http.server")
+        self.assertTrue(zentrale.matches(hub, r'"C:\py\python.exe" tools\launchhub\server.py --port 8773'))
+        self.assertFalse(zentrale.matches(hub, "java.exe -jar minecraft.jar"))
+        self.assertFalse(zentrale.matches(hub, "python tools/devserver/serve.py"))
+
+    def start_external(self, port):
+        import subprocess
+        p = subprocess.Popen([sys.executable, "-m", "http.server", str(port), "--bind", "127.0.0.1"],
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        self.addCleanup(lambda: p.poll() is None and p.kill())
+        z = zentrale.Zentrale([{"id": "x", "name": "X", "port": port, "path": "/", "args": ["-m", "http.server"]}])
+        self.assertEqual(z.wait_ready(["x"], 15), ["x"])
+        return p
+
+    def test_external_instance_stops_only_on_request(self):
+        port = free_port()
+        p = self.start_external(port)
+        z = zentrale.Zentrale([{"id": "x", "name": "X", "port": port, "path": "/", "args": ["-m", "http.server"]}])
+        self.assertEqual(z.stop(["x"]), [], "without external=True an external instance stays")
+        self.assertEqual(z.stop(["x"], external=True), ["x"])
+        self.assertEqual(z.status()[0]["state"], "stopped")
+        p.wait(timeout=10)
+
+    def test_a_foreign_process_on_the_port_is_never_stopped(self):
+        port = free_port()
+        p = self.start_external(port)
+        z = zentrale.Zentrale([{"id": "x", "name": "X", "port": port, "path": "/", "args": ["tools/launchhub/server.py"]}])
+        with self.assertRaises(zentrale.ZentraleError):
+            z.stop(["x"], external=True)
+        self.assertIsNone(p.poll(), "the foreign process was killed")
+
+
 class HttpTests(unittest.TestCase):
     def setUp(self):
         self.z = zentrale.Zentrale(zentrale.load_registry())

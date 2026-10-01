@@ -23,8 +23,14 @@ python tools/zentrale/server.py --start-all  # alle fehlenden starten, Status au
   `dryRun`.
 - **Status:** `läuft (von hier gestartet)`, `läuft (extern gestartet)`, `startet` oder `gestoppt`, je nach
   Port und eigenem Prozess.
-- **Stoppen:** nur Prozesse, die diese Zentrale selbst gestartet hat. Eine extern gestartete Instanz
-  wird angezeigt, aber nie beendet. Gestartete Zentralen laufen weiter, wenn die Zentrale endet.
+- **Oberfläche:** gleiche Bausteine wie die Launch- und Testzentrale (die Zentrale liefert deren
+  `app.css` mit), Hell/Dunkel wie im Wiki, Statusleiste, je Zentrale Starten, Neu starten, Stoppen,
+  Öffnen; dazu Alle starten, Alle neu starten, Alle stoppen, Alle laufenden öffnen.
+- **Stoppen:** eigene Prozesse sofort. Extern gestartete Instanzen nach einer Bestätigung, und nur, wenn
+  der Prozess am Port wirklich diese Zentrale ist (Python mit dem registrierten Skript in der
+  Kommandozeile); ein fremder Prozess am Port wird nie beendet. Beendet wird nur der Server, nicht sein
+  Prozessbaum: ein vom Hub gestarteter Minecraft-Client läuft weiter. Gestartete Zentralen laufen weiter,
+  wenn die Zentrale selbst endet. API: `POST /api/stop {"ids": "all", "external": true}`.
 - **Protokolle:** `.ai-runs/zentrale/<id>.log`.
 - **Sicherheit:** nur `127.0.0.1`, fremde `Host`-Header werden abgewiesen, jeder POST braucht
   `X-Zentrale-Client: 1`.

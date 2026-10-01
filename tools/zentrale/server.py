@@ -7,9 +7,11 @@ Zentrale der Zentralen - startet die lokalen Zentralen von SimpleBuilding einzel
 
 Register: tools/zentrale/centrals.json (neue Zentrale = ein Eintrag). Jede Zentrale laeuft hier im
 Produktivmodus: alle Umgebungsvariablen mit DRY_RUN im Namen werden entfernt (Besitzer 2026-10-01).
-Gestoppt werden nur Prozesse, die diese Zentrale selbst gestartet hat; eine schon laufende fremde
-Instanz wird nur angezeigt. Nur Standardbibliothek, nur 127.0.0.1. GET aendert nie etwas; jeder POST
-braucht den Header X-Zentrale-Client: 1.
+Gestoppt werden eigene Prozesse und - nur auf ausdruecklichen Wunsch (external: true) - extern
+gestartete Instanzen, aber nur, wenn der Prozess am Port wirklich diese Zentrale ist (seine
+Kommandozeile nennt das registrierte Skript). Beendet wird nur dieser Prozess, nie sein Baum: vom Hub
+gestartete Minecraft-Clients laufen weiter. Nur Standardbibliothek, nur 127.0.0.1. GET aendert nie
+etwas; jeder POST braucht den Header X-Zentrale-Client: 1.
 """
 
 from __future__ import annotations
@@ -82,6 +84,54 @@ def port_open(port: int, timeout: float = 0.3) -> bool:
         return s.connect_ex(("127.0.0.1", port)) == 0
 
 
+def signature(central: dict) -> str:
+    """Was die Kommandozeile eines echten Prozesses dieser Zentrale enthalten muss."""
+    args = central["args"]
+    return " ".join(args[:2]) if args[0] == "-m" else args[0]
+
+
+def pid_on_port(port: int) -> int | None:
+    """PID, die auf 127.0.0.1:port lauscht (Windows netstat, sonst lsof)."""
+    try:
+        if os.name == "nt":
+            out = subprocess.run(["netstat", "-ano", "-p", "TCP"], capture_output=True, text=True, timeout=10).stdout
+            for line in out.splitlines():
+                parts = line.split()
+                # Sprachunabhaengig (deutsch "ABHOEREN"): ein lauschender Socket hat keine Gegenadresse.
+                if len(parts) >= 5 and parts[1].endswith(f":{port}") and parts[2] in ("0.0.0.0:0", "[::]:0"):
+                    return int(parts[4])
+        else:
+            out = subprocess.run(["lsof", "-nP", f"-iTCP:{port}", "-sTCP:LISTEN", "-t"], capture_output=True, text=True, timeout=10).stdout
+            return int(out.split()[0]) if out.split() else None
+    except (OSError, ValueError, subprocess.SubprocessError):
+        return None
+    return None
+
+
+def command_line(pid: int) -> str:
+    try:
+        if os.name == "nt":
+            r = subprocess.run(["powershell", "-NoProfile", "-Command",
+                                f"(Get-CimInstance Win32_Process -Filter 'ProcessId={int(pid)}').CommandLine"],
+                               capture_output=True, text=True, timeout=15)
+            return r.stdout.strip()
+        return Path(f"/proc/{int(pid)}/cmdline").read_bytes().replace(b"\0", b" ").decode(errors="replace")
+    except (OSError, subprocess.SubprocessError):
+        return ""
+
+
+def matches(central: dict, cmdline: str) -> bool:
+    norm = cmdline.replace("\\", "/").lower()
+    return "python" in norm and signature(central).replace("\\", "/").lower() in norm
+
+
+def kill_pid(pid: int) -> None:
+    if os.name == "nt":
+        subprocess.run(["taskkill", "/PID", str(int(pid)), "/F"], capture_output=True, timeout=15)
+    else:
+        os.kill(int(pid), 15)
+
+
 def host_ok(header: str | None) -> bool:
     host = (header or "").strip()
     host = host.split("]")[0] + "]" if host.startswith("[") else host.split(":")[0]
@@ -142,12 +192,14 @@ class Zentrale:
                 started.append(cid)
         return started
 
-    def stop(self, ids=None) -> list[str]:
+    def stop(self, ids=None, external: bool = False) -> list[str]:
         stopped = []
         with self.lock:
             for cid in self._ids(ids):
                 proc = self._own(cid)
                 if proc is None:
+                    if external and self._stop_external(cid):
+                        stopped.append(cid)
                     continue
                 proc.terminate()
                 try:
@@ -158,6 +210,22 @@ class Zentrale:
                 self.procs.pop(cid, None)
                 stopped.append(cid)
         return stopped
+
+    def _stop_external(self, cid: str) -> bool:
+        """Beendet die extern gestartete Instanz, wenn der Prozess am Port wirklich diese Zentrale ist."""
+        c = self.centrals[cid]
+        if not port_open(c["port"]):
+            return False
+        pid = pid_on_port(c["port"])
+        if pid is None or pid == os.getpid():
+            raise ZentraleError(f"{c['name']}: Prozess an Port {c['port']} nicht gefunden")
+        if not matches(c, command_line(pid)):
+            raise ZentraleError(f"{c['name']}: an Port {c['port']} laeuft ein fremder Prozess, nicht gestoppt")
+        kill_pid(pid)
+        deadline = time.time() + 10
+        while port_open(c["port"]) and time.time() < deadline:
+            time.sleep(0.2)
+        return not port_open(c["port"])
 
     def wait_ready(self, ids, timeout: float = 20.0) -> list[str]:
         """Die Zentralen, deren Port innerhalb von timeout antwortet."""
@@ -174,6 +242,10 @@ class Zentrale:
 
 def make_handler(z: Zentrale):
     page = (HERE / "index.html").read_bytes()
+    # Gleiches Aussehen wie die anderen Zentralen: die Stylesheet des Hubs und die Wiki-Texturen.
+    static = {"/static/app.css": (ROOT / "tools/launchhub/static/app.css", "text/css; charset=utf-8"),
+              "/static/zentrale.js": (HERE / "zentrale.js", "text/javascript; charset=utf-8")}
+    icon = ROOT / "wiki/assets/textures/item/diamond_core.png"
 
     class Handler(BaseHTTPRequestHandler):
         server_version = "Zentrale/1"
@@ -200,6 +272,11 @@ def make_handler(z: Zentrale):
                 return self._send(200, page, "text/html; charset=utf-8")
             if self.path == "/api/centrals":
                 return self._json(200, {"centrals": z.status()})
+            if self.path in static and static[self.path][0].is_file():
+                file, ctype = static[self.path]
+                return self._send(200, file.read_bytes(), ctype)
+            if self.path == "/icon.png" and icon.is_file():
+                return self._send(200, icon.read_bytes(), "image/png")
             self._json(404, {"error": "nicht gefunden"})
 
         def do_POST(self):
@@ -211,13 +288,15 @@ def make_handler(z: Zentrale):
             try:
                 body = json.loads(self.rfile.read(length) or b"{}")
                 ids = body.get("ids") if isinstance(body, dict) else None
+                external = isinstance(body, dict) and body.get("external") is True
                 if self.path == "/api/start":
                     result = {"started": z.start(ids)}
                 elif self.path == "/api/stop":
-                    result = {"stopped": z.stop(ids)}
+                    result = {"stopped": z.stop(ids, external)}
                 elif self.path == "/api/restart":
-                    stopped = z.stop(ids)
-                    result = {"stopped": stopped, "started": z.start(ids)}
+                    stopped = z.stop(ids, external)
+                    started = z.start(ids)
+                    result = {"stopped": stopped, "started": started, "ready": z.wait_ready(started, 15)}
                 else:
                     return self._json(404, {"error": "nicht gefunden"})
             except (ZentraleError, json.JSONDecodeError) as e:
@@ -233,8 +312,9 @@ def main(argv=None) -> int:
     parser.add_argument("--port", type=int, default=8760)
     parser.add_argument("--no-browser", action="store_true")
     parser.add_argument("--start-all", action="store_true", help="alle fehlenden Zentralen starten und beenden")
+    parser.add_argument("--registry", default=str(REGISTRY), help="anderes Register (Tests)")
     a = parser.parse_args(argv)
-    z = Zentrale(load_registry())
+    z = Zentrale(load_registry(Path(a.registry)))
     if a.start_all:
         started = z.start()
         ready = z.wait_ready(started)
