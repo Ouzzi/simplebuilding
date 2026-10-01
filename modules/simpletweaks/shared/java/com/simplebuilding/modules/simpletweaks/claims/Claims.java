@@ -49,7 +49,14 @@ public final class Claims {
         if (claims==null) SERVERS.remove(server);
         else {
             SERVERS.put(server,claims);
-            if (claims.config.enabled()) com.simplebuilding.framework.api.Protection.register(server,"simpletweaks",target -> (claims.config.opBypass() && target.administrator()) || claims.allowed(target.dimension(),target.actor(),new ChunkPos(target.x()>>4,target.z()>>4).pack()));
+            if (claims.config.enabled()) com.simplebuilding.framework.api.Protection.register(server,"simpletweaks",new com.simplebuilding.framework.api.Protection.Check() {
+                @Override public boolean allows(com.simplebuilding.framework.api.Protection.Target target) {
+                    return (claims.config.opBypass() && target.administrator()) || claims.allowed(target.dimension(),target.actor(),new ChunkPos(target.x()>>4,target.z()>>4).pack());
+                }
+                @Override public boolean allowsAutomation(com.simplebuilding.framework.api.Protection.Target source, com.simplebuilding.framework.api.Protection.Target target) {
+                    return source.dimension().equals(target.dimension()) && claims.sameOwner(source.dimension(),ChunkPos.pack(source.x()>>4,source.z()>>4),ChunkPos.pack(target.x()>>4,target.z()>>4));
+                }
+            });
         }
     }
     public static void stop(MinecraftServer server) { install(server,null); settings=null; }
@@ -133,5 +140,59 @@ public final class Claims {
         try { store.replace(next); return true; }
         catch (Exception e) { failed=true; LOG.error("Claims are locked: atomic save failed; last saved data preserved.",e); return false; }
     }
+    public static boolean anyEnabled(){return SERVERS.values().stream().anyMatch(c->c.config.enabled());}
+    public static boolean environment(ServerLevel level,BlockPos pos){return allow(level,null,pos);}
+    /** Destruction can update another half even when only this cell is directly hit. */
+    public static boolean environmentBlock(ServerLevel level,BlockPos pos){
+        if(!enabled(level.getServer()))return true;
+        for(var part:parts(level,pos))if(!environment(level,part))return false;
+        return true;
+    }
+    private static java.util.List<BlockPos> parts(ServerLevel level,BlockPos pos){
+        var state=level.getBlockState(pos);var positions=new ArrayList<BlockPos>();positions.add(pos);
+        if(state.getBlock() instanceof net.minecraft.world.level.block.AbstractBedBlock){var direction=state.getValue(net.minecraft.world.level.block.BedBlock.FACING);if(state.getValue(net.minecraft.world.level.block.BedBlock.PART)==net.minecraft.world.level.block.state.properties.BedPart.HEAD)direction=direction.getOpposite();positions.add(pos.relative(direction));}
+        if(state.getBlock() instanceof net.minecraft.world.level.block.ChestBlock && state.getValue(net.minecraft.world.level.block.ChestBlock.TYPE)!=net.minecraft.world.level.block.state.properties.ChestType.SINGLE)positions.add(net.minecraft.world.level.block.ChestBlock.getConnectedBlockPos(pos,state));
+        return positions;
+    }
+    public static boolean transfer(ServerLevel level,BlockPos source,BlockPos target){
+        var c=get(level.getServer());if(c==null||!c.config.enabled())return true;if(!c.ready())return false;
+        String dim=level.dimension().identifier().toString();
+        var positions=new ArrayList<>(parts(level,source));positions.addAll(parts(level,target));
+        for(var p:positions)if(!c.sameOwner(dim,ChunkPos.pack(source),ChunkPos.pack(p)))return false;
+        return true;
+    }
+    private boolean sameOwner(String dimension,long source,long target){
+        if(!config.enabled())return true;
+        if(!ready())return false;
+        var a=store.view().get(new ClaimStore.Key(dimension,source));
+        var b=store.view().get(new ClaimStore.Key(dimension,target));
+        return Objects.equals(a==null?null:a.owner(),b==null?null:b.owner());
+    }
+    /** Natural damage has no attacking entity. Explosion damage is explicitly environmental grief. */
+    public static boolean damage(net.minecraft.world.damagesource.DamageSource source,net.minecraft.world.entity.Entity target){
+        if(!(target.level() instanceof ServerLevel level)||!enabled(level.getServer()))return true;
+        var actor=source.getEntity()!=null?source.getEntity():source.getDirectEntity();
+        if(actor!=null)return action(actor,target);
+        return !source.is(net.minecraft.tags.DamageTypeTags.IS_EXPLOSION)||action(null,target);
+    }
+    private static net.minecraft.world.entity.Entity responsible(net.minecraft.world.entity.Entity actor){
+        for(int i=0;i<8;i++){
+            if(actor instanceof net.minecraft.world.entity.projectile.Projectile p)actor=p.getOwner();
+            else if(actor instanceof net.minecraft.world.entity.AreaEffectCloud cloud)actor=cloud.getOwner();
+            else return actor;
+        }return null;
+    }
+    public static boolean action(net.minecraft.world.entity.Entity actor,ServerLevel level,BlockPos pos){
+        if(!enabled(level.getServer()))return true;actor=responsible(actor);
+        return actor instanceof ServerPlayer player?allowBlock(player,level,pos):environmentBlock(level,pos);
+    }
+    public static boolean action(net.minecraft.world.entity.Entity actor,net.minecraft.world.entity.Entity target){
+        if(!(target.level() instanceof ServerLevel level)||!enabled(level.getServer()))return true;
+        actor=responsible(actor);if(actor instanceof ServerPlayer player)return allowEntity(player,target);
+        var box=target.getBoundingBox();int minX=net.minecraft.util.Mth.floor(box.minX)>>4,maxX=net.minecraft.util.Mth.floor(Math.nextDown(box.maxX))>>4,minZ=net.minecraft.util.Mth.floor(box.minZ)>>4,maxZ=net.minecraft.util.Mth.floor(Math.nextDown(box.maxZ))>>4;
+        if((long)(maxX-minX+1)*(maxZ-minZ+1)>256)return false;
+        for(int x=minX;x<=maxX;x++)for(int z=minZ;z<=maxZ;z++)if(!environment(level,new BlockPos(x*16,target.blockPosition().getY(),z*16)))return false;return true;
+    }
+
     private Claims() { throw new AssertionError(); }
 }

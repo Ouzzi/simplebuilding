@@ -17,6 +17,7 @@ public final class WorldPermissions {
     public interface Bridge {
         boolean active(ServerLevel level);
         boolean allows(ServerPlayer player,ServerLevel level,BlockPos target);
+        default boolean allowsAutomation(ServerLevel level,BlockPos source,BlockPos target){return false;}
     }
     private static final Bridge BRIDGE=ServiceLoader.load(Bridge.class,WorldPermissions.class.getClassLoader()).findFirst().orElse(null);
     public static boolean active(Level level) {return level instanceof ServerLevel server && BRIDGE!=null && BRIDGE.active(server);}
@@ -34,6 +35,33 @@ public final class WorldPermissions {
         return true;
     }
     public static boolean mayAffectEntity(Player player,Entity target) {return mayOccupy(target.level(),player,target.getBoundingBox());}
+    /** Checks both machine and target footprints before any transfer, fuel use or destruction. */
+    public static boolean mayAutomate(Level level,BlockPos source,BlockPos target){
+        if(!active(level))return true;
+        var server=(ServerLevel)level;
+        for(var pos:List.of(source,target)){
+            if(!BRIDGE.allowsAutomation(server,source,pos))return false;
+            var state=level.getBlockState(pos);
+            if(state.hasProperty(BedBlock.PART)){
+                var direction=state.getValue(BedBlock.FACING);
+                if(state.getValue(BedBlock.PART)==net.minecraft.world.level.block.state.properties.BedPart.HEAD)direction=direction.getOpposite();
+                if(!BRIDGE.allowsAutomation(server,source,pos.relative(direction)))return false;
+            }
+            if(state.getBlock() instanceof ChestBlock && state.getValue(ChestBlock.TYPE)!=net.minecraft.world.level.block.state.properties.ChestType.SINGLE
+                    &&!BRIDGE.allowsAutomation(server,source,ChestBlock.getConnectedBlockPos(pos,state)))return false;
+        }
+        return true;
+    }
+    /** Includes the space between the machine and the entity, bounded to 256 chunks. */
+    public static boolean mayAutomateEntity(Level level,BlockPos source,Entity entity){
+        if(!active(level))return true;
+        var box=entity.getBoundingBox().minmax(new AABB(source));
+        int minX=net.minecraft.util.Mth.floor(box.minX)>>4,maxX=net.minecraft.util.Mth.floor(Math.nextDown(box.maxX))>>4;
+        int minZ=net.minecraft.util.Mth.floor(box.minZ)>>4,maxZ=net.minecraft.util.Mth.floor(Math.nextDown(box.maxZ))>>4;
+        if((long)(maxX-minX+1)*(maxZ-minZ+1)>256)return false;
+        for(int x=minX;x<=maxX;x++)for(int z=minZ;z<=maxZ;z++)if(!BRIDGE.allowsAutomation((ServerLevel)level,source,new BlockPos(x*16,source.getY(),z*16)))return false;
+        return true;
+    }
     public static boolean mayTeleport(ServerPlayer player,ServerLevel targetLevel,Vec3 target) {
         return mayOccupy(player.level(),player,player.getBoundingBox())&&mayOccupy(targetLevel,player,player.getBoundingBox().move(target.subtract(player.position())));
     }

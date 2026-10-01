@@ -91,3 +91,5 @@ No worker client tests, full merged server gate, push or merge.
 - Stage 3 baseline regression: 2026-09-30T22-51-11Z-1a63,
   simplebuilding:*sledgehammer*: Fabric 35/35, NeoForge 35/35,
   alles gruen 70/70 without an active claims provider.
+
+- Stage 4 continuation: existing draft retained, automation/natural-damage/security review and real regressions recorded in CLAIMS-STAGE4.md. Claims remains OFF and not enabled-ready; known unsupported automation paths are explicit activation blockers. Stages 5/6 are owned by the separate access worker; no implementation of those stages here.

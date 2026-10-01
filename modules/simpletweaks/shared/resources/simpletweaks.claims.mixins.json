@@ -7,7 +7,23 @@
     "ClaimGameModeMixin",
     "ClaimBucketMixin",
     "ClaimBlockItemMixin",
-    "ClaimPlayerMixin"
+    "ClaimPlayerMixin",
+    "ClaimCompoundAccessor",
+    "ClaimDamageMixin",
+    "ClaimDispenserMixin",
+    "ClaimDropperMixin",
+    "ClaimEffectMixin",
+    "ClaimExplosionMixin",
+    "ClaimFireMixin",
+    "ClaimFluidMixin",
+    "ClaimHopperMixin",
+    "ClaimLavaFireMixin",
+    "ClaimLiquidMixin",
+    "ClaimPickupMixin",
+    "ClaimPistonInvoker",
+    "ClaimPistonMixin",
+    "ClaimPistonResolverMixin",
+    "ClaimProjectileMixin"
   ],
   "injectors": {
     "defaultRequire": 1

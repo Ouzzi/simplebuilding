@@ -90,7 +90,8 @@ public final class PlacedAttractors {
         String filter = MagnetItem.effectiveFilter(be.getTemplate(), level);
         double rangeSq = range * range;
         List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(range),
-                entity -> entity.distanceToSqr(target) <= rangeSq && canPull(entity, filter));
+                entity -> entity.distanceToSqr(target) <= rangeSq && canPull(entity, filter)
+                        && com.simplebuilding.api.WorldPermissions.mayAutomateEntity(level, pos, entity));
         for (ItemEntity entity : items) {
             applyPull(entity, target);
         }

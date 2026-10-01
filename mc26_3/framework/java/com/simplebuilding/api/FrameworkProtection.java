@@ -7,4 +7,8 @@ import net.minecraft.server.level.*;
 public final class FrameworkProtection implements WorldPermissions.Bridge {
     @Override public boolean active(ServerLevel level){return Protection.active(level.getServer());}
     @Override public boolean allows(ServerPlayer player,ServerLevel level,BlockPos pos){return Protection.allows(level.getServer(),new Protection.Target(player.getUUID(),level.dimension().identifier().toString(),pos.getX(),pos.getY(),pos.getZ(),Commands.hasPermission(Commands.LEVEL_OWNERS).test(player.createCommandSourceStack())));}
+    @Override public boolean allowsAutomation(ServerLevel level,BlockPos source,BlockPos target){
+        String dimension=level.dimension().identifier().toString();
+        return Protection.allowsAutomation(level.getServer(),new Protection.Target(null,dimension,source.getX(),source.getY(),source.getZ(),false),new Protection.Target(null,dimension,target.getX(),target.getY(),target.getZ(),false));
+    }
 }

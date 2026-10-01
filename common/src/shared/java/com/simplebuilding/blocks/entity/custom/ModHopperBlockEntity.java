@@ -346,6 +346,7 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
     }
 
     private static boolean insert(Level world, BlockPos pos, ModHopperBlockEntity blockEntity) {
+        if (!com.simplebuilding.api.WorldPermissions.mayAutomate(world, pos, pos.relative(stateToFacing(blockEntity.getBlockState())))) return false;
         Container inventory = getOutputInventory(world, pos, blockEntity);
         if (inventory == null) return insertThroughItemAutomation(world, pos, blockEntity);
 

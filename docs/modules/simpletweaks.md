@@ -481,3 +481,66 @@ beide Teleportenden sind eingeschlossen. Ohne Anbieter keine neuen Weltabfragen.
 und Umformmodi wurden mit aktiven Claims geprueft; keine Sicherheitsfreigabe.
 Bestehender Baustab-Bettfehler: Nachbarupdate vor Kopfplatzierung ergibt Luft;
 dieser unabhaengige Spielfehler wurde hier nicht veraendert.
+
+### Claims Stufe 4: Automation und indirekte Angriffe
+
+Fortsetzung im vorhandenen Worktree ab `7422a3ab`; der vorhandene Stage-4-Entwurf
+und alle bisherigen Tests bleiben erhalten. **Claims bleibt AUS und ist nicht
+einschaltbereit.** Stufen 5/6 gehoeren zum getrennten Access-Run. Der Plan und die
+aktuellen Pruefbelege stehen in `modules/simpletweaks/CLAIMS-STAGE4.md`.
+
+- Automation hat keinen Spieler-Bypass: Quelle, Ziel und bekannte Bett-/Truhen-
+  Gegenstuecke muessen denselben Landbesitzer haben oder alle unbeansprucht sein.
+  Trust ist keine grenzueberschreitende Maschinenfreigabe. Die Framework-Erweiterung
+  ist generisch; der Minecraft-Adapter wird nur auf 26.3 geladen. Ohne Anbieter
+  kehren die neuen SimpleBuilding-Pruefungen vor Geometrie-/Weltabfragen zurueck.
+- Explosionen zerstoeren keine beanspruchten Bloecke, auch nicht ueber das andere
+  Ende eines Betts; beanspruchte Entities erhalten weder Explosionsschaden noch
+  Explosionsschub. Das gilt auch fuer Explosionen des Besitzers. Feuer-Ausbreitung,
+  Abbrennen und Lava-Entzuendung pruefen die Ziel-Footprints. Feuer auf beanspruchtem
+  Land breitet sich nicht aus. Fluessigkeitstransfers und erkannte Lava-Konversionen
+  pruefen beide Seiten; gleichbesitzige Fluessigkeitsautomation bleibt erlaubt.
+- Vanilla-Kolben pruefen die echte Resolver-Liste einschliesslich Schleim/Honig,
+  zerstoerbarer Bloecke und Rueckzug, vor der Mutation. Verstaerkte Kolben pruefen
+  zusaetzlich ihren Brennstoff. Netherit-/Enderitbrecher pruefen vor Zerstoerung,
+  Verschleiss und Brennstoffverbrauch; Enderit darf seinen vorhandenen Teil-Durchbruch
+  vor einem verweigerten tieferen Ziel beenden. Ein gesperrtes Ziel bleibt erhalten.
+- Vanilla- und Mod-Hopper pruefen bekannte Container sowie Item-Entities; beide
+  Haelften einer Doppeltruhe werden beruecksichtigt. Mod-Hopper pruefen vor dem
+  Loader-Transferzugriff auch das lokale Ausgabeziel. Platzierte Attractors pruefen
+  Item und Zugstrecke; der Scan bleibt auf 256 Chunks begrenzt.
+- Dropper und exakte Vanilla-Standardauswuerfe von Dispensern duerfen innerhalb
+  desselben Besitzes arbeiten. Andere Dispenser-Behaviors sind innerhalb eines
+  5x5-Chunk-Fensters um Claims konservativ gesperrt, ohne Itemverbrauch. Das ist eine
+  bewusste Funktionsgrenze, keine vollstaendige Absicherung beliebiger Behaviors.
+- Projektiltreffer, zurechenbare Schadensquellen und schaedliche Effekte verfolgen
+  Projektil-/Wolkenbesitzer bis maximal acht Schritte. Ein unberechtigter Spieler
+  darf nicht ueber einen indirekten Verursacher angreifen. Nichtspielerangriffe
+  ohne berechtigten Spieler werden auf beanspruchten Zielen konservativ verweigert.
+  Schaden ohne angreifende Entity ist dagegen weiterhin Vanilla: Fall, Ertrinken,
+  Hunger, Ersticken, Frieren und natuerlicher Magieschaden sind keine Immunitaet.
+  Explosionsschaden ist die ausdrueckliche Ausnahme. Natuerliche Effekte ohne
+  Verursacher bleiben ebenfalls wirksam.
+
+Konkrete verbleibende Grenzen, deshalb keine Sicherheitsfreigabe:
+
+- Unbekannte Container ohne aufloesbare Weltposition (beispielsweise Vanilla-
+  Composter-Wrapper) werden im aktivierten Hopper-Transfer konservativ verweigert;
+  fuer vollstaendige Kompatibilitaet fehlen Adapter und Gameplay-Gegenproben.
+- Kupfergolems (`TransportItemsBetweenContainers`) aendern Container direkt und
+  umgehen Hopper-Hooks. Crafter koennen verweigerte Ausgaben als Item auswerfen.
+  Diese Pfade sind noch nicht vollstaendig geschuetzt.
+- Blitzentzuendung und Kupferreinigung (`LightningBolt.spawnFire` bzw.
+  `clearCopperOnLightningStrike`) mutieren Bloecke ausserhalb der Feuer-Tickhooks.
+  Diese konkreten Vanilla-Pfade bleiben offen; Blitzschaden als Entity-Quelle wird
+  momentan konservativ verweigert. Das ist keine vollstaendige Naturschaden-Policy.
+- Ungepruefte Modmaschinen mit direkten Container-/Weltmutationen, entfernten
+  Capability-/Storage-Zielen und frei registrierten Dispenser-Behaviors koennen
+  ausserhalb der lokalen Pruefungen wirken. Ein 5x5-Chunk-Fenster ist kein Beweis
+  fuer deren maximale Reichweite. Kein pauschales Modpack-Schutzversprechen.
+- Nicht jede Loader-Capability, jeder Fire-/Fluid-Konversionsfall, jedes modifizierte
+  Projektil und jede physikalische Sekundaerwirkung wurde mit echtem Gameplay
+  verifiziert. Andere Minecraft-Linien, Forge, Clients und Besitzerwelten sind
+  nicht Bestandteil dieses Runs. Off-Modus und fehlender Anbieter bleiben inert.
+
+Aktuelle Stage-4-Belege: Claims 64/64, alles gruen, 2026-09-30T23-45-13Z-23b2; Bestandsfilter ohne Anbieter Kolben 56/56, Hopper 52/52, Attractor 6/6, Testzentralen/Abdeckung 10/10, jeweils alles gruen. Genaue Run-IDs und bekannte Grenzen: `modules/simpletweaks/CLAIMS-STAGE4.md`.

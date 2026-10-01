@@ -43,16 +43,22 @@
       "id": "claims",
       "en": {
         "title": "Claims: Disabled by Default",
-        "summary": "Implemented stages 1–3: bounded atomic data, deeds, commands, Vanilla interactions and SimpleBuilding tool permission checks. Environmental damage, automation and administration remain incomplete. Default off; disabled mode never reads or writes claim data. Enable only for development testing. Default: false.",
+        "summary": "Stages 1–3 and partial stage-4 protection are implemented. Automation still has unsupported paths, including copper golems, crafters and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data. Development tests only. Default: false.",
         "details": [
-          "Implemented stages 1–3: bounded atomic data, deeds, commands, Vanilla interactions and SimpleBuilding tool permission checks. Environmental damage, automation and administration remain incomplete. Default off; disabled mode never reads or writes claim data. Enable only for development testing. Default: false."
+          "Stages 1–3 and partial stage-4 protection are implemented. Automation still has unsupported paths, including copper golems, crafters and unknown mod behaviors. Not ready to enable. Off by default; disabled hooks do not read claim data. Development tests only. Default: false.",
+          "Automation checks source and destination ownership, including known bed/chest counterparts. Known Vanilla and SimpleBuilding piston/hopper hooks and placed attractors are guarded. Natural damage remains active. Explosions are blocked on claimed targets regardless of owner.",
+          "Plain dispenser ejection and droppers work within one owner. Other dispenser behaviors remain blocked near claims. Unknown containers are refused when enabled. Copper golem transfers, crafter fallback ejections and arbitrary remote mod mutations are not fully protected; Claims must remain off.",
+          "Lightning ignition and copper cleaning also bypass the fire tick guards. Lightning entity damage is currently denied conservatively. These paths need further work before activation."
         ]
       },
       "de": {
         "title": "Claims: standardmäßig aus",
-        "summary": "Umgesetzt: Stufen 1–3 mit begrenzten atomaren Daten, Urkunden, Befehlen, Vanilla-Interaktionen und SimpleBuilding-Werkzeugprüfungen. Umweltschaden, Automation und Verwaltung bleiben unvollständig. Standard aus; ausgeschaltet keine Claim-Datenzugriffe. Nur für Entwicklungstests aktivieren. Standardwert: false.",
+        "summary": "Stufen 1–3 und Teile des Stage-4-Schutzes sind umgesetzt. Automation hat weiterhin ungeschützte Pfade, darunter Kupfergolems, Crafter und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus; ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
         "details": [
-          "Umgesetzt: Stufen 1–3 mit begrenzten atomaren Daten, Urkunden, Befehlen, Vanilla-Interaktionen und SimpleBuilding-Werkzeugprüfungen. Umweltschaden, Automation und Verwaltung bleiben unvollständig. Standard aus; ausgeschaltet keine Claim-Datenzugriffe. Nur für Entwicklungstests aktivieren. Standardwert: false."
+          "Stufen 1–3 und Teile des Stage-4-Schutzes sind umgesetzt. Automation hat weiterhin ungeschützte Pfade, darunter Kupfergolems, Crafter und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus; ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
+          "Automation prüft Besitz an Quelle und Ziel einschließlich bekannter Bett-/Truhengegenstücke. Bekannte Vanilla- und SimpleBuilding-Kolben-/Hopper-Hooks sowie platzierte Attractors sind angebunden. Naturschaden bleibt wirksam. Explosionen werden auf beanspruchten Zielen unabhängig vom Besitzer verweigert.",
+          "Einfache Dispenser-Auswürfe und Dropper funktionieren innerhalb desselben Besitzes. Andere Dispenser-Behaviors bleiben in Claim-Nähe gesperrt. Unbekannte Container werden bei aktiviertem Schutz verweigert. Kupfergolem-Transfers, Crafter-Ersatzauswürfe und beliebige entfernte Mod-Mutationen sind nicht vollständig geschützt; Claims muss aus bleiben.",
+          "Blitzentzündung und Kupferreinigung umgehen ebenfalls die Feuer-Tickprüfungen. Blitzschaden als Entity-Quelle wird momentan konservativ verweigert. Diese Pfade benötigen vor der Aktivierung weitere Arbeit."
         ]
       },
       "sources": [
@@ -62,7 +68,10 @@
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimStore.java",
         "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimGameModeMixin.java",
         "framework/src/main/java/com/simplebuilding/framework/api/Protection.java",
-        "common/src/shared/java/com/simplebuilding/api/WorldPermissions.java"
+        "common/src/shared/java/com/simplebuilding/api/WorldPermissions.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/claims/ClaimAutomation.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimDamageMixin.java",
+        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/mixin/claims/ClaimExplosionMixin.java"
       ]
     },
     {

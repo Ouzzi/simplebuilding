@@ -18,6 +18,21 @@ import net.minecraft.world.level.*;
 public final class ClaimTests {
     public static final Map<String,Consumer<GameTestHelper>> TESTS = new LinkedHashMap<>();
     static {
+        TESTS.put("claims_environment_natural_damage",Stage4ClaimTests::naturalDamage);
+        TESTS.put("claims_environment_explosion_multipart",Stage4ClaimTests::explosionMultipart);
+        TESTS.put("claims_environment_indirect_cloud",Stage4ClaimTests::indirectCloud);
+        TESTS.put("claims_environment_connected_pistons",Stage4ClaimTests::connectedPistons);
+        TESTS.put("claims_environment_custom_pistons",Stage4ClaimTests::customPistons);
+        TESTS.put("claims_environment_custom_hoppers",Stage4ClaimTests::customHoppers);
+        TESTS.put("claims_environment_attractor",Stage4ClaimTests::attractor);
+        TESTS.put("claims_environment_disabled",EnvironmentClaimTests::disabled);
+        TESTS.put("claims_environment_pickup",EnvironmentClaimTests::pickup);
+        TESTS.put("claims_environment_explosion_fire",EnvironmentClaimTests::explosionFire);
+        TESTS.put("claims_environment_fluid_piston",EnvironmentClaimTests::fluidPiston);
+        TESTS.put("claims_environment_hopper",EnvironmentClaimTests::hopper);
+        TESTS.put("claims_environment_projectiles",EnvironmentClaimTests::projectiles);
+        TESTS.put("claims_environment_dispenser",EnvironmentClaimTests::dispenser);
+
         TESTS.put("claims_tools_bed_hammer",ToolClaimTests::bedHammer);
         TESTS.put("claims_tools_wand_hammer",ToolClaimTests::wandHammer);
         TESTS.put("claims_tools_beam",ToolClaimTests::beam);

@@ -3,6 +3,21 @@ import com.simplebuilding.modules.simpletweaks.claims.ClaimTests;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ClaimsGameTest {
+ @GameTest public void claimsEnvironmentNaturalDamage(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_natural_damage").accept(h); }
+ @GameTest public void claimsEnvironmentExplosionMultipart(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_explosion_multipart").accept(h); }
+ @GameTest public void claimsEnvironmentIndirectCloud(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_indirect_cloud").accept(h); }
+ @GameTest public void claimsEnvironmentConnectedPistons(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_connected_pistons").accept(h); }
+ @GameTest public void claimsEnvironmentCustomPistons(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_custom_pistons").accept(h); }
+ @GameTest public void claimsEnvironmentCustomHoppers(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_custom_hoppers").accept(h); }
+ @GameTest public void claimsEnvironmentAttractor(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_attractor").accept(h); }
+ @GameTest public void claimsEnvironmentDisabled(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_disabled").accept(h); }
+ @GameTest public void claimsEnvironmentPickup(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_pickup").accept(h); }
+ @GameTest public void claimsEnvironmentExplosionFire(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_explosion_fire").accept(h); }
+ @GameTest public void claimsEnvironmentFluidPiston(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_fluid_piston").accept(h); }
+ @GameTest public void claimsEnvironmentHopper(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_hopper").accept(h); }
+ @GameTest public void claimsEnvironmentProjectiles(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_projectiles").accept(h); }
+ @GameTest public void claimsEnvironmentDispenser(GameTestHelper h) { ClaimTests.TESTS.get("claims_environment_dispenser").accept(h); }
+
  @GameTest public void claimsToolsBedHammer(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_bed_hammer").accept(h); }
  @GameTest public void claimsToolsWandHammer(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_wand_hammer").accept(h); }
  @GameTest public void claimsToolsBeam(GameTestHelper h) { ClaimTests.TESTS.get("claims_tools_beam").accept(h); }
