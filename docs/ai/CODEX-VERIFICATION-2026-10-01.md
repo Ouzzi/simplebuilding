@@ -64,3 +64,19 @@ Fix `f23d1004` nimmt den bestehenden `:common`-Output in beide JARs auf.
 Nach erneutem Build bestanden beide Archive denselben isolierten Aufruf von
 `SimplebuildingBootstrap.initialize`, einschließlich seiner inneren Builder-
 Abhängigkeiten und der einmaligen Initialisierung. Kein Minecraft-Client gestartet.
+
+## Forge-Nachprüfung vor dem Merge
+
+Die Ergebniszeilen der Worker-Protokolle wurden separat gelesen:
+- Vollständige betroffene Kataloge auf Fabric, NeoForge und Forge: **264/264**,
+  `2026-10-01T02-03-44Z-90ee`. Die beiden Cleanup-Dateien entsprechen exakt
+  `a5d8151e`; Settings laufen zusätzlich in einer eigenen Testumgebung.
+- Unmittelbare Forge-Wiederholung: **88/88**, `2026-10-01T02-11-47Z-315a`.
+  Die vier Testkonfigurationen bleiben laut Bytevergleich unverändert.
+- Sounds mit installiertem Visuals: **17/17**, `2026-10-01T02-13-59Z-1192`.
+- Normaler Forge-Entwicklungsstart, vier Claims-Fälle: **4/4**,
+  `2026-10-01T02-15-19Z-efa1`; zusätzlich zu den produktiven JAR-Starts.
+- Testzentralen-Neubau und vollständige SimpleBuilding-Item-/Blockabdeckung in
+  isolierten Fabric-/NeoForge-Welten: **10/10**, `2026-10-01T02-16-20Z-36d6`.
+
+Diese Einzelbelege ersetzen weiterhin nicht das gemeinsame Abschlussgate.
