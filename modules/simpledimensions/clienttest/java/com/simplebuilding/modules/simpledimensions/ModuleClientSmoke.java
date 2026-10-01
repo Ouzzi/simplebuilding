@@ -106,7 +106,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
   // Resolve the Mining toggle from its row, never from a screen coordinate or field mutation.
   clickWidget(context,client->{
    var entry=dimensionRows(client.gui.screen(),tab).get(1);
-   return button((ContainerEventHandler)entry,((Component)call(entry,"getYesNoText",boolean.class,true)).getString());
+   return button((ContainerEventHandler)entry,yesNoText(entry,true));
   });
   context.runOnClient(client->assertRows(client,tab,labels,false));
   assertSettings(loadSettings(),baseline,"Unsaved draft must not reach disk");
@@ -147,18 +147,20 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
   var entries=dimensionRows(screen,tab);
   require(entries.size()==3,"Exactly three Dimensions settings, got "+entries.size());
   var list=(ContainerEventHandler)publicField(screen,"listWidget");
-  require(((List<?>)call(list,"visibleChildren")).containsAll(entries),"All Dimensions rows must be visible");
-  require(list.children().stream().filter(e->e.getClass().getName().equals(BOOLEAN_ENTRY)).count()==3,"Rendered list must contain exactly three toggles");
+  var visible=(List<?>)call(list,"visibleChildren");
+  var booleanType=booleanEntryType();
+  require(visible.containsAll(entries),"All Dimensions rows must be visible");
+  require(visible.stream().filter(booleanType::isInstance).toList().equals(entries),"Rendered toggles must exactly match the Dimensions rows");
   int lastBottom=-1;
   for(int i=0;i<entries.size();i++){
    var entry=entries.get(i);
    String label=labels.get(i);
-   require(entry.getClass().getName().equals(BOOLEAN_ENTRY),label+" must be a boolean toggle");
+   require(booleanType.isInstance(entry),label+" must be a boolean toggle");
    require(((Component)call(entry,"getFieldName")).getString().equals(label),"Localized row "+i+": "+label);
    require(call(entry,"getDefaultValue").equals(Optional.of(true)),label+" reset default must be on");
    require(call(entry,"getValue").equals(i!=1||mining),label+" value");
    require(Boolean.TRUE.equals(call(entry,"isEditable")),label+" must be editable");
-   var toggle=button((ContainerEventHandler)entry,((Component)call(entry,"getYesNoText",boolean.class,i!=1||mining)).getString());
+   var toggle=button((ContainerEventHandler)entry,yesNoText(entry,i!=1||mining));
    require(toggle.active&&toggle.visible&&list.getRectangle().encompasses(toggle.getRectangle()),label+" toggle must fit inside the list");
    require(toggle.getY()>=lastBottom,"Dimension toggles must not overlap");
    lastBottom=toggle.getY()+toggle.getHeight();
@@ -167,6 +169,16 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
  }
 
  private static final String BOOLEAN_ENTRY="me.shedaniel.clothconfig2.gui.entries.BooleanListEntry";
+
+ private static Class<?> booleanEntryType(){
+  try{return Class.forName(BOOLEAN_ENTRY);}
+  catch(ClassNotFoundException e){throw new AssertionError("Cloth boolean entry API",e);}
+ }
+ private static String yesNoText(Object entry,boolean value){
+  // Cloth's builder returns a non-public subclass; invoke its public base API.
+  try{return ((Component)booleanEntryType().getMethod("getYesNoText",boolean.class).invoke(entry,value)).getString();}
+  catch(ReflectiveOperationException e){throw new AssertionError("Cloth localized toggle text",e);}
+ }
 
  private static List<?> dimensionRows(Screen screen,String label){
   var categories=(Map<?,?>)call(screen,"getCategorizedEntries");

@@ -51,6 +51,15 @@ screenshot inspection is still required for visual acceptance. Original settings
 bytes (including initial absence), all runtime fields, and language are restored
 even after an assertion fails. No production behavior or dependencies changed.
 
+## Runtime follow-up (2026-10-01)
+
+The first live UI run reached the config screen but rejected Cloth 26.3.159's
+anonymous BooleanListEntry subclass. Correct the test to accept subclasses,
+compare the rendered toggles with the exact category entries in order, and
+invoke the localized yes/no API through its public base class. Preserve all
+geometry, persistence, language, and restoration assertions. Re-run the seven
+screenshots serially, inspect them, and require a new exact-SHA gate before push.
+
 ## Worker verification
 
 - Passed: `./gradlew.bat :integration:compileGametestJava --max-workers=1 --no-parallel --no-daemon '-Dorg.gradle.jvmargs=-Xmx1536m' -q`, `GRADLE_EXIT=0`.
