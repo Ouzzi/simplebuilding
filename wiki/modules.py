@@ -109,6 +109,7 @@ def extract(entry, g, check=False):
                      {locale: f[locale] for locale in ('en', 'de') if locale in f}
                      for f in manual.get('features', [])}
     notes = feature_notes | notes
+    problems += g.item_note_problems(notes, inventory['items'] | inventory['blocks'])
     def record(identifier, note):
         languages = g.prose_languages(note)
         if not languages:
@@ -120,6 +121,7 @@ def extract(entry, g, check=False):
         for identifier in sorted(ids):
             name = identifier.split(':', 1)[1]
             note = next((v for k, v in notes.items() if fnmatch.fnmatchcase(identifier, k) or fnmatch.fnmatchcase(name, k)), None)
+            note = g.item_note(note, identifier)
             record(identifier, note)
             prefix = 'item' if kind == 'items' else 'block'
             key = f'{prefix}.{ns}.{name}'
