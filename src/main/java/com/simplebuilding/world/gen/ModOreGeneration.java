@@ -29,5 +29,14 @@ public class ModOreGeneration {
         BiomeModifications.addFeature((END_BIOMES).and(context -> com.simplebuilding.config.ConfigFlags.oreEnabled(false)),
                 GenerationStep.Decoration.UNDERGROUND_ORES,
                 ModWorldGen.NIHILITH_ORE_PLACED_KEY);
+
+        // Weisheitserz in jedem Oberwelt-Biom (Besitzer 2026-10-01), nur auf der Hauptlinie. Der Tag wie bei
+        // END_BIOMES: die flache Testwelt meldet ihre Biome nicht ueber foundInOverworld().
+        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
+            BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().or(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD))
+                            .and(context -> com.simplebuilding.config.ConfigFlags.sageOreEnabled()),
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    ModWorldGen.SAGE_ORE_PLACED_KEY);
+        }
     }
 }

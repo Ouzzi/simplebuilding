@@ -1,6 +1,8 @@
 {
   "values": [
     "simplebuilding:astral_vault",
+    "simplebuilding:sage_ore",
+    "simplebuilding:deepslate_sage_ore",
     "simplebuilding:spawn_teleporter",
     "simplebuilding:spawn_teleporter_tier_2",
     "simplebuilding:spawn_teleporter_tier_3",

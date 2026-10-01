@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 239,
+      "count": 242,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -5300,6 +5300,44 @@
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:deepslate_sage_ore",
+      "name": {
+        "en_us": "Deepslate Sage Ore",
+        "de_de": "Tiefenschiefer-Weisheitserz"
+      },
+      "texture": "assets/textures/block/deepslate_sage_ore.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
+          "details": [
+            "Stone and deepslate variants. Veins of up to 4 blocks, 7 attempts per chunk, triangular height spread from 80 blocks below to 80 blocks above the world bottom, half of the blocks exposed to air are skipped - the numbers of vanilla's small diamond ore vein.",
+            "Needs an iron pickaxe or better. Silk Touch drops the ore block itself and no experience.",
+            "Sage Orb chance without Silk Touch: 2 %, with Fortune I 3 %, II 4 %, III 5 %.",
+            "Server option server.oreGeneration.sageOre (default on) turns the generation off for newly generated chunks."
+          ]
+        },
+        "de": {
+          "summary": "Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
+          "details": [
+            "Stein- und Tiefenschiefer-Variante. Adern bis 4 Blöcke, 7 Versuche je Chunk, dreieckige Höhenverteilung von 80 Blöcken unter bis 80 Blöcke über dem Weltboden, die Hälfte der Blöcke an Luft entfällt - die Werte von Vanillas kleiner Diamanterz-Ader.",
+            "Braucht mindestens eine Eisenspitzhacke. Behutsamkeit liefert den Erzblock selbst und keine Erfahrung.",
+            "Chance auf eine Weisheitskugel ohne Behutsamkeit: 2 %, mit Glück I 3 %, II 4 %, III 5 %.",
+            "Die Server-Option server.oreGeneration.sageOre (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
+          "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json",
+          "common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java"
+        ]
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:detector",
@@ -15117,6 +15155,78 @@
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:sage_orb",
+      "name": {
+        "en_us": "Sage Orb",
+        "de_de": "Weisheitskugel"
+      },
+      "texture": "assets/textures/item/sage_orb.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Sage Orb stores experience: right-click charges it for half a second (10 ticks), then it gives 50 to 100 experience points and is used up.",
+          "details": [
+            "The amount is rolled by the server on use. Stacks to 16.",
+            "Feedback is sound and particles only."
+          ]
+        },
+        "de": {
+          "summary": "Die Weisheitskugel speichert Erfahrung: Rechtsklick lädt sie eine halbe Sekunde (10 Ticks), dann gibt sie 50 bis 100 Erfahrungspunkte und ist verbraucht.",
+          "details": [
+            "Die Menge würfelt der Server beim Benutzen. Stapelt bis 16.",
+            "Rückmeldung nur über Klang und Partikel."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:sage_ore",
+      "name": {
+        "en_us": "Sage Ore",
+        "de_de": "Weisheitserz"
+      },
+      "texture": "assets/textures/block/sage_ore.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
+          "details": [
+            "Stone and deepslate variants. Veins of up to 4 blocks, 7 attempts per chunk, triangular height spread from 80 blocks below to 80 blocks above the world bottom, half of the blocks exposed to air are skipped - the numbers of vanilla's small diamond ore vein.",
+            "Needs an iron pickaxe or better. Silk Touch drops the ore block itself and no experience.",
+            "Sage Orb chance without Silk Touch: 2 %, with Fortune I 3 %, II 4 %, III 5 %.",
+            "Server option server.oreGeneration.sageOre (default on) turns the generation off for newly generated chunks."
+          ]
+        },
+        "de": {
+          "summary": "Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
+          "details": [
+            "Stein- und Tiefenschiefer-Variante. Adern bis 4 Blöcke, 7 Versuche je Chunk, dreieckige Höhenverteilung von 80 Blöcken unter bis 80 Blöcke über dem Weltboden, die Hälfte der Blöcke an Luft entfällt - die Werte von Vanillas kleiner Diamanterz-Ader.",
+            "Braucht mindestens eine Eisenspitzhacke. Behutsamkeit liefert den Erzblock selbst und keine Erfahrung.",
+            "Chance auf eine Weisheitskugel ohne Behutsamkeit: 2 %, mit Glück I 3 %, II 4 %, III 5 %.",
+            "Die Server-Option server.oreGeneration.sageOre (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
+          "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json",
+          "common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:spawn_elytra",
       "name": {
         "en_us": "Spawn Elytra",
@@ -16914,6 +17024,49 @@
       "drops": [
         "simplebuilding:cracked_diamond_block"
       ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:deepslate_sage_ore",
+      "name": {
+        "en_us": "Deepslate Sage Ore",
+        "de_de": "Tiefenschiefer-Weisheitserz"
+      },
+      "texture": "assets/textures/block/deepslate_sage_ore.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/deepslate_sage_ore",
+      "drops": [
+        "simplebuilding:deepslate_sage_ore",
+        "simplebuilding:sage_orb"
+      ],
+      "note": {
+        "en": {
+          "summary": "Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
+          "details": [
+            "Stone and deepslate variants. Veins of up to 4 blocks, 7 attempts per chunk, triangular height spread from 80 blocks below to 80 blocks above the world bottom, half of the blocks exposed to air are skipped - the numbers of vanilla's small diamond ore vein.",
+            "Needs an iron pickaxe or better. Silk Touch drops the ore block itself and no experience.",
+            "Sage Orb chance without Silk Touch: 2 %, with Fortune I 3 %, II 4 %, III 5 %.",
+            "Server option server.oreGeneration.sageOre (default on) turns the generation off for newly generated chunks."
+          ]
+        },
+        "de": {
+          "summary": "Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
+          "details": [
+            "Stein- und Tiefenschiefer-Variante. Adern bis 4 Blöcke, 7 Versuche je Chunk, dreieckige Höhenverteilung von 80 Blöcken unter bis 80 Blöcke über dem Weltboden, die Hälfte der Blöcke an Luft entfällt - die Werte von Vanillas kleiner Diamanterz-Ader.",
+            "Braucht mindestens eine Eisenspitzhacke. Behutsamkeit liefert den Erzblock selbst und keine Erfahrung.",
+            "Chance auf eine Weisheitskugel ohne Behutsamkeit: 2 %, mit Glück I 3 %, II 4 %, III 5 %.",
+            "Die Server-Option server.oreGeneration.sageOre (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
+          "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json",
+          "common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -22613,6 +22766,49 @@
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
         }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:sage_ore",
+      "name": {
+        "en_us": "Sage Ore",
+        "de_de": "Weisheitserz"
+      },
+      "texture": "assets/textures/block/sage_ore.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/sage_ore",
+      "drops": [
+        "simplebuilding:sage_orb",
+        "simplebuilding:sage_ore"
+      ],
+      "note": {
+        "en": {
+          "summary": "Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
+          "details": [
+            "Stone and deepslate variants. Veins of up to 4 blocks, 7 attempts per chunk, triangular height spread from 80 blocks below to 80 blocks above the world bottom, half of the blocks exposed to air are skipped - the numbers of vanilla's small diamond ore vein.",
+            "Needs an iron pickaxe or better. Silk Touch drops the ore block itself and no experience.",
+            "Sage Orb chance without Silk Touch: 2 %, with Fortune I 3 %, II 4 %, III 5 %.",
+            "Server option server.oreGeneration.sageOre (default on) turns the generation off for newly generated chunks."
+          ]
+        },
+        "de": {
+          "summary": "Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
+          "details": [
+            "Stein- und Tiefenschiefer-Variante. Adern bis 4 Blöcke, 7 Versuche je Chunk, dreieckige Höhenverteilung von 80 Blöcken unter bis 80 Blöcke über dem Weltboden, die Hälfte der Blöcke an Luft entfällt - die Werte von Vanillas kleiner Diamanterz-Ader.",
+            "Braucht mindestens eine Eisenspitzhacke. Behutsamkeit liefert den Erzblock selbst und keine Erfahrung.",
+            "Chance auf eine Weisheitskugel ohne Behutsamkeit: 2 %, mit Glück I 3 %, II 4 %, III 5 %.",
+            "Die Server-Option server.oreGeneration.sageOre (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
+          "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json",
+          "common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java"
+        ]
       },
       "hasCustomBehaviour": false
     },
@@ -38174,6 +38370,23 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_diamond_block.json"
     },
     {
+      "id": "simplebuilding:blocks/deepslate_sage_ore",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:deepslate_sage_ore",
+            "simplebuilding:sage_orb"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/deepslate_sage_ore.json"
+    },
+    {
       "id": "simplebuilding:blocks/diamond_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -39651,6 +39864,23 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/resin_quartz_checker.json"
+    },
+    {
+      "id": "simplebuilding:blocks/sage_ore",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:sage_ore",
+            "simplebuilding:sage_orb"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json"
     },
     {
       "id": "simplebuilding:blocks/shulker_head",
@@ -46952,6 +47182,21 @@
       "labelDe": "Nihiliterz",
       "tooltip": "Off: no Nihilit ore on the underside of the End islands. Takes effect at the next world start and only in newly generated chunks. Server-side. Default: on.",
       "tooltipDe": "Aus: kein Nihiliterz an der Unterseite der End-Inseln. Wirkt beim nächsten Weltstart und nur in neu erzeugten Chunks. Serverseitig. Standard: an."
+    },
+    {
+      "name": "server.oreGeneration.sageOre",
+      "shortName": "sageOre",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "End Ore Generation",
+      "groupDe": "End-Erzvorkommen",
+      "label": "Sage Ore",
+      "labelDe": "Weisheitserz",
+      "tooltip": "Off: no Sage Ore in the Overworld. Takes effect at the next world start in newly generated chunks. Default: on.",
+      "tooltipDe": "Aus: kein Weisheitserz in der Oberwelt. Wirkt beim nächsten Weltstart in neu erzeugten Chunks. Standard: an."
     },
     {
       "name": "server.pads.strangerPadBreakSeconds",
@@ -69070,14 +69315,14 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 185,
-    "blocks": 154,
+    "items": 188,
+    "blocks": 156,
     "recipes": 426,
-    "lootTables": 155,
+    "lootTables": 157,
     "trades": 20,
     "enchantments": 19,
     "tags": 42,
-    "config": 173,
+    "config": 174,
     "inWorld": 396,
     "advancements": 123,
     "features": 43,

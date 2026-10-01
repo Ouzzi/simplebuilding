@@ -568,6 +568,7 @@ public final class ConfigOptionTests {
             "server.oreGeneration.endOres boolean=true",
             "server.oreGeneration.astralitOre boolean=true",
             "server.oreGeneration.nihilitOre boolean=true",
+            "server.oreGeneration.sageOre boolean=true",
             "server.pads.strangerPadBreakSeconds int=60",
             "server.pads.strangerPlateBreakSeconds int=10",
             "server.charges.lensMaxCharge int=640",

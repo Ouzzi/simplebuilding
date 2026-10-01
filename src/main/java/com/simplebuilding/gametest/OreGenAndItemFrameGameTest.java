@@ -61,4 +61,14 @@ public final class OreGenAndItemFrameGameTest {
     public void brushRevealIsWiredToAnInterfaceNothingImplements(GameTestHelper helper) {
         OreGenAndItemFrameTests.brushRevealIsWiredToAnInterfaceNothingImplements(helper);
     }
+
+    @GameTest
+    public void sageOreGeneratesInTheOverworldAndDropsOnlyWithSilkTouch(GameTestHelper helper) {
+        OreGenAndItemFrameTests.sageOreGeneratesInTheOverworldAndDropsOnlyWithSilkTouch(helper);
+    }
+
+    @GameTest
+    public void theSageOrbGivesFiftyToOneHundredExperienceAfterTenTicks(GameTestHelper helper) {
+        OreGenAndItemFrameTests.theSageOrbGivesFiftyToOneHundredExperienceAfterTenTicks(helper);
+    }
 }

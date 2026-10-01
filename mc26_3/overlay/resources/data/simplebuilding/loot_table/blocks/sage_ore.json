@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "condition": "minecraft:tool/can_silk_touch",
+              "name": "simplebuilding:sage_ore"
+            },
+            {
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:all_of",
+                "terms": [
+                  {
+                    "type": "minecraft:table_bonus",
+                    "chances": [
+                      0.02,
+                      0.03,
+                      0.04,
+                      0.05
+                    ],
+                    "enchantment": "minecraft:fortune"
+                  },
+                  {
+                    "type": "minecraft:survives_explosion"
+                  }
+                ]
+              },
+              "name": "simplebuilding:sage_orb"
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simplebuilding:blocks/sage_ore"
+}

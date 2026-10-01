@@ -310,6 +310,15 @@ public class ModItems {
 
     public static final Item ASTRALIT_ORE_ITEM = registerItem("astralit_ore", s -> new BlockItem(ModBlocks.ASTRALIT_ORE, s));
 
+    public static final Item SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE
+            ? registerItem("sage_ore", s -> new BlockItem(ModBlocks.SAGE_ORE, s)) : null;
+    public static final Item DEEPSLATE_SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE
+            ? registerItem("deepslate_sage_ore", s -> new BlockItem(ModBlocks.DEEPSLATE_SAGE_ORE, s)) : null;
+    /** Weisheitskugel: seltener Drop des Weisheitserzes, gibt nach kurzem Laden viel Erfahrung. */
+    public static final Item SAGE_ORB = com.simplebuilding.version.McVersion.SAGE_ORE
+            ? registerItem("sage_orb", s -> new com.simplebuilding.items.custom.SageOrbItem(s.stacksTo(16)
+                    .rarity(net.minecraft.world.item.Rarity.UNCOMMON))) : null;
+
 
 
     public static final Item CONSTRUCTION_LIGHT = registerItem("construction_light", s -> new BlockItem(ModBlocks.CONSTRUCTION_LIGHT, s));

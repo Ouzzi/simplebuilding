@@ -100,7 +100,8 @@ public final class ConfigOptions {
             "server.charges.echoSounderMaxCharge",
             "server.oreGeneration.endOres",
             "server.oreGeneration.astralitOre",
-            "server.oreGeneration.nihilitOre");
+            "server.oreGeneration.nihilitOre",
+            "server.oreGeneration.sageOre");
 
     private static final List<Option> ALL;
 

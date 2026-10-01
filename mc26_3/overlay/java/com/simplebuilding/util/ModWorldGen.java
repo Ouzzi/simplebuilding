@@ -48,10 +48,27 @@ public class ModWorldGen {
     public static final ResourceKey<PlacedFeature> ASTRALIT_ORE_PLACED_KEY = registerPlacedKey("astralit_ore_placed");
     public static final ResourceKey<PlacedFeature> NIHILITH_ORE_PLACED_KEY = registerPlacedKey("nihilith_ore_placed");
 
+    /** Weisheitserz (2026-10-01): Groesse, Haeufigkeit und Hoehe wie Vanillas kleines Diamanterz. */
+    public static final ResourceKey<Feature> SAGE_ORE_KEY = registerConfiguredKey("sage_ore");
+    public static final ResourceKey<PlacedFeature> SAGE_ORE_PLACED_KEY = registerPlacedKey("sage_ore_placed");
+    public static final int SAGE_ORE_SIZE = 4;
+    public static final float SAGE_ORE_AIR_DISCARD = 0.5F;
+    public static final int SAGE_ORE_COUNT = 7;
+
     public static void bootstrapConfiguredFeatures(BootstrapContext<Feature> context) {
         RuleTest endStoneReplaceables = new BlockMatchTest(Blocks.END_STONE);
         context.register(ASTRALIT_ORE_KEY, new OreFeature(endStoneReplaceables, ModBlocks.ASTRALIT_ORE.defaultBlockState(), 4));
         context.register(NIHILITH_ORE_KEY, new OreFeature(endStoneReplaceables, ModBlocks.NIHILITH_ORE.defaultBlockState(), 5));
+        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
+            context.register(SAGE_ORE_KEY, new OreFeature(List.of(
+                    net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
+                            new net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest(net.minecraft.tags.BlockTags.STONE_ORE_REPLACEABLES),
+                            ModBlocks.SAGE_ORE.defaultBlockState()),
+                    net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
+                            new net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest(net.minecraft.tags.BlockTags.DEEPSLATE_ORE_REPLACEABLES),
+                            ModBlocks.DEEPSLATE_SAGE_ORE.defaultBlockState())),
+                    SAGE_ORE_SIZE, SAGE_ORE_AIR_DISCARD));
+        }
     }
 
     public static void bootstrapPlacedFeatures(BootstrapContext<PlacedFeature> context) {
@@ -75,6 +92,20 @@ public class ModWorldGen {
                                 BlockPredicate.matchesBlocks(Blocks.END_STONE),
                                 new ReplaceablePredicate(Direction.DOWN.getUnitVec3i()))),
                         OffsetPlacement.vertical(ConstantInt.of(1)),
+                        BiomeFilter.biome()
+                ));
+        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
+            registerSageOre(context, features);
+        }
+    }
+
+    /** Placement of the Sage Ore; registered from {@link #bootstrapPlacedFeatures}. */
+    private static void registerSageOre(BootstrapContext<PlacedFeature> context, net.minecraft.core.HolderGetter<Feature> features) {
+        register(context, SAGE_ORE_PLACED_KEY, features.getOrThrow(SAGE_ORE_KEY),
+                List.of(
+                        CountPlacement.of(SAGE_ORE_COUNT),
+                        InSquarePlacement.spread(),
+                        HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)),
                         BiomeFilter.biome()
                 ));
     }

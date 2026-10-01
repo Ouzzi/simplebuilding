@@ -31,6 +31,7 @@
     "simplebuilding:construction_light",
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_diamond_block",
+    "simplebuilding:deepslate_sage_ore",
     "simplebuilding:diamond_pressure_plate",
     "simplebuilding:drowned_head",
     "simplebuilding:drowned_wall_head",
@@ -132,6 +133,7 @@
     "simplebuilding:reinforced_smoker",
     "simplebuilding:reinforced_sticky_piston",
     "simplebuilding:resin_quartz_checker",
+    "simplebuilding:sage_ore",
     "simplebuilding:shulker_head",
     "simplebuilding:shulker_wall_head",
     "simplebuilding:silverfish_head",
@@ -296,6 +298,9 @@
     {
       "id": "simplebuilding:creative_spacer",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:deepslate_sage_ore"
     },
     {
       "durability": 1024,
@@ -1074,6 +1079,13 @@
       "enchantability": 15,
       "id": "simplebuilding:rotator",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:sage_orb",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:sage_ore"
     },
     {
       "id": "simplebuilding:shulker_head"

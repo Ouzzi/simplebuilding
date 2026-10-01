@@ -2687,7 +2687,11 @@ public final class DataIntegrityTests {
         trims.add(ModItems.GLOWING_TRIM_TEMPLATE);
         trims.add(ModItems.EMITTING_TRIM_TEMPLATE);
         trims.add(ModItems.PULSATING_TRIM_TEMPLATE);
-        List<List<Item>> expected = List.of(
+        List<List<Item>> expected = new ArrayList<>();
+        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
+            expected.add(List.of(ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM, ModItems.SAGE_ORB));
+        }
+        expected.addAll(List.of(
                 List.of(ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, gap, ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST,
                         gap, ModItems.ENDER_QUARTZ),
                 List.of(ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND),
@@ -2700,7 +2704,7 @@ public final class DataIntegrityTests {
                 List.of(ModItems.BASIC_UPGRADE_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE),
                 trims,
                 List.of(ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_CARROT, gap,
-                        ModItems.ENDERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
+                        ModItems.ENDERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT)));
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.MATERIALS, problems), expectedSlots(expected), "SimpleMaterials", problems);
         helper.assertTrue(problems.isEmpty(), "materials layout: " + problems);
         helper.succeed();

@@ -44,6 +44,13 @@ public class ModWorldGen {
     public static final ResourceKey<PlacedFeature> ASTRALIT_ORE_PLACED_KEY = registerPlacedKey("astralit_ore_placed");
     public static final ResourceKey<PlacedFeature> NIHILITH_ORE_PLACED_KEY = registerPlacedKey("nihilith_ore_placed");
 
+    /** Sage Ore keys (26.3 main line, McVersion.SAGE_ORE); this line registers nothing until the port. */
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SAGE_ORE_KEY = registerConfiguredKey("sage_ore");
+    public static final ResourceKey<PlacedFeature> SAGE_ORE_PLACED_KEY = registerPlacedKey("sage_ore_placed");
+    public static final int SAGE_ORE_SIZE = 4;
+    public static final float SAGE_ORE_AIR_DISCARD = 0.5F;
+    public static final int SAGE_ORE_COUNT = 7;
+
     public static void bootstrapConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest endStoneReplaceables = new BlockMatchTest(Blocks.END_STONE);
 

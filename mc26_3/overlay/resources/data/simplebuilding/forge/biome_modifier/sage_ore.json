@@ -1,0 +1,10 @@
+{
+  "forge:condition": {
+    "type": "simplebuilding:config",
+    "flag": "sageOre"
+  },
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "simplebuilding:sage_ore_placed",
+  "step": "underground_ores"
+}

@@ -282,6 +282,14 @@ public class ModBlocks {
 
     public static final Block ENDERITE_BLOCK = registerBlock("enderite_block", unused -> new Block(BlockBehaviour.Properties.of().setId(keyOf("enderite_block")).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(50.0f, 1200.0f).sound(SoundType.NETHERITE_BLOCK)));
     public static final Block NIHILITH_ORE = registerBlock("nihilith_ore", unused -> new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("nihilith_ore")).strength(25.0f, 1200.0f).requiresCorrectToolForDrops()));
+    /**
+     * Weisheitserz (Besitzer 2026-10-01): selten wie Diamant, droppt nur Erfahrung (3-7 wie Diamanterz) und
+     * selten eine Weisheitskugel (Beutetabelle). Abbau ab Eisen, wie Diamanterz.
+     */
+    public static final Block SAGE_ORE = McVersion.SAGE_ORE ? registerBlock("sage_ore", unused -> new DropExperienceBlock(UniformInt.of(3, 7),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_ORE).setId(keyOf("sage_ore")))) : null;
+    public static final Block DEEPSLATE_SAGE_ORE = McVersion.SAGE_ORE ? registerBlock("deepslate_sage_ore", unused -> new DropExperienceBlock(UniformInt.of(3, 7),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_DIAMOND_ORE).setId(keyOf("deepslate_sage_ore")))) : null;
     public static final Block ASTRALIT_ORE = registerBlock("astralit_ore", unused -> new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE).setId(keyOf("astralit_ore")).strength(20.0f, 1200.0f).lightLevel(state -> 5).requiresCorrectToolForDrops()));
 
     /**

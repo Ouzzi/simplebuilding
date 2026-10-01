@@ -202,6 +202,9 @@ public class ServerTuningConfig {
         public boolean astralitOre = true;
         @ConfigEntry.Gui.Tooltip
         public boolean nihilitOre = true;
+        /** Weisheitserz in der Oberwelt (Stein und Tiefenschiefer), unabhaengig von den End-Erzen. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean sageOre = true;
     }
 
     /** Wie lange Fremde (nicht der Besitzer, nicht Kreativ) zum Abbauen fremder Platten brauchen. */

@@ -39,6 +39,8 @@ import java.util.stream.Stream;
  */
 public final class McVersion {
     public static final boolean END_SYSTEMS = false;
+    /** Overworld wave 2026-10-01: Sage Ore and the Sage Orb (main line first, ported later). */
+    public static final boolean SAGE_ORE = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = false;
 

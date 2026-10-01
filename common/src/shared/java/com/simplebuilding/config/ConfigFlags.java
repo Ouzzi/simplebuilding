@@ -21,6 +21,7 @@ public final class ConfigFlags {
     public static final String ENABLE_WANDERING_TRADES = "enableWanderingTrades";
     public static final String ASTRALIT_ORE = "astralitOre";
     public static final String NIHILIT_ORE = "nihilitOre";
+    public static final String SAGE_ORE = "sageOre";
 
     private ConfigFlags() {
     }
@@ -40,6 +41,8 @@ public final class ConfigFlags {
                 return oreEnabled(config, true);
             case NIHILIT_ORE:
                 return oreEnabled(config, false);
+            case SAGE_ORE:
+                return sageOreEnabled(config);
             default:
                 ConfigOptions.Option option = ConfigOptions.byPath(flag);
                 if (option != null && option.type() == boolean.class && option.get(config) instanceof Boolean value) {
@@ -51,6 +54,10 @@ public final class ConfigFlags {
     }
 
     /** End-Erz an: Hauptschalter und der des Erzes. */
+    public static boolean sageOreEnabled(SimplebuildingConfig config) {
+        return config.server == null || config.server.oreGeneration == null || config.server.oreGeneration.sageOre;
+    }
+
     public static boolean oreEnabled(SimplebuildingConfig config, boolean astralit) {
         if (config.server == null || config.server.oreGeneration == null) {
             return true;
@@ -60,6 +67,11 @@ public final class ConfigFlags {
     }
 
     /** {@link #oreEnabled(SimplebuildingConfig, boolean)} mit der geladenen Config (Fabric-Biomwahl). */
+    public static boolean sageOreEnabled() {
+        SimplebuildingConfig config = Simplebuilding.getConfig();
+        return config == null || sageOreEnabled(config);
+    }
+
     public static boolean oreEnabled(boolean astralit) {
         SimplebuildingConfig config = Simplebuilding.getConfig();
         return config == null || oreEnabled(config, astralit);

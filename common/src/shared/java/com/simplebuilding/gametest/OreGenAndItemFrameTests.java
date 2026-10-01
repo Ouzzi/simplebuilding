@@ -227,6 +227,63 @@ public final class OreGenAndItemFrameTests {
      * NeoForge biome modifier files are dropped or renamed, if the generation step is moved, or if
      * a selector is narrowed to a hand written biome list or widened past the End.
      */
+    /**
+     * Weisheitserz (Besitzer 2026-10-01): Stein- und Tiefenschiefer-Erz, Spitzhacke ab Eisen, Platzierung
+     * im Oberwelt-Biom und nicht im End; Silk Touch liefert das Erz selbst, sonst nie das Erz.
+     */
+    public static void sageOreGeneratesInTheOverworldAndDropsOnlyWithSilkTouch(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SAGE_ORE) {
+            helper.succeed();
+            return;
+        }
+        for (net.minecraft.world.level.block.Block ore : List.of(ModBlocks.SAGE_ORE, ModBlocks.DEEPSLATE_SAGE_ORE)) {
+            var state = ore.defaultBlockState();
+            helper.assertTrue(state.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE), ore + " is not mineable with a pickaxe");
+            helper.assertTrue(state.is(net.minecraft.tags.BlockTags.NEEDS_IRON_TOOL), ore + " does not need an iron tool");
+            helper.assertTrue(state.requiresCorrectToolForDrops(), ore + " drops without the right tool");
+            helper.assertFalse(new ItemStack(Items.STONE_PICKAXE).isCorrectToolForDrops(state), "a stone pickaxe mines " + ore);
+            helper.assertTrue(new ItemStack(Items.IRON_PICKAXE).isCorrectToolForDrops(state), "an iron pickaxe cannot mine " + ore);
+        }
+        assertOreInBiome(helper, Biomes.PLAINS, ModWorldGen.SAGE_ORE_PLACED_KEY);
+        for (ResourceKey<Biome> endBiome : END_BIOMES) {
+            assertOreNotInBiome(helper, endBiome, ModWorldGen.SAGE_ORE_PLACED_KEY);
+        }
+        ServerLevel level = helper.getLevel();
+        BlockPos pos = helper.absolutePos(new BlockPos(1, 1, 1));
+        level.setBlockAndUpdate(pos, ModBlocks.SAGE_ORE.defaultBlockState());
+        ItemStack silk = new ItemStack(Items.DIAMOND_PICKAXE);
+        silk.enchant(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                .getOrThrow(net.minecraft.world.item.enchantment.Enchantments.SILK_TOUCH), 1);
+        List<ItemStack> withSilk = net.minecraft.world.level.block.Block.getDrops(level.getBlockState(pos), level, pos, null, null, silk);
+        helper.assertTrue(withSilk.size() == 1 && withSilk.getFirst().is(ModItems.SAGE_ORE_ITEM), "silk touch dropped " + withSilk);
+        for (int i = 0; i < 20; i++) {
+            for (ItemStack drop : net.minecraft.world.level.block.Block.getDrops(level.getBlockState(pos), level, pos, null, null,
+                    new ItemStack(Items.DIAMOND_PICKAXE))) {
+                helper.assertTrue(drop.is(ModItems.SAGE_ORB), "without silk touch the ore dropped " + drop);
+            }
+        }
+        helper.succeed();
+    }
+
+    /** Weisheitskugel: 10 Ticks Laden, dann 50 bis 100 Erfahrungspunkte, die Kugel ist verbraucht. */
+    public static void theSageOrbGivesFiftyToOneHundredExperienceAfterTenTicks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SAGE_ORE) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        ItemStack orbs = new ItemStack(ModItems.SAGE_ORB, 2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, orbs);
+        helper.assertValueEqual(orbs.getItem().getUseDuration(orbs, player), 10, "charge ticks of the sage orb");
+        int before = player.totalExperience;
+        orbs.getItem().finishUsingItem(orbs, helper.getLevel(), player);
+        int gained = player.totalExperience - before;
+        helper.assertTrue(gained >= 50 && gained <= 100, "the sage orb gave " + gained + " experience");
+        helper.assertValueEqual(orbs.getCount(), 1, "orbs left after one use");
+        helper.succeed();
+    }
+
     public static void bothEndOresReachTheEndBiomesAndStayOutOfTheOverworld(GameTestHelper helper) {
         for (ResourceKey<PlacedFeature> ore : List.of(
                 ModWorldGen.ASTRALIT_ORE_PLACED_KEY, ModWorldGen.NIHILITH_ORE_PLACED_KEY)) {

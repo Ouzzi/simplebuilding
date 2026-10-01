@@ -31,6 +31,11 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider arg) {
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_VAULT));
+        // Weisheitserz wie Diamanterz: Spitzhacke ab Eisen.
+        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));
+            builder(BlockTags.NEEDS_IRON_TOOL).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));
+        }
         // Aus Simple Tweaks: alle Platten mit der Spitzhacke (Abbautempo regelt sonst der Besitz).
         com.simplebuilding.tweaks.block.TweaksBlocks.all().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));
 

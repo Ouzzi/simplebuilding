@@ -264,7 +264,12 @@ public final class ModItemGroupsContent {
         trims.add(ModItems.GLOWING_TRIM_TEMPLATE);
         trims.add(ModItems.EMITTING_TRIM_TEMPLATE);
         trims.add(ModItems.PULSATING_TRIM_TEMPLATE);
-        return List.of(
+        List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>();
+        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
+            // Oberwelt-Erz der Welle 2026-10-01 vor den End-Erzen: Erz, Tiefenschiefer-Erz, seine Kugel.
+            rows.add(CreativeTabLayout.Row.of("overworld_ores", ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM, ModItems.SAGE_ORB));
+        }
+        rows.addAll(List.of(
                 CreativeTabLayout.Row.of("end_ores",
                         ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, CreativeTabLayout.GAP,
                         ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST, CreativeTabLayout.GAP,
@@ -287,7 +292,8 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("food",
                         ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_CARROT,
                         CreativeTabLayout.GAP,
-                        ModItems.ENDERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
+                        ModItems.ENDERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT)));
+        return List.copyOf(rows);
     }
 
     /** Vanillas Besatzvorlagen in der Reihenfolge des Vanilla-Tabs "Zutaten". */

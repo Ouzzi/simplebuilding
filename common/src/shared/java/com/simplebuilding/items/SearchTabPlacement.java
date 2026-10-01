@@ -112,6 +112,10 @@ public final class SearchTabPlacement {
 
         // --- Natur: End-Erze hinter dem Antiken Schutt, Schwebe-/Levitationsblöcke bei Kies und Sand.
         out.add(Placement.after(NATURAL_BLOCKS, Items.ANCIENT_DEBRIS, ModItems.NIHILITH_ORE_ITEM, ModItems.ASTRALIT_ORE_ITEM));
+        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
+            out.add(Placement.after(NATURAL_BLOCKS, Items.DEEPSLATE_DIAMOND_ORE, ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM));
+            out.add(Placement.after(INGREDIENTS, Items.EXPERIENCE_BOTTLE, ModItems.SAGE_ORB));
+        }
         out.add(Placement.after(NATURAL_BLOCKS, Items.GRAVEL, ModItems.SUSPENDED_GRAVEL, ModItems.LEVITATING_GRAVEL));
         out.add(Placement.after(NATURAL_BLOCKS, Items.SAND, ModItems.SUSPENDED_SAND, ModItems.LEVITATING_SAND));
 
