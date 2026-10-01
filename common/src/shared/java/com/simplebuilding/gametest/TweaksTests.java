@@ -2056,6 +2056,41 @@ public final class TweaksTests {
     }
 
     /**
+     * Messuhr-Autowalk mit Beruehrung des Konstrukteurs (Besitzer 2026-10-01): endet ein Trampelpfad oder eine
+     * Schiene geradeaus und geht genau auf einer Seite weiter, dreht der Autowalk dorthin; geradeaus weiter,
+     * beide Seiten oder kein Weg unter den Fuessen drehen nicht.
+     */
+    public static void theGaugeAutowalkFollowsPathsAndRailsAroundCorners(GameTestHelper helper) {
+        // Absolute world directions: the test structure may be rotated.
+        net.minecraft.core.Direction north = net.minecraft.core.Direction.NORTH;
+        net.minecraft.server.level.ServerLevel level = helper.getLevel();
+        net.minecraft.core.BlockPos abs = helper.absolutePos(new net.minecraft.core.BlockPos(2, 1, 2));
+        for (net.minecraft.world.level.block.Block way : List.of(Blocks.DIRT_PATH, Blocks.RAIL)) {
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    level.setBlockAndUpdate(abs.offset(dx, -1, dz), Blocks.STONE.defaultBlockState());
+                    level.setBlockAndUpdate(abs.offset(dx, 0, dz), Blocks.STONE.defaultBlockState());
+                }
+            }
+            level.setBlockAndUpdate(abs, way.defaultBlockState());
+            level.setBlockAndUpdate(abs.east(), way.defaultBlockState());
+            helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.followTurn(level, abs, north),
+                    net.minecraft.core.Direction.EAST, way + ": the way turning east is not followed");
+            level.setBlockAndUpdate(abs.west(), way.defaultBlockState());
+            helper.assertTrue(com.simplebuilding.items.custom.VelocityGaugeItem.followTurn(level, abs, north) == null,
+                    way + ": a fork turned the view");
+            level.setBlockAndUpdate(abs.west(), Blocks.STONE.defaultBlockState());
+            level.setBlockAndUpdate(abs.north(), way.defaultBlockState());
+            helper.assertTrue(com.simplebuilding.items.custom.VelocityGaugeItem.followTurn(level, abs, north) == null,
+                    way + ": a way that goes on straight ahead turned the view");
+            level.setBlockAndUpdate(abs, Blocks.STONE.defaultBlockState());
+            helper.assertTrue(com.simplebuilding.items.custom.VelocityGaugeItem.followTurn(level, abs, north) == null,
+                    way + ": no way underfoot turned the view");
+        }
+        helper.succeed();
+    }
+
+    /**
      * Messuhr (2026-09-29): der Hoehenmesser misst den Abstand der Fuesse zur Oberkante des ersten
      * festen Blocks darunter, hoechstens so tief wie seine Messweite - 24 Bloecke, je Stufe Reichweite
      * 16 mehr, nie ueber 64. Fluessigkeit ist kein Boden. Der vorhergesagte Fallschaden folgt Vanillas

@@ -43,6 +43,22 @@ public class VelocityGaugeItem extends Item {
         super(properties);
     }
 
+    /** Client-Hook fuer den Autowalk (Besitzer 2026-10-01), gesetzt von {@code GaugeAutowalk}; nie auf dem Server. */
+    public static java.util.function.Consumer<net.minecraft.world.entity.player.Player> clientAutowalkToggle = player -> { };
+
+    /** Rechtsklick in der Haupthand schaltet den Autowalk um ({@code client.GaugeAutowalk}). */
+    @Override
+    public net.minecraft.world.InteractionResult use(Level level, net.minecraft.world.entity.player.Player player,
+                                                     net.minecraft.world.InteractionHand hand) {
+        if (hand != net.minecraft.world.InteractionHand.MAIN_HAND) {
+            return net.minecraft.world.InteractionResult.PASS;
+        }
+        if (level.isClientSide()) {
+            clientAutowalkToggle.accept(player);
+        }
+        return net.minecraft.world.InteractionResult.SUCCESS;
+    }
+
     /** Messweite des Hoehenmessers fuer diese Messuhr: Grundwert plus Reichweite, gedeckelt. */
     public static int altimeterRange(ItemStack stack, Level level) {
         int rangeLevel = com.simplebuilding.util.EnchantmentHelper.getEnchantmentLevel(stack, level, ModEnchantments.RANGE);
@@ -100,5 +116,28 @@ public class VelocityGaugeItem extends Item {
         if (!stack.isEnchanted()) {
             lines.accept(Component.translatable("tooltip.simplebuilding.velocity_gauge.touch_hint").withStyle(ChatFormatting.DARK_GRAY));
         }
+    }
+
+    /**
+     * Die neue Blickrichtung, wenn der Weg unter {@code pos} geradeaus endet und genau links oder rechts
+     * weitergeht; sonst null. Weg = Trampelpfad oder Schiene (fuer Schienen die Hoehe der Lore).
+     */
+    public static net.minecraft.core.Direction followTurn(Level level, BlockPos pos, net.minecraft.core.Direction facing) {
+        if (!isWay(level.getBlockState(pos))) {
+            return null;
+        }
+        if (isWay(level.getBlockState(pos.relative(facing)))) {
+            return null;
+        }
+        boolean left = isWay(level.getBlockState(pos.relative(facing.getCounterClockWise())));
+        boolean right = isWay(level.getBlockState(pos.relative(facing.getClockWise())));
+        if (left == right) {
+            return null;
+        }
+        return left ? facing.getCounterClockWise() : facing.getClockWise();
+    }
+
+    private static boolean isWay(BlockState state) {
+        return state.is(net.minecraft.world.level.block.Blocks.DIRT_PATH) || state.is(net.minecraft.tags.BlockTags.RAILS);
     }
 }

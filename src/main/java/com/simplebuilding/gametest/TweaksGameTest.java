@@ -360,6 +360,11 @@ public final class TweaksGameTest {
     }
 
     @GameTest
+    public void theGaugeAutowalkFollowsPathsAndRailsAroundCorners(GameTestHelper helper) {
+        TweaksTests.theGaugeAutowalkFollowsPathsAndRailsAroundCorners(helper);
+    }
+
+    @GameTest
     public void theWorldSpawnCommandTakesEffectImmediately(GameTestHelper helper) {
         TweaksTests.theWorldSpawnCommandTakesEffectImmediately(helper);
     }

@@ -63,6 +63,8 @@ public final class ForgeClientGameEvents {
 
         // Prueft enableDoubleJump selbst.
         DoubleJumpController.tick(client);
+        com.simplebuilding.items.custom.VelocityGaugeItem.clientAutowalkToggle = com.simplebuilding.client.GaugeAutowalk::toggle;
+        com.simplebuilding.client.GaugeAutowalk.tick(client);
     }
 
     @SubscribeEvent

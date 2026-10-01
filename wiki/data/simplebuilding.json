@@ -15741,7 +15741,9 @@
           "details": [
             "Constructor's Touch adds peak and average speed.",
             "In the air it shows distance to ground and an estimated fall-damage value before armor. The base depth is 24 blocks; Range adds 16 per level, capped at 64.",
-            "The item id stays simplebuilding:velocity_gauge."
+            "The item id stays simplebuilding:velocity_gauge.",
+            "Right-click with the Gauge in the main hand toggles auto-walk (a click sound confirms). Switching the main-hand slot or item stops it; changing the off hand does not. An open screen releases the key.",
+            "With Constructor's Touch, auto-walk follows dirt paths and rails: where the way ends straight ahead and continues on exactly one side, the view turns that way."
           ]
         },
         "de": {
@@ -15749,12 +15751,15 @@
           "details": [
             "Berührung des Konstrukteurs ergänzt Spitzen- und Durchschnittstempo.",
             "In der Luft zeigt sie Bodenabstand und geschätzten Fallschaden vor Rüstung. Messtiefe 24 Blöcke, Reichweite ergänzt 16 je Stufe bis höchstens 64.",
-            "Die Item-ID bleibt simplebuilding:velocity_gauge."
+            "Die Item-ID bleibt simplebuilding:velocity_gauge.",
+            "Rechtsklick mit der Messuhr in der Haupthand schaltet das automatische Laufen um (ein Klickton bestätigt). Ein Wechsel von Haupthand-Slot oder -Item beendet es, ein Wechsel der Nebenhand nicht. Ein offener Bildschirm lässt die Taste los.",
+            "Mit Berührung des Konstrukteurs folgt das Laufen Trampelpfaden und Schienen: Endet der Weg geradeaus und geht genau auf einer Seite weiter, dreht sich der Blick dorthin."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/items/custom/VelocityGaugeItem.java",
           "common/src/shared/java/com/simplebuilding/client/gui/SpeedometerHudOverlay.java",
+          "common/src/shared/java/com/simplebuilding/client/GaugeAutowalk.java",
           "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
           "src/main/resources/assets/simplebuilding/lang/en_us.json"
         ]

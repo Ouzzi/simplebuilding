@@ -1709,6 +1709,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_gauge_altimeter_reads_the_ground_and_range_reaches_deeper", TweaksTests::theGaugeAltimeterReadsTheGroundAndRangeReachesDeeper)
                     .build(),
+            GameTestSpec.named("tweaks_game_test_the_gauge_autowalk_follows_paths_and_rails_around_corners", TweaksTests::theGaugeAutowalkFollowsPathsAndRailsAroundCorners)
+                    .build(),
             GameTestSpec.named("tweaks_game_test_the_world_spawn_command_takes_effect_immediately", TweaksTests::theWorldSpawnCommandTakesEffectImmediately)
                     .build(),
             GameTestSpec.named("tweaks_game_test_kill_boats_all_drops_the_contents_of_chest_boats", TweaksTests::killBoatsAllDropsTheContentsOfChestBoats)

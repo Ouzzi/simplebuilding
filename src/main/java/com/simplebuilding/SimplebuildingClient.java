@@ -294,5 +294,7 @@ public class SimplebuildingClient implements ClientModInitializer {
     private void registerDoubleJumpClient() {
         // Shared air-jump + level-dependent cooldown logic (see DoubleJumpController).
         ClientTickEvents.END_CLIENT_TICK.register(DoubleJumpController::tick);
+        com.simplebuilding.items.custom.VelocityGaugeItem.clientAutowalkToggle = com.simplebuilding.client.GaugeAutowalk::toggle;
+        ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.client.GaugeAutowalk::tick);
     }
 }
