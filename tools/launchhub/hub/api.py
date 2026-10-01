@@ -232,14 +232,17 @@ class Hub(ModsMixin):
                 world = targets.world_path(entry, ws, data)
             except ValueError as error:
                 raise HubError(400, str(error)) from error
-            will_exist = world.exists() and world_mode == "rebuild"
             steps.append({"label": f"prepare world {data['worldName']} ({world_mode})",
                           "call": lambda log: self._prepare_world(world, world_mode, log, data["worldName"])})
-            if will_exist and s["quickPlay"]:
+            # A missing or moved-away world is created by the mod itself on quick play (dev client,
+            # QuickPlayTestWorldMixin): flat, creative, cheats on; the test centre builds on first join.
+            if s["quickPlay"]:
                 program_args = f"--quickPlaySingleplayer {data['worldName']}"
-            elif not world.exists() or world_mode == "recreate":
-                warnings.append(f"World '{data['worldName']}' will not exist: create it once (flat, creative, cheats on); "
-                                "the test centre then builds itself on first join.")
+            else:
+                warnings.append("Quick play is off: open the world yourself; a missing test world is only created by quick play.")
+        if kind != "server":
+            options = paths.safe_join(ws, *run_dir_rel.split("/"), "options.txt")
+            steps.append({"label": "skip the accessibility onboarding", "call": lambda log: self._skip_onboarding(options, log)})
         argv = targets.launch_command(entry, "server" if kind == "server" else "client", ws, data, program_args)
         if entry['id'] in ('fabric-263', 'neoforge-263', 'forge-263'):
             steps.append(self.selection_step(ws))
@@ -254,10 +257,23 @@ class Hub(ModsMixin):
         return {"job": job.to_dict(), "warnings": self._dry_note(warnings)}
 
     @staticmethod
+    def _skip_onboarding(options: Path, log) -> bool:
+        """The first-start accessibility screen waits for a click and holds quick play back (owner 2026-10-01:
+        the test world never opened by itself). Only this one option line is touched."""
+        lines = options.read_text(encoding="utf-8").splitlines() if options.is_file() else []
+        if "onboardAccessibility:false" in lines:
+            return True
+        lines = [l for l in lines if not l.startswith("onboardAccessibility:")] + ["onboardAccessibility:false"]
+        options.parent.mkdir(parents=True, exist_ok=True)
+        options.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        log("[hub] options.txt: onboardAccessibility:false (the first-start screen would hold quick play back)")
+        return True
+
+    @staticmethod
     def _prepare_world(world: Path, mode: str, log, world_name: str) -> bool:
         stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
         if not world.exists():
-            log(f"[hub] world '{world_name}' does not exist yet - create it in the client: flat, creative, cheats on")
+            log(f"[hub] world '{world_name}' does not exist yet - the client creates it on start (flat, creative, cheats on)")
             return True
         marker = paths.safe_join(world, "simplebuilding_testcentre.txt")
         if mode == "rebuild":
@@ -271,7 +287,7 @@ class Hub(ModsMixin):
         parking.mkdir(exist_ok=True)
         target = parking / f"{world_name}-{stamp}"
         world.rename(target)
-        log(f"[hub] moved the old world to {target} (delete it yourself when you no longer need it)")
+        log(f"[hub] moved the old world to {target} (delete it yourself when you no longer need it); the client creates a new one")
         return True
 
     # ------------------------------------------------------------------ tests

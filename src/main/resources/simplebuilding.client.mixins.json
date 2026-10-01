@@ -28,6 +28,7 @@
     "MouseMixin",
     "MultilineTextFieldAccessor",
     "PistonHeadRendererMixin",
+    "QuickPlayTestWorldMixin",
     "SmithingScreenMixin"
   ]
 }

@@ -70,9 +70,48 @@ def load_registry(path: Path = REGISTRY) -> list[dict]:
     return centrals
 
 
+def java_major(home: str | None) -> int:
+    """Hauptversion des JDK unter {@code home} laut seiner Datei {@code release}; 0, wenn unbekannt."""
+    try:
+        for line in (Path(home) / "release").read_text(encoding="utf-8", errors="replace").splitlines():
+            if line.startswith("JAVA_VERSION="):
+                v = line.split("=", 1)[1].strip().strip('"')
+                return int(v.split(".")[0]) if not v.startswith("1.") else int(v.split(".")[1])
+    except (OSError, ValueError, TypeError):
+        pass
+    return 0
+
+
+def find_jdk(major: int, current: str | None) -> str | None:
+    """Ein JDK der gewuenschten Hauptversion: das aktuelle JAVA_HOME, sonst die ueblichen Installationsorte."""
+    if current and java_major(current) == major:
+        return current
+    roots = [Path(os.environ.get("ProgramFiles", "C:/Program Files")) / "Eclipse Adoptium", Path.home() / ".jdks",
+             Path(os.environ.get("ProgramFiles", "C:/Program Files")) / "Java", Path("/usr/lib/jvm")]
+    for root in roots:
+        if root.is_dir():
+            for jdk in sorted(root.iterdir(), reverse=True):
+                if jdk.is_dir() and java_major(str(jdk)) == major:
+                    return str(jdk)
+    return None
+
+
+def toolchain_env(env: dict) -> dict:
+    """Was Hub-Starts (Gradle, Testlaeufe) brauchen: Java 25 als JAVA_HOME, das Python dieser Zentrale im PATH."""
+    jdk = find_jdk(25, env.get("JAVA_HOME"))
+    path = [str(Path(sys.executable).parent), str(Path(sys.executable).parent / "Scripts")]
+    if jdk:
+        env["JAVA_HOME"] = jdk
+        path.insert(0, str(Path(jdk) / "bin"))
+    env["PATH"] = os.pathsep.join(path + [env.get("PATH", "")])
+    env.setdefault("PYTHONUTF8", "1")
+    return env
+
+
 def production_env(extra: dict | None = None, base: dict | None = None) -> dict:
-    """Die Umgebung des Kindprozesses: ohne jede DRY_RUN-Variable, plus die Werte des Eintrags."""
+    """Die Umgebung des Kindprozesses: ohne jede DRY_RUN-Variable, mit Werkzeugkette, plus die Werte des Eintrags."""
     env = {k: v for k, v in (os.environ if base is None else base).items() if "DRY_RUN" not in k.upper()}
+    toolchain_env(env)
     env.update(extra or {})
     env["PYTHONUNBUFFERED"] = "1"
     return env

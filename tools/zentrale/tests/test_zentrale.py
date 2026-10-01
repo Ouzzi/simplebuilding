@@ -53,8 +53,24 @@ class RegistryTests(unittest.TestCase):
         env = zentrale.production_env({"X": "1"}, base={"SB_HUB_DRY_RUN": "1", "SB_VOICE_DRY_RUN": "1",
                                                         "my_dry_run": "y", "PATH": "p"})
         self.assertEqual({k for k in env if "DRY_RUN" in k.upper()}, set())
-        self.assertEqual(env["PATH"], "p")
+        self.assertTrue(env["PATH"].endswith(os.pathsep + "p"), "the inherited PATH is kept at the end")
         self.assertEqual(env["X"], "1")
+
+
+class ToolchainTests(unittest.TestCase):
+    def test_children_get_this_python_on_the_path(self):
+        env = zentrale.production_env(base={"PATH": "C:/nothing"})
+        self.assertTrue(env["PATH"].split(os.pathsep)[0].lower().endswith("bin") or
+                        str(Path(sys.executable).parent) in env["PATH"])
+        self.assertIn(str(Path(sys.executable).parent), env["PATH"])
+
+    def test_java_major_reads_the_release_file(self):
+        d = Path(tempfile.mkdtemp())
+        (d / "release").write_text('JAVA_VERSION="25.0.4"', encoding="utf-8")
+        self.assertEqual(zentrale.java_major(str(d)), 25)
+        (d / "release").write_text('JAVA_VERSION="1.8.0_504"', encoding="utf-8")
+        self.assertEqual(zentrale.java_major(str(d)), 8)
+        self.assertEqual(zentrale.java_major(None), 0)
 
 
 class HubProductionTests(unittest.TestCase):
