@@ -60,6 +60,41 @@ const server = http.createServer((req, res) => {
     await visit('?mod=simplebuilding&tab=allrecipes');
     assert.equal(await page.locator('#ar-q').inputValue(), 'hammer');
     assert.equal(await page.locator('#ar-merge').isChecked(), false);
+    // Items page: items and blocks on one page, kind filter, grid view and recipes remembered.
+    await visit('?mod=simplebuilding&tab=items');
+    await filter.fill('');
+    const all = await visible.count();
+    await page.locator('[data-iv=kind][data-v=blocks]').click();
+    const blocksOnly = await visible.count();
+    assert.ok(blocksOnly > 0 && blocksOnly < all, `${blocksOnly} of ${all}`);
+    assert.equal(await page.locator('.iv-rows > .row:not(.hidden)[data-k~=blocks]').count(), blocksOnly);
+    await page.locator('[data-iv=kind][data-v=all]').click();
+    await page.locator('[data-iv=view][data-v=grid]').click();
+    await page.locator('#iv-rc').check();
+    await page.reload(); await page.locator('.iv-rows').waitFor();
+    assert.equal(await page.locator('.iv-rows.as-grid.with-rc').count(), 1);
+    assert.ok(await page.locator('.iv-rows .row-recipes .recipe-body').count() > 0);
+    assert.equal(await page.locator('.iv-rows a a').count(), 0);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator('#iv-rc').uncheck();
+    const cols = await page.locator('.iv-rows').evaluate(el => getComputedStyle(el).gridTemplateColumns.split(' ').length);
+    assert.ok(cols >= 3, `grid columns at phone width: ${cols}`);
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= 390));
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.locator('[data-iv=view][data-v=list]').click();
+    await visit('?mod=simplebuilding&tab=blocks');
+    assert.equal(await page.locator('.iv-rows').getAttribute('data-kind-filter'), 'blocks');
+    // All recipes grouped by station: collapsible, expand/collapse all.
+    await visit('?mod=simplebuilding&tab=allrecipes');
+    await page.locator('#ar-groupst').check();
+    const secs = page.locator('details.ar-sec');
+    assert.ok(await secs.count() > 0);
+    await page.getByRole('button', { name: 'Collapse all' }).click();
+    assert.equal(await page.locator('details.ar-sec[open]').count(), 0);
+    await page.getByRole('button', { name: 'Expand all' }).click();
+    assert.equal(await page.locator('details.ar-sec[open]').count(), await secs.count());
+    assert.ok(await page.locator('details.ar-sec .rc').count() > 0);
+    await page.locator('#ar-groupst').uncheck();
     await visit('?mod=simplebuilding&tab=config');
     const wrap = page.locator('.table-wrap').first();
     assert.equal(await wrap.getAttribute('tabindex'), '0');
@@ -78,7 +113,7 @@ const server = http.createServer((req, res) => {
     await filter.fill('hammer'); await visible.first().click(); await page.goBack();
     assert.equal(await filter.inputValue(), 'hammer');
     assert.deepEqual(errors, []);
-    console.log('PASS: list navigation/reload, module isolation, reset, recipe query, sticky headers, mobile and unavailable storage');
+    console.log('PASS: list navigation/reload, module isolation, reset, recipe query, items+blocks views, grouped recipes, sticky headers, mobile and unavailable storage');
   } finally {
     if (browser) await browser.close();
     server.close();

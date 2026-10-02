@@ -547,6 +547,18 @@ def item_definition(roots: dict, item_id: str) -> dict | None:
     return None
 
 
+def item_shows_block_model(roots: dict, item_id: str) -> bool:
+    """
+    The item definition shows only block models (a full block, stairs, a slab ...): its slot
+    must show the 3D render, never the flat side texture. Decidable without the renderer, so
+    a run without Pillow/numpy/jar (CI) still notices a block whose committed render is missing.
+    """
+    definition = item_definition(roots, item_id)
+    parts = model_render.item_parts((definition or {}).get("model"))
+    return bool(parts) and all(kind == "model" and isinstance(ref, str) and ref.split(":")[-1].startswith("block/")
+                               for kind, ref, _ in parts)
+
+
 def item_shows_nothing(roots: dict, item_id: str) -> bool:
     """An item whose definition is minecraft:empty (the creative spacer) has no icon by design."""
     definition = item_definition(roots, item_id)
@@ -576,6 +588,8 @@ class Icons:
             self.renderer = model_render.IconRenderer(
                 {NS: [REPO / roots["generated_assets"], REPO / roots["resource_assets"]]}, jar)
         self.cache: dict[str, str | None] = {}
+        # Items with a block-model definition but no render (neither drawn now nor committed).
+        self.unrendered: set[str] = set()
 
     @property
     def active(self) -> bool:
@@ -612,6 +626,8 @@ class Icons:
             if image is not None:
                 self._save(image, relpath)
         self.cache[item_id] = self._result(relpath)
+        if self.cache[item_id] is None and item_shows_block_model(self.roots, item_id):
+            self.unrendered.add(item_id)
         return self.cache[item_id]
 
     def block(self, block_id: str) -> str | None:
@@ -2305,6 +2321,13 @@ def build(line: str, check: bool = False) -> tuple[dict, list[str]]:
     for entry in iconless:
         in_world_problems.append(f"{entry} has neither a texture nor a rendered icon "
                                  "(model, item definition or texture missing; run with Pillow + client jar)")
+    # Ein Block mit Blockmodell zeigt sonst nur seine flache Seitentextur (so fehlten die
+    # Dimensionsschrott-Bilder: der Block kam in einem Lauf ohne Renderer dazu, das JSON fiel
+    # still auf die Textur zurueck).
+    for item_id in sorted(icons.unrendered):
+        in_world_problems.append(f"{item_id} shows a block model but has no 3D render under "
+                                 f"wiki/{RENDER_DIR}/ - run wiki/generate.py where Pillow, numpy and the "
+                                 "client jar are available and commit the new render")
     if icons.renderer is not None:
         for problem in sorted(set(icons.renderer.problems)):
             in_world_problems.append(f"icon renderer: {problem}")
