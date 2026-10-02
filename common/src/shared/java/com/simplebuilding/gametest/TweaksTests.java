@@ -2066,6 +2066,28 @@ public final class TweaksTests {
     }
 
     /**
+     * Messuhr-Autowalk unter Bildschirmen (Besitzer 2026-10-02): ohne Bildschirm und unter nicht pausierenden
+     * (Inventar, Chat, Truhe) laeuft er weiter, ein Pausenmenue laesst los. Er endet erst, wenn der Haupthand-Slot
+     * wechselt oder dort keine Messuhr mehr liegt - ein neu gesendeter Stapel (Kopie, wie nach dem Oeffnen einer
+     * Truhe) beendet ihn nicht mehr. Bricht, wenn die Bildschirm-Regel oder der Messuhr-Vergleich zurueckfaellt.
+     */
+    public static void theGaugeAutowalkKeepsWalkingUnderNonPausingScreens(GameTestHelper helper) {
+        helper.assertTrue(com.simplebuilding.items.custom.VelocityGaugeItem.autowalkContinuesUnder(false, false), "no screen stops the autowalk");
+        helper.assertTrue(com.simplebuilding.items.custom.VelocityGaugeItem.autowalkContinuesUnder(true, false),
+                "an inventory or chat screen stops the autowalk");
+        helper.assertFalse(com.simplebuilding.items.custom.VelocityGaugeItem.autowalkContinuesUnder(true, true),
+                "the pause menu keeps the autowalk running");
+        ItemStack gauge = new ItemStack(ModItems.VELOCITY_GAUGE);
+        helper.assertTrue(com.simplebuilding.items.custom.VelocityGaugeItem.autowalkKeepsGauge(3, 3, gauge.copy()),
+                "a re-synced copy of the gauge stops the autowalk");
+        helper.assertFalse(com.simplebuilding.items.custom.VelocityGaugeItem.autowalkKeepsGauge(4, 3, gauge),
+                "switching the hotbar slot keeps the autowalk running");
+        helper.assertFalse(com.simplebuilding.items.custom.VelocityGaugeItem.autowalkKeepsGauge(3, 3, new ItemStack(Items.COMPASS)),
+                "another item in the main hand keeps the autowalk running");
+        helper.succeed();
+    }
+
+    /**
      * Messuhr-Autowalk mit Beruehrung des Konstrukteurs (Besitzer 2026-10-01): endet ein Trampelpfad oder eine
      * Schiene geradeaus und geht genau auf einer Seite weiter, dreht der Autowalk dorthin; geradeaus weiter,
      * beide Seiten oder kein Weg unter den Fuessen drehen nicht.

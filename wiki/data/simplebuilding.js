@@ -24633,7 +24633,28 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 7.222
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 2
+          },
+          {
+            "id": "minecraft:amethyst_shard",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astral_end_stone",
@@ -24666,7 +24687,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astral_purpur_block",
@@ -24699,7 +24733,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astral_redstone",
@@ -24725,7 +24772,20 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astral_vault",
@@ -24760,7 +24820,32 @@ window.WIKI_DATA = {
       },
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:obsidian",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 0.667
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_block",
@@ -24788,7 +24873,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_block_from_astral_end_stone_stonecutting",
@@ -24812,7 +24906,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_block_from_end_stone",
@@ -24845,7 +24952,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_slab",
@@ -24872,7 +24992,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 12
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_slab_from_astral_end_stone_stonecutting",
@@ -24896,7 +25025,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_slab_from_astralit_block_stonecutting",
@@ -24920,7 +25062,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_slab_from_astralit_bricks_stonecutting",
@@ -24944,7 +25095,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_slab_from_end_stone_brick_slab",
@@ -24977,7 +25137,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_slab_from_polished_astralit_stonecutting",
@@ -25001,7 +25174,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_stairs",
@@ -25030,7 +25212,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 24
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_stairs_from_astral_end_stone_stonecutting",
@@ -25054,7 +25245,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_stairs_from_astralit_block_stonecutting",
@@ -25078,7 +25282,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_stairs_from_astralit_bricks_stonecutting",
@@ -25102,7 +25315,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_stairs_from_end_stone_brick_stairs",
@@ -25135,7 +25357,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_stairs_from_polished_astralit_stonecutting",
@@ -25159,7 +25394,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_wall",
@@ -25187,7 +25431,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 24
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_wall_from_astral_end_stone_stonecutting",
@@ -25211,7 +25464,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_wall_from_astralit_block_stonecutting",
@@ -25235,7 +25501,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_wall_from_astralit_bricks_stonecutting",
@@ -25259,7 +25534,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_wall_from_end_stone_brick_wall",
@@ -25292,7 +25576,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_brick_wall_from_polished_astralit_stonecutting",
@@ -25316,7 +25613,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_bricks",
@@ -25344,7 +25650,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 16
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_bricks_from_astral_end_stone_stonecutting",
@@ -25368,7 +25683,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_bricks_from_astralit_block_stonecutting",
@@ -25392,7 +25720,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_bricks_from_end_stone_bricks",
@@ -25425,7 +25762,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_bricks_from_polished_astralit_stonecutting",
@@ -25449,7 +25799,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_lamp",
@@ -25475,7 +25834,24 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 4.5
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_pillar",
@@ -25503,7 +25879,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 8
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_pillar_from_astral_end_stone_stonecutting",
@@ -25527,7 +25912,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_pillar_from_astralit_block_stonecutting",
@@ -25551,7 +25949,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_pillar_from_polished_astralit_stonecutting",
@@ -25575,7 +25982,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_pillar_from_purpur_pillar",
@@ -25608,7 +26024,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_quartz_checker",
@@ -25640,7 +26069,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:astralit_switch",
@@ -25666,7 +26108,28 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:backpack",
@@ -25707,7 +26170,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 27
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:string",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:basic_upgrade_template",
@@ -25896,7 +26380,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 8
+          },
+          {
+            "id": "minecraft:blackstone",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:blue_dyed_storage",
@@ -26095,7 +26592,32 @@ window.WIKI_DATA = {
       "lines": [
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:glow_ink_sac",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 1
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:brown_dyed_storage",
@@ -26243,7 +26765,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_astralit_bricks_from_astral_end_stone_stonecutting",
@@ -26267,7 +26798,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_astralit_bricks_from_astralit_block_stonecutting",
@@ -26291,7 +26835,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_astralit_bricks_from_astralit_bricks_stonecutting",
@@ -26315,7 +26868,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_astralit_bricks_from_polished_astralit_stonecutting",
@@ -26339,7 +26901,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_ender_quartz_bricks",
@@ -26367,7 +26938,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_ender_quartz_bricks_from_chiseled_quartz_block",
@@ -26400,7 +26988,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 32.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_ender_quartz_bricks_from_ender_quartz_block_stonecutting",
@@ -26424,7 +27029,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_ender_quartz_bricks_from_ender_quartz_bricks_stonecutting",
@@ -26448,7 +27070,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_ender_quartz_bricks_from_polished_ender_quartz_stonecutting",
@@ -26472,7 +27111,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_nihilith_bricks",
@@ -26500,7 +27156,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_nihilith_bricks_from_nihil_end_stone_stonecutting",
@@ -26524,7 +27189,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_nihilith_bricks_from_nihilith_block_stonecutting",
@@ -26548,7 +27226,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_nihilith_bricks_from_nihilith_bricks_stonecutting",
@@ -26572,7 +27259,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chiseled_nihilith_bricks_from_polished_nihilith_stonecutting",
@@ -26596,7 +27292,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:chunk_loader_smithing",
@@ -26711,7 +27416,27 @@ window.WIKI_DATA = {
       "lines": [
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 22
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:zombie_head",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:trial_chamber_heads"
+        ]
+      }
     },
     {
       "id": "simplebuilding:cobblestone_from_stone_pebbles",
@@ -26738,7 +27463,16 @@ window.WIKI_DATA = {
       },
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:stone_pebble",
+            "count": 9
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:construction_light",
@@ -26775,7 +27509,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 4
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 4
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:copper_building_wand",
@@ -26808,7 +27563,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:copper_chisel",
@@ -26845,7 +27617,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 1.222
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:copper_core_plus",
@@ -26878,7 +27663,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:copper_pressure_plate",
@@ -26905,7 +27703,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 18
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:copper_sledgehammer",
@@ -26942,7 +27749,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 11
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:cracked_diamond",
@@ -26971,7 +27791,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 9
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:cracked_diamond_block",
@@ -27000,7 +27829,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 81
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:cracked_diamond_from_cracked_diamond_block",
@@ -27024,7 +27862,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplebuilding:cracked_diamond_block",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:cyan_dyed_storage",
@@ -27239,7 +28086,40 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:echo_shard",
+            "count": 12
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:amethyst_shard",
+            "count": 3
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sculk_sensor",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:diamond_building_wand",
@@ -27272,7 +28152,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:diamond_chisel",
@@ -27309,7 +28206,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:diamond_core_plus",
@@ -27342,7 +28256,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:diamond_from_blasting_cracked_diamond",
@@ -27369,7 +28296,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 9
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:diamond_from_diamond_rod",
@@ -27391,7 +28327,16 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_rod",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:diamond_pressure_plate",
@@ -27418,7 +28363,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:diamond_rod",
@@ -27445,7 +28399,16 @@ window.WIKI_DATA = {
       },
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 3
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:diamond_sledgehammer",
@@ -27482,7 +28445,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 11
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:echo_sounder",
@@ -27541,7 +28517,48 @@ window.WIKI_DATA = {
       "lines": [
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:echo_shard",
+            "count": 8
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1.778
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:elytra_pad_crafting",
@@ -27571,7 +28588,24 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 6
+          },
+          {
+            "id": "minecraft:elytra",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:emitting_armor_upgrade_dummy",
@@ -27635,7 +28669,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_block",
@@ -27663,7 +28714,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_block_from_end_stone",
@@ -27696,7 +28764,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 8
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_block_from_quartz_block",
@@ -27729,7 +28818,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 32.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_slab",
@@ -27756,7 +28862,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 6
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_slab_from_end_stone_brick_slab",
@@ -27789,7 +28912,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 4
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_slab_from_ender_quartz_block_stonecutting",
@@ -27813,7 +28957,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_slab_from_ender_quartz_bricks_stonecutting",
@@ -27837,7 +28998,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_slab_from_polished_ender_quartz_stonecutting",
@@ -27861,7 +29039,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_stairs",
@@ -27890,7 +29085,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 12
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_stairs_from_end_stone_brick_stairs",
@@ -27923,7 +29135,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 12
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_stairs_from_ender_quartz_block_stonecutting",
@@ -27947,7 +29180,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_stairs_from_ender_quartz_bricks_stonecutting",
@@ -27971,7 +29221,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_stairs_from_polished_ender_quartz_stonecutting",
@@ -27995,7 +29262,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_wall",
@@ -28023,7 +29307,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 12
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_wall_from_end_stone_brick_wall",
@@ -28056,7 +29357,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 8
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_block_stonecutting",
@@ -28080,7 +29402,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_bricks_stonecutting",
@@ -28104,7 +29443,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_brick_wall_from_polished_ender_quartz_stonecutting",
@@ -28128,7 +29484,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_bricks",
@@ -28156,7 +29529,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 8
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_bricks_from_end_stone_bricks",
@@ -28189,7 +29579,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 8
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_bricks_from_ender_quartz_block_stonecutting",
@@ -28213,7 +29624,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_bricks_from_polished_ender_quartz_stonecutting",
@@ -28237,7 +29665,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_bricks_from_quartz_bricks",
@@ -28270,7 +29715,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 32.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_checker",
@@ -28302,7 +29764,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 9
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_pillar",
@@ -28330,7 +29809,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_pillar_from_ender_quartz_block_stonecutting",
@@ -28354,7 +29850,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_pillar_from_polished_ender_quartz_stonecutting",
@@ -28378,7 +29891,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_pillar_from_purpur_pillar",
@@ -28411,7 +29941,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 8
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_pillar_from_quartz_pillar",
@@ -28444,7 +29995,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 32.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_slab",
@@ -28471,7 +30039,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 6
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_slab_from_ender_quartz_block_stonecutting",
@@ -28495,7 +30080,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_slab_from_quartz_slab",
@@ -28528,7 +30130,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 16.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_stairs",
@@ -28557,7 +30176,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 12
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_stairs_from_ender_quartz_block_stonecutting",
@@ -28581,7 +30217,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:ender_quartz_stairs_from_quartz_stairs",
@@ -28614,7 +30267,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 48.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_apple",
@@ -28647,7 +30317,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:apple",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 0.889
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_axe_smithing",
@@ -28679,7 +30362,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_backpack_smithing",
@@ -28711,7 +30423,48 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 54
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 4
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_block",
@@ -28740,7 +30493,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 9
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_boots_smithing",
@@ -28772,7 +30534,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_building_wand_smithing",
@@ -28804,7 +30591,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_bundle_smithing",
@@ -28836,7 +30656,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 10
+          },
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 6
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_carrot",
@@ -28869,7 +30722,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:carrot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 0.444
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_chestplate_smithing",
@@ -28901,7 +30767,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 8
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_chisel_smithing",
@@ -28933,7 +30824,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_chunk_loader_smithing",
@@ -28965,7 +30889,44 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 22
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 2
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:zombie_head",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_core_smithing",
@@ -28997,7 +30958,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_elytra_pad_smithing",
@@ -29029,7 +31019,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 12
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 2
+          },
+          {
+            "id": "minecraft:elytra",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_helmet_smithing",
@@ -29061,7 +31084,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 5
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_hoe_smithing",
@@ -29093,7 +31141,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_horse_armor_smithing",
@@ -29125,7 +31202,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond_horse_armor",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_ingot",
@@ -29149,7 +31251,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplebuilding:enderite_block",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_ingot_from_nugget",
@@ -29178,7 +31289,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_ingot_from_scrap",
@@ -29215,7 +31335,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 48
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 48
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 12
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_launchpad_smithing",
@@ -29247,7 +31392,44 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 2
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:zombie_head",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_leggings_smithing",
@@ -29279,7 +31461,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 7
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_nautilus_armor_smithing",
@@ -29311,7 +31518,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond_nautilus_armor",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_nugget_from_ingot",
@@ -29335,7 +31567,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_pickaxe_smithing",
@@ -29367,7 +31608,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_pressure_plate_smithing",
@@ -29399,7 +31669,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_quiver_smithing",
@@ -29431,7 +31726,44 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 6
+          },
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.111
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_rod_smithing",
@@ -29461,7 +31793,32 @@ window.WIKI_DATA = {
       },
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_scrap_from_blasting_layered_raw_enderite",
@@ -29488,7 +31845,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 12
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 3
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_shovel_smithing",
@@ -29520,7 +31894,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_sledgehammer_smithing",
@@ -29552,7 +31955,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 11
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_spawn_teleporter_smithing",
@@ -29584,7 +32016,44 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 2
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderman_head",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_spear_smithing",
@@ -29616,7 +32085,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_sword_smithing",
@@ -29648,7 +32146,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:enderite_upgrade_template",
@@ -29717,7 +32244,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 12
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 5
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 2
+          },
+          {
+            "id": "minecraft:elytra",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:flint_chip",
@@ -29739,7 +32299,16 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:flint",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:flint_from_flint_chips",
@@ -29765,7 +32334,16 @@ window.WIKI_DATA = {
       },
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:flint_chip",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:flypad_tier1_crafting",
@@ -29800,7 +32378,44 @@ window.WIKI_DATA = {
       "lines": [
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 6
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 2
+          },
+          {
+            "id": "minecraft:elytra",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:shulker_head",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:flypad_tier2_smithing",
@@ -29832,7 +32447,44 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:elytra",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:shulker_head",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:glowing_armor_upgrade_dummy",
@@ -29897,7 +32549,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:gold_chisel",
@@ -29934,7 +32603,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:gold_core_plus",
@@ -29967,7 +32653,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:gold_ingot_from_gold_rod",
@@ -29989,7 +32688,16 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simplebuilding:gold_rod",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:gold_rod",
@@ -30016,7 +32724,16 @@ window.WIKI_DATA = {
       },
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 3
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:gold_sledgehammer",
@@ -30053,7 +32770,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 11
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:gray_dyed_storage",
@@ -30321,7 +33051,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:guide_book_vanilla_start",
@@ -30348,7 +33095,24 @@ window.WIKI_DATA = {
       "lines": [
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:infused_potion_pad_smithing",
@@ -30380,7 +33144,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 12
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:blaze_head",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:iron_building_wand",
@@ -30413,7 +33210,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:iron_chisel",
@@ -30450,7 +33264,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:iron_core_plus",
@@ -30483,7 +33314,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:iron_ingot_from_iron_rod",
@@ -30505,7 +33349,16 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 3
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:iron_rod",
@@ -30532,7 +33385,16 @@ window.WIKI_DATA = {
       },
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 3
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:iron_sledgehammer",
@@ -30569,7 +33431,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 11
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:lapis_quartz_checker",
@@ -30601,7 +33476,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 18
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 8
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:launchpad_smithing",
@@ -30716,7 +33604,27 @@ window.WIKI_DATA = {
       "lines": [
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:zombie_head",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:trial_chamber_heads"
+        ]
+      }
     },
     {
       "id": "simplebuilding:layered_raw_enderite",
@@ -30745,7 +33653,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 12
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 3
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:leather_sheet",
@@ -30774,7 +33699,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 9
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:levitating_gravel",
@@ -30807,7 +33741,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:levitating_sand",
@@ -30840,7 +33787,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:light_blue_dyed_storage",
@@ -31416,7 +34376,28 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 10
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_apple",
@@ -31449,7 +34430,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:apple",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 0.889
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_backpack_smithing",
@@ -31481,7 +34475,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 54
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 4
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_building_wand_smithing",
@@ -31513,7 +34540,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_bundle_smithing",
@@ -31545,7 +34597,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 10
+          },
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 6
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_carrot",
@@ -31578,7 +34655,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:carrot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 0.444
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_chisel_smithing",
@@ -31610,7 +34700,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_chunk_loader_smithing",
@@ -31642,7 +34757,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 22
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 2
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:zombie_head",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_core_smithing",
@@ -31674,7 +34818,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_elytra_pad_smithing",
@@ -31706,7 +34871,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 10
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 3
+          },
+          {
+            "id": "minecraft:elytra",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_ingot",
@@ -31735,7 +34925,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_launchpad_smithing",
@@ -31767,7 +34966,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 2
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:zombie_head",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_nugget",
@@ -31791,7 +35019,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_pressure_plate_smithing",
@@ -31823,7 +35060,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_quiver_smithing",
@@ -31855,7 +35109,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 6
+          },
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.111
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_rod_smithing",
@@ -31885,7 +35168,24 @@ window.WIKI_DATA = {
       },
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:netherite_sledgehammer_smithing",
@@ -31917,7 +35217,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 11
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihil_end_stone",
@@ -31950,7 +35271,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihil_purpur_block",
@@ -31983,7 +35317,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihil_redstone",
@@ -32009,7 +35356,20 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_block",
@@ -32037,7 +35397,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_block_from_end_stone",
@@ -32070,7 +35439,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_block_from_nihil_end_stone_stonecutting",
@@ -32094,7 +35476,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_slab",
@@ -32121,7 +35516,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 12
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_slab_from_end_stone_brick_slab",
@@ -32154,7 +35558,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_slab_from_nihil_end_stone_stonecutting",
@@ -32178,7 +35595,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_slab_from_nihilith_block_stonecutting",
@@ -32202,7 +35632,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_slab_from_nihilith_bricks_stonecutting",
@@ -32226,7 +35665,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_slab_from_polished_nihilith_stonecutting",
@@ -32250,7 +35698,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_stairs",
@@ -32279,7 +35736,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 24
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_stairs_from_end_stone_brick_stairs",
@@ -32312,7 +35778,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_stairs_from_nihil_end_stone_stonecutting",
@@ -32336,7 +35815,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_stairs_from_nihilith_block_stonecutting",
@@ -32360,7 +35852,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_stairs_from_nihilith_bricks_stonecutting",
@@ -32384,7 +35885,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_stairs_from_polished_nihilith_stonecutting",
@@ -32408,7 +35918,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_wall",
@@ -32436,7 +35955,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 24
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_wall_from_end_stone_brick_wall",
@@ -32469,7 +35997,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_wall_from_nihil_end_stone_stonecutting",
@@ -32493,7 +36034,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_wall_from_nihilith_block_stonecutting",
@@ -32517,7 +36071,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_wall_from_nihilith_bricks_stonecutting",
@@ -32541,7 +36104,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_brick_wall_from_polished_nihilith_stonecutting",
@@ -32565,7 +36137,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_bricks",
@@ -32593,7 +36174,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 16
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_bricks_from_end_stone_bricks",
@@ -32626,7 +36216,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_bricks_from_nihil_end_stone_stonecutting",
@@ -32650,7 +36253,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_bricks_from_nihilith_block_stonecutting",
@@ -32674,7 +36290,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_bricks_from_polished_nihilith_stonecutting",
@@ -32698,7 +36323,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_lamp",
@@ -32724,7 +36358,24 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 4.5
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_pillar",
@@ -32752,7 +36403,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 8
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_pillar_from_nihil_end_stone_stonecutting",
@@ -32776,7 +36436,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_pillar_from_nihilith_block_stonecutting",
@@ -32800,7 +36473,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_pillar_from_polished_nihilith_stonecutting",
@@ -32824,7 +36506,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_pillar_from_purpur_pillar",
@@ -32857,7 +36548,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_quartz_checker",
@@ -32889,7 +36593,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:nihilith_switch",
@@ -32915,7 +36632,28 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant",
@@ -32982,7 +36720,36 @@ window.WIKI_DATA = {
       "lines": [
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_black_from_dye",
@@ -33010,7 +36777,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_blue_from_dye",
@@ -33038,7 +36838,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_brown_from_dye",
@@ -33066,7 +36899,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:cocoa_beans",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_cyan_from_dye",
@@ -33094,7 +36960,44 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_gray_from_dye",
@@ -33122,7 +37025,44 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.167
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_green_from_dye",
@@ -33150,7 +37090,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_light_blue_from_dye",
@@ -33178,7 +37151,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:blue_orchid",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_light_gray_from_dye",
@@ -33206,7 +37212,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:azure_bluet",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_lime_from_dye",
@@ -33234,7 +37273,44 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.167
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_magenta_from_dye",
@@ -33262,7 +37338,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:allium",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_orange_from_dye",
@@ -33290,7 +37399,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:open_eyeblossom",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_pink_from_dye",
@@ -33318,7 +37460,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:cactus_flower",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_purple_from_dye",
@@ -33346,7 +37521,44 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:beetroot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_red_from_dye",
@@ -33374,7 +37586,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:beetroot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_white_from_dye",
@@ -33402,7 +37647,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.333
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:octant_yellow_from_dye",
@@ -33430,7 +37708,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2.5
+          },
+          {
+            "id": "minecraft:dandelion",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:orange_dyed_storage",
@@ -33698,7 +38009,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 16
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting",
@@ -33722,7 +38042,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_from_astralit_block_stonecutting",
@@ -33746,7 +38079,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_slab",
@@ -33773,7 +38115,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 12
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_slab_from_astralit_block_stonecutting",
@@ -33797,7 +38148,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_slab_from_polished_astralit_stonecutting",
@@ -33821,7 +38181,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_slab_from_purpur_slab",
@@ -33854,7 +38223,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_stairs",
@@ -33883,7 +38265,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 24
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_stairs_from_astralit_block_stonecutting",
@@ -33907,7 +38298,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_stairs_from_polished_astralit_stonecutting",
@@ -33931,7 +38331,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_stairs_from_purpur_stairs",
@@ -33964,7 +38373,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_wall",
@@ -33992,7 +38414,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 24
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting",
@@ -34016,7 +38447,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_wall_from_polished_astralit_stonecutting",
@@ -34040,7 +38480,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_end_stone",
@@ -34068,7 +38517,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz",
@@ -34096,7 +38554,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 8
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_from_ender_quartz_block_stonecutting",
@@ -34120,7 +38595,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_from_purpur_block",
@@ -34153,7 +38645,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 8
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_from_smooth_quartz",
@@ -34186,7 +38699,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 32.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_slab",
@@ -34213,7 +38743,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 6
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_slab_from_ender_quartz_block_stonecutting",
@@ -34237,7 +38784,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_slab_from_polished_ender_quartz_stonecutting",
@@ -34261,7 +38825,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_slab_from_purpur_slab",
@@ -34294,7 +38875,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 4
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_slab_from_smooth_quartz_slab",
@@ -34327,7 +38929,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 16.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_stairs",
@@ -34356,7 +38975,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 12
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_stairs_from_ender_quartz_block_stonecutting",
@@ -34380,7 +39016,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_stairs_from_polished_ender_quartz_stonecutting",
@@ -34404,7 +39057,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_stairs_from_purpur_stairs",
@@ -34437,7 +39107,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 12
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_stairs_from_smooth_quartz_stairs",
@@ -34470,7 +39161,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 48.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_wall",
@@ -34498,7 +39206,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 12
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_wall_from_ender_quartz_block_stonecutting",
@@ -34522,7 +39247,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_wall_from_polished_ender_quartz_stonecutting",
@@ -34546,7 +39288,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith",
@@ -34574,7 +39333,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 16
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_from_nihil_purpur_block_stonecutting",
@@ -34598,7 +39366,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_from_nihilith_block_stonecutting",
@@ -34622,7 +39403,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_slab",
@@ -34649,7 +39439,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 12
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_slab_from_nihilith_block_stonecutting",
@@ -34673,7 +39472,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_slab_from_polished_nihilith_stonecutting",
@@ -34697,7 +39505,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_slab_from_purpur_slab",
@@ -34730,7 +39547,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_stairs",
@@ -34759,7 +39589,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 24
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_stairs_from_nihilith_block_stonecutting",
@@ -34783,7 +39622,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_stairs_from_polished_nihilith_stonecutting",
@@ -34807,7 +39655,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_stairs_from_purpur_stairs",
@@ -34840,7 +39697,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_wall",
@@ -34868,7 +39738,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 24
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting",
@@ -34892,7 +39771,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_wall_from_polished_nihilith_stonecutting",
@@ -34916,7 +39804,16 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:potion_pad_smithing",
@@ -35031,7 +39928,32 @@ window.WIKI_DATA = {
       "lines": [
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 6
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 2
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:blaze_head",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:pulsating_armor_upgrade_dummy",
@@ -35091,7 +40013,31 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 2
+          },
+          {
+            "id": "minecraft:echo_shard",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:sledgehammer_tools"
+        ]
+      }
     },
     {
       "id": "simplebuilding:purple_dyed_storage",
@@ -35243,7 +40189,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 8
+          },
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:quiver",
@@ -35284,7 +40243,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 3
+          },
+          {
+            "id": "minecraft:string",
+            "count": 3
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.111
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:raw_enderite_synthesis",
@@ -35334,7 +40310,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:red_dyed_storage",
@@ -35495,7 +40488,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 54
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 4
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_blast_furnace",
@@ -35528,7 +40546,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 54
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 24
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 15
+          },
+          {
+            "id": "minecraft:stone",
+            "count": 9
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_bundle",
@@ -35569,7 +40608,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 10
+          },
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 6
+          },
+          {
+            "id": "minecraft:string",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_chest",
@@ -35602,7 +40658,27 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 54
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 24
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 6
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:copper_chests"
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_elytra_pad_smithing",
@@ -35670,7 +40746,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 8
+          },
+          {
+            "id": "minecraft:elytra",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_furnace",
@@ -35703,7 +40800,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 54
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 24
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_hopper_from_crafting",
@@ -35740,7 +40850,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 5,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 27
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 10
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.111
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_piston",
@@ -35777,7 +40912,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 27
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 2
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_potion_pad_smithing",
@@ -35809,7 +40969,40 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 8
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 2
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:blaze_head",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_quiver",
@@ -35850,7 +41043,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:leather",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 6
+          },
+          {
+            "id": "minecraft:string",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.111
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_shulker_box_from_black_shulker_box",
@@ -36390,7 +41604,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 54
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 24
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 12
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_sticky_piston",
@@ -36422,7 +41653,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 13.5
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 4
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:slime_ball",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.75
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:resin_quartz_checker",
@@ -36454,7 +41714,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 8
+          },
+          {
+            "id": "minecraft:nether_wart",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherrack",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:rotator",
@@ -36538,7 +41815,24 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 16
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:spawn_teleporter_smithing",
@@ -36653,7 +41947,24 @@ window.WIKI_DATA = {
       "lines": [
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderman_head",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:spawn_teleporter_tier2_smithing",
@@ -36685,7 +41996,36 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 2
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderman_head",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:stellar_flypad_smithing",
@@ -36716,7 +42056,44 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 16
+          },
+          {
+            "id": "simplebuilding:enderite_upgrade_template",
+            "count": 9
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 6
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:elytra",
+            "count": 2
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:shulker_head",
+            "count": 2
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:stone_chisel",
@@ -36753,7 +42130,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:stone_pebble",
@@ -36775,7 +42169,16 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:stone_sledgehammer",
@@ -36812,7 +42215,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 2
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:suspended_gravel",
@@ -36845,7 +42265,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:gravel",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:suspended_sand",
@@ -36878,7 +42311,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:sand",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_copper_axe_to_iron_axe",
@@ -36911,7 +42357,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_copper_building_wand_to_iron_building_wand",
@@ -36944,7 +42411,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_copper_chisel_to_iron_chisel",
@@ -36977,7 +42469,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 1.222
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_copper_hoe_to_iron_hoe",
@@ -37010,7 +42523,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_copper_pickaxe_to_iron_pickaxe",
@@ -37043,7 +42577,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_copper_shovel_to_iron_shovel",
@@ -37076,7 +42631,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_copper_sledgehammer_to_iron_sledgehammer",
@@ -37109,7 +42685,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 22
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 11
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_copper_sword_to_iron_sword",
@@ -37142,7 +42739,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_gold_building_wand_to_diamond_building_wand",
@@ -37175,7 +42793,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_gold_chisel_to_diamond_chisel",
@@ -37208,7 +42851,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_gold_sledgehammer_to_diamond_sledgehammer",
@@ -37241,7 +42909,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 22
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 11
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_golden_axe_to_diamond_axe",
@@ -37274,7 +42963,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 6
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_golden_hoe_to_diamond_hoe",
@@ -37307,7 +43017,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_golden_pickaxe_to_diamond_pickaxe",
@@ -37340,7 +43071,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 6
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_golden_shovel_to_diamond_shovel",
@@ -37373,7 +43125,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_golden_sword_to_diamond_sword",
@@ -37406,7 +43179,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_iron_axe_to_golden_axe",
@@ -37439,7 +43233,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_iron_building_wand_to_gold_building_wand",
@@ -37472,7 +43287,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_iron_chisel_to_gold_chisel",
@@ -37505,7 +43345,32 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_iron_hoe_to_golden_hoe",
@@ -37538,7 +43403,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_iron_pickaxe_to_golden_pickaxe",
@@ -37571,7 +43457,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_iron_shovel_to_golden_shovel",
@@ -37604,7 +43511,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_iron_sledgehammer_to_gold_sledgehammer",
@@ -37637,7 +43565,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 22
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 11
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_iron_sword_to_golden_sword",
@@ -37670,7 +43619,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_stone_axe_to_iron_axe",
@@ -37703,7 +43673,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_stone_hoe_to_iron_hoe",
@@ -37736,7 +43727,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_stone_pickaxe_to_iron_pickaxe",
@@ -37769,7 +43781,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_stone_shovel_to_iron_shovel",
@@ -37802,7 +43835,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_stone_sword_to_iron_sword",
@@ -37835,7 +43889,28 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_wooden_axe_to_stone_axe",
@@ -37868,7 +43943,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_wooden_hoe_to_stone_hoe",
@@ -37901,7 +43993,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.75
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_wooden_pickaxe_to_stone_pickaxe",
@@ -37934,7 +44043,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_wooden_shovel_to_stone_shovel",
@@ -37967,7 +44093,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.5
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:upgrade_wooden_sword_to_stone_sword",
@@ -38000,7 +44143,24 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:basic_upgrade_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.625
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:velocity_gauge",
@@ -38166,7 +44326,32 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 4.444
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:amethyst_shard",
+            "count": 1
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:waxed_copper_pressure_plate_from_honeycomb",
@@ -38194,7 +44379,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 18
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:waxed_exposed_copper_pressure_plate_from_honeycomb",
@@ -38222,7 +44420,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:exposed_copper_pressure_plate",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb",
@@ -38250,7 +44461,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:oxidized_copper_pressure_plate",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb",
@@ -38278,7 +44502,20 @@ window.WIKI_DATA = {
         "1.21.11",
         "26.2",
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:weathered_copper_pressure_plate",
+            "count": 1
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:white_dyed_storage",

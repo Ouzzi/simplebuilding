@@ -57,7 +57,20 @@ public final class SearchTabPlacement {
      * Eine Einfuegung: {@code stacks} in dieser Reihenfolge direkt hinter {@code anchor} (oder, mit
      * {@code before}, direkt davor) im Vanilla-Tab {@code tab}.
      */
-    public record Placement(ResourceKey<CreativeModeTab> tab, Item anchor, boolean before, List<ItemStack> stacks) {
+    public record Placement(ResourceKey<CreativeModeTab> tab, Item anchor, boolean before, List<ItemStack> stacks, boolean secondary) {
+        public Placement(ResourceKey<CreativeModeTab> tab, Item anchor, boolean before, List<ItemStack> stacks) {
+            this(tab, anchor, before, stacks, false);
+        }
+
+        /**
+         * Dieselbe Einfuegung als bewusst zweites Vorkommen: Vanilla fuehrt manche Items in zwei Tabs (Aexte in
+         * Werkzeuge und Kampf, Druckplatten, Truhen, Oefen und Lampen in Bausteine/Gebrauchsbloecke und Redstone).
+         * Im Suchtab zaehlt das erste Vorkommen, eine Zweitplatzierung prueft der Test nur im Vanilla-Tab selbst.
+         */
+        Placement asSecondary() {
+            return new Placement(tab, anchor, before, stacks, true);
+        }
+
         static Placement after(ResourceKey<CreativeModeTab> tab, ItemLike anchor, ItemLike... items) {
             return new Placement(tab, anchor.asItem(), false, SearchTabPlacement.stacks(items));
         }
@@ -158,6 +171,22 @@ public final class SearchTabPlacement {
                 ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_HOPPER));
         out.add(Placement.after(REDSTONE_BLOCKS, Items.STICKY_PISTON,
                 ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON, ModItems.NETHERITE_PISTON, ModItems.ENDERITE_PISTON));
+        // Vanilla fuehrt Druckplatten, Truhen, Oefen und die Redstone-Lampe auch im Redstone-Tab: die Mod-Stufen
+        // stehen dort ebenfalls neben ihren Vorbildern (zweites Vorkommen, der Suchtab nimmt das erste).
+        out.add(Placement.after(REDSTONE_BLOCKS, Items.STONE_PRESSURE_PLATE,
+                TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE,
+                TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
+                TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
+                TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE).asSecondary());
+        out.add(Placement.before(REDSTONE_BLOCKS, Items.SCULK_SENSOR,
+                TweaksBlocks.DIAMOND_PRESSURE_PLATE, TweaksBlocks.NETHERITE_PRESSURE_PLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE).asSecondary());
+        out.add(Placement.after(REDSTONE_BLOCKS, Items.COPPER_CHEST.waxed().unaffected(),
+                ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST).asSecondary());
+        out.add(Placement.after(REDSTONE_BLOCKS, Items.FURNACE,
+                ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, ModItems.ENDERITE_FURNACE).asSecondary());
+        if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
+            out.add(Placement.after(REDSTONE_BLOCKS, Items.REDSTONE_LAMP, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP).asSecondary());
+        }
         out.add(Placement.after(REDSTONE_BLOCKS, Items.HEAVY_WEIGHTED_PRESSURE_PLATE,
                 TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER,
                 TweaksBlocks.LAUNCHPAD, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD,
@@ -167,19 +196,23 @@ public final class SearchTabPlacement {
                 TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD,
                 TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD));
 
-        // --- Werkzeuge: Enderit-Stufe hinter Netherit, dann Meissel, Vorschlaghaemmer, Baustaebe; Buendel,
-        // Koecher und Rucksaecke hinter dem Buendel; die Geraete hinter dem Bergungskompass; Handbuecher
-        // hinter dem Buch und Feder; die Spawn-Elytra hinter der Elytra.
-        List<ItemLike> tools = new ArrayList<>(List.of(ModItems.ENDERITE_SHOVEL, ModItems.ENDERITE_PICKAXE,
-                ModItems.ENDERITE_AXE, ModItems.ENDERITE_HOE,
-                ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
-                ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL,
-                ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
-                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
-                ModItems.ENDERITE_SLEDGEHAMMER,
-                ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
-                ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND));
-        out.add(Placement.after(TOOLS_AND_UTILITIES, Items.NETHERITE_HOE, tools.toArray(ItemLike[]::new)));
+        // --- Werkzeuge: je Stufe hinter Vanillas Hacke dieser Stufe Meissel, Vorschlaghammer und Baustab der
+        // Stufe (Besitzer 2026-10-02 "Werkzeuge nach den Vanilla-Werkzeugen der Stufe"); hinter Netherit die
+        // ganze Enderit-Stufe. Buendel, Koecher und Rucksaecke hinter dem Buendel; die Geraete hinter dem
+        // Bergungskompass; Handbuecher hinter dem Buch und Feder; die Spawn-Elytra hinter der Elytra.
+        out.add(Placement.after(TOOLS_AND_UTILITIES, Items.STONE_HOE, ModItems.STONE_CHISEL, ModItems.STONE_SLEDGEHAMMER));
+        out.add(Placement.after(TOOLS_AND_UTILITIES, Items.COPPER_HOE,
+                ModItems.COPPER_CHISEL, ModItems.COPPER_SLEDGEHAMMER, ModItems.COPPER_BUILDING_WAND));
+        out.add(Placement.after(TOOLS_AND_UTILITIES, Items.IRON_HOE,
+                ModItems.IRON_CHISEL, ModItems.IRON_SLEDGEHAMMER, ModItems.IRON_BUILDING_WAND));
+        out.add(Placement.after(TOOLS_AND_UTILITIES, Items.GOLDEN_HOE,
+                ModItems.GOLD_CHISEL, ModItems.GOLD_SLEDGEHAMMER, ModItems.GOLD_BUILDING_WAND));
+        out.add(Placement.after(TOOLS_AND_UTILITIES, Items.DIAMOND_HOE,
+                ModItems.DIAMOND_CHISEL, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.DIAMOND_BUILDING_WAND));
+        out.add(Placement.after(TOOLS_AND_UTILITIES, Items.NETHERITE_HOE,
+                ModItems.NETHERITE_CHISEL, ModItems.NETHERITE_SLEDGEHAMMER, ModItems.NETHERITE_BUILDING_WAND,
+                ModItems.ENDERITE_SHOVEL, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, ModItems.ENDERITE_HOE,
+                ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_SLEDGEHAMMER, ModItems.ENDERITE_BUILDING_WAND));
         out.add(Placement.after(TOOLS_AND_UTILITIES, Items.BUNDLE,
                 ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE,
                 ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER,
@@ -201,6 +234,8 @@ public final class SearchTabPlacement {
         // --- Kampf: Enderit-Schwert, -Speer, -Ruestung und -Reittierruestung hinter Netherit.
         out.add(Placement.after(COMBAT, Items.NETHERITE_SWORD, ModItems.ENDERITE_SWORD));
         out.add(Placement.after(COMBAT, Items.NETHERITE_SPEAR, ModItems.ENDERITE_SPEAR));
+        // Vanilla fuehrt die Aexte auch im Kampf-Tab: die Enderit-Axt hinter der Netherit-Axt (zweites Vorkommen).
+        out.add(Placement.after(COMBAT, Items.NETHERITE_AXE, ModItems.ENDERITE_AXE).asSecondary());
         out.add(Placement.after(COMBAT, Items.NETHERITE_BOOTS,
                 ModItems.ENDERITE_HELMET, ModItems.ENDERITE_CHESTPLATE, ModItems.ENDERITE_LEGGINGS, ModItems.ENDERITE_BOOTS));
         out.add(Placement.after(COMBAT, Items.NETHERITE_HORSE_ARMOR, ModItems.ENDERITE_HORSE_ARMOR));

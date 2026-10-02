@@ -45,6 +45,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import model_render  # noqa: E402  (neighbour module; draws the 3D icons when Pillow/numpy exist)
 import obtain_sources  # noqa: E402  (loot chests, fishing, vaults, mob drops)
+import base_materials  # noqa: E402  (raw materials of a recipe in total)
 
 REPO = Path(__file__).resolve().parent.parent
 WIKI = REPO / "wiki"
@@ -1773,6 +1774,26 @@ def vanilla_recipe_ids(roots: dict) -> set[str]:
     return found
 
 
+def vanilla_recipe_pool(line: str) -> tuple[list[dict], dict[str, list[str]]]:
+    """
+    The vanilla recipes and item tags of a line for the raw-material totals, read from the committed
+    wiki/data/vanilla-<line>.js (synced from the client jar before the build) - so a machine without
+    the jar computes the same totals. Empty when the file is missing.
+    """
+    path = WIKI / VANILLA_RECIPE_FILE.format(line=line)
+    if not path.exists():
+        return [], {}
+    return base_materials.parse_vanilla_payload(path.read_text(encoding="utf-8"))
+
+
+def annotate_base_materials(line: str, recipes: list[dict], tags: list[dict]) -> None:
+    """Adds baseMaterials (raw materials in total, wiki/base_materials.py) to every recipe that makes something."""
+    vanilla_recipes, vanilla_tags = vanilla_recipe_pool(line)
+    item_tags = dict(vanilla_tags)
+    item_tags.update(base_materials.mod_item_tags(tags))
+    base_materials.annotate(recipes, base_materials.Resolver(recipes, vanilla_recipes, item_tags))
+
+
 def sync_vanilla_recipes(check: bool) -> list[str]:
     """
     Writes (or, with check, compares) data/vanilla-<line>.js for every line.
@@ -2178,7 +2199,7 @@ def cross_line_presence(line: str, recipes: list[dict], in_world: dict, manual: 
 
 
 # category only picks the recipe book tab (1.21.11 writes "misc" where 26.2 writes none).
-RECIPE_IGNORED_KEYS = ("source", "lines", "variants", "storedCookingtime", "category")
+RECIPE_IGNORED_KEYS = ("source", "lines", "variants", "storedCookingtime", "category", "baseMaterials")
 
 # 26.2 leaves the default cooking time out of the file, 1.21.11 and 26.3 write it.
 COOKING_DEFAULT_TICKS = {"minecraft:smelting": 200, "minecraft:blasting": 100,
@@ -2371,6 +2392,8 @@ def build(line: str, check: bool = False) -> tuple[dict, list[str]]:
     # sagt, in welchen Linien es existiert, und was es nur in der anderen Linie gibt,
     # kommt als recipesOtherLines dazu - fuer den Linienfilter der Seite "All recipes".
     recipes_other_lines = cross_line_presence(line, recipes, in_world, manual, {e["id"] for e in items})
+    # Grundmaterialien insgesamt je Rezept (Besitzer 2026-10-02), erst nach dem Linienvergleich.
+    annotate_base_materials(line, recipes, tags)
 
     machines, machine_problems = collect_machine_speeds(roots, load_vanilla_constants(roots))
     in_world_problems = in_world_problems + machine_problems
@@ -2571,8 +2594,9 @@ def main() -> int:
         return module_result
 
     merge_overlay_lines()
-    data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed, in_world_problems = build(args.line, args.check)
+    # Vanilla-Rezepte zuerst: die Grundmaterial-Summen lesen die (frisch abgeglichene) Datei.
     vanilla_problems = sync_vanilla_recipes(check=args.check)
+    data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed, in_world_problems = build(args.line, args.check)
     duplicates = duplicate_feature_ids(WIKI / "manual.json")
     for problem in in_world_problems + vanilla_problems:
         print("PROBLEM:", problem)

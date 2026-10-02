@@ -35,6 +35,49 @@ def discover(repo):
     return entries
 
 
+def trade_values(repo, resources, ns):
+    """
+    What an item is worth in emeralds, read from the module's own villager trades: every trade that
+    takes exactly this item and gives emeralds (a set_count modifier on the emeralds widens the range).
+    {id: {"emeralds": {"min", "max"}, "trades": n, "sources": [...]}} - only for items such a trade
+    proves (owner 2026-10-02: the bill's value only when the code backs it).
+    """
+    found = {}
+    for resource in resources:
+        root = resource / 'data' / ns / 'villager_trade'
+        if not root.exists():
+            continue
+        for path in sorted(root.rglob('*.json')):
+            try:
+                trade = json.loads(path.read_text(encoding='utf-8'))
+            except (OSError, json.JSONDecodeError):
+                continue
+            wants, gives = trade.get('wants') or {}, trade.get('gives') or {}
+            if trade.get('additional_wants') or gives.get('id') != 'minecraft:emerald' or not str(wants.get('id', '')).startswith(ns + ':'):
+                continue
+            paid, count = wants.get('count', 1), gives.get('count', 1)
+            if not isinstance(paid, int) or paid < 1 or not isinstance(count, int):
+                continue
+            low = high = count
+            for modifier in trade.get('given_item_modifier') or []:
+                amount = modifier.get('count') if isinstance(modifier, dict) else None
+                if modifier.get('type') == 'minecraft:set_count' and isinstance(amount, dict) and amount.get('type') == 'minecraft:uniform':
+                    low, high = amount.get('min', low), amount.get('max', high)
+                elif modifier.get('type') == 'minecraft:set_count' and isinstance(amount, (int, float)):
+                    low = high = amount
+            entry = found.setdefault(wants['id'], {'emeralds': {'min': None, 'max': None}, 'trades': 0, 'sources': []})
+            per_low, per_high = low / paid, high / paid
+            entry['emeralds']['min'] = per_low if entry['emeralds']['min'] is None else min(entry['emeralds']['min'], per_low)
+            entry['emeralds']['max'] = per_high if entry['emeralds']['max'] is None else max(entry['emeralds']['max'], per_high)
+            entry['trades'] += 1
+            entry['sources'].append(path.relative_to(repo).as_posix())
+    for entry in found.values():
+        for key in ('min', 'max'):
+            value = entry['emeralds'][key]
+            entry['emeralds'][key] = int(value) if float(value).is_integer() else round(value, 2)
+    return found
+
+
 def extract(entry, g, check=False):
     """Return the UI schema and completeness problems; absent features are empty."""
     repo, mid, paths = g.REPO, entry['id'], entry['paths']
@@ -147,6 +190,23 @@ def extract(entry, g, check=False):
     for feature in manual.get('features', []):
         record(feature['id'], feature)
     problems += g.duplicate_feature_ids(manual_path)
+    # Recipes on the item pages (craftedBy/usedIn like the main mod) with their raw materials in total,
+    # resolved through the module's own and the vanilla 26.3 recipes (owner 2026-10-02).
+    g.annotate_base_materials('26.3', collections['recipes'], collections['tags'])
+    made, used = {}, {}
+    for recipe in collections['recipes']:
+        result = (recipe.get('result') or {}).get('id')
+        if result:
+            made.setdefault(result, []).append(recipe['id'])
+        for ingredient in recipe.get('ingredients', []):
+            used.setdefault(ingredient, []).append(recipe['id'])
+    values = trade_values(repo, [generated, *resources], ns)
+    for kind in ('items', 'blocks'):
+        for value in collections[kind]:
+            value['craftedBy'] = sorted(made.get(value['id'], []))
+            value['usedIn'] = sorted(used.get(value['id'], []))
+            if value['id'] in values:
+                value['value'] = values[value['id']]
     data = dict(schema=1, generatedFrom={'line': '26.3', 'generator': 'wiki/generate.py'},
                 mod=dict(id=mid, name=entry['displayName'], version=entry['version'], minecraftLines=['26.3'], loaders=entry['loaders']),
                 features=manual.get('features', []), **collections)

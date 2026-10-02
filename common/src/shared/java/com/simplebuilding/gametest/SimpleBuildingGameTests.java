@@ -160,6 +160,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_tools_tab_is_laid_out_in_rows_of_nine", DataIntegrityTests::toolsTabIsLaidOutInRowsOfNine)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_combat_tab_is_laid_out_in_rows_of_nine", DataIntegrityTests::combatTabIsLaidOutInRowsOfNine)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_food_tab_is_laid_out_in_one_row", DataIntegrityTests::foodTabIsLaidOutInOneRow)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_creative_spacer_cannot_be_taken_or_kept", DataIntegrityTests::creativeSpacerCannotBeTakenOrKept)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_dev_enchanted_tab_offers_every_exclusive_choice_at_max_level_on_top_tiers", DataIntegrityTests::devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers)
@@ -1759,6 +1763,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tweaks_game_test_the_rod_drains_four_charge_per_second_of_beaming", TweaksTests::theRodDrainsFourChargePerSecondOfBeaming)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_gauge_altimeter_reads_the_ground_and_range_reaches_deeper", TweaksTests::theGaugeAltimeterReadsTheGroundAndRangeReachesDeeper)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_gauge_autowalk_keeps_walking_under_non_pausing_screens", TweaksTests::theGaugeAutowalkKeepsWalkingUnderNonPausingScreens)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_gauge_autowalk_follows_paths_and_rails_around_corners", TweaksTests::theGaugeAutowalkFollowsPathsAndRailsAroundCorners)
                     .build(),

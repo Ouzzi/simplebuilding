@@ -15,5 +15,12 @@ import net.minecraft.core.registries.Registries;
    if(e.getRegistryKey().equals(Registries.ITEM))Riding.items();
    if(e.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB))Riding.tab();
   });
+  bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent event)->{
+   var anchorItem=Riding.vanillaTabAnchor(event.getTabKey());if(anchorItem==null)return;
+   var anchor=new net.minecraft.world.item.ItemStack(anchorItem);
+   if(!event.getParentEntries().contains(anchor))return;
+   for(var stack:Riding.vanillaTabStacks(event.getTabKey()))
+    if(!event.getParentEntries().contains(stack))event.insertBefore(anchor,stack,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+  });
  }
 }

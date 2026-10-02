@@ -44,7 +44,7 @@ public final class TestCentreLayout {
             "materials", "placeables", "arrows", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
             "mining", "enchants", "sinkdamper", "tweaks", "devices",
             // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
-            "tab_tools", "tab_building_blocks", "tab_materials", "tab_functional", "tab_pads", "tab_arrows",
+            "tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads", "tab_arrows",
             "gallery", "unsorted");
 
     /**

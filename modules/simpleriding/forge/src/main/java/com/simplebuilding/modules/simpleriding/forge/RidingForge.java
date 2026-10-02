@@ -14,5 +14,12 @@ public final class RidingForge {
    if(e.getRegistryKey().equals(Registries.ITEM))Riding.items();
    if(e.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB))Riding.tab();
   });
+  net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event->{
+   var anchorItem=Riding.vanillaTabAnchor(event.getTabKey());if(anchorItem==null)return;
+   var entries=event.getEntries();var anchor=new net.minecraft.world.item.ItemStack(anchorItem);
+   if(!entries.contains(anchor))return;
+   for(var stack:Riding.vanillaTabStacks(event.getTabKey()))
+    if(!entries.contains(stack))entries.putBefore(anchor,stack,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+  });
  }
 }

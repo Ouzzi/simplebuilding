@@ -290,6 +290,8 @@ a.slot:hover { text-decoration: none; background: color-mix(in srgb, var(--slot-
 .recipe-meta { font-size: .82rem; color: var(--muted); display: flex; flex-direction: column; gap: .15rem; }
 .recipe-foot { margin-top: .7rem; font-size: .82rem; color: var(--muted); }
 .recipe-foot .reflist { margin-top: .2rem; }
+.recipe-base { margin-top: .5rem; font-size: .82rem; color: var(--muted); }
+.recipe-base .reflist { margin-top: .2rem; }
 .line-variant { margin-top: .4rem; }
 
 /* Listen */
@@ -1070,6 +1072,12 @@ en: {
   treeFuel: 'plus fuel',
   treeTradeFor: 'for {0}× {1}',
   treeOpenPage: 'page',
+  baseMatTitle: 'Raw materials in total',
+  baseMatPer: 'for one craft ({0} made), every step down to ingots, logs and gathered materials',
+  baseMatTags: 'Groups counted with one example: {0}',
+  propValue: 'Value',
+  valueEmeralds: '{0} emeralds',
+  valueEmeraldsRange: '{0}–{1} emeralds',
   /* Alle Rezepte, JEI-Ansicht, Maschinen */
   navAllRecipes: 'All recipes',
   arTitle: 'All recipes',
@@ -1562,6 +1570,12 @@ de: {
   treeFuel: 'dazu Brennstoff',
   treeTradeFor: 'für {0}× {1}',
   treeOpenPage: 'Seite',
+  baseMatTitle: 'Grundmaterialien insgesamt',
+  baseMatPer: 'für einmal Herstellen ({0} Stück), alle Stufen bis zu Barren, Stämmen und gesammelten Rohstoffen',
+  baseMatTags: 'Gruppen mit einem Beispiel gerechnet: {0}',
+  propValue: 'Wert',
+  valueEmeralds: '{0} Smaragde',
+  valueEmeraldsRange: '{0}–{1} Smaragde',
   /* Alle Rezepte, JEI-Ansicht, Maschinen */
   navAllRecipes: 'Alle Rezepte',
   arTitle: 'Alle Rezepte',
@@ -2175,9 +2189,19 @@ function recipeCard(r, opts) {
   if (res) h += esc(T('footResult')) + ' ' + (res.count > 1 ? res.count + '× ' : '') + refLink(res.id) + '<br>';
   if (ic.length) h += esc(T('footIngredients')) + ' <span class="reflist">' + ic.map(function (e) { return '<span>' + (e.n > 1 ? e.n + '× ' : '') + e.ref.map(function (x) { return refLink(x, { hint: 'item' }); }).join(' <em class="muted">' + esc(T('orSep')) + '</em> ') + '</span>'; }).join('') + '</span>';
   h += '</div>';
+  h += baseMaterialsHtml(r);
   h += lineVariantsHtml(r);
   if (!opts.noSource) h += sourceLine(r.source);
   return h + '</article>';
+}
+/* Grundmaterialien insgesamt (wiki/base_materials.py): jede Stufe bis zu Barren, Staemmen und Gesammeltem, je Herstellen. */
+function baseMaterialsHtml(r) {
+  var b = r && r.baseMaterials;
+  if (!isObj(b) || !arr(b.materials).length) return '';
+  var h = '<div class="recipe-base"><strong>' + esc(T('baseMatTitle')) + '</strong> <span class="tiny">(' + esc(T('baseMatPer', b.yield || 1)) + ')</span>';
+  h += '<span class="reflist">' + arr(b.materials).map(function (m) { var n = Number(m.count); return '<span>' + (Math.round(n) === n ? '' : '≈') + esc(fmtNum(n)) + '× ' + refLink(m.id, { hint: 'item' }) + '</span>'; }).join('') + '</span>';
+  if (arr(b.tagExamples).length) h += '<div class="tiny">' + esc(T('baseMatTags', arr(b.tagExamples).join(', '))) + '</div>';
+  return h + '</div>';
 }
 function recipeRow(r) {
   var res = normStack(r.result);
@@ -2679,7 +2703,7 @@ function pageBlocks() { return pageItems('blocks'); }
    properties und die Kacheln entfallen. */
 function propertyStats(e) {
   var p = e && e.properties, out = [];
-  if (!isObj(p)) return out;
+  if (!isObj(p)) { if (!(e && e.value)) return out; p = {}; }
   function stat(labelKey, value, small) { out.push('<div class="stat"><div class="stat-v">' + value + (small ? '<small>' + esc(small) + '</small>' : '') + '</div><div class="stat-l">' + esc(T(labelKey)) + '</div></div>'); }
   if (p.durability != null) stat('propDurability', esc(fmtNum(p.durability)));
   if (p.attackDamage != null) stat('propAttackDamage', esc(fmtNum(p.attackDamage)));
@@ -2689,6 +2713,9 @@ function propertyStats(e) {
   if (p.bundleCapacityItems != null) stat('propBundleCapacity', esc(fmtNum(p.bundleCapacityItems)));
   if (p.enchantability != null) stat('propEnchantability', esc(fmtNum(p.enchantability)));
   if (p.maxStackSize != null) stat('propMaxStackSize', esc(fmtNum(p.maxStackSize)));
+  /* Wert in Smaragden, nur wenn ein Handel des Moduls ihn belegt (modules.py trade_values). */
+  var v = e.value && e.value.emeralds;
+  if (isObj(v) && v.min != null) stat('propValue', esc(v.min === v.max ? T('valueEmeralds', fmtNum(v.min)) : T('valueEmeraldsRange', fmtNum(v.min), fmtNum(v.max))));
   if (p.dedicatedSpatula === true) stat('propSpatula', esc(T('propYes')));
   return out;
 }

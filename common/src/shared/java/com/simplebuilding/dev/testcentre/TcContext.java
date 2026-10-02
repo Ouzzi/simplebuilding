@@ -43,9 +43,9 @@ public record TcContext(HolderLookup.Provider lookup) {
         return enchantmentLookup().get(key).map(ref -> (Holder<Enchantment>) ref);
     }
 
-    /** Zeile {@code name} aus SimpleTools, SimpleMachines oder SimplePads; leer, wenn es sie nicht gibt. */
+    /** Zeile {@code name} aus SimpleTools, SimpleCombat, SimpleMachines oder SimplePads; leer, wenn es sie nicht gibt. */
     public List<ItemStack> row(String name) {
-        for (CreativeTabLayout.Row row : ModItemGroupsContent.toolsRows(enchantmentLookup())) {
+        for (CreativeTabLayout.Row row : toolRows()) {
             if (row.name().equals(name)) {
                 return row.stacks();
             }
@@ -63,9 +63,11 @@ public record TcContext(HolderLookup.Provider lookup) {
         return List.of();
     }
 
-    /** Alle Zeilen des Tabs SimpleTools. */
+    /** Alle Zeilen der Tabs SimpleTools und SimpleCombat (bis 2026-10-02 ein Tab). */
     public List<CreativeTabLayout.Row> toolRows() {
-        return ModItemGroupsContent.toolsRows(enchantmentLookup());
+        List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>(ModItemGroupsContent.toolsRows(enchantmentLookup()));
+        rows.addAll(ModItemGroupsContent.combatRows());
+        return rows;
     }
 
     public List<Item> rowItems(String name) {

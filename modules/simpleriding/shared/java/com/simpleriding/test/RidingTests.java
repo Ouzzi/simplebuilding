@@ -20,7 +20,7 @@ import java.io.*;
 import java.util.*;
 public final class RidingTests {
  public static final Map<String,java.util.function.Consumer<GameTestHelper>> ALL=new LinkedHashMap<>();
- static { ALL.put("ground_flags",RidingTests::groundFlags); ALL.put("camel_dash_bounds",RidingTests::camelDashBounds); ALL.put("weighted_data_bounds",RidingTests::weightedDataBounds); ALL.put("steering_and_border",RidingTests::steeringAndBorder); ALL.put("all_mount_speed_caps",RidingTests::allMountSpeedCaps); ALL.put("nautilus_speed_and_armor",RidingTests::nautilusSpeedAndArmor); ALL.put("nautilus_dash",RidingTests::nautilusDash); ALL.put("attribute_caps",RidingTests::attributeCaps); ALL.put("feature_switches",RidingTests::featureSwitches); ALL.put("all_config_bounds",RidingTests::allConfigBounds); ALL.put("movement_packets",RidingTests::movementPackets); ALL.put("jump_packets",RidingTests::jumpPackets); ALL.put("movement_budget",RidingTests::movementBudget); ALL.put("launch",RidingTests::launch); ALL.put("armor_and_anvil",RidingTests::armorAndAnvil); ALL.put("horse_speed_and_cleanup",RidingTests::horseSpeedAndCleanup); ALL.put("pig_speed",RidingTests::pigSpeed); ALL.put("strider_speed",RidingTests::striderSpeed); ALL.put("camel_speed",RidingTests::camelSpeed); ALL.put("ghast_harness",RidingTests::ghastHarness); ALL.put("leaping_and_cleanup",RidingTests::leapingAndCleanup); ALL.put("armor_defense",RidingTests::armorDefense); ALL.put("trades",RidingTests::trades); ALL.put("loot_and_toggle",RidingTests::lootAndToggle); ALL.put("config_and_lang",RidingTests::configAndLang); ALL.put("cross_mod_storage_and_armor",RidingTests::crossModStorageAndArmor); ALL.putAll(HorseshoeTests.ALL); }
+ static { ALL.put("ground_flags",RidingTests::groundFlags); ALL.put("camel_dash_bounds",RidingTests::camelDashBounds); ALL.put("weighted_data_bounds",RidingTests::weightedDataBounds); ALL.put("steering_and_border",RidingTests::steeringAndBorder); ALL.put("all_mount_speed_caps",RidingTests::allMountSpeedCaps); ALL.put("nautilus_speed_and_armor",RidingTests::nautilusSpeedAndArmor); ALL.put("nautilus_dash",RidingTests::nautilusDash); ALL.put("attribute_caps",RidingTests::attributeCaps); ALL.put("feature_switches",RidingTests::featureSwitches); ALL.put("all_config_bounds",RidingTests::allConfigBounds); ALL.put("movement_packets",RidingTests::movementPackets); ALL.put("jump_packets",RidingTests::jumpPackets); ALL.put("movement_budget",RidingTests::movementBudget); ALL.put("launch",RidingTests::launch); ALL.put("armor_and_anvil",RidingTests::armorAndAnvil); ALL.put("horse_speed_and_cleanup",RidingTests::horseSpeedAndCleanup); ALL.put("pig_speed",RidingTests::pigSpeed); ALL.put("strider_speed",RidingTests::striderSpeed); ALL.put("camel_speed",RidingTests::camelSpeed); ALL.put("ghast_harness",RidingTests::ghastHarness); ALL.put("leaping_and_cleanup",RidingTests::leapingAndCleanup); ALL.put("armor_defense",RidingTests::armorDefense); ALL.put("trades",RidingTests::trades); ALL.put("loot_and_toggle",RidingTests::lootAndToggle); ALL.put("config_and_lang",RidingTests::configAndLang); ALL.put("cross_mod_storage_and_armor",RidingTests::crossModStorageAndArmor); ALL.put("vanilla_tab_placement",RidingTests::vanillaTabPlacement); ALL.putAll(HorseshoeTests.ALL); }
  private static Holder.Reference<Enchantment> ench(GameTestHelper h,ResourceKey<Enchantment> key){return h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);}
  private static ItemStack enchanted(GameTestHelper h,Item item,ResourceKey<Enchantment> key,int n){var s=new ItemStack(item);s.enchant(ench(h,key),n);return s;}
  private static net.minecraft.world.entity.player.Player rider(GameTestHelper h,LivingEntity e){var p=h.makeMockPlayer(net.minecraft.world.level.GameType.CREATIVE);if(e instanceof net.minecraft.world.entity.animal.equine.AbstractHorse horse)horse.setTamed(true);if(e instanceof net.minecraft.world.entity.TamableAnimal tame)tame.tame(p);if(e.getType()==EntityTypes.PIG)p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.CARROT_ON_A_STICK));if(e.getType()==EntityTypes.STRIDER)p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.WARPED_FUNGUS_ON_A_STICK));p.startRiding(e,true,false);return p;}
@@ -38,6 +38,24 @@ public final class RidingTests {
   var player=h.makeMockServerPlayerInLevel();h.runBeforeTestEnd(()->h.getLevel().getServer().getPlayerList().remove(player));
   player.getInventory().setItem(9,new ItemStack(Items.DIAMOND_NAUTILUS_ARMOR));player.inventoryMenu.broadcastChanges();
   h.assertTrue(player.getAdvancements().getOrStartProgress(advancement).isDone(),"Real nautilus armor inventory trigger grants hint");
+  h.succeed();
+ }
+ /**
+  * The horseshoes stand in vanilla's Combat tab right before the wolf armor (after every horse armor) and the
+  * template in Ingredients right before the bottle o' enchanting (owner 2026-10-02), so the search tab lists them
+  * there too. Breaks when a loader hook is gone or an anchor moves.
+  */
+ public static void vanillaTabPlacement(GameTestHelper h){
+  CreativeModeTabs.tryRebuildTabContents(h.getLevel().enabledFeatures(),true,h.getLevel().registryAccess());
+  for(var key:List.of(CreativeModeTabs.COMBAT,CreativeModeTabs.INGREDIENTS)){
+   var content=new ArrayList<>(BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(key).getDisplayItems());
+   var stacks=Riding.vanillaTabStacks(key);h.assertTrue(!stacks.isEmpty(),"Something to place in "+key);
+   int anchor=-1;for(int i=0;i<content.size();i++)if(content.get(i).is(Riding.vanillaTabAnchor(key))){anchor=i;break;}
+   h.assertTrue(anchor>=stacks.size(),"Anchor present in "+key);
+   for(int i=0;i<stacks.size();i++)h.assertTrue(content.get(anchor-stacks.size()+i).is(stacks.get(i).getItem()),key+": "+stacks.get(i)+" right before the anchor, found "+content.get(anchor-stacks.size()+i));
+  }
+  var search=CreativeModeTabs.searchTab().getDisplayItems();
+  for(var item:Horseshoes.ITEMS.values())h.assertTrue(search.stream().anyMatch(s->s.is(item)),"Search tab lists "+item);
   h.succeed();
  }
  public static void armorAndAnvil(GameTestHelper h){

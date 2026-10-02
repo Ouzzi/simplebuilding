@@ -37,7 +37,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
-    "dataHash": "13ecfbe58894"
+    "dataHash": "bac8a93adf8c"
   },
   {
     "id": "simplemoney",
@@ -66,7 +66,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "8fc89e019710"
+    "dataHash": "4435eb435b6c"
   },
   {
     "id": "simpleriding",
@@ -85,7 +85,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "092292c6fa0a"
+    "dataHash": "0709f77fb02c"
   },
   {
     "id": "simplemodels",
@@ -124,7 +124,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "f6c130f9e2cf"
+    "dataHash": "98fd106c3edf"
   },
   {
     "id": "simplevisuals",
@@ -202,7 +202,7 @@ window.WIKI_MODULES = [
       "simplebuilding"
     ],
     "optional": [],
-    "dataHash": "a7effdbd656e"
+    "dataHash": "947979185638"
   },
   {
     "id": "simpledimensions",
@@ -222,6 +222,6 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "b6e54488b34b"
+    "dataHash": "ab7cf583e62b"
   }
 ];

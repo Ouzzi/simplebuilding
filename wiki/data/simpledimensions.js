@@ -292,7 +292,9 @@ window.WIKI_MODULE_DATA["simpledimensions"] = {
         "de": {
           "summary": "Alte Block-, Blockentit?ts- und Item-ID bleiben ladbar. Kein Survivalrezept, Beutequelle oder Kreativtab-Eintrag."
         }
-      }
+      },
+      "craftedBy": [],
+      "usedIn": []
     },
     {
       "id": "simpledimension:sky_portal",
@@ -308,7 +310,9 @@ window.WIKI_MODULE_DATA["simpledimensions"] = {
         "de": {
           "summary": "Gez?ndete Portalfl?che, kein herstellbares Item und kein Survivaldrop. Farbe und Ziel werden in der Blockentit?t gespeichert."
         }
-      }
+      },
+      "craftedBy": [],
+      "usedIn": []
     }
   ],
   "trades": [],
