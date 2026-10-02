@@ -619,6 +619,7 @@ public final class ConfigOptionTests {
             "server.loot.betterChestPercent double=1.0",
             "server.loot.reinforcedShulkerPercent double=2.0",
             "server.loot.enderiteShulkerPercent double=0.5",
+            "server.loot.netheriteShulkerPercent double=1.0",
             "server.loot.endermitesPerRareShulker int=4",
             "server.blueprint.maxBlocksPerTick int=32768",
             "server.trimStrengths.projectileProtection double=1.0",

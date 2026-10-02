@@ -50,6 +50,8 @@ public final class ServerTuning {
     public static final double MAX_REINFORCED_SHULKER_PERCENT = 10.0;
     /** Enderit-Shulker: hoechstens 5 % (Standard 0,5 %). */
     public static final double MAX_ENDERITE_SHULKER_PERCENT = 5.0;
+    /** Netherit-Shulker: hoechstens 5 % (Standard 1 %). */
+    public static final double MAX_NETHERITE_SHULKER_PERCENT = 5.0;
     /** Endermiten je seltenem Shulker: hoechstens 8 (Standard 4). */
     public static final int MAX_ENDERMITES_PER_RARE_SHULKER = 8;
     public static final double MIN_PRICE_MULTIPLIER = 0.25;
@@ -277,6 +279,11 @@ public final class ServerTuning {
     /** Chance (0..0,05) je End-Stadt-Shulker, zum Enderit-Shulker zu werden; nur Server. */
     public static double enderiteShulkerChance() {
         return ServerTuningConfig.clamp(local().loot.enderiteShulkerPercent, 0.0, MAX_ENDERITE_SHULKER_PERCENT, 0.5) / 100.0;
+    }
+
+    /** Chance (0..0,05) je End-Stadt-Shulker, zum Netherit-Shulker zu werden; nur Server. */
+    public static double netheriteShulkerChance() {
+        return ServerTuningConfig.clamp(local().loot.netheriteShulkerPercent, 0.0, MAX_NETHERITE_SHULKER_PERCENT, 1.0) / 100.0;
     }
 
     /** Endermiten je seltenem Shulker (0..8); nur Server. */

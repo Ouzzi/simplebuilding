@@ -188,9 +188,12 @@ public final class RareStructureFindsTests {
 
     /** Wurf, Leben, Speichern der Stufe und 0-2 Schalen beim Tod (ueber den echten Todespfad). */
     public static void rareShulkersHaveTieredHealthAndDropTheirShells(GameTestHelper helper) {
-        helper.assertValueEqual(RareShulkers.tierFor(0.004, 0.005, 0.02), ChestTier.ENDERITE, "roll below enderite");
-        helper.assertValueEqual(RareShulkers.tierFor(0.006, 0.005, 0.02), ChestTier.REINFORCED, "roll in the reinforced band");
-        helper.assertTrue(RareShulkers.tierFor(0.026, 0.005, 0.02) == null, "roll above both bands");
+        // Bands from 0: enderite 0.5 %, netherite 1 %, reinforced 2 % (together 3.5 %).
+        helper.assertValueEqual(RareShulkers.tierFor(0.004, 0.005, 0.01, 0.02), ChestTier.ENDERITE, "roll below enderite");
+        helper.assertValueEqual(RareShulkers.tierFor(0.010, 0.005, 0.01, 0.02), ChestTier.NETHERITE, "roll in the netherite band");
+        helper.assertValueEqual(RareShulkers.tierFor(0.020, 0.005, 0.01, 0.02), ChestTier.REINFORCED, "roll in the reinforced band");
+        helper.assertTrue(RareShulkers.tierFor(0.036, 0.005, 0.01, 0.02) == null, "roll above all bands");
+        helper.assertTrue(Math.abs(ServerTuning.netheriteShulkerChance() - 0.01) < 1e-9, "default netherite chance");
         helper.assertTrue(Math.abs(ServerTuning.reinforcedShulkerChance() - 0.02) < 1e-9
                 && Math.abs(ServerTuning.enderiteShulkerChance() - 0.005) < 1e-9, "default shulker chances");
 
@@ -229,6 +232,75 @@ public final class RareStructureFindsTests {
             }
         }
         helper.assertTrue(shells > 0 && shells <= 20, "ten reinforced shulkers dropped " + shells + " shells");
+        helper.succeed();
+    }
+
+    /**
+     * Netherit-Stufe (2-faches Leben, Netherit-Schalen) und das Easter Egg: lebende Shulker nehmen den Klumpen ihrer
+     * naechsten Stufe (Eisen, Netherit, Enderit), je einen; falsche Klumpen tun nichts; aufgewertete Shulker lassen keine
+     * Stufen-Schalen fallen (sonst Aufwerten + Toeten = billige Schalen).
+     */
+    public static void livingShulkersClimbTheTiersButUpgradedOnesDropNoShells(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        Shulker netherite = helper.spawn(EntityTypes.SHULKER, new BlockPos(1, 1, 1));
+        RareShulkers.apply(netherite, ChestTier.NETHERITE);
+        helper.assertValueEqual(RareShulkers.tierOf(netherite), ChestTier.NETHERITE, "netherite tier");
+        helper.assertTrue(Math.abs(netherite.getMaxHealth() - 60.0) < 1e-3, "netherite health " + netherite.getMaxHealth());
+
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.getAbilities().instabuild = false;
+        helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
+        Shulker shulker = helper.spawn(EntityTypes.SHULKER, new BlockPos(4, 1, 4));
+        ItemStack wrong = new ItemStack(ModItems.NETHERITE_NUGGET, 2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, wrong);
+        helper.assertTrue(!RareShulkers.upgradeLiving(shulker, player, InteractionHand.MAIN_HAND), "a netherite nugget skipped a tier");
+        helper.assertValueEqual(wrong.getCount(), 2, "wrong nugget used");
+        Item[] nuggets = {Items.IRON_NUGGET, ModItems.NETHERITE_NUGGET, ModItems.ENDERITE_NUGGET};
+        ChestTier[] tiers = {ChestTier.REINFORCED, ChestTier.NETHERITE, ChestTier.ENDERITE};
+        double[] health = {45.0, 60.0, 90.0};
+        for (int i = 0; i < 3; i++) {
+            ItemStack nugget = new ItemStack(nuggets[i], 2);
+            player.setItemInHand(InteractionHand.MAIN_HAND, nugget);
+            // The real click path: Player#interactOn -> Mob#interact -> Mob#mobInteract (mixin).
+            player.interactOn(shulker, InteractionHand.MAIN_HAND, shulker.position());
+            helper.assertValueEqual(RareShulkers.tierOf(shulker), tiers[i], "tier after nugget " + i);
+            helper.assertValueEqual(nugget.getCount(), 1, "one nugget per step " + i);
+            helper.assertTrue(Math.abs(shulker.getMaxHealth() - health[i]) < 1e-3, "health after step " + i + ": " + shulker.getMaxHealth());
+        }
+        ItemStack more = new ItemStack(ModItems.ENDERITE_NUGGET, 1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, more);
+        helper.assertTrue(!RareShulkers.upgradeLiving(shulker, player, InteractionHand.MAIN_HAND), "upgraded past enderite");
+        helper.assertTrue(shulker.entityTags().contains(RareShulkers.UPGRADED_TAG), "upgrade not marked");
+
+        // Exploit guard: ten player-upgraded shulkers die and drop no tier shell; ten natural netherite ones drop 0-2 each.
+        for (int i = 0; i < 10; i++) {
+            Shulker upgraded = helper.spawn(EntityTypes.SHULKER, new BlockPos(1 + (i % 5), 1, 6));
+            ItemStack iron = new ItemStack(Items.IRON_NUGGET, 1);
+            player.setItemInHand(InteractionHand.MAIN_HAND, iron);
+            helper.assertTrue(RareShulkers.upgradeLiving(upgraded, player, InteractionHand.MAIN_HAND), "upgrade " + i);
+            upgraded.kill(level);
+        }
+        shulker.kill(level);
+        AABB area = new AABB(helper.absolutePos(BlockPos.ZERO)).inflate(16.0);
+        for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, area)) {
+            helper.assertTrue(!ShulkerShells.tierShells().contains(item.getItem().getItem()), "an upgraded shulker dropped " + item.getItem());
+        }
+        int shells = 0;
+        for (int i = 0; i < 10; i++) {
+            Shulker natural = helper.spawn(EntityTypes.SHULKER, new BlockPos(1 + (i % 5), 1, 3));
+            RareShulkers.apply(natural, ChestTier.NETHERITE);
+            natural.kill(level);
+        }
+        netherite.kill(level);
+        for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, area)) {
+            ItemStack stack = item.getItem();
+            if (stack.is(ModItems.NETHERITE_SHULKER_SHELL)) {
+                helper.assertTrue(stack.getCount() <= 2, "more than two shells at once: " + stack);
+                shells += stack.getCount();
+            }
+            helper.assertTrue(!stack.is(ModItems.REINFORCED_SHULKER_SHELL) && !stack.is(ModItems.ENDERITE_SHULKER_SHELL), "foreign shell " + stack);
+        }
+        helper.assertTrue(shells > 0 && shells <= 22, "eleven netherite shulkers dropped " + shells + " shells");
         helper.succeed();
     }
 
