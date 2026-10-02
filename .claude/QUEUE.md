@@ -156,7 +156,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Das Rezept des Flypads wird auch nicht angezeigt. Höhe je Stufe = Breite der Grundfläche × 2.
 - [ ] Shulkerkopf: Das 3D-Modell ist nur im Inventar zu groß und wird abgeschnitten (Screenshot).
 - [ ] Silberfischkopf viel kleiner: im Inventar, auf dem Kopf und abgestellt.
-- [ ] Guide-Buch-Texturen überarbeiten (10 Vorschläge). Vorschau: previews/guide-buecher-10-vorschau.png (A–J), Besitzer wählt.
+- [x] Guide-Buch-Texturen überarbeiten (10 Vorschläge). Besitzer wählte J (Prachtband), eingebaut auf 26.3 (claude-guideui), Vorschau previews/guide-buecher-J-eingebaut.png.
 - [ ] Simple Money: 10 Textur-Vorschläge für Special Fiber, 10 für Resin Fiber.
 - [ ] Simple Money: Schmelzzeiten der Geld-Teile erhöhen, damit es in SimpleBuilding-Welten balanciert ist.
 - [ ] Zusätzlicher Weg zu Diamant-Kieseln (In-World): Fällt ein Amboss auf einen Diamantblock, entstehen Diamant-Kiesel.
