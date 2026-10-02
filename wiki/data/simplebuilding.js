@@ -21442,7 +21442,7 @@ window.WIKI_DATA = {
         "en_us": "Placed Egg",
         "de_de": "Gelegtes Ei"
       },
-      "texture": null,
+      "texture": "assets/textures/block/placed_egg_blue.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],

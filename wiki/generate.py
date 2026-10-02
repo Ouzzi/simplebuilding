@@ -369,6 +369,32 @@ def texture_for(roots: dict, kind: str, item_id: str) -> str | None:
             return empty_slot_icon()
         candidates.extend(from_definition)
 
+    if kind == "block" and not candidates:
+        # Kein models/block/<id>.json (Bloecke mit Varianten-Modellen, z. B. das gelegte Ei):
+        # die Texturen des ersten Modells aus dem Blockstate.
+        for base in (roots["generated_assets"], roots["resource_assets"]):
+            state_path = REPO / base / "blockstates" / f"{name}.json"
+            if not state_path.exists():
+                continue
+            try:
+                variants = read_json(state_path).get("variants") or {}
+            except json.JSONDecodeError:
+                break
+            first = variants[sorted(variants)[0]] if variants else None
+            first = first[0] if isinstance(first, list) else first
+            model_ref = first.get("model") if isinstance(first, dict) else None
+            if isinstance(model_ref, str) and is_ours(model_ref):
+                for model_base in (roots["generated_assets"], roots["resource_assets"]):
+                    model_path = REPO / model_base / "models" / (short(model_ref) + ".json")
+                    if model_path.exists():
+                        try:
+                            textures = read_json(model_path).get("textures", {})
+                        except json.JSONDecodeError:
+                            break
+                        candidates.extend(v for v in textures.values() if isinstance(v, str))
+                        break
+            break
+
     candidates.append(f"{NS}:{kind}/{name}")
 
     for candidate in candidates:
