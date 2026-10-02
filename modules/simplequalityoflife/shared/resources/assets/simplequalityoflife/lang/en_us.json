@@ -10,7 +10,7 @@
   "text.autoconfig.simplequalityoflife.option.qOL.mutedEntities": "Muted Entity Types",
   "text.autoconfig.simplequalityoflife.option.qOL.mutedEntities.@Tooltip": "List of entity IDs (e.g. minecraft:cow) whose\nsounds are silenced. Default: [].",
   "text.autoconfig.simplequalityoflife.option.qOL.nametagMuteSuffixes": "Nametag Mute Suffixes",
-  "text.autoconfig.simplequalityoflife.option.qOL.nametagMuteSuffixes.@Tooltip": "List of name suffixes. Mobs named with one of\nthese will be silenced. Default: [\"_mute\",\n\"_shhh\"].",
+  "text.autoconfig.simplequalityoflife.option.qOL.nametagMuteSuffixes.@Tooltip": "List of name suffixes. Mobs named with one of\nthese will be silenced.\nDefault: [\"_mute\", \"_shhh\"].",
   "text.autoconfig.simplequalityoflife.option.qOL.nametagBabySuffixes": "Baby Suffixes",
   "text.autoconfig.simplequalityoflife.option.qOL.nametagBabySuffixes.@Tooltip": "Babies named with one of these suffixes will\nnever grow up (e.g., _baby). Default:\n[\"_baby\", \"_small\"].",
   "text.autoconfig.simplequalityoflife.option.qOL.preventFarmlandTrampleWithFeatherFalling": "Feather Falling Protects Farmland",
