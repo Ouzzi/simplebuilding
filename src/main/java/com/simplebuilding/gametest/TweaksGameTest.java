@@ -175,8 +175,13 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void unbreakingLowersHowMuchTheJumpEmptiesTheEchoCompass(GameTestHelper helper) {
-        TweaksTests.unbreakingLowersHowMuchTheJumpEmptiesTheEchoCompass(helper);
+    public void theEchoCompassConsumesItsChargeWithUnbreaking(GameTestHelper helper) {
+        TweaksTests.theEchoCompassConsumesItsChargeWithUnbreaking(helper);
+    }
+
+    @GameTest
+    public void theEchoCompassHonorsStackCapacityAndCreativeMode(GameTestHelper helper) {
+        TweaksTests.theEchoCompassHonorsStackCapacityAndCreativeMode(helper);
     }
 
     @GameTest

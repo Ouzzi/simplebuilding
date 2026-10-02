@@ -8809,19 +8809,19 @@
         "src/main/java/com/simplebuilding/datagen/ModModelProvider.java"
       ],
       "en": {
-        "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+        "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
         "details": [
           "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-          "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+          "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
           "The Astralit Quartz Checker glows with light level 5.",
           "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
         ]
       },
       "de": {
-        "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+        "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
         "details": [
           "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-          "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+          "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
           "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
           "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
         ]
@@ -8874,6 +8874,13 @@
           "de": "Enderquarz-Schachbrett: 2 Enderquarz und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
           "sources": [
             "src/main/generated/data/simplebuilding/recipe/ender_quartz_checker.json"
+          ]
+        },
+        "simplebuilding:polished_ender_quartz_checker": {
+          "en": "Polished Ender Quartz Checker: craft 4 from 2 Polished Ender Quartz blocks and 2 Quartz Blocks in a diagonal checker pattern.",
+          "de": "Poliertes Enderquarz-Schachbrett: 2 polierte Enderquarzblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
+          "sources": [
+            "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
           ]
         }
       }
@@ -9722,10 +9729,10 @@
         "details": [
           "Right-click a lodestone to link it; the needle then points there. Clicking the lodestone it is already linked to does nothing (no sound, no effects). If the lodestone is removed the link is lost.",
           "Jump cooldown: tweaks.balancing.echoSounderJumpCooldownTicks, default 480 ticks (24 seconds). Linking and unsuccessful attempts lock it for 20–100 ticks by default, depending on distance; the maximum uses echoSounderAttemptLockTicks. Re-clicking the same lodestone does not relink it.",
-          "Charge: the compass has 1500 repair points. A jump empties it completely (Unbreaking works per point as on any tool: with Unbreaking III a jump empties only about a quarter). Empty or not fully recharged it shows a cracked texture in three stages (empty, half, almost full), has no enchantment glint and its bar shows the charge. Recharge it with Mending (2 points per XP point, 750 XP when empty) or at an anvil with echo shards (each restores a quarter, four fill it). Only when it is fully recharged does it jump normally again and get its glint back.",
+          "Charge: the echo sounder has 1500 repair points by default (server.charges.echoSounderMaxCharge). On 26.3, one successful jump empties its entire charge, even with Unbreaking. 26.2 retains the reduced Unbreaking cost until its port. Empty or not fully recharged it shows a cracked texture in three stages (empty, half, almost full), has no enchantment glint and its bar shows the charge. Recharge it with Mending (2 points per XP point, 750 XP when empty) or at an anvil with echo shards (each restores a quarter, four fill it). Only when it is fully recharged does it jump normally again and get its glint back.",
           "Forcing it: using an echo sounder that is not fully recharged provokes the break - the charge takes twice as long (6 seconds) with warning signs (cracking, sparks, smoke, a sculk shriek halfway, everything louder), the jump still works, then the echo sounder shatters for good. Unbreaking does not save it. In creative mode it neither empties nor shatters.",
           "Recipe (crafting, shaped \"NNN\" / \"NRN\" / \"ENN\"): seven enderite nuggets around the outside, the recovery compass in the middle, the enderite core bottom left.",
-          "Replaces the 'Echo Compass' data pack Simple Tweaks shipped; the data pack took durability off directly, so Unbreaking did nothing - fixed."
+          "Replaces the 'Echo Compass' data pack Simple Tweaks shipped."
         ]
       },
       "de": {
@@ -9733,10 +9740,10 @@
         "details": [
           "Rechtsklick auf einen Leitstein verknüpft; die Nadel zeigt dann dorthin. Ein Klick auf den schon verknüpften Leitstein tut nichts (kein Klang, keine Effekte). Wird der Leitstein entfernt, ist die Verknüpfung weg.",
           "Sprung-Abklingzeit: tweaks.balancing.echoSounderJumpCooldownTicks, Standard 480 Ticks (24 Sekunden). Verknüpfen und Fehlversuche sperren standardmäßig 20–100 Ticks je Entfernung; Maximum über echoSounderAttemptLockTicks. Derselbe Leitstein wird nicht erneut verknüpft.",
-          "Ladung: Das Echolot hat 1500 Reparaturpunkte. Ein Sprung leert es ganz (Haltbarkeit/Unbreaking wirkt je Punkt wie bei jedem Werkzeug: mit Haltbarkeit III leert ein Sprung nur etwa ein Viertel). Leer oder nicht voll aufgeladen zeigt es eine Riss-Textur in drei Stufen (leer, halb, fast voll), hat keinen Verzauberungsglanz, und sein Balken zeigt die Ladung. Aufladen mit Reparatur/Mending (2 Punkte je XP-Punkt, 750 XP im leeren Zustand) oder am Amboss mit Echoscherben (jede stellt ein Viertel wieder her, vier füllen es). Erst voll aufgeladen springt es wieder normal und glänzt wieder.",
+          "Ladung: Das Echolot hat standardmäßig 1500 Reparaturpunkte (server.charges.echoSounderMaxCharge). Auf 26.3 leert ein erfolgreicher Sprung die gesamte Ladung, auch mit Haltbarkeit (Unbreaking). 26.2 behält bis zum Port den reduzierten Unbreaking-Verbrauch. Leer oder nicht voll aufgeladen zeigt es eine Riss-Textur in drei Stufen (leer, halb, fast voll), hat keinen Verzauberungsglanz, und sein Balken zeigt die Ladung. Aufladen mit Reparatur/Mending (2 Punkte je XP-Punkt, 750 XP im leeren Zustand) oder am Amboss mit Echoscherben (jede stellt ein Viertel wieder her, vier füllen es). Erst voll aufgeladen springt es wieder normal und glänzt wieder.",
           "Erzwingen: Ein nicht voll aufgeladenes Echolot zu benutzen provoziert den Bruch - das Laden dauert doppelt so lange (6 Sekunden) mit Warnzeichen (Knacken, Funken, Rauch, zur Hälfte ein Sculk-Kreischen, alles lauter), der Sprung gelingt noch, danach zerspringt das Echolot endgültig. Haltbarkeit rettet es dabei nicht. Im Kreativmodus leert und zerspringt es nicht.",
           "Rezept (Werkbank, geformt \"NNN\" / \"NRN\" / \"ENN\"): sieben Enderitklumpen außen herum, der Bergungskompass in der Mitte, der Enderitkern unten links.",
-          "Ersetzt das Datenpaket 'Echo Compass' aus Simple Tweaks; das zog die Haltbarkeit direkt ab, Haltbarkeit (Unbreaking) wirkte deshalb nicht - behoben."
+          "Ersetzt das Datenpaket 'Echo Compass' aus Simple Tweaks."
         ]
       },
       "sources": [

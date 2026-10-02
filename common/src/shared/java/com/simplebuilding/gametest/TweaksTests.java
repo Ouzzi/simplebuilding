@@ -761,12 +761,10 @@ public final class TweaksTests {
     }
 
     /**
-     * Unbreaking wirkt auf den Echo-Kompass wie auf jedes Werkzeug (Simple-Tweaks-Bug: das Datenpaket
-     * zog die Haltbarkeit direkt ab): ein Sprung leert ihn mit Unbreaking III nur zu etwa einem Viertel
-     * (im Mittel 375 von 1500, Streuung ~17), leer ist er trotzdem - er muss wieder aufgeladen werden.
-     * Der Kompass liegt im Tag enchantable/durability, also kann man ihn auch verzaubern.
+     * 26.3: Auch mit Unbreaking III leert ein erfolgreicher Sprung die gesamte Ladung.
+     * 26.2 behaelt bis zum Port-Run den alten Verbrauch von etwa einem Viertel.
      */
-    public static void unbreakingLowersHowMuchTheJumpEmptiesTheEchoCompass(GameTestHelper helper) {
+    public static void theEchoCompassConsumesItsChargeWithUnbreaking(GameTestHelper helper) {
         BlockPos lodestone = new BlockPos(6, 1, 6);
         helper.setBlock(lodestone, Blocks.LODESTONE);
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
@@ -775,13 +773,52 @@ public final class TweaksTests {
         compass.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING), 3);
         player.setItemInHand(InteractionHand.MAIN_HAND, compass);
         player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 4));
-        helper.assertTrue(EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass), "the echo compass refused to jump");
+        helper.assertTrue(compass.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the echo compass refused to charge");
+        tickUse(player, EchoCompassItem.CHARGE_TICKS - 1);
+        helper.assertValueEqual(compass.getDamageValue(), 0, "charging must not consume durability per tick");
+        tickUse(player, 1);
+        helper.assertTrue(player.position().distanceTo(Vec3.atBottomCenterOf(helper.absolutePos(lodestone).above())) < 0.1,
+                "the charged echo compass did not teleport");
         int damage = compass.getDamageValue();
-        helper.assertTrue(damage > 150 && damage < 600,
-                "unbreaking III emptied the echo compass by " + damage + " of " + EchoCompassItem.MAX_DAMAGE + " instead of about a quarter");
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            helper.assertValueEqual(damage, compass.getMaxDamage(), "unbreaking must not discount the full charge on 26.3");
+            helper.assertValueEqual(compass.getBarWidth(), 0, "an empty echo compass must have an empty durability bar");
+        } else {
+            helper.assertTrue(damage > 150 && damage < 600, "26.2 unbreaking damage: " + damage);
+        }
+        helper.assertFalse(compass.isEmpty(), "draining the charge must leave a repairable item");
         helper.assertTrue(EchoCompassItem.isCracked(compass), "the echo compass is still charged after a jump with unbreaking");
         helper.assertTrue(new ItemStack(TweaksItems.ECHO_COMPASS).typeHolder().is(net.minecraft.tags.ItemTags.DURABILITY_ENCHANTABLE),
                 "the echo compass is missing from enchantable/durability, so unbreaking and mending cannot be put on it");
+        helper.succeed();
+    }
+
+    /** Volle Stack-Kapazitaet statt Registrierungswert; Kreativ leert und zerstoert das Echolot nicht. */
+    public static void theEchoCompassHonorsStackCapacityAndCreativeMode(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            helper.succeed();
+            return;
+        }
+        BlockPos lodestone = new BlockPos(6, 1, 6);
+        helper.setBlock(lodestone, Blocks.LODESTONE);
+        for (boolean creative : new boolean[]{false, true}) {
+            ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+            player.getAbilities().instabuild = creative;
+            ItemStack compass = linkedEchoCompass(helper, lodestone);
+            compass.set(DataComponents.MAX_DAMAGE, 2250);
+            compass.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING), 3);
+            player.setItemInHand(InteractionHand.OFF_HAND, compass);
+            helper.assertTrue(EchoCompassItem.teleport(player, InteractionHand.OFF_HAND, compass), "the echo compass refused to jump");
+            helper.assertValueEqual(compass.getDamageValue(), creative ? 0 : 2250, "damage with a modified stack capacity");
+            helper.assertFalse(compass.isEmpty(), "the first jump destroyed the echo compass");
+            if (creative) {
+                player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(compass));
+                compass.setDamageValue(2250);
+                helper.assertTrue(EchoCompassItem.teleport(player, InteractionHand.OFF_HAND, compass), "creative cracked echo compass refused to jump");
+                helper.assertFalse(compass.isEmpty(), "creative cracked echo compass shattered");
+                helper.assertValueEqual(compass.getDamageValue(), 2250, "creative changed the existing damage");
+            }
+        }
         helper.succeed();
     }
 
@@ -830,6 +867,7 @@ public final class TweaksTests {
         player.setItemInHand(InteractionHand.MAIN_HAND, compass);
         player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 2));
         helper.assertTrue(compass.hasFoil(), "a charged echo compass has no glint");
+        helper.assertFalse(compass.isBarVisible(), "a fully charged echo compass shows a damage bar");
         helper.assertTrue(compass.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "using the echo compass did not start a charge");
         tickUse(player, EchoCompassItem.CHARGE_TICKS);
         BlockPos abs = helper.absolutePos(lodestone);
@@ -840,6 +878,8 @@ public final class TweaksTests {
         helper.assertValueEqual(compass.getMaxDamage(), 1500, "repair points of an empty echo compass");
         helper.assertTrue(EchoCompassItem.isCracked(compass), "the empty echo compass is not cracked");
         helper.assertFalse(compass.hasFoil(), "the empty echo compass still has a glint");
+        helper.assertTrue(compass.isBarVisible(), "the empty echo compass has no durability bar");
+        helper.assertValueEqual(compass.getBarWidth(), 0, "empty durability bar width");
         helper.assertValueEqual(compass.getUseDuration(player), EchoCompassItem.CRACKED_CHARGE_TICKS, "charge ticks of an empty echo compass");
         helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 2, "ender pearls spent by the jump (none are needed any more)");
         helper.succeed();
@@ -863,12 +903,15 @@ public final class TweaksTests {
         helper.assertValueEqual(compass.getDamageValue(), 2, "damage left after 749 XP of mending");
         helper.assertTrue(EchoCompassItem.isCracked(compass), "the echo compass counts as repaired with 2 points missing");
         helper.assertFalse(compass.hasFoil(), "the not fully repaired echo compass has a glint");
+        helper.assertTrue(compass.isBarVisible(), "partial repair hides the durability bar");
+        helper.assertValueEqual(compass.getBarWidth(), 13, "almost fully repaired durability bar width");
         helper.assertValueEqual(compass.getUseDuration(player), EchoCompassItem.CRACKED_CHARGE_TICKS, "charge ticks with 2 points missing");
         player.takeXpDelay = 0;
         new ExperienceOrb(helper.getLevel(), at.x, at.y, at.z, 1).playerTouch(player);
         helper.assertValueEqual(compass.getDamageValue(), 0, "damage after 750 XP of mending");
         helper.assertFalse(EchoCompassItem.isCracked(compass), "the fully repaired echo compass is still cracked");
         helper.assertTrue(compass.hasFoil(), "the fully repaired echo compass has no glint");
+        helper.assertFalse(compass.isBarVisible(), "full repair leaves a damage bar");
         helper.assertValueEqual(compass.getUseDuration(player), EchoCompassItem.CHARGE_TICKS, "charge ticks after the full repair");
         helper.assertTrue(compass.isValidRepairItem(new ItemStack(Items.ECHO_SHARD)), "echo shards do not repair the echo compass at the anvil");
         helper.succeed();
