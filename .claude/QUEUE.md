@@ -177,3 +177,21 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Resonanzstab: soll auch Entities anzünden bzw. scannen können.
 - [ ] Mod-Items zusätzlich an den richtigen Stellen in die Vanilla-Kreativtabs einsortieren; Simple-Building-Tabs weiter aufteilen (Werkzeuge, Waffen, Rüstung usw. wie in Vanilla).
 - [ ] Trank „Crafty Shulker“: Effekt – bei Treffer an eine sichere Stelle in der Nähe teleportieren; braubar mit Shulkerkopf, analog zu den anderen Tränken/Effekten.
+
+## Besitzer 2026-10-02 (Nachtrag 2)
+
+- [ ] Erzdetektor: Die Auswahl-Animation (läuft heute am Slot-Rand, wenn ein Block gewählt ist) soll stattdessen auf der Nadel laufen.
+- [ ] Erzdetektor: Nadel vorher breiter machen wie beim Bergungskompass (falls noch nicht geschehen).
+- [ ] Eigene Schallplatte je Dimension, „gehen ab“ wie Pigstep/Otherside:
+  - End: Stil wie das Instrumental von „What I've Done“ (Linkin Park).
+  - Oberwelt: zwei Platten, eine wie „Stan“ (Eminem), eine im NCS-/Alan-Walker-Stil.
+  - Nether: wie „Thunderstruck“.
+  - Musik nur stilistisch angelehnt, keine Melodie- oder Sample-Kopie. Audio als Mono-OGG (positionsabhängig in der Jukebox). Fundorte je Dimension (z. B. End-Stadt, Bastion, Oberwelt-Struktur). Platten-Texturen im Vanilla-Stil (10 Vorschläge?).
+- [ ] Stille Löwenzahn („Silent Dandelion“), gleiche Logik wie die goldene Variante: Mobs in der Nähe machen keine Geräusche (statt nicht zu wachsen).
+  - Faden → Wollknäuel (auch platzierbar).
+  - 8 Wollknäuel + Löwenzahn = stiller Löwenzahn.
+  - Wolle im Crafting = 2 Wollknäuel.
+- [ ] Hängematte: tagsüber darauf liegen lässt die Tageszeit schneller laufen.
+  - Nur 1×2×2 platzierbar, zwischen zwei festen Blöcken mit 2–3 Blöcken Abstand (beliebige Blöcke, auch Stäbe).
+- [ ] Tooltips aufräumen: zu lange Zeilen kürzen und Zeilenumbrüche einbauen.
+- [ ] Spezial-Shulker (verstärkt/Enderit): in derselben Struktur je Spezial-Shulker 4 Endermiten spawnen.
