@@ -38,6 +38,8 @@ import java.util.stream.Stream;
  * overlay class has a counterpart on the other line.
  */
 public final class McVersion {
+    /** Falling anvils crush diamond blocks (26.3 first). */
+    public static final boolean ANVIL_DIAMOND_CRUSH = false;
     public static final boolean END_SYSTEMS = false;
     /** Overworld wave 2026-10-01: Sage Ore and the Sage Orb (main line first, ported later). */
     public static final boolean SAGE_ORE = false;

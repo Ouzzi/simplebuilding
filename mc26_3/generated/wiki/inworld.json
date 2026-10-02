@@ -8069,6 +8069,15 @@
     ]
   },
   "diamondCrush": {
+    "anvil": {
+      "count": 72,
+      "minimumFallBlocks": 1,
+      "tools": [
+        "minecraft:anvil",
+        "minecraft:chipped_anvil",
+        "minecraft:damaged_anvil"
+      ]
+    },
     "block": "minecraft:diamond_block",
     "count": 81,
     "damage": 1,

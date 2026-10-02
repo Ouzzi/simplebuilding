@@ -101,6 +101,7 @@
       "com.simplebuilding.gametest.TieredChestGameTest",
       "com.simplebuilding.gametest.TieredShulkerBoxGameTest",
       "com.simplebuilding.gametest.BlockInfoGameTest",
+      "com.simplebuilding.gametest.AnvilCrushingGameTest",
       "com.simplebuilding.gametest.InWorldExportGameTest",
       "com.simplebuilding.gametest.EnderiteMachineGameTest",
       "com.simplebuilding.gametest.SmeltingGameTest",

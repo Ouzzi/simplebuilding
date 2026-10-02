@@ -8,6 +8,7 @@
     "CarvedStairMixin",
     "AbstractFurnaceMenuMixin",
     "AdvancementHooksMixin",
+    "AnvilBlockMixin",
     "AnvilScreenHandlerMixin",
     "BlockAttachedEntityTickMixin",
     "BlockStateBaseMixin",

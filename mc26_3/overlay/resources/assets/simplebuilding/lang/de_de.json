@@ -775,6 +775,8 @@
   "jei.simplebuilding.note.reshape.forward": "Rechtsklick auf dem Block halten",
   "jei.simplebuilding.note.reshape.reverse": "Schleichen + Rechtsklick halten",
   "jei.simplebuilding.note.reshape.charge": "Laden: %s-%s Ticks je Hammer",
+  "jei.simplebuilding.note.anvil_crush.how": "Amboss mindestens %s Block/Blöcke auf den Block fallen lassen",
+  "jei.simplebuilding.note.anvil_crush.consumes": "Verbraucht den Diamantblock; normaler Ambossverschleiß gilt",
   "jei.simplebuilding.note.diamond_crush.how": "Den Block %s-mal per Rechtsklick schlagen (ab Eisen-Vorschlaghammer)",
   "jei.simplebuilding.note.chisel.forward": "Rechtsklick auf den Block",
   "jei.simplebuilding.note.chisel.reverse": "Schleichen + Rechtsklick auf den Block",
