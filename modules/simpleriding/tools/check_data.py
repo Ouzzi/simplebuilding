@@ -37,7 +37,7 @@ def check():
     assert en.keys() == de.keys(), 'language completeness'
     assert all(isinstance(v, str) and v for language in (en, de) for v in language.values())
     options = read(ROOT / 'balance/simpleriding/options.json')['options']
-    assert len(options) == 18 and len({o['path'] for o in options}) == 18
+    assert len(options) == 25 and len({o['path'] for o in options}) == 25
     catalogue = (MODULE / 'shared/java/com/simpleriding/RidingOptions.java').read_text()
     screen = (MODULE / 'shared/java/com/simpleriding/client/RidingConfigScreen.java').read_text()
     assert 'for(var option:RidingOptions.ALL)' in screen
@@ -51,7 +51,7 @@ def check():
             assert 'text.autoconfig.simpleriding.option.' + option['tab'] in language
     manual = read(MODULE / 'wiki/manual.json')['features']
     assert len({f['id'] for f in manual}) == len(manual)
-    assert len(manual) == 8 + len(options) and any(f['id'] == 'forge_263' for f in manual), 'all gameplay/registry/security chapters, config options and the Forge support chapter'
+    assert len(manual) == 9 + len(options) and any(f['id'] == 'forge_263' for f in manual), 'all gameplay/registry/security/horseshoe chapters, config options and the Forge support chapter'
     for feature in manual:
         for language in ('en', 'de'):
             assert feature[language]['title'] and feature[language]['summary'] and feature[language]['details']
@@ -74,8 +74,37 @@ def check():
     assert {'id': 'simplebuilding:enderite_nautilus_armor', 'required': False} in nautilus['values']
     assert len(nautilus['values']) == 6
     assert read(resources / 'simpleriding/enchantment/leaping.json')['supported_items'] == '#simpleriding:mount_armor_enchantable'
-    assert not list((MODULE / 'shared/resources/assets/simpleriding').glob('items/*.json')), 'no invented item models'
-    print('Simple Riding: manifest, bilingual wiki/config, legacy IDs, and 26.3 trade data valid')
+    assets = MODULE / 'shared/resources/assets/simpleriding'
+    tiers = ['copper', 'iron', 'golden', 'diamond', 'netherite', 'enderite']
+    items = [t + '_horseshoe' for t in tiers] + ['horseshoe_smithing_template']
+    assert sorted(p.stem for p in assets.glob('items/*.json')) == sorted(items), 'exactly the R1 horseshoe item models'
+    for item in items:
+        assert read(assets / f'items/{item}.json')['model']['model'] == f'simpleriding:item/{item}'
+        assert (assets / f'textures/item/{item}.png').is_file()
+        for language in (en, de):
+            assert language.get(f'item.simpleriding.{item}'), f'name for {item}'
+    for tier in tiers:
+        assert (assets / f'textures/entity/horseshoe/{tier}.png').is_file(), 'worn hoof texture'
+    assert (assets / 'textures/gui/sprites/container/slot/horseshoe.png').is_file()
+    assert (assets / 'textures/gui/container/horseshoe_panel.png').is_file()
+    recipes = resources / 'simpleriding/recipe'
+    template = 'simpleriding:horseshoe_smithing_template'
+    for tier, base, addition in [('copper', 'minecraft:copper_ingot', 'minecraft:iron_nugget'), ('iron', 'minecraft:iron_ingot', 'minecraft:iron_nugget'),
+                                 ('golden', 'minecraft:gold_ingot', 'minecraft:iron_nugget'), ('diamond', 'minecraft:diamond', 'minecraft:iron_nugget'),
+                                 ('netherite', 'simpleriding:diamond_horseshoe', 'minecraft:netherite_ingot'),
+                                 ('enderite', 'simpleriding:netherite_horseshoe', 'simplebuilding:enderite_ingot')]:
+        recipe = read(recipes / f'{tier}_horseshoe_smithing.json')
+        assert recipe['type'] == 'minecraft:smithing_transform' and recipe['template'] == template
+        assert recipe['base'] == base and recipe['addition'] == addition and recipe['result']['id'] == f'simpleriding:{tier}_horseshoe'
+    enderite = read(recipes / 'enderite_horseshoe_smithing.json')
+    assert enderite['fabric:load_conditions'][0]['values'] == ['simplebuilding'] and enderite['neoforge:conditions'][0]['modid'] == 'simplebuilding'
+    duplicate = read(recipes / 'horseshoe_smithing_template.json')
+    assert duplicate['pattern'] == ['#S#', '#C#', '###'] and duplicate['key'] == {'#': 'minecraft:copper_ingot', 'C': 'minecraft:iron_ingot', 'S': template}
+    assert duplicate['result'] == {'count': 2, 'id': template}
+    assert read(resources / 'minecraft/tags/item/enchantable/durability.json')['values'] == ['#simpleriding:horseshoes']
+    wearers = read(resources / 'simpleriding/tags/entity_type/can_wear_horseshoes.json')['values']
+    assert set(wearers) == {'minecraft:horse', 'minecraft:donkey', 'minecraft:mule', 'minecraft:skeleton_horse', 'minecraft:zombie_horse'}
+    print('Simple Riding: manifest, bilingual wiki/config, legacy IDs, horseshoes, and 26.3 trade data valid')
 
 
 if __name__ == '__main__':

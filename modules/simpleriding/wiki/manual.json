@@ -1,5 +1,5 @@
 {
-  "_readme": "Bilingual, code-backed module chapters. No invented items or recipes.",
+  "_readme": "Bilingual, code-backed module chapters. Items: the R1 horseshoes and their smithing template only.",
   "features": [
     {
       "id": "tailwind",
@@ -202,6 +202,47 @@
           "Verweigerte Paketfluten erzeugen höchstens eine Positionskorrektur je Servertick.",
           "Akzeptierte Kamel-Dashes berücksichtigen den Vanilla-Impuls in der Bewegungsgrenze und erzwingen Vanillas 55-Tick-Abklingzeit auf dem Server.",
           "Landungs- und Fallprüfungen ermitteln den Bodenstatus des Reittiers aus Server-Kollisionen statt aus Clientangaben."
+        ]
+      }
+    },
+    {
+      "id": "horseshoes",
+      "sources": [
+        "modules/simpleriding/shared/java/com/simpleriding/Horseshoes.java",
+        "modules/simpleriding/shared/java/com/simpleriding/mixin/HorseshoeHorseMixin.java",
+        "modules/simpleriding/shared/java/com/simpleriding/mixin/HorseshoeMenuMixin.java",
+        "modules/simpleriding/shared/java/com/simpleriding/mixin/HorseshoeQuickMoveMixin.java",
+        "modules/simpleriding/shared/java/com/simpleriding/mixin/HorseshoeXpMixin.java",
+        "modules/simpleriding/shared/java/com/simpleriding/mixin/HorseshoeBrushMixin.java",
+        "modules/simpleriding/shared/java/com/simpleriding/RidingLoot.java",
+        "modules/simpleriding/shared/java/com/simpleriding/client/HorseshoeLayer.java",
+        "modules/simpleriding/generated/resources/data/simpleriding/recipe/horseshoe_smithing_template.json",
+        "modules/simpleriding/generated/resources/data/simpleriding/tags/entity_type/can_wear_horseshoes.json"
+      ],
+      "en": {
+        "title": "Horseshoes",
+        "summary": "Horses, donkeys, mules, skeleton and zombie horses get four hoof slots in their inventory. Copper, Iron, Gold, Diamond, Netherite and (with SimpleBuilding) Enderite horseshoes improve handling and terrain; a full set adds a little speed and jump and slightly more fall damage.",
+        "details": [
+          "The hoof slots sit in a side panel left of the horse inventory (front left, front right, hind left, hind right). Shift-click moves horseshoes in and out. The shoes are saved on the horse, drop when it dies (except with Curse of Vanishing) and are visible on the hooves of adult horses, donkeys, mules and undead horses.",
+          "Scoring: a horseshoe of tier t (Copper 1, Iron 2, Gold 3, Diamond 4, Netherite 5, Enderite 6) is worth 2^(t-1) points, so two shoes of the next tier score exactly like four of the tier below. The effect is log2(1+points)/log2(129): a full Copper set gives 33%, Iron 45%, Gold 58%, Diamond 72%, Netherite 86% and Enderite 100% of the configured bonus.",
+          "Terrain: movement efficiency up to +0.5 at 100%, so Soul Sand and Honey slow the horse less. Handling: the sideways steering share rises from 0.5 to 0.8 and backward from 0.25 to 0.4 at 100%; forward top speed is unchanged. The server decides the handling value and syncs it, so client configs cannot raise it.",
+          "With all four slots filled: +5% speed and +5% jump strength (both inside the existing total caps shared with Tailwind and Leaping) and fall damage x1.1, rounded, so short falls stay the same. Max speed stays capped; Vanilla horses reach top speed within a few ticks, so there is no separate acceleration bonus.",
+          "Durability 120 (Copper), 180 (Iron), 80 (Gold), 400 (Diamond), 500 (Netherite), 620 (Enderite). Each shoe loses one point per 40 blocks ridden on the ground. Unbreaking and Mending apply at the anvil or enchanting table; XP the rider picks up that Vanilla Mending does not use repairs Mending horseshoes of the ridden horse. Netherite and Enderite shoes are fire resistant; repair with the matching material.",
+          "Smithing table: Horseshoe Smithing Template + copper, iron or gold ingot or a diamond + iron nugget makes the matching horseshoe; template + Diamond Horseshoe + netherite ingot makes Netherite, template + Netherite Horseshoe + enderite ingot makes Enderite (only with SimpleBuilding; enchantments and wear carry over). The template is used up like Vanilla templates. Duplicate it at a crafting table: template top center, iron ingot in the middle, seven copper ingots around it give two templates.",
+          "Loot: village weaponsmith and tannery chests get one extra roll with the template 15% and a worn Copper or Iron Horseshoe 5% each. Brushing trail-ruins rare blocks yields the template like one more equal entry (1 in 13), common blocks a worn Copper or Iron Horseshoe (1 in 46). All of it follows worldGen.enableLootTableChanges."
+        ]
+      },
+      "de": {
+        "title": "Hufeisen",
+        "summary": "Pferde, Esel, Maultiere, Skelett- und Zombiepferde bekommen vier Hufplätze im Inventar. Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und (mit SimpleBuilding) Enderit-Hufeisen verbessern Handling und Gelände; ein voller Satz gibt etwas Tempo und Sprungkraft und minimal mehr Fallschaden.",
+        "details": [
+          "Die Hufplätze liegen in einer Leiste links neben dem Pferdeinventar (vorne links, vorne rechts, hinten links, hinten rechts). Shift-Klick legt Hufeisen hinein und heraus. Die Eisen werden am Pferd gespeichert, fallen beim Tod heraus (außer mit Fluch des Verschwindens) und sind an den Hufen erwachsener Pferde, Esel, Maultiere und untoter Pferde zu sehen.",
+          "Wertung: Ein Hufeisen der Stufe t (Kupfer 1, Eisen 2, Gold 3, Diamant 4, Netherit 5, Enderit 6) zählt 2^(t-1) Punkte, also wirken zwei Eisen der nächsten Stufe genau wie vier der Stufe darunter. Die Wirkung ist log2(1+Punkte)/log2(129): voller Kupfersatz 33 %, Eisen 45 %, Gold 58 %, Diamant 72 %, Netherit 86 %, Enderit 100 % des eingestellten Bonus.",
+          "Gelände: Bewegungseffizienz bis +0,5 bei 100 %, Seelensand und Honig bremsen weniger. Handling: der Seitwärtsanteil der Lenkung steigt bei 100 % von 0,5 auf 0,8, rückwärts von 0,25 auf 0,4; das Vorwärts-Höchsttempo bleibt gleich. Der Server bestimmt den Handling-Wert und synchronisiert ihn, Client-Konfigurationen können ihn nicht erhöhen.",
+          "Mit allen vier Plätzen belegt: +5 % Tempo und +5 % Sprungkraft (innerhalb der bestehenden Gesamtgrenzen, geteilt mit Rückenwind und Sprungkraft) und Fallschaden x1,1, gerundet, damit kurze Stürze gleich bleiben. Das Höchsttempo bleibt gedeckelt; Vanilla-Pferde erreichen ihr Endtempo in wenigen Ticks, daher gibt es keinen eigenen Beschleunigungsbonus.",
+          "Haltbarkeit 120 (Kupfer), 180 (Eisen), 80 (Gold), 400 (Diamant), 500 (Netherit), 620 (Enderit). Jedes Eisen verliert je 40 am Boden gerittene Blöcke einen Punkt. Haltbarkeit und Reparatur wirken über Amboss oder Zaubertisch; XP, die der Reiter aufsammelt und Vanillas Reparatur nicht verbraucht, repariert Reparatur-Hufeisen des gerittenen Pferdes. Netherit- und Enderit-Eisen sind feuerfest; repariert wird mit dem passenden Material.",
+          "Schmiedetisch: Hufeisen-Schmiedevorlage + Kupfer-, Eisen- oder Goldbarren oder Diamant + Eisennugget ergibt das passende Hufeisen; Vorlage + Diamanthufeisen + Netheritbarren ergibt Netherit, Vorlage + Netherithufeisen + Enderitbarren ergibt Enderit (nur mit SimpleBuilding; Verzauberungen und Abnutzung bleiben). Die Vorlage wird wie in Vanilla verbraucht. Duplizieren an der Werkbank: Vorlage oben Mitte, Eisenbarren in der Mitte, sieben Kupferbarren drumherum ergeben zwei Vorlagen.",
+          "Beute: Dorf-Waffenschmied- und Gerberkisten erhalten einen zusätzlichen Wurf mit Vorlage 15 % und abgenutztem Kupfer- oder Eisenhufeisen je 5 %. Seltene Trail-Ruins-Blöcke geben beim Pinseln die Vorlage wie ein weiterer gleich gewichteter Eintrag (1 zu 13), gewöhnliche ein abgenutztes Kupfer- oder Eisenhufeisen (1 zu 46). Alles folgt worldGen.enableLootTableChanges."
         ]
       }
     },
@@ -602,6 +643,160 @@
       }
     },
     {
+      "id": "config-horseshoes-enableHorseshoes",
+      "sources": [
+        "modules/simpleriding/shared/java/com/simpleriding/RidingConfig.java",
+        "modules/simpleriding/shared/java/com/simpleriding/RidingOptions.java",
+        "modules/simpleriding/shared/java/com/simpleriding/client/RidingConfigScreen.java"
+      ],
+      "en": {
+        "title": "Enable Horseshoes",
+        "summary": "horseshoes.enableHorseshoes: Horseshoe bonuses, wear and the extra fall damage of a full set. Items, hoof slots and recipes always stay. Default: true. Server setting; restart required.",
+        "details": [
+          "horseshoes.enableHorseshoes: Horseshoe bonuses, wear and the extra fall damage of a full set. Items, hoof slots and recipes always stay. Default: true. Server setting; restart required."
+        ]
+      },
+      "de": {
+        "title": "Hufeisen aktivieren",
+        "summary": "horseshoes.enableHorseshoes: Hufeisen-Boni, Abnutzung und der Fallschaden eines vollen Satzes. Items, Hufplätze und Rezepte bleiben immer. Standard: true. Servereinstellung; Neustart erforderlich.",
+        "details": [
+          "horseshoes.enableHorseshoes: Hufeisen-Boni, Abnutzung und der Fallschaden eines vollen Satzes. Items, Hufplätze und Rezepte bleiben immer. Standard: true. Servereinstellung; Neustart erforderlich."
+        ]
+      }
+    },
+    {
+      "id": "config-horseshoes-terrainBonus",
+      "sources": [
+        "modules/simpleriding/shared/java/com/simpleriding/RidingConfig.java",
+        "modules/simpleriding/shared/java/com/simpleriding/RidingOptions.java",
+        "modules/simpleriding/shared/java/com/simpleriding/client/RidingConfigScreen.java"
+      ],
+      "en": {
+        "title": "Terrain Bonus",
+        "summary": "horseshoes.terrainBonus: Movement efficiency on slowing blocks such as Soul Sand and Honey at a full Enderite set; weaker sets scale down. Range 0-1. Default: 0.5. Server setting; restart required.",
+        "details": [
+          "horseshoes.terrainBonus: Movement efficiency on slowing blocks such as Soul Sand and Honey at a full Enderite set; weaker sets scale down. Range 0-1. Default: 0.5. Server setting; restart required."
+        ]
+      },
+      "de": {
+        "title": "Geländebonus",
+        "summary": "horseshoes.terrainBonus: Bewegungseffizienz auf bremsenden Blöcken wie Seelensand und Honig bei vollem Enderit-Satz; schwächere Sätze anteilig. Bereich 0-1. Standard: 0.5. Servereinstellung; Neustart erforderlich.",
+        "details": [
+          "horseshoes.terrainBonus: Bewegungseffizienz auf bremsenden Blöcken wie Seelensand und Honig bei vollem Enderit-Satz; schwächere Sätze anteilig. Bereich 0-1. Standard: 0.5. Servereinstellung; Neustart erforderlich."
+        ]
+      }
+    },
+    {
+      "id": "config-horseshoes-handlingBonus",
+      "sources": [
+        "modules/simpleriding/shared/java/com/simpleriding/RidingConfig.java",
+        "modules/simpleriding/shared/java/com/simpleriding/RidingOptions.java",
+        "modules/simpleriding/shared/java/com/simpleriding/client/RidingConfigScreen.java"
+      ],
+      "en": {
+        "title": "Handling Bonus",
+        "summary": "horseshoes.handlingBonus: Extra sideways steering at a full Enderite set (Vanilla share 0.5; backward gets half). Forward speed is unchanged. Range 0-0.5. Default: 0.3. Server setting; restart required.",
+        "details": [
+          "horseshoes.handlingBonus: Extra sideways steering at a full Enderite set (Vanilla share 0.5; backward gets half). Forward speed is unchanged. Range 0-0.5. Default: 0.3. Server setting; restart required."
+        ]
+      },
+      "de": {
+        "title": "Handling-Bonus",
+        "summary": "horseshoes.handlingBonus: Zusätzliche Seitwärtslenkung bei vollem Enderit-Satz (Vanilla-Anteil 0,5; rückwärts die Hälfte). Das Vorwärtstempo bleibt gleich. Bereich 0-0.5. Standard: 0.3. Servereinstellung; Neustart erforderlich.",
+        "details": [
+          "horseshoes.handlingBonus: Zusätzliche Seitwärtslenkung bei vollem Enderit-Satz (Vanilla-Anteil 0,5; rückwärts die Hälfte). Das Vorwärtstempo bleibt gleich. Bereich 0-0.5. Standard: 0.3. Servereinstellung; Neustart erforderlich."
+        ]
+      }
+    },
+    {
+      "id": "config-horseshoes-fullSetSpeedBonus",
+      "sources": [
+        "modules/simpleriding/shared/java/com/simpleriding/RidingConfig.java",
+        "modules/simpleriding/shared/java/com/simpleriding/RidingOptions.java",
+        "modules/simpleriding/shared/java/com/simpleriding/client/RidingConfigScreen.java"
+      ],
+      "en": {
+        "title": "Full Set Speed Bonus",
+        "summary": "horseshoes.fullSetSpeedBonus: Extra speed with all four horseshoes; shares the total speed cap with Tailwind. Range 0-0.1. Default: 0.05. Server setting; restart required.",
+        "details": [
+          "horseshoes.fullSetSpeedBonus: Extra speed with all four horseshoes; shares the total speed cap with Tailwind. Range 0-0.1. Default: 0.05. Server setting; restart required."
+        ]
+      },
+      "de": {
+        "title": "Tempobonus voller Satz",
+        "summary": "horseshoes.fullSetSpeedBonus: Zusätzliches Tempo mit allen vier Hufeisen; teilt sich die Gesamttempogrenze mit Rückenwind. Bereich 0-0.1. Standard: 0.05. Servereinstellung; Neustart erforderlich.",
+        "details": [
+          "horseshoes.fullSetSpeedBonus: Zusätzliches Tempo mit allen vier Hufeisen; teilt sich die Gesamttempogrenze mit Rückenwind. Bereich 0-0.1. Standard: 0.05. Servereinstellung; Neustart erforderlich."
+        ]
+      }
+    },
+    {
+      "id": "config-horseshoes-fullSetJumpBonus",
+      "sources": [
+        "modules/simpleriding/shared/java/com/simpleriding/RidingConfig.java",
+        "modules/simpleriding/shared/java/com/simpleriding/RidingOptions.java",
+        "modules/simpleriding/shared/java/com/simpleriding/client/RidingConfigScreen.java"
+      ],
+      "en": {
+        "title": "Full Set Jump Bonus",
+        "summary": "horseshoes.fullSetJumpBonus: Extra jump strength with all four horseshoes; shares the total jump cap with Leaping. Range 0-0.1. Default: 0.05. Server setting; restart required.",
+        "details": [
+          "horseshoes.fullSetJumpBonus: Extra jump strength with all four horseshoes; shares the total jump cap with Leaping. Range 0-0.1. Default: 0.05. Server setting; restart required."
+        ]
+      },
+      "de": {
+        "title": "Sprungbonus voller Satz",
+        "summary": "horseshoes.fullSetJumpBonus: Zusätzliche Sprungkraft mit allen vier Hufeisen; teilt sich die Gesamtsprunggrenze mit Sprungkraft. Bereich 0-0.1. Standard: 0.05. Servereinstellung; Neustart erforderlich.",
+        "details": [
+          "horseshoes.fullSetJumpBonus: Zusätzliche Sprungkraft mit allen vier Hufeisen; teilt sich die Gesamtsprunggrenze mit Sprungkraft. Bereich 0-0.1. Standard: 0.05. Servereinstellung; Neustart erforderlich."
+        ]
+      }
+    },
+    {
+      "id": "config-horseshoes-fullSetFallDamageIncrease",
+      "sources": [
+        "modules/simpleriding/shared/java/com/simpleriding/RidingConfig.java",
+        "modules/simpleriding/shared/java/com/simpleriding/RidingOptions.java",
+        "modules/simpleriding/shared/java/com/simpleriding/client/RidingConfigScreen.java"
+      ],
+      "en": {
+        "title": "Full Set Fall Damage Increase",
+        "summary": "horseshoes.fullSetFallDamageIncrease: Extra fall damage with all four horseshoes, rounded, so short falls stay the same. Range 0-0.25. Default: 0.1. Server setting; restart required.",
+        "details": [
+          "horseshoes.fullSetFallDamageIncrease: Extra fall damage with all four horseshoes, rounded, so short falls stay the same. Range 0-0.25. Default: 0.1. Server setting; restart required."
+        ]
+      },
+      "de": {
+        "title": "Mehr Fallschaden voller Satz",
+        "summary": "horseshoes.fullSetFallDamageIncrease: Zusätzlicher Fallschaden mit allen vier Hufeisen, gerundet, damit kurze Stürze gleich bleiben. Bereich 0-0.25. Standard: 0.1. Servereinstellung; Neustart erforderlich.",
+        "details": [
+          "horseshoes.fullSetFallDamageIncrease: Zusätzlicher Fallschaden mit allen vier Hufeisen, gerundet, damit kurze Stürze gleich bleiben. Bereich 0-0.25. Standard: 0.1. Servereinstellung; Neustart erforderlich."
+        ]
+      }
+    },
+    {
+      "id": "config-horseshoes-blocksPerDurability",
+      "sources": [
+        "modules/simpleriding/shared/java/com/simpleriding/RidingConfig.java",
+        "modules/simpleriding/shared/java/com/simpleriding/RidingOptions.java",
+        "modules/simpleriding/shared/java/com/simpleriding/client/RidingConfigScreen.java"
+      ],
+      "en": {
+        "title": "Blocks per Durability Point",
+        "summary": "horseshoes.blocksPerDurability: Ridden distance on the ground per point of wear on each horseshoe. Range 8-400. Default: 40. Server setting; restart required.",
+        "details": [
+          "horseshoes.blocksPerDurability: Ridden distance on the ground per point of wear on each horseshoe. Range 8-400. Default: 40. Server setting; restart required."
+        ]
+      },
+      "de": {
+        "title": "Blöcke je Haltbarkeitspunkt",
+        "summary": "horseshoes.blocksPerDurability: Gerittene Strecke am Boden je Abnutzungspunkt jedes Hufeisens. Bereich 8-400. Standard: 40. Servereinstellung; Neustart erforderlich.",
+        "details": [
+          "horseshoes.blocksPerDurability: Gerittene Strecke am Boden je Abnutzungspunkt jedes Hufeisens. Bereich 8-400. Standard: 40. Servereinstellung; Neustart erforderlich."
+        ]
+      }
+    },
+    {
       "id": "forge_263",
       "en": {
         "title": "Experimental Forge 26.3",
@@ -624,5 +819,30 @@
       ],
       "related": []
     }
-  ]
+  ],
+  "notes": {
+    "*_horseshoe": {
+      "sources": [
+        "modules/simpleriding/shared/java/com/simpleriding/Horseshoes.java"
+      ],
+      "en": {
+        "summary": "Goes into one of the four hoof slots of a horse, donkey, mule or undead horse. See the Horseshoes chapter for points, effects, durability and recipes."
+      },
+      "de": {
+        "summary": "Kommt in einen der vier Hufplätze eines Pferdes, Esels, Maultiers oder untoten Pferdes. Punkte, Wirkung, Haltbarkeit und Rezepte im Kapitel Hufeisen."
+      }
+    },
+    "horseshoe_smithing_template": {
+      "sources": [
+        "modules/simpleriding/shared/java/com/simpleriding/Horseshoes.java",
+        "modules/simpleriding/generated/resources/data/simpleriding/recipe/horseshoe_smithing_template.json"
+      ],
+      "en": {
+        "summary": "Smithing template for all horseshoes; used up per craft. Duplicate: template top center, iron ingot in the middle, seven copper ingots around it give two. Found in village weaponsmith and tannery chests and trail ruins."
+      },
+      "de": {
+        "summary": "Schmiedevorlage für alle Hufeisen; wird je Herstellung verbraucht. Duplizieren: Vorlage oben Mitte, Eisenbarren in der Mitte, sieben Kupferbarren drumherum ergeben zwei. Fundort: Dorf-Waffenschmied- und Gerberkisten sowie Trail Ruins."
+      }
+    }
+  }
 }

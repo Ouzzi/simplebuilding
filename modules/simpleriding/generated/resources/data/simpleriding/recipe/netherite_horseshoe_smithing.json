@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simpleriding:diamond_horseshoe",
+  "result": {
+    "id": "simpleriding:netherite_horseshoe"
+  },
+  "template": "simpleriding:horseshoe_smithing_template"
+}

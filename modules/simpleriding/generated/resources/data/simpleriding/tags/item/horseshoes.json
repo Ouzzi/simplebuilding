@@ -1,0 +1,13 @@
+{
+  "values": [
+    "simpleriding:copper_horseshoe",
+    "simpleriding:iron_horseshoe",
+    "simpleriding:golden_horseshoe",
+    "simpleriding:diamond_horseshoe",
+    "simpleriding:netherite_horseshoe",
+    {
+      "id": "simpleriding:enderite_horseshoe",
+      "required": false
+    }
+  ]
+}

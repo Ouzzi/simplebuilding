@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:iron_nugget",
+  "base": "minecraft:copper_ingot",
+  "result": {
+    "id": "simpleriding:copper_horseshoe"
+  },
+  "template": "simpleriding:horseshoe_smithing_template"
+}
