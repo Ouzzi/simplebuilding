@@ -100,10 +100,12 @@ public class ModModelProvider extends FabricModelProvider {
             registerEndPalette(blockStateModelGenerator, palette);
         }
 
-        blockStateModelGenerator.createTrivialCube(ModBlocks.SUSPENDED_SAND);
-        blockStateModelGenerator.createTrivialCube(ModBlocks.SUSPENDED_GRAVEL);
-        blockStateModelGenerator.createTrivialCube(ModBlocks.LEVITATING_SAND);
-        blockStateModelGenerator.createTrivialCube(ModBlocks.LEVITATING_GRAVEL);
+        // Schwebender/aufsteigender Sand und Kies sehen aus wie Vanilla-Sand und -Kies: die Modelle zeigen direkt
+        // auf minecraft:block/sand bzw. gravel (vorher byte-gleiche Kopien im Mod, Textur-Audit 2026-10-02).
+        vanillaCube(blockStateModelGenerator, ModBlocks.SUSPENDED_SAND, net.minecraft.world.level.block.Blocks.SAND);
+        vanillaCube(blockStateModelGenerator, ModBlocks.SUSPENDED_GRAVEL, net.minecraft.world.level.block.Blocks.GRAVEL);
+        vanillaCube(blockStateModelGenerator, ModBlocks.LEVITATING_SAND, net.minecraft.world.level.block.Blocks.SAND);
+        vanillaCube(blockStateModelGenerator, ModBlocks.LEVITATING_GRAVEL, net.minecraft.world.level.block.Blocks.GRAVEL);
 
 
         // --- 1. Basic Blocks ---
@@ -814,5 +816,11 @@ public class ModModelProvider extends FabricModelProvider {
 
         // WICHTIG: Die ID muss in einen WeightedVariant umgewandelt werden!
         generator.createAxisAlignedPillarBlockCustomModel(block, BlockModelGenerators.plainVariant(modelId));
+    }
+
+    /** Wuerfel mit der Textur eines Vanilla-Blocks (cube_all auf minecraft:block/<vanilla>). */
+    private static void vanillaCube(BlockModelGenerators generator, Block block, Block texture) {
+        Identifier model = ModelTemplates.CUBE_ALL.create(block, TextureMapping.cube(texture), generator.modelOutput);
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(model)));
     }
 }

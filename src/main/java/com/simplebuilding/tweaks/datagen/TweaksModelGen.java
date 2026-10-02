@@ -191,7 +191,11 @@ public final class TweaksModelGen {
             up = ModelLocationUtils.getModelLocation(unwaxed);
             down = ModelLocationUtils.getModelLocation(unwaxed, "_down");
         } else {
-            TextureMapping texture = TextureMapping.defaultTexture(block);
+            // Diamant-/Netheritplatte zeigen wie Vanillas Waegeplatten den Vollblock (minecraft:block/diamond_block,
+            // netherite_block) statt einer byte-gleichen Kopie im Mod (Textur-Audit 2026-10-02).
+            Block face = block == TweaksBlocks.DIAMOND_PRESSURE_PLATE ? net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK
+                    : block == TweaksBlocks.NETHERITE_PRESSURE_PLATE ? net.minecraft.world.level.block.Blocks.NETHERITE_BLOCK : block;
+            TextureMapping texture = TextureMapping.defaultTexture(face);
             up = ModelTemplates.PRESSURE_PLATE_UP.create(block, texture, generator.modelOutput);
             down = ModelTemplates.PRESSURE_PLATE_DOWN.create(block,
                     TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_active")), generator.modelOutput);
