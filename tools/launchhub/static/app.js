@@ -155,7 +155,7 @@ let view = null;       // aktueller Bereich {cleanup, onJobs, onFinished}
 const SECTIONS = [
   ['mods', 'Mods', '?'],
   ['launch', 'Starten', '▶'], ['tests', 'Tests', '✔'], ['failures', 'Fehlschlaege', '✖'],
-  ['history', 'Verlauf', '⧖'], ['ai', 'KI-Fixes', '✦'], ['worktrees', 'Worktrees', '⑂'], ['settings', 'Einstellungen', '⚙'],
+  ['history', 'Verlauf', '⧖'], ['ai', 'KI-Fixes', '✦'], ['offline', 'Offline-Testlauf', '☾'], ['worktrees', 'Worktrees', '⑂'], ['settings', 'Einstellungen', '⚙'],
 ];
 
 function renderStrip() {
@@ -785,6 +785,109 @@ async function viewAi(root) {
 }
 
 // ---------------------------------------------------------------------------------------------
+// Bereich: Offline-Testlauf (tools/testrunner/offline_gate.ps1, laeuft unabhaengig vom Hub)
+// ---------------------------------------------------------------------------------------------
+const OFF_RUN_TEXT = { running: 'laeuft', done: 'fertig', aborted: 'abgebrochen', unknown: 'unvollstaendig' };
+const OFF_VERDICT = { green: ['b-ok', 'GRUEN'], 'green-no-forge': ['b-warn', 'GRUEN ohne Forge'], red: ['b-bad', 'ROT'], error: ['b-bad', 'FEHLER'] };
+function offLogLink(name) {
+  return name ? h('a', { href: '/api/offline/log?name=' + encodeURIComponent(name), target: '_blank', rel: 'noopener' }, 'Log') : null;
+}
+function offGroupRow(sha, g) {
+  const has = g.total !== null && g.total !== undefined;
+  const nums = has ? `${g.passed}/${g.total}` + (g.failed ? ` · ${g.failed} rot` : '') : (g.kind === 'check' ? 'gradlew check' : '-');
+  const red = g.red || [];
+  return h('tr', {}, h('td', { class: 'tname', style: 'white-space:nowrap' }, sha), h('td', { style: 'white-space:nowrap' }, g.name),
+    h('td', {}, h('span', { class: 'badge ' + (g.ok ? 'b-ok' : 'b-bad') }, g.ok ? 'gruen' : 'rot')), h('td', { class: 'num' }, nums),
+    h('td', { class: 'tiny' }, red.slice(0, 8).map((r) => h('div', {}, r)), red.length > 8 ? h('div', { class: 'muted' }, `... ${red.length - 8} weitere (Log)`) : null),
+    h('td', {}, offLogLink(g.log)));
+}
+function offWhen(run, iso) { return iso ? (run.source === 'md' ? iso : fmtAgo(iso)) : '?'; }
+function offRunCard(run) {
+  const st = run.status || 'unknown';
+  const rows = [];
+  for (const s of run.shas || []) {
+    const [cls, label] = OFF_VERDICT[s.verdict] || ['', st === 'running' ? 'laeuft' : 'offen'];
+    rows.push(h('tr', {}, h('td', { class: 'tname', style: 'white-space:nowrap' }, h('b', {}, s.sha || s.ref)), h('td', { colspan: 5 },
+      h('span', { class: 'badge ' + cls, title: s.verdictText || '' }, 'Urteil 26.3: ', label),
+      s.error ? h('span', { class: 'tiny', style: 'margin-left:.5rem' }, s.error) : null,
+      (s.notes || []).map((n) => h('div', { class: 'tiny muted' }, 'Hinweis: ', n)),
+      s.verdict === 'green-no-forge' ? h('div', { class: 'tiny' }, 'Forge online nachholen: Lauf "mit Netz" fuer diese SHA (forge-263, ca. 10 min).') : null)));
+    for (const g of s.groups || []) rows.push(offGroupRow(s.sha || s.ref, g));
+  }
+  return h('div', { class: 'card' }, h('div', { class: 'card-head' },
+    h('h3', {}, 'Lauf ' + offWhen(run, run.started)),
+    h('span', { class: 'badge ' + (st === 'done' ? 'b-end' : st === 'running' ? 'b-info' : 'b-warn') }, OFF_RUN_TEXT[st] || st),
+    h('span', { class: 'badge' }, run.mode === 'online' ? 'mit Netz' : 'offline'), h('span', { class: 'badge' }, run.profile === '263' ? 'nur 26.3' : 'alle Linien')),
+    h('div', { class: 'tiny muted' }, 'SHAs: ', (run.refs || []).join(', ') || '-', run.finished ? ' · Ende ' + offWhen(run, run.finished) : ''),
+    rows.length ? h('div', { class: 'table-wrap' }, h('table', { class: 'table' }, h('thead', {}, h('tr', {}, ['SHA', 'Gruppe', 'Ergebnis', 'Zahlen', 'Rot / Fehler', ''].map((c) => h('th', {}, c)))), h('tbody', {}, rows)))
+      : h('div', { class: 'tiny muted' }, 'Noch keine Ergebnisse.'));
+}
+async function viewOffline(root) {
+  fill(root, h('div', { class: 'loading' }, h('span', { class: 'spinner' })));
+  let d;
+  try { d = await api('/api/offline'); } catch (e) { fill(root, errorBox(e)); return; }
+  const refs = h('input', { type: 'text', value: (d.master || '').slice(0, 8), style: 'width:100%', 'aria-label': 'SHAs', placeholder: 'SHA, SHA ...' });
+  const profile = h('select', { 'aria-label': 'Profil' }, h('option', { value: '263' }, 'nur 26.3 (Kern + Module)'), h('option', { value: 'all', selected: true }, 'alle Linien (26.3, 26.2, 1.21.11)'));
+  const online = h('input', { type: 'checkbox' });
+  const statusBox = h('div', {}); const results = h('div', {});
+  const queue = h('textarea', { rows: 5, style: 'width:100%', 'aria-label': 'Warteschlange', placeholder: '# eine SHA pro Zeile, # = Kommentar' });
+  queue.value = d.queue; let queueDirty = false; queue.addEventListener('input', () => { queueDirty = true; });
+  const startBtn = h('button', { class: 'btn primary', type: 'button' }, 'Starten');
+  const queueBtn = h('button', { class: 'btn', type: 'button' }, 'Warteschlange starten');
+  async function load() { try { d = await api('/api/offline'); render(); } catch (e) { /* naechster Versuch */ } }
+  const start = async (useQueue) => {
+    const body = { profile: profile.value, online: online.checked, useQueue };
+    if (!useQueue) body.refs = refs.value;
+    try {
+      const r = await api('/api/offline/start', body);
+      if (r.dryRun) openModal('Trockenlauf: wuerde starten', h('div', {}, h('p', {}, 'Im Ordner ', h('code', {}, r.cwd)), h('pre', { class: 'log' }, r.argv.join(' '))));
+      else toast(`Offline-Testlauf gestartet (PID ${r.pid})`);
+      load();
+    } catch (e) { toast(e.message, 'bad'); }
+  };
+  startBtn.addEventListener('click', () => start(false));
+  queueBtn.addEventListener('click', () => start(true));
+  const stop = async () => {
+    const text = d.running ? `Der Prozess ${d.lock.pid} (offline_gate.ps1) und seine Unterprozesse werden beendet. Der aktuelle Schritt bleibt unvollstaendig.` : `Die Sperre zeigt auf PID ${d.lock.pid}, das ist kein laufendes offline_gate-Skript. Sperre entfernen?`;
+    if (!await confirmDialog(d.running ? 'Offline-Testlauf stoppen?' : 'Veraltete Sperre entfernen?', text, d.running ? 'Stoppen' : 'Entfernen', true)) return;
+    try { const r = await api('/api/offline/stop', {}); toast(r.dryRun ? `Trockenlauf: wuerde PID ${r.pid} beenden` : r.stopped ? 'Gestoppt' : 'Veraltete Sperre entfernt'); load(); } catch (e) { toast(e.message, 'bad'); }
+  };
+  function render() {
+    startBtn.disabled = d.running; queueBtn.disabled = d.running;
+    const age = d.statusAgeSeconds;
+    fill(statusBox, h('div', { class: 'card' }, h('div', { class: 'card-head' }, h('h3', {}, 'Status'),
+      h('span', { class: 'badge ' + (d.running ? 'b-info' : '') }, d.running ? `laeuft (PID ${d.lock.pid})` : 'kein Lauf aktiv'),
+      d.lock.stale ? h('span', { class: 'badge b-warn', title: 'PID aus offline-gate.lock ist kein laufendes offline_gate-Skript' }, 'veraltete Sperre') : null,
+      h('span', { class: 'sp' }), d.running || d.lock.stale ? h('button', { class: 'btn small danger', type: 'button', onclick: stop }, d.running ? 'Stoppen' : 'Sperre entfernen') : null,
+      h('button', { class: 'btn small', type: 'button', onclick: () => openPath({ what: 'offline-logs' }) }, 'Log-Ordner')),
+      h('div', {}, d.status ? h('code', {}, d.status) : h('span', { class: 'muted' }, 'Noch kein Status.'), age !== null && age !== undefined ? h('span', { class: 'tiny muted' }, ` (Datei vor ${fmtSecs(age)} geschrieben)`) : null),
+      h('div', { class: 'tiny muted' }, 'Ordner: ', d.dir),
+      !d.scriptExists ? h('div', { class: 'box box-danger' }, 'Skript fehlt: ', d.script) : null,
+      !d.shell && !d.dryRun ? h('div', { class: 'box box-warn' }, 'PowerShell 7 (pwsh) nicht gefunden - Starten geht nicht.') : null));
+    fill(results, d.runs.length ? [d.source === 'md' ? h('p', { class: 'tiny muted' }, 'Aus offline-results.md gelesen (aeltere Laeufe ohne JSON, teils unvollstaendig).') : null, d.runs.map(offRunCard)]
+      : h('div', { class: 'empty' }, h('b', {}, 'Keine Laeufe'), `In ${d.dir} liegt noch kein Ergebnis.`));
+    if (!queueDirty && document.activeElement !== queue) queue.value = d.queue;
+  }
+  fill(root, h('h1', {}, 'Offline-Testlauf'),
+    h('p', { class: 'lead' }, 'Unbeaufsichtigter Testlauf fuer eine oder mehrere SHAs im eigenen Worktree (%TEMP%\\sbgate-offline). Laeuft als eigener Prozess weiter, auch wenn der Hub neu startet oder das Netz weg ist. Pusht nie.'),
+    statusBox,
+    h('div', { class: 'card' }, h('h2', {}, 'Neuer Lauf'), h('div', { class: 'form-grid' },
+      h('div', { class: 'field' }, h('label', {}, 'SHAs'), refs, h('span', { class: 'hint' }, 'Mehrere mit Komma oder Leerzeichen; jede wird mit git rev-parse geprueft. Vorbelegt: master-HEAD.')),
+      h('div', { class: 'field' }, h('label', {}, 'Profil'), profile, h('span', { class: 'hint' }, 'Nur 26.3 entscheidet ueber das Urteil; 26.2 und 1.21.11 werden nur berichtet.')),
+      h('div', { class: 'field' }, h('label', { class: 'check' }, online, 'mit Netz (Cache waermen)'), h('span', { class: 'hint' }, 'Ohne Haken: Gradle --offline, Forge-Ziele werden uebersprungen. Mit Haken: inklusive Forge, fuellt den Cache fuer spaetere Offline-Laeufe.'))),
+      h('div', { class: 'box box-info' }, 'Forge braucht immer Netz (ForgeGradle): ein offline gruener Lauf heisst "GRUEN ohne Forge" - forge-263 danach online nachholen (ca. 10 min). Laptop wach halten und am Netzteil lassen.'),
+      h('div', { class: 'btn-row' }, startBtn, queueBtn)),
+    h('div', { class: 'card' }, h('h2', {}, 'Warteschlange'), h('p', { class: 'tiny muted' }, 'offline-queue.txt: wird gelesen, wenn ohne SHAs gestartet wird ("Warteschlange starten" oder start_offline_gate.cmd ohne Argument).'), queue,
+      h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: async () => {
+        try { const r = await api('/api/offline/queue', { text: queue.value }); toast(r.dryRun ? 'Trockenlauf: nicht gespeichert (Eintraege gueltig)' : 'Warteschlange gespeichert'); queueDirty = false; load(); } catch (e) { toast(e.message, 'bad'); }
+      } }, 'Warteschlange speichern'), h('button', { class: 'btn', type: 'button', onclick: () => { queueDirty = false; queue.value = d.queue; } }, 'Verwerfen'))),
+    h('h2', {}, 'Ergebnisse'), results);
+  render();
+  const timer = setInterval(() => { if (!document.hidden) load(); }, 4000);
+  view = { cleanup: () => clearInterval(timer) };
+}
+
+// ---------------------------------------------------------------------------------------------
 // Bereich: Worktrees
 // ---------------------------------------------------------------------------------------------
 async function viewWorktrees(root) {
@@ -867,7 +970,7 @@ async function viewSettings(root) {
 // ---------------------------------------------------------------------------------------------
 // Router, Tastatur, Start
 // ---------------------------------------------------------------------------------------------
-const VIEWS = { mods: viewMods, launch: viewLaunch, tests: viewTests, failures: viewFailures, history: viewHistory, ai: viewAi, worktrees: viewWorktrees, settings: viewSettings };
+const VIEWS = { mods: viewMods, launch: viewLaunch, tests: viewTests, failures: viewFailures, history: viewHistory, ai: viewAi, offline: viewOffline, worktrees: viewWorktrees, settings: viewSettings };
 function routeName() { const n = (location.hash || '').replace(/^#\/?/, '').split('/')[0]; return VIEWS[n] ? n : (VIEWS[prefs.route] ? prefs.route : 'launch'); }
 async function route() {
   if (view && view.cleanup) view.cleanup();

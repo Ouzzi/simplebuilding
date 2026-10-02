@@ -40,9 +40,10 @@ def _need(body: dict, key: str, kind=str):
 
 
 from .mods import ModsMixin
+from .offline import OfflineMixin
 
 
-class Hub(ModsMixin):
+class Hub(ModsMixin, OfflineMixin):
     def __init__(self, repo: Path = paths.REPO, logs_dir: Path = paths.LOGS_DIR, data_dir: Path = paths.DATA_DIR):
         self.repo = repo
         self.data_dir = data_dir
@@ -806,6 +807,8 @@ class Hub(ModsMixin):
             path = paths.LOGS_DIR
         elif what == "runs":
             path = self.runs_dir()
+        elif what == "offline-logs":
+            path = self.offline_dir() / "offline-logs"
         elif what == "job-log":
             path = self._job(_need(body, "id")).log_path
         elif what == "run-dir":
@@ -851,6 +854,7 @@ class Hub(ModsMixin):
             "/api/mods": self.mods_state, "/api/state": self.state, "/api/targets": self.get_targets, "/api/processes": self.list_processes,
             "/api/overview": self.overview, "/api/failures": self.failures, "/api/prepush": self.prepush,
             "/api/worktrees": self.list_worktrees, "/api/settings": self.get_settings, "/api/providers": self.providers,
+            "/api/offline": self.offline_state,
         }
         if path in simple:
             return "json", simple[path]()
@@ -864,6 +868,8 @@ class Hub(ModsMixin):
             return "json", self.test_history(query)
         if path == "/api/compare":
             return "json", self.compare(query)
+        if path == "/api/offline/log":
+            return "text", self.offline_log(query)
         if path == "/api/summary.md":
             return "text", self.summary_markdown(query)
         if path == "/api/failure.md":
@@ -891,6 +897,8 @@ class Hub(ModsMixin):
             "/api/process/stop": self.stop_process, "/api/ai/preview": self.ai_preview, "/api/ai/start": self.ai_start,
             "/api/worktrees/delete": self.delete_worktree, "/api/settings": self.save_settings,
             "/api/open": self.open_path, "/api/gate/prepare": lambda _b: self.prepare_gate(),
+            "/api/offline/start": self.offline_start, "/api/offline/stop": self.offline_stop,
+            "/api/offline/queue": self.offline_queue_save,
         }
         handler = table.get(path)
         if not handler:
