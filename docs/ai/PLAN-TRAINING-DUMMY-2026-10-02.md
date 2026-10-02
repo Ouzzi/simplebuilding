@@ -69,3 +69,13 @@ GameTests (Umwandlung, Unzerstörbarkeit, Schleich-Abbau mit Drops, Bann gegen Z
 Feuerimmunität Lohenkopf, Trefferpause, Krit, Pfeil-Spitze gegen Zombiekopf, Zahl erscheint und verschwindet, DPS-
 Summe), Testzentralen-Abdeckung + Station; `fabric-263`, `neoforge-263`, 26.2-Compile, Forge-26.3-Compile, Datagen,
 Wiki-Check, Texturen-Vorschau. Nicht testbar ohne Client: Rendern der Puppe/Zahlen (Client-Abnahme offen).
+
+## Stand nach Umsetzung (2026-10-02)
+- Umgesetzt wie geplant. Abweichungen: Testzentralen-Puppen nutzen das bestehende `TcOp.Stand` mit Flag `dummy`
+  statt eines neuen Schritts; im Mod-Tab steht nur der Stroh-Rüstungsständer (Vanilla-Items gehören nicht in Mod-Tabs,
+  DataIntegrity), in der Suche direkt hinter dem Vanilla-Rüstungsständer. Der Stroh-Rüstungsständer brennt nicht (wie
+  geplant vereinfacht: nur Schlag/Explosion).
+- Getestet: 6 GameTests `training_dummy_*` (Fabric, NeoForge, Forge 26.3), volle Server-Suite Fabric/NeoForge 26.3, 26.2-Compile,
+  Forge-26.3-Compile, Datagen, Wiki-Check, Texturen-Check.
+- Nicht getestet: Rendern (Puppe, Zahlen, Summe) im Client; echtes Schießen mit Bogen auf die Puppe nur indirekt
+  (Schadensquelle + Verzauberungs-Mixin). Testzentrale in der Besitzerwelt nicht neu gebaut.

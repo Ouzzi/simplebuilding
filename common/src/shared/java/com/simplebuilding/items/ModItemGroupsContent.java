@@ -367,8 +367,8 @@ public final class ModItemGroupsContent {
             rows.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, CreativeTabLayout.GAP, ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP));
         }
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
-            // Trainingspuppe (2026-10-02): Ruestungsstaender, daraus der Stroh-Ruestungsstaender.
-            rows.add(CreativeTabLayout.Row.of("training_dummy", Items.ARMOR_STAND, ModItems.STRAW_ARMOR_STAND));
+            // Trainingspuppe (2026-10-02): der Stroh-Ruestungsstaender (Vanilla-Items gehoeren nicht in Mod-Tabs).
+            rows.add(CreativeTabLayout.Row.of("training_dummy", ModItems.STRAW_ARMOR_STAND));
         }
         return rows;
     }

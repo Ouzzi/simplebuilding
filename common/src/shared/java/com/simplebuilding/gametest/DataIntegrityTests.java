@@ -2590,6 +2590,9 @@ public final class DataIntegrityTests {
             expected.add(List.of(ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, gap,
                     ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP));
         }
+        if (McVersion.TRAINING_DUMMY) {
+            expected.add(List.of(ModItems.STRAW_ARMOR_STAND));
+        }
 
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.FUNCTIONAL, problems), expectedSlots(expected), "SimpleMachines", problems);
         helper.assertTrue(problems.isEmpty(), "machines and storage layout: " + problems);
