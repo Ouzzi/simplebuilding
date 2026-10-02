@@ -24,11 +24,11 @@ $env:SIMPLEBUILDING_JAVA8_HOME = EnvOr 'SB_OFFLINE_JAVA8_HOME' 'C:/Users/o_o/.jd
 $py = EnvOr 'SB_OFFLINE_PYTHON' 'C:\Users\o_o\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\python.exe'
 $env:Path = "$(Split-Path $py);$env:JAVA_HOME\bin;$env:Path"
 $env:SIMPLEBUILDING_GRADLE_OFFLINE = if ($Online) { '0' } else { '1' }
-# Offline laeuft Gradle mit --configure-on-demand; dabei teilten sich parallele Modul-NeoForge-Laeufe den
-# Ordner integration/run-neoforge-263 (Probelauf 2: "Retrieved chunk position ... does not match"). Also seriell.
-if (-not $Online) { $env:SIMPLEBUILDING_SERIAL_TESTS = '1' } else { Remove-Item Env:SIMPLEBUILDING_SERIAL_TESTS -ErrorAction SilentlyContinue }
+Remove-Item Env:SIMPLEBUILDING_SERIAL_TESTS -ErrorAction SilentlyContinue
 # @(...) noetig: ein einzelnes Element kaeme sonst als String zurueck und wuerde zeichenweise gesplattet.
-$offlineArg = @(if (-not $Online) { '--offline'; '--configure-on-demand' })
+# -PskipForge262: das 26.2-:forge-Projekt nicht einbinden (ForgeGradles Mavenizer laedt beim Konfigurieren
+# immer das Launcher-Manifest, kein Offline-Schalter), siehe settings.gradle.
+$offlineArg = @(if (-not $Online) { '--offline'; '-PskipForge262=true' })
 
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $mainRepo = $repo
@@ -122,18 +122,7 @@ try {
         Status "$sha  gradlew check"
         SaveJson
         $log = Join-Path $logs "$sha-check.log"
-        if ($Online) { $checkTasks = @('check') }
-        else {
-            # Offline nie das 26.2-:forge-Projekt konfigurieren: ForgeGradles Mavenizer laedt dabei immer das
-            # Launcher-Manifest (kein Offline-Schalter). Also jedes andere Projekt einzeln pruefen.
-            $paths = @(':', ':common', ':neoforge', ':mc1_21_11:fabric', ':mc1_21_11:neoforge', ':mc26_3:fabric', ':mc26_3:neoforge', ':framework', ':integration')
-            $reg = Get-Content modules/modules.json -Raw | ConvertFrom-Json
-            foreach ($m in $reg.modules) {
-                if ($m.id -eq 'simplebuilding' -or -not $m.projects) { continue }
-                foreach ($pr in $m.projects.PSObject.Properties) { if ($pr.Name -ne 'forge') { $paths += $pr.Value } }
-            }
-            $checkTasks = @($paths | ForEach-Object { if ($_ -eq ':') { ':check' } else { "$_`:check" } })
-        }
+        $checkTasks = @('check')
         & .\gradlew.bat @offlineArg @checkTasks -q *> $log
         $ck = $LASTEXITCODE -eq 0
         Result "$sha  check: $(if ($ck) { 'OK' } else { "**FEHLER** ($log)" })"

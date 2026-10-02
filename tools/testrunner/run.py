@@ -360,12 +360,12 @@ def gradlew() -> list[str]:
     """The wrapper, spelled the way this platform can start it.
 
     SIMPLEBUILDING_GRADLE_OFFLINE=1 adds --offline: unattended runs without network use the
-    warmed Gradle cache instead of failing on a download (tools/testrunner/offline_gate.ps1). It also adds
-    --configure-on-demand, because configuring the 26.2 :forge project always runs ForgeGradle's
-    Mavenizer, which downloads the launcher manifest and has no offline switch in ForgeGradle 7.
-    Forge targets themselves therefore still need the network.
+    warmed Gradle cache instead of failing on a download (tools/testrunner/offline_gate.ps1). It also
+    leaves the 26.2 :forge project out (-PskipForge262, see settings.gradle): configuring it always
+    runs ForgeGradle's Mavenizer, which downloads the launcher manifest and has no offline switch in
+    ForgeGradle 7. Forge targets themselves therefore still need the network.
     """
-    offline = (["--offline", "--configure-on-demand"]
+    offline = (["--offline", "-PskipForge262=true"]
                if os.environ.get("SIMPLEBUILDING_GRADLE_OFFLINE") == "1" else [])
     if os.name == "nt":
         return [str(REPO / "gradlew.bat"), *offline]

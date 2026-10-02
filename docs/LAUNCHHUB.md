@@ -70,7 +70,7 @@ oder mehrere SHAs im eigenen Worktree `%TEMP%\sbgate-offline` (stört weder Haup
 `gradlew check`, dann die Gruppen `kern-263` (Fabric + NeoForge), `module-263` (Integration + alle Modulziele), bei Profil
 „alle Linien“ zusätzlich `linie-262` und `linie-12111` (nur berichtet; das Urteil hängt allein an 26.3).
 - **Zweck**: Gate über Nacht oder ohne Netz laufen lassen. Ohne Haken „mit Netz“ läuft Gradle mit `--offline
-  --configure-on-demand` (`SIMPLEBUILDING_GRADLE_OFFLINE=1`) aus dem warmen Cache; „mit Netz (Cache wärmen)“ lädt, was fehlt,
+  -PskipForge262=true` (`SIMPLEBUILDING_GRADLE_OFFLINE=1`; lässt das 26.2-Forge-Projekt weg) aus dem warmen Cache; „mit Netz (Cache wärmen)“ lädt, was fehlt,
   und testet Forge mit.
 - **Starten**: SHA-Feld (vorbelegt master-HEAD, mehrere mit Komma/Leerzeichen; jede wird mit `git rev-parse` geprüft) oder
   „Warteschlange starten“ (`.ai-runs/offline-queue.txt`, im Bereich bearbeitbar). Der Hub startet das Skript als eigenen

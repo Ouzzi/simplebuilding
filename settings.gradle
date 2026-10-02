@@ -21,7 +21,9 @@ rootProject.name = 'simplebuilding'
 
 include 'common'
 include 'neoforge'
-include 'forge'
+// -PskipForge262=true leaves the 26.2 Forge project out: configuring it always runs ForgeGradle's Mavenizer,
+// which downloads the launcher manifest (no offline switch), so offline runs (tools/testrunner/offline_gate.ps1) skip it.
+if (!providers.gradleProperty('skipForge262').getOrElse('false').toBoolean()) include 'forge'
 include 'mc1_21_11:fabric'
 include 'mc1_21_11:neoforge'
 include 'mc26_3:fabric'
