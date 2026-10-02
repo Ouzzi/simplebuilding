@@ -864,6 +864,23 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         "addition": [
           "minecraft:iron_nugget"
         ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 1
+          },
+          {
+            "id": "simpleriding:horseshoe_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.111
+          }
+        ]
       }
     },
     {
@@ -890,6 +907,23 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         ],
         "addition": [
           "minecraft:iron_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "simpleriding:horseshoe_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.111
+          }
         ]
       }
     },
@@ -918,6 +952,31 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         "addition": [
           "simplebuilding:enderite_ingot"
         ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleriding:horseshoe_smithing_template",
+            "count": 3
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.111
+          }
+        ]
       }
     },
     {
@@ -944,6 +1003,23 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         ],
         "addition": [
           "minecraft:iron_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 1
+          },
+          {
+            "id": "simpleriding:horseshoe_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.111
+          }
         ]
       }
     },
@@ -1004,6 +1080,19 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         "addition": [
           "minecraft:iron_nugget"
         ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1.111
+          },
+          {
+            "id": "simpleriding:horseshoe_smithing_template",
+            "count": 1
+          }
+        ]
       }
     },
     {
@@ -1030,6 +1119,27 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         ],
         "addition": [
           "minecraft:netherite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleriding:horseshoe_smithing_template",
+            "count": 2
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.111
+          }
         ]
       }
     }
@@ -1404,7 +1514,11 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
           "summary": "Kommt in einen der vier Hufplätze eines Pferdes, Esels, Maultiers oder untoten Pferdes. Punkte, Wirkung, Haltbarkeit und Rezepte im Kapitel Hufeisen."
         }
       },
-      "texture": "assets/textures/simpleriding/item/copper_horseshoe.png"
+      "texture": "assets/textures/simpleriding/item/copper_horseshoe.png",
+      "craftedBy": [
+        "simpleriding:copper_horseshoe_smithing"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleriding:diamond_horseshoe",
@@ -1423,7 +1537,13 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
           "summary": "Kommt in einen der vier Hufplätze eines Pferdes, Esels, Maultiers oder untoten Pferdes. Punkte, Wirkung, Haltbarkeit und Rezepte im Kapitel Hufeisen."
         }
       },
-      "texture": "assets/textures/simpleriding/item/diamond_horseshoe.png"
+      "texture": "assets/textures/simpleriding/item/diamond_horseshoe.png",
+      "craftedBy": [
+        "simpleriding:diamond_horseshoe_smithing"
+      ],
+      "usedIn": [
+        "simpleriding:netherite_horseshoe_smithing"
+      ]
     },
     {
       "id": "simpleriding:enderite_horseshoe",
@@ -1442,7 +1562,11 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
           "summary": "Kommt in einen der vier Hufplätze eines Pferdes, Esels, Maultiers oder untoten Pferdes. Punkte, Wirkung, Haltbarkeit und Rezepte im Kapitel Hufeisen."
         }
       },
-      "texture": "assets/textures/simpleriding/item/enderite_horseshoe.png"
+      "texture": "assets/textures/simpleriding/item/enderite_horseshoe.png",
+      "craftedBy": [
+        "simpleriding:enderite_horseshoe_smithing"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleriding:golden_horseshoe",
@@ -1461,7 +1585,11 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
           "summary": "Kommt in einen der vier Hufplätze eines Pferdes, Esels, Maultiers oder untoten Pferdes. Punkte, Wirkung, Haltbarkeit und Rezepte im Kapitel Hufeisen."
         }
       },
-      "texture": "assets/textures/simpleriding/item/golden_horseshoe.png"
+      "texture": "assets/textures/simpleriding/item/golden_horseshoe.png",
+      "craftedBy": [
+        "simpleriding:golden_horseshoe_smithing"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleriding:horseshoe_smithing_template",
@@ -1481,7 +1609,19 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
           "summary": "Schmiedevorlage für alle Hufeisen; wird je Herstellung verbraucht. Duplizieren: Vorlage oben Mitte, Eisenbarren in der Mitte, sieben Kupferbarren drumherum ergeben zwei. Fundort: Dorf-Waffenschmied- und Gerberkisten sowie Trail Ruins."
         }
       },
-      "texture": "assets/textures/simpleriding/item/horseshoe_smithing_template.png"
+      "texture": "assets/textures/simpleriding/item/horseshoe_smithing_template.png",
+      "craftedBy": [
+        "simpleriding:horseshoe_smithing_template"
+      ],
+      "usedIn": [
+        "simpleriding:copper_horseshoe_smithing",
+        "simpleriding:diamond_horseshoe_smithing",
+        "simpleriding:enderite_horseshoe_smithing",
+        "simpleriding:golden_horseshoe_smithing",
+        "simpleriding:horseshoe_smithing_template",
+        "simpleriding:iron_horseshoe_smithing",
+        "simpleriding:netherite_horseshoe_smithing"
+      ]
     },
     {
       "id": "simpleriding:iron_horseshoe",
@@ -1500,7 +1640,11 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
           "summary": "Kommt in einen der vier Hufplätze eines Pferdes, Esels, Maultiers oder untoten Pferdes. Punkte, Wirkung, Haltbarkeit und Rezepte im Kapitel Hufeisen."
         }
       },
-      "texture": "assets/textures/simpleriding/item/iron_horseshoe.png"
+      "texture": "assets/textures/simpleriding/item/iron_horseshoe.png",
+      "craftedBy": [
+        "simpleriding:iron_horseshoe_smithing"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleriding:netherite_horseshoe",
@@ -1519,7 +1663,13 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
           "summary": "Kommt in einen der vier Hufplätze eines Pferdes, Esels, Maultiers oder untoten Pferdes. Punkte, Wirkung, Haltbarkeit und Rezepte im Kapitel Hufeisen."
         }
       },
-      "texture": "assets/textures/simpleriding/item/netherite_horseshoe.png"
+      "texture": "assets/textures/simpleriding/item/netherite_horseshoe.png",
+      "craftedBy": [
+        "simpleriding:netherite_horseshoe_smithing"
+      ],
+      "usedIn": [
+        "simpleriding:enderite_horseshoe_smithing"
+      ]
     }
   ],
   "blocks": [],

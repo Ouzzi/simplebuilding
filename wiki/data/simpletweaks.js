@@ -123,7 +123,9 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
           "summary": "Alte Urkunde aus vorhandenen Welten oder /give. Stapelgröße 16. Originaltextur und Zusatzdaten bleiben erhalten. Kein Rezept. Claims sind standardmäßig aus; aktiviert beantragt die Urkunde Besitz beim Server."
         }
       },
-      "texture": "assets/textures/simpletweaks/item/claim_deed.png"
+      "texture": "assets/textures/simpletweaks/item/claim_deed.png",
+      "craftedBy": [],
+      "usedIn": []
     }
   ],
   "blocks": [],

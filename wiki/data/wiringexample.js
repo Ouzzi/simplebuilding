@@ -59,7 +59,9 @@ window.WIKI_MODULE_DATA["wiringexample"] = {
         "de": {
           "summary": "Ein einfaches Item fuer den Integrationstest. Es hat kein eigenes Verhalten oder Kreativtab und verwendet das Vanilla-Papiermodell."
         }
-      }
+      },
+      "craftedBy": [],
+      "usedIn": []
     }
   ],
   "blocks": [],

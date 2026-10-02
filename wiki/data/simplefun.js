@@ -1166,6 +1166,19 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "S": [
           "minecraft:snowball"
         ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:snowball",
+            "count": 4
+          },
+          {
+            "id": "minecraft:clay_ball",
+            "count": 1
+          }
+        ]
       }
     }
   ],
@@ -1458,7 +1471,11 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "summary": "Vier Schneebälle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0–4, Wurfsperre 10 Ticks."
         }
       },
-      "texture": "assets/textures/simplefun/item/brick_snowball.png"
+      "texture": "assets/textures/simplefun/item/brick_snowball.png",
+      "craftedBy": [
+        "simplefun:brick_snowball"
+      ],
+      "usedIn": []
     }
   ],
   "blocks": [
@@ -1477,7 +1494,9 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "de": {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
-      }
+      },
+      "craftedBy": [],
+      "usedIn": []
     },
     {
       "id": "simplefun:chicken_wall_head",
@@ -1494,7 +1513,9 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "de": {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
-      }
+      },
+      "craftedBy": [],
+      "usedIn": []
     },
     {
       "id": "simplefun:cow_head",
@@ -1511,7 +1532,9 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "de": {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
-      }
+      },
+      "craftedBy": [],
+      "usedIn": []
     },
     {
       "id": "simplefun:cow_wall_head",
@@ -1528,7 +1551,9 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "de": {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
-      }
+      },
+      "craftedBy": [],
+      "usedIn": []
     },
     {
       "id": "simplefun:pig_head",
@@ -1545,7 +1570,9 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "de": {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
-      }
+      },
+      "craftedBy": [],
+      "usedIn": []
     },
     {
       "id": "simplefun:pig_wall_head",
@@ -1562,7 +1589,9 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "de": {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
-      }
+      },
+      "craftedBy": [],
+      "usedIn": []
     },
     {
       "id": "simplefun:sheep_head",
@@ -1579,7 +1608,9 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "de": {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
-      }
+      },
+      "craftedBy": [],
+      "usedIn": []
     },
     {
       "id": "simplefun:sheep_wall_head",
@@ -1596,7 +1627,9 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "de": {
           "summary": "Nur ein geladener Creeper, der dieses Tier tötet, lässt den Kopf fallen; höchstens ein Kopf je Creeper. Kein Rezept. Auf Boden/Wand setzen, tragen oder über Notenblock setzen. Getragen beim Schleichen: leiser kosmetischer Gruß, höchstens alle fünf Sekunden."
         }
-      }
+      },
+      "craftedBy": [],
+      "usedIn": []
     }
   ],
   "trades": [],

@@ -2589,6 +2589,31 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "addition": [
           "simplemoney:resin_fiber"
         ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:resin_clump",
+            "count": 4
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 3
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 2
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1.222
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.333
+          }
+        ]
       }
     },
     {
@@ -2610,7 +2635,56 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         ]
       },
       "cookingtime": 10000,
-      "experience": 20
+      "experience": 20,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:resin_clump",
+            "count": 4
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 3
+          },
+          {
+            "id": "minecraft:amethyst_shard",
+            "count": 2
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 2
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 1.333
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1.222
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.333
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          }
+        ]
+      }
     },
     {
       "id": "simplemoney:raw_bill_from_crafting_table",
@@ -2642,6 +2716,55 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "P": [
           "simplemoney:refined_blank_note"
         ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "minecraft:resin_clump",
+            "count": 12
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 9
+          },
+          {
+            "id": "minecraft:amethyst_shard",
+            "count": 6
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 6
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 6
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 3.667
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 3
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 3
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.667
+          }
+        ]
       }
     },
     {
@@ -2668,6 +2791,47 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         ],
         "addition": [
           "simplemoney:special_fiber"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:resin_clump",
+            "count": 4
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 3
+          },
+          {
+            "id": "minecraft:amethyst_shard",
+            "count": 2
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 2
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 1.333
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1.222
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.333
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          }
         ]
       }
     },
@@ -2705,6 +2869,27 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "H": [
           "minecraft:honeycomb"
         ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:resin_clump",
+            "count": 4
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 2
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.333
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.222
+          }
+        ]
       }
     },
     {
@@ -2732,6 +2917,19 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         ],
         "G": [
           "minecraft:gunpowder"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 7
+          },
+          {
+            "id": "minecraft:gunpowder",
+            "count": 2
+          }
         ]
       }
     },
@@ -2769,6 +2967,27 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "A": [
           "minecraft:amethyst_shard"
         ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:amethyst_shard",
+            "count": 2
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 0.333
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.222
+          }
+        ]
       }
     },
     {
@@ -2794,6 +3013,19 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         ],
         "M": [
           "minecraft:honeycomb"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 2
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
         ]
       }
     }
@@ -2833,7 +3065,13 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
         ]
       },
-      "texture": "assets/textures/simplemoney/item/blank_note.png"
+      "texture": "assets/textures/simplemoney/item/blank_note.png",
+      "craftedBy": [
+        "simplemoney:blank_note_smithing"
+      ],
+      "usedIn": [
+        "simplemoney:refined_bank_note_blank_smithing"
+      ]
     },
     {
       "id": "simplemoney:money_bill",
@@ -2867,7 +3105,24 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
         ]
       },
-      "texture": "assets/textures/simplemoney/item/money_bill.png"
+      "texture": "assets/textures/simplemoney/item/money_bill.png",
+      "craftedBy": [
+        "simplemoney:money_bill_from_blasting"
+      ],
+      "usedIn": [],
+      "value": {
+        "emeralds": {
+          "min": 3,
+          "max": 35
+        },
+        "trades": 4,
+        "sources": [
+          "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/cleric/08.json",
+          "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/farmer/18.json",
+          "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/fletcher/00.json",
+          "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/mason/10.json"
+        ]
+      }
     },
     {
       "id": "simplemoney:raw_bill",
@@ -2899,7 +3154,13 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
         ]
       },
-      "texture": "assets/textures/simplemoney/item/raw_bill.png"
+      "texture": "assets/textures/simplemoney/item/raw_bill.png",
+      "craftedBy": [
+        "simplemoney:raw_bill_from_crafting_table"
+      ],
+      "usedIn": [
+        "simplemoney:money_bill_from_blasting"
+      ]
     },
     {
       "id": "simplemoney:refined_blank_note",
@@ -2931,7 +3192,13 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
         ]
       },
-      "texture": "assets/textures/simplemoney/item/refined_blank_note.png"
+      "texture": "assets/textures/simplemoney/item/refined_blank_note.png",
+      "craftedBy": [
+        "simplemoney:refined_bank_note_blank_smithing"
+      ],
+      "usedIn": [
+        "simplemoney:raw_bill_from_crafting_table"
+      ]
     },
     {
       "id": "simplemoney:resin_fiber",
@@ -2963,7 +3230,13 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
         ]
       },
-      "texture": "assets/textures/simplemoney/item/resin_fiber.png"
+      "texture": "assets/textures/simplemoney/item/resin_fiber.png",
+      "craftedBy": [
+        "simplemoney:resin_fiber_from_crafting_table"
+      ],
+      "usedIn": [
+        "simplemoney:blank_note_smithing"
+      ]
     },
     {
       "id": "simplemoney:special_fiber",
@@ -2995,7 +3268,13 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
         ]
       },
-      "texture": "assets/textures/simplemoney/item/special_fiber.png"
+      "texture": "assets/textures/simplemoney/item/special_fiber.png",
+      "craftedBy": [
+        "simplemoney:special_fiber_from_crafting_table"
+      ],
+      "usedIn": [
+        "simplemoney:refined_bank_note_blank_smithing"
+      ]
     },
     {
       "id": "simplemoney:special_paper",
@@ -3027,7 +3306,13 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "modules/simplemoney/shared/java/com/simplemoney/MoneyItems.java"
         ]
       },
-      "texture": "assets/textures/simplemoney/item/special_paper.png"
+      "texture": "assets/textures/simplemoney/item/special_paper.png",
+      "craftedBy": [
+        "simplemoney:special_paper_from_crafting_table"
+      ],
+      "usedIn": [
+        "simplemoney:blank_note_smithing"
+      ]
     }
   ],
   "blocks": [],
