@@ -40,6 +40,8 @@ public class TweaksFabric implements ModInitializer {
             }
         });
 
+        syncRecipeSerializers();
+
         ServerTickEvents.END_SERVER_TICK.register(TweaksContent::onServerTick);
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> TweaksContent.onPlayerJoin(handler.player));
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> TweaksContent.onPlayerRespawn(newPlayer));
@@ -54,5 +56,20 @@ public class TweaksFabric implements ModInitializer {
                 (payload, context) -> context.server().execute(() -> TweaksNetwork.handleBoost(payload, context.player())));
         ServerPlayNetworking.registerGlobalReceiver(LaserPayload.ID,
                 (payload, context) -> context.server().execute(() -> TweaksNetwork.handleLaser(payload, context.player())));
+    }
+
+    /**
+     * Seit 26.x schickt Vanilla keine Rezepte mehr an den Client; JEI bekommt sie auf Fabric ueber die
+     * Rezept-Synchronisierung der Fabric API, die nur angemeldete Serializer uebertraegt (JEI meldet nur die
+     * {@code minecraft:}-Serializer an). Ohne das fehlten in JEI alle Rezepte mit eigenem Serializer - Elytra-Pad I
+     * und Flypad I ({@code enchanted_shapeless}), die zaehlenden und Besatz-Schmiederezepte, Rucksack/Buendel.
+     * Laeuft nach {@code Simplebuilding} und {@link TweaksContent#init}, also nach allen Registrierungen.
+     */
+    static void syncRecipeSerializers() {
+        for (var entry : net.minecraft.core.registries.BuiltInRegistries.RECIPE_SERIALIZER.entrySet()) {
+            if (com.simplebuilding.Simplebuilding.MOD_ID.equals(entry.getKey().identifier().getNamespace())) {
+                net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization.synchronizeRecipeSerializer(entry.getValue());
+            }
+        }
     }
 }

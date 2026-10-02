@@ -160,7 +160,7 @@ public final class TweaksStation {
     }
 
     /**
-     * Flypad I mit freiem Flugfeld: der Bereich (4 x 4, 6 hoch, mittig um das Pad, {@link PadTiers#flyArea})
+     * Flypad I mit freiem Flugfeld: der Bereich (4 x 4, 8 hoch, mittig um das Pad, {@link PadTiers#flyArea})
      * ist auf dem Boden mit Purpur markiert und beruehrt kein anderes Pad. Bis 2026-09-28 stand das
      * Flypad dicht zwischen Elytra-Pad und Launchpad - wer das Launchpad testen wollte, flog.
      * Liefert die naechste freie Spalte.

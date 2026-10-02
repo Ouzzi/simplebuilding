@@ -122,6 +122,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_mod_recipes_only_reference_registered_items", DataIntegrityTests::modRecipesOnlyReferenceRegisteredItems)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_every_mod_recipe_survives_the_client_recipe_sync", DataIntegrityTests::everyModRecipeSurvivesTheClientRecipeSync)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_every_mod_block_loot_table_loads", DataIntegrityTests::everyModBlockLootTableLoads)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_broken_mod_blocks_drop_their_expected_item", DataIntegrityTests::brokenModBlocksDropTheirExpectedItem)

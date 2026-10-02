@@ -104,8 +104,13 @@ public final class TweaksModelGen {
                 BlockModelGenerators.plainVariant(ModelLocationUtils.decorateBlockModelLocation("skull"));
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(standing, skull));
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(wall, skull));
-        generator.itemModelOutput.accept(item, ItemModelUtils.specialModel(
-                ModelLocationUtils.decorateItemModelLocation("template_skull"), SKULL_TRANSFORM,
+        // Der Shulkerkopf (Schale + Deckel + Kopf) ist 12 statt 8 Pixel hoch und stand im Inventar oben ueber den
+        // Slot hinaus (Besitzer 2026-10-02): eigenes Basismodell, das nur die GUI-Ansicht verkleinert
+        // (src/main/resources/assets/simplebuilding/models/item/template_shulker_head.json).
+        Identifier base = type == com.simplebuilding.tweaks.block.BlazeHeadType.SHULKER
+                ? Identifier.fromNamespaceAndPath(com.simplebuilding.Simplebuilding.MOD_ID, "item/template_shulker_head")
+                : ModelLocationUtils.decorateItemModelLocation("template_skull");
+        generator.itemModelOutput.accept(item, ItemModelUtils.specialModel(base, SKULL_TRANSFORM,
                 new net.minecraft.client.renderer.special.SkullSpecialRenderer.Unbaked(type)));
     }
 

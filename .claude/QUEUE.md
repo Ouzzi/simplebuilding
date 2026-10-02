@@ -150,13 +150,14 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] 10 Alternativ-Vorschläge für die eigenen Besatzvorlagen (Glowing, Pulsating, Emitting). Sätze A–J liegen vor (previews/besatzvorlagen-vorschau.png) – Besitzer wählt.
 - [ ] 10 Vorschläge für Netherit-Apfel, Enderit-Apfel und Netherit-/Enderit-Karotte. Sätze A–J liegen vor (previews/netherit-enderit-essen-vorschau.png) – Besitzer wählt.
 - [x] Pfeile, die einen Mob getroffen haben, sollen wieder aufsammelbar sein, am besten wenn er gestorben ist (teure Pfeile lohnen sich dann). (claude-combat: fallen beim Tod mit allen Teilen; nur Spieler-Pfeile mit Aufheben erlaubt; `server.arrows`; docs/ai/PLAN-COMBAT-2026-10-02.md)
-- [ ] Das Rezept des Spawn-Elytra-Pads wird nicht angezeigt (JEI zeigt nur die Info).
+- [x] Das Rezept des Spawn-Elytra-Pads wird nicht angezeigt (JEI zeigt nur die Info). → Fabric synchronisierte eigene Rezept-Serializer nicht an JEI; jetzt angemeldet (claude-pads, Plan docs/ai/PLAN-PADS-2026-10-02.md). Client-Sicht offen.
+- [x] Rezepte der Trank-Pads (claude-pads; II jetzt UNCOMMON wie die übrigen Netherit-Stufen):
 - [ ] Rezepte der Trank-Pads:
   - Verstärktes Trank-Pad: Netherit-Aufwertung + Netherit-Druckplatte.
   - Infundiertes Trank-Pad 3: Enderit-Aufwertung + Enderit-Druckplatte.
-- [ ] Das Rezept des Flypads wird auch nicht angezeigt. Höhe je Stufe = Breite der Grundfläche × 2.
-- [ ] Shulkerkopf: Das 3D-Modell ist nur im Inventar zu groß und wird abgeschnitten (Screenshot).
-- [ ] Silberfischkopf viel kleiner: im Inventar, auf dem Kopf und abgestellt.
+- [x] Das Rezept des Flypads wird auch nicht angezeigt. Höhe je Stufe = Breite der Grundfläche × 2. → gleiche Sync-Ursache; Höhen 8/16/32 (claude-pads).
+- [x] Shulkerkopf: Das 3D-Modell ist nur im Inventar zu groß und wird abgeschnitten (Screenshot). → eigenes GUI-Basismodell 0,8× (claude-pads), Sichtabnahme offen.
+- [x] Silberfischkopf viel kleiner: im Inventar, auf dem Kopf und abgestellt. → Originalgröße statt 2× (claude-pads), Sichtabnahme offen.
 - [x] Guide-Buch-Texturen überarbeiten (10 Vorschläge). Besitzer wählte J (Prachtband), eingebaut auf 26.3 (claude-guideui), Vorschau previews/guide-buecher-J-eingebaut.png.
 - [ ] Simple Money: 10 Textur-Vorschläge für Special Fiber, 10 für Resin Fiber. Je A–J liegen vor (previews/money-fasern-vorschau.png) – Besitzer wählt.
 - [x] Simple Money: Schmelzzeiten der Geld-Teile erhöhen, damit es in SimpleBuilding-Welten balanciert ist. claude-texprop: roher Schein → Geldschein 10000 → 24000 Ticks (Vanilla-Schmelzofen 1 Schein/Spieltag, SB-Öfen 2/4/8); Begründung in docs/modules/simplemoney.md.

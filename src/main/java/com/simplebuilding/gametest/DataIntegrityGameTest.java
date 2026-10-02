@@ -42,6 +42,11 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void everyModRecipeSurvivesTheClientRecipeSync(GameTestHelper helper) {
+        DataIntegrityTests.everyModRecipeSurvivesTheClientRecipeSync(helper);
+    }
+
+    @GameTest
     public void everyModBlockLootTableLoads(GameTestHelper helper) {
         DataIntegrityTests.everyModBlockLootTableLoads(helper);
     }

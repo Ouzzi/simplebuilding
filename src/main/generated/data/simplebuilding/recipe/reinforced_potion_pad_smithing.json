@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "simplebuilding:enderite_pressure_plate",
+  "addition": "simplebuilding:netherite_pressure_plate",
   "base": "simplebuilding:potion_pad",
   "result": {
     "id": "simplebuilding:reinforced_potion_pad"
   },
-  "template": "simplebuilding:enderite_upgrade_template"
+  "template": "minecraft:netherite_upgrade_smithing_template"
 }

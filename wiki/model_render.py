@@ -90,8 +90,9 @@ MOD_HEAD_BOXES = {
                              (None, (9.25, 4, 9.5), (11.25, 6, 11.5), (32, 4), (2, 2, 2), True),
                              (None, (8, 2, 10.5), (9, 3, 11.5), (32, 8), (1, 1, 1), True),
                              (None, (4, 0, 4), (12, 8, 12), (0, 0), (8, 8, 8), True)],
-    "simplebuilding:silverfish": [(None, (5, 0, 8), (11, 4, 12), (0, 0), (3, 2, 2), True),
-                                  (None, (4, 0, 4), (12, 6, 8), (0, 4), (4, 3, 2), True)],
+    # Originalgroesse seit 2026-10-02 (vorher doppelt so gross).
+    "simplebuilding:silverfish": [(None, (6.5, 0, 8), (9.5, 2, 10), (0, 0), (3, 2, 2), True),
+                                  (None, (6, 0, 6), (10, 3, 8), (0, 4), (4, 3, 2), True)],
     "simplebuilding:breeze": [(None, (4, 0, 4), (12, 8, 12), (0, 0), (8, 8, 8), True),
                               (None, (3, 2, 8.2), (13, 5, 12.2), (4, 24), (10, 3, 4), True),
                               ("minecraft:entity/breeze/breeze_eyes", (4, 0, 3.75), (12, 8, 12.25), (0, 0), (8, 8, 8), False),

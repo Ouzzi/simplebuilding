@@ -284,8 +284,9 @@ public final class EasterEggs {
             case POTION_PAD -> {
                 // I = Netheritkern + Netherit-Druckplatte + Lohenkopf (Kern statt Vorlage seit 2026-09-29)
                 add(templates, additions, List.of(ModItems.NETHERITE_CORE), TweaksItems.BLAZE_HEAD);
+                // II/III seit 2026-10-02 wie die Elytra-Pads: Netherit- bzw. Enderit-Aufwertung + Platte.
+                add(templates, additions, netherite, netheritePlate);
                 add(templates, additions, enderite, enderitePlate);
-                add(templates, additions, enderite, ModItems.ENDERITE_CORE);
             }
             default -> throw new IllegalArgumentException(family + " has no easter chain");
         }

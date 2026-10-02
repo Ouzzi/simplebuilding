@@ -85,7 +85,8 @@ public final class BuildingCoreTests {
      *
      * <p><strong>What breaks this test:</strong> a recipe that would need two cores in one slot (a
      * count-based smithing addition above one), a recipe that yields a stack of cores, or a core
-     * recipe that stops matching; and fewer than the seventeen core recipes known on 2026-09-28
+     * recipe that stops matching; and fewer than the sixteen core recipes known on 2026-10-02 (seventeen until the
+     * Infused Potion Pad III switched from the enderite core to the enderite pressure plate)
      * (then the test would check nothing).
      */
     public static void everyCoreRecipeCraftsWithOneCorePerSlot(GameTestHelper helper) {
@@ -127,7 +128,7 @@ public final class BuildingCoreTests {
                 checked.add(id);
             }
         }
-        helper.assertTrue(checked.size() >= 17, "only " + checked.size() + " core recipes were found: " + checked);
+        helper.assertTrue(checked.size() >= 16, "only " + checked.size() + " core recipes were found: " + checked);
         helper.succeed();
     }
 

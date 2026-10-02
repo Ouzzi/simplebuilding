@@ -447,6 +447,84 @@ public final class DataIntegrityTests {
     // 3. Recipes
     // =================================================================================
 
+    /** Erstes angezeigtes Ergebnis (so wie JEI/Rezeptbuch es zeigen), leer ohne Anzeige. */
+    private static ItemStack recipeResult(GameTestHelper helper, net.minecraft.world.item.crafting.Recipe<?> recipe) {
+        ContextMap context = SlotDisplayContext.fromLevel(helper.getLevel());
+        for (RecipeDisplay display : recipe.display()) {
+            List<ItemStack> stacks = display.result().resolveForStacks(context);
+            if (!stacks.isEmpty()) {
+                return stacks.getFirst();
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
+    /**
+     * Rezepte mit eigenem Serializer erreichen JEI nur ueber die Rezept-Synchronisierung (Fabric: Fabric API,
+     * angemeldet in {@code TweaksFabric#syncRecipeSerializers}; NeoForge: nach Rezept-Typ). Besitzer 2026-10-02:
+     * Elytra-Pad I und Flypad I fehlten in JEI. Jedes Rezept mit einem {@code simplebuilding}-Serializer muss
+     * daher verlustfrei durch {@link net.minecraft.world.item.crafting.Recipe#STREAM_CODEC} gehen (ein kaputter
+     * Codec wuerde Clients beim Beitritt trennen), und auf Fabric muss sein Serializer angemeldet sein.
+     */
+    public static void everyModRecipeSurvivesTheClientRecipeSync(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        Set<Identifier> serializers = new TreeSet<>(Comparator.comparing(Identifier::toString));
+        java.lang.reflect.Method fabricIsSynced = null;
+        try {
+            fabricIsSynced = Class.forName("net.fabricmc.fabric.impl.recipe.sync.RecipeSyncImpl")
+                    .getMethod("isSynced", net.minecraft.world.item.crafting.RecipeSerializer.class);
+        } catch (ReflectiveOperationException notFabric) {
+            // NeoForge/Forge: JEI laesst dort nach Rezept-Typ synchronisieren.
+        }
+        for (RecipeHolder<?> holder : helper.getLevel().getServer().getRecipeManager().getRecipes()) {
+            net.minecraft.world.item.crafting.Recipe<?> recipe = holder.value();
+            Identifier serializer = BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipe.getSerializer());
+            if (serializer == null || !MOD_ID.equals(serializer.getNamespace())) {
+                continue;
+            }
+            serializers.add(serializer);
+            try {
+                net.minecraft.network.RegistryFriendlyByteBuf buf = new net.minecraft.network.RegistryFriendlyByteBuf(
+                        io.netty.buffer.Unpooled.buffer(), helper.getLevel().registryAccess());
+                net.minecraft.world.item.crafting.Recipe.STREAM_CODEC.encode(buf, recipe);
+                byte[] sent = new byte[buf.readableBytes()];
+                buf.getBytes(buf.readerIndex(), sent);
+                net.minecraft.world.item.crafting.Recipe<?> back = net.minecraft.world.item.crafting.Recipe.STREAM_CODEC.decode(buf);
+                if (buf.readableBytes() != 0) {
+                    problems.add(holder.id().identifier() + ": " + buf.readableBytes() + " bytes left after decoding");
+                }
+                // Was der Client baut, muss sich genauso wieder schicken lassen (Formrezepte verlieren beim
+                // Netz-Weg ihr JSON-Muster, deshalb der Vergleich auf Byte-Ebene statt ueber den JSON-Codec).
+                net.minecraft.network.RegistryFriendlyByteBuf again = new net.minecraft.network.RegistryFriendlyByteBuf(
+                        io.netty.buffer.Unpooled.buffer(), helper.getLevel().registryAccess());
+                net.minecraft.world.item.crafting.Recipe.STREAM_CODEC.encode(again, back);
+                byte[] resent = new byte[again.readableBytes()];
+                again.getBytes(again.readerIndex(), resent);
+                if (!java.util.Arrays.equals(sent, resent)) {
+                    problems.add(holder.id().identifier() + " changes on the way to the client");
+                }
+                if (!ItemStack.isSameItemSameComponents(recipeResult(helper, recipe), recipeResult(helper, back))) {
+                    problems.add(holder.id().identifier() + " shows another result on the client");
+                }
+            } catch (RuntimeException e) {
+                problems.add(holder.id().identifier() + " (" + serializer + ") cannot be sent: " + e);
+            }
+            if (fabricIsSynced != null) {
+                try {
+                    if (!Boolean.TRUE.equals(fabricIsSynced.invoke(null, recipe.getSerializer()))) {
+                        problems.add(serializer + " is not registered for the Fabric recipe sync (JEI would not see " + holder.id().identifier() + ")");
+                    }
+                } catch (ReflectiveOperationException e) {
+                    problems.add("cannot ask the Fabric recipe sync about " + serializer + ": " + e);
+                }
+            }
+        }
+        helper.assertTrue(serializers.contains(Identifier.fromNamespaceAndPath(MOD_ID, "enchanted_shapeless")),
+                "no loaded recipe uses simplebuilding:enchanted_shapeless (Elytra Pad I / Flypad I); found only " + serializers);
+        helper.assertTrue(problems.isEmpty(), "recipe sync problems: " + problems);
+        helper.succeed();
+    }
+
     /**
      * Two different things, because they need the same walk over the recipe manager.
      *
@@ -4415,7 +4493,7 @@ public final class DataIntegrityTests {
             Map.entry("spawn_teleporter_tier_3", net.minecraft.world.item.Rarity.UNCOMMON),
             Map.entry("spawn_teleporter_tier_4", net.minecraft.world.item.Rarity.UNCOMMON),
             Map.entry("potion_pad", net.minecraft.world.item.Rarity.UNCOMMON),
-            Map.entry("reinforced_potion_pad", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("reinforced_potion_pad", net.minecraft.world.item.Rarity.UNCOMMON),
             Map.entry("infused_potion_pad", net.minecraft.world.item.Rarity.EPIC),
             Map.entry("flypad", net.minecraft.world.item.Rarity.EPIC),
             Map.entry("reinforced_flypad", net.minecraft.world.item.Rarity.EPIC),

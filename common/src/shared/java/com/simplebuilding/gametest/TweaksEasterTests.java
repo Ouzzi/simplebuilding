@@ -278,17 +278,17 @@ public final class TweaksEasterTests {
                 "easter stage 4 of the elytra pad does not work like tier IV (" + middleArea.getXsize() + " wide)");
         helper.setBlock(middle, Blocks.AIR);
 
-        // Flypad III: 16x16x24 -> 32x32x48 (aus demselben Grund ohne Spieler-Durchlauf).
+        // Flypad III: 16x16x32 -> 32x32x64 (aus demselben Grund ohne Spieler-Durchlauf).
         BlockPos fly = new BlockPos(5, 1, 1);
         BlockPos flyAbs = helper.absolutePos(fly);
         OwnedBlockEntity flyBe = placeStaged(helper, fly, TweaksBlocks.STELLAR_FLYPAD, 0);
         AABB flyNormal = FlypadBlockEntity.areaOf(level, flyAbs, helper.getBlockState(fly));
         flyBe.setEasterStage(3);
         AABB flyDoubled = FlypadBlockEntity.areaOf(level, flyAbs, helper.getBlockState(fly));
-        helper.assertTrue(Math.abs(flyNormal.getXsize() - 16) < 1e-9 && Math.abs(flyNormal.getYsize() - 24) < 1e-9
+        helper.assertTrue(Math.abs(flyNormal.getXsize() - 16) < 1e-9 && Math.abs(flyNormal.getYsize() - 32) < 1e-9
                         && Math.abs(flyDoubled.getXsize() - 32) < 1e-9 && Math.abs(flyDoubled.getZsize() - 32) < 1e-9
-                        && Math.abs(flyDoubled.getYsize() - 48) < 1e-9,
-                "the final easter flypad covers " + flyDoubled.getXsize() + "x" + flyDoubled.getYsize() + " instead of 32x48");
+                        && Math.abs(flyDoubled.getYsize() - 64) < 1e-9,
+                "the final easter flypad covers " + flyDoubled.getXsize() + "x" + flyDoubled.getYsize() + " instead of 32x64");
         helper.setBlock(fly, Blocks.AIR);
 
         // Launchpad III: 16 -> 32 Windkugeln.

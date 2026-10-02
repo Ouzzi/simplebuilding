@@ -41,8 +41,8 @@ import net.minecraft.resources.Identifier;
  *   {@code BoggedModel}.</li>
  *   <li>Schleim: innerer Wuerfel mit Augen und Mund (ausgeschnitten) plus der aeussere Wuerfel durchscheinend
  *   ({@link RenderTypes#entityTranslucent}) wie {@code SlimeOuterLayer}.</li>
- *   <li>Silberfischchen: die zwei vorderen Koerpersegmente aus {@code SilverfishModel}, doppelt so gross - der
- *   echte Kopf waere drei Pixel breit.</li>
+ *   <li>Silberfischchen: die zwei vorderen Koerpersegmente aus {@code SilverfishModel} in Originalgroesse (bis
+ *   2026-10-02 doppelt so gross, dem Besitzer viel zu gross).</li>
  *   <li>Breeze: Kopf mit Stirnband aus {@code BreezeModel} (32x32), Augen {@code breeze_eyes.png} mit
  *   {@link RenderTypes#breezeEyes}.</li>
  *   <li>Shulker: Schale (Deckel halb offen) und Kopf aus {@code ShulkerModel}, halb so gross.</li>
@@ -202,16 +202,17 @@ public final class ModSkullModels {
     }
 
     /**
-     * Die zwei vorderen Segmente aus {@code SilverfishModel} (Kopf 3x2x2 bei UV 0,0, Hals 4x3x2 bei UV 0,4),
-     * doppelt so gross, Kopf nach Norden wie bei allen Koepfen: zusammen 8 breit, 6 hoch, 8 tief.
+     * Die zwei vorderen Segmente aus {@code SilverfishModel} (Kopf 3x2x2 bei UV 0,0, Hals 4x3x2 bei UV 0,4) in
+     * Originalgroesse, Kopf nach Norden wie bei allen Koepfen: zusammen 4 breit, 3 hoch, 4 tief - so klein wie am
+     * Silberfischchen selbst, im Inventar, auf dem Kopf und abgestellt (Besitzer 2026-10-02; vorher doppelt so gross).
      */
     private static LayerDefinition silverfishHeadLayer() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition head = mesh.getRoot().addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         head.addOrReplaceChild("segment0", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -2.0F, -1.0F, 3.0F, 2.0F, 2.0F),
-                PartPose.offset(0.0F, 0.0F, -2.0F).withScale(2.0F));
+                PartPose.offset(0.0F, 0.0F, -1.0F));
         head.addOrReplaceChild("segment1", CubeListBuilder.create().texOffs(0, 4).addBox(-2.0F, -3.0F, -1.0F, 4.0F, 3.0F, 2.0F),
-                PartPose.offset(0.0F, 0.0F, 2.0F).withScale(2.0F));
+                PartPose.offset(0.0F, 0.0F, 1.0F));
         return LayerDefinition.create(mesh, 64, 32);
     }
 
