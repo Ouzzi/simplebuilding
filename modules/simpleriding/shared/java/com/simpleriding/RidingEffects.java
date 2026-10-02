@@ -48,7 +48,6 @@ public final class RidingEffects {
   double factor=Math.min(1+bonus,(1+RidingConfig.bounded(Riding.CONFIG.safety.maximumSpeedBonus,0,3))/(1+tailwind));
   return (float)(scale*Math.max(1,factor));
  }
-<<<<<<< HEAD
  /**
   * Tailwind cue (client, cosmetic): a light trail of cloud puffs - bubbles under water - behind a mount
   * that moves at least at a trot. It keys on the synced Tailwind speed modifier, so it shows exactly
@@ -75,14 +74,9 @@ public final class RidingEffects {
   double w=horse.getBbWidth()*.4;
   server.sendParticles(ParticleTypes.POOF,horse.getX(),horse.getY()+.1,horse.getZ(),2+2*n,w,.05,w,.02);
  }
- private static void apply(LivingEntity e,Holder<Attribute> key,Identifier id,double boost){
-  var a=e.getAttribute(key); if(a==null)return; if(boost<=0){a.removeModifier(id);return;}
-  var old=a.getModifier(id); if(old==null||Math.abs(old.amount()-boost)>1e-6)a.addOrUpdateTransientModifier(new AttributeModifier(id,boost,AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
-=======
  private static void apply(LivingEntity e,Holder<Attribute> key,Identifier id,double boost){apply(e,key,id,boost,AttributeModifier.Operation.ADD_MULTIPLIED_BASE);}
  static void apply(LivingEntity e,Holder<Attribute> key,Identifier id,double boost,AttributeModifier.Operation operation){
   var a=e.getAttribute(key); if(a==null)return; if(!(boost>0)){a.removeModifier(id);return;}
   var old=a.getModifier(id); if(old==null||Math.abs(old.amount()-boost)>1e-6)a.addOrUpdateTransientModifier(new AttributeModifier(id,boost,operation));
->>>>>>> claude-horseshoe
  }
 }

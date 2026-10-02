@@ -12,9 +12,7 @@
     "RidingJumpInputMixin",
     "NautilusDashAccess",
     "RidingCamelMixin",
-<<<<<<< HEAD
-    "RidingLeapMixin"
-=======
+    "RidingLeapMixin",
     "HorseshoeHorseMixin",
     "HorseshoeMenuMixin",
     "HorseshoeQuickMoveMixin",
@@ -29,7 +27,6 @@
     "client.HorseshoeDonkeyLayerMixin",
     "client.HorseshoeScreenMixin",
     "client.HorseshoeClickMixin"
->>>>>>> claude-horseshoe
   ],
   "injectors": {
     "defaultRequire": 1
