@@ -1501,6 +1501,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("advancement_tree_game_test_installing_the_quest_book_adds_but_never_overwrites", AdvancementTreeTests::installingTheQuestBookAddsButNeverOverwrites)
                     .build(),
+            GameTestSpec.named("advancement_tree_game_test_every_tab_background_names_an_existing_texture", AdvancementTreeTests::everyTabBackgroundNamesAnExistingTexture)
+                    .build(),
             GameTestSpec.named("advancement_trigger_game_test_the_counter_grants_at_its_threshold_and_survives_save_and_respawn", AdvancementTriggerTests::theCounterGrantsAtItsThresholdAndSurvivesSaveAndRespawn)
                     .build(),
             GameTestSpec.named("advancement_trigger_game_test_a_sledgehammer_swing_counts_the_blocks_it_took_along", AdvancementTriggerTests::aSledgehammerSwingCountsTheBlocksItTookAlong)
@@ -1672,6 +1674,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("guide_book_game_test_learning_gate_recipes_opens_tabs_without_consuming_items", GuideBookTests::learningGateRecipesOpensTabsWithoutConsumingItems)
                     .build(),
             GameTestSpec.named("guide_book_game_test_old_chapter_masks_move_to_the_reading_player", GuideBookTests::oldChapterMasksMoveToTheReadingPlayer)
+                    .build(),
+            GameTestSpec.named("guide_book_game_test_only_creative_players_unlock_locked_tabs_anyway", GuideBookTests::onlyCreativePlayersUnlockLockedTabsAnyway)
                     .build(),
             GameTestSpec.named("pressure_plate_game_test_honeycomb_waxes_every_stage_and_waxed_plates_stop_oxidizing", PressurePlateTests::honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing)
                     .build(),

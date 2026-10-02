@@ -62,6 +62,8 @@ public final class ForgeNetworkRegistration {
                             (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleBlueprintRotate(payload, player)))
                     .add(com.simplebuilding.networking.PlacedBundleScrollPayload.ID, com.simplebuilding.networking.PlacedBundleScrollPayload.CODEC,
                             (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handlePlacedBundleScroll(payload, player)))
+                    .add(com.simplebuilding.networking.GuideUnlockPayload.ID, com.simplebuilding.networking.GuideUnlockPayload.CODEC,
+                            (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleGuideUnlock(payload, player)))
                 .clientbound()
                     .add(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC, (payload, ctx) -> handled(ctx).enqueueWork(() -> {
                         Minecraft client = Minecraft.getInstance();

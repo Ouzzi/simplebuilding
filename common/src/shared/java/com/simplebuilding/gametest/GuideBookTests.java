@@ -859,6 +859,52 @@ public final class GuideBookTests {
         succeed(helper);
     }
 
+    /**
+     * Owner 2026-10-02: in creative mode a locked tab offers "Unlock anyway". The server opens it
+     * through the real handler ({@code GuideUnlockPayload}) only for a creative player: survival and
+     * spectator players get nothing, the operator tab stays operator-only, an unknown id is ignored.
+     * The opened tab is remembered like a crafted one (entity tag, advancement) and sent to the client.
+     */
+    public static void onlyCreativePlayersUnlockLockedTabsAnyway(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) { succeed(helper); return; }
+        var server = helper.getLevel().getServer();
+        ServerPlayer player = mockPlayer(helper);
+        var players = server.getPlayerList();
+        boolean wasOp = players.isOp(player.nameAndId());
+        var tools = GuideBooks.tab(GuideBooks.Book.TOOLS);
+        var admin = GuideBooks.tab(GuideBooks.Book.ADMIN);
+        var unlock = (java.util.function.Consumer<net.minecraft.resources.Identifier>) id ->
+                com.simplebuilding.networking.ModMessageHandlers.handleGuideUnlock(new com.simplebuilding.networking.GuideUnlockPayload(id), player);
+        try {
+            players.deop(player.nameAndId());
+            List<RecipeHolder<?>> gates = new ArrayList<>();
+            for (var key : tools.gateKeys()) server.getRecipeManager().byKey(key).ifPresent(gates::add);
+            player.resetRecipes(gates);
+            player.removeTag(com.simplebuilding.guide.GuideUnlocks.tag(tools));
+            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.isOpen(player, tools), "Tools starts open");
+
+            // The mock player always reports creative mode (GameTestHelper overrides gameMode()), so the
+            // survival/adventure/spectator refusal is checked on the overload the handler delegates to.
+            helper.assertTrue(player.isCreative(), "the GameTest mock player is no longer creative - test the handler path for survival too");
+            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlockAnyway(player, tools.id(), false), "a non-creative player unlocked Tools anyway");
+            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.isOpen(player, tools), "a non-creative player opened Tools");
+
+            unlock.accept(admin.id());
+            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.isOpen(player, admin), "creative mode opened Server Admin for a non-operator");
+            unlock.accept(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "no_such_tab"));
+            unlock.accept(tools.id());
+            helper.assertTrue(player.entityTags().contains(com.simplebuilding.guide.GuideUnlocks.tag(tools)), "creative unlock did not remember Tools");
+            helper.assertTrue(com.simplebuilding.guide.GuideUnlocks.refresh(player, false).contains(tools.id()), "the unlocked tab is not in the open list");
+            var advancement = server.getAdvancements().get(tools.advancement());
+            helper.assertTrue(advancement != null && player.getAdvancements().getOrStartProgress(advancement).isDone(), "creative unlock did not award the tab advancement");
+            helper.assertTrue(com.simplebuilding.guide.GuideUnlocks.isOpen(player, tools), "the unlocked tab closed again");
+        } finally {
+            player.removeTag(com.simplebuilding.guide.GuideUnlocks.tag(tools));
+            if (wasOp) players.op(player.nameAndId()); else players.deop(player.nameAndId());
+        }
+        succeed(helper);
+    }
+
     // =====================================================================================
 
     private static void megaGuideRecipes(GameTestHelper helper) {

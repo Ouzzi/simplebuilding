@@ -1182,6 +1182,8 @@
   "gui.simplebuilding.guide.in_chapter": "In this chapter",
   "gui.simplebuilding.guide.no_recipe": "Recipe not unlocked yet",
   "gui.simplebuilding.guide.locked": "Locked. To unlock: craft %s",
+  "gui.simplebuilding.guide.unlock_anyway": "Unlock anyway: %s",
+  "gui.simplebuilding.guide.creative_unlock": " (creative: click to unlock)",
   "gui.simplebuilding.guide.previous": "Previous page",
   "gui.simplebuilding.guide.next": "Next page",
   "gui.simplebuilding.guide.shapeless": "Shapeless: any arrangement works",

@@ -1182,6 +1182,8 @@
   "gui.simplebuilding.guide.in_chapter": "In diesem Kapitel",
   "gui.simplebuilding.guide.no_recipe": "Rezept noch nicht freigeschaltet",
   "gui.simplebuilding.guide.locked": "Gesperrt. Schalte frei: %s herstellen",
+  "gui.simplebuilding.guide.unlock_anyway": "Trotzdem freischalten: %s",
+  "gui.simplebuilding.guide.creative_unlock": " (Kreativ: zum Freischalten klicken)",
   "gui.simplebuilding.guide.previous": "Vorige Seite",
   "gui.simplebuilding.guide.next": "Nächste Seite",
   "gui.simplebuilding.guide.shapeless": "Formlos: jede Anordnung geht",

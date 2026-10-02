@@ -95,6 +95,9 @@ public class GuideBookScreen extends Screen {
     private ContextMap context;
     ItemStack hovered = ItemStack.EMPTY;
     Component hoveredText;
+    /** 26.3, creative only: the locked tab picked for "Unlock anyway", and its button under the book. */
+    private GuideBooks.Book unlockTarget;
+    private net.minecraft.client.gui.components.Button unlockButton;
 
     public GuideBookScreen(GuideBooks.Book book) {
         this(new ItemStack(GuideBooks.item(book)));
@@ -121,7 +124,33 @@ public class GuideBookScreen extends Screen {
         bx = (width - BOOK_W) / 2;
         by = Math.max(0, (height - BOOK_H) / 2);
         context = minecraft.level != null ? SlotDisplayContext.fromLevel(minecraft.level) : null;
+        unlockButton = addRenderableWidget(net.minecraft.client.gui.components.Button.builder(Component.empty(), button -> {
+            if (unlockTarget != null) {
+                com.simplebuilding.platform.ClientNetworking.send(new com.simplebuilding.networking.GuideUnlockPayload(GuideBooks.tabId(unlockTarget)));
+            }
+        }).bounds((width - 200) / 2, Math.min(height - 22, by + BOOK_H + 2), 200, 20).build());
+        pickUnlock(unlockTarget);
         open(book, LAST_SPREAD.getOrDefault(book, 0));
+    }
+
+    /** Whether the reader may use "Unlock anyway" (the server checks creative mode again). */
+    private boolean creative() {
+        return com.simplebuilding.version.McVersion.MEGA_GUIDES && minecraft.player != null && minecraft.player.isCreative();
+    }
+
+    /** Whether a locked tab offers "Unlock anyway": recipe tabs only, never the operator tab. */
+    private boolean unlockable(GuideBooks.Book b) {
+        return creative() && !b.isHub() && !available(b) && !GuideBooks.operatorOnly(b);
+    }
+
+    /** Shows the "Unlock anyway" button for this locked tab, or hides it (null). */
+    private void pickUnlock(GuideBooks.Book b) {
+        unlockTarget = b != null && unlockable(b) ? b : null;
+        if (unlockButton == null) return;
+        unlockButton.visible = unlockTarget != null;
+        if (unlockTarget != null) {
+            unlockButton.setMessage(Component.translatable(GuideContent.GUI + "unlock_anyway", Component.translatable(unlockTarget.key() + ".title")));
+        }
     }
 
     private void open(GuideBooks.Book target, int wantedSpread) {
@@ -291,9 +320,18 @@ public class GuideBookScreen extends Screen {
         if (!com.simplebuilding.version.McVersion.MEGA_GUIDES || minecraft.player == null) return;
         ItemStack held = minecraft.player.getItemInHand(sourceHand);
         if (!held.is(source.getItem())) { onClose(); return; }
+        // Left creative mode while the button showed: hide it (the server would refuse anyway).
+        if (unlockTarget != null && !creative()) pickUnlock(null);
         if (com.simplebuilding.guide.GuideUnlocks.clientVersion() != seenUnlocks) {
             // A tab opened while reading: the tabs redraw by themselves, the hub's topic list relayouts.
             seenUnlocks = com.simplebuilding.guide.GuideUnlocks.clientVersion();
+            if (unlockTarget != null && available(unlockTarget)) {
+                // "Unlock anyway" went through: read the tab right away.
+                GuideBooks.Book unlocked = unlockTarget;
+                pickUnlock(null);
+                open(unlocked, 0);
+                return;
+            }
             if (!available(book)) open(opened, 0);
             else {
                 layout();
@@ -310,7 +348,8 @@ public class GuideBookScreen extends Screen {
             return GuideBooks.operatorOnly(b) ? text.append(operator) : text;
         }
         if (GuideBooks.operatorOnly(b)) return Component.translatable(b.key() + ".title").append(operator);
-        return Component.translatable(GuideContent.GUI + "locked", Component.translatable(GuideBooks.hint(b).asItem().getDescriptionId()));
+        var text = Component.translatable(GuideContent.GUI + "locked", Component.translatable(GuideBooks.hint(b).asItem().getDescriptionId()));
+        return unlockable(b) ? text.append(Component.translatable(GuideContent.GUI + "creative_unlock")) : text;
     }
 
     private void layout() {
@@ -550,9 +589,12 @@ public class GuideBookScreen extends Screen {
         List<GuideBooks.Book> books = shelfBooks();
         for (int i = 0; i < books.size(); i++) {
             if (overTab(i, mx, my)) {
-                // 26.3: a locked tab does nothing; its tooltip says how it opens.
+                // 26.3: a locked tab does nothing; its tooltip says how it opens. In creative it offers "Unlock anyway".
                 if (books.get(i) != book && available(books.get(i))) {
+                    pickUnlock(null);
                     open(books.get(i), LAST_SPREAD.getOrDefault(books.get(i), 0));
+                } else if (!available(books.get(i))) {
+                    pickUnlock(books.get(i) == unlockTarget ? null : books.get(i));
                 }
                 return true;
             }
@@ -635,8 +677,10 @@ public class GuideBookScreen extends Screen {
             }
             ItemStack icon = b.isHub() ? new ItemStack(GuideBooks.item(b)) : new ItemStack(GuideBooks.keyItem(b));
             g.item(icon, iconX, ty + 3);
-            if (!open) {
-                g.fill(iconX, ty + 3, iconX + 16, ty + 19, com.simplebuilding.version.McVersion.MEGA_GUIDES ? 0x88777777 : 0x88402A18);
+            // 26.3: no box over a locked icon (owner 2026-10-02: "ugly grey box"); the grey tab, the missing colour
+            // stripe and the tooltip mark it. The old shelves (26.2) keep their brown tint.
+            if (!open && !com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+                g.fill(iconX, ty + 3, iconX + 16, ty + 19, 0x88402A18);
             }
             if (overTab(i, mouseX, mouseY)) {
                 hoveredText = open ? Component.translatable(b.key() + ".title") : lockedText(b);

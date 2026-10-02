@@ -93,6 +93,8 @@ public final class NeoForgeNetworkRegistration {
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleBlueprintRotate(payload, player)));
         registrar.playToServer(com.simplebuilding.networking.PlacedBundleScrollPayload.ID, com.simplebuilding.networking.PlacedBundleScrollPayload.CODEC,
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handlePlacedBundleScroll(payload, player)));
+        registrar.playToServer(com.simplebuilding.networking.GuideUnlockPayload.ID, com.simplebuilding.networking.GuideUnlockPayload.CODEC,
+                (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleGuideUnlock(payload, player)));
 
         registrar.playToClient(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC, (payload, context) -> context.enqueueWork(() -> {
             Minecraft client = Minecraft.getInstance();
