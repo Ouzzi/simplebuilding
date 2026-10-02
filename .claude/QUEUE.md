@@ -120,3 +120,12 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] In den drei Teil-Slots Hintergrund-Silhouetten wie bei den Rüstungsslots (zeigen, was hineingehört: Spitze, Schaft, Befiederung).
 - [ ] Titel über den drei Slots: „Fletching“ / „Befiederung“ statt „Fletching Table“.
 - [ ] Schmiedetisch: statt des Knopfs für die Besatz-Resonanz-Vorschau ein anklickbares Rezeptbuch (über dem dritten Slot gerendert), das wie bei der Werkbank die möglichen Ergebnisse zeigt und einlegt.
+
+## Queue-Ende (Besitzer 2026-10-02): seltene verstärkte Shulker in End-Städten
+- [ ] Spawn: In End-Städten wird ein Shulker sehr selten verstärkt (ca. 2 %) oder zum Enderit-Shulker (ca. 0,5 %); serverseitig konfigurierbar mit Obergrenze.
+- [ ] Leben: verstärkt 1,5×, Enderit 3× (oder mehr, wenn es spielerisch nötig ist). Die Hülle zeigt die Stufe.
+- [ ] Drops: 0–2 Schalen ihres eigenen Typs.
+- [ ] Neue Items: Verstärkte, Netherit- und Enderit-Shulkerschale.
+- [ ] Schalen in der Welt aufwerten (wie die anderen In-World-Transformationen): Schale auf den Boden legen und mit einem Nugget rechtsklicken. Eisen/verstärkt → verstärkte Schale, Netherit → Netherit-Schale, Enderit → Enderit-Schale; genau ein Nugget pro Schale.
+- [ ] Rezept der Shulkerkisten-Stufen: Kupfertruhe + eine aufgewertete Schale + eine normale Shulkerschale.
+- [ ] Offen: Wird Netherit über den Nugget oder per Schmieden gewonnen? Ersetzt das Rezept die bisherigen Stufenrezepte oder kommt es dazu? Vorher die bestehenden Rezepte der verstärkten Shulkerkisten prüfen.
