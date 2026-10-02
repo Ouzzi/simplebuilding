@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Inhalt der sechs Kreativ-Tabs der Mod ({@link Tab}; "SimpleArrows" ist auf 26.2 leer und damit unsichtbar). Alle sind zeilenweise angelegt ({@link CreativeTabLayout},
+ * Inhalt der acht Kreativ-Tabs der Mod ({@link Tab}; "SimpleArrows" ist auf 26.2 leer und damit unsichtbar). Alle sind zeilenweise angelegt ({@link CreativeTabLayout},
  * Besitzer 2026-09-28 "Zeilen-Layout fuer alle Tabs"): eine Kategorie je Zeile, der Rest der Zeile
  * bleibt leer. Jeder Loader registriert je {@link Tab} einen Tab mit der
  * Id {@code simplebuilding:<id>}, dem Titel {@code itemgroup.simplebuilding.<id>} und
@@ -34,8 +34,12 @@ public final class ModItemGroupsContent {
     /** Reihenfolge = Reihenfolge der Tabs im Kreativinventar. */
     public enum Tab {
         TOOLS("tools", () -> new ItemStack(ModItems.IRON_CHISEL)),
+        /** Waffen und Ruestung wie Vanillas Tab "Kampf" (Besitzer 2026-10-02, aus SimpleTools herausgeloest). */
+        COMBAT("combat", () -> new ItemStack(ModItems.ENDERITE_SWORD)),
         BUILDING_BLOCKS("building_blocks", () -> new ItemStack(ModItems.ASTRALIT_BRICKS)),
         MATERIALS("materials", () -> new ItemStack(ModItems.ENDERITE_INGOT)),
+        /** Nahrung wie Vanillas Tab "Nahrung & Traenke" (Besitzer 2026-10-02, aus SimpleMaterials herausgeloest). */
+        FOOD("food", () -> new ItemStack(ModItems.ENCHANTED_ENDERITE_APPLE)),
         FUNCTIONAL("functional", () -> new ItemStack(ModItems.NETHERITE_HOPPER)),
         /** Druckplatten und Pads (Besitzer 2026-09-29: passen nicht zu den Maschinen). */
         PADS("pads", () -> new ItemStack(com.simplebuilding.tweaks.block.TweaksBlocks.ELYTRA_PAD)),
@@ -69,8 +73,10 @@ public final class ModItemGroupsContent {
     public static void populate(Tab tab, CreativeModeTab.Output entries, HolderLookup.Provider lookup) {
         switch (tab) {
             case TOOLS -> tools(entries, lookup.lookupOrThrow(Registries.ENCHANTMENT));
+            case COMBAT -> CreativeTabLayout.emit(entries, combatRows());
             case BUILDING_BLOCKS -> buildingBlocks(entries);
             case MATERIALS -> materials(entries);
+            case FOOD -> CreativeTabLayout.emit(entries, foodRows());
             case FUNCTIONAL -> functional(entries);
             case PADS -> CreativeTabLayout.emit(entries, padsRows());
             case ARROWS -> CreativeTabLayout.emit(entries, arrowsRows());
@@ -85,12 +91,13 @@ public final class ModItemGroupsContent {
      * Zeilen des Tabs "SimpleTools": je Familie eine Zeile von der niedrigsten Stufe bis Enderit -
      * erst die Werkzeuge (Meissel, Baustab - rechts daneben nach einer Luecke die Bauplanung mit Blaupause
      * und Kartografentisch -, Vorschlaghammer, dann Schaufel, Spitzhacke, Axt, Hacke in Vanillas Reihenfolge), dann
-     * die Waffen (Schwert, Speer), die Ruestung (Helm, Brust, Hose, Stiefel), die Geraete (Kompass,
+     * die Geraete (Kompass,
      * Bergungs- und Echo-Kompass, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Amethystlinse,
      * Oktant), die gefaerbten Oktanten und zuletzt die Buecher: die Handbuecher je Regal (Mod, Vanilla) und die
      * verzauberten Buecher, jede Kategorie nach einer Luecke hinter der vorigen weiterfliessend
-     * ({@link CreativeTabLayout.Row#flowing}) - so laeuft keine Buecherzeile fast leer aus. Die Vanilla-Werkzeuge, -Waffen und -Ruestungen aller Stufen stehen mit
-     * darin, damit alles griffbereit ist.
+     * ({@link CreativeTabLayout.Row#flowing}) - so laeuft keine Buecherzeile fast leer aus. Die Vanilla-Werkzeuge aller
+     * Stufen stehen mit darin, damit alles griffbereit ist. Waffen und Ruestung stehen seit 2026-10-02 wie in Vanilla
+     * getrennt in SimpleCombat ({@link #combatRows()}).
      */
     public static List<CreativeTabLayout.Row> toolsRows(HolderLookup<Enchantment> enchantmentRegistry) {
         List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>(List.of(
@@ -117,33 +124,6 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("hoes",
                         Items.WOODEN_HOE, Items.STONE_HOE, Items.COPPER_HOE, Items.IRON_HOE,
                         Items.GOLDEN_HOE, Items.DIAMOND_HOE, Items.NETHERITE_HOE, ModItems.ENDERITE_HOE),
-                // --- Waffen ---
-                CreativeTabLayout.Row.of("swords",
-                        Items.WOODEN_SWORD, Items.STONE_SWORD, Items.COPPER_SWORD, Items.IRON_SWORD,
-                        Items.GOLDEN_SWORD, Items.DIAMOND_SWORD, Items.NETHERITE_SWORD, ModItems.ENDERITE_SWORD),
-                CreativeTabLayout.Row.of("spears",
-                        Items.WOODEN_SPEAR, Items.STONE_SPEAR, Items.COPPER_SPEAR, Items.IRON_SPEAR,
-                        Items.GOLDEN_SPEAR, Items.DIAMOND_SPEAR, Items.NETHERITE_SPEAR, ModItems.ENDERITE_SPEAR),
-                // --- Ruestung ---
-                CreativeTabLayout.Row.of("helmets",
-                        Items.LEATHER_HELMET, Items.CHAINMAIL_HELMET, Items.COPPER_HELMET, Items.IRON_HELMET,
-                        Items.GOLDEN_HELMET, Items.DIAMOND_HELMET, Items.NETHERITE_HELMET, ModItems.ENDERITE_HELMET),
-                CreativeTabLayout.Row.of("chestplates",
-                        Items.LEATHER_CHESTPLATE, Items.CHAINMAIL_CHESTPLATE, Items.COPPER_CHESTPLATE, Items.IRON_CHESTPLATE,
-                        Items.GOLDEN_CHESTPLATE, Items.DIAMOND_CHESTPLATE, Items.NETHERITE_CHESTPLATE, ModItems.ENDERITE_CHESTPLATE),
-                CreativeTabLayout.Row.of("leggings",
-                        Items.LEATHER_LEGGINGS, Items.CHAINMAIL_LEGGINGS, Items.COPPER_LEGGINGS, Items.IRON_LEGGINGS,
-                        Items.GOLDEN_LEGGINGS, Items.DIAMOND_LEGGINGS, Items.NETHERITE_LEGGINGS, ModItems.ENDERITE_LEGGINGS),
-                CreativeTabLayout.Row.of("boots",
-                        Items.LEATHER_BOOTS, Items.CHAINMAIL_BOOTS, Items.COPPER_BOOTS, Items.IRON_BOOTS,
-                        Items.GOLDEN_BOOTS, Items.DIAMOND_BOOTS, Items.NETHERITE_BOOTS, ModItems.ENDERITE_BOOTS),
-                // --- Reittier-Ruestung (Enderit-Stufe seit 2026-09-28) ---
-                CreativeTabLayout.Row.of("horse_armor",
-                        Items.LEATHER_HORSE_ARMOR, Items.COPPER_HORSE_ARMOR, Items.IRON_HORSE_ARMOR, Items.GOLDEN_HORSE_ARMOR,
-                        Items.DIAMOND_HORSE_ARMOR, Items.NETHERITE_HORSE_ARMOR, ModItems.ENDERITE_HORSE_ARMOR),
-                CreativeTabLayout.Row.of("nautilus_armor",
-                        Items.COPPER_NAUTILUS_ARMOR, Items.IRON_NAUTILUS_ARMOR, Items.GOLDEN_NAUTILUS_ARMOR,
-                        Items.DIAMOND_NAUTILUS_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR),
                 // --- Geraete (Besitzer 2026-09-27): erst alles Kompassartige - Kompass, Bergungskompass,
                 // Echo-Kompass, Geschwindigkeitsmesser, Erzdetektor -, dann Magnet, Rotator, Amethystlinse
                 // und Oktant. Genau neun: die Zeile ist voll, die gefaerbten Oktanten beginnen die naechste.
@@ -205,6 +185,41 @@ public final class ModItemGroupsContent {
         addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.KINETIC_PROTECTION);
         rows.add(CreativeTabLayout.Row.flowing("enchanted_books", books));
         return rows;
+    }
+
+    /**
+     * Zeilen des Tabs "SimpleCombat" (Besitzer 2026-10-02: Waffen und Ruestung wie in Vanilla getrennt von den
+     * Werkzeugen): je Familie eine Zeile von der niedrigsten Vanilla-Stufe bis Enderit - Schwert, Speer, dann
+     * Helm, Brust, Hose, Stiefel und die Reittier-Ruestungen (Ross, Nautilus).
+     */
+    public static List<CreativeTabLayout.Row> combatRows() {
+        return List.of(
+                CreativeTabLayout.Row.of("swords",
+                        Items.WOODEN_SWORD, Items.STONE_SWORD, Items.COPPER_SWORD, Items.IRON_SWORD,
+                        Items.GOLDEN_SWORD, Items.DIAMOND_SWORD, Items.NETHERITE_SWORD, ModItems.ENDERITE_SWORD),
+                CreativeTabLayout.Row.of("spears",
+                        Items.WOODEN_SPEAR, Items.STONE_SPEAR, Items.COPPER_SPEAR, Items.IRON_SPEAR,
+                        Items.GOLDEN_SPEAR, Items.DIAMOND_SPEAR, Items.NETHERITE_SPEAR, ModItems.ENDERITE_SPEAR),
+                // --- Ruestung ---
+                CreativeTabLayout.Row.of("helmets",
+                        Items.LEATHER_HELMET, Items.CHAINMAIL_HELMET, Items.COPPER_HELMET, Items.IRON_HELMET,
+                        Items.GOLDEN_HELMET, Items.DIAMOND_HELMET, Items.NETHERITE_HELMET, ModItems.ENDERITE_HELMET),
+                CreativeTabLayout.Row.of("chestplates",
+                        Items.LEATHER_CHESTPLATE, Items.CHAINMAIL_CHESTPLATE, Items.COPPER_CHESTPLATE, Items.IRON_CHESTPLATE,
+                        Items.GOLDEN_CHESTPLATE, Items.DIAMOND_CHESTPLATE, Items.NETHERITE_CHESTPLATE, ModItems.ENDERITE_CHESTPLATE),
+                CreativeTabLayout.Row.of("leggings",
+                        Items.LEATHER_LEGGINGS, Items.CHAINMAIL_LEGGINGS, Items.COPPER_LEGGINGS, Items.IRON_LEGGINGS,
+                        Items.GOLDEN_LEGGINGS, Items.DIAMOND_LEGGINGS, Items.NETHERITE_LEGGINGS, ModItems.ENDERITE_LEGGINGS),
+                CreativeTabLayout.Row.of("boots",
+                        Items.LEATHER_BOOTS, Items.CHAINMAIL_BOOTS, Items.COPPER_BOOTS, Items.IRON_BOOTS,
+                        Items.GOLDEN_BOOTS, Items.DIAMOND_BOOTS, Items.NETHERITE_BOOTS, ModItems.ENDERITE_BOOTS),
+                // --- Reittier-Ruestung (Enderit-Stufe seit 2026-09-28) ---
+                CreativeTabLayout.Row.of("horse_armor",
+                        Items.LEATHER_HORSE_ARMOR, Items.COPPER_HORSE_ARMOR, Items.IRON_HORSE_ARMOR, Items.GOLDEN_HORSE_ARMOR,
+                        Items.DIAMOND_HORSE_ARMOR, Items.NETHERITE_HORSE_ARMOR, ModItems.ENDERITE_HORSE_ARMOR),
+                CreativeTabLayout.Row.of("nautilus_armor",
+                        Items.COPPER_NAUTILUS_ARMOR, Items.IRON_NAUTILUS_ARMOR, Items.GOLDEN_NAUTILUS_ARMOR,
+                        Items.DIAMOND_NAUTILUS_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR));
     }
 
     /** Alle Baustab-Stufen, aufsteigend. */
@@ -272,7 +287,7 @@ public final class ModItemGroupsContent {
      * der Lederfetzen nach einer Luecke hinter Netherit), die Baukerne
      * Kupfer bis Enderit, alle Schmiedevorlagen an einem Ort - erst die Aufwertungen (Basis, Vanillas
      * Netherit, Enderit), dann die Besatzvorlagen (alle Vanilla-Besaetze in Vanillas Reihenfolge, dann
-     * Leuchtend und Strahlend) - und die Nahrung (Netherit, Luecke, Enderit).
+     * Leuchtend und Strahlend). Die Nahrung steht seit 2026-10-02 in SimpleFood ({@link #foodRows()}).
      */
     public static List<CreativeTabLayout.Row> materialsRows() {
         List<ItemLike> trims = new java.util.ArrayList<>(vanillaTrimTemplates());
@@ -318,12 +333,19 @@ public final class ModItemGroupsContent {
                         ModItems.DIAMOND_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
                 CreativeTabLayout.Row.of("upgrade_templates",
                         ModItems.BASIC_UPGRADE_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE),
-                CreativeTabLayout.Row.of("trim_templates", trims.toArray(ItemLike[]::new)),
-                CreativeTabLayout.Row.of("food",
-                        ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_CARROT,
-                        CreativeTabLayout.GAP,
-                        ModItems.ENDERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT)));
+                CreativeTabLayout.Row.of("trim_templates", trims.toArray(ItemLike[]::new))));
         return List.copyOf(rows);
+    }
+
+    /**
+     * Zeilen des Tabs "SimpleFood" (Besitzer 2026-10-02, aus SimpleMaterials herausgeloest wie Vanillas Tab
+     * "Nahrung & Traenke"): Netherit-Apfel, verzauberter Netherit-Apfel, Netherit-Karotte, Luecke, dann Enderit.
+     */
+    public static List<CreativeTabLayout.Row> foodRows() {
+        return List.of(CreativeTabLayout.Row.of("food",
+                ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_CARROT,
+                CreativeTabLayout.GAP,
+                ModItems.ENDERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
     }
 
     /** Vanillas Besatzvorlagen in der Reihenfolge des Vanilla-Tabs "Zutaten". */

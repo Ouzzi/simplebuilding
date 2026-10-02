@@ -26,6 +26,22 @@ public final class Riding {
  public static void items(){Horseshoes.register(SIMPLEBUILDING);}
  public static void components(){Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE,id("coordinates"),COORDINATES);}
  public static void tab(){Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,id("riding_items"),TAB);}
+ /**
+  * Vanilla tabs too (owner 2026-10-02): the horseshoes stand in Combat right before the wolf armor, i.e. after every
+  * horse armor tier (SimpleBuilding's Enderite one included), and the template in Ingredients right before the bottle
+  * o' enchanting, after every smithing template. "Before" anchors keep the order independent of the mod load order.
+  * Each loader inserts {@link #vanillaTabStacks} before {@link #vanillaTabAnchor} of that tab.
+  */
+ public static Item vanillaTabAnchor(ResourceKey<CreativeModeTab> tab){
+  if(tab.equals(CreativeModeTabs.COMBAT))return Items.WOLF_ARMOR;
+  if(tab.equals(CreativeModeTabs.INGREDIENTS))return Items.EXPERIENCE_BOTTLE;
+  return null;
+ }
+ public static java.util.List<ItemStack> vanillaTabStacks(ResourceKey<CreativeModeTab> tab){
+  if(tab.equals(CreativeModeTabs.COMBAT))return Horseshoes.ITEMS.values().stream().map(ItemStack::new).toList();
+  if(tab.equals(CreativeModeTabs.INGREDIENTS)&&Horseshoes.TEMPLATE!=null)return java.util.List.of(new ItemStack(Horseshoes.TEMPLATE));
+  return java.util.List.of();
+ }
  public static boolean allowed(Enchantment e) {
   if(!(e.description().getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t))return false;
   if(!CONFIG.safety.enableArmorUtilities)return t.getKey().equals("enchantment.simpleriding.leaping");

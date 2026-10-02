@@ -360,6 +360,11 @@ public final class TweaksGameTest {
     }
 
     @GameTest
+    public void theGaugeAutowalkKeepsWalkingUnderNonPausingScreens(GameTestHelper helper) {
+        TweaksTests.theGaugeAutowalkKeepsWalkingUnderNonPausingScreens(helper);
+    }
+
+    @GameTest
     public void theGaugeAutowalkFollowsPathsAndRailsAroundCorners(GameTestHelper helper) {
         TweaksTests.theGaugeAutowalkFollowsPathsAndRailsAroundCorners(helper);
     }

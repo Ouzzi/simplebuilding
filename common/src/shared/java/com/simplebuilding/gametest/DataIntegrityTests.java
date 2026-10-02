@@ -2282,21 +2282,23 @@ public final class DataIntegrityTests {
                 Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE)) {
             vanillaHome.put(plate, ModItemGroupsContent.Tab.PADS);
         }
+        // Werkzeuge in SimpleTools, Waffen und Ruestung seit 2026-10-02 in SimpleCombat (wie Vanilla getrennt).
         for (String kind : List.of("pickaxe", "shovel", "hoe", "axe", "sword", "spear")) {
             for (String tier : List.of("wooden", "stone", "copper", "iron", "golden", "diamond", "netherite")) {
-                vanillaHome.put(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)), ModItemGroupsContent.Tab.TOOLS);
+                vanillaHome.put(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)),
+                        List.of("sword", "spear").contains(kind) ? ModItemGroupsContent.Tab.COMBAT : ModItemGroupsContent.Tab.TOOLS);
             }
         }
         for (String kind : List.of("helmet", "chestplate", "leggings", "boots")) {
             for (String tier : List.of("leather", "chainmail", "copper", "iron", "golden", "diamond", "netherite")) {
-                vanillaHome.put(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)), ModItemGroupsContent.Tab.TOOLS);
+                vanillaHome.put(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)), ModItemGroupsContent.Tab.COMBAT);
             }
         }
         // Reittier-Ruestung aller Vanilla-Stufen neben der Enderit-Stufe (2026-09-28): 6 Ross-, 5 Nautilus-.
         for (Item mountArmor : List.of(Items.LEATHER_HORSE_ARMOR, Items.COPPER_HORSE_ARMOR, Items.IRON_HORSE_ARMOR,
                 Items.GOLDEN_HORSE_ARMOR, Items.DIAMOND_HORSE_ARMOR, Items.NETHERITE_HORSE_ARMOR, Items.COPPER_NAUTILUS_ARMOR,
                 Items.IRON_NAUTILUS_ARMOR, Items.GOLDEN_NAUTILUS_ARMOR, Items.DIAMOND_NAUTILUS_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR)) {
-            vanillaHome.put(mountArmor, ModItemGroupsContent.Tab.TOOLS);
+            vanillaHome.put(mountArmor, ModItemGroupsContent.Tab.COMBAT);
         }
         // Kompass und Bergungskompass neben dem Echo-Kompass in SimpleTools (Besitzer 2026-09-27).
         vanillaHome.put(Items.COMPASS, ModItemGroupsContent.Tab.TOOLS);
@@ -2348,12 +2350,17 @@ public final class DataIntegrityTests {
                 ModItems.ASTRAL_END_STONE, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ_CHECKER, ModItems.LEVITATING_SAND));
         pinned.put(ModItemGroupsContent.Tab.TOOLS, List.of(
                 ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, ModItems.ENDERITE_SLEDGEHAMMER,
-                ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_HELMET, ModItems.ROTATOR, ModItems.BLUEPRINT,
+                ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, ModItems.ROTATOR, ModItems.BLUEPRINT,
                 ModItems.OCTANT, ModItems.ENDERITE_BUILDING_WAND));
+        // Waffen und Ruestung (Besitzer 2026-10-02: wie in Vanilla getrennt von den Werkzeugen).
+        pinned.put(ModItemGroupsContent.Tab.COMBAT, List.of(
+                ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
+                ModItems.ENDERITE_HORSE_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR));
         pinned.put(ModItemGroupsContent.Tab.MATERIALS, List.of(
                 ModItems.ENDERITE_INGOT, ModItems.ASTRALIT_DUST, ModItems.ENDER_QUARTZ, ModItems.NIHILITH_ORE_ITEM,
-                ModItems.BASIC_UPGRADE_TEMPLATE, ModItems.GLOWING_TRIM_TEMPLATE,
-                ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE));
+                ModItems.BASIC_UPGRADE_TEMPLATE, ModItems.GLOWING_TRIM_TEMPLATE));
+        pinned.put(ModItemGroupsContent.Tab.FOOD, List.of(
+                ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
         pinned.put(ModItemGroupsContent.Tab.FUNCTIONAL, List.of(
                 ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_PISTON, ModItems.REINFORCED_FURNACE,
                 ModItems.ENDERITE_BUNDLE, ModItems.QUIVER, ModItems.BACKPACK, ModItems.ENDERITE_BACKPACK, ModItems.ENDERITE_CHEST));
@@ -2411,6 +2418,9 @@ public final class DataIntegrityTests {
         Set<Item> placed = new HashSet<>();
         List<ItemStack> placedStacks = new ArrayList<>();
         for (com.simplebuilding.items.SearchTabPlacement.Placement placement : placements) {
+            if (placement.secondary()) {
+                continue;
+            }
             for (ItemStack stack : placement.stacks()) {
                 // Varianten eines Items (gefertigte Pfeile, B14) zaehlen einzeln: doppelt ist nur derselbe Stapel.
                 boolean twice = placedStacks.stream().anyMatch(other -> ItemStack.isSameItemSameComponents(other, stack));
@@ -2418,6 +2428,21 @@ public final class DataIntegrityTests {
                 placed.add(stack.getItem());
                 if (twice) {
                     problems.add(BuiltInRegistries.ITEM.getKey(stack.getItem()) + " is placed twice");
+                }
+            }
+        }
+        // Zweitplatzierungen (wie Vanillas Aexte in Werkzeuge und Kampf) wiederholen nur, was schon eine erste
+        // Platzierung hat, und stehen in einem anderen Vanilla-Tab als diese.
+        for (com.simplebuilding.items.SearchTabPlacement.Placement placement : placements) {
+            if (!placement.secondary()) {
+                continue;
+            }
+            for (ItemStack stack : placement.stacks()) {
+                boolean firstElsewhere = placements.stream().anyMatch(p -> !p.secondary() && !p.tab().equals(placement.tab())
+                        && p.stacks().stream().anyMatch(other -> ItemStack.isSameItemSameComponents(other, stack)));
+                if (!firstElsewhere) {
+                    problems.add(BuiltInRegistries.ITEM.getKey(stack.getItem()) + " has a second placement in "
+                            + placement.tab().identifier() + " but no first one in another vanilla tab");
                 }
             }
         }
@@ -2470,6 +2495,9 @@ public final class DataIntegrityTests {
             }
         }
         for (com.simplebuilding.items.SearchTabPlacement.Placement placement : placements) {
+            if (placement.secondary()) {
+                continue; // im Suchtab steht das erste Vorkommen
+            }
             int first = indexOf(search, placement.stacks().getFirst());
             List<ItemStack> actual = first < 0 ? List.of()
                     : search.subList(first, Math.min(search.size(), first + placement.stacks().size()));
@@ -2479,7 +2507,11 @@ public final class DataIntegrityTests {
         }
         Map<Item, Item> neighbours = new LinkedHashMap<>();
         neighbours.put(Items.HOPPER, ModItems.REINFORCED_HOPPER);
-        neighbours.put(Items.NETHERITE_HOE, ModItems.ENDERITE_SHOVEL);
+        neighbours.put(Items.NETHERITE_HOE, ModItems.NETHERITE_CHISEL);
+        // Mod-Werkzeuge je Stufe hinter Vanillas Hacke dieser Stufe (Besitzer 2026-10-02).
+        neighbours.put(Items.STONE_HOE, ModItems.STONE_CHISEL);
+        neighbours.put(Items.IRON_HOE, ModItems.IRON_CHISEL);
+        neighbours.put(Items.DIAMOND_HOE, ModItems.DIAMOND_CHISEL);
         neighbours.put(Items.DIAMOND_BLOCK, ModItems.CRACKED_DIAMOND_BLOCK);
         neighbours.put(Items.PIGLIN_HEAD, TweaksItems.mobHeadsInSpawnOrder().getFirst().asItem());
         neighbours.put(Items.NETHERITE_SWORD, ModItems.ENDERITE_SWORD);
@@ -2693,7 +2725,7 @@ public final class DataIntegrityTests {
      * (diamond pebble, cracked diamond, netherite nugget, raw enderite, scrap, nugget, ingot | leather
      * sheet), the building cores copper to enderite, every smithing template in one place - the
      * upgrades (basic, vanilla netherite, enderite), then all vanilla armour trims in vanilla's order
-     * followed by the glowing and emitting trims -, and the food (netherite | enderite).
+     * followed by the glowing and emitting trims. The food moved into SimpleFood (owner 2026-10-02).
      *
      * <p>Read slot by slot like {@link #machinesAndStorageTabIsLaidOutInRowsOfNine}. What breaks this: a
      * row moved or reordered, a gap missing, a vanilla trim missing from the templates, a mod item left
@@ -2753,9 +2785,7 @@ public final class DataIntegrityTests {
                 List.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE, ModItems.DIAMOND_CORE,
                         ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
                 List.of(ModItems.BASIC_UPGRADE_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE),
-                trims,
-                List.of(ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_CARROT, gap,
-                        ModItems.ENDERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT)));
+                trims));
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.MATERIALS, problems), expectedSlots(expected), "SimpleMaterials", problems);
         helper.assertTrue(problems.isEmpty(), "materials layout: " + problems);
         helper.succeed();
@@ -3079,8 +3109,8 @@ public final class DataIntegrityTests {
      * enderite, the vanilla tools, weapons and armour of every tier included: chisel, building wand
      * (after a gap the building planning in the same row: blueprint and cartography table, right next
      * to the enderite wand that builds a blueprint - owner 2026-09-29), sledgehammer, then shovel,
-     * pickaxe, axe and hoe in vanilla order, then sword and spear, then helmet, chestplate,
-     * leggings and boots, then the gadgets (compass, recovery compass, echo compass, velocity gauge,
+     * pickaxe, axe and hoe in vanilla order (weapons and armour moved into SimpleCombat, owner
+     * 2026-10-02), then the gadgets (compass, recovery compass, echo compass, velocity gauge,
      * ore detector, magnet, rotator, amethyst lens, octant - a full row),
      * the sixteen coloured octants (one category over two rows) and last the books: each guide shelf,
      * then the enchanted books (one per mod enchantment), each category flowing on after one gap.
@@ -3095,7 +3125,6 @@ public final class DataIntegrityTests {
     public static void toolsTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
         List<String> vanillaTools = List.of("wooden", "stone", "copper", "iron", "golden", "diamond", "netherite");
-        List<String> vanillaArmour = List.of("leather", "chainmail", "copper", "iron", "golden", "diamond", "netherite");
         List<List<Item>> expected = new ArrayList<>();
         expected.add(List.of(ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
                 ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL));
@@ -3112,26 +3141,15 @@ public final class DataIntegrityTests {
         enderite.put("pickaxe", ModItems.ENDERITE_PICKAXE);
         enderite.put("axe", ModItems.ENDERITE_AXE);
         enderite.put("hoe", ModItems.ENDERITE_HOE);
-        enderite.put("sword", ModItems.ENDERITE_SWORD);
-        enderite.put("spear", ModItems.ENDERITE_SPEAR);
-        enderite.put("helmet", ModItems.ENDERITE_HELMET);
-        enderite.put("chestplate", ModItems.ENDERITE_CHESTPLATE);
-        enderite.put("leggings", ModItems.ENDERITE_LEGGINGS);
-        enderite.put("boots", ModItems.ENDERITE_BOOTS);
+        // Waffen und Ruestung stehen seit 2026-10-02 in SimpleCombat (combatTabIsLaidOutInRowsOfNine).
         enderite.forEach((kind, top) -> {
             List<Item> family = new ArrayList<>();
-            boolean armour = List.of("helmet", "chestplate", "leggings", "boots").contains(kind);
-            for (String tier : armour ? vanillaArmour : vanillaTools) {
+            for (String tier : vanillaTools) {
                 family.add(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)));
             }
             family.add(top);
             expected.add(family);
         });
-        // Reittier-Ruestung (2026-09-28): alle Vanilla-Stufen, oben Enderit.
-        expected.add(List.of(Items.LEATHER_HORSE_ARMOR, Items.COPPER_HORSE_ARMOR, Items.IRON_HORSE_ARMOR,
-                Items.GOLDEN_HORSE_ARMOR, Items.DIAMOND_HORSE_ARMOR, Items.NETHERITE_HORSE_ARMOR, ModItems.ENDERITE_HORSE_ARMOR));
-        expected.add(List.of(Items.COPPER_NAUTILUS_ARMOR, Items.IRON_NAUTILUS_ARMOR, Items.GOLDEN_NAUTILUS_ARMOR,
-                Items.DIAMOND_NAUTILUS_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR));
         // Geraete (Besitzer 2026-09-27): Kompassartiges zuerst, dann Magnet, Rotator, Amethystlinse, Oktant -
         // genau neun; die 16 gefaerbten Oktanten laufen ueber zwei Zeilen.
         expected.add(List.of(Items.COMPASS, Items.RECOVERY_COMPASS, TweaksItems.ECHO_COMPASS,
@@ -3162,6 +3180,55 @@ public final class DataIntegrityTests {
 
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.TOOLS, problems), expectedSlots(expected), "SimpleTools", problems);
         helper.assertTrue(problems.isEmpty(), "tools layout: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * SimpleCombat (owner 2026-10-02: weapons and armour apart from the tools, like vanilla's Combat tab) is laid
+     * out in rows of nine, one family per row from the lowest vanilla tier up to enderite: sword, spear, then
+     * helmet, chestplate, leggings and boots, then horse and nautilus armour.
+     *
+     * <p>What breaks this: a family moved, reordered or missing a tier, a weapon back in SimpleTools.
+     */
+    public static void combatTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        List<List<Item>> expected = new ArrayList<>();
+        Map<String, Item> enderite = new LinkedHashMap<>();
+        enderite.put("sword", ModItems.ENDERITE_SWORD);
+        enderite.put("spear", ModItems.ENDERITE_SPEAR);
+        enderite.put("helmet", ModItems.ENDERITE_HELMET);
+        enderite.put("chestplate", ModItems.ENDERITE_CHESTPLATE);
+        enderite.put("leggings", ModItems.ENDERITE_LEGGINGS);
+        enderite.put("boots", ModItems.ENDERITE_BOOTS);
+        enderite.forEach((kind, top) -> {
+            List<Item> family = new ArrayList<>();
+            boolean armour = List.of("helmet", "chestplate", "leggings", "boots").contains(kind);
+            for (String tier : armour ? List.of("leather", "chainmail", "copper", "iron", "golden", "diamond", "netherite")
+                    : List.of("wooden", "stone", "copper", "iron", "golden", "diamond", "netherite")) {
+                family.add(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)));
+            }
+            family.add(top);
+            expected.add(family);
+        });
+        expected.add(List.of(Items.LEATHER_HORSE_ARMOR, Items.COPPER_HORSE_ARMOR, Items.IRON_HORSE_ARMOR,
+                Items.GOLDEN_HORSE_ARMOR, Items.DIAMOND_HORSE_ARMOR, Items.NETHERITE_HORSE_ARMOR, ModItems.ENDERITE_HORSE_ARMOR));
+        expected.add(List.of(Items.COPPER_NAUTILUS_ARMOR, Items.IRON_NAUTILUS_ARMOR, Items.GOLDEN_NAUTILUS_ARMOR,
+                Items.DIAMOND_NAUTILUS_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR));
+        expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.COMBAT, problems), expectedSlots(expected), "SimpleCombat", problems);
+        helper.assertTrue(problems.isEmpty(), "combat layout: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * SimpleFood (owner 2026-10-02, like vanilla's Food and Drinks tab) holds the mod's food in one row:
+     * netherite apple, enchanted netherite apple, netherite carrot, gap, then the enderite three.
+     */
+    public static void foodTabIsLaidOutInOneRow(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        List<List<Item>> expected = List.of(List.of(ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE,
+                ModItems.NETHERITE_CARROT, Items.AIR, ModItems.ENDERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
+        expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.FOOD, problems), expectedSlots(expected), "SimpleFood", problems);
+        helper.assertTrue(problems.isEmpty(), "food layout: " + problems);
         helper.succeed();
     }
 

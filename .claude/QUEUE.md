@@ -158,7 +158,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Simple Money: Schmelzzeiten der Geld-Teile erhöhen, damit es in SimpleBuilding-Welten balanciert ist.
 - [ ] Zusätzlicher Weg zu Diamant-Kieseln (In-World): Fällt ein Amboss auf einen Diamantblock, entstehen Diamant-Kiesel.
 - [ ] Auto-Schmied analog zum Autocrafter: automatisiert den Schmiedetisch.
-- [ ] Wiki: Auf jeder Item-Seite beim Rezept die benötigten Grundmaterialien insgesamt auflisten (ab Barren, Holzstämmen, Zuckerrohr, Wachs, Bruchstein …), damit klar ist, wie viel Rohmaterial ein Item kostet. Beim Geldschein sein Wert.
+- [x] (claude-tabswiki, wiki/base_materials.py; Geldschein-Wert 3–35 Smaragde aus den Handels-JSONs) Wiki: Auf jeder Item-Seite beim Rezept die benötigten Grundmaterialien insgesamt auflisten (ab Barren, Holzstämmen, Zuckerrohr, Wachs, Bruchstein …), damit klar ist, wie viel Rohmaterial ein Item kostet. Beim Geldschein sein Wert.
 - [ ] Strohpuppe / Trainingspuppe:
   - Rezept: Rüstungsständer + Strohballen ergibt einen Stroh-Rüstungsständer.
   - Mit aufgesetztem geschnitzten Kürbis wird daraus eine Trainingspuppe mit gutem Minecraft-Namen. Sie ist unzerstörbar, außer beim Abbauen im Schleichen.
@@ -171,9 +171,9 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 ## Besitzer 2026-10-02 (Nachtrag)
 
-- [ ] Geschwindigkeitsmesser: läuft im Autowalk auch im Inventar und in nicht pausierenden UIs (Chat usw.) weiter.
+- [x] (claude-tabswiki, KeyboardInputMixin; Client-Abnahme offen) Geschwindigkeitsmesser: läuft im Autowalk auch im Inventar und in nicht pausierenden UIs (Chat usw.) weiter.
 - [ ] Shulkerkiste vorerst nicht verzauberbar machen.
 - [ ] Erzdetektor: Kompassnadel wirkt nicht zentriert – Animation/Nadel-Frames prüfen und zentrieren.
 - [ ] Resonanzstab: soll auch Entities anzünden bzw. scannen können.
-- [ ] Mod-Items zusätzlich an den richtigen Stellen in die Vanilla-Kreativtabs einsortieren; Simple-Building-Tabs weiter aufteilen (Werkzeuge, Waffen, Rüstung usw. wie in Vanilla).
+- [x] (claude-tabswiki: Werkzeuge je Stufe, Zweitplatzierungen Kampf/Redstone, Hufeisen; neue Tabs SimpleCombat/SimpleFood; Sichtabnahme offen) Mod-Items zusätzlich an den richtigen Stellen in die Vanilla-Kreativtabs einsortieren; Simple-Building-Tabs weiter aufteilen (Werkzeuge, Waffen, Rüstung usw. wie in Vanilla).
 - [ ] Trank „Crafty Shulker“: Effekt – bei Treffer an eine sichere Stelle in der Nähe teleportieren; braubar mit Shulkerkopf, analog zu den anderen Tränken/Effekten.

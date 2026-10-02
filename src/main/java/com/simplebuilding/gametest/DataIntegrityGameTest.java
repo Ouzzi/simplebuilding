@@ -137,6 +137,16 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void combatTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
+        DataIntegrityTests.combatTabIsLaidOutInRowsOfNine(helper);
+    }
+
+    @GameTest
+    public void foodTabIsLaidOutInOneRow(GameTestHelper helper) {
+        DataIntegrityTests.foodTabIsLaidOutInOneRow(helper);
+    }
+
+    @GameTest
     public void creativeSpacerCannotBeTakenOrKept(GameTestHelper helper) {
         DataIntegrityTests.creativeSpacerCannotBeTakenOrKept(helper);
     }

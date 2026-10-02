@@ -46,6 +46,22 @@ public class VelocityGaugeItem extends Item {
     /** Client-Hook fuer den Autowalk (Besitzer 2026-10-01), gesetzt von {@code GaugeAutowalk}; nie auf dem Server. */
     public static java.util.function.Consumer<net.minecraft.world.entity.player.Player> clientAutowalkToggle = player -> { };
 
+    /**
+     * Laeuft der Autowalk unter diesem Bildschirm weiter? Ohne Bildschirm und unter jedem nicht pausierenden
+     * (Inventar, Chat, Truhe, Werkbank ...) ja, unter einem pausierenden (Pausenmenue) nein (Besitzer 2026-10-02).
+     */
+    public static boolean autowalkContinuesUnder(boolean screenOpen, boolean screenPausesGame) {
+        return !screenOpen || !screenPausesGame;
+    }
+
+    /**
+     * Haelt der Spieler noch die Messuhr, mit der er den Autowalk gestartet hat? Gleicher Haupthand-Slot und dort
+     * weiter eine Messuhr - ein vom Server neu gesendeter Stapel (etwa beim Oeffnen einer Truhe) zaehlt als dieselbe.
+     */
+    public static boolean autowalkKeepsGauge(int selectedSlot, int startSlot, ItemStack mainHand) {
+        return selectedSlot == startSlot && mainHand.getItem() instanceof VelocityGaugeItem;
+    }
+
     /** Rechtsklick in der Haupthand schaltet den Autowalk um ({@code client.GaugeAutowalk}). */
     @Override
     public net.minecraft.world.InteractionResult use(Level level, net.minecraft.world.entity.player.Player player,

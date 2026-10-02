@@ -765,7 +765,9 @@ public final class TestCentreSections {
     public static TcCanvas materials(TcContext ctx) {
         TcCanvas c = new TcCanvas();
         int wallZ = 2;
-        List<ItemStack> items = ctx.tab(ModItemGroupsContent.Tab.MATERIALS);
+        // SimpleMaterials und die seit 2026-10-02 eigene Nahrung (SimpleFood) an einer Wand, wie bisher.
+        List<ItemStack> items = new ArrayList<>(ctx.tab(ModItemGroupsContent.Tab.MATERIALS));
+        items.addAll(ctx.tab(ModItemGroupsContent.Tab.FOOD));
         List<List<Component>> labels = new ArrayList<>();
         for (ItemStack stack : items) {
             labels.add(List.of(stack.getHoverName()));
