@@ -4,7 +4,7 @@ Quelle (nur gelesen): `C:/Users/oussa/Downloads/Minecraft/Mine/custom created mo
 
 ## Features und persistente IDs
 
-Namensraum `simplemoney` unverändert. Sieben Items: `special_paper` (64), `special_fiber` (16), `resin_fiber` (16), `blank_note` (64, uncommon), `refined_blank_note` (64, uncommon), `raw_bill` (64, rare), `money_bill` (64, epic, feuerfest, Glanz). Rechtsklick Geldschein: Klang + Partikel ohne Verbrauch oder Bildschirmtext. Kreativtab `simplemoney:money_items`, Originalreihenfolge. Keine Blöcke, Entities, Verzauberungen, Befehle, Tastenkürzel, Komponenten oder Welt-Speicherformate.
+Namensraum `simplemoney` unverändert. Sieben Items: `special_paper` (64), `special_fiber` (16), `resin_fiber` (16), `blank_note` (64, uncommon), `refined_blank_note` (64, uncommon), `raw_bill` (64, rare), `money_bill` (64, epic, feuerfest, Glanz). Rechtsklick Geldschein: Klang + Partikel ohne Verbrauch oder Bildschirmtext. Kreativtab `simplemoney:money_items` in Herstellungsreihenfolge (Spezialpapier, Harzfaser, Rohling, Spezialfaser, veredelter Rohling, roher Schein, Geldschein; `MoneyItems.TAB_ORDER`, Registrierungsreihenfolge unverändert); dieselbe Reihe steht im Vanilla-Tab Zutaten direkt hinter Papier und damit auch im Suchtab dort (alle drei Loader, Test `money_game_test_creative_tabs`). Keine Blöcke, Entities, Verzauberungen, Befehle, Tastenkürzel, Komponenten oder Welt-Speicherformate.
 
 ## Rezepte (alle Original-IDs erhalten)
 

@@ -21,6 +21,7 @@ public final class MoneyTests {
  static {
   ALL.put("money_game_test_launch_smoke",MoneyTests::launchSmoke);
   ALL.put("money_game_test_bill_use",MoneyTests::billUse);
+  ALL.put("money_game_test_creative_tabs",MoneyTests::creativeTabs);
   ALL.put("money_game_test_recipes",MoneyTests::recipes);
   ALL.put("money_game_test_recipe_outputs",MoneyTests::recipeOutputs);
   ALL.put("money_game_test_config_world",MoneyTests::configWorld);
@@ -48,6 +49,21 @@ public final class MoneyTests {
   }
   h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(id("money_items")),"original creative tab");
   h.assertTrue(MoneyItems.ITEMS.get("money_bill").getDefaultInstance().has(DataComponents.DAMAGE_RESISTANT),"bill fire resistance");h.succeed();
+ }
+ /** Own tab in crafting order; in vanilla Ingredients (and so in the search tab) the same run right after paper. */
+ public static void creativeTabs(GameTestHelper h) {
+  h.assertTrue(new HashSet<>(MoneyItems.TAB_ORDER).equals(new HashSet<>(MoneyItems.IDS))&&MoneyItems.TAB_ORDER.size()==MoneyItems.IDS.size(),"tab order lists every item once");
+  CreativeModeTabs.tryRebuildTabContents(h.getLevel().enabledFeatures(),true,h.getLevel().registryAccess());
+  var expected=MoneyItems.TAB_ORDER.stream().map(MoneyItems.ITEMS::get).toList();
+  var own=BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(ResourceKey.create(Registries.CREATIVE_MODE_TAB,id("money_items"))).getDisplayItems().stream().map(ItemStack::getItem).toList();
+  h.assertValueEqual(own,expected,"own tab in crafting order");
+  for(var tab:List.of(BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(CreativeModeTabs.INGREDIENTS).getDisplayItems(),CreativeModeTabs.searchTab().getDisplayItems())) {
+   var items=new ArrayList<ItemStack>(tab).stream().map(ItemStack::getItem).toList();
+   int at=items.indexOf(MoneyItems.SEARCH_ANCHOR);
+   h.assertTrue(at>=0&&at+expected.size()<items.size()&&items.subList(at+1,at+1+expected.size()).equals(expected),"money items follow paper: "+(at<0?"no paper":items.subList(at+1,Math.min(items.size(),at+1+expected.size()))));
+   h.assertValueEqual(items.stream().filter(MoneyItems.ITEMS.values()::contains).count(),(long)expected.size(),"each money item once");
+  }
+  h.succeed();
  }
  public static void billUse(GameTestHelper h) {
   var player=h.makeMockServerPlayerInLevel();var item=MoneyItems.ITEMS.get("money_bill");var stack=new ItemStack(item,3);player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND,stack);

@@ -95,8 +95,10 @@ public final class DimensionRuntime {
  public DimensionPortalConfig config(String id){return configs.stream().filter(c->c.id.equals(id)).findFirst().orElse(null);}
  public static BlockPos pos(BlockPos3i p){return new BlockPos(p.x(),p.y(),p.z());}
  public static void signal(ServerLevel l,BlockPos p,boolean success){
-  l.playSound(null,p,success?SoundEvents.PORTAL_TRIGGER:SoundEvents.FIRE_EXTINGUISH,SoundSource.BLOCKS,.4f,success?1: .6f);
-  l.sendParticles(success?ParticleTypes.PORTAL:ParticleTypes.SMOKE,p.getX()+.5,p.getY()+.5,p.getZ()+.5,8,.3,.3,.3,.01);
+  // Same cue family as SimpleBuilding and the other modules: success its own sound, failure the dry dispenser click.
+  if(success)l.playSound(null,p,SoundEvents.PORTAL_TRIGGER,SoundSource.BLOCKS,.4f,1f);
+  else l.playSound(null,p,SoundEvents.DISPENSER_FAIL,SoundSource.BLOCKS,.5f,1.2f);
+  l.sendParticles(success?ParticleTypes.PORTAL:ParticleTypes.SMOKE,p.getX()+.5,p.getY()+.5,p.getZ()+.5,success?6:4,.3,.3,.3,.01);
  }
  public void tick(){
   if(!portals.isEmpty()) {

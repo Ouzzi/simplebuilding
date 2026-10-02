@@ -21,6 +21,12 @@ public final class MoneyNeoForge {
    if(event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB)) MoneyItems.registerTab(CreativeModeTab.builder());
    if(event.getRegistryKey().equals(Registries.LOOT_FUNCTION_TYPE)) Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE,Identifier.fromNamespaceAndPath("simplemoney","weighted_enchant"),WeightedEnchantFunction.MAP_CODEC);
   });
+  bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent event)->{
+   var anchor=new net.minecraft.world.item.ItemStack(MoneyItems.SEARCH_ANCHOR);
+   if(!event.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS)||!event.getParentEntries().contains(anchor))return;
+   var previous=anchor;
+   for(var stack:MoneyItems.tabStacks()){event.insertAfter(previous,stack,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);previous=stack;}
+  });
   NeoForge.EVENT_BUS.addListener((LootTableLoadEvent event)->MoneyLoot.inject(event.getName().toString(),pool->event.getTable().addPool(pool.build())));
  }
 }

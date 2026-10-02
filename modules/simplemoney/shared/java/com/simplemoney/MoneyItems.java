@@ -16,6 +16,11 @@ import java.util.function.Consumer;
 public final class MoneyItems {
  public static final List<String> IDS=List.of("special_paper","special_fiber","resin_fiber","blank_note","refined_blank_note","raw_bill","money_bill");
  public static final Map<String,Item> ITEMS=new LinkedHashMap<>();
+ /** Creative-tab order = crafting order: paper, the resin fiber that makes it a blank note, the special fiber that refines it, raw bill, bill. */
+ public static final List<String> TAB_ORDER=List.of("special_paper","resin_fiber","blank_note","special_fiber","refined_blank_note","raw_bill","money_bill");
+ /** The materials also stand right after paper in the vanilla Ingredients tab, so the search tab lists them there, not at its end. */
+ public static final Item SEARCH_ANCHOR=Items.PAPER;
+ public static List<ItemStack> tabStacks(){return TAB_ORDER.stream().map(n->new ItemStack(ITEMS.get(n))).toList();}
  public static void register() {
   for(String name:IDS) {
    var id=Identifier.fromNamespaceAndPath("simplemoney",name);
@@ -29,7 +34,7 @@ public final class MoneyItems {
     }
     @Override public InteractionResult use(Level level,Player player,InteractionHand hand) {
      if(!name.equals("money_bill")) return super.use(level,player,hand);
-     if(!level.isClientSide()) level.playSound(null,player.getX(),player.getY(),player.getZ(),SoundEvents.BOOK_PAGE_TURN,SoundSource.PLAYERS,0.6f,6.0f);
+     if(!level.isClientSide()) level.playSound(null,player.getX(),player.getY(),player.getZ(),SoundEvents.BOOK_PAGE_TURN,SoundSource.PLAYERS,0.6f,1.8f);
      if(level instanceof net.minecraft.server.level.ServerLevel server) server.sendParticles(net.minecraft.core.particles.ParticleTypes.HAPPY_VILLAGER,player.getX(),player.getY()+1,player.getZ(),1,0,0,0,0.1);
      return InteractionResult.SUCCESS;
     }
@@ -37,6 +42,6 @@ public final class MoneyItems {
   }
  }
  public static void registerTab(CreativeModeTab.Builder builder) {
-  Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,Identifier.fromNamespaceAndPath("simplemoney","money_items"),builder.icon(()->new ItemStack(ITEMS.get("money_bill"))).title(Component.translatable("itemgroup.simplemoney.money_items")).displayItems((p,o)->ITEMS.values().forEach(o::accept)).build());
+  Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,Identifier.fromNamespaceAndPath("simplemoney","money_items"),builder.icon(()->new ItemStack(ITEMS.get("money_bill"))).title(Component.translatable("itemgroup.simplemoney.money_items")).displayItems((p,o)->tabStacks().forEach(o::accept)).build());
  }
 }

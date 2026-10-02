@@ -22,7 +22,8 @@
       "id": "tailwind",
       "sources": [
         "modules/simpleriding/shared/java/com/simpleriding/RidingEffects.java",
-        "modules/simpleriding/generated/resources/data/simpleriding/enchantment/tailwind.json"
+        "modules/simpleriding/generated/resources/data/simpleriding/enchantment/tailwind.json",
+        "modules/simpleriding/shared/java/com/simpleriding/mixin/RidingTickMixin.java"
       ],
       "en": {
         "title": "Tailwind",
@@ -31,7 +32,8 @@
           "Tailwind I–III enhances saddles and all 16 colored harnesses. Apply a book at an anvil.",
           "Only a player-controlled mount receives the bonus. Each level adds 30% speed on horses and camels, 20% on pigs, striders and nautiluses, and 85% flight speed on Happy Ghasts by default. Enchantment levels are capped at III; the total server bonus is capped at +300%.",
           "The server updates transient attribute modifiers each tick; removing the enchantment or dismounting removes the bonus. A plain ghast harness grants no free boost.",
-          "Happy Ghast flight uses flying speed twice in Vanilla. The server applies a square-root attribute bonus so the actual quadratic flight amplification stays within the total speed cap."
+          "Happy Ghast flight uses flying speed twice in Vanilla. The server applies a square-root attribute bonus so the actual quadratic flight amplification stays within the total speed cap.",
+          "Feedback without text: while the boost is active and the mount moves at least at a trot, a light trail of Vanilla cloud puffs (bubbles under water) drifts behind it. The client shows it only when the synchronized Tailwind speed modifier is present."
         ]
       },
       "de": {
@@ -41,7 +43,8 @@
           "Rückenwind I–III verbessert Sättel und alle 16 Geschirrfarben. Ein Buch wird am Amboss angewendet.",
           "Nur spielergesteuerte Reittiere erhalten den Bonus: je Stufe standardmäßig 30% für Pferde und Kamele, 20% für Schweine, Schreiter und Nautilusse, 85% Flugtempo für Happy Ghasts. Höchstens Stufe III; der gesamte Serverbonus ist auf +300% begrenzt.",
           "Der Server aktualisiert flüchtige Attributmodifikatoren pro Tick. Verzauberung entfernen oder absteigen entfernt den Bonus. Normales Ghastgeschirr gibt keinen Gratisbonus.",
-          "Vanilla nutzt das Happy-Ghast-Flugtempo zweimal. Der Server verwendet deshalb einen Quadratwurzel-Attributbonus, damit die tatsächliche quadratische Flugverstärkung die Gesamtgeschwindigkeitsgrenze einhält."
+          "Vanilla nutzt das Happy-Ghast-Flugtempo zweimal. Der Server verwendet deshalb einen Quadratwurzel-Attributbonus, damit die tatsächliche quadratische Flugverstärkung die Gesamtgeschwindigkeitsgrenze einhält.",
+          "Rückmeldung ohne Text: Solange der Bonus wirkt und das Reittier mindestens trabt, zieht eine leichte Spur aus Vanilla-Wolkenpartikeln (unter Wasser Blasen) hinter ihm her. Der Client zeigt sie nur, wenn der synchronisierte Rückenwind-Tempomodifikator anliegt."
         ]
       }
     },
@@ -50,7 +53,8 @@
       "sources": [
         "modules/simpleriding/shared/java/com/simpleriding/RidingEffects.java",
         "modules/simpleriding/generated/resources/data/simpleriding/enchantment/leaping.json",
-        "modules/simpleriding/generated/resources/data/simpleriding/tags/item/horse_armor_enchantable.json"
+        "modules/simpleriding/generated/resources/data/simpleriding/tags/item/horse_armor_enchantable.json",
+        "modules/simpleriding/shared/java/com/simpleriding/mixin/RidingLeapMixin.java"
       ],
       "en": {
         "title": "Leaping",
@@ -59,7 +63,8 @@
           "Leaping I–III increases the jump strength of a player-controlled horse by 20% per level by default.",
           "Apply its book to horse armor at an anvil. All six vanilla horse armor materials and optional SimpleBuilding Enderite Horse Armor are supported. Removing armor or dismounting clears the modifier.",
           "Nautilus and zombie nautilus armor accepts Leaping too: +20% dash strength per level by default, using the same total speed cap as Tailwind. The server executes the dash and preserves the vanilla 40-tick cooldown.",
-          "The total server dash impulse, including prior momentum, is clamped to the configured tick movement limit and at most 3.9 blocks/tick; nonfinite motion is refused."
+          "The total server dash impulse, including prior momentum, is clamped to the configured tick movement limit and at most 3.9 blocks/tick; nonfinite motion is refused.",
+          "Feedback without text: when the server starts a horse jump with the Leaping modifier active, a small Vanilla puff (poof particles, more with higher levels) rises at the hooves; Vanilla's own jump sound plays as usual."
         ]
       },
       "de": {
@@ -69,7 +74,8 @@
           "Sprungkraft I–III steigert die Sprungkraft eines spielergesteuerten Pferdes standardmäßig um 20% je Stufe.",
           "Das Buch wird am Amboss auf Pferderüstung angewendet. Alle sechs Vanilla-Materialien und optional SimpleBuildings Enderit-Pferderüstung werden unterstützt. Rüstung entfernen oder absteigen löscht den Modifikator.",
           "Nautilus- und Zombie-Nautilusrüstung erlaubt ebenfalls Sprungkraft: standardmäßig +20% Dash-Kraft je Stufe, mit derselben Gesamtgeschwindigkeitsgrenze wie Rückenwind. Der Server führt den Dash aus und behält Vanillas 40-Tick-Abklingzeit.",
-          "Der gesamte Server-Dash-Impuls inklusive vorherigem Schwung wird auf die konfigurierte Tickbewegungsgrenze und höchstens 3.9 Blöcke/Tick begrenzt; nichtendliche Bewegung wird verweigert."
+          "Der gesamte Server-Dash-Impuls inklusive vorherigem Schwung wird auf die konfigurierte Tickbewegungsgrenze und höchstens 3.9 Blöcke/Tick begrenzt; nichtendliche Bewegung wird verweigert.",
+          "Rückmeldung ohne Text: Startet der Server einen Pferdesprung mit aktivem Sprungkraft-Modifikator, steigt an den Hufen ein kleiner Vanilla-Staubstoß auf (Poof-Partikel, mehr bei höherer Stufe); Vanillas eigener Sprungklang bleibt."
         ]
       }
     },
@@ -854,7 +860,8 @@
             "Leaping I–III increases the jump strength of a player-controlled horse by 20% per level by default.",
             "Apply its book to horse armor at an anvil. All six vanilla horse armor materials and optional SimpleBuilding Enderite Horse Armor are supported. Removing armor or dismounting clears the modifier.",
             "Nautilus and zombie nautilus armor accepts Leaping too: +20% dash strength per level by default, using the same total speed cap as Tailwind. The server executes the dash and preserves the vanilla 40-tick cooldown.",
-            "The total server dash impulse, including prior momentum, is clamped to the configured tick movement limit and at most 3.9 blocks/tick; nonfinite motion is refused."
+            "The total server dash impulse, including prior momentum, is clamped to the configured tick movement limit and at most 3.9 blocks/tick; nonfinite motion is refused.",
+            "Feedback without text: when the server starts a horse jump with the Leaping modifier active, a small Vanilla puff (poof particles, more with higher levels) rises at the hooves; Vanilla's own jump sound plays as usual."
           ]
         },
         "de": {
@@ -864,7 +871,8 @@
             "Sprungkraft I–III steigert die Sprungkraft eines spielergesteuerten Pferdes standardmäßig um 20% je Stufe.",
             "Das Buch wird am Amboss auf Pferderüstung angewendet. Alle sechs Vanilla-Materialien und optional SimpleBuildings Enderit-Pferderüstung werden unterstützt. Rüstung entfernen oder absteigen löscht den Modifikator.",
             "Nautilus- und Zombie-Nautilusrüstung erlaubt ebenfalls Sprungkraft: standardmäßig +20% Dash-Kraft je Stufe, mit derselben Gesamtgeschwindigkeitsgrenze wie Rückenwind. Der Server führt den Dash aus und behält Vanillas 40-Tick-Abklingzeit.",
-            "Der gesamte Server-Dash-Impuls inklusive vorherigem Schwung wird auf die konfigurierte Tickbewegungsgrenze und höchstens 3.9 Blöcke/Tick begrenzt; nichtendliche Bewegung wird verweigert."
+            "Der gesamte Server-Dash-Impuls inklusive vorherigem Schwung wird auf die konfigurierte Tickbewegungsgrenze und höchstens 3.9 Blöcke/Tick begrenzt; nichtendliche Bewegung wird verweigert.",
+            "Rückmeldung ohne Text: Startet der Server einen Pferdesprung mit aktivem Sprungkraft-Modifikator, steigt an den Hufen ein kleiner Vanilla-Staubstoß auf (Poof-Partikel, mehr bei höherer Stufe); Vanillas eigener Sprungklang bleibt."
           ]
         }
       }
@@ -900,7 +908,8 @@
             "Tailwind I–III enhances saddles and all 16 colored harnesses. Apply a book at an anvil.",
             "Only a player-controlled mount receives the bonus. Each level adds 30% speed on horses and camels, 20% on pigs, striders and nautiluses, and 85% flight speed on Happy Ghasts by default. Enchantment levels are capped at III; the total server bonus is capped at +300%.",
             "The server updates transient attribute modifiers each tick; removing the enchantment or dismounting removes the bonus. A plain ghast harness grants no free boost.",
-            "Happy Ghast flight uses flying speed twice in Vanilla. The server applies a square-root attribute bonus so the actual quadratic flight amplification stays within the total speed cap."
+            "Happy Ghast flight uses flying speed twice in Vanilla. The server applies a square-root attribute bonus so the actual quadratic flight amplification stays within the total speed cap.",
+            "Feedback without text: while the boost is active and the mount moves at least at a trot, a light trail of Vanilla cloud puffs (bubbles under water) drifts behind it. The client shows it only when the synchronized Tailwind speed modifier is present."
           ]
         },
         "de": {
@@ -910,7 +919,8 @@
             "Rückenwind I–III verbessert Sättel und alle 16 Geschirrfarben. Ein Buch wird am Amboss angewendet.",
             "Nur spielergesteuerte Reittiere erhalten den Bonus: je Stufe standardmäßig 30% für Pferde und Kamele, 20% für Schweine, Schreiter und Nautilusse, 85% Flugtempo für Happy Ghasts. Höchstens Stufe III; der gesamte Serverbonus ist auf +300% begrenzt.",
             "Der Server aktualisiert flüchtige Attributmodifikatoren pro Tick. Verzauberung entfernen oder absteigen entfernt den Bonus. Normales Ghastgeschirr gibt keinen Gratisbonus.",
-            "Vanilla nutzt das Happy-Ghast-Flugtempo zweimal. Der Server verwendet deshalb einen Quadratwurzel-Attributbonus, damit die tatsächliche quadratische Flugverstärkung die Gesamtgeschwindigkeitsgrenze einhält."
+            "Vanilla nutzt das Happy-Ghast-Flugtempo zweimal. Der Server verwendet deshalb einen Quadratwurzel-Attributbonus, damit die tatsächliche quadratische Flugverstärkung die Gesamtgeschwindigkeitsgrenze einhält.",
+            "Rückmeldung ohne Text: Solange der Bonus wirkt und das Reittier mindestens trabt, zieht eine leichte Spur aus Vanilla-Wolkenpartikeln (unter Wasser Blasen) hinter ihm her. Der Client zeigt sie nur, wenn der synchronisierte Rückenwind-Tempomodifikator anliegt."
           ]
         }
       }

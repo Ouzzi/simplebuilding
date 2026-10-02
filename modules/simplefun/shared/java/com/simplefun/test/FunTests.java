@@ -40,6 +40,7 @@ public final class FunTests {
     ALL.put("trades", FunTests::trades);
     ALL.put("head_blocks", FunTests::headBlocks);
     ALL.put("head_abilities", FunTests::headAbilities);
+    ALL.put("creative_tabs", FunTests::creativeTabs);
     for (var t : AnimalHead.values()) ALL.put(t.path(), h -> head(h, t));
     for (var key :
         List.of(
@@ -77,6 +78,58 @@ public final class FunTests {
                 SimplefunCommon.getConfig().fun = saved;
               }
             });
+  }
+
+  /**
+   * The fun tab holds only the mod's items (brick snowball, then the heads, no vanilla ingredients);
+   * the brick snowball follows the snowball in Combat and the heads follow the dragon head in
+   * Functional Blocks, and in the search tab both stand there, each exactly once.
+   */
+  public static void creativeTabs(GameTestHelper h) {
+    CreativeModeTabs.tryRebuildTabContents(
+        h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
+    var own =
+        BuiltInRegistries.CREATIVE_MODE_TAB
+            .getValueOrThrow(ResourceKey.create(Registries.CREATIVE_MODE_TAB, AnimalHeads.id("fun")))
+            .getDisplayItems()
+            .stream()
+            .map(ItemStack::getItem)
+            .toList();
+    var expected = AnimalHeads.tabStacks().stream().map(ItemStack::getItem).toList();
+    h.assertTrue(own.equals(expected), "fun tab lists only own items in order: " + own);
+    var search =
+        CreativeModeTabs.searchTab().getDisplayItems().stream().map(ItemStack::getItem).toList();
+    var heads = AnimalHeads.headStacks().stream().map(ItemStack::getItem).toList();
+    var combat =
+        BuiltInRegistries.CREATIVE_MODE_TAB
+            .getValueOrThrow(CreativeModeTabs.COMBAT)
+            .getDisplayItems()
+            .stream()
+            .map(ItemStack::getItem)
+            .toList();
+    var functional =
+        BuiltInRegistries.CREATIVE_MODE_TAB
+            .getValueOrThrow(CreativeModeTabs.FUNCTIONAL_BLOCKS)
+            .getDisplayItems()
+            .stream()
+            .map(ItemStack::getItem)
+            .toList();
+    for (var list : List.of(combat, search))
+      follows(h, list, AnimalHeads.SNOWBALL_ANCHOR, List.of(ModItems.BRICK_SNOWBALL));
+    for (var list : List.of(functional, search)) follows(h, list, AnimalHeads.HEAD_ANCHOR, heads);
+    for (var item : expected)
+      h.assertTrue(
+          search.stream().filter(item::equals).count() == 1, "search tab lists " + item + " once");
+    h.succeed();
+  }
+
+  private static void follows(GameTestHelper h, List<Item> list, Item anchor, List<Item> items) {
+    int at = list.indexOf(anchor);
+    h.assertTrue(
+        at >= 0
+            && at + items.size() < list.size()
+            && list.subList(at + 1, at + 1 + items.size()).equals(items),
+        items + " follow " + anchor);
   }
 
   private static String snake(String k) {

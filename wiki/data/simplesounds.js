@@ -31,7 +31,7 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
         "summary": "Use the Simple Visuals intensity when available. Effect overrides take priority; otherwise your own level applies. Client only. Default: true.",
         "details": [
           "Use the Simple Visuals intensity when available. Effect overrides take priority; otherwise your own level applies. Client only. Default: true.",
-          "Off/Subtle/Normal/Strong/Maximum follows the active Visuals global level one-to-one through the optional framework API, without file polling or a hard dependency. With Visuals absent or an older version without a provider, the own level applies. Visuals effect overrides are independent. Audio caps and cooldowns are unchanged."
+          "Off/Subtle/Normal/Strong/Maximum follows the Visuals level of the same effect one-to-one - Visuals' effect override when it has one, otherwise its global level - through the optional framework API, without file polling or a hard dependency. With Visuals absent or an older version without a provider, the own level applies. A sound effect override still wins. Audio caps and cooldowns are unchanged."
         ]
       },
       "de": {
@@ -39,7 +39,7 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
         "summary": "Nutzt die Intensität von Simple Visuals, falls verfügbar. Effekt-Overrides haben Vorrang; sonst gilt die eigene Stufe. Nur clientseitig. Standard: true.",
         "details": [
           "Nutzt die Intensität von Simple Visuals, falls verfügbar. Effekt-Overrides haben Vorrang; sonst gilt die eigene Stufe. Nur clientseitig. Standard: true.",
-          "Aus/Dezent/Normal/Stark/Maximum folgt der aktiven globalen Visuals-Stufe eins zu eins über die optionale Framework-API, ohne Dateiabfragen oder Pflichtabhängigkeit. Ohne Visuals oder bei einer älteren Version ohne Anbieter gilt die eigene Stufe. Visuals-Effekt-Overrides bleiben unabhängig. Audio-Obergrenzen und Pausen bleiben unverändert."
+          "Aus/Dezent/Normal/Stark/Maximum folgt der Visuals-Stufe desselben Effekts eins zu eins - dem Visuals-Effekt-Override, falls gesetzt, sonst der globalen Visuals-Stufe - über die optionale Framework-API, ohne Dateiabfragen oder Pflichtabhängigkeit. Ohne Visuals oder bei einer älteren Version ohne Anbieter gilt die eigene Stufe. Ein Sound-Effekt-Override hat weiter Vorrang. Audio-Obergrenzen und Pausen bleiben unverändert."
         ]
       }
     },
@@ -150,16 +150,16 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
       ],
       "en": {
         "title": "Footstep dust",
-        "summary": "Local Vanilla sound minecraft:block.sand.step; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT.",
+        "summary": "Local Vanilla sound minecraft:block.powder_snow.step; at least 20 ticks apart and never sooner than the effect cooldown, base volume 0.05, pitch 1.35–1.45. Default: INHERIT.",
         "details": [
-          "Local Vanilla sound minecraft:block.sand.step; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT."
+          "Local Vanilla sound minecraft:block.powder_snow.step; at least 20 ticks apart and never sooner than the effect cooldown, base volume 0.05, pitch 1.35–1.45. Default: INHERIT."
         ]
       },
       "de": {
         "title": "Schrittstaub",
-        "summary": "Lokaler Vanilla-Sound minecraft:block.sand.step; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT.",
+        "summary": "Lokaler Vanilla-Sound minecraft:block.powder_snow.step; mindestens 20 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.05, Tonhöhe 1,35–1,45. Standard: INHERIT.",
         "details": [
-          "Lokaler Vanilla-Sound minecraft:block.sand.step; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT."
+          "Lokaler Vanilla-Sound minecraft:block.powder_snow.step; mindestens 20 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.05, Tonhöhe 1,35–1,45. Standard: INHERIT."
         ]
       }
     },
@@ -170,16 +170,16 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
       ],
       "en": {
         "title": "Cold breath",
-        "summary": "Local Vanilla sound minecraft:entity.player.breath; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT.",
+        "summary": "Local Vanilla sound minecraft:entity.player.breath; at least 160 ticks apart and never sooner than the effect cooldown, base volume 0.06, pitch 0.85–0.95. Default: INHERIT.",
         "details": [
-          "Local Vanilla sound minecraft:entity.player.breath; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT."
+          "Local Vanilla sound minecraft:entity.player.breath; at least 160 ticks apart and never sooner than the effect cooldown, base volume 0.06, pitch 0.85–0.95. Default: INHERIT."
         ]
       },
       "de": {
         "title": "Kalter Atem",
-        "summary": "Lokaler Vanilla-Sound minecraft:entity.player.breath; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT.",
+        "summary": "Lokaler Vanilla-Sound minecraft:entity.player.breath; mindestens 160 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.06, Tonhöhe 0,85–0,95. Standard: INHERIT.",
         "details": [
-          "Lokaler Vanilla-Sound minecraft:entity.player.breath; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT."
+          "Lokaler Vanilla-Sound minecraft:entity.player.breath; mindestens 160 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.06, Tonhöhe 0,85–0,95. Standard: INHERIT."
         ]
       }
     },
@@ -190,16 +190,16 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
       ],
       "en": {
         "title": "Fireflies",
-        "summary": "Local Vanilla sound minecraft:block.grass.step; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT.",
+        "summary": "Local Vanilla sound minecraft:block.firefly_bush.idle; at least 100 ticks apart and never sooner than the effect cooldown, base volume 0.10, pitch 0.95–1.05. Default: INHERIT.",
         "details": [
-          "Local Vanilla sound minecraft:block.grass.step; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT."
+          "Local Vanilla sound minecraft:block.firefly_bush.idle; at least 100 ticks apart and never sooner than the effect cooldown, base volume 0.10, pitch 0.95–1.05. Default: INHERIT."
         ]
       },
       "de": {
         "title": "Glühwürmchen",
-        "summary": "Lokaler Vanilla-Sound minecraft:block.grass.step; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT.",
+        "summary": "Lokaler Vanilla-Sound minecraft:block.firefly_bush.idle; mindestens 100 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.10, Tonhöhe 0,95–1,05. Standard: INHERIT.",
         "details": [
-          "Lokaler Vanilla-Sound minecraft:block.grass.step; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT."
+          "Lokaler Vanilla-Sound minecraft:block.firefly_bush.idle; mindestens 100 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.10, Tonhöhe 0,95–1,05. Standard: INHERIT."
         ]
       }
     },
@@ -210,16 +210,16 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
       ],
       "en": {
         "title": "Pollen",
-        "summary": "Local Vanilla sound minecraft:block.azalea_leaves.step; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT.",
+        "summary": "Local Vanilla sound minecraft:block.flowering_azalea.step; at least 120 ticks apart and never sooner than the effect cooldown, base volume 0.05, pitch 1.35–1.45. Default: INHERIT.",
         "details": [
-          "Local Vanilla sound minecraft:block.azalea_leaves.step; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT."
+          "Local Vanilla sound minecraft:block.flowering_azalea.step; at least 120 ticks apart and never sooner than the effect cooldown, base volume 0.05, pitch 1.35–1.45. Default: INHERIT."
         ]
       },
       "de": {
         "title": "Pollen",
-        "summary": "Lokaler Vanilla-Sound minecraft:block.azalea_leaves.step; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT.",
+        "summary": "Lokaler Vanilla-Sound minecraft:block.flowering_azalea.step; mindestens 120 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.05, Tonhöhe 1,35–1,45. Standard: INHERIT.",
         "details": [
-          "Lokaler Vanilla-Sound minecraft:block.azalea_leaves.step; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT."
+          "Lokaler Vanilla-Sound minecraft:block.flowering_azalea.step; mindestens 120 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.05, Tonhöhe 1,35–1,45. Standard: INHERIT."
         ]
       }
     },
@@ -230,16 +230,16 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
       ],
       "en": {
         "title": "Fire sparks",
-        "summary": "Local Vanilla sound minecraft:block.fire.ambient; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT.",
+        "summary": "Local Vanilla sound minecraft:block.campfire.crackle; at least 60 ticks apart and never sooner than the effect cooldown, base volume 0.08, pitch 0.95–1.05. Default: INHERIT.",
         "details": [
-          "Local Vanilla sound minecraft:block.fire.ambient; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT."
+          "Local Vanilla sound minecraft:block.campfire.crackle; at least 60 ticks apart and never sooner than the effect cooldown, base volume 0.08, pitch 0.95–1.05. Default: INHERIT."
         ]
       },
       "de": {
         "title": "Feuerfunken",
-        "summary": "Lokaler Vanilla-Sound minecraft:block.fire.ambient; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT.",
+        "summary": "Lokaler Vanilla-Sound minecraft:block.campfire.crackle; mindestens 60 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.08, Tonhöhe 0,95–1,05. Standard: INHERIT.",
         "details": [
-          "Lokaler Vanilla-Sound minecraft:block.fire.ambient; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT."
+          "Lokaler Vanilla-Sound minecraft:block.campfire.crackle; mindestens 60 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.08, Tonhöhe 0,95–1,05. Standard: INHERIT."
         ]
       }
     },
@@ -250,16 +250,16 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
       ],
       "en": {
         "title": "Water ripples",
-        "summary": "Local Vanilla sound minecraft:entity.generic.swim; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT.",
+        "summary": "Local Vanilla sound minecraft:entity.generic.swim; at least 40 ticks apart and never sooner than the effect cooldown, base volume 0.05, pitch 1.25–1.35. Default: INHERIT.",
         "details": [
-          "Local Vanilla sound minecraft:entity.generic.swim; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT."
+          "Local Vanilla sound minecraft:entity.generic.swim; at least 40 ticks apart and never sooner than the effect cooldown, base volume 0.05, pitch 1.25–1.35. Default: INHERIT."
         ]
       },
       "de": {
         "title": "Wasserwellen",
-        "summary": "Lokaler Vanilla-Sound minecraft:entity.generic.swim; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT.",
+        "summary": "Lokaler Vanilla-Sound minecraft:entity.generic.swim; mindestens 40 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.05, Tonhöhe 1,25–1,35. Standard: INHERIT.",
         "details": [
-          "Lokaler Vanilla-Sound minecraft:entity.generic.swim; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT."
+          "Lokaler Vanilla-Sound minecraft:entity.generic.swim; mindestens 40 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.05, Tonhöhe 1,25–1,35. Standard: INHERIT."
         ]
       }
     },
@@ -270,16 +270,16 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
       ],
       "en": {
         "title": "Water droplets",
-        "summary": "Local Vanilla sound minecraft:block.pointed_dripstone.drip_water; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT.",
+        "summary": "Local Vanilla sound minecraft:block.pointed_dripstone.drip_water; at least 60 ticks apart and never sooner than the effect cooldown, base volume 0.08, pitch 1.05–1.15. Default: INHERIT.",
         "details": [
-          "Local Vanilla sound minecraft:block.pointed_dripstone.drip_water; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT."
+          "Local Vanilla sound minecraft:block.pointed_dripstone.drip_water; at least 60 ticks apart and never sooner than the effect cooldown, base volume 0.08, pitch 1.05–1.15. Default: INHERIT."
         ]
       },
       "de": {
         "title": "Wassertropfen",
-        "summary": "Lokaler Vanilla-Sound minecraft:block.pointed_dripstone.drip_water; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT.",
+        "summary": "Lokaler Vanilla-Sound minecraft:block.pointed_dripstone.drip_water; mindestens 60 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.08, Tonhöhe 1,05–1,15. Standard: INHERIT.",
         "details": [
-          "Lokaler Vanilla-Sound minecraft:block.pointed_dripstone.drip_water; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT."
+          "Lokaler Vanilla-Sound minecraft:block.pointed_dripstone.drip_water; mindestens 60 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.08, Tonhöhe 1,05–1,15. Standard: INHERIT."
         ]
       }
     },
@@ -290,16 +290,16 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
       ],
       "en": {
         "title": "Leaf fall",
-        "summary": "Local Vanilla sound minecraft:block.cherry_leaves.step; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT.",
+        "summary": "Local Vanilla sound minecraft:block.leaf_litter.step; at least 100 ticks apart and never sooner than the effect cooldown, base volume 0.06, pitch 1.15–1.25. Default: INHERIT.",
         "details": [
-          "Local Vanilla sound minecraft:block.cherry_leaves.step; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT."
+          "Local Vanilla sound minecraft:block.leaf_litter.step; at least 100 ticks apart and never sooner than the effect cooldown, base volume 0.06, pitch 1.15–1.25. Default: INHERIT."
         ]
       },
       "de": {
         "title": "Fallende Blätter",
-        "summary": "Lokaler Vanilla-Sound minecraft:block.cherry_leaves.step; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT.",
+        "summary": "Lokaler Vanilla-Sound minecraft:block.leaf_litter.step; mindestens 100 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.06, Tonhöhe 1,15–1,25. Standard: INHERIT.",
         "details": [
-          "Lokaler Vanilla-Sound minecraft:block.cherry_leaves.step; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT."
+          "Lokaler Vanilla-Sound minecraft:block.leaf_litter.step; mindestens 100 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.06, Tonhöhe 1,15–1,25. Standard: INHERIT."
         ]
       }
     },
@@ -310,16 +310,16 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
       ],
       "en": {
         "title": "Enchanted items",
-        "summary": "Local Vanilla sound minecraft:block.amethyst_block.chime; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT.",
+        "summary": "Local Vanilla sound minecraft:block.amethyst_block.chime; at least 200 ticks apart and never sooner than the effect cooldown, base volume 0.05, pitch 1.45–1.55. Default: INHERIT.",
         "details": [
-          "Local Vanilla sound minecraft:block.amethyst_block.chime; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT."
+          "Local Vanilla sound minecraft:block.amethyst_block.chime; at least 200 ticks apart and never sooner than the effect cooldown, base volume 0.05, pitch 1.45–1.55. Default: INHERIT."
         ]
       },
       "de": {
         "title": "Verzauberte Items",
-        "summary": "Lokaler Vanilla-Sound minecraft:block.amethyst_block.chime; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT.",
+        "summary": "Lokaler Vanilla-Sound minecraft:block.amethyst_block.chime; mindestens 200 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.05, Tonhöhe 1,45–1,55. Standard: INHERIT.",
         "details": [
-          "Lokaler Vanilla-Sound minecraft:block.amethyst_block.chime; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT."
+          "Lokaler Vanilla-Sound minecraft:block.amethyst_block.chime; mindestens 200 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.05, Tonhöhe 1,45–1,55. Standard: INHERIT."
         ]
       }
     },
@@ -330,16 +330,16 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
       ],
       "en": {
         "title": "Beacon aura",
-        "summary": "Local Vanilla sound minecraft:block.beacon.ambient; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT.",
+        "summary": "Local Vanilla sound minecraft:block.beacon.ambient; at least 200 ticks apart and never sooner than the effect cooldown, base volume 0.06, pitch 0.95–1.05. Default: INHERIT.",
         "details": [
-          "Local Vanilla sound minecraft:block.beacon.ambient; at least 40 ticks apart, base volume 0.12, pitch 0.95–1.05. Default: INHERIT."
+          "Local Vanilla sound minecraft:block.beacon.ambient; at least 200 ticks apart and never sooner than the effect cooldown, base volume 0.06, pitch 0.95–1.05. Default: INHERIT."
         ]
       },
       "de": {
         "title": "Leuchtfeueraura",
-        "summary": "Lokaler Vanilla-Sound minecraft:block.beacon.ambient; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT.",
+        "summary": "Lokaler Vanilla-Sound minecraft:block.beacon.ambient; mindestens 200 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.06, Tonhöhe 0,95–1,05. Standard: INHERIT.",
         "details": [
-          "Lokaler Vanilla-Sound minecraft:block.beacon.ambient; mindestens 40 Ticks Abstand, Basislautstärke 0.12, Tonhöhe 0,95–1,05. Standard: INHERIT."
+          "Lokaler Vanilla-Sound minecraft:block.beacon.ambient; mindestens 200 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.06, Tonhöhe 0,95–1,05. Standard: INHERIT."
         ]
       }
     },
@@ -350,16 +350,16 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
       ],
       "en": {
         "title": "Damage feedback",
-        "summary": "Local Vanilla sound minecraft:entity.player.hurt; at least 40 ticks apart, base volume 0.22, pitch 0.95–1.05. Default: INHERIT.",
+        "summary": "Local Vanilla sound minecraft:entity.player.hurt; at least 40 ticks apart and never sooner than the effect cooldown, base volume 0.10, pitch 0.75–0.85. Default: INHERIT.",
         "details": [
-          "Local Vanilla sound minecraft:entity.player.hurt; at least 40 ticks apart, base volume 0.22, pitch 0.95–1.05. Default: INHERIT."
+          "Local Vanilla sound minecraft:entity.player.hurt; at least 40 ticks apart and never sooner than the effect cooldown, base volume 0.10, pitch 0.75–0.85. Default: INHERIT."
         ]
       },
       "de": {
         "title": "Schadensreaktion",
-        "summary": "Lokaler Vanilla-Sound minecraft:entity.player.hurt; mindestens 40 Ticks Abstand, Basislautstärke 0.22, Tonhöhe 0,95–1,05. Standard: INHERIT.",
+        "summary": "Lokaler Vanilla-Sound minecraft:entity.player.hurt; mindestens 40 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.10, Tonhöhe 0,75–0,85. Standard: INHERIT.",
         "details": [
-          "Lokaler Vanilla-Sound minecraft:entity.player.hurt; mindestens 40 Ticks Abstand, Basislautstärke 0.22, Tonhöhe 0,95–1,05. Standard: INHERIT."
+          "Lokaler Vanilla-Sound minecraft:entity.player.hurt; mindestens 40 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.10, Tonhöhe 0,75–0,85. Standard: INHERIT."
         ]
       }
     },
@@ -370,16 +370,16 @@ window.WIKI_MODULE_DATA["simplesounds"] = {
       ],
       "en": {
         "title": "Healing feedback",
-        "summary": "Local Vanilla sound minecraft:block.amethyst_block.chime; at least 40 ticks apart, base volume 0.22, pitch 0.95–1.05. Default: INHERIT.",
+        "summary": "Local Vanilla sound minecraft:block.amethyst_block.resonate; at least 40 ticks apart and never sooner than the effect cooldown, base volume 0.12, pitch 1.55–1.65. Default: INHERIT.",
         "details": [
-          "Local Vanilla sound minecraft:block.amethyst_block.chime; at least 40 ticks apart, base volume 0.22, pitch 0.95–1.05. Default: INHERIT."
+          "Local Vanilla sound minecraft:block.amethyst_block.resonate; at least 40 ticks apart and never sooner than the effect cooldown, base volume 0.12, pitch 1.55–1.65. Default: INHERIT."
         ]
       },
       "de": {
         "title": "Heilungsreaktion",
-        "summary": "Lokaler Vanilla-Sound minecraft:block.amethyst_block.chime; mindestens 40 Ticks Abstand, Basislautstärke 0.22, Tonhöhe 0,95–1,05. Standard: INHERIT.",
+        "summary": "Lokaler Vanilla-Sound minecraft:block.amethyst_block.resonate; mindestens 40 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.12, Tonhöhe 1,55–1,65. Standard: INHERIT.",
         "details": [
-          "Lokaler Vanilla-Sound minecraft:block.amethyst_block.chime; mindestens 40 Ticks Abstand, Basislautstärke 0.22, Tonhöhe 0,95–1,05. Standard: INHERIT."
+          "Lokaler Vanilla-Sound minecraft:block.amethyst_block.resonate; mindestens 40 Ticks Abstand und nie vor Ablauf der Effektpause, Basislautstärke 0.12, Tonhöhe 1,55–1,65. Standard: INHERIT."
         ]
       }
     },

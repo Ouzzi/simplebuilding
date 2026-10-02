@@ -10,6 +10,12 @@ public final class MoneyForge {
   MoneyLinks.loaded=net.minecraftforge.fml.ModList::isLoaded;
   SimpleMoney.loadConfig(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
   ModuleForgeTests.register(bus);
+  net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event->{
+   var entries=event.getEntries();var anchor=new net.minecraft.world.item.ItemStack(MoneyItems.SEARCH_ANCHOR);
+   if(!event.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS)||!entries.contains(anchor))return;
+   var previous=anchor;
+   for(var stack:MoneyItems.tabStacks()){entries.putAfter(previous,stack,net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);previous=stack;}
+  });
   net.minecraftforge.registries.RegisterEvent.getBus(bus).addListener(event->{
    if(event.getRegistryKey().equals(Registries.ITEM))MoneyItems.register();
    if(event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB))MoneyItems.registerTab(net.minecraft.world.item.CreativeModeTab.builder());

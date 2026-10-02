@@ -10,6 +10,7 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.*;
+import net.minecraft.core.particles.ParticleTypes;
 public final class RidingEffects {
  public static final Identifier SPEED=Riding.id("tailwind_boost"), JUMP=Riding.id("leaping_boost");
  public static int level(LivingEntity e,ItemStack stack,ResourceKey<Enchantment> key){return Math.min(3,Math.max(0,EnchantmentHelper.getItemEnchantmentLevel(e.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key),stack)));}
@@ -40,6 +41,32 @@ public final class RidingEffects {
   double tailwind=speed==null?0:Math.max(0,speed.amount());
   double factor=Math.min(1+bonus,(1+RidingConfig.bounded(Riding.CONFIG.safety.maximumSpeedBonus,0,3))/(1+tailwind));
   return (float)(scale*Math.max(1,factor));
+ }
+ /**
+  * Tailwind cue (client, cosmetic): a light trail of cloud puffs - bubbles under water - behind a mount
+  * that moves at least at a trot. It keys on the synced Tailwind speed modifier, so it shows exactly
+  * while the server grants the boost, for the rider and for everyone watching.
+  */
+ public static void tailwindTrail(LivingEntity e){
+  if(!e.level().isClientSide()||!(e.getControllingPassenger() instanceof Player))return;
+  var speed=e.getAttribute(Attributes.MOVEMENT_SPEED);var boost=speed==null?null:speed.getModifier(SPEED);
+  if(boost==null||boost.amount()<=0)return;
+  double dx=e.getX()-e.xo,dz=e.getZ()-e.zo;
+  var random=e.getRandom();
+  if(dx*dx+dz*dz<.04||random.nextFloat()>.25f)return;
+  float yaw=e.getYRot()*net.minecraft.util.Mth.DEG_TO_RAD;double back=e.getBbWidth()*.6,spread=e.getBbWidth()*.5;
+  e.level().addParticle(e.isInWater()?ParticleTypes.BUBBLE:ParticleTypes.CLOUD,
+   e.getX()+net.minecraft.util.Mth.sin(yaw)*back+(random.nextDouble()-.5)*spread,e.getY()+.2+random.nextDouble()*.3,
+   e.getZ()-net.minecraft.util.Mth.cos(yaw)*back+(random.nextDouble()-.5)*spread,-dx*.2,.02,-dz*.2);
+ }
+ /** Leaping cue (server): a small puff at the hooves when a Leaping jump starts; vanilla already plays the jump sound. */
+ public static void leapCue(AbstractHorse horse,int charge){
+  if(charge<=0||!(horse.level() instanceof net.minecraft.server.level.ServerLevel server))return;
+  var jump=horse.getAttribute(Attributes.JUMP_STRENGTH);
+  if(jump==null||jump.getModifier(JUMP)==null)return;
+  int n=Math.max(1,level(horse,horse.getItemBySlot(EquipmentSlot.BODY),Riding.LEAPING));
+  double w=horse.getBbWidth()*.4;
+  server.sendParticles(ParticleTypes.POOF,horse.getX(),horse.getY()+.1,horse.getZ(),2+2*n,w,.05,w,.02);
  }
  private static void apply(LivingEntity e,Holder<Attribute> key,Identifier id,double boost){
   var a=e.getAttribute(key); if(a==null)return; if(boost<=0){a.removeModifier(id);return;}

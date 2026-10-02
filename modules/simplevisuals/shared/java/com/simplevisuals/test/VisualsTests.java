@@ -20,6 +20,20 @@ public final class VisualsTests {
     Visuals.CONFIG.particles.globalLevel=level;
     require(com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals").name().equals(level.name()),"Loaded provider follows all five live levels");
    }
+   // Explicit level mapping: one-to-one and order-preserving (no valueOf(name()) by accident).
+   var mapped=new HashSet<com.simplebuilding.framework.api.CosmeticIntensity.Level>();
+   for(var level:Intensity.values()){mapped.add(level.shared());require(level.shared().ordinal()==level.ordinal(),"Mapping keeps the order: "+level);}
+   require(mapped.size()==Intensity.values().length&&mapped.size()==com.simplebuilding.framework.api.CosmeticIntensity.Level.values().length,"Mapping is one-to-one");
+   // Per-effect overrides are published too; an effect without override reads the global level.
+   var effect=EffectRegistry.ALL.getFirst().id();var other=EffectRegistry.ALL.get(1).id();
+   Visuals.CONFIG.particles.globalLevel=Intensity.NORMAL;
+   for(var level:Intensity.values()){
+    Visuals.CONFIG.particles.overrides.put(effect,level);
+    require(com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals",effect)==level.shared(),"Effect override published: "+level);
+    require(com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals",other)==com.simplebuilding.framework.api.CosmeticIntensity.Level.NORMAL,"Effect without override follows global");
+   }
+   Visuals.CONFIG.particles.overrides.clear();
+   require(com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals",effect)==com.simplebuilding.framework.api.CosmeticIntensity.Level.NORMAL,"Removed override falls back to global");
    Visuals.CONFIG=new SimplevisualsConfig();
    require(com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals")==com.simplebuilding.framework.api.CosmeticIntensity.Level.SUBTLE,"Provider follows replaced config without saving");
   } finally { Visuals.CONFIG=saved; }

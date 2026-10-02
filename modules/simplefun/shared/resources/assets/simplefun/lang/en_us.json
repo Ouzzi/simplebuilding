@@ -30,7 +30,7 @@
   "commands.simplefun.bricks.breakGlass": "Bricks Break Glass enabled: %s",
   "commands.simplefun.bricks.damage": "Brick Damage set to: %s",
   "commands.simplefun.bricks.snowballDamage": "Brick Snowball Damage set to: %s",
-  "itemGroup.simplefun.fun": "Simple Fun",
+  "itemgroup.simplefun.fun": "Simple Fun",
   "simplefun.config.tab.heads": "Animal Heads",
   "simplefun.config.tab.delights": "Small Delights",
   "simplefun.config.tab.gameplay": "Gameplay",

@@ -18,13 +18,13 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Inhalt der fuenf Kreativ-Tabs der Mod. Alle sind zeilenweise angelegt ({@link CreativeTabLayout},
+ * Inhalt der sechs Kreativ-Tabs der Mod ({@link Tab}; "SimpleArrows" ist auf 26.2 leer und damit unsichtbar). Alle sind zeilenweise angelegt ({@link CreativeTabLayout},
  * Besitzer 2026-09-28 "Zeilen-Layout fuer alle Tabs"): eine Kategorie je Zeile, der Rest der Zeile
  * bleibt leer. Jeder Loader registriert je {@link Tab} einen Tab mit der
  * Id {@code simplebuilding:<id>}, dem Titel {@code itemgroup.simplebuilding.<id>} und
  * {@link #populate(Tab, CreativeModeTab.Output, HolderLookup.Provider)} als Inhalt. Jedes Item der
  * Mod steht in genau einem Tab ({@code DataIntegrityTests#everyModItemIsInExactlyOneCreativeTab}) -
- * ausser Kupfer-, Eisen- und Enderit-Kern (auch als Freischalt-Zutat in SimplePads), dem Layout-Platzhalter {@link ModItems#CREATIVE_SPACER} (nur Fueller, nie im Suchtab, siehe
+ * ausser den sechs Baukernen Kupfer bis Enderit (auch als Freischalt-Zutaten in SimplePads), dem Layout-Platzhalter {@link ModItems#CREATIVE_SPACER} (nur Fueller, nie im Suchtab, siehe
  * {@link CreativeTabLayout}) und den Duplikaten des Entwickler-Tabs {@link DevEnchantedTab}, der
  * kein {@link Tab} ist, weil er nur in Entwicklungsumgebungen oder per Konfig gefuellt wird.
  */
@@ -84,11 +84,12 @@ public final class ModItemGroupsContent {
     /**
      * Zeilen des Tabs "SimpleTools": je Familie eine Zeile von der niedrigsten Stufe bis Enderit -
      * erst die Werkzeuge (Meissel, Baustab - rechts daneben nach einer Luecke die Bauplanung mit Blaupause
-     * und Kartografentisch -, Vorschlaghammer, Spitzhacke, Schaufel, Hacke, Axt), dann
+     * und Kartografentisch -, Vorschlaghammer, dann Schaufel, Spitzhacke, Axt, Hacke in Vanillas Reihenfolge), dann
      * die Waffen (Schwert, Speer), die Ruestung (Helm, Brust, Hose, Stiefel), die Geraete (Kompass,
      * Bergungs- und Echo-Kompass, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Amethystlinse,
-     * Oktant), die gefaerbten Oktanten und zuletzt die
-     * verzauberten Buecher. Die Vanilla-Werkzeuge, -Waffen und -Ruestungen aller Stufen stehen mit
+     * Oktant), die gefaerbten Oktanten und zuletzt die Buecher: die Handbuecher je Regal (Mod, Vanilla) und die
+     * verzauberten Buecher, jede Kategorie nach einer Luecke hinter der vorigen weiterfliessend
+     * ({@link CreativeTabLayout.Row#flowing}) - so laeuft keine Buecherzeile fast leer aus. Die Vanilla-Werkzeuge, -Waffen und -Ruestungen aller Stufen stehen mit
      * darin, damit alles griffbereit ist.
      */
     public static List<CreativeTabLayout.Row> toolsRows(HolderLookup<Enchantment> enchantmentRegistry) {
@@ -103,18 +104,19 @@ public final class ModItemGroupsContent {
                         ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
                         ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
                         ModItems.ENDERITE_SLEDGEHAMMER),
-                CreativeTabLayout.Row.of("pickaxes",
-                        Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.COPPER_PICKAXE, Items.IRON_PICKAXE,
-                        Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_PICKAXE, ModItems.ENDERITE_PICKAXE),
+                // Vanillas Reihenfolge im Tab "Werkzeuge": Schaufel, Spitzhacke, Axt, Hacke.
                 CreativeTabLayout.Row.of("shovels",
                         Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.COPPER_SHOVEL, Items.IRON_SHOVEL,
                         Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL, Items.NETHERITE_SHOVEL, ModItems.ENDERITE_SHOVEL),
-                CreativeTabLayout.Row.of("hoes",
-                        Items.WOODEN_HOE, Items.STONE_HOE, Items.COPPER_HOE, Items.IRON_HOE,
-                        Items.GOLDEN_HOE, Items.DIAMOND_HOE, Items.NETHERITE_HOE, ModItems.ENDERITE_HOE),
+                CreativeTabLayout.Row.of("pickaxes",
+                        Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.COPPER_PICKAXE, Items.IRON_PICKAXE,
+                        Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_PICKAXE, ModItems.ENDERITE_PICKAXE),
                 CreativeTabLayout.Row.of("axes",
                         Items.WOODEN_AXE, Items.STONE_AXE, Items.COPPER_AXE, Items.IRON_AXE,
                         Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE, ModItems.ENDERITE_AXE),
+                CreativeTabLayout.Row.of("hoes",
+                        Items.WOODEN_HOE, Items.STONE_HOE, Items.COPPER_HOE, Items.IRON_HOE,
+                        Items.GOLDEN_HOE, Items.DIAMOND_HOE, Items.NETHERITE_HOE, ModItems.ENDERITE_HOE),
                 // --- Waffen ---
                 CreativeTabLayout.Row.of("swords",
                         Items.WOODEN_SWORD, Items.STONE_SWORD, Items.COPPER_SWORD, Items.IRON_SWORD,
@@ -160,16 +162,21 @@ public final class ModItemGroupsContent {
         }
         rows.add(new CreativeTabLayout.Row("colored_octants", coloredOctants));
 
-        // --- Handbuecher: je Regal eine Kategorie (GuideBooks.Shelf), in Lesezeichen-Reihenfolge ---
+        // --- Handbuecher je Regal (GuideBooks.Shelf, Lesezeichen-Reihenfolge), dann die verzauberten Buecher:
+        // jede Kategorie fliesst nach einer Luecke hinter der vorigen weiter (Row#flowing), damit keine
+        // Buecherzeile fast leer bleibt (Audit 2026-10-02: auf 26.3 hat jedes Regal nur ein Handbuch).
+        boolean firstShelf = true;
         for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
             List<ItemStack> shelfBooks = new java.util.ArrayList<>();
             for (com.simplebuilding.guide.GuideBooks.Book book : com.simplebuilding.guide.GuideBooks.items(shelf)) {
                 shelfBooks.add(new ItemStack(com.simplebuilding.guide.GuideBooks.item(book)));
             }
-            rows.add(new CreativeTabLayout.Row(shelf == com.simplebuilding.guide.GuideBooks.Shelf.MOD ? "guide_books" : "vanilla_guide_books", shelfBooks));
+            String name = shelf == com.simplebuilding.guide.GuideBooks.Shelf.MOD ? "guide_books" : "vanilla_guide_books";
+            rows.add(firstShelf ? new CreativeTabLayout.Row(name, shelfBooks) : CreativeTabLayout.Row.flowing(name, shelfBooks));
+            firstShelf = false;
         }
 
-        // --- Verzauberte Buecher, wie bisher ---
+        // --- Verzauberte Buecher ---
         List<ItemStack> books = new java.util.ArrayList<>();
         // 1. Tool Utilities
         addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.FAST_CHISELING);
@@ -196,7 +203,7 @@ public final class ModItemGroupsContent {
         addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.DOUBLE_JUMP);
         // 6. Miscellaneous
         addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.KINETIC_PROTECTION);
-        rows.add(new CreativeTabLayout.Row("enchanted_books", books));
+        rows.add(CreativeTabLayout.Row.flowing("enchanted_books", books));
         return rows;
     }
 
@@ -259,7 +266,8 @@ public final class ModItemGroupsContent {
 
     /**
      * Zeilen des Tabs "SimpleMaterials" (Besitzer 2026-09-28: saubere Zeilen wie SimpleTools/SimpleMachines):
-     * End-Erze mit ihrer Ausbeute (Nihilit, Astralit, dann Enderquarz), die Werkstoffe in Erz-Reihenfolge
+     * die Erze zusammen (Salbei-Erz, Dimensionsschrott, End-Erze mit ihrer Ausbeute: Nihilit, Astralit, dann
+     * Enderquarz), die Kleinteile mit dem Eisenstab daneben, die Werkstoffe in Erz-Reihenfolge
      * (je eine Zeile Diamant, Netherit, Enderit vom Rohstoff zum Barren, Vanilla-Stufen eingeschlossen;
      * der Lederfetzen nach einer Luecke hinter Netherit), die Baukerne
      * Kupfer bis Enderit, alle Schmiedevorlagen an einem Ort - erst die Aufwertungen (Basis, Vanillas
@@ -276,23 +284,24 @@ public final class ModItemGroupsContent {
             // Oberwelt-Erz der Welle 2026-10-01 vor den End-Erzen: Erz, Tiefenschiefer-Erz, seine Kugel.
             rows.add(CreativeTabLayout.Row.of("overworld_ores", ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM, ModItems.SAGE_ORB));
         }
+        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
+            rows.add(CreativeTabLayout.Row.of("dimensional_scrap", ModItems.DIMENSIONAL_SCRAP_ITEM, ModItems.NETHER_DIMENSIONAL_SCRAP_ITEM,
+                    ModItems.END_DIMENSIONAL_SCRAP_ITEM));
+        }
+        rows.add(CreativeTabLayout.Row.of("end_ores",
+                ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, CreativeTabLayout.GAP,
+                ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST, CreativeTabLayout.GAP,
+                ModItems.ENDER_QUARTZ));
+        // Erst alle Erz-Zeilen zusammen, dann die kleinen Bauteile (Audit 2026-10-02).
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             // Ablegbare Kleinteile (2026-10-02): Steinkiesel und Feuersteinsplitter.
             rows.add(CreativeTabLayout.Row.of("small_parts", ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            // Eisenstab (2026-10-02): Zutat der Gadgets, steht wie ein Blitzableiter.
-            rows.add(CreativeTabLayout.Row.of("rods", ModItems.IRON_ROD));
-        }
-        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
-            rows.add(CreativeTabLayout.Row.of("dimensional_scrap", ModItems.DIMENSIONAL_SCRAP_ITEM, ModItems.NETHER_DIMENSIONAL_SCRAP_ITEM,
-                    ModItems.END_DIMENSIONAL_SCRAP_ITEM));
+            // Eisenstab (2026-10-02): Zutat der Gadgets, steht wie ein Blitzableiter - nach einer Luecke neben den Kleinteilen.
+            rows.add(CreativeTabLayout.Row.besides("rods", ModItems.IRON_ROD));
         }
         rows.addAll(List.of(
-                CreativeTabLayout.Row.of("end_ores",
-                        ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, CreativeTabLayout.GAP,
-                        ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST, CreativeTabLayout.GAP,
-                        ModItems.ENDER_QUARTZ),
                 // Vanilla-Diamant und -Netherit gehoeren zur Werkstoffkette (Besitzer 2026-10-01): je Material
                 // eine Zeile vom Rohstoff zum fertigen Werkstoff, der Lederfetzen hinter Netherit.
                 CreativeTabLayout.Row.of("resources_diamond",
@@ -350,7 +359,9 @@ public final class ModItemGroupsContent {
     public static List<CreativeTabLayout.Row> functionalRows() {
         var rows = new java.util.ArrayList<>(baseFunctionalRows());
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
-            rows.add(CreativeTabLayout.Row.of("astral_storage", Items.ENDER_CHEST, ModItems.ASTRAL_VAULT));
+            // Endertruhe und Astral-Lager nach einer Luecke neben den Truhen (Audit 2026-10-02).
+            int chests = rows.indexOf(rows.stream().filter(row -> row.name().equals("chests")).findFirst().orElseThrow());
+            rows.add(chests + 1, CreativeTabLayout.Row.besides("astral_storage", Items.ENDER_CHEST, ModItems.ASTRAL_VAULT));
             rows.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, CreativeTabLayout.GAP, ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP));
         }
         return rows;

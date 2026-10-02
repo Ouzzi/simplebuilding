@@ -25,7 +25,7 @@ The vanilla Knockback override is an explicit global datapack collision, preserv
 
 Eight cosmetic delights, each individually switchable, server-triggered and cooldown-limited: flower sniff (hold flower while sneaking), cookie crumbs (eat cookie), apple sparkle (eat apple), carrot crunch (eat carrot), melon splash (eat melon), honey bubbles (drink honey), bread crumbs (eat bread), berry blush (eat berries). Use existing particles and quiet sounds; no buffs, item rewards, terrain changes or text.
 
-Charged-creeper-only pig/cow/chicken/sheep heads: standing, wall, ground-item and worn rendering with vanilla mob textures; one creative-tab row. Secret abilities are cosmetic animal greetings while sneaking, each with a switch and cooldown. No recipes, combat/movement bonuses or free resources. Further witty details: heads play their animal's sound above note blocks; delightful particles never spawn entities or load chunks.
+Charged-creeper-only pig/cow/chicken/sheep heads: standing, wall, ground-item and worn rendering with vanilla mob textures. The `simplefun:fun` tab (`itemgroup.simplefun.fun`) holds only the mod items - brick snowball, then the four heads; the vanilla ingredients stay in their vanilla tabs. On all three loaders the brick snowball also follows the snowball in Combat and the heads follow the dragon head in Functional Blocks, so the search tab lists them there (test `creative_tabs`). Secret abilities are cosmetic animal greetings while sneaking, each with a switch and cooldown. No recipes, combat/movement bonuses or free resources. Further witty details: heads play their animal's sound above note blocks; delightful particles never spawn entities or load chunks.
 
 ## Stages and verification status
 

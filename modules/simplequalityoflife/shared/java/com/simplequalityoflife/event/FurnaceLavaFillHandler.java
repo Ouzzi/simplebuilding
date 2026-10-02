@@ -74,6 +74,11 @@ public class FurnaceLavaFillHandler {
         }
 
         world.playSound(null, pos, SoundEvents.BUCKET_EMPTY_LAVA, SoundSource.BLOCKS, 1.0f, 1.0f);
+        // Small vanilla cue on top of the furnace: two lava pops and a puff of smoke.
+        if (world instanceof net.minecraft.server.level.ServerLevel server) {
+            server.sendParticles(net.minecraft.core.particles.ParticleTypes.LAVA, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.0);
+            server.sendParticles(net.minecraft.core.particles.ParticleTypes.SMOKE, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 3, 0.2, 0.05, 0.2, 0.01);
+        }
         player.swing(hand, net.minecraft.world.item.component.SwingAnimation.DEFAULT, true);
 
         return InteractionResult.SUCCESS;
