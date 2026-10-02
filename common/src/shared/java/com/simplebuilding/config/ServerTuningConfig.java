@@ -115,6 +115,10 @@ public class ServerTuningConfig {
 
         loot.globalLootMultiplier = clamp(loot.globalLootMultiplier, 0.0, ServerTuning.MAX_LOOT_MULTIPLIER, 1.0);
         loot.tradePriceMultiplier = clamp(loot.tradePriceMultiplier, ServerTuning.MIN_PRICE_MULTIPLIER, ServerTuning.MAX_PRICE_MULTIPLIER, 1.0);
+        loot.betterChestPercent = clamp(loot.betterChestPercent, 0.0, ServerTuning.MAX_BETTER_CHEST_PERCENT, 1.0);
+        loot.reinforcedShulkerPercent = clamp(loot.reinforcedShulkerPercent, 0.0, ServerTuning.MAX_REINFORCED_SHULKER_PERCENT, 2.0);
+        loot.enderiteShulkerPercent = clamp(loot.enderiteShulkerPercent, 0.0, ServerTuning.MAX_ENDERITE_SHULKER_PERCENT, 0.5);
+        loot.endermitesPerRareShulker = clamp(loot.endermitesPerRareShulker, 0, ServerTuning.MAX_ENDERMITES_PER_RARE_SHULKER);
 
         blueprint.maxBlocksPerTick = clamp(blueprint.maxBlocksPerTick, 1, ServerTuning.MAX_BLUEPRINT_BLOCKS_PER_TICK);
 
@@ -343,6 +347,24 @@ public class ServerTuningConfig {
         /** Faktor auf den Preis aller Handelsangebote der Mod (Dorfbewohner und fahrender Haendler). */
         @ConfigEntry.Gui.Tooltip
         public double tradePriceMultiplier = 1.0;
+        /**
+         * Prozent je Loot-Truhe in Festung, Bastion/Netherfestung, End-Stadt/End-Schiff, die als Stufen-Truhe mit
+         * doppelter Beute entsteht (BetterChests; gilt fuer neu erzeugte Strukturen). Hoechstens 5.
+         */
+        @ConfigEntry.Gui.Tooltip
+        public double betterChestPercent = 1.0;
+        /** Prozent je Shulker einer neu erzeugten End-Stadt, der verstaerkt wird (RareShulkers). Hoechstens 10. */
+        @ConfigEntry.Gui.Tooltip
+        public double reinforcedShulkerPercent = 2.0;
+        /** Prozent je Shulker einer neu erzeugten End-Stadt, der zum Enderit-Shulker wird. Hoechstens 5. */
+        @ConfigEntry.Gui.Tooltip
+        public double enderiteShulkerPercent = 0.5;
+        /**
+         * Endermiten je seltenem Shulker, einmalig, sobald ein Spieler in die Naehe kommt (RareShulkers; nicht dauerhaft).
+         * Hoechstens 8.
+         */
+        @ConfigEntry.Gui.Tooltip
+        public int endermitesPerRareShulker = 4;
     }
 
     public static class Blueprint {

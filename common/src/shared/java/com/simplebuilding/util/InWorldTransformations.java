@@ -57,6 +57,9 @@ public final class InWorldTransformations {
         root.add("rotator", rotator());
         root.add("constructorsTouch", constructorsTouch());
         root.add("coreOre", coreOre());
+        if (com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+            root.add("shellUpgrade", shellUpgrade());
+        }
         return root;
     }
 
@@ -399,6 +402,25 @@ public final class InWorldTransformations {
         JsonObject o = new JsonObject();
         o.add("cores", cores);
         o.add("hosts", hosts);
+        return o;
+    }
+
+    /**
+     * Abgelegte Shulkerschale mit einem Klumpen aufwerten ({@link ShulkerShells}): je Stufe Schale, Klumpen (genau
+     * einer), Ergebnis.
+     */
+    public static JsonObject shellUpgrade() {
+        JsonArray steps = new JsonArray();
+        for (ShulkerShells.Step step : ShulkerShells.steps()) {
+            JsonObject entry = new JsonObject();
+            entry.addProperty("shell", id(step.shell()));
+            entry.addProperty("nugget", id(step.nugget()));
+            entry.addProperty("nuggetCount", 1);
+            entry.addProperty("result", id(step.result()));
+            steps.add(entry);
+        }
+        JsonObject o = new JsonObject();
+        o.add("steps", steps);
         return o;
     }
 

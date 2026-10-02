@@ -580,6 +580,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:enderite_shulker_shell"
+    },
+    {
       "attackDamage": 15.0,
       "attackSpeed": 1.2,
       "durability": 10000,
@@ -836,6 +839,9 @@
     {
       "id": "simplebuilding:netherite_shulker_box",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_shulker_shell"
     },
     {
       "attackDamage": 13.0,
@@ -1113,6 +1119,9 @@
     {
       "id": "simplebuilding:reinforced_shulker_box",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:reinforced_shulker_shell"
     },
     {
       "id": "simplebuilding:reinforced_smoker"

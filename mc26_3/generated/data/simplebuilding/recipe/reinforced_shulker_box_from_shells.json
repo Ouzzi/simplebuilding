@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "#simplebuilding:copper_chests",
+    "simplebuilding:reinforced_shulker_shell",
+    "minecraft:shulker_shell"
+  ],
+  "result": {
+    "id": "simplebuilding:reinforced_shulker_box"
+  }
+}

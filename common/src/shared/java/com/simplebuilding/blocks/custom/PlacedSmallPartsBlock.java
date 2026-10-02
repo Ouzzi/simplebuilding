@@ -147,6 +147,20 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
         return super.playerWillDestroy(level, pos, state, player);
     }
 
+    /**
+     * Rechtsklick mit einem Klumpen auf eine liegende Shulkerschale wertet sie um eine Stufe auf
+     * ({@link com.simplebuilding.util.ShulkerShells}); alles andere geht weiter an das Item.
+     */
+    @Override
+    protected net.minecraft.world.InteractionResult useItemOn(ItemStack stack, BlockState state, net.minecraft.world.level.Level level,
+                                                              BlockPos pos, net.minecraft.world.entity.player.Player player,
+                                                              net.minecraft.world.InteractionHand hand, net.minecraft.world.phys.BlockHitResult hit) {
+        if (com.simplebuilding.util.ShulkerShells.upgrade(level, pos, player, stack)) {
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hit);
+    }
+
     /** Mittlere Maustaste: das zuletzt dazugelegte Teil. */
     @Override
     protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {

@@ -57,7 +57,12 @@
     "CauldronInteractionDispatcherAccessor",
     "ItemCraftRemainderAccessor",
     "AstralStorageMixin",
-    "AstralBlockEntityTypeMixin"
+    "AstralBlockEntityTypeMixin",
+    "StructurePieceBetterChestMixin",
+    "EndCityPieceMixin",
+    "StructureTemplateBetterChestMixin",
+    "MobShulkerShellDropMixin",
+    "ShulkerEscortMixin"
   ],
   "injectors": {
     "defaultRequire": 1

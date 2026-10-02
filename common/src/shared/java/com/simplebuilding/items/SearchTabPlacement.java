@@ -138,6 +138,10 @@ public final class SearchTabPlacement {
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             out.add(Placement.after(INGREDIENTS, Items.FLINT, ModItems.FLINT_CHIP, ModItems.STONE_PEBBLE));
         }
+        if (com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+            out.add(Placement.after(INGREDIENTS, Items.SHULKER_SHELL, ModItems.REINFORCED_SHULKER_SHELL,
+                    ModItems.NETHERITE_SHULKER_SHELL, ModItems.ENDERITE_SHULKER_SHELL));
+        }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             out.add(Placement.after(REDSTONE_BLOCKS, Items.LIGHTNING_ROD.waxed().unaffected(), ModItems.IRON_ROD, ModItems.GOLD_ROD));
             out.add(Placement.after(INGREDIENTS, Items.BLAZE_ROD, ModItems.DIAMOND_ROD, ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));

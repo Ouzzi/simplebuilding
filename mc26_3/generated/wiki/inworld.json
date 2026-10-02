@@ -8137,6 +8137,28 @@
     "tag": "minecraft:wool",
     "tool": "minecraft:shears"
   },
+  "shellUpgrade": {
+    "steps": [
+      {
+        "nugget": "minecraft:iron_nugget",
+        "nuggetCount": 1,
+        "result": "simplebuilding:reinforced_shulker_shell",
+        "shell": "minecraft:shulker_shell"
+      },
+      {
+        "nugget": "simplebuilding:netherite_nugget",
+        "nuggetCount": 1,
+        "result": "simplebuilding:netherite_shulker_shell",
+        "shell": "simplebuilding:reinforced_shulker_shell"
+      },
+      {
+        "nugget": "simplebuilding:enderite_nugget",
+        "nuggetCount": 1,
+        "result": "simplebuilding:enderite_shulker_shell",
+        "shell": "simplebuilding:netherite_shulker_shell"
+      }
+    ]
+  },
   "sledgehammerReshape": {
     "cornerQuartersRemovedPerHit": 1,
     "cornerSpeedMultiplier": 1.5,

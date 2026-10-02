@@ -44,6 +44,14 @@ public final class ServerTuning {
     public static final int MIN_SCAN_INTERVAL = 10;
     public static final int MAX_SCAN_INTERVAL = 200;
     public static final double MAX_LOOT_MULTIPLIER = 3.0;
+    /** Bessere Struktur-Truhen: hoechstens 5 % (Standard 1 %), sie bleiben ein seltener Fund. */
+    public static final double MAX_BETTER_CHEST_PERCENT = 5.0;
+    /** Verstaerkte End-Stadt-Shulker: hoechstens 10 % (Standard 2 %). */
+    public static final double MAX_REINFORCED_SHULKER_PERCENT = 10.0;
+    /** Enderit-Shulker: hoechstens 5 % (Standard 0,5 %). */
+    public static final double MAX_ENDERITE_SHULKER_PERCENT = 5.0;
+    /** Endermiten je seltenem Shulker: hoechstens 8 (Standard 4). */
+    public static final int MAX_ENDERMITES_PER_RARE_SHULKER = 8;
     public static final double MIN_PRICE_MULTIPLIER = 0.25;
     public static final double MAX_PRICE_MULTIPLIER = 4.0;
     /** Ueber allem, was die Blaupause bisher je Tick setzt (4 194 304 Stellen / 180 Ticks = 23 302). */
@@ -254,6 +262,26 @@ public final class ServerTuning {
 
     public static double tradePriceMultiplier() {
         return ServerTuningConfig.clamp(get().loot.tradePriceMultiplier, MIN_PRICE_MULTIPLIER, MAX_PRICE_MULTIPLIER, 1.0);
+    }
+
+    /** Chance (0..0,05) je Struktur-Loot-Truhe, als Stufen-Truhe zu entstehen; nur Server (Weltgenerierung). */
+    public static double betterChestChance() {
+        return ServerTuningConfig.clamp(local().loot.betterChestPercent, 0.0, MAX_BETTER_CHEST_PERCENT, 1.0) / 100.0;
+    }
+
+    /** Chance (0..0,10) je End-Stadt-Shulker, verstaerkt zu werden; nur Server. */
+    public static double reinforcedShulkerChance() {
+        return ServerTuningConfig.clamp(local().loot.reinforcedShulkerPercent, 0.0, MAX_REINFORCED_SHULKER_PERCENT, 2.0) / 100.0;
+    }
+
+    /** Chance (0..0,05) je End-Stadt-Shulker, zum Enderit-Shulker zu werden; nur Server. */
+    public static double enderiteShulkerChance() {
+        return ServerTuningConfig.clamp(local().loot.enderiteShulkerPercent, 0.0, MAX_ENDERITE_SHULKER_PERCENT, 0.5) / 100.0;
+    }
+
+    /** Endermiten je seltenem Shulker (0..8); nur Server. */
+    public static int endermitesPerRareShulker() {
+        return ServerTuningConfig.clamp(local().loot.endermitesPerRareShulker, 0, MAX_ENDERMITES_PER_RARE_SHULKER);
     }
 
     public static int blueprintBlocksPerTick() {

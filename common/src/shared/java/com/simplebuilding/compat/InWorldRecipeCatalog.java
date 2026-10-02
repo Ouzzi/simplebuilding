@@ -52,7 +52,8 @@ public final class InWorldRecipeCatalog {
         COPPER_PLATE("copperPressurePlate", "copper_plate"),
         ROTATE("rotator", "rotate"),
         CONSTRUCTORS_TOUCH("constructorsTouch", "constructors_touch"),
-        CORE_ORE("coreOre", "core_ore");
+        CORE_ORE("coreOre", "core_ore"),
+        SHELL_UPGRADE("shellUpgrade", "shell_upgrade");
 
         private final String section;
         private final String id;
@@ -142,6 +143,9 @@ public final class InWorldRecipeCatalog {
         Map<Kind, JsonObject> sections = new EnumMap<>(Kind.class);
         for (Kind kind : Kind.values()) {
             JsonElement element = described.get(kind.section());
+            if (element == null && kind == Kind.SHELL_UPGRADE && !com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+                continue;
+            }
             if (element == null || !element.isJsonObject()) {
                 problems.add("in-world section '" + kind.section() + "' is missing from the export");
             } else {
@@ -184,6 +188,9 @@ public final class InWorldRecipeCatalog {
         }
         if (sections.containsKey(Kind.CORE_ORE)) {
             coreOre(sections.get(Kind.CORE_ORE), resolver, entries);
+        }
+        if (sections.containsKey(Kind.SHELL_UPGRADE)) {
+            shellUpgrade(sections.get(Kind.SHELL_UPGRADE), resolver, entries);
         }
         return new Catalog(Collections.unmodifiableList(entries), Collections.unmodifiableList(problems));
     }
@@ -447,6 +454,24 @@ public final class InWorldRecipeCatalog {
                 List.of(Component.translatable("jei.simplebuilding.note.cauldron_wash.how"),
                         Component.translatable("jei.simplebuilding.note.cauldron_wash.water", wash.get("waterLevels").getAsInt()),
                         Component.translatable("jei.simplebuilding.note.cauldron_wash.keeps"))));
+    }
+
+    /** A placed shulker shell + the nugget of the next tier -> the shell of that tier (one nugget per shell). */
+    private static void shellUpgrade(JsonObject upgrade, Resolver resolver, List<Entry> out) {
+        for (JsonElement element : upgrade.getAsJsonArray("steps")) {
+            JsonObject step = element.getAsJsonObject();
+            Item shell = resolver.item(step.get("shell").getAsString());
+            Item nugget = resolver.item(step.get("nugget").getAsString());
+            Item result = resolver.item(step.get("result").getAsString());
+            if (shell == null || nugget == null || result == null) {
+                continue;
+            }
+            out.add(new Entry(Kind.SHELL_UPGRADE, "shell_upgrade/" + step.get("result").getAsString(),
+                    List.of(Stack.of(shell, 1), Stack.of(nugget, step.get("nuggetCount").getAsInt())), List.of(nugget),
+                    Stack.of(result, 1), 0,
+                    List.of(Component.translatable("jei.simplebuilding.note.shell_upgrade.how"),
+                            Component.translatable("jei.simplebuilding.note.shell_upgrade.cost", step.get("nuggetCount").getAsInt()))));
+        }
     }
 
     /** A damaged breaker piston + the nugget of its tier -> the piston at full durability. */

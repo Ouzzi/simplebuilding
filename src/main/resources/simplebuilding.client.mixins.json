@@ -30,6 +30,8 @@
     "MultilineTextFieldAccessor",
     "PistonHeadRendererMixin",
     "QuickPlayTestWorldMixin",
-    "SmithingScreenMixin"
+    "SmithingScreenMixin",
+    "ShulkerRendererMixin",
+    "ShulkerRenderStateMixin"
   ]
 }
