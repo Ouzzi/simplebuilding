@@ -196,12 +196,12 @@ public final class ImmersionTests {
     public static void padAndMachineTooltipsNameTheirNumbers(GameTestHelper helper) {
         expectLines(helper, TweaksBlocks.ENDERITE_LAUNCHPAD, "Tier III of III", "Holds 16 wind charges", "No fall damage until you land");
         expectLines(helper, TweaksBlocks.LAUNCHPAD, "Tier I of III", "Holds 4 wind charges");
-        expectLines(helper, TweaksBlocks.NETHERITE_CHUNK_LOADER, "Tier II of III", "Keeps 5 chunks loaded: its own and the 4 beside it");
+        expectLines(helper, TweaksBlocks.NETHERITE_CHUNK_LOADER, "Tier II of III", "Loads this chunk and its 4 neighbors");
         expectLines(helper, TweaksBlocks.FINE_ELYTRA_PAD, "Tier V of V", "Area: 128 x 128 blocks, 127 high", "Recharges boosts in the whole area");
         expectLines(helper, TweaksBlocks.ELYTRA_PAD, "Tier I of V", "Area: 1 x 1 blocks, 15 high");
         expectLines(helper, TweaksBlocks.REINFORCED_FLYPAD, "Tier II of III", "Flight area: 8 x 8 blocks, 16 high", "Flying out gives you Slow Falling");
-        expectLines(helper, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "Tier III of III", "Stand still for 5 s to travel to your bed or respawn anchor (otherwise the spawn)");
-        expectLines(helper, TweaksBlocks.POTION_PAD, "Tier I of III", "Effects last up to 30 s (never longer than the potion), then about 60 s of cooldown");
+        expectLines(helper, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "Tier III of III", "Stand still for 5 s: bed or respawn anchor.", "No bed/anchor: spawn.");
+        expectLines(helper, TweaksBlocks.POTION_PAD, "Tier I of III", "Effects: up to 30 s; capped by the potion.", "Cooldown afterward: about 60 s.");
         expectLines(helper, ModBlocks.ENDERITE_FURNACE, "Works 8× as fast", "Double experience");
         expectLines(helper, ModBlocks.REINFORCED_SMOKER, "Works 2× as fast");
         expectLines(helper, ModBlocks.NETHERITE_BLAST_FURNACE, "Works 4× as fast", "+25% output from raw metals");
@@ -291,8 +291,8 @@ public final class ImmersionTests {
      * <p><strong>What breaks this test:</strong> food lines that drift from the real consume effects.
      */
     public static void armorAndFoodTooltipsExplainWhatTheyDo(GameTestHelper helper) {
-        expectLines(helper, ModItems.ENDERITE_BOOTS, "Void damage hits less often, more so with each piece",
-                "Sneak while falling: slower fall, less fall damage; sprint while falling or gliding: brakes the descent (more pieces, stronger)");
+        expectLines(helper, ModItems.ENDERITE_BOOTS, "Less frequent void damage with each piece",
+                "Sneak while falling: slower, less fall damage.", "Sprint while falling/gliding: sink slower.", "More pieces strengthen the effect.");
         expectLines(helper, ModItems.NETHERITE_APPLE, "When eaten:", " Fire Resistance (4:00)", " Absorption II (0:30)",
                 " Regeneration II (0:10)");
         expectLines(helper, ModItems.ENDERITE_CARROT, "When eaten:", " Night Vision (5:00)", " Speed II (1:00)");
@@ -332,8 +332,10 @@ public final class ImmersionTests {
                     "items the tooltip of " + entry.getKey() + " lists vs. the recipes that take it");
         }
         List<String> lines = text(new ItemStack(ModItems.GOLD_CORE));
-        helper.assertTrue(lines.contains("Used in:") && lines.contains("  Gold Building Wand, Detector, Octant"),
+        helper.assertTrue(lines.contains("Used in:") && lines.containsAll(List.of("  Gold Building Wand", "  Detector", "  Octant")),
                 "the gold core tooltip reads " + lines);
+        helper.assertValueEqual(lines.size(), InfoTooltips.coreUses().get(ModItems.GOLD_CORE).size() + 1,
+                "one core use per tooltip line, plus the heading");
         helper.succeed();
     }
 

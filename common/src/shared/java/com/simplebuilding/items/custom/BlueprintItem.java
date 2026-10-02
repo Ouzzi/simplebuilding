@@ -114,6 +114,7 @@ public class BlueprintItem extends Item {
         }
         if (content.isBlank()) {
             lines.accept(Component.translatable("simplebuilding.blueprint.tooltip.empty").withStyle(ChatFormatting.GRAY));
+            lines.accept(Component.translatable("simplebuilding.blueprint.tooltip.empty.2").withStyle(ChatFormatting.GRAY));
             super.appendHoverText(stack, context, display, lines, flag);
             return;
         }

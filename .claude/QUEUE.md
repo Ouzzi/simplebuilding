@@ -201,7 +201,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   - Wolle im Crafting = 2 Wollknäuel.
 - [ ] Hängematte: tagsüber darauf liegen lässt die Tageszeit schneller laufen.
   - Nur 1×2×2 platzierbar, zwischen zwei festen Blöcken mit 2–3 Blöcken Abstand (beliebige Blöcke, auch Stäbe).
-- [ ] Tooltips aufräumen: zu lange Zeilen kürzen und Zeilenumbrüche einbauen.
+- [x] Tooltips aufräumen: kurze EN/DE-Zeilen, vorhandene Komponenten-/Font-Umbrüche und beide Hauptmod-Lang-Orte gepflegt. Inventur und Prüfungen: `docs/ai/TOOLTIPS-2026-10-02.md`. Client-Sichtabnahme bleibt offen.
 - [ ] Spezial-Shulker (verstärkt/Enderit): in derselben Struktur je Spezial-Shulker 4 Endermiten spawnen.
 
 ## Besitzer 2026-10-02 (Nachtrag 3)

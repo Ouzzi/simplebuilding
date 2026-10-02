@@ -30,7 +30,17 @@ public final class MoneyItems {
    ITEMS.put(name,Registry.register(BuiltInRegistries.ITEM,id,new Item(props) {
     @Override public boolean isFoil(ItemStack stack) { return name.equals("money_bill") || super.isFoil(stack); }
     @Override public void appendHoverText(ItemStack stack,TooltipContext context,TooltipDisplay display,Consumer<Component> consumer,TooltipFlag flag) {
-     consumer.accept(Component.translatable("tooltip.simplemoney."+name+".tooltip")); super.appendHoverText(stack,context,display,consumer,flag);
+     consumer.accept(Component.translatable("tooltip.simplemoney."+name+".tooltip"));
+     if(name.equals("special_fiber")) consumer.accept(Component.translatable("tooltip.simplemoney.special_fiber.tooltip.2"));
+     if(name.equals("money_bill")) {
+      consumer.accept(Component.translatable("tooltip.simplemoney.money_bill.tooltip.2"));
+      consumer.accept(Component.translatable("tooltip.simplemoney.money_bill.tooltip.3"));
+      consumer.accept(Component.translatable("tooltip.simplemoney.money_bill.tooltip.4"));
+      consumer.accept(Component.translatable("tooltip.simplemoney.money_bill.tooltip.5"));
+      consumer.accept(Component.translatable("tooltip.simplemoney.money_bill.tooltip.6"));
+      consumer.accept(Component.translatable("tooltip.simplemoney.money_bill.tooltip.7"));
+     }
+     super.appendHoverText(stack,context,display,consumer,flag);
     }
     @Override public InteractionResult use(Level level,Player player,InteractionHand hand) {
      if(!name.equals("money_bill")) return super.use(level,player,hand);

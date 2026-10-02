@@ -786,11 +786,13 @@ public final class MagnetTests {
 
         // --- the tooltip names the active filter ---
         List<String> withFilter = tooltipOf(helper, magnet);
-        helper.assertValueEqual(withFilter.size(), 2, "tooltip lines on a filtered magnet");
+        helper.assertValueEqual(withFilter.size(), 3, "tooltip lines on a filtered magnet");
         helper.assertValueEqual(withFilter.get(0), "Filtering: minecraft:diamond",
                 "first tooltip line of a filtered magnet");
-        helper.assertValueEqual(withFilter.get(1), "Sneak + right-click a block or item to filter, the air to clear",
+        helper.assertValueEqual(withFilter.get(1), "Sneak + right-click a block/item: filter.",
                 "second tooltip line of a filtered magnet");
+        helper.assertValueEqual(withFilter.get(2), "Sneak + right-click the air: clear filter.",
+                "third tooltip line of a filtered magnet");
 
         // --- and the filter is really doing something ---
         helper.assertTrue(!pulls(magnet, level, player, EquipmentSlot.MAINHAND, gold),
@@ -817,7 +819,7 @@ public final class MagnetTests {
 
         // --- the tooltip follows ---
         List<String> cleared = tooltipOf(helper, magnet);
-        helper.assertValueEqual(cleared.size(), 2, "tooltip lines on a magnet without a filter");
+        helper.assertValueEqual(cleared.size(), 3, "tooltip lines on a magnet without a filter");
         helper.assertValueEqual(cleared.get(0), "No Filter active",
                 "first tooltip line of a magnet without a filter");
 

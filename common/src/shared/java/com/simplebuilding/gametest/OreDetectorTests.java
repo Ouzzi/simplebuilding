@@ -1131,7 +1131,7 @@ public final class OreDetectorTests {
                 "a detector calibrated on an oak log does not name it, its tooltip is "
                         + tooltip(helper, calibrated));
         // Calibrated, sneak + use places it (2026-09-29): the tooltip says how to place and how to recalibrate.
-        helper.assertTrue(tooltip(helper, calibrated).contains("Sneak + Use on a block places it; Sneak + Use in the air switches the mode"),
+        helper.assertTrue(tooltip(helper, calibrated).containsAll(List.of("Sneak + Use on a block: place.", "Sneak + Use in the air: switch mode.")),
                 "a calibrated detector does not explain placing, its tooltip is " + tooltip(helper, calibrated));
 
         // An index outside the enum is clamped into it instead of throwing.

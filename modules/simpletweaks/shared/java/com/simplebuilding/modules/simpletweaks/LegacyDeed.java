@@ -31,7 +31,9 @@ public final class LegacyDeed {
             }
             @Override public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> out, TooltipFlag flag) {
                 out.accept(Component.translatable("tooltip.simpletweaks.claim_deed.inactive"));
+                out.accept(Component.translatable("tooltip.simpletweaks.claim_deed.inactive.2"));
                 out.accept(Component.translatable("tooltip.simpletweaks.claim_deed.data"));
+                out.accept(Component.translatable("tooltip.simpletweaks.claim_deed.data.2"));
             }
         });
     }

@@ -156,6 +156,15 @@ public final class MoneyTests {
    h.assertValueEqual(en.keySet(),de.keySet(),"bilingual completeness");
    for(String name:MoneyItems.IDS) {
     h.assertTrue(en.has("item.simplemoney."+name)&&en.has("tooltip.simplemoney."+name+".tooltip"),"name and tooltip "+name);
+    var stack=new ItemStack(MoneyItems.ITEMS.get(name));
+    var lines=new ArrayList<net.minecraft.network.chat.Component>();
+    stack.getItem().appendHoverText(stack,Item.TooltipContext.of(h.getLevel()),net.minecraft.world.item.component.TooltipDisplay.DEFAULT,lines::add,TooltipFlag.NORMAL);
+    var keys=lines.stream().map(net.minecraft.network.chat.Component::getContents)
+      .filter(c->c instanceof net.minecraft.network.chat.contents.TranslatableContents)
+      .map(c->((net.minecraft.network.chat.contents.TranslatableContents)c).getKey())
+      .filter(k->k.startsWith("tooltip.simplemoney.")).toList();
+    h.assertValueEqual(keys.size(),name.equals("money_bill")?7:name.equals("special_fiber")?2:1,"complete tooltip lines: "+name);
+    for(String key:keys)for(var lang:List.of(en,de))h.assertTrue(lang.has(key)&&lang.get(key).getAsString().length()<=48,"short translated tooltip line: "+key);
     for(String path:List.of("items/"+name+".json","models/item/"+name+".json","textures/item/"+name+".png"))h.assertTrue(MoneyTests.class.getResource("/assets/simplemoney/"+path)!=null,"asset "+path);
    }
    for(String flag:List.of("enableVillagerTrades","enableWanderingTrades"))for(var lang:List.of(en,de)) {h.assertTrue(lang.has("text.autoconfig.simplemoney.category.default"),"config tab");var prefix="text.autoconfig.simplemoney.option.trades."+flag;h.assertTrue(lang.has(prefix)&&lang.get(prefix+".tooltip").getAsString().contains("true"),"config name and default tooltip "+flag);}

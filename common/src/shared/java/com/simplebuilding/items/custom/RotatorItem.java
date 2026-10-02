@@ -200,6 +200,8 @@ public class RotatorItem extends Item implements AnvilRechargeable {
         }
         out.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.rotator.recharge",
                 String.valueOf(PEARLS_FOR_FULL)).withStyle(net.minecraft.ChatFormatting.DARK_GRAY));
+        out.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.rotator.recharge.2",
+                String.valueOf(PEARLS_FOR_FULL)).withStyle(net.minecraft.ChatFormatting.DARK_GRAY));
     }
 
     /** Game-Tick, an dem der Ender-Klang des Spielers faellig ist, oder -1 ohne ausstehenden Klang (fuer Tests). */
