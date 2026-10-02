@@ -285,6 +285,18 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .define('I', Items.IRON_INGOT)
                             .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
                             .save(output);
+                    // Material-Staebe (2026-10-02): Gold- und Diamantstab ebenso aus drei uebereinander; Eisen, Gold
+                    // und Diamant zerfallen wieder in ihre drei Teile. Netherit und Enderit nur am Schmiedetisch
+                    // (Einbahn wie jede Aufwertung).
+                    rod(ModItems.GOLD_ROD, Items.GOLD_INGOT, RecipeCategory.REDSTONE);
+                    rod(ModItems.DIAMOND_ROD, Items.DIAMOND, RecipeCategory.MISC);
+                    rodBack(ModItems.IRON_ROD, Items.IRON_INGOT);
+                    rodBack(ModItems.GOLD_ROD, Items.GOLD_INGOT);
+                    rodBack(ModItems.DIAMOND_ROD, Items.DIAMOND);
+                    createSmithingTransform(output, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.DIAMOND_ROD,
+                            Items.NETHERITE_INGOT, RecipeCategory.MISC, ModItems.NETHERITE_ROD);
+                    createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_ROD,
+                            ModItems.ENDERITE_INGOT, RecipeCategory.MISC, ModItems.ENDERITE_ROD);
                 }
 
                 // =================================================================
@@ -1180,6 +1192,25 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .unlockedBy(getHasName(Items.AMETHYST_SHARD), has(Items.AMETHYST_SHARD))
                             .save(output);
                 }
+            }
+
+            /** Ein Stab aus drei {@code material} uebereinander (wie der Blitzableiter). */
+            private void rod(Item rod, Item material, RecipeCategory category) {
+                shaped(category, rod)
+                        .pattern("M")
+                        .pattern("M")
+                        .pattern("M")
+                        .define('M', material)
+                        .unlockedBy(getHasName(material), has(material))
+                        .save(output);
+            }
+
+            /** Rueckweg: ein Stab ergibt seine drei Teile ({@code <material>_from_<rod>}). */
+            private void rodBack(Item rod, Item material) {
+                shapeless(RecipeCategory.MISC, material, 3)
+                        .requires(rod)
+                        .unlockedBy(getHasName(rod), has(rod))
+                        .save(output, Simplebuilding.MOD_ID + ":" + getItemName(material) + "_from_" + getItemName(rod));
             }
 
             private void tweaksSmithing(Ingredient template, ItemLike base, ItemLike addition, ItemLike result, String name) {

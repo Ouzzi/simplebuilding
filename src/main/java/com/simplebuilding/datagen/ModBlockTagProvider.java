@@ -44,6 +44,9 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.IRON_ROD));
             builder(BlockTags.NEEDS_STONE_TOOL).add(key(ModBlocks.IRON_ROD));
+            // Goldstab wie der Goldblock: Spitzhacke ab Eisen.
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.GOLD_ROD));
+            builder(BlockTags.NEEDS_IRON_TOOL).add(key(ModBlocks.GOLD_ROD));
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));

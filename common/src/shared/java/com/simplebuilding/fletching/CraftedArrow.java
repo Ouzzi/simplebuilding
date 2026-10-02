@@ -42,9 +42,10 @@ public class CraftedArrow extends AbstractArrow {
     }
 
     private void applyParts() {
-        if (parts().tip() == ArrowParts.Tip.NETHERITE) {
+        int extra = parts().extraPierce();
+        if (extra > 0) {
             ((com.simplebuilding.mixin.AbstractArrowAccessor) this).simplebuilding$setPierceLevel(
-                    (byte) (this.getPierceLevel() + ArrowParts.NETHERITE_EXTRA_PIERCE));
+                    (byte) (this.getPierceLevel() + extra));
         }
     }
 
@@ -87,7 +88,7 @@ public class CraftedArrow extends AbstractArrow {
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
-        double bonus = parts().tip().bonusAgainst(result.getEntity());
+        double bonus = parts().bonusAgainst(result.getEntity());
         double base = this.simplebuilding$baseDamage;
         super.setBaseDamage(base + bonus);
         super.onHitEntity(result);

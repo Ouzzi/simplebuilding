@@ -32,7 +32,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
-import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import com.simplebuilding.mixin.CauldronInteractionDispatcherAccessor;
@@ -108,8 +107,6 @@ public class Simplebuilding implements ModInitializer {
     private void registerGameplayEvents() {
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) ->
                 SledgehammerUsageEvent.handleBeforeBlockBreak(world, player, pos, state, blockEntity));
-        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) ->
-                SledgehammerEntityInteraction.handleAttackEntity(player, world, hand, entity));
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) ->
                 StripMinerUsageEvent.handleBeforeBlockBreak(world, player, pos, state, blockEntity));
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) ->

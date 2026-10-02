@@ -67,7 +67,12 @@ public final class BlockBehaviourGameTest {
     }
 
     @GameTest
-    public void ironRodsAttractLightningOnlyWithinThirtyTwoBlocks(GameTestHelper helper) {
-        BlockBehaviourTests.ironRodsAttractLightningOnlyWithinThirtyTwoBlocks(helper);
+    public void metalRodsAttractLightningWithinTheirOwnRange(GameTestHelper helper) {
+        BlockBehaviourTests.metalRodsAttractLightningWithinTheirOwnRange(helper);
+    }
+
+    @GameTest
+    public void materialRodsCraftBackAndSmithUpward(GameTestHelper helper) {
+        BlockBehaviourTests.materialRodsCraftBackAndSmithUpward(helper);
     }
 }

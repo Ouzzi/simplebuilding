@@ -85,6 +85,44 @@ public final class FletchingTests {
         helper.succeed();
     }
 
+    /**
+     * Material-Stab-Schaefte (2026-10-02): Diamant durchbohrt ein Ziel mehr, Netherit +1 Schaden und der Pfeil-Stapel
+     * verbrennt als Item nicht, Enderit 30 % weniger Schwerkraft und +1 Schaden; der Tisch nimmt die Staebe als Schaft.
+     */
+    public static void rodShaftsPierceHitHarderAndResistFire(GameTestHelper helper) {
+        if (!McVersion.FLETCHING || ModItems.DIAMOND_ROD == null) {
+            helper.succeed();
+            return;
+        }
+        Mob cow = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(1, 2, 1));
+        helper.assertValueEqual((int) arrow(helper, parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.DIAMOND_ROD, ArrowParts.Fletching.FEATHER)).getPierceLevel(),
+                1, "pierce level with a diamond rod shaft");
+        helper.assertValueEqual((int) arrow(helper, parts(ArrowParts.Tip.NETHERITE, ArrowParts.Shaft.DIAMOND_ROD, ArrowParts.Fletching.FEATHER)).getPierceLevel(),
+                2, "pierce level of a netherite tip on a diamond rod shaft");
+        helper.assertValueEqual(parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.DIAMOND_ROD, ArrowParts.Fletching.FEATHER).bonusAgainst(cow), 0.0, "diamond rod damage bonus");
+        helper.assertValueEqual(parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.NETHERITE_ROD, ArrowParts.Fletching.FEATHER).bonusAgainst(cow), 1.0, "netherite rod damage bonus");
+        helper.assertValueEqual(parts(ArrowParts.Tip.DIAMOND, ArrowParts.Shaft.ENDERITE_ROD, ArrowParts.Fletching.FEATHER).bonusAgainst(cow), 2.0, "diamond tip on an enderite rod");
+        helper.assertTrue(Math.abs(arrow(helper, parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.ENDERITE_ROD, ArrowParts.Fletching.FEATHER)).getGravity()
+                - 0.035) < 1.0E-9, "gravity with an enderite rod shaft");
+        helper.assertValueEqual(arrow(helper, parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.NETHERITE_ROD, ArrowParts.Fletching.FEATHER)).getGravity(),
+                0.05, "gravity with a netherite rod shaft");
+
+        Vec3 at = helper.absoluteVec(new Vec3(2.5, 2.0, 2.5));
+        net.minecraft.world.entity.item.ItemEntity fireproof = new net.minecraft.world.entity.item.ItemEntity(helper.getLevel(), at.x, at.y, at.z,
+                ArrowParts.stack(parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.NETHERITE_ROD, ArrowParts.Fletching.FEATHER), 4));
+        net.minecraft.world.entity.item.ItemEntity plain = new net.minecraft.world.entity.item.ItemEntity(helper.getLevel(), at.x, at.y, at.z,
+                ArrowParts.stack(ArrowParts.Parts.VANILLA, 4));
+        helper.assertTrue(fireproof.fireImmune(), "netherite rod arrows catch fire as an item");
+        helper.assertFalse(fireproof.hurtServer(helper.getLevel(), helper.getLevel().damageSources().lava(), 4.0F), "lava hurts netherite rod arrows");
+        helper.assertFalse(plain.fireImmune(), "plain crafted arrows are fire immune");
+
+        helper.assertValueEqual(FletchingMenu.partSlotFor(new ItemStack(ModItems.DIAMOND_ROD)), FletchingMenu.SHAFT_SLOT, "the diamond rod fits the shaft slot");
+        helper.assertValueEqual(FletchingMenu.partSlotFor(new ItemStack(ModItems.ENDERITE_ROD)), FletchingMenu.SHAFT_SLOT, "the enderite rod fits the shaft slot");
+        ItemStack result = FletchingMenu.resultFor(new ItemStack(Items.FLINT), new ItemStack(ModItems.NETHERITE_ROD), new ItemStack(Items.FEATHER));
+        helper.assertValueEqual(ArrowParts.of(result).shaft(), ArrowParts.Shaft.NETHERITE_ROD, "shaft of the table result");
+        helper.succeed();
+    }
+
     /** Drei passende Teile ergeben vier Pfeile mit diesen Teilen; Nehmen verbraucht je ein Teil. */
     public static void theTableMakesFourArrowsFromThreeParts(GameTestHelper helper) {
         if (!McVersion.FLETCHING) {

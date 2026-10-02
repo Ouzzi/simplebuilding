@@ -3,7 +3,6 @@ package com.simplebuilding.gametest;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.SledgehammerItem;
-import com.simplebuilding.util.SledgehammerEntityInteraction;
 import com.simplebuilding.util.SledgehammerUsageEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,16 +17,13 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
@@ -38,8 +34,8 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * The sledgehammer, end to end: which blocks a swing takes, what it charges for them, what the
- * charged right click reshapes, how fast it mines and charges, and the item frame trick that turns
- * a framed smithing template into a glowing one.
+ * charged right click reshapes, and how fast it mines and charges. (The trim template
+ * upgrade happens on a placed template only - {@link PlacedTemplateTests}; the old item frame route is gone.)
  *
  * <p>What was already covered elsewhere is deliberately <em>not</em> repeated here:
  * {@link ToolBehaviourTests} pins the 3x3 face for a flat and an upright look and the three
@@ -916,103 +912,6 @@ public final class SledgehammerTests {
         helper.succeed();
     }
 
-    // =====================================================================================
-    // ITEM FRAMES
-    // =====================================================================================
-
-    /**
-     * Hitting a framed smithing template with a sledgehammer and a glow ink sac in the off hand
-     * turns it into the mod's Glowing Trim Template; glowstone dust turns it into the Emitting
-     * one. It is the only way to obtain either item by hand, and nothing else in the suite runs
-     * {@code SledgehammerEntityInteraction} at all.
-     *
-     * <p>Everything around the conversion is checked too, because each of those conditions is what
-     * keeps the interaction from firing during ordinary play: the off hand alone must not trigger
-     * it, a frame holding something that is not a template must be left alone, and the payment -
-     * one ink sac and one point of durability - only happens outside creative.
-     *
-     * <p>The frame content check is a <em>name</em> heuristic: {@code isTrimTemplate} asks whether
-     * the item's registered name contains {@code trim_smithing_template}. A diamond therefore has
-     * to be refused, which is what the negative case pins; note that this also means the mod's own
-     * {@code glowing_trim_template} is not a template by that rule, so a converted frame cannot be
-     * converted again.
-     *
-     * <p>The survival half uses {@code makeMockPlayer(GameType.SURVIVAL)} with its abilities
-     * refreshed from the game type - the same factory {@link OreGenAndItemFrameTests} uses for the
-     * frame lock. {@code instabuild} is what actually decides whether any {@code hurtAndBreak} in
-     * the game does anything, and that factory does not set it by itself.
-     *
-     * <p>What breaks this: the {@code MAIN_HAND} check going away, which fires the conversion when
-     * the player swaps hands; {@code isTrimTemplate} loosening, which would let a hammer swing
-     * replace anything in any frame; and the {@code isCreative()} guard going away in either
-     * direction - a survival player getting free templates, or a creative one being billed for
-     * them.
-     */
-    public static void sledgehammerTurnsFramedTrimTemplatesGlowing(GameTestHelper helper) {
-        Player creative = mockPlayer(helper, GameType.CREATIVE);
-        Player survival = mockPlayer(helper, GameType.SURVIVAL);
-        helper.assertTrue(creative.isCreative() && !survival.isCreative(),
-                "the two mock players do not report the game modes they were asked for");
-
-        if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) {
-            ItemFrame legacy = templateFrame(helper, new BlockPos(3, 2, 3));
-            ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
-            ItemStack catalyst = new ItemStack(Items.GLOW_INK_SAC, 4);
-            arm(survival, hammer, catalyst);
-            helper.assertValueEqual(attack(helper, survival, InteractionHand.MAIN_HAND, legacy), InteractionResult.PASS,
-                    "a frame claimed a template with an existing placed route");
-            helper.assertTrue(legacy.getItem().is(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE), "legacy frame contents changed");
-            helper.assertValueEqual(catalyst.getCount(), 4, "legacy refusal consumed material");
-            helper.assertValueEqual(hammer.getDamageValue(), 0, "legacy refusal damaged the hammer");
-            helper.succeed();
-            return;
-        }
-
-        // --- glow ink sac: the glowing template, free in creative ---
-        ItemFrame frame = templateFrame(helper, new BlockPos(3, 2, 3));
-        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
-        ItemStack sacs = new ItemStack(Items.GLOW_INK_SAC, 4);
-        arm(creative, hammer, sacs);
-
-        helper.assertValueEqual(attack(helper, creative, InteractionHand.MAIN_HAND, frame),
-                InteractionResult.SUCCESS, "the hammer did not convert a framed smithing template");
-        helper.assertTrue(frame.getItem().is(ModItems.GLOWING_TRIM_TEMPLATE),
-                "the frame holds " + frame.getItem() + " instead of the glowing trim template");
-        helper.assertValueEqual(sacs.getCount(), 4, "glow ink sacs a creative player was charged");
-        helper.assertValueEqual(hammer.getDamageValue(), 0, "hammer wear charged to a creative player");
-
-        // --- glowstone dust: the emitting template, and survival pays for it ---
-        ItemFrame second = templateFrame(helper, new BlockPos(5, 2, 3));
-        ItemStack dust = new ItemStack(Items.GLOWSTONE_DUST, 4);
-        arm(survival, hammer, dust);
-
-        helper.assertValueEqual(attack(helper, survival, InteractionHand.MAIN_HAND, second),
-                InteractionResult.SUCCESS, "glowstone dust did not convert a framed smithing template");
-        helper.assertTrue(second.getItem().is(ModItems.EMITTING_TRIM_TEMPLATE),
-                "the frame holds " + second.getItem() + " instead of the emitting trim template");
-        helper.assertValueEqual(dust.getCount(), 3, "glowstone dust left after a survival conversion");
-        helper.assertValueEqual(hammer.getDamageValue(), 1, "hammer wear after a survival conversion");
-
-        // --- the off hand must not trigger it ---
-        ItemFrame third = templateFrame(helper, new BlockPos(3, 2, 5));
-        ItemStack fresh = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
-        arm(creative, fresh, new ItemStack(Items.GLOW_INK_SAC, 4));
-        helper.assertValueEqual(attack(helper, creative, InteractionHand.OFF_HAND, third),
-                InteractionResult.PASS, "an off hand hit converted the template");
-        helper.assertTrue(third.getItem().is(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE),
-                "the off hand hit changed the frame anyway");
-
-        // --- and a frame that holds something else is left alone ---
-        ItemFrame diamondFrame = templateFrame(helper, new BlockPos(5, 2, 5));
-        diamondFrame.setItem(new ItemStack(Items.DIAMOND), false);
-        helper.assertValueEqual(attack(helper, creative, InteractionHand.MAIN_HAND, diamondFrame),
-                InteractionResult.PASS, "the hammer claimed a frame that holds no smithing template");
-        helper.assertTrue(diamondFrame.getItem().is(Items.DIAMOND),
-                "the hammer replaced a diamond in a frame with a trim template");
-
-        helper.succeed();
-    }
-
     /** All four aimed quarters, both halves and each step use actual collision shapes. */
     public static void sledgehammerCornersSubtractOnlyTheAimedQuarter(GameTestHelper helper) {
         if (!com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) { helper.succeed(); return; }
@@ -1240,21 +1139,6 @@ public final class SledgehammerTests {
         player.getAbilities().instabuild = instabuild;
         player.setShiftKeyDown(false);
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
-        return player;
-    }
-
-    /**
-     * A player that really answers with the game mode it was asked for. It is never added to the
-     * level or the player list, so it has no connection - fine here, because the frame interaction
-     * stays inside the world and the item. The abilities are refreshed by hand: this factory,
-     * unlike its {@code ServerPlayer} sibling, does not do it, and {@code instabuild} decides
-     * whether the durability charge below happens at all.
-     */
-    private static Player mockPlayer(GameTestHelper helper, GameType mode) {
-        Player player = helper.makeMockPlayer(mode);
-        mode.updatePlayerAbilities(player.getAbilities());
-        Vec3 pos = helper.absoluteVec(new Vec3(3.5, 2.0, 1.5));
-        player.snapTo(pos.x, pos.y, pos.z, 0.0F, 0.0F);
         return player;
     }
 
@@ -1588,31 +1472,6 @@ public final class SledgehammerTests {
 
     private static Holder<Enchantment> enchantment(GameTestHelper helper, ResourceKey<Enchantment> key) {
         return helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);
-    }
-
-    /** Spawns a frame holding a vanilla smithing template, plus the block it hangs on. */
-    private static ItemFrame templateFrame(GameTestHelper helper, BlockPos relativePos) {
-        Direction facing = Direction.SOUTH;
-        helper.setBlock(relativePos.relative(facing.getOpposite()), Blocks.STONE);
-        ItemFrame frame = new ItemFrame(helper.getLevel(), helper.absolutePos(relativePos), facing);
-        helper.getLevel().addFreshEntity(frame);
-        frame.setItem(new ItemStack(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE), false);
-        helper.runBeforeTestEnd(frame::discard);
-        return frame;
-    }
-
-    /**
-     * Puts the two stacks into the player's hands by reference, so a test can look at the very
-     * objects afterwards and see what the interaction took out of them.
-     */
-    private static void arm(Player player, ItemStack mainHand, ItemStack offHand) {
-        player.setItemInHand(InteractionHand.MAIN_HAND, mainHand);
-        player.setItemInHand(InteractionHand.OFF_HAND, offHand);
-    }
-
-    private static InteractionResult attack(GameTestHelper helper, Player player,
-                                            InteractionHand hand, ItemFrame frame) {
-        return SledgehammerEntityInteraction.handleAttackEntity(player, helper.getLevel(), hand, frame);
     }
 
     /**

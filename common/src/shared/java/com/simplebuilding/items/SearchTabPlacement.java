@@ -125,7 +125,8 @@ public final class SearchTabPlacement {
             out.add(Placement.after(INGREDIENTS, Items.FLINT, ModItems.FLINT_CHIP, ModItems.STONE_PEBBLE));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            out.add(Placement.after(REDSTONE_BLOCKS, Items.LIGHTNING_ROD.waxed().unaffected(), ModItems.IRON_ROD));
+            out.add(Placement.after(REDSTONE_BLOCKS, Items.LIGHTNING_ROD.waxed().unaffected(), ModItems.IRON_ROD, ModItems.GOLD_ROD));
+            out.add(Placement.after(INGREDIENTS, Items.BLAZE_ROD, ModItems.DIAMOND_ROD, ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             out.add(Placement.after(NATURAL_BLOCKS, Items.DEEPSLATE_DIAMOND_ORE, ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM));

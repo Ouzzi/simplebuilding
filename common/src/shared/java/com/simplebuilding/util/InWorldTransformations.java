@@ -211,9 +211,9 @@ public final class InWorldTransformations {
     }
 
     /**
-     * Besatzvorlage im Rahmen mit dem Vorschlaghammer aufwerten ({@link SledgehammerEntityInteraction}):
+     * Abgelegte Besatzvorlage mit dem Vorschlaghammer aufwerten ({@link SledgehammerEntityInteraction}):
      * jede Vorlage nach der Namensregel des Spiels, jeder Vorschlaghammer, je Nebenhand-Material das
-     * Ergebnis, dazu die Kosten und die Schlaege an einer abgelegten Vorlage ({@link PlacedTemplates}).
+     * Ergebnis, dazu die Kosten und die Schlaege an der abgelegten Vorlage ({@link PlacedTemplates}).
      */
     public static JsonObject trimTemplate() {
         JsonArray templates = new JsonArray();
@@ -241,9 +241,8 @@ public final class InWorldTransformations {
         o.add("templates", templates);
         o.add("hammers", hammers);
         o.addProperty("damage", SledgehammerEntityInteraction.HAMMER_DAMAGE);
-        // Abgelegt statt im Rahmen (PlacedTemplates): so viele Schlaege statt einem.
+        // Nur abgelegt (PlacedTemplates; der Rahmen-Weg ist entfallen): so viele Schlaege.
         o.addProperty("placedHits", PlacedTemplates.PLACED_HITS);
-        if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) o.addProperty("frameLegacyOnly", true);
         o.add("upgrades", upgrades);
         return o;
     }

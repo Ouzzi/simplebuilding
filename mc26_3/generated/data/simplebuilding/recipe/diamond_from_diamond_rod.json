@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "simplebuilding:diamond_rod"
+  ],
+  "result": {
+    "count": 3,
+    "id": "minecraft:diamond"
+  }
+}

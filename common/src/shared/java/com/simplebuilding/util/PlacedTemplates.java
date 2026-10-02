@@ -268,6 +268,8 @@ public final class PlacedTemplates {
             return true;
         }
         be.setTemplate(new ItemStack(result));
+        // Fortschritt hammer/glow_up (frueher nur ueber den entfallenen Rahmen-Weg ausgeloest).
+        com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.TRIM_TEMPLATE_FORGED);
         if (!player.isCreative()) {
             catalyst.shrink(SledgehammerEntityInteraction.CATALYST_COST);
         }

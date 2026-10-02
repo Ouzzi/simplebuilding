@@ -20,6 +20,11 @@ public final class FletchingGameTest {
     }
 
     @GameTest
+    public void rodShaftsPierceHitHarderAndResistFire(GameTestHelper helper) {
+        FletchingTests.rodShaftsPierceHitHarderAndResistFire(helper);
+    }
+
+    @GameTest
     public void theTableMakesFourArrowsFromThreeParts(GameTestHelper helper) {
         FletchingTests.theTableMakesFourArrowsFromThreeParts(helper);
     }

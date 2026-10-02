@@ -34,6 +34,27 @@
               "type": "minecraft:model",
               "model": "simplebuilding:item/arrow/shaft_breeze_rod"
             }
+          },
+          {
+            "when": "diamond_rod",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/shaft_diamond_rod"
+            }
+          },
+          {
+            "when": "netherite_rod",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/shaft_netherite_rod"
+            }
+          },
+          {
+            "when": "enderite_rod",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/arrow/shaft_enderite_rod"
+            }
           }
         ],
         "fallback": {

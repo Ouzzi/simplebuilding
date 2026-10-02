@@ -231,6 +231,10 @@ public final class PlacedTemplateTests {
             ItemStack held = helper.getBlockEntity(new BlockPos(1, 2, 1), PlacedTemplateBlockEntity.class).getTemplate();
             helper.assertTrue(held.is(expected), "after hit " + hit + " the template is " + held + " instead of " + expected);
         }
+        // Seit der Rahmen-Weg entfallen ist (Q3, 2026-10-02), loest die abgelegte Vorlage den Fortschritt aus.
+        var glowUp = level.getServer().getAdvancements().get(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "hammer/glow_up"));
+        helper.assertTrue(glowUp != null && player.getAdvancements().getOrStartProgress(glowUp).isDone(),
+                "upgrading a placed template did not grant the Glow Up advancement");
 
         // Beide Haken einzeln, mit Materialwechsel dazwischen.
         PlacedTemplateBlockEntity be = helper.getBlockEntity(new BlockPos(3, 2, 1), PlacedTemplateBlockEntity.class);

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "M": "minecraft:gold_ingot"
+  },
+  "pattern": [
+    "M",
+    "M",
+    "M"
+  ],
+  "result": {
+    "id": "simplebuilding:gold_rod"
+  }
+}
