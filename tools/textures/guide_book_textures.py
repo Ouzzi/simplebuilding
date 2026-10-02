@@ -338,8 +338,11 @@ def guide_book_textures():
 # 26.3-Regale (Textur-Audit Q1, 2026-10-02): alle Themenbuecher in der Form der vom Besitzer abgenommenen
 # guide_book.png / guide_book_vanilla_start.png (liegendes Buch wie Vanilla, 1 px dunkle Kontur, Licht von oben
 # links). O Kontur, D/C/L Deckel dunkel/mittel/hell (aus COVERS), A Buende auf dem Ruecken, P/p Seiten,
-# R/r Lesezeichen hell/dunkel. Die beiden abgenommenen Bilder sind Handarbeit und werden nie ueberschrieben.
-MEGA_APPROVED = {"guide", "vanilla_start"}
+# R/r Lesezeichen hell/dunkel.
+# Besitzerwahl 2026-10-02 abends: Vorschlag J "Prachtband" (guide_books_10_proposals_2026_10_02.py) fuer ALLE
+# Buecher: Metallecken (B), Edelstein in der Themenfarbe mit Fassung (E), Gold-/Silberschnitt (I). Die beiden
+# frueher von Hand abgenommenen Bilder haben exakt diese Form; ihre Farben stehen in MEGA_HAND und werden mit
+# demselben Prachtband gezeichnet.
 MEGA_BOOK = [
     "................",
     "........OOO.....",
@@ -361,22 +364,59 @@ MEGA_BOOK = [
 MEGA_PAGES = {"p": "#a8a8a8", "P": "#d6d6d6"}
 MEGA_MOD = {"A": "#fad64c", "r": "#8c1814", "R": "#d6342c"}  # wie guide_book.png: Goldbuende, rotes Band
 MEGA_VANILLA = {"A": "#e6e6e6", "r": "#28681a", "R": "#56aa34"}  # Silberbuende, gruenes Band wie vanilla_start
+# Farben der Handtexturen (Besitzer, abgenommen 2026-10-02), Form = MEGA_BOOK
+MEGA_HAND = {
+    "guide": dict(O="#121a42", C="#385cba", A="#fad64c", D="#243a84", P="#d6d6d6", L="#608ade", p="#a8a8a8", R="#d6342c", r="#8c1814"),
+    "vanilla_start": dict(O="#2e1c0a", C="#784e1e", A="#6eba3c", D="#543412", P="#d6d6d6", L="#9e7034", p="#a8a8a8", R="#56aa34", r="#28681a"),
+}
+# Prachtband J: Metall hell/dunkel je Regal, Edelstein je Thema
+MEGA_GOLD = ("#fad64c", "#b8860b")
+MEGA_SILVER = ("#eef1f4", "#9aa3ab")
+MEGA_GEM = {
+    "guide": "#f2c94a", "tools": "#d8dde2", "building": "#f0a070", "storage": "#e0a050", "machines": "#e85a4a",
+    "end": "#4fd1a8", "tweaks": "#8fe06a", "trims": "#7fb8ff", "admin": "#62d662", "gadgets": "#ffb347",
+    "enchantments": "#d08aff", "vanilla_start": "#e0c080", "vanilla_overworld": "#8fd46a", "vanilla_caves": "#ffb030",
+    "vanilla_ocean": "#9fe6ff", "vanilla_nether": "#ff9a3a", "vanilla_end": "#c88aff", "vanilla_redstone": "#ff3a2a",
+    "vanilla_gear": "#5ad0e0", "vanilla_farming": "#f0cc5a",
+}
+MEGA_CORNERS = [(9, 2), (2, 5), (12, 5), (5, 9)]
+MEGA_CORNERS_LO = [(10, 3), (3, 6), (11, 6), (6, 9)]
+MEGA_GEM_POS = (7, 6)
 
 
 def mega_guide_book(topic):
-    o, s, l, c, d = COVERS[topic]
-    pal = dict(O=o, D=d, C=c, L=l, **MEGA_PAGES)
-    pal.update(MEGA_VANILLA if topic.startswith("vanilla_") else MEGA_MOD)
+    if topic in MEGA_HAND:
+        pal = dict(MEGA_HAND[topic])
+    else:
+        o, s, l, c, d = COVERS[topic]
+        pal = dict(O=o, D=d, C=c, L=l, **MEGA_PAGES)
+        pal.update(MEGA_VANILLA if topic.startswith("vanilla_") else MEGA_MOD)
+    hi, lo = MEGA_SILVER if topic.startswith("vanilla_") else MEGA_GOLD
+    pal["P"], pal["p"] = hi, lo  # I: Gold-/Silberschnitt
     img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
     for y, row in enumerate(MEGA_BOOK):
         for x, ch in enumerate(row):
             if ch != ".":
                 img.putpixel((x, y), _hex(pal[ch]))
+
+    def cover(x, y, colour):  # nur auf dem Deckel, nie auf Kontur oder Seiten
+        if MEGA_BOOK[y][x] in "CDLA":
+            img.putpixel((x, y), _hex(colour))
+
+    for x, y in MEGA_CORNERS:  # B: Beschlaege
+        cover(x, y, hi)
+    for x, y in MEGA_CORNERS_LO:
+        cover(x, y, lo)
+    gx, gy = MEGA_GEM_POS  # E: Edelstein mit Fassung
+    for x, y in [(gx, gy - 1), (gx - 1, gy), (gx + 1, gy), (gx, gy + 1)]:
+        cover(x, y, lo)
+    cover(gx, gy, MEGA_GEM[topic])
+    cover(gx - 1, gy - 1, hi)
     return img
 
 
 def mega_guide_textures(check=False):
-    """26.3-only shelf-guide covers (mc26_3 overlay) with a 16x old/new preview."""
+    """26.3-only shelf-guide covers (mc26_3 overlay), Prachtband J, with a 16x old/new preview."""
     from pathlib import Path
     root = Path(__file__).resolve().parents[2]
     target = root / "mc26_3/overlay/resources/assets/simplebuilding/textures/item"
@@ -386,15 +426,12 @@ def mega_guide_textures(check=False):
     for i, topic in enumerate(ORDER):
         name = "guide_book.png" if topic == "guide" else f"guide_book_{topic}.png"
         path = target / name
-        if topic in MEGA_APPROVED:
-            img = Image.open(path).convert("RGBA")
+        img = mega_guide_book(topic)
+        if check:
+            if not path.exists() or Image.open(path).convert("RGBA").tobytes() != img.tobytes():
+                failures.append(name)
         else:
-            img = mega_guide_book(topic)
-            if check:
-                if not path.exists() or Image.open(path).convert("RGBA").tobytes() != img.tobytes():
-                    failures.append(name)
-            else:
-                img.save(path)
+            img.save(path)
         sheet.alpha_composite(guide_book(topic).resize((256, 256), Image.Resampling.NEAREST), (0, i * 256))
         sheet.alpha_composite(img.resize((256, 256), Image.Resampling.NEAREST), (256, i * 256))
         insert = img.resize((10, 10), Image.Resampling.NEAREST)
@@ -405,7 +442,7 @@ def mega_guide_textures(check=False):
         preview = root / "docs/previews/mega-guides-16x.png"
         preview.parent.mkdir(parents=True, exist_ok=True)
         sheet.save(preview)
-    print(f"Mega guides: {len(ORDER) - len(MEGA_APPROVED)} generated + {len(MEGA_APPROVED)} approved hand textures")
+    print(f"Mega guides: {len(ORDER)} Prachtband covers")
 
 
 if __name__ == "__main__":
