@@ -796,6 +796,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_corners_subtract_only_the_aimed_quarter", SledgehammerTests::sledgehammerCornersSubtractOnlyTheAimedQuarter).build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_transform_hints_cover_both_hands_without_side_effects", SledgehammerTests::sledgehammerTransformHintsCoverBothHandsWithoutSideEffects).build(),
+            GameTestSpec.named("sledgehammer_game_test_transform_hint_partial_follows_the_upgrade_rules", SledgehammerTests::transformHintPartialFollowsTheUpgradeRules).build(),
+            GameTestSpec.named("sledgehammer_game_test_transform_hint_shows_the_breaker_piston_repair", SledgehammerTests::transformHintShowsTheBreakerPistonRepair).build(),
+            GameTestSpec.named("sledgehammer_game_test_transform_hint_covers_cauldron_wash_and_copper_plates", SledgehammerTests::transformHintCoversCauldronWashAndCopperPlates).build(),
+            GameTestSpec.named("sledgehammer_game_test_transform_hint_skips_clicks_the_block_or_the_main_hand_takes", SledgehammerTests::transformHintSkipsClicksTheBlockOrTheMainHandTakes).build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_field_skips_air_gaps_and_unbreakable_blocks", SledgehammerTests::sledgehammerFieldSkipsAirGapsAndUnbreakableBlocks)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_refuses_the_whole_field_when_the_origin_is_out_of_reach", SledgehammerTests::sledgehammerRefusesTheWholeFieldWhenTheOriginIsOutOfReach)

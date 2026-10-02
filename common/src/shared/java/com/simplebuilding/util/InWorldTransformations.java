@@ -23,7 +23,9 @@ import net.minecraft.world.level.block.Blocks;
 /**
  * Beschreibt die Umwandlungen in der Welt - Maschinen-Aufwertung mit dem Vorschlaghammer,
  * Umformen, Diamantblock zerschlagen, Meissel und Spachtel, Schere auf Wolle, Besatzvorlage im
- * Rahmen, Oktant im Kessel waschen - als JSON fuer das Wiki und den JEI-Katalog.
+ * Rahmen, Oktant im Kessel waschen, Brecherkolben reparieren, Kupfer-Druckplatte wachsen und
+ * abkratzen, Rotator, Constructor's Touch und die Erz-Chance der Baukerne - als JSON fuer das Wiki
+ * und den JEI-Katalog.
  *
  * <p>Der Datagen-Provider {@code WikiDataProvider} schreibt das Ergebnis nach
  * {@code src/main/generated/wiki/inworld.json}; {@code wiki/generate.py} macht daraus die
@@ -50,6 +52,11 @@ public final class InWorldTransformations {
         root.add("shearWool", shearWool());
         root.add("trimTemplate", trimTemplate());
         root.add("cauldronWash", cauldronWash());
+        root.add("pistonRepair", pistonRepair());
+        root.add("copperPressurePlate", copperPressurePlate());
+        root.add("rotator", rotator());
+        root.add("constructorsTouch", constructorsTouch());
+        root.add("coreOre", coreOre());
         return root;
     }
 
@@ -179,6 +186,8 @@ public final class InWorldTransformations {
         o.addProperty("result", id(ModItems.DIAMOND_PEBBLE));
         o.addProperty("count", SledgehammerItem.DIAMOND_BLOCK_PEBBLES);
         o.addProperty("damage", SledgehammerItem.DIAMOND_CRUSH_DAMAGE);
+        o.addProperty("strikes", SledgehammerItem.DIAMOND_BLOCK_STRIKES);
+        o.addProperty("strikeResetTicks", SledgehammerItem.DIAMOND_STRIKE_RESET_TICKS);
         // Nur Haemmer ab der Eisenstufe (SledgehammerItem#canCrushDiamondBlock).
         JsonArray hammers = new JsonArray();
         for (Item item : modItems(SledgehammerItem.class)) {
@@ -259,6 +268,155 @@ public final class InWorldTransformations {
         o.addProperty("result", id(ModItems.OCTANT));
         o.addProperty("waterLevels", OctantCauldronWash.WATER_LEVELS);
         return o;
+    }
+
+    /**
+     * Beschaedigten Brecherkolben mit dem Klumpen seiner Stufe reparieren
+     * ({@link com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock#canRepairWith}): volle
+     * Haltbarkeit, ein Klumpen.
+     */
+    public static JsonObject pistonRepair() {
+        JsonArray steps = new JsonArray();
+        for (Block block : modBlocks()) {
+            if (block instanceof com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock breaker) {
+                JsonObject step = new JsonObject();
+                step.addProperty("piston", id(block));
+                step.addProperty("nugget", id(breaker.repairMaterial()));
+                step.addProperty("nuggetCount", 1);
+                step.addProperty("durability", breaker.maxDurability());
+                steps.add(step);
+            }
+        }
+        JsonObject o = new JsonObject();
+        o.add("steps", steps);
+        return o;
+    }
+
+    /**
+     * Kupfer-Druckplatte ({@link com.simplebuilding.tweaks.block.CopperPressurePlateBlock#transformWith}):
+     * Honigwabe wachst jede Stufe, eine Axt kratzt Wachs oder sonst eine Oxidationsstufe ab.
+     */
+    public static JsonObject copperPressurePlate() {
+        List<Block> stages = com.simplebuilding.tweaks.block.CopperPressurePlateBlock.stages();
+        List<Block> waxed = com.simplebuilding.tweaks.block.CopperPressurePlateBlock.waxedStages();
+        JsonArray wax = new JsonArray();
+        JsonArray unwax = new JsonArray();
+        JsonArray scrape = new JsonArray();
+        for (int i = 0; i < stages.size(); i++) {
+            wax.add(pair(stages.get(i), waxed.get(i)));
+            unwax.add(pair(waxed.get(i), stages.get(i)));
+            if (i > 0) {
+                scrape.add(pair(stages.get(i), stages.get(i - 1)));
+            }
+        }
+        JsonArray axes = new JsonArray();
+        for (Item axe : vanillaAxes()) {
+            axes.add(id(axe));
+        }
+        JsonObject o = new JsonObject();
+        o.addProperty("honeycomb", id(Items.HONEYCOMB));
+        o.add("axes", axes);
+        o.addProperty("axeDamage", 1);
+        o.add("wax", wax);
+        o.add("unwax", unwax);
+        o.add("scrape", scrape);
+        return o;
+    }
+
+    /** Die Vanilla-Aexte, Holz bis Netherit: jede kratzt (im Spiel der Tag {@code minecraft:axes}). */
+    public static List<Item> vanillaAxes() {
+        return List.of(Items.WOODEN_AXE, Items.STONE_AXE, Items.COPPER_AXE, Items.IRON_AXE, Items.GOLDEN_AXE,
+                Items.DIAMOND_AXE, Items.NETHERITE_AXE);
+    }
+
+    /**
+     * Rotator ({@link com.simplebuilding.items.custom.RotatorItem}): dreht Achse, Blickrichtung oder die
+     * 16 Stufen eines Blocks. Beispiele je Art: Stamm (Achse), Beobachter (Blickrichtung), Schild (16 Stufen).
+     */
+    public static JsonObject rotator() {
+        JsonArray examples = new JsonArray();
+        for (Block block : List.of(Blocks.OAK_LOG, Blocks.OBSERVER, Blocks.OAK_SIGN)) {
+            examples.add(id(block));
+        }
+        JsonObject o = new JsonObject();
+        o.addProperty("tool", id(ModItems.ROTATOR));
+        o.addProperty("chargePerTurn", com.simplebuilding.items.custom.RotatorItem.USE_COST);
+        o.addProperty("maxCharge", com.simplebuilding.items.custom.RotatorItem.MAX_CHARGE);
+        o.addProperty("pearlsForFull", com.simplebuilding.items.custom.RotatorItem.PEARLS_FOR_FULL);
+        o.add("examples", examples);
+        return o;
+    }
+
+    /**
+     * Constructor's Touch auf einem Stock ({@link ConstructorsTouchInteraction}): dreht die erste
+     * Ausrichtungs-Eigenschaft eines Blocks weiter. Beispiele: Treppe, Schiene, Hebel.
+     */
+    public static JsonObject constructorsTouch() {
+        JsonArray examples = new JsonArray();
+        for (Block block : List.of(Blocks.OAK_STAIRS, Blocks.RAIL, Blocks.LEVER)) {
+            examples.add(id(block));
+        }
+        JsonObject o = new JsonObject();
+        o.addProperty("tool", id(Items.STICK));
+        o.addProperty("enchantment", "simplebuilding:constructors_touch");
+        o.add("examples", examples);
+        return o;
+    }
+
+    /**
+     * Erz-Chance der Baukerne ({@link com.simplebuilding.items.custom.CoreOreTransmutation}): je Kern
+     * "1 zu N" je Klick, je Wirt die Erze mit ihrem Gewicht (zusammen 100). Die Wirte stehen hier als
+     * Bloecke, weil Tags im Datagen nicht gebunden sind; dass {@code hostOf} genau sie nimmt, prueft
+     * {@code BuildingCoreTests#coreOreHostsAreTheBlocksOresGenerateIn}.
+     */
+    public static JsonObject coreOre() {
+        JsonArray cores = new JsonArray();
+        for (Item item : modItems(com.simplebuilding.items.custom.BuildingCoreItem.class)) {
+            JsonObject core = new JsonObject();
+            core.addProperty("id", id(item));
+            core.addProperty("oneIn", ((com.simplebuilding.items.custom.BuildingCoreItem) item).oreChanceOneIn());
+            cores.add(core);
+        }
+        JsonArray hosts = new JsonArray();
+        for (com.simplebuilding.items.custom.CoreOreTransmutation.Host host : com.simplebuilding.items.custom.CoreOreTransmutation.Host.values()) {
+            JsonArray blocks = new JsonArray();
+            for (Block block : coreOreHostBlocks(host)) {
+                blocks.add(id(block));
+            }
+            JsonArray ores = new JsonArray();
+            for (com.simplebuilding.items.custom.CoreOreTransmutation.WeightedOre ore : com.simplebuilding.items.custom.CoreOreTransmutation.ores(host)) {
+                JsonObject entry = new JsonObject();
+                entry.addProperty("id", id(ore.ore()));
+                entry.addProperty("weight", ore.weight());
+                ores.add(entry);
+            }
+            JsonObject h = new JsonObject();
+            h.addProperty("host", host.name().toLowerCase(java.util.Locale.ROOT));
+            h.add("blocks", blocks);
+            h.add("ores", ores);
+            hosts.add(h);
+        }
+        JsonObject o = new JsonObject();
+        o.add("cores", cores);
+        o.add("hosts", hosts);
+        return o;
+    }
+
+    /** Die Vanilla-Bloecke eines Wirts (im Spiel: die Tags, siehe {@code CoreOreTransmutation#hostOf}). */
+    public static List<Block> coreOreHostBlocks(com.simplebuilding.items.custom.CoreOreTransmutation.Host host) {
+        return switch (host) {
+            case STONE -> List.of(Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
+            case DEEPSLATE -> List.of(Blocks.DEEPSLATE, Blocks.TUFF);
+            case NETHERRACK -> List.of(Blocks.NETHERRACK);
+            case END_STONE -> List.of(Blocks.END_STONE);
+        };
+    }
+
+    private static JsonArray pair(Block from, Block to) {
+        JsonArray p = new JsonArray();
+        p.add(id(from));
+        p.add(id(to));
+        return p;
     }
 
     /** Die sechzehn Wollbloecke in {@link DyeColor}-Reihenfolge. */

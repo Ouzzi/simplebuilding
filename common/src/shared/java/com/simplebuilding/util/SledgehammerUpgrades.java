@@ -473,6 +473,31 @@ public final class SledgehammerUpgrades {
     }
 
     /**
+     * Teil-Hinweis (Besitzer 2026-10-01): das Item in {@code hand} passt zur Aufwertung dieser Maschine,
+     * nur das Gegenstueck fehlt. Fragt dieselben Bedingungen wie {@link #refusal}, nur ohne die eine,
+     * die fehlt: ein Hammer, stark genug und nicht in der Abklingzeit, ohne das Material der Stufe in
+     * der Nebenhand; oder genau das Material der Stufe, in ausreichender Menge, ohne passenden Hammer
+     * in der Haupthand. Ein beschaeftigter Kolben und eine laufende Aufwertung zeigen nichts. Ein
+     * Klumpen, der nur zu einer anderen Stufe passt (Netheritklumpen am Netheritkolben), zeigt nichts.
+     */
+    public static boolean missingCounterpart(Level level, BlockPos pos, Player player, InteractionHand hand) {
+        BlockState state = level.getBlockState(pos);
+        Upgrade upgrade = upgradeOf(state.getBlock());
+        if (upgrade == null || isHammering(player) || isBusyPiston(level, pos, state)) {
+            return false;
+        }
+        ItemStack stack = player.getItemInHand(hand);
+        ItemStack main = player.getMainHandItem();
+        boolean hammerFits = main.getItem() instanceof SledgehammerItem && hammerRank(main) >= upgrade.minHammerRank()
+                && !player.getCooldowns().isOnCooldown(main);
+        if (stack.getItem() instanceof SledgehammerItem) {
+            return hand == InteractionHand.MAIN_HAND && hammerFits && !player.getOffhandItem().is(upgrade.nugget());
+        }
+        return stack.is(upgrade.nugget()) && !hammerFits
+                && (player.hasInfiniteMaterials() || stack.getCount() >= materialNeeded(level, pos, state, upgrade));
+    }
+
+    /**
      * Fuer die Render-Mixins: haut dieses Wesen gerade mit dem Hammer auf eine Maschine? Beim
      * eigenen Spieler entscheidet der Auftrag, bei allen anderen, was sie in den Haenden halten.
      */

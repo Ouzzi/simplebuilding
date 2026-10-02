@@ -36,6 +36,11 @@ public final class ShearsWoolInteraction {
     private ShearsWoolInteraction() {
     }
 
+    /** Whether shears turn this block into string (also the hand hint, {@code TransformTargets}). */
+    public static boolean canShear(BlockState state) {
+        return state.is(BlockTags.WOOL);
+    }
+
     /**
      * @return {@code null}, wenn der angeklickte Block keine Wolle ist (dann bleibt es bei
      *         Vanillas {@code useOn}), sonst {@link InteractionResult#SUCCESS}.
@@ -44,7 +49,7 @@ public final class ShearsWoolInteraction {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
-        if (!state.is(BlockTags.WOOL)) {
+        if (!canShear(state)) {
             return null;
         }
 

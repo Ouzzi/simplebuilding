@@ -30,24 +30,27 @@ public class HoeHarvestHandler {
 
 
     public static InteractionResult onRightClickBlock(Player player, InteractionHand hand, BlockPos pos, Direction face) {
-        if (!Simplequalityoflife.getConfig().qOL.enableHoeHarvest) return InteractionResult.PASS;
-
         Level level = player.level();
-        if (level.isClientSide()) return InteractionResult.PASS;
-        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
+        if (level.isClientSide() || !wouldHarvest(player, hand, pos)) return InteractionResult.PASS;
 
-        ItemStack stack = player.getMainHandItem();
-        if (!stack.is(ItemTags.HOES)) return InteractionResult.PASS;
-        if (!InteractionGuard.allow(player, pos)) return InteractionResult.PASS;
-
-        BlockState state = level.getBlockState(pos);
-        Block block = state.getBlock();
-
-        if (isMatureCrop(state, block) && InteractionGuard.action(player) && InteractionGuard.mayChange(player, pos)) {
-            return harvest(player, (ServerLevel) level, pos, state, stack);
+        if (InteractionGuard.action(player) && InteractionGuard.mayChange(player, pos)) {
+            return harvest(player, (ServerLevel) level, pos, level.getBlockState(pos), player.getMainHandItem());
         }
 
         return InteractionResult.PASS;
+    }
+
+    /**
+     * Read-only part of {@link #onRightClickBlock}: the switch is on, a hoe in the main hand, the
+     * player may act here and the crop is ripe. The server action and the client hand hint
+     * ({@link HoeHarvestHint}, SimpleBuilding's tilt through the framework) both ask this.
+     */
+    public static boolean wouldHarvest(Player player, InteractionHand hand, BlockPos pos) {
+        Level level = player.level();
+        if (!Simplequalityoflife.configFor(level).qOL.enableHoeHarvest || hand != InteractionHand.MAIN_HAND) return false;
+        if (!player.getMainHandItem().is(ItemTags.HOES) || !InteractionGuard.allow(player, pos)) return false;
+        BlockState state = level.getBlockState(pos);
+        return isMatureCrop(state, state.getBlock());
     }
 
     private static boolean isMatureCrop(BlockState state, Block block) {

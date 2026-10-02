@@ -178,11 +178,12 @@ public class CopperPressurePlateBlock extends PadBlock implements WeatheringCopp
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hitResult) {
+        Optional<BlockState> next = transformWith(state, stack);
+        if (next.isEmpty() || !com.simplebuilding.util.TransformTargets.mayTransform(level, player, pos, hitResult.getDirection(), stack)) {
+            return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+        }
         if (stack.is(Items.HONEYCOMB)) {
-            Optional<BlockState> waxedState = getWaxedState(state);
-            if (waxedState.isEmpty()) {
-                return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
-            }
+            Optional<BlockState> waxedState = next;
             if (!level.isClientSide()) {
                 if (player instanceof ServerPlayer serverPlayer) {
                     CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, stack);
@@ -193,14 +194,8 @@ public class CopperPressurePlateBlock extends PadBlock implements WeatheringCopp
             }
             return InteractionResult.SUCCESS;
         }
-        if (!stack.typeHolder().is(ItemTags.AXES)) {
-            return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
-        }
         Optional<BlockState> unwaxed = getUnwaxedState(state);
-        Optional<BlockState> target = unwaxed.isPresent() ? unwaxed : getPreviousState(state);
-        if (target.isEmpty()) {
-            return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
-        }
+        Optional<BlockState> target = next;
         if (!level.isClientSide()) {
             if (player instanceof ServerPlayer serverPlayer) {
                 CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, stack);
@@ -216,6 +211,22 @@ public class CopperPressurePlateBlock extends PadBlock implements WeatheringCopp
             stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
         }
         return InteractionResult.SUCCESS;
+    }
+
+    /**
+     * Was {@code stack} aus dieser Platte macht: Honigwabe wachst, eine Axt kratzt Wachs oder sonst eine
+     * Oxidationsstufe ab; leer, wenn nichts passiert. {@link #useItemOn} und der Hand-Hinweis
+     * ({@code TransformTargets}) fragen beide hier.
+     */
+    public Optional<BlockState> transformWith(BlockState state, ItemStack stack) {
+        if (stack.is(Items.HONEYCOMB)) {
+            return getWaxedState(state);
+        }
+        if (!stack.typeHolder().is(ItemTags.AXES)) {
+            return Optional.empty();
+        }
+        Optional<BlockState> unwaxed = getUnwaxedState(state);
+        return unwaxed.isPresent() ? unwaxed : getPreviousState(state);
     }
 
     /** Setzt die neue Stufe und gibt ihr den Besitzer der alten mit. */

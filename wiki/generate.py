@@ -1802,7 +1802,8 @@ def sync_vanilla_recipes(check: bool) -> list[str]:
 # ---------------------------------------------------------------------------
 
 INWORLD_KINDS = ("sledgehammer_upgrade", "sledgehammer_reshape", "diamond_crush",
-                 "chisel", "chisel_reverse", "trim_template", "cauldron_wash", "shear_wool")
+                 "chisel", "chisel_reverse", "trim_template", "cauldron_wash", "shear_wool",
+                 "piston_repair", "copper_plate", "rotate", "constructors_touch", "core_ore")
 
 
 def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dict, list[str]]:
@@ -1865,7 +1866,7 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                 # Since 2026-09-29 only hammers from the iron tier up crush a diamond block.
                 "tools": [h for h in crush["hammers"] if h in item_ids] if "hammers" in crush else hammers,
                 "output": {"id": crush["result"], "count": crush["count"]},
-                "stats": {"damage": crush["damage"]},
+                "stats": {"damage": crush["damage"], **({"hits": crush["strikes"]} if "strikes" in crush else {})},
             })
 
         shear = exported.get("shearWool")
@@ -1907,6 +1908,75 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                 "output": {"id": wash["result"], "count": 1},
                 "stats": {"waterLevels": wash["waterLevels"]},
             })
+
+        repair = exported.get("pistonRepair")
+        if repair:
+            facts["piston_repair"] = {}
+            for step in repair["steps"]:
+                entries.append({
+                    "id": f"piston_repair/{step['piston']}",
+                    "kind": "piston_repair",
+                    "inputs": [{"id": step["piston"], "count": 1}, {"id": step["nugget"], "count": step["nuggetCount"]}],
+                    "tools": [step["nugget"]],
+                    "output": {"id": step["piston"], "count": 1},
+                    "stats": {"durability": step["durability"]},
+                })
+
+        plate = exported.get("copperPressurePlate")
+        if plate:
+            facts["copper_plate"] = {}
+            for part in ("wax", "unwax", "scrape"):
+                for source, target in plate[part]:
+                    wax = part == "wax"
+                    entries.append({
+                        "id": f"copper_plate/{part}/{source}",
+                        "kind": "copper_plate",
+                        "inputs": [{"id": source, "count": 1}] + ([{"id": plate["honeycomb"], "count": 1}] if wax else []),
+                        "tools": [plate["honeycomb"]] if wax else plate["axes"],
+                        "output": {"id": target, "count": 1},
+                        "stats": {} if wax else {"damage": plate["axeDamage"]},
+                    })
+
+        rotator = exported.get("rotator")
+        if rotator:
+            facts["rotate"] = {k: rotator[k] for k in ("chargePerTurn", "maxCharge", "pearlsForFull")}
+            for block in rotator["examples"]:
+                entries.append({
+                    "id": f"rotate/{block}",
+                    "kind": "rotate",
+                    "inputs": [{"id": block, "count": 1}],
+                    "tools": [rotator["tool"]],
+                    "output": {"id": block, "count": 1},
+                    "stats": {"charge": rotator["chargePerTurn"]},
+                })
+
+        touch = exported.get("constructorsTouch")
+        if touch:
+            facts["constructors_touch"] = {"enchantment": touch["enchantment"]}
+            for block in touch["examples"]:
+                entries.append({
+                    "id": f"constructors_touch/{block}",
+                    "kind": "constructors_touch",
+                    "inputs": [{"id": block, "count": 1}],
+                    "tools": [touch["tool"]],
+                    "output": {"id": block, "count": 1},
+                    "stats": {"touch": True},
+                })
+
+        core = exported.get("coreOre")
+        if core:
+            cores = [c for c in core["cores"] if c["id"] in item_ids]
+            facts["core_ore"] = {"cores": cores}
+            for host in core["hosts"]:
+                for ore in host["ores"]:
+                    entries.append({
+                        "id": f"core_ore/{host['host']}/{ore['id']}",
+                        "kind": "core_ore",
+                        "inputs": [{"id": host["blocks"], "count": 1}],
+                        "tools": [c["id"] for c in cores],
+                        "output": {"id": ore["id"], "count": 1},
+                        "stats": {"weight": ore["weight"]},
+                    })
 
         chisel = exported.get("chisel", {})
         tables = chisel.get("tables", [])

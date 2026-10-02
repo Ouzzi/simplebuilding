@@ -46,6 +46,7 @@ public final class ClaimTests {
         TESTS.put("claims_tools_beam",ToolClaimTests::beam);
         TESTS.put("claims_tools_echo",ToolClaimTests::echo);
         TESTS.put("claims_tools_pad",ToolClaimTests::pad);
+        TESTS.put("claims_tools_transform_hint",ToolClaimTests::transformHint);
 
         TESTS.put("claims_config_bounds",ClaimTests::config);
         TESTS.put("claims_vanilla_border",ClaimTests::vanilla);

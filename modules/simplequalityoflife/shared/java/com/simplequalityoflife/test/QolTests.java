@@ -70,7 +70,10 @@ public final class QolTests {
   Block[] blocks={Blocks.WHEAT,Blocks.CARROTS,Blocks.POTATOES,Blocks.BEETROOTS,Blocks.NETHER_WART,Blocks.COCOA};
   for(int i=0;i<blocks.length;i++){var pos=new BlockPos(2,2,2);var b=blocks[i];var state=b instanceof CropBlock c?c.getStateForAge(c.getMaxAge()):b==Blocks.NETHER_WART?b.defaultBlockState().setValue(NetherWartBlock.AGE,3):b.defaultBlockState().setValue(CocoaBlock.AGE,2);
    h.setBlock(pos.below(),b==Blocks.NETHER_WART?Blocks.SOUL_SAND:Blocks.FARMLAND);if(b==Blocks.COCOA)h.setBlock(pos.south(),Blocks.JUNGLE_LOG);h.setBlock(pos,state);var p=player(h,pos);p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.DIAMOND_HOE));var absolute=h.absolutePos(pos);
+   h.assertTrue(HoeHarvestHandler.wouldHarvest(p,InteractionHand.MAIN_HAND,absolute)&&!HoeHarvestHandler.wouldHarvest(p,InteractionHand.OFF_HAND,absolute),"Hand hint predicate matches the ripe "+b);
+   h.assertTrue(com.simplebuilding.framework.api.TransformHints.any(new com.simplebuilding.framework.api.TransformHints.Query(h.getLevel(),p,new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(absolute),Direction.UP,absolute,false),true)),"Framework hand hint published for "+b);
    h.assertTrue(HoeHarvestHandler.onRightClickBlock(p,InteractionHand.MAIN_HAND,absolute,Direction.UP)==InteractionResult.SUCCESS,"Harvest "+b);
+   h.assertTrue(!HoeHarvestHandler.wouldHarvest(p,InteractionHand.MAIN_HAND,absolute),"No hand hint on the replanted "+b);
    var after=h.getLevel().getBlockState(absolute);h.assertTrue(after.is(b)&&!(b instanceof CropBlock c&&c.isMaxAge(after)),"Replanted "+b);h.assertTrue(p.getMainHandItem().getDamageValue()==1,"Exactly one durability cost");
    h.assertTrue(HoeHarvestHandler.onRightClickBlock(p,InteractionHand.MAIN_HAND,absolute,Direction.UP)==InteractionResult.PASS,"No repeated immature harvest");
   }

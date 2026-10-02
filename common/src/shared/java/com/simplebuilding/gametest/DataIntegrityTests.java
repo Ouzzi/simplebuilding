@@ -4257,6 +4257,9 @@ public final class DataIntegrityTests {
         }
         com.simplebuilding.compat.InWorldRecipeCatalog.Catalog catalog = com.simplebuilding.compat.InWorldRecipeCatalog.build();
         for (com.simplebuilding.compat.InWorldRecipeCatalog.Entry entry : catalog.entries()) {
+            // The cores' 1-in-2000..10000 ore roll is an easter egg, not how an ore is obtained: the
+            // ores keep their world-generation info page.
+            if (entry.kind() == com.simplebuilding.compat.InWorldRecipeCatalog.Kind.CORE_ORE) continue;
             obtainable.addAll(entry.output().items());
         }
         helper.assertTrue(obtainable.size() > 100, "only " + obtainable.size() + " items come out of recipes - recipes not loaded?");

@@ -245,6 +245,7 @@ public final class PlacedTemplates {
      */
     public static boolean hit(Level level, BlockPos pos, Player player) {
         if (level.isClientSide() || !isHammerTarget(level, pos, player)
+                || !com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos)
                 || !(level.getBlockEntity(pos) instanceof PlacedTemplateBlockEntity be)) {
             return false;
         }

@@ -50794,20 +50794,20 @@
           ],
           "en": {
             "title": "Crushing a Block of Diamond",
-            "summary": "Strike a Block of Diamond three times with right-click, using a sledgehammer of the iron tier or better (iron, gold, diamond, netherite, enderite): on the third strike, the block breaks without its normal drop and releases Diamond Pebbles.",
+            "summary": "Strike a Block of Diamond eight times with right-click, using a sledgehammer of the iron tier or better (iron, gold, diamond, netherite, enderite): on the eighth strike, the block breaks without its normal drop and releases Diamond Pebbles.",
             "details": [
               "Each strike rings higher and chips off particles. Strikes count per block; after 5 seconds without a strike the count starts over. Holding right-click strikes at most every 8 ticks.",
               "The pebbles drop in stacks of at most 64 at the block's position.",
-              "Only the crushing strike costs the listed durability; creative mode costs none."
+              "Only the crushing strike costs the listed durability (of the hand that holds the hammer); creative mode costs none."
             ]
           },
           "de": {
             "title": "Diamantblock zerschlagen",
-            "summary": "Einen Diamantblock mit einem Vorschlaghammer ab der Eisenstufe (Eisen, Gold, Diamant, Netherit, Enderit) dreimal per Rechtsklick schlagen: Beim dritten Schlag zerbricht der Block ohne seinen normalen Drop und gibt Diamantsplitter frei.",
+            "summary": "Einen Diamantblock mit einem Vorschlaghammer ab der Eisenstufe (Eisen, Gold, Diamant, Netherit, Enderit) achtmal per Rechtsklick schlagen: Beim achten Schlag zerbricht der Block ohne seinen normalen Drop und gibt Diamantsplitter frei.",
             "details": [
               "Jeder Schlag klingt höher und schlägt Partikel ab. Die Schläge zählen je Block; nach 5 Sekunden ohne Schlag beginnt die Zählung von vorn. Gehaltener Rechtsklick schlägt höchstens alle 8 Ticks.",
               "Die Splitter fallen in Stapeln zu höchstens 64 an der Stelle des Blocks.",
-              "Nur der zerschlagende Schlag kostet die angegebene Haltbarkeit; im Kreativmodus nichts."
+              "Nur der zerschlagende Schlag kostet die angegebene Haltbarkeit (des Hammers in der Hand, die schlägt); im Kreativmodus nichts."
             ]
           }
         }
@@ -51025,6 +51025,188 @@
               "4 Fäden kostet ein Wollblock auch an der Werkbank, es geht also nichts verloren und nichts wird gewonnen.",
               "Kostet 1 Haltbarkeit je Block; im Kreativmodus nichts.",
               "Alles andere, was die Schere per Rechtsklick tut (Ranken und andere wachsende Pflanzen stutzen), bleibt unverändert."
+            ]
+          }
+        }
+      },
+      {
+        "id": "piston_repair",
+        "facts": {},
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+            "common/src/shared/java/com/simplebuilding/util/TransformTargets.java"
+          ],
+          "en": {
+            "title": "Repairing a breaker piston",
+            "summary": "Right-click a damaged Netherite Piston with a Netherite Nugget, or a damaged Enderite Piston with an Enderite Nugget: it gets its full durability back and the nugget is used up.",
+            "details": [
+              "An undamaged piston, or a nugget of the other tier, does nothing - the Netherite Nugget on a Netherite Piston is not an upgrade (that takes the Enderite Nugget and a sledgehammer).",
+              "Needs the same rights as placing a block there (no adventure mode, spawn protection or foreign claim). Creative mode uses no nugget.",
+              "The held nugget tilts slightly while you aim at a piston it would repair."
+            ]
+          },
+          "de": {
+            "title": "Brecherkolben reparieren",
+            "summary": "Einen beschädigten Netheritkolben mit einem Netheritklumpen rechtsklicken, einen beschädigten Enderitkolben mit einem Enderitklumpen: Er bekommt seine volle Haltbarkeit zurück, der Klumpen wird verbraucht.",
+            "details": [
+              "Ein unversehrter Kolben oder ein Klumpen der anderen Stufe bewirkt nichts - der Netheritklumpen am Netheritkolben ist keine Aufwertung (dafür braucht es den Enderitklumpen und einen Vorschlaghammer).",
+              "Braucht dieselben Rechte wie das Setzen eines Blocks dort (kein Abenteuermodus, Spawnschutz oder fremder Claim). Im Kreativmodus kostet es keinen Klumpen.",
+              "Der gehaltene Klumpen neigt sich leicht, solange du auf einen Kolben zielst, den er reparieren würde."
+            ]
+          }
+        }
+      },
+      {
+        "id": "copper_plate",
+        "facts": {},
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+            "common/src/shared/java/com/simplebuilding/util/TransformTargets.java"
+          ],
+          "en": {
+            "title": "Waxing and scraping the copper pressure plate",
+            "summary": "Right-click a Copper Pressure Plate with honeycomb to wax it (a waxed plate no longer oxidizes); right-click with an axe to scrape the wax off again, or, on an unwaxed plate, one oxidation stage.",
+            "details": [
+              "Honeycomb is used up (not in creative mode); scraping costs the axe 1 durability.",
+              "The plate keeps its owner through waxing, scraping and oxidizing.",
+              "Needs the same rights as placing a block there. The held honeycomb or axe tilts slightly while you aim at a plate it would change."
+            ]
+          },
+          "de": {
+            "title": "Kupfer-Druckplatte wachsen und abkratzen",
+            "summary": "Eine Kupfer-Druckplatte mit Honigwabe rechtsklicken wachst sie (gewachst oxidiert sie nicht mehr); mit einer Axt rechtsklicken kratzt das Wachs wieder ab, bei einer ungewachsten Platte eine Oxidationsstufe.",
+            "details": [
+              "Die Honigwabe wird verbraucht (nicht im Kreativmodus); Abkratzen kostet die Axt 1 Haltbarkeit.",
+              "Die Platte behält ihren Besitzer beim Wachsen, Abkratzen und Oxidieren.",
+              "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Die gehaltene Honigwabe oder Axt neigt sich leicht, solange du auf eine Platte zielst, die sie ändern würde."
+            ]
+          }
+        }
+      },
+      {
+        "id": "rotate",
+        "facts": {
+          "chargePerTurn": 1,
+          "maxCharge": 1024,
+          "pearlsForFull": 16
+        },
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+            "common/src/shared/java/com/simplebuilding/util/TransformTargets.java"
+          ],
+          "en": {
+            "title": "Rotating with the rotator",
+            "summary": "Right-click a block with the rotator to turn it in place: blocks with an axis (logs), a facing (observers, pistons, furnaces) or 16 rotation steps (signs, banners, heads). The examples stand for every such block.",
+            "details": [
+              "Clicking within 2 pixels of an edge points the block towards that edge; sneaking turns backwards.",
+              "Each turn costs the listed charge; an empty rotator turns nothing. Recharge it with ender pearls in an anvil.",
+              "Extended pistons, piston heads and moving blocks are never turned. Blocks with their own right-click action (chests, doors, buttons, repeaters, signs) open or switch first - sneak to turn them.",
+              "Needs the same rights as placing a block there. The rotator tilts slightly while you aim at a block it would turn."
+            ]
+          },
+          "de": {
+            "title": "Drehen mit dem Rotator",
+            "summary": "Einen Block mit dem Rotator rechtsklicken dreht ihn an Ort und Stelle: Blöcke mit Achse (Stämme), Blickrichtung (Beobachter, Kolben, Öfen) oder 16 Drehstufen (Schilder, Banner, Köpfe). Die Beispiele stehen für jeden solchen Block.",
+            "details": [
+              "Ein Klick nahe an einer Kante (2 Pixel) richtet den Block zu dieser Kante aus; Schleichen dreht zurück.",
+              "Jede Drehung kostet die angegebene Ladung; ein leerer Rotator dreht nichts. Aufgeladen wird er im Amboss mit Enderperlen.",
+              "Ausgefahrene Kolben, Kolbenköpfe und bewegte Blöcke werden nie gedreht. Blöcke mit eigenem Rechtsklick (Truhen, Türen, Knöpfe, Verstärker, Schilder) öffnen oder schalten zuerst - zum Drehen schleichen.",
+              "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der Rotator neigt sich leicht, solange du auf einen Block zielst, den er drehen würde."
+            ]
+          }
+        }
+      },
+      {
+        "id": "constructors_touch",
+        "facts": {
+          "enchantment": "simplebuilding:constructors_touch"
+        },
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/util/ConstructorsTouchInteraction.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+            "common/src/shared/java/com/simplebuilding/util/TransformTargets.java"
+          ],
+          "en": {
+            "title": "Turning with a Constructor's Touch stick",
+            "summary": "A stick enchanted with Constructor's Touch, right-clicked in the main hand, turns the first orientation property of the block (facing, axis, half, hinge, stair or rail shape, rotation); sneaking turns backwards.",
+            "details": [
+              "Only orientation is turned - never age, level, charges or slab type. Beds, double chests and extended pistons are left alone; doors turn both halves.",
+              "A value the block cannot stand in (a wall torch turned away from its wall) is skipped. The new value is shown in the action bar.",
+              "Needs the same rights as placing a block there. The stick tilts slightly while you aim at a block it would turn."
+            ]
+          },
+          "de": {
+            "title": "Drehen mit dem Stock der Berührung des Konstrukteurs",
+            "summary": "Ein Stock mit Berührung des Konstrukteurs, in der Haupthand rechtsgeklickt, dreht die erste Ausrichtungs-Eigenschaft des Blocks weiter (Blickrichtung, Achse, Hälfte, Scharnier, Treppen- oder Schienenform, Drehung); Schleichen dreht zurück.",
+            "details": [
+              "Gedreht wird nur die Ausrichtung - nie Alter, Füllstand, Ladungen oder Stufentyp. Betten, Doppeltruhen und ausgefahrene Kolben bleiben, wie sie sind; Türen drehen beide Hälften.",
+              "Ein Wert, in dem der Block nicht halten kann (eine Wandfackel von der Wand weg), wird übersprungen. Der neue Wert erscheint in der Aktionsleiste.",
+              "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der Stock neigt sich leicht, solange du auf einen Block zielst, den er drehen würde."
+            ]
+          }
+        }
+      },
+      {
+        "id": "core_ore",
+        "facts": {
+          "cores": [
+            {
+              "id": "simplebuilding:copper_core",
+              "oneIn": 10000
+            },
+            {
+              "id": "simplebuilding:diamond_core",
+              "oneIn": 3500
+            },
+            {
+              "id": "simplebuilding:enderite_core",
+              "oneIn": 2000
+            },
+            {
+              "id": "simplebuilding:gold_core",
+              "oneIn": 5000
+            },
+            {
+              "id": "simplebuilding:iron_core",
+              "oneIn": 7000
+            },
+            {
+              "id": "simplebuilding:netherite_core",
+              "oneIn": 2500
+            }
+          ]
+        },
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java",
+            "common/src/shared/java/com/simplebuilding/items/custom/BuildingCoreItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+            "common/src/shared/java/com/simplebuilding/util/TransformTargets.java"
+          ],
+          "en": {
+            "title": "Ore chance of the cores",
+            "summary": "Every right-click with a core on a block ores generate in has a tiny chance to turn it into an ore: from 1 in 10000 (copper core) to 1 in 2000 (enderite core) per click. The core is not used up; its cooldown limits the clicks.",
+            "details": [
+              "Stone, granite, diorite and andesite give the stone ores; deepslate and tuff the deepslate ores; netherrack the nether ores (ancient debris is the jackpot); end stone the mod's end ores.",
+              "Each entry shows how many of 100 ore rolls of its host become this ore.",
+              "Needs the same rights as placing a block there. Being a chance, not a transformation, it gets no hand hint."
+            ]
+          },
+          "de": {
+            "title": "Erz-Chance der Kerne",
+            "summary": "Jeder Rechtsklick mit einem Kern auf einen Block, in dem Erze entstehen, hat eine winzige Chance, ihn in Erz zu verwandeln: von 1 zu 10000 (Kupferkern) bis 1 zu 2000 (Enderitkern) je Klick. Der Kern wird nicht verbraucht; seine Abklingzeit begrenzt die Klicks.",
+            "details": [
+              "Stein, Granit, Diorit und Andesit geben die Steinerze; Tiefenschiefer und Tuff die Tiefenschiefererze; Netherrack die Nethererze (antiker Schrott ist der Hauptgewinn); Endstein die Enderze der Mod.",
+              "Jeder Eintrag nennt, wie viele von 100 Erz-Würfen seines Wirts dieses Erz werden.",
+              "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Als Zufall, nicht als Umwandlung, bekommt sie keinen Hand-Hinweis."
             ]
           }
         }
@@ -51609,7 +51791,8 @@
           "count": 81
         },
         "stats": {
-          "damage": 1
+          "damage": 1,
+          "hits": 8
         },
         "lines": [
           "1.21.11",
@@ -51770,6 +51953,1163 @@
         "lines": [
           "1.21.11",
           "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "piston_repair/simplebuilding:enderite_piston",
+        "kind": "piston_repair",
+        "inputs": [
+          {
+            "id": "simplebuilding:enderite_piston",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_nugget"
+        ],
+        "output": {
+          "id": "simplebuilding:enderite_piston",
+          "count": 1
+        },
+        "stats": {
+          "durability": 281
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "piston_repair/simplebuilding:netherite_piston",
+        "kind": "piston_repair",
+        "inputs": [
+          {
+            "id": "simplebuilding:netherite_piston",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:netherite_nugget"
+        ],
+        "output": {
+          "id": "simplebuilding:netherite_piston",
+          "count": 1
+        },
+        "stats": {
+          "durability": 226
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "copper_plate/wax/simplebuilding:copper_pressure_plate",
+        "kind": "copper_plate",
+        "inputs": [
+          {
+            "id": "simplebuilding:copper_pressure_plate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:honeycomb"
+        ],
+        "output": {
+          "id": "simplebuilding:waxed_copper_pressure_plate",
+          "count": 1
+        },
+        "stats": {},
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "copper_plate/wax/simplebuilding:exposed_copper_pressure_plate",
+        "kind": "copper_plate",
+        "inputs": [
+          {
+            "id": "simplebuilding:exposed_copper_pressure_plate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:honeycomb"
+        ],
+        "output": {
+          "id": "simplebuilding:waxed_exposed_copper_pressure_plate",
+          "count": 1
+        },
+        "stats": {},
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "copper_plate/wax/simplebuilding:weathered_copper_pressure_plate",
+        "kind": "copper_plate",
+        "inputs": [
+          {
+            "id": "simplebuilding:weathered_copper_pressure_plate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:honeycomb"
+        ],
+        "output": {
+          "id": "simplebuilding:waxed_weathered_copper_pressure_plate",
+          "count": 1
+        },
+        "stats": {},
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "copper_plate/wax/simplebuilding:oxidized_copper_pressure_plate",
+        "kind": "copper_plate",
+        "inputs": [
+          {
+            "id": "simplebuilding:oxidized_copper_pressure_plate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:honeycomb"
+        ],
+        "output": {
+          "id": "simplebuilding:waxed_oxidized_copper_pressure_plate",
+          "count": 1
+        },
+        "stats": {},
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "copper_plate/unwax/simplebuilding:waxed_copper_pressure_plate",
+        "kind": "copper_plate",
+        "inputs": [
+          {
+            "id": "simplebuilding:waxed_copper_pressure_plate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:wooden_axe",
+          "minecraft:stone_axe",
+          "minecraft:copper_axe",
+          "minecraft:iron_axe",
+          "minecraft:golden_axe",
+          "minecraft:diamond_axe",
+          "minecraft:netherite_axe"
+        ],
+        "output": {
+          "id": "simplebuilding:copper_pressure_plate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "copper_plate/unwax/simplebuilding:waxed_exposed_copper_pressure_plate",
+        "kind": "copper_plate",
+        "inputs": [
+          {
+            "id": "simplebuilding:waxed_exposed_copper_pressure_plate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:wooden_axe",
+          "minecraft:stone_axe",
+          "minecraft:copper_axe",
+          "minecraft:iron_axe",
+          "minecraft:golden_axe",
+          "minecraft:diamond_axe",
+          "minecraft:netherite_axe"
+        ],
+        "output": {
+          "id": "simplebuilding:exposed_copper_pressure_plate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "copper_plate/unwax/simplebuilding:waxed_weathered_copper_pressure_plate",
+        "kind": "copper_plate",
+        "inputs": [
+          {
+            "id": "simplebuilding:waxed_weathered_copper_pressure_plate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:wooden_axe",
+          "minecraft:stone_axe",
+          "minecraft:copper_axe",
+          "minecraft:iron_axe",
+          "minecraft:golden_axe",
+          "minecraft:diamond_axe",
+          "minecraft:netherite_axe"
+        ],
+        "output": {
+          "id": "simplebuilding:weathered_copper_pressure_plate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "copper_plate/unwax/simplebuilding:waxed_oxidized_copper_pressure_plate",
+        "kind": "copper_plate",
+        "inputs": [
+          {
+            "id": "simplebuilding:waxed_oxidized_copper_pressure_plate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:wooden_axe",
+          "minecraft:stone_axe",
+          "minecraft:copper_axe",
+          "minecraft:iron_axe",
+          "minecraft:golden_axe",
+          "minecraft:diamond_axe",
+          "minecraft:netherite_axe"
+        ],
+        "output": {
+          "id": "simplebuilding:oxidized_copper_pressure_plate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "copper_plate/scrape/simplebuilding:exposed_copper_pressure_plate",
+        "kind": "copper_plate",
+        "inputs": [
+          {
+            "id": "simplebuilding:exposed_copper_pressure_plate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:wooden_axe",
+          "minecraft:stone_axe",
+          "minecraft:copper_axe",
+          "minecraft:iron_axe",
+          "minecraft:golden_axe",
+          "minecraft:diamond_axe",
+          "minecraft:netherite_axe"
+        ],
+        "output": {
+          "id": "simplebuilding:copper_pressure_plate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "copper_plate/scrape/simplebuilding:weathered_copper_pressure_plate",
+        "kind": "copper_plate",
+        "inputs": [
+          {
+            "id": "simplebuilding:weathered_copper_pressure_plate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:wooden_axe",
+          "minecraft:stone_axe",
+          "minecraft:copper_axe",
+          "minecraft:iron_axe",
+          "minecraft:golden_axe",
+          "minecraft:diamond_axe",
+          "minecraft:netherite_axe"
+        ],
+        "output": {
+          "id": "simplebuilding:exposed_copper_pressure_plate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "copper_plate/scrape/simplebuilding:oxidized_copper_pressure_plate",
+        "kind": "copper_plate",
+        "inputs": [
+          {
+            "id": "simplebuilding:oxidized_copper_pressure_plate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:wooden_axe",
+          "minecraft:stone_axe",
+          "minecraft:copper_axe",
+          "minecraft:iron_axe",
+          "minecraft:golden_axe",
+          "minecraft:diamond_axe",
+          "minecraft:netherite_axe"
+        ],
+        "output": {
+          "id": "simplebuilding:weathered_copper_pressure_plate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "rotate/minecraft:oak_log",
+        "kind": "rotate",
+        "inputs": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:rotator"
+        ],
+        "output": {
+          "id": "minecraft:oak_log",
+          "count": 1
+        },
+        "stats": {
+          "charge": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "rotate/minecraft:observer",
+        "kind": "rotate",
+        "inputs": [
+          {
+            "id": "minecraft:observer",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:rotator"
+        ],
+        "output": {
+          "id": "minecraft:observer",
+          "count": 1
+        },
+        "stats": {
+          "charge": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "rotate/minecraft:oak_sign",
+        "kind": "rotate",
+        "inputs": [
+          {
+            "id": "minecraft:oak_sign",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:rotator"
+        ],
+        "output": {
+          "id": "minecraft:oak_sign",
+          "count": 1
+        },
+        "stats": {
+          "charge": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "constructors_touch/minecraft:oak_stairs",
+        "kind": "constructors_touch",
+        "inputs": [
+          {
+            "id": "minecraft:oak_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:stick"
+        ],
+        "output": {
+          "id": "minecraft:oak_stairs",
+          "count": 1
+        },
+        "stats": {
+          "touch": true
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "constructors_touch/minecraft:rail",
+        "kind": "constructors_touch",
+        "inputs": [
+          {
+            "id": "minecraft:rail",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:stick"
+        ],
+        "output": {
+          "id": "minecraft:rail",
+          "count": 1
+        },
+        "stats": {
+          "touch": true
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "constructors_touch/minecraft:lever",
+        "kind": "constructors_touch",
+        "inputs": [
+          {
+            "id": "minecraft:lever",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:stick"
+        ],
+        "output": {
+          "id": "minecraft:lever",
+          "count": 1
+        },
+        "stats": {
+          "touch": true
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/stone/minecraft:coal_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:stone",
+              "minecraft:granite",
+              "minecraft:diorite",
+              "minecraft:andesite"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:coal_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 40
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/stone/minecraft:iron_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:stone",
+              "minecraft:granite",
+              "minecraft:diorite",
+              "minecraft:andesite"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:iron_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 24
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/stone/minecraft:copper_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:stone",
+              "minecraft:granite",
+              "minecraft:diorite",
+              "minecraft:andesite"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:copper_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 20
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/stone/minecraft:redstone_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:stone",
+              "minecraft:granite",
+              "minecraft:diorite",
+              "minecraft:andesite"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:redstone_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 5
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/stone/minecraft:gold_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:stone",
+              "minecraft:granite",
+              "minecraft:diorite",
+              "minecraft:andesite"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:gold_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 4
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/stone/minecraft:lapis_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:stone",
+              "minecraft:granite",
+              "minecraft:diorite",
+              "minecraft:andesite"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:lapis_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 4
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/stone/minecraft:diamond_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:stone",
+              "minecraft:granite",
+              "minecraft:diorite",
+              "minecraft:andesite"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:diamond_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 2
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/stone/minecraft:emerald_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:stone",
+              "minecraft:granite",
+              "minecraft:diorite",
+              "minecraft:andesite"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:emerald_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/deepslate/minecraft:deepslate_redstone_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:deepslate",
+              "minecraft:tuff"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_redstone_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 24
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/deepslate/minecraft:deepslate_iron_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:deepslate",
+              "minecraft:tuff"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_iron_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 22
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/deepslate/minecraft:deepslate_copper_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:deepslate",
+              "minecraft:tuff"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_copper_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 12
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/deepslate/minecraft:deepslate_gold_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:deepslate",
+              "minecraft:tuff"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_gold_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 12
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/deepslate/minecraft:deepslate_lapis_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:deepslate",
+              "minecraft:tuff"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_lapis_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 10
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/deepslate/minecraft:deepslate_diamond_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:deepslate",
+              "minecraft:tuff"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_diamond_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 9
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/deepslate/minecraft:deepslate_coal_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:deepslate",
+              "minecraft:tuff"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_coal_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 8
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/deepslate/minecraft:deepslate_emerald_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:deepslate",
+              "minecraft:tuff"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_emerald_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 3
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/netherrack/minecraft:nether_quartz_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:netherrack"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:nether_quartz_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 70
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/netherrack/minecraft:nether_gold_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:netherrack"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:nether_gold_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 27
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/netherrack/minecraft:ancient_debris",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:netherrack"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "minecraft:ancient_debris",
+          "count": 1
+        },
+        "stats": {
+          "weight": 3
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/end_stone/simplebuilding:nihilith_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:end_stone"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "simplebuilding:nihilith_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 92
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "core_ore/end_stone/simplebuilding:astralit_ore",
+        "kind": "core_ore",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:end_stone"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_core",
+          "simplebuilding:diamond_core",
+          "simplebuilding:enderite_core",
+          "simplebuilding:gold_core",
+          "simplebuilding:iron_core",
+          "simplebuilding:netherite_core"
+        ],
+        "output": {
+          "id": "simplebuilding:astralit_ore",
+          "count": 1
+        },
+        "stats": {
+          "weight": 8
+        },
+        "lines": [
           "26.3"
         ]
       },
@@ -71700,7 +73040,7 @@
     "enchantments": 19,
     "tags": 46,
     "config": 178,
-    "inWorld": 396,
+    "inWorld": 436,
     "advancements": 123,
     "features": 43,
     "undocumented": 0,

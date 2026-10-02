@@ -165,6 +165,25 @@ existing `balance/` working without moving any history. Output directories need 
 exist before the first generated output. Consumer extraction/rendering is a separate
 infra task; the manifest paths are its contract.
 
+## Hand hints (framework 0.1.2)
+
+`com.simplebuilding.framework.api.TransformHints` lets a module tell SimpleBuilding's first-person
+renderer that a right click with the item in one hand would transform the aimed block, so the held
+item tilts like SimpleBuilding's own tools. Register once from common init
+(`TransformHints.register(id, query -> ...)`); the class touches no game or client class, dedicated
+servers never ask, and the client evaluates the predicate per tick and aimed block. A `Query`
+carries `Level`, `Player` and `BlockHitResult` as `Object` (the framework has no Minecraft
+dependency) plus `mainHand`; the predicate must be read-only and should be the same method the
+module's own action asks. SimpleBuilding still applies spectator, cooldown, permission and
+click-order checks (`TransformTargets`); it reaches the framework through the 26.3-only
+`ModuleTransformHints` service, so other lines simply show no module hints.
+
+Users: `simplequalityoflife` publishes the hoe harvest of ripe crops (`HoeHarvestHint`, the same
+`HoeHarvestHandler#wouldHarvest` the server action uses). `simpledimensions` does not: whether a
+frame is a valid sky portal depends on the server's portal configs (`DimensionRuntime`, loaded per
+server from its config directory and never sent to clients), so a client-side predicate would be
+wrong on every dedicated server.
+
 ## Plugin-style test registration
 
 Adding a module touches only `modules/<id>/` and the manifest. `tools/newmod.py`

@@ -94,6 +94,22 @@ final class ToolClaimTests {
             if(actor==other)yes(h,stack.getDamageValue()==0&&!actor.getCooldowns().isOnCooldown(stack),"Denied echo has no cost or cooldown");
         }
     });h.succeed();}
+    /** SimpleBuilding's hand hint asks the claim like the real tool: no tilt and no turn for a stranger, both for the owner. */
+    static void transformHint(GameTestHelper h){with(h,c->{
+        var l=h.getLevel();var inside=boundary(h);var owner=player(h,inside.west(3));var other=player(h,inside.west(3));
+        yes(h,c.create(new ClaimStore.Key(l.dimension().identifier().toString(),ChunkPos.pack(inside)),owner.getUUID(),100),"Hint fixture");
+        var hit=new BlockHitResult(Vec3.atCenterOf(inside).add(0,.5,0),Direction.UP,inside,false);
+        try{
+            var hint=Class.forName("com.simplebuilding.util.TransformTargets").getMethod("canTransformTarget",Level.class,BlockHitResult.class,net.minecraft.world.entity.player.Player.class,InteractionHand.class);
+            for(var actor:List.of(other,owner)){
+                l.setBlock(inside,Blocks.OAK_LOG.defaultBlockState(),3);
+                var rotator=new ItemStack(item("rotator"));actor.setItemInHand(InteractionHand.MAIN_HAND,rotator);actor.setItemInHand(InteractionHand.OFF_HAND,ItemStack.EMPTY);
+                yes(h,(boolean)hint.invoke(null,l,hit,actor,InteractionHand.MAIN_HAND)==(actor==owner),"Rotator hint follows the claim, owner="+(actor==owner));
+                var before=l.getBlockState(inside);rotator.getItem().useOn(new UseOnContext(actor,InteractionHand.MAIN_HAND,hit));
+                yes(h,(l.getBlockState(inside)!=before)==(actor==owner),"Actual rotator follows the claim, owner="+(actor==owner));
+            }
+        }catch(ReflectiveOperationException e){throw new AssertionError(e);}
+    });h.succeed();}
     @SuppressWarnings({"unchecked","rawtypes"})
     static void pad(GameTestHelper h){with(h,c->{
         var l=h.getLevel();var pos=boundary(h).east(4);var owner=player(h,pos.east(20));var other=player(h,pos);

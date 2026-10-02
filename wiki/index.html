@@ -1034,6 +1034,9 @@ en: {
   iwStatDamageTotal: '{0} durability in total',
   iwStatDamage: '{0} durability',
   iwStatWater: '{0} water level',
+  iwStatDurability: 'restores {0} durability',
+  iwStatCharge: '{0} charge per turn',
+  iwStatWeight: '{0} of 100 ore rolls',
   iwStatPlacedHits: 'placed: {0} hits',
   iwStatTouch: 'needs Constructor\'s Touch',
   iwTicks: '{0} ticks ({1} s)',
@@ -1523,6 +1526,9 @@ de: {
   iwStatDamageTotal: '{0} Haltbarkeit insgesamt',
   iwStatDamage: '{0} Haltbarkeit',
   iwStatWater: '{0} Stufe Wasser',
+  iwStatDurability: 'stellt {0} Haltbarkeit her',
+  iwStatCharge: '{0} Ladung je Drehung',
+  iwStatWeight: '{0} von 100 Erz-Würfen',
   iwStatPlacedHits: 'abgelegt: {0} Schläge',
   iwStatTouch: 'braucht Constructor\'s Touch',
   iwTicks: '{0} Ticks ({1} s)',
@@ -3527,6 +3533,9 @@ function iwStats(e) {
   if (s.damage != null) out.push(s.damagePerHit != null ? T('iwStatDamageTotal', s.damage) : T('iwStatDamage', s.damage));
   if (s.waterLevels != null) out.push(T('iwStatWater', s.waterLevels));
   if (s.placedHits != null) out.push(T('iwStatPlacedHits', s.placedHits));
+  if (s.durability != null) out.push(T('iwStatDurability', s.durability));
+  if (s.charge != null) out.push(T('iwStatCharge', s.charge));
+  if (s.weight != null) out.push(T('iwStatWeight', s.weight));
   return out;
 }
 function iwEntryHtml(e, opts) {

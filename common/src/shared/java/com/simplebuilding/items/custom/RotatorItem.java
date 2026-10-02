@@ -122,15 +122,15 @@ public class RotatorItem extends Item implements AnvilRechargeable {
         BlockPos pos = context.getClickedPos();
         BlockState state = world.getBlockState(pos);
         Player player = context.getPlayer();
-        boolean isSneaking = player != null && player.isShiftKeyDown();
+        // Dieselben Rechte wie beim Setzen eines Blocks (Abenteuermodus, Spawnschutz, Claims) - die
+        // Hand-Neigung (TransformTargets) fragt genauso.
+        if (player != null && !com.simplebuilding.util.TransformTargets.mayTransform(world, player, pos,
+                context.getClickedFace(), context.getItemInHand())) {
+            return InteractionResult.PASS;
+        }
+        BlockState newState = rotatedState(context);
 
-        // 1. Rand-Erkennung (ca. 2 Pixel am Rand des Blocks)
-        Direction rimDirection = getRimDirection(context, 0.125);
-
-        // 2. Neuen Status berechnen
-        BlockState newState = calculateNewState(state, context.getClickedFace(), rimDirection, isSneaking);
-
-        if (newState != null && newState != state) {
+        if (newState != null) {
             // Leer: nichts drehen, nur ein trockenes Klicken (beide Seiten entscheiden gleich).
             if (isEmpty(context.getItemInHand())) {
                 if (!world.isClientSide()) {
@@ -208,13 +208,20 @@ public class RotatorItem extends Item implements AnvilRechargeable {
         return echo == null ? -1 : echo.dueTick();
     }
 
-    @Nullable
+    /** Read-only twin of {@link #useOn} for the hand hint: a charged rotator that would turn the block. */
     public boolean canTransformTarget(UseOnContext context) {
-        if (isEmpty(context.getItemInHand())) return false;
+        return !isEmpty(context.getItemInHand()) && rotatedState(context) != null;
+    }
+
+    /**
+     * The block turned as this click would turn it (rim within 2 pixels of the edge, sneaking turns
+     * backwards), or null if it does not turn. {@link #useOn} and the hint both ask here.
+     */
+    private @Nullable BlockState rotatedState(UseOnContext context) {
         BlockState state = context.getLevel().getBlockState(context.getClickedPos());
         BlockState next = calculateNewState(state, context.getClickedFace(), getRimDirection(context, 0.125),
                 context.getPlayer() != null && context.getPlayer().isShiftKeyDown());
-        return next != null && next != state;
+        return next != null && next != state ? next : null;
     }
 
     private Direction getRimDirection(UseOnContext context, double margin) {

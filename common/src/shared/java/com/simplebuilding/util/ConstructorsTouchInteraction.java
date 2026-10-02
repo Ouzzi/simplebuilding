@@ -109,10 +109,9 @@ public final class ConstructorsTouchInteraction {
         }
         BlockPos pos = hitResult.getBlockPos();
         // Same permission a block placement needs: adventure/spectator (mayBuild), spawn
-        // protection and claim mods (mayInteract / mayUseItemAt). PASS lets the click fall
-        // through to the block's own interaction, so a door still opens.
-        if (!player.mayBuild() || player.isSpectator() || !world.mayInteract(player, pos)
-                || !player.mayUseItemAt(pos, hitResult.getDirection(), stack)) {
+        // protection and claim mods (mayInteract / mayUseItemAt / WorldPermissions), shared with the
+        // hand hint. PASS lets the click fall through to the block's own interaction, so a door still opens.
+        if (!TransformTargets.mayTransform(world, player, pos, hitResult.getDirection(), stack)) {
             return InteractionResult.PASS;
         }
 
