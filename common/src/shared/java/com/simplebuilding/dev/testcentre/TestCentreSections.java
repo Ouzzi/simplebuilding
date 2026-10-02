@@ -396,14 +396,14 @@ public final class TestCentreSections {
     }
 
     /** Schild an einem zwei Bloecke hohen Pfosten; der Pfosten steht bei {@code z + 1}. */
-    private static void postSign(TcCanvas c, int x, int z, Component... lines) {
+    static void postSign(TcCanvas c, int x, int z, Component... lines) {
         c.place(x, 0, z + 1, TcCanvas.TRIM);
         c.place(x, 1, z + 1, TcCanvas.TRIM);
         c.sign(x, 1, z, Direction.NORTH, lines);
     }
 
     /** Pfosten mit Rahmen obenauf und Schild davor. */
-    private static void post(TcCanvas c, int x, int z, ItemStack stack, Component... lines) {
+    static void post(TcCanvas c, int x, int z, ItemStack stack, Component... lines) {
         postSign(c, x, z, lines);
         c.frame(x, 2, z + 1, Direction.UP, stack);
     }
@@ -627,7 +627,7 @@ public final class TestCentreSections {
     // 6. Lager: Buendel, Koecher, Rucksaecke
     // =====================================================================================
 
-    static final List<String> STORAGE_FAMILIES = List.of("bundles", "quivers", "backpacks");
+    static final List<String> STORAGE_FAMILIES = List.of("bundles_and_quivers", "backpacks");
     static final List<DyeColor> DYE_EXAMPLES = List.of(DyeColor.RED, DyeColor.LIME, DyeColor.BLUE, DyeColor.YELLOW);
 
     /**
@@ -1211,7 +1211,7 @@ public final class TestCentreSections {
             "enchanted_books", "building_planning");
     /** Zeilen aus Maschinen &amp; Lager, die eigene Abschnitte zeigen. */
     static final Set<String> KNOWN_FUNCTIONAL_ROWS = Set.of("hoppers", "pistons", "furnaces", "smokers", "blast_furnaces",
-            "bundles", "quivers", "backpacks");
+            "bundles_and_quivers", "backpacks");
 
     /**
      * Neue Tab-Zeilen erscheinen hier von selbst - als Rahmen an der Wand und, wenn es Bloecke sind,

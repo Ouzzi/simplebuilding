@@ -174,6 +174,18 @@ public final class TestCentreKits {
             case "mining" -> main = TestCentreSections.toolWith(ctx, ModEnchantments.VERSATILITY);
             case "lightroom" -> main = full(new ItemStack(ModBlocks.CONSTRUCTION_LIGHT));
             case "tweaks" -> main = full(new ItemStack(Items.WIND_CHARGE));
+            case "states" -> {
+                // Leerer Resonanzstab und sein Lade-Material: am Amboss der Station aufladen.
+                main = FeatureStations.worn(new ItemStack(com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER), 1F);
+                off = full(new ItemStack(Items.AMETHYST_SHARD));
+            }
+            case "placeables" -> {
+                List<Item> parts = FeatureStations.smallParts();
+                if (!parts.isEmpty()) {
+                    main = full(new ItemStack(parts.getFirst()));
+                }
+            }
+            case "sinkdamper" -> main = full(new ItemStack(Items.LADDER));
             default -> {
             }
         }
