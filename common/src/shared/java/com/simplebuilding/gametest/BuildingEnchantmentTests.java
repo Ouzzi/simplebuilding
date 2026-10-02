@@ -812,21 +812,18 @@ public final class BuildingEnchantmentTests {
                 "the plain wand preferred the hotbar over the off hand and previewed "
                         + offhandFirstBlocks + "; the off hand is supposed to be searched first");
 
-        // The palette branch has its own copy of that search, so it needs its own case: both the
-        // off hand block and the hotbar block have to end up in the spread.
+        // Both blocks must be collected, but all nine positions can hash to the same entry.
+        helper.assertValueEqual(BuildingWandItem.paletteStacks(player, paletteWand).stream()
+                        .map(ItemStack::getItem).toList(), List.of(Items.BRICKS, Items.OAK_PLANKS),
+                "Color Palette must collect the off hand before the hotbar");
         Map<BlockPos, BlockState> offhandPalette = BuildingWandItem.getPreviewStates(
                 helper.getLevel(), player, paletteWand, origin, Direction.NORTH, diameter);
         Set<Block> offhandPaletteBlocks = distinctBlocks(offhandPalette);
-        helper.assertValueEqual(offhandPaletteBlocks, Set.of(Blocks.BRICKS, Blocks.OAK_PLANKS),
-                "Color Palette did not spread the off hand block over the plane together with the "
-                        + "hotbar one, it used " + offhandPaletteBlocks
-                        + "; findAllBuildingBlocks stopped collecting from the off hand");
+        helper.assertValueEqual(offhandPalette.size(), 9, "Color Palette must preview the whole off hand plane");
+        helper.assertTrue(Set.of(Blocks.BRICKS, Blocks.OAK_PLANKS).containsAll(offhandPaletteBlocks),
+                "Color Palette used an uncarried block: " + offhandPaletteBlocks);
 
-        // A set cannot see the *order* of that list, and the order is what decides which block
-        // lands where: the index is paletteIndex(pos, size), so with two entries the first one is
-        // drawn wherever it answers 0. Collecting the off hand after the hotbar instead of before
-        // it leaves the set above completely untouched while repainting every single position
-        // with the other block.
+        // Each position must use that ordering, even when every hash selects the same entry.
         for (Map.Entry<BlockPos, BlockState> entry : offhandPalette.entrySet()) {
             Block expectedHere = BuildingWandItem.paletteIndex(entry.getKey(), 2) == 0
                     ? Blocks.BRICKS

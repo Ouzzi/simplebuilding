@@ -31,6 +31,9 @@ public final class SimpleBuildingGameTests {
     public static final String MOD_ID = "simplebuilding";
 
     private static final List<GameTestSpec> ALL = List.of(
+            GameTestSpec.named("anvil_crushing_game_test_anvils_consume_once", AnvilCrushingTests::anvilsConsumeOnce).maxTicks(120).build(),
+            GameTestSpec.named("anvil_crushing_game_test_catalog_and_recipes_conserve_diamonds", AnvilCrushingTests::catalogAndRecipesConserveDiamonds).build(),
+            GameTestSpec.named("anvil_crushing_game_test_invalid_falls_do_not_crush", AnvilCrushingTests::invalidFallsDoNotCrush).maxTicks(80).build(),
             GameTestSpec.named("tweaks_game_test_boost_command_refuses_invalid_strength", HardenTests::boostCommandRefusesInvalidStrength).build(),
             GameTestSpec.named("tweaks_game_test_xp_and_launch_runtime_caps", HardenTests::xpAndLaunchRuntimeCaps).build(),
             GameTestSpec.named("tweaks_game_test_boost_nonfinite_and_wrong_equipment", HardenTests::boostNonfiniteAndWrongEquipment).build(),

@@ -211,3 +211,6 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Attractor: Idle-Animation, das Item selbst bleibt unverändert, nur kurz angedeutete Magnetfeldlinien.
 - [ ] Hufeisen-Vorlage (simpleriding): Textur und Name nach derselben Konvention wie die Basic-Upgrade-Vorlage. Der Pfeil wird zu einem Hufeisen; innen Eisen-, außen Kupferfarben.
 - [ ] Echolot: Haltbarkeit wieder wie früher – eine einmalige Nutzung verbraucht die 1500 Haltbarkeit wie vorher. Aktuell wird Haltbarkeit seltsam verbraucht und angezeigt → Ist-Verhalten gegen die frühere Version (git log) prüfen und zurückführen.
+
+## Worker Amboss-Kiesel 2026-10-02
+- [x] Zusaetzlicher 26.3-In-World-Weg: fallender Amboss verbraucht Diamantblock fuer 72 Kiesel; JEI/REI/Wiki, EN/DE. Fabric/NeoForge: 1732/1732 Server-Tests, Wiki: 38 Tests, volles Gate und 26.2-/Forge-Compiles gruen. Plan, Nebenbefunde und offene Client-/Integrationsabnahmen: `docs/ai/PLAN-AMBOSS-KIESEL-2026-10-02.md`. Kein Push.

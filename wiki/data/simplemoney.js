@@ -153,7 +153,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       "id": "raw_bill",
       "en": {
         "title": "Raw Bill",
-        "summary": "A rare crafting result. Blast it for 10,000 ticks to produce one money bill and 20 experience points.",
+        "summary": "A rare crafting result. Blast it for 24,000 ticks (one in-game day in a vanilla blast furnace; SimpleBuilding blast furnaces are 2, 4 or 8 times faster) to produce one money bill and 20 experience points.",
         "details": [
           "Registry ID: simplemoney:raw_bill",
           "Stack limit: 64",
@@ -162,7 +162,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       },
       "de": {
         "title": "Roher Geldschein",
-        "summary": "Ein seltenes Herstellungsergebnis. Im Schmelzofen in 10.000 Ticks zu einem Geldschein verarbeiten; ergibt 20 Erfahrungspunkte.",
+        "summary": "Ein seltenes Herstellungsergebnis. Im Schmelzofen in 24.000 Ticks (ein Spieltag im Vanilla-Schmelzofen; SimpleBuildings Schmelzöfen sind 2-, 4- oder 8-mal so schnell) zu einem Geldschein verarbeiten; ergibt 20 Erfahrungspunkte.",
         "details": [
           "Registry-ID: simplemoney:raw_bill",
           "Stapelgrenze: 64",
@@ -183,7 +183,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "details": [
           "Registry ID: simplemoney:money_bill",
           "Stack limit: 64",
-          "Recipe: {\"type\": \"minecraft:blasting\", \"ingredient\": \"simplemoney:raw_bill\", \"result\": {\"id\": \"simplemoney:money_bill\"}, \"experience\": 20, \"cookingtime\": 10000}",
+          "Recipe: {\"type\": \"minecraft:blasting\", \"ingredient\": \"simplemoney:raw_bill\", \"result\": {\"id\": \"simplemoney:money_bill\"}, \"experience\": 20, \"cookingtime\": 24000}",
           "Epic rarity, fire resistant, permanent enchantment glint. Right-click plays a page-turn sound and sends a happy-villager particle; the bill is not consumed."
         ]
       },
@@ -193,7 +193,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "details": [
           "Registry-ID: simplemoney:money_bill",
           "Stapelgrenze: 64",
-          "Rezept: {\"type\": \"minecraft:blasting\", \"ingredient\": \"simplemoney:raw_bill\", \"result\": {\"id\": \"simplemoney:money_bill\"}, \"experience\": 20, \"cookingtime\": 10000}",
+          "Rezept: {\"type\": \"minecraft:blasting\", \"ingredient\": \"simplemoney:raw_bill\", \"result\": {\"id\": \"simplemoney:money_bill\"}, \"experience\": 20, \"cookingtime\": 24000}",
           "Episch, feuerfest, dauerhafter Verzauberungsglanz. Rechtsklick erzeugt einen Umblätterklang und ein Dorfbewohnerpartikel; der Schein bleibt erhalten."
         ]
       },
@@ -2634,7 +2634,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "simplemoney:raw_bill"
         ]
       },
-      "cookingtime": 10000,
+      "cookingtime": 24000,
       "experience": 20,
       "baseMaterials": {
         "yield": 1,
@@ -3086,7 +3086,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "details": [
             "Registry ID: simplemoney:money_bill",
             "Stack limit: 64",
-            "Recipe: {\"type\": \"minecraft:blasting\", \"ingredient\": \"simplemoney:raw_bill\", \"result\": {\"id\": \"simplemoney:money_bill\"}, \"experience\": 20, \"cookingtime\": 10000}",
+            "Recipe: {\"type\": \"minecraft:blasting\", \"ingredient\": \"simplemoney:raw_bill\", \"result\": {\"id\": \"simplemoney:money_bill\"}, \"experience\": 20, \"cookingtime\": 24000}",
             "Epic rarity, fire resistant, permanent enchantment glint. Right-click plays a page-turn sound and sends a happy-villager particle; the bill is not consumed."
           ]
         },
@@ -3096,7 +3096,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "details": [
             "Registry-ID: simplemoney:money_bill",
             "Stapelgrenze: 64",
-            "Rezept: {\"type\": \"minecraft:blasting\", \"ingredient\": \"simplemoney:raw_bill\", \"result\": {\"id\": \"simplemoney:money_bill\"}, \"experience\": 20, \"cookingtime\": 10000}",
+            "Rezept: {\"type\": \"minecraft:blasting\", \"ingredient\": \"simplemoney:raw_bill\", \"result\": {\"id\": \"simplemoney:money_bill\"}, \"experience\": 20, \"cookingtime\": 24000}",
             "Episch, feuerfest, dauerhafter Verzauberungsglanz. Rechtsklick erzeugt einen Umblätterklang und ein Dorfbewohnerpartikel; der Schein bleibt erhalten."
           ]
         },
@@ -3133,7 +3133,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       "note": {
         "en": {
           "title": "Raw Bill",
-          "summary": "A rare crafting result. Blast it for 10,000 ticks to produce one money bill and 20 experience points.",
+          "summary": "A rare crafting result. Blast it for 24,000 ticks (one in-game day in a vanilla blast furnace; SimpleBuilding blast furnaces are 2, 4 or 8 times faster) to produce one money bill and 20 experience points.",
           "details": [
             "Registry ID: simplemoney:raw_bill",
             "Stack limit: 64",
@@ -3142,7 +3142,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         },
         "de": {
           "title": "Roher Geldschein",
-          "summary": "Ein seltenes Herstellungsergebnis. Im Schmelzofen in 10.000 Ticks zu einem Geldschein verarbeiten; ergibt 20 Erfahrungspunkte.",
+          "summary": "Ein seltenes Herstellungsergebnis. Im Schmelzofen in 24.000 Ticks (ein Spieltag im Vanilla-Schmelzofen; SimpleBuildings Schmelzöfen sind 2-, 4- oder 8-mal so schnell) zu einem Geldschein verarbeiten; ergibt 20 Erfahrungspunkte.",
           "details": [
             "Registry-ID: simplemoney:raw_bill",
             "Stapelgrenze: 64",

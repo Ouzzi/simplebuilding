@@ -304,6 +304,16 @@ public final class InWorldRecipeCatalog {
                 Stack.of(result, crush.get("count").getAsInt()), 0,
                 List.of(Component.translatable("jei.simplebuilding.note.diamond_crush.how", crush.has("strikes") ? crush.get("strikes").getAsInt() : 1),
                         Component.translatable("jei.simplebuilding.note.damage", crush.get("damage").getAsInt()))));
+        if (crush.has("anvil")) {
+            JsonObject anvil = crush.getAsJsonObject("anvil");
+            List<String> ids = new ArrayList<>();
+            for (JsonElement tool : anvil.getAsJsonArray("tools")) ids.add(tool.getAsString());
+            out.add(new Entry(Kind.DIAMOND_CRUSH, "anvil_diamond_crush/" + blockId,
+                    List.of(Stack.of(block, 1)), resolver.items(ids), Stack.of(result, anvil.get("count").getAsInt()), 0,
+                    List.of(Component.translatable("jei.simplebuilding.note.anvil_crush.how",
+                                    anvil.get("minimumFallBlocks").getAsInt()),
+                            Component.translatable("jei.simplebuilding.note.anvil_crush.consumes"))));
+        }
     }
 
     /**

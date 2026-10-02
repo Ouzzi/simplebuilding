@@ -356,7 +356,9 @@
         "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
         "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
         "common/src/shared/java/com/simplebuilding/util/OctantShape.java",
-        "docs/SLEDGEHAMMER-BALANCE.md"
+        "docs/SLEDGEHAMMER-BALANCE.md",
+        "common/src/shared/java/com/simplebuilding/util/AnvilDiamondCrushing.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AnvilBlockMixin.java"
       ],
       "en": {
         "title": "Sledgehammer",
@@ -383,7 +385,8 @@
           "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
           "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
           "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected.",
-          "On 26.3, sneaking without Constructor's Touch removes one aimed quarter at 1.5x speed: full block → inner-corner stair (three quarters) → straight stair → outer-corner stair → slab. Aim at the upper half to retain a lower base, or the lower half to retain an upper base. Missing quarters and diagonal two-quarter remnants cannot be cut; aim at an adjacent remaining quarter. Carved shapes persist through neighbor updates. Constructor's Touch keeps sneak reverse reshaping."
+          "On 26.3, sneaking without Constructor's Touch removes one aimed quarter at 1.5x speed: full block → inner-corner stair (three quarters) → straight stair → outer-corner stair → slab. Aim at the upper half to retain a lower base, or the lower half to retain an upper base. Missing quarters and diagonal two-quarter remnants cannot be cut; aim at an adjacent remaining quarter. Carved shapes persist through neighbor updates. Constructor's Touch keeps sneak reverse reshaping.",
+          "26.3 alternative: drop any anvil at least one block onto a diamond block. A successful landing consumes the block and drops 72 diamond pebbles; normal anvil wear applies. Nine pebbles craft one cracked diamond, which blasts into one diamond: the automatic route returns eight of the nine diamonds. Automation permissions apply."
         ]
       },
       "de": {
@@ -411,7 +414,8 @@
           "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
           "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
           "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht.",
-          "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel mit 1,5-fachem Tempo ab: Vollblock → Innenecktreppe (drei Viertel) → gerade Treppe → Außenecktreppe → Stufe. Obere Hälfte treffen behält den unteren Sockel, untere Hälfte treffen den oberen. Fehlende Viertel und diagonale Zwei-Viertel-Reste können nicht geschlagen werden; ein benachbartes verbleibendes Viertel anvisieren. Abgetragene Formen bleiben bei Nachbaränderungen erhalten. Berührung des Konstrukteurs behält die Rückwärtsumformung beim Schleichen."
+          "Auf 26.3 trägt Schleichen ohne Berührung des Konstrukteurs ein Zieleckenviertel mit 1,5-fachem Tempo ab: Vollblock → Innenecktreppe (drei Viertel) → gerade Treppe → Außenecktreppe → Stufe. Obere Hälfte treffen behält den unteren Sockel, untere Hälfte treffen den oberen. Fehlende Viertel und diagonale Zwei-Viertel-Reste können nicht geschlagen werden; ein benachbartes verbleibendes Viertel anvisieren. Abgetragene Formen bleiben bei Nachbaränderungen erhalten. Berührung des Konstrukteurs behält die Rückwärtsumformung beim Schleichen.",
+          "Alternative auf 26.3: Einen beliebigen Amboss mindestens einen Block auf einen Diamantblock fallen lassen. Eine erfolgreiche Landung verbraucht den Block und wirft 72 Diamantkiesel aus; normaler Ambossverschleiß gilt. Neun Kiesel ergeben einen Rohdiamanten, der im Hochofen zu einem Diamanten wird: Der automatische Weg liefert acht der neun Diamanten zurück. Automationsrechte werden geprüft."
         ]
       }
     },
@@ -8873,6 +8877,13 @@
           "sources": [
             "src/main/generated/data/simplebuilding/recipe/ender_quartz_checker.json"
           ]
+        },
+        "simplebuilding:polished_ender_quartz_checker": {
+          "en": "Polished Ender Quartz Checker: craft 4 from 2 Polished Ender Quartz and 2 Quartz Blocks in a diagonal checker pattern.",
+          "de": "Poliertes Enderquarz-Schachbrett: 2 polierte Enderquarze und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
+          "sources": [
+            "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
+          ]
         }
       }
     },
@@ -11215,6 +11226,8 @@
       "diamond_crush": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "common/src/shared/java/com/simplebuilding/util/AnvilDiamondCrushing.java",
+          "common/src/shared/java/com/simplebuilding/mixin/AnvilBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
         ],
         "en": {
@@ -11223,7 +11236,8 @@
           "details": [
             "Each strike rings higher and chips off particles. Strikes count per block; after 5 seconds without a strike the count starts over. Holding right-click strikes at most every 8 ticks.",
             "The pebbles drop in stacks of at most 64 at the block's position.",
-            "Only the crushing strike costs the listed durability (of the hand that holds the hammer); creative mode costs none."
+            "Only the crushing strike costs the listed durability (of the hand that holds the hammer); creative mode costs none.",
+            "26.3 alternative: an anvil landing on a diamond block after falling at least one block consumes it for 72 pebbles. All three anvil damage stages work; normal anvil wear and automation permissions apply. Nine pebbles craft a cracked diamond, which blasts into one diamond, so this returns eight of the block's nine diamonds."
           ]
         },
         "de": {
@@ -11232,7 +11246,8 @@
           "details": [
             "Jeder Schlag klingt höher und schlägt Partikel ab. Die Schläge zählen je Block; nach 5 Sekunden ohne Schlag beginnt die Zählung von vorn. Gehaltener Rechtsklick schlägt höchstens alle 8 Ticks.",
             "Die Splitter fallen in Stapeln zu höchstens 64 an der Stelle des Blocks.",
-            "Nur der zerschlagende Schlag kostet die angegebene Haltbarkeit (des Hammers in der Hand, die schlägt); im Kreativmodus nichts."
+            "Nur der zerschlagende Schlag kostet die angegebene Haltbarkeit (des Hammers in der Hand, die schlägt); im Kreativmodus nichts.",
+            "Alternative auf 26.3: Ein Amboss, der nach mindestens einem Block Fall auf einem Diamantblock landet, verbraucht ihn für 72 Kiesel. Alle drei Ambosszustände funktionieren; normaler Ambossverschleiß und Automationsrechte gelten. Neun Kiesel ergeben einen Rohdiamanten, der im Hochofen einen Diamanten liefert: acht der neun Diamanten kommen zurück."
           ]
         }
       },

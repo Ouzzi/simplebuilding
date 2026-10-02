@@ -33,6 +33,8 @@ import java.util.stream.Stream;
  * common/src/mc26_2/java for the contract; both must keep the same public signatures.
  */
 public final class McVersion {
+    /** Falling anvils crush diamond blocks (26.3 first). */
+    public static final boolean ANVIL_DIAMOND_CRUSH = true;
     public static final boolean END_SYSTEMS = true;
     /** Overworld wave 2026-10-01: Sage Ore and the Sage Orb (main line first, ported later). */
     public static final boolean SAGE_ORE = true;

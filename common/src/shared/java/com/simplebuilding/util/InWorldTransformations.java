@@ -199,6 +199,17 @@ public final class InWorldTransformations {
             }
         }
         o.add("hammers", hammers);
+        if (com.simplebuilding.version.McVersion.ANVIL_DIAMOND_CRUSH) {
+            JsonObject anvil = new JsonObject();
+            anvil.addProperty("count", AnvilDiamondCrushing.PEBBLES);
+            anvil.addProperty("minimumFallBlocks", AnvilDiamondCrushing.MINIMUM_FALL_BLOCKS);
+            JsonArray tools = new JsonArray();
+            for (Block block : List.of(Blocks.ANVIL, Blocks.CHIPPED_ANVIL, Blocks.DAMAGED_ANVIL)) {
+                tools.add(id(block));
+            }
+            anvil.add("tools", tools);
+            o.add("anvil", anvil);
+        }
         return o;
     }
 

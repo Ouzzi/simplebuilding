@@ -1892,6 +1892,16 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                 "stats": {"damage": crush["damage"], **({"hits": crush["strikes"]} if "strikes" in crush else {})},
             })
 
+            if anvil := crush.get("anvil"):
+                entries.append({
+                    "id": "anvil_diamond_crush",
+                    "kind": "diamond_crush",
+                    "inputs": [{"id": crush["block"], "count": 1}],
+                    "tools": anvil["tools"],
+                    "output": {"id": crush["result"], "count": anvil["count"]},
+                    "stats": {"minimumFallBlocks": anvil["minimumFallBlocks"]},
+                })
+
         shear = exported.get("shearWool")
         if shear:
             facts["shear_wool"] = {"tag": shear["tag"]}
