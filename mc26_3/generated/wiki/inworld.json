@@ -8161,7 +8161,7 @@
       "simplebuilding:netherite_sledgehammer",
       "simplebuilding:stone_sledgehammer"
     ],
-    "placedHits": 3,
+    "placedHits": 5,
     "templates": [
       "minecraft:bolt_armor_trim_smithing_template",
       "minecraft:coast_armor_trim_smithing_template",

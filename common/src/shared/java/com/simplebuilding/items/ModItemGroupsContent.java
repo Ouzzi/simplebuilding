@@ -276,6 +276,10 @@ public final class ModItemGroupsContent {
             // Oberwelt-Erz der Welle 2026-10-01 vor den End-Erzen: Erz, Tiefenschiefer-Erz, seine Kugel.
             rows.add(CreativeTabLayout.Row.of("overworld_ores", ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM, ModItems.SAGE_ORB));
         }
+        if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            // Ablegbare Kleinteile (2026-10-02): Steinkiesel und Feuersteinsplitter.
+            rows.add(CreativeTabLayout.Row.of("small_parts", ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP));
+        }
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             rows.add(CreativeTabLayout.Row.of("dimensional_scrap", ModItems.DIMENSIONAL_SCRAP_ITEM, ModItems.NETHER_DIMENSIONAL_SCRAP_ITEM,
                     ModItems.END_DIMENSIONAL_SCRAP_ITEM));

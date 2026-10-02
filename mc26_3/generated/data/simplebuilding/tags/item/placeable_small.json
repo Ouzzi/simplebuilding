@@ -1,0 +1,29 @@
+{
+  "values": [
+    "minecraft:stick",
+    "minecraft:flint",
+    "minecraft:brick",
+    "minecraft:nether_brick",
+    "minecraft:resin_brick",
+    "minecraft:copper_ingot",
+    "minecraft:iron_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:netherite_ingot",
+    "minecraft:copper_nugget",
+    "minecraft:iron_nugget",
+    "minecraft:gold_nugget",
+    "minecraft:diamond",
+    "minecraft:emerald",
+    "minecraft:lapis_lazuli",
+    "minecraft:amethyst_shard",
+    "minecraft:quartz",
+    "minecraft:prismarine_shard",
+    "minecraft:echo_shard",
+    "simplebuilding:stone_pebble",
+    "simplebuilding:flint_chip",
+    "simplebuilding:diamond_pebble",
+    "simplebuilding:netherite_nugget",
+    "simplebuilding:enderite_nugget",
+    "simplebuilding:enderite_ingot"
+  ]
+}

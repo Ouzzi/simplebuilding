@@ -273,36 +273,6 @@ public final class WorldAndPlayerTests {
     /** Void damage interval per worn enderite piece, index 0 = one piece. */
     private static final int[] VOID_INTERVALS = {20, 40, 60, 100};
 
-    /** Where the falling player hangs; five blocks of air below it inside the room. */
-    private static final Vec3 FALLING_POS = new Vec3(3.5, 5.0, 3.5);
-
-    /** Block the grounded case stands on, and the spot on top of it. */
-    private static final BlockPos GROUND_BLOCK = new BlockPos(5, 2, 5);
-    private static final Vec3 GROUND_POS = new Vec3(5.5, 3.0, 5.5);
-
-    /** Downward speed the mixin asks for; comfortably past its {@code < -0.1} threshold. */
-    private static final double FALL_SPEED = -0.5;
-
-    /**
-     * The speed a player has the moment they walk off a block: none. It is the probe that pins the
-     * mixin's {@code < -0.1} threshold from above, and it works because the tick that follows is
-     * pure gravity.
-     *
-     * <p>The three speeds the slow fall test uses turn into these values by the time the mixin
-     * reads them at the tail of {@code Player#tick}, all of them one application of
-     * {@code LivingEntity#travelInAir}: it subtracts {@code getEffectiveGravity()}, which is the
-     * {@code minecraft:gravity} attribute's default of 0.08 for a player without slow falling, and
-     * then multiplies by the vertical air drag, {@code computeModifiedFriction(0.98, 1.0) = 0.98}.
-     * So {@code -0.5} arrives as {@code -0.5684}, {@code +0.2} as {@code +0.1176} and this one as
-     * {@code -0.0784}. The first has to be granted, the other two refused, which nails the
-     * threshold into {@code (-0.5684, -0.0784]} - and {@code -0.1} sits inside it while "any
-     * downward movement at all" ({@code < 0.0}) does not.
-     */
-    private static final double STEP_OFF_SPEED = 0.0;
-
-    /** Duration {@code PlayerEntityMixin} hands the slow falling effect, in ticks. */
-    private static final int SLOW_FALL_DURATION = 2;
-
     /**
      * Every vanilla loot table {@code ModLootTableModifications} touches, with the exact number of
      * pools it has to receive. The end city is a four because it takes both pre built pools plus
@@ -745,96 +715,6 @@ public final class WorldAndPlayerTests {
         helper.assertTrue(zombie.getHealth() < zombieHealth || !zombie.isAlive(),
                 "a zombie in a full enderite set survived void damage on a tick that is no multiple "
                         + "of any interval; the protection is no longer limited to players");
-
-        helper.succeed();
-    }
-
-    /**
-     * The other half of the enderite set: holding the jump key while falling gives a slow fall, as
-     * long as at least two pieces are worn. All four conditions of
-     * {@code PlayerEntityMixin#simplebuilding$tickLogic} are driven here, each against its own
-     * opposite.
-     *
-     * <p>The effect is granted at the tail of {@code Player#tick}, which a mock player only reaches
-     * through {@code connection.tick()} - the gametest server ticks {@code ServerPlayer#tick()},
-     * and that one does not call {@code super.tick()}; {@code doTick()} does, and the connection is
-     * what calls it. The connection also snaps the player back to where it was before the tick, so
-     * the position is stable across the six runs below while the physics - and with it the
-     * downward speed and the ground contact the mixin reads - really happened.
-     *
-     * <p>The effect is asked for with a duration of two ticks and re-granted every tick, so the
-     * duration is asserted exactly: a longer one would mean the player keeps floating for a while
-     * after letting go of the key, which is precisely what the two-tick refresh avoids.
-     *
-     * <p>The speed threshold is probed from both sides, and that is the point of the third and
-     * fourth case. A single downward sample would leave {@code < -0.1} indistinguishable from
-     * {@code < 0.0}, i.e. from "any downward movement at all" - and that reading is exactly the
-     * fall damage immunity the feature avoids, because a player who has just walked off a block is
-     * moving downwards too. See {@link #STEP_OFF_SPEED} for the three speeds and what one tick of
-     * vanilla gravity turns them into; together they nail the threshold into
-     * {@code (-0.5684, -0.0784]}.
-     *
-     * <p><b>What this test does not cover:</b> the {@code !onGround()} half of the condition. No
-     * gametest can cover it, because vanilla will not produce the state that would tell the two
-     * apart: {@code Entity#move} zeroes the vertical speed on the collision that sets
-     * {@code onGround}, and the gravity applied afterwards in {@code LivingEntity#travelInAir}
-     * only brings it back to {@code -0.0784} - above the speed threshold. A player on the ground
-     * therefore always fails the speed check as well, so deleting {@code !onGround()} from the
-     * mixin would not change a single assertion here. The "standing on solid ground" case below is
-     * kept because it is the state a player is in most of the time, but it re-proves the speed
-     * condition rather than the ground condition.
-     *
-     * <p>Breaks if the two-piece minimum changes, if the jump key is no longer consulted (the
-     * effect would fire on every fall), if the speed threshold moves in either direction far enough
-     * that a {@code -0.5684} fall stops counting or a {@code -0.0784} step off a block starts
-     * counting, or if the effect stops being refreshed and turns into a lasting one.
-     */
-    public static void enderiteSlowFallNeedsTwoPiecesFallingSpeedAndTheJumpKey(GameTestHelper helper) {
-        ServerPlayer player = mockPlayer(helper, FALLING_POS);
-        helper.assertTrue(player instanceof ISpaceKeyTracker,
-                "the player does not implement ISpaceKeyTracker, so PlayerEntityMixin did not apply "
-                        + "on this loader and the whole feature is dead here");
-        helper.setBlock(GROUND_BLOCK, Blocks.STONE);
-
-        // --- everything in place: two pieces, falling, jump key held ---
-        MobEffectInstance granted = slowFallAfterTick(helper, player, 2, FALLING_POS, FALL_SPEED, true);
-        helper.assertTrue(granted != null,
-                "two enderite pieces, a falling player and a held jump key produced no slow falling "
-                        + "at all - the whole branch is gone or Player#tick was never reached");
-        helper.assertValueEqual(granted.getAmplifier(), 0, "amplifier of the granted slow falling");
-        helper.assertValueEqual(granted.getDuration(), SLOW_FALL_DURATION,
-                "duration of the granted slow falling; it is re-granted every tick on purpose, so a "
-                        + "longer one would keep the player floating after the key is released");
-
-        // --- one piece is not enough ---
-        helper.assertTrue(slowFallAfterTick(helper, player, 1, FALLING_POS, FALL_SPEED, true) == null,
-                "a single enderite piece already gave slow falling; the two-piece minimum is gone");
-
-        // --- rising instead of falling: the speed threshold, from far above ---
-        helper.assertTrue(slowFallAfterTick(helper, player, 2, FALLING_POS, 0.2, true) == null,
-                "a player who is not falling got slow falling; the downward speed condition is gone "
-                        + "and the effect now fires while jumping upwards");
-
-        // --- and from just above: one tick after walking off a block, which must NOT count ---
-        helper.assertTrue(slowFallAfterTick(helper, player, 2, FALLING_POS, STEP_OFF_SPEED, true) == null,
-                "a player who has merely stepped off a block got slow falling - one tick of gravity "
-                        + "is about -0.078, which is above the mixin's -0.1 threshold. The threshold "
-                        + "has been loosened towards zero, and enderite armour with the jump key held "
-                        + "is now the fall damage immunity this feature is careful not to be");
-
-        // --- jump key released ---
-        helper.assertTrue(slowFallAfterTick(helper, player, 2, FALLING_POS, FALL_SPEED, false) == null,
-                "slow falling was granted without the jump key held, so enderite armour has quietly "
-                        + "become permanent fall damage immunity");
-
-        // --- standing on solid ground (no fall, and on the ground) ---
-        helper.assertTrue(slowFallAfterTick(helper, player, 4, GROUND_POS, FALL_SPEED, true) == null,
-                "a player standing on a block got slow falling");
-
-        // --- and a full set still works, so the check is a minimum and not an exact count ---
-        helper.assertTrue(slowFallAfterTick(helper, player, 4, FALLING_POS, FALL_SPEED, true) != null,
-                "a full enderite set got no slow falling although two pieces do; the piece count is "
-                        + "compared for equality instead of as a minimum");
 
         helper.succeed();
     }

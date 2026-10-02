@@ -288,6 +288,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.CRACKED_DIAMOND));
 
         addVoidProtected();
+        addPlaceableSmall();
         addEnderiteIngotTier();
     }
 
@@ -298,6 +299,27 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
      * doppelt so lange, ohne dass jemand daran denken muss. {@link ModTags.Items#VOID_PROTECTED} und
      * {@link ModTags.Items#DOUBLE_DESPAWN_TIME} enthalten nur diesen Tag.
      */
+    /** Ablegbare Kleinteile (2026-10-02): Vanilla-Barren, -Klumpen, -Edelsteine, Stock, Ziegel, Feuerstein und die Mod-Teile. */
+    private void addPlaceableSmall() {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            return;
+        }
+        var tag = builder(ModTags.Items.PLACEABLE_SMALL);
+        for (net.minecraft.world.item.Item item : java.util.List.of(
+                net.minecraft.world.item.Items.STICK, net.minecraft.world.item.Items.FLINT,
+                net.minecraft.world.item.Items.BRICK, net.minecraft.world.item.Items.NETHER_BRICK, net.minecraft.world.item.Items.RESIN_BRICK,
+                net.minecraft.world.item.Items.COPPER_INGOT, net.minecraft.world.item.Items.IRON_INGOT, net.minecraft.world.item.Items.GOLD_INGOT,
+                net.minecraft.world.item.Items.NETHERITE_INGOT, net.minecraft.world.item.Items.COPPER_NUGGET, net.minecraft.world.item.Items.IRON_NUGGET,
+                net.minecraft.world.item.Items.GOLD_NUGGET, net.minecraft.world.item.Items.DIAMOND, net.minecraft.world.item.Items.EMERALD,
+                net.minecraft.world.item.Items.LAPIS_LAZULI, net.minecraft.world.item.Items.AMETHYST_SHARD, net.minecraft.world.item.Items.QUARTZ,
+                net.minecraft.world.item.Items.PRISMARINE_SHARD, net.minecraft.world.item.Items.ECHO_SHARD,
+                com.simplebuilding.items.ModItems.STONE_PEBBLE, com.simplebuilding.items.ModItems.FLINT_CHIP,
+                com.simplebuilding.items.ModItems.DIAMOND_PEBBLE, com.simplebuilding.items.ModItems.NETHERITE_NUGGET,
+                com.simplebuilding.items.ModItems.ENDERITE_NUGGET, com.simplebuilding.items.ModItems.ENDERITE_INGOT)) {
+            tag.add(BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow());
+        }
+    }
+
     private void addVoidProtected() {
         // Sortiert, damit die erzeugte JSON unabhaengig von der Registrierungsreihenfolge ist.
         Set<Identifier> ids = new TreeSet<>(Comparator.comparing(Identifier::toString));

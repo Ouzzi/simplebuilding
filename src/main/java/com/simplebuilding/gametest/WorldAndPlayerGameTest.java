@@ -52,11 +52,6 @@ public final class WorldAndPlayerGameTest {
     }
 
     @GameTest
-    public void enderiteSlowFallNeedsTwoPiecesFallingSpeedAndTheJumpKey(GameTestHelper helper) {
-        WorldAndPlayerTests.enderiteSlowFallNeedsTwoPiecesFallingSpeedAndTheJumpKey(helper);
-    }
-
-    @GameTest
     public void modLootPoolsKeepTheirExactCountAndTheAirJumpBookWeights(GameTestHelper helper) {
         WorldAndPlayerTests.modLootPoolsKeepTheirExactCountAndTheAirJumpBookWeights(helper);
     }

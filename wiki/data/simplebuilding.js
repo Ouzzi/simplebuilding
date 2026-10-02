@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 246,
+      "count": 248,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -8798,6 +8798,42 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:flint_chip",
+      "name": {
+        "en_us": "Flint Chip",
+        "de_de": "Feuersteinsplitter"
+      },
+      "texture": "assets/textures/item/flint_chip.png",
+      "craftedBy": [
+        "simplebuilding:flint_chip"
+      ],
+      "usedIn": [
+        "simplebuilding:flint_from_flint_chips"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A flake of flint: one flint gives 4 Flint Chips, 4 chips in a 2x2 give the flint back.",
+          "details": [
+            "Sneak + right-click lays it flat on a block (top, side or underside), like a smithing template; breaking the spot gives it back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint) and server.features.placeDisabledItems (single IDs)."
+          ]
+        },
+        "de": {
+          "summary": "Ein Splitter Feuerstein: ein Feuerstein ergibt 4 Feuersteinsplitter, 4 Splitter im 2x2-Feld wieder den Feuerstein.",
+          "details": [
+            "Schleichen + Rechtsklick legt es flach auf einen Block (oben, seitlich oder unten), wie eine Schmiedevorlage; Abbauen gibt es zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein) und server.features.placeDisabledItems (einzelne IDs)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/stone_pebble.json",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:glowing_trim_template",
       "name": {
         "en_us": "Glowing Armor Trim",
@@ -15675,6 +15711,42 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:stone_pebble",
+      "name": {
+        "en_us": "Stone Pebble",
+        "de_de": "Steinkiesel"
+      },
+      "texture": "assets/textures/item/stone_pebble.png",
+      "craftedBy": [
+        "simplebuilding:stone_pebble"
+      ],
+      "usedIn": [
+        "simplebuilding:cobblestone_from_stone_pebbles"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A small stone: one cobblestone gives 9 Stone Pebbles, 9 pebbles in the crafting grid give the cobblestone back.",
+          "details": [
+            "Sneak + right-click lays it flat on a block (top, side or underside), like a smithing template; breaking the spot gives it back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint) and server.features.placeDisabledItems (single IDs)."
+          ]
+        },
+        "de": {
+          "summary": "Ein kleiner Stein: ein Bruchstein ergibt 9 Steinkiesel, 9 Kiesel im Handwerksfeld wieder den Bruchstein.",
+          "details": [
+            "Schleichen + Rechtsklick legt es flach auf einen Block (oben, seitlich oder unten), wie eine Schmiedevorlage; Abbauen gibt es zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein) und server.features.placeDisabledItems (einzelne IDs)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/stone_pebble.json",
+          "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json"
+        ]
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:stone_sledgehammer",
@@ -26084,6 +26156,33 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:cobblestone_from_stone_pebbles",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "minecraft:cobblestone",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/cobblestone_from_stone_pebbles.json",
+      "ingredients": [
+        "simplebuilding:stone_pebble"
+      ],
+      "pattern": [
+        "PPP",
+        "PPP",
+        "PPP"
+      ],
+      "key": {
+        "P": [
+          "simplebuilding:stone_pebble"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:construction_light",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -28943,6 +29042,54 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:flint_chip",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:flint_chip",
+        "count": 4
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json",
+      "ingredients": [
+        "minecraft:flint"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:flint"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:flint_from_flint_chips",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "minecraft:flint",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_from_flint_chips.json",
+      "ingredients": [
+        "simplebuilding:flint_chip"
+      ],
+      "pattern": [
+        "CC",
+        "CC"
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:flint_chip"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -35513,6 +35660,28 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:stone_pebble",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:stone_pebble",
+        "count": 9
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/stone_pebble.json",
+      "ingredients": [
+        "minecraft:cobblestone"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:cobblestone"
+        ]
+      ],
+      "lines": [
         "26.3"
       ]
     },
@@ -45609,6 +45778,113 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/tags/item/octants_enchantable.json"
     },
     {
+      "id": "simplebuilding:item/placeable_small",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:stick",
+          "required": true
+        },
+        {
+          "id": "minecraft:flint",
+          "required": true
+        },
+        {
+          "id": "minecraft:brick",
+          "required": true
+        },
+        {
+          "id": "minecraft:nether_brick",
+          "required": true
+        },
+        {
+          "id": "minecraft:resin_brick",
+          "required": true
+        },
+        {
+          "id": "minecraft:copper_ingot",
+          "required": true
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "required": true
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "required": true
+        },
+        {
+          "id": "minecraft:netherite_ingot",
+          "required": true
+        },
+        {
+          "id": "minecraft:copper_nugget",
+          "required": true
+        },
+        {
+          "id": "minecraft:iron_nugget",
+          "required": true
+        },
+        {
+          "id": "minecraft:gold_nugget",
+          "required": true
+        },
+        {
+          "id": "minecraft:diamond",
+          "required": true
+        },
+        {
+          "id": "minecraft:emerald",
+          "required": true
+        },
+        {
+          "id": "minecraft:lapis_lazuli",
+          "required": true
+        },
+        {
+          "id": "minecraft:amethyst_shard",
+          "required": true
+        },
+        {
+          "id": "minecraft:quartz",
+          "required": true
+        },
+        {
+          "id": "minecraft:prismarine_shard",
+          "required": true
+        },
+        {
+          "id": "minecraft:echo_shard",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:stone_pebble",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:flint_chip",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:diamond_pebble",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_nugget",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_nugget",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_ingot",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/placeable_small.json"
+    },
+    {
       "id": "simplebuilding:item/quadruple_despawn_time",
       "replace": false,
       "values": [
@@ -47393,6 +47669,36 @@ window.WIKI_DATA = {
       "labelDe": "Dynamisches Licht",
       "tooltip": "Radiance armor lights up the blocks around its wearer with invisible light blocks. Off: no new light blocks, and the ones already placed disappear on the wearer's next check. Server-side. Default: on.",
       "tooltipDe": "Leuchtende Rüstung erhellt die Umgebung ihres Trägers mit unsichtbaren Lichtblöcken. Aus: keine neuen Lichtblöcke, und die schon gesetzten verschwinden beim nächsten Takt des Trägers. Serverseitig. Standard: an."
+    },
+    {
+      "name": "server.features.placeVanillaItems",
+      "shortName": "placeVanillaItems",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Place Small Vanilla Items",
+      "labelDe": "Vanilla-Kleinteile ablegen",
+      "tooltip": "Sneak + right-click lays sticks, ingots, nuggets, gems, bricks and flint flat on a block. Off: only the mod's own small parts can be placed. Server-side. Default: on.",
+      "tooltipDe": "Schleichen + Rechtsklick legt Stöcke, Barren, Klumpen, Edelsteine, Ziegel und Feuerstein flach auf einen Block. Aus: nur die eigenen Kleinteile der Mod lassen sich ablegen. Serverseitig. Standard: an."
+    },
+    {
+      "name": "server.features.placeDisabledItems",
+      "shortName": "placeDisabledItems",
+      "type": "String",
+      "default": "\"\"",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Unplaceable Items",
+      "labelDe": "Nicht ablegbare Items",
+      "tooltip": "Item IDs that can no longer be placed, separated by commas or spaces (without a namespace: minecraft). Already placed ones stay. Server-side. Default: empty.",
+      "tooltipDe": "Item-IDs, die sich nicht mehr ablegen lassen, durch Komma oder Leerzeichen getrennt (ohne Namensraum: minecraft). Schon abgelegte bleiben liegen. Serverseitig. Standard: leer."
     },
     {
       "name": "server.features.anvilRepairKeepsCost",
@@ -49791,7 +50097,7 @@ window.WIKI_DATA = {
         },
         "stats": {
           "damage": 1,
-          "placedHits": 3
+          "placedHits": 5
         },
         "lines": [
           "1.21.11",
@@ -49827,7 +50133,7 @@ window.WIKI_DATA = {
         },
         "stats": {
           "damage": 1,
-          "placedHits": 3
+          "placedHits": 5
         },
         "lines": [
           "1.21.11",
@@ -69796,14 +70102,14 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 192,
+    "items": 194,
     "blocks": 159,
-    "recipes": 426,
+    "recipes": 430,
     "lootTables": 160,
     "trades": 20,
     "enchantments": 19,
-    "tags": 44,
-    "config": 176,
+    "tags": 45,
+    "config": 178,
     "inWorld": 396,
     "advancements": 123,
     "features": 43,

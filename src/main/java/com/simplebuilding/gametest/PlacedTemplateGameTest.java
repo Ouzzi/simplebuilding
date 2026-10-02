@@ -59,4 +59,9 @@ public final class PlacedTemplateGameTest {
     public void lockedOctantsArePlacedAndRightClickTogglesTheOutlinePerPlayer(GameTestHelper helper) {
         PlacedTemplateTests.lockedOctantsArePlacedAndRightClickTogglesTheOutlinePerPlayer(helper);
     }
+
+    @GameTest
+    public void smallPartsLieDownAndTheServerOptionsGateThem(GameTestHelper helper) {
+        PlacedTemplateTests.smallPartsLieDownAndTheServerOptionsGateThem(helper);
+    }
 }

@@ -81,6 +81,37 @@ public final class PlacedTemplates {
                 || com.simplebuilding.items.custom.OreDetectorItem.isArmed(stack));
     }
 
+    /**
+     * Kleinteile (Besitzer 2026-10-02): Steinkiesel, Feuersteinsplitter, Stoecke, Barren, Klumpen, Edelsteine, Ziegel -
+     * Tag {@code simplebuilding:placeable_small}. Server-Optionen: {@code server.features.placeVanillaItems} schaltet
+     * alle Vanilla-Teile ab, {@code server.features.placeDisabledItems} einzelne IDs (auch Mod-Teile).
+     */
+    public static boolean isPlaceableSmall(ItemStack stack) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES || stack.isEmpty() || !stack.is(com.simplebuilding.util.ModTags.Items.PLACEABLE_SMALL)) {
+            return false;
+        }
+        var features = com.simplebuilding.config.ServerTuning.get().features;
+        net.minecraft.resources.Identifier id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem());
+        if ("minecraft".equals(id.getNamespace()) && !features.placeVanillaItems) {
+            return false;
+        }
+        return !itemListed(features.placeDisabledItems, id);
+    }
+
+    /** Ob {@code id} in einer Liste von Item-IDs steht (Komma, Semikolon oder Leerzeichen; ohne Namensraum = minecraft). */
+    public static boolean itemListed(@Nullable String list, net.minecraft.resources.Identifier id) {
+        if (list == null || list.isBlank()) {
+            return false;
+        }
+        for (String entry : list.split("[,;\\s]+")) {
+            String value = entry.trim().toLowerCase(java.util.Locale.ROOT);
+            if (!value.isEmpty() && (value.contains(":") ? value : "minecraft:" + value).equals(id.toString())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /** Blaupausen lassen sich genauso ablegen (Besitzer 2026-09-28), als eigener Block. */
     public static boolean isPlaceableBlueprint(ItemStack stack) {
         return !stack.isEmpty() && stack.getItem() instanceof BlueprintItem;
@@ -100,7 +131,7 @@ public final class PlacedTemplates {
 
     /** Der Block, als der dieser Stapel abgelegt wird, oder null, wenn er sich nicht ablegen laesst. */
     public static @Nullable Block placedBlockFor(ItemStack stack) {
-        if (isPlaceableTemplate(stack) || isPlaceableOctant(stack)) {
+        if (isPlaceableTemplate(stack) || isPlaceableOctant(stack) || isPlaceableSmall(stack)) {
             return ModBlocks.PLACED_SMITHING_TEMPLATE;
         }
         return isPlaceableBlueprint(stack) ? ModBlocks.PLACED_BLUEPRINT : null;

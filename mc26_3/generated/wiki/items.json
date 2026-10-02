@@ -611,6 +611,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:flint_chip"
+    },
+    {
       "id": "simplebuilding:flypad",
       "maxStackSize": 1
     },
@@ -1145,6 +1148,9 @@
       "enchantability": 15,
       "id": "simplebuilding:stone_chisel",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:stone_pebble"
     },
     {
       "attackDamage": 6.0,

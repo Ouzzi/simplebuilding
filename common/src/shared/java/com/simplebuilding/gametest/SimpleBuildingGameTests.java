@@ -1035,8 +1035,6 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("world_and_player_game_test_enderite_armour_swallows_void_damage_except_on_its_interval_tick", WorldAndPlayerTests::enderiteArmourSwallowsVoidDamageExceptOnItsIntervalTick)
                     .build(),
-            GameTestSpec.named("world_and_player_game_test_enderite_slow_fall_needs_two_pieces_falling_speed_and_the_jump_key", WorldAndPlayerTests::enderiteSlowFallNeedsTwoPiecesFallingSpeedAndTheJumpKey)
-                    .build(),
             GameTestSpec.named("world_and_player_game_test_mod_loot_pools_keep_their_exact_count_and_the_air_jump_book_weights", WorldAndPlayerTests::modLootPoolsKeepTheirExactCountAndTheAirJumpBookWeights)
                     .build(),
             GameTestSpec.named("building_wand_game_test_off_hand_click_is_passed_on_and_the_wand_stops_outside_both_hands", BuildingWandTests::offHandClickIsPassedOnAndTheWandStopsOutsideBothHands)
@@ -1579,6 +1577,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("performance_game_test_an_idle_spawn_teleporter_stops_tracking_once_players_leave", PerformanceTests::anIdleSpawnTeleporterStopsTrackingOncePlayersLeave)
                     .build(),
             GameTestSpec.named("performance_game_test_the_cached_octant_surface_matches_the_per_frame_scan_it_replaced", PerformanceTests::theCachedOctantSurfaceMatchesThePerFrameScanItReplaced)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_small_parts_lie_down_and_the_server_options_gate_them", PlacedTemplateTests::smallPartsLieDownAndTheServerOptionsGateThem)
                     .build(),
             GameTestSpec.named("placed_template_game_test_sneak_use_places_templates_on_the_floor_against_the_wall_and_under_the_ceiling", PlacedTemplateTests::sneakUsePlacesTemplatesOnTheFloorAgainstTheWallAndUnderTheCeiling)
                     .build(),

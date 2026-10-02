@@ -747,4 +747,53 @@ public final class PlacedTemplateTests {
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
         return player;
     }
+
+    /**
+     * Small parts (owner 2026-10-02): sneak + right-click lays a stick or a Stone Pebble flat like a template and uses one;
+     * server.features.placeVanillaItems off keeps vanilla items in hand, server.features.placeDisabledItems blocks single IDs.
+     */
+    public static void smallPartsLieDownAndTheServerOptionsGateThem(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        var features = com.simplebuilding.config.ServerTuning.get().features;
+        boolean vanilla = features.placeVanillaItems;
+        String disabled = features.placeDisabledItems;
+        try {
+            features.placeVanillaItems = true;
+            features.placeDisabledItems = "";
+            helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(Items.STICK)), "a stick is placeable");
+            helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(Items.IRON_INGOT)), "an iron ingot is placeable");
+            helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(ModItems.STONE_PEBBLE)), "a stone pebble is placeable");
+            helper.assertFalse(PlacedTemplates.isPlaceableSmall(new ItemStack(Items.DIRT)), "dirt is not a small part");
+            net.minecraft.server.level.ServerPlayer player = helper.makeMockServerPlayerInLevel();
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            BlockPos floor = new BlockPos(1, 1, 1);
+            helper.setBlock(floor, Blocks.STONE);
+            helper.setBlock(floor.above(), Blocks.AIR);
+            player.setShiftKeyDown(true);
+            ItemStack sticks = new ItemStack(Items.STICK, 3);
+            player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, sticks);
+            BlockPos at = helper.absolutePos(floor);
+            net.minecraft.world.InteractionResult result = sticks.useOn(new net.minecraft.world.item.context.UseOnContext(player,
+                    net.minecraft.world.InteractionHand.MAIN_HAND, new net.minecraft.world.phys.BlockHitResult(
+                            net.minecraft.world.phys.Vec3.atCenterOf(at).add(0, 0.5, 0), net.minecraft.core.Direction.UP, at, false)));
+            helper.assertTrue(result.consumesAction(), "sneak + right-click with a stick answered " + result);
+            helper.assertTrue(PlacedTemplates.templateAt(helper.getLevel(), at.above()).is(Items.STICK), "no stick lies on the stone");
+            helper.assertValueEqual(sticks.getCount(), 2, "sticks left in hand");
+            features.placeVanillaItems = false;
+            helper.assertFalse(PlacedTemplates.isPlaceableSmall(new ItemStack(Items.STICK)), "vanilla parts off: stick");
+            helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(ModItems.STONE_PEBBLE)), "vanilla parts off: the pebble stays placeable");
+            features.placeDisabledItems = "simplebuilding:stone_pebble, flint";
+            helper.assertFalse(PlacedTemplates.isPlaceableSmall(new ItemStack(ModItems.STONE_PEBBLE)), "listed pebble");
+            helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(ModItems.FLINT_CHIP)), "unlisted flint chip");
+            features.placeVanillaItems = true;
+            helper.assertFalse(PlacedTemplates.isPlaceableSmall(new ItemStack(Items.FLINT)), "listed flint without namespace");
+        } finally {
+            features.placeVanillaItems = vanilla;
+            features.placeDisabledItems = disabled;
+        }
+        helper.succeed();
+    }
 }

@@ -2513,5 +2513,11 @@
   "item.simplebuilding.crafted_arrow.fletching.feather": "Fletching: Feather",
   "container.simplebuilding.fletching.effect.fletching.feather": "Normal flight",
   "item.simplebuilding.crafted_arrow.fletching.phantom_membrane": "Fletching: Phantom Membrane",
-  "container.simplebuilding.fletching.effect.fletching.phantom_membrane": "30% less gravity"
+  "container.simplebuilding.fletching.effect.fletching.phantom_membrane": "30% less gravity",
+  "item.simplebuilding.stone_pebble": "Stone Pebble",
+  "item.simplebuilding.flint_chip": "Flint Chip",
+  "text.autoconfig.simplebuilding.option.server.features.placeVanillaItems": "Place Small Vanilla Items",
+  "text.autoconfig.simplebuilding.option.server.features.placeVanillaItems.@Tooltip": "Sneak + right-click lays sticks, ingots, nuggets, gems, bricks and flint flat on a block. Off: only the mod's own small parts can be placed. Server-side. Default: on.",
+  "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems": "Unplaceable Items",
+  "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems.@Tooltip": "Item IDs that can no longer be placed, separated by commas or spaces (without a namespace: minecraft). Already placed ones stay. Server-side. Default: empty."
 }

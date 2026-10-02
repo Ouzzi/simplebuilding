@@ -40,6 +40,8 @@ public final class McVersion {
     public static final boolean DIMENSIONAL_SCRAP = true;
     /** Fletching table and crafted arrows (2026-10-01, main line first). */
     public static final boolean FLETCHING = true;
+    /** Small items (pebbles, sticks, ingots, gems, bricks) placeable on blocks (2026-10-02). */
+    public static final boolean SMALL_PLACEABLES = true;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = true;
 

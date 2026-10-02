@@ -268,6 +268,13 @@ public class ModItems {
 
     public static final Item DIAMOND_PEBBLE = registerItem("diamond_pebble", settings -> new Item(settings));
 
+    /** Steinkiesel: neun aus einem Bruchstein, zum Ablegen und zurueck zu Bruchstein (2026-10-02). */
+    public static final Item STONE_PEBBLE = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
+            ? registerItem("stone_pebble", settings -> new Item(settings)) : null;
+    /** Feuersteinsplitter: vier aus einem Feuerstein (2026-10-02). */
+    public static final Item FLINT_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
+            ? registerItem("flint_chip", settings -> new Item(settings)) : null;
+
     /** Pfeil vom Befiederungstisch; die Teile stehen in der Komponente {@code arrow_parts}. */
     public static final Item CRAFTED_ARROW = com.simplebuilding.version.McVersion.FLETCHING
             ? registerItem("crafted_arrow", s -> new com.simplebuilding.fletching.CraftedArrowItem(s)) : null;

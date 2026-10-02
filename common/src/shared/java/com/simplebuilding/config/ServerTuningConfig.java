@@ -79,6 +79,7 @@ public class ServerTuningConfig {
         if (trimStrengths == null) trimStrengths = new TrimStrengths();
 
         if (dimensionLocks.chunkLoaderBlockedDimensions == null) dimensionLocks.chunkLoaderBlockedDimensions = "";
+        if (features.placeDisabledItems == null || features.placeDisabledItems.length() > 4096) features.placeDisabledItems = "";
         if (dimensionLocks.flypadBlockedDimensions == null) dimensionLocks.flypadBlockedDimensions = "";
         if (dimensionLocks.echoSounderBlockedDimensions == null) dimensionLocks.echoSounderBlockedDimensions = "";
 
@@ -145,6 +146,12 @@ public class ServerTuningConfig {
         /** Leuchtende Ruestung setzt Lichtbloecke; aus: vorhandene verschwinden beim naechsten Takt. */
         @ConfigEntry.Gui.Tooltip
         public boolean dynamicLight = true;
+        /** Vanilla-Kleinteile (Stock, Barren, Edelsteine, Ziegel ...) lassen sich ablegen (2026-10-02). */
+        @ConfigEntry.Gui.Tooltip
+        public boolean placeVanillaItems = true;
+        /** Item-IDs, die sich nicht ablegen lassen (Komma/Leerzeichen getrennt, ohne Namensraum = minecraft). */
+        @ConfigEntry.Gui.Tooltip
+        public String placeDisabledItems = "";
         /** Reparieren ohne neue Verzauberung erhoeht die Ambosskosten nicht (2026-10-02). */
         @ConfigEntry.Gui.Tooltip
         public boolean anvilRepairKeepsCost = true;

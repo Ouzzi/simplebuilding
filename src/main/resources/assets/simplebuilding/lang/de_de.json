@@ -2513,5 +2513,11 @@
   "item.simplebuilding.crafted_arrow.fletching.feather": "Befiederung: Feder",
   "container.simplebuilding.fletching.effect.fletching.feather": "Normaler Flug",
   "item.simplebuilding.crafted_arrow.fletching.phantom_membrane": "Befiederung: Phantomhaut",
-  "container.simplebuilding.fletching.effect.fletching.phantom_membrane": "30 % weniger Schwerkraft"
+  "container.simplebuilding.fletching.effect.fletching.phantom_membrane": "30 % weniger Schwerkraft",
+  "item.simplebuilding.stone_pebble": "Steinkiesel",
+  "item.simplebuilding.flint_chip": "Feuersteinsplitter",
+  "text.autoconfig.simplebuilding.option.server.features.placeVanillaItems": "Vanilla-Kleinteile ablegen",
+  "text.autoconfig.simplebuilding.option.server.features.placeVanillaItems.@Tooltip": "Schleichen + Rechtsklick legt Stöcke, Barren, Klumpen, Edelsteine, Ziegel und Feuerstein flach auf einen Block. Aus: nur die eigenen Kleinteile der Mod lassen sich ablegen. Serverseitig. Standard: an.",
+  "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems": "Nicht ablegbare Items",
+  "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems.@Tooltip": "Item-IDs, die sich nicht mehr ablegen lassen, durch Komma oder Leerzeichen getrennt (ohne Namensraum: minecraft). Schon abgelegte bleiben liegen. Serverseitig. Standard: leer."
 }

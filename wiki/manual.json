@@ -10821,6 +10821,46 @@
         "common/src/shared/java/com/simplebuilding/fletching/CraftedArrow.java",
         "common/src/shared/java/com/simplebuilding/fletching/FletchingMenu.java"
       ]
+    },
+    "stone_pebble": {
+      "en": {
+        "summary": "A small stone: one cobblestone gives 9 Stone Pebbles, 9 pebbles in the crafting grid give the cobblestone back.",
+        "details": [
+          "Sneak + right-click lays it flat on a block (top, side or underside), like a smithing template; breaking the spot gives it back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint) and server.features.placeDisabledItems (single IDs)."
+        ]
+      },
+      "de": {
+        "summary": "Ein kleiner Stein: ein Bruchstein ergibt 9 Steinkiesel, 9 Kiesel im Handwerksfeld wieder den Bruchstein.",
+        "details": [
+          "Schleichen + Rechtsklick legt es flach auf einen Block (oben, seitlich oder unten), wie eine Schmiedevorlage; Abbauen gibt es zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein) und server.features.placeDisabledItems (einzelne IDs)."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/stone_pebble.json",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json"
+      ]
+    },
+    "flint_chip": {
+      "en": {
+        "summary": "A flake of flint: one flint gives 4 Flint Chips, 4 chips in a 2x2 give the flint back.",
+        "details": [
+          "Sneak + right-click lays it flat on a block (top, side or underside), like a smithing template; breaking the spot gives it back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint) and server.features.placeDisabledItems (single IDs)."
+        ]
+      },
+      "de": {
+        "summary": "Ein Splitter Feuerstein: ein Feuerstein ergibt 4 Feuersteinsplitter, 4 Splitter im 2x2-Feld wieder den Feuerstein.",
+        "details": [
+          "Schleichen + Rechtsklick legt es flach auf einen Block (oben, seitlich oder unten), wie eine Schmiedevorlage; Abbauen gibt es zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein) und server.features.placeDisabledItems (einzelne IDs)."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/stone_pebble.json",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json"
+      ]
     }
   },
   "inWorld": {
