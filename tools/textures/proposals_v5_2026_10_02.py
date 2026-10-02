@@ -32,7 +32,7 @@ DETECTOR_DIAL = [
     '.ABBGGDDDDDDEEF.',
     '.ABGDDDDDDDDDHF.',
     'ABDDDDDDDDDDDDHF',
-    'ABDDDDDIDDDDDDHF',
+    'ABDDDDDIIDDDDDHF',
     'ABDDDDDDDDDDDJHF',
     'AEEDDDDDDDDDJHHF',
     '.AEEEHHDDHHHHkF.',
@@ -42,36 +42,75 @@ DETECTOR_DIAL = [
     '................',
     '................',
 ]
-PIVOT = (7, 7)
-NEEDLE_RX, NEEDLE_RY = 4.3, 2.6     # the lid is seen tilted: the needle is shorter up/down than sideways
-MARKS = [(7, 4), (2, 7), (12, 7), (7, 10)]
+# Centred 2026-10-02 (owner: the needle did not look centred): the dial is symmetric about x = 7.5, so the hub is
+# two pixels wide (7|8, 7) and the needle turns about the point between them; frames 17..31 mirror 15..1.
+# Wider 2026-10-02 (owner: like the vanilla recovery compass): the needle is drawn as one 4-connected stroke - a
+# diagonal step gets a filler pixel on the side nearer the true line, as vanilla's recovery compass does - and the
+# grey tail is two pixels long.
+PIVOT = (8.0, 7.5)                  # in pixel-edge coordinates: between columns 7 and 8, middle of row 7
+HUB = [(7, 7), (8, 7)]
+NEEDLE_RX, NEEDLE_RY = 4.6, 2.9     # the lid is seen tilted: tips land on x = 3 / 12 and y = 4 / 10
+TAIL_RX, TAIL_RY = 2.4, 2.0         # two tail pixels each way
+MARKS = [(7, 4), (8, 4), (2, 7), (13, 7), (7, 10), (8, 10)]
+TAIL = (92, 86, 100)
 
 
 def detector_dial():
     return grid(DETECTOR_DIAL, v3.DET)
 
 
-def detector_needle(frame):
-    """Frame 0 points down (south), counting clockwise like the current detector_needle_XX (8 = left, 16 = up).
-    Head lavender with a white tip (the layer is tinted by the find's distance), a one-pixel grey tail, four marks."""
-    im = blank()
+def _stroke(start, ux, uy, rx, ry):
+    """Cells from the hub cell `start` outwards along (ux*rx, uy*ry), 4-connected, hub excluded."""
+    cx, cy = PIVOT
+    cell = lambda u, v: (math.floor(u - 1e-6), math.floor(v))
+    lx, ly = ux * rx, uy * ry
+    norm = math.hypot(lx, ly) or 1.0
+
+    def off_line(c):  # distance of a cell centre from the ideal needle line
+        return abs((c[0] + 0.5 - cx) * ly - (c[1] + 0.5 - cy) * lx) / norm
+
+    out, last = [], start
+    for i in range(1, 33):
+        c = cell(cx + lx * i / 32, cy + ly * i / 32)
+        if c == last or c in HUB:
+            continue
+        if c[0] != last[0] and c[1] != last[1]:
+            a, b = (c[0], last[1]), (last[0], c[1])
+            filler = a if off_line(a) <= off_line(b) else b
+            if filler not in HUB and filler not in out:
+                out.append(filler)
+        if c not in out:
+            out.append(c)
+        last = c
+    return out
+
+
+def needle_path(frame):
+    """(head cells from the hub to the tip, tail cells from the hub outwards) of a needle frame."""
+    frame %= 32
+    if frame > 16:
+        head, tail = needle_path(32 - frame)
+        return [(15 - x, y) for x, y in head], [(15 - x, y) for x, y in tail]
     a = frame / 32 * 2 * math.pi
     dx, dy = -math.sin(a), math.cos(a)
-    cx, cy = PIVOT
-    seen = []
-    for i in range(1, 9):
-        t = i / 8
-        p = (round(cx + 0.0 + dx * NEEDLE_RX * t), round(cy + dy * NEEDLE_RY * t))
-        if p != (cx, cy) and p not in seen:
-            seen.append(p)
-    for p in seen[:-1]:
+    head = _stroke(HUB[0], dx, dy, NEEDLE_RX, NEEDLE_RY)
+    tail = _stroke(HUB[1] if -dx > 1e-9 else HUB[0], -dx, -dy, TAIL_RX, TAIL_RY)
+    return head, tail
+
+
+def detector_needle(frame):
+    """Frame 0 points down (south), counting clockwise like the current detector_needle_XX (8 = left, 16 = up).
+    Head lavender with a white tip (the layer is tinted by the find's distance), a two-pixel grey tail, four marks.
+    The right half (17..31) is the mirror image of the left half (15..1) about x = 7.5, so both sides match."""
+    im = blank()
+    head, tail = needle_path(frame)
+    for p in tail:
+        px(im, p[0], p[1], TAIL)
+    for p in head[:-1]:
         px(im, p[0], p[1], v3.DET['n'])
-    px(im, seen[-1][0], seen[-1][1], v3.DET['N'])
-    tail = (round(cx - dx * 1.2), round(cy - dy * 0.9))
-    if tail != (cx, cy):
-        px(im, tail[0], tail[1], (92, 86, 100))
+    px(im, head[-1][0], head[-1][1], v3.DET['N'])
     for m in MARKS:
-        if m not in seen:
+        if m not in head and m not in tail:
             px(im, m[0], m[1], v3.DET['p'])
     return im
 

@@ -237,7 +237,8 @@ public class ModModelProvider extends FabricModelProvider {
      * Gehaeuse ({@code item/detector_dial}), Ebene 1 die Nadel ({@code item/detector_needle_NN}),
      * getoent mit der Farbe aus {@code custom_model_data} (heller je naeher, siehe
      * {@code OreDetectorItem.RESONANCE_COLORS}). Ohne Ziel ruht die Nadel ({@code item/detector}).
-     * Kein Ausholen der Hand, wenn der Server Nadel oder Haltbarkeit aendert.
+     * Kein Ausholen der Hand, wenn der Server Nadel oder Haltbarkeit aendert. Der Auswahl-Schimmer eines
+     * kalibrierten Detektors laeuft auf der Nadel ({@code client.render.OreDetectorGlint}).
      */
     private static void generateOreDetector(ItemModelGenerators generator) {
         Item detector = ModItems.ORE_DETECTOR;
@@ -250,7 +251,9 @@ public class ModModelProvider extends FabricModelProvider {
         }
         frames.add(ItemModelUtils.override(north, 31.5F));
         ItemModel.Unbaked compass = ItemModelUtils.rangeSelect(
-                new net.minecraft.client.renderer.item.properties.numeric.CompassAngle(true,
+                // Ohne Nachschwingen (2026-10-02): OreDetectorGlint rechnet dasselbe Bild nach und laesst
+                // den Auswahl-Schimmer genau auf der sichtbaren Nadel laufen.
+                new net.minecraft.client.renderer.item.properties.numeric.CompassAngle(false,
                         net.minecraft.client.renderer.item.properties.numeric.CompassAngleState.CompassTarget.LODESTONE),
                 32.0F, frames);
         generator.itemModelOutput.accept(detector, ItemModelUtils.conditional(

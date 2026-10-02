@@ -67,6 +67,11 @@ public final class OreDetectorGameTest {
     }
 
     @GameTest
+    public void selectionGlimmerPathFollowsTheCentredNeedle(GameTestHelper helper) {
+        OreDetectorTests.selectionGlimmerPathFollowsTheCentredNeedle(helper);
+    }
+
+    @GameTest
     public void detectorCalibratedInEitherMinecraftLineKeepsItsTarget(GameTestHelper helper) {
         OreDetectorTests.detectorCalibratedInEitherMinecraftLineKeepsItsTarget(helper);
     }

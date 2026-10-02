@@ -1,7 +1,8 @@
 """Usage: python tools/textures/round5_settled_2026_10_02.py <vanilla textures dir> [core variant a|b|c]
 
 Writes what the owner settled after rounds 4 and 5 (2026-10-02) into the 26.3 overlay:
-- Ore Detector: round-5 dial (round-4 B, top-left rim fixed) and its 32 needle frames in the tilted view; the resting
+- Ore Detector: round-5 dial (round-4 B, top-left rim fixed) and its 32 needle frames in the tilted view (superseded by
+  ore_detector_centred_2026_10_02.py: centred, wider needle, pulsing resting item - run that one afterwards); the resting
   item (no find) shows the needle north, dimmed.
 - Attractor: round-5 A (redstone red, lapis blue, iron tips).
 - Echo Sounder: round-4 B sonar on the clean frame - 32 direction frames (same numbering as vanilla compass_XX:

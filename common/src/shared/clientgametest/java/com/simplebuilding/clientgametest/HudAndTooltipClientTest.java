@@ -9,6 +9,7 @@ import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.render.OreDetectorGlint;
+import com.simplebuilding.client.render.OreDetectorNeedlePath;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
@@ -2157,15 +2158,18 @@ public final class HudAndTooltipClientTest {
             "simplebuilding:detector[minecraft:custom_data={Mode:5,CustomBlock:{Name:\"minecraft:diamond_ore\"}}]";
     /** Diamond ore's glimmer colour, {@code OreDetectorItem#targetColor}. */
     private static final int GLINT_DIAMOND_RGB = 0x5DECF5;
+    /** Glimmer clock while frozen: head on the third needle pixel, both tail pixels behind it on the needle. */
+    private static final long GLINT_FROZEN_MILLIS = (OreDetectorGlint.TRAIL_ALPHA.length - 1) * OreDetectorGlint.MILLIS_PER_STEP;
 
     /**
-     * A calibrated ore detector marks its slot with a one pixel glimmer in the colour of its target
+     * A calibrated ore detector marks itself with a one pixel glimmer in the colour of its target
      * ({@code OreDetectorGlint}, drawn from {@code ItemDecorationsMixin} at the end of vanilla's item
      * decorations), and an uncalibrated one shows nothing.
      *
-     * <p>The glimmer runs round the slot's edge in three seconds, so its clock is frozen at the
-     * start of the lap: head at the slot's top left pixel, the two fading tail pixels right below
-     * it. Two detectors sit in hotbar slots 0 and 1 of the open inventory, both in the custom mode;
+     * <p>The glimmer runs along the needle from the hub to the tip (owner 2026-10-02; before it ran
+     * round the slot's edge). Without a find the detector shows its resting needle (frame 16, up), so
+     * the clock is frozen two steps into the lap: head on the third needle pixel, the two fading tail
+     * pixels on the two pixels before it ({@code OreDetectorNeedlePath}). Two detectors sit in hotbar slots 0 and 1 of the open inventory, both in the custom mode;
      * only the item data of slot 0 changes between the shots, so the model, the count and every
      * other decoration stay the same.
      *
@@ -2182,7 +2186,7 @@ public final class HudAndTooltipClientTest {
      */
     private static void oreDetectorGlintMarksTheCalibratedSlot(Script script) {
         TestScene.build(script, "minecraft:stone", "survival");
-        script.act("freeze the glimmer clock at the start of its lap", client -> OreDetectorGlint.clock = () -> 0L);
+        script.act("freeze the glimmer clock two steps into its lap", client -> OreDetectorGlint.clock = () -> GLINT_FROZEN_MILLIS);
         script.command("item replace entity @a hotbar.0 with " + DETECTOR_UNCALIBRATED);
         script.command("item replace entity @a hotbar.1 with " + DETECTOR_UNCALIBRATED);
         script.awaitPackets();
@@ -2220,14 +2224,14 @@ public final class HudAndTooltipClientTest {
         assertGlintRectangles(script, true);
         Later<int[]> column = glintColumn(script);
         Later<Path> calibrated = script.shot("glint-c-calibrated");
-        script.verify("the glimmer reached the screen at the calibrated slot's edge and nowhere else", () -> {
+        script.verify("the glimmer reached the screen on the calibrated detector's needle and nowhere else", () -> {
             ScreenshotDiff.ChangedArea area = ScreenshotDiff.changedArea("glimmer",
                     onlyThePanel(plain.get(), panelBox.get(), modelBox.get()), onlyThePanel(calibrated.get(), panelBox.get(), modelBox.get()));
             int[] box = column.get();
             if (area.changedPixels() == 0 || area.left() < box[0] || area.top() < box[1]
                     || area.right() > box[2] || area.bottom() > box[3]) {
-                throw new AssertionError("The ore detector glimmer did not land on the calibrated slot's top left "
-                        + "edge pixels (window pixels " + box[0] + "/" + box[1] + ".." + box[2] + "/" + box[3]
+                throw new AssertionError("The ore detector glimmer did not land on the calibrated detector's resting "
+                        + "needle (window pixels " + box[0] + "/" + box[1] + ".." + box[2] + "/" + box[3]
                         + "): " + area);
             }
         });
@@ -2247,7 +2251,7 @@ public final class HudAndTooltipClientTest {
 
     /**
      * The 1x1 rectangles the open inventory draws inside hotbar slots 0 and 1: with the glimmer,
-     * exactly head and tail at slot 0's top left pixel column; without it, none in either slot.
+     * exactly head and tail on slot 0's resting needle; without it, none in either slot.
      */
     private static void assertGlintRectangles(Script script, boolean expectGlint) {
         script.act("the glimmer rectangles " + (expectGlint ? "sit at the calibrated slot" : "are absent"), client -> {
@@ -2274,8 +2278,11 @@ public final class HudAndTooltipClientTest {
             if (expectGlint) {
                 int[] alpha = OreDetectorGlint.TRAIL_ALPHA;
                 for (int i = 0; i < alpha.length; i++) {
-                    expected.add(String.format("slot %d +0/+%d 0x%08X", GLINT_SLOT, i, (alpha[i] << 24) | GLINT_DIAMOND_RGB));
+                    int[] p = OreDetectorNeedlePath.pixel(OreDetectorGlint.IDLE_FRAME, alpha.length - 1 - i);
+                    expected.add(String.format("slot %d +%d/+%d 0x%08X", GLINT_SLOT, p[0], p[1], (alpha[i] << 24) | GLINT_DIAMOND_RGB));
                 }
+                found.sort(null);
+                expected.sort(null);
             }
             // Anywhere on the screen, not only in the two slots: a glimmer drawn at any other place is
             // a 1x1 rectangle in the target colour, and there must be none besides the three above.
@@ -2304,7 +2311,7 @@ public final class HudAndTooltipClientTest {
         });
     }
 
-    /** Window pixel box {left, top, right, bottom} (inclusive) of slot 0's first three left edge pixels. */
+    /** Window pixel box {left, top, right, bottom} (inclusive) of the first three needle pixels in slot 0. */
     private static Later<int[]> glintColumn(Script script) {
         Later<int[]> box = new Later<>("the window pixel box of the glimmer");
         script.act("work out where the glimmer lands in window pixels", client -> {
@@ -2312,13 +2319,21 @@ public final class HudAndTooltipClientTest {
             Slot slot = screen.getMenu().slots.get(GLINT_SLOT);
             double scaleX = client.getWindow().getScreenWidth() / (double) client.getWindow().getGuiScaledWidth();
             double scaleY = client.getWindow().getScreenHeight() / (double) client.getWindow().getGuiScaledHeight();
+            int minX = 16, minY = 16, maxX = -1, maxY = -1;
+            for (int i = 0; i < OreDetectorGlint.TRAIL_ALPHA.length; i++) {
+                int[] p = OreDetectorNeedlePath.pixel(OreDetectorGlint.IDLE_FRAME, i);
+                minX = Math.min(minX, p[0]);
+                minY = Math.min(minY, p[1]);
+                maxX = Math.max(maxX, p[0]);
+                maxY = Math.max(maxY, p[1]);
+            }
             int guiX = leftPos(screen) + slot.x;
             int guiY = topPos(screen) + slot.y;
             box.set(new int[] {
-                    (int) Math.floor(guiX * scaleX) - 1,
-                    (int) Math.floor(guiY * scaleY) - 1,
-                    (int) Math.ceil((guiX + 1) * scaleX),
-                    (int) Math.ceil((guiY + OreDetectorGlint.TRAIL_ALPHA.length) * scaleY),
+                    (int) Math.floor((guiX + minX) * scaleX) - 1,
+                    (int) Math.floor((guiY + minY) * scaleY) - 1,
+                    (int) Math.ceil((guiX + maxX + 1) * scaleX),
+                    (int) Math.ceil((guiY + maxY + 1) * scaleY),
             });
         });
         return box;

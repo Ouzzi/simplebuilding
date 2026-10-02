@@ -14,7 +14,11 @@ Namensraum `simplemoney` unverändert. Sieben Items: `special_paper` (64), `spec
 - `blank_note_smithing`: Eiseningot als Vorlage + Spezialpapier + Harzfaser → 1 Banknotenrohling.
 - `refined_bank_note_blank_smithing`: Goldingot als Vorlage + Banknotenrohling + Spezialfaser → 1 veredelter Rohling.
 - `raw_bill_from_crafting_table`: `#I#/PPP/I#I`, # grüner Farbstoff, I Tintenbeutel, P veredelter Rohling → 3 rohe Scheine.
-- `money_bill_from_blasting`: roher Schein → Geldschein; 10000 Ticks, 20 XP.
+- `money_bill_from_blasting`: roher Schein → Geldschein; 24000 Ticks, 20 XP. Bis 2026-10-02 waren es 10000 Ticks
+  (Quellwert). Angehoben für SimpleBuilding-Welten: deren Schmelzöfen laufen 2×/4×/8× (verstärkt/Netherit/Enderit,
+  `FurnaceTierPerks.extraCookTicks`, Zusatzticks ohne Brennstoff). Mit 24000 Ticks braucht ein Vanilla-Schmelzofen
+  genau einen Spieltag je Schein, die SimpleBuilding-Stufen 12000/6000/3000 Ticks (2/4/8 Scheine je Spieltag); der
+  Enderit-Schmelzofen liegt damit bei 2,5 min statt 62,5 s je Schein. Erfahrung bleibt 20.
 - `rocket_from_paper`: `###/#G#/#G#`, # Papier, G Schwarzpulver → 1 Rakete.
 
 ## Handel, Beute und Konfiguration

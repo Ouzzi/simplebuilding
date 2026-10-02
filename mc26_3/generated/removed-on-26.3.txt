@@ -66,9 +66,7 @@ data/simplebuilding/advancement/recipes/misc/quiver_dyed.json
 data/simplebuilding/advancement/recipes/misc/reinforced_backpack_dyed.json
 data/simplebuilding/advancement/recipes/misc/reinforced_bundle_dyed.json
 data/simplebuilding/advancement/recipes/misc/reinforced_quiver_dyed.json
-data/simplebuilding/advancement/recipes/tools/elytra_pad_smithing.json
 data/simplebuilding/recipe/backpack_dyed.json
-data/simplebuilding/recipe/elytra_pad_smithing.json
 data/simplebuilding/recipe/enderite_backpack_dyed.json
 data/simplebuilding/recipe/enderite_bundle_dyed.json
 data/simplebuilding/recipe/enderite_quiver_dyed.json

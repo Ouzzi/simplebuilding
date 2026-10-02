@@ -73,7 +73,7 @@ public final class MoneyTests {
   for(String name:List.of("special_paper_from_crafting_table","special_fiber_from_crafting_table","resin_fiber_from_crafting_table","blank_note_smithing","refined_bank_note_blank_smithing","raw_bill_from_crafting_table","money_bill_from_blasting","rocket_from_paper")) {
    var recipe=h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,id(name)));
    h.assertTrue(recipe.isPresent(),"loaded recipe "+name);
-   if(name.equals("money_bill_from_blasting")) {var cooking=(AbstractCookingRecipe)recipe.get().value();h.assertValueEqual(cooking.cookingTime(),10000,"source curing time");h.assertValueEqual(cooking.experience(),20f,"source curing xp");}
+   if(name.equals("money_bill_from_blasting")) {var cooking=(AbstractCookingRecipe)recipe.get().value();h.assertValueEqual(cooking.cookingTime(),24000,"curing time: one day in a vanilla blast furnace");h.assertValueEqual(cooking.experience(),20f,"source curing xp");}
   }h.succeed();
  }
  private static ItemStack stack(String name) {return new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(name)));}
