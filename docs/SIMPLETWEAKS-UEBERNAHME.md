@@ -98,9 +98,9 @@ Familie.
 | | III | `netherite_elytra_pad` | **16x16**x63 | Schmiede: Netherit-Vorlage + Pad II + **Netherit-Druckplatte** |
 | | **IV (neu)** | `enderite_elytra_pad` | **32x32**x95, **Boosts laden im ganzen Bereich** (sonst nur 3x3-Saeule) | Schmiede: Enderit-Vorlage + Pad III + **Enderit-Druckplatte** |
 | | V | `fine_elytra_pad` | **128x128**x127 + Zusatz von IV | Schmiede: Netherit-Vorlage + **Pad IV** + Netherstern (Muster der bisherigen Endstufe) |
-| Flypad | I | `flypad` | **4x4x6**, Sicherheitsnetz (alle Stufen) | Schmiede: Enderit-Vorlage + **Enderit-Druckplatte** + **Enderit-Kern** |
-| | II | `reinforced_flypad` | **8x8x12** | Schmiede: Enderit-Vorlage + Flypad I + **Enderit-Druckplatte** |
-| | III | `stellar_flypad` | **16x16x24** | Schmiede: Enderit-Vorlage + Flypad II + **Flypad II** (zwei II zusammen) |
+| Flypad | I | `flypad` | **4x4x8**, Sicherheitsnetz (alle Stufen) | Schmiede: Enderit-Vorlage + **Enderit-Druckplatte** + **Enderit-Kern** |
+| | II | `reinforced_flypad` | **8x8x16** | Schmiede: Enderit-Vorlage + Flypad I + **Enderit-Druckplatte** |
+| | III | `stellar_flypad` | **16x16x32** | Schmiede: Enderit-Vorlage + Flypad II + **Flypad II** (zwei II zusammen) |
 | | alt | `netherite_flypad`, `enderite_flypad` | wird zu II bzw. III (Abschnitt 2.3) | kein Rezept, nicht im Kreativ-Tab |
 | Druckplatte | - | `diamond_pressure_plate` | nur Spieler | Werkbank `DD` |
 | | - | `netherite_pressure_plate` | Fass darunter = Item-Whitelist | Schmiede: Netherit-Vorlage + Diamant-Platte + Netheritbarren |
@@ -116,8 +116,8 @@ Familie.
 | | **II (neu)** | `netherite_launchpad` | bis **8** Windkugeln | Schmiede: Netherit-Vorlage + Launchpad I + **Netherit-Druckplatte** |
 | | III | `enderite_launchpad` | bis **16** Windkugeln, **kein Fallschaden** bis zur naechsten Landung | Schmiede: Enderit-Vorlage + Launchpad II + **Enderit-Druckplatte** |
 | Trank-Pad (neu) | I | `potion_pad` | gespeicherter Wurftrank, **30 s** nach 3 s Stehen, danach **60 s** Abklingzeit | Schmiede: beliebige Vorlage + **Netherit-Druckplatte + Lohenkopf** (bis 2026-09-28 Werkbank, formlos) |
-| | II | `reinforced_potion_pad` | **60 s**, Abklingzeit **120 s** | Schmiede: Enderit-Vorlage + Trank-Pad I + **Enderit-Druckplatte** |
-| | III | `infused_potion_pad` | **120 s**, Abklingzeit **240 s** | Schmiede: Enderit-Vorlage + Trank-Pad II + **Enderit-Kern** |
+| | II | `reinforced_potion_pad` | **60 s**, Abklingzeit **120 s** | Schmiede: Netherit-Aufwertung + Trank-Pad I + **Netherit-Druckplatte** (seit 2026-10-02) |
+| | III | `infused_potion_pad` | **120 s**, Abklingzeit **240 s** | Schmiede: Enderit-Vorlage + Trank-Pad II + **Enderit-Druckplatte** (seit 2026-10-02) |
 
 Kupfer-Druckplatten sind Oxidationsstufen, keine Materialstufen, und bekommen deshalb keine
 Enderit-Variante.
@@ -171,7 +171,7 @@ die Druckplatten selbst (sie sind die Quelle der Platten) und die Netherstern-St
   mit leerer Zutat, `tweaksSmithingWithoutAddition`); II-IV mit Diamant-/Netherit-/Enderit-Druckplatte;
   V wie bisher mit Netherstern (das bestehende Muster der Endstufe). Bestehende Pads behalten ID und Rang
   (I bleibt I usw.); nur ihre Bereiche aendern sich.
-- **Flypad**: nur noch drei Stufen, alle aus Enderit statt Netherit: 4x4x6, 8x8x12, 16x16x24 (Breite x
+- **Flypad**: nur noch drei Stufen, alle aus Enderit statt Netherit: 4x4x8, 8x8x16, 16x16x32 (Breite x
   Tiefe x Hoehe, ab der Unterkante des Pads). I = Enderit-Vorlage + Enderit-Druckplatte + Enderit-Kern,
   II = Enderit-Vorlage + I + Enderit-Druckplatte, III = zwei II im Schmiedetisch (Enderit-Vorlage, das
   zweite als Zutat). Weil jede Stufe aus Enderit ist, hat jede das Sicherheitsnetz (10 s Sanfter Fall
@@ -713,7 +713,7 @@ Endnamen folgen den deutschen Blocknamen.
 | Familie | Endstufe | letzte Easter-Stufe |
 |---|---|---|
 | Elytra-Pad V | 128x128, 127 hoch | 256x256, 254 hoch |
-| Flypad III | 16x16x24 | 32x32x48 |
+| Flypad III | 16x16x32 | 32x32x64 |
 | Spawn-Teleporter III | 5 s stillstehen | 2,5 s |
 | Launchpad III | 16 Windkugeln | 32 Windkugeln (Schub pro Ladung unveraendert) |
 | Chunk-Loader III | 3x3 Chunks | 5x5 Chunks (Radius verdoppelt) |

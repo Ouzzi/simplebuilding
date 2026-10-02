@@ -168,8 +168,8 @@ public final class ImmersionTests {
     public static void flypadWarningRisesTowardsTheEdgeOfItsField(GameTestHelper helper) {
         AABB area = PadTiers.flyArea(BlockPos.ZERO, 1);
         helper.assertTrue(Math.abs(FlypadBlockEntity.edgeMargin(area, 0.5, 2.0, 0.5) - 2.0) < 1e-9,
-                "margin in the middle of flypad I's field (4 wide, 6 high): " + FlypadBlockEntity.edgeMargin(area, 0.5, 2.0, 0.5));
-        helper.assertTrue(Math.abs(FlypadBlockEntity.edgeMargin(area, 0.5, 5.5, 0.5) - 0.5) < 1e-9,
+                "margin in the middle of flypad I's field (4 wide, 8 high): " + FlypadBlockEntity.edgeMargin(area, 0.5, 2.0, 0.5));
+        helper.assertTrue(Math.abs(FlypadBlockEntity.edgeMargin(area, 0.5, 7.5, 0.5) - 0.5) < 1e-9,
                 "margin half a block under the ceiling");
         helper.assertTrue(Math.abs(FlypadBlockEntity.edgeMargin(area, 2.2, 2.0, 0.5) - 0.3) < 1e-9,
                 "margin 0.3 blocks from the east side");
@@ -199,7 +199,7 @@ public final class ImmersionTests {
         expectLines(helper, TweaksBlocks.NETHERITE_CHUNK_LOADER, "Tier II of III", "Keeps 5 chunks loaded: its own and the 4 beside it");
         expectLines(helper, TweaksBlocks.FINE_ELYTRA_PAD, "Tier V of V", "Area: 128 x 128 blocks, 127 high", "Recharges boosts in the whole area");
         expectLines(helper, TweaksBlocks.ELYTRA_PAD, "Tier I of V", "Area: 1 x 1 blocks, 15 high");
-        expectLines(helper, TweaksBlocks.REINFORCED_FLYPAD, "Tier II of III", "Flight area: 8 x 8 blocks, 12 high", "Flying out gives you Slow Falling");
+        expectLines(helper, TweaksBlocks.REINFORCED_FLYPAD, "Tier II of III", "Flight area: 8 x 8 blocks, 16 high", "Flying out gives you Slow Falling");
         expectLines(helper, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "Tier III of III", "Stand still for 5 s to travel to your bed or respawn anchor (otherwise the spawn)");
         expectLines(helper, TweaksBlocks.POTION_PAD, "Tier I of III", "Effects last up to 30 s (never longer than the potion), then about 60 s of cooldown");
         expectLines(helper, ModBlocks.ENDERITE_FURNACE, "Works 8× as fast", "Double experience");

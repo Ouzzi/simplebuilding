@@ -76,7 +76,7 @@ public final class TweaksBlocks {
     public static final Block FINE_ELYTRA_PAD = register("fine_elytra_pad",
             p -> new ElytraPadBlock(sturdy(p).mapColor(MapColor.GOLD).strength(4.0f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 10), 5));
 
-    // --- Flypads I-III aus Enderit (4x4x6 / 8x8x12 / 16x16x24, Besitzer 2026-09-27) ---
+    // --- Flypads I-III aus Enderit (4x4x8 / 8x8x16 / 16x16x32, Besitzer 2026-09-27, Hoehe 2026-10-02) ---
     public static final Block FLYPAD = register("flypad",
             p -> new FlypadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(4.5f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 7), 1));
     public static final Block REINFORCED_FLYPAD = register("reinforced_flypad",

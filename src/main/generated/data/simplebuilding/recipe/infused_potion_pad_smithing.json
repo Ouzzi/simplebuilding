@@ -1,6 +1,6 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "simplebuilding:enderite_core",
+  "addition": "simplebuilding:enderite_pressure_plate",
   "base": "simplebuilding:reinforced_potion_pad",
   "result": {
     "id": "simplebuilding:infused_potion_pad"

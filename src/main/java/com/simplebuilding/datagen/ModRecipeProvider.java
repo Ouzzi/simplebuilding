@@ -1119,11 +1119,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD, "stellar_flypad_smithing");
 
                 // Trank-Pads I-III (Besitzer 2026-09-28): I = Netheritkern + Netherit-Druckplatte + Lohenkopf
-                // (Schmiede, Kern statt Vorlage seit 2026-09-29); II = Enderit-Vorlage + I + Enderit-Druckplatte
-                // (Aufwertungen zahlen mit der Druckplatte des Zielmaterials); III = Enderit-Vorlage + II + Enderit-Kern.
+                // (Schmiede, Kern statt Vorlage seit 2026-09-29). Seit 2026-10-02 wie die Elytra-Pads: jede
+                // Aufwertung zahlt mit Vorlage und Druckplatte des Zielmaterials - II = Netherit-Aufwertung + I +
+                // Netherit-Druckplatte, III = Enderit-Aufwertung + II + Enderit-Druckplatte.
                 tweaksSmithing(Ingredient.of(ModItems.NETHERITE_CORE), netheritePlate, TweaksItems.BLAZE_HEAD, TweaksBlocks.POTION_PAD, "potion_pad_smithing");
-                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.POTION_PAD, enderitePlate, TweaksBlocks.REINFORCED_POTION_PAD, "reinforced_potion_pad_smithing");
-                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.REINFORCED_POTION_PAD, ModItems.ENDERITE_CORE, TweaksBlocks.INFUSED_POTION_PAD, "infused_potion_pad_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.POTION_PAD, netheritePlate, TweaksBlocks.REINFORCED_POTION_PAD, "reinforced_potion_pad_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.REINFORCED_POTION_PAD, enderitePlate, TweaksBlocks.INFUSED_POTION_PAD, "infused_potion_pad_smithing");
 
                 // Kupfer-Druckplatte (2 Kupferbloecke) und Chunk-Loader I-III (Kupferkern + Kupferplatte +
                 // Trial-Chamber-Kopf, dann Netherit- und Enderit-Druckplatte)

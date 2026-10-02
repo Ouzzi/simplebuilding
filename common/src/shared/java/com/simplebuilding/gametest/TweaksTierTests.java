@@ -359,7 +359,8 @@ public final class TweaksTierTests {
     // =====================================================================================
 
     /**
-     * Elytra-Pad I-V: 1x1, 5x5, 16x16, 32x32, 128x128; Flypad I-III: 4x4x6, 8x8x12, 16x16x24. Dazu je
+     * Elytra-Pad I-V: 1x1, 5x5, 16x16, 32x32, 128x128; Flypad I-III: 4x4x8, 8x8x16, 16x16x32 (Hoehe = doppelte
+     * Breite, Besitzer 2026-10-02). Dazu je
      * ein echter Durchlauf: ein Spieler einen Block neben dem Pad bekommt von Stufe I keine Elytra, von
      * Stufe II schon; fuenf Bloecke neben dem Flypad fliegt er mit Stufe III, nicht mit Stufe I.
      */
@@ -371,12 +372,14 @@ public final class TweaksTierTests {
             helper.assertTrue(Math.abs(area.getXsize() - widths[tier - 1]) < 1e-9 && Math.abs(area.getZsize() - widths[tier - 1]) < 1e-9,
                     "elytra pad tier " + tier + " covers " + area.getXsize() + " blocks instead of " + widths[tier - 1]);
         }
-        int[][] fly = {{4, 6}, {8, 12}, {16, 24}};
+        int[][] fly = {{4, 8}, {8, 16}, {16, 32}};
         for (int tier = 1; tier <= PadTiers.FLYPAD_MAX; tier++) {
             net.minecraft.world.phys.AABB area = PadTiers.flyArea(origin, tier);
             helper.assertTrue(Math.abs(area.getXsize() - fly[tier - 1][0]) < 1e-9 && Math.abs(area.getZsize() - fly[tier - 1][0]) < 1e-9
                             && Math.abs(area.getYsize() - fly[tier - 1][1]) < 1e-9,
                     "flypad tier " + tier + " covers " + area.getXsize() + "x" + area.getYsize() + " instead of " + fly[tier - 1][0] + "x" + fly[tier - 1][1]);
+            helper.assertTrue(PadTiers.flyHeight(tier) == 2 * PadTiers.flyWidth(tier),
+                    "flypad tier " + tier + " is " + PadTiers.flyHeight(tier) + " high, not twice its width " + PadTiers.flyWidth(tier));
         }
 
         // Elytra-Pad: einen Block neben dem Pad

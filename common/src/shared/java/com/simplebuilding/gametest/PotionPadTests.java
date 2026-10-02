@@ -351,9 +351,9 @@ public final class PotionPadTests {
 
     /**
      * I = beliebige Vorlage + Netherit-Druckplatte + Lohenkopf (Schmiede seit 2026-09-28, wie das
-     * Elytra-Pad; die formlose Werkbank-Variante gibt es nicht mehr); II = Enderit-Vorlage + I +
-     * Enderit-Druckplatte; III = Enderit-Vorlage + II + Enderit-Kern. Ohne Lohenkopf kein Pad, und die
-     * Aufwertungen nehmen keine Netherit-Platte bzw. keinen Barren.
+     * Elytra-Pad; die formlose Werkbank-Variante gibt es nicht mehr); seit 2026-10-02 II = Netherit-Aufwertung + I +
+     * Netherit-Druckplatte, III = Enderit-Aufwertung + II + Enderit-Druckplatte. Ohne Lohenkopf kein Pad; die
+     * Aufwertungen nehmen weder die Platte der falschen Stufe noch Barren oder den alten Enderit-Kern.
      */
     public static void potionPadRecipesCoverAllThreeTiers(GameTestHelper helper) {
         Item netheritePlate = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
@@ -373,11 +373,17 @@ public final class PotionPadTests {
                     "the old shapeless crafting recipe still turns " + grid + " into a potion pad");
         }
 
-        expect(helper, end, TweaksBlocks.POTION_PAD, enderitePlate, TweaksBlocks.REINFORCED_POTION_PAD);
-        expect(helper, end, TweaksBlocks.REINFORCED_POTION_PAD, ModItems.ENDERITE_CORE, TweaksBlocks.INFUSED_POTION_PAD);
-        expectNothing(helper, end, TweaksBlocks.POTION_PAD, ModItems.ENDERITE_INGOT);
+        Item nether = Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE;
+        expect(helper, nether, TweaksBlocks.POTION_PAD, netheritePlate, TweaksBlocks.REINFORCED_POTION_PAD);
+        expect(helper, end, TweaksBlocks.REINFORCED_POTION_PAD, enderitePlate, TweaksBlocks.INFUSED_POTION_PAD);
+        // Die alten Wege (Enderit-Vorlage + I + Enderit-Platte, II + Enderit-Kern) gibt es nicht mehr.
+        expectNothing(helper, end, TweaksBlocks.POTION_PAD, enderitePlate);
+        expectNothing(helper, end, TweaksBlocks.REINFORCED_POTION_PAD, ModItems.ENDERITE_CORE);
+        expectNothing(helper, nether, TweaksBlocks.POTION_PAD, Items.NETHERITE_INGOT);
+        expectNothing(helper, nether, TweaksBlocks.POTION_PAD, enderitePlate);
         expectNothing(helper, end, TweaksBlocks.POTION_PAD, netheritePlate);
-        expectNothing(helper, end, TweaksBlocks.REINFORCED_POTION_PAD, enderitePlate);
+        expectNothing(helper, nether, TweaksBlocks.REINFORCED_POTION_PAD, enderitePlate);
+        expectNothing(helper, end, TweaksBlocks.REINFORCED_POTION_PAD, netheritePlate);
         succeed(helper);
     }
 

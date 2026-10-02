@@ -10,8 +10,9 @@ import net.minecraft.world.phys.AABB;
  * IV 32x32, V 128x128; die Hoehen blieben (15/31/63/95/127). Ab {@link #ENDERITE} laden Boosts im
  * ganzen Bereich.
  *
- * <p>Flypad (Besitzer 2026-09-27), drei Stufen aus Enderit, Breite x Breite x Hoehe: I 4x4x6,
- * II 8x8x12, III 16x16x24. Jede Stufe hat das Sicherheitsnetz der frueheren Enderit-Stufe.
+ * <p>Flypad (Besitzer 2026-09-27), drei Stufen aus Enderit, Breite x Breite x Hoehe: I 4x4x8,
+ * II 8x8x16, III 16x16x32 - die Hoehe ist die doppelte Breite (Besitzer 2026-10-02, vorher 6/12/24).
+ * Jede Stufe hat das Sicherheitsnetz der frueheren Enderit-Stufe.
  */
 public final class PadTiers {
     /** Elytra-Pad: ab dieser Stufe laden Boosts im ganzen Bereich. */
@@ -27,8 +28,6 @@ public final class PadTiers {
     private static final int[] HEIGHT = {15, 31, 63, 95, 127};
     /** Flypad: halbe Breite je Stufe 1..3 (4, 8, 16 Bloecke breit). */
     private static final double[] FLY_HALF_WIDTH = {1.5, 3.5, 7.5};
-    /** Flypad: Hoehe je Stufe 1..3, ab der Unterkante des Pads. */
-    private static final int[] FLY_HEIGHT = {6, 12, 24};
 
     private PadTiers() {
     }
@@ -59,8 +58,9 @@ public final class PadTiers {
         return (int) Math.round(2 * flyHalfWidth(tier) + 1);
     }
 
+    /** Flypad: Hoehe ab der Unterkante des Pads = doppelte Breite (8, 16, 32). */
     public static int flyHeight(int tier) {
-        return FLY_HEIGHT[clamp(tier, FLYPAD_MAX) - 1];
+        return 2 * flyWidth(tier);
     }
 
     /** Sicherheitsnetz (Sanfter Fall beim fliegenden Verlassen): jede Flypad-Stufe, alle sind aus Enderit. */

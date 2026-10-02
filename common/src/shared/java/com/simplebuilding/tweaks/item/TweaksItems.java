@@ -157,15 +157,16 @@ public final class TweaksItems {
     /**
      * Seltenheit eines Druckplatten- oder Pad-Blocks nach dem Material seiner Stufe (docs/RARITAETEN.md):
      * mit Netherit gebaut (Netherit-Platten, Spawn-Teleporter II-IV aus Netherit-Druckplatten, Trank-Pad I aus
-     * der Netherit-Druckplatte) UNCOMMON, mit Enderit gebaut (Enderit-Platten, alle Flypads aus Enderit-Platte
-     * und -Kern, Feines Elytra-Pad V und Trank-Pad II/III als Aufwertungen darueber) EPIC, sonst COMMON.
+     * der Netherit-Druckplatte, Trank-Pad II seit 2026-10-02 mit Netherit-Aufwertung und -Platte) UNCOMMON, mit Enderit gebaut (Enderit-Platten, alle Flypads aus Enderit-Platte
+     * und -Kern, Feines Elytra-Pad V und Trank-Pad III als Aufwertung darueber) EPIC, sonst COMMON.
      */
     static Rarity padRarity(String path) {
         if (path.startsWith("enderite_") || (path.endsWith("flypad") && !path.startsWith("netherite_"))
-                || path.equals("fine_elytra_pad") || path.equals("reinforced_potion_pad") || path.equals("infused_potion_pad")) {
+                || path.equals("fine_elytra_pad") || path.equals("infused_potion_pad")) {
             return Rarity.EPIC;
         }
-        if (path.startsWith("netherite_") || path.startsWith("spawn_teleporter_tier_") || path.equals("potion_pad")) {
+        if (path.startsWith("netherite_") || path.startsWith("spawn_teleporter_tier_") || path.equals("potion_pad")
+                || path.equals("reinforced_potion_pad")) {
             return Rarity.UNCOMMON;
         }
         return Rarity.COMMON;

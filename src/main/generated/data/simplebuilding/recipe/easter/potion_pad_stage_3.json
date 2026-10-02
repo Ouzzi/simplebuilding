@@ -1,6 +1,6 @@
 {
   "type": "simplebuilding:easter_smithing",
-  "addition": "simplebuilding:enderite_core",
+  "addition": "simplebuilding:enderite_pressure_plate",
   "base": "simplebuilding:reinforced_potion_pad",
   "base_stage": 2,
   "result": "simplebuilding:infused_potion_pad",
