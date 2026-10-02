@@ -1582,6 +1582,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_template_game_test_placed_eggs_go_back_with_silk_touch_and_hatch_like_thrown_eggs", PlacedTemplateTests::placedEggsGoBackWithSilkTouchAndHatchLikeThrownEggs)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_small_parts_stack_up_to_four_in_any_mix_and_the_fifth_is_refused", PlacedTemplateTests::smallPartsStackUpToFourInAnyMixAndTheFifthIsRefused)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_broken_piles_hatch_each_egg_like_thrown_eggs_and_silk_touch_returns_them", PlacedTemplateTests::brokenPilesHatchEachEggLikeThrownEggsAndSilkTouchReturnsThem)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_old_placed_eggs_and_lying_small_parts_turn_into_piles_when_parts_are_added", PlacedTemplateTests::oldPlacedEggsAndLyingSmallPartsTurnIntoPilesWhenPartsAreAdded)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_the_egg_model_matches_the_egg_hitbox", PlacedTemplateTests::theEggModelMatchesTheEggHitbox)
+                    .build(),
             GameTestSpec.named("placed_template_game_test_small_parts_lie_down_and_the_server_options_gate_them", PlacedTemplateTests::smallPartsLieDownAndTheServerOptionsGateThem)
                     .build(),
             GameTestSpec.named("placed_template_game_test_sneak_use_places_templates_on_the_floor_against_the_wall_and_under_the_ceiling", PlacedTemplateTests::sneakUsePlacesTemplatesOnTheFloorAgainstTheWallAndUnderTheCeiling)

@@ -2521,6 +2521,7 @@
   "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems": "Unplaceable Items",
   "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems.@Tooltip": "Item IDs that can no longer be placed, separated by commas or spaces (without a namespace: minecraft). Already placed ones stay. Server-side. Default: empty.",
   "block.simplebuilding.placed_egg": "Placed Egg",
+  "block.simplebuilding.placed_small_parts": "Small Parts",
   "block.simplebuilding.iron_rod": "Iron Rod",
   "tooltip.simplebuilding.iron_rod": "Attracts lightning like a lightning rod, but only within 32 blocks",
   "item.simplebuilding.iron_rod": "Iron Rod"

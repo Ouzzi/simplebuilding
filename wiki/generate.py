@@ -533,7 +533,9 @@ RENDER_DIR = "assets/textures/render"
 # die Vorlage als Platte (14/16 Blockbreite) flach auf den Boden - hier mit der eigenen
 # Enderit-Aufwertungsvorlage, damit keine Mojang-Textur ins committete Bild geraet.
 LYING_ITEM_BLOCKS = {f"{NS}:placed_smithing_template": f"{NS}:item/enderite_upgrade_template",
-                     f"{NS}:placed_blueprint": f"{NS}:item/blueprint"}
+                     f"{NS}:placed_blueprint": f"{NS}:item/blueprint",
+                     # Kleinteile-Fleck (PlacedSmallPartsRenderer): ein einzelner Steinkiesel liegt wie eine Vorlage.
+                     f"{NS}:placed_small_parts": f"{NS}:item/stone_pebble"}
 
 
 def item_definition(roots: dict, item_id: str) -> dict | None:

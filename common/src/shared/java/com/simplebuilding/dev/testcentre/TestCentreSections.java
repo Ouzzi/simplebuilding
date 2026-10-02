@@ -772,12 +772,24 @@ public final class TestCentreSections {
             labels.add(List.of(stack.getHoverName()));
         }
         c.title(0, 5, wallZ, TcText.t("section.materials", "Materials"), TcText.t("section.materials.sub", "tab SimpleMaterials"));
-        if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
-            // Gelegte Eier zum Ausprobieren (Behutsamkeit / Zerbrechen und Schluepfen).
+        if (ModBlocks.PLACED_SMALL_PARTS != null) {
+            // Kleinteile auf einem Fleck (bis zu 4, gemischt): ein Ei allein, ein voller Mix, drei Eier, zwei Vanilla-Teile.
+            // Schleichen + Rechtsklick legt dazu; Abbauen mit / ohne Behutsamkeit zeigt Eier zurueck / Zerbrechen.
+            List<List<ItemStack>> piles = List.of(
+                    List.of(new ItemStack(net.minecraft.world.item.Items.EGG)),
+                    List.of(new ItemStack(ModItems.STONE_PEBBLE), new ItemStack(ModItems.FLINT_CHIP), new ItemStack(ModItems.FLINT_CHIP),
+                            new ItemStack(net.minecraft.world.item.Items.BLUE_EGG)),
+                    List.of(new ItemStack(net.minecraft.world.item.Items.BROWN_EGG), new ItemStack(net.minecraft.world.item.Items.EGG),
+                            new ItemStack(net.minecraft.world.item.Items.BLUE_EGG)),
+                    List.of(new ItemStack(net.minecraft.world.item.Items.STICK), new ItemStack(net.minecraft.world.item.Items.IRON_INGOT)));
             int x = 1;
-            for (var egg : com.simplebuilding.blocks.custom.PlacedEggBlock.Egg.values()) {
-                c.place(x++, 0, 0, ModBlocks.PLACED_EGG.defaultBlockState().setValue(com.simplebuilding.blocks.custom.PlacedEggBlock.EGG, egg));
+            for (List<ItemStack> pile : piles) {
+                c.place(x, 0, 0, ModBlocks.PLACED_SMALL_PARTS);
+                c.contents(x++, 0, 0, pile);
             }
+            // Altbestand: ein einzeln gelegtes Ei aus alten Welten (wird zum Haeufchen, sobald man etwas dazulegt).
+            c.place(6, 0, 0, ModBlocks.PLACED_EGG.defaultBlockState()
+                    .setValue(com.simplebuilding.blocks.custom.PlacedEggBlock.EGG, com.simplebuilding.blocks.custom.PlacedEggBlock.Egg.BLUE));
         }
         if (ModBlocks.IRON_ROD != null) {
             // Eisenstab aufgestellt (zieht im Gewitter Blitze in 32 Bloecken an).

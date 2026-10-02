@@ -5359,6 +5359,7 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/deepslate_sage_ore.png",
       "note": {
         "en": {
           "summary": "Deepslate Sage Ore: the deepslate variant, replaces deepslate and tuff; hardness 4.5 like deepslate diamond ore. Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
@@ -6272,6 +6273,7 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/dimensional_scrap.png",
       "note": {
         "en": {
           "summary": "Dimensional Scrap: the Overworld variant, inside deepslate and tuff between Y -64 and -32. Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
@@ -6403,6 +6405,7 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/end_dimensional_scrap.png",
       "note": {
         "en": {
           "summary": "End Dimensional Scrap: the End variant, inside end stone between Y 10 and 70. Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
@@ -8808,17 +8811,18 @@
         "en": {
           "summary": "A flake of flint: one flint gives 4 Flint Chips, 4 chips in a 2x2 give the flint back.",
           "details": [
-            "Sneak + right-click lays it flat on a block (top, side or underside), like a smithing template; breaking the spot gives it back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint) and server.features.placeDisabledItems (single IDs)."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint, eggs) and server.features.placeDisabledItems (single IDs)."
           ]
         },
         "de": {
           "summary": "Ein Splitter Feuerstein: ein Feuerstein ergibt 4 Feuersteinsplitter, 4 Splitter im 2x2-Feld wieder den Feuerstein.",
           "details": [
-            "Schleichen + Rechtsklick legt es flach auf einen Block (oben, seitlich oder unten), wie eine Schmiedevorlage; Abbauen gibt es zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein) und server.features.placeDisabledItems (einzelne IDs)."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein, Eier) und server.features.placeDisabledItems (einzelne IDs)."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "mc26_3/overlay/resources/data/simplebuilding/recipe/stone_pebble.json",
           "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json"
@@ -10216,6 +10220,7 @@
         "simplebuilding:rotator"
       ],
       "trades": [],
+      "icon": "assets/textures/render/iron_rod.png",
       "note": {
         "en": {
           "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Rod.",
@@ -10833,6 +10838,7 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nether_dimensional_scrap.png",
       "note": {
         "en": {
           "summary": "Nether Dimensional Scrap: the Nether variant, inside netherrack, basalt and blackstone between Y 8 and 24, like the large ancient debris vein. Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
@@ -15452,6 +15458,7 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/sage_ore.png",
       "note": {
         "en": {
           "summary": "Sage Ore: the stone variant, replaces stone, granite, diorite and andesite; hardness 3 like diamond ore. Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
@@ -15755,17 +15762,18 @@
         "en": {
           "summary": "A small stone: one cobblestone gives 9 Stone Pebbles, 9 pebbles in the crafting grid give the cobblestone back.",
           "details": [
-            "Sneak + right-click lays it flat on a block (top, side or underside), like a smithing template; breaking the spot gives it back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint) and server.features.placeDisabledItems (single IDs)."
+            "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back. Server options server.features.placeVanillaItems (vanilla sticks, ingots, nuggets, gems, bricks, flint, eggs) and server.features.placeDisabledItems (single IDs)."
           ]
         },
         "de": {
           "summary": "Ein kleiner Stein: ein Bruchstein ergibt 9 Steinkiesel, 9 Kiesel im Handwerksfeld wieder den Bruchstein.",
           "details": [
-            "Schleichen + Rechtsklick legt es flach auf einen Block (oben, seitlich oder unten), wie eine Schmiedevorlage; Abbauen gibt es zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein) und server.features.placeDisabledItems (einzelne IDs)."
+            "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück. Server-Optionen server.features.placeVanillaItems (Vanilla-Stöcke, -Barren, -Klumpen, -Edelsteine, -Ziegel, Feuerstein, Eier) und server.features.placeDisabledItems (einzelne IDs)."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "mc26_3/overlay/resources/data/simplebuilding/recipe/stone_pebble.json",
           "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json"
@@ -17338,6 +17346,7 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/deepslate_sage_ore.png",
       "lootTable": "simplebuilding:blocks/deepslate_sage_ore",
       "drops": [
         "simplebuilding:deepslate_sage_ore",
@@ -17428,6 +17437,7 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/dimensional_scrap.png",
       "lootTable": "simplebuilding:blocks/dimensional_scrap",
       "drops": [
         "simplebuilding:dimensional_scrap"
@@ -17565,6 +17575,7 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/end_dimensional_scrap.png",
       "lootTable": "simplebuilding:blocks/end_dimensional_scrap",
       "drops": [
         "simplebuilding:end_dimensional_scrap"
@@ -19405,6 +19416,7 @@
         "simplebuilding:rotator"
       ],
       "trades": [],
+      "icon": "assets/textures/render/iron_rod.png",
       "lootTable": "simplebuilding:blocks/iron_rod",
       "drops": [
         "simplebuilding:iron_rod"
@@ -19724,6 +19736,7 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nether_dimensional_scrap.png",
       "lootTable": "simplebuilding:blocks/nether_dimensional_scrap",
       "drops": [
         "simplebuilding:nether_dimensional_scrap"
@@ -21528,22 +21541,68 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/placed_egg.png",
       "note": {
         "en": {
-          "summary": "Sneak + right-click with an egg (plain, blue or brown) stands it up on a block. Mined with Silk Touch it comes back; otherwise it breaks and hatches exactly like a thrown egg: a chick in 1 of 8, four chicks in 1 of 32 of those, as babies of the egg's variant.",
+          "summary": "Sneak + right-click with an egg (plain, blue or brown) stands it up on a block as a small 3D egg in the vanilla egg's colors. Mined with Silk Touch it comes back; otherwise it breaks and hatches exactly like a thrown egg: a chick in 1 of 8, four chicks in 1 of 32 of those, as babies of the egg's variant.",
           "details": [
-            "Needs a floor that carries its centre; falls off when the floor goes. Same server options as the small parts: server.features.placeVanillaItems and server.features.placeDisabledItems."
+            "New eggs become part of a Small Parts spot: up to 4 eggs, Stone Pebbles, Flint Chips and other small parts in any mix on one block. This single-egg block only remains for eggs placed in older worlds; adding a part to it turns it into a Small Parts spot.",
+            "Needs a floor that carries its center; falls off when the floor goes. Same server options as the small parts: server.features.placeVanillaItems and server.features.placeDisabledItems."
           ]
         },
         "de": {
-          "summary": "Schleichen + Rechtsklick mit einem Ei (normal, blau oder braun) stellt es auf einen Block. Mit Behutsamkeit abgebaut kommt es zurück; sonst zerbricht es und schlüpft genau wie ein geworfenes Ei: in 1 von 8 Fällen ein Küken, davon in 1 von 32 vier, als Jungtiere in der Variante des Eis.",
+          "summary": "Schleichen + Rechtsklick mit einem Ei (normal, blau oder braun) stellt es auf einen Block, als kleines 3D-Ei in den Farben des Vanilla-Eis. Mit Behutsamkeit abgebaut kommt es zurück; sonst zerbricht es und schlüpft genau wie ein geworfenes Ei: in 1 von 8 Fällen ein Küken, davon in 1 von 32 vier, als Jungtiere in der Variante des Eis.",
           "details": [
+            "Neue Eier werden Teil eines Kleinteile-Flecks: bis zu 4 Eier, Steinkiesel, Feuersteinsplitter und andere Kleinteile gemischt auf einem Block. Dieser Einzel-Ei-Block bleibt nur für Eier, die in älteren Welten gelegt wurden; legt man etwas dazu, wird er zum Kleinteile-Fleck.",
             "Braucht einen Boden, der die Mitte trägt; fällt ab, wenn der Boden fehlt. Dieselben Server-Optionen wie die Kleinteile: server.features.placeVanillaItems und server.features.placeDisabledItems."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedEggBlock.java",
-          "common/src/shared/java/com/simplebuilding/util/PlacedEggs.java"
+          "common/src/shared/java/com/simplebuilding/util/PlacedEggs.java",
+          "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
+          "tools/textures/placed_egg_textures.py"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:placed_small_parts",
+      "name": {
+        "en_us": "Small Parts",
+        "de_de": "Kleinteile"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/placed_small_parts.png",
+      "note": {
+        "en": {
+          "summary": "Up to 4 small parts on one block, like sea pickles: Stone Pebbles, Flint Chips, eggs and the vanilla small parts (sticks, ingots, nuggets, gems, bricks, flint) in any mix. Sneak + right-click with a small part on top of a block lays the first; sneak + right-click with another one on the spot (or on the block below it) adds it. A fifth stays in your hand.",
+          "details": [
+            "Every part has a fixed place for the number of parts on the spot, slightly turned for variety, and the whole spot turns with the direction you looked when placing the first. Lying parts are thin plates of their item texture (alone as large as a placed smithing template, from two parts on half that size); eggs stand as small 3D eggs in the vanilla egg's colors. The hitbox follows the drawn parts; there is no collision.",
+            "Breaking the spot gives every lying part back. Eggs come back with Silk Touch; otherwise each egg breaks and hatches for itself exactly like a thrown egg (a chick in 1 of 8, four in 1 of 32 of those). Explosions, pistons and a missing floor break it like a hand without a tool. Middle-click picks the last part added.",
+            "Only on the floor; on a wall or under a ceiling a small part still lies alone like a smithing template. It needs a floor that carries its center and can be placed in water (it becomes waterlogged). Old single placed eggs and small parts lying alone on the floor turn into such a spot when a part is added.",
+            "Server options: server.features.placeVanillaItems (all vanilla parts including eggs) and server.features.placeDisabledItems (single IDs, also mod parts). The limit of 4 is fixed."
+          ]
+        },
+        "de": {
+          "summary": "Bis zu 4 Kleinteile auf einem Block, wie Seegurken: Steinkiesel, Feuersteinsplitter, Eier und die Vanilla-Kleinteile (Stöcke, Barren, Klumpen, Edelsteine, Ziegel, Feuerstein) in beliebiger Mischung. Schleichen + Rechtsklick mit einem Kleinteil auf die Oberseite eines Blocks legt das erste ab; Schleichen + Rechtsklick mit einem weiteren auf den Fleck (oder auf den Block darunter) legt es dazu. Ein fünftes bleibt in der Hand.",
+          "details": [
+            "Jedes Teil hat je nach Anzahl auf dem Fleck einen festen Platz, leicht gedreht für Abwechslung, und der ganze Fleck dreht sich mit der Blickrichtung beim ersten Ablegen. Liegende Teile sind dünne Platten aus ihrer Item-Textur (allein so groß wie eine abgelegte Schmiedevorlage, ab zwei Teilen halb so groß); Eier stehen als kleine 3D-Eier in den Farben des Vanilla-Eis. Die Trefferform folgt den gezeichneten Teilen; eine Kollision gibt es nicht.",
+            "Abbauen gibt jedes liegende Teil zurück. Eier kommen mit Behutsamkeit zurück; sonst zerbricht jedes Ei und schlüpft für sich genau wie ein geworfenes Ei (in 1 von 8 Fällen ein Küken, davon in 1 von 32 vier). Explosionen, Kolben und ein fehlender Boden bauen es ab wie eine Hand ohne Werkzeug. Die mittlere Maustaste nimmt das zuletzt dazugelegte Teil.",
+            "Nur auf dem Boden; an der Wand oder unter der Decke liegt ein Kleinteil weiter allein wie eine Schmiedevorlage. Braucht einen Boden, der die Mitte trägt, und lässt sich ins Wasser legen (wird wassergefüllt). Alte einzeln gelegte Eier und allein auf dem Boden liegende Kleinteile werden zu so einem Fleck, wenn man etwas dazulegt.",
+            "Server-Optionen: server.features.placeVanillaItems (alle Vanilla-Teile samt Eiern) und server.features.placeDisabledItems (einzelne IDs, auch Mod-Teile). Die Grenze von 4 ist fest."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedSmallPartsBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/client/render/PlacedSmallPartsRenderer.java",
+          "common/src/shared/java/com/simplebuilding/util/PlacedEggs.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedEggBlock.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -23295,6 +23354,7 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/sage_ore.png",
       "lootTable": "simplebuilding:blocks/sage_ore",
       "drops": [
         "simplebuilding:sage_orb",
@@ -71262,7 +71322,7 @@
   },
   "counts": {
     "items": 195,
-    "blocks": 161,
+    "blocks": 162,
     "recipes": 436,
     "lootTables": 161,
     "trades": 20,

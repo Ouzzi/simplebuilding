@@ -69,4 +69,24 @@ public final class PlacedTemplateGameTest {
     public void placedEggsGoBackWithSilkTouchAndHatchLikeThrownEggs(GameTestHelper helper) {
         PlacedTemplateTests.placedEggsGoBackWithSilkTouchAndHatchLikeThrownEggs(helper);
     }
+
+    @GameTest
+    public void smallPartsStackUpToFourInAnyMixAndTheFifthIsRefused(GameTestHelper helper) {
+        PlacedTemplateTests.smallPartsStackUpToFourInAnyMixAndTheFifthIsRefused(helper);
+    }
+
+    @GameTest
+    public void brokenPilesHatchEachEggLikeThrownEggsAndSilkTouchReturnsThem(GameTestHelper helper) {
+        PlacedTemplateTests.brokenPilesHatchEachEggLikeThrownEggsAndSilkTouchReturnsThem(helper);
+    }
+
+    @GameTest
+    public void oldPlacedEggsAndLyingSmallPartsTurnIntoPilesWhenPartsAreAdded(GameTestHelper helper) {
+        PlacedTemplateTests.oldPlacedEggsAndLyingSmallPartsTurnIntoPilesWhenPartsAreAdded(helper);
+    }
+
+    @GameTest
+    public void theEggModelMatchesTheEggHitbox(GameTestHelper helper) {
+        PlacedTemplateTests.theEggModelMatchesTheEggHitbox(helper);
+    }
 }

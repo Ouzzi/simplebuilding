@@ -117,6 +117,9 @@ public final class SimplebuildingNeoForgeClient {
         event.registerBlockEntityRenderer(NeoForgeModRegistries.PLACED_TEMPLATE_BE.get(), com.simplebuilding.client.render.PlacedTemplateRenderer::new);
         // Abgestelltes Buendel: das gezeigte Item schwebt darueber, solange man schleichend hinschaut.
         event.registerBlockEntityRenderer(NeoForgeModRegistries.PLACED_BUNDLE_BE.get(), com.simplebuilding.client.render.PlacedBundleRenderer::new);
+        // Kleinteile auf einem Fleck: liegende Teile als Platten, Eier als 3D-Ei.
+        if (NeoForgeModRegistries.PLACED_SMALL_PARTS_BE != null) event.registerBlockEntityRenderer(
+                NeoForgeModRegistries.PLACED_SMALL_PARTS_BE.get(), com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) event.registerBlockEntityRenderer(
                 net.minecraft.world.level.block.entity.BlockEntityTypes.ENDER_CHEST, com.simplebuilding.client.render.AstralVaultRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.

@@ -11,7 +11,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * Schleichen + Rechtsklick mit einer Schmiedevorlage oder Blaupause legt sie ab ({@link PlacedTemplates}),
+ * Schleichen + Rechtsklick mit einem Kleinteil oder Ei legt es auf den Boden, bis zu vier auf einen Fleck
+ * ({@link com.simplebuilding.util.PlacedSmallParts}), mit einer Schmiedevorlage oder Blaupause legt sie ab ({@link PlacedTemplates}),
  * mit einem Vanilla-Buendel auf eine Oberseite stellt es ab ({@link PlacedBundles}). Am
  * Basis-{@code Item#useOn}, weil weder {@code SmithingTemplateItem} noch die schlichten
  * Aufwertungsvorlagen der Mod es ueberschreiben; Items mit eigenem {@code useOn} erreicht der Haken
@@ -22,9 +23,11 @@ public abstract class ItemUseOnMixin {
 
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$placeTemplate(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
-        InteractionResult result = PlacedTemplates.tryPlace(context);
+        // Kleinteile und Eier auf den Boden (bis zu 4 auf einem Fleck) vor den Vorlagen; an Wand und Decke legen sich
+        // Kleinteile weiter wie eine Vorlage ab.
+        InteractionResult result = com.simplebuilding.util.PlacedSmallParts.tryPlace(context);
         if (result == null) {
-            result = com.simplebuilding.util.PlacedEggs.tryPlace(context);
+            result = PlacedTemplates.tryPlace(context);
         }
         if (result == null) {
             // Vanilla-Buendel (alle Farben); die Buendel der Mod fragen in ReinforcedBundleItem#useOn selbst.
