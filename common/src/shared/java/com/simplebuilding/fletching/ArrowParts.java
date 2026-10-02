@@ -63,21 +63,35 @@ public final class ArrowParts {
         }
     }
 
-    /** Schaft: Material und Schwerkraft-Faktor. */
+    /**
+     * Schaft: Material, Schwerkraft-Faktor, Schadensbonus und zusaetzliche Durchbohrung. Die Material-Staebe
+     * (2026-10-02, nur mit {@code McVersion.GADGET_REWORK}): Diamant durchbohrt ein Ziel mehr, Netherit +1 Schaden und
+     * der Pfeil-Stapel verbrennt nicht ({@link #fireproof}), Enderit fliegt flacher (0,7) und +1 Schaden.
+     */
     public enum Shaft implements StringRepresentable {
-        STICK("stick", () -> Items.STICK, 1.0),
-        END_ROD("end_rod", () -> Items.END_ROD, 0.5),
-        BLAZE_ROD("blaze_rod", () -> Items.BLAZE_ROD, 1.0),
-        BREEZE_ROD("breeze_rod", () -> Items.BREEZE_ROD, 1.0);
+        STICK("stick", () -> Items.STICK, 1.0, 0.0, 0, false),
+        END_ROD("end_rod", () -> Items.END_ROD, 0.5, 0.0, 0, false),
+        BLAZE_ROD("blaze_rod", () -> Items.BLAZE_ROD, 1.0, 0.0, 0, false),
+        BREEZE_ROD("breeze_rod", () -> Items.BREEZE_ROD, 1.0, 0.0, 0, false),
+        DIAMOND_ROD("diamond_rod", () -> ModItems.DIAMOND_ROD, 1.0, 0.0, 1, false),
+        NETHERITE_ROD("netherite_rod", () -> ModItems.NETHERITE_ROD, 1.0, 1.0, 0, true),
+        ENDERITE_ROD("enderite_rod", () -> ModItems.ENDERITE_ROD, 0.7, 1.0, 0, false);
 
         private final String id;
         private final Supplier<Item> input;
         public final double gravity;
+        public final double damageBonus;
+        public final int extraPierce;
+        /** Pfeile mit diesem Schaft verbrennen als Item nicht in Feuer und Lava (wie Netherit-Items). */
+        public final boolean fireproof;
 
-        Shaft(String id, Supplier<Item> input, double gravity) {
+        Shaft(String id, Supplier<Item> input, double gravity, double damageBonus, int extraPierce, boolean fireproof) {
             this.id = id;
             this.input = input;
             this.gravity = gravity;
+            this.damageBonus = damageBonus;
+            this.extraPierce = extraPierce;
+            this.fireproof = fireproof;
         }
 
         public Item input() {
@@ -161,6 +175,16 @@ public final class ArrowParts {
             return shaft.gravity * fletching.gravity;
         }
 
+        /** Zusaetzlicher Schaden gegen dieses Ziel: Spitze (Grund- und Zielbonus) plus Schaft. */
+        public double bonusAgainst(Entity entity) {
+            return tip.bonusAgainst(entity) + shaft.damageBonus;
+        }
+
+        /** Zusaetzliche Durchbohrung aus Spitze (Netherit) und Schaft (Diamant). */
+        public int extraPierce() {
+            return (tip == Tip.NETHERITE ? NETHERITE_EXTRA_PIERCE : 0) + shaft.extraPierce;
+        }
+
         /** Die Strings fuer die Item-Modell-Auswahl ({@code custom_model_data}): Spitze, Schaft, Befiederung. */
         public java.util.List<String> modelStrings() {
             return java.util.List.of(tip.getSerializedName(), shaft.getSerializedName(), fletching.getSerializedName());
@@ -181,11 +205,19 @@ public final class ArrowParts {
         return stack;
     }
 
+    /** Ob der Pfeil-Stapel ein Pfeil vom Befiederungstisch mit feuerfestem Schaft ist (ItemEntityMixin). */
+    public static boolean isFireproofArrow(ItemStack stack) {
+        return ModItems.CRAFTED_ARROW != null && stack.is(ModItems.CRAFTED_ARROW) && of(stack).shaft().fireproof;
+    }
+
     /** Alle Kombinationen, sortiert Spitze, Schaft, Befiederung (Kreativ-Tab und Suchtab). */
     public static java.util.List<Parts> allCombinations() {
         java.util.List<Parts> out = new java.util.ArrayList<>();
         for (Tip tip : Tip.values()) {
             for (Shaft shaft : Shaft.values()) {
+                if (shaft.input() == null) {
+                    continue;
+                }
                 for (Fletching fletching : Fletching.values()) {
                     out.add(new Parts(tip, shaft, fletching));
                 }
@@ -200,7 +232,7 @@ public final class ArrowParts {
     }
 
     public static Shaft shaftFor(ItemStack stack) {
-        for (Shaft shaft : Shaft.values()) if (stack.is(shaft.input())) return shaft;
+        for (Shaft shaft : Shaft.values()) if (shaft.input() != null && stack.is(shaft.input())) return shaft;
         return null;
     }
 

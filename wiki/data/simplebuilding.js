@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 249,
+      "count": 253,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -410,7 +410,7 @@ window.WIKI_DATA = {
           "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
           "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
           "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-          "On 26.3, upgrade a placed armor trim template with the hammer and off-hand material. The item-frame route is a legacy fallback only for targets without another in-world route; existing frames keep their contents. Older lines still support the frame route.",
+          "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then hit it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
           "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
           "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
           "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
@@ -438,7 +438,7 @@ window.WIKI_DATA = {
           "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
           "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
           "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-          "Auf 26.3 werden abgelegte Besatzvorlagen mit Hammer und Nebenhand-Material aufgewertet. Rahmen sind nur ein Legacy-Fallback ohne andere Weltumwandlung; vorhandene Rahmen behalten ihren Inhalt. Ältere Linien unterstützen weiterhin die Rahmenroute.",
+          "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
           "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
           "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
           "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
@@ -473,7 +473,7 @@ window.WIKI_DATA = {
           "Water does not wash it away: a template can be placed into water (it becomes waterlogged), and flowing water runs around it. Breaking it - by hand, explosion, piston or by taking away the block it lies on - drops exactly the stored template with all its data (name, enchantments). Middle-click picks the template itself.",
           "A placed template carries the name of the template it holds (for example \"Glowing Armor Trim\", or its anvil name) wherever the game or a mod like Jade names the block.",
           "Blueprints can be placed the same way: sneak + right-click lays one flat on the floor, on a wall or under the ceiling as a thin plate showing the blueprint's current look. It keeps all its data (code, title, author) and drops itself when broken; its hitbox is the plate, and it is named like the blueprint.",
-          "Placed armor trim templates can be upgraded with the sledgehammer with 5 hits: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the fifth turns it into the Glowing or Emitting Armor Trim and uses up the off-hand item (not in creative). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target.",
+          "Placed armor trim templates can be upgraded with the sledgehammer (the only way to do it) with 5 hits: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the fifth turns it into the Glowing or Emitting Armor Trim and uses up the off-hand item (not in creative). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target.",
           "Hint: while a player holding Glow Ink Sac or Glowstone Dust (either hand) is within 6 blocks, an upgradable placed template shows a few sparks circling over it every half second and chimes quietly at most every 3 seconds.",
           "The Attractor can be placed the same way (sneak + right-click) and then pulls loose items toward itself, see the Attractor chapter.",
           "A locked Octant can be put down the same way (sneak + right-click; an unlocked one still sets Pos 2 with that click) and keeps its corners, shape and color. Right-click the placed octant to show its selection for yourself - corners and the full figure, as at the cartography table - and right-click again to hide it. While it is shown for you, the placed octant also glows in its color through walls, so you can find it again to switch it off. The switch is per player: others only see what they switched on themselves. It is saved with the block and also works while the mod's highlights are hidden with the toggle key."
@@ -488,7 +488,7 @@ window.WIKI_DATA = {
           "Wasser spült sie nicht weg: Eine Vorlage lässt sich ins Wasser legen (sie wird wassergefüllt), und fließendes Wasser läuft um sie herum. Abbauen – von Hand, durch Explosion, Kolben oder indem man den Block darunter wegnimmt – gibt genau die gespeicherte Vorlage mit allen Daten (Name, Verzauberungen) zurück. Die mittlere Maustaste nimmt die Vorlage selbst.",
           "Eine abgelegte Vorlage trägt den Namen der Vorlage, die sie hält (etwa „Leuchtender Rüstungsbesatz“ oder ihren Amboss-Namen), überall dort, wo das Spiel oder eine Mod wie Jade den Block benennt.",
           "Blaupausen lassen sich genauso ablegen: Schleichen + Rechtsklick legt eine flach auf den Boden, an die Wand oder unter die Decke, als dünne Platte in ihrem aktuellen Aussehen. Sie behält alle Daten (Code, Titel, Autor) und fällt beim Abbauen als sie selbst heraus; ihre Trefferform ist die Platte, und sie heißt wie die Blaupause.",
-          "Abgelegte Rüstungsbesatz-Vorlagen lassen sich wie im Rahmen mit dem Vorschlaghammer aufwerten, brauchen aber 5 Schläge statt einem: Vorschlaghammer in der Haupthand, Leuchttintenbeutel oder Glowstonestaub in der Nebenhand, Linksklick auf die Vorlage. Jeder Schlag gibt Funken und einen höher werdenden Klang; der fünfte macht daraus die leuchtende bzw. strahlende Besatzvorlage und verbraucht das Item aus der Nebenhand (nicht im Kreativmodus). Nach 5 Sekunden ohne Schlag oder bei einem anderen Material beginnt die Zählung von vorn. Mit Hammer und Material in den Händen lässt sich die Vorlage nicht abbauen; der Hammer neigt sich zu ihr wie zu jedem anderen gültigen Ziel.",
+          "Abgelegte Rüstungsbesatz-Vorlagen lassen sich mit dem Vorschlaghammer aufwerten (der einzige Weg dafür), mit 5 Schlägen: Vorschlaghammer in der Haupthand, Leuchttintenbeutel oder Glowstonestaub in der Nebenhand, Linksklick auf die Vorlage. Jeder Schlag gibt Funken und einen höher werdenden Klang; der fünfte macht daraus die leuchtende bzw. strahlende Besatzvorlage und verbraucht das Item aus der Nebenhand (nicht im Kreativmodus). Nach 5 Sekunden ohne Schlag oder bei einem anderen Material beginnt die Zählung von vorn. Mit Hammer und Material in den Händen lässt sich die Vorlage nicht abbauen; der Hammer neigt sich zu ihr wie zu jedem anderen gültigen Ziel.",
           "Hinweis: Solange ein Spieler mit Leuchttintenbeutel oder Glowstonestaub (in einer der beiden Hände) höchstens 6 Blöcke entfernt ist, kreisen über einer aufwertbaren abgelegten Vorlage alle halbe Sekunde ein paar Funken, und höchstens alle 3 Sekunden klingt sie leise.",
           "Der Attraktor lässt sich genauso ablegen (Schleichen + Rechtsklick) und zieht dann lose Items zu sich, siehe das Kapitel zum Attraktor.",
           "Ein gesperrter Oktant lässt sich genauso ablegen (Schleichen + Rechtsklick; ein ungesperrter setzt mit diesem Klick weiter Pos 2) und behält Ecken, Form und Farbe. Rechtsklick auf den abgelegten Oktanten blendet seine Auswahl für dich ein – Ecken und die ganze Figur, wie am Kartentisch –, ein zweiter Rechtsklick blendet sie wieder aus. Solange sie für dich eingeblendet ist, leuchtet der abgelegte Oktant außerdem in seiner Farbe durch Wände, damit du ihn zum Ausschalten wiederfindest. Der Schalter gilt je Spieler: andere sehen nur, was sie selbst eingeschaltet haben. Er wird mit dem Block gespeichert und wirkt auch, wenn die Hervorhebungen der Mod per Taste ausgeblendet sind."
@@ -3017,7 +3017,7 @@ window.WIKI_DATA = {
           "Count-based smithing (for example copper to iron tools with several ingots) appears in JEI's smithing category with the real number of additions.",
           "REI: the same seven in-world categories and Mob Drops (same titles, notes and tools as workstations), the count-based smithing recipes in REI's smithing category with the real number of additions, and the same information pages as REI information entries. The hidden easter smithing chain stays hidden in REI as well.",
           "The categories are built from the same export as this wiki's in-world transformation pages; a server game test checks that every entry of that export arrives in JEI.",
-          "Trim Template (item frame) and Washing (cauldron): turning a trim template in an item frame into a Glowing or Emitting Armor Trim, and washing a colored octant back into the plain one.",
+          "Trim Template (placed) and Washing (cauldron): turning a placed trim template into a Glowing or Emitting Armor Trim, and washing a colored octant back into the plain one.",
           "Information pages: items that no recipe and no in-world category produce get a short JEI information page on how to obtain them and what they do - Astralit Ore, Nihilit Ore, Astralit Dust, Nihilit Shard, the Enchanted Netherite and Enderite Apples - next to the pages for the pads, plates and tools taken over from Simple Tweaks. The creative spacer and the six legacy spatulas (no recipe, only kept for old worlds) are hidden from JEI, REI and EMI through the convention tag c:hidden_from_recipe_viewers. A server game test derives the recipeless items from the loaded recipes and the in-world catalog and fails if one has no page or a page lacks its English or German text."
         ]
       },
@@ -3033,7 +3033,7 @@ window.WIKI_DATA = {
           "Schmiederezepte mit Mengenangabe (etwa Kupfer- zu Eisenwerkzeug mit mehreren Barren) erscheinen in JEIs Schmiede-Kategorie mit der echten Anzahl Zutaten.",
           "REI: dieselben sieben Umwandlungs-Kategorien und Mob-Drops (gleiche Titel, Hinweise und Werkzeuge als Arbeitsstationen), die Schmiederezepte mit Mengenangabe in REIs Schmiede-Kategorie mit der echten Anzahl Zutaten und dieselben Infoseiten als REI-Informationseinträge. Die versteckte Easter-Schmiedekette bleibt auch in REI versteckt.",
           "Die Kategorien entstehen aus demselben Export wie die Seiten dieses Wikis zu den Umwandlungen in der Welt; ein Server-Spieltest prüft, dass jeder Eintrag dieses Exports in JEI ankommt.",
-          "Besatzvorlage (Rahmen) und Waschen (Kessel): eine Besatzvorlage im Rahmen zum Leuchtenden oder Strahlenden Rüstungsbesatz machen und einen gefärbten Oktanten zurück zum einfachen waschen.",
+          "Besatzvorlage (abgelegt) und Waschen (Kessel): eine abgelegte Besatzvorlage zum Leuchtenden oder Strahlenden Rüstungsbesatz machen und einen gefärbten Oktanten zurück zum einfachen waschen.",
           "Infoseiten: Gegenstände, die kein Rezept und keine Umwandlungs-Kategorie liefert, bekommen eine kurze JEI-Infoseite, wie man sie erhält und was sie tun - Astraliterz, Nihiliterz, Astralitstaub, Nihilitsplitter, die verzauberten Netherit- und Enderitäpfel - neben den Seiten für die aus Simple Tweaks übernommenen Pads, Platten und Werkzeuge. Der Kreativ-Platzhalter und die sechs alten Spachtel (kein Rezept, nur für alte Welten) sind über das Konventions-Tag c:hidden_from_recipe_viewers in JEI, REI und EMI versteckt. Ein Server-Spieltest ermittelt die rezeptlosen Gegenstände aus den geladenen Rezepten und dem Umwandlungs-Katalog und schlägt fehl, wenn einer keine Seite hat oder einer Seite der englische oder deutsche Text fehlt."
         ]
       }
@@ -5036,7 +5036,7 @@ window.WIKI_DATA = {
             "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
             "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "On 26.3, upgrade a placed armor trim template with the hammer and off-hand material. The item-frame route is a legacy fallback only for targets without another in-world route; existing frames keep their contents. Older lines still support the frame route.",
+            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then hit it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
             "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
             "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
             "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
@@ -5050,7 +5050,7 @@ window.WIKI_DATA = {
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Hit a placed trim template three times with Glow Ink or Glowstone Dust in your off hand."
+            "Hit a placed trim template five times with Glow Ink or Glowstone Dust in your off hand."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -5099,7 +5099,7 @@ window.WIKI_DATA = {
             "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
             "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Auf 26.3 werden abgelegte Besatzvorlagen mit Hammer und Nebenhand-Material aufgewertet. Rahmen sind nur ein Legacy-Fallback ohne andere Weltumwandlung; vorhandene Rahmen behalten ihren Inhalt. Ältere Linien unterstützen weiterhin die Rahmenroute.",
+            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
             "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
             "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
             "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
@@ -5112,9 +5112,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtender Rüstungsbesatz; mit Leuchtsteinstaub: Strahlender Rüstungsbesatz.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand dreimal schlagen."
+            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand fünfmal schlagen."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -5283,7 +5282,7 @@ window.WIKI_DATA = {
           "details": [
             "Tips: flint (vanilla damage), copper nugget (+2 against drowned), iron nugget (+0.5, +2 against zombies), gold nugget (+2 against undead), diamond pebble (+1), netherite nugget (+1.5, pierces one more target), enderite nugget (+1.5, no gravity for the first second), amethyst shard (shatters: 1 damage within 1.5 blocks), prismarine shard (no water drag).",
             "The damage bonus adds to the arrow's base damage like Power and grows with the shot's speed.",
-            "Shafts: stick (vanilla), end rod (half gravity, glowing trail), blaze rod (the target burns 3 seconds longer), breeze rod (wind burst on impact). Fletchings: feather (vanilla), phantom membrane (30 % less gravity).",
+            "Shafts: stick (vanilla), end rod (half gravity, glowing trail), blaze rod (the target burns 3 seconds longer), breeze rod (wind burst on impact); on 26.3 also diamond rod (pierces one more target), netherite rod (+1 damage, the arrows do not burn in lava or fire) and enderite rod (+1 damage, 30 % less gravity). Fletchings: feather (vanilla), phantom membrane (30 % less gravity).",
             "Bow and crossbow enchantments work as on vanilla arrows; Infinity only saves vanilla arrows.",
             "The material panel next to the table moves a material from your inventory into its slot; nothing is created. All numbers are fixed, nothing is configurable."
           ]
@@ -5293,7 +5292,7 @@ window.WIKI_DATA = {
           "details": [
             "Spitzen: Feuerstein (Vanilla-Schaden), Kupfer-Nugget (+2 gegen Ertrunkene), Eisen-Nugget (+0,5, +2 gegen Zombies), Gold-Nugget (+2 gegen Untote), Diamantkiesel (+1), Netherit-Nugget (+1,5, durchbohrt ein Ziel mehr), Enderit-Nugget (+1,5, die erste Sekunde ohne Schwerkraft), Amethyst-Splitter (zersplittert: 1 Schaden im Umkreis von 1,5 Blöcken), Prismarin-Splitter (kein Wasserwiderstand).",
             "Der Schadensbonus zählt wie Stärke zum Grundschaden des Pfeils und wächst mit der Geschwindigkeit des Schusses.",
-            "Schäfte: Stock (Vanilla), Endstab (halbe Schwerkraft, Leuchtspur), Lohenrute (das Ziel brennt 3 Sekunden länger), Böenrute (Windstoß beim Aufprall). Befiederungen: Feder (Vanilla), Phantomhaut (30 % weniger Schwerkraft).",
+            "Schäfte: Stock (Vanilla), Endstab (halbe Schwerkraft, Leuchtspur), Lohenrute (das Ziel brennt 3 Sekunden länger), Böenrute (Windstoß beim Aufprall); auf 26.3 außerdem Diamantstab (durchbohrt ein Ziel mehr), Netheritstab (+1 Schaden, die Pfeile verbrennen nicht in Lava oder Feuer) und Enderitstab (+1 Schaden, 30 % weniger Schwerkraft). Befiederungen: Feder (Vanilla), Phantomhaut (30 % weniger Schwerkraft).",
             "Bogen- und Armbrust-Verzauberungen wirken wie bei Vanilla-Pfeilen; Unendlichkeit spart nur Vanilla-Pfeile.",
             "Das Material-Panel neben dem Tisch legt ein Material aus dem Inventar in seinen Slot; es entsteht nichts. Alle Zahlen sind fest, nichts ist einstellbar."
           ]
@@ -6050,6 +6049,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:diamond_rod",
+      "name": {
+        "en_us": "Diamond Rod",
+        "de_de": "Diamantstab"
+      },
+      "texture": "assets/textures/item/diamond_rod.png",
+      "craftedBy": [
+        "simplebuilding:diamond_rod"
+      ],
+      "usedIn": [
+        "simplebuilding:diamond_from_diamond_rod",
+        "simplebuilding:netherite_rod_smithing"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A rod of diamond (MC 26.3), an item like the blaze rod: three diamonds stacked give one Diamond Rod, one Diamond Rod in the crafting grid gives the three diamonds back.",
+          "details": [
+            "It cannot be placed. At the Fletching Table it is an arrow shaft: the arrow pierces one more target.",
+            "At the smithing table it becomes the Netherite Rod."
+          ]
+        },
+        "de": {
+          "summary": "Ein Stab aus Diamant (MC 26.3), ein Item wie die Lohenrute: drei Diamanten übereinander ergeben einen Diamantstab, ein Diamantstab im Handwerksfeld gibt die drei Diamanten zurück.",
+          "details": [
+            "Er lässt sich nicht aufstellen. Am Befiederungstisch ist er ein Pfeilschaft: der Pfeil durchbohrt ein Ziel mehr.",
+            "Am Schmiedetisch wird er zum Netheritstab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/fletching/ArrowParts.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:diamond_sledgehammer",
       "name": {
         "en_us": "Diamond Sledgehammer",
@@ -6093,7 +6130,7 @@ window.WIKI_DATA = {
             "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
             "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "On 26.3, upgrade a placed armor trim template with the hammer and off-hand material. The item-frame route is a legacy fallback only for targets without another in-world route; existing frames keep their contents. Older lines still support the frame route.",
+            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then hit it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
             "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
             "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
             "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
@@ -6107,7 +6144,7 @@ window.WIKI_DATA = {
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Hit a placed trim template three times with Glow Ink or Glowstone Dust in your off hand."
+            "Hit a placed trim template five times with Glow Ink or Glowstone Dust in your off hand."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -6156,7 +6193,7 @@ window.WIKI_DATA = {
             "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
             "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Auf 26.3 werden abgelegte Besatzvorlagen mit Hammer und Nebenhand-Material aufgewertet. Rahmen sind nur ein Legacy-Fallback ohne andere Weltumwandlung; vorhandene Rahmen behalten ihren Inhalt. Ältere Linien unterstützen weiterhin die Rahmenroute.",
+            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
             "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
             "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
             "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
@@ -6169,9 +6206,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtender Rüstungsbesatz; mit Leuchtsteinstaub: Strahlender Rüstungsbesatz.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand dreimal schlagen."
+            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand fünfmal schlagen."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -8005,6 +8041,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_pickaxe_smithing",
         "simplebuilding:enderite_pressure_plate_smithing",
         "simplebuilding:enderite_quiver_smithing",
+        "simplebuilding:enderite_rod_smithing",
         "simplebuilding:enderite_shovel_smithing",
         "simplebuilding:enderite_sledgehammer_smithing",
         "simplebuilding:enderite_spear_smithing",
@@ -8286,6 +8323,41 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_rod",
+      "name": {
+        "en_us": "Enderite Rod",
+        "de_de": "Enderitstab"
+      },
+      "texture": "assets/textures/item/enderite_rod.png",
+      "craftedBy": [
+        "simplebuilding:enderite_rod_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Smithing table (MC 26.3): Enderite Upgrade + Netherite Rod + Enderite Ingot give the Enderite Rod.",
+          "details": [
+            "An item like the blaze rod; fire resistant and, like every enderite item, protected from the void. No way back.",
+            "At the Fletching Table it is an arrow shaft: the arrow flies flatter (30 % less gravity) and deals +1 damage."
+          ]
+        },
+        "de": {
+          "summary": "Schmiedetisch (MC 26.3): Enderit-Aufwertung + Netheritstab + Enderitbarren ergeben den Enderitstab.",
+          "details": [
+            "Ein Item wie die Lohenrute; feuerfest und wie jedes Enderit-Item gegen den Void geschützt. Kein Rückweg.",
+            "Am Befiederungstisch ist er ein Pfeilschaft: der Pfeil fliegt flacher (30 % weniger Schwerkraft) und macht +1 Schaden."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/fletching/ArrowParts.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_scrap",
       "name": {
         "en_us": "Enderite Scrap",
@@ -8458,7 +8530,7 @@ window.WIKI_DATA = {
             "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
             "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "On 26.3, upgrade a placed armor trim template with the hammer and off-hand material. The item-frame route is a legacy fallback only for targets without another in-world route; existing frames keep their contents. Older lines still support the frame route.",
+            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then hit it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
             "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
             "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
             "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
@@ -8472,7 +8544,7 @@ window.WIKI_DATA = {
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Hit a placed trim template three times with Glow Ink or Glowstone Dust in your off hand."
+            "Hit a placed trim template five times with Glow Ink or Glowstone Dust in your off hand."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -8521,7 +8593,7 @@ window.WIKI_DATA = {
             "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
             "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Auf 26.3 werden abgelegte Besatzvorlagen mit Hammer und Nebenhand-Material aufgewertet. Rahmen sind nur ein Legacy-Fallback ohne andere Weltumwandlung; vorhandene Rahmen behalten ihren Inhalt. Ältere Linien unterstützen weiterhin die Rahmenroute.",
+            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
             "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
             "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
             "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
@@ -8534,9 +8606,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtender Rüstungsbesatz; mit Leuchtsteinstaub: Strahlender Rüstungsbesatz.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand dreimal schlagen."
+            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand fünfmal schlagen."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -8782,6 +8853,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_pickaxe_smithing",
         "simplebuilding:enderite_pressure_plate_smithing",
         "simplebuilding:enderite_quiver_smithing",
+        "simplebuilding:enderite_rod_smithing",
         "simplebuilding:enderite_shovel_smithing",
         "simplebuilding:enderite_sledgehammer_smithing",
         "simplebuilding:enderite_spawn_teleporter_smithing",
@@ -9370,6 +9442,43 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:gold_rod",
+      "name": {
+        "en_us": "Gold Rod",
+        "de_de": "Goldstab"
+      },
+      "texture": "assets/textures/block/gold_rod.png",
+      "craftedBy": [
+        "simplebuilding:gold_rod"
+      ],
+      "usedIn": [
+        "simplebuilding:gold_ingot_from_gold_rod"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A lightning rod made of gold (MC 26.3): three gold ingots stacked give one Gold Rod.",
+          "details": [
+            "It works like the Iron Rod - placed on any face, a redstone signal when lightning strikes it, no oxidizing - but reaches further: it attracts lightning within 64 blocks (iron: 32, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several iron or gold rods reach the strike, the nearest one wins.",
+            "One Gold Rod in the crafting grid gives the three gold ingots back. Needs an iron pickaxe or better, like the gold block."
+          ]
+        },
+        "de": {
+          "summary": "Ein Blitzableiter aus Gold (MC 26.3): drei Goldbarren übereinander ergeben einen Goldstab.",
+          "details": [
+            "Er arbeitet wie der Eisenstab - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht -, reicht aber weiter: er zieht Blitze im Umkreis von 64 Blöcken an (Eisen: 32, Kupfer: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Eisen- oder Goldstäbe den Einschlag, gewinnt der nächste.",
+            "Ein Goldstab im Handwerksfeld gibt die drei Goldbarren zurück. Braucht wie der Goldblock mindestens eine Eisenspitzhacke."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:gold_sledgehammer",
       "name": {
         "en_us": "Gold Sledgehammer",
@@ -9411,7 +9520,7 @@ window.WIKI_DATA = {
             "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
             "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "On 26.3, upgrade a placed armor trim template with the hammer and off-hand material. The item-frame route is a legacy fallback only for targets without another in-world route; existing frames keep their contents. Older lines still support the frame route.",
+            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then hit it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
             "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
             "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
             "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
@@ -9425,7 +9534,7 @@ window.WIKI_DATA = {
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Hit a placed trim template three times with Glow Ink or Glowstone Dust in your off hand."
+            "Hit a placed trim template five times with Glow Ink or Glowstone Dust in your off hand."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -9474,7 +9583,7 @@ window.WIKI_DATA = {
             "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
             "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Auf 26.3 werden abgelegte Besatzvorlagen mit Hammer und Nebenhand-Material aufgewertet. Rahmen sind nur ein Legacy-Fallback ohne andere Weltumwandlung; vorhandene Rahmen behalten ihren Inhalt. Ältere Linien unterstützen weiterhin die Rahmenroute.",
+            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
             "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
             "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
             "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
@@ -9487,9 +9596,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtender Rüstungsbesatz; mit Leuchtsteinstaub: Strahlender Rüstungsbesatz.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand dreimal schlagen."
+            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand fünfmal schlagen."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -10224,6 +10332,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:amethyst_lens",
+        "simplebuilding:iron_ingot_from_iron_rod",
         "simplebuilding:magnet",
         "simplebuilding:rotator"
       ],
@@ -10233,24 +10342,26 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Rod.",
           "details": [
-            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range.",
+            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range. If several iron or gold rods reach the strike, the nearest one wins.",
+            "One Iron Rod in the crafting grid gives the three iron ingots back.",
             "Ingredient of the Resonance Rod and the Rotator. Needs a stone pickaxe or better."
           ]
         },
         "de": {
           "summary": "Ein Blitzableiter aus Eisen (MC 26.3): drei Eisenbarren übereinander ergeben einen Eisenstab.",
           "details": [
-            "Er sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist.",
+            "Er sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Eisen- oder Goldstäbe den Einschlag, gewinnt der nächste.",
+            "Ein Eisenstab im Handwerksfeld gibt die drei Eisenbarren zurück.",
             "Zutat für den Resonanzstab und den Rotator. Braucht mindestens eine Steinspitzhacke."
           ]
         },
         "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/IronRodBlock.java",
-          "common/src/shared/java/com/simplebuilding/mixin/IronRodLightningMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
-      "hasCustomBehaviour": true
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:iron_sledgehammer",
@@ -10296,7 +10407,7 @@ window.WIKI_DATA = {
             "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
             "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "On 26.3, upgrade a placed armor trim template with the hammer and off-hand material. The item-frame route is a legacy fallback only for targets without another in-world route; existing frames keep their contents. Older lines still support the frame route.",
+            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then hit it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
             "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
             "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
             "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
@@ -10310,7 +10421,7 @@ window.WIKI_DATA = {
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Hit a placed trim template three times with Glow Ink or Glowstone Dust in your off hand."
+            "Hit a placed trim template five times with Glow Ink or Glowstone Dust in your off hand."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -10359,7 +10470,7 @@ window.WIKI_DATA = {
             "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
             "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Auf 26.3 werden abgelegte Besatzvorlagen mit Hammer und Nebenhand-Material aufgewertet. Rahmen sind nur ein Legacy-Fallback ohne andere Weltumwandlung; vorhandene Rahmen behalten ihren Inhalt. Ältere Linien unterstützen weiterhin die Rahmenroute.",
+            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
             "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
             "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
             "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
@@ -10372,9 +10483,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtender Rüstungsbesatz; mit Leuchtsteinstaub: Strahlender Rüstungsbesatz.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand dreimal schlagen."
+            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand fünfmal schlagen."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -12238,6 +12348,46 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:netherite_rod",
+      "name": {
+        "en_us": "Netherite Rod",
+        "de_de": "Netheritstab"
+      },
+      "texture": "assets/textures/item/netherite_rod.png",
+      "craftedBy": [
+        "simplebuilding:netherite_rod_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_rod_smithing"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Smithing table (MC 26.3): Netherite Upgrade + Diamond Rod + Netherite Ingot give the Netherite Rod.",
+          "details": [
+            "An item like the blaze rod; it does not burn, like netherite items, and there is no way back to the Diamond Rod.",
+            "At the Fletching Table it is an arrow shaft: +1 damage, and the arrows do not burn in lava or fire as items.",
+            "At the smithing table it becomes the Enderite Rod."
+          ]
+        },
+        "de": {
+          "summary": "Schmiedetisch (MC 26.3): Netherit-Aufwertung + Diamantstab + Netheritbarren ergeben den Netheritstab.",
+          "details": [
+            "Ein Item wie die Lohenrute; er verbrennt nicht, wie Netherit-Items, und es gibt keinen Rückweg zum Diamantstab.",
+            "Am Befiederungstisch ist er ein Pfeilschaft: +1 Schaden, und die Pfeile verbrennen als Item nicht in Lava oder Feuer.",
+            "Am Schmiedetisch wird er zum Enderitstab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/fletching/ArrowParts.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:netherite_shulker_box",
       "name": {
         "en_us": "Netherite Shulker Box",
@@ -12377,7 +12527,7 @@ window.WIKI_DATA = {
             "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
             "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "On 26.3, upgrade a placed armor trim template with the hammer and off-hand material. The item-frame route is a legacy fallback only for targets without another in-world route; existing frames keep their contents. Older lines still support the frame route.",
+            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then hit it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
             "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
             "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
             "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
@@ -12391,7 +12541,7 @@ window.WIKI_DATA = {
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Hit a placed trim template three times with Glow Ink or Glowstone Dust in your off hand."
+            "Hit a placed trim template five times with Glow Ink or Glowstone Dust in your off hand."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -12440,7 +12590,7 @@ window.WIKI_DATA = {
             "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
             "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Auf 26.3 werden abgelegte Besatzvorlagen mit Hammer und Nebenhand-Material aufgewertet. Rahmen sind nur ein Legacy-Fallback ohne andere Weltumwandlung; vorhandene Rahmen behalten ihren Inhalt. Ältere Linien unterstützen weiterhin die Rahmenroute.",
+            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
             "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
             "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
             "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
@@ -12453,9 +12603,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtender Rüstungsbesatz; mit Leuchtsteinstaub: Strahlender Rüstungsbesatz.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand dreimal schlagen."
+            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand fünfmal schlagen."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -15827,7 +15976,7 @@ window.WIKI_DATA = {
             "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
             "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
-            "On 26.3, upgrade a placed armor trim template with the hammer and off-hand material. The item-frame route is a legacy fallback only for targets without another in-world route; existing frames keep their contents. Older lines still support the frame route.",
+            "Armor trim templates are upgraded in the world only: place the template (sneak + right-click), then hit it with the hammer and the material in the off hand. The old item-frame route has been removed (2026-10-02; the separately maintained 1.21.11 line still has it); templates already hanging in frames stay as they are.",
             "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
             "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
             "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
@@ -15841,7 +15990,7 @@ window.WIKI_DATA = {
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Strike a diamond block three times with right-click (sneaking or not; holding repeats the strikes): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine.",
-            "Hit a placed trim template three times with Glow Ink or Glowstone Dust in your off hand."
+            "Hit a placed trim template five times with Glow Ink or Glowstone Dust in your off hand."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -15890,7 +16039,7 @@ window.WIKI_DATA = {
             "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
             "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
             "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
-            "Auf 26.3 werden abgelegte Besatzvorlagen mit Hammer und Nebenhand-Material aufgewertet. Rahmen sind nur ein Legacy-Fallback ohne andere Weltumwandlung; vorhandene Rahmen behalten ihren Inhalt. Ältere Linien unterstützen weiterhin die Rahmenroute.",
+            "Besatzvorlagen werden nur noch in der Welt aufgewertet: Vorlage ablegen (Schleichen + Rechtsklick), dann mit Hammer und Material in der Nebenhand daraufschlagen. Der frühere Weg über einen Rahmen ist entfallen (2026-10-02; die getrennt gepflegte Linie 1.21.11 hat ihn noch); Vorlagen, die schon in Rahmen hängen, bleiben unverändert.",
             "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
             "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
             "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
@@ -15903,9 +16052,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Acht Rechtsklick-Schläge auf einen Diamantblock (mit oder ohne Schleichen; Halten wiederholt die Schläge): zerkleinern ihn ab der Eisenhammer-Stufe zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtender Rüstungsbesatz; mit Leuchtsteinstaub: Strahlender Rüstungsbesatz.",
             "Netheritklumpen in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderitklumpen auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine.",
-            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand dreimal schlagen."
+            "Abgelegte Besatzvorlage mit Leuchttinte oder Glowstonestaub in der Nebenhand fünfmal schlagen."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -19314,6 +19462,47 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:gold_rod",
+      "name": {
+        "en_us": "Gold Rod",
+        "de_de": "Goldstab"
+      },
+      "texture": "assets/textures/block/gold_rod.png",
+      "craftedBy": [
+        "simplebuilding:gold_rod"
+      ],
+      "usedIn": [
+        "simplebuilding:gold_ingot_from_gold_rod"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/gold_rod",
+      "drops": [
+        "simplebuilding:gold_rod"
+      ],
+      "note": {
+        "en": {
+          "summary": "A lightning rod made of gold (MC 26.3): three gold ingots stacked give one Gold Rod.",
+          "details": [
+            "It works like the Iron Rod - placed on any face, a redstone signal when lightning strikes it, no oxidizing - but reaches further: it attracts lightning within 64 blocks (iron: 32, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several iron or gold rods reach the strike, the nearest one wins.",
+            "One Gold Rod in the crafting grid gives the three gold ingots back. Needs an iron pickaxe or better, like the gold block."
+          ]
+        },
+        "de": {
+          "summary": "Ein Blitzableiter aus Gold (MC 26.3): drei Goldbarren übereinander ergeben einen Goldstab.",
+          "details": [
+            "Er arbeitet wie der Eisenstab - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht -, reicht aber weiter: er zieht Blitze im Umkreis von 64 Blöcken an (Eisen: 32, Kupfer: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Eisen- oder Goldstäbe den Einschlag, gewinnt der nächste.",
+            "Ein Goldstab im Handwerksfeld gibt die drei Goldbarren zurück. Braucht wie der Goldblock mindestens eine Eisenspitzhacke."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:husk_head",
       "name": {
         "en_us": "Husk Head",
@@ -19419,6 +19608,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:amethyst_lens",
+        "simplebuilding:iron_ingot_from_iron_rod",
         "simplebuilding:magnet",
         "simplebuilding:rotator"
       ],
@@ -19432,24 +19622,26 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Rod.",
           "details": [
-            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range.",
+            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range. If several iron or gold rods reach the strike, the nearest one wins.",
+            "One Iron Rod in the crafting grid gives the three iron ingots back.",
             "Ingredient of the Resonance Rod and the Rotator. Needs a stone pickaxe or better."
           ]
         },
         "de": {
           "summary": "Ein Blitzableiter aus Eisen (MC 26.3): drei Eisenbarren übereinander ergeben einen Eisenstab.",
           "details": [
-            "Er sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist.",
+            "Er sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Eisen- oder Goldstäbe den Einschlag, gewinnt der nächste.",
+            "Ein Eisenstab im Handwerksfeld gibt die drei Eisenbarren zurück.",
             "Zutat für den Resonanzstab und den Rotator. Braucht mindestens eine Steinspitzhacke."
           ]
         },
         "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/IronRodBlock.java",
-          "common/src/shared/java/com/simplebuilding/mixin/IronRodLightningMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
-      "hasCustomBehaviour": true
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:lapis_quartz_checker",
@@ -27131,6 +27323,28 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:diamond_from_diamond_rod",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:diamond",
+        "count": 3
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/diamond_from_diamond_rod.json",
+      "ingredients": [
+        "simplebuilding:diamond_rod"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:diamond_rod"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:diamond_pressure_plate",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -27154,6 +27368,33 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:diamond_rod",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:diamond_rod",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/diamond_rod.json",
+      "ingredients": [
+        "minecraft:diamond"
+      ],
+      "pattern": [
+        "M",
+        "M",
+        "M"
+      ],
+      "key": {
+        "M": [
+          "minecraft:diamond"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -29144,6 +29385,36 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:enderite_rod_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_rod",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_rod_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_rod"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_rod"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:enderite_scrap_from_blasting_layered_raw_enderite",
       "type": "minecraft:blasting",
       "category": null,
@@ -29650,6 +29921,55 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:gold_ingot_from_gold_rod",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:gold_ingot",
+        "count": 3
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/gold_ingot_from_gold_rod.json",
+      "ingredients": [
+        "simplebuilding:gold_rod"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:gold_rod"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:gold_rod",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:gold_rod",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/gold_rod.json",
+      "ingredients": [
+        "minecraft:gold_ingot"
+      ],
+      "pattern": [
+        "M",
+        "M",
+        "M"
+      ],
+      "key": {
+        "M": [
+          "minecraft:gold_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:gold_sledgehammer",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -30113,6 +30433,28 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:iron_ingot_from_iron_rod",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:iron_ingot",
+        "count": 3
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/iron_ingot_from_iron_rod.json",
+      "ingredients": [
+        "simplebuilding:iron_rod"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:iron_rod"
+        ]
+      ],
+      "lines": [
         "26.3"
       ]
     },
@@ -31463,6 +31805,36 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:netherite_rod_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_rod",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_rod_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:diamond_rod"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:diamond_rod"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -40579,6 +40951,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/flypad.json"
     },
     {
+      "id": "simplebuilding:blocks/gold_rod",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:gold_rod"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gold_rod.json"
+    },
+    {
       "id": "simplebuilding:blocks/husk_head",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -46571,6 +46959,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_rod",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_shovel",
           "required": true
         },
@@ -46599,7 +46991,7 @@ window.WIKI_DATA = {
           "required": true
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json"
     },
     {
       "id": "simplebuilding:item/enderite_items",
@@ -46734,6 +47126,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_rod",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_scrap",
           "required": true
         },
@@ -46798,7 +47194,7 @@ window.WIKI_DATA = {
           "required": true
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/enderite_items.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/enderite_items.json"
     },
     {
       "id": "simplebuilding:item/extra_inventory_items",
@@ -50544,7 +50940,7 @@ window.WIKI_DATA = {
       {
         "id": "trim_template",
         "facts": {
-          "frameLegacyOnly": true
+          "placedHits": 5
         },
         "note": {
           "sources": [
@@ -50555,22 +50951,22 @@ window.WIKI_DATA = {
           ],
           "en": {
             "title": "Trim template transformation",
-            "summary": "On 26.3, hit a placed armor trim template three times with a main-hand sledgehammer and Glow Ink Sac or Glowstone Dust in the off hand. Item frames are a legacy fallback only when that target has no other in-world route. Older lines also allow one hit on a framed template.",
+            "summary": "Hit a placed armor trim template five times with a main-hand sledgehammer and Glow Ink Sac or Glowstone Dust in the off hand. It works only on the placed template; the item-frame route has been removed (2026-10-02).",
             "details": [
               "Glow Ink Sac gives the Glowing Trim Template, Glowstone Dust the Emitting Trim Template.",
               "Every item whose id contains trim_smithing_template counts as a template - all vanilla armor trim templates.",
-              "One off-hand item and 1 durability of the hammer are used; nothing in creative mode.",
-              "Placed templates use five hits and five hammer durability; the fifth hit consumes the material. Existing item-frame contents are preserved."
+              "Each hit costs 1 hammer durability (five in total), the fifth hit uses up one off-hand item; nothing in creative mode.",
+              "Without a hit for 5 seconds, or with another material, the count starts over. Templates already hanging in item frames stay as they are."
             ]
           },
           "de": {
             "title": "Besatzvorlage umwandeln",
-            "summary": "Auf 26.3 eine abgelegte Besatzvorlage dreimal mit Vorschlaghammer in der Haupthand und Leuchttinte oder Glowstonestaub in der Nebenhand schlagen. Rahmen sind nur ein Legacy-Fallback ohne andere Weltumwandlung des Ziels. Ältere Linien erlauben auch einen Schlag auf eine gerahmte Vorlage.",
+            "summary": "Eine abgelegte Besatzvorlage fünfmal mit Vorschlaghammer in der Haupthand und Leuchttinte oder Glowstonestaub in der Nebenhand schlagen. Das geht nur an der abgelegten Vorlage; der Weg über einen Rahmen ist entfallen (2026-10-02).",
             "details": [
               "Leuchttintenbeutel ergibt die leuchtende Besatzvorlage, Glowstonestaub die strahlende.",
               "Als Vorlage zählt jedes Item, dessen Id trim_smithing_template enthält - alle Rüstungsbesatz-Vorlagen aus Vanilla.",
-              "Verbraucht werden ein Item aus der Nebenhand und 1 Haltbarkeit des Hammers; im Kreativmodus nichts.",
-              "Abgelegte Vorlagen brauchen fünf Schläge und fünf Hammerhaltbarkeit; der fünfte Schlag verbraucht das Material. Bestehende Rahmeninhalte bleiben erhalten."
+              "Jeder Schlag kostet 1 Hammerhaltbarkeit (insgesamt fünf), der fünfte verbraucht ein Item aus der Nebenhand; im Kreativmodus nichts.",
+              "Ohne Schlag für 5 Sekunden oder mit einem anderen Material beginnt die Zählung von vorn. Vorlagen, die schon in Rahmen hängen, bleiben unverändert."
             ]
           }
         }
@@ -67324,8 +67720,8 @@ window.WIKI_DATA = {
         "de_de": "Glanzleistung"
       },
       "description": {
-        "en_us": "Lay down an armor trim template, hold Glow Ink or Glowstone Dust in the off hand and hit it three times with a sledgehammer",
-        "de_de": "Lege eine Rüstungsbesatzvorlage ab, halte Leuchttinte oder Glowstonestaub in der Nebenhand und schlage sie dreimal mit dem Vorschlaghammer"
+        "en_us": "Lay down an armor trim template, hold Glow Ink or Glowstone Dust in the off hand and hit it five times with a sledgehammer",
+        "de_de": "Lege eine Rüstungsbesatzvorlage ab, halte Leuchttinte oder Glowstonestaub in der Nebenhand und schlage sie fünfmal mit dem Vorschlaghammer"
       },
       "criteria": [
         {
@@ -70331,8 +70727,8 @@ window.WIKI_DATA = {
             "de_de": "Glanzleistung"
           },
           "description": {
-            "en_us": "Lay down an armor trim template, hold Glow Ink or Glowstone Dust in the off hand and hit it three times with a sledgehammer",
-            "de_de": "Lege eine Rüstungsbesatzvorlage ab, halte Leuchttinte oder Glowstonestaub in der Nebenhand und schlage sie dreimal mit dem Vorschlaghammer"
+            "en_us": "Lay down an armor trim template, hold Glow Ink or Glowstone Dust in the off hand and hit it five times with a sledgehammer",
+            "de_de": "Lege eine Rüstungsbesatzvorlage ab, halte Leuchttinte oder Glowstonestaub in der Nebenhand und schlage sie fünfmal mit dem Vorschlaghammer"
           },
           "dependencies": [
             "building.toolkit",
@@ -71299,10 +71695,10 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 195,
-    "blocks": 161,
-    "recipes": 436,
-    "lootTables": 161,
+    "items": 199,
+    "blocks": 162,
+    "recipes": 443,
+    "lootTables": 162,
     "trades": 20,
     "enchantments": 19,
     "tags": 46,

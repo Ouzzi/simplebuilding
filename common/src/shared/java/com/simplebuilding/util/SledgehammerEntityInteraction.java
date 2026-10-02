@@ -1,30 +1,18 @@
 package com.simplebuilding.util;
 
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.SledgehammerItem;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.decoration.ItemFrame;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
 
 /**
- * Ein Vorschlaghammer-Schlag (Linksklick) auf einen Rahmen mit einer Ruestungsbesatz-Vorlage wertet
- * sie auf: Leuchttintenbeutel in der Nebenhand ergibt die leuchtende, Glowstonestaub die strahlende
- * Besatzvorlage. Die Tabelle ({@link #trimUpgrades()}), die Vorlagen-Regel ({@link #isTrimTemplate})
- * und die Kosten stehen hier einmal; das Wiki und der JEI-Katalog lesen sie ueber
- * {@link InWorldTransformations}.
+ * Die Besatz-Aufwertung mit dem Vorschlaghammer: Leuchttintenbeutel in der Nebenhand ergibt die leuchtende,
+ * Glowstonestaub die strahlende Besatzvorlage. Die Tabelle ({@link #trimUpgrades()}), die Vorlagen-Regel
+ * ({@link #isTrimTemplate}) und die Kosten stehen hier einmal; geschlagen wird nur die abgelegte Vorlage in der Welt
+ * ({@link PlacedTemplates}). Der fruehere Weg ueber eine Vorlage im Rahmen ist entfallen (Backlog Q3, 2026-10-02:
+ * Umwandlungen nur in der Welt). Das Wiki und der JEI-Katalog lesen die Tabelle ueber {@link InWorldTransformations}.
  */
 public final class SledgehammerEntityInteraction {
     /** Haltbarkeit, die ein Schlag den Hammer kostet (ausserhalb des Kreativmodus). */
@@ -43,50 +31,10 @@ public final class SledgehammerEntityInteraction {
         return upgrades;
     }
 
-    public static InteractionResult handleAttackEntity(Player player, Level world, InteractionHand hand, Entity entity) {
-        if (world.isClientSide()) return InteractionResult.PASS;
-        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
-
-        ItemStack mainStack = player.getMainHandItem();
-        ItemStack offStack = player.getOffhandItem();
-        Item result = trimUpgrades().get(offStack.getItem());
-
-        if (result == null || !(mainStack.getItem() instanceof SledgehammerItem)
-                || !(entity instanceof ItemFrame itemFrame) || !isLegacyFrameTarget(itemFrame.getItem().getItem())) {
-            return InteractionResult.PASS;
-        }
-
-        if (!com.simplebuilding.api.WorldPermissions.mayAffectEntity(player, itemFrame)) return InteractionResult.FAIL;
-        itemFrame.setItem(new ItemStack(result), true);
-        com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.TRIM_TEMPLATE_FORGED);
-
-        if (!player.isCreative()) {
-            offStack.shrink(CATALYST_COST);
-            mainStack.hurtAndBreak(HAMMER_DAMAGE, player, EquipmentSlot.MAINHAND);
-        }
-
-        boolean glowing = result == ModItems.GLOWING_TRIM_TEMPLATE;
-        world.playSound(null, itemFrame.blockPosition(), SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0f, 1.5f);
-        world.playSound(null, itemFrame.blockPosition(), glowing ? SoundEvents.GLOW_INK_SAC_USE : SoundEvents.BLAZE_SHOOT,
-                SoundSource.BLOCKS, 1.0f, 1.0f);
-
-        world.addParticle(ParticleTypes.GLOW, itemFrame.getX(), itemFrame.getY(), itemFrame.getZ(), 0.0, 0.1, 0.0);
-        world.addParticle(glowing ? ParticleTypes.GLOW_SQUID_INK : ParticleTypes.LARGE_SMOKE,
-                itemFrame.getX(), itemFrame.getY(), itemFrame.getZ(), 0.0, 0.1, 0.0);
-
-        return InteractionResult.SUCCESS;
-    }
-
-    /** Placed vanilla templates already have an in-world route; retain only unsupported legacy items. */
-    public static boolean isLegacyFrameTarget(Item item) {
-        return isTrimTemplate(item) && (!com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
-                || !PlacedTemplates.isPlaceableTemplate(new ItemStack(item)));
-    }
-
     /**
      * Namensregel: jedes Item, dessen registrierter Name {@code trim_smithing_template} enthaelt -
      * alle Vanilla-Besatzvorlagen. Die mod-eigenen Ergebnisse heissen {@code *_trim_template} und
-     * fallen nicht darunter, ein umgewandelter Rahmen laesst sich also nicht noch einmal umwandeln.
+     * fallen nicht darunter, eine aufgewertete Vorlage laesst sich also nicht noch einmal aufwerten.
      */
     public static boolean isTrimTemplate(Item item) {
         return BuiltInRegistries.ITEM.getKey(item).getPath().contains("trim_smithing_template");

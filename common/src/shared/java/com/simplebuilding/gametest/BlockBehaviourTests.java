@@ -945,29 +945,110 @@ public final class BlockBehaviourTests {
     }
 
     /**
-     * Iron Rod (owner 2026-10-02): a lightning rod of iron - powered by a strike like the copper rod, but it only
-     * attracts lightning within 32 blocks (copper: 128), found as the top block of its column.
+     * Iron and Gold Rod (owner 2026-10-02): lightning rods of iron and gold - powered by a strike like the copper rod,
+     * but each only attracts lightning within its own range (iron 32, gold 64; copper: 128), found as the top block of
+     * its column. Among the metal rods that reach the strike the nearest wins, even against a rod with more range.
      */
-    public static void ironRodsAttractLightningOnlyWithinThirtyTwoBlocks(GameTestHelper helper) {
+    public static void metalRodsAttractLightningWithinTheirOwnRange(GameTestHelper helper) {
         if (ModBlocks.IRON_ROD == null) {
             helper.succeed();
             return;
         }
         ServerLevel level = helper.getLevel();
-        BlockPos column = helper.absolutePos(new BlockPos(1, 1, 1));
-        // the rod has to be the top block of its column; the test structure may have a roof, so stand it on top
-        BlockPos rod = new BlockPos(column.getX(), level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, column.getX(), column.getZ()), column.getZ());
-        level.setBlock(rod, ModBlocks.IRON_ROD.defaultBlockState(), 3);
         helper.assertTrue(ModBlocks.IRON_ROD instanceof net.minecraft.world.level.block.LightningRodBlock, "the iron rod is a lightning rod");
-        java.util.Optional<BlockPos> near = com.simplebuilding.blocks.custom.IronRodBlock.find(level, rod.offset(12, 0, 12));
-        helper.assertTrue(near.isPresent() && near.get().equals(rod.above()), "an iron rod 17 blocks away attracts the bolt, got " + near);
-        java.util.Optional<BlockPos> far = com.simplebuilding.blocks.custom.IronRodBlock.find(level, rod.offset(40, 0, 0));
-        helper.assertTrue(far.isEmpty() || !far.get().equals(rod.above()), "an iron rod 40 blocks away does not");
-        helper.assertValueEqual(com.simplebuilding.blocks.custom.IronRodBlock.RANGE, 32, "iron rod range");
-        BlockState state = level.getBlockState(rod);
-        ((net.minecraft.world.level.block.LightningRodBlock) ModBlocks.IRON_ROD).onLightningStrike(state, level, rod);
-        helper.assertTrue(level.getBlockState(rod).getValue(net.minecraft.world.level.block.LightningRodBlock.POWERED), "a strike powers the iron rod");
-        level.setBlock(rod, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 3);
+        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.IRON_ROD).range(), 32, "iron rod range");
+        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.GOLD_ROD).range(), 64, "gold rod range");
+        BlockPos iron = onTop(level, helper.absolutePos(new BlockPos(1, 1, 1)), ModBlocks.IRON_ROD);
+        java.util.Optional<BlockPos> near = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, iron.offset(12, 0, 12));
+        helper.assertTrue(near.isPresent() && near.get().equals(iron.above()), "an iron rod 17 blocks away attracts the bolt, got " + near);
+        java.util.Optional<BlockPos> far = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, iron.offset(40, 0, 0));
+        helper.assertTrue(far.isEmpty() || !far.get().equals(iron.above()), "an iron rod 40 blocks away does not");
+
+        BlockPos gold = onTop(level, iron.offset(2, 0, 0), ModBlocks.GOLD_ROD);
+        java.util.Optional<BlockPos> goldOnly = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, iron.offset(50, 0, 0));
+        helper.assertTrue(goldOnly.isPresent() && goldOnly.get().equals(gold.above()),
+                "a gold rod 48 blocks away attracts the bolt the iron rod no longer reaches, got " + goldOnly);
+        java.util.Optional<BlockPos> nearest = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, iron.offset(-10, 0, 0));
+        helper.assertTrue(nearest.isPresent() && nearest.get().equals(iron.above()),
+                "the nearer iron rod wins over the gold rod with more range, got " + nearest);
+        java.util.Optional<BlockPos> beyond = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, gold.offset(70, 0, 0));
+        helper.assertTrue(beyond.isEmpty() || !(beyond.get().equals(gold.above()) || beyond.get().equals(iron.above())),
+                "a gold rod 70 blocks away still attracts the bolt, got " + beyond);
+
+        for (BlockPos rod : List.of(iron, gold)) {
+            BlockState state = level.getBlockState(rod);
+            ((net.minecraft.world.level.block.LightningRodBlock) state.getBlock()).onLightningStrike(state, level, rod);
+            helper.assertTrue(level.getBlockState(rod).getValue(net.minecraft.world.level.block.LightningRodBlock.POWERED), "a strike powers " + state.getBlock());
+            level.setBlock(rod, Blocks.AIR.defaultBlockState(), 3);
+        }
         helper.succeed();
+    }
+
+    /** Stands {@code block} on top of the column at {@code column} (the test structure may have a roof). */
+    private static BlockPos onTop(ServerLevel level, BlockPos column, Block block) {
+        BlockPos pos = new BlockPos(column.getX(), level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, column.getX(), column.getZ()), column.getZ());
+        level.setBlock(pos, block.defaultBlockState(), 3);
+        return pos;
+    }
+
+    /**
+     * Material rods (owner 2026-10-02): Gold and Diamond Rod from three stacked like the Iron Rod; Iron, Gold and
+     * Diamond Rod fall back into their three pieces; the Netherite Rod is smithed from the Diamond Rod and the Enderite
+     * Rod from the Netherite Rod, with no way back. Netherite and Enderite Rod do not burn.
+     */
+    public static void materialRodsCraftBackAndSmithUpward(GameTestHelper helper) {
+        if (com.simplebuilding.items.ModItems.GOLD_ROD == null) {
+            helper.succeed();
+            return;
+        }
+        Item gold = com.simplebuilding.items.ModItems.GOLD_ROD;
+        Item diamond = com.simplebuilding.items.ModItems.DIAMOND_ROD;
+        Item netherite = com.simplebuilding.items.ModItems.NETHERITE_ROD;
+        Item enderite = com.simplebuilding.items.ModItems.ENDERITE_ROD;
+        Item iron = com.simplebuilding.items.ModItems.IRON_ROD;
+        expectCraft(helper, stacked(Items.IRON_INGOT), iron, 1, "simplebuilding:iron_rod");
+        expectCraft(helper, stacked(Items.GOLD_INGOT), gold, 1, "simplebuilding:gold_rod");
+        expectCraft(helper, stacked(Items.DIAMOND), diamond, 1, "simplebuilding:diamond_rod");
+        expectCraft(helper, single(iron), Items.IRON_INGOT, 3, "simplebuilding:iron_ingot_from_iron_rod");
+        expectCraft(helper, single(gold), Items.GOLD_INGOT, 3, "simplebuilding:gold_ingot_from_gold_rod");
+        expectCraft(helper, single(diamond), Items.DIAMOND, 3, "simplebuilding:diamond_from_diamond_rod");
+        for (Item oneWay : List.of(netherite, enderite)) {
+            helper.assertTrue(helper.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING,
+                    single(oneWay), helper.getLevel()).isEmpty(), oneWay + " crafts back into something");
+        }
+        expectSmith(helper, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, diamond, Items.NETHERITE_INGOT, netherite);
+        expectSmith(helper, com.simplebuilding.items.ModItems.ENDERITE_UPGRADE_TEMPLATE, netherite, com.simplebuilding.items.ModItems.ENDERITE_INGOT, enderite);
+        helper.assertTrue(helper.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMITHING,
+                new net.minecraft.world.item.crafting.SmithingRecipeInput(new ItemStack(com.simplebuilding.items.ModItems.ENDERITE_UPGRADE_TEMPLATE),
+                        new ItemStack(diamond), new ItemStack(com.simplebuilding.items.ModItems.ENDERITE_INGOT)), helper.getLevel()).isEmpty(),
+                "the diamond rod skips the netherite step");
+        for (Item fireproof : List.of(netherite, enderite)) {
+            helper.assertTrue(new ItemStack(fireproof).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT), fireproof + " is not fire resistant");
+        }
+        helper.assertFalse(new ItemStack(diamond).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT), "the diamond rod is fire resistant");
+        helper.succeed();
+    }
+
+    private static net.minecraft.world.item.crafting.CraftingInput stacked(Item material) {
+        return net.minecraft.world.item.crafting.CraftingInput.of(1, 3, List.of(new ItemStack(material), new ItemStack(material), new ItemStack(material)));
+    }
+
+    private static net.minecraft.world.item.crafting.CraftingInput single(Item item) {
+        return net.minecraft.world.item.crafting.CraftingInput.of(1, 1, List.of(new ItemStack(item)));
+    }
+
+    private static void expectCraft(GameTestHelper helper, net.minecraft.world.item.crafting.CraftingInput grid, Item result, int count, String recipeId) {
+        var match = helper.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, grid, helper.getLevel());
+        helper.assertTrue(match.isPresent(), "no recipe makes " + result);
+        helper.assertValueEqual(match.get().id().identifier().toString(), recipeId, "recipe matched for " + result);
+        ItemStack made = match.get().value().assemble(grid);
+        helper.assertTrue(made.is(result) && made.getCount() == count, recipeId + " made " + made + " instead of " + count + " " + result);
+    }
+
+    private static void expectSmith(GameTestHelper helper, Item template, Item base, Item addition, Item result) {
+        var input = new net.minecraft.world.item.crafting.SmithingRecipeInput(new ItemStack(template), new ItemStack(base), new ItemStack(addition));
+        var match = helper.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMITHING, input, helper.getLevel());
+        helper.assertTrue(match.isPresent(), base + " + " + addition + " smiths nothing");
+        helper.assertTrue(match.get().value().assemble(input).is(result), base + " + " + addition + " did not smith " + result);
     }
 }

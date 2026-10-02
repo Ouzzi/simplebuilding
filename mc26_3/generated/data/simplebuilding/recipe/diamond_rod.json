@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "M": "minecraft:diamond"
+  },
+  "pattern": [
+    "M",
+    "M",
+    "M"
+  ],
+  "result": {
+    "id": "simplebuilding:diamond_rod"
+  }
+}

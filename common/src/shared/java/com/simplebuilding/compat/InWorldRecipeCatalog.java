@@ -393,8 +393,6 @@ public final class InWorldRecipeCatalog {
             return;
         }
         List<Component> notes = List.of(
-                Component.translatable(com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
-                        ? "jei.simplebuilding.note.trim_template.legacy" : "jei.simplebuilding.note.trim_template.how"),
                 Component.translatable("jei.simplebuilding.note.trim_template.placed",
                         trim.has("placedHits") ? trim.get("placedHits").getAsInt() : 1),
                 Component.translatable("jei.simplebuilding.note.damage", trim.get("damage").getAsInt()));

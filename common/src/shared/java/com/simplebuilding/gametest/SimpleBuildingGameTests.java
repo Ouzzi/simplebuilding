@@ -76,7 +76,9 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),
-            GameTestSpec.named("block_behaviour_game_test_iron_rods_attract_lightning_only_within_thirty_two_blocks", BlockBehaviourTests::ironRodsAttractLightningOnlyWithinThirtyTwoBlocks)
+            GameTestSpec.named("block_behaviour_game_test_metal_rods_attract_lightning_within_their_own_range", BlockBehaviourTests::metalRodsAttractLightningWithinTheirOwnRange)
+                    .build(),
+            GameTestSpec.named("block_behaviour_game_test_material_rods_craft_back_and_smith_upward", BlockBehaviourTests::materialRodsCraftBackAndSmithUpward)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_reinforced_and_netherite_furnaces_smelt_faster_than_vanilla", BlockBehaviourTests::reinforcedAndNetheriteFurnacesSmeltFasterThanVanilla)
                     .maxTicks(BlockBehaviourTests.FURNACE_MAX_TICKS)
@@ -497,6 +499,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_shafts_and_fletchings_change_the_flight", FletchingTests::shaftsAndFletchingsChangeTheFlight)
                     .build(),
+            GameTestSpec.named("fletching_game_test_rod_shafts_pierce_hit_harder_and_resist_fire", FletchingTests::rodShaftsPierceHitHarderAndResistFire)
+                    .build(),
             GameTestSpec.named("fletching_game_test_the_table_makes_four_arrows_from_three_parts", FletchingTests::theTableMakesFourArrowsFromThreeParts)
                     .build(),
             GameTestSpec.named("fletching_game_test_material_buttons_only_move_items_they_find", FletchingTests::materialButtonsOnlyMoveItemsTheyFind)
@@ -813,8 +817,6 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_sneaking_breaks_only_the_targeted_block", SledgehammerTests::sledgehammerSneakingBreaksOnlyTheTargetedBlock)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_charge_time_shortens_with_material_and_efficiency", SledgehammerTests::sledgehammerChargeTimeShortensWithMaterialAndEfficiency)
-                    .build(),
-            GameTestSpec.named("sledgehammer_game_test_sledgehammer_turns_framed_trim_templates_glowing", SledgehammerTests::sledgehammerTurnsFramedTrimTemplatesGlowing)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_charged_hammer_only_finishes_on_the_block_it_started_on", SledgehammerTests::chargedHammerOnlyFinishesOnTheBlockItStartedOn)
                     .build(),

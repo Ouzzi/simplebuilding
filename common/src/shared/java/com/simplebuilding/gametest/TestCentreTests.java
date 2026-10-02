@@ -576,7 +576,7 @@ public final class TestCentreTests {
         int rods = 0;
         for (Map.Entry<BlockPos, BlockState> entry : blocks.entrySet()) {
             if (entry.getValue().getBlock() instanceof net.minecraft.world.level.block.LightningRodBlock
-                    && !(entry.getValue().getBlock() instanceof com.simplebuilding.blocks.custom.IronRodBlock)) {
+                    && !(entry.getValue().getBlock() instanceof com.simplebuilding.blocks.custom.MetalRodBlock)) {
                 problems.add("a copper lightning rod at " + entry.getKey().toShortString() + " would take the iron rods' lightning");
             }
             if (ModBlocks.IRON_ROD == null || !entry.getValue().is(ModBlocks.IRON_ROD)) {

@@ -3,7 +3,6 @@ package com.simplebuilding.neoforge;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.util.ConstructorsTouchInteraction;
 import com.simplebuilding.util.LegacySpatulaMigration;
-import com.simplebuilding.util.SledgehammerEntityInteraction;
 import com.simplebuilding.util.*;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -14,7 +13,6 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.item.ItemExpireEvent;
-import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
@@ -70,22 +68,6 @@ public final class NeoForgeGameplayEvents {
                 event.getLevel(),
                 event.getHand(),
                 event.getHitVec()
-        );
-        if (result != InteractionResult.PASS) {
-            event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onAttackEntity(AttackEntityEvent event) {
-        if (event.getEntity().level().isClientSide()) {
-            return;
-        }
-        InteractionResult result = SledgehammerEntityInteraction.handleAttackEntity(
-                event.getEntity(),
-                event.getEntity().level(),
-                InteractionHand.MAIN_HAND,
-                event.getTarget()
         );
         if (result != InteractionResult.PASS) {
             event.setCanceled(true);

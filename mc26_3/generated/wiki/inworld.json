@@ -8151,7 +8151,6 @@
   },
   "trimTemplate": {
     "damage": 1,
-    "frameLegacyOnly": true,
     "hammers": [
       "simplebuilding:copper_sledgehammer",
       "simplebuilding:diamond_sledgehammer",

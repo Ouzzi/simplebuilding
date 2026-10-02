@@ -1882,7 +1882,7 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
 
         trim = exported.get("trimTemplate")
         if trim:
-            facts["trim_template"] = {"frameLegacyOnly": trim.get("frameLegacyOnly", False)}
+            facts["trim_template"] = {"placedHits": trim.get("placedHits")}
             templates = [t for t in trim["templates"] if t in item_ids]
             trim_hammers = [h for h in trim["hammers"] if h in item_ids]
             for upgrade in trim["upgrades"]:

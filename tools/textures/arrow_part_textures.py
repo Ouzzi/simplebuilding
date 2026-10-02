@@ -23,7 +23,9 @@ TIPS = {
     'diamond': 'mod:item/diamond_pebble', 'netherite': 'mod:item/netherite_nugget',
     'enderite': 'mod:item/enderite_nugget', 'amethyst': 'item/amethyst_shard', 'prismarine': 'item/prismarine_shard',
 }
-SHAFTS = {'stick': None, 'end_rod': 'block/end_rod', 'blaze_rod': 'item/blaze_rod', 'breeze_rod': 'item/breeze_rod'}
+SHAFTS = {'stick': None, 'end_rod': 'block/end_rod', 'blaze_rod': 'item/blaze_rod', 'breeze_rod': 'item/breeze_rod',
+          # material rods (2026-10-02): the tones of the material, as the rod items themselves
+          'diamond_rod': 'item/diamond', 'netherite_rod': 'item/netherite_ingot', 'enderite_rod': 'mod:item/enderite_ingot'}
 FLETCHINGS = {'feather': None, 'phantom_membrane': 'item/phantom_membrane'}
 MOD = os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'main', 'resources', 'assets', 'simplebuilding', 'textures')
 

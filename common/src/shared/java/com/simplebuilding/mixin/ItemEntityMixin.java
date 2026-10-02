@@ -63,6 +63,26 @@ public abstract class ItemEntityMixin extends Entity implements com.simplebuildi
         }
     }
 
+    /**
+     * Pfeile vom Befiederungstisch mit Netheritstab-Schaft verbrennen als Item nicht (wie Netherit-Items, die das per
+     * Komponente {@code damage_resistant} koennen; die Teile des Pfeils stehen aber erst in seiner Komponente).
+     */
+    @Inject(method = "fireImmune", at = @At("HEAD"), cancellable = true)
+    private void simplebuilding$fireproofArrow(CallbackInfoReturnable<Boolean> cir) {
+        if (com.simplebuilding.version.McVersion.FLETCHING && com.simplebuilding.fletching.ArrowParts.isFireproofArrow(this.getItem())) {
+            cir.setReturnValue(true);
+        }
+    }
+
+    @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
+    private void simplebuilding$fireproofArrowHurt(net.minecraft.server.level.ServerLevel level, net.minecraft.world.damagesource.DamageSource source,
+                                                   float damage, CallbackInfoReturnable<Boolean> cir) {
+        if (com.simplebuilding.version.McVersion.FLETCHING && source.is(net.minecraft.tags.DamageTypeTags.IS_FIRE)
+                && com.simplebuilding.fletching.ArrowParts.isFireproofArrow(this.getItem())) {
+            cir.setReturnValue(false);
+        }
+    }
+
     @Inject(method = "playerTouch", at = @At("HEAD"), cancellable = true)
     private void onPlayerCollision(Player player, CallbackInfo ci) {
         if (this.level().isClientSide()) return;

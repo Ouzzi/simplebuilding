@@ -2721,7 +2721,7 @@ public final class DataIntegrityTests {
             expected.add(List.of(ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            expected.add(List.of(ModItems.IRON_ROD));
+            expected.add(List.of(ModItems.IRON_ROD, ModItems.GOLD_ROD, ModItems.DIAMOND_ROD, ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));
         }
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             expected.add(List.of(ModItems.DIMENSIONAL_SCRAP_ITEM, ModItems.NETHER_DIMENSIONAL_SCRAP_ITEM, ModItems.END_DIMENSIONAL_SCRAP_ITEM));

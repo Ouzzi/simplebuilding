@@ -281,8 +281,10 @@ public final class ModItemGroupsContent {
             rows.add(CreativeTabLayout.Row.of("small_parts", ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            // Eisenstab (2026-10-02): Zutat der Gadgets, steht wie ein Blitzableiter.
-            rows.add(CreativeTabLayout.Row.of("rods", ModItems.IRON_ROD));
+            // Material-Staebe (2026-10-02): Eisen- und Goldstab stehen wie ein Blitzableiter, Diamant-, Netherit- und
+            // Enderitstab sind Items wie die Lohenrute (Pfeilschaefte).
+            rows.add(CreativeTabLayout.Row.of("rods", ModItems.IRON_ROD, ModItems.GOLD_ROD, ModItems.DIAMOND_ROD,
+                    ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));
         }
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             rows.add(CreativeTabLayout.Row.of("dimensional_scrap", ModItems.DIMENSIONAL_SCRAP_ITEM, ModItems.NETHER_DIMENSIONAL_SCRAP_ITEM,

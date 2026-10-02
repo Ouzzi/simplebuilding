@@ -151,9 +151,15 @@ public class ModBlocks {
             .strength(0.0F).sound(SoundType.BONE_BLOCK).noLootTable().noOcclusion().mapColor(MapColor.SAND)
             .pushReaction(McVersion.PUSH_DESTROYS))) : null;
 
-    // Eisenstab (2026-10-02): Blitzableiter aus Eisen, zieht Blitze nur in 32 Bloecken an (IronRodBlock).
-    public static final Block IRON_ROD = McVersion.GADGET_REWORK ? registerBlock("iron_rod", s -> new com.simplebuilding.blocks.custom.IronRodBlock(s
+    // Eisenstab (2026-10-02): Blitzableiter aus Eisen, zieht Blitze nur in 32 Bloecken an (MetalRodBlock).
+    public static final Block IRON_ROD = McVersion.GADGET_REWORK ? registerBlock("iron_rod", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
+            com.simplebuilding.blocks.custom.MetalRodBlock.IRON_RANGE, s
             .mapColor(MapColor.METAL).forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F)
+            .sound(SoundType.METAL).noOcclusion())) : null;
+    // Goldstab (2026-10-02): Blitzableiter aus Gold, zieht Blitze in 64 Bloecken an (MetalRodBlock).
+    public static final Block GOLD_ROD = McVersion.GADGET_REWORK ? registerBlock("gold_rod", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
+            com.simplebuilding.blocks.custom.MetalRodBlock.GOLD_RANGE, s
+            .mapColor(MapColor.GOLD).forceSolidOn().requiresCorrectToolForDrops().strength(3.0F, 6.0F)
             .sound(SoundType.METAL).noOcclusion())) : null;
 
     // --- 7. ABGESTELLTES BUENDEL ---

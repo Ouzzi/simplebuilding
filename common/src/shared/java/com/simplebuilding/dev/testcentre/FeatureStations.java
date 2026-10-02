@@ -263,7 +263,7 @@ public final class FeatureStations {
             c.place(x + 1, 0, floorZ - 1, ModBlocks.IRON_ROD);
             c.wallFrame(x, 2, wallZ, new ItemStack(ModItems.IRON_ROD));
             c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("placeables.rod", "Iron Rod")), TcText.t("placeables.rod.sub", "open sky, thunder:"),
-                    TcText.t("placeables.rod.sub2", "lightning in %s", com.simplebuilding.blocks.custom.IronRodBlock.RANGE));
+                    TcText.t("placeables.rod.sub2", "lightning in %s", com.simplebuilding.blocks.custom.MetalRodBlock.IRON_RANGE));
             x += 3;
         }
         c.backWall(0, x, wallZ, 6);

@@ -505,7 +505,7 @@ public final class TestCentreSections {
                 TcText.t("inworld.shears.sub2", "-> string"));
         x += 3;
 
-        // e) Besatzvorlage im Rahmen aufwerten.
+        // e) Besatzvorlage aufwerten (nur abgelegt; die Rahmen zeigen nur Vorlage, Material und Ergebnis).
         Item template = null;
         for (Item item : sortedItems()) {
             if (SledgehammerEntityInteraction.isTrimTemplate(item)) {
@@ -514,8 +514,7 @@ public final class TestCentreSections {
             }
         }
         c.wallSign(x, 3, wallZ, TcText.bold(TcText.t("inworld.trim", "Trim template")),
-                com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
-                        ? TcText.t("inworld.trim.legacy", "frame: legacy only") : TcText.t("inworld.trim.sub", "hit frame with hammer"), TcText.t("inworld.trim.sub2", "catalyst in off hand"));
+                TcText.t("inworld.trim.sub", "place it, hammer it"), TcText.t("inworld.trim.sub2", "catalyst in off hand"));
         x++;
         for (Map.Entry<Item, Item> upgrade : SledgehammerEntityInteraction.trimUpgrades().entrySet()) {
             if (template != null) {
@@ -780,8 +779,9 @@ public final class TestCentreSections {
             }
         }
         if (ModBlocks.IRON_ROD != null) {
-            // Eisenstab aufgestellt (zieht im Gewitter Blitze in 32 Bloecken an).
+            // Eisen- und Goldstab aufgestellt (ziehen im Gewitter Blitze in 32 bzw. 64 Bloecken an).
             c.place(5, 0, 0, ModBlocks.IRON_ROD);
+            c.place(6, 0, 0, ModBlocks.GOLD_ROD);
         }
         int end = c.frameGrid(1, 0, wallZ, items, labels, 3);
         c.backWall(0, end, wallZ, 7);

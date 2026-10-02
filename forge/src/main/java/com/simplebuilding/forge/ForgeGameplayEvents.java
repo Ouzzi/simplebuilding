@@ -5,7 +5,6 @@ import com.simplebuilding.util.ConstructorsTouchInteraction;
 import com.simplebuilding.util.DynamicLightHandler;
 import com.simplebuilding.util.EnderiteLifetime;
 import com.simplebuilding.util.LegacySpatulaMigration;
-import com.simplebuilding.util.SledgehammerEntityInteraction;
 import com.simplebuilding.util.SledgehammerUsageEvent;
 import com.simplebuilding.util.StripMinerUsageEvent;
 import com.simplebuilding.util.VeinMinerUsageEvent;
@@ -17,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
@@ -76,20 +74,6 @@ public final class ForgeGameplayEvents {
                 event.getLevel(),
                 event.getHand(),
                 event.getHitVec()
-        );
-        return result != InteractionResult.PASS;
-    }
-
-    @SubscribeEvent
-    public static boolean onAttackEntity(AttackEntityEvent event) {
-        if (event.getEntity().level().isClientSide()) {
-            return false;
-        }
-        InteractionResult result = SledgehammerEntityInteraction.handleAttackEntity(
-                event.getEntity(),
-                event.getEntity().level(),
-                InteractionHand.MAIN_HAND,
-                event.getTarget()
         );
         return result != InteractionResult.PASS;
     }
