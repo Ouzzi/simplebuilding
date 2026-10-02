@@ -9,7 +9,6 @@ import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.render.OreDetectorGlint;
-import com.simplebuilding.client.render.OreDetectorNeedlePath;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
@@ -2158,7 +2157,7 @@ public final class HudAndTooltipClientTest {
             "simplebuilding:detector[minecraft:custom_data={Mode:5,CustomBlock:{Name:\"minecraft:diamond_ore\"}}]";
     /** Diamond ore's glimmer colour, {@code OreDetectorItem#targetColor}. */
     private static final int GLINT_DIAMOND_RGB = 0x5DECF5;
-    /** Glimmer clock while frozen: head on the third needle pixel, both tail pixels behind it on the needle. */
+    /** Glimmer clock while frozen: head on the third needle step, both tail steps behind it on the needle. */
     private static final long GLINT_FROZEN_MILLIS = (OreDetectorGlint.TRAIL_ALPHA.length - 1) * OreDetectorGlint.MILLIS_PER_STEP;
 
     /**
@@ -2168,8 +2167,9 @@ public final class HudAndTooltipClientTest {
      *
      * <p>The glimmer runs along the needle from the hub to the tip (owner 2026-10-02; before it ran
      * round the slot's edge). Without a find the detector shows its resting needle (frame 16, up), so
-     * the clock is frozen two steps into the lap: head on the third needle pixel, the two fading tail
-     * pixels on the two pixels before it ({@code OreDetectorNeedlePath}). Two detectors sit in hotbar slots 0 and 1 of the open inventory, both in the custom mode;
+     * the clock is frozen two steps into the lap: head on the third needle step, the two fading tail
+     * steps on the two before it - two pixels each, the upright needle being two pixels wide
+     * ({@code OreDetectorNeedlePath}). Two detectors sit in hotbar slots 0 and 1 of the open inventory, both in the custom mode;
      * only the item data of slot 0 changes between the shots, so the model, the count and every
      * other decoration stay the same.
      *
@@ -2276,10 +2276,10 @@ public final class HudAndTooltipClientTest {
                 }
             }
             if (expectGlint) {
-                int[] alpha = OreDetectorGlint.TRAIL_ALPHA;
-                for (int i = 0; i < alpha.length; i++) {
-                    int[] p = OreDetectorNeedlePath.pixel(OreDetectorGlint.IDLE_FRAME, alpha.length - 1 - i);
-                    expected.add(String.format("slot %d +%d/+%d 0x%08X", GLINT_SLOT, p[0], p[1], (alpha[i] << 24) | GLINT_DIAMOND_RGB));
+                // head and tail on the first three steps of the resting needle (two pixels per step: it
+                // points straight up, two pixels wide, centred on the dial - OreDetectorNeedlePath)
+                for (int[] p : OreDetectorGlint.sparks(OreDetectorGlint.IDLE_FRAME, GLINT_FROZEN_MILLIS)) {
+                    expected.add(String.format("slot %d +%d/+%d 0x%08X", GLINT_SLOT, p[0], p[1], (p[2] << 24) | GLINT_DIAMOND_RGB));
                 }
                 found.sort(null);
                 expected.sort(null);
@@ -2320,8 +2320,7 @@ public final class HudAndTooltipClientTest {
             double scaleX = client.getWindow().getScreenWidth() / (double) client.getWindow().getGuiScaledWidth();
             double scaleY = client.getWindow().getScreenHeight() / (double) client.getWindow().getGuiScaledHeight();
             int minX = 16, minY = 16, maxX = -1, maxY = -1;
-            for (int i = 0; i < OreDetectorGlint.TRAIL_ALPHA.length; i++) {
-                int[] p = OreDetectorNeedlePath.pixel(OreDetectorGlint.IDLE_FRAME, i);
+            for (int[] p : OreDetectorGlint.sparks(OreDetectorGlint.IDLE_FRAME, GLINT_FROZEN_MILLIS)) {
                 minX = Math.min(minX, p[0]);
                 minY = Math.min(minY, p[1]);
                 maxX = Math.max(maxX, p[0]);

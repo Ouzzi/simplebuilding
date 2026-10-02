@@ -547,7 +547,8 @@ public final class OreDetectorTests {
      * generator from the same numbers as the textures). Pinned here: every path starts next to the
      * two-pixel hub (7|8, 7), steps only to edge-adjacent pixels (the wide, recovery-compass-like
      * stroke), stays on the dial face, the right half mirrors the left half about the dial centre
-     * x = 7.5, and the four main directions end on the tips the dial was centred for.
+     * x = 7.5, straight up and down the needle is two pixels wide and so centred on x = 7.5 itself,
+     * and the four main directions end on the tips the dial was centred for.
      *
      * <p>What breaks this: a regenerated needle that no longer starts at the hub, a gap in the
      * stroke, a needle off-centre again, or a glimmer path that leaves the dial.
@@ -555,41 +556,57 @@ public final class OreDetectorTests {
     public static void selectionGlimmerPathFollowsTheCentredNeedle(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
         for (int f = 0; f < 32; f++) {
-            int n = com.simplebuilding.client.render.OreDetectorNeedlePath.length(f);
-            if (n < 3) problems.add("frame " + f + " has only " + n + " needle pixels");
-            int[] prev = null;
-            for (int i = 0; i < n; i++) {
-                int[] p = com.simplebuilding.client.render.OreDetectorNeedlePath.pixel(f, i);
-                if (p[0] < 2 || p[0] > 13 || p[1] < 4 || p[1] > 10) problems.add("frame " + f + " pixel " + i + " off the dial");
-                if (i == 0) {
-                    boolean nextToHub = (Math.abs(p[0] - 7) + Math.abs(p[1] - 7) == 1 || Math.abs(p[0] - 8) + Math.abs(p[1] - 7) == 1)
-                            && !(p[1] == 7 && (p[0] == 7 || p[0] == 8));
-                    if (!nextToHub) problems.add("frame " + f + " starts away from the hub at " + p[0] + "/" + p[1]);
-                } else if (Math.abs(p[0] - prev[0]) + Math.abs(p[1] - prev[1]) != 1) {
-                    problems.add("frame " + f + " has a gap before pixel " + i);
+            int n = com.simplebuilding.client.render.OreDetectorNeedlePath.steps(f);
+            if (n < 3) problems.add("frame " + f + " has only " + n + " needle steps");
+            int[][] prev = null;
+            for (int k = 0; k < n; k++) {
+                int[][] step = com.simplebuilding.client.render.OreDetectorNeedlePath.pixels(f, k);
+                if (step.length == 0) problems.add("frame " + f + " step " + k + " is empty");
+                for (int[] p : step) {
+                    if (p[0] < 2 || p[0] > 13 || p[1] < 4 || p[1] > 10) problems.add("frame " + f + " step " + k + " off the dial");
+                    boolean joined = false;
+                    if (k == 0) {
+                        joined = (Math.abs(p[0] - 7) + Math.abs(p[1] - 7) == 1 || Math.abs(p[0] - 8) + Math.abs(p[1] - 7) == 1)
+                                && !(p[1] == 7 && (p[0] == 7 || p[0] == 8));
+                    } else {
+                        for (int[] q : prev) joined |= Math.abs(p[0] - q[0]) + Math.abs(p[1] - q[1]) == 1;
+                    }
+                    if (!joined) problems.add("frame " + f + " step " + k + " pixel " + p[0] + "/" + p[1] + " is not joined to the stroke");
                 }
-                prev = p;
+                prev = step;
             }
         }
         for (int f = 1; f < 16; f++) {
-            int n = com.simplebuilding.client.render.OreDetectorNeedlePath.length(f);
-            boolean mirrored = n == com.simplebuilding.client.render.OreDetectorNeedlePath.length(32 - f);
-            for (int i = 0; mirrored && i < n; i++) {
-                int[] a = com.simplebuilding.client.render.OreDetectorNeedlePath.pixel(f, i);
-                int[] b = com.simplebuilding.client.render.OreDetectorNeedlePath.pixel(32 - f, i);
-                mirrored = a[0] == 15 - b[0] && a[1] == b[1];
-            }
-            if (!mirrored) problems.add("frames " + f + " and " + (32 - f) + " are not mirror images about x = 7.5");
+            if (!mirroredPath(f, 32 - f)) problems.add("frames " + f + " and " + (32 - f) + " are not mirror images about x = 7.5");
+        }
+        for (int f : new int[]{0, 16}) {
+            if (!mirroredPath(f, f)) problems.add("frame " + f + " (straight up/down) is not centred on x = 7.5");
         }
         String tips = "";
         for (int f : new int[]{0, 8, 16, 24}) {
-            int[] tip = com.simplebuilding.client.render.OreDetectorNeedlePath.pixel(f,
-                    com.simplebuilding.client.render.OreDetectorNeedlePath.length(f) - 1);
-            tips += (tips.isEmpty() ? "" : ", ") + f + ":" + tip[0] + "/" + tip[1];
+            int[][] tip = com.simplebuilding.client.render.OreDetectorNeedlePath.pixels(f,
+                    com.simplebuilding.client.render.OreDetectorNeedlePath.steps(f) - 1);
+            StringBuilder cells = new StringBuilder();
+            for (int[] p : tip) cells.append(cells.length() == 0 ? "" : "+").append(p[0]).append("/").append(p[1]);
+            tips += (tips.isEmpty() ? "" : ", ") + f + ":" + cells;
         }
-        helper.assertValueEqual(tips, "0:7/10, 8:3/7, 16:7/4, 24:12/7", "the needle tips of the four main directions");
+        helper.assertValueEqual(tips, "0:7/10+8/10, 8:3/7, 16:7/4+8/4, 24:12/7", "the needle tips of the four main directions");
         helper.assertTrue(problems.isEmpty(), "needle glimmer paths: " + problems);
         helper.succeed();
+    }
+
+    /** Whether the needle path of frame {@code b} is frame {@code a}'s mirrored about x = 7.5, step by step. */
+    private static boolean mirroredPath(int a, int b) {
+        int n = com.simplebuilding.client.render.OreDetectorNeedlePath.steps(a);
+        if (n != com.simplebuilding.client.render.OreDetectorNeedlePath.steps(b)) return false;
+        for (int k = 0; k < n; k++) {
+            java.util.Set<String> left = new java.util.HashSet<>();
+            java.util.Set<String> right = new java.util.HashSet<>();
+            for (int[] p : com.simplebuilding.client.render.OreDetectorNeedlePath.pixels(a, k)) left.add((15 - p[0]) + "/" + p[1]);
+            for (int[] p : com.simplebuilding.client.render.OreDetectorNeedlePath.pixels(b, k)) right.add(p[0] + "/" + p[1]);
+            if (!left.equals(right)) return false;
+        }
+        return true;
     }
 
     /**

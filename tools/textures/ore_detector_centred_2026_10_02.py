@@ -1,4 +1,5 @@
 """Usage: python tools/textures/ore_detector_centred_2026_10_02.py <vanilla textures dir> [preview png] [old texture dir]
+       [v2 preview png] [v2 old texture dir]
 
 Successor of round5_settled for the Ore Detector only (owner 2026-10-02: the compass needle did not look centred).
 The round-5 dial is symmetric about x = 7.5 but the needle turned about pixel 7, so it reached one pixel closer to
@@ -24,6 +25,8 @@ sys.path.insert(0, HERE)
 V = sys.argv[1] if len(sys.argv) > 1 else 'build/vanilla-textures/'
 PREVIEW = sys.argv[2] if len(sys.argv) > 2 else os.path.join(HERE, '..', '..', 'build', 'erzdetektor-vorher-nachher.png')
 OLD = sys.argv[3] if len(sys.argv) > 3 else None
+PREVIEW_V2 = sys.argv[4] if len(sys.argv) > 4 else None    # vertical-centring round: frames 0, 8, 16, 24 large
+OLD_V2 = sys.argv[5] if len(sys.argv) > 5 else None
 sys.argv = [sys.argv[0], V]
 import proposals_v3_2026_10_02 as v3  # noqa: E402
 import proposals_v5_2026_10_02 as v5  # noqa: E402
@@ -40,37 +43,49 @@ GLINT_RGB = (0x5D, 0xEC, 0xF5)   # diamond ore, OreDetectorItem#targetColor
 def write_java():
     rows = []
     for f in range(32):
-        head, _ = v5.needle_path(f)
-        rows.append('            {' + ', '.join(f'{x}, {y}' for x, y in head) + '},  // ' + f'{f:02d}')
-    src = f"""package com.simplebuilding.client.render;
+        steps, _ = v5.needle_steps(f)
+        rows.append('            {' + ', '.join(f'{x}, {y}, {k}' for k, step in enumerate(steps) for x, y in step)
+                    + '},  // ' + f'{f:02d}')
+    src = """package com.simplebuilding.client.render;
 
 /**
- * Kopfpixel der 32 Erzdetektor-Nadelbilder ({{@code item/detector_needle_NN}}), je Bild von der Nabe
- * zur Spitze als x, y im 16x16-Feld. Geschrieben von
- * {{@code tools/textures/ore_detector_centred_2026_10_02.py}} aus denselben Zahlen wie die Texturen -
- * nicht von Hand aendern. {{@link OreDetectorGlint}} laesst den Auswahl-Schimmer darauf laufen.
+ * Kopfpixel der 32 Erzdetektor-Nadelbilder ({@code item/detector_needle_NN}), je Bild von der Nabe
+ * zur Spitze als x, y, Schritt im 16x16-Feld (senkrecht ist die Nadel zwei Pixel breit: zwei Pixel je
+ * Schritt). Geschrieben von {@code tools/textures/ore_detector_centred_2026_10_02.py} aus denselben
+ * Zahlen wie die Texturen - nicht von Hand aendern. {@link OreDetectorGlint} laesst den
+ * Auswahl-Schimmer Schritt fuer Schritt darauf laufen.
  */
-public final class OreDetectorNeedlePath {{
-    private static final int[][] HEAD = {{
-{chr(10).join(rows)}
-    }};
+public final class OreDetectorNeedlePath {
+    private static final int[][] HEAD = {
+ROWS
+    };
 
-    private OreDetectorNeedlePath() {{
-    }}
+    private OreDetectorNeedlePath() {
+    }
 
-    /** Anzahl der Kopfpixel von Bild {{@code frame}} (0..31). */
-    public static int length(int frame) {{
-        return HEAD[Math.floorMod(frame, 32)].length / 2;
-    }}
-
-    /** Pixel {{@code index}} (0 = an der Nabe) von Bild {{@code frame}} als {{x, y}}. */
-    public static int[] pixel(int frame, int index) {{
+    /** Anzahl der Schritte (Nabe bis Spitze) von Bild {@code frame} (0..31). */
+    public static int steps(int frame) {
         int[] head = HEAD[Math.floorMod(frame, 32)];
-        return new int[]{{head[2 * index], head[2 * index + 1]}};
-    }}
-}}
-"""
-    with open(JAVA, 'w', encoding='utf-8', newline='\n') as f:
+        return head[head.length - 1] + 1;
+    }
+
+    /** Die Pixel von Schritt {@code step} (0 = an der Nabe) in Bild {@code frame}, je {x, y}. */
+    public static int[][] pixels(int frame, int step) {
+        int[] head = HEAD[Math.floorMod(frame, 32)];
+        int n = 0;
+        for (int i = 2; i < head.length; i += 3) {
+            if (head[i] == step) n++;
+        }
+        int[][] out = new int[n][];
+        n = 0;
+        for (int i = 0; i < head.length; i += 3) {
+            if (head[i + 2] == step) out[n++] = new int[]{head[i], head[i + 1]};
+        }
+        return out;
+    }
+}
+""".replace('ROWS', chr(10).join(rows))
+    with open(JAVA, 'w', encoding='utf-8', newline=chr(10)) as f:
         f.write(src)
 
 
@@ -114,10 +129,10 @@ def save_pulse_previews(strip):
 
 def glint_steps(frame, step):
     """The glimmer pixels {(x, y): alpha} at step `step`, same rule as OreDetectorGlint.sparks."""
-    head, _ = v5.needle_path(frame)
-    lap = len(head) + len(TRAIL_ALPHA) + PAUSE_STEPS
+    steps, _ = v5.needle_steps(frame)
+    lap = len(steps) + len(TRAIL_ALPHA) + PAUSE_STEPS
     h = step % lap
-    return {head[h - i]: a for i, a in enumerate(TRAIL_ALPHA) if 0 <= h - i < len(head)}
+    return {c: a for i, a in enumerate(TRAIL_ALPHA) if 0 <= h - i < len(steps) for c in steps[h - i]}
 
 
 def with_glint(base, frame, step):
@@ -147,6 +162,10 @@ def check_symmetry():
     for f in range(32):
         pts = [(x, y) for y in range(16) for x in range(16) if v5.detector_needle(f).getpixel((x, y))[3]]
         assert all(2 <= x <= 13 and 4 <= y <= 10 for x, y in pts), f'frame {f} leaves the dial face'
+    for f in v5.VERTICAL_FRAMES:  # straight up/down: the needle's pixels sit symmetric about the dial centre x = 7.5
+        im = v5.detector_needle(f)
+        cells = {(x, y) for y in range(16) for x in range(16) if im.getpixel((x, y))[3]}
+        assert cells == {(15 - x, y) for x, y in cells}, f'frame {f} is not centred on x = 7.5'
 
 
 def sheet(before, after, old_idle, new_idle):
@@ -186,10 +205,32 @@ def sheet(before, after, old_idle, new_idle):
     d.text((8, 24 + 3 * (cell + 18) + 6 * s), 'D Auswahl-\nSchimmer\nnachher (Nadel)', fill=(0, 0, 0, 255))
     k = 0
     for frame, base in ((16, new_idle), (4, after(4))):
-        head, _ = v5.needle_path(frame)
-        for step in range(len(head) + 2):
+        steps, _ = v5.needle_steps(frame)
+        for step in range(len(steps) + 2):
             put(3, k, f'F{frame} {step * 150} ms', with_glint(base, frame, step), centre=False)
             k += 1
+    return im
+
+
+def sheet_v2(old_dir, dial):
+    """Frames 0, 8, 16, 24 large: textures before the vertical-centring round against now, centre line in red."""
+    s = 14
+    cell = 16 * s + 12
+    im = Image.new('RGBA', (120 + 4 * cell, 2 * (cell + 22) + 30), (139, 139, 139, 255))
+    d = ImageDraw.Draw(im)
+    d.text((8, 6), 'Erzdetektor-Nadel senkrecht mittig: Frames 0 (6 Uhr), 8, 16 (12 Uhr), 24; rote Linie = Mitte x = 7,5',
+           fill=(0, 0, 0, 255))
+    old_dial = Image.open(os.path.join(old_dir, 'detector_dial.png')).convert('RGBA')
+    for row, (label, frame_of) in enumerate((
+            ('A vorher', lambda f: v3.over(old_dial, Image.open(os.path.join(old_dir, f'detector_needle_{f:02d}.png')).convert('RGBA'))),
+            ('B nachher', lambda f: v3.over(dial, v5.detector_needle(f))))):
+        y = 28 + row * (cell + 22)
+        d.text((8, y + cell // 2), label, fill=(0, 0, 0, 255))
+        for k, f in enumerate((0, 8, 16, 24)):
+            x = 120 + k * cell
+            d.text((x, y), f'Frame {f}', fill=(0, 0, 0, 255))
+            im.alpha_composite(frame_of(f).resize((16 * s, 16 * s), Image.NEAREST), (x, y + 14))
+            d.line([(x + 8 * s, y + 14), (x + 8 * s, y + 14 + 16 * s)], fill=(255, 0, 0, 160))
     return im
 
 
@@ -213,6 +254,8 @@ def main():
     write_java()
     os.makedirs(os.path.dirname(os.path.abspath(PREVIEW)), exist_ok=True)
     sheet(lambda f: v3.over(old_dial, old[f]), lambda f: v3.over(dial, v5.detector_needle(f)), old_idle, idle).save(PREVIEW)
+    if PREVIEW_V2 and OLD_V2:
+        sheet_v2(OLD_V2, dial).save(PREVIEW_V2)
     print('ok')
 
 

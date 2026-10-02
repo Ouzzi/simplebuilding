@@ -79,3 +79,16 @@ Spiegelprüfung Detektor (Skript), Vorschauen ansehen, `check_data.py`, Wiki `--
   dem Puls (eine Modellbedingung „kalibriert“ gibt es ohne neue Item-Eigenschaft nicht; bewusst nicht gebaut).
 - 26.2-Linie (src/main-Texturen, älteres Nadeldesign) bleibt bis zum Port-Run unverändert; der Schimmerpfad gilt für
   die 26.3-Nadeln.
+
+## Nachtrag 3 (Besitzer, 2026-10-02 spät)
+- Erzdetektor senkrecht mittig: Vanilla-Bergungskompass baut sein Ziffernblatt um EIN Drehpixel (Kreuz-Nabe bei
+  x = 8) und führt die senkrechte Nadel in dieser Spalte, mit dunklerem Seitenpixel am Fuß. Unser Ziffernblatt ist
+  symmetrisch um x = 7,5, daher übernehmen wir das Prinzip „Nadel liegt auf der Drehmitte" so: senkrecht (Frames 0
+  und 16) ist die Nadel 2 px breit (Spalten 7+8, rechte Spalte eine Stufe dunkler), Schweif ebenso. Schimmerpfad
+  `OreDetectorNeedlePath` jetzt schrittweise (x, y, Schritt; senkrecht 2 Pixel je Schritt); GameTest prüft zusätzlich
+  die Mittigkeit der Frames 0/16. Vorschau previews/erzdetektor-v2-vorher-nachher.png.
+- Früchte EINGEBAUT: Netherit-Apfel/-Karotte = Satz A; Enderit = Umfärbung davon, Glimmer über das bestehende
+  Enderit-Glimmer-System von `generate_textures.py` (Vorlagen in tools/textures/hand/, neue Punkte). Glimmer ist
+  statisch (keine mcmeta). Verzauberte Äpfel nutzen dieselben Texturen. 1.21.11-Kopien bleiben (Port-Run).
+  Generator `foods_settled_2026_10_02.py`, Vorschau previews/netherit-enderit-essen-eingebaut.png.
+- Weitere Vorschläge (nicht eingebaut): Enderit-Nugget v2, Besatz-Hintergründe + -Motive, Money-Fasern v2.

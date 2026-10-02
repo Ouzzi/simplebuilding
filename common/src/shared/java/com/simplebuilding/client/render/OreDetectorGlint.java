@@ -9,7 +9,8 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.Util;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.LongSupplier;
 
 /**
@@ -51,26 +52,27 @@ public final class OreDetectorGlint {
 
     /** Schritte einer Runde auf dem Nadelbild {@code frame}. */
     public static int lapSteps(int frame) {
-        return OreDetectorNeedlePath.length(frame) + TRAIL_ALPHA.length + PAUSE_STEPS;
+        return OreDetectorNeedlePath.steps(frame) + TRAIL_ALPHA.length + PAUSE_STEPS;
     }
 
     /**
      * Die Funkenpixel zur Zeit {@code millis} auf dem Nadelbild {@code frame}: je {dx, dy, alpha}
-     * im 16x16-Feld, Kopf zuerst. Liegt ein Schweifpixel nicht (mehr) auf der Nadel, fehlt es.
+     * im 16x16-Feld, Kopf zuerst (senkrecht zwei Pixel je Schritt). Liegt ein Schweifschritt nicht
+     * (mehr) auf der Nadel, fehlt er.
      */
     public static int[][] sparks(int frame, long millis) {
-        int length = OreDetectorNeedlePath.length(frame);
+        int length = OreDetectorNeedlePath.steps(frame);
         int head = (int) Math.floorMod(millis / MILLIS_PER_STEP, (long) lapSteps(frame));
-        int[][] out = new int[TRAIL_ALPHA.length][];
-        int n = 0;
+        List<int[]> out = new ArrayList<>();
         for (int i = 0; i < TRAIL_ALPHA.length; i++) {
             int k = head - i;
             if (k >= 0 && k < length) {
-                int[] p = OreDetectorNeedlePath.pixel(frame, k);
-                out[n++] = new int[]{p[0], p[1], TRAIL_ALPHA[i]};
+                for (int[] p : OreDetectorNeedlePath.pixels(frame, k)) {
+                    out.add(new int[]{p[0], p[1], TRAIL_ALPHA[i]});
+                }
             }
         }
-        return Arrays.copyOf(out, n);
+        return out.toArray(new int[0][]);
     }
 
     private static int currentFrame(ItemStack stack) {
