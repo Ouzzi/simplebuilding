@@ -279,7 +279,7 @@ public final class HorseshoeTests {
    var key=ResourceKey.create(Registries.LOOT_TABLE,Identifier.parse("minecraft:"+table));
    var pools=new ArrayList<LootPool.Builder>();RidingLoot.apply(key,pools::add,h.getLevel().registryAccess());h.assertTrue(pools.size()==1,"One horseshoe pool for "+table);
    var loot=LootTable.lootTable().withPool(pools.getFirst()).build();int templates=0,shoes=0,rolls=2000;
-   for(int n=0;n<rolls;n++)for(var s:loot.getRandomItems(params,(long)n)){if(s.is(Horseshoes.TEMPLATE))templates++;else if(Horseshoes.isHorseshoe(s)){shoes++;h.assertTrue(s.isDamaged()&&!s.is(shoe(Tier.DIAMOND)),"Found shoes are worn copper/iron");}}
+   for(int n=0;n<rolls;n++){var found=new ArrayList<ItemStack>();loot.getRandomItemsRaw(new LootContext.Builder(params).withOptionalRandomSeed(n).create(Optional.empty()),found::add);for(var s:found){if(s.is(Horseshoes.TEMPLATE))templates++;else if(Horseshoes.isHorseshoe(s)){shoes++;h.assertTrue(s.isDamaged()&&!s.is(shoe(Tier.DIAMOND)),"Found shoes are worn copper/iron");}}}
    h.assertTrue(templates>rolls*.10&&templates<rolls*.20,"Template about 15%: "+templates);
    h.assertTrue(shoes>rolls*.06&&shoes<rolls*.14,"Shoes about 10%: "+shoes);
    var loaded=h.getLevel().getServer().reloadableRegistries().getLootTable(key);boolean found=false;

@@ -5,6 +5,7 @@ import net.minecraft.core.registries.Registries;
 @Mod("simpleriding") public final class NeoForgeExample {
  public NeoForgeExample(net.neoforged.bus.api.IEventBus bus){
   RidingNeoTests.register(bus);
+  RidingNeoAttachments.register(bus);
   Riding.CONFIG=RidingConfig.load(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
   Riding.SIMPLEBUILDING=net.neoforged.fml.ModList.get().isLoaded("simplebuilding");
   bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e)->{

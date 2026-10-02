@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.modules.simpleriding.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "HorseshoeDataMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

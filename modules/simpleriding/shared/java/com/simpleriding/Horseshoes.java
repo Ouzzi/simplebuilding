@@ -87,6 +87,14 @@ public final class Horseshoes {
  /** Diminishing returns 0..1 (full Enderite set = 1); equal points always give equal effects. */
  public static double effect(int points){return points<=0?0:Math.min(1,Math.log1p(points)/Math.log1p(MAX_POINTS));}
  public static int code(Entity e){return e instanceof HorseshoeHolder h?h.simpleriding$code():0;}
+ /** Loader channel for the synced code; NeoForge replaces it with a synced data attachment. */
+ public interface Sync { int get(AbstractHorse horse); void set(AbstractHorse horse,int value); }
+ /** Implemented by the Fabric/Forge-only entity-data mixin. */
+ public interface SyncedData { int simpleriding$syncedCode(); void simpleriding$setSyncedCode(int value); }
+ public static Sync SYNC=new Sync(){
+  public int get(AbstractHorse horse){return horse instanceof SyncedData d?d.simpleriding$syncedCode():0;}
+  public void set(AbstractHorse horse,int value){if(horse instanceof SyncedData d)d.simpleriding$setSyncedCode(value);}
+ };
  /** Server value for the synced code; the handling share comes from the server config only. */
  public static int syncedValue(AbstractHorse horse){
   int code=encode(container(horse));

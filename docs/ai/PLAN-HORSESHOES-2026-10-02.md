@@ -86,3 +86,13 @@ R1 und Besitzer-Antworten 14-16.
    Menue/Slots/Shift-Klick, Speichern/Abwurf, Abnutzung/Unbreaking, Mending, Fallschaden, Loot/Schalter.
 3. `python wiki/generate.py --all`, danach `--all --check` sauber.
 4. Textur-Generator `--check`.
+
+## Abweichungen waehrend der Umsetzung
+- Synchronisierung: NeoForge verbietet per Mixin hinzugefuegte SynchedEntityData (Absturz beim Laden).
+  Der Hufcode laeuft daher ueber `Horseshoes.SYNC`: Fabric/Forge je ein loaderspezifischer Entity-Data-Mixin
+  (`HorseshoeDataMixin`), NeoForge ein synchronisierter Data-Attachment (`RidingNeoAttachments`).
+- Keine eigene Beschleunigung (siehe Design 5).
+
+## Ergebnis
+- `check_data.py` gruen; Fabric 37/37 und NeoForge 37/37 Modultests gruen; Forge nur kompiliert;
+  Wiki `--all --check` sauber; Client (Leiste, Huf-Modell) nicht im Spiel geprueft.

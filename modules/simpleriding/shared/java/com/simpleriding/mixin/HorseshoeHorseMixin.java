@@ -2,7 +2,6 @@ package com.simpleriding.mixin;
 
 import com.simpleriding.*;
 import java.util.ArrayList;
-import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
@@ -14,25 +13,25 @@ import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.*;
 
-/** Four hoof slots on every horse-like mount: storage, save data, drops, synced code and steering. */
+/** Four hoof slots on every horse-like mount: storage, save data, drops and steering. The client copy of the
+ * code travels through the loader channel in {@link Horseshoes#SYNC} (synced entity data on Fabric/Forge,
+ * a synced attachment on NeoForge, which forbids mixin-added entity data). */
 @Mixin(AbstractHorse.class)
 public abstract class HorseshoeHorseMixin implements HorseshoeHolder {
- @Unique private static final EntityDataAccessor<Integer> SIMPLERIDING$SHOES=SynchedEntityData.defineId(AbstractHorse.class,EntityDataSerializers.INT);
  @Unique private static final String SIMPLERIDING$KEY="simpleriding:horseshoes";
  @Unique private final Horseshoes.Container simpleriding$shoes=new Horseshoes.Container(this::simpleriding$sync);
  @Unique private double simpleriding$travel, simpleriding$lastX, simpleriding$lastZ;
  @Unique private boolean simpleriding$hasLast;
 
  @Unique private AbstractHorse simpleriding$self(){return (AbstractHorse)(Object)this;}
- @Inject(method="defineSynchedData",at=@At("TAIL"))
- private void simpleriding$define(SynchedEntityData.Builder builder,CallbackInfo ci){builder.define(SIMPLERIDING$SHOES,0);}
 
  @Override public SimpleContainer simpleriding$horseshoes(){return simpleriding$shoes;}
- @Override public int simpleriding$code(){return simpleriding$self().getEntityData().get(SIMPLERIDING$SHOES);}
+ @Override public int simpleriding$code(){return Horseshoes.SYNC.get(simpleriding$self());}
  @Override public void simpleriding$sync(){
   var horse=simpleriding$self();
   if(horse.level()==null||horse.level().isClientSide())return;
-  horse.getEntityData().set(SIMPLERIDING$SHOES,Horseshoes.syncedValue(horse));
+  int value=Horseshoes.syncedValue(horse);
+  if(Horseshoes.SYNC.get(horse)!=value)Horseshoes.SYNC.set(horse,value);
  }
  @Override public double simpleriding$travel(){return simpleriding$travel;}
  @Override public void simpleriding$setTravel(double blocks){simpleriding$travel=Double.isFinite(blocks)?Math.max(0,blocks):0;}

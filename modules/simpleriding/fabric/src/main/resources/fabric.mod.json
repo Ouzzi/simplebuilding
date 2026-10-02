@@ -23,7 +23,8 @@
     "cloth-config": ">=26.3"
   },
   "mixins": [
-    "simpleriding.mixins.json"
+    "simpleriding.mixins.json",
+    "simpleriding.fabric.mixins.json"
   ],
   "description": "Custom saddle and horse armor enchantments: Tailwind for mount speed, Leaping for jump height, plus protective enchantments on horse armor.",
   "authors": [
