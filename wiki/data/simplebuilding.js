@@ -3515,26 +3515,28 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Rare structure finds",
-        "summary": "In newly generated structures a loot chest is now and then a better chest with double loot, and end city shulkers are sometimes reinforced or made of enderite.",
+        "summary": "In newly generated structures a loot chest is now and then a better chest with double loot, and end city shulkers are sometimes reinforced, netherite or enderite.",
         "details": [
           "Better chests (server.loot.betterChestPercent, default 1 %, at most 5 %): a Reinforced Chest in strongholds, a Netherite Chest in bastions and nether fortresses, an Enderite Chest in end cities and end ships. It keeps the chest's loot table and rolls it twice.",
           "Double chests: the first half rolls; only if the second half then rolls again with the same chance do both become better, otherwise both stay normal chests.",
           "The roll is fixed by world seed and position, so both halves of a double chest always agree. Existing worlds and already generated structures do not change.",
-          "Rare shulkers (server.loot.reinforcedShulkerPercent 2 %, at most 10 %; server.loot.enderiteShulkerPercent 0.5 %, at most 5 %): a reinforced shulker has 1.5x, an enderite shulker 3x the health. Its shell shows the tier with the texture of the matching tier shulker box.",
+          "Rare shulkers (server.loot.reinforcedShulkerPercent 2 %, at most 10 %; server.loot.netheriteShulkerPercent 1 %, at most 5 %; server.loot.enderiteShulkerPercent 0.5 %, at most 5 %): a reinforced shulker has 1.5x, a netherite shulker 2x, an enderite shulker 3x the health. Its shell shows the tier with the texture of the matching tier shulker box.",
           "Besides the vanilla drop they drop 0-2 shells of their own tier.",
-          "Escort: when a player (not in creative or spectator mode) first comes within 24 blocks of a rare shulker, 4 endermites (server.loot.endermitesPerRareShulker, at most 8) appear once on free spots with solid ground within 3 blocks of it. They are not persistent - vanilla removes them after 2 minutes - and the shulker never calls them again."
+          "Escort: when a player (not in creative or spectator mode) first comes within 24 blocks of a rare shulker, 4 endermites (server.loot.endermitesPerRareShulker, at most 8) appear once on free spots with solid ground within 3 blocks of it. They are not persistent - vanilla removes them after 2 minutes - and the shulker never calls them again.",
+          "A living shulker also takes the nugget of its next tier (iron, netherite, enderite nugget; one per step). A shulker upgraded this way drops no tier shells and calls no endermites."
         ]
       },
       "de": {
         "title": "Seltene Strukturfunde",
-        "summary": "In neu erzeugten Strukturen ist eine Loot-Truhe hin und wieder eine bessere Truhe mit doppelter Beute, und Shulker der End-Stadt sind manchmal verstärkt oder aus Enderit.",
+        "summary": "In neu erzeugten Strukturen ist eine Loot-Truhe hin und wieder eine bessere Truhe mit doppelter Beute, und Shulker der End-Stadt sind manchmal verstärkt, aus Netherit oder aus Enderit.",
         "details": [
           "Bessere Truhen (server.loot.betterChestPercent, Standard 1 %, höchstens 5 %): eine Verstärkte Truhe in der Festung, eine Netherit-Truhe in Bastion und Netherfestung, eine Enderit-Truhe in End-Stadt und End-Schiff. Sie behält die Loot-Tabelle der Truhe und würfelt sie zweimal.",
           "Doppeltruhen: die erste Hälfte würfelt; nur wenn danach auch die zweite Hälfte mit derselben Chance trifft, werden beide besser, sonst bleiben beide normale Truhen.",
           "Der Wurf steht durch Weltseed und Position fest, beide Hälften einer Doppeltruhe sind sich also immer einig. Bestehende Welten und schon erzeugte Strukturen ändern sich nicht.",
-          "Seltene Shulker (server.loot.reinforcedShulkerPercent 2 %, höchstens 10 %; server.loot.enderiteShulkerPercent 0,5 %, höchstens 5 %): ein verstärkter Shulker hat 1,5-faches, ein Enderit-Shulker 3-faches Leben. Seine Hülle zeigt die Stufe mit der Textur der passenden Stufen-Shulkerkiste.",
+          "Seltene Shulker (server.loot.reinforcedShulkerPercent 2 %, höchstens 10 %; server.loot.netheriteShulkerPercent 1 %, höchstens 5 %; server.loot.enderiteShulkerPercent 0,5 %, höchstens 5 %): ein verstärkter Shulker hat 1,5-faches, ein Netherit-Shulker 2-faches, ein Enderit-Shulker 3-faches Leben. Seine Hülle zeigt die Stufe mit der Textur der passenden Stufen-Shulkerkiste.",
           "Neben der Vanilla-Beute lassen sie 0–2 Schalen ihrer eigenen Stufe fallen.",
-          "Begleitung: Kommt ein Spieler (nicht im Kreativ- oder Zuschauermodus) erstmals näher als 24 Blöcke an einen seltenen Shulker, erscheinen einmalig 4 Endermiten (server.loot.endermitesPerRareShulker, höchstens 8) auf freien Plätzen mit festem Boden im Umkreis von 3 Blöcken. Sie sind nicht dauerhaft - Vanilla entfernt sie nach 2 Minuten - und der Shulker ruft sie nie wieder."
+          "Begleitung: Kommt ein Spieler (nicht im Kreativ- oder Zuschauermodus) erstmals näher als 24 Blöcke an einen seltenen Shulker, erscheinen einmalig 4 Endermiten (server.loot.endermitesPerRareShulker, höchstens 8) auf freien Plätzen mit festem Boden im Umkreis von 3 Blöcken. Sie sind nicht dauerhaft - Vanilla entfernt sie nach 2 Minuten - und der Shulker ruft sie nie wieder.",
+          "Auch ein lebender Shulker nimmt den Klumpen seiner nächsten Stufe an (Eisen-, Netherit-, Enderitklumpen; einer je Stufe). Ein so aufgewerteter Shulker lässt keine Stufen-Schalen fallen und ruft keine Endermiten."
         ]
       }
     }
@@ -3980,19 +3982,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/astralit_quartz_checker.json"
         ],
         "en": {
-          "summary": "Astralit Quartz Checker: craft 4 from 2 Astralit Dust and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Astralit Quartz Checker: craft 4 from 2 Astralit Dust and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Astralit-Quarz-Schachbrett: 2 Astralitstaub und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Astralit-Quarz-Schachbrett: 2 Astralitstaub und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -4328,19 +4330,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/blackstone_quartz_checker.json"
         ],
         "en": {
-          "summary": "Blackstone Quartz Checker: craft 4 from 2 Blackstone blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Blackstone Quartz Checker: craft 4 from 2 Blackstone blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Schwarzstein-Quarz-Schachbrett: 2 Schwarzsteinblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Schwarzstein-Quarz-Schachbrett: 2 Schwarzsteinblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -6453,10 +6455,10 @@ window.WIKI_DATA = {
           "details": [
             "Right-click a lodestone to link it; the needle then points there. Clicking the lodestone it is already linked to does nothing (no sound, no effects). If the lodestone is removed the link is lost.",
             "Jump cooldown: tweaks.balancing.echoSounderJumpCooldownTicks, default 480 ticks (24 seconds). Linking and unsuccessful attempts lock it for 20–100 ticks by default, depending on distance; the maximum uses echoSounderAttemptLockTicks. Re-clicking the same lodestone does not relink it.",
-            "Charge: the compass has 1500 repair points. A jump empties it completely (Unbreaking works per point as on any tool: with Unbreaking III a jump empties only about a quarter). Empty or not fully recharged it shows a cracked texture in three stages (empty, half, almost full), has no enchantment glint and its bar shows the charge. Recharge it with Mending (2 points per XP point, 750 XP when empty) or at an anvil with echo shards (each restores a quarter, four fill it). Only when it is fully recharged does it jump normally again and get its glint back.",
+            "Charge: the echo sounder has 1500 repair points by default (server.charges.echoSounderMaxCharge). On 26.3, one successful jump empties its entire charge, even with Unbreaking. 26.2 retains the reduced Unbreaking cost until its port. Empty or not fully recharged it shows a cracked texture in three stages (empty, half, almost full), has no enchantment glint and its bar shows the charge. Recharge it with Mending (2 points per XP point, 750 XP when empty) or at an anvil with echo shards (each restores a quarter, four fill it). Only when it is fully recharged does it jump normally again and get its glint back.",
             "Forcing it: using an echo sounder that is not fully recharged provokes the break - the charge takes twice as long (6 seconds) with warning signs (cracking, sparks, smoke, a sculk shriek halfway, everything louder), the jump still works, then the echo sounder shatters for good. Unbreaking does not save it. In creative mode it neither empties nor shatters.",
             "Recipe (crafting, shaped \"NNN\" / \"NRN\" / \"ENN\"): seven enderite nuggets around the outside, the recovery compass in the middle, the enderite core bottom left.",
-            "Replaces the 'Echo Compass' data pack Simple Tweaks shipped; the data pack took durability off directly, so Unbreaking did nothing - fixed."
+            "Replaces the 'Echo Compass' data pack Simple Tweaks shipped."
           ]
         },
         "de": {
@@ -6464,10 +6466,10 @@ window.WIKI_DATA = {
           "details": [
             "Rechtsklick auf einen Leitstein verknüpft; die Nadel zeigt dann dorthin. Ein Klick auf den schon verknüpften Leitstein tut nichts (kein Klang, keine Effekte). Wird der Leitstein entfernt, ist die Verknüpfung weg.",
             "Sprung-Abklingzeit: tweaks.balancing.echoSounderJumpCooldownTicks, Standard 480 Ticks (24 Sekunden). Verknüpfen und Fehlversuche sperren standardmäßig 20–100 Ticks je Entfernung; Maximum über echoSounderAttemptLockTicks. Derselbe Leitstein wird nicht erneut verknüpft.",
-            "Ladung: Das Echolot hat 1500 Reparaturpunkte. Ein Sprung leert es ganz (Haltbarkeit/Unbreaking wirkt je Punkt wie bei jedem Werkzeug: mit Haltbarkeit III leert ein Sprung nur etwa ein Viertel). Leer oder nicht voll aufgeladen zeigt es eine Riss-Textur in drei Stufen (leer, halb, fast voll), hat keinen Verzauberungsglanz, und sein Balken zeigt die Ladung. Aufladen mit Reparatur/Mending (2 Punkte je XP-Punkt, 750 XP im leeren Zustand) oder am Amboss mit Echoscherben (jede stellt ein Viertel wieder her, vier füllen es). Erst voll aufgeladen springt es wieder normal und glänzt wieder.",
+            "Ladung: Das Echolot hat standardmäßig 1500 Reparaturpunkte (server.charges.echoSounderMaxCharge). Auf 26.3 leert ein erfolgreicher Sprung die gesamte Ladung, auch mit Haltbarkeit (Unbreaking). 26.2 behält bis zum Port den reduzierten Unbreaking-Verbrauch. Leer oder nicht voll aufgeladen zeigt es eine Riss-Textur in drei Stufen (leer, halb, fast voll), hat keinen Verzauberungsglanz, und sein Balken zeigt die Ladung. Aufladen mit Reparatur/Mending (2 Punkte je XP-Punkt, 750 XP im leeren Zustand) oder am Amboss mit Echoscherben (jede stellt ein Viertel wieder her, vier füllen es). Erst voll aufgeladen springt es wieder normal und glänzt wieder.",
             "Erzwingen: Ein nicht voll aufgeladenes Echolot zu benutzen provoziert den Bruch - das Laden dauert doppelt so lange (6 Sekunden) mit Warnzeichen (Knacken, Funken, Rauch, zur Hälfte ein Sculk-Kreischen, alles lauter), der Sprung gelingt noch, danach zerspringt das Echolot endgültig. Haltbarkeit rettet es dabei nicht. Im Kreativmodus leert und zerspringt es nicht.",
             "Rezept (Werkbank, geformt \"NNN\" / \"NRN\" / \"ENN\"): sieben Enderitklumpen außen herum, der Bergungskompass in der Mitte, der Enderitkern unten links.",
-            "Ersetzt das Datenpaket 'Echo Compass' aus Simple Tweaks; das zog die Haltbarkeit direkt ab, Haltbarkeit (Unbreaking) wirkte deshalb nicht - behoben."
+            "Ersetzt das Datenpaket 'Echo Compass' aus Simple Tweaks."
           ]
         },
         "sources": [
@@ -6766,19 +6768,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/ender_quartz_checker.json"
         ],
         "en": {
-          "summary": "Ender Quartz Checker: craft 4 from 2 Ender Quartz and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Ender Quartz Checker: craft 4 from 2 Ender Quartz and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Enderquarz-Schachbrett: 2 Enderquarz und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Enderquarz-Schachbrett: 2 Enderquarz und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -8595,7 +8597,7 @@ window.WIKI_DATA = {
       "trades": [],
       "note": {
         "en": {
-          "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced and Enderite Shulkers of end cities drop 0-2 of their own shell; every tier also comes from the shell one tier below in the world.",
+          "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced, Netherite and Enderite Shulkers of end cities drop 0-2 of their own shell; every tier also comes from the shell one tier below in the world.",
           "details": [
             "Upgrading in the world: place the shell on the ground (sneak + right-click), then right-click it with a nugget: Shulker Shell + Iron Nugget -> Reinforced, Reinforced + Netherite Nugget -> Netherite, Netherite + Enderite Nugget -> Enderite. Each click upgrades exactly one shell by one tier and uses exactly one nugget (none in creative mode); in a pile of several parts the last placed matching shell is upgraded.",
             "Needs the same rights as placing a block there. The held nugget tilts slightly while it would upgrade a shell.",
@@ -8603,7 +8605,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; jede Stufe entsteht außerdem in der Welt aus der Schale eine Stufe darunter.",
+          "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte, Netherit- und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; jede Stufe entsteht außerdem in der Welt aus der Schale eine Stufe darunter.",
           "details": [
             "Aufwerten in der Welt: die Schale auf den Boden legen (Schleichen + Rechtsklick), dann mit einem Klumpen rechtsklicken: Shulkerschale + Eisenklumpen -> Verstärkt, Verstärkt + Netheritklumpen -> Netherit, Netherit + Enderitklumpen -> Enderit. Jeder Klick wertet genau eine Schale um genau eine Stufe auf und verbraucht genau einen Klumpen (im Kreativmodus keinen); liegen mehrere Teile, trifft es die zuletzt gelegte passende Schale.",
             "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Klumpen neigt sich leicht, solange er eine Schale aufwerten würde.",
@@ -10734,19 +10736,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/lapis_quartz_checker.json"
         ],
         "en": {
-          "summary": "Lapis Quartz Checker: craft 4 from 2 Lapis Lazuli Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Lapis Quartz Checker: craft 4 from 2 Lapis Lazuli Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Lapis-Quarz-Schachbrett: 2 Lapislazuliblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Lapis-Quarz-Schachbrett: 2 Lapislazuliblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -12632,7 +12634,7 @@ window.WIKI_DATA = {
       "trades": [],
       "note": {
         "en": {
-          "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced and Enderite Shulkers of end cities drop 0-2 of their own shell; every tier also comes from the shell one tier below in the world.",
+          "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced, Netherite and Enderite Shulkers of end cities drop 0-2 of their own shell; every tier also comes from the shell one tier below in the world.",
           "details": [
             "Upgrading in the world: place the shell on the ground (sneak + right-click), then right-click it with a nugget: Shulker Shell + Iron Nugget -> Reinforced, Reinforced + Netherite Nugget -> Netherite, Netherite + Enderite Nugget -> Enderite. Each click upgrades exactly one shell by one tier and uses exactly one nugget (none in creative mode); in a pile of several parts the last placed matching shell is upgraded.",
             "Needs the same rights as placing a block there. The held nugget tilts slightly while it would upgrade a shell.",
@@ -12640,7 +12642,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; jede Stufe entsteht außerdem in der Welt aus der Schale eine Stufe darunter.",
+          "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte, Netherit- und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; jede Stufe entsteht außerdem in der Welt aus der Schale eine Stufe darunter.",
           "details": [
             "Aufwerten in der Welt: die Schale auf den Boden legen (Schleichen + Rechtsklick), dann mit einem Klumpen rechtsklicken: Shulkerschale + Eisenklumpen -> Verstärkt, Verstärkt + Netheritklumpen -> Netherit, Netherit + Enderitklumpen -> Enderit. Jeder Klick wertet genau eine Schale um genau eine Stufe auf und verbraucht genau einen Klumpen (im Kreativmodus keinen); liegen mehrere Teile, trifft es die zuletzt gelegte passende Schale.",
             "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Klumpen neigt sich leicht, solange er eine Schale aufwerten würde.",
@@ -13263,19 +13265,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/nihilith_quartz_checker.json"
         ],
         "en": {
-          "summary": "Nihilit Quartz Checker: craft 4 from 2 Nihilit Shards and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Nihilit Quartz Checker: craft 4 from 2 Nihilit Shards and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Nihilit-Quarz-Schachbrett: 2 Nihilitsplitter und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Nihilit-Quarz-Schachbrett: 2 Nihilitsplitter und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -14051,22 +14053,23 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
           "tools/textures/generate_textures.py",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
         ],
         "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Polished Ender Quartz Checker: craft 4 from 2 Polished Ender Quartz blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Poliertes Enderquarz-Schachbrett: 2 polierte Enderquarzblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -14271,19 +14274,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/purpur_quartz_checker.json"
         ],
         "en": {
-          "summary": "Purpur Quartz Checker: craft 4 from 2 Purpur Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Purpur Quartz Checker: craft 4 from 2 Purpur Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Purpur-Quarz-Schachbrett: 2 Purpurblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Purpur-Quarz-Schachbrett: 2 Purpurblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -15489,7 +15492,7 @@ window.WIKI_DATA = {
       "trades": [],
       "note": {
         "en": {
-          "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced and Enderite Shulkers of end cities drop 0-2 of their own shell; every tier also comes from the shell one tier below in the world.",
+          "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced, Netherite and Enderite Shulkers of end cities drop 0-2 of their own shell; every tier also comes from the shell one tier below in the world.",
           "details": [
             "Upgrading in the world: place the shell on the ground (sneak + right-click), then right-click it with a nugget: Shulker Shell + Iron Nugget -> Reinforced, Reinforced + Netherite Nugget -> Netherite, Netherite + Enderite Nugget -> Enderite. Each click upgrades exactly one shell by one tier and uses exactly one nugget (none in creative mode); in a pile of several parts the last placed matching shell is upgraded.",
             "Needs the same rights as placing a block there. The held nugget tilts slightly while it would upgrade a shell.",
@@ -15497,7 +15500,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; jede Stufe entsteht außerdem in der Welt aus der Schale eine Stufe darunter.",
+          "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte, Netherit- und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; jede Stufe entsteht außerdem in der Welt aus der Schale eine Stufe darunter.",
           "details": [
             "Aufwerten in der Welt: die Schale auf den Boden legen (Schleichen + Rechtsklick), dann mit einem Klumpen rechtsklicken: Shulkerschale + Eisenklumpen -> Verstärkt, Verstärkt + Netheritklumpen -> Netherit, Netherit + Enderitklumpen -> Enderit. Jeder Klick wertet genau eine Schale um genau eine Stufe auf und verbraucht genau einen Klumpen (im Kreativmodus keinen); liegen mehrere Teile, trifft es die zuletzt gelegte passende Schale.",
             "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Klumpen neigt sich leicht, solange er eine Schale aufwerten würde.",
@@ -15713,19 +15716,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/resin_quartz_checker.json"
         ],
         "en": {
-          "summary": "Resin Quartz Checker: craft 4 from 2 Red Nether Bricks blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Resin Quartz Checker: craft 4 from 2 Red Nether Bricks blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Harz-Quarz-Schachbrett: 2 rote Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Harz-Quarz-Schachbrett: 2 rote Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -17071,19 +17074,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/astralit_quartz_checker.json"
         ],
         "en": {
-          "summary": "Astralit Quartz Checker: craft 4 from 2 Astralit Dust and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Astralit Quartz Checker: craft 4 from 2 Astralit Dust and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Astralit-Quarz-Schachbrett: 2 Astralitstaub und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Astralit-Quarz-Schachbrett: 2 Astralitstaub und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -17386,19 +17389,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/blackstone_quartz_checker.json"
         ],
         "en": {
-          "summary": "Blackstone Quartz Checker: craft 4 from 2 Blackstone blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Blackstone Quartz Checker: craft 4 from 2 Blackstone blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Schwarzstein-Quarz-Schachbrett: 2 Schwarzsteinblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Schwarzstein-Quarz-Schachbrett: 2 Schwarzsteinblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -18310,19 +18313,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/ender_quartz_checker.json"
         ],
         "en": {
-          "summary": "Ender Quartz Checker: craft 4 from 2 Ender Quartz and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Ender Quartz Checker: craft 4 from 2 Ender Quartz and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Enderquarz-Schachbrett: 2 Enderquarz und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Enderquarz-Schachbrett: 2 Enderquarz und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -20054,19 +20057,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/lapis_quartz_checker.json"
         ],
         "en": {
-          "summary": "Lapis Quartz Checker: craft 4 from 2 Lapis Lazuli Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Lapis Quartz Checker: craft 4 from 2 Lapis Lazuli Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Lapis-Quarz-Schachbrett: 2 Lapislazuliblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Lapis-Quarz-Schachbrett: 2 Lapislazuliblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -21928,19 +21931,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/nihilith_quartz_checker.json"
         ],
         "en": {
-          "summary": "Nihilit Quartz Checker: craft 4 from 2 Nihilit Shards and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Nihilit Quartz Checker: craft 4 from 2 Nihilit Shards and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Nihilit-Quarz-Schachbrett: 2 Nihilitsplitter und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Nihilit-Quarz-Schachbrett: 2 Nihilitsplitter und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -22432,22 +22435,23 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
           "tools/textures/generate_textures.py",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
         ],
         "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Polished Ender Quartz Checker: craft 4 from 2 Polished Ender Quartz blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Poliertes Enderquarz-Schachbrett: 2 polierte Enderquarzblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -22737,19 +22741,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/purpur_quartz_checker.json"
         ],
         "en": {
-          "summary": "Purpur Quartz Checker: craft 4 from 2 Purpur Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Purpur Quartz Checker: craft 4 from 2 Purpur Blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Purpur-Quarz-Schachbrett: 2 Purpurblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Purpur-Quarz-Schachbrett: 2 Purpurblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -23996,19 +24000,19 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/resin_quartz_checker.json"
         ],
         "en": {
-          "summary": "Resin Quartz Checker: craft 4 from 2 Red Nether Bricks blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "summary": "Resin Quartz Checker: craft 4 from 2 Red Nether Bricks blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
           "details": [
             "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Harz-Quarz-Schachbrett: 2 rote Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "summary": "Harz-Quarz-Schachbrett: 2 rote Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück. Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
           "details": [
             "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
@@ -57520,8 +57524,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Building Wand Hunger Cost (Experimental)",
       "labelDe": "Hungerkosten des Baustabs (experimentell)",
-      "tooltip": "Experimental. Building a lot at once makes you hungry: per click or blueprint build the first blocks are free (1/16 of the wand's largest cube, at least 256 - normal faces never cost anything); every block past that adds food exhaustion, less for stronger wands (a Copper Wand filling 16x16x16 takes about a quarter of the hunger bar, an Enderite Wand building 128x128x128 the whole bar). Creative mode is exempt. It never deals damage itself. Server-side. Default: on.",
-      "tooltipDe": "Experimentell. Viel auf einmal bauen macht hungrig: Pro Klick oder Blaupausen-Bau sind die ersten Blöcke frei (1/16 des größten Würfels des Stabs, mindestens 256 - normale Flächen kosten nie etwas); jeder weitere Block erzeugt Erschöpfung, bei stärkeren Stäben weniger (ein Kupfer-Baustab, der 16x16x16 füllt, kostet etwa ein Viertel der Hungerleiste, ein Enderit-Baustab mit 128x128x128 die ganze Leiste). Der Kreativmodus ist ausgenommen. Verursacht nie selbst Schaden. Serverseitig. Standard: an."
+      "tooltip": "Experimental. Building a lot at once makes\nyou hungry: per click or blueprint build the\nfirst blocks are free (1/16 of the wand's\nlargest cube, at least 256 - normal faces\nnever cost anything); every block past that\nadds food exhaustion, less for stronger wands\n(a Copper Wand filling 16x16x16 takes about a\nquarter of the hunger bar, an Enderite Wand\nbuilding 128x128x128 the whole bar). Creative\nmode is exempt. It never deals damage itself.\nServer-side. Default: on.",
+      "tooltipDe": "Experimentell. Viel auf einmal bauen macht\nhungrig: Pro Klick oder Blaupausen-Bau sind\ndie ersten Blöcke frei (1/16 des größten\nWürfels des Stabs, mindestens 256 - normale\nFlächen kosten nie etwas); jeder weitere\nBlock erzeugt Erschöpfung, bei stärkeren\nStäben weniger (ein Kupfer-Baustab, der\n16x16x16 füllt, kostet etwa ein Viertel der\nHungerleiste, ein Enderit-Baustab mit\n128x128x128 die ganze Leiste). Der\nKreativmodus ist ausgenommen. Verursacht nie\nselbst Schaden. Serverseitig. Standard: an."
     },
     {
       "name": "tools.wandHungerMultiplier",
@@ -57535,8 +57539,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Building Wand Hunger Multiplier",
       "labelDe": "Hunger-Faktor des Baustabs",
-      "tooltip": "Multiplies the food exhaustion of every block past the free allowance (see Building Wand Hunger Cost). 0.5 = half as hungry, 2 = twice as hungry, 0 = building is free. The free allowance itself stays. Server-side. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Erschöpfung jedes Blocks über dem Freibetrag (siehe Hungerkosten des Baustabs). 0,5 = halb so hungrig, 2 = doppelt so hungrig, 0 = Bauen kostet nichts. Der Freibetrag bleibt. Serverseitig. Standard: 1,0."
+      "tooltip": "Multiplies the food exhaustion of every block\npast the free allowance (see Building Wand\nHunger Cost). 0.5 = half as hungry, 2 = twice\nas hungry, 0 = building is free. The free\nallowance itself stays. Server-side. Default:\n1.0.",
+      "tooltipDe": "Multipliziert die Erschöpfung jedes Blocks\nüber dem Freibetrag (siehe Hungerkosten des\nBaustabs). 0,5 = halb so hungrig, 2 = doppelt\nso hungrig, 0 = Bauen kostet nichts. Der\nFreibetrag bleibt. Serverseitig. Standard:\n1,0."
     },
     {
       "name": "tools.magnetRangeMultiplier",
@@ -57550,8 +57554,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Attractor Range Multiplier",
       "labelDe": "Reichweiten-Faktor des Attraktors",
-      "tooltip": "Multiplies how far the Attractor pulls items (3 blocks, +1.5 per Range level, at most 7.5; never beyond 12 after this factor). 2 = twice as far, 0 = the Attractor pulls nothing. Server-side. Default: 1.0.",
-      "tooltipDe": "Faktor darauf, wie weit der Attractor Items zieht (3 Blöcke, +1,5 je Stufe Reichweite, höchstens 7,5; nach diesem Faktor nie über 12). 2 = doppelt so weit, 0 = der Attractor zieht nichts. Serverseitig. Standard: 1.0."
+      "tooltip": "Multiplies how far the Attractor pulls items\n(3 blocks, +1.5 per Range level, at most 7.5;\nnever beyond 12 after this factor). 2 = twice\nas far, 0 = the Attractor pulls nothing.\nServer-side. Default: 1.0.",
+      "tooltipDe": "Faktor darauf, wie weit der Attractor Items\nzieht (3 Blöcke, +1,5 je Stufe Reichweite,\nhöchstens 7,5; nach diesem Faktor nie über\n12). 2 = doppelt so weit, 0 = der Attractor\nzieht nichts. Serverseitig. Standard: 1.0."
     },
     {
       "name": "tools.rotatorChargePerTurn",
@@ -57565,8 +57569,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Rotator Charge per Turn",
       "labelDe": "Rotator-Ladung je Drehung",
-      "tooltip": "Charge one turn of the Rotator uses up (a full Rotator holds 1024, 16 Ender Pearls refill it). 0 = turning is free, 2 = half as many turns per charge. Unbreaking still applies. Server-side. Default: 1.",
-      "tooltipDe": "Ladung, die eine Drehung des Rotators verbraucht (voll sind 1024, 16 Enderperlen laden auf). 0 = Drehen kostet nichts, 2 = halb so viele Drehungen je Ladung. Haltbarkeit wirkt weiter. Serverseitig. Standard: 1."
+      "tooltip": "Charge one turn of the Rotator uses up (a\nfull Rotator holds 1024, 16 Ender Pearls\nrefill it). 0 = turning is free, 2 = half as\nmany turns per charge. Unbreaking still\napplies. Server-side. Default: 1.",
+      "tooltipDe": "Ladung, die eine Drehung des Rotators\nverbraucht (voll sind 1024, 16 Enderperlen\nladen auf). 0 = Drehen kostet nichts, 2 =\nhalb so viele Drehungen je Ladung.\nHaltbarkeit wirkt weiter. Serverseitig.\nStandard: 1."
     },
     {
       "name": "tools.invertBundleInteractions",
@@ -57580,8 +57584,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Invert Bundle Clicks",
       "labelDe": "Bündel-Klicks vertauschen",
-      "tooltip": "Swaps the mouse buttons on the mod's bundles and quivers: off, left click puts items in and right click takes one out; on, the other way round. Default: off.",
-      "tooltipDe": "Vertauscht die Maustasten bei den Bündeln und Köchern der Mod: aus legt Linksklick ein und Rechtsklick nimmt heraus; an umgekehrt. Standard: aus."
+      "tooltip": "Swaps the mouse buttons on the mod's bundles\nand quivers: off, left click puts items in\nand right click takes one out; on, the other\nway round. Default: off.",
+      "tooltipDe": "Vertauscht die Maustasten bei den Bündeln und\nKöchern der Mod: aus legt Linksklick ein und\nRechtsklick nimmt heraus; an umgekehrt.\nStandard: aus."
     },
     {
       "name": "tools.invertOctantSneak",
@@ -57595,8 +57599,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Invert Octant Area Preview",
       "labelDe": "Oktant-Flächenvorschau umkehren",
-      "tooltip": "Off: the Octant draws its area figure only while it carries Constructor's Touch. On: the other way round. The two corner outlines are always drawn. Client-side. Default: off.",
-      "tooltipDe": "Aus: Der Oktant zeichnet die Flächenfigur nur, wenn er Berührung des Konstrukteurs trägt. An: umgekehrt. Die beiden Eckpunkt-Umrisse werden immer gezeichnet. Clientseitig. Standard: aus."
+      "tooltip": "Off: the Octant draws its area figure only\nwhile it carries Constructor's Touch. On: the\nother way round. The two corner outlines are\nalways drawn. Client-side. Default: off.",
+      "tooltipDe": "Aus: Der Oktant zeichnet die Flächenfigur\nnur, wenn er Berührung des Konstrukteurs\nträgt. An: umgekehrt. Die beiden\nEckpunkt-Umrisse werden immer gezeichnet.\nClientseitig. Standard: aus."
     },
     {
       "name": "tools.buildingHighlightOpacity",
@@ -57610,8 +57614,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Preview Opacity (%)",
       "labelDe": "Deckkraft der Vorschau (%)",
-      "tooltip": "Opacity of the filled preview faces of the Sledgehammer and the Octant, in percent (0 = invisible, 100 = solid). Client-side. Default: 40.",
-      "tooltipDe": "Deckkraft der gefüllten Vorschauflächen von Vorschlaghammer und Oktant in Prozent (0 = unsichtbar, 100 = deckend). Clientseitig. Standard: 40."
+      "tooltip": "Opacity of the filled preview faces of the\nSledgehammer and the Octant, in percent (0 =\ninvisible, 100 = solid). Client-side.\nDefault: 40.",
+      "tooltipDe": "Deckkraft der gefüllten Vorschauflächen von\nVorschlaghammer und Oktant in Prozent (0 =\nunsichtbar, 100 = deckend). Clientseitig.\nStandard: 40."
     },
     {
       "name": "tools.enableToolAnimations",
@@ -57625,8 +57629,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Tool Animations",
       "labelDe": "Werkzeug-Animationen",
-      "tooltip": "Master switch for the first-person hand animations of the Chisel and the Sledgehammer. Client-side. Default: on.",
-      "tooltipDe": "Hauptschalter für die Handanimationen von Meißel und Vorschlaghammer in der Ich-Ansicht. Clientseitig. Standard: an."
+      "tooltip": "Master switch for the first-person hand\nanimations of the Chisel and the\nSledgehammer. Client-side. Default: on.",
+      "tooltipDe": "Hauptschalter für die Handanimationen von\nMeißel und Vorschlaghammer in der\nIch-Ansicht. Clientseitig. Standard: an."
     },
     {
       "name": "tools.enableChiselAnimation",
@@ -57640,8 +57644,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Chisel Tilt Animation",
       "labelDe": "Meißel-Kippanimation",
-      "tooltip": "Tilts the held Chisel when you aim at a block it can transform. Only plays while Tool Animations is on too. Client-side. Default: on.",
-      "tooltipDe": "Kippt den gehaltenen Meißel, wenn du auf einen Block zielst, den er umwandeln kann. Spielt nur, wenn auch Werkzeug-Animationen an ist. Clientseitig. Standard: an."
+      "tooltip": "Tilts the held Chisel when you aim at a block\nit can transform. Only plays while Tool\nAnimations is on too. Client-side. Default:\non.",
+      "tooltipDe": "Kippt den gehaltenen Meißel, wenn du auf\neinen Block zielst, den er umwandeln kann.\nSpielt nur, wenn auch Werkzeug-Animationen an\nist. Clientseitig. Standard: an."
     },
     {
       "name": "tools.transformHintStrength",
@@ -57655,8 +57659,8 @@ window.WIKI_DATA = {
       "groupDe": "Werkzeuge & Bauen",
       "label": "Transformation Hint Strength",
       "labelDe": "Stärke des Umwandlungshinweises",
-      "tooltip": "How strongly the held item tilts when it can transform the block you aim at, in percent of the original motion. A partial hint (hammer or material missing) shows half of it. Client-side. Default: 50.",
-      "tooltipDe": "Wie stark sich das gehaltene Item neigt, wenn es den anvisierten Block umwandeln kann, in Prozent der ursprünglichen Bewegung. Ein Teil-Hinweis (Hammer oder Material fehlt) zeigt die Hälfte davon. Clientseitig. Standard: 50."
+      "tooltip": "How strongly the held item tilts when it can\ntransform the block you aim at, in percent of\nthe original motion. A partial hint (hammer\nor material missing) shows half of it.\nClient-side. Default: 50.",
+      "tooltipDe": "Wie stark sich das gehaltene Item neigt, wenn\nes den anvisierten Block umwandeln kann, in\nProzent der ursprünglichen Bewegung. Ein\nTeil-Hinweis (Hammer oder Material fehlt)\nzeigt die Hälfte davon. Clientseitig.\nStandard: 50."
     },
     {
       "name": "enableDoubleJump",
@@ -57670,8 +57674,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Air Jump",
       "labelDe": "Luftsprung",
-      "tooltip": "Lets you use the Air Jump (Double Jump) enchantment on boots: press jump again in mid-air. Off, no air jumps are triggered. This is your own client setting. Default: on.",
-      "tooltipDe": "Erlaubt den Luftsprung (Doppelsprung-Verzauberung auf Stiefeln): in der Luft erneut springen. Aus: keine Luftsprünge. Das ist eine Einstellung deines eigenen Clients. Standard: an."
+      "tooltip": "Lets you use the Air Jump (Double Jump)\nenchantment on boots: press jump again in\nmid-air. Off, no air jumps are triggered.\nThis is your own client setting. Default: on.",
+      "tooltipDe": "Erlaubt den Luftsprung\n(Doppelsprung-Verzauberung auf Stiefeln): in\nder Luft erneut springen. Aus: keine\nLuftsprünge. Das ist eine Einstellung deines\neigenen Clients. Standard: an."
     },
     {
       "name": "airJumpCooldownTicks",
@@ -57685,8 +57689,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Air Jump Cooldown (Ticks)",
       "labelDe": "Luftsprung-Abklingzeit (Ticks)",
-      "tooltip": "Time between two air jumps at Air Jump level I, in ticks (20 ticks = 1 s); level II waits half as long. Kept between 20 and 6000. On a server the server's value applies and is sent to every player. Default: 400 (20 s, 10 s at level II).",
-      "tooltipDe": "Zeit zwischen zwei Luftsprüngen bei Luftsprung I in Ticks (20 Ticks = 1 s); Stufe II wartet halb so lange. Gehalten zwischen 20 und 6000. Auf einem Server gilt der Wert des Servers und wird an alle Spieler geschickt. Standard: 400 (20 s, auf Stufe II 10 s)."
+      "tooltip": "Time between two air jumps at Air Jump level\nI, in ticks (20 ticks = 1 s); level II waits\nhalf as long. Kept between 20 and 6000. On a\nserver the server's value applies and is sent\nto every player. Default: 400 (20 s, 10 s at\nlevel II).",
+      "tooltipDe": "Zeit zwischen zwei Luftsprüngen bei\nLuftsprung I in Ticks (20 Ticks = 1 s); Stufe\nII wartet halb so lange. Gehalten zwischen 20\nund 6000. Auf einem Server gilt der Wert des\nServers und wird an alle Spieler geschickt.\nStandard: 400 (20 s, auf Stufe II 10 s)."
     },
     {
       "name": "enableArmorTrimBenefits",
@@ -57700,8 +57704,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Armor Trim Benefits",
       "labelDe": "Rüstungsbesatz-Vorteile",
-      "tooltip": "Gives you the gameplay bonuses of armor trim patterns and materials (for example water breathing). Your client reports it when you join a world, so a change takes effect after rejoining. Default: on.",
-      "tooltipDe": "Gibt dir die Spielboni der Besatzmuster und -materialien (zum Beispiel Wasseratmung). Dein Client meldet die Einstellung beim Betreten einer Welt; eine Änderung wirkt nach erneutem Betreten. Standard: an."
+      "tooltip": "Gives you the gameplay bonuses of armor trim\npatterns and materials (for example water\nbreathing). Your client reports it when you\njoin a world, so a change takes effect after\nrejoining. Default: on.",
+      "tooltipDe": "Gibt dir die Spielboni der Besatzmuster und\n-materialien (zum Beispiel Wasseratmung).\nDein Client meldet die Einstellung beim\nBetreten einer Welt; eine Änderung wirkt nach\nerneutem Betreten. Standard: an."
     },
     {
       "name": "trimBenefitBaseMultiplier",
@@ -57715,8 +57719,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Trim Resonance Multiplier",
       "labelDe": "Besatz-Resonanz-Multiplikator",
-      "tooltip": "Base of the trim resonance: higher values make matching trims stronger (0 to 10). Also settable with /simplebuilding config setTrimMultiplier. On a server the server's value applies and is shown to every player. Default: 2.0.",
-      "tooltipDe": "Basis der Besatz-Resonanz: höhere Werte machen passende Besätze stärker (0 bis 10). Auch mit /simplebuilding config setTrimMultiplier einstellbar. Auf einem Server gilt der Wert des Servers und wird allen Spielern angezeigt. Standard: 2,0."
+      "tooltip": "Base of the trim resonance: higher values\nmake matching trims stronger (0 to 10). Also\nsettable with /simplebuilding config\nsetTrimMultiplier. On a server the server's\nvalue applies and is shown to every player.\nDefault: 2.0.",
+      "tooltipDe": "Basis der Besatz-Resonanz: höhere Werte\nmachen passende Besätze stärker (0 bis 10).\nAuch mit /simplebuilding config\nsetTrimMultiplier einstellbar. Auf einem\nServer gilt der Wert des Servers und wird\nallen Spielern angezeigt. Standard: 2,0."
     },
     {
       "name": "breakerPistonsLoseDurability",
@@ -57730,8 +57734,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Breaker Pistons Lose Durability",
       "labelDe": "Brecher-Kolben verlieren Haltbarkeit",
-      "tooltip": "If enabled (the default), every block a Netherite or Enderite Piston destroys while extending costs 1 durability: 226 for the Netherite Piston, 281 for the Enderite Piston (1/9 of the pickaxe of their tier). When it runs out, the Enderite Piston turns into a Netherite Piston with full durability and the Netherite Piston into a Reinforced Piston. A nugget of the tier restores full durability. Disabled: they never lose durability. Server-side. Default: on.",
-      "tooltipDe": "Wenn aktiviert (Standard), kostet jeder Block, den ein Netherit- oder Enderitkolben beim Ausfahren zerstört, 1 Haltbarkeit: 226 beim Netheritkolben, 281 beim Enderitkolben (1/9 der Spitzhacke ihrer Stufe). Ist sie aufgebraucht, wird der Enderitkolben zum Netheritkolben mit voller Haltbarkeit und der Netheritkolben zum Verstärkten Kolben. Ein Klumpen der Stufe stellt die volle Haltbarkeit wieder her. Deaktiviert: sie verlieren nie Haltbarkeit. Serverseitig. Standard: an."
+      "tooltip": "If enabled (the default), every block a\nNetherite or Enderite Piston destroys while\nextending costs 1 durability: 226 for the\nNetherite Piston, 281 for the Enderite Piston\n(1/9 of the pickaxe of their tier). When it\nruns out, the Enderite Piston turns into a\nNetherite Piston with full durability and the\nNetherite Piston into a Reinforced Piston. A\nnugget of the tier restores full durability.\nDisabled: they never lose durability.\nServer-side. Default: on.",
+      "tooltipDe": "Wenn aktiviert (Standard), kostet jeder\nBlock, den ein Netherit- oder Enderitkolben\nbeim Ausfahren zerstört, 1 Haltbarkeit: 226\nbeim Netheritkolben, 281 beim Enderitkolben\n(1/9 der Spitzhacke ihrer Stufe). Ist sie\naufgebraucht, wird der Enderitkolben zum\nNetheritkolben mit voller Haltbarkeit und der\nNetheritkolben zum Verstärkten Kolben. Ein\nKlumpen der Stufe stellt die volle\nHaltbarkeit wieder her. Deaktiviert: sie\nverlieren nie Haltbarkeit. Serverseitig.\nStandard: an."
     },
     {
       "name": "pistonsBreachEndPortalFrames",
@@ -57745,8 +57749,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Pistons Breach End Portal Frames",
       "labelDe": "Kolben durchbrechen Endportalrahmen",
-      "tooltip": "On: the mod's pistons treat End Portal Frames like other unbreakable blocks - a Reinforced Piston paid with a Redstone Block can push one, a Netherite or Enderite Piston can destroy it. Off: End Portal Frames are left alone. Server-side, sent to clients. Default: off.",
-      "tooltipDe": "An: Die Kolben der Mod behandeln Endportalrahmen wie andere unzerstörbare Blöcke - ein mit einem Redstoneblock bezahlter Verstärkter Kolben kann einen schieben, ein Netherit- oder Enderitkolben ihn zerstören. Aus: Endportalrahmen bleiben unangetastet. Serverseitig, an die Clients geschickt. Standard: aus."
+      "tooltip": "On: the mod's pistons treat End Portal Frames\nlike other unbreakable blocks - a Reinforced\nPiston paid with a Redstone Block can push\none, a Netherite or Enderite Piston can\ndestroy it. Off: End Portal Frames are left\nalone. Server-side, sent to clients. Default:\noff.",
+      "tooltipDe": "An: Die Kolben der Mod behandeln\nEndportalrahmen wie andere unzerstörbare\nBlöcke - ein mit einem Redstoneblock\nbezahlter Verstärkter Kolben kann einen\nschieben, ein Netherit- oder Enderitkolben\nihn zerstören. Aus: Endportalrahmen bleiben\nunangetastet. Serverseitig, an die Clients\ngeschickt. Standard: aus."
     },
     {
       "name": "pistonsBreachModdedUnbreakables",
@@ -57760,8 +57764,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Pistons Breach Unbreakables of Other Mods",
       "labelDe": "Kolben durchbrechen Unzerstörbares anderer Mods",
-      "tooltip": "On: the mod's pistons also treat unbreakable blocks (hardness -1) of other mods as breachable. Off: only vanilla's unbreakable blocks and the tag simplebuilding:piston_breachable_extra count. Server-side, sent to clients. Default: off.",
-      "tooltipDe": "An: Die Kolben der Mod behandeln auch unzerstörbare Blöcke (Härte -1) anderer Mods als durchbrechbar. Aus: Nur die unzerstörbaren Blöcke von Vanilla und der Tag simplebuilding:piston_breachable_extra zählen. Serverseitig, an die Clients geschickt. Standard: aus."
+      "tooltip": "On: the mod's pistons also treat unbreakable\nblocks (hardness -1) of other mods as\nbreachable. Off: only vanilla's unbreakable\nblocks and the tag\nsimplebuilding:piston_breachable_extra count.\nServer-side, sent to clients. Default: off.",
+      "tooltipDe": "An: Die Kolben der Mod behandeln auch\nunzerstörbare Blöcke (Härte -1) anderer Mods\nals durchbrechbar. Aus: Nur die\nunzerstörbaren Blöcke von Vanilla und der Tag\nsimplebuilding:piston_breachable_extra\nzählen. Serverseitig, an die Clients\ngeschickt. Standard: aus."
     },
     {
       "name": "tweaks.pads.enableChunkLoaders",
@@ -57775,8 +57779,8 @@ window.WIKI_DATA = {
       "groupDe": "Pads & Platten: an/aus",
       "label": "Chunk Loaders",
       "labelDe": "Chunk-Lader",
-      "tooltip": "Off: chunk loaders stay placeable but release their chunks and do nothing. Off also removes its recipes (with the next /reload or world start). Default: on.",
-      "tooltipDe": "Aus: Chunk-Lader bleiben setzbar, geben aber ihre Chunks frei und tun nichts. Aus nimmt auch die Rezepte weg (beim nächsten /reload oder Weltstart). Standard: an."
+      "tooltip": "Off: chunk loaders stay placeable but release\ntheir chunks and do nothing. Off also removes\nits recipes (with the next /reload or world\nstart). Default: on.",
+      "tooltipDe": "Aus: Chunk-Lader bleiben setzbar, geben aber\nihre Chunks frei und tun nichts. Aus nimmt\nauch die Rezepte weg (beim nächsten /reload\noder Weltstart). Standard: an."
     },
     {
       "name": "tweaks.pads.enableElytraPads",
@@ -57790,8 +57794,8 @@ window.WIKI_DATA = {
       "groupDe": "Pads & Platten: an/aus",
       "label": "Elytra Pads",
       "labelDe": "Elytra-Pads",
-      "tooltip": "Off: elytra pads hand out and recharge nothing. Off also removes its recipes (with the next /reload or world start). Default: on.",
-      "tooltipDe": "Aus: Elytra-Pads verteilen und laden nichts. Aus nimmt auch die Rezepte weg (beim nächsten /reload oder Weltstart). Standard: an."
+      "tooltip": "Off: elytra pads hand out and recharge\nnothing. Off also removes its recipes (with\nthe next /reload or world start). Default:\non.",
+      "tooltipDe": "Aus: Elytra-Pads verteilen und laden nichts.\nAus nimmt auch die Rezepte weg (beim nächsten\n/reload oder Weltstart). Standard: an."
     },
     {
       "name": "tweaks.pads.enableFlypads",
@@ -57805,8 +57809,8 @@ window.WIKI_DATA = {
       "groupDe": "Pads & Platten: an/aus",
       "label": "Flypads",
       "labelDe": "Flugpads",
-      "tooltip": "Off: flypads take creative flight back and grant none. Off also removes its recipes (with the next /reload or world start). Default: on.",
-      "tooltipDe": "Aus: Flugpads nehmen den Kreativflug zurück und geben keinen. Aus nimmt auch die Rezepte weg (beim nächsten /reload oder Weltstart). Standard: an."
+      "tooltip": "Off: flypads take creative flight back and\ngrant none. Off also removes its recipes\n(with the next /reload or world start).\nDefault: on.",
+      "tooltipDe": "Aus: Flugpads nehmen den Kreativflug zurück\nund geben keinen. Aus nimmt auch die Rezepte\nweg (beim nächsten /reload oder Weltstart).\nStandard: an."
     },
     {
       "name": "tweaks.pads.enableSpawnTeleporters",
@@ -57820,8 +57824,8 @@ window.WIKI_DATA = {
       "groupDe": "Pads & Platten: an/aus",
       "label": "Spawn Teleporters",
       "labelDe": "Spawn-Teleporter",
-      "tooltip": "Off: spawn teleporters do not teleport. Off also removes its recipes (with the next /reload or world start). Default: on.",
-      "tooltipDe": "Aus: Spawn-Teleporter teleportieren nicht. Aus nimmt auch die Rezepte weg (beim nächsten /reload oder Weltstart). Standard: an."
+      "tooltip": "Off: spawn teleporters do not teleport. Off\nalso removes its recipes (with the next\n/reload or world start). Default: on.",
+      "tooltipDe": "Aus: Spawn-Teleporter teleportieren nicht.\nAus nimmt auch die Rezepte weg (beim nächsten\n/reload oder Weltstart). Standard: an."
     },
     {
       "name": "tweaks.pads.enableLaunchpads",
@@ -57835,8 +57839,8 @@ window.WIKI_DATA = {
       "groupDe": "Pads & Platten: an/aus",
       "label": "Launchpads",
       "labelDe": "Startrampen",
-      "tooltip": "Off: launchpads do not launch. Off also removes its recipes (with the next /reload or world start). Default: on.",
-      "tooltipDe": "Aus: Startrampen starten nicht. Aus nimmt auch die Rezepte weg (beim nächsten /reload oder Weltstart). Standard: an."
+      "tooltip": "Off: launchpads do not launch. Off also\nremoves its recipes (with the next /reload or\nworld start). Default: on.",
+      "tooltipDe": "Aus: Startrampen starten nicht. Aus nimmt\nauch die Rezepte weg (beim nächsten /reload\noder Weltstart). Standard: an."
     },
     {
       "name": "tweaks.pads.enableTimedCopperPlates",
@@ -57850,8 +57854,8 @@ window.WIKI_DATA = {
       "groupDe": "Pads & Platten: an/aus",
       "label": "Copper Pressure Plates",
       "labelDe": "Kupfer-Druckplatten",
-      "tooltip": "Off: copper pressure plates never activate. Default: on.",
-      "tooltipDe": "Aus: Kupfer-Druckplatten lösen nie aus. Standard: an."
+      "tooltip": "Off: copper pressure plates never activate.\nDefault: on.",
+      "tooltipDe": "Aus: Kupfer-Druckplatten lösen nie aus.\nStandard: an."
     },
     {
       "name": "tweaks.pads.enableFilterPlates",
@@ -57865,8 +57869,8 @@ window.WIKI_DATA = {
       "groupDe": "Pads & Platten: an/aus",
       "label": "Netherite/Enderite Pressure Plates",
       "labelDe": "Netherit-/Enderit-Druckplatten",
-      "tooltip": "Off: netherite and enderite pressure plates never activate. Default: on.",
-      "tooltipDe": "Aus: Netherit- und Enderit-Druckplatten lösen nie aus. Standard: an."
+      "tooltip": "Off: netherite and enderite pressure plates\nnever activate. Default: on.",
+      "tooltipDe": "Aus: Netherit- und Enderit-Druckplatten lösen\nnie aus. Standard: an."
     },
     {
       "name": "tweaks.pads.enablePotionPads",
@@ -57880,8 +57884,8 @@ window.WIKI_DATA = {
       "groupDe": "Pads & Platten: an/aus",
       "label": "Potion Pads",
       "labelDe": "Trank-Pads",
-      "tooltip": "Off: potion pads keep their potion but give no effects. Off also removes its recipes (with the next /reload or world start). Default: on.",
-      "tooltipDe": "Aus: Trank-Pads behalten ihren Trank, geben aber keine Wirkungen. Aus nimmt auch die Rezepte weg (beim nächsten /reload oder Weltstart). Standard: an."
+      "tooltip": "Off: potion pads keep their potion but give\nno effects. Off also removes its recipes\n(with the next /reload or world start).\nDefault: on.",
+      "tooltipDe": "Aus: Trank-Pads behalten ihren Trank, geben\naber keine Wirkungen. Aus nimmt auch die\nRezepte weg (beim nächsten /reload oder\nWeltstart). Standard: an."
     },
     {
       "name": "tweaks.padTuning.teleporterTier1WarmupTicks",
@@ -57895,8 +57899,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Teleporter I Warm-up (Ticks)",
       "labelDe": "Teleporter-I-Wartezeit (Ticks)",
-      "tooltip": "How long a player has to stand still on a spawn teleporter I before it teleports, in ticks (20 = 1 s). Default: 1000 (50 s). Range: 1–12000.",
-      "tooltipDe": "Wie lange ein Spieler still auf einem Spawn-Teleporter I stehen muss, bis er springt, in Ticks (20 = 1 s). Standard: 1000 (50 s). Bereich: 1–12000,"
+      "tooltip": "How long a player has to stand still on a\nspawn teleporter I before it teleports, in\nticks (20 = 1 s). Default: 1000 (50 s).\nRange: 1–12000.",
+      "tooltipDe": "Wie lange ein Spieler still auf einem\nSpawn-Teleporter I stehen muss, bis er\nspringt, in Ticks (20 = 1 s). Standard: 1000\n(50 s). Bereich: 1–12000,"
     },
     {
       "name": "tweaks.padTuning.teleporterTier2WarmupTicks",
@@ -57910,8 +57914,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Teleporter II Warm-up (Ticks)",
       "labelDe": "Teleporter-II-Wartezeit (Ticks)",
-      "tooltip": "The same for spawn teleporter II. Default: 400 (20 s). Range: 1–12000.",
-      "tooltipDe": "Dasselbe für Spawn-Teleporter II. Standard: 400 (20 s). Bereich: 1–12000,"
+      "tooltip": "The same for spawn teleporter II. Default:\n400 (20 s). Range: 1–12000.",
+      "tooltipDe": "Dasselbe für Spawn-Teleporter II. Standard:\n400 (20 s). Bereich: 1–12000,"
     },
     {
       "name": "tweaks.padTuning.teleporterTier3WarmupTicks",
@@ -57925,8 +57929,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Teleporter III Warm-up (Ticks)",
       "labelDe": "Teleporter-III-Wartezeit (Ticks)",
-      "tooltip": "The same for the Enderite spawn teleporter III (the final easter stage waits half as long). Default: 100 (5 s). Range: 1–12000.",
-      "tooltipDe": "Dasselbe für den Enderit-Spawn-Teleporter III (die letzte Easter-Stufe wartet halb so lange). Standard: 100 (5 s). Bereich: 1–12000,"
+      "tooltip": "The same for the Enderite spawn teleporter\nIII (the final easter stage waits half as\nlong). Default: 100 (5 s). Range: 1–12000.",
+      "tooltipDe": "Dasselbe für den Enderit-Spawn-Teleporter III\n(die letzte Easter-Stufe wartet halb so\nlange). Standard: 100 (5 s). Bereich:\n1–12000,"
     },
     {
       "name": "tweaks.padTuning.launchpadStrengthMultiplier",
@@ -57940,8 +57944,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Launchpad Strength Multiplier",
       "labelDe": "Startrampen-Stärke-Faktor",
-      "tooltip": "Multiplies the launch strength of launchpads (1.5 plus 0.8 per wind charge). 0.5 = half as high, 2 = twice as strong. Default: 1.0. Range: 0–2.0.",
-      "tooltipDe": "Multipliziert die Startstärke der Startrampen (1,5 plus 0,8 je Windkugel). 0,5 = halb so hoch, 2 = doppelt so stark. Standard: 1,0. Bereich: 0–2,0,"
+      "tooltip": "Multiplies the launch strength of launchpads\n(1.5 plus 0.8 per wind charge). 0.5 = half as\nhigh, 2 = twice as strong. Default: 1.0.\nRange: 0–2.0.",
+      "tooltipDe": "Multipliziert die Startstärke der Startrampen\n(1,5 plus 0,8 je Windkugel). 0,5 = halb so\nhoch, 2 = doppelt so stark. Standard: 1,0.\nBereich: 0–2,0,"
     },
     {
       "name": "tweaks.padTuning.potionPadChargeStepTicks",
@@ -57955,8 +57959,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Potion Pad Charge Step (Ticks)",
       "labelDe": "Trank-Pad-Ladeschritt (Ticks)",
-      "tooltip": "A player standing on a potion pad gets 25 %, 50 % and then 100 % of the effect duration in three steps; this is the length of one step in ticks. Default: 20 (1 s, full after 3 s). Range: 1–1200.",
-      "tooltipDe": "Wer auf einem Trank-Pad steht, bekommt in drei Schritten 25 %, 50 % und dann 100 % der Wirkdauer; das ist die Länge eines Schritts in Ticks. Standard: 20 (1 s, voll nach 3 s). Bereich: 1–1200,"
+      "tooltip": "A player standing on a potion pad gets 25 %,\n50 % and then 100 % of the effect duration in\nthree steps; this is the length of one step\nin ticks. Default: 20 (1 s, full after 3 s).\nRange: 1–1200.",
+      "tooltipDe": "Wer auf einem Trank-Pad steht, bekommt in\ndrei Schritten 25 %, 50 % und dann 100 % der\nWirkdauer; das ist die Länge eines Schritts\nin Ticks. Standard: 20 (1 s, voll nach 3 s).\nBereich: 1–1200,"
     },
     {
       "name": "tweaks.padTuning.potionPadCooldownFactor",
@@ -57970,8 +57974,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Potion Pad Cooldown Factor",
       "labelDe": "Trank-Pad-Abklingfaktor",
-      "tooltip": "After a full charge the potion pad cools down for this many times the granted effect duration, times the effect's own multiplier (Healing and Harming 2, Night Vision 0.5, see docs/TRANK-PADS.md). 0 = no cooldown. Default: 2.0. Range: 0–10.0.",
-      "tooltipDe": "Nach einer vollen Ladung kühlt das Trank-Pad so viele Male die gegebene Wirkdauer lang ab, mal dem eigenen Faktor der Wirkung (Direktheilung und Direktschaden 2, Nachtsicht 0,5, siehe docs/TRANK-PADS.md). 0 = keine Abklingzeit. Standard: 2,0. Bereich: 0–10,0,"
+      "tooltip": "After a full charge the potion pad cools down\nfor this many times the granted effect\nduration, times the effect's own multiplier\n(Healing and Harming 2, Night Vision 0.5, see\ndocs/TRANK-PADS.md). 0 = no cooldown.\nDefault: 2.0. Range: 0–10.0.",
+      "tooltipDe": "Nach einer vollen Ladung kühlt das Trank-Pad\nso viele Male die gegebene Wirkdauer lang ab,\nmal dem eigenen Faktor der Wirkung\n(Direktheilung und Direktschaden 2,\nNachtsicht 0,5, siehe docs/TRANK-PADS.md). 0\n= keine Abklingzeit. Standard: 2,0. Bereich:\n0–10,0,"
     },
     {
       "name": "tweaks.laserPointer.enable",
@@ -57985,8 +57989,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab",
       "label": "Resonance Rod",
       "labelDe": "Resonanzstab",
-      "tooltip": "Shows the beam dots and lets the rod melt, light and dry blocks. Off: the rod does nothing. Server-side, sent to clients. Off also removes its recipes (with the next /reload or world start). Default: on.",
-      "tooltipDe": "Zeigt die Strahlpunkte und lässt den Stab Blöcke schmelzen, anzünden und trocknen. Aus: Der Stab tut nichts. Serverseitig, an die Clients geschickt. Aus nimmt auch die Rezepte weg (beim nächsten /reload oder Weltstart). Standard: an."
+      "tooltip": "Shows the beam dots and lets the rod melt,\nlight and dry blocks. Off: the rod does\nnothing. Server-side, sent to clients. Off\nalso removes its recipes (with the next\n/reload or world start). Default: on.",
+      "tooltipDe": "Zeigt die Strahlpunkte und lässt den Stab\nBlöcke schmelzen, anzünden und trocknen. Aus:\nDer Stab tut nichts. Serverseitig, an die\nClients geschickt. Aus nimmt auch die Rezepte\nweg (beim nächsten /reload oder Weltstart).\nStandard: an."
     },
     {
       "name": "tweaks.laserPointer.color",
@@ -58000,8 +58004,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab",
       "label": "Dot Color",
       "labelDe": "Punktfarbe",
-      "tooltip": "Color of the beam dot (RGB). Client-side. Default: red (#FF0000).",
-      "tooltipDe": "Farbe des Strahlpunkts (RGB). Clientseitig. Standard: rot (#FF0000)."
+      "tooltip": "Color of the beam dot (RGB). Client-side.\nDefault: red (#FF0000).",
+      "tooltipDe": "Farbe des Strahlpunkts (RGB). Clientseitig.\nStandard: rot (#FF0000)."
     },
     {
       "name": "tweaks.laserPointer.scale",
@@ -58015,8 +58019,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab",
       "label": "Dot Size (Blocks)",
       "labelDe": "Punktgröße (Blöcke)",
-      "tooltip": "Size of the dot in blocks (0.05 to 1); far away it only grows so it stays visible. Client-side. Default: 0.25.",
-      "tooltipDe": "Größe des Punkts in Blöcken (0,05 bis 1); in der Ferne wächst er nur, damit er sichtbar bleibt. Clientseitig. Standard: 0,25."
+      "tooltip": "Size of the dot in blocks (0.05 to 1); far\naway it only grows so it stays visible.\nClient-side. Default: 0.25.",
+      "tooltipDe": "Größe des Punkts in Blöcken (0,05 bis 1); in\nder Ferne wächst er nur, damit er sichtbar\nbleibt. Clientseitig. Standard: 0,25."
     },
     {
       "name": "tweaks.laserPointer.range",
@@ -58030,8 +58034,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab",
       "label": "Max Range (Blocks)",
       "labelDe": "Reichweite (Blöcke)",
-      "tooltip": "How far the beam reaches, in blocks (never beyond the server's view distance). Server-side, sent to clients. Default: 512. Range: 1–1024.",
-      "tooltipDe": "Wie weit der Strahl reicht, in Blöcken (nie über die Sichtweite des Servers hinaus). Serverseitig, an die Clients geschickt. Standard: 512. Bereich: 1–1024,"
+      "tooltip": "How far the beam reaches, in blocks (never\nbeyond the server's view distance).\nServer-side, sent to clients. Default: 512.\nRange: 1–1024.",
+      "tooltipDe": "Wie weit der Strahl reicht, in Blöcken (nie\nüber die Sichtweite des Servers hinaus).\nServerseitig, an die Clients geschickt.\nStandard: 512. Bereich: 1–1024,"
     },
     {
       "name": "tweaks.laserPointer.chargePerSecond",
@@ -58045,8 +58049,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab",
       "label": "Charge per Second of Beaming",
       "labelDe": "Ladung je Sekunde Strahlen",
-      "tooltip": "Charge the rod uses up for every started second of beaming (a full rod holds 640, one amethyst shard recharges 40). 0 = beaming is free. Default: 4.",
-      "tooltipDe": "Ladung, die der Stab je angefangener Sekunde Strahlen verbraucht (voll sind 640, eine Amethystscherbe lädt 40 auf). 0 = Strahlen kostet nichts. Standard: 4."
+      "tooltip": "Charge the rod uses up for every started\nsecond of beaming (a full rod holds 640, one\namethyst shard recharges 40). 0 = beaming is\nfree. Default: 4.",
+      "tooltipDe": "Ladung, die der Stab je angefangener Sekunde\nStrahlen verbraucht (voll sind 640, eine\nAmethystscherbe lädt 40 auf). 0 = Strahlen\nkostet nichts. Standard: 4."
     },
     {
       "name": "tweaks.laserPointer.effectCost",
@@ -58060,8 +58064,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab",
       "label": "Charge per Effect",
       "labelDe": "Ladung je Wirkung",
-      "tooltip": "Charge used up each time the beam melts, lights, dries or ignites something. 0 = effects are free. Default: 5.",
-      "tooltipDe": "Ladung, die jedes Schmelzen, Anzünden oder Trocknen durch den Strahl verbraucht. 0 = Wirkungen kosten nichts. Standard: 5."
+      "tooltip": "Charge used up each time the beam melts,\nlights, dries or ignites something. 0 =\neffects are free. Default: 5.",
+      "tooltipDe": "Ladung, die jedes Schmelzen, Anzünden oder\nTrocknen durch den Strahl verbraucht. 0 =\nWirkungen kosten nichts. Standard: 5."
     },
     {
       "name": "tweaks.balancing.rocketStackSize",
@@ -58075,8 +58079,8 @@ window.WIKI_DATA = {
       "groupDe": "Abstimmung",
       "label": "Firework Rocket Stack Size",
       "labelDe": "Raketen-Stapelgröße",
-      "tooltip": "How many firework rockets fit in one stack (1 to 64); 16 nerfs elytra flight. Server-side, sent to clients. Default: 64.",
-      "tooltipDe": "Wie viele Feuerwerksraketen in einen Stapel passen (1 bis 64); 16 schwächt den Elytraflug ab. Serverseitig, an die Clients geschickt. Standard: 64."
+      "tooltip": "How many firework rockets fit in one stack (1\nto 64); 16 nerfs elytra flight. Server-side,\nsent to clients. Default: 64.",
+      "tooltipDe": "Wie viele Feuerwerksraketen in einen Stapel\npassen (1 bis 64); 16 schwächt den Elytraflug\nab. Serverseitig, an die Clients geschickt.\nStandard: 64."
     },
     {
       "name": "tweaks.balancing.echoSounderJumpCooldownTicks",
@@ -58090,8 +58094,8 @@ window.WIKI_DATA = {
       "groupDe": "Abstimmung",
       "label": "Echo Sounder Cooldown (Ticks)",
       "labelDe": "Echolot-Abklingzeit (Ticks)",
-      "tooltip": "Cooldown of the Echo Sounder after a jump to its lodestone, in ticks (20 = 1 s). 0 = no cooldown. Default: 480 (24 s). Range: 0–12000.",
-      "tooltipDe": "Abklingzeit des Echolots nach einem Sprung zu seinem Leitstein, in Ticks (20 = 1 s). 0 = keine Abklingzeit. Standard: 480 (24 s). Bereich: 0–12000,"
+      "tooltip": "Cooldown of the Echo Sounder after a jump to\nits lodestone, in ticks (20 = 1 s). 0 = no\ncooldown. Default: 480 (24 s). Range:\n0–12000.",
+      "tooltipDe": "Abklingzeit des Echolots nach einem Sprung zu\nseinem Leitstein, in Ticks (20 = 1 s). 0 =\nkeine Abklingzeit. Standard: 480 (24 s).\nBereich: 0–12000,"
     },
     {
       "name": "tweaks.balancing.echoSounderAttemptLockTicks",
@@ -58105,8 +58109,8 @@ window.WIKI_DATA = {
       "groupDe": "Abstimmung",
       "label": "Echo Sounder Attempt Lock (Ticks)",
       "labelDe": "Echolot-Sperre nach Versuch (Ticks)",
-      "tooltip": "Longest lock of the Echo Sounder after an attempt that does not jump (released early, missing lodestone) and after linking, in ticks (20 = 1 s): 1 s right next to the lodestone, the full time from 1000 blocks away or in another dimension. Shown as the item cooldown. 0 = no lock. Default: 100 (5 s). Range: 0–12000.",
-      "tooltipDe": "Längste Sperre des Echolots nach einem Versuch ohne Sprung (zu früh losgelassen, Leitstein fehlt) und nach dem Verknuepfen, in Ticks (20 = 1 s): 1 s direkt am Leitstein, die volle Zeit ab 1000 Blöcken Entfernung oder in einer anderen Dimension. Angezeigt als Abklingzeit des Items. 0 = keine Sperre. Standard: 100 (5 s). Bereich: 0–12000,"
+      "tooltip": "Longest lock of the Echo Sounder after an\nattempt that does not jump (released early,\nmissing lodestone) and after linking, in\nticks (20 = 1 s): 1 s right next to the\nlodestone, the full time from 1000 blocks\naway or in another dimension. Shown as the\nitem cooldown. 0 = no lock. Default: 100 (5\ns). Range: 0–12000.",
+      "tooltipDe": "Längste Sperre des Echolots nach einem\nVersuch ohne Sprung (zu früh losgelassen,\nLeitstein fehlt) und nach dem Verknuepfen, in\nTicks (20 = 1 s): 1 s direkt am Leitstein,\ndie volle Zeit ab 1000 Blöcken Entfernung\noder in einer anderen Dimension. Angezeigt\nals Abklingzeit des Items. 0 = keine Sperre.\nStandard: 100 (5 s). Bereich: 0–12000,"
     },
     {
       "name": "tweaks.spawn.forceExactSpawn",
@@ -58120,8 +58124,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Exact Spawn Point",
       "labelDe": "Exakter Spawnpunkt",
-      "tooltip": "Players spawn exactly on the spawn block (and the bed center) instead of randomly around it. Default: off.",
-      "tooltipDe": "Spieler erscheinen genau auf dem Spawnblock (und der Bettmitte) statt zufällig darum. Standard: aus."
+      "tooltip": "Players spawn exactly on the spawn block (and\nthe bed center) instead of randomly around\nit. Default: off.",
+      "tooltipDe": "Spieler erscheinen genau auf dem Spawnblock\n(und der Bettmitte) statt zufällig darum.\nStandard: aus."
     },
     {
       "name": "tweaks.spawn.disableFallDamageInSpawn",
@@ -58135,8 +58139,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "No Fall Damage at Spawn",
       "labelDe": "Kein Fallschaden am Spawn",
-      "tooltip": "While the spawn elytra is on: no fall damage within the spawn radius. Default: on.",
-      "tooltipDe": "Solange die Spawn-Elytra an ist: kein Fallschaden im Spawnradius. Standard: an."
+      "tooltip": "While the spawn elytra is on: no fall damage\nwithin the spawn radius. Default: on.",
+      "tooltipDe": "Solange die Spawn-Elytra an ist: kein\nFallschaden im Spawnradius. Standard: an."
     },
     {
       "name": "tweaks.spawn.useCustomWorldSpawn",
@@ -58150,8 +58154,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Custom World Spawn",
       "labelDe": "Eigener Weltspawn",
-      "tooltip": "On: the world spawn is moved to the coordinates below (when the overworld loads, or right away when set by command). Default: off.",
-      "tooltipDe": "An: Der Weltspawn wird auf die Koordinaten unten gesetzt (beim Laden der Oberwelt oder, per Befehl gesetzt, sofort). Standard: aus."
+      "tooltip": "On: the world spawn is moved to the\ncoordinates below (when the overworld loads,\nor right away when set by command). Default:\noff.",
+      "tooltipDe": "An: Der Weltspawn wird auf die Koordinaten\nunten gesetzt (beim Laden der Oberwelt oder,\nper Befehl gesetzt, sofort). Standard: aus."
     },
     {
       "name": "tweaks.spawn.xCoordSpawnPoint",
@@ -58180,8 +58184,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "World Spawn Y (-1 = Auto)",
       "labelDe": "Weltspawn Y (-1 = automatisch)",
-      "tooltip": "Y of the custom world spawn; -1 uses the highest block at X/Z. Default: -1.",
-      "tooltipDe": "Y des eigenen Weltspawns; -1 nimmt den obersten Block bei X/Z. Standard: -1."
+      "tooltip": "Y of the custom world spawn; -1 uses the\nhighest block at X/Z. Default: -1.",
+      "tooltipDe": "Y des eigenen Weltspawns; -1 nimmt den\nobersten Block bei X/Z. Standard: -1."
     },
     {
       "name": "tweaks.spawn.zCoordSpawnPoint",
@@ -58210,8 +58214,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Spawn Teleporters on First Join",
       "labelDe": "Spawn-Teleporter beim ersten Betreten",
-      "tooltip": "Spawn teleporters every player gets on the first join (0 to 64, 0 = none). Default: 0.",
-      "tooltipDe": "Spawn-Teleporter, die jeder Spieler beim ersten Betreten bekommt (0 bis 64, 0 = keine). Standard: 0."
+      "tooltip": "Spawn teleporters every player gets on the\nfirst join (0 to 64, 0 = none). Default: 0.",
+      "tooltipDe": "Spawn-Teleporter, die jeder Spieler beim\nersten Betreten bekommt (0 bis 64, 0 =\nkeine). Standard: 0."
     },
     {
       "name": "tweaks.spawn.firstJoinElytraPadCount",
@@ -58225,8 +58229,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Elytra Pads on First Join",
       "labelDe": "Elytra-Pads beim ersten Betreten",
-      "tooltip": "Elytra pads every player gets on the first join (0 to 64, 0 = none). Default: 0.",
-      "tooltipDe": "Elytra-Pads, die jeder Spieler beim ersten Betreten bekommt (0 bis 64, 0 = keine). Standard: 0."
+      "tooltip": "Elytra pads every player gets on the first\njoin (0 to 64, 0 = none). Default: 0.",
+      "tooltipDe": "Elytra-Pads, die jeder Spieler beim ersten\nBetreten bekommt (0 bis 64, 0 = keine).\nStandard: 0."
     },
     {
       "name": "tweaks.spawn.giveElytraOnSpawn",
@@ -58240,8 +58244,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Spawn Elytra",
       "labelDe": "Spawn-Elytra",
-      "tooltip": "Players get a spawn elytra while inside the spawn radius. Default: off.",
-      "tooltipDe": "Spieler bekommen im Spawnradius eine Spawn-Elytra. Standard: aus."
+      "tooltip": "Players get a spawn elytra while inside the\nspawn radius. Default: off.",
+      "tooltipDe": "Spieler bekommen im Spawnradius eine\nSpawn-Elytra. Standard: aus."
     },
     {
       "name": "tweaks.spawn.spawnElytraRadius",
@@ -58255,8 +58259,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Spawn Elytra Radius (Blocks)",
       "labelDe": "Spawn-Elytra-Radius (Blöcke)",
-      "tooltip": "Radius around the center where players get the spawn elytra. Default: 25. Range: 1–256.",
-      "tooltipDe": "Radius um die Mitte, in dem es die Spawn-Elytra gibt. Standard: 25. Bereich: 1–256,"
+      "tooltip": "Radius around the center where players get\nthe spawn elytra. Default: 25. Range: 1–256.",
+      "tooltipDe": "Radius um die Mitte, in dem es die\nSpawn-Elytra gibt. Standard: 25. Bereich:\n1–256,"
     },
     {
       "name": "tweaks.spawn.useWorldSpawnAsCenter",
@@ -58270,8 +58274,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "World Spawn as Center",
       "labelDe": "Weltspawn als Mitte",
-      "tooltip": "On: the world spawn is the center of the spawn area; off: the custom center below. Default: off.",
-      "tooltipDe": "An: Der Weltspawn ist die Mitte des Spawnbereichs; aus: die eigene Mitte unten. Standard: aus."
+      "tooltip": "On: the world spawn is the center of the\nspawn area; off: the custom center below.\nDefault: off.",
+      "tooltipDe": "An: Der Weltspawn ist die Mitte des\nSpawnbereichs; aus: die eigene Mitte unten.\nStandard: aus."
     },
     {
       "name": "tweaks.spawn.customSpawnElytraX",
@@ -58315,8 +58319,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Flight Time (Seconds)",
       "labelDe": "Flugzeit (Sekunden)",
-      "tooltip": "Gliding time with the spawn elytra outside the spawn area (at most 24 h). Default: 300.",
-      "tooltipDe": "Gleitzeit mit der Spawn-Elytra außerhalb des Spawnbereichs (höchstens 24 h). Standard: 300."
+      "tooltip": "Gliding time with the spawn elytra outside\nthe spawn area (at most 24 h). Default: 300.",
+      "tooltipDe": "Gleitzeit mit der Spawn-Elytra außerhalb des\nSpawnbereichs (höchstens 24 h). Standard:\n300."
     },
     {
       "name": "tweaks.spawn.maxBoosts",
@@ -58330,8 +58334,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Boosts per Charge",
       "labelDe": "Boosts je Ladung",
-      "tooltip": "Boosts per charge of the spawn elytra (space while gliding, 1 to 100). Server-side, sent to clients. Default: 3.",
-      "tooltipDe": "Boosts je Ladung der Spawn-Elytra (Leertaste im Gleitflug, 1 bis 100). Serverseitig, an die Clients geschickt. Standard: 3."
+      "tooltip": "Boosts per charge of the spawn elytra (space\nwhile gliding, 1 to 100). Server-side, sent\nto clients. Default: 3.",
+      "tooltipDe": "Boosts je Ladung der Spawn-Elytra (Leertaste\nim Gleitflug, 1 bis 100). Serverseitig, an\ndie Clients geschickt. Standard: 3."
     },
     {
       "name": "tweaks.spawn.boostStrength",
@@ -58345,8 +58349,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Boost Strength",
       "labelDe": "Boost-Stärke",
-      "tooltip": "Strength of one spawn elytra boost. Default: 0.6. Range: 0.1–1.2.",
-      "tooltipDe": "Stärke eines Boosts der Spawn-Elytra. Standard: 0,6. Bereich: 0,1–1,2,"
+      "tooltip": "Strength of one spawn elytra boost. Default:\n0.6. Range: 0.1–1.2.",
+      "tooltipDe": "Stärke eines Boosts der Spawn-Elytra.\nStandard: 0,6. Bereich: 0,1–1,2,"
     },
     {
       "name": "tweaks.spawn.spawn1X",
@@ -58360,8 +58364,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Teleporter Target X",
       "labelDe": "Teleporter-Ziel X",
-      "tooltip": "X of the target of all spawn teleporters; set it with /simplebuilding tweaks worldspawn setspawn1. Default: 0.",
-      "tooltipDe": "X des Ziels aller Spawn-Teleporter; gesetzt mit /simplebuilding tweaks worldspawn setspawn1. Standard: 0."
+      "tooltip": "X of the target of all spawn teleporters; set\nit with /simplebuilding tweaks worldspawn\nsetspawn1. Default: 0.",
+      "tooltipDe": "X des Ziels aller Spawn-Teleporter; gesetzt\nmit /simplebuilding tweaks worldspawn\nsetspawn1. Standard: 0."
     },
     {
       "name": "tweaks.spawn.spawn1Y",
@@ -58375,8 +58379,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Teleporter Target Y",
       "labelDe": "Teleporter-Ziel Y",
-      "tooltip": "Y of the target of all spawn teleporters; set it with /simplebuilding tweaks worldspawn setspawn1. -1000 = not set (world spawn). Default: -1000.",
-      "tooltipDe": "Y des Ziels aller Spawn-Teleporter; gesetzt mit /simplebuilding tweaks worldspawn setspawn1. -1000 = nicht gesetzt (Weltspawn). Standard: -1000."
+      "tooltip": "Y of the target of all spawn teleporters; set\nit with /simplebuilding tweaks worldspawn\nsetspawn1. -1000 = not set (world spawn).\nDefault: -1000.",
+      "tooltipDe": "Y des Ziels aller Spawn-Teleporter; gesetzt\nmit /simplebuilding tweaks worldspawn\nsetspawn1. -1000 = nicht gesetzt (Weltspawn).\nStandard: -1000."
     },
     {
       "name": "tweaks.spawn.spawn1Z",
@@ -58390,8 +58394,8 @@ window.WIKI_DATA = {
       "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
       "label": "Teleporter Target Z",
       "labelDe": "Teleporter-Ziel Z",
-      "tooltip": "Z of the target of all spawn teleporters; set it with /simplebuilding tweaks worldspawn setspawn1. Default: 0.",
-      "tooltipDe": "Z des Ziels aller Spawn-Teleporter; gesetzt mit /simplebuilding tweaks worldspawn setspawn1. Standard: 0."
+      "tooltip": "Z of the target of all spawn teleporters; set\nit with /simplebuilding tweaks worldspawn\nsetspawn1. Default: 0.",
+      "tooltipDe": "Z des Ziels aller Spawn-Teleporter; gesetzt\nmit /simplebuilding tweaks worldspawn\nsetspawn1. Standard: 0."
     },
     {
       "name": "tweaks.dimensions.allowNether",
@@ -58405,8 +58409,8 @@ window.WIKI_DATA = {
       "groupDe": "Dimensionen",
       "label": "Allow the Nether",
       "labelDe": "Nether erlauben",
-      "tooltip": "Off: no player can enter the Nether. Default: on.",
-      "tooltipDe": "Aus: Kein Spieler kann den Nether betreten. Standard: an."
+      "tooltip": "Off: no player can enter the Nether. Default:\non.",
+      "tooltipDe": "Aus: Kein Spieler kann den Nether betreten.\nStandard: an."
     },
     {
       "name": "tweaks.dimensions.allowEnd",
@@ -58420,8 +58424,8 @@ window.WIKI_DATA = {
       "groupDe": "Dimensionen",
       "label": "Allow the End",
       "labelDe": "Ende erlauben",
-      "tooltip": "Off: no player can enter the End. Default: on.",
-      "tooltipDe": "Aus: Kein Spieler kann das End betreten. Standard: an."
+      "tooltip": "Off: no player can enter the End. Default:\non.",
+      "tooltipDe": "Aus: Kein Spieler kann das End betreten.\nStandard: an."
     },
     {
       "name": "tweaks.commands.enableKillBoatsCommand",
@@ -58435,8 +58439,8 @@ window.WIKI_DATA = {
       "groupDe": "Befehle",
       "label": "Enable /killboats",
       "labelDe": "/killboats erlauben",
-      "tooltip": "Operators can remove unused boats around them with /killboats [standard|empty|all]. Default: on.",
-      "tooltipDe": "Operatoren können mit /killboats [standard|empty|all] unbenutzte Boote um sich entfernen. Standard: an."
+      "tooltip": "Operators can remove unused boats around them\nwith /killboats [standard|empty|all].\nDefault: on.",
+      "tooltipDe": "Operatoren können mit /killboats\n[standard|empty|all] unbenutzte Boote um sich\nentfernen. Standard: an."
     },
     {
       "name": "tweaks.commands.enableKillCartsCommand",
@@ -58450,8 +58454,8 @@ window.WIKI_DATA = {
       "groupDe": "Befehle",
       "label": "Enable /killcarts",
       "labelDe": "/killcarts erlauben",
-      "tooltip": "Operators can remove unused minecarts around them with /killcarts [standard|empty|all]. Default: off.",
-      "tooltipDe": "Operatoren können mit /killcarts [standard|empty|all] unbenutzte Loren um sich entfernen. Standard: aus."
+      "tooltip": "Operators can remove unused minecarts around\nthem with /killcarts [standard|empty|all].\nDefault: off.",
+      "tooltipDe": "Operatoren können mit /killcarts\n[standard|empty|all] unbenutzte Loren um sich\nentfernen. Standard: aus."
     },
     {
       "name": "tweaks.commands.killCommandRadius",
@@ -58465,8 +58469,8 @@ window.WIKI_DATA = {
       "groupDe": "Befehle",
       "label": "/killboats and /killcarts Radius",
       "labelDe": "Reichweite von /killboats und /killcarts",
-      "tooltip": "How far around the player /killboats and /killcarts reach, in blocks. Default: 100. Range: 1–256.",
-      "tooltipDe": "Wie weit /killboats und /killcarts um den Spieler reichen, in Blöcken. Standard: 100. Bereich: 1–256,"
+      "tooltip": "How far around the player /killboats and\n/killcarts reach, in blocks. Default: 100.\nRange: 1–256.",
+      "tooltipDe": "Wie weit /killboats und /killcarts um den\nSpieler reichen, in Blöcken. Standard: 100.\nBereich: 1–256,"
     },
     {
       "name": "tweaks.optimization.enableXpClumps",
@@ -58480,8 +58484,8 @@ window.WIKI_DATA = {
       "groupDe": "Leistung",
       "label": "Merge XP Orbs",
       "labelDe": "XP-Kugeln zusammenlegen",
-      "tooltip": "Merges nearby experience orbs into one (nothing is lost) and allows instant pickup. Default: on.",
-      "tooltipDe": "Legt nahe Erfahrungskugeln zu einer zusammen (nichts geht verloren) und erlaubt sofortiges Aufheben. Standard: an."
+      "tooltip": "Merges nearby experience orbs into one\n(nothing is lost) and allows instant pickup.\nDefault: on.",
+      "tooltipDe": "Legt nahe Erfahrungskugeln zu einer zusammen\n(nichts geht verloren) und erlaubt sofortiges\nAufheben. Standard: an."
     },
     {
       "name": "tweaks.optimization.xpClumpRadius",
@@ -58495,8 +58499,8 @@ window.WIKI_DATA = {
       "groupDe": "Leistung",
       "label": "XP Merge Radius (Blocks)",
       "labelDe": "XP-Zusammenlege-Radius (Blöcke)",
-      "tooltip": "How far an orb reaches to merge its neighbors, in blocks. Larger = fewer orbs. Default: 2.0. Range: 0–8.0.",
-      "tooltipDe": "Wie weit eine Kugel ihre Nachbarn einsammelt, in Blöcken. Größer = weniger Kugeln. Standard: 2,0. Bereich: 0–8,0,"
+      "tooltip": "How far an orb reaches to merge its\nneighbors, in blocks. Larger = fewer orbs.\nDefault: 2.0. Range: 0–8.0.",
+      "tooltipDe": "Wie weit eine Kugel ihre Nachbarn einsammelt,\nin Blöcken. Größer = weniger Kugeln.\nStandard: 2,0. Bereich: 0–8,0,"
     },
     {
       "name": "tweaks.optimization.scaleXpOrbs",
@@ -58510,8 +58514,8 @@ window.WIKI_DATA = {
       "groupDe": "Leistung",
       "label": "Scale XP Orbs by Value",
       "labelDe": "XP-Kugeln nach Wert skalieren",
-      "tooltip": "Orbs worth more experience look bigger (up to three times). Client-side. Default: on.",
-      "tooltipDe": "Wertvollere Kugeln sehen größer aus (bis dreifach). Clientseitig. Standard: an."
+      "tooltip": "Orbs worth more experience look bigger (up to\nthree times). Client-side. Default: on.",
+      "tooltipDe": "Wertvollere Kugeln sehen größer aus (bis\ndreifach). Clientseitig. Standard: an."
     },
     {
       "name": "worldGen.enableLootTableChanges",
@@ -58525,8 +58529,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot in Chests",
       "labelDe": "Mod-Beute in Truhen",
-      "tooltip": "Adds mod items and enchanted books to vanilla structure chests, trial chamber vaults and fishing treasure. Applies when the data packs load (world start, /reload). Default: on.",
-      "tooltipDe": "Fügt Mod-Gegenstände und verzauberte Bücher zu Vanilla-Strukturtruhen, Prüfungskammer-Tresoren und dem Angelschatz hinzu. Gilt beim Laden der Datenpakete (Weltstart, /reload). Standard: an."
+      "tooltip": "Adds mod items and enchanted books to vanilla\nstructure chests, trial chamber vaults and\nfishing treasure. Applies when the data packs\nload (world start, /reload). Default: on.",
+      "tooltipDe": "Fügt Mod-Gegenstände und verzauberte Bücher\nzu Vanilla-Strukturtruhen,\nPrüfungskammer-Tresoren und dem Angelschatz\nhinzu. Gilt beim Laden der Datenpakete\n(Weltstart, /reload). Standard: an."
     },
     {
       "name": "worldGen.buildingCoreLootChanceMultiplier",
@@ -58540,8 +58544,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Building Core Loot Chance Multiplier",
       "labelDe": "Baukern-Beutechancen-Faktor",
-      "tooltip": "Multiplies the (very small) chance of building cores in loot chests, at most one per chest. 0 = no cores in chests. Applies on world start or /reload. Default: 1.0.",
-      "tooltipDe": "Multipliziert die (sehr kleine) Chance auf Baukerne in Beutetruhen, höchstens einer je Truhe. 0 = keine Kerne in Truhen. Gilt beim Weltstart oder /reload. Standard: 1,0."
+      "tooltip": "Multiplies the (very small) chance of\nbuilding cores in loot chests, at most one\nper chest. 0 = no cores in chests. Applies on\nworld start or /reload. Default: 1.0.",
+      "tooltipDe": "Multipliziert die (sehr kleine) Chance auf\nBaukerne in Beutetruhen, höchstens einer je\nTruhe. 0 = keine Kerne in Truhen. Gilt beim\nWeltstart oder /reload. Standard: 1,0."
     },
     {
       "name": "worldGen.enableVillagerTrades",
@@ -58555,8 +58559,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Villager Trades",
       "labelDe": "Dorfbewohner-Handel",
-      "tooltip": "Librarians, masons and toolsmiths also offer mod items and books. Applies on world start or /reload. Default: on.",
-      "tooltipDe": "Bibliothekare, Steinmetze und Werkzeugschmiede bieten auch Mod-Gegenstände und -Bücher an. Gilt beim Weltstart oder /reload. Standard: an."
+      "tooltip": "Librarians, masons and toolsmiths also offer\nmod items and books. Applies on world start\nor /reload. Default: on.",
+      "tooltipDe": "Bibliothekare, Steinmetze und\nWerkzeugschmiede bieten auch Mod-Gegenstände\nund -Bücher an. Gilt beim Weltstart oder\n/reload. Standard: an."
     },
     {
       "name": "worldGen.enableWanderingTrades",
@@ -58570,8 +58574,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Wandering Trader Offers",
       "labelDe": "Angebote des fahrenden Händlers",
-      "tooltip": "The wandering trader also buys and sells mod items. Applies on world start or /reload. Default: on.",
-      "tooltipDe": "Der fahrende Händler kauft und verkauft auch Mod-Gegenstände. Gilt beim Weltstart oder /reload. Standard: an."
+      "tooltip": "The wandering trader also buys and sells mod\nitems. Applies on world start or /reload.\nDefault: on.",
+      "tooltipDe": "Der fahrende Händler kauft und verkauft auch\nMod-Gegenstände. Gilt beim Weltstart oder\n/reload. Standard: an."
     },
     {
       "name": "giveGuideBookOnFirstJoin",
@@ -58585,8 +58589,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Starter Guide (Older Versions)",
       "labelDe": "Starter-Handbuch (alte Versionen)",
-      "tooltip": "Ignored on 26.3: guides must be crafted. Default: off.",
-      "tooltipDe": "Auf 26.3 ohne Wirkung: Handbuecher muessen hergestellt werden. Standard: aus."
+      "tooltip": "Ignored on 26.3: guides must be crafted.\nDefault: off.",
+      "tooltipDe": "Auf 26.3 ohne Wirkung: Handbuecher muessen\nhergestellt werden. Standard: aus."
     },
     {
       "name": "vanillaEnchantedBookTextures",
@@ -58600,8 +58604,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Own Textures for Vanilla Enchanted Books",
       "labelDe": "Eigene Texturen für Vanilla-Zauberbücher",
-      "tooltip": "Every vanilla enchantment gets its own enchanted book texture. Turn it off to see the vanilla book again, e.g. when a resource pack or another mod retextures the books. Takes effect immediately. Default: on.",
-      "tooltipDe": "Jede Vanilla-Verzauberung bekommt ihr eigenes Buch. Aus: wieder das Vanilla-Buch, etwa wenn ein Ressourcenpaket oder eine andere Mod die Bücher neu gestaltet. Wirkt sofort. Standard: an."
+      "tooltip": "Every vanilla enchantment gets its own\nenchanted book texture. Turn it off to see\nthe vanilla book again, e.g. when a resource\npack or another mod retextures the books.\nTakes effect immediately. Default: on.",
+      "tooltipDe": "Jede Vanilla-Verzauberung bekommt ihr eigenes\nBuch. Aus: wieder das Vanilla-Buch, etwa wenn\nein Ressourcenpaket oder eine andere Mod die\nBücher neu gestaltet. Wirkt sofort. Standard:\nan."
     },
     {
       "name": "modEnchantedBookTextures",
@@ -58615,8 +58619,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Own Textures for Mod Enchanted Books",
       "labelDe": "Eigene Texturen für Mod-Zauberbücher",
-      "tooltip": "Every enchantment of this mod has its own enchanted book texture. Turn it off for the plain vanilla enchanted book. Takes effect immediately. Default: on.",
-      "tooltipDe": "Jede Verzauberung dieser Mod hat ihr eigenes Buch. Aus: das schlichte Vanilla-Zauberbuch. Wirkt sofort. Standard: an."
+      "tooltip": "Every enchantment of this mod has its own\nenchanted book texture. Turn it off for the\nplain vanilla enchanted book. Takes effect\nimmediately. Default: on.",
+      "tooltipDe": "Jede Verzauberung dieser Mod hat ihr eigenes\nBuch. Aus: das schlichte Vanilla-Zauberbuch.\nWirkt sofort. Standard: an."
     },
     {
       "name": "visibleTrimIconsVanillaArmor",
@@ -58630,8 +58634,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Trim Patterns on Vanilla Armor Icons",
       "labelDe": "Besatzmuster auf Vanilla-Rüstungs-Icons",
-      "tooltip": "Item icons of trimmed vanilla armor (and the turtle shell) show the trim pattern in the trim material's colors. Off: the vanilla icon with only a color mark. Takes effect immediately. Default: on.",
-      "tooltipDe": "Die Icons besetzter Vanilla-Rüstung (auch des Schildkrötenpanzers) zeigen das Besatzmuster in den Farben des Materials. Aus: das Vanilla-Icon mit nur einem Farbfleck. Wirkt sofort. Standard: an."
+      "tooltip": "Item icons of trimmed vanilla armor (and the\nturtle shell) show the trim pattern in the\ntrim material's colors. Off: the vanilla icon\nwith only a color mark. Takes effect\nimmediately. Default: on.",
+      "tooltipDe": "Die Icons besetzter Vanilla-Rüstung (auch des\nSchildkrötenpanzers) zeigen das Besatzmuster\nin den Farben des Materials. Aus: das\nVanilla-Icon mit nur einem Farbfleck. Wirkt\nsofort. Standard: an."
     },
     {
       "name": "visibleTrimIconsModArmor",
@@ -58645,8 +58649,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Trim Patterns on Enderite Armor Icons",
       "labelDe": "Besatzmuster auf Enderit-Rüstungs-Icons",
-      "tooltip": "Item icons of trimmed Enderite armor show the trim pattern in the trim material's colors. Off: the plain icon with only a color mark. Takes effect immediately. Default: on.",
-      "tooltipDe": "Die Icons besetzter Enderit-Rüstung zeigen das Besatzmuster in den Farben des Materials. Aus: das schlichte Icon mit nur einem Farbfleck. Wirkt sofort. Standard: an."
+      "tooltip": "Item icons of trimmed Enderite armor show the\ntrim pattern in the trim material's colors.\nOff: the plain icon with only a color mark.\nTakes effect immediately. Default: on.",
+      "tooltipDe": "Die Icons besetzter Enderit-Rüstung zeigen\ndas Besatzmuster in den Farben des Materials.\nAus: das schlichte Icon mit nur einem\nFarbfleck. Wirkt sofort. Standard: an."
     },
     {
       "name": "showModHud",
@@ -58660,8 +58664,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Show Mod HUD",
       "labelDe": "Mod-HUD anzeigen",
-      "tooltip": "Shows the mod's HUD boxes: Gauge, Octant, rod distance readout, air jump cooldown bar and spawn elytra bar. The Toggle Mod HUD key (unbound by default, see Controls) switches this too. Client-side. Default: on.",
-      "tooltipDe": "Zeigt die HUD-Kästen der Mod: Messuhr, Oktant, Entfernungsanzeige des Stabs, Luftsprung-Abklingleiste und Spawn-Elytra-Leiste. Die Taste „Mod-HUD ein/aus“ (anfangs nicht belegt, siehe Steuerung) schaltet das ebenfalls. Nur Client. Standard: an."
+      "tooltip": "Shows the mod's HUD boxes: Gauge, Octant, rod\ndistance readout, air jump cooldown bar and\nspawn elytra bar. The Toggle Mod HUD key\n(unbound by default, see Controls) switches\nthis too. Client-side. Default: on.",
+      "tooltipDe": "Zeigt die HUD-Kästen der Mod: Messuhr,\nOktant, Entfernungsanzeige des Stabs,\nLuftsprung-Abklingleiste und\nSpawn-Elytra-Leiste. Die Taste „Mod-HUD\nein/aus“ (anfangs nicht belegt, siehe\nSteuerung) schaltet das ebenfalls. Nur\nClient. Standard: an."
     },
     {
       "name": "hudPositionX",
@@ -58675,8 +58679,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "HUD Position: Horizontal",
       "labelDe": "HUD-Position: waagerecht",
-      "tooltip": "Where the HUD boxes (Gauge, Octant, rod distance) sit across the screen, in percent: 0 = left edge, 50 = center, 100 = right edge. Client-side. Default: 0.",
-      "tooltipDe": "Wo die HUD-Kästen (Messuhr, Oktant, Entfernung des Stabs) in der Breite stehen, in Prozent: 0 = linker Rand, 50 = Mitte, 100 = rechter Rand. Nur Client. Standard: 0."
+      "tooltip": "Where the HUD boxes (Gauge, Octant, rod\ndistance) sit across the screen, in percent:\n0 = left edge, 50 = center, 100 = right edge.\nClient-side. Default: 0.",
+      "tooltipDe": "Wo die HUD-Kästen (Messuhr, Oktant,\nEntfernung des Stabs) in der Breite stehen,\nin Prozent: 0 = linker Rand, 50 = Mitte, 100\n= rechter Rand. Nur Client. Standard: 0."
     },
     {
       "name": "hudPositionY",
@@ -58690,8 +58694,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "HUD Position: Vertical",
       "labelDe": "HUD-Position: senkrecht",
-      "tooltip": "Where the HUD boxes (Gauge, Octant, rod distance) sit up and down the screen, in percent: 0 = top, 50 = middle, 100 = bottom. Client-side. Default: 50.",
-      "tooltipDe": "Wo die HUD-Kästen (Messuhr, Oktant, Entfernung des Stabs) in der Höhe stehen, in Prozent: 0 = oben, 50 = Mitte, 100 = unten. Nur Client. Standard: 50."
+      "tooltip": "Where the HUD boxes (Gauge, Octant, rod\ndistance) sit up and down the screen, in\npercent: 0 = top, 50 = middle, 100 = bottom.\nClient-side. Default: 50.",
+      "tooltipDe": "Wo die HUD-Kästen (Messuhr, Oktant,\nEntfernung des Stabs) in der Höhe stehen, in\nProzent: 0 = oben, 50 = Mitte, 100 = unten.\nNur Client. Standard: 50."
     },
     {
       "name": "hudScale",
@@ -58705,8 +58709,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "HUD Size",
       "labelDe": "HUD-Größe",
-      "tooltip": "Size of the HUD boxes (Gauge, Octant, rod distance) in percent (50 to 200). Client-side. Default: 100.",
-      "tooltipDe": "Größe der HUD-Kästen (Messuhr, Oktant, Entfernung des Stabs) in Prozent (50 bis 200). Nur Client. Standard: 100."
+      "tooltip": "Size of the HUD boxes (Gauge, Octant, rod\ndistance) in percent (50 to 200).\nClient-side. Default: 100.",
+      "tooltipDe": "Größe der HUD-Kästen (Messuhr, Oktant,\nEntfernung des Stabs) in Prozent (50 bis\n200). Nur Client. Standard: 100."
     },
     {
       "name": "pistonsFireBreakEvents",
@@ -58720,8 +58724,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Pistons Fire Block Break Events",
       "labelDe": "Kolben lösen Abbau-Ereignisse aus",
-      "tooltip": "Before a Netherite or Enderite Piston destroys a block it fires the loader's block break event with a fake player, so claim and protection mods can stop it. Turn it off if a protection mod blocks every fake player (pistons would stop everywhere) or quest and statistics mods count piston breaks as player breaks. Server-side. Default: on.",
-      "tooltipDe": "Bevor ein Netherit- oder Enderitkolben einen Block zerstört, löst er das Abbau-Ereignis des Loaders mit einem Fake-Spieler aus, damit Claim- und Schutz-Mods es verhindern können. Ausschalten, wenn ein Schutz-Mod jeden Fake-Spieler sperrt (die Kolben stünden überall still) oder Quest- und Statistik-Mods Kolbenabbau als Spielerabbau zählen. Serverseitig. Standard: an."
+      "tooltip": "Before a Netherite or Enderite Piston\ndestroys a block it fires the loader's block\nbreak event with a fake player, so claim and\nprotection mods can stop it. Turn it off if a\nprotection mod blocks every fake player\n(pistons would stop everywhere) or quest and\nstatistics mods count piston breaks as player\nbreaks. Server-side. Default: on.",
+      "tooltipDe": "Bevor ein Netherit- oder Enderitkolben einen\nBlock zerstört, löst er das Abbau-Ereignis\ndes Loaders mit einem Fake-Spieler aus, damit\nClaim- und Schutz-Mods es verhindern können.\nAusschalten, wenn ein Schutz-Mod jeden\nFake-Spieler sperrt (die Kolben stünden\nüberall still) oder Quest- und Statistik-Mods\nKolbenabbau als Spielerabbau zählen.\nServerseitig. Standard: an."
     },
     {
       "name": "showDevEnchantedTab",
@@ -58735,8 +58739,8 @@ window.WIKI_DATA = {
       "groupDe": null,
       "label": "Show \"SimpleEnchants (Dev)\" Creative Tab",
       "labelDe": "Kreativ-Tab „SimpleEnchants (Dev)“ zeigen",
-      "tooltip": "Shows the creative tab \"SimpleEnchants (Dev)\" outside development environments too: the best tier of every enchantable item, pre-enchanted at max level. Takes effect when the creative tabs are rebuilt (at the latest after rejoining). Default: off.",
-      "tooltipDe": "Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“ auch außerhalb von Entwicklungsumgebungen: die beste Stufe jedes verzauberbaren Gegenstands, vorverzaubert auf Höchststufe. Wirkt beim Neuaufbau der Kreativ-Tabs (spätestens nach erneutem Betreten). Standard: aus."
+      "tooltip": "Shows the creative tab \"SimpleEnchants (Dev)\"\noutside development environments too: the\nbest tier of every enchantable item,\npre-enchanted at max level. Takes effect when\nthe creative tabs are rebuilt (at the latest\nafter rejoining). Default: off.",
+      "tooltipDe": "Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“\nauch außerhalb von Entwicklungsumgebungen:\ndie beste Stufe jedes verzauberbaren\nGegenstands, vorverzaubert auf Höchststufe.\nWirkt beim Neuaufbau der Kreativ-Tabs\n(spätestens nach erneutem Betreten).\nStandard: aus."
     },
     {
       "name": "server.features.endSignals",
@@ -58750,8 +58754,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "End Signal Channels",
       "labelDe": "End-Signalkanaele",
-      "tooltip": "Enable isolated End channels. Recipes update on datapack reload. Default: true.",
-      "tooltipDe": "End-Signalkanaele aktivieren. Rezepte nach Datenpaket-Neuladen. Standard: true."
+      "tooltip": "Enable isolated End channels. Recipes update\non datapack reload. Default: true.",
+      "tooltipDe": "End-Signalkanaele aktivieren. Rezepte nach\nDatenpaket-Neuladen. Standard: true."
     },
     {
       "name": "server.features.astralVault",
@@ -58765,8 +58769,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Astral Vault",
       "labelDe": "Astralgewölbe",
-      "tooltip": "Enable Astral Vault use. Disabling preserves contents. Recipes update on datapack reload. Default: true.",
-      "tooltipDe": "Astralgewoelbe aktivieren. Abschalten bewahrt den Inhalt. Rezepte nach Datenpaket-Neuladen. Standard: true."
+      "tooltip": "Enable Astral Vault use. Disabling preserves\ncontents. Recipes update on datapack reload.\nDefault: true.",
+      "tooltipDe": "Astralgewoelbe aktivieren. Abschalten bewahrt\nden Inhalt. Rezepte nach Datenpaket-Neuladen.\nStandard: true."
     },
     {
       "name": "server.features.airJump",
@@ -58780,8 +58784,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Air Jump",
       "labelDe": "Luftsprung",
-      "tooltip": "Off: the Air Jump enchantment does nothing on this server, whatever a client's own Air Jump switch says. Server-side, sent to clients. Default: on.",
-      "tooltipDe": "Aus: die Verzauberung Luftsprung wirkt auf diesem Server nicht, egal was der eigene Schalter eines Clients sagt. Serverseitig, an die Clients geschickt. Standard: an."
+      "tooltip": "Off: the Air Jump enchantment does nothing on\nthis server, whatever a client's own Air Jump\nswitch says. Server-side, sent to clients.\nDefault: on.",
+      "tooltipDe": "Aus: die Verzauberung Luftsprung wirkt auf\ndiesem Server nicht, egal was der eigene\nSchalter eines Clients sagt. Serverseitig, an\ndie Clients geschickt. Standard: an."
     },
     {
       "name": "server.features.dynamicLight",
@@ -58795,8 +58799,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Dynamic Light",
       "labelDe": "Dynamisches Licht",
-      "tooltip": "Radiance armor lights up the blocks around its wearer with invisible light blocks. Off: no new light blocks, and the ones already placed disappear on the wearer's next check. Server-side. Default: on.",
-      "tooltipDe": "Leuchtende Rüstung erhellt die Umgebung ihres Trägers mit unsichtbaren Lichtblöcken. Aus: keine neuen Lichtblöcke, und die schon gesetzten verschwinden beim nächsten Takt des Trägers. Serverseitig. Standard: an."
+      "tooltip": "Radiance armor lights up the blocks around\nits wearer with invisible light blocks. Off:\nno new light blocks, and the ones already\nplaced disappear on the wearer's next check.\nServer-side. Default: on.",
+      "tooltipDe": "Leuchtende Rüstung erhellt die Umgebung ihres\nTrägers mit unsichtbaren Lichtblöcken. Aus:\nkeine neuen Lichtblöcke, und die schon\ngesetzten verschwinden beim nächsten Takt des\nTrägers. Serverseitig. Standard: an."
     },
     {
       "name": "server.features.placeVanillaItems",
@@ -58810,8 +58814,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Place Small Vanilla Items",
       "labelDe": "Vanilla-Kleinteile ablegen",
-      "tooltip": "Sneak + right-click lays sticks, ingots, nuggets, gems, bricks and flint flat on a block. Off: only the mod's own small parts can be placed. Server-side. Default: on.",
-      "tooltipDe": "Schleichen + Rechtsklick legt Stöcke, Barren, Klumpen, Edelsteine, Ziegel und Feuerstein flach auf einen Block. Aus: nur die eigenen Kleinteile der Mod lassen sich ablegen. Serverseitig. Standard: an."
+      "tooltip": "Sneak + right-click lays sticks, ingots,\nnuggets, gems, bricks and flint flat on a\nblock. Off: only the mod's own small parts\ncan be placed. Server-side. Default: on.",
+      "tooltipDe": "Schleichen + Rechtsklick legt Stöcke, Barren,\nKlumpen, Edelsteine, Ziegel und Feuerstein\nflach auf einen Block. Aus: nur die eigenen\nKleinteile der Mod lassen sich ablegen.\nServerseitig. Standard: an."
     },
     {
       "name": "server.features.placeDisabledItems",
@@ -58825,8 +58829,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Unplaceable Items",
       "labelDe": "Nicht ablegbare Items",
-      "tooltip": "Item IDs that can no longer be placed, separated by commas or spaces (without a namespace: minecraft). Already placed ones stay. Server-side. Default: empty.",
-      "tooltipDe": "Item-IDs, die sich nicht mehr ablegen lassen, durch Komma oder Leerzeichen getrennt (ohne Namensraum: minecraft). Schon abgelegte bleiben liegen. Serverseitig. Standard: leer."
+      "tooltip": "Item IDs that can no longer be placed,\nseparated by commas or spaces (without a\nnamespace: minecraft). Already placed ones\nstay. Server-side. Default: empty.",
+      "tooltipDe": "Item-IDs, die sich nicht mehr ablegen lassen,\ndurch Komma oder Leerzeichen getrennt (ohne\nNamensraum: minecraft). Schon abgelegte\nbleiben liegen. Serverseitig. Standard: leer."
     },
     {
       "name": "server.features.anvilRepairKeepsCost",
@@ -58840,8 +58844,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Repairing Keeps Anvil Cost",
       "labelDe": "Reparieren hält Ambosskosten",
-      "tooltip": "Repairing or renaming at the anvil without new enchantments does not raise the item's anvil cost. Only enchanting does. Server-side. Default: on.",
-      "tooltipDe": "Reparieren oder Umbenennen am Amboss ohne neue Verzauberung erhöht die Ambosskosten des Gegenstands nicht. Nur Verzaubern tut das. Serverseitig. Standard: an."
+      "tooltip": "Repairing or renaming at the anvil without\nnew enchantments does not raise the item's\nanvil cost. Only enchanting does.\nServer-side. Default: on.",
+      "tooltipDe": "Reparieren oder Umbenennen am Amboss ohne\nneue Verzauberung erhöht die Ambosskosten des\nGegenstands nicht. Nur Verzaubern tut das.\nServerseitig. Standard: an."
     },
     {
       "name": "server.features.backpack",
@@ -58855,8 +58859,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Backpacks",
       "labelDe": "Rucksäcke",
-      "tooltip": "Off: a worn backpack no longer opens (a placed one still does, so nobody loses the contents). Its recipes vanish with the next /reload or world start. Server-side, sent to clients. Default: on.",
-      "tooltipDe": "Aus: ein getragener Rucksack öffnet sich nicht mehr (ein abgestellter schon, damit niemand den Inhalt verliert). Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig, an die Clients geschickt. Standard: an."
+      "tooltip": "Off: a worn backpack no longer opens (a\nplaced one still does, so nobody loses the\ncontents). Its recipes vanish with the next\n/reload or world start. Server-side, sent to\nclients. Default: on.",
+      "tooltipDe": "Aus: ein getragener Rucksack öffnet sich\nnicht mehr (ein abgestellter schon, damit\nniemand den Inhalt verliert). Die Rezepte\nverschwinden beim nächsten /reload oder\nWeltstart. Serverseitig, an die Clients\ngeschickt. Standard: an."
     },
     {
       "name": "server.features.attractor",
@@ -58870,8 +58874,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Attractor",
       "labelDe": "Attractor",
-      "tooltip": "Off: the Attractor (formerly Magnet) pulls no items. Its recipes vanish with the next /reload or world start. Server-side. Default: on.",
-      "tooltipDe": "Aus: der Attractor (früher Magnet) zieht keine Gegenstände an. Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig. Standard: an."
+      "tooltip": "Off: the Attractor (formerly Magnet) pulls no\nitems. Its recipes vanish with the next\n/reload or world start. Server-side. Default:\non.",
+      "tooltipDe": "Aus: der Attractor (früher Magnet) zieht\nkeine Gegenstände an. Die Rezepte\nverschwinden beim nächsten /reload oder\nWeltstart. Serverseitig. Standard: an."
     },
     {
       "name": "server.features.echoSounder",
@@ -58885,8 +58889,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Echo Sounder",
       "labelDe": "Echolot",
-      "tooltip": "Off: the Echo Sounder no longer teleports. Its recipes vanish with the next /reload or world start. Server-side. Default: on.",
-      "tooltipDe": "Aus: das Echolot teleportiert nicht mehr. Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig. Standard: an."
+      "tooltip": "Off: the Echo Sounder no longer teleports.\nIts recipes vanish with the next /reload or\nworld start. Server-side. Default: on.",
+      "tooltipDe": "Aus: das Echolot teleportiert nicht mehr. Die\nRezepte verschwinden beim nächsten /reload\noder Weltstart. Serverseitig. Standard: an."
     },
     {
       "name": "server.features.blueprint",
@@ -58900,8 +58904,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Blueprints",
       "labelDe": "Blaupausen",
-      "tooltip": "Off: blueprints neither open their editor nor build with the Building Wand. Its recipes vanish with the next /reload or world start. Server-side, sent to clients. Default: on.",
-      "tooltipDe": "Aus: Blaupausen öffnen weder den Editor noch bauen sie mit dem Baustab. Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig, an die Clients geschickt. Standard: an."
+      "tooltip": "Off: blueprints neither open their editor nor\nbuild with the Building Wand. Its recipes\nvanish with the next /reload or world start.\nServer-side, sent to clients. Default: on.",
+      "tooltipDe": "Aus: Blaupausen öffnen weder den Editor noch\nbauen sie mit dem Baustab. Die Rezepte\nverschwinden beim nächsten /reload oder\nWeltstart. Serverseitig, an die Clients\ngeschickt. Standard: an."
     },
     {
       "name": "server.features.oreDetector",
@@ -58915,8 +58919,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Detector",
       "labelDe": "Detektor",
-      "tooltip": "Off: the Detector stops scanning and its needle rests. Its recipes vanish with the next /reload or world start. Server-side. Default: on.",
-      "tooltipDe": "Aus: der Detektor sucht nicht mehr, seine Nadel ruht. Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig. Standard: an."
+      "tooltip": "Off: the Detector stops scanning and its\nneedle rests. Its recipes vanish with the\nnext /reload or world start. Server-side.\nDefault: on.",
+      "tooltipDe": "Aus: der Detektor sucht nicht mehr, seine\nNadel ruht. Die Rezepte verschwinden beim\nnächsten /reload oder Weltstart.\nServerseitig. Standard: an."
     },
     {
       "name": "server.features.levitatingBlocks",
@@ -58930,8 +58934,8 @@ window.WIKI_DATA = {
       "groupDe": "Funktionen: an/aus",
       "label": "Levitating & Suspended Blocks",
       "labelDe": "Schwebende & hängende Blöcke",
-      "tooltip": "Off: Levitating and Suspended Sand and Gravel can no longer be crafted; placed blocks stay as they are. Its recipes vanish with the next /reload or world start. Server-side. Default: on.",
-      "tooltipDe": "Aus: schwebender und hängender Sand und Kies lassen sich nicht mehr herstellen; gesetzte Blöcke bleiben, wie sie sind. Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig. Standard: an."
+      "tooltip": "Off: Levitating and Suspended Sand and Gravel\ncan no longer be crafted; placed blocks stay\nas they are. Its recipes vanish with the next\n/reload or world start. Server-side. Default:\non.",
+      "tooltipDe": "Aus: schwebender und hängender Sand und Kies\nlassen sich nicht mehr herstellen; gesetzte\nBlöcke bleiben, wie sie sind. Die Rezepte\nverschwinden beim nächsten /reload oder\nWeltstart. Serverseitig. Standard: an."
     },
     {
       "name": "server.chunkLoaders.requireOwnerOnline",
@@ -58945,8 +58949,8 @@ window.WIKI_DATA = {
       "groupDe": "Chunk-Loader",
       "label": "Only While the Owner Is Online",
       "labelDe": "Nur solange der Besitzer online ist",
-      "tooltip": "On: a chunk loader keeps its chunks loaded only while the player who placed it is online; it wakes up again when they return. Loaders without a stored owner always run. Operators list all loaders with /simplebuilding chunkloaders list. Server-side. Default: on.",
-      "tooltipDe": "An: ein Chunk-Loader hält seine Chunks nur, solange der Spieler, der ihn gesetzt hat, online ist; kommt er zurück, läuft der Loader wieder. Loader ohne gespeicherten Besitzer laufen immer. Operatoren listen alle Loader mit /simplebuilding chunkloaders list auf. Serverseitig. Standard: an."
+      "tooltip": "On: a chunk loader keeps its chunks loaded\nonly while the player who placed it is\nonline; it wakes up again when they return.\nLoaders without a stored owner always run.\nOperators list all loaders with\n/simplebuilding chunkloaders list.\nServer-side. Default: on.",
+      "tooltipDe": "An: ein Chunk-Loader hält seine Chunks nur,\nsolange der Spieler, der ihn gesetzt hat,\nonline ist; kommt er zurück, läuft der Loader\nwieder. Loader ohne gespeicherten Besitzer\nlaufen immer. Operatoren listen alle Loader\nmit /simplebuilding chunkloaders list auf.\nServerseitig. Standard: an."
     },
     {
       "name": "server.dimensionLocks.chunkLoaderBlockedDimensions",
@@ -58960,8 +58964,8 @@ window.WIKI_DATA = {
       "groupDe": "Dimensionssperren",
       "label": "Chunk Loaders: Blocked Dimensions",
       "labelDe": "Chunk-Loader: gesperrte Dimensionen",
-      "tooltip": "Chunk loaders load nothing in these dimensions (placing one there says so). Dimension IDs separated by commas, e.g. minecraft:the_nether, minecraft:the_end (without a namespace minecraft: is assumed); empty = allowed everywhere. Via command, \"\" clears the list. Server-side. Default: empty.",
-      "tooltipDe": "In diesen Dimensionen laden Chunk-Loader nichts (beim Setzen gibt es eine Meldung). Dimension-IDs, durch Komma getrennt, z. B. minecraft:the_nether, minecraft:the_end (ohne Namensraum gilt minecraft:); leer = überall erlaubt. Per Befehl leert \"\" die Liste. Serverseitig. Standard: leer."
+      "tooltip": "Chunk loaders load nothing in these\ndimensions (placing one there says so).\nDimension IDs separated by commas, e.g.\nminecraft:the_nether, minecraft:the_end\n(without a namespace minecraft: is assumed);\nempty = allowed everywhere. Via command, \"\"\nclears the list. Server-side. Default: empty.",
+      "tooltipDe": "In diesen Dimensionen laden Chunk-Loader\nnichts (beim Setzen gibt es eine Meldung).\nDimension-IDs, durch Komma getrennt, z. B.\nminecraft:the_nether, minecraft:the_end (ohne\nNamensraum gilt minecraft:); leer = überall\nerlaubt. Per Befehl leert \"\" die Liste.\nServerseitig. Standard: leer."
     },
     {
       "name": "server.dimensionLocks.flypadBlockedDimensions",
@@ -58975,8 +58979,8 @@ window.WIKI_DATA = {
       "groupDe": "Dimensionssperren",
       "label": "Flypads: Blocked Dimensions",
       "labelDe": "Flypads: gesperrte Dimensionen",
-      "tooltip": "Flypads grant no flight in these dimensions. Dimension IDs separated by commas, e.g. minecraft:the_nether, minecraft:the_end (without a namespace minecraft: is assumed); empty = allowed everywhere. Via command, \"\" clears the list. Server-side. Default: empty.",
-      "tooltipDe": "In diesen Dimensionen geben Flypads keinen Flug. Dimension-IDs, durch Komma getrennt, z. B. minecraft:the_nether, minecraft:the_end (ohne Namensraum gilt minecraft:); leer = überall erlaubt. Per Befehl leert \"\" die Liste. Serverseitig. Standard: leer."
+      "tooltip": "Flypads grant no flight in these dimensions.\nDimension IDs separated by commas, e.g.\nminecraft:the_nether, minecraft:the_end\n(without a namespace minecraft: is assumed);\nempty = allowed everywhere. Via command, \"\"\nclears the list. Server-side. Default: empty.",
+      "tooltipDe": "In diesen Dimensionen geben Flypads keinen\nFlug. Dimension-IDs, durch Komma getrennt, z.\nB. minecraft:the_nether, minecraft:the_end\n(ohne Namensraum gilt minecraft:); leer =\nüberall erlaubt. Per Befehl leert \"\" die\nListe. Serverseitig. Standard: leer."
     },
     {
       "name": "server.dimensionLocks.echoSounderBlockedDimensions",
@@ -58990,8 +58994,8 @@ window.WIKI_DATA = {
       "groupDe": "Dimensionssperren",
       "label": "Echo Sounder: Blocked Dimensions",
       "labelDe": "Echolot: gesperrte Dimensionen",
-      "tooltip": "The Echo Sounder jumps neither out of nor into these dimensions. Dimension IDs separated by commas, e.g. minecraft:the_nether, minecraft:the_end (without a namespace minecraft: is assumed); empty = allowed everywhere. Via command, \"\" clears the list. Server-side. Default: empty.",
-      "tooltipDe": "Das Echolot springt weder aus diesen Dimensionen heraus noch in sie hinein. Dimension-IDs, durch Komma getrennt, z. B. minecraft:the_nether, minecraft:the_end (ohne Namensraum gilt minecraft:); leer = überall erlaubt. Per Befehl leert \"\" die Liste. Serverseitig. Standard: leer."
+      "tooltip": "The Echo Sounder jumps neither out of nor\ninto these dimensions. Dimension IDs\nseparated by commas, e.g.\nminecraft:the_nether, minecraft:the_end\n(without a namespace minecraft: is assumed);\nempty = allowed everywhere. Via command, \"\"\nclears the list. Server-side. Default: empty.",
+      "tooltipDe": "Das Echolot springt weder aus diesen\nDimensionen heraus noch in sie hinein.\nDimension-IDs, durch Komma getrennt, z. B.\nminecraft:the_nether, minecraft:the_end (ohne\nNamensraum gilt minecraft:); leer = überall\nerlaubt. Per Befehl leert \"\" die Liste.\nServerseitig. Standard: leer."
     },
     {
       "name": "server.laser.igniteFlammables",
@@ -59005,8 +59009,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab: was der Strahl entzündet",
       "label": "Ignite Flammable Blocks",
       "labelDe": "Brennbare Blöcke entzünden",
-      "tooltip": "Off: the beam no longer sets flammable blocks on fire or lights soul fire (melting, drying and candles still work). Server-side. Default: on.",
-      "tooltipDe": "Aus: der Strahl setzt keine brennbaren Blöcke mehr in Brand und zündet kein Seelenfeuer (Schmelzen, Trocknen und Kerzen gehen weiter). Serverseitig. Standard: an."
+      "tooltip": "Off: the beam no longer sets flammable blocks\non fire or lights soul fire (melting, drying\nand candles still work). Server-side.\nDefault: on.",
+      "tooltipDe": "Aus: der Strahl setzt keine brennbaren Blöcke\nmehr in Brand und zündet kein Seelenfeuer\n(Schmelzen, Trocknen und Kerzen gehen\nweiter). Serverseitig. Standard: an."
     },
     {
       "name": "server.laser.igniteTnt",
@@ -59020,8 +59024,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab: was der Strahl entzündet",
       "label": "Ignite TNT",
       "labelDe": "TNT zünden",
-      "tooltip": "Off: the beam no longer primes TNT. Server-side. Default: on.",
-      "tooltipDe": "Aus: der Strahl zündet kein TNT mehr. Serverseitig. Standard: an."
+      "tooltip": "Off: the beam no longer primes TNT.\nServer-side. Default: on.",
+      "tooltipDe": "Aus: der Strahl zündet kein TNT mehr.\nServerseitig. Standard: an."
     },
     {
       "name": "server.laser.igniteEntities",
@@ -59035,8 +59039,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab: was der Strahl entzündet",
       "label": "Ignite Creatures",
       "labelDe": "Lebewesen anzünden",
-      "tooltip": "Off: the beam no longer sets mobs and players on fire. Server-side. Default: on.",
-      "tooltipDe": "Aus: der Strahl setzt keine Mobs und Spieler mehr in Brand. Serverseitig. Standard: an."
+      "tooltip": "Off: the beam no longer sets mobs and players\non fire. Server-side. Default: on.",
+      "tooltipDe": "Aus: der Strahl setzt keine Mobs und Spieler\nmehr in Brand. Serverseitig. Standard: an."
     },
     {
       "name": "server.laser.scanEntities",
@@ -59050,8 +59054,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab: was der Strahl entzündet",
       "label": "Scan Creatures",
       "labelDe": "Lebewesen scannen",
-      "tooltip": "On: a creature held in the beam glows for 5 s (after half the time it takes to ignite), refreshed while the beam stays on it. Costs charge like any effect. Server-side. Default: on.",
-      "tooltipDe": "An: ein Lebewesen im Strahl leuchtet 5 s lang auf (nach der halben Zeit bis zum Anzünden) und wird aufgefrischt, solange der Strahl bleibt. Kostet Ladung wie jede Wirkung. Serverseitig. Standard: an."
+      "tooltip": "On: a creature held in the beam glows for 5 s\n(after half the time it takes to ignite),\nrefreshed while the beam stays on it. Costs\ncharge like any effect. Server-side. Default:\non.",
+      "tooltipDe": "An: ein Lebewesen im Strahl leuchtet 5 s lang\nauf (nach der halben Zeit bis zum Anzünden)\nund wird aufgefrischt, solange der Strahl\nbleibt. Kostet Ladung wie jede Wirkung.\nServerseitig. Standard: an."
     },
     {
       "name": "server.laser.scanPlayers",
@@ -59065,8 +59069,8 @@ window.WIKI_DATA = {
       "groupDe": "Resonanzstab: was der Strahl entzündet",
       "label": "Scan Players",
       "labelDe": "Spieler scannen",
-      "tooltip": "On: other players glow too, but only where you may hurt them (PvP, teams). Off: players are never scanned. Server-side. Default: off.",
-      "tooltipDe": "An: auch andere Spieler leuchten, aber nur wo man ihnen schaden darf (PvP, Teams). Aus: Spieler werden nie gescannt. Serverseitig. Standard: aus."
+      "tooltip": "On: other players glow too, but only where\nyou may hurt them (PvP, teams). Off: players\nare never scanned. Server-side. Default: off.",
+      "tooltipDe": "An: auch andere Spieler leuchten, aber nur wo\nman ihnen schaden darf (PvP, Teams). Aus:\nSpieler werden nie gescannt. Serverseitig.\nStandard: aus."
     },
     {
       "name": "server.arrows.recoverFromMobs",
@@ -59080,8 +59084,8 @@ window.WIKI_DATA = {
       "groupDe": "Pfeile: von Mobs zurück",
       "label": "Drop Hit Arrows on Death",
       "labelDe": "Treffer-Pfeile beim Tod fallen lassen",
-      "tooltip": "On: an arrow a player shot into a creature (not into players) drops when it dies, with all its parts and effects. Infinity, Creative and Multishot copies never drop. Server-side. Default: on.",
-      "tooltipDe": "An: ein Pfeil, den ein Spieler in ein Lebewesen geschossen hat (nicht in Spieler), fällt bei dessen Tod - mit allen Teilen und Wirkungen. Unendlichkeit, Kreativ und Mehrfachschuss-Kopien fallen nie. Serverseitig. Standard: an."
+      "tooltip": "On: an arrow a player shot into a creature\n(not into players) drops when it dies, with\nall its parts and effects. Infinity, Creative\nand Multishot copies never drop. Server-side.\nDefault: on.",
+      "tooltipDe": "An: ein Pfeil, den ein Spieler in ein\nLebewesen geschossen hat (nicht in Spieler),\nfällt bei dessen Tod - mit allen Teilen und\nWirkungen. Unendlichkeit, Kreativ und\nMehrfachschuss-Kopien fallen nie.\nServerseitig. Standard: an."
     },
     {
       "name": "server.arrows.maxPerMob",
@@ -59095,8 +59099,8 @@ window.WIKI_DATA = {
       "groupDe": "Pfeile: von Mobs zurück",
       "label": "Arrows per Creature",
       "labelDe": "Pfeile je Lebewesen",
-      "tooltip": "How many hit arrows a creature keeps for its death, 1 to 64. Server-side. Default: 16.",
-      "tooltipDe": "Wie viele Treffer-Pfeile sich ein Lebewesen für seinen Tod merkt, 1 bis 64. Serverseitig. Standard: 16."
+      "tooltip": "How many hit arrows a creature keeps for its\ndeath, 1 to 64. Server-side. Default: 16.",
+      "tooltipDe": "Wie viele Treffer-Pfeile sich ein Lebewesen\nfür seinen Tod merkt, 1 bis 64. Serverseitig.\nStandard: 16."
     },
     {
       "name": "server.craftyShulker.cooldownTicks",
@@ -59110,8 +59114,8 @@ window.WIKI_DATA = {
       "groupDe": "Effekt Listiger Shulker",
       "label": "Teleport Cooldown (Ticks)",
       "labelDe": "Teleport-Abklingzeit (Ticks)",
-      "tooltip": "Ticks before the same creature can teleport again, 20 to 1200. Server-side. Default: 60.",
-      "tooltipDe": "Ticks, bevor dasselbe Wesen wieder springen kann, 20 bis 1200. Serverseitig. Standard: 60."
+      "tooltip": "Ticks before the same creature can teleport\nagain, 20 to 1200. Server-side. Default: 60.",
+      "tooltipDe": "Ticks, bevor dasselbe Wesen wieder springen\nkann, 20 bis 1200. Serverseitig. Standard:\n60."
     },
     {
       "name": "server.craftyShulker.radius",
@@ -59125,8 +59129,8 @@ window.WIKI_DATA = {
       "groupDe": "Effekt Listiger Shulker",
       "label": "Teleport Range (Blocks)",
       "labelDe": "Teleport-Reichweite (Blöcke)",
-      "tooltip": "Farthest distance of the teleport, 2 to 16 blocks. Server-side. Default: 8.",
-      "tooltipDe": "Größter Abstand des Sprungs, 2 bis 16 Blöcke. Serverseitig. Standard: 8."
+      "tooltip": "Farthest distance of the teleport, 2 to 16\nblocks. Server-side. Default: 8.",
+      "tooltipDe": "Größter Abstand des Sprungs, 2 bis 16 Blöcke.\nServerseitig. Standard: 8."
     },
     {
       "name": "server.oreGeneration.endOres",
@@ -59140,8 +59144,8 @@ window.WIKI_DATA = {
       "groupDe": "End-Erzvorkommen",
       "label": "End Ores",
       "labelDe": "End-Erze",
-      "tooltip": "Main switch for both End ores. Off: neither Astralit nor Nihilit generates. Takes effect at the next world start and only in newly generated chunks. Server-side. Default: on.",
-      "tooltipDe": "Hauptschalter für beide End-Erze. Aus: weder Astralit noch Nihilit entstehen. Wirkt beim nächsten Weltstart und nur in neu erzeugten Chunks. Serverseitig. Standard: an."
+      "tooltip": "Main switch for both End ores. Off: neither\nAstralit nor Nihilit generates. Takes effect\nat the next world start and only in newly\ngenerated chunks. Server-side. Default: on.",
+      "tooltipDe": "Hauptschalter für beide End-Erze. Aus: weder\nAstralit noch Nihilit entstehen. Wirkt beim\nnächsten Weltstart und nur in neu erzeugten\nChunks. Serverseitig. Standard: an."
     },
     {
       "name": "server.oreGeneration.astralitOre",
@@ -59155,8 +59159,8 @@ window.WIKI_DATA = {
       "groupDe": "End-Erzvorkommen",
       "label": "Astralit Ore",
       "labelDe": "Astraliterz",
-      "tooltip": "Off: no Astralit ore on the surface of the End islands. Takes effect at the next world start and only in newly generated chunks. Server-side. Default: on.",
-      "tooltipDe": "Aus: kein Astraliterz auf der Oberfläche der End-Inseln. Wirkt beim nächsten Weltstart und nur in neu erzeugten Chunks. Serverseitig. Standard: an."
+      "tooltip": "Off: no Astralit ore on the surface of the\nEnd islands. Takes effect at the next world\nstart and only in newly generated chunks.\nServer-side. Default: on.",
+      "tooltipDe": "Aus: kein Astraliterz auf der Oberfläche der\nEnd-Inseln. Wirkt beim nächsten Weltstart und\nnur in neu erzeugten Chunks. Serverseitig.\nStandard: an."
     },
     {
       "name": "server.oreGeneration.nihilitOre",
@@ -59170,8 +59174,8 @@ window.WIKI_DATA = {
       "groupDe": "End-Erzvorkommen",
       "label": "Nihilit Ore",
       "labelDe": "Nihiliterz",
-      "tooltip": "Off: no Nihilit ore on the underside of the End islands. Takes effect at the next world start and only in newly generated chunks. Server-side. Default: on.",
-      "tooltipDe": "Aus: kein Nihiliterz an der Unterseite der End-Inseln. Wirkt beim nächsten Weltstart und nur in neu erzeugten Chunks. Serverseitig. Standard: an."
+      "tooltip": "Off: no Nihilit ore on the underside of the\nEnd islands. Takes effect at the next world\nstart and only in newly generated chunks.\nServer-side. Default: on.",
+      "tooltipDe": "Aus: kein Nihiliterz an der Unterseite der\nEnd-Inseln. Wirkt beim nächsten Weltstart und\nnur in neu erzeugten Chunks. Serverseitig.\nStandard: an."
     },
     {
       "name": "server.oreGeneration.sageOre",
@@ -59185,8 +59189,8 @@ window.WIKI_DATA = {
       "groupDe": "End-Erzvorkommen",
       "label": "Sage Ore",
       "labelDe": "Weisheitserz",
-      "tooltip": "Off: no Sage Ore in the Overworld. Takes effect at the next world start in newly generated chunks. Default: on.",
-      "tooltipDe": "Aus: kein Weisheitserz in der Oberwelt. Wirkt beim nächsten Weltstart in neu erzeugten Chunks. Standard: an."
+      "tooltip": "Off: no Sage Ore in the Overworld. Takes\neffect at the next world start in newly\ngenerated chunks. Default: on.",
+      "tooltipDe": "Aus: kein Weisheitserz in der Oberwelt. Wirkt\nbeim nächsten Weltstart in neu erzeugten\nChunks. Standard: an."
     },
     {
       "name": "server.oreGeneration.dimensionalScrap",
@@ -59200,8 +59204,8 @@ window.WIKI_DATA = {
       "groupDe": "End-Erzvorkommen",
       "label": "Dimensional Scrap",
       "labelDe": "Dimensionsschrott",
-      "tooltip": "Off: no Dimensional Scrap in the Overworld, the Nether or the End. Takes effect at the next world start in newly generated chunks. Default: on.",
-      "tooltipDe": "Aus: kein Dimensionsschrott in Oberwelt, Nether und End. Wirkt beim nächsten Weltstart in neu erzeugten Chunks. Standard: an."
+      "tooltip": "Off: no Dimensional Scrap in the Overworld,\nthe Nether or the End. Takes effect at the\nnext world start in newly generated chunks.\nDefault: on.",
+      "tooltipDe": "Aus: kein Dimensionsschrott in Oberwelt,\nNether und End. Wirkt beim nächsten Weltstart\nin neu erzeugten Chunks. Standard: an."
     },
     {
       "name": "server.pads.strangerPadBreakSeconds",
@@ -59215,8 +59219,8 @@ window.WIKI_DATA = {
       "groupDe": "Pads: Abbau durch Fremde",
       "label": "Pads: Seconds for Strangers",
       "labelDe": "Pads: Sekunden für Fremde",
-      "tooltip": "How long a player who did not place it needs to break a pad, spawn teleporter or launchpad (the owner needs 2 s, creative is instant), 1 to 3600. Server-side, sent to clients. Default: 60.",
-      "tooltipDe": "Wie lange ein Spieler, der es nicht gesetzt hat, zum Abbauen eines Pads, Spawn-Teleporters oder einer Startrampe braucht (der Besitzer 2 s, Kreativ sofort), 1 bis 3600. Serverseitig, an die Clients geschickt. Standard: 60."
+      "tooltip": "How long a player who did not place it needs\nto break a pad, spawn teleporter or launchpad\n(the owner needs 2 s, creative is instant), 1\nto 3600. Server-side, sent to clients.\nDefault: 60.",
+      "tooltipDe": "Wie lange ein Spieler, der es nicht gesetzt\nhat, zum Abbauen eines Pads,\nSpawn-Teleporters oder einer Startrampe\nbraucht (der Besitzer 2 s, Kreativ sofort), 1\nbis 3600. Serverseitig, an die Clients\ngeschickt. Standard: 60."
     },
     {
       "name": "server.pads.strangerPlateBreakSeconds",
@@ -59230,8 +59234,8 @@ window.WIKI_DATA = {
       "groupDe": "Pads: Abbau durch Fremde",
       "label": "Plates & Chunk Loaders: Seconds for Strangers",
       "labelDe": "Platten & Chunk-Loader: Sekunden für Fremde",
-      "tooltip": "How long a stranger needs to break a chunk loader, copper or filter plate (the owner needs 1.5 s), 1 to 3600. Server-side, sent to clients. Default: 10.",
-      "tooltipDe": "Wie lange ein Fremder zum Abbauen eines Chunk-Loaders, einer Kupfer- oder Filterplatte braucht (der Besitzer 1,5 s), 1 bis 3600. Serverseitig, an die Clients geschickt. Standard: 10."
+      "tooltip": "How long a stranger needs to break a chunk\nloader, copper or filter plate (the owner\nneeds 1.5 s), 1 to 3600. Server-side, sent to\nclients. Default: 10.",
+      "tooltipDe": "Wie lange ein Fremder zum Abbauen eines\nChunk-Loaders, einer Kupfer- oder\nFilterplatte braucht (der Besitzer 1,5 s), 1\nbis 3600. Serverseitig, an die Clients\ngeschickt. Standard: 10."
     },
     {
       "name": "server.charges.lensMaxCharge",
@@ -59245,8 +59249,8 @@ window.WIKI_DATA = {
       "groupDe": "Höchstladungen (Neustart nötig)",
       "label": "Resonance Rod: Maximum Charge",
       "labelDe": "Resonanzstab: Höchstladung",
-      "tooltip": "Full charge of the Resonance Rod (one amethyst shard = 1/16 of it), 64 to 2560. This is the item's durability, fixed when the game starts: takes effect after a restart, and clients need the same value in their config file (ship it with the modpack), otherwise they show wrong charge bars. Default: 640.",
-      "tooltipDe": "Volle Ladung des Resonanzstabs (eine Amethystscherbe = 1/16 davon), 64 bis 2560. Das ist die Haltbarkeit des Gegenstands, beim Spielstart festgelegt: wirkt nach einem Neustart, und Clients brauchen denselben Wert in ihrer Config-Datei (mit dem Modpack ausliefern), sonst zeigen sie falsche Ladebalken. Standard: 640."
+      "tooltip": "Full charge of the Resonance Rod (one\namethyst shard = 1/16 of it), 64 to 2560.\nThis is the item's durability, fixed when the\ngame starts: takes effect after a restart,\nand clients need the same value in their\nconfig file (ship it with the modpack),\notherwise they show wrong charge bars.\nDefault: 640.",
+      "tooltipDe": "Volle Ladung des Resonanzstabs (eine\nAmethystscherbe = 1/16 davon), 64 bis 2560.\nDas ist die Haltbarkeit des Gegenstands, beim\nSpielstart festgelegt: wirkt nach einem\nNeustart, und Clients brauchen denselben Wert\nin ihrer Config-Datei (mit dem Modpack\nausliefern), sonst zeigen sie falsche\nLadebalken. Standard: 640."
     },
     {
       "name": "server.charges.rotatorMaxCharge",
@@ -59260,8 +59264,8 @@ window.WIKI_DATA = {
       "groupDe": "Höchstladungen (Neustart nötig)",
       "label": "Rotator: Maximum Charge",
       "labelDe": "Rotator: Höchstladung",
-      "tooltip": "Full charge of the Rotator in turns (16 ender pearls fill it), 64 to 4096. This is the item's durability, fixed when the game starts: takes effect after a restart, and clients need the same value in their config file (ship it with the modpack), otherwise they show wrong charge bars. Default: 1024.",
-      "tooltipDe": "Volle Ladung des Rotators in Drehungen (16 Enderperlen füllen ihn), 64 bis 4096. Das ist die Haltbarkeit des Gegenstands, beim Spielstart festgelegt: wirkt nach einem Neustart, und Clients brauchen denselben Wert in ihrer Config-Datei (mit dem Modpack ausliefern), sonst zeigen sie falsche Ladebalken. Standard: 1024."
+      "tooltip": "Full charge of the Rotator in turns (16 ender\npearls fill it), 64 to 4096. This is the\nitem's durability, fixed when the game\nstarts: takes effect after a restart, and\nclients need the same value in their config\nfile (ship it with the modpack), otherwise\nthey show wrong charge bars. Default: 1024.",
+      "tooltipDe": "Volle Ladung des Rotators in Drehungen (16\nEnderperlen füllen ihn), 64 bis 4096. Das ist\ndie Haltbarkeit des Gegenstands, beim\nSpielstart festgelegt: wirkt nach einem\nNeustart, und Clients brauchen denselben Wert\nin ihrer Config-Datei (mit dem Modpack\nausliefern), sonst zeigen sie falsche\nLadebalken. Standard: 1024."
     },
     {
       "name": "server.charges.echoSounderMaxCharge",
@@ -59275,8 +59279,8 @@ window.WIKI_DATA = {
       "groupDe": "Höchstladungen (Neustart nötig)",
       "label": "Echo Sounder: Maximum Charge",
       "labelDe": "Echolot: Höchstladung",
-      "tooltip": "Repair points an emptied Echo Sounder needs to be fully charged again, 150 to 6000. This is the item's durability, fixed when the game starts: takes effect after a restart, and clients need the same value in their config file (ship it with the modpack), otherwise they show wrong charge bars. Default: 1500.",
-      "tooltipDe": "Reparaturpunkte, die ein geleertes Echolot bis zur vollen Ladung braucht, 150 bis 6000. Das ist die Haltbarkeit des Gegenstands, beim Spielstart festgelegt: wirkt nach einem Neustart, und Clients brauchen denselben Wert in ihrer Config-Datei (mit dem Modpack ausliefern), sonst zeigen sie falsche Ladebalken. Standard: 1500."
+      "tooltip": "Repair points an emptied Echo Sounder needs\nto be fully charged again, 150 to 6000. This\nis the item's durability, fixed when the game\nstarts: takes effect after a restart, and\nclients need the same value in their config\nfile (ship it with the modpack), otherwise\nthey show wrong charge bars. Default: 1500.",
+      "tooltipDe": "Reparaturpunkte, die ein geleertes Echolot\nbis zur vollen Ladung braucht, 150 bis 6000.\nDas ist die Haltbarkeit des Gegenstands, beim\nSpielstart festgelegt: wirkt nach einem\nNeustart, und Clients brauchen denselben Wert\nin ihrer Config-Datei (mit dem Modpack\nausliefern), sonst zeigen sie falsche\nLadebalken. Standard: 1500."
     },
     {
       "name": "server.tools.attractorMinimumDistance",
@@ -59290,8 +59294,8 @@ window.WIKI_DATA = {
       "groupDe": "Vorschlaghammer & Meißel",
       "label": "Attractor: Minimum Distance",
       "labelDe": "Attraktor: Mindestabstand",
-      "tooltip": "Dead zone for held and placed attractors, 0.5 to 2 blocks. Items inside slow down without receiving pull or lift. Server-side. Default: 1.25.",
-      "tooltipDe": "Ruhezone für gehaltene und platzierte Attraktoren, 0,5 bis 2 Blöcke. Darin werden Items ohne Zug oder Anheben abgebremst. Serverseitig. Standard: 1,25."
+      "tooltip": "Dead zone for held and placed attractors, 0.5\nto 2 blocks. Items inside slow down without\nreceiving pull or lift. Server-side. Default:\n1.25.",
+      "tooltipDe": "Ruhezone für gehaltene und platzierte\nAttraktoren, 0,5 bis 2 Blöcke. Darin werden\nItems ohne Zug oder Anheben abgebremst.\nServerseitig. Standard: 1,25."
     },
     {
       "name": "server.tools.sledgehammerUpgradeSeconds",
@@ -59305,8 +59309,8 @@ window.WIKI_DATA = {
       "groupDe": "Vorschlaghammer & Meißel",
       "label": "Hammer Upgrade: Seconds",
       "labelDe": "Hammer-Aufwertung: Sekunden",
-      "tooltip": "How long an in-world upgrade with the sledgehammer takes; one blow per second, the last one converts the block. 1 to 30. Server-side, sent to clients. Default: 5.",
-      "tooltipDe": "Wie lange eine Aufwertung mit dem Vorschlaghammer in der Welt dauert; ein Schlag je Sekunde, der letzte baut den Block um. 1 bis 30. Serverseitig, an die Clients geschickt. Standard: 5."
+      "tooltip": "How long an in-world upgrade with the\nsledgehammer takes; one blow per second, the\nlast one converts the block. 1 to 30.\nServer-side, sent to clients. Default: 5.",
+      "tooltipDe": "Wie lange eine Aufwertung mit dem\nVorschlaghammer in der Welt dauert; ein\nSchlag je Sekunde, der letzte baut den Block\num. 1 bis 30. Serverseitig, an die Clients\ngeschickt. Standard: 5."
     },
     {
       "name": "server.tools.reinforcedUpgradeDamagePerHit",
@@ -59320,8 +59324,8 @@ window.WIKI_DATA = {
       "groupDe": "Vorschlaghammer & Meißel",
       "label": "Hammer Upgrade to Reinforced: Damage per Blow",
       "labelDe": "Aufwertung zu verstärkt: Schaden je Schlag",
-      "tooltip": "Durability the sledgehammer loses per blow when upgrading a copper chest to a reinforced one, 0 to 64. Server-side. Default: 2.",
-      "tooltipDe": "Haltbarkeit, die der Vorschlaghammer je Schlag verliert, wenn er eine Kupfertruhe zur verstärkten aufwertet, 0 bis 64. Serverseitig. Standard: 2."
+      "tooltip": "Durability the sledgehammer loses per blow\nwhen upgrading a copper chest to a reinforced\none, 0 to 64. Server-side. Default: 2.",
+      "tooltipDe": "Haltbarkeit, die der Vorschlaghammer je\nSchlag verliert, wenn er eine Kupfertruhe zur\nverstärkten aufwertet, 0 bis 64.\nServerseitig. Standard: 2."
     },
     {
       "name": "server.tools.netheriteUpgradeDamagePerHit",
@@ -59335,8 +59339,8 @@ window.WIKI_DATA = {
       "groupDe": "Vorschlaghammer & Meißel",
       "label": "Hammer Upgrade to Netherite: Damage per Blow",
       "labelDe": "Aufwertung zu Netherit: Schaden je Schlag",
-      "tooltip": "Durability lost per blow when upgrading a reinforced machine or chest to netherite, 0 to 64. Server-side. Default: 4.",
-      "tooltipDe": "Haltbarkeit je Schlag bei der Aufwertung einer verstärkten Maschine oder Truhe zu Netherit, 0 bis 64. Serverseitig. Standard: 4."
+      "tooltip": "Durability lost per blow when upgrading a\nreinforced machine or chest to netherite, 0\nto 64. Server-side. Default: 4.",
+      "tooltipDe": "Haltbarkeit je Schlag bei der Aufwertung\neiner verstärkten Maschine oder Truhe zu\nNetherit, 0 bis 64. Serverseitig. Standard:\n4."
     },
     {
       "name": "server.tools.enderiteUpgradeDamagePerHit",
@@ -59350,8 +59354,8 @@ window.WIKI_DATA = {
       "groupDe": "Vorschlaghammer & Meißel",
       "label": "Hammer Upgrade to Enderite: Damage per Blow",
       "labelDe": "Aufwertung zu Enderit: Schaden je Schlag",
-      "tooltip": "Durability lost per blow when upgrading a netherite machine or chest to enderite, 0 to 64. Server-side. Default: 10.",
-      "tooltipDe": "Haltbarkeit je Schlag bei der Aufwertung einer Netherit-Maschine oder -Truhe zu Enderit, 0 bis 64. Serverseitig. Standard: 10."
+      "tooltip": "Durability lost per blow when upgrading a\nnetherite machine or chest to enderite, 0 to\n64. Server-side. Default: 10.",
+      "tooltipDe": "Haltbarkeit je Schlag bei der Aufwertung\neiner Netherit-Maschine oder -Truhe zu\nEnderit, 0 bis 64. Serverseitig. Standard:\n10."
     },
     {
       "name": "server.tools.stoneChiselCooldownTicks",
@@ -59365,8 +59369,8 @@ window.WIKI_DATA = {
       "groupDe": "Vorschlaghammer & Meißel",
       "label": "Stone Chisel: Cooldown (ticks)",
       "labelDe": "Stein-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the stone chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 30.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Stein-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 30."
+      "tooltip": "Cooldown after each use of the stone chisel\nand spatula, before Fast Chiseling (20 ticks\n= 1 s), 2 to 200. Server-side, sent to\nclients. Default: 30.",
+      "tooltipDe": "Abklingzeit nach jeder Benutzung von\nStein-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 30."
     },
     {
       "name": "server.tools.copperChiselCooldownTicks",
@@ -59380,8 +59384,8 @@ window.WIKI_DATA = {
       "groupDe": "Vorschlaghammer & Meißel",
       "label": "Copper Chisel: Cooldown (ticks)",
       "labelDe": "Kupfer-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the copper chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 25.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Kupfer-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 25."
+      "tooltip": "Cooldown after each use of the copper chisel\nand spatula, before Fast Chiseling (20 ticks\n= 1 s), 2 to 200. Server-side, sent to\nclients. Default: 25.",
+      "tooltipDe": "Abklingzeit nach jeder Benutzung von\nKupfer-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 25."
     },
     {
       "name": "server.tools.ironChiselCooldownTicks",
@@ -59395,8 +59399,8 @@ window.WIKI_DATA = {
       "groupDe": "Vorschlaghammer & Meißel",
       "label": "Iron Chisel: Cooldown (ticks)",
       "labelDe": "Eisen-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the iron chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 25.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Eisen-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 25."
+      "tooltip": "Cooldown after each use of the iron chisel\nand spatula, before Fast Chiseling (20 ticks\n= 1 s), 2 to 200. Server-side, sent to\nclients. Default: 25.",
+      "tooltipDe": "Abklingzeit nach jeder Benutzung von\nEisen-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 25."
     },
     {
       "name": "server.tools.goldChiselCooldownTicks",
@@ -59410,8 +59414,8 @@ window.WIKI_DATA = {
       "groupDe": "Vorschlaghammer & Meißel",
       "label": "Gold Chisel: Cooldown (ticks)",
       "labelDe": "Gold-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the gold chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 20.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Gold-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 20."
+      "tooltip": "Cooldown after each use of the gold chisel\nand spatula, before Fast Chiseling (20 ticks\n= 1 s), 2 to 200. Server-side, sent to\nclients. Default: 20.",
+      "tooltipDe": "Abklingzeit nach jeder Benutzung von\nGold-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 20."
     },
     {
       "name": "server.tools.diamondChiselCooldownTicks",
@@ -59425,8 +59429,8 @@ window.WIKI_DATA = {
       "groupDe": "Vorschlaghammer & Meißel",
       "label": "Diamond Chisel: Cooldown (ticks)",
       "labelDe": "Diamant-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the diamond chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 10.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Diamant-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 10."
+      "tooltip": "Cooldown after each use of the diamond chisel\nand spatula, before Fast Chiseling (20 ticks\n= 1 s), 2 to 200. Server-side, sent to\nclients. Default: 10.",
+      "tooltipDe": "Abklingzeit nach jeder Benutzung von\nDiamant-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 10."
     },
     {
       "name": "server.tools.netheriteChiselCooldownTicks",
@@ -59440,8 +59444,8 @@ window.WIKI_DATA = {
       "groupDe": "Vorschlaghammer & Meißel",
       "label": "Netherite Chisel: Cooldown (ticks)",
       "labelDe": "Netherit-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the netherite chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 5.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Netherit-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 5."
+      "tooltip": "Cooldown after each use of the netherite\nchisel and spatula, before Fast Chiseling (20\nticks = 1 s), 2 to 200. Server-side, sent to\nclients. Default: 5.",
+      "tooltipDe": "Abklingzeit nach jeder Benutzung von\nNetherit-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 5."
     },
     {
       "name": "server.tools.enderiteChiselCooldownTicks",
@@ -59455,8 +59459,8 @@ window.WIKI_DATA = {
       "groupDe": "Vorschlaghammer & Meißel",
       "label": "Enderite Chisel: Cooldown (ticks)",
       "labelDe": "Enderit-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the enderite chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 5.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Enderit-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 5."
+      "tooltip": "Cooldown after each use of the enderite\nchisel and spatula, before Fast Chiseling (20\nticks = 1 s), 2 to 200. Server-side, sent to\nclients. Default: 5.",
+      "tooltipDe": "Abklingzeit nach jeder Benutzung von\nEnderit-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 5."
     },
     {
       "name": "server.machines.endSignalRange",
@@ -59470,8 +59474,8 @@ window.WIKI_DATA = {
       "groupDe": "Maschinentempo",
       "label": "End Signal Range (1–15)",
       "labelDe": "End-Signalreichweite (1–15)",
-      "tooltip": "Maximum redstone segments per channel, limited to 1-15. Default: 15.",
-      "tooltipDe": "Maximale Redstone-Segmente pro Kanal, begrenzt auf 1-15. Standard: 15."
+      "tooltip": "Maximum redstone segments per channel,\nlimited to 1-15. Default: 15.",
+      "tooltipDe": "Maximale Redstone-Segmente pro Kanal,\nbegrenzt auf 1-15. Standard: 15."
     },
     {
       "name": "server.machines.reinforcedHopperSpeed",
@@ -59485,8 +59489,8 @@ window.WIKI_DATA = {
       "groupDe": "Maschinentempo",
       "label": "Reinforced Hopper: Speed",
       "labelDe": "Verstärkter Trichter: Tempo",
-      "tooltip": "How many times faster than a vanilla hopper it moves items (8 = one item every tick, the fastest), 1 to 8. Server-side. Default: 2.",
-      "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter er Gegenstände bewegt (8 = ein Gegenstand je Tick, das Schnellste), 1 bis 8. Serverseitig. Standard: 2."
+      "tooltip": "How many times faster than a vanilla hopper\nit moves items (8 = one item every tick, the\nfastest), 1 to 8. Server-side. Default: 2.",
+      "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter\ner Gegenstände bewegt (8 = ein Gegenstand je\nTick, das Schnellste), 1 bis 8. Serverseitig.\nStandard: 2."
     },
     {
       "name": "server.machines.netheriteHopperSpeed",
@@ -59500,8 +59504,8 @@ window.WIKI_DATA = {
       "groupDe": "Maschinentempo",
       "label": "Netherite Hopper: Speed",
       "labelDe": "Netherit-Trichter: Tempo",
-      "tooltip": "How many times faster than a vanilla hopper it moves items (8 = one item every tick, the fastest), 1 to 8. Server-side. Default: 4.",
-      "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter er Gegenstände bewegt (8 = ein Gegenstand je Tick, das Schnellste), 1 bis 8. Serverseitig. Standard: 4."
+      "tooltip": "How many times faster than a vanilla hopper\nit moves items (8 = one item every tick, the\nfastest), 1 to 8. Server-side. Default: 4.",
+      "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter\ner Gegenstände bewegt (8 = ein Gegenstand je\nTick, das Schnellste), 1 bis 8. Serverseitig.\nStandard: 4."
     },
     {
       "name": "server.machines.enderiteHopperSpeed",
@@ -59515,8 +59519,8 @@ window.WIKI_DATA = {
       "groupDe": "Maschinentempo",
       "label": "Enderite Hopper: Speed",
       "labelDe": "Enderit-Trichter: Tempo",
-      "tooltip": "How many times faster than a vanilla hopper it moves items (8 = one item every tick, the fastest), 1 to 8. Server-side. Default: 8.",
-      "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter er Gegenstände bewegt (8 = ein Gegenstand je Tick, das Schnellste), 1 bis 8. Serverseitig. Standard: 8."
+      "tooltip": "How many times faster than a vanilla hopper\nit moves items (8 = one item every tick, the\nfastest), 1 to 8. Server-side. Default: 8.",
+      "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter\ner Gegenstände bewegt (8 = ein Gegenstand je\nTick, das Schnellste), 1 bis 8. Serverseitig.\nStandard: 8."
     },
     {
       "name": "server.machines.reinforcedFurnaceSpeed",
@@ -59530,8 +59534,8 @@ window.WIKI_DATA = {
       "groupDe": "Maschinentempo",
       "label": "Reinforced Furnaces: Speed",
       "labelDe": "Verstärkte Öfen: Tempo",
-      "tooltip": "How many times faster than vanilla the reinforced furnace, smoker and blast furnace cook, without extra fuel, 1 to 8. Server-side. Default: 2.",
-      "tooltipDe": "Wie viel schneller als Vanilla Ofen, Räucherofen und Schmelzofen dieser Stufe garen, ohne zusätzlichen Brennstoff, 1 bis 8. Serverseitig. Standard: 2."
+      "tooltip": "How many times faster than vanilla the\nreinforced furnace, smoker and blast furnace\ncook, without extra fuel, 1 to 8.\nServer-side. Default: 2.",
+      "tooltipDe": "Wie viel schneller als Vanilla Ofen,\nRäucherofen und Schmelzofen dieser Stufe\ngaren, ohne zusätzlichen Brennstoff, 1 bis 8.\nServerseitig. Standard: 2."
     },
     {
       "name": "server.machines.netheriteFurnaceSpeed",
@@ -59545,8 +59549,8 @@ window.WIKI_DATA = {
       "groupDe": "Maschinentempo",
       "label": "Netherite Furnaces: Speed",
       "labelDe": "Netherit-Öfen: Tempo",
-      "tooltip": "How many times faster than vanilla the netherite furnace, smoker and blast furnace cook, without extra fuel, 1 to 8. Server-side. Default: 4.",
-      "tooltipDe": "Wie viel schneller als Vanilla Ofen, Räucherofen und Schmelzofen dieser Stufe garen, ohne zusätzlichen Brennstoff, 1 bis 8. Serverseitig. Standard: 4."
+      "tooltip": "How many times faster than vanilla the\nnetherite furnace, smoker and blast furnace\ncook, without extra fuel, 1 to 8.\nServer-side. Default: 4.",
+      "tooltipDe": "Wie viel schneller als Vanilla Ofen,\nRäucherofen und Schmelzofen dieser Stufe\ngaren, ohne zusätzlichen Brennstoff, 1 bis 8.\nServerseitig. Standard: 4."
     },
     {
       "name": "server.machines.enderiteFurnaceSpeed",
@@ -59560,8 +59564,8 @@ window.WIKI_DATA = {
       "groupDe": "Maschinentempo",
       "label": "Enderite Furnaces: Speed",
       "labelDe": "Enderit-Öfen: Tempo",
-      "tooltip": "How many times faster than vanilla the enderite furnace, smoker and blast furnace cook, without extra fuel, 1 to 8. Server-side. Default: 8.",
-      "tooltipDe": "Wie viel schneller als Vanilla Ofen, Räucherofen und Schmelzofen dieser Stufe garen, ohne zusätzlichen Brennstoff, 1 bis 8. Serverseitig. Standard: 8."
+      "tooltip": "How many times faster than vanilla the\nenderite furnace, smoker and blast furnace\ncook, without extra fuel, 1 to 8.\nServer-side. Default: 8.",
+      "tooltipDe": "Wie viel schneller als Vanilla Ofen,\nRäucherofen und Schmelzofen dieser Stufe\ngaren, ohne zusätzlichen Brennstoff, 1 bis 8.\nServerseitig. Standard: 8."
     },
     {
       "name": "server.oreDetector.rangeMultiplier",
@@ -59575,8 +59579,8 @@ window.WIKI_DATA = {
       "groupDe": "Detektor",
       "label": "Range Multiplier",
       "labelDe": "Reichweiten-Faktor",
-      "tooltip": "Multiplies the range and search sphere of every ore class (24/20/16/16 blocks, more with Radius), 0.25 to 1.5; the tooltip shows the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert Reichweite und Suchkugel jeder Erzklasse (24/20/16/16 Blöcke, mehr mit Radius), 0,25 bis 1,5; der Tooltip zeigt den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the range and search sphere of\nevery ore class (24/20/16/16 blocks, more\nwith Radius), 0.25 to 1.5; the tooltip shows\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert Reichweite und Suchkugel jeder\nErzklasse (24/20/16/16 Blöcke, mehr mit\nRadius), 0,25 bis 1,5; der Tooltip zeigt den\nWert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.oreDetector.scanIntervalTicks",
@@ -59590,8 +59594,8 @@ window.WIKI_DATA = {
       "groupDe": "Detektor",
       "label": "Scan Interval (ticks)",
       "labelDe": "Suchabstand (Ticks)",
-      "tooltip": "Ticks between two pings in the main hand (the off hand pings half as often), 10 to 200. Server-side. Default: 20.",
-      "tooltipDe": "Ticks zwischen zwei Pings in der Haupthand (die Nebenhand pingt halb so oft), 10 bis 200. Serverseitig. Standard: 20."
+      "tooltip": "Ticks between two pings in the main hand (the\noff hand pings half as often), 10 to 200.\nServer-side. Default: 20.",
+      "tooltipDe": "Ticks zwischen zwei Pings in der Haupthand\n(die Nebenhand pingt halb so oft), 10 bis\n200. Serverseitig. Standard: 20."
     },
     {
       "name": "server.loot.globalLootMultiplier",
@@ -59605,8 +59609,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Global Loot Multiplier",
       "labelDe": "Globaler Beute-Faktor",
-      "tooltip": "Multiplies all loot the mod adds to chests, vaults and fishing: 0 = none, 2 = twice as much on average, at most 3. The mob heads from charged creepers stay. Takes effect when the data packs load (/reload or world start). Server-side. Default: 1.0.",
-      "tooltipDe": "Multipliziert alle Beute, die die Mod in Truhen, Tresore und beim Angeln hinzufügt: 0 = keine, 2 = im Mittel doppelt so viel, höchstens 3. Die Köpfe von geladenen Creepern bleiben. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: 1,0."
+      "tooltip": "Multiplies all loot the mod adds to chests,\nvaults and fishing: 0 = none, 2 = twice as\nmuch on average, at most 3. The mob heads\nfrom charged creepers stay. Takes effect when\nthe data packs load (/reload or world start).\nServer-side. Default: 1.0.",
+      "tooltipDe": "Multipliziert alle Beute, die die Mod in\nTruhen, Tresore und beim Angeln hinzufügt: 0\n= keine, 2 = im Mittel doppelt so viel,\nhöchstens 3. Die Köpfe von geladenen Creepern\nbleiben. Wirkt beim Laden der Datenpakete\n(/reload oder Weltstart). Serverseitig.\nStandard: 1,0."
     },
     {
       "name": "server.loot.strongholdLoot",
@@ -59620,8 +59624,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Strongholds",
       "labelDe": "Mod-Beute: Festungen",
-      "tooltip": "Off: the mod adds nothing to the loot of strongholds; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Festungen nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\nstrongholds; vanilla loot stays. Takes effect\nwhen the data packs load (/reload or world\nstart). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in Festungen\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
       "name": "server.loot.endCityLoot",
@@ -59635,8 +59639,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: End Cities",
       "labelDe": "Mod-Beute: Endstädte",
-      "tooltip": "Off: the mod adds nothing to the loot of end cities; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Endstädte nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of end\ncities; vanilla loot stays. Takes effect when\nthe data packs load (/reload or world start).\nServer-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in Endstädte\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
       "name": "server.loot.ancientCityLoot",
@@ -59650,8 +59654,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Ancient Cities",
       "labelDe": "Mod-Beute: Antike Städte",
-      "tooltip": "Off: the mod adds nothing to the loot of ancient cities; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Antike Städte nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\nancient cities; vanilla loot stays. Takes\neffect when the data packs load (/reload or\nworld start). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in Antike Städte\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
       "name": "server.loot.bastionLoot",
@@ -59665,8 +59669,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Bastions",
       "labelDe": "Mod-Beute: Bastionen",
-      "tooltip": "Off: the mod adds nothing to the loot of bastions; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Bastionen nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\nbastions; vanilla loot stays. Takes effect\nwhen the data packs load (/reload or world\nstart). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in Bastionen\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
       "name": "server.loot.netherFortressLoot",
@@ -59680,8 +59684,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Nether Fortresses",
       "labelDe": "Mod-Beute: Netherfestungen",
-      "tooltip": "Off: the mod adds nothing to the loot of nether fortresses; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Netherfestungen nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\nnether fortresses; vanilla loot stays. Takes\neffect when the data packs load (/reload or\nworld start). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in\nNetherfestungen nichts hinzu; die\nVanilla-Beute bleibt. Wirkt beim Laden der\nDatenpakete (/reload oder Weltstart).\nServerseitig. Standard: an."
     },
     {
       "name": "server.loot.pillagerOutpostLoot",
@@ -59695,8 +59699,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Pillager Outposts",
       "labelDe": "Mod-Beute: Plünderer-Außenposten",
-      "tooltip": "Off: the mod adds nothing to the loot of pillager outposts; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Plünderer-Außenposten nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\npillager outposts; vanilla loot stays. Takes\neffect when the data packs load (/reload or\nworld start). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in\nPlünderer-Außenposten nichts hinzu; die\nVanilla-Beute bleibt. Wirkt beim Laden der\nDatenpakete (/reload oder Weltstart).\nServerseitig. Standard: an."
     },
     {
       "name": "server.loot.woodlandMansionLoot",
@@ -59710,8 +59714,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Woodland Mansions",
       "labelDe": "Mod-Beute: Waldanwesen",
-      "tooltip": "Off: the mod adds nothing to the loot of woodland mansions; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Waldanwesen nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\nwoodland mansions; vanilla loot stays. Takes\neffect when the data packs load (/reload or\nworld start). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in Waldanwesen\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
       "name": "server.loot.buriedTreasureLoot",
@@ -59725,8 +59729,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Buried Treasure",
       "labelDe": "Mod-Beute: Vergrabene Schätze",
-      "tooltip": "Off: the mod adds nothing to the loot of buried treasure; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Vergrabene Schätze nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\nburied treasure; vanilla loot stays. Takes\neffect when the data packs load (/reload or\nworld start). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in Vergrabene\nSchätze nichts hinzu; die Vanilla-Beute\nbleibt. Wirkt beim Laden der Datenpakete\n(/reload oder Weltstart). Serverseitig.\nStandard: an."
     },
     {
       "name": "server.loot.dungeonLoot",
@@ -59740,8 +59744,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Dungeons",
       "labelDe": "Mod-Beute: Verliese",
-      "tooltip": "Off: the mod adds nothing to the loot of dungeons; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Verliese nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\ndungeons; vanilla loot stays. Takes effect\nwhen the data packs load (/reload or world\nstart). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in Verliese\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
       "name": "server.loot.shipwreckLoot",
@@ -59755,8 +59759,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Shipwrecks",
       "labelDe": "Mod-Beute: Schiffswracks",
-      "tooltip": "Off: the mod adds nothing to the loot of shipwrecks; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Schiffswracks nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\nshipwrecks; vanilla loot stays. Takes effect\nwhen the data packs load (/reload or world\nstart). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in Schiffswracks\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
       "name": "server.loot.iglooLoot",
@@ -59770,8 +59774,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Igloos",
       "labelDe": "Mod-Beute: Iglus",
-      "tooltip": "Off: the mod adds nothing to the loot of igloos; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Iglus nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\nigloos; vanilla loot stays. Takes effect when\nthe data packs load (/reload or world start).\nServer-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in Iglus nichts\nhinzu; die Vanilla-Beute bleibt. Wirkt beim\nLaden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
       "name": "server.loot.mineshaftLoot",
@@ -59785,8 +59789,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Mineshafts",
       "labelDe": "Mod-Beute: Minen",
-      "tooltip": "Off: the mod adds nothing to the loot of mineshafts; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Minen nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\nmineshafts; vanilla loot stays. Takes effect\nwhen the data packs load (/reload or world\nstart). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in Minen nichts\nhinzu; die Vanilla-Beute bleibt. Wirkt beim\nLaden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
       "name": "server.loot.trialChambersLoot",
@@ -59800,8 +59804,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Trial Chambers",
       "labelDe": "Mod-Beute: Prüfungskammern",
-      "tooltip": "Off: the mod adds nothing to the loot of trial chambers; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Prüfungskammern nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\ntrial chambers; vanilla loot stays. Takes\neffect when the data packs load (/reload or\nworld start). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in\nPrüfungskammern nichts hinzu; die\nVanilla-Beute bleibt. Wirkt beim Laden der\nDatenpakete (/reload oder Weltstart).\nServerseitig. Standard: an."
     },
     {
       "name": "server.loot.ruinedPortalLoot",
@@ -59815,8 +59819,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Ruined Portals",
       "labelDe": "Mod-Beute: Portalruinen",
-      "tooltip": "Off: the mod adds nothing to the loot of ruined portals; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Portalruinen nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\nruined portals; vanilla loot stays. Takes\neffect when the data packs load (/reload or\nworld start). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in Portalruinen\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
       "name": "server.loot.fishingLoot",
@@ -59830,8 +59834,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Mod Loot: Fishing Treasure",
       "labelDe": "Mod-Beute: Angelschätze",
-      "tooltip": "Off: the mod adds nothing to the loot of fishing treasure; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Angelschätze nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
+      "tooltip": "Off: the mod adds nothing to the loot of\nfishing treasure; vanilla loot stays. Takes\neffect when the data packs load (/reload or\nworld start). Server-side. Default: on.",
+      "tooltipDe": "Aus: die Mod fügt der Beute in Angelschätze\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
       "name": "server.loot.tradePriceMultiplier",
@@ -59845,8 +59849,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Trade Price Multiplier",
       "labelDe": "Handelspreis-Faktor",
-      "tooltip": "Multiplies the first price of every villager and wandering trader offer of the mod (rounded, at least 1, at most a stack), 0.25 to 4. Applies to newly created offers. Server-side. Default: 1.0.",
-      "tooltipDe": "Multipliziert den ersten Preis jedes Handelsangebots der Mod bei Dorfbewohnern und fahrendem Händler (gerundet, mindestens 1, höchstens ein Stapel), 0,25 bis 4. Gilt für neu erzeugte Angebote. Serverseitig. Standard: 1,0."
+      "tooltip": "Multiplies the first price of every villager\nand wandering trader offer of the mod\n(rounded, at least 1, at most a stack), 0.25\nto 4. Applies to newly created offers.\nServer-side. Default: 1.0.",
+      "tooltipDe": "Multipliziert den ersten Preis jedes\nHandelsangebots der Mod bei Dorfbewohnern und\nfahrendem Händler (gerundet, mindestens 1,\nhöchstens ein Stapel), 0,25 bis 4. Gilt für\nneu erzeugte Angebote. Serverseitig.\nStandard: 1,0."
     },
     {
       "name": "server.loot.betterChestPercent",
@@ -59860,8 +59864,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Better Structure Chest Chance (%)",
       "labelDe": "Chance bessere Struktur-Truhe (%)",
-      "tooltip": "Percent chance that a loot chest generates as a better chest with double loot: Reinforced Chest in strongholds, Netherite Chest in bastions and nether fortresses, Enderite Chest in end cities and end ships. A double chest needs both halves to roll. 0 to 5. Applies to newly generated structures. Server-side. Default: 1.0.",
-      "tooltipDe": "Prozent-Chance, dass eine Loot-Truhe als bessere Truhe mit doppelter Beute entsteht: Verstärkte Truhe in der Festung, Netherit-Truhe in Bastion und Netherfestung, Enderit-Truhe in End-Stadt und End-Schiff. Bei einer Doppeltruhe müssen beide Hälften treffen. 0 bis 5. Gilt für neu erzeugte Strukturen. Serverseitig. Standard: 1,0."
+      "tooltip": "Percent chance that a loot chest generates as\na better chest with double loot: Reinforced\nChest in strongholds, Netherite Chest in\nbastions and nether fortresses, Enderite\nChest in end cities and end ships. A double\nchest needs both halves to roll. 0 to 5.\nApplies to newly generated structures.\nServer-side. Default: 1.0.",
+      "tooltipDe": "Prozent-Chance, dass eine Loot-Truhe als\nbessere Truhe mit doppelter Beute entsteht:\nVerstärkte Truhe in der Festung,\nNetherit-Truhe in Bastion und Netherfestung,\nEnderit-Truhe in End-Stadt und End-Schiff.\nBei einer Doppeltruhe müssen beide Hälften\ntreffen. 0 bis 5. Gilt für neu erzeugte\nStrukturen. Serverseitig. Standard: 1,0."
     },
     {
       "name": "server.loot.reinforcedShulkerPercent",
@@ -59875,8 +59879,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Reinforced Shulker Chance (%)",
       "labelDe": "Chance verstärkter Shulker (%)",
-      "tooltip": "Percent chance that an end city shulker generates reinforced (1.5x health, drops 0-2 Reinforced Shulker Shells). 0 to 10. Applies to newly generated end cities. Server-side. Default: 2.0.",
-      "tooltipDe": "Prozent-Chance, dass ein Shulker einer End-Stadt verstärkt entsteht (1,5-faches Leben, lässt 0–2 Verstärkte Shulkerschalen fallen). 0 bis 10. Gilt für neu erzeugte End-Städte. Serverseitig. Standard: 2,0."
+      "tooltip": "Percent chance that an end city shulker\ngenerates reinforced (1.5x health, drops 0-2\nReinforced Shulker Shells). 0 to 10. Applies\nto newly generated end cities. Server-side.\nDefault: 2.0.",
+      "tooltipDe": "Prozent-Chance, dass ein Shulker einer\nEnd-Stadt verstärkt entsteht (1,5-faches\nLeben, lässt 0–2 Verstärkte Shulkerschalen\nfallen). 0 bis 10. Gilt für neu erzeugte\nEnd-Städte. Serverseitig. Standard: 2,0."
     },
     {
       "name": "server.loot.enderiteShulkerPercent",
@@ -59890,8 +59894,23 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Enderite Shulker Chance (%)",
       "labelDe": "Chance Enderit-Shulker (%)",
-      "tooltip": "Percent chance that an end city shulker generates as an Enderite Shulker (3x health, drops 0-2 Enderite Shulker Shells). 0 to 5. Applies to newly generated end cities. Server-side. Default: 0.5.",
-      "tooltipDe": "Prozent-Chance, dass ein Shulker einer End-Stadt als Enderit-Shulker entsteht (3-faches Leben, lässt 0–2 Enderit-Shulkerschalen fallen). 0 bis 5. Gilt für neu erzeugte End-Städte. Serverseitig. Standard: 0,5."
+      "tooltip": "Percent chance that an end city shulker\ngenerates as an Enderite Shulker (3x health,\ndrops 0-2 Enderite Shulker Shells). 0 to 5.\nApplies to newly generated end cities.\nServer-side. Default: 0.5.",
+      "tooltipDe": "Prozent-Chance, dass ein Shulker einer\nEnd-Stadt als Enderit-Shulker entsteht\n(3-faches Leben, lässt 0–2\nEnderit-Shulkerschalen fallen). 0 bis 5. Gilt\nfür neu erzeugte End-Städte. Serverseitig.\nStandard: 0,5."
+    },
+    {
+      "name": "server.loot.netheriteShulkerPercent",
+      "shortName": "netheriteShulkerPercent",
+      "type": "double",
+      "default": "1.0",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Loot & Trading",
+      "groupDe": "Beute & Handel",
+      "label": "Netherite Shulker Chance (%)",
+      "labelDe": "Chance Netherit-Shulker (%)",
+      "tooltip": "Percent chance that an end city shulker generates as a Netherite Shulker (2x health, drops 0-2 Netherite Shulker Shells). 0 to 5. Applies to newly generated end cities. Server-side. Default: 1.0.",
+      "tooltipDe": "Prozent-Chance, dass ein Shulker einer End-Stadt als Netherit-Shulker entsteht (2-faches Leben, lässt 0–2 Netherit-Shulkerschalen fallen). 0 bis 5. Gilt für neu erzeugte End-Städte. Serverseitig. Standard: 1,0."
     },
     {
       "name": "server.loot.endermitesPerRareShulker",
@@ -59905,8 +59924,8 @@ window.WIKI_DATA = {
       "groupDe": "Beute & Handel",
       "label": "Endermites per Rare Shulker",
       "labelDe": "Endermiten je seltenem Shulker",
-      "tooltip": "Endermites that appear once around a reinforced or enderite shulker when a player (not in creative or spectator mode) first comes within 24 blocks, on free spots with solid ground. They are not persistent (vanilla removes them after 2 minutes). 0 to 8. Server-side. Default: 4.",
-      "tooltipDe": "Endermiten, die einmalig um einen verstärkten oder Enderit-Shulker erscheinen, sobald ein Spieler (nicht im Kreativ- oder Zuschauermodus) erstmals näher als 24 Blöcke kommt – auf freien Plätzen mit festem Boden. Sie sind nicht dauerhaft (Vanilla entfernt sie nach 2 Minuten). 0 bis 8. Serverseitig. Standard: 4."
+      "tooltip": "Endermites that appear once around a\nreinforced or enderite shulker when a player\n(not in creative or spectator mode) first\ncomes within 24 blocks, on free spots with\nsolid ground. They are not persistent\n(vanilla removes them after 2 minutes). 0 to\n8. Server-side. Default: 4.",
+      "tooltipDe": "Endermiten, die einmalig um einen verstärkten\noder Enderit-Shulker erscheinen, sobald ein\nSpieler (nicht im Kreativ- oder\nZuschauermodus) erstmals näher als 24 Blöcke\nkommt – auf freien Plätzen mit festem Boden.\nSie sind nicht dauerhaft (Vanilla entfernt\nsie nach 2 Minuten). 0 bis 8. Serverseitig.\nStandard: 4."
     },
     {
       "name": "server.blueprint.maxBlocksPerTick",
@@ -59920,8 +59939,8 @@ window.WIKI_DATA = {
       "groupDe": "Blaupause",
       "label": "Build Speed: Blocks per Tick",
       "labelDe": "Bautempo: Blöcke je Tick",
-      "tooltip": "At most this many positions a blueprint build places per tick; lower values make big builds take longer and spare the server. 1 to 32768 (the default is above anything a build uses today). Server-side. Default: 32768.",
-      "tooltipDe": "Höchstens so viele Stellen setzt ein Blaupausen-Bau je Tick; kleinere Werte lassen große Bauten länger dauern und schonen den Server. 1 bis 32768 (der Standard liegt über allem, was ein Bau heute nutzt). Serverseitig. Standard: 32768."
+      "tooltip": "At most this many positions a blueprint build\nplaces per tick; lower values make big builds\ntake longer and spare the server. 1 to 32768\n(the default is above anything a build uses\ntoday). Server-side. Default: 32768.",
+      "tooltipDe": "Höchstens so viele Stellen setzt ein\nBlaupausen-Bau je Tick; kleinere Werte lassen\ngroße Bauten länger dauern und schonen den\nServer. 1 bis 32768 (der Standard liegt über\nallem, was ein Bau heute nutzt).\nServerseitig. Standard: 32768."
     },
     {
       "name": "server.trimStrengths.projectileProtection",
@@ -59935,8 +59954,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Projectile Protection",
       "labelDe": "Stärke: Projektilschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Projectile Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Projektilschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Projectile Protection\" from every pattern\nand material that gives it: 0 = off, 2 =\ntwice as strong, at most 2; the caps (damage\nfloor, maximum bonuses) still apply. Tooltips\nshow the server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Projektilschutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.magicProtection",
@@ -59950,8 +59969,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Magic Protection",
       "labelDe": "Stärke: Magieschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Magic Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Magieschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect \"Magic\nProtection\" from every pattern and material\nthat gives it: 0 = off, 2 = twice as strong,\nat most 2; the caps (damage floor, maximum\nbonuses) still apply. Tooltips show the\nserver's value. Server-side, sent to clients.\nDefault: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Magieschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.trimStrengths.thornProtection",
@@ -59965,8 +59984,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Thorn Protection",
       "labelDe": "Stärke: Dornenschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Thorn Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Dornenschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect \"Thorn\nProtection\" from every pattern and material\nthat gives it: 0 = off, 2 = twice as strong,\nat most 2; the caps (damage floor, maximum\nbonuses) still apply. Tooltips show the\nserver's value. Server-side, sent to clients.\nDefault: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Dornenschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.trimStrengths.blastProtection",
@@ -59980,8 +59999,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Blast Protection",
       "labelDe": "Stärke: Explosionsschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Blast Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Explosionsschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect \"Blast\nProtection\" from every pattern and material\nthat gives it: 0 = off, 2 = twice as strong,\nat most 2; the caps (damage floor, maximum\nbonuses) still apply. Tooltips show the\nserver's value. Server-side, sent to clients.\nDefault: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Explosionsschutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.drowningProtection",
@@ -59995,8 +60014,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Drowning Protection",
       "labelDe": "Stärke: Ertrinkungsschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Drowning Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Ertrinkungsschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Drowning Protection\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Ertrinkungsschutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.breathSaving",
@@ -60010,8 +60029,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Breath Saving",
       "labelDe": "Stärke: Atem sparen",
-      "tooltip": "Multiplies the rate of the trim effect \"Breath Saving\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Atem sparen“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Breath Saving\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Atem sparen“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.trimStrengths.allProtection",
@@ -60025,8 +60044,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: All-Round Protection",
       "labelDe": "Stärke: Rundumschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"All-Round Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Rundumschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"All-Round Protection\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Rundumschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.trimStrengths.sonicProtection",
@@ -60040,8 +60059,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Sonic Boom Protection",
       "labelDe": "Stärke: Schallschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Sonic Boom Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Schallschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect \"Sonic\nBoom Protection\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Schallschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.trimStrengths.stealth",
@@ -60055,8 +60074,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Stealth",
       "labelDe": "Stärke: Tarnung",
-      "tooltip": "Multiplies the rate of the trim effect \"Stealth\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Tarnung“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Stealth\" from every pattern and material\nthat gives it: 0 = off, 2 = twice as strong,\nat most 2; the caps (damage floor, maximum\nbonuses) still apply. Tooltips show the\nserver's value. Server-side, sent to clients.\nDefault: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Tarnung“ aus jedem Muster und Material, das\nsie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.trimStrengths.fireProtection",
@@ -60070,8 +60089,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Fire Protection",
       "labelDe": "Stärke: Feuerschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Fire Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Feuerschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect \"Fire\nProtection\" from every pattern and material\nthat gives it: 0 = off, 2 = twice as strong,\nat most 2; the caps (damage floor, maximum\nbonuses) still apply. Tooltips show the\nserver's value. Server-side, sent to clients.\nDefault: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Feuerschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.trimStrengths.witherProtection",
@@ -60085,8 +60104,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Wither Protection",
       "labelDe": "Stärke: Wither-Schutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Wither Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Wither-Schutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Wither Protection\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Wither-Schutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.witherShortening",
@@ -60100,8 +60119,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Shorter Wither",
       "labelDe": "Stärke: Kürzere Ausdörrung",
-      "tooltip": "Multiplies the rate of the trim effect \"Shorter Wither\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Kürzere Ausdörrung“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Shorter Wither\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Kürzere Ausdörrung“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.dragonBreathProtection",
@@ -60115,8 +60134,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Dragon Breath Protection",
       "labelDe": "Stärke: Drachenatem-Schutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Dragon Breath Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Drachenatem-Schutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Dragon Breath Protection\" from every pattern\nand material that gives it: 0 = off, 2 =\ntwice as strong, at most 2; the caps (damage\nfloor, maximum bonuses) still apply. Tooltips\nshow the server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Drachenatem-Schutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.fallProtection",
@@ -60130,8 +60149,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Fall Protection",
       "labelDe": "Stärke: Fallschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Fall Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Fallschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect \"Fall\nProtection\" from every pattern and material\nthat gives it: 0 = off, 2 = twice as strong,\nat most 2; the caps (damage floor, maximum\nbonuses) still apply. Tooltips show the\nserver's value. Server-side, sent to clients.\nDefault: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Fallschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.trimStrengths.windChargeProtection",
@@ -60145,8 +60164,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Wind Charge Protection",
       "labelDe": "Stärke: Windkugel-Schutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Wind Charge Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Windkugel-Schutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect \"Wind\nCharge Protection\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Windkugel-Schutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.lightningProtection",
@@ -60160,8 +60179,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Lightning Protection",
       "labelDe": "Stärke: Blitzschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Lightning Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Blitzschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Lightning Protection\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Blitzschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.trimStrengths.walkingSpeed",
@@ -60175,8 +60194,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Walking Speed",
       "labelDe": "Stärke: Laufgeschwindigkeit",
-      "tooltip": "Multiplies the rate of the trim effect \"Walking Speed\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Laufgeschwindigkeit“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Walking Speed\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Laufgeschwindigkeit“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.swimmingSpeed",
@@ -60190,8 +60209,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Swimming Speed",
       "labelDe": "Stärke: Schwimmgeschwindigkeit",
-      "tooltip": "Multiplies the rate of the trim effect \"Swimming Speed\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Schwimmgeschwindigkeit“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Swimming Speed\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Schwimmgeschwindigkeit“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.sprintHunger",
@@ -60205,8 +60224,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Less Sprint Hunger",
       "labelDe": "Stärke: Weniger Sprinthunger",
-      "tooltip": "Multiplies the rate of the trim effect \"Less Sprint Hunger\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Weniger Sprinthunger“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect \"Less\nSprint Hunger\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Weniger Sprinthunger“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.experience",
@@ -60220,8 +60239,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Experience",
       "labelDe": "Stärke: Erfahrung",
-      "tooltip": "Multiplies the rate of the trim effect \"Experience\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Erfahrung“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Experience\" from every pattern and material\nthat gives it: 0 = off, 2 = twice as strong,\nat most 2; the caps (damage floor, maximum\nbonuses) still apply. Tooltips show the\nserver's value. Server-side, sent to clients.\nDefault: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Erfahrung“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.trimStrengths.luck",
@@ -60235,8 +60254,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Luck",
       "labelDe": "Stärke: Glück",
-      "tooltip": "Multiplies the rate of the trim effect \"Luck\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Glück“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect \"Luck\"\nfrom every pattern and material that gives\nit: 0 = off, 2 = twice as strong, at most 2;\nthe caps (damage floor, maximum bonuses)\nstill apply. Tooltips show the server's\nvalue. Server-side, sent to clients. Default:\n1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Glück“ aus jedem Muster und Material, das\nsie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.trimStrengths.blockReach",
@@ -60250,8 +60269,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Block Reach",
       "labelDe": "Stärke: Blockreichweite",
-      "tooltip": "Multiplies the rate of the trim effect \"Block Reach\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Blockreichweite“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect \"Block\nReach\" from every pattern and material that\ngives it: 0 = off, 2 = twice as strong, at\nmost 2; the caps (damage floor, maximum\nbonuses) still apply. Tooltips show the\nserver's value. Server-side, sent to clients.\nDefault: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Blockreichweite“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.physicalProtection",
@@ -60265,8 +60284,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Physical Protection",
       "labelDe": "Stärke: Körperlicher Schutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Physical Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Körperlicher Schutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Physical Protection\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Körperlicher Schutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.illagerProtection",
@@ -60280,8 +60299,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Illager Protection",
       "labelDe": "Stärke: Illager-Schutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Illager Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Illager-Schutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Illager Protection\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Illager-Schutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.witherPiercingProtection",
@@ -60295,8 +60314,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Piercing Damage Protection",
       "labelDe": "Stärke: Schutz vor durchdringendem Schaden",
-      "tooltip": "Multiplies the rate of the trim effect \"Piercing Damage Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Schutz vor durchdringendem Schaden“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Piercing Damage Protection\" from every\npattern and material that gives it: 0 = off,\n2 = twice as strong, at most 2; the caps\n(damage floor, maximum bonuses) still apply.\nTooltips show the server's value.\nServer-side, sent to clients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Schutz vor durchdringendem Schaden“ aus\njedem Muster und Material, das sie gibt: 0 =\naus, 2 = doppelt so stark, höchstens 2; die\nDeckel (Schadensboden, Höchstwerte) gelten\nweiter. Tooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
       "name": "server.trimStrengths.healingChance",
@@ -60310,8 +60329,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Healing Chance",
       "labelDe": "Stärke: Heilchance",
-      "tooltip": "Multiplies the rate of the trim effect \"Healing Chance\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Heilchance“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Healing Chance\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Heilchance“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
       "name": "server.trimStrengths.knockbackResistance",
@@ -60325,8 +60344,8 @@ window.WIKI_DATA = {
       "groupDe": "Stärke der Besatz-Wirkungen",
       "label": "Strength: Knockback Resistance",
       "labelDe": "Stärke: Rückstoßresistenz",
-      "tooltip": "Multiplies the rate of the trim effect \"Knockback Resistance\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Rückstoßresistenz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
+      "tooltip": "Multiplies the rate of the trim effect\n\"Knockback Resistance\" from every pattern and\nmaterial that gives it: 0 = off, 2 = twice as\nstrong, at most 2; the caps (damage floor,\nmaximum bonuses) still apply. Tooltips show\nthe server's value. Server-side, sent to\nclients. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Rückstoßresistenz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     }
   ],
   "inWorld": {
@@ -60478,6 +60497,8 @@ window.WIKI_DATA = {
         "note": {
           "sources": [
             "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "common/src/shared/java/com/simplebuilding/util/AnvilDiamondCrushing.java",
+            "common/src/shared/java/com/simplebuilding/mixin/AnvilBlockMixin.java",
             "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
           ],
           "en": {
@@ -60486,7 +60507,8 @@ window.WIKI_DATA = {
             "details": [
               "Each strike rings higher and chips off particles. Strikes count per block; after 5 seconds without a strike the count starts over. Holding right-click strikes at most every 8 ticks.",
               "The pebbles drop in stacks of at most 64 at the block's position.",
-              "Only the crushing strike costs the listed durability (of the hand that holds the hammer); creative mode costs none."
+              "Only the crushing strike costs the listed durability (of the hand that holds the hammer); creative mode costs none.",
+              "26.3 alternative: an anvil landing on a diamond block after falling at least one block consumes it for 72 pebbles. All three anvil damage stages work; normal anvil wear and automation permissions apply. Nine pebbles craft a cracked diamond, which blasts into one diamond, so this returns eight of the block's nine diamonds."
             ]
           },
           "de": {
@@ -60495,7 +60517,8 @@ window.WIKI_DATA = {
             "details": [
               "Jeder Schlag klingt höher und schlägt Partikel ab. Die Schläge zählen je Block; nach 5 Sekunden ohne Schlag beginnt die Zählung von vorn. Gehaltener Rechtsklick schlägt höchstens alle 8 Ticks.",
               "Die Splitter fallen in Stapeln zu höchstens 64 an der Stelle des Blocks.",
-              "Nur der zerschlagende Schlag kostet die angegebene Haltbarkeit (des Hammers in der Hand, die schlägt); im Kreativmodus nichts."
+              "Nur der zerschlagende Schlag kostet die angegebene Haltbarkeit (des Hammers in der Hand, die schlägt); im Kreativmodus nichts.",
+              "Alternative auf 26.3: Ein Amboss, der nach mindestens einem Block Fall auf einem Diamantblock landet, verbraucht ihn für 72 Kiesel. Alle drei Ambosszustände funktionieren; normaler Ambossverschleiß und Automationsrechte gelten. Neun Kiesel ergeben einen Rohdiamanten, der im Hochofen einen Diamanten liefert: acht der neun Diamanten kommen zurück."
             ]
           }
         }
@@ -61513,6 +61536,31 @@ window.WIKI_DATA = {
         "lines": [
           "1.21.11",
           "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "anvil_diamond_crush",
+        "kind": "diamond_crush",
+        "inputs": [
+          {
+            "id": "minecraft:diamond_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:anvil",
+          "minecraft:chipped_anvil",
+          "minecraft:damaged_anvil"
+        ],
+        "output": {
+          "id": "simplebuilding:diamond_pebble",
+          "count": 72
+        },
+        "stats": {
+          "minimumFallBlocks": 1
+        },
+        "lines": [
           "26.3"
         ]
       },
@@ -82873,8 +82921,8 @@ window.WIKI_DATA = {
     "trades": 20,
     "enchantments": 19,
     "tags": 47,
-    "config": 188,
-    "inWorld": 439,
+    "config": 189,
+    "inWorld": 440,
     "advancements": 123,
     "features": 44,
     "undocumented": 0,
