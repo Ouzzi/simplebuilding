@@ -131,6 +131,12 @@ public final class NeoForgeModRegistries {
     public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity>> PLACED_BUNDLE_BE =
             BLOCK_ENTITIES.register("placed_bundle", () -> new BlockEntityType<>(com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity::new, ModBlocks.PLACED_BUNDLE));
 
+    /** Kleinteile auf einem Fleck, nur Hauptlinie (McVersion.SMALL_PLACEABLES). */
+    public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity>> PLACED_SMALL_PARTS_BE =
+            com.simplebuilding.version.McVersion.SMALL_PLACEABLES
+                    ? BLOCK_ENTITIES.register("placed_small_parts", () -> new BlockEntityType<>(com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity::new, ModBlocks.PLACED_SMALL_PARTS))
+                    : null;
+
     public static final Supplier<RecipeSerializer<BackpackUpgradeRecipe>> BACKPACK_UPGRADE_SERIALIZER =
             RECIPE_SERIALIZERS.register("backpack_upgrade", () -> BackpackUpgradeRecipe.SERIALIZER);
 
@@ -229,6 +235,7 @@ public final class NeoForgeModRegistries {
         ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
         ModBlockEntities.PLACED_TEMPLATE_BE = PLACED_TEMPLATE_BE.get();
         ModBlockEntities.PLACED_BUNDLE_BE = PLACED_BUNDLE_BE.get();
+        if (PLACED_SMALL_PARTS_BE != null) ModBlockEntities.PLACED_SMALL_PARTS_BE = PLACED_SMALL_PARTS_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
         ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
         ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();

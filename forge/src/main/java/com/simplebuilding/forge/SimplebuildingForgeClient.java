@@ -85,6 +85,9 @@ public final class SimplebuildingForgeClient {
                 com.simplebuilding.client.render.PlacedTemplateRenderer::new);
         // Abgestelltes Buendel: das gezeigte Item schwebt darueber, solange man schleichend hinschaut.
         event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.PLACED_BUNDLE_BE.get(), com.simplebuilding.client.render.PlacedBundleRenderer::new);
+        // Kleinteile auf einem Fleck: liegende Teile als Platten, Eier als 3D-Ei.
+        if (com.simplebuilding.forge.ForgeModRegistries.PLACED_SMALL_PARTS_BE != null) event.registerBlockEntityRenderer(
+                com.simplebuilding.forge.ForgeModRegistries.PLACED_SMALL_PARTS_BE.get(), com.simplebuilding.client.render.PlacedSmallPartsRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
         event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_CHEST_BE.get(),
                 com.simplebuilding.client.render.TieredChestRenderer::new);

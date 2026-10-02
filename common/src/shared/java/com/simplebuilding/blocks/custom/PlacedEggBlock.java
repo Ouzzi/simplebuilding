@@ -34,15 +34,27 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Gelegtes Ei (Besitzer 2026-10-02): Schleichen + Rechtsklick mit einem Ei stellt es aufrecht auf einen Block (Vanilla-,
- * blaues oder braunes Ei). Mit Behutsamkeit abgebaut faellt das Ei heraus; sonst zerbricht es und schluepft genau wie
- * ein geworfenes Ei: 1/8 Kueken, davon 1/32 vier, in der Variante des Eis ({@code minecraft:chicken/variant}).
- * Kein Item und keine Loot-Tabelle; das Ei steckt in der Variante des Blocks.
+ * Gelegtes Ei (Besitzer 2026-10-02), Altbestand: neue Eier legen sich als Teil eines Kleinteil-Haeufchens ab
+ * ({@code PlacedSmallPartsBlock}, bis zu vier Teile auf einem Fleck). Dieser Block bleibt registriert, damit schon
+ * gelegte Eier in alten Welten erhalten bleiben; legt man etwas dazu, wird er zum Haeufchen
+ * ({@code PlacedSmallParts#add}). Mit Behutsamkeit abgebaut faellt das Ei heraus; sonst zerbricht es und schluepft genau
+ * wie ein geworfenes Ei: 1/8 Kueken, davon 1/32 vier, in der Variante des Eis ({@code minecraft:chicken/variant}) -
+ * {@link #hatch} nutzt auch das Haeufchen. Kein Item und keine Loot-Tabelle; das Ei steckt in der Variante des Blocks,
+ * gezeichnet als 3D-Ei {@code block/placed_egg_<farbe>} (Quader {@code PlacedSmallParts#EGG_BOXES}).
  */
 public class PlacedEggBlock extends Block {
     public static final EnumProperty<Egg> EGG = EnumProperty.create("egg", Egg.class);
     public static final MapCodec<PlacedEggBlock> CODEC = com.simplebuilding.version.BlockCodecs.simple(PlacedEggBlock::new);
-    private static final VoxelShape SHAPE = Block.box(5.5, 0.0, 5.5, 10.5, 6.5, 10.5);
+    private static final VoxelShape SHAPE = eggShape();
+
+    /** Die Quader des 3D-Eis in der Blockmitte. */
+    private static VoxelShape eggShape() {
+        VoxelShape shape = net.minecraft.world.phys.shapes.Shapes.empty();
+        for (float[] box : com.simplebuilding.util.PlacedSmallParts.EGG_BOXES) {
+            shape = net.minecraft.world.phys.shapes.Shapes.or(shape, Block.box(8.0 - box[2], box[0], 8.0 - box[2], 8.0 + box[2], box[1], 8.0 + box[2]));
+        }
+        return shape.optimize();
+    }
 
     public enum Egg implements StringRepresentable {
         WHITE("white", Items.EGG), BLUE("blue", Items.BLUE_EGG), BROWN("brown", Items.BROWN_EGG);

@@ -1,0 +1,158 @@
+package com.simplebuilding.blocks.custom;
+
+import com.mojang.serialization.MapCodec;
+import com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity;
+import com.simplebuilding.util.PlacedSmallParts;
+import com.simplebuilding.version.BlockCodecs;
+import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Bis zu vier Kleinteile auf einem Fleck (Besitzer 2026-10-02, siehe {@link PlacedSmallParts}): Steinkiesel,
+ * Feuersteinsplitter, Vanilla-Kleinteile und Eier in beliebiger Mischung. Die Teile (samt Komponenten) liegen in der
+ * {@link PlacedSmallPartsBlockEntity}; gezeichnet werden sie vom {@code PlacedSmallPartsRenderer}, das Blockmodell
+ * traegt nur die Partikeltextur. Nur auf dem Boden ({@link #FACING} = Blickrichtung beim ersten Ablegen), ohne
+ * Kollision, wasserfuellbar wie die abgelegte Vorlage, von Kolben zerstoert.
+ *
+ * <p>Abbauen ({@link #getDrops}, {@link #spawnAfterBreak}, {@link #playerWillDestroy}): jedes liegende Teil faellt als es
+ * selbst heraus; Eier mit Behutsamkeit ebenso, sonst zerbrechen sie und schluepfen wie geworfene Eier. Explosionen,
+ * Kolben und ein weggenommener Boden bauen ohne Werkzeug ab. Keine Loot-Tabelle.
+ */
+public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final MapCodec<PlacedSmallPartsBlock> CODEC = BlockCodecs.simple(PlacedSmallPartsBlock::new);
+
+    public PlacedSmallPartsBlock(BlockBehaviour.Properties properties) {
+        super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
+    }
+
+    // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FACING, WATERLOGGED);
+    }
+
+    /** Oberkante der Teile in die Blickrichtung; wassergefuellt in einer Wasserquelle. */
+    @Override
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        boolean water = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
+        BlockState state = this.defaultBlockState().setValue(FACING, context.getHorizontalDirection()).setValue(WATERLOGGED, water);
+        return state.canSurvive(context.getLevel(), context.getClickedPos()) ? state : null;
+    }
+
+    /** Pixelgenau die gezeichneten Teile (in der Block-Entity zwischengespeichert). */
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity be) {
+            return be.shape();
+        }
+        return PlacedSmallParts.shape(List.of(), state.getValue(FACING));
+    }
+
+    /** Braucht einen Boden, der seine Mitte traegt (wie das gelegte Ei). */
+    @Override
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        return Block.canSupportCenter(level, pos.below(), Direction.UP);
+    }
+
+    @Override
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos,
+                                     Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+        if (state.getValue(WATERLOGGED)) {
+            ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+        }
+        if (direction == Direction.DOWN && !state.canSurvive(level, pos)) {
+            return Blocks.AIR.defaultBlockState();
+        }
+        return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
+    }
+
+    @Override
+    protected FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new PlacedSmallPartsBlockEntity(pos, state);
+    }
+
+    /** Jedes liegende Teil; Eier nur mit Behutsamkeit (das Werkzeug kommt aus den Loot-Parametern). */
+    @Override
+    protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
+        BlockEntity be = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+        if (!(be instanceof PlacedSmallPartsBlockEntity pile)) {
+            return List.of();
+        }
+        return PlacedSmallParts.drops(pile.parts(), PlacedSmallParts.silkTouch(params.getLevel(), params.getOptionalParameter(LootContextParams.TOOL) instanceof ItemStack tool ? tool : null));
+    }
+
+    /**
+     * Abbauen ohne Spieler (Explosion, Kolben, weggenommener Boden): die Block-Entity steht dann noch in der Welt,
+     * also zerbrechen hier die Eier. Beim Abbauen durch einen Spieler ist sie schon entfernt - dann
+     * {@link #playerWillDestroy}.
+     */
+    @Override
+    protected void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack tool, boolean dropExperience) {
+        super.spawnAfterBreak(state, level, pos, tool, dropExperience);
+        if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile && !PlacedSmallParts.silkTouch(level, tool)) {
+            PlacedSmallParts.breakEggs(level, pos, pile.parts(), level.getRandom());
+        }
+    }
+
+    /**
+     * Abbauen durch einen Spieler im Ueberlebensmodus: kurz bevor der Block verschwindet (die Block-Entity steht noch),
+     * zerbrechen ohne Behutsamkeit in der Haupthand die Eier. Die Drops kommen danach aus {@link #getDrops}; dann ist die
+     * Block-Entity schon aus der Welt, {@link #spawnAfterBreak} findet keine mehr - kein Ei zerbricht zweimal. Im
+     * Kreativmodus zerbricht nichts (wie beim alten gelegten Ei).
+     */
+    @Override
+    public BlockState playerWillDestroy(net.minecraft.world.level.Level level, BlockPos pos, BlockState state, net.minecraft.world.entity.player.Player player) {
+        if (level instanceof ServerLevel server && !player.isCreative() && level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile
+                && !PlacedSmallParts.silkTouch(server, player.getMainHandItem())) {
+            PlacedSmallParts.breakEggs(server, pos, pile.parts(), server.getRandom());
+        }
+        return super.playerWillDestroy(level, pos, state, player);
+    }
+
+    /** Mittlere Maustaste: das zuletzt dazugelegte Teil. */
+    @Override
+    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
+        if (level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity pile && !pile.parts().isEmpty()) {
+            return pile.parts().getLast().copyWithCount(1);
+        }
+        return ItemStack.EMPTY;
+    }
+}

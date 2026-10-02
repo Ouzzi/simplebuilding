@@ -151,6 +151,12 @@ public class ModBlocks {
             .strength(0.0F).sound(SoundType.BONE_BLOCK).noLootTable().noOcclusion().mapColor(MapColor.SAND)
             .pushReaction(McVersion.PUSH_DESTROYS))) : null;
 
+    // Kleinteile auf einem Fleck (2026-10-02, wie Seegurken): bis zu 4 Kiesel, Splitter, Vanilla-Kleinteile und Eier
+    // gemischt (PlacedSmallParts). Kein Item, keine Loot-Tabelle - die Teile liegen in der Block-Entity.
+    public static final Block PLACED_SMALL_PARTS = McVersion.SMALL_PLACEABLES ? registerBlock("placed_small_parts", s -> new com.simplebuilding.blocks.custom.PlacedSmallPartsBlock(s
+            .strength(0.2F).sound(SoundType.STONE).noCollision().noLootTable().noOcclusion().mapColor(MapColor.NONE)
+            .pushReaction(McVersion.PUSH_DESTROYS))) : null;
+
     // Eisenstab (2026-10-02): Blitzableiter aus Eisen, zieht Blitze nur in 32 Bloecken an (MetalRodBlock).
     public static final Block IRON_ROD = McVersion.GADGET_REWORK ? registerBlock("iron_rod", s -> new com.simplebuilding.blocks.custom.MetalRodBlock(
             com.simplebuilding.blocks.custom.MetalRodBlock.IRON_RANGE, s

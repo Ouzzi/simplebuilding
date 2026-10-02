@@ -22,6 +22,8 @@ public class ModBlockEntities {
     public static BlockEntityType<BackpackBlockEntity> BACKPACK_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity> PLACED_TEMPLATE_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity> PLACED_BUNDLE_BE;
+    /** Kleinteile auf einem Fleck; nur, wenn es den Block gibt (McVersion.SMALL_PLACEABLES). */
+    public static BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity> PLACED_SMALL_PARTS_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity> TIERED_CHEST_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity> TIERED_SHULKER_BOX_BE;
 
@@ -74,5 +76,11 @@ public class ModBlockEntities {
         PLACED_BUNDLE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "placed_bundle"),
                 FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity::new, ModBlocks.PLACED_BUNDLE).build());
+
+        if (ModBlocks.PLACED_SMALL_PARTS != null) {
+            PLACED_SMALL_PARTS_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "placed_small_parts"),
+                    FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity::new, ModBlocks.PLACED_SMALL_PARTS).build());
+        }
     }
 }

@@ -2529,6 +2529,7 @@
   "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems": "Nicht ablegbare Items",
   "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems.@Tooltip": "Item-IDs, die sich nicht mehr ablegen lassen, durch Komma oder Leerzeichen getrennt (ohne Namensraum: minecraft). Schon abgelegte bleiben liegen. Serverseitig. Standard: leer.",
   "block.simplebuilding.placed_egg": "Gelegtes Ei",
+  "block.simplebuilding.placed_small_parts": "Kleinteile",
   "block.simplebuilding.iron_rod": "Eisenstab",
   "tooltip.simplebuilding.iron_rod": "Zieht Blitze an wie ein Blitzableiter, aber nur im Umkreis von 32 Blöcken",
   "item.simplebuilding.iron_rod": "Eisenstab",

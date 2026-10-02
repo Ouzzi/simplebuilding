@@ -6,6 +6,7 @@ import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.PlacedAttractors;
 import com.simplebuilding.util.PlacedPlate;
+import com.simplebuilding.util.PlacedSmallParts;
 import com.simplebuilding.util.PlacedTemplates;
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -753,8 +754,9 @@ public final class PlacedTemplateTests {
     }
 
     /**
-     * Small parts (owner 2026-10-02): sneak + right-click lays a stick or a Stone Pebble flat like a template and uses one;
-     * server.features.placeVanillaItems off keeps vanilla items in hand, server.features.placeDisabledItems blocks single IDs.
+     * Small parts (owner 2026-10-02): sneak + right-click lays a stick or a Stone Pebble on the floor (a small-parts pile)
+     * and uses one; server.features.placeVanillaItems off keeps vanilla items in hand, server.features.placeDisabledItems
+     * blocks single IDs.
      */
     public static void smallPartsLieDownAndTheServerOptionsGateThem(GameTestHelper helper) {
         if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
@@ -771,21 +773,22 @@ public final class PlacedTemplateTests {
             helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(Items.IRON_INGOT)), "an iron ingot is placeable");
             helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(ModItems.STONE_PEBBLE)), "a stone pebble is placeable");
             helper.assertFalse(PlacedTemplates.isPlaceableSmall(new ItemStack(Items.DIRT)), "dirt is not a small part");
-            net.minecraft.server.level.ServerPlayer player = helper.makeMockServerPlayerInLevel();
+            ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 4.5));
             player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
             BlockPos floor = new BlockPos(1, 1, 1);
             helper.setBlock(floor, Blocks.STONE);
             helper.setBlock(floor.above(), Blocks.AIR);
             player.setShiftKeyDown(true);
             ItemStack sticks = new ItemStack(Items.STICK, 3);
-            player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, sticks);
-            BlockPos at = helper.absolutePos(floor);
-            net.minecraft.world.InteractionResult result = sticks.useOn(new net.minecraft.world.item.context.UseOnContext(player,
-                    net.minecraft.world.InteractionHand.MAIN_HAND, new net.minecraft.world.phys.BlockHitResult(
-                            net.minecraft.world.phys.Vec3.atCenterOf(at).add(0, 0.5, 0), net.minecraft.core.Direction.UP, at, false)));
+            InteractionResult result = use(helper, player, sticks, floor, Direction.UP);
             helper.assertTrue(result.consumesAction(), "sneak + right-click with a stick answered " + result);
-            helper.assertTrue(PlacedTemplates.templateAt(helper.getLevel(), at.above()).is(Items.STICK), "no stick lies on the stone");
+            helper.assertValueEqual(parts(helper, floor.above()), List.of(Items.STICK), "parts lying on the stone");
             helper.assertValueEqual(sticks.getCount(), 2, "sticks left in hand");
+            // on a wall a small part still lies alone like a template
+            helper.setBlock(floor.north(), Blocks.AIR);
+            InteractionResult wall = use(helper, player, sticks, floor, Direction.NORTH);
+            helper.assertTrue(wall.consumesAction() && template(helper, floor.north()).is(Items.STICK)
+                    && helper.getBlockState(floor.north()).getValue(PlacedTemplateBlock.FACE) == AttachFace.WALL, "no stick lies on the wall: " + wall);
             features.placeVanillaItems = false;
             helper.assertFalse(PlacedTemplates.isPlaceableSmall(new ItemStack(Items.STICK)), "vanilla parts off: stick");
             helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(ModItems.STONE_PEBBLE)), "vanilla parts off: the pebble stays placeable");
@@ -810,31 +813,23 @@ public final class PlacedTemplateTests {
             helper.succeed();
             return;
         }
-        net.minecraft.server.level.ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 4.5));
         player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
         BlockPos floor = new BlockPos(1, 1, 1);
         helper.setBlock(floor, Blocks.STONE);
         helper.setBlock(floor.above(), Blocks.AIR);
         player.setShiftKeyDown(true);
         ItemStack eggs = new ItemStack(Items.BLUE_EGG, 2);
-        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, eggs);
-        BlockPos at = helper.absolutePos(floor);
-        net.minecraft.world.InteractionResult result = eggs.useOn(new net.minecraft.world.item.context.UseOnContext(player,
-                net.minecraft.world.InteractionHand.MAIN_HAND, new net.minecraft.world.phys.BlockHitResult(
-                        net.minecraft.world.phys.Vec3.atCenterOf(at).add(0, 0.5, 0), net.minecraft.core.Direction.UP, at, false)));
+        InteractionResult result = use(helper, player, eggs, floor, Direction.UP);
         helper.assertTrue(result.consumesAction(), "sneak + right-click with a blue egg answered " + result);
-        net.minecraft.world.level.block.state.BlockState placed = helper.getLevel().getBlockState(at.above());
-        helper.assertTrue(placed.is(ModBlocks.PLACED_EGG) && placed.getValue(com.simplebuilding.blocks.custom.PlacedEggBlock.EGG)
-                == com.simplebuilding.blocks.custom.PlacedEggBlock.Egg.BLUE, "no blue egg stands on the stone: " + placed);
+        helper.assertValueEqual(parts(helper, floor.above()), List.of(Items.BLUE_EGG), "parts standing on the stone");
         helper.assertValueEqual(eggs.getCount(), 1, "eggs left in hand");
-        ItemStack silk = new ItemStack(Items.IRON_PICKAXE);
-        silk.enchant(helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT)
-                .getOrThrow(net.minecraft.world.item.enchantment.Enchantments.SILK_TOUCH), 1);
-        placed.spawnAfterBreak(helper.getLevel(), at.above(), silk, true);
-        net.minecraft.world.phys.AABB around = new net.minecraft.world.phys.AABB(at.above()).inflate(2.0);
-        helper.assertTrue(helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, around).stream()
-                .anyMatch(e -> e.getItem().is(Items.BLUE_EGG)), "silk touch did not give the blue egg back");
+        player.setItemInHand(InteractionHand.MAIN_HAND, silkPickaxe(helper));
+        player.gameMode.destroyBlock(helper.absolutePos(floor.above()));
+        helper.assertTrue(helper.getBlockState(floor.above()).isAir(), "the silk touch pickaxe did not break the egg");
+        helper.assertValueEqual(droppedCount(helper, floor.above(), Items.BLUE_EGG), 1, "blue eggs back from silk touch");
         // the thrown egg's rule, with a random source whose first draws hatch exactly one chick
+        BlockPos at = helper.absolutePos(floor);
         net.minecraft.util.RandomSource hatching = null;
         for (long seed = 0; seed < 10_000 && hatching == null; seed++) {
             net.minecraft.util.RandomSource probe = net.minecraft.util.RandomSource.create(seed);
@@ -845,15 +840,250 @@ public final class PlacedTemplateTests {
         helper.assertTrue(hatching != null, "no seed hatches one chick");
         int chicks = com.simplebuilding.blocks.custom.PlacedEggBlock.hatch(helper.getLevel(), at.above(), new ItemStack(Items.BLUE_EGG), hatching);
         helper.assertValueEqual(chicks, 1, "chicks from a hatching egg");
+        net.minecraft.world.phys.AABB around = new net.minecraft.world.phys.AABB(at.above()).inflate(2.0);
         var chick = helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.animal.chicken.Chicken.class, around).stream().findFirst().orElseThrow();
         helper.assertTrue(chick.isBaby(), "the chick is a baby");
-        int none = 0;
         net.minecraft.util.RandomSource miss = null;
         for (long seed = 0; seed < 10_000 && miss == null; seed++) {
             if (net.minecraft.util.RandomSource.create(seed).nextInt(8) != 0) miss = net.minecraft.util.RandomSource.create(seed);
         }
-        none = com.simplebuilding.blocks.custom.PlacedEggBlock.hatch(helper.getLevel(), at.above(), new ItemStack(Items.EGG), miss);
+        int none = com.simplebuilding.blocks.custom.PlacedEggBlock.hatch(helper.getLevel(), at.above(), new ItemStack(Items.EGG), miss);
         helper.assertValueEqual(none, 0, "seven eggs in eight do not hatch");
         helper.succeed();
+    }
+
+    /**
+     * Small parts on one spot (owner 2026-10-02, like sea pickles): sneak + right-click with another part on the pile or
+     * on the floor below it adds it, up to 4 in any mix (pebble + flint chip + flint chip + egg); the fifth stays in hand,
+     * the server options still gate vanilla parts, the hitbox stays inside the block, and breaking it by hand without
+     * Silk Touch gives every lying part back exactly once while the egg breaks.
+     */
+    public static void smallPartsStackUpToFourInAnyMixAndTheFifthIsRefused(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        var features = com.simplebuilding.config.ServerTuning.get().features;
+        boolean vanilla = features.placeVanillaItems;
+        String disabled = features.placeDisabledItems;
+        try {
+            features.placeVanillaItems = true;
+            features.placeDisabledItems = "";
+            ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 4.5));
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            player.setShiftKeyDown(true);
+            BlockPos floor = new BlockPos(1, 1, 1);
+            BlockPos spot = floor.above();
+            helper.setBlock(floor, Blocks.STONE);
+            helper.setBlock(spot, Blocks.AIR);
+            ItemStack pebbles = new ItemStack(ModItems.STONE_PEBBLE, 2);
+            ItemStack chips = new ItemStack(ModItems.FLINT_CHIP, 3);
+            ItemStack eggs = new ItemStack(Items.EGG, 2);
+            helper.assertTrue(use(helper, player, pebbles, floor, Direction.UP).consumesAction(), "the pebble was not placed");
+            helper.assertTrue(helper.getBlockState(spot).is(ModBlocks.PLACED_SMALL_PARTS), "no small-parts pile but " + helper.getBlockState(spot));
+            helper.assertTrue(use(helper, player, chips, spot, Direction.UP).consumesAction(), "the chip was not added on the pile");
+            helper.assertTrue(use(helper, player, chips, floor, Direction.UP).consumesAction(), "the chip was not added from the floor below");
+            features.placeVanillaItems = false;
+            helper.assertFalse(use(helper, player, eggs, spot, Direction.UP).consumesAction(), "vanilla parts off: the egg was added anyway");
+            helper.assertValueEqual(eggs.getCount(), 2, "eggs left after the gated try");
+            features.placeVanillaItems = true;
+            helper.assertTrue(use(helper, player, eggs, spot, Direction.UP).consumesAction(), "the egg was not added");
+            helper.assertValueEqual(parts(helper, spot), List.of(ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP, ModItems.FLINT_CHIP, Items.EGG), "the pile");
+            helper.assertValueEqual(pebbles.getCount() + chips.getCount() + eggs.getCount(), 3, "parts left in hand");
+            InteractionResult fifth = use(helper, player, pebbles, spot, Direction.UP);
+            helper.assertFalse(fifth.consumesAction(), "the fifth part was taken: " + fifth);
+            helper.assertFalse(use(helper, player, chips, floor, Direction.UP).consumesAction(), "the fifth part was taken from the floor below");
+            helper.assertValueEqual(pebbles.getCount() + chips.getCount(), 2, "the fifth part stays in hand");
+            helper.assertValueEqual(parts(helper, spot).size(), PlacedSmallParts.MAX_PARTS, "parts on the full spot");
+            BlockPos abs = helper.absolutePos(spot);
+            VoxelShape shape = helper.getBlockState(spot).getShape(helper.getLevel(), abs);
+            helper.assertFalse(shape.isEmpty(), "the pile has no hitbox");
+            var bounds = shape.bounds();
+            helper.assertTrue(bounds.minX >= 0 && bounds.minZ >= 0 && bounds.maxX <= 1 && bounds.maxZ <= 1 && bounds.maxY <= 7.0 / 16.0,
+                    "the hitbox leaves the block or towers: " + bounds);
+            helper.assertTrue(bounds.maxX - bounds.minX > 0.5 && bounds.maxZ - bounds.minZ > 0.5, "the hitbox does not cover the four spots: " + bounds);
+            player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+            player.gameMode.destroyBlock(abs);
+            helper.assertTrue(helper.getBlockState(spot).isAir(), "the pile was not broken");
+            helper.assertValueEqual(droppedCount(helper, spot, ModItems.STONE_PEBBLE), 1, "pebbles dropped");
+            helper.assertValueEqual(droppedCount(helper, spot, ModItems.FLINT_CHIP), 2, "flint chips dropped");
+            helper.assertValueEqual(droppedCount(helper, spot, Items.EGG), 0, "eggs dropped without silk touch");
+        } finally {
+            features.placeVanillaItems = vanilla;
+            features.placeDisabledItems = disabled;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Breaking a pile (owner 2026-10-02): with Silk Touch every part comes back, eggs included; without a tool (as by an
+     * explosion, a piston or a missing floor) only the lying parts drop, and each egg hatches for itself with the thrown
+     * egg's rule.
+     */
+    public static void brokenPilesHatchEachEggLikeThrownEggsAndSilkTouchReturnsThem(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 4.5));
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        BlockPos silkSpot = pile(helper, new BlockPos(1, 1, 1), new ItemStack(Items.BLUE_EGG), new ItemStack(Items.BROWN_EGG), new ItemStack(ModItems.STONE_PEBBLE));
+        player.setItemInHand(InteractionHand.MAIN_HAND, silkPickaxe(helper));
+        player.gameMode.destroyBlock(helper.absolutePos(silkSpot));
+        helper.assertTrue(helper.getBlockState(silkSpot).isAir(), "the silk touch pickaxe did not break the pile");
+        helper.assertValueEqual(droppedCount(helper, silkSpot, Items.BLUE_EGG), 1, "blue eggs back from silk touch");
+        helper.assertValueEqual(droppedCount(helper, silkSpot, Items.BROWN_EGG), 1, "brown eggs back from silk touch");
+        helper.assertValueEqual(droppedCount(helper, silkSpot, ModItems.STONE_PEBBLE), 1, "pebbles back from silk touch");
+
+        BlockPos plainSpot = pile(helper, new BlockPos(5, 1, 5), new ItemStack(Items.EGG), new ItemStack(Items.EGG), new ItemStack(ModItems.FLINT_CHIP));
+        helper.getLevel().destroyBlock(helper.absolutePos(plainSpot), true);
+        helper.assertTrue(helper.getBlockState(plainSpot).isAir(), "the pile was not destroyed");
+        helper.assertValueEqual(droppedCount(helper, plainSpot, ModItems.FLINT_CHIP), 1, "flint chips dropped without a tool");
+        helper.assertValueEqual(droppedCount(helper, plainSpot, Items.EGG), 0, "eggs dropped without a tool");
+
+        // each egg draws for itself: find a seed, work out what two thrown eggs would hatch, compare
+        long seed = -1;
+        int expected = 0;
+        for (long s = 0; s < 100_000 && seed < 0; s++) {
+            int simulated = thrownEggChicks(net.minecraft.util.RandomSource.create(s), 2);
+            if (simulated >= 2) {
+                seed = s;
+                expected = simulated;
+            }
+        }
+        helper.assertTrue(seed >= 0, "no seed hatches both eggs");
+        int chicks = PlacedSmallParts.breakEggs(helper.getLevel(), helper.absolutePos(plainSpot),
+                List.of(new ItemStack(Items.EGG), new ItemStack(ModItems.FLINT_CHIP), new ItemStack(Items.BLUE_EGG)),
+                net.minecraft.util.RandomSource.create(seed));
+        helper.assertValueEqual(chicks, expected, "chicks from two hatching eggs");
+        helper.succeed();
+    }
+
+    /**
+     * Old worlds (owner 2026-10-02): a single placed egg ({@code placed_egg}) and a small part lying alone on the floor
+     * ({@code placed_smithing_template}) stay as they are and turn into a pile when a part is added; a lying smithing
+     * template does not.
+     */
+    public static void oldPlacedEggsAndLyingSmallPartsTurnIntoPilesWhenPartsAreAdded(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 4.5));
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        player.setShiftKeyDown(true);
+        BlockPos eggSpot = new BlockPos(1, 2, 1);
+        helper.setBlock(eggSpot.below(), Blocks.STONE);
+        helper.setBlock(eggSpot, ModBlocks.PLACED_EGG.defaultBlockState()
+                .setValue(com.simplebuilding.blocks.custom.PlacedEggBlock.EGG, com.simplebuilding.blocks.custom.PlacedEggBlock.Egg.BROWN));
+        ItemStack pebbles = new ItemStack(ModItems.STONE_PEBBLE, 2);
+        helper.assertTrue(use(helper, player, pebbles, eggSpot, Direction.UP).consumesAction(), "the pebble was not added to the old egg");
+        helper.assertValueEqual(parts(helper, eggSpot), List.of(Items.BROWN_EGG, ModItems.STONE_PEBBLE), "the old egg's pile");
+
+        BlockPos chipSpot = new BlockPos(3, 2, 1);
+        helper.setBlock(chipSpot.below(), Blocks.STONE);
+        helper.setBlock(chipSpot, ModBlocks.PLACED_SMITHING_TEMPLATE.defaultBlockState()
+                .setValue(PlacedTemplateBlock.FACE, AttachFace.FLOOR).setValue(PlacedTemplateBlock.FACING, Direction.EAST));
+        helper.getBlockEntity(chipSpot, PlacedTemplateBlockEntity.class).setTemplate(new ItemStack(ModItems.FLINT_CHIP));
+        ItemStack eggs = new ItemStack(Items.EGG, 2);
+        helper.assertTrue(use(helper, player, eggs, chipSpot.below(), Direction.UP).consumesAction(), "the egg was not added to the lying chip");
+        helper.assertValueEqual(parts(helper, chipSpot), List.of(ModItems.FLINT_CHIP, Items.EGG), "the lying chip's pile");
+        helper.assertTrue(helper.getBlockState(chipSpot).getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.FACING) == Direction.EAST,
+                "the pile does not keep the chip's direction");
+
+        BlockPos templateSpot = new BlockPos(5, 2, 1);
+        helper.setBlock(templateSpot.below(), Blocks.STONE);
+        helper.setBlock(templateSpot, ModBlocks.PLACED_SMITHING_TEMPLATE.defaultBlockState().setValue(PlacedTemplateBlock.FACE, AttachFace.FLOOR));
+        helper.getBlockEntity(templateSpot, PlacedTemplateBlockEntity.class).setTemplate(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE));
+        helper.assertFalse(use(helper, player, pebbles, templateSpot, Direction.UP).consumesAction(), "a pebble was put onto a smithing template");
+        helper.assertTrue(template(helper, templateSpot).is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), "the smithing template was replaced");
+        helper.assertValueEqual(pebbles.getCount(), 1, "pebbles left in hand");
+        helper.succeed();
+    }
+
+    /**
+     * The 3D egg (owner 2026-10-02): the cuboids of {@code block/placed_egg_<colour>} (tools/textures/placed_egg_textures.py)
+     * are the egg hitbox {@link PlacedSmallParts#EGG_BOXES}, and the item definition the renderer draws it through points
+     * at that model.
+     */
+    public static void theEggModelMatchesTheEggHitbox(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        for (String colour : List.of("white", "blue", "brown")) {
+            com.google.gson.JsonObject model = resourceJson(helper, "/assets/simplebuilding/models/block/placed_egg_" + colour + ".json");
+            com.google.gson.JsonArray elements = model.getAsJsonArray("elements");
+            helper.assertValueEqual(elements.size(), PlacedSmallParts.EGG_BOXES.length, colour + " egg cuboids");
+            for (int i = 0; i < elements.size(); i++) {
+                float[] box = PlacedSmallParts.EGG_BOXES[i];
+                com.google.gson.JsonArray from = elements.get(i).getAsJsonObject().getAsJsonArray("from");
+                com.google.gson.JsonArray to = elements.get(i).getAsJsonObject().getAsJsonArray("to");
+                float[] expected = {8.0F - box[2], box[0], 8.0F - box[2], 8.0F + box[2], box[1], 8.0F + box[2]};
+                float[] actual = {from.get(0).getAsFloat(), from.get(1).getAsFloat(), from.get(2).getAsFloat(),
+                        to.get(0).getAsFloat(), to.get(1).getAsFloat(), to.get(2).getAsFloat()};
+                helper.assertTrue(java.util.Arrays.equals(expected, actual), colour + " egg cuboid " + i + " is "
+                        + java.util.Arrays.toString(actual) + ", the hitbox " + java.util.Arrays.toString(expected));
+            }
+            com.google.gson.JsonObject definition = resourceJson(helper, "/assets/simplebuilding/items/placed_egg_" + colour + ".json");
+            helper.assertValueEqual(definition.getAsJsonObject("model").get("model").getAsString(), "simplebuilding:block/placed_egg_" + colour,
+                    colour + " egg item definition");
+        }
+        helper.succeed();
+    }
+
+    // =====================================================================================
+
+    /** Die Items des Haeufchens an {@code pos} (relativ), leer, wenn dort keins liegt. */
+    private static List<Item> parts(GameTestHelper helper, BlockPos pos) {
+        return helper.getLevel().getBlockEntity(helper.absolutePos(pos)) instanceof com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity be
+                ? be.parts().stream().map(ItemStack::getItem).toList() : List.of();
+    }
+
+    /** Ein Haeufchen mit diesen Teilen auf Stein an {@code floor} (relativ); liefert seinen Platz. */
+    private static BlockPos pile(GameTestHelper helper, BlockPos floor, ItemStack... stacks) {
+        helper.setBlock(floor, Blocks.STONE);
+        helper.setBlock(floor.above(), ModBlocks.PLACED_SMALL_PARTS);
+        helper.getBlockEntity(floor.above(), com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity.class).setParts(List.of(stacks));
+        return floor.above();
+    }
+
+    /** Wie viele Items dieser Art um {@code pos} (relativ) herum liegen. */
+    private static int droppedCount(GameTestHelper helper, BlockPos pos, Item item) {
+        net.minecraft.world.phys.AABB around = new net.minecraft.world.phys.AABB(helper.absolutePos(pos)).inflate(1.5);
+        return helper.getLevel().getEntitiesOfClass(ItemEntity.class, around).stream()
+                .filter(e -> e.getItem().is(item)).mapToInt(e -> e.getItem().getCount()).sum();
+    }
+
+    private static ItemStack silkPickaxe(GameTestHelper helper) {
+        ItemStack silk = new ItemStack(Items.IRON_PICKAXE);
+        silk.enchant(helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT)
+                .getOrThrow(net.minecraft.world.item.enchantment.Enchantments.SILK_TOUCH), 1);
+        return silk;
+    }
+
+    /** Was {@code eggs} geworfene Eier mit diesen Zufallszahlen schluepfen lassen (dieselben Ziehungen wie {@code PlacedEggBlock#hatch}). */
+    private static int thrownEggChicks(net.minecraft.util.RandomSource random, int eggs) {
+        int chicks = 0;
+        for (int egg = 0; egg < eggs; egg++) {
+            if (random.nextInt(8) != 0) {
+                continue;
+            }
+            int count = random.nextInt(32) == 0 ? 4 : 1;
+            for (int i = 0; i < count; i++) {
+                random.nextFloat();
+            }
+            chicks += count;
+        }
+        return chicks;
+    }
+
+    private static com.google.gson.JsonObject resourceJson(GameTestHelper helper, String path) {
+        try (java.io.InputStream in = PlacedTemplateTests.class.getResourceAsStream(path)) {
+            helper.assertTrue(in != null, "missing resource " + path);
+            return com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("cannot read " + path, e);
+        }
     }
 }
