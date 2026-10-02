@@ -23,6 +23,7 @@
     "EnderiteItemMixin",
     "EntityLightRemovalMixin",
     "EndermanSpawnMixin",
+    "EnderiteSinkDamperMixin",
     "FletchingTableMixin",
     "HostileEntityMixin",
     "ItemEntityMixin",

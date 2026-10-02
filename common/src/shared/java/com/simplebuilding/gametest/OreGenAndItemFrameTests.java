@@ -314,8 +314,8 @@ public final class OreGenAndItemFrameTests {
         helper.succeed();
     }
 
-    /** Weisheitskugel: 10 Ticks Laden, dann 50 bis 100 Erfahrungspunkte, die Kugel ist verbraucht. */
-    public static void theSageOrbGivesFiftyToOneHundredExperienceAfterTenTicks(GameTestHelper helper) {
+    /** Weisheitskugel: 6 Ticks Laden, dann 50 bis 100 Erfahrungspunkte, die Kugel ist verbraucht. */
+    public static void theSageOrbGivesFiftyToOneHundredExperienceAfterSixTicks(GameTestHelper helper) {
         if (!com.simplebuilding.version.McVersion.SAGE_ORE) {
             helper.succeed();
             return;
@@ -324,7 +324,7 @@ public final class OreGenAndItemFrameTests {
         player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
         ItemStack orbs = new ItemStack(ModItems.SAGE_ORB, 2);
         player.setItemInHand(InteractionHand.MAIN_HAND, orbs);
-        helper.assertValueEqual(orbs.getItem().getUseDuration(orbs, player), 10, "charge ticks of the sage orb");
+        helper.assertValueEqual(orbs.getItem().getUseDuration(orbs, player), 6, "charge ticks of the sage orb");
         int before = player.totalExperience;
         orbs.getItem().finishUsingItem(orbs, helper.getLevel(), player);
         int gained = player.totalExperience - before;

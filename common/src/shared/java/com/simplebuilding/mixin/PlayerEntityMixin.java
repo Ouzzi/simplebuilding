@@ -1,16 +1,12 @@
 package com.simplebuilding.mixin;
 
-import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.ISpaceKeyTracker;
 import com.simplebuilding.util.TrimBenefitUser;
 import com.simplebuilding.util.TrimEffectUtil;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -63,30 +59,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
         // 2b. Luftsprung: die Landung setzt die Abklingzeit NICHT mehr zurueck (Besitzer 2026-09-29),
         //     deshalb kein Aufruf mehr hier - AirJumpGuard prueft die volle Abklingzeit beim Paket.
 
-        // 3. Enderite Slow Fall (Server-Side)
-        if (!this.level().isClientSide()) {
-            int enderiteCount = 0;
-
-            if (isEnderite(this.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET))) enderiteCount++;
-            if (isEnderite(this.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS))) enderiteCount++;
-            if (isEnderite(this.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST))) enderiteCount++;
-            if (isEnderite(this.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD))) enderiteCount++;
-
-            // Logik: Mindestens 2 Teile UND Spieler fällt UND Leertaste gedrückt
-            if (enderiteCount >= 2 && !this.onGround() && this.getDeltaMovement().y < -0.1) {
-                if (this.simplebuilding$isSpacePressed()) {
-                    this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 2, 0, false, false, false));
-                }
-            }
-        }
-    }
-
-    @Unique
-    private boolean isEnderite(ItemStack stack) {
-        return stack.getItem() == ModItems.ENDERITE_BOOTS ||
-                stack.getItem() == ModItems.ENDERITE_LEGGINGS ||
-                stack.getItem() == ModItems.ENDERITE_CHESTPLATE ||
-                stack.getItem() == ModItems.ENDERITE_HELMET;
+        // 3. Enderit-Sinkdaempfer: EnderiteSinkDamperMixin (Schwerkraft und Fallweg beim schleichenden Fall).
     }
 
     // --- HUNGER / EXHAUSTION ---

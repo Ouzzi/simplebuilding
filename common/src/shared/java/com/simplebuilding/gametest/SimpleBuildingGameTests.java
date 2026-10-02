@@ -499,7 +499,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_sage_ore_generates_in_the_overworld_and_drops_only_with_silk_touch", OreGenAndItemFrameTests::sageOreGeneratesInTheOverworldAndDropsOnlyWithSilkTouch)
                     .build(),
-            GameTestSpec.named("ore_gen_and_item_frame_game_test_the_sage_orb_gives_fifty_to_one_hundred_experience_after_ten_ticks", OreGenAndItemFrameTests::theSageOrbGivesFiftyToOneHundredExperienceAfterTenTicks)
+            GameTestSpec.named("ore_gen_and_item_frame_game_test_the_sage_orb_gives_fifty_to_one_hundred_experience_after_six_ticks", OreGenAndItemFrameTests::theSageOrbGivesFiftyToOneHundredExperienceAfterSixTicks)
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_end_ore_features_carry_the_right_ore_block_and_vein_size", OreGenAndItemFrameTests::endOreFeaturesCarryTheRightOreBlockAndVeinSize)
                     .build(),
@@ -1763,6 +1763,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("immersion_game_test_flypad_warning_rises_towards_the_edge_of_its_field", ImmersionTests::flypadWarningRisesTowardsTheEdgeOfItsField)
                     .build(),
             GameTestSpec.named("immersion_game_test_pad_and_machine_tooltips_name_their_numbers", ImmersionTests::padAndMachineTooltipsNameTheirNumbers)
+                    .build(),
+            GameTestSpec.named("immersion_game_test_enderite_armor_damps_the_fall_while_sneaking", ImmersionTests::enderiteArmorDampsTheFallWhileSneaking)
                     .build(),
             GameTestSpec.named("immersion_game_test_armor_and_food_tooltips_explain_what_they_do", ImmersionTests::armorAndFoodTooltipsExplainWhatTheyDo)
                     .build(),

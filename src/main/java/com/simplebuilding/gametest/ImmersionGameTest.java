@@ -38,6 +38,11 @@ public final class ImmersionGameTest {
     }
 
     @GameTest
+    public void enderiteArmorDampsTheFallWhileSneaking(GameTestHelper helper) {
+        ImmersionTests.enderiteArmorDampsTheFallWhileSneaking(helper);
+    }
+
+    @GameTest
     public void armorAndFoodTooltipsExplainWhatTheyDo(GameTestHelper helper) {
         ImmersionTests.armorAndFoodTooltipsExplainWhatTheyDo(helper);
     }

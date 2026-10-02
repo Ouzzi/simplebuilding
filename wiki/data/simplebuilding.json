@@ -2495,7 +2495,8 @@
         "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
         "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
         "src/main/generated/data/simplebuilding/tags/item/enderite_items.json",
-        "src/main/generated/data/simplebuilding/tags/item/double_despawn_time.json"
+        "src/main/generated/data/simplebuilding/tags/item/double_despawn_time.json",
+        "common/src/shared/java/com/simplebuilding/util/EnderiteSinkDamper.java"
       ],
       "en": {
         "title": "Enderite Void Protection",
@@ -2507,7 +2508,7 @@
           "The check runs on the server only, on every tick of the item entity.",
           "Protection is keyed to the item tag, not to the display name; it therefore works in every language, and a foreign item renamed to \"Enderite\" in an anvil is not protected (a gametest pins both directions).",
           "Void damage on the player: with 1/2/3/4 Enderite armor pieces worn, void damage only lands on ticks whose counter is divisible by 20/40/60/100; every other hit is cancelled.",
-          "Slow descent: wearing at least 2 Enderite armor pieces, not on the ground, falling faster than 0.1 blocks per tick and holding the jump key gives you a continuously refreshed Slow Falling effect (2 ticks) on the server; the key state is sent by the client via SpaceKeyPayload whenever it changes.",
+          "Sink damper: sneaking while falling with Enderite armor lowers gravity by 25/45/65/80 % for 1/2/3/4 pieces worn, so the fall speeds up more slowly instead of being stopped, and the fall distance that counts for fall damage shrinks by the same share. Off on the ground, with elytra, while flying, in water or lava and while rising. Movement runs the same on client and server; no effect is given.",
           "Limitation: void protection only covers items lying in the world as entities, not items inside chests or inventories.",
           "Enderite is made with netherite and keeps everything netherite gives an item: every enderite item from the ingot upwards, the scrap and the nugget are fire resistant and float on lava; the mod's Netherite Sledgehammer, Chisel, Spatula, Building Wand and Core are too (ModItems#netheriteTraits). Enderite armor resists knockback with 0.2 per piece (netherite: 0.1). The Enderite Bundle, Quiver and Backpack survive explosions as dropped items, like the Netherite Bundle, Quiver and Backpack.",
           "Every dropped enderite item lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000 - Raw Enderite Fragments and Raw Enderite Scrap, Enderite Scrap and the upgrade template included (owner decision 2026-09-28; before, only the ingot tier did). The item tag simplebuilding:double_despawn_time decides (it contains #simplebuilding:enderite_items). On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime). The older tag simplebuilding:enderite_ingot_tier (the ingot and everything made from it) still ships for modpacks but no longer decides anything."
@@ -2523,7 +2524,7 @@
           "Die Prüfung erfolgt nur auf dem Server, jeden Tick des Item-Objekts.",
           "Der Schutz hängt am Item-Tag, nicht am Anzeigenamen; er funktioniert daher in jeder Sprache, und ein im Amboss auf „Enderite“ umbenanntes Fremditem ist nicht geschützt (ein Gametest sichert beide Richtungen ab).",
           "Leere-Schaden beim Spieler: Mit 1/2/3/4 getragenen Enderit-Rüstungsteilen trifft der Schaden aus der Leere nur noch in Ticks, deren Zähler durch 20/40/60/100 teilbar ist; alle anderen Treffer werden abgefangen.",
-          "Sanftes Fallen: Wer mindestens 2 Enderit-Rüstungsteile trägt, nicht am Boden ist, schneller als 0,1 Blöcke pro Tick fällt und die Sprungtaste hält, bekommt serverseitig laufend den Effekt Sanfter Fall (2 Ticks); der Tastenzustand wird vom Client bei jeder Änderung per SpaceKeyPayload übermittelt.",
+          "Sinkdämpfer: Wer mit Enderit-Rüstung im Fall schleicht, hat bei 1/2/3/4 getragenen Teilen 25/45/65/80 % weniger Schwerkraft - der Fall beschleunigt langsamer, statt gebremst zu werden -, und der für den Fallschaden zählende Fallweg schrumpft um denselben Anteil. Aus am Boden, mit Elytren, beim Fliegen, in Wasser oder Lava und beim Steigen. Die Bewegung läuft auf Client und Server gleich; es wird kein Effekt vergeben.",
           "Einschränkung: Der Leere-Schutz gilt nur für Items, die als Gegenstand in der Welt liegen, nicht für Items in Truhen oder Inventaren.",
           "Enderit wird aus Netherit gemacht und behält alles, was Netherit einem Gegenstand gibt: jeder Enderit-Gegenstand ab dem Barren, dazu Enderitplatten und Enderitklumpen, ist feuerfest und schwimmt auf Lava; ebenso Netherit-Vorschlaghammer, -Meißel, -Spachtel, -Baustab und -Kern der Mod (ModItems#netheriteTraits). Enderit-Rüstung widersteht Rückstoß mit 0,2 je Teil (Netherit: 0,1). Enderitbündel, -Köcher und -Rucksack überstehen als fallengelassene Gegenstände Explosionen, wie Netheritbündel, Netheritköcher und Netherit-Rucksack.",
           "Jeder fallengelassene Enderit-Gegenstand bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000 – Rohe Enderitfragmente, Rohe Enderitplatten, Enderitplatten und die Upgrade-Vorlage eingeschlossen (Besitzer-Entscheidung 2026-09-28; vorher nur ab dem Barren). Maßgeblich ist das Item-Tag simplebuilding:double_despawn_time (es enthält #simplebuilding:enderite_items). Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime). Das ältere Tag simplebuilding:enderite_ingot_tier (der Barren und alles daraus) wird für Modpacks weiter mitgeliefert, entscheidet aber nichts mehr."
@@ -15358,14 +15359,14 @@
       },
       "note": {
         "en": {
-          "summary": "The Sage Orb stores experience: right-click charges it for half a second (10 ticks), then it gives 50 to 100 experience points and is used up.",
+          "summary": "The Sage Orb stores experience: right-click charges it for 0.3 seconds (6 ticks), then it gives 50 to 100 experience points and is used up.",
           "details": [
             "The amount is rolled by the server on use. Stacks to 16.",
             "Feedback is sound and particles only."
           ]
         },
         "de": {
-          "summary": "Die Weisheitskugel speichert Erfahrung: Rechtsklick lädt sie eine halbe Sekunde (10 Ticks), dann gibt sie 50 bis 100 Erfahrungspunkte und ist verbraucht.",
+          "summary": "Die Weisheitskugel speichert Erfahrung: Rechtsklick lädt sie 0,3 Sekunden (6 Ticks), dann gibt sie 50 bis 100 Erfahrungspunkte und ist verbraucht.",
           "details": [
             "Die Menge würfelt der Server beim Benutzen. Stapelt bis 16.",
             "Rückmeldung nur über Klang und Partikel."

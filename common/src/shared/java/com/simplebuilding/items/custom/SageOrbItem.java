@@ -20,7 +20,8 @@ import net.minecraft.world.level.Level;
  * Rueckmeldung nur ueber Klang und Partikel.
  */
 public class SageOrbItem extends Item {
-    public static final int CHARGE_TICKS = 10;
+    /** 0,3 s Animation (Besitzer 2026-10-02). */
+    public static final int CHARGE_TICKS = 6;
     public static final int MIN_XP = 50;
     public static final int MAX_XP = 100;
 
@@ -31,8 +32,6 @@ public class SageOrbItem extends Item {
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         player.startUsingItem(hand);
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.AMETHYST_BLOCK_CHIME,
-                SoundSource.PLAYERS, 0.8F, 1.4F);
         return InteractionResult.CONSUME;
     }
 
@@ -61,8 +60,8 @@ public class SageOrbItem extends Item {
         }
         int xp = MIN_XP + server.getRandom().nextInt(MAX_XP - MIN_XP + 1);
         player.giveExperiencePoints(xp);
-        server.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_LEVELUP,
-                SoundSource.PLAYERS, 0.6F, 1.2F);
+        server.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP,
+                SoundSource.PLAYERS, 0.8F, 1.0F);
         server.sendParticles(ParticleTypes.TOTEM_OF_UNDYING, player.getX(), player.getY() + 1.0, player.getZ(),
                 12, 0.4, 0.5, 0.4, 0.15);
         stack.consume(1, player);

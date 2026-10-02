@@ -68,8 +68,8 @@ public final class OreGenAndItemFrameGameTest {
     }
 
     @GameTest
-    public void theSageOrbGivesFiftyToOneHundredExperienceAfterTenTicks(GameTestHelper helper) {
-        OreGenAndItemFrameTests.theSageOrbGivesFiftyToOneHundredExperienceAfterTenTicks(helper);
+    public void theSageOrbGivesFiftyToOneHundredExperienceAfterSixTicks(GameTestHelper helper) {
+        OreGenAndItemFrameTests.theSageOrbGivesFiftyToOneHundredExperienceAfterSixTicks(helper);
     }
 
     @GameTest

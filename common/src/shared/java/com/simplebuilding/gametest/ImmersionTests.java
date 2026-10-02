@@ -219,6 +219,62 @@ public final class ImmersionTests {
     }
 
     /**
+     * Enderite sink damper (owner 2026-10-02): sneaking while falling lowers gravity by 25/45/65/80 % for 1-4 pieces,
+     * nothing without sneaking, on the ground or while rising; the counted fall distance shrinks by the same share.
+     */
+    public static void enderiteArmorDampsTheFallWhileSneaking(GameTestHelper helper) {
+        net.minecraft.server.level.ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        player.setOnGround(false);
+        player.setDeltaMovement(0.0, -0.6, 0.0);
+        player.setShiftKeyDown(true);
+        helper.assertValueEqual(com.simplebuilding.util.EnderiteSinkDamper.damping(player), 0.0, "damping without enderite armor");
+        net.minecraft.world.entity.EquipmentSlot[] slots = {net.minecraft.world.entity.EquipmentSlot.FEET, net.minecraft.world.entity.EquipmentSlot.LEGS,
+                net.minecraft.world.entity.EquipmentSlot.CHEST, net.minecraft.world.entity.EquipmentSlot.HEAD};
+        net.minecraft.world.item.Item[] armor = {ModItems.ENDERITE_BOOTS, ModItems.ENDERITE_LEGGINGS, ModItems.ENDERITE_CHESTPLATE, ModItems.ENDERITE_HELMET};
+        double[] expected = {0.25, 0.45, 0.65, 0.8};
+        for (int i = 0; i < 4; i++) {
+            player.setItemSlot(slots[i], new ItemStack(armor[i]));
+            helper.assertValueEqual(com.simplebuilding.util.EnderiteSinkDamper.damping(player), expected[i], "damping with " + (i + 1) + " pieces");
+        }
+        double gravity = effectiveGravity(player);
+        helper.assertTrue(Math.abs(gravity - player.getGravity() * 0.2) < 1.0E-9, "effective gravity with 4 pieces while sneaking: " + gravity);
+        player.fallDistance = 0.0;
+        checkFallDamage(player, -1.0);
+        helper.assertTrue(Math.abs(player.fallDistance - 0.2) < 1.0E-6, "counted fall distance for 1 block with 4 pieces: " + player.fallDistance);
+        player.setShiftKeyDown(false);
+        helper.assertValueEqual(com.simplebuilding.util.EnderiteSinkDamper.damping(player), 0.0, "no damping without sneaking");
+        player.setShiftKeyDown(true);
+        player.setDeltaMovement(0.0, 0.3, 0.0);
+        helper.assertValueEqual(com.simplebuilding.util.EnderiteSinkDamper.damping(player), 0.0, "no damping while rising");
+        player.setDeltaMovement(0.0, -0.6, 0.0);
+        player.setOnGround(true);
+        helper.assertValueEqual(com.simplebuilding.util.EnderiteSinkDamper.damping(player), 0.0, "no damping on the ground");
+        helper.succeed();
+    }
+
+    private static double effectiveGravity(net.minecraft.world.entity.LivingEntity entity) {
+        try {
+            java.lang.reflect.Method m = net.minecraft.world.entity.LivingEntity.class.getDeclaredMethod("getEffectiveGravity");
+            m.setAccessible(true);
+            return (double) m.invoke(entity);
+        } catch (ReflectiveOperationException e) {
+            throw new AssertionError("getEffectiveGravity not reachable: " + e);
+        }
+    }
+
+    private static void checkFallDamage(net.minecraft.world.entity.LivingEntity entity, double ya) {
+        try {
+            java.lang.reflect.Method m = net.minecraft.world.entity.LivingEntity.class.getDeclaredMethod("checkFallDamage",
+                    double.class, boolean.class, net.minecraft.world.level.block.state.BlockState.class, net.minecraft.core.BlockPos.class);
+            m.setAccessible(true);
+            m.invoke(entity, ya, false, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), entity.blockPosition());
+        } catch (ReflectiveOperationException e) {
+            throw new AssertionError("checkFallDamage not reachable: " + e);
+        }
+    }
+
+    /**
      * Enderite armor explains its void protection, and the mod's apples and carrots list what eating
      * them gives, read from their consumable component like a potion's effects.
      *
@@ -226,7 +282,7 @@ public final class ImmersionTests {
      */
     public static void armorAndFoodTooltipsExplainWhatTheyDo(GameTestHelper helper) {
         expectLines(helper, ModItems.ENDERITE_BOOTS, "Void damage hits less often, more so with each piece",
-                "2+ pieces: hold Jump while falling to glide down");
+                "Sneak while falling: slower fall, less fall damage (more pieces, more damping)");
         expectLines(helper, ModItems.NETHERITE_APPLE, "When eaten:", " Fire Resistance (4:00)", " Absorption II (0:30)",
                 " Regeneration II (0:10)");
         expectLines(helper, ModItems.ENDERITE_CARROT, "When eaten:", " Night Vision (5:00)", " Speed II (1:00)");
