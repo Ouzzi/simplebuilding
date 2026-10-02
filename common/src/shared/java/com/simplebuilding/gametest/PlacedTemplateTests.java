@@ -801,7 +801,7 @@ public final class PlacedTemplateTests {
      * Placed eggs (owner 2026-10-02): sneak + right-click stands a blue egg up; silk touch gives it back, otherwise it
      * breaks and hatches like a thrown egg - one chick in 8, the chick a baby of the egg's variant.
      */
-    public static void placedEggsGoBackWithSilkTouchAndHatchLikeAThrownEgg(GameTestHelper helper) {
+    public static void placedEggsGoBackWithSilkTouchAndHatchLikeThrownEggs(GameTestHelper helper) {
         if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             helper.succeed();
             return;

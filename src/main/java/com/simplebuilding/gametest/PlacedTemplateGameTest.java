@@ -66,7 +66,7 @@ public final class PlacedTemplateGameTest {
     }
 
     @GameTest
-    public void placedEggsGoBackWithSilkTouchAndHatchLikeAThrownEgg(GameTestHelper helper) {
-        PlacedTemplateTests.placedEggsGoBackWithSilkTouchAndHatchLikeAThrownEgg(helper);
+    public void placedEggsGoBackWithSilkTouchAndHatchLikeThrownEggs(GameTestHelper helper) {
+        PlacedTemplateTests.placedEggsGoBackWithSilkTouchAndHatchLikeThrownEggs(helper);
     }
 }

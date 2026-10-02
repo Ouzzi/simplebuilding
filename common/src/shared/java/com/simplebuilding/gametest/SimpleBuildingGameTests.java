@@ -1578,7 +1578,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("performance_game_test_the_cached_octant_surface_matches_the_per_frame_scan_it_replaced", PerformanceTests::theCachedOctantSurfaceMatchesThePerFrameScanItReplaced)
                     .build(),
-            GameTestSpec.named("placed_template_game_test_placed_eggs_go_back_with_silk_touch_and_hatch_like_a_thrown_egg", PlacedTemplateTests::placedEggsGoBackWithSilkTouchAndHatchLikeAThrownEgg)
+            GameTestSpec.named("placed_template_game_test_placed_eggs_go_back_with_silk_touch_and_hatch_like_thrown_eggs", PlacedTemplateTests::placedEggsGoBackWithSilkTouchAndHatchLikeThrownEggs)
                     .build(),
             GameTestSpec.named("placed_template_game_test_small_parts_lie_down_and_the_server_options_gate_them", PlacedTemplateTests::smallPartsLieDownAndTheServerOptionsGateThem)
                     .build(),
