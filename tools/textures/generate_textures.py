@@ -2432,7 +2432,9 @@ def res_pad(name):
     """Grundbild eines handgemalten Pads/einer Druckplatte des Besitzers: die unveraenderte Vorlage in
     hand/pad_res/ (seit dem Vanilla-Stil 2026-10-02 schreibt der Generator die Ressource selbst), sonst die
     Ressource."""
-    hand = os.path.join(HAND, "pad_res", f"{name}.png")
+    # Diamantplatte: seit 2026-10-02 zeigt das Modell minecraft:block/diamond_block; dasselbe Bild liegt als
+    # hand/pad_base_diamond.png. netherite_pressure_plate (= Vanilla-Netheritblock) liegt in hand/pad_res/.
+    hand = os.path.join(HAND, "pad_base_diamond.png") if name == "diamond_pressure_plate"         else os.path.join(HAND, "pad_res", f"{name}.png")
     return Image.open(hand if os.path.exists(hand) else os.path.join(TREES[0], "block", f"{name}.png")).convert("RGB")
 
 
@@ -3433,7 +3435,7 @@ def build_preview(tex):
     groups += machine_preview_groups(tex)
     for title, names, base in PAD_FAMILIES:
         groups.append((title, [(f"block/{n}.png", tex.get(f"block/{n}.png")) for n in names]
-                       + ([(f"block/{base}.png", tex.get(f"block/{base}.png"))] if base else []), []))
+                       + ([(f"block/{base}.png", tex.get(f"block/{base}.png") or res_pad(base))] if base else []), []))
     groups.append(("Quarz-Schachbrett", [("block/lapis_quartz_checker.png", None)]
                    + [(k, tex[k]) for k in ("block/nihilith_quartz_checker.png", "block/nihilith_quartz_checker_mirror.png",
                                             "block/astralit_quartz_checker.png", "block/astralit_quartz_checker_mirror.png",
