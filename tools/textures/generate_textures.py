@@ -233,20 +233,20 @@ BLUEPRINT_EDITED_OVER = [
 # vom hellblauen offenen Blatt ab (so wie Vanillas signiertes Buch keinen Federkiel mehr traegt).
 BLUEPRINT_SIGNED = [
     "................",
-    ".AAAAAAAAAAAAAa.",
-    ".A455555555556B.",
-    ".A5555w5555566B.",
-    ".A555w5w555666B.",
-    ".A55w555w56666B.",
-    ".A5wwwwwww6666B.",
-    ".A66w6l6w66666B.",
-    ".A66w6x6w6rsr6B.",
-    ".A66w6x6wrttsqB.",
-    ".A7wwwwwwstqsqB.",
-    ".A7777777rssrqB.",
-    ".A77777777qqq7B.",
-    ".A77777777v7v7B.",
-    ".aBBBBBBBBvBvBB.",
+    ".OOOOOOOOOOOOOO.",
+    ".OAAAAAAAAAAAaO.",
+    ".OA555w5555566O.",
+    ".OA55w5w555666O.",
+    ".OA5w555w56666O.",
+    ".OAwwwwwww6666O.",
+    ".OA6w6l6w66666O.",
+    ".OA6w6x6w6rsr6O.",
+    ".OA6w6x6wrttsqO.",
+    ".OAwwwwwwstqsqO.",
+    ".OA777777rssrqO.",
+    ".OA7777777qqq7O.",
+    ".Oa7777777v7v7O.",
+    ".OOOOOOOOOvOvOO.",
     "................",
 ]
 BLUEPRINT_STATE_PAL = {
@@ -254,7 +254,9 @@ BLUEPRINT_STATE_PAL = {
     "S": "#e9e2cf", "V": "#5f5a4e", "N": "#3a3a44", "n": "#12244a",  # Kiel, Spitze, Tintenpunkt
 }
 BLUEPRINT_SIGNED_PAL = {
-    "A": "#f3d36e", "a": "#c9962e", "B": "#80531a",  # Goldrahmen
+    # Goldrahmen: aussen 1 px Kontur im dunkelsten Goldton (Textur-Audit Q1, vorher heller Rand), innen
+    # oben/links das Glanzgold
+    "O": "#4e3110", "A": "#f3d36e", "a": "#c9962e", "B": "#80531a",
     "4": "#35569e", "5": "#28488f", "6": "#213d7e", "7": "#1a316a",  # Nachtblau, nach unten rechts dunkler
     "w": "#f6efd9", "l": "#8fb3e3", "x": "#d9a64a",  # Reinzeichnung, Fenster, Tuer
     "q": "#6b1414", "r": "#a42323", "s": "#cf3b31", "t": "#f07b69",  # Wachssiegel
@@ -2315,7 +2317,7 @@ PAD_ACTIVE_GLOW = {
 }
 # Bilder, die nur in den Hauptbaum (26.2/26.3) gehen - die 1.21.11-Kopie bekommt sie erst im Port-Lauf
 # (Besitzer 2026-09-29: 26.3 zuerst, die Kopie nicht anfassen). Die Zustandsbilder vom 2026-09-29.
-MAIN_TREE_ONLY = {"item/pulsating_trim_template.png"}
+MAIN_TREE_ONLY = {"item/pulsating_trim_template.png", "item/blueprint_signed.png"}  # blueprint_signed: Kontur 2026-10-02
 # Druckplatten, gedrueckt (powered): Leuchtfarbe und Deckkraft in der Mitte; die Grundbilder liegen in den
 # Ressourcen (Enderit generiert).
 PLATE_ACTIVE_GLOW = {
@@ -3166,6 +3168,7 @@ def build():
     tex.update(ore_detector_textures())
     tex.update(mount_armor_textures())
     tex.update(gauge_textures())
+    tex.update(mod_book_textures())
     tex.update(pad_vanilla_style(tex))  # zuletzt: braucht alle Pad-Bilder
     return tex
 
@@ -4027,13 +4030,16 @@ def book_ramp(hue, sat, dark=0.16, light=0.74):
 
 
 def vanilla_book(name):
-    hue, sat, lite, mid = BOOK_STYLE[name]
-    ramp = book_ramp(hue, sat)
+    return styled_book(f"enchanted_book_vanilla_{name}", BOOK_STYLE[name], BOOK_SYMBOLS[name])
+
+
+def styled_book(render_name, style, sym):
+    hue, sat, lite, mid = style[:4]
+    ramp = book_ramp(hue, sat, light=style[4]) if len(style) > 4 else book_ramp(hue, sat)
     pal = {"O": ramp[0], "1": ramp[1], "2": ramp[2], "3": ramp[3], "4": ramp[4]}
     pal.update(BOOK_PAGES)
-    img = render(f"enchanted_book_vanilla_{name}", BOOK_BASE, pal, False)
+    img = render(render_name, BOOK_BASE, pal, False)
     ox, oy = BOOK_SYMBOL_ORIGIN
-    sym = BOOK_SYMBOLS[name]
     for y, row in enumerate(sym):
         for x, c in enumerate(row):
             if c == ".":
@@ -4051,6 +4057,64 @@ def vanilla_book(name):
 
 def vanilla_book_textures():
     return {f"item/enchanted_book_vanilla_{n}.png": vanilla_book(n) for n in BOOK_SYMBOLS}
+
+
+# Verzauberte Buecher der Mod-Verzauberungen (Textur-Audit Q1, 2026-10-02): vorher halbtransparent und mit
+# 29-90 Farben (Vanilla-Items: deckend, ~10-18). Jetzt dasselbe Grundbuch wie die Vanilla-Verzauberungen;
+# der Einband behaelt den Farbton des alten Buchs (braun / violett / blau), das Zeichen zeigt die Wirkung.
+# Die alten Bilder liegen unveraendert in tools/textures/hand/q1/books/. Nur Hauptbaum (26.2/26.3).
+MOD_BOOK_SYMBOLS = {
+    "break_through": ["#.#....", ".#.#...", "#.#+#..", "...#+#.", "....#+#", ".....#."],
+    "bridge": [".......", "#######", "#.#.#.#", "#.....#", "#.....#", "......."],
+    "color_palette": [".###...", "#+#+#..", "##+##..", "#+#+#..", ".###.#.", "......#"],
+    "constructors_touch": ["..#.#..", "..#.#.#", "#.#####", "#######", ".#####.", "..###.."],
+    "cover": ["#######", "#+++++#", "#+++++#", "#######", ".......", "......."],
+    "deep_pockets": ["..###..", ".#...#.", "#+++++#", "#+++++#", ".#####.", "......."],
+    "double_jump": ["...#...", "..###..", ".#.#.#.", "...#...", "..###..", ".#.#.#."],
+    "drawer": ["#######", "#..#..#", "#######", "#..#..#", "#######", "......."],
+    "fast_chiseling": ["....##.", "...##..", "..##...", ".#+#...", "#+#....", ".#....."],
+    "funnel": ["#######", ".#+++#.", "..#+#..", "...#...", "...#...", "......."],
+    "kinetic_protection": ["##.###.", "...#+#.", "##.#+#.", "...#+#.", "##..#..", "......."],
+    "linear": ["#......", ".#.....", "..#....", "...#...", "....#..", ".....#."],
+    "master_builder": ["#..#..#", "##.#.##", "#######", "#+++++#", "#######", "......."],
+    "override": ["#.....#", ".#...#.", "..#.#..", "...#...", "..#.#..", ".#...#."],
+    "radius": ["..###..", ".#...#.", "#..#..#", ".#...#.", "..###..", "......."],
+    "range": ["##...##", "#.....#", "...#...", "#.....#", "##...##", "......."],
+    "strip_miner": ["###.###", "###.###", ".......", "###.###", "###.###", "......."],
+    "vein_miner": ["#......", ".#.....", "..#.#..", "...#...", "..#.#.#", ".....#."],
+    "versatility": ["...#...", "..###..", "#######", "..###..", ".#...#.", "......."],
+}
+# Farbton und Saettigung des alten Einbands (Median der Deckelpixel), Symbolfarbe hell, mittel [, Helligkeit]
+MOD_BOOK_STYLE = {
+    "break_through": (0.05, 0.65, "#ffd0a0", "#d06a3a"),
+    "bridge": (0.77, 0.5, "#f0d8ff", "#b890e0"),
+    "color_palette": (0.64, 0.28, "#ffe070", "#e05a8a"),
+    "constructors_touch": (0.07, 0.75, "#ffe0b0", "#e0a060"),
+    "cover": (0.77, 0.6, "#f4e0ff", "#c098e8"),
+    "deep_pockets": (0.61, 0.3, "#c8d8ff", "#7a90d0", 0.46),  # fast schwarzer Einband wie vorher
+    "double_jump": (0.56, 0.7, "#e8fbff", "#8fd8f0"),
+    "drawer": (0.59, 0.34, "#e0e8f0", "#a0b0c4"),
+    "fast_chiseling": (0.06, 0.75, "#fff0a0", "#e0b040"),
+    "funnel": (0.58, 0.3, "#a0d8ff", "#4a90d0", 0.5),
+    "kinetic_protection": (0.77, 0.55, "#ffffff", "#d0b8f0"),
+    "linear": (0.77, 0.6, "#f4e0ff", "#c098e8"),
+    "master_builder": (0.77, 0.7, "#ffe070", "#e0b030"),
+    "override": (0.76, 0.58, "#ffb8c8", "#e05070"),
+    "radius": (0.07, 0.75, "#ffd0a0", "#e08a50"),
+    "range": (0.76, 0.5, "#e8f0ff", "#a8b8e8"),
+    "strip_miner": (0.05, 0.53, "#e0e0e0", "#a0a0a0"),
+    "vein_miner": (0.07, 0.75, "#ffb070", "#e06a2a"),
+    "versatility": (0.07, 0.75, "#fff4b0", "#e0c050"),
+}
+
+
+def mod_book_textures():
+    out = {}
+    for n, sym in MOD_BOOK_SYMBOLS.items():
+        rel = f"item/enchanted_book_{n}.png"
+        out[rel] = styled_book(f"enchanted_book_{n}", MOD_BOOK_STYLE[n], sym)
+        MAIN_TREE_ONLY.add(rel)
+    return out
 
 
 
