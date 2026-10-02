@@ -85,7 +85,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "cc8cf0f83e52"
+    "dataHash": "092292c6fa0a"
   },
   {
     "id": "simplemodels",
@@ -166,7 +166,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "d230516ff488"
+    "dataHash": "033c5483dd22"
   },
   {
     "id": "simplequalityoflife",

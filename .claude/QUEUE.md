@@ -168,3 +168,12 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   - Bestehende Konzepte im Internet recherchieren und vervollständigen.
 - [ ] Testzentrale: eine Pfeil-Station, an der jeder Pfeil getestet werden kann.
 - [ ] Schachbrett-Blöcke zusätzlich aus poliertem Astralit, poliertem Nihilit und Enderquarz (mit der Textur der polierten Variante; Screenshot der Schachbrett-Zeile).
+
+## Besitzer 2026-10-02 (Nachtrag)
+
+- [ ] Geschwindigkeitsmesser: läuft im Autowalk auch im Inventar und in nicht pausierenden UIs (Chat usw.) weiter.
+- [ ] Shulkerkiste vorerst nicht verzauberbar machen.
+- [ ] Erzdetektor: Kompassnadel wirkt nicht zentriert – Animation/Nadel-Frames prüfen und zentrieren.
+- [ ] Resonanzstab: soll auch Entities anzünden bzw. scannen können.
+- [ ] Mod-Items zusätzlich an den richtigen Stellen in die Vanilla-Kreativtabs einsortieren; Simple-Building-Tabs weiter aufteilen (Werkzeuge, Waffen, Rüstung usw. wie in Vanilla).
+- [ ] Trank „Crafty Shulker“: Effekt – bei Treffer an eine sichere Stelle in der Nähe teleportieren; braubar mit Shulkerkopf, analog zu den anderen Tränken/Effekten.
