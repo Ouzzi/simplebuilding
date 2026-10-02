@@ -2586,6 +2586,10 @@ public final class DataIntegrityTests {
                         : List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
                                 ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST),
                 List.of(Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX)));
+        if (McVersion.AUTO_SMITHER) {
+            // Auto-Schmied (2026-10-02) als eigene Zeile direkt hinter den Kolben.
+            expected.add(3, List.of(ModItems.AUTO_SMITHER));
+        }
         if (McVersion.END_SYSTEMS) {
             expected.add(List.of(ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, gap,
                     ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP));

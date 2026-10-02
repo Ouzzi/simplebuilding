@@ -73,6 +73,30 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // ---------------------------------------------------------
                 HolderGetter<Item> itemRegistry = items();
 
+                // Befiederungstisch (B14): ein Rezept je Teile-Kombination, nur fuer das Vanilla-Rezeptbuch des Tisches.
+                // Kein Freischalt-Advancement: das Oeffnen des Tisches schaltet alle frei (FletchingRecipes.unlockAll).
+                if (com.simplebuilding.version.McVersion.FLETCHING) {
+                    for (com.simplebuilding.fletching.ArrowParts.Parts parts : com.simplebuilding.fletching.ArrowParts.allCombinations()) {
+                        com.simplebuilding.fletching.FletchingRecipe recipe = new com.simplebuilding.fletching.FletchingRecipe(parts);
+                        output.accept(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, recipe.idPath())),
+                                recipe, null);
+                    }
+                }
+
+                // Auto-Schmied wie der Crafter: Eisen ringsum, Schmiedetisch in der Mitte, Redstone und Spender unten.
+                if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
+                    shaped(RecipeCategory.REDSTONE, ModItems.AUTO_SMITHER)
+                            .pattern("III")
+                            .pattern("ISI")
+                            .pattern("RDR")
+                            .define('I', Items.IRON_INGOT)
+                            .define('S', Items.SMITHING_TABLE)
+                            .define('R', Items.REDSTONE)
+                            .define('D', Items.DROPPER)
+                            .unlockedBy(getHasName(Items.SMITHING_TABLE), has(Items.SMITHING_TABLE))
+                            .save(output);
+                }
+
                 // =================================================================
                 // FIX: DUMMY REZEPT FÜR SCHMIEDETISCH (Glowing Ink)
                 // =================================================================

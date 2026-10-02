@@ -29,6 +29,8 @@
     "MultilineTextFieldAccessor",
     "PistonHeadRendererMixin",
     "QuickPlayTestWorldMixin",
-    "SmithingScreenMixin"
+    "SmithingScreenMixin",
+    "GhostSlotsInvoker",
+    "GuiSetScreenMixin"
   ]
 }

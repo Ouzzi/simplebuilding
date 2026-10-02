@@ -7,11 +7,18 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
+import java.util.List;
+import net.minecraft.recipebook.ServerPlaceRecipe;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.StackedItemContents;
+import net.minecraft.world.inventory.RecipeBookMenu;
+import net.minecraft.world.inventory.RecipeBookType;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
@@ -20,11 +27,11 @@ import net.minecraft.world.level.block.Blocks;
  * links, Spitze oben rechts), rechts das Ergebnis mit {@link ArrowParts#ARROWS_PER_CRAFT} Pfeilen. Jeder Slot nimmt nur
  * seine Teile an; das Ergebnis rechnet allein der Server aus den Slots aus.
  *
- * <p>Rezeptbuch-Knoepfe ({@link #clickMenuButton}): {@code TIP_BUTTON + ordinal}, {@code SHAFT_BUTTON + ordinal},
- * {@code FLETCHING_BUTTON + ordinal} legen das Material aus dem eigenen Inventar in seinen Slot - nur vorhandene Items,
- * nichts entsteht neu.
+ * <p>Rezeptbuch wie an der Werkbank ({@link RecipeBookMenu}): ein Klick auf einen Pfeil legt Spitze, Schaft und
+ * Befiederung aus dem eigenen Inventar ein (Vanilla-Platzierung, nichts entsteht neu); fehlt ein Teil, zeigt der Client
+ * das Geisterrezept. Die Rezepte ({@link FletchingRecipe}) dienen nur dem Buch; das Ergebnis rechnet der Server aus den Slots.
  */
-public class FletchingMenu extends AbstractContainerMenu {
+public class FletchingMenu extends RecipeBookMenu {
     public static final int TIP_SLOT = 0;
     public static final int SHAFT_SLOT = 1;
     public static final int FLETCHING_SLOT = 2;
@@ -33,12 +40,15 @@ public class FletchingMenu extends AbstractContainerMenu {
     private static final int INV_END = 31;
     private static final int HOTBAR_END = 40;
 
-    public static final int TIP_BUTTON = 0;
-    public static final int SHAFT_BUTTON = 10;
-    public static final int FLETCHING_BUTTON = 20;
+    private static final Identifier[] EMPTY_ICONS = {
+            Identifier.fromNamespaceAndPath("simplebuilding", "container/slot/arrow_tip"),
+            Identifier.fromNamespaceAndPath("simplebuilding", "container/slot/arrow_shaft"),
+            Identifier.fromNamespaceAndPath("simplebuilding", "container/slot/arrow_fletching")};
 
     private final ContainerLevelAccess access;
     private long lastSoundTime;
+    /** Waehrend der Rezeptbuch-Platzierung wird das Ergebnis erst am Ende einmal berechnet. */
+    private boolean placingRecipe;
     public final Container parts = new SimpleContainer(3) {
         @Override
         public void setChanged() {
@@ -55,9 +65,10 @@ public class FletchingMenu extends AbstractContainerMenu {
     public FletchingMenu(int containerId, Inventory inventory, ContainerLevelAccess access) {
         super(ModScreenHandlers.FLETCHING_MENU, containerId);
         this.access = access;
-        this.addSlot(new PartSlot(this.parts, TIP_SLOT, 62, 17));
-        this.addSlot(new PartSlot(this.parts, SHAFT_SLOT, 44, 35));
-        this.addSlot(new PartSlot(this.parts, FLETCHING_SLOT, 26, 53));
+        // Wie die Werkbank: die drei Teile liegen auf der Diagonale ihres 3x3-Gitters, das Ergebnis rechts daneben.
+        this.addSlot(new PartSlot(this.parts, TIP_SLOT, 66, 17));
+        this.addSlot(new PartSlot(this.parts, SHAFT_SLOT, 48, 35));
+        this.addSlot(new PartSlot(this.parts, FLETCHING_SLOT, 30, 53));
         this.addSlot(new Slot(this.result, 0, 124, 35) {
             @Override
             public boolean mayPlace(ItemStack stack) {
@@ -110,50 +121,57 @@ public class FletchingMenu extends AbstractContainerMenu {
 
     @Override
     public void slotsChanged(Container container) {
-        if (container == this.parts) {
+        if (container == this.parts && !this.placingRecipe) {
             this.result.setItem(0, resultFor(this.parts.getItem(TIP_SLOT), this.parts.getItem(SHAFT_SLOT), this.parts.getItem(FLETCHING_SLOT)));
             this.broadcastChanges();
         }
         super.slotsChanged(container);
     }
 
+    /** Rezeptbuch (Vanilla {@code ServerPlaceRecipe}, 3x1-Gitter Spitze, Schaft, Befiederung): Shift = so viele wie moeglich. */
     @Override
-    public boolean clickMenuButton(Player player, int buttonId) {
-        int slot;
-        Item wanted;
-        if (buttonId >= TIP_BUTTON && buttonId < TIP_BUTTON + ArrowParts.Tip.values().length) {
-            slot = TIP_SLOT;
-            wanted = ArrowParts.Tip.values()[buttonId - TIP_BUTTON].input();
-        } else if (buttonId >= SHAFT_BUTTON && buttonId < SHAFT_BUTTON + ArrowParts.Shaft.values().length) {
-            slot = SHAFT_SLOT;
-            wanted = ArrowParts.Shaft.values()[buttonId - SHAFT_BUTTON].input();
-        } else if (buttonId >= FLETCHING_BUTTON && buttonId < FLETCHING_BUTTON + ArrowParts.Fletching.values().length) {
-            slot = FLETCHING_SLOT;
-            wanted = ArrowParts.Fletching.values()[buttonId - FLETCHING_BUTTON].input();
-        } else {
-            return false;
+    @SuppressWarnings("unchecked")
+    public RecipeBookMenu.PostPlaceAction handlePlacement(boolean useMaxItems, boolean allowDroppingItemsToClear, RecipeHolder<?> recipe,
+                                                         ServerLevel level, Inventory inventory) {
+        if (!(recipe.value() instanceof FletchingRecipe)) {
+            return RecipeBookMenu.PostPlaceAction.NOTHING;
         }
-        Slot target = this.slots.get(slot);
-        if (target.hasItem() && !target.getItem().is(wanted)) {
-            ItemStack old = target.getItem();
-            if (!this.moveItemStackTo(old, INV_START, HOTBAR_END, false)) {
-                return false;
-            }
-            target.setChanged();
-            if (!old.isEmpty()) {
-                return false;
-            }
-            target.set(ItemStack.EMPTY);
+        List<Slot> grid = List.of(this.slots.get(TIP_SLOT), this.slots.get(SHAFT_SLOT), this.slots.get(FLETCHING_SLOT));
+        this.placingRecipe = true;
+        try {
+            return ServerPlaceRecipe.placeRecipe(new ServerPlaceRecipe.CraftingMenuAccess<FletchingRecipe>() {
+                @Override
+                public void fillCraftSlotsStackedContents(StackedItemContents contents) {
+                    FletchingMenu.this.fillCraftSlotsStackedContents(contents);
+                }
+
+                @Override
+                public void clearCraftingContent() {
+                    FletchingMenu.this.parts.clearContent();
+                }
+
+                @Override
+                public boolean recipeMatches(RecipeHolder<FletchingRecipe> holder) {
+                    return holder.value().matches(new SmithingRecipeInput(FletchingMenu.this.parts.getItem(TIP_SLOT),
+                            FletchingMenu.this.parts.getItem(SHAFT_SLOT), FletchingMenu.this.parts.getItem(FLETCHING_SLOT)), level);
+                }
+            }, 3, 1, grid, grid, inventory, (RecipeHolder<FletchingRecipe>) recipe, useMaxItems, allowDroppingItemsToClear);
+        } finally {
+            this.placingRecipe = false;
+            this.slotsChanged(this.parts);
         }
-        for (int i = INV_START; i < HOTBAR_END; i++) {
-            Slot from = this.slots.get(i);
-            if (from.hasItem() && from.getItem().is(wanted)) {
-                this.moveItemStackTo(from.getItem(), slot, slot + 1, false);
-                from.setChanged();
-            }
+    }
+
+    @Override
+    public void fillCraftSlotsStackedContents(StackedItemContents contents) {
+        for (int i = 0; i < this.parts.getContainerSize(); i++) {
+            contents.accountSimpleStack(this.parts.getItem(i));
         }
-        this.slotsChanged(this.parts);
-        return true;
+    }
+
+    @Override
+    public RecipeBookType getRecipeBookType() {
+        return RecipeBookType.CRAFTING;
     }
 
     @Override
@@ -225,6 +243,12 @@ public class FletchingMenu extends AbstractContainerMenu {
         @Override
         public boolean mayPlace(ItemStack stack) {
             return partSlotFor(stack) == this.getContainerSlot();
+        }
+
+        /** Silhouette im leeren Slot wie bei den Ruestungsslots: Spitze, Schaft, Befiederung. */
+        @Override
+        public Identifier getNoItemIcon() {
+            return EMPTY_ICONS[this.getContainerSlot()];
         }
     }
 }

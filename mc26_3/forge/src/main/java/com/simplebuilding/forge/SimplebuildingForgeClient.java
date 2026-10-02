@@ -60,6 +60,9 @@ public final class SimplebuildingForgeClient {
             if (ForgeModRegistries.FLETCHING_MENU != null) {
                 MenuScreens.register(ForgeModRegistries.FLETCHING_MENU.get(), com.simplebuilding.client.gui.FletchingScreen::new);
             }
+            if (ForgeModRegistries.AUTO_SMITHER_MENU != null) {
+                MenuScreens.register(ForgeModRegistries.AUTO_SMITHER_MENU.get(), com.simplebuilding.client.gui.AutoSmitherScreen::new);
+            }
         });
     }
 

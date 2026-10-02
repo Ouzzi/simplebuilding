@@ -218,6 +218,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         if (ModScreenHandlers.FLETCHING_MENU != null) {
             MenuScreens.register(ModScreenHandlers.FLETCHING_MENU, com.simplebuilding.client.gui.FletchingScreen::new);
         }
+        if (ModScreenHandlers.AUTO_SMITHER_MENU != null) {
+            MenuScreens.register(ModScreenHandlers.AUTO_SMITHER_MENU, com.simplebuilding.client.gui.AutoSmitherScreen::new);
+        }
 
         // --- NETZWERK REGISTRIERUNG CLIENT-SEITE ---
         registerClientReceivers();

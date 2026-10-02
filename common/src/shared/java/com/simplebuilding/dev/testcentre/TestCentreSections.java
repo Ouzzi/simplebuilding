@@ -946,6 +946,21 @@ public final class TestCentreSections {
             c.sign(px, 0, pz - 1, Direction.NORTH, piston.getName(), hint);
             px += 3;
         }
+
+        // Auto-Schmied: Truhe -> Trichter -> Schmied -> Truhe davor, Hebel daneben (eine Flanke = ein Schmiedevorgang).
+        if (ModBlocks.AUTO_SMITHER != null) {
+            int sx = px + 1;
+            c.place(sx, 0, pz, with(ModBlocks.AUTO_SMITHER.defaultBlockState(), BlockStateProperties.FACING, Direction.SOUTH));
+            c.place(sx, 0, pz + 1, facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+            c.place(sx, 1, pz, with(Blocks.HOPPER.defaultBlockState(), BlockStateProperties.FACING_HOPPER, Direction.DOWN));
+            c.place(sx, 2, pz, facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+            c.contents(sx, 2, pz, List.of(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 8), new ItemStack(Items.DIAMOND_SWORD),
+                    new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.DIAMOND_CHESTPLATE), new ItemStack(Items.NETHERITE_INGOT, 8)));
+            c.place(sx + 1, 0, pz, Blocks.LEVER.defaultBlockState().setValue(LeverBlock.FACE, AttachFace.FLOOR)
+                    .setValue(LeverBlock.FACING, Direction.SOUTH));
+            c.sign(sx, 0, pz - 1, Direction.NORTH, ModBlocks.AUTO_SMITHER.getName(),
+                    TcText.t("machines.auto_smither", "flip the lever: smiths once"));
+        }
         return c;
     }
 

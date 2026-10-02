@@ -52,6 +52,16 @@ public class ModRecipes {
             BackpackUpgradeRecipe.SERIALIZER
         );
 
+        // Befiederungstisch (B14): Rezepte nur fuers Vanilla-Rezeptbuch, eigene Buch-Kategorie.
+        if (com.simplebuilding.version.McVersion.FLETCHING) {
+            Identifier fletching = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, com.simplebuilding.fletching.FletchingRecipes.ID);
+            Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, fletching, com.simplebuilding.fletching.FletchingRecipe.SERIALIZER);
+            com.simplebuilding.fletching.FletchingRecipes.TYPE = Registry.register(BuiltInRegistries.RECIPE_TYPE, fletching,
+                    com.simplebuilding.fletching.FletchingRecipes.newType());
+            com.simplebuilding.fletching.FletchingRecipes.CATEGORY = Registry.register(BuiltInRegistries.RECIPE_BOOK_CATEGORY, fletching,
+                    new net.minecraft.world.item.crafting.RecipeBookCategory());
+        }
+
         COUNT_BASED_SMITHING = Registry.register(
             BuiltInRegistries.RECIPE_TYPE,
             Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "count_based_smithing"),

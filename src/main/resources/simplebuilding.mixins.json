@@ -47,6 +47,7 @@
     "ShapelessRecipeMixin",
     "ShearsItemMixin",
     "SlotMixin",
+    "SmithingPlaceRecipeMixin",
     "SmithingScreenHandlerMixin",
     "SurvivalTracerMixin",
     "VillagerTradePriceMixin",

@@ -153,6 +153,9 @@ public class ModBlocks {
 
     // Kleinteile auf einem Fleck (2026-10-02, wie Seegurken): bis zu 4 Kiesel, Splitter, Vanilla-Kleinteile und Eier
     // gemischt (PlacedSmallParts). Kein Item, keine Loot-Tabelle - die Teile liegen in der Block-Entity.
+    /** Auto-Schmied: der Crafter des Schmiedetischs (2026-10-02, McVersion.AUTO_SMITHER). Eigenschaften wie der Crafter. */
+    public static final Block AUTO_SMITHER = McVersion.AUTO_SMITHER
+            ? registerBlock("auto_smither", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutoSmitherBlock::new) : null;
     public static final Block PLACED_SMALL_PARTS = McVersion.SMALL_PLACEABLES ? registerBlock("placed_small_parts", s -> new com.simplebuilding.blocks.custom.PlacedSmallPartsBlock(s
             .strength(0.2F).sound(SoundType.STONE).noCollision().noLootTable().noOcclusion().mapColor(MapColor.NONE)
             .pushReaction(McVersion.PUSH_DESTROYS))) : null;

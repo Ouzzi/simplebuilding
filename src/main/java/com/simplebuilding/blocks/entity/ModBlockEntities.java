@@ -25,6 +25,8 @@ public class ModBlockEntities {
     /** Kleinteile auf einem Fleck; nur, wenn es den Block gibt (McVersion.SMALL_PLACEABLES). */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity> PLACED_SMALL_PARTS_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity> TIERED_CHEST_BE;
+    /** Auto-Schmied; nur, wenn es den Block gibt (McVersion.AUTO_SMITHER). */
+    public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity> AUTO_SMITHER_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity> TIERED_SHULKER_BOX_BE;
 
     public static void registerBlockEntities() {
@@ -76,6 +78,12 @@ public class ModBlockEntities {
         PLACED_BUNDLE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "placed_bundle"),
                 FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity::new, ModBlocks.PLACED_BUNDLE).build());
+
+        if (ModBlocks.AUTO_SMITHER != null) {
+            AUTO_SMITHER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "auto_smither"),
+                    FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity::new, ModBlocks.AUTO_SMITHER).build());
+        }
 
         if (ModBlocks.PLACED_SMALL_PARTS != null) {
             PLACED_SMALL_PARTS_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "simplebuilding:block/auto_smither_bottom",
+    "up": "simplebuilding:block/auto_smither_top_triggered",
+    "north": "simplebuilding:block/auto_smither_front",
+    "south": "simplebuilding:block/auto_smither_side_triggered",
+    "east": "simplebuilding:block/auto_smither_side_triggered",
+    "west": "simplebuilding:block/auto_smither_side_triggered",
+    "particle": "simplebuilding:block/auto_smither_front"
+  }
+}

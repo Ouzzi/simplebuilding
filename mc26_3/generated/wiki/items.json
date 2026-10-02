@@ -14,6 +14,7 @@
     "simplebuilding:astralit_pillar",
     "simplebuilding:astralit_quartz_checker",
     "simplebuilding:astralit_switch",
+    "simplebuilding:auto_smither",
     "simplebuilding:backpack",
     "simplebuilding:blackstone_quartz_checker",
     "simplebuilding:blaze_head",
@@ -215,6 +216,9 @@
     },
     {
       "id": "simplebuilding:astralit_switch"
+    },
+    {
+      "id": "simplebuilding:auto_smither"
     },
     {
       "id": "simplebuilding:backpack",

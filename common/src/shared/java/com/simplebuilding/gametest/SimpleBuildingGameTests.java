@@ -503,9 +503,17 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_the_table_makes_four_arrows_from_three_parts", FletchingTests::theTableMakesFourArrowsFromThreeParts)
                     .build(),
-            GameTestSpec.named("fletching_game_test_material_buttons_only_move_items_they_find", FletchingTests::materialButtonsOnlyMoveItemsTheyFind)
+            GameTestSpec.named("fletching_game_test_recipe_book_places_the_parts_from_the_inventory", FletchingTests::recipeBookPlacesThePartsFromTheInventory)
+                    .build(),
+            GameTestSpec.named("fletching_game_test_every_combination_has_its_recipe_book_entry", FletchingTests::everyCombinationHasItsRecipeBookEntry)
                     .build(),
             GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
+                    .build(),
+            GameTestSpec.named("workstation_game_test_smithing_recipe_book_places_damaged_gear", WorkstationTests::smithingRecipeBookPlacesDamagedGear)
+                    .build(),
+            GameTestSpec.named("workstation_game_test_auto_smither_smiths_once_per_pulse", WorkstationTests::autoSmitherSmithsOncePerPulse)
+                    .maxTicks(200).build(),
+            GameTestSpec.named("workstation_game_test_auto_smither_sorts_hopper_input", WorkstationTests::autoSmitherSortsHopperInput)
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_dimensional_scrap_is_enderite_gated_and_indestructible", OreGenAndItemFrameTests::dimensionalScrapIsEnderiteGatedAndIndestructible)
                     .build(),

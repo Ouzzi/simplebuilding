@@ -1,0 +1,26 @@
+package com.simplebuilding.gametest;
+
+import net.fabricmc.fabric.api.gametest.v1.GameTest;
+import net.minecraft.gametest.framework.GameTestHelper;
+
+/**
+ * Fabric adapter for the smithing table recipe book and the Auto Smither. No test logic here: every method delegates
+ * to {@link WorkstationTests}. Class and method names are load bearing: Fabric derives the test id from them.
+ */
+public final class WorkstationGameTest {
+
+    @GameTest
+    public void smithingRecipeBookPlacesDamagedGear(GameTestHelper helper) {
+        WorkstationTests.smithingRecipeBookPlacesDamagedGear(helper);
+    }
+
+    @GameTest(maxTicks = 200)
+    public void autoSmitherSmithsOncePerPulse(GameTestHelper helper) {
+        WorkstationTests.autoSmitherSmithsOncePerPulse(helper);
+    }
+
+    @GameTest
+    public void autoSmitherSortsHopperInput(GameTestHelper helper) {
+        WorkstationTests.autoSmitherSortsHopperInput(helper);
+    }
+}

@@ -64,6 +64,7 @@
       "com.simplebuilding.gametest.TrimEffectGameTest",
       "com.simplebuilding.gametest.OreGenAndItemFrameGameTest",
       "com.simplebuilding.gametest.FletchingGameTest",
+      "com.simplebuilding.gametest.WorkstationGameTest",
       "com.simplebuilding.gametest.ConfigOptionGameTest",
       "com.simplebuilding.gametest.ServerTuningGameTest",
       "com.simplebuilding.gametest.AirJumpGameTest",

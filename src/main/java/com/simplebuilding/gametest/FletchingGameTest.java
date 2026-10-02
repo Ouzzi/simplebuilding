@@ -30,8 +30,13 @@ public final class FletchingGameTest {
     }
 
     @GameTest
-    public void materialButtonsOnlyMoveItemsTheyFind(GameTestHelper helper) {
-        FletchingTests.materialButtonsOnlyMoveItemsTheyFind(helper);
+    public void recipeBookPlacesThePartsFromTheInventory(GameTestHelper helper) {
+        FletchingTests.recipeBookPlacesThePartsFromTheInventory(helper);
+    }
+
+    @GameTest
+    public void everyCombinationHasItsRecipeBookEntry(GameTestHelper helper) {
+        FletchingTests.everyCombinationHasItsRecipeBookEntry(helper);
     }
 
     @GameTest
