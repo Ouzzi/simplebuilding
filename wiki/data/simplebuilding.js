@@ -5362,6 +5362,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/deepslate_sage_ore.png",
       "note": {
         "en": {
           "summary": "Deepslate Sage Ore: the deepslate variant, replaces deepslate and tuff; hardness 4.5 like deepslate diamond ore. Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
@@ -6275,6 +6276,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/dimensional_scrap.png",
       "note": {
         "en": {
           "summary": "Dimensional Scrap: the Overworld variant, inside deepslate and tuff between Y -64 and -32. Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
@@ -6406,6 +6408,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/end_dimensional_scrap.png",
       "note": {
         "en": {
           "summary": "End Dimensional Scrap: the End variant, inside end stone between Y 10 and 70. Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
@@ -10219,6 +10222,7 @@ window.WIKI_DATA = {
         "simplebuilding:rotator"
       ],
       "trades": [],
+      "icon": "assets/textures/render/iron_rod.png",
       "note": {
         "en": {
           "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Rod.",
@@ -10836,6 +10840,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nether_dimensional_scrap.png",
       "note": {
         "en": {
           "summary": "Nether Dimensional Scrap: the Nether variant, inside netherrack, basalt and blackstone between Y 8 and 24, like the large ancient debris vein. Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
@@ -15455,6 +15460,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/sage_ore.png",
       "note": {
         "en": {
           "summary": "Sage Ore: the stone variant, replaces stone, granite, diorite and andesite; hardness 3 like diamond ore. Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
@@ -17341,6 +17347,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/deepslate_sage_ore.png",
       "lootTable": "simplebuilding:blocks/deepslate_sage_ore",
       "drops": [
         "simplebuilding:deepslate_sage_ore",
@@ -17431,6 +17438,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/dimensional_scrap.png",
       "lootTable": "simplebuilding:blocks/dimensional_scrap",
       "drops": [
         "simplebuilding:dimensional_scrap"
@@ -17568,6 +17576,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/end_dimensional_scrap.png",
       "lootTable": "simplebuilding:blocks/end_dimensional_scrap",
       "drops": [
         "simplebuilding:end_dimensional_scrap"
@@ -19408,6 +19417,7 @@ window.WIKI_DATA = {
         "simplebuilding:rotator"
       ],
       "trades": [],
+      "icon": "assets/textures/render/iron_rod.png",
       "lootTable": "simplebuilding:blocks/iron_rod",
       "drops": [
         "simplebuilding:iron_rod"
@@ -19727,6 +19737,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nether_dimensional_scrap.png",
       "lootTable": "simplebuilding:blocks/nether_dimensional_scrap",
       "drops": [
         "simplebuilding:nether_dimensional_scrap"
@@ -21531,6 +21542,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/placed_egg.png",
       "note": {
         "en": {
           "summary": "Sneak + right-click with an egg (plain, blue or brown) stands it up on a block. Mined with Silk Touch it comes back; otherwise it breaks and hatches exactly like a thrown egg: a chick in 1 of 8, four chicks in 1 of 32 of those, as babies of the egg's variant.",
@@ -23298,6 +23310,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/sage_ore.png",
       "lootTable": "simplebuilding:blocks/sage_ore",
       "drops": [
         "simplebuilding:sage_orb",

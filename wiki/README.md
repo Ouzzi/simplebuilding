@@ -39,6 +39,12 @@ der Id ab (erste passende Regel, „End & Enderit“ kommt zusätzlich dazu; was
 trifft, landet unter „Materialien“). Suche: `/` oder `Strg+K`, Pfeiltasten, Enter.
 Farbschema: Umschalter oben rechts (System → hell → dunkel, in `localStorage`).
 
+Die **Items-Seite** (`?tab=items`) listet Items *und* Blöcke (Art-Filter Alle/Items/Blöcke;
+`?tab=blocks` ist dieselbe Seite mit Blöcken vorgewählt), als Liste oder Kacheln, wahlweise mit
+den Rezepten direkt am Eintrag. Ansicht, Art und Rezept-Schalter bleiben gespeichert
+(`simplebuilding-wiki-itemsview`). „Alle Rezepte“ lässt sich nach Station in einklappbare
+Abschnitte gruppieren (Alle auf-/zuklappen; Zustand wie die übrigen Abschnitte).
+
 Listen merken ihren Suchtext je Mod und Bereich. Die Rezeptansicht merkt zusätzlich
 ihre Filter und Ansichtsschalter je Mod. Ohne verfügbaren Browserspeicher bleiben
 Listenfilter während der aktuellen Seitensitzung erhalten. Bei leerem Filterergebnis
@@ -169,7 +175,10 @@ JSON nennt ein `icon` nur, wenn die Datei da ist, deshalb bleibt es auf jedem Re
 gleich. Ein Lauf, der zeichnen kann, löscht Bilder, die nichts mehr braucht.
 **`--check` schlägt fehl**, wenn ein Item oder Block weder Textur noch Bild hat (Ausnahme:
 Item-Definition `minecraft:empty`, der Kreativ-Platzhalter) oder der Renderer eine Textur
-bzw. ein Modell nicht findet.
+bzw. ein Modell nicht findet. Ebenso, wenn ein Item mit Blockmodell (voller Block, Treppe, Stufe …)
+kein committetes 3D-Bild hat – sonst zeigte die Seite still die flache Seitentextur (so fehlten
+die Bilder des Dimensionsschrotts, die in einem Lauf ohne Renderer dazukamen). Abhilfe: einmal
+mit Pillow, numpy und Client-Jar erzeugen und das neue Bild unter `render/` committen.
 
 ### Woher etwas ohne Rezept kommt (`wiki/obtain_sources.py`)
 

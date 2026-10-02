@@ -308,6 +308,27 @@ a.slot:hover { text-decoration: none; background: color-mix(in srgb, var(--slot-
 .row-sub { color: var(--muted); font-size: .82rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .row-right { flex: none; display: flex; gap: .3rem; flex-wrap: wrap; justify-content: flex-end; }
 .row.hidden { display: none; }
+.row-rc { flex-direction: column; align-items: stretch; gap: .35rem; border-color: var(--border); }
+.row-rc .row-head { display: flex; align-items: center; gap: .8rem; color: var(--text); min-width: 0; }
+.row-rc .row-head:hover { text-decoration: none; }
+.rc.row-recipes { --slot: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .9rem; padding: .45rem .55rem; box-shadow: none; }
+.rc.row-recipes .slot { width: 32px; height: 32px; }
+.rc.row-recipes .slot img { width: 22px; height: 22px; }
+.rc.row-recipes .slot-result { width: 38px; height: 38px; }
+.rc.row-recipes .slot-result img { width: 26px; height: 26px; }
+.rc.row-recipes .recipe-body { gap: .4rem; flex-wrap: wrap; }
+.rows.as-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: .5rem; }
+.rows.as-grid.with-rc { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.as-grid > .row, .as-grid > .row-rc > .row-head { flex-direction: column; justify-content: flex-start; text-align: center; gap: .35rem; }
+.as-grid > .row { background: var(--panel); border-color: var(--border); padding: .6rem .45rem; min-width: 0; }
+.as-grid > .row:hover { border-color: var(--accent); }
+.as-grid .row-head > .slot, .as-grid > a.row > .slot { width: 52px; height: 52px; }
+.as-grid .row-head > .slot img, .as-grid > a.row > .slot img { width: 38px; height: 38px; }
+.as-grid .row-main { width: 100%; }
+.as-grid .row-title { font-size: .86rem; line-height: 1.25; overflow-wrap: break-word; hyphens: auto; }
+.as-grid .row-title .en, .as-grid .row-sub, .as-grid .row-right { display: none; }
+.as-grid .rc.row-recipes { justify-content: center; }
+@media (max-width: 640px) { .rows.as-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: .4rem; } .rows.as-grid.with-rc { grid-template-columns: 1fr; } }
 
 /* ------------------------------------------------------------------ */
 /* Kopf einer Detailseite                                             */
@@ -516,6 +537,9 @@ a.chip:hover { text-decoration: none; }
 .badge-mod { border-color: color-mix(in srgb, var(--accent) 55%, transparent); color: var(--accent-strong); }
 .badge-line { font-variant-numeric: tabular-nums; }
 .ar-more { display: block; margin: 1rem auto; }
+.ar-foldall { display: inline-flex; gap: .3rem; flex-wrap: wrap; }
+.ar-foldall[hidden] { display: none; }
+.ar-sections .ar-sec { margin-bottom: .6rem; }
 .iw-card-meta { font-size: .78rem; color: var(--muted); margin-top: .35rem; }
 
 /* JEI-Ansicht je Item */
@@ -931,6 +955,9 @@ en: {
 
   /* Listen, Übersicht, Suche */
   filterPlaceholder: 'Filter list …',
+  ivTitle: 'Items & blocks', ivKind: 'Show', ivView: 'View', ivList: 'List', ivGrid: 'Grid', ivRecipes: 'Show recipes',
+  ivNoRecipe: 'No crafting recipe', ivMoreRecipes: '+{0} more recipes',
+  arGroupSt: 'Group by station', arExpandAll: 'Expand all', arCollapseAll: 'Collapse all',
   filterAria: 'Filter list',
   noEntriesList: 'This mod has no entries in this section. Choose another section or mod in the navigation.',
   filterEmpty: 'Nothing matches the filter. Try a shorter search or clear the filter.',
@@ -1417,6 +1444,9 @@ de: {
 
   /* Listen, Übersicht, Suche */
   filterPlaceholder: 'Liste filtern …',
+  ivTitle: 'Items & Blöcke', ivKind: 'Zeigen', ivView: 'Ansicht', ivList: 'Liste', ivGrid: 'Kacheln', ivRecipes: 'Rezepte anzeigen',
+  ivNoRecipe: 'Kein Herstellungsrezept', ivMoreRecipes: '+{0} weitere Rezepte',
+  arGroupSt: 'Nach Station gruppieren', arExpandAll: 'Alle aufklappen', arCollapseAll: 'Alle zuklappen',
   filterAria: 'Liste filtern',
   noEntriesList: 'Dieser Mod hat hier keine Einträge. Wähle in der Navigation einen anderen Bereich oder Mod.',
   filterEmpty: 'Nichts passt zum Filter. Suche kürzer oder setze den Filter zurück.',
@@ -2579,8 +2609,64 @@ function entryRow(e, kind) {
 }
 function sortedByName(list) { return arr(list).filter(isObj).slice().sort(function (a, b) { return norm(nameOf(a) || a.id).localeCompare(norm(nameOf(b) || b.id), LANG); }); }
 
-function pageItems() { return listPage(T('navItems'), sortedByName(D.items).map(function (e) { return entryRow(e, 'items'); })); }
-function pageBlocks() { return listPage(T('navBlocks'), sortedByName(D.blocks).map(function (e) { return entryRow(e, 'blocks'); })); }
+/* Items-Seite: Items UND Bloecke auf einer Seite (Art-Filter), als Liste oder Kacheln,
+   wahlweise mit den Rezepten direkt am Eintrag. Die Wahl bleibt (localStorage, sonst nur
+   diese Sitzung). ?tab=blocks ist dieselbe Seite, mit Bloecken vorgewaehlt. */
+var IV_STORE = 'simplebuilding-wiki-itemsview';
+var IV = (function () {
+  var d = { view: 'list', kind: 'all', rc: false };
+  try {
+    var v = JSON.parse(window.localStorage.getItem(IV_STORE) || '{}');
+    if (v.view === 'grid' || v.view === 'list') d.view = v.view;
+    if (v.kind === 'items' || v.kind === 'blocks' || v.kind === 'all') d.kind = v.kind;
+    if (v.rc === true) d.rc = true;
+  } catch (err) { /* Standard */ }
+  return d;
+})();
+function saveIV() { try { window.localStorage.setItem(IV_STORE, JSON.stringify(IV)); } catch (err) { /* nur diese Sitzung */ } }
+/* Alle Eintraege einmal: Items (auch die, die zugleich Block sind) und reine Bloecke. */
+function catalogEntries() {
+  var out = sortedByName(D.items).map(function (e) { return { e: e, kind: 'items', k: IX.blocks.has(e.id) ? 'items blocks' : 'items' }; });
+  sortedByName(D.blocks).forEach(function (e) { if (!IX.items.has(e.id)) out.push({ e: e, kind: 'blocks', k: 'blocks' }); });
+  out.sort(function (a, b) { return norm(nameOf(a.e) || a.e.id).localeCompare(norm(nameOf(b.e) || b.e.id), LANG); });
+  return out;
+}
+function rowRecipesHtml(id) {
+  var rs = modRecipesFor(id), h = '';
+  if (rs.length) {
+    h = rs.slice(0, 2).map(function (r) { return '<div class="recipe-body">' + recipeBodyHtml(r) + '</div>'; }).join('');
+    if (rs.length > 2) h += '<a class="tiny" href="#/make/' + esc(encodeURIComponent(id)) + '">' + esc(T('ivMoreRecipes', rs.length - 2)) + '</a>';
+  } else if ((IW.byOutput.get(id) || []).length) {
+    h = iwCardBody(IW.byOutput.get(id)[0]);
+  } else {
+    h = '<span class="muted tiny">' + esc(T('ivNoRecipe')) + '</span>';
+  }
+  return '<div class="row-recipes rc">' + h + '</div>';
+}
+function catalogRow(c) {
+  var row = entryRow(c.e, c.kind).replace('<a class="row"', '<a class="row" data-k="' + c.k + '"');
+  if (!IV.rc) return row;
+  /* Mit Rezepten: keine Links in Links - der Kopf bleibt der Link, die Zutaten verlinken selbst. */
+  var m = /^<a class="row" (data-k="[^"]*") (href="[^"]*") (data-s="[^"]*")>([\s\S]*)<\/a>$/.exec(row);
+  if (!m) return row;
+  return '<div class="row row-rc" ' + m[1] + ' ' + m[3] + '><a class="row-head" ' + m[2] + '>' + m[4] + '</a>' + rowRecipesHtml(c.e.id) + '</div>';
+}
+function ivChip(key, v, label, count) {
+  return '<button type="button" class="chip" data-iv="' + key + '" data-v="' + v + '" aria-pressed="' + (IV[key] === v) + '">' + esc(label) + (count != null ? '<span class="n">' + count + '</span>' : '') + '</button>';
+}
+function pageItems(kind) {
+  var shownKind = kind || IV.kind; /* ?tab=blocks waehlt Bloecke vor, ohne die gespeicherte Wahl zu aendern */
+  var all = catalogEntries();
+  var nItems = all.filter(function (c) { return c.k.indexOf('items') >= 0; }).length, nBlocks = all.filter(function (c) { return c.k.indexOf('blocks') >= 0; }).length;
+  function kchip(v, label, count) { return ivChip('kind', v, label, count).replace('aria-pressed="' + (IV.kind === v) + '"', 'aria-pressed="' + (shownKind === v) + '"'); }
+  var bar = '<div class="ar-filters iv-bar">' +
+    '<div class="ar-frow" role="group" aria-label="' + esc(T('ivKind')) + '"><span class="ar-flabel">' + esc(T('ivKind')) + '</span>' + kchip('all', T('arAll'), all.length) + kchip('items', T('navItems'), nItems) + kchip('blocks', T('navBlocks'), nBlocks) + '</div>' +
+    '<div class="ar-frow" role="group" aria-label="' + esc(T('ivView')) + '"><span class="ar-flabel">' + esc(T('ivView')) + '</span>' + ivChip('view', 'list', T('ivList')) + ivChip('view', 'grid', T('ivGrid')) +
+    '<label><input type="checkbox" id="iv-rc"' + (IV.rc ? ' checked' : '') + '> ' + esc(T('ivRecipes')) + '</label><a class="chip" href="#/allrecipes">' + esc(T('arTitle')) + ' →</a></div></div>';
+  var h = listPage(T('ivTitle'), all.map(catalogRow), { intro: bar });
+  return h.replace('<div class="rows" data-filter-target>', '<div class="rows iv-rows' + (IV.view === 'grid' ? ' as-grid' : '') + (IV.rc ? ' with-rc' : '') + '" data-filter-target data-kind-filter="' + shownKind + '">');
+}
+function pageBlocks() { return pageItems('blocks'); }
 
 /* Zahlen aus der Item-Registry (WikiDataProvider -> wiki/generate.py) als
    Kennzahl-Kacheln oben auf der Seite. Fehlt der Datagen-Export, fehlt
@@ -2838,16 +2924,17 @@ function stationOfType(t) {
 function stationLabel(st) { return T('st.' + st); }
 var AR_STORE = 'simplebuilding-wiki-allrecipes:' + selectedMod;
 var RV = (function () {
-  var d = { st: 'all', src: 'all', line: 'all', q: '', merge: true };
+  var d = { st: 'all', src: 'all', line: 'all', q: '', merge: true, group: false };
   try {
     var v = JSON.parse(window.localStorage.getItem(AR_STORE) || window.localStorage.getItem('simplebuilding-wiki-allrecipes') || '{}');
     ['st', 'src', 'line', 'q'].forEach(function (k) { if (typeof v[k] === 'string') d[k] = v[k]; });
     if (v.merge === false) d.merge = false;
+    if (v.group === true) d.group = true;
   } catch (err) { /* Standard */ }
   return d;
 })();
-function saveRV() { try { window.localStorage.setItem(AR_STORE, JSON.stringify({ st: RV.st, src: RV.src, line: RV.line, q: RV.q, merge: RV.merge })); } catch (err) { /* nur diese Sitzung */ } }
-var AR = { mod: null, van: {}, shown: 60, groups: [] };
+function saveRV() { try { window.localStorage.setItem(AR_STORE, JSON.stringify({ st: RV.st, src: RV.src, line: RV.line, q: RV.q, merge: RV.merge, group: RV.group })); } catch (err) { /* nur diese Sitzung */ } }
+var AR = { mod: null, van: {}, shown: 60, groups: [], gShown: {}, byStation: null };
 function arEntry(src, st, lines, r, e) {
   var res = r ? normStack(r.result) : normStack(e.output);
   return { src: src, st: st, lines: lines.slice().sort(), r: r, e: e, res: res ? res.id : '', cnt: res ? res.count : 1 };
@@ -3051,7 +3138,9 @@ function srcLineChips() {
 function pageAllRecipes() {
   var h = '<div class="listhead"><h1>' + esc(T('arTitle')) + '</h1></div><p class="muted">' + esc(T('arIntro')) + '</p>';
   h += '<div class="ar-filters">' + chipRow(T('arStation'), 'st', [{ v: 'all', label: T('arAll'), count: true }].concat(STATION_ORDER.map(function (s) { return { v: s, label: stationLabel(s), count: true }; }))) + srcLineChips() +
-    '<div class="ar-frow"><input type="search" id="ar-q" value="' + esc(RV.q) + '" placeholder="' + esc(T('arSearch')) + '" aria-label="' + esc(T('arSearch')) + '"><label><input type="checkbox" id="ar-merge"' + (RV.merge ? ' checked' : '') + '> ' + esc(T('arMerge')) + '</label></div></div>';
+    '<div class="ar-frow"><input type="search" id="ar-q" value="' + esc(RV.q) + '" placeholder="' + esc(T('arSearch')) + '" aria-label="' + esc(T('arSearch')) + '"><label><input type="checkbox" id="ar-merge"' + (RV.merge ? ' checked' : '') + '> ' + esc(T('arMerge')) + '</label>' +
+    '<label><input type="checkbox" id="ar-groupst"' + (RV.group ? ' checked' : '') + '> ' + esc(T('arGroupSt')) + '</label>' +
+    '<span class="ar-foldall"' + (RV.group ? '' : ' hidden') + '><button type="button" class="chip" data-ar-fold="open">' + esc(T('arExpandAll')) + '</button><button type="button" class="chip" data-ar-fold="close">' + esc(T('arCollapseAll')) + '</button></span></div></div>';
   h += '<div class="ar-status" id="ar-status" aria-live="polite"></div><div class="ar-grid" id="ar-results"></div><div id="ar-more-wrap"></div>';
   return h;
 }
@@ -3067,9 +3156,31 @@ function arRenderResults() {
   var list = arSort(RV.st === 'all' ? base : base.filter(function (en) { return en.st === RV.st; }));
   var cards = arGroup(list);
   $st.innerHTML = esc(T('arCount', cards.length, list.length)) + failed.map(function (l) { return ' · <span class="badge badge-warn">' + esc(T('arVanillaMissing', l)) + '</span>'; }).join('');
+  var fa = $main.querySelector('.ar-foldall'); if (fa) fa.hidden = !RV.group;
+  if (RV.group && cards.length) {
+    /* Je Station ein einklappbarer Abschnitt; Karten erst, wenn er offen ist (Vanilla hat Tausende). */
+    AR.byStation = new Map();
+    cards.forEach(function (c) { var st = (c.members ? c.members[0] : c.en).st; if (!AR.byStation.has(st)) AR.byStation.set(st, []); AR.byStation.get(st).push(c); });
+    $res.className = 'ar-sections';
+    $res.innerHTML = STATION_ORDER.filter(function (st) { return AR.byStation.has(st); }).map(function (st) {
+      return section(stationLabel(st), '<div class="ar-grid" data-ar-st="' + st + '"></div>', { count: AR.byStation.get(st).length, fold: 'ar.' + st, cls: 'ar-sec' });
+    }).join('');
+    $res.querySelectorAll('details.ar-sec[open]').forEach(arFillGroup);
+    document.getElementById('ar-more-wrap').innerHTML = '';
+    return;
+  }
+  $res.className = 'ar-grid';
   $res.innerHTML = cards.length ? cards.slice(0, AR.shown).map(rcCard).join('') : '<p class="hint">' + esc(T('arNone')) + '</p>';
   var left = cards.length - AR.shown;
   document.getElementById('ar-more-wrap').innerHTML = left > 0 ? '<button type="button" class="chip ar-more" data-ar-more>' + esc(T('arMore', left)) + '</button>' : '';
+}
+function arFillGroup(d) {
+  var grid = d.querySelector('[data-ar-st]'), st = grid && grid.getAttribute('data-ar-st'), cs = st && AR.byStation && AR.byStation.get(st);
+  if (!cs) return;
+  var n = AR.gShown[st] || 60, left = cs.length - n;
+  grid.innerHTML = cs.slice(0, n).map(rcCard).join('');
+  var more = d.querySelector('[data-ar-gmore]'); if (more) more.remove();
+  if (left > 0) grid.insertAdjacentHTML('afterend', '<button type="button" class="chip ar-more" data-ar-gmore="' + st + '">' + esc(T('arMore', left)) + '</button>');
 }
 function fillAllRecipes() {
   var $st = document.getElementById('ar-status');
@@ -4117,7 +4228,7 @@ window.addEventListener('hashchange', function () {
 /* ------------------------------------------------------------------ */
 /* label kommt aus STR, damit der Sprachwechsel die Leiste mitnimmt. */
 var NAV_REF = [
-  { key: 'items', labelKey: 'navItems', glyph: '◆', count: function () { return arr(D.items).length; } },
+  { key: 'items', labelKey: 'navItems', glyph: '◆', count: function () { return arr(D.items).length + arr(D.blocks).filter(function (b) { return isObj(b) && !IX.items.has(b.id); }).length; } },
   { key: 'blocks', labelKey: 'navBlocks', glyph: '■', count: function () { return arr(D.blocks).length; } },
   { key: 'allrecipes', labelKey: 'navAllRecipes', glyph: '⊞', count: function () { return arr(D.recipes).length; } },
   { key: 'recipes', labelKey: 'navRecipes', glyph: '≡', count: null },
@@ -4301,7 +4412,8 @@ function applyListFilter(inp) {
   var any = false;
   $main.querySelectorAll('[data-filter-target] > .row').forEach(function (row) {
     var s = row.getAttribute('data-s') || norm(row.textContent);
-    var hit = !q || s.indexOf(q) >= 0;
+    var kf = row.parentNode.getAttribute('data-kind-filter');
+    var hit = (!q || s.indexOf(q) >= 0) && (!kf || kf === 'all' || (' ' + (row.getAttribute('data-k') || '') + ' ').indexOf(' ' + kf + ' ') >= 0);
     row.classList.toggle('hidden', !hit);
     if (hit) any = true;
   });
@@ -4446,6 +4558,11 @@ $main.addEventListener('toggle', function (ev) {
   var path = (d.getAttribute('data-path') || '').split('|').filter(Boolean);
   body.innerHTML = treeChildren(ref, num(d.getAttribute('data-need'), 1), path);
 }, true);
+/* Alle Rezepte, nach Station gruppiert: Karten beim Aufklappen zeichnen. */
+$main.addEventListener('toggle', function (ev) {
+  var d = ev.target;
+  if (d && d.classList && d.classList.contains('ar-sec') && d.open) { var g = d.querySelector('[data-ar-st]'); if (g && !g.children.length) arFillGroup(d); }
+}, true);
 /* Eingeklappte Abschnitte merken. */
 $main.addEventListener('toggle', function (ev) {
   var d = ev.target;
@@ -4455,12 +4572,29 @@ $main.addEventListener('toggle', function (ev) {
 $main.addEventListener('click', function (ev) {
   var t = ev.target && ev.target.closest ? ev.target.closest('button') : null;
   if (!t || !$main.contains(t)) return;
+  if (t.hasAttribute('data-iv')) {
+    var ik = t.getAttribute('data-iv');
+    IV[ik] = t.getAttribute('data-v'); saveIV();
+    $main.querySelectorAll('[data-iv="' + ik + '"]').forEach(function (b) { b.setAttribute('aria-pressed', String(b === t)); });
+    var ivRows = $main.querySelector('.iv-rows');
+    if (ivRows) {
+      if (ik === 'view') ivRows.classList.toggle('as-grid', IV.view === 'grid');
+      if (ik === 'kind') { ivRows.setAttribute('data-kind-filter', IV.kind); var fi = $main.querySelector('[data-filter]'); if (fi) applyListFilter(fi); }
+    }
+    return;
+  }
   if (t.hasAttribute('data-ar')) {
     RV[t.getAttribute('data-ar')] = t.getAttribute('data-v'); saveRV();
     $main.querySelectorAll('[data-ar="' + t.getAttribute('data-ar') + '"]').forEach(function (b) { b.setAttribute('aria-pressed', String(b === t)); });
     AR.shown = 60; refreshRecipeView();
   } else if (t.hasAttribute('data-ar-more')) {
     AR.shown += 60; arRenderResults();
+  } else if (t.hasAttribute('data-ar-gmore')) {
+    var gs = t.getAttribute('data-ar-gmore'); AR.gShown[gs] = (AR.gShown[gs] || 60) + 60;
+    var gd = t.closest('details'); if (gd) arFillGroup(gd);
+  } else if (t.hasAttribute('data-ar-fold')) {
+    var open = t.getAttribute('data-ar-fold') === 'open';
+    $main.querySelectorAll('details.ar-sec').forEach(function (d) { d.open = open; });
   } else if (t.hasAttribute('data-vi')) {
     var card = t.closest('.rc[data-g]'), g = card && AR.groups[+card.getAttribute('data-g')];
     if (!g) return;
@@ -4489,6 +4623,16 @@ $main.addEventListener('input', function (ev) {
 $main.addEventListener('change', function (ev) {
   var t = ev.target;
   if (t && t.id === 'ar-merge') { RV.merge = !!t.checked; saveRV(); refreshRecipeView(); }
+  if (t && t.id === 'ar-groupst') { RV.group = !!t.checked; saveRV(); AR.gShown = {}; arRenderResults(); }
+  if (t && t.id === 'iv-rc') {
+    IV.rc = !!t.checked; saveIV();
+    /* Die Art-Wahl der aktuellen Ansicht (auch die Vorwahl von ?tab=blocks) bleibt stehen. */
+    var cur = $main.querySelector('.iv-rows'), kindNow = cur ? cur.getAttribute('data-kind-filter') : null;
+    render({ keepScroll: true });
+    var nr = $main.querySelector('.iv-rows');
+    if (kindNow && nr && nr.getAttribute('data-kind-filter') !== kindNow) { { nr.setAttribute('data-kind-filter', kindNow); $main.querySelectorAll('[data-iv="kind"]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-v') === kindNow)); }); var fi2 = $main.querySelector('[data-filter]'); if (fi2) applyListFilter(fi2); } }
+    var again = document.getElementById('iv-rc'); if (again) again.focus();
+  }
 });
 /* Wie in JEI: R zeigt die Rezepte, U die Verwendung des Items unter dem Mauszeiger. */
 var hoverId = null;
