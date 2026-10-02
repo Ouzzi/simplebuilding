@@ -500,6 +500,24 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trim_effect_game_test_trim_bonuses_reach_the_player_through_the_mixins", TrimEffectTests::trimBonusesReachThePlayerThroughTheMixins)
                     .build(),
+            GameTestSpec.named("combat_game_test_arrows_in_mobs_drop_when_they_die", CombatTests::arrowsInMobsDropWhenTheyDie)
+                    .build(),
+            GameTestSpec.named("combat_game_test_killing_arrows_drop_at_once", CombatTests::killingArrowsDropAtOnce)
+                    .build(),
+            GameTestSpec.named("combat_game_test_only_pickable_arrows_from_players_come_back", CombatTests::onlyPickableArrowsFromPlayersComeBack)
+                    .build(),
+            GameTestSpec.named("combat_game_test_shulker_boxes_cannot_be_enchanted", CombatTests::shulkerBoxesCannotBeEnchanted)
+                    .build(),
+            GameTestSpec.named("combat_game_test_the_resonance_rod_scans_creatures_but_not_players", CombatTests::theResonanceRodScansCreaturesButNotPlayers)
+                    .build(),
+            GameTestSpec.named("combat_game_test_crafty_shulker_potions_are_registered_and_brewable", CombatTests::craftyShulkerPotionsAreRegisteredAndBrewable)
+                    .build(),
+            GameTestSpec.named("combat_game_test_crafty_shulker_only_triggers_on_hits_by_creatures", CombatTests::craftyShulkerOnlyTriggersOnHitsByCreatures)
+                    .build(),
+            GameTestSpec.named("combat_game_test_crafty_shulker_lands_only_on_safe_ground", CombatTests::craftyShulkerLandsOnlyOnSafeGround)
+                    .build(),
+            GameTestSpec.named("combat_game_test_crafty_shulker_teleports_when_hit_and_respects_the_cooldown", CombatTests::craftyShulkerTeleportsWhenHitAndRespectsTheCooldown)
+                    .build(),
             GameTestSpec.named("fletching_game_test_each_tip_adds_its_damage_against_its_targets", FletchingTests::eachTipAddsItsDamageAgainstItsTargets)
                     .build(),
             GameTestSpec.named("fletching_game_test_shafts_and_fletchings_change_the_flight", FletchingTests::shaftsAndFletchingsChangeTheFlight)

@@ -15,6 +15,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
@@ -73,6 +75,9 @@ import org.jetbrains.annotations.Nullable;
  * Bloecken rund 20 s. Wirkungen reichen bis zur Reichweite der Linse (Config {@code range}, auf dem
  * Server zusaetzlich auf die Sichtweite begrenzt, damit der Strahl keine Chunks laedt); mehr als
  * {@code range + }{@link TweaksNetwork#LASER_RANGE_SLACK} Bloecke entfernt wirkt nichts.
+ *
+ * <p><b>Scannen</b> (2026-10-02): ein Lebewesen im Strahl leuchtet nach der einfachen Verweildauer auf
+ * ({@link #canScan}, Spieler nur mit Schalter und PvP).
  *
  * <p><b>Lebewesen</b> (Spieler und Mobs) fangen Feuer ({@value #ENTITY_BURN_SECONDS} s), brauchen dafuer aber
  * doppelt so lange wie ein brennbarer Block im selben Abstand ({@link #beamAtEntity}). Nicht:
@@ -247,8 +252,10 @@ public final class LaserBeam {
     }
 
     /**
-     * Ein Tick Strahl auf ein Lebewesen: nach {@link #ENTITY_DWELL_FACTOR}-facher Verweildauer eines
-     * brennbaren Blocks im selben Abstand brennt es {@value #ENTITY_BURN_SECONDS} s; kostet
+     * Ein Tick Strahl auf ein Lebewesen. Nach der einfachen Verweildauer eines brennbaren Blocks im selben Abstand
+     * wird es <b>gescannt</b> (2026-10-02): es leuchtet {@value #SCAN_GLOW_TICKS} Ticks lang (Glowing, kein Text),
+     * solange der Strahl bleibt, alle {@value #SCAN_GLOW_TICKS} Ticks erneut. Nach der
+     * {@link #ENTITY_DWELL_FACTOR}-fachen Verweildauer brennt es {@value #ENTITY_BURN_SECONDS} s. Jede Wirkung kostet
      * {@link LaserPointerItem#EFFECT_COST} Ladung.
      *
      * @return true, wenn es in diesem Tick angezuendet wurde
@@ -257,21 +264,42 @@ public final class LaserBeam {
         ServerLevel level = player.level();
         Entity entity = hit.getEntity();
         Vec3 at = hit.getLocation();
-        if (LaserPointerItem.isEmpty(stack) || !inRange(player, at) || !(entity instanceof LivingEntity target)
-                || !canIgnite(player, target)) {
+        if (LaserPointerItem.isEmpty(stack) || !inRange(player, at) || !(entity instanceof LivingEntity target)) {
+            ENTITY_DWELLS.remove(player);
+            return false;
+        }
+        boolean ignite = canIgnite(player, target);
+        boolean scan = canScan(player, target);
+        if (!ignite && !scan) {
             ENTITY_DWELLS.remove(player);
             return false;
         }
         long now = level.getGameTime();
         EntityDwell dwell = ENTITY_DWELLS.get(player);
         int ticks = dwell != null && dwell.entityId() == target.getId() && now - dwell.lastTick() <= 2 ? dwell.ticks() + 1 : 1;
-        if (ticks < ENTITY_DWELL_FACTOR * dwellTicks(IGNITE_TICKS, distance(player, at))) {
-            ENTITY_DWELLS.put(player, new EntityDwell(target.getId(), ticks, now));
-            if (ticks % 4 == 0) {
-                level.sendParticles(ParticleTypes.SMOKE, at.x, at.y, at.z, 1, 0.05, 0.05, 0.05, 0.0);
+        int scanAt = dwellTicks(IGNITE_TICKS, distance(player, at));
+        int igniteAt = ENTITY_DWELL_FACTOR * scanAt;
+        if (scan && ticks >= scanAt && (ticks - scanAt) % SCAN_GLOW_TICKS == 0) {
+            target.addEffect(new MobEffectInstance(MobEffects.GLOWING, SCAN_GLOW_TICKS + 10, 0, false, false), player);
+            level.playSound(null, at.x, at.y, at.z, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 0.8f, 1.6f);
+            level.sendParticles(LaserPointerItem.SPARK, at.x, at.y, at.z, 6, 0.2, 0.3, 0.2, 0.0);
+            LaserPointerItem.drain(player, stack, LaserPointerItem.effectCost());
+            if (LaserPointerItem.isEmpty(stack)) {
+                ENTITY_DWELLS.remove(player);
+                return false;
             }
-            if (ticks % HEAT_SOUND_PERIOD == 1) {
-                play(level, Sound.CRACKLE, at);
+        }
+        if (!ignite || ticks < igniteAt) {
+            // Nur Scannen: der Zaehler laeuft weiter (Auffrischen), aber nie ueber einen Glow-Takt hinaus ins Unendliche.
+            int kept = !ignite && ticks > scanAt + SCAN_GLOW_TICKS ? ticks - SCAN_GLOW_TICKS : ticks;
+            ENTITY_DWELLS.put(player, new EntityDwell(target.getId(), kept, now));
+            if (ignite) {
+                if (ticks % 4 == 0) {
+                    level.sendParticles(ParticleTypes.SMOKE, at.x, at.y, at.z, 1, 0.05, 0.05, 0.05, 0.0);
+                }
+                if (ticks % HEAT_SOUND_PERIOD == 1) {
+                    play(level, Sound.CRACKLE, at);
+                }
             }
             return false;
         }
@@ -280,6 +308,26 @@ public final class LaserBeam {
         level.sendParticles(ParticleTypes.FLAME, at.x, at.y, at.z, 6, 0.15, 0.2, 0.15, 0.01);
         level.playSound(null, at.x, at.y, at.z, SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 0.8f, level.getRandom().nextFloat() * 0.4f + 0.8f);
         LaserPointerItem.drain(player, stack, LaserPointerItem.effectCost());
+        return true;
+    }
+
+    /** So lange leuchtet ein gescanntes Lebewesen; so oft frischt der ruhende Strahl das Leuchten auf. */
+    public static final int SCAN_GLOW_TICKS = 100;
+
+    /**
+     * Ob der Strahl dieses Lebewesen scannen (leuchten lassen) darf: Schalter {@code server.laser.scanEntities},
+     * Schutz-Mods ({@code mayAffectEntity}), lebendig, nicht der Strahlende; andere Spieler nur mit
+     * {@code server.laser.scanPlayers} und wenn der Strahlende ihnen schaden darf (PvP), nie Zuschauer.
+     */
+    public static boolean canScan(ServerPlayer player, LivingEntity target) {
+        com.simplebuilding.config.ServerTuningConfig.Laser switches = com.simplebuilding.config.ServerTuning.get().laser;
+        if (!switches.scanEntities || target == player || !target.isAlive() || target.isSpectator()
+                || !com.simplebuilding.api.WorldPermissions.mayAffectEntity(player, target)) {
+            return false;
+        }
+        if (target instanceof Player other) {
+            return switches.scanPlayers && player.canHarmPlayer(other);
+        }
         return true;
     }
 

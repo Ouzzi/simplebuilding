@@ -51,7 +51,8 @@ import java.util.Set;
  *       Varianten zaehlen zur Grundform). Dazu Vanilla-Items, die eine Mod-Verzauberung unterstuetzen,
  *       wieder nur die hoechste Stufe je Familie und nur, wenn sie nicht bloss eine schwaechere Ausgabe
  *       eines Mod-Traegers sind (haltbar und mit einer Teilmenge von dessen Verzauberungen) - uebrig
- *       bleiben Stock und Shulkerkiste, denen Constructor's Touch eine eigene Funktion gibt.</li>
+ *       bleibt der Stock, dem Constructor's Touch eine eigene Funktion gibt (Shulkerkisten sind seit 2026-10-02
+ *       nicht mehr verzauberbar).</li>
  *   <li>Verzauberungen: jede, deren {@code supportedItems} das Item enthaelt, auf {@code maxLevel};
  *       Flueche nicht. Unvertraegliche Verzauberungen ({@code exclusiveSet}, in beide Richtungen
  *       gelesen) bilden Gruppen; je Gruppe gibt es Optionen (je Mitglied eine maximale vertraegliche

@@ -89,6 +89,8 @@ public class Simplebuilding implements ModInitializer {
         com.simplebuilding.util.ModSounds.registerSounds();
         ModItems.registerModItems();
         ModEntities.registerModEntities();
+        com.simplebuilding.effect.ModEffects.registerEffects();
+        com.simplebuilding.effect.ModEffects.registerPotions();
         ModBlockEntities.registerBlockEntities();
         ModLootTableProvider.modifyLootTables();
         ModTradeOffers.registerModTradeOffers();

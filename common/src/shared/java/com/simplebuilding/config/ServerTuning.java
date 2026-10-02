@@ -57,6 +57,13 @@ public final class ServerTuning {
     /** Ueber allem, was die Blaupause bisher je Tick setzt (4 194 304 Stellen / 180 Ticks = 23 302). */
     public static final int MAX_BLUEPRINT_BLOCKS_PER_TICK = 32768;
     public static final double MAX_TRIM_STRENGTH = 2.0;
+    /** Pfeile, die sich ein Lebewesen hoechstens merkt (server.arrows.maxPerMob). */
+    public static final int MAX_ARROWS_PER_MOB = 64;
+    /** Abklingzeit und Reichweite des Listigen Shulkers (server.craftyShulker). */
+    public static final int MIN_CRAFTY_COOLDOWN = 20;
+    public static final int MAX_CRAFTY_COOLDOWN = 1200;
+    public static final int MIN_CRAFTY_RADIUS = 2;
+    public static final int MAX_CRAFTY_RADIUS = 16;
     public static final int MIN_LENS = 64;
     public static final int MAX_LENS = 2560;
     public static final int MIN_ROTATOR = 64;
@@ -282,6 +289,18 @@ public final class ServerTuning {
     /** Endermiten je seltenem Shulker (0..8); nur Server. */
     public static int endermitesPerRareShulker() {
         return ServerTuningConfig.clamp(local().loot.endermitesPerRareShulker, 0, MAX_ENDERMITES_PER_RARE_SHULKER);
+    }
+
+    public static int arrowsPerMob() {
+        return ServerTuningConfig.clamp(get().arrows.maxPerMob, 1, MAX_ARROWS_PER_MOB);
+    }
+
+    public static int craftyShulkerCooldown() {
+        return ServerTuningConfig.clamp(get().craftyShulker.cooldownTicks, MIN_CRAFTY_COOLDOWN, MAX_CRAFTY_COOLDOWN);
+    }
+
+    public static int craftyShulkerRadius() {
+        return ServerTuningConfig.clamp(get().craftyShulker.radius, MIN_CRAFTY_RADIUS, MAX_CRAFTY_RADIUS);
     }
 
     public static int blueprintBlocksPerTick() {

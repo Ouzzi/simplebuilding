@@ -51,5 +51,10 @@ public abstract class RecipeProviderCompat extends FabricRecipeProvider {
         protected int fastMachineTicks(int machineTicks) {
             return machineTicks * 2;
         }
+
+        /** 26.3: Brau-Rezepte der Mod-Traenke ({@link ModBrewingProvider}). */
+        protected void buildVersionRecipes() {
+            new ModBrewingProvider(this.output).buildRecipes();
+        }
     }
 }

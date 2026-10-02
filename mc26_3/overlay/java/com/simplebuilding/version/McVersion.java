@@ -48,6 +48,18 @@ public final class McVersion {
     public static final boolean GADGET_REWORK = true;
     /** Rare structure finds: better loot chests and tiered end city shulkers with their shells (2026-10-02). */
     public static final boolean RARE_STRUCTURE_FINDS = true;
+
+    /** Trank des listigen Shulkers: Effekt, Traenke, Brau-Rezepte (2026-10-02, 26.3 braut datengetrieben). */
+    public static final boolean CRAFTY_SHULKER = true;
+
+    /**
+     * Chorusfrucht-Teleport an eine vorgepruefte Stelle (LivingEntity#randomTeleport). 26.3 prueft zusaetzlich
+     * die Bloecke in {@code avoid}; 26.2 kennt diese Variante nicht.
+     */
+    public static boolean randomTeleport(LivingEntity entity, double x, double y, double z, boolean particles,
+            TagKey<net.minecraft.world.level.block.Block> avoid) {
+        return entity.randomTeleport(x, y, z, particles, avoid);
+    }
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = true;
 

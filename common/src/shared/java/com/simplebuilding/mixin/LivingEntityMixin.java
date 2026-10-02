@@ -29,7 +29,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin implements OwnedLightHolder {
+public abstract class LivingEntityMixin implements OwnedLightHolder, com.simplebuilding.fletching.ArrowRecovery.Holder {
+
+    /** Pfeile von Spielern, die in diesem Wesen stecken (ArrowRecovery, 2026-10-02). */
+    @Unique
+    private final java.util.List<ItemStack> simplebuilding$stuckArrows = new java.util.ArrayList<>();
+
+    @Override
+    public java.util.List<ItemStack> simplebuilding$stuckArrows() {
+        return this.simplebuilding$stuckArrows;
+    }
+
+    @Inject(method = "dropAllDeathLoot", at = @At("TAIL"))
+    private void simplebuilding$dropStuckArrows(ServerLevel level, DamageSource source, CallbackInfo ci) {
+        com.simplebuilding.fletching.ArrowRecovery.dropAll((LivingEntity) (Object) this, level);
+    }
+
 
     /**
      * Marks a player's death drops ({@link com.simplebuilding.util.AttractorFilter}): the attractor
@@ -136,11 +151,17 @@ public abstract class LivingEntityMixin implements OwnedLightHolder {
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void simplebuilding$writeOwnedLight(ValueOutput output, CallbackInfo ci) {
         output.storeNullable("SimpleBuildingOwnedLight", BlockPos.CODEC, this.simplebuilding$ownedLight);
+        if (!this.simplebuilding$stuckArrows.isEmpty()) {
+            output.store(com.simplebuilding.fletching.ArrowRecovery.SAVE_KEY, ItemStack.CODEC.listOf(), this.simplebuilding$stuckArrows);
+        }
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void simplebuilding$readOwnedLight(ValueInput input, CallbackInfo ci) {
         this.simplebuilding$ownedLight = input.read("SimpleBuildingOwnedLight", BlockPos.CODEC).orElse(null);
+        this.simplebuilding$stuckArrows.clear();
+        input.read(com.simplebuilding.fletching.ArrowRecovery.SAVE_KEY, ItemStack.CODEC.listOf()).ifPresent(list -> list.stream()
+                .limit(com.simplebuilding.config.ServerTuning.MAX_ARROWS_PER_MOB).forEach(this.simplebuilding$stuckArrows::add));
     }
 
     // 6. SILENCE TRIM (Stealth / Sichtbarkeit) - KORRIGIERT

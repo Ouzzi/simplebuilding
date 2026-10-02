@@ -35,6 +35,12 @@ public class ServerTuningConfig {
     public Laser laser = new Laser();
 
     @ConfigEntry.Gui.CollapsibleObject
+    public Arrows arrows = new Arrows();
+
+    @ConfigEntry.Gui.CollapsibleObject
+    public CraftyShulker craftyShulker = new CraftyShulker();
+
+    @ConfigEntry.Gui.CollapsibleObject
     public OreGeneration oreGeneration = new OreGeneration();
 
     @ConfigEntry.Gui.CollapsibleObject
@@ -68,6 +74,8 @@ public class ServerTuningConfig {
         if (chunkLoaders == null) chunkLoaders = new ChunkLoaders();
         if (dimensionLocks == null) dimensionLocks = new DimensionLocks();
         if (laser == null) laser = new Laser();
+        if (arrows == null) arrows = new Arrows();
+        if (craftyShulker == null) craftyShulker = new CraftyShulker();
         if (oreGeneration == null) oreGeneration = new OreGeneration();
         if (pads == null) pads = new Pads();
         if (charges == null) charges = new Charges();
@@ -119,6 +127,10 @@ public class ServerTuningConfig {
         loot.reinforcedShulkerPercent = clamp(loot.reinforcedShulkerPercent, 0.0, ServerTuning.MAX_REINFORCED_SHULKER_PERCENT, 2.0);
         loot.enderiteShulkerPercent = clamp(loot.enderiteShulkerPercent, 0.0, ServerTuning.MAX_ENDERITE_SHULKER_PERCENT, 0.5);
         loot.endermitesPerRareShulker = clamp(loot.endermitesPerRareShulker, 0, ServerTuning.MAX_ENDERMITES_PER_RARE_SHULKER);
+
+        arrows.maxPerMob = clamp(arrows.maxPerMob, 1, ServerTuning.MAX_ARROWS_PER_MOB);
+        craftyShulker.cooldownTicks = clamp(craftyShulker.cooldownTicks, ServerTuning.MIN_CRAFTY_COOLDOWN, ServerTuning.MAX_CRAFTY_COOLDOWN);
+        craftyShulker.radius = clamp(craftyShulker.radius, ServerTuning.MIN_CRAFTY_RADIUS, ServerTuning.MAX_CRAFTY_RADIUS);
 
         blueprint.maxBlocksPerTick = clamp(blueprint.maxBlocksPerTick, 1, ServerTuning.MAX_BLUEPRINT_BLOCKS_PER_TICK);
 
@@ -205,6 +217,31 @@ public class ServerTuningConfig {
         public boolean igniteTnt = true;
         @ConfigEntry.Gui.Tooltip
         public boolean igniteEntities = true;
+        /** Lebewesen im Strahl leuchten kurz auf (Scannen, 2026-10-02). */
+        @ConfigEntry.Gui.Tooltip
+        public boolean scanEntities = true;
+        /** Auch andere Spieler (nur mit PvP) leuchten auf; aus: Spieler werden nie gescannt. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean scanPlayers = false;
+    }
+
+    /** Pfeile von Spielern, die in einem Lebewesen stecken, fallen bei dessen Tod (2026-10-02). */
+    public static class Arrows {
+        @ConfigEntry.Gui.Tooltip
+        public boolean recoverFromMobs = true;
+        /** Hoechstens so viele Pfeile merkt sich ein Lebewesen (1 bis 64). */
+        @ConfigEntry.Gui.Tooltip
+        public int maxPerMob = 16;
+    }
+
+    /** Effekt Listiger Shulker (Trank, 2026-10-02): Teleport bei Treffer. */
+    public static class CraftyShulker {
+        /** Ticks zwischen zwei Teleports desselben Wesens (20 bis 1200). */
+        @ConfigEntry.Gui.Tooltip
+        public int cooldownTicks = 60;
+        /** Groesster Abstand des Teleports in Bloecken (2 bis 16). */
+        @ConfigEntry.Gui.Tooltip
+        public int radius = 8;
     }
 
     /** Erzvorkommen im End; wirken beim naechsten Weltstart und nur fuer neu erzeugte Chunks. */
