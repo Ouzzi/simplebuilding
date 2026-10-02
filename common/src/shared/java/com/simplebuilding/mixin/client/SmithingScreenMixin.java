@@ -34,6 +34,10 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
 
     @Inject(method = "subInit", at = @At("TAIL"))
     private void simplebuilding$addAnimatedReferenceButton(CallbackInfo ci) {
+        // Hauptlinie: an dieser Stelle sitzt jetzt das Rezeptbuch (RecipeBookSmithingScreen, Besitzer 2026-10-02).
+        if (com.simplebuilding.version.McVersion.SMITHING_RECIPE_BOOK) {
+            return;
+        }
         int guiLeft = (this.width - this.imageWidth) / 2;
         int btnX = guiLeft - 25;
         int btnY = (this.height - this.imageHeight) / 2 + 5;

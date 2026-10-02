@@ -514,6 +514,34 @@ public final class ModScreensClientTest {
         awaitScreen(script, SmithingScreen.class, "vanilla smithing screen");
         script.idle("let the smithing screen render " + RENDER_TICKS + " frames", RENDER_TICKS);
 
+        if (com.simplebuilding.version.McVersion.SMITHING_RECIPE_BOOK) {
+            // Main line: the recipe book replaced the trim button (owner 2026-10-02). The swapped screen keeps the
+            // vanilla menu and shows Vanilla's recipe book button above the third slot.
+            assertStillOpen(script, com.simplebuilding.client.gui.RecipeBookSmithingScreen.class, "smithing screen with recipe book");
+            script.shot("screen-f-smithing-table");
+            script.act("the smithing screen has the recipe book button above the third slot and no trim button", client -> {
+                Screen screen = client.gui.screen();
+                int expectedX = (screen.width - CONTAINER_WIDTH) / 2 + 42;
+                int expectedY = (screen.height - CONTAINER_HEIGHT) / 2 + 27;
+                boolean book = false;
+                for (GuiEventListener child : screen.children()) {
+                    if (child instanceof CyclingTrimButton) {
+                        throw new AssertionError("the trim reference button is still there");
+                    }
+                    if (child instanceof net.minecraft.client.gui.components.ImageButton button
+                            && button.getX() == expectedX && button.getY() == expectedY) {
+                        book = true;
+                    }
+                }
+                if (!book) {
+                    throw new AssertionError("no recipe book button at " + expectedX + "," + expectedY);
+                }
+            });
+            closeScreen(script, "smithing screen");
+            clearTheInteractionSpot(script);
+            return;
+        }
+
         assertStillOpen(script, SmithingScreen.class, "vanilla smithing screen");
         script.shot("screen-f-smithing-table");
 

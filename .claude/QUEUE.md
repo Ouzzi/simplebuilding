@@ -116,10 +116,10 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Renamed both End signal powders to Astral Redstone / Nihil Redstone, yield two per recipe, and preserve item and block aliases. Verified on claude-b7: compile targets, 26.3 datagen, wiki, full check, End systems 6/6, migration 1/1, and test centre rebuild/coverage 4/4. No port or push.
 
 ## Queue-Ende (Besitzer 2026-10-02): Rezeptbuch in Befiederungs- und Schmiedetisch
-- [ ] Befiederungstisch-GUI wie der Werkbank-Bildschirm: das Rezeptbuch-Symbol an exakt derselben Stelle wie bei der Werkbank, dieselbe Bedienung (Buch öffnet die Rezeptliste links, Klick legt die Teile ein), nur dass man Spitze/Schaft/Befiederung wählt; Layout wie die Werkbank minus der fehlenden Felder.
-- [ ] In den drei Teil-Slots Hintergrund-Silhouetten wie bei den Rüstungsslots (zeigen, was hineingehört: Spitze, Schaft, Befiederung).
-- [ ] Titel über den drei Slots: „Fletching“ / „Befiederung“ statt „Fletching Table“.
-- [ ] Schmiedetisch: statt des Knopfs für die Besatz-Resonanz-Vorschau ein anklickbares Rezeptbuch (über dem dritten Slot gerendert), das wie bei der Werkbank die möglichen Ergebnisse zeigt und einlegt.
+- [x] Befiederungstisch-GUI wie der Werkbank-Bildschirm: das Rezeptbuch-Symbol an exakt derselben Stelle wie bei der Werkbank, dieselbe Bedienung (Buch öffnet die Rezeptliste links, Klick legt die Teile ein), nur dass man Spitze/Schaft/Befiederung wählt; Layout wie die Werkbank minus der fehlenden Felder. (Branch claude-workstations, wartet auf Abnahme)
+- [x] In den drei Teil-Slots Hintergrund-Silhouetten wie bei den Rüstungsslots (zeigen, was hineingehört: Spitze, Schaft, Befiederung). (Branch claude-workstations, wartet auf Abnahme)
+- [x] Titel über den drei Slots: „Fletching“ / „Befiederung“ statt „Fletching Table“. (Branch claude-workstations, wartet auf Abnahme)
+- [x] Schmiedetisch: statt des Knopfs für die Besatz-Resonanz-Vorschau ein anklickbares Rezeptbuch (über dem dritten Slot gerendert), das wie bei der Werkbank die möglichen Ergebnisse zeigt und einlegt. (Branch claude-workstations, wartet auf Abnahme)
 
 ## Queue-Ende (Besitzer 2026-10-02): seltene verstärkte Shulker in End-Städten
 - [x] Spawn: In End-Städten wird ein Shulker sehr selten verstärkt (ca. 2 %) oder zum Enderit-Shulker (ca. 0,5 %); serverseitig konfigurierbar mit Obergrenze.
@@ -162,7 +162,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Simple Money: 10 Textur-Vorschläge für Special Fiber, 10 für Resin Fiber. Je A–J liegen vor (previews/money-fasern-vorschau.png) – Besitzer wählt.
 - [x] Simple Money: Schmelzzeiten der Geld-Teile erhöhen, damit es in SimpleBuilding-Welten balanciert ist. claude-texprop: roher Schein → Geldschein 10000 → 24000 Ticks (Vanilla-Schmelzofen 1 Schein/Spieltag, SB-Öfen 2/4/8); Begründung in docs/modules/simplemoney.md.
 - [ ] Zusätzlicher Weg zu Diamant-Kieseln (In-World): Fällt ein Amboss auf einen Diamantblock, entstehen Diamant-Kiesel.
-- [ ] Auto-Schmied analog zum Autocrafter: automatisiert den Schmiedetisch.
+- [x] Auto-Schmied analog zum Autocrafter: automatisiert den Schmiedetisch. (Branch claude-workstations, wartet auf Abnahme)
 - [x] (claude-tabswiki, wiki/base_materials.py; Geldschein-Wert 3–35 Smaragde aus den Handels-JSONs) Wiki: Auf jeder Item-Seite beim Rezept die benötigten Grundmaterialien insgesamt auflisten (ab Barren, Holzstämmen, Zuckerrohr, Wachs, Bruchstein …), damit klar ist, wie viel Rohmaterial ein Item kostet. Beim Geldschein sein Wert.
 - [x] Strohpuppe / Trainingspuppe (Branch claude-dummy, docs/ai/PLAN-TRAINING-DUMMY-2026-10-02.md; Client-Sichtabnahme und Besitzer-Abnahme der Texturen offen, Vorschau previews/trainingspuppe-vorschau.png):
 - [ ] Strohpuppe / Trainingspuppe:

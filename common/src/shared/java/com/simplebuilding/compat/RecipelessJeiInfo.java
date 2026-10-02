@@ -38,9 +38,6 @@ public final class RecipelessJeiInfo {
             map.put("sage_ore", List.of(ModBlocks.SAGE_ORE, ModBlocks.DEEPSLATE_SAGE_ORE));
             map.put("sage_orb", List.of(ModItems.SAGE_ORB));
         }
-        if (com.simplebuilding.version.McVersion.FLETCHING) {
-            map.put("crafted_arrow", List.of(ModItems.CRAFTED_ARROW));
-        }
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             map.put("dimensional_scrap", List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP));
         }
@@ -50,6 +47,10 @@ public final class RecipelessJeiInfo {
     /** Usage hints for craftable items, separate from the recipeless coverage contract. */
     public static Map<String, List<ItemLike>> supplementalPages() {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
+        // Pfeile: seit 2026-10-02 mit Befiederungsrezepten (nur fuers Vanilla-Rezeptbuch), JEI zeigt sie nicht - Hinweis bleibt.
+        if (com.simplebuilding.version.McVersion.FLETCHING) {
+            map.put("crafted_arrow", List.of(ModItems.CRAFTED_ARROW));
+        }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             map.put("end_signals", List.of(ModItems.NIHIL_REDSTONE, ModItems.ASTRAL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));
             map.put("astral_vault", List.of(ModItems.ASTRAL_VAULT));

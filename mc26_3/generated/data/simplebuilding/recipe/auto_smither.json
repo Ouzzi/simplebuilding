@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "D": "minecraft:dropper",
+    "I": "minecraft:iron_ingot",
+    "R": "minecraft:redstone",
+    "S": "minecraft:smithing_table"
+  },
+  "pattern": [
+    "III",
+    "ISI",
+    "RDR"
+  ],
+  "result": {
+    "id": "simplebuilding:auto_smither"
+  }
+}

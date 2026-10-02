@@ -62,6 +62,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         // Definiert, dass diese Blöcke sich selbst droppen, wenn sie abgebaut werden
         dropSelf(ModBlocks.CONSTRUCTION_LIGHT);
         if (ModBlocks.IRON_ROD != null) dropSelf(ModBlocks.IRON_ROD);
+        if (ModBlocks.AUTO_SMITHER != null) dropSelf(ModBlocks.AUTO_SMITHER);
         if (ModBlocks.GOLD_ROD != null) dropSelf(ModBlocks.GOLD_ROD);
         dropSelf(ModBlocks.CRACKED_DIAMOND_BLOCK);
 

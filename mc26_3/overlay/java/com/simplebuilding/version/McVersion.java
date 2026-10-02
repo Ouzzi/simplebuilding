@@ -40,6 +40,10 @@ public final class McVersion {
     public static final boolean DIMENSIONAL_SCRAP = true;
     /** Fletching table and crafted arrows (2026-10-01, main line first). */
     public static final boolean FLETCHING = true;
+    /** Vanilla recipe book in the smithing table instead of the trim resonance button (2026-10-02). */
+    public static final boolean SMITHING_RECIPE_BOOK = true;
+    /** Auto Smither: the crafter of the smithing table (2026-10-02). */
+    public static final boolean AUTO_SMITHER = true;
     /** Small items (pebbles, sticks, ingots, gems, bricks) placeable on blocks (2026-10-02). */
     public static final boolean SMALL_PLACEABLES = true;
     /** Bundles, backpacks and quivers dye like vanilla bundles: one fixed colour per dye, no mixing, no washing (2026-10-02). */

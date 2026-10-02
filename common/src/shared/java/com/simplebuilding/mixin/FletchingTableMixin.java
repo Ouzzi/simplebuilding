@@ -33,6 +33,10 @@ public abstract class FletchingTableMixin {
             return;
         }
         if (!level.isClientSide()) {
+            // Vor dem Oeffnen: das Rezeptbuch des Tisches kennt dann schon alle Pfeil-Kombinationen.
+            if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+                com.simplebuilding.fletching.FletchingRecipes.unlockAll(serverPlayer);
+            }
             player.openMenu(new SimpleMenuProvider((containerId, inventory, p) ->
                     new FletchingMenu(containerId, inventory, ContainerLevelAccess.create(level, pos)), SIMPLEBUILDING$TITLE));
         }

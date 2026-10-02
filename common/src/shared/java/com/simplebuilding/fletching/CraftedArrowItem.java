@@ -43,5 +43,13 @@ public class CraftedArrowItem extends ArrowItem {
         ArrowParts.Parts parts = ArrowParts.of(stack);
         lines.accept(Component.translatable("item.simplebuilding.crafted_arrow.shaft." + parts.shaft().getSerializedName()).withStyle(ChatFormatting.GRAY));
         lines.accept(Component.translatable("item.simplebuilding.crafted_arrow.fletching." + parts.fletching().getSerializedName()).withStyle(ChatFormatting.GRAY));
+        // Wirkung der Nicht-Vanilla-Teile (frueher im Material-Panel, jetzt im Rezeptbuch-Tooltip).
+        if (parts.tip() != ArrowParts.Tip.FLINT) effect(lines, "tip", parts.tip().getSerializedName());
+        if (parts.shaft() != ArrowParts.Shaft.STICK) effect(lines, "shaft", parts.shaft().getSerializedName());
+        if (parts.fletching() != ArrowParts.Fletching.FEATHER) effect(lines, "fletching", parts.fletching().getSerializedName());
+    }
+
+    private static void effect(Consumer<Component> lines, String kind, String id) {
+        lines.accept(Component.translatable("container.simplebuilding.fletching.effect." + kind + "." + id).withStyle(ChatFormatting.BLUE));
     }
 }

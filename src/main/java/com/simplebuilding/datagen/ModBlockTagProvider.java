@@ -48,6 +48,9 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.GOLD_ROD));
             builder(BlockTags.NEEDS_IRON_TOOL).add(key(ModBlocks.GOLD_ROD));
         }
+        if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.AUTO_SMITHER));
+        }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));
             builder(BlockTags.NEEDS_IRON_TOOL).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));

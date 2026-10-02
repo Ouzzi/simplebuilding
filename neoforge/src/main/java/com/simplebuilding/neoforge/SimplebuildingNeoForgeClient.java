@@ -156,6 +156,9 @@ public final class SimplebuildingNeoForgeClient {
         if (NeoForgeModRegistries.FLETCHING_MENU != null) {
             event.register(NeoForgeModRegistries.FLETCHING_MENU.get(), com.simplebuilding.client.gui.FletchingScreen::new);
         }
+        if (NeoForgeModRegistries.AUTO_SMITHER_MENU != null) {
+            event.register(NeoForgeModRegistries.AUTO_SMITHER_MENU.get(), com.simplebuilding.client.gui.AutoSmitherScreen::new);
+        }
     }
 
     public static void registerKeys(RegisterKeyMappingsEvent event) {

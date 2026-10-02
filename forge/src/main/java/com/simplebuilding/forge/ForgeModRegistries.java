@@ -69,6 +69,8 @@ public final class ForgeModRegistries {
             DeferredRegister.create(Registries.RECIPE_SERIALIZER, Simplebuilding.MOD_ID);
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES =
             DeferredRegister.create(Registries.RECIPE_TYPE, Simplebuilding.MOD_ID);
+    public static final DeferredRegister<net.minecraft.world.item.crafting.RecipeBookCategory> RECIPE_BOOK_CATEGORIES =
+            DeferredRegister.create(Registries.RECIPE_BOOK_CATEGORY, Simplebuilding.MOD_ID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Simplebuilding.MOD_ID);
     /** Forge's {@code forge:condition_codecs}; holds {@code simplebuilding:config} for the trade jsons. */
@@ -102,6 +104,18 @@ public final class ForgeModRegistries {
                             net.minecraft.world.flag.FeatureFlags.VANILLA_SET))
                     : null;
 
+    /** Auto-Schmied, nur Hauptlinie (McVersion.AUTO_SMITHER). */
+    public static final RegistryObject<MenuType<com.simplebuilding.screen.AutoSmitherMenu>> AUTO_SMITHER_MENU =
+            com.simplebuilding.version.McVersion.AUTO_SMITHER
+                    ? MENUS.register("auto_smither", () -> new MenuType<>(com.simplebuilding.screen.AutoSmitherMenu::new,
+                            net.minecraft.world.flag.FeatureFlags.VANILLA_SET))
+                    : null;
+    public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity>> AUTO_SMITHER_BE =
+            com.simplebuilding.version.McVersion.AUTO_SMITHER
+                    ? BLOCK_ENTITIES.register("auto_smither", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity>(
+                            com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity::new, Set.of(ModBlocks.AUTO_SMITHER)))
+                    : null;
+
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity>> TIERED_CHEST_BE =
             BLOCK_ENTITIES.register("tiered_chest", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity>(
                     com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity::new,
@@ -129,6 +143,20 @@ public final class ForgeModRegistries {
             com.simplebuilding.version.McVersion.SMALL_PLACEABLES
                     ? BLOCK_ENTITIES.register("placed_small_parts", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity>(
                             com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity::new, Set.of(ModBlocks.PLACED_SMALL_PARTS)))
+                    : null;
+
+    /** Befiederungstisch (B14): Rezepte fuers Vanilla-Rezeptbuch, nur Hauptlinie. */
+    public static final RegistryObject<RecipeSerializer<com.simplebuilding.fletching.FletchingRecipe>> FLETCHING_SERIALIZER =
+            com.simplebuilding.version.McVersion.FLETCHING
+                    ? RECIPE_SERIALIZERS.register(com.simplebuilding.fletching.FletchingRecipes.ID, () -> com.simplebuilding.fletching.FletchingRecipe.SERIALIZER)
+                    : null;
+    public static final RegistryObject<RecipeType<com.simplebuilding.fletching.FletchingRecipe>> FLETCHING_TYPE =
+            com.simplebuilding.version.McVersion.FLETCHING
+                    ? RECIPE_TYPES.register(com.simplebuilding.fletching.FletchingRecipes.ID, com.simplebuilding.fletching.FletchingRecipes::newType)
+                    : null;
+    public static final RegistryObject<net.minecraft.world.item.crafting.RecipeBookCategory> FLETCHING_CATEGORY =
+            com.simplebuilding.version.McVersion.FLETCHING
+                    ? RECIPE_BOOK_CATEGORIES.register(com.simplebuilding.fletching.FletchingRecipes.ID, net.minecraft.world.item.crafting.RecipeBookCategory::new)
                     : null;
 
     public static final RegistryObject<RecipeSerializer<com.simplebuilding.recipe.BackpackUpgradeRecipe>> BACKPACK_UPGRADE_SERIALIZER =
@@ -215,6 +243,7 @@ public final class ForgeModRegistries {
         BLOCK_ENTITIES.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
         RECIPE_TYPES.register(modBus);
+        RECIPE_BOOK_CATEGORIES.register(modBus);
         CREATIVE_TABS.register(modBus);
         CONDITION_CODECS.register(modBus);
     }
@@ -224,6 +253,12 @@ public final class ForgeModRegistries {
         ModScreenHandlers.BACKPACK_MENU = BACKPACK_MENU.get();
         ModScreenHandlers.TIERED_CHEST_MENU = TIERED_CHEST_MENU.get();
         if (FLETCHING_MENU != null) ModScreenHandlers.FLETCHING_MENU = FLETCHING_MENU.get();
+        if (AUTO_SMITHER_MENU != null) ModScreenHandlers.AUTO_SMITHER_MENU = AUTO_SMITHER_MENU.get();
+        if (AUTO_SMITHER_BE != null) ModBlockEntities.AUTO_SMITHER_BE = AUTO_SMITHER_BE.get();
+        if (FLETCHING_TYPE != null) {
+            com.simplebuilding.fletching.FletchingRecipes.TYPE = FLETCHING_TYPE.get();
+            com.simplebuilding.fletching.FletchingRecipes.CATEGORY = FLETCHING_CATEGORY.get();
+        }
         ModBlockEntities.TIERED_CHEST_BE = TIERED_CHEST_BE.get();
         ModBlockEntities.TIERED_SHULKER_BOX_BE = TIERED_SHULKER_BOX_BE.get();
         ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();

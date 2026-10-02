@@ -356,6 +356,8 @@ public class ModItems {
 
     public static final Item ASTRALIT_ORE_ITEM = registerItem("astralit_ore", s -> new BlockItem(ModBlocks.ASTRALIT_ORE, s));
 
+    public static final Item AUTO_SMITHER = com.simplebuilding.version.McVersion.AUTO_SMITHER
+            ? registerItem("auto_smither", s -> new BlockItem(ModBlocks.AUTO_SMITHER, s)) : null;
     public static final Item SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE
             ? registerItem("sage_ore", s -> new BlockItem(ModBlocks.SAGE_ORE, s)) : null;
     public static final Item DEEPSLATE_SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE

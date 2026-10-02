@@ -32,6 +32,8 @@
     "QuickPlayTestWorldMixin",
     "SmithingScreenMixin",
     "ShulkerRendererMixin",
-    "ShulkerRenderStateMixin"
+    "ShulkerRenderStateMixin",
+    "GhostSlotsInvoker",
+    "GuiSetScreenMixin"
   ]
 }
