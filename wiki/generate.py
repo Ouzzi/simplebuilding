@@ -848,6 +848,14 @@ def recipe_entry(data: dict, recipe_id: str, source: str | None, furnace_cooking
             entry["storedCookingtime"] = data["cookingtime"]
             entry["cookingtime"] = data["cookingtime"] // 2
 
+    if entry["type"] == "minecraft:crafting_transmute" and not entry["result"]["id"]:
+        # 26.3 transmute without a result id (the dye recipes of bundles/backpacks): the result is the input
+        # item itself with the given components - show the first input item instead of "?".
+        inputs = (entry.get("slots") or {}).get("input") or []
+        if inputs:
+            entry["result"]["id"] = inputs[0]
+            entry["result"]["fromInput"] = True
+
     if data.get("type") == "simplebuilding:guide_upgrade":
         topic = recipe_id.split(":")[-1].removeprefix("guide_book_")
         if data.get("chapters", 0):

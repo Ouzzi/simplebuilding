@@ -25505,11 +25505,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 3683919
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/black_dyed_storage.json",
       "ingredients": [
@@ -25656,11 +25657,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 4551623
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/blue_dyed_storage.json",
       "ingredients": [
@@ -25854,11 +25856,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 13732441
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/brown_dyed_storage.json",
       "ingredients": [
@@ -26782,11 +26785,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 1356980
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/cyan_dyed_storage.json",
       "ingredients": [
@@ -29682,11 +29686,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 7109507
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/gray_dyed_storage.json",
       "ingredients": [
@@ -29801,11 +29806,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 7840025
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/green_dyed_storage.json",
       "ingredients": [
@@ -30445,11 +30451,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 3190757
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/light_blue_dyed_storage.json",
       "ingredients": [
@@ -30564,11 +30571,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 11644067
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/light_gray_dyed_storage.json",
       "ingredients": [
@@ -30683,11 +30691,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 10215225
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/lime_dyed_storage.json",
       "ingredients": [
@@ -30802,11 +30811,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 13388217
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/magenta_dyed_storage.json",
       "ingredients": [
@@ -33001,11 +33011,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 16487200
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/orange_dyed_storage.json",
       "ingredients": [
@@ -33120,11 +33131,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 16295613
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/pink_dyed_storage.json",
       "ingredients": [
@@ -34660,11 +34672,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 9710282
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/purple_dyed_storage.json",
       "ingredients": [
@@ -34902,11 +34915,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 13776942
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/red_dyed_storage.json",
       "ingredients": [
@@ -37845,11 +37859,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 15132390
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/white_dyed_storage.json",
       "ingredients": [
@@ -37964,11 +37979,12 @@ window.WIKI_DATA = {
       "category": "equipment",
       "group": "storage_dye",
       "result": {
-        "id": null,
+        "id": "#simplebuilding:dyeable_storage",
         "count": 1,
         "components": {
           "minecraft:dyed_color": 15910661
-        }
+        },
+        "fromInput": true
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/yellow_dyed_storage.json",
       "ingredients": [
