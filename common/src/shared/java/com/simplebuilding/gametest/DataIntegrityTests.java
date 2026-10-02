@@ -1626,7 +1626,8 @@ public final class DataIntegrityTests {
         StringBuilder expected = new StringBuilder();
         for (Block checker : List.of(ModBlocks.PURPUR_QUARTZ_CHECKER, ModBlocks.LAPIS_QUARTZ_CHECKER,
                 ModBlocks.BLACKSTONE_QUARTZ_CHECKER, ModBlocks.RESIN_QUARTZ_CHECKER,
-                ModBlocks.NIHILITH_QUARTZ_CHECKER, ModBlocks.ASTRALIT_QUARTZ_CHECKER, ModBlocks.ENDER_QUARTZ_CHECKER)) {
+                ModBlocks.NIHILITH_QUARTZ_CHECKER, ModBlocks.ASTRALIT_QUARTZ_CHECKER, ModBlocks.ENDER_QUARTZ_CHECKER,
+                ModBlocks.POLISHED_ASTRALIT_CHECKER, ModBlocks.POLISHED_NIHILITH_CHECKER, ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER)) {
             BlockState state = checker.defaultBlockState();
             Identifier id = BuiltInRegistries.BLOCK.getKey(checker);
             StringBuilder drops = new StringBuilder();
@@ -1644,6 +1645,9 @@ public final class DataIntegrityTests {
         checkerOf.put(ModItems.NIHILITH_SHARD, "simplebuilding:nihilith_quartz_checker");
         checkerOf.put(ModItems.ASTRALIT_DUST, "simplebuilding:astralit_quartz_checker");
         checkerOf.put(ModItems.ENDER_QUARTZ, "simplebuilding:ender_quartz_checker");
+        checkerOf.put(ModItems.POLISHED_ASTRALIT, "simplebuilding:polished_astralit_checker");
+        checkerOf.put(ModItems.POLISHED_NIHILITH, "simplebuilding:polished_nihilith_checker");
+        checkerOf.put(ModItems.POLISHED_ENDER_QUARTZ, "simplebuilding:polished_ender_quartz_checker");
         for (Item material : checkerOf.keySet()) {
             ItemStack m = new ItemStack(material);
             CraftingInput grid = CraftingInput.of(2, 2, List.of(m, quartz, quartz, m));
@@ -2710,7 +2714,8 @@ public final class DataIntegrityTests {
                         ModItems.POLISHED_ENDER_QUARTZ_WALL),
                 List.of(ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
                         ModItems.RESIN_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
-                        ModItems.ENDER_QUARTZ_CHECKER),
+                        ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
+                        ModItems.POLISHED_ENDER_QUARTZ_CHECKER),
                 List.of(ModItems.SUSPENDED_SAND, ModItems.SUSPENDED_GRAVEL, gap, ModItems.LEVITATING_SAND, ModItems.LEVITATING_GRAVEL),
                 List.of(ModItems.CRACKED_DIAMOND_BLOCK, ModItems.ENDERITE_BLOCK_ITEM, gap, ModItems.CONSTRUCTION_LIGHT));
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.BUILDING_BLOCKS, problems), expectedSlots(expected), "SimpleBlocks", problems);

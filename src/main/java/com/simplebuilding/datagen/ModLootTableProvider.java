@@ -114,6 +114,9 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(ModBlocks.NIHILITH_QUARTZ_CHECKER);
         dropSelf(ModBlocks.ASTRALIT_QUARTZ_CHECKER);
         dropSelf(ModBlocks.ENDER_QUARTZ_CHECKER);
+        dropSelf(ModBlocks.POLISHED_ASTRALIT_CHECKER);
+        dropSelf(ModBlocks.POLISHED_NIHILITH_CHECKER);
+        dropSelf(ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER);
 
         dropSelf(ModBlocks.ASTRAL_PURPUR_BLOCK);
         dropSelf(ModBlocks.NIHIL_PURPUR_BLOCK);

@@ -1,0 +1,10 @@
+{
+  "parent": "simplebuilding:block/end_redstone_dust_side_alt",
+  "textures": {
+    "particle": "simplebuilding:block/nihil_redstone_dot",
+    "line": {
+      "sprite": "simplebuilding:block/nihil_redstone_line0",
+      "force_translucent": true
+    }
+  }
+}

@@ -133,9 +133,12 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 ## Queue-Ende (Besitzer 2026-10-02 abends, mit Screenshots)
 - [x] Guide-Buch: Die Tabs haben eine hässliche graue Box als Overlay (Screenshot: linke und rechte Tab-Leiste) → entfernen bzw. sauber zeichnen. (claude-guideui: Box über gesperrten Icons entfernt)
 - [x] Guide-Buch im Kreativmodus: gesperrter Tab zeigt einen Knopf „Trotzdem freischalten“. (claude-guideui: Klick auf gesperrten Tab → Knopf unter dem Buch, Server prüft Kreativ)
-- [ ] Astral/Nihil-Redstone soll sich wie Vanilla-Redstone verhalten und dieselben Texturarten haben (Punkt, Linie, Verbindungen – Multipart wie Redstone-Draht). Die Pulver-Textur sieht im Spiel falsch aus (Screenshot: großes, verpixeltes violettes Muster).
-- [ ] Texturen von Nihil-/Astral-Schalter und -Lampe sind kaputt → reparieren.
+- [x] Astral/Nihil-Redstone soll sich wie Vanilla-Redstone verhalten und dieselben Texturarten haben (Punkt, Linie, Verbindungen – Multipart wie Redstone-Draht). Die Pulver-Textur sieht im Spiel falsch aus (Screenshot: großes, verpixeltes violettes Muster).
+  Erledigt auf claude-astral: Ursache war das Modell (eine 16x16-Ebene mit dem Kreuzbild statt Multipart). Jetzt `EndSignalPowderBlock` mit Seiten none/side/up, Punkt/Linie/Kreuz, Wand hoch, Signal über Stufen, nur eigener Kanal; Item = umgefärbter Redstone-Haufen. Plan/Details: docs/ai/PLAN-ASTRAL-NIHIL-REDSTONE-2026-10-02.md. Abnahme im Client offen.
+- [x] Texturen von Nihil-/Astral-Schalter und -Lampe sind kaputt → reparieren.
+  Erledigt auf claude-astral: Schalter = flache Platte (statt schwebender Ebene), Lampe = voller Würfel wie die Redstone-Lampe, Items zeigen das Blockmodell. Abnahme im Client offen.
 - [ ] Neue Blöcke: Astral-Kolben (drückt) und Nihil-Kolben (zieht). Mit Signal wird jeder Block im Abstand 1 in alle 6 Richtungen gleichzeitig um genau 1 Block gedrückt bzw. gezogen. Nie 2 Blöcke hintereinander in derselben Richtung. Erst als Konzept/Plan.
+  Konzept fertig: docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md (offene Besitzerfragen am Ende). Umsetzung wartet auf Freigabe.
 - [ ] Bessere Truhen statt normaler Loot-Truhen, je 1 % Chance:
   - Verstärkte Truhe in der Festung (Stronghold), Netherit-Truhe in der Bastion oder der Netherfestung, Enderit-Truhe in der End-Stadt oder auf dem End-Schiff.
   - Inhalt: doppelter oder höherstufiger Loot.
@@ -167,7 +170,8 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   - Man kann ihr Rüstung anziehen.
   - Bestehende Konzepte im Internet recherchieren und vervollständigen.
 - [ ] Testzentrale: eine Pfeil-Station, an der jeder Pfeil getestet werden kann.
-- [ ] Schachbrett-Blöcke zusätzlich aus poliertem Astralit, poliertem Nihilit und Enderquarz (mit der Textur der polierten Variante; Screenshot der Schachbrett-Zeile).
+- [x] Schachbrett-Blöcke zusätzlich aus poliertem Astralit, poliertem Nihilit und Enderquarz (mit der Textur der polierten Variante; Screenshot der Schachbrett-Zeile).
+  Erledigt auf claude-astral: polished_astralit_checker, polished_nihilith_checker, polished_ender_quartz_checker (Rezept 2 polierter Block + 2 Quarzblock → 4). Vorschau previews/polierte-schachbretter-vorschau.png.
 
 ## Besitzer 2026-10-02 (Nachtrag)
 

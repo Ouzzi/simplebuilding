@@ -157,7 +157,7 @@ public final class GuideContent {
                 ch("minecraft:writable_book", List.of(), List.of("simplebuilding:blueprint", "minecraft:oak_planks")),
                 ch("minecraft:cartography_table", List.of(), List.of("minecraft:cartography_table", "simplebuilding:octant", "simplebuilding:blueprint")),
                 ch("simplebuilding:construction_light", List.of("simplebuilding:construction_light"), List.of()),
-                ch("simplebuilding:purpur_quartz_checker", List.of("simplebuilding:purpur_quartz_checker", "simplebuilding:lapis_quartz_checker"), List.of("simplebuilding:blackstone_quartz_checker", "simplebuilding:resin_quartz_checker", "simplebuilding:astralit_quartz_checker", "simplebuilding:nihilith_quartz_checker", "simplebuilding:ender_quartz_checker")),
+                ch("simplebuilding:purpur_quartz_checker", List.of("simplebuilding:purpur_quartz_checker", "simplebuilding:lapis_quartz_checker"), List.of("simplebuilding:blackstone_quartz_checker", "simplebuilding:resin_quartz_checker", "simplebuilding:astralit_quartz_checker", "simplebuilding:nihilith_quartz_checker", "simplebuilding:ender_quartz_checker", "simplebuilding:polished_astralit_checker", "simplebuilding:polished_nihilith_checker", "simplebuilding:polished_ender_quartz_checker")),
                 ch("minecraft:shears", List.of(), List.of("minecraft:shears", "minecraft:white_wool", "minecraft:string", "minecraft:cauldron")))));
         STYLES.put(GuideBooks.Book.STORAGE, new BookStyle(0xC99A62, List.of(
                 ch("simplebuilding:reinforced_bundle", List.of("simplebuilding:reinforced_bundle"), List.of("simplebuilding:netherite_bundle", "simplebuilding:enderite_bundle")),

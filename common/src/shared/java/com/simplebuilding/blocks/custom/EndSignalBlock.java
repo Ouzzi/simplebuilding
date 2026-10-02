@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** Two entirely private, horizontal signal networks. No vanilla signal is read or emitted. */
@@ -45,9 +46,12 @@ public class EndSignalBlock extends Block {
         builder.add(POWER, ENABLED);
     }
 
+    // Shapes follow the models: powder a flat layer, the switch a thin plate like a pressure plate,
+    // the lamp a full cube like the redstone lamp (2026-10-02, the old floating plane and 14 px box
+    // did not match what was drawn).
     @Override protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return kind == Kind.POWDER ? Block.box(1, 0, 1, 15, 1, 15)
-                : kind == Kind.SWITCH ? Block.box(3, 0, 3, 13, 4, 13) : Block.box(1, 0, 1, 15, 14, 15);
+                : kind == Kind.SWITCH ? Block.box(2, 0, 2, 14, 2, 14) : Shapes.block();
     }
 
     @Override protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
@@ -63,21 +67,38 @@ public class EndSignalBlock extends Block {
             level.destroyBlock(pos, true);
             return;
         }
-        int power = 0;
-        if (ServerTuning.get().features.endSignals) {
-            if (kind == Kind.SWITCH) power = state.getValue(ENABLED) ? range() : 0;
-            else for (Direction direction : Direction.Plane.HORIZONTAL) {
-                BlockState neighbor = level.getBlockState(pos.relative(direction));
-                if (!(neighbor.getBlock() instanceof EndSignalBlock other) || other.astral != astral
-                        || other.kind == Kind.LAMP) continue;
-                int received = other.kind == Kind.SWITCH
-                        ? (neighbor.getValue(ENABLED) ? range() : 0)
-                        : Math.max(0, Math.min(range(), neighbor.getValue(POWER)) - (kind == Kind.POWDER ? 1 : 0));
-                power = Math.max(power, received);
-            }
-        }
-        if (power != state.getValue(POWER)) level.setBlock(pos, state.setValue(POWER, power), Block.UPDATE_CLIENTS);
+        int power = ServerTuning.get().features.endSignals ? incomingPower(state, level, pos) : 0;
+        BlockState next = withConnections(state.setValue(POWER, power), level, pos);
+        if (next != state) level.setBlock(pos, next, Block.UPDATE_CLIENTS);
         level.scheduleTick(pos, this, 2);
+    }
+
+    /** Strongest same-channel signal this block receives from its horizontal neighbours. */
+    protected int incomingPower(BlockState state, LevelReader level, BlockPos pos) {
+        if (kind == Kind.SWITCH) return state.getValue(ENABLED) ? range() : 0;
+        int power = 0;
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            power = Math.max(power, receivedFrom(level.getBlockState(pos.relative(direction))));
+        }
+        return power;
+    }
+
+    /** What a neighbour of this channel hands over: a switch its full range, powder its power minus one step. */
+    protected int receivedFrom(BlockState neighbor) {
+        if (!(neighbor.getBlock() instanceof EndSignalBlock other) || other.astral != astral || other.kind == Kind.LAMP) return 0;
+        return other.kind == Kind.SWITCH
+                ? (neighbor.getValue(ENABLED) ? range() : 0)
+                : Math.max(0, Math.min(range(), neighbor.getValue(POWER)) - (kind == Kind.POWDER ? 1 : 0));
+    }
+
+    /** True for any signal block (powder, switch, lamp) of the same channel. */
+    public boolean sameChannel(BlockState other) {
+        return other.getBlock() instanceof EndSignalBlock block && block.astral == astral;
+    }
+
+    /** Visual connections; only powder has any (see {@link EndSignalPowderBlock}). */
+    protected BlockState withConnections(BlockState state, LevelReader level, BlockPos pos) {
+        return state;
     }
 
     @Override protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {

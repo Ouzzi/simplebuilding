@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplebuilding:item/nihilith_switch"
+    "model": "simplebuilding:block/nihilith_switch"
   }
 }

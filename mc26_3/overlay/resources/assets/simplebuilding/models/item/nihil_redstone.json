@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "simplebuilding:block/nihil_redstone"
+    "layer0": "simplebuilding:item/nihil_redstone"
   }
 }

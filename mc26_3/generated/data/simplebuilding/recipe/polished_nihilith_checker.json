@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "simplebuilding:polished_nihilith",
+    "Q": "minecraft:quartz_block"
+  },
+  "pattern": [
+    "BQ",
+    "QB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "simplebuilding:polished_nihilith_checker"
+  }
+}
