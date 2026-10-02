@@ -41,3 +41,11 @@ Quelle: `.claude/QUEUE.md`, Abschnitt „Queue-Ende (Besitzer 2026-10-02 abends,
 ## Annahmen
 - „Kreativ“ = `ServerPlayer#isCreative()`; Zuschauer nicht. Operator-Tab (Server Admin) wird nicht per Kreativ geöffnet.
 - Knopf erscheint erst nach Klick auf den gesperrten Tab (ein Knopf für den gewählten Tab), damit die Tab-Leisten frei bleiben.
+
+## Ergebnis / Abweichungen
+- Abweichung: Der GameTest-Mock-Spieler meldet immer Kreativ (`GameTestHelper$3.gameMode()` fest CREATIVE).
+  Deshalb `GuideUnlocks.unlockAnyway(player, id, creative)` als Überladung; der Test prüft „nicht kreativ“ dort und
+  den echten Handler-Pfad mit dem (kreativen) Mock. Testname ohne Ein-Buchstaben-Wort (Fabric macht aus `ALocked` `alocked`).
+- Gates: fabric-263 + neoforge-263 voll 1667/1670 (2 neue Tests rot wegen obiger Punkte, 1 Magnet-Flake),
+  danach guide_book_* beide Loader 30/30 „alles gruen“, tool_behaviour_* fabric 8/8 „alles gruen“,
+  26.2 `:compileJava :neoforge:compileJava` und `-Pforge263=true :mc26_3:forge:compileJava` Exit 0.
