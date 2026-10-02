@@ -245,7 +245,7 @@
           "Terrain: movement efficiency up to +0.5 at 100%, so Soul Sand and Honey slow the horse less. Handling: the sideways steering share rises from 0.5 to 0.8 and backward from 0.25 to 0.4 at 100%; forward top speed is unchanged. The server decides the handling value and syncs it, so client configs cannot raise it.",
           "With all four slots filled: +5% speed and +5% jump strength (both inside the existing total caps shared with Tailwind and Leaping) and fall damage x1.1, rounded, so short falls stay the same. Max speed stays capped; Vanilla horses reach top speed within a few ticks, so there is no separate acceleration bonus.",
           "Durability 120 (Copper), 180 (Iron), 80 (Gold), 400 (Diamond), 500 (Netherite), 620 (Enderite). Each shoe loses one point per 40 blocks ridden on the ground. Unbreaking and Mending apply at the anvil or enchanting table; XP the rider picks up that Vanilla Mending does not use repairs Mending horseshoes of the ridden horse. Netherite and Enderite shoes are fire resistant; repair with the matching material.",
-          "Smithing table: Horseshoe Smithing Template + copper, iron or gold ingot or a diamond + iron nugget makes the matching horseshoe; template + Diamond Horseshoe + netherite ingot makes Netherite, template + Netherite Horseshoe + enderite ingot makes Enderite (only with SimpleBuilding; enchantments and wear carry over). The template is used up like Vanilla templates. Duplicate it at a crafting table: template top center, iron ingot in the middle, seven copper ingots around it give two templates.",
+          "Smithing table: Horseshoe Upgrade + copper, iron or gold ingot or a diamond + iron nugget makes the matching horseshoe; template + Diamond Horseshoe + netherite ingot makes Netherite, template + Netherite Horseshoe + enderite ingot makes Enderite (only with SimpleBuilding; enchantments and wear carry over). The template is used up like Vanilla templates. Duplicate it at a crafting table: template top center, iron ingot in the middle, seven copper ingots around it give two templates.",
           "Loot: village weaponsmith and tannery chests get one extra roll with the template 15% and a worn Copper or Iron Horseshoe 5% each. Brushing trail-ruins rare blocks yields the template like one more equal entry (1 in 13), common blocks a worn Copper or Iron Horseshoe (1 in 46). All of it follows worldGen.enableLootTableChanges."
         ]
       },
@@ -258,7 +258,7 @@
           "Gelände: Bewegungseffizienz bis +0,5 bei 100 %, Seelensand und Honig bremsen weniger. Handling: der Seitwärtsanteil der Lenkung steigt bei 100 % von 0,5 auf 0,8, rückwärts von 0,25 auf 0,4; das Vorwärts-Höchsttempo bleibt gleich. Der Server bestimmt den Handling-Wert und synchronisiert ihn, Client-Konfigurationen können ihn nicht erhöhen.",
           "Mit allen vier Plätzen belegt: +5 % Tempo und +5 % Sprungkraft (innerhalb der bestehenden Gesamtgrenzen, geteilt mit Rückenwind und Sprungkraft) und Fallschaden x1,1, gerundet, damit kurze Stürze gleich bleiben. Das Höchsttempo bleibt gedeckelt; Vanilla-Pferde erreichen ihr Endtempo in wenigen Ticks, daher gibt es keinen eigenen Beschleunigungsbonus.",
           "Haltbarkeit 120 (Kupfer), 180 (Eisen), 80 (Gold), 400 (Diamant), 500 (Netherit), 620 (Enderit). Jedes Eisen verliert je 40 am Boden gerittene Blöcke einen Punkt. Haltbarkeit und Reparatur wirken über Amboss oder Zaubertisch; XP, die der Reiter aufsammelt und Vanillas Reparatur nicht verbraucht, repariert Reparatur-Hufeisen des gerittenen Pferdes. Netherit- und Enderit-Eisen sind feuerfest; repariert wird mit dem passenden Material.",
-          "Schmiedetisch: Hufeisen-Schmiedevorlage + Kupfer-, Eisen- oder Goldbarren oder Diamant + Eisennugget ergibt das passende Hufeisen; Vorlage + Diamanthufeisen + Netheritbarren ergibt Netherit, Vorlage + Netherithufeisen + Enderitbarren ergibt Enderit (nur mit SimpleBuilding; Verzauberungen und Abnutzung bleiben). Die Vorlage wird wie in Vanilla verbraucht. Duplizieren an der Werkbank: Vorlage oben Mitte, Eisenbarren in der Mitte, sieben Kupferbarren drumherum ergeben zwei Vorlagen.",
+          "Schmiedetisch: Hufeisen-Aufwertung + Kupfer-, Eisen- oder Goldbarren oder Diamant + Eisennugget ergibt das passende Hufeisen; Vorlage + Diamanthufeisen + Netheritbarren ergibt Netherit, Vorlage + Netherithufeisen + Enderitbarren ergibt Enderit (nur mit SimpleBuilding; Verzauberungen und Abnutzung bleiben). Die Vorlage wird wie in Vanilla verbraucht. Duplizieren an der Werkbank: Vorlage oben Mitte, Eisenbarren in der Mitte, sieben Kupferbarren drumherum ergeben zwei Vorlagen.",
           "Beute: Dorf-Waffenschmied- und Gerberkisten erhalten einen zusätzlichen Wurf mit Vorlage 15 % und abgenutztem Kupfer- oder Eisenhufeisen je 5 %. Seltene Trail-Ruins-Blöcke geben beim Pinseln die Vorlage wie ein weiterer gleich gewichteter Eintrag (1 zu 13), gewöhnliche ein abgenutztes Kupfer- oder Eisenhufeisen (1 zu 46). Alles folgt worldGen.enableLootTableChanges."
         ]
       }
@@ -1593,8 +1593,8 @@
     {
       "id": "simpleriding:horseshoe_smithing_template",
       "name": {
-        "en_us": "Horseshoe Smithing Template",
-        "de_de": "Hufeisen-Schmiedevorlage"
+        "en_us": "Horseshoe Upgrade",
+        "de_de": "Hufeisen-Aufwertung"
       },
       "note": {
         "sources": [

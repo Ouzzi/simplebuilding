@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 256,
+      "count": 260,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3488,6 +3488,53 @@ window.WIKI_DATA = {
           "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
           "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
           "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    {
+      "id": "rare_structure_finds",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/BetterChests.java",
+        "common/src/shared/java/com/simplebuilding/util/RareShulkers.java",
+        "common/src/shared/java/com/simplebuilding/mixin/StructurePieceBetterChestMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/EndCityPieceMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/StructureTemplateBetterChestMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/MobShulkerShellDropMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/client/ShulkerRendererMixin.java",
+        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ShulkerEscortMixin.java"
+      ],
+      "related": [
+        "simplebuilding:reinforced_chest",
+        "simplebuilding:netherite_chest",
+        "simplebuilding:enderite_chest",
+        "simplebuilding:reinforced_shulker_shell",
+        "simplebuilding:netherite_shulker_shell",
+        "simplebuilding:enderite_shulker_shell"
+      ],
+      "en": {
+        "title": "Rare structure finds",
+        "summary": "In newly generated structures a loot chest is now and then a better chest with double loot, and end city shulkers are sometimes reinforced or made of enderite.",
+        "details": [
+          "Better chests (server.loot.betterChestPercent, default 1 %, at most 5 %): a Reinforced Chest in strongholds, a Netherite Chest in bastions and nether fortresses, an Enderite Chest in end cities and end ships. It keeps the chest's loot table and rolls it twice.",
+          "Double chests: the first half rolls; only if the second half then rolls again with the same chance do both become better, otherwise both stay normal chests.",
+          "The roll is fixed by world seed and position, so both halves of a double chest always agree. Existing worlds and already generated structures do not change.",
+          "Rare shulkers (server.loot.reinforcedShulkerPercent 2 %, at most 10 %; server.loot.enderiteShulkerPercent 0.5 %, at most 5 %): a reinforced shulker has 1.5x, an enderite shulker 3x the health. Its shell shows the tier with the texture of the matching tier shulker box.",
+          "Besides the vanilla drop they drop 0-2 shells of their own tier.",
+          "Escort: when a player (not in creative or spectator mode) first comes within 24 blocks of a rare shulker, 4 endermites (server.loot.endermitesPerRareShulker, at most 8) appear once on free spots with solid ground within 3 blocks of it. They are not persistent - vanilla removes them after 2 minutes - and the shulker never calls them again."
+        ]
+      },
+      "de": {
+        "title": "Seltene Strukturfunde",
+        "summary": "In neu erzeugten Strukturen ist eine Loot-Truhe hin und wieder eine bessere Truhe mit doppelter Beute, und Shulker der End-Stadt sind manchmal verstärkt oder aus Enderit.",
+        "details": [
+          "Bessere Truhen (server.loot.betterChestPercent, Standard 1 %, höchstens 5 %): eine Verstärkte Truhe in der Festung, eine Netherit-Truhe in Bastion und Netherfestung, eine Enderit-Truhe in End-Stadt und End-Schiff. Sie behält die Loot-Tabelle der Truhe und würfelt sie zweimal.",
+          "Doppeltruhen: die erste Hälfte würfelt; nur wenn danach auch die zweite Hälfte mit derselben Chance trifft, werden beide besser, sonst bleiben beide normale Truhen.",
+          "Der Wurf steht durch Weltseed und Position fest, beide Hälften einer Doppeltruhe sind sich also immer einig. Bestehende Welten und schon erzeugte Strukturen ändern sich nicht.",
+          "Seltene Shulker (server.loot.reinforcedShulkerPercent 2 %, höchstens 10 %; server.loot.enderiteShulkerPercent 0,5 %, höchstens 5 %): ein verstärkter Shulker hat 1,5-faches, ein Enderit-Shulker 3-faches Leben. Seine Hülle zeigt die Stufe mit der Textur der passenden Stufen-Shulkerkiste.",
+          "Neben der Vanilla-Beute lassen sie 0–2 Schalen ihrer eigenen Stufe fallen.",
+          "Begleitung: Kommt ein Spieler (nicht im Kreativ- oder Zuschauermodus) erstmals näher als 24 Blöcke an einen seltenen Shulker, erscheinen einmalig 4 Endermiten (server.loot.endermitesPerRareShulker, höchstens 8) auf freien Plätzen mit festem Boden im Umkreis von 3 Blöcken. Sie sind nicht dauerhaft - Vanilla entfernt sie nach 2 Minuten - und der Shulker ruft sie nie wieder."
         ]
       }
     }
@@ -8407,6 +8454,7 @@ window.WIKI_DATA = {
         "simplebuilding:blue_enderite_shulker_box",
         "simplebuilding:brown_enderite_shulker_box",
         "simplebuilding:cyan_enderite_shulker_box",
+        "simplebuilding:enderite_shulker_box_from_shells",
         "simplebuilding:gray_enderite_shulker_box",
         "simplebuilding:green_enderite_shulker_box",
         "simplebuilding:light_blue_enderite_shulker_box",
@@ -8491,6 +8539,46 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:enderite_shulker_shell",
+      "name": {
+        "en_us": "Enderite Shulker Shell",
+        "de_de": "Enderit-Shulkerschale"
+      },
+      "texture": "assets/textures/item/enderite_shulker_shell.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:enderite_shulker_box_from_shells"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced and Enderite Shulkers of end cities drop 0-2 of their own shell; every tier also comes from the shell one tier below in the world.",
+          "details": [
+            "Upgrading in the world: place the shell on the ground (sneak + right-click), then right-click it with a nugget: Shulker Shell + Iron Nugget -> Reinforced, Reinforced + Netherite Nugget -> Netherite, Netherite + Enderite Nugget -> Enderite. Each click upgrades exactly one shell by one tier and uses exactly one nugget (none in creative mode); in a pile of several parts the last placed matching shell is upgraded.",
+            "Needs the same rights as placing a block there. The held nugget tilts slightly while it would upgrade a shell.",
+            "Crafting: any copper chest + a tier shell + a vanilla Shulker Shell gives the shulker box of that tier (in addition to the existing ways)."
+          ]
+        },
+        "de": {
+          "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; jede Stufe entsteht außerdem in der Welt aus der Schale eine Stufe darunter.",
+          "details": [
+            "Aufwerten in der Welt: die Schale auf den Boden legen (Schleichen + Rechtsklick), dann mit einem Klumpen rechtsklicken: Shulkerschale + Eisenklumpen -> Verstärkt, Verstärkt + Netheritklumpen -> Netherit, Netherit + Enderitklumpen -> Enderit. Jeder Klick wertet genau eine Schale um genau eine Stufe auf und verbraucht genau einen Klumpen (im Kreativmodus keinen); liegen mehrere Teile, trifft es die zuletzt gelegte passende Schale.",
+            "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Klumpen neigt sich leicht, solange er eine Schale aufwerten würde.",
+            "Herstellen: eine beliebige Kupfertruhe + eine Stufen-Schale + eine Vanilla-Shulkerschale ergibt die Shulkerkiste dieser Stufe (zusätzlich zu den bisherigen Wegen)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/ShulkerShells.java",
+          "common/src/shared/java/com/simplebuilding/util/RareShulkers.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:enderite_sledgehammer",
@@ -12407,6 +12495,7 @@ window.WIKI_DATA = {
         "simplebuilding:light_gray_netherite_shulker_box",
         "simplebuilding:lime_netherite_shulker_box",
         "simplebuilding:magenta_netherite_shulker_box",
+        "simplebuilding:netherite_shulker_box_from_shells",
         "simplebuilding:orange_netherite_shulker_box",
         "simplebuilding:pink_netherite_shulker_box",
         "simplebuilding:purple_netherite_shulker_box",
@@ -12487,6 +12576,46 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:netherite_shulker_shell",
+      "name": {
+        "en_us": "Netherite Shulker Shell",
+        "de_de": "Netherit-Shulkerschale"
+      },
+      "texture": "assets/textures/item/netherite_shulker_shell.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:netherite_shulker_box_from_shells"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced and Enderite Shulkers of end cities drop 0-2 of their own shell; every tier also comes from the shell one tier below in the world.",
+          "details": [
+            "Upgrading in the world: place the shell on the ground (sneak + right-click), then right-click it with a nugget: Shulker Shell + Iron Nugget -> Reinforced, Reinforced + Netherite Nugget -> Netherite, Netherite + Enderite Nugget -> Enderite. Each click upgrades exactly one shell by one tier and uses exactly one nugget (none in creative mode); in a pile of several parts the last placed matching shell is upgraded.",
+            "Needs the same rights as placing a block there. The held nugget tilts slightly while it would upgrade a shell.",
+            "Crafting: any copper chest + a tier shell + a vanilla Shulker Shell gives the shulker box of that tier (in addition to the existing ways)."
+          ]
+        },
+        "de": {
+          "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; jede Stufe entsteht außerdem in der Welt aus der Schale eine Stufe darunter.",
+          "details": [
+            "Aufwerten in der Welt: die Schale auf den Boden legen (Schleichen + Rechtsklick), dann mit einem Klumpen rechtsklicken: Shulkerschale + Eisenklumpen -> Verstärkt, Verstärkt + Netheritklumpen -> Netherit, Netherit + Enderitklumpen -> Enderit. Jeder Klick wertet genau eine Schale um genau eine Stufe auf und verbraucht genau einen Klumpen (im Kreativmodus keinen); liegen mehrere Teile, trifft es die zuletzt gelegte passende Schale.",
+            "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Klumpen neigt sich leicht, solange er eine Schale aufwerten würde.",
+            "Herstellen: eine beliebige Kupfertruhe + eine Stufen-Schale + eine Vanilla-Shulkerschale ergibt die Shulkerkiste dieser Stufe (zusätzlich zu den bisherigen Wegen)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/ShulkerShells.java",
+          "common/src/shared/java/com/simplebuilding/util/RareShulkers.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:netherite_sledgehammer",
@@ -15224,6 +15353,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_shulker_box_from_pink_shulker_box",
         "simplebuilding:reinforced_shulker_box_from_purple_shulker_box",
         "simplebuilding:reinforced_shulker_box_from_red_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_shells",
         "simplebuilding:reinforced_shulker_box_from_shulker_box",
         "simplebuilding:reinforced_shulker_box_from_white_shulker_box",
         "simplebuilding:reinforced_shulker_box_from_yellow_shulker_box",
@@ -15303,6 +15433,46 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:reinforced_shulker_shell",
+      "name": {
+        "en_us": "Reinforced Shulker Shell",
+        "de_de": "Verstärkte Shulkerschale"
+      },
+      "texture": "assets/textures/item/reinforced_shulker_shell.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:reinforced_shulker_box_from_shells"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced and Enderite Shulkers of end cities drop 0-2 of their own shell; every tier also comes from the shell one tier below in the world.",
+          "details": [
+            "Upgrading in the world: place the shell on the ground (sneak + right-click), then right-click it with a nugget: Shulker Shell + Iron Nugget -> Reinforced, Reinforced + Netherite Nugget -> Netherite, Netherite + Enderite Nugget -> Enderite. Each click upgrades exactly one shell by one tier and uses exactly one nugget (none in creative mode); in a pile of several parts the last placed matching shell is upgraded.",
+            "Needs the same rights as placing a block there. The held nugget tilts slightly while it would upgrade a shell.",
+            "Crafting: any copper chest + a tier shell + a vanilla Shulker Shell gives the shulker box of that tier (in addition to the existing ways)."
+          ]
+        },
+        "de": {
+          "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; jede Stufe entsteht außerdem in der Welt aus der Schale eine Stufe darunter.",
+          "details": [
+            "Aufwerten in der Welt: die Schale auf den Boden legen (Schleichen + Rechtsklick), dann mit einem Klumpen rechtsklicken: Shulkerschale + Eisenklumpen -> Verstärkt, Verstärkt + Netheritklumpen -> Netherit, Netherit + Enderitklumpen -> Enderit. Jeder Klick wertet genau eine Schale um genau eine Stufe auf und verbraucht genau einen Klumpen (im Kreativmodus keinen); liegen mehrere Teile, trifft es die zuletzt gelegte passende Schale.",
+            "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Klumpen neigt sich leicht, solange er eine Schale aufwerten würde.",
+            "Herstellen: eine beliebige Kupfertruhe + eine Stufen-Schale + eine Vanilla-Shulkerschale ergibt die Shulkerkiste dieser Stufe (zusätzlich zu den bisherigen Wegen)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/ShulkerShells.java",
+          "common/src/shared/java/com/simplebuilding/util/RareShulkers.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:reinforced_smoker",
@@ -16228,6 +16398,52 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:straw_armor_stand",
+      "name": {
+        "en_us": "Straw Armor Stand",
+        "de_de": "Stroh-Rüstungsständer"
+      },
+      "texture": "assets/textures/item/straw_armor_stand.png",
+      "craftedBy": [
+        "simplebuilding:straw_armor_stand"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "An armor stand stuffed with straw: Armor Stand + Hay Bale (shapeless). Put a carved pumpkin on it and it becomes a Training Dummy.",
+          "details": [
+            "Placed and dressed like an armor stand; two quick hits (one in creative) or an explosion break it and drop the Straw Armor Stand and its equipment.",
+            "Training Dummy: never takes damage and never dies (no XP, no loot), is not knocked back, and its armor does not wear out. Only a sneaking hit by a player who may build there picks it up (Straw Armor Stand + equipment drop; in creative nothing drops, as with armor stands).",
+            "Every hit shows a floating number (a text display, 1 s): red bold = critical hit (full-strength falling melee hit, critical arrow), gold = fire, yellow = explosion, purple = magic, white = other; at most 12 numbers per dummy. After 3 s without a hit and at least 2 hits it shows the total, the time from the first to the last hit (at least 1 s) and the damage per second, then starts counting anew.",
+            "The number is the damage the mob of its head would take: the head picks the mob (vanilla, SimpleBuilding and Simple Fun heads; pumpkin, player head or none = no mob type). Damage enchantments (Smite, Bane of Arthropods, Impaling and any data-driven enchantment conditioned on entity type tags) and the fletching tips see that mob. The mob's immunities count (fire against a blaze head, arrows against an enderman head, shown as Immune), freezing hurts freeze-sensitive mobs five times, and hits within 10 ticks only count above the last one, as with mobs.",
+            "Armor reduces the number like on a mob: the dummy's armor and armor toughness plus the natural armor of its mob (a zombie has 2), then Protection enchantments and Resistance."
+          ]
+        },
+        "de": {
+          "summary": "Ein mit Stroh gestopfter Rüstungsständer: Rüstungsständer + Strohballen (formlos). Mit aufgesetztem geschnitztem Kürbis wird er zur Trainingspuppe.",
+          "details": [
+            "Wird aufgestellt und angezogen wie ein Rüstungsständer; zwei schnelle Schläge (im Kreativmodus einer) oder eine Explosion zerstören ihn, dann fallen der Stroh-Rüstungsständer und seine Ausrüstung.",
+            "Trainingspuppe: nimmt nie Schaden und stirbt nie (kein XP, keine Beute), wird nicht zurückgestoßen, ihre Rüstung nutzt sich nicht ab. Nur ein Schleich-Schlag eines Spielers, der dort bauen darf, baut sie ab (Stroh-Rüstungsständer + Ausrüstung fallen; im Kreativmodus fällt nichts, wie beim Rüstungsständer).",
+            "Jeder Treffer zeigt eine schwebende Zahl (Textanzeige, 1 s): rot fett = kritischer Treffer (voller Schlag im Fallen, kritischer Pfeil), gold = Feuer, gelb = Explosion, lila = Magie, weiß = sonst; höchstens 12 Zahlen je Puppe. Nach 3 s ohne Treffer und mindestens 2 Treffern zeigt sie die Summe, die Zeit vom ersten bis zum letzten Treffer (mindestens 1 s) und den Schaden je Sekunde und zählt dann neu.",
+            "Die Zahl ist der Schaden, den der Mob ihres Kopfes bekäme: der Kopf bestimmt den Mob (Vanilla-, SimpleBuilding- und Simple-Fun-Köpfe; Kürbis, Spielerkopf oder keiner = keine Mob-Art). Schadens-Verzauberungen (Bann, Nemesis der Gliederfüßer, Harpune und jede datengetriebene Verzauberung mit Bedingung über Entity-Type-Tags) und die Befiederungs-Spitzen sehen diesen Mob. Seine Immunitäten zählen (Feuer gegen den Lohenkopf, Pfeile gegen den Endermankopf, angezeigt als Immun), Frost trifft frostempfindliche Mobs fünffach, und Treffer innerhalb von 10 Ticks zählen wie bei Mobs nur über dem letzten.",
+            "Rüstung senkt die Zahl wie bei einem Mob: Rüstung und Rüstungshärte der Puppe plus die natürliche Rüstung ihres Mobs (Zombie 2), danach Schutz-Verzauberungen und Resistenz."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/dummy/TrainingDummy.java",
+          "common/src/shared/java/com/simplebuilding/dummy/DummyTargets.java",
+          "common/src/shared/java/com/simplebuilding/dummy/StrawArmorStandItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/EnchantmentHelperDummyMixin.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:suspended_gravel",
@@ -19064,6 +19280,7 @@ window.WIKI_DATA = {
         "simplebuilding:blue_enderite_shulker_box",
         "simplebuilding:brown_enderite_shulker_box",
         "simplebuilding:cyan_enderite_shulker_box",
+        "simplebuilding:enderite_shulker_box_from_shells",
         "simplebuilding:gray_enderite_shulker_box",
         "simplebuilding:green_enderite_shulker_box",
         "simplebuilding:light_blue_enderite_shulker_box",
@@ -21088,6 +21305,7 @@ window.WIKI_DATA = {
         "simplebuilding:light_gray_netherite_shulker_box",
         "simplebuilding:lime_netherite_shulker_box",
         "simplebuilding:magenta_netherite_shulker_box",
+        "simplebuilding:netherite_shulker_box_from_shells",
         "simplebuilding:orange_netherite_shulker_box",
         "simplebuilding:pink_netherite_shulker_box",
         "simplebuilding:purple_netherite_shulker_box",
@@ -23391,6 +23609,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_shulker_box_from_pink_shulker_box",
         "simplebuilding:reinforced_shulker_box_from_purple_shulker_box",
         "simplebuilding:reinforced_shulker_box_from_red_shulker_box",
+        "simplebuilding:reinforced_shulker_box_from_shells",
         "simplebuilding:reinforced_shulker_box_from_shulker_box",
         "simplebuilding:reinforced_shulker_box_from_white_shulker_box",
         "simplebuilding:reinforced_shulker_box_from_yellow_shulker_box",
@@ -26783,6 +27002,226 @@ window.WIKI_DATA = {
           }
         ]
       }
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_awkward_shulker_head",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_shulker_head.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_crafty_shulker_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_crafty_shulker_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_awkward_shulker_head",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_shulker_head.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_crafty_shulker_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_crafty_shulker_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_crafty_shulker_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_crafty_shulker_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_long_crafty_shulker_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_crafty_shulker_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_awkward_shulker_head",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_shulker_head.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_crafty_shulker_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_crafty_shulker_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_crafty_shulker_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_crafty_shulker_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_long_crafty_shulker_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_crafty_shulker_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
     },
     {
       "id": "simplebuilding:brown_dyed_storage",
@@ -32092,6 +32531,60 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:enderite_shulker_box_from_shells",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_shulker_box",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_shulker_box_from_shells.json",
+      "ingredients": [
+        "#simplebuilding:copper_chests",
+        "minecraft:shulker_shell",
+        "simplebuilding:enderite_shulker_shell"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:copper_chests"
+        ],
+        [
+          "simplebuilding:enderite_shulker_shell"
+        ],
+        [
+          "minecraft:shulker_shell"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:shulker_shell",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_shulker_shell",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:copper_chests"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:enderite_sledgehammer_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -33363,30 +33856,30 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:diamond",
-            "count": 12
+            "count": 10
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 5
           },
           {
             "id": "minecraft:netherite_ingot",
             "count": 4
           },
           {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 4
-          },
-          {
             "id": "simplebuilding:enderite_upgrade_template",
-            "count": 4
+            "count": 2
           },
           {
             "id": "minecraft:nether_star",
-            "count": 2
-          },
-          {
-            "id": "simplebuilding:enderite_ingot",
-            "count": 2
+            "count": 1
           },
           {
             "id": "simplebuilding:blaze_head",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
             "count": 1
           }
         ]
@@ -35397,6 +35890,60 @@ window.WIKI_DATA = {
             "id": "minecraft:netherite_upgrade_smithing_template",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_shulker_box_from_shells",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_shulker_box",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_shulker_box_from_shells.json",
+      "ingredients": [
+        "#simplebuilding:copper_chests",
+        "minecraft:shulker_shell",
+        "simplebuilding:netherite_shulker_shell"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:copper_chests"
+        ],
+        [
+          "simplebuilding:netherite_shulker_shell"
+        ],
+        [
+          "minecraft:shulker_shell"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:shulker_shell",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_shulker_shell",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:copper_chests"
         ]
       }
     },
@@ -38261,7 +38808,20 @@ window.WIKI_DATA = {
       },
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 8
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting",
@@ -38844,7 +39404,24 @@ window.WIKI_DATA = {
       },
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_ender_quartz_from_ender_quartz_block_stonecutting",
@@ -39645,7 +40222,20 @@ window.WIKI_DATA = {
       },
       "lines": [
         "26.3"
-      ]
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 8
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:polished_nihilith_from_nihil_purpur_block_stonecutting",
@@ -41328,16 +41918,12 @@ window.WIKI_DATA = {
             "count": 8
           },
           {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 4
+          },
+          {
             "id": "minecraft:netherite_ingot",
             "count": 3
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 3
-          },
-          {
-            "id": "simplebuilding:enderite_upgrade_template",
-            "count": 2
           },
           {
             "id": "minecraft:nether_star",
@@ -41345,10 +41931,6 @@ window.WIKI_DATA = {
           },
           {
             "id": "simplebuilding:blaze_head",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:enderite_ingot",
             "count": 1
           }
         ]
@@ -41835,6 +42417,60 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:reinforced_shulker_box_from_shells",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_shulker_box",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_shulker_box_from_shells.json",
+      "ingredients": [
+        "#simplebuilding:copper_chests",
+        "minecraft:shulker_shell",
+        "simplebuilding:reinforced_shulker_shell"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:copper_chests"
+        ],
+        [
+          "simplebuilding:reinforced_shulker_shell"
+        ],
+        [
+          "minecraft:shulker_shell"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:shulker_shell",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:reinforced_shulker_shell",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#simplebuilding:copper_chests"
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_shulker_box_from_shulker_box",
@@ -42580,6 +43216,49 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:oak_log",
             "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:straw_armor_stand",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:straw_armor_stand",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/straw_armor_stand.json",
+      "ingredients": [
+        "minecraft:armor_stand",
+        "minecraft:hay_block"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:armor_stand"
+        ],
+        [
+          "minecraft:hay_block"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:wheat",
+            "count": 9
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.75
+          },
+          {
+            "id": "minecraft:stone",
+            "count": 0.5
           }
         ]
       }
@@ -52651,10 +53330,6 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "minecraft:shulker_box",
-          "required": true
-        },
-        {
           "id": "#simplebuilding:backpacks",
           "required": true
         },
@@ -52695,7 +53370,7 @@ window.WIKI_DATA = {
           "required": true
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json"
     },
     {
       "id": "simplebuilding:item/copper_chests",
@@ -53697,6 +54372,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_shulker_shell",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_sledgehammer",
           "required": true
         },
@@ -53865,6 +54544,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_shulker_box",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_shulker_shell",
           "required": true
         },
         {
@@ -54199,6 +54882,22 @@ window.WIKI_DATA = {
         {
           "id": "simplebuilding:enderite_ingot",
           "required": true
+        },
+        {
+          "id": "minecraft:shulker_shell",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_shulker_shell",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_shulker_shell",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_shulker_shell",
+          "required": true
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/tags/item/placeable_small.json"
@@ -54397,6 +55096,65 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/resources/data/simplebuilding/tags/block/building_wand_blacklist.json"
+    },
+    {
+      "id": "simplebuilding:block/crafty_shulker_unsafe",
+      "replace": false,
+      "values": [
+        {
+          "id": "#minecraft:fire",
+          "required": true
+        },
+        {
+          "id": "minecraft:campfire",
+          "required": true
+        },
+        {
+          "id": "minecraft:soul_campfire",
+          "required": true
+        },
+        {
+          "id": "minecraft:magma_block",
+          "required": true
+        },
+        {
+          "id": "minecraft:cactus",
+          "required": true
+        },
+        {
+          "id": "minecraft:sweet_berry_bush",
+          "required": true
+        },
+        {
+          "id": "minecraft:wither_rose",
+          "required": true
+        },
+        {
+          "id": "minecraft:pointed_dripstone",
+          "required": true
+        },
+        {
+          "id": "minecraft:powder_snow",
+          "required": true
+        },
+        {
+          "id": "minecraft:lava_cauldron",
+          "required": true
+        },
+        {
+          "id": "minecraft:cobweb",
+          "required": true
+        },
+        {
+          "id": "minecraft:end_portal",
+          "required": true
+        },
+        {
+          "id": "minecraft:nether_portal",
+          "required": true
+        }
+      ],
+      "source": "src/main/resources/data/simplebuilding/tags/block/crafty_shulker_unsafe.json"
     },
     {
       "id": "simplebuilding:block/vein_miner_ores",
@@ -56230,6 +56988,96 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: der Strahl setzt keine Mobs und Spieler mehr in Brand. Serverseitig. Standard: an."
     },
     {
+      "name": "server.laser.scanEntities",
+      "shortName": "scanEntities",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Resonance Rod: What the Beam Ignites",
+      "groupDe": "Resonanzstab: was der Strahl entzündet",
+      "label": "Scan Creatures",
+      "labelDe": "Lebewesen scannen",
+      "tooltip": "On: a creature held in the beam glows for 5 s (after half the time it takes to ignite), refreshed while the beam stays on it. Costs charge like any effect. Server-side. Default: on.",
+      "tooltipDe": "An: ein Lebewesen im Strahl leuchtet 5 s lang auf (nach der halben Zeit bis zum Anzünden) und wird aufgefrischt, solange der Strahl bleibt. Kostet Ladung wie jede Wirkung. Serverseitig. Standard: an."
+    },
+    {
+      "name": "server.laser.scanPlayers",
+      "shortName": "scanPlayers",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Resonance Rod: What the Beam Ignites",
+      "groupDe": "Resonanzstab: was der Strahl entzündet",
+      "label": "Scan Players",
+      "labelDe": "Spieler scannen",
+      "tooltip": "On: other players glow too, but only where you may hurt them (PvP, teams). Off: players are never scanned. Server-side. Default: off.",
+      "tooltipDe": "An: auch andere Spieler leuchten, aber nur wo man ihnen schaden darf (PvP, Teams). Aus: Spieler werden nie gescannt. Serverseitig. Standard: aus."
+    },
+    {
+      "name": "server.arrows.recoverFromMobs",
+      "shortName": "recoverFromMobs",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Arrows: Recovery From Mobs",
+      "groupDe": "Pfeile: von Mobs zurück",
+      "label": "Drop Hit Arrows on Death",
+      "labelDe": "Treffer-Pfeile beim Tod fallen lassen",
+      "tooltip": "On: an arrow a player shot into a creature (not into players) drops when it dies, with all its parts and effects. Infinity, Creative and Multishot copies never drop. Server-side. Default: on.",
+      "tooltipDe": "An: ein Pfeil, den ein Spieler in ein Lebewesen geschossen hat (nicht in Spieler), fällt bei dessen Tod - mit allen Teilen und Wirkungen. Unendlichkeit, Kreativ und Mehrfachschuss-Kopien fallen nie. Serverseitig. Standard: an."
+    },
+    {
+      "name": "server.arrows.maxPerMob",
+      "shortName": "maxPerMob",
+      "type": "int",
+      "default": "16",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Arrows: Recovery From Mobs",
+      "groupDe": "Pfeile: von Mobs zurück",
+      "label": "Arrows per Creature",
+      "labelDe": "Pfeile je Lebewesen",
+      "tooltip": "How many hit arrows a creature keeps for its death, 1 to 64. Server-side. Default: 16.",
+      "tooltipDe": "Wie viele Treffer-Pfeile sich ein Lebewesen für seinen Tod merkt, 1 bis 64. Serverseitig. Standard: 16."
+    },
+    {
+      "name": "server.craftyShulker.cooldownTicks",
+      "shortName": "cooldownTicks",
+      "type": "int",
+      "default": "60",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Crafty Shulker Effect",
+      "groupDe": "Effekt Listiger Shulker",
+      "label": "Teleport Cooldown (Ticks)",
+      "labelDe": "Teleport-Abklingzeit (Ticks)",
+      "tooltip": "Ticks before the same creature can teleport again, 20 to 1200. Server-side. Default: 60.",
+      "tooltipDe": "Ticks, bevor dasselbe Wesen wieder springen kann, 20 bis 1200. Serverseitig. Standard: 60."
+    },
+    {
+      "name": "server.craftyShulker.radius",
+      "shortName": "radius",
+      "type": "int",
+      "default": "8",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Crafty Shulker Effect",
+      "groupDe": "Effekt Listiger Shulker",
+      "label": "Teleport Range (Blocks)",
+      "labelDe": "Teleport-Reichweite (Blöcke)",
+      "tooltip": "Farthest distance of the teleport, 2 to 16 blocks. Server-side. Default: 8.",
+      "tooltipDe": "Größter Abstand des Sprungs, 2 bis 16 Blöcke. Serverseitig. Standard: 8."
+    },
+    {
       "name": "server.oreGeneration.endOres",
       "shortName": "endOres",
       "type": "boolean",
@@ -56948,6 +57796,66 @@ window.WIKI_DATA = {
       "labelDe": "Handelspreis-Faktor",
       "tooltip": "Multiplies the first price of every villager and wandering trader offer of the mod (rounded, at least 1, at most a stack), 0.25 to 4. Applies to newly created offers. Server-side. Default: 1.0.",
       "tooltipDe": "Multipliziert den ersten Preis jedes Handelsangebots der Mod bei Dorfbewohnern und fahrendem Händler (gerundet, mindestens 1, höchstens ein Stapel), 0,25 bis 4. Gilt für neu erzeugte Angebote. Serverseitig. Standard: 1,0."
+    },
+    {
+      "name": "server.loot.betterChestPercent",
+      "shortName": "betterChestPercent",
+      "type": "double",
+      "default": "1.0",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Loot & Trading",
+      "groupDe": "Beute & Handel",
+      "label": "Better Structure Chest Chance (%)",
+      "labelDe": "Chance bessere Struktur-Truhe (%)",
+      "tooltip": "Percent chance that a loot chest generates as a better chest with double loot: Reinforced Chest in strongholds, Netherite Chest in bastions and nether fortresses, Enderite Chest in end cities and end ships. A double chest needs both halves to roll. 0 to 5. Applies to newly generated structures. Server-side. Default: 1.0.",
+      "tooltipDe": "Prozent-Chance, dass eine Loot-Truhe als bessere Truhe mit doppelter Beute entsteht: Verstärkte Truhe in der Festung, Netherit-Truhe in Bastion und Netherfestung, Enderit-Truhe in End-Stadt und End-Schiff. Bei einer Doppeltruhe müssen beide Hälften treffen. 0 bis 5. Gilt für neu erzeugte Strukturen. Serverseitig. Standard: 1,0."
+    },
+    {
+      "name": "server.loot.reinforcedShulkerPercent",
+      "shortName": "reinforcedShulkerPercent",
+      "type": "double",
+      "default": "2.0",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Loot & Trading",
+      "groupDe": "Beute & Handel",
+      "label": "Reinforced Shulker Chance (%)",
+      "labelDe": "Chance verstärkter Shulker (%)",
+      "tooltip": "Percent chance that an end city shulker generates reinforced (1.5x health, drops 0-2 Reinforced Shulker Shells). 0 to 10. Applies to newly generated end cities. Server-side. Default: 2.0.",
+      "tooltipDe": "Prozent-Chance, dass ein Shulker einer End-Stadt verstärkt entsteht (1,5-faches Leben, lässt 0–2 Verstärkte Shulkerschalen fallen). 0 bis 10. Gilt für neu erzeugte End-Städte. Serverseitig. Standard: 2,0."
+    },
+    {
+      "name": "server.loot.enderiteShulkerPercent",
+      "shortName": "enderiteShulkerPercent",
+      "type": "double",
+      "default": "0.5",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Loot & Trading",
+      "groupDe": "Beute & Handel",
+      "label": "Enderite Shulker Chance (%)",
+      "labelDe": "Chance Enderit-Shulker (%)",
+      "tooltip": "Percent chance that an end city shulker generates as an Enderite Shulker (3x health, drops 0-2 Enderite Shulker Shells). 0 to 5. Applies to newly generated end cities. Server-side. Default: 0.5.",
+      "tooltipDe": "Prozent-Chance, dass ein Shulker einer End-Stadt als Enderit-Shulker entsteht (3-faches Leben, lässt 0–2 Enderit-Shulkerschalen fallen). 0 bis 5. Gilt für neu erzeugte End-Städte. Serverseitig. Standard: 0,5."
+    },
+    {
+      "name": "server.loot.endermitesPerRareShulker",
+      "shortName": "endermitesPerRareShulker",
+      "type": "int",
+      "default": "4",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Loot & Trading",
+      "groupDe": "Beute & Handel",
+      "label": "Endermites per Rare Shulker",
+      "labelDe": "Endermiten je seltenem Shulker",
+      "tooltip": "Endermites that appear once around a reinforced or enderite shulker when a player (not in creative or spectator mode) first comes within 24 blocks, on free spots with solid ground. They are not persistent (vanilla removes them after 2 minutes). 0 to 8. Server-side. Default: 4.",
+      "tooltipDe": "Endermiten, die einmalig um einen verstärkten oder Enderit-Shulker erscheinen, sobald ein Spieler (nicht im Kreativ- oder Zuschauermodus) erstmals näher als 24 Blöcke kommt – auf freien Plätzen mit festem Boden. Sie sind nicht dauerhaft (Vanilla entfernt sie nach 2 Minuten). 0 bis 8. Serverseitig. Standard: 4."
     },
     {
       "name": "server.blueprint.maxBlocksPerTick",
@@ -57936,6 +58844,34 @@ window.WIKI_DATA = {
               "Stein, Granit, Diorit und Andesit geben die Steinerze; Tiefenschiefer und Tuff die Tiefenschiefererze; Netherrack die Nethererze (antiker Schrott ist der Hauptgewinn); Endstein die Enderze der Mod.",
               "Jeder Eintrag nennt, wie viele von 100 Erz-Würfen seines Wirts dieses Erz werden.",
               "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Als Zufall, nicht als Umwandlung, bekommt sie keinen Hand-Hinweis."
+            ]
+          }
+        }
+      },
+      {
+        "id": "shell_upgrade",
+        "facts": {},
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/util/ShulkerShells.java",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+            "common/src/shared/java/com/simplebuilding/util/TransformTargets.java"
+          ],
+          "en": {
+            "title": "Upgrading a shulker shell",
+            "summary": "Place a shulker shell on the ground (sneak + right-click) and right-click it with a nugget: Iron Nugget makes a Reinforced, Netherite Nugget a Netherite and Enderite Nugget an Enderite Shulker Shell - always one tier up, one nugget per shell.",
+            "details": [
+              "The nugget only works on the shell directly below its tier; other nuggets or shells do nothing.",
+              "Needs the same rights as placing a block there. Creative mode uses no nugget. The held nugget tilts slightly while it would upgrade a shell."
+            ]
+          },
+          "de": {
+            "title": "Shulkerschale aufwerten",
+            "summary": "Eine Shulkerschale auf den Boden legen (Schleichen + Rechtsklick) und mit einem Klumpen rechtsklicken: Eisenklumpen ergibt eine Verstärkte, Netheritklumpen eine Netherit- und Enderitklumpen eine Enderit-Shulkerschale - immer eine Stufe höher, ein Klumpen je Schale.",
+            "details": [
+              "Der Klumpen wirkt nur auf die Schale direkt unter seiner Stufe; andere Klumpen oder Schalen tun nichts.",
+              "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Im Kreativmodus wird kein Klumpen verbraucht. Der gehaltene Klumpen neigt sich leicht, solange er eine Schale aufwerten würde."
             ]
           }
         }
@@ -59879,6 +60815,81 @@ window.WIKI_DATA = {
         },
         "lines": [
           "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "shell_upgrade/simplebuilding:reinforced_shulker_shell",
+        "kind": "shell_upgrade",
+        "inputs": [
+          {
+            "id": "minecraft:shulker_shell",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:iron_nugget"
+        ],
+        "output": {
+          "id": "simplebuilding:reinforced_shulker_shell",
+          "count": 1
+        },
+        "stats": {},
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "shell_upgrade/simplebuilding:netherite_shulker_shell",
+        "kind": "shell_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:reinforced_shulker_shell",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:netherite_nugget"
+        ],
+        "output": {
+          "id": "simplebuilding:netherite_shulker_shell",
+          "count": 1
+        },
+        "stats": {},
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "shell_upgrade/simplebuilding:enderite_shulker_shell",
+        "kind": "shell_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:netherite_shulker_shell",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_nugget"
+        ],
+        "output": {
+          "id": "simplebuilding:enderite_shulker_shell",
+          "count": 1
+        },
+        "stats": {},
+        "lines": [
           "26.3"
         ]
       },
@@ -79804,17 +80815,17 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 202,
+    "items": 206,
     "blocks": 166,
-    "recipes": 446,
+    "recipes": 460,
     "lootTables": 165,
     "trades": 20,
     "enchantments": 19,
-    "tags": 46,
-    "config": 178,
-    "inWorld": 436,
+    "tags": 47,
+    "config": 188,
+    "inWorld": 439,
     "advancements": 123,
-    "features": 43,
+    "features": 44,
     "undocumented": 0,
     "incompleteProse": 0
   },

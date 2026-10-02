@@ -143,6 +143,14 @@ public final class RidingTests {
  private static JsonObject lang(String l){try(var in=Riding.class.getResourceAsStream("/assets/simpleriding/lang/"+l+".json")){return JsonParser.parseReader(new InputStreamReader(Objects.requireNonNull(in),java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();}catch(Exception e){throw new IllegalStateException(e);}}
  public static void configAndLang(GameTestHelper h){
   var en=lang("en_us");var de=lang("de_de");h.assertTrue(en.keySet().equals(de.keySet()),"Language keys are complete");
+  String template="item.simpleriding.horseshoe_smithing_template";
+  h.assertTrue(Horseshoes.TEMPLATE instanceof SmithingTemplateItem,"Vanilla template supplies Applies to / Ingredients headings and slot hints");
+  h.assertTrue(en.get(template).getAsString().equals("Horseshoe Upgrade")&&de.get(template).getAsString().equals("Hufeisen-Aufwertung"),"Template follows Basic Upgrade / Basis-Aufwertung naming");
+  for(var l:List.of(en,de))for(String part:List.of("applies_to","ingredients","base_slot_description","additions_slot_description"))
+   h.assertTrue(l.has(template+"."+part)&&!l.get(template+"."+part).getAsString().isBlank(),"Template hint translated: "+part);
+  h.assertTrue(en.get(template+".applies_to").getAsString().equals("Copper Ingots, Iron Ingots, Gold Ingots, Diamonds, Diamond Horseshoes, Netherite Horseshoes"),"Template names exactly the six recipe bases");
+  h.assertTrue(de.get(template+".applies_to").getAsString().equals("Kupferbarren, Eisenbarren, Goldbarren, Diamanten, Diamanthufeisen, Netherithufeisen"),"German template names exactly the six recipe bases");
+  h.assertTrue(en.get(template+".ingredients").getAsString().equals("Iron Nuggets, Netherite Ingots or Enderite Ingots")&&de.get(template+".ingredients").getAsString().equals("Eisennuggets, Netheritbarren oder Enderitbarren"),"Template names all three recipe additions in EN and DE");
   for(var option:RidingOptions.ALL)for(var l:List.of(en,de)){
    String k=option.nameKey();h.assertTrue(l.has(k)&&l.has(k+".@Tooltip")&&l.get(k+".@Tooltip").getAsString().contains(option.defaultValue().toString()),"Option name/tooltip/default: "+option.path());h.assertTrue(l.has(option.tabKey()),"Option tab: "+option.path());
   }

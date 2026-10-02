@@ -209,5 +209,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Resonanzstab und Rotator: Idle-Animation und Benutzungs-Animation.
 - [ ] Erzdetektor: Idle-Animation, Nadel pulsiert, solange nichts gewählt ist. Ist etwas gewählt, läuft die Auswahl-Animation auf der Nadel (siehe Nachtrag 2).
 - [ ] Attractor: Idle-Animation, das Item selbst bleibt unverändert, nur kurz angedeutete Magnetfeldlinien.
-- [ ] Hufeisen-Vorlage (simpleriding): Textur und Name nach derselben Konvention wie die Basic-Upgrade-Vorlage. Der Pfeil wird zu einem Hufeisen; innen Eisen-, außen Kupferfarben.
+- [x] Hufeisen-Vorlage (simpleriding): Basic-Upgrade-Silhouette mit Eisen-Hufeisen und Kupferplatte, Name „Horseshoe Upgrade“ / „Hufeisen-Aufwertung“, EN/DE-Tooltips nach Rezepten. Generator und 16-fache Vorher-/Nachher-Vorschau vorhanden; Sichtabnahme im Spiel offen. Prüfstand: `docs/ai/PLAN-HORSESHOE-TEMPLATE-2026-10-02.md`.
 - [ ] Echolot: Haltbarkeit wieder wie früher – eine einmalige Nutzung verbraucht die 1500 Haltbarkeit wie vorher. Aktuell wird Haltbarkeit seltsam verbraucht und angezeigt → Ist-Verhalten gegen die frühere Version (git log) prüfen und zurückführen.
