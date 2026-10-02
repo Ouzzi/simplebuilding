@@ -22,6 +22,7 @@ Presets bleiben im Bereich „Mods“. Ältere Minecraft-Linien sind unveränder
 - **Fehlschlaege**: aktuell rote Tests (neueste Aufzeichnung je Test), seit welchem Lauf rot, Fehlertext, Markdown kopieren.
 - **Verlauf**: Läufe, Detail, Markdown-Export, zwei Läufe vergleichen (neu rot / neu grün).
 - **KI-Fixes**: Anbieter-Status, Jobs mit Log, Branch, Commit, geänderten Dateien, Merge-Vorschau, Diff.
+- **Offline-Testlauf**: unbeaufsichtigter Lauf für SHAs (`offline_gate.ps1`), Status, Stoppen, Warteschlange, Ergebnistabelle (siehe unten).
 - **Worktrees**: Aufräumhilfe für `.claude/worktrees` (Größe, gemergt/ungemergt, ungesichert), Gate-Worktree.
 - **Einstellungen**: `tools/launchhub/settings.json` (nicht im Git).
 Tastatur: `r` Fehlgeschlagene wiederholen, `a` alle (26.3), `/` Suche, `1`–`7` Bereich, `?` Hilfe.
@@ -62,6 +63,29 @@ Anbieter in den Einstellungen; Befehlsvorlage editierbar, jedes Wort wird ein Ar
 `{prompt}`, `{worktree}`, `{branch}`, Prompt per stdin (Standard). Voreinstellungen `claude -p --permission-mode acceptEdits`
 und `codex exec --full-auto -C {worktree} -`. **Nicht geprüft**: beide CLIs waren beim Bau nicht installiert; vor dem ersten Einsatz
 `claude --help` / `codex exec --help` lesen und die Vorlage anpassen. Nicht installiert → Karte „nicht installiert“ mit Installationshinweis.
+
+## Offline-Testlauf
+Bereich „Offline-Testlauf“ steuert `tools/testrunner/offline_gate.ps1` (pwsh 7): ein **unbeaufsichtigter** Testlauf für eine
+oder mehrere SHAs im eigenen Worktree `%TEMP%\sbgate-offline` (stört weder Haupt-Checkout noch `%TEMP%\sbgate`). Je SHA:
+`gradlew check`, dann die Gruppen `kern-263` (Fabric + NeoForge), `module-263` (Integration + alle Modulziele), bei Profil
+„alle Linien“ zusätzlich `linie-262` und `linie-12111` (nur berichtet; das Urteil hängt allein an 26.3).
+- **Zweck**: Gate über Nacht oder ohne Netz laufen lassen. Ohne Haken „mit Netz“ läuft Gradle mit `--offline
+  --configure-on-demand` (`SIMPLEBUILDING_GRADLE_OFFLINE=1`) aus dem warmen Cache; „mit Netz (Cache wärmen)“ lädt, was fehlt,
+  und testet Forge mit.
+- **Starten**: SHA-Feld (vorbelegt master-HEAD, mehrere mit Komma/Leerzeichen; jede wird mit `git rev-parse` geprüft) oder
+  „Warteschlange starten“ (`.ai-runs/offline-queue.txt`, im Bereich bearbeitbar). Der Hub startet das Skript als eigenen
+  Prozess (neue Prozessgruppe, ohne Fenster) – er läuft weiter, wenn der Hub neu startet. Ohne Hub:
+  `tools\testrunner\start_offline_gate.cmd [SHA,SHA]` oder `pwsh -File tools\testrunner\offline_gate.ps1 -Refs a,b -Profile 263|all [-Online]`.
+- **Sperre/Stoppen**: `.ai-runs/offline-gate.lock` (PID) verhindert Doppelstarts. „Stoppen“ beendet den Prozessbaum nur, wenn die
+  PID wirklich eine PowerShell mit `offline_gate.ps1` in der Befehlszeile ist (und sich Startzeit/Befehlszeile bis zum Beenden nicht
+  geändert haben); eine veraltete Sperre lässt sich entfernen.
+- **Ergebnis**: `.ai-runs/offline-results.json` (der Hub liest es: je Lauf, SHA und Gruppe grün/rot, Zahlen, rote Tests, Log),
+  `.ai-runs/offline-results.md` (für Menschen), Status `.ai-runs/offline-status.txt`, Logs `.ai-runs/offline-logs/` (in der Tabelle
+  verlinkt). `.ai-runs` ist immer der Ordner im **Haupt-Checkout**; `SB_OFFLINE_RUNS_DIR` überschreibt. Weitere Overrides:
+  `SB_OFFLINE_WORKTREE`, `SB_OFFLINE_JAVA_HOME`, `SB_OFFLINE_JAVA8_HOME`, `SB_OFFLINE_PYTHON`.
+- **Grenzen**: Forge braucht immer Netz (ForgeGradles Mavenizer lädt das Launcher-Manifest, kein Offline-Schalter) – offline grün
+  heißt „GRÜN ohne Forge“, `forge-263` danach mit Netz nachholen (ca. 10 min). Der Laptop muss wach bleiben und am Netzteil hängen
+  (Energiesparen beendet den Lauf). Das Skript **pusht nie**. Im Trockenlauf zeigt der Hub nur das Startkommando.
 
 ## Sicherheit
 GET ändert nichts. Jedes POST braucht `X-Hub-Client: 1`, JSON und wird gegen Erlaubnislisten geprüft (Startziel-IDs, Testziel-IDs

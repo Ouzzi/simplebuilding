@@ -57,6 +57,19 @@ Erst `gradlew check` und `wiki/generate.py --check`, dann alle acht Ziele
 vollständig. Am Ende steht eine Go/No-Go-Zeile — daran hängt, ob gepusht und auf
 Modrinth beziehungsweise CurseForge hochgeladen wird.
 
+## Offline-Testlauf
+
+Unbeaufsichtigt (über Nacht oder ohne Netz) eine oder mehrere SHAs prüfen:
+
+```
+pwsh -File tools/testrunner/offline_gate.ps1 -Refs <sha>,<sha> [-Profile 263|all] [-Online]
+```
+
+Läuft im eigenen Worktree `%TEMP%\sbgate-offline`, Gradle offline aus dem warmen Cache; Forge braucht immer Netz
+und wird offline übersprungen („GRÜN ohne Forge“ → `forge-263` online nachholen). Laptop wach und am Netzteil
+lassen; das Skript pusht nie. Ergebnis in `.ai-runs/offline-results.md`/`.json`. Bedienung und Details:
+Launch- und Testzentrale, Bereich „Offline-Testlauf“ (`docs/LAUNCHHUB.md`).
+
 ## Oberfläche
 
 ```
