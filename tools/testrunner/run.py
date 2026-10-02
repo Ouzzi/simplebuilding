@@ -357,10 +357,15 @@ def iso(moment: datetime) -> str:
 
 
 def gradlew() -> list[str]:
-    """The wrapper, spelled the way this platform can start it."""
+    """The wrapper, spelled the way this platform can start it.
+
+    SIMPLEBUILDING_GRADLE_OFFLINE=1 adds --offline: unattended runs without network use the
+    warmed Gradle cache instead of failing on a download (.ai-runs/offline-gate.ps1).
+    """
+    offline = ["--offline"] if os.environ.get("SIMPLEBUILDING_GRADLE_OFFLINE") == "1" else []
     if os.name == "nt":
-        return [str(REPO / "gradlew.bat")]
-    return ["./gradlew"]
+        return [str(REPO / "gradlew.bat"), *offline]
+    return ["./gradlew", *offline]
 
 
 def run_capture(command: list[str], timeout: int) -> tuple[int, str, bool]:
