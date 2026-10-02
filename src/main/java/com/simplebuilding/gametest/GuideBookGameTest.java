@@ -64,4 +64,19 @@ public final class GuideBookGameTest {
     public void theEnchantmentsGuideCoversEveryModEnchantment(GameTestHelper helper) {
         GuideBookTests.theEnchantmentsGuideCoversEveryModEnchantment(helper);
     }
+
+    @GameTest
+    public void everyGuideTabGateIsAnUnlockableRecipe(GameTestHelper helper) {
+        GuideBookTests.everyGuideTabGateIsAnUnlockableRecipe(helper);
+    }
+
+    @GameTest
+    public void learningGateRecipesOpensTabsWithoutConsumingItems(GameTestHelper helper) {
+        GuideBookTests.learningGateRecipesOpensTabsWithoutConsumingItems(helper);
+    }
+
+    @GameTest
+    public void oldChapterMasksMoveToTheReadingPlayer(GameTestHelper helper) {
+        GuideBookTests.oldChapterMasksMoveToTheReadingPlayer(helper);
+    }
 }

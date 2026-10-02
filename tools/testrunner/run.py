@@ -580,7 +580,7 @@ SHARED_CLIENT_SOURCES = {
 #: Screenshots a line's shared client tests skip on purpose (ClientTestVersion flags).
 SKIPPED_SHOTS = {
     # The mega-guide screen is a 26.3 feature, pending the separate port run.
-    "26.2": {"mega-guide-confirm", "mega-guide-unlocked"},
+    "26.2": {"mega-guide-locked", "mega-guide-unlocked"},
     # No Cloth Config for 26.4 yet: the config screen is hidden and not tested there.
     "26.4-snapshot": {"screen-h-mod-config"},
 }

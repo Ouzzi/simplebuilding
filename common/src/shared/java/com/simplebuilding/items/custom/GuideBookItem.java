@@ -23,7 +23,7 @@ import net.minecraft.world.level.Level;
  * <p>Benutzen oeffnet auf dem Client den eigenen Buchbildschirm
  * ({@code com.simplebuilding.client.guide.GuideBookScreen}, von jedem Loader ueber
  * {@link #setClientOpener} eingehaengt) beim Abschnitt dieses Buchs; der Server merkt die
- * gehaltene Buchinstanz als validierte Lesesitzung und zaehlt die Benutzung. Die Seiten bleiben trotzdem als
+ * offene Reiter des Lesers nach ({@code GuideUnlocks#onUse}) und zaehlt die Benutzung. Die Seiten bleiben trotzdem als
  * Standardkomponente {@code WRITTEN_BOOK_CONTENT} am Item: das Lesepult zeigt sie (Vanillas
  * Lesepult-Bildschirm, mit Seitensignal fuer Redstone) - dort sieht man die schlichte Textfassung.
  *
@@ -58,7 +58,7 @@ public class GuideBookItem extends Item {
             clientOpener.accept(player.getItemInHand(hand).copy(), hand);
         }
         if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer)
-            com.simplebuilding.guide.GuideUnlocks.open(serverPlayer, hand);
+            com.simplebuilding.guide.GuideUnlocks.onUse(serverPlayer, player.getItemInHand(hand));
         player.awardStat(Stats.ITEM_USED.get(this));
         return InteractionResult.SUCCESS;
     }
@@ -67,7 +67,7 @@ public class GuideBookItem extends Item {
     public java.util.Optional<net.minecraft.world.inventory.tooltip.TooltipComponent> getTooltipImage(ItemStack stack) {
         if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) return java.util.Optional.empty();
         return java.util.Optional.of(new com.simplebuilding.items.tooltip.GuideTooltipData(
-                book.shelf().books().stream().filter(b -> GuideBooks.inserted(stack, b)).toList()));
+                book.shelf().books().stream().filter(b -> com.simplebuilding.guide.GuideUnlocks.clientOpen(GuideBooks.tabId(b))).toList()));
     }
 
     @Override

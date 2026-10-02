@@ -77,9 +77,6 @@ public final class NeoForgeNetworkRegistration {
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleTrimBenefit(payload, player)));
         registrar.playToServer(ReinforcedBundleSelectionPayload.ID, ReinforcedBundleSelectionPayload.CODEC,
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleReinforcedBundleSelection(payload, player)));
-        if (com.simplebuilding.version.McVersion.MEGA_GUIDES)
-            registrar.playToServer(GuideUnlockPayload.ID, GuideUnlockPayload.CODEC,
-                    (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleGuideUnlock(payload, player)));
         registrar.playToServer(OctantConfigurePayload.ID, OctantConfigurePayload.CODEC,
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleOctantConfigure(payload, player)));
         registrar.playToServer(OctantScrollPayload.ID, OctantScrollPayload.CODEC,
@@ -104,6 +101,8 @@ public final class NeoForgeNetworkRegistration {
             }
         }));
         registrar.playToClient(com.simplebuilding.networking.PistonConfigPayload.ID, com.simplebuilding.networking.PistonConfigPayload.CODEC,
+                (payload, context) -> context.enqueueWork(payload::apply));
+        registrar.playToClient(com.simplebuilding.networking.GuideStatePayload.ID, com.simplebuilding.networking.GuideStatePayload.CODEC,
                 (payload, context) -> context.enqueueWork(payload::apply));
         registrar.playToClient(TrimDataPayload.ID, TrimDataPayload.CODEC, (payload, context) -> context.enqueueWork(() -> {
             if (context.player() instanceof SurvivalTracerAccessor accessor) {

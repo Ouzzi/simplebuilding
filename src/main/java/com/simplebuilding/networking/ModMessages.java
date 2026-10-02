@@ -22,10 +22,6 @@ public class ModMessages {
 
         // --- 1. REGISTRIERUNG DER PAYLOAD-TYPEN (Beide Seiten mÃ¼ssen diese kennen) ---
 
-        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
-            PayloadTypeRegistry.serverboundPlay().register(GuideUnlockPayload.ID, GuideUnlockPayload.CODEC);
-            receive(GuideUnlockPayload.ID, ModMessageHandlers::handleGuideUnlock);
-        }
         // Client -> Server (C2S)
         PayloadTypeRegistry.serverboundPlay().register(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(SetHopperGhostItemPayload.ID, SetHopperGhostItemPayload.CODEC);
@@ -47,6 +43,7 @@ public class ModMessages {
         PayloadTypeRegistry.clientboundPlay().register(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(TrimDataPayload.ID, TrimDataPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(PistonConfigPayload.ID, PistonConfigPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(GuideStatePayload.ID, GuideStatePayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(com.simplebuilding.networking.DataTablesSyncPayload.ID, com.simplebuilding.networking.DataTablesSyncPayload.CODEC);
 

@@ -1643,6 +1643,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("guide_book_game_test_the_enchantments_guide_covers_every_mod_enchantment", GuideBookTests::theEnchantmentsGuideCoversEveryModEnchantment)
                     .build(),
+            GameTestSpec.named("guide_book_game_test_every_guide_tab_gate_is_an_unlockable_recipe", GuideBookTests::everyGuideTabGateIsAnUnlockableRecipe)
+                    .build(),
+            GameTestSpec.named("guide_book_game_test_learning_gate_recipes_opens_tabs_without_consuming_items", GuideBookTests::learningGateRecipesOpensTabsWithoutConsumingItems)
+                    .build(),
+            GameTestSpec.named("guide_book_game_test_old_chapter_masks_move_to_the_reading_player", GuideBookTests::oldChapterMasksMoveToTheReadingPlayer)
+                    .build(),
             GameTestSpec.named("pressure_plate_game_test_honeycomb_waxes_every_stage_and_waxed_plates_stop_oxidizing", PressurePlateTests::honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing)
                     .build(),
             GameTestSpec.named("pressure_plate_game_test_the_axe_scrapes_the_wax_off_before_the_oxidation", PressurePlateTests::theAxeScrapesTheWaxOffBeforeTheOxidation)
