@@ -1020,7 +1020,7 @@ window.WIKI_DATA = {
           "Material damping: every block the line of sight crosses between the block your eyes are in and the ore costs the signal a fixed amount by its mining hardness - air and blocks that do not occlude (glass, leaves, water) 0.125; hardness below 1.0 (netherrack, dirt, sand, gravel) and end stone, the host rock of the End ores, 2; hardness 1.0 to below 3.0 (stone, cobblestone, tuff, basalt, blackstone, logs) 4; hardness 3.0 to below 10 (deepslate, ores) 6; hardness 10 and up or unbreakable (obsidian, ancient debris, bedrock) 16. The ore is found if the total stays at or below its signal. Without Radius that means: common ores through 4 stone, gold through 3, diamond and emerald through 2, ancient debris through 2 netherrack (the End ores through 2 end stone) or 1 stone - each with up to 8 blocks of air on top.",
           "Constructor's Touch multiplies every block's loss by 0.5, so the signal carries twice as far through rock (iron ore: through 8 instead of 4 stone, 5 instead of 2 deepslate); the range stays the same.",
           "Radius (level I, found as a book and applied at the anvil) fits the Detector as well and raises signal and range, the signal of the rare classes the most: common 22 and 28, gold 17 and 24, diamond and emerald 17 and 24, ancient debris and the End ores 9 and 20 - diamonds then get through 4 stone instead of 2, ancient debris through 4 netherrack instead of 2, common ores through 5 stone instead of 4. Constructor's Touch and Radius stack: the one halves the loss, the other raises the signal.",
-          "A detector calibrated in Custom mode marks its slot in the hotbar and inventory: a one pixel glimmer with two fading tail pixels circles the edge of the slot once every 3 seconds, in the color of the target block - ores in the color of their mineral (diamond turquoise, gold yellow, Astralit pink and so on), any other block in its map color. The fixed modes and an uncalibrated detector show nothing. Drawn client side on Fabric, NeoForge and Forge alike.",
+          "A detector calibrated in Custom mode marks its slot in the hotbar and inventory: a one pixel glimmer with two fading tail pixels runs along the needle from the hub to the tip, about every 2 seconds, in the color of the target block - ores in the color of their mineral (diamond turquoise, gold yellow, Astralit pink and so on), any other block in its map color. The fixed modes and an uncalibrated detector show nothing. Drawn client side on Fabric, NeoForge and Forge alike.",
           "Compass needle (2026-09-28): a ping that finds something stores the ore on the detector (the vanilla lodestone_tracker component, not tracked), and the item model uses the vanilla compass property to turn the amethyst needle toward it - 32 needle positions, in the hand, the hotbar and the inventory. The needle resonates: it is tinted from dark violet to a bright lavender glow in five steps the closer the ore is (measured against that ore's own range), together with four small marks around the dial. An empty ping, or putting the detector away (not in a hand), clears the target and the needle rests, dimmed and pointing up. The hand does not bob when the needle or the durability changes.",
           "Main hand or off hand: the detector works in either hand. The main hand is the precise one: a ping every second, full volume. In the off hand it pings every two seconds, its tones play at 30 % volume and its particle trail is much fainter - handy while you mine with a pickaxe in the main hand.",
           "Hearing the distance: the pitch of the ping (1.8 minus distance/32, clamped to 0.6 to 2.0) is high for near targets and low for distant ones; the break sound of the block that was found plays as well, so the material can be guessed at.",
@@ -1041,7 +1041,7 @@ window.WIKI_DATA = {
           "Materialdämpfung: Jeder Block, den die Sichtlinie zwischen dem Block deiner Augen und dem Erz schneidet, kostet das Signal einen festen Betrag nach seiner Abbauhärte - Luft und nicht verdeckende Blöcke (Glas, Laub, Wasser) 0.125; Härte unter 1.0 (Netherrack, Erde, Sand, Kies) und Endstein, das Wirtsgestein der End-Erze, 2; Härte 1.0 bis unter 3.0 (Stein, Bruchstein, Tuff, Basalt, Schwarzstein, Stämme) 4; Härte 3.0 bis unter 10 (Tiefenschiefer, Erze) 6; Härte ab 10 oder unzerstörbar (Obsidian, Antiker Schrott, Grundgestein) 16. Das Erz wird gefunden, wenn die Summe sein Signal nicht übersteigt. Ohne Radius heißt das: gewöhnliche Erze durch 4 Stein, Gold durch 3, Diamant und Smaragd durch 2, Antiker Schrott durch 2 Netherrack (die End-Erze durch 2 Endstein) oder 1 Stein - jeweils mit bis zu 8 Blöcken Luft dazu.",
           "Berührung des Konstrukteurs multipliziert den Verlust jedes Blocks mit 0.5, das Signal trägt also doppelt so weit durch Gestein (Eisenerz: durch 8 statt 4 Stein, 5 statt 2 Tiefenschiefer); die Reichweite bleibt gleich.",
           "Radius (Stufe I, als Buch gefunden und am Amboss angebracht) passt auch auf den Detektor und hebt Signal und Reichweite an, das Signal der seltenen Klassen am stärksten: gewöhnlich 22 und 28, Gold 17 und 24, Diamant und Smaragd 17 und 24, Antiker Schrott und die End-Erze 9 und 20 - Diamanten kommen dann durch 4 statt 2 Stein, Antiker Schrott durch 4 statt 2 Netherrack, gewöhnliche Erze durch 5 statt 4 Stein. Berührung des Konstrukteurs und Radius wirken zusammen: die eine halbiert den Verlust, der andere hebt das Signal.",
-          "Ein im Modus Custom kalibrierter Detektor markiert seinen Platz in Schnellleiste und Inventar: ein Ein-Pixel-Schimmer mit zwei verblassenden Schweifpixeln läuft alle 3 Sekunden einmal um den Rand des Felds, in der Farbe des Zielblocks - Erze in der Farbe ihres Minerals (Diamant türkis, Gold gelb, Astralit rosa usw.), jeder andere Block in seiner Kartenfarbe. Die festen Modi und ein unkalibrierter Detektor zeigen nichts. Gezeichnet wird clientseitig auf Fabric, NeoForge und Forge gleichermaßen.",
+          "Ein im Modus Custom kalibrierter Detektor markiert seinen Platz in Schnellleiste und Inventar: ein Ein-Pixel-Schimmer mit zwei verblassenden Schweifpixeln läuft etwa alle 2 Sekunden auf der Nadel von der Nabe zur Spitze, in der Farbe des Zielblocks - Erze in der Farbe ihres Minerals (Diamant türkis, Gold gelb, Astralit rosa usw.), jeder andere Block in seiner Kartenfarbe. Die festen Modi und ein unkalibrierter Detektor zeigen nichts. Gezeichnet wird clientseitig auf Fabric, NeoForge und Forge gleichermaßen.",
           "Kompassnadel (2026-09-28): Ein Ping, der etwas findet, legt das Erz auf den Detektor (die Vanilla-Komponente lodestone_tracker, ohne Leitstein-Verfolgung), und das Item-Modell dreht die Amethyst-Nadel mit der Vanilla-Kompass-Eigenschaft dorthin - 32 Nadelstellungen, in der Hand, in der Schnellleiste und im Inventar. Die Nadel schwingt mit: Sie wird in fünf Stufen von dunklem Violett bis zu hellem Lavendel getönt, je näher das Erz ist (gemessen an der Reichweite genau dieses Erzes), zusammen mit vier kleinen Marken am Zifferblatt. Ein Ping ohne Fund oder ein weggesteckter Detektor (nicht in einer Hand) löscht das Ziel, die Nadel ruht dann gedämpft nach oben. Die Hand wippt nicht, wenn sich Nadel oder Haltbarkeit ändern.",
           "Haupthand oder Nebenhand: Der Detektor arbeitet in beiden Händen. Die Haupthand ist die genaue: jede Sekunde ein Ping, volle Lautstärke. In der Nebenhand pingt er alle zwei Sekunden, seine Töne klingen mit 30 % Lautstärke und die Partikelspur ist viel schwächer - praktisch, wenn in der Haupthand die Spitzhacke arbeitet.",
           "Entfernung hören: Die Tonhöhe des Pings (1.8 minus Entfernung/32, begrenzt auf 0.6 bis 2.0) ist bei nahen Zielen hoch und bei fernen tief; zusätzlich erklingt das Abbaugeräusch des gefundenen Blocks, sodass sich das Material erahnen lässt.",
@@ -5418,7 +5418,7 @@ window.WIKI_DATA = {
             "Material damping: every block the line of sight crosses between the block your eyes are in and the ore costs the signal a fixed amount by its mining hardness - air and blocks that do not occlude (glass, leaves, water) 0.125; hardness below 1.0 (netherrack, dirt, sand, gravel) and end stone, the host rock of the End ores, 2; hardness 1.0 to below 3.0 (stone, cobblestone, tuff, basalt, blackstone, logs) 4; hardness 3.0 to below 10 (deepslate, ores) 6; hardness 10 and up or unbreakable (obsidian, ancient debris, bedrock) 16. The ore is found if the total stays at or below its signal. Without Radius that means: common ores through 4 stone, gold through 3, diamond and emerald through 2, ancient debris through 2 netherrack (the End ores through 2 end stone) or 1 stone - each with up to 8 blocks of air on top.",
             "Constructor's Touch multiplies every block's loss by 0.5, so the signal carries twice as far through rock (iron ore: through 8 instead of 4 stone, 5 instead of 2 deepslate); the range stays the same.",
             "Radius (level I, found as a book and applied at the anvil) fits the Detector as well and raises signal and range, the signal of the rare classes the most: common 22 and 28, gold 17 and 24, diamond and emerald 17 and 24, ancient debris and the End ores 9 and 20 - diamonds then get through 4 stone instead of 2, ancient debris through 4 netherrack instead of 2, common ores through 5 stone instead of 4. Constructor's Touch and Radius stack: the one halves the loss, the other raises the signal.",
-            "A detector calibrated in Custom mode marks its slot in the hotbar and inventory: a one pixel glimmer with two fading tail pixels circles the edge of the slot once every 3 seconds, in the color of the target block - ores in the color of their mineral (diamond turquoise, gold yellow, Astralit pink and so on), any other block in its map color. The fixed modes and an uncalibrated detector show nothing. Drawn client side on Fabric, NeoForge and Forge alike.",
+            "A detector calibrated in Custom mode marks its slot in the hotbar and inventory: a one pixel glimmer with two fading tail pixels runs along the needle from the hub to the tip, about every 2 seconds, in the color of the target block - ores in the color of their mineral (diamond turquoise, gold yellow, Astralit pink and so on), any other block in its map color. The fixed modes and an uncalibrated detector show nothing. Drawn client side on Fabric, NeoForge and Forge alike.",
             "Compass needle (2026-09-28): a ping that finds something stores the ore on the detector (the vanilla lodestone_tracker component, not tracked), and the item model uses the vanilla compass property to turn the amethyst needle toward it - 32 needle positions, in the hand, the hotbar and the inventory. The needle resonates: it is tinted from dark violet to a bright lavender glow in five steps the closer the ore is (measured against that ore's own range), together with four small marks around the dial. An empty ping, or putting the detector away (not in a hand), clears the target and the needle rests, dimmed and pointing up. The hand does not bob when the needle or the durability changes.",
             "Main hand or off hand: the detector works in either hand. The main hand is the precise one: a ping every second, full volume. In the off hand it pings every two seconds, its tones play at 30 % volume and its particle trail is much fainter - handy while you mine with a pickaxe in the main hand.",
             "Hearing the distance: the pitch of the ping (1.8 minus distance/32, clamped to 0.6 to 2.0) is high for near targets and low for distant ones; the break sound of the block that was found plays as well, so the material can be guessed at.",
@@ -5457,7 +5457,7 @@ window.WIKI_DATA = {
             "Materialdämpfung: Jeder Block, den die Sichtlinie zwischen dem Block deiner Augen und dem Erz schneidet, kostet das Signal einen festen Betrag nach seiner Abbauhärte - Luft und nicht verdeckende Blöcke (Glas, Laub, Wasser) 0.125; Härte unter 1.0 (Netherrack, Erde, Sand, Kies) und Endstein, das Wirtsgestein der End-Erze, 2; Härte 1.0 bis unter 3.0 (Stein, Bruchstein, Tuff, Basalt, Schwarzstein, Stämme) 4; Härte 3.0 bis unter 10 (Tiefenschiefer, Erze) 6; Härte ab 10 oder unzerstörbar (Obsidian, Antiker Schrott, Grundgestein) 16. Das Erz wird gefunden, wenn die Summe sein Signal nicht übersteigt. Ohne Radius heißt das: gewöhnliche Erze durch 4 Stein, Gold durch 3, Diamant und Smaragd durch 2, Antiker Schrott durch 2 Netherrack (die End-Erze durch 2 Endstein) oder 1 Stein - jeweils mit bis zu 8 Blöcken Luft dazu.",
             "Berührung des Konstrukteurs multipliziert den Verlust jedes Blocks mit 0.5, das Signal trägt also doppelt so weit durch Gestein (Eisenerz: durch 8 statt 4 Stein, 5 statt 2 Tiefenschiefer); die Reichweite bleibt gleich.",
             "Radius (Stufe I, als Buch gefunden und am Amboss angebracht) passt auch auf den Detektor und hebt Signal und Reichweite an, das Signal der seltenen Klassen am stärksten: gewöhnlich 22 und 28, Gold 17 und 24, Diamant und Smaragd 17 und 24, Antiker Schrott und die End-Erze 9 und 20 - Diamanten kommen dann durch 4 statt 2 Stein, Antiker Schrott durch 4 statt 2 Netherrack, gewöhnliche Erze durch 5 statt 4 Stein. Berührung des Konstrukteurs und Radius wirken zusammen: die eine halbiert den Verlust, der andere hebt das Signal.",
-            "Ein im Modus Custom kalibrierter Detektor markiert seinen Platz in Schnellleiste und Inventar: ein Ein-Pixel-Schimmer mit zwei verblassenden Schweifpixeln läuft alle 3 Sekunden einmal um den Rand des Felds, in der Farbe des Zielblocks - Erze in der Farbe ihres Minerals (Diamant türkis, Gold gelb, Astralit rosa usw.), jeder andere Block in seiner Kartenfarbe. Die festen Modi und ein unkalibrierter Detektor zeigen nichts. Gezeichnet wird clientseitig auf Fabric, NeoForge und Forge gleichermaßen.",
+            "Ein im Modus Custom kalibrierter Detektor markiert seinen Platz in Schnellleiste und Inventar: ein Ein-Pixel-Schimmer mit zwei verblassenden Schweifpixeln läuft etwa alle 2 Sekunden auf der Nadel von der Nabe zur Spitze, in der Farbe des Zielblocks - Erze in der Farbe ihres Minerals (Diamant türkis, Gold gelb, Astralit rosa usw.), jeder andere Block in seiner Kartenfarbe. Die festen Modi und ein unkalibrierter Detektor zeigen nichts. Gezeichnet wird clientseitig auf Fabric, NeoForge und Forge gleichermaßen.",
             "Kompassnadel (2026-09-28): Ein Ping, der etwas findet, legt das Erz auf den Detektor (die Vanilla-Komponente lodestone_tracker, ohne Leitstein-Verfolgung), und das Item-Modell dreht die Amethyst-Nadel mit der Vanilla-Kompass-Eigenschaft dorthin - 32 Nadelstellungen, in der Hand, in der Schnellleiste und im Inventar. Die Nadel schwingt mit: Sie wird in fünf Stufen von dunklem Violett bis zu hellem Lavendel getönt, je näher das Erz ist (gemessen an der Reichweite genau dieses Erzes), zusammen mit vier kleinen Marken am Zifferblatt. Ein Ping ohne Fund oder ein weggesteckter Detektor (nicht in einer Hand) löscht das Ziel, die Nadel ruht dann gedämpft nach oben. Die Hand wippt nicht, wenn sich Nadel oder Haltbarkeit ändern.",
             "Haupthand oder Nebenhand: Der Detektor arbeitet in beiden Händen. Die Haupthand ist die genaue: jede Sekunde ein Ping, volle Lautstärke. In der Nebenhand pingt er alle zwei Sekunden, seine Töne klingen mit 30 % Lautstärke und die Partikelspur ist viel schwächer - praktisch, wenn in der Haupthand die Spitzhacke arbeitet.",
             "Entfernung hören: Die Tonhöhe des Pings (1.8 minus Entfernung/32, begrenzt auf 0.6 bis 2.0) ist bei nahen Zielen hoch und bei fernen tief; zusätzlich erklingt das Abbaugeräusch des gefundenen Blocks, sodass sich das Material erahnen lässt.",
@@ -27552,7 +27552,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:elytra_pad",
         "count": 1
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/elytra_pad_crafting.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/elytra_pad_crafting.json",
       "ingredients": [
         "minecraft:elytra",
         "simplebuilding:diamond_core",
@@ -27570,6 +27570,7 @@ window.WIKI_DATA = {
         ]
       ],
       "lines": [
+        "26.2",
         "26.3"
       ]
     },
@@ -38849,36 +38850,6 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
-      ]
-    },
-    {
-      "id": "simplebuilding:elytra_pad_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:elytra_pad",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/elytra_pad_smithing.json",
-      "ingredients": [
-        "minecraft:elytra",
-        "simplebuilding:diamond_core",
-        "simplebuilding:diamond_pressure_plate"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:diamond_core"
-        ],
-        "base": [
-          "simplebuilding:diamond_pressure_plate"
-        ],
-        "addition": [
-          "minecraft:elytra"
-        ]
-      },
-      "lines": [
-        "26.2"
       ]
     },
     {
@@ -52032,6 +52003,7 @@ window.WIKI_DATA = {
           "durability": 281
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52059,6 +52031,7 @@ window.WIKI_DATA = {
           "durability": 226
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52084,6 +52057,7 @@ window.WIKI_DATA = {
         },
         "stats": {},
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52109,6 +52083,7 @@ window.WIKI_DATA = {
         },
         "stats": {},
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52134,6 +52109,7 @@ window.WIKI_DATA = {
         },
         "stats": {},
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52159,6 +52135,7 @@ window.WIKI_DATA = {
         },
         "stats": {},
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52188,6 +52165,7 @@ window.WIKI_DATA = {
           "damage": 1
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52217,6 +52195,7 @@ window.WIKI_DATA = {
           "damage": 1
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52246,6 +52225,7 @@ window.WIKI_DATA = {
           "damage": 1
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52275,6 +52255,7 @@ window.WIKI_DATA = {
           "damage": 1
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52304,6 +52285,7 @@ window.WIKI_DATA = {
           "damage": 1
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52333,6 +52315,7 @@ window.WIKI_DATA = {
           "damage": 1
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52362,6 +52345,7 @@ window.WIKI_DATA = {
           "damage": 1
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52385,6 +52369,7 @@ window.WIKI_DATA = {
           "charge": 1
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52408,6 +52393,7 @@ window.WIKI_DATA = {
           "charge": 1
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52431,6 +52417,7 @@ window.WIKI_DATA = {
           "charge": 1
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52454,6 +52441,7 @@ window.WIKI_DATA = {
           "touch": true
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52477,6 +52465,7 @@ window.WIKI_DATA = {
           "touch": true
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52500,6 +52489,7 @@ window.WIKI_DATA = {
           "touch": true
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52533,6 +52523,7 @@ window.WIKI_DATA = {
           "weight": 40
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52566,6 +52557,7 @@ window.WIKI_DATA = {
           "weight": 24
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52599,6 +52591,7 @@ window.WIKI_DATA = {
           "weight": 20
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52632,6 +52625,7 @@ window.WIKI_DATA = {
           "weight": 5
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52665,6 +52659,7 @@ window.WIKI_DATA = {
           "weight": 4
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52698,6 +52693,7 @@ window.WIKI_DATA = {
           "weight": 4
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52731,6 +52727,7 @@ window.WIKI_DATA = {
           "weight": 2
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52764,6 +52761,7 @@ window.WIKI_DATA = {
           "weight": 1
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52795,6 +52793,7 @@ window.WIKI_DATA = {
           "weight": 24
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52826,6 +52825,7 @@ window.WIKI_DATA = {
           "weight": 22
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52857,6 +52857,7 @@ window.WIKI_DATA = {
           "weight": 12
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52888,6 +52889,7 @@ window.WIKI_DATA = {
           "weight": 12
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52919,6 +52921,7 @@ window.WIKI_DATA = {
           "weight": 10
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52950,6 +52953,7 @@ window.WIKI_DATA = {
           "weight": 9
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -52981,6 +52985,7 @@ window.WIKI_DATA = {
           "weight": 8
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -53012,6 +53017,7 @@ window.WIKI_DATA = {
           "weight": 3
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -53042,6 +53048,7 @@ window.WIKI_DATA = {
           "weight": 70
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -53072,6 +53079,7 @@ window.WIKI_DATA = {
           "weight": 27
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -53102,6 +53110,7 @@ window.WIKI_DATA = {
           "weight": 3
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -53132,6 +53141,7 @@ window.WIKI_DATA = {
           "weight": 92
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },
@@ -53162,6 +53172,7 @@ window.WIKI_DATA = {
           "weight": 8
         },
         "lines": [
+          "26.2",
           "26.3"
         ]
       },

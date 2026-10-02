@@ -542,6 +542,57 @@ public final class OreDetectorTests {
     }
 
     /**
+     * The selection glimmer runs along the needle (owner 2026-10-02), on the head pixels of each of
+     * the 32 needle frames ({@code client.render.OreDetectorNeedlePath}, written by the texture
+     * generator from the same numbers as the textures). Pinned here: every path starts next to the
+     * two-pixel hub (7|8, 7), steps only to edge-adjacent pixels (the wide, recovery-compass-like
+     * stroke), stays on the dial face, the right half mirrors the left half about the dial centre
+     * x = 7.5, and the four main directions end on the tips the dial was centred for.
+     *
+     * <p>What breaks this: a regenerated needle that no longer starts at the hub, a gap in the
+     * stroke, a needle off-centre again, or a glimmer path that leaves the dial.
+     */
+    public static void selectionGlimmerPathFollowsTheCentredNeedle(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        for (int f = 0; f < 32; f++) {
+            int n = com.simplebuilding.client.render.OreDetectorNeedlePath.length(f);
+            if (n < 3) problems.add("frame " + f + " has only " + n + " needle pixels");
+            int[] prev = null;
+            for (int i = 0; i < n; i++) {
+                int[] p = com.simplebuilding.client.render.OreDetectorNeedlePath.pixel(f, i);
+                if (p[0] < 2 || p[0] > 13 || p[1] < 4 || p[1] > 10) problems.add("frame " + f + " pixel " + i + " off the dial");
+                if (i == 0) {
+                    boolean nextToHub = (Math.abs(p[0] - 7) + Math.abs(p[1] - 7) == 1 || Math.abs(p[0] - 8) + Math.abs(p[1] - 7) == 1)
+                            && !(p[1] == 7 && (p[0] == 7 || p[0] == 8));
+                    if (!nextToHub) problems.add("frame " + f + " starts away from the hub at " + p[0] + "/" + p[1]);
+                } else if (Math.abs(p[0] - prev[0]) + Math.abs(p[1] - prev[1]) != 1) {
+                    problems.add("frame " + f + " has a gap before pixel " + i);
+                }
+                prev = p;
+            }
+        }
+        for (int f = 1; f < 16; f++) {
+            int n = com.simplebuilding.client.render.OreDetectorNeedlePath.length(f);
+            boolean mirrored = n == com.simplebuilding.client.render.OreDetectorNeedlePath.length(32 - f);
+            for (int i = 0; mirrored && i < n; i++) {
+                int[] a = com.simplebuilding.client.render.OreDetectorNeedlePath.pixel(f, i);
+                int[] b = com.simplebuilding.client.render.OreDetectorNeedlePath.pixel(32 - f, i);
+                mirrored = a[0] == 15 - b[0] && a[1] == b[1];
+            }
+            if (!mirrored) problems.add("frames " + f + " and " + (32 - f) + " are not mirror images about x = 7.5");
+        }
+        String tips = "";
+        for (int f : new int[]{0, 8, 16, 24}) {
+            int[] tip = com.simplebuilding.client.render.OreDetectorNeedlePath.pixel(f,
+                    com.simplebuilding.client.render.OreDetectorNeedlePath.length(f) - 1);
+            tips += (tips.isEmpty() ? "" : ", ") + f + ":" + tip[0] + "/" + tip[1];
+        }
+        helper.assertValueEqual(tips, "0:7/10, 8:3/7, 16:7/4, 24:12/7", "the needle tips of the four main directions");
+        helper.assertTrue(problems.isEmpty(), "needle glimmer paths: " + problems);
+        helper.succeed();
+    }
+
+    /**
      * A calibrated detector marks itself in the inventory with a small glimmer in the colour of
      * its target block - {@code OreDetectorItem#targetColor}, which the client decoration draws
      * ({@code OreDetectorGlint}, asserted on screen by the client tests). The colour is decided

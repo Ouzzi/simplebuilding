@@ -631,6 +631,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("ore_detector_game_test_calibrated_detector_glimmers_in_the_colour_of_its_target", OreDetectorTests::calibratedDetectorGlimmersInTheColourOfItsTarget)
                     .build(),
+            GameTestSpec.named("ore_detector_game_test_selection_glimmer_path_follows_the_centred_needle", OreDetectorTests::selectionGlimmerPathFollowsTheCentredNeedle)
+                    .build(),
             GameTestSpec.named("ore_detector_game_test_detector_calibrated_in_either_minecraft_line_keeps_its_target", OreDetectorTests::detectorCalibratedInEitherMinecraftLineKeepsItsTarget)
                     .build(),
             GameTestSpec.named("ore_detector_game_test_the_ore_detector_recipe_crafts_from_its_documented_pattern", OreDetectorTests::theOreDetectorRecipeCraftsFromItsDocumentedPattern)

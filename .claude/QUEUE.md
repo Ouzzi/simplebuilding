@@ -140,11 +140,11 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   - Verstärkte Truhe in der Festung (Stronghold), Netherit-Truhe in der Bastion oder der Netherfestung, Enderit-Truhe in der End-Stadt oder auf dem End-Schiff.
   - Inhalt: doppelter oder höherstufiger Loot.
   - Doppeltruhen: Würfelt die erste Hälfte die bessere Truhe, wird die zweite Hälfte mit 1 % neu gewürfelt. Klappt das, werden beide besser, sonst bleiben beide normale Truhen.
-- [ ] Enderit-Nugget-Textur passend zur Barren-Textur und zu Vanilla überarbeiten (10 Vorschläge).
-- [ ] Weisheitserz-Textur etwas kleiner und langsamer animieren.
+- [ ] Enderit-Nugget-Textur passend zur Barren-Textur und zu Vanilla überarbeiten (10 Vorschläge). Vorschläge A–J liegen vor (claude-texprop, `tools/textures/enderite_nugget_proposals_2026_10_02.py`, previews/enderit-nugget-vorschau.png) – Besitzer wählt.
+- [x] Weisheitserz-Textur etwas kleiner und langsamer animieren. claude-texprop: Erzmuster beider Erze ~1/6 kleiner, Weisheitskugel-Puls frametime 1 → 2 (das Erz selbst ist nicht animiert); `sage_ore_smaller_2026_10_02.py`, previews/weisheitserz-vorher-nachher.png. Sichtabnahme im Client offen.
 - [ ] Die Advancement-Seite sieht falsch aus (Screenshot: Pink-Schwarz-Fehltextur als Hintergrund im Tab „The Two Shelves“) → Hintergrund-Textur reparieren.
-- [ ] 10 Alternativ-Vorschläge für die eigenen Besatzvorlagen (Glowing, Pulsating, Emitting).
-- [ ] 10 Vorschläge für Netherit-Apfel, Enderit-Apfel und Netherit-/Enderit-Karotte.
+- [ ] 10 Alternativ-Vorschläge für die eigenen Besatzvorlagen (Glowing, Pulsating, Emitting). Sätze A–J liegen vor (previews/besatzvorlagen-vorschau.png) – Besitzer wählt.
+- [ ] 10 Vorschläge für Netherit-Apfel, Enderit-Apfel und Netherit-/Enderit-Karotte. Sätze A–J liegen vor (previews/netherit-enderit-essen-vorschau.png) – Besitzer wählt.
 - [ ] Pfeile, die einen Mob getroffen haben, sollen wieder aufsammelbar sein, am besten wenn er gestorben ist (teure Pfeile lohnen sich dann).
 - [ ] Das Rezept des Spawn-Elytra-Pads wird nicht angezeigt (JEI zeigt nur die Info).
 - [ ] Rezepte der Trank-Pads:
@@ -154,8 +154,8 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Shulkerkopf: Das 3D-Modell ist nur im Inventar zu groß und wird abgeschnitten (Screenshot).
 - [ ] Silberfischkopf viel kleiner: im Inventar, auf dem Kopf und abgestellt.
 - [ ] Guide-Buch-Texturen überarbeiten (10 Vorschläge).
-- [ ] Simple Money: 10 Textur-Vorschläge für Special Fiber, 10 für Resin Fiber.
-- [ ] Simple Money: Schmelzzeiten der Geld-Teile erhöhen, damit es in SimpleBuilding-Welten balanciert ist.
+- [ ] Simple Money: 10 Textur-Vorschläge für Special Fiber, 10 für Resin Fiber. Je A–J liegen vor (previews/money-fasern-vorschau.png) – Besitzer wählt.
+- [x] Simple Money: Schmelzzeiten der Geld-Teile erhöhen, damit es in SimpleBuilding-Welten balanciert ist. claude-texprop: roher Schein → Geldschein 10000 → 24000 Ticks (Vanilla-Schmelzofen 1 Schein/Spieltag, SB-Öfen 2/4/8); Begründung in docs/modules/simplemoney.md.
 - [ ] Zusätzlicher Weg zu Diamant-Kieseln (In-World): Fällt ein Amboss auf einen Diamantblock, entstehen Diamant-Kiesel.
 - [ ] Auto-Schmied analog zum Autocrafter: automatisiert den Schmiedetisch.
 - [ ] Wiki: Auf jeder Item-Seite beim Rezept die benötigten Grundmaterialien insgesamt auflisten (ab Barren, Holzstämmen, Zuckerrohr, Wachs, Bruchstein …), damit klar ist, wie viel Rohmaterial ein Item kostet. Beim Geldschein sein Wert.
@@ -173,7 +173,8 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 - [ ] Geschwindigkeitsmesser: läuft im Autowalk auch im Inventar und in nicht pausierenden UIs (Chat usw.) weiter.
 - [ ] Shulkerkiste vorerst nicht verzauberbar machen.
-- [ ] Erzdetektor: Kompassnadel wirkt nicht zentriert – Animation/Nadel-Frames prüfen und zentrieren.
+- [x] Erzdetektor: Kompassnadel wirkt nicht zentriert – Animation/Nadel-Frames prüfen und zentrieren. claude-texprop: Nabe 2 px, Drehpunkt auf der Ziffernblatt-Mitte x = 7,5, Frames 17–31 gespiegelt; Nadel breiter (4-verbunden wie der Bergungskompass, 2-px-Schweif); Auswahl-Schimmer läuft jetzt auf der Nadel statt am Slot-Rand (Modell ohne Nachschwingen); ruhende Nadel pulsiert sanft (mcmeta); `ore_detector_centred_2026_10_02.py`, previews/erzdetektor-vorher-nachher.png. Sichtabnahme im Client offen.
+- [ ] Port-Run 26.2: Erzdetektor-Texturen in src/main (älteres Nadeldesign) auf die zentrierte, breitere 26.3-Nadel + Ruhepuls bringen, sonst läuft der Auswahl-Schimmer (`OreDetectorNeedlePath`, gemeinsamer Code) auf 26.2 neben der alten Nadel.
 - [ ] Resonanzstab: soll auch Entities anzünden bzw. scannen können.
 - [ ] Mod-Items zusätzlich an den richtigen Stellen in die Vanilla-Kreativtabs einsortieren; Simple-Building-Tabs weiter aufteilen (Werkzeuge, Waffen, Rüstung usw. wie in Vanilla).
 - [ ] Trank „Crafty Shulker“: Effekt – bei Treffer an eine sichere Stelle in der Nähe teleportieren; braubar mit Shulkerkopf, analog zu den anderen Tränken/Effekten.

@@ -67,14 +67,14 @@ def main():
     save(vanilla, 'item/guide_book_vanilla_start')
     save(orb_strip(), 'item/sage_orb')
     with open(os.path.join(T, 'item', 'sage_orb.png.mcmeta'), 'w', encoding='utf-8') as f:
-        json.dump({'animation': {'frametime': 1, 'interpolate': True}}, f, indent=2)
+        json.dump({'animation': {'frametime': 2, 'interpolate': True}}, f, indent=2)  # 2026-10-02: slower (sage_ore_smaller)
         f.write('\n')
     dial, _ = v3.gauge_c()
     save(dial, 'item/velocity_gauge_dial')
     for frame in range(GAUGE_FRAMES):
         save(gauge_needle(frame), f'item/velocity_gauge_needle_{frame:02d}')
     save(v3.over(dial, gauge_needle(0)), 'item/velocity_gauge')
-    save(v3.sage_ore_a(), 'block/deepslate_sage_ore')
+    save(v3.sage_ore_a(), 'block/deepslate_sage_ore')  # superseded: run sage_ore_smaller_2026_10_02.py afterwards
     save(v3.iron_rod_textures(), 'block/iron_rod')
     print('ok')
 

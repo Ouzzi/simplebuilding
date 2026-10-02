@@ -7846,6 +7846,228 @@
       }
     ]
   },
+  "constructorsTouch": {
+    "enchantment": "simplebuilding:constructors_touch",
+    "examples": [
+      "minecraft:oak_stairs",
+      "minecraft:rail",
+      "minecraft:lever"
+    ],
+    "tool": "minecraft:stick"
+  },
+  "copperPressurePlate": {
+    "axeDamage": 1,
+    "axes": [
+      "minecraft:wooden_axe",
+      "minecraft:stone_axe",
+      "minecraft:copper_axe",
+      "minecraft:iron_axe",
+      "minecraft:golden_axe",
+      "minecraft:diamond_axe",
+      "minecraft:netherite_axe"
+    ],
+    "honeycomb": "minecraft:honeycomb",
+    "scrape": [
+      [
+        "simplebuilding:exposed_copper_pressure_plate",
+        "simplebuilding:copper_pressure_plate"
+      ],
+      [
+        "simplebuilding:weathered_copper_pressure_plate",
+        "simplebuilding:exposed_copper_pressure_plate"
+      ],
+      [
+        "simplebuilding:oxidized_copper_pressure_plate",
+        "simplebuilding:weathered_copper_pressure_plate"
+      ]
+    ],
+    "unwax": [
+      [
+        "simplebuilding:waxed_copper_pressure_plate",
+        "simplebuilding:copper_pressure_plate"
+      ],
+      [
+        "simplebuilding:waxed_exposed_copper_pressure_plate",
+        "simplebuilding:exposed_copper_pressure_plate"
+      ],
+      [
+        "simplebuilding:waxed_weathered_copper_pressure_plate",
+        "simplebuilding:weathered_copper_pressure_plate"
+      ],
+      [
+        "simplebuilding:waxed_oxidized_copper_pressure_plate",
+        "simplebuilding:oxidized_copper_pressure_plate"
+      ]
+    ],
+    "wax": [
+      [
+        "simplebuilding:copper_pressure_plate",
+        "simplebuilding:waxed_copper_pressure_plate"
+      ],
+      [
+        "simplebuilding:exposed_copper_pressure_plate",
+        "simplebuilding:waxed_exposed_copper_pressure_plate"
+      ],
+      [
+        "simplebuilding:weathered_copper_pressure_plate",
+        "simplebuilding:waxed_weathered_copper_pressure_plate"
+      ],
+      [
+        "simplebuilding:oxidized_copper_pressure_plate",
+        "simplebuilding:waxed_oxidized_copper_pressure_plate"
+      ]
+    ]
+  },
+  "coreOre": {
+    "cores": [
+      {
+        "id": "simplebuilding:copper_core",
+        "oneIn": 10000
+      },
+      {
+        "id": "simplebuilding:diamond_core",
+        "oneIn": 3500
+      },
+      {
+        "id": "simplebuilding:enderite_core",
+        "oneIn": 2000
+      },
+      {
+        "id": "simplebuilding:gold_core",
+        "oneIn": 5000
+      },
+      {
+        "id": "simplebuilding:iron_core",
+        "oneIn": 7000
+      },
+      {
+        "id": "simplebuilding:netherite_core",
+        "oneIn": 2500
+      }
+    ],
+    "hosts": [
+      {
+        "blocks": [
+          "minecraft:stone",
+          "minecraft:granite",
+          "minecraft:diorite",
+          "minecraft:andesite"
+        ],
+        "host": "stone",
+        "ores": [
+          {
+            "id": "minecraft:coal_ore",
+            "weight": 40
+          },
+          {
+            "id": "minecraft:iron_ore",
+            "weight": 24
+          },
+          {
+            "id": "minecraft:copper_ore",
+            "weight": 20
+          },
+          {
+            "id": "minecraft:redstone_ore",
+            "weight": 5
+          },
+          {
+            "id": "minecraft:gold_ore",
+            "weight": 4
+          },
+          {
+            "id": "minecraft:lapis_ore",
+            "weight": 4
+          },
+          {
+            "id": "minecraft:diamond_ore",
+            "weight": 2
+          },
+          {
+            "id": "minecraft:emerald_ore",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "blocks": [
+          "minecraft:deepslate",
+          "minecraft:tuff"
+        ],
+        "host": "deepslate",
+        "ores": [
+          {
+            "id": "minecraft:deepslate_redstone_ore",
+            "weight": 24
+          },
+          {
+            "id": "minecraft:deepslate_iron_ore",
+            "weight": 22
+          },
+          {
+            "id": "minecraft:deepslate_copper_ore",
+            "weight": 12
+          },
+          {
+            "id": "minecraft:deepslate_gold_ore",
+            "weight": 12
+          },
+          {
+            "id": "minecraft:deepslate_lapis_ore",
+            "weight": 10
+          },
+          {
+            "id": "minecraft:deepslate_diamond_ore",
+            "weight": 9
+          },
+          {
+            "id": "minecraft:deepslate_coal_ore",
+            "weight": 8
+          },
+          {
+            "id": "minecraft:deepslate_emerald_ore",
+            "weight": 3
+          }
+        ]
+      },
+      {
+        "blocks": [
+          "minecraft:netherrack"
+        ],
+        "host": "netherrack",
+        "ores": [
+          {
+            "id": "minecraft:nether_quartz_ore",
+            "weight": 70
+          },
+          {
+            "id": "minecraft:nether_gold_ore",
+            "weight": 27
+          },
+          {
+            "id": "minecraft:ancient_debris",
+            "weight": 3
+          }
+        ]
+      },
+      {
+        "blocks": [
+          "minecraft:end_stone"
+        ],
+        "host": "end_stone",
+        "ores": [
+          {
+            "id": "simplebuilding:nihilith_ore",
+            "weight": 92
+          },
+          {
+            "id": "simplebuilding:astralit_ore",
+            "weight": 8
+          }
+        ]
+      }
+    ]
+  },
   "diamondCrush": {
     "block": "minecraft:diamond_block",
     "count": 81,
@@ -7857,9 +8079,38 @@
       "simplebuilding:iron_sledgehammer",
       "simplebuilding:netherite_sledgehammer"
     ],
-    "result": "simplebuilding:diamond_pebble"
+    "result": "simplebuilding:diamond_pebble",
+    "strikeResetTicks": 100,
+    "strikes": 8
   },
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
+  "pistonRepair": {
+    "steps": [
+      {
+        "durability": 281,
+        "nugget": "simplebuilding:enderite_nugget",
+        "nuggetCount": 1,
+        "piston": "simplebuilding:enderite_piston"
+      },
+      {
+        "durability": 226,
+        "nugget": "simplebuilding:netherite_nugget",
+        "nuggetCount": 1,
+        "piston": "simplebuilding:netherite_piston"
+      }
+    ]
+  },
+  "rotator": {
+    "chargePerTurn": 1,
+    "examples": [
+      "minecraft:oak_log",
+      "minecraft:observer",
+      "minecraft:oak_sign"
+    ],
+    "maxCharge": 1024,
+    "pearlsForFull": 16,
+    "tool": "simplebuilding:rotator"
+  },
   "schema": 1,
   "shearWool": {
     "blocks": [
@@ -8136,7 +8387,9 @@
       },
       {
         "damagePerHit": 4,
+        "durationTicks": 100,
         "from": "simplebuilding:reinforced_sticky_piston",
+        "hits": 5,
         "minimumHammer": "simplebuilding:diamond_sledgehammer",
         "nugget": "simplebuilding:netherite_nugget",
         "nuggetCount": 1,
@@ -8156,7 +8409,7 @@
       "simplebuilding:netherite_sledgehammer",
       "simplebuilding:stone_sledgehammer"
     ],
-    "placedHits": 3,
+    "placedHits": 5,
     "templates": [
       "minecraft:bolt_armor_trim_smithing_template",
       "minecraft:coast_armor_trim_smithing_template",

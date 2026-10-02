@@ -574,7 +574,8 @@
       ],
       "property": "minecraft:compass",
       "scale": 32.0,
-      "target": "lodestone"
+      "target": "lodestone",
+      "wobble": false
     },
     "property": "minecraft:has_component"
   }
