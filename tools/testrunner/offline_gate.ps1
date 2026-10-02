@@ -24,6 +24,9 @@ $env:SIMPLEBUILDING_JAVA8_HOME = EnvOr 'SB_OFFLINE_JAVA8_HOME' 'C:/Users/o_o/.jd
 $py = EnvOr 'SB_OFFLINE_PYTHON' 'C:\Users\o_o\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\python.exe'
 $env:Path = "$(Split-Path $py);$env:JAVA_HOME\bin;$env:Path"
 $env:SIMPLEBUILDING_GRADLE_OFFLINE = if ($Online) { '0' } else { '1' }
+# Offline laeuft Gradle mit --configure-on-demand; dabei teilten sich parallele Modul-NeoForge-Laeufe den
+# Ordner integration/run-neoforge-263 (Probelauf 2: "Retrieved chunk position ... does not match"). Also seriell.
+if (-not $Online) { $env:SIMPLEBUILDING_SERIAL_TESTS = '1' } else { Remove-Item Env:SIMPLEBUILDING_SERIAL_TESTS -ErrorAction SilentlyContinue }
 # @(...) noetig: ein einzelnes Element kaeme sonst als String zurueck und wuerde zeichenweise gesplattet.
 $offlineArg = @(if (-not $Online) { '--offline'; '--configure-on-demand' })
 
