@@ -446,6 +446,8 @@ public final class FunTests {
     h.assertTrue(com.simplefun.heads.HeadAbilities.interact(wearer, user, hand) == net.minecraft.world.InteractionResult.PASS, "the wool needs time to grow back");
     user.setItemInHand(hand, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.BUCKET));
     h.assertTrue(com.simplefun.heads.HeadAbilities.interact(wearer, user, hand) == null, "a sheep head wearer gives no milk");
+    // The mock player starts outside the test area (unloaded chunk): move it in, or the egg never joins the level.
+    wearer.setPos(h.absoluteVec(new net.minecraft.world.phys.Vec3(1.5, 2.0, 1.5)));
     var around = new net.minecraft.world.phys.AABB(wearer.blockPosition()).inflate(3);
     level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, around).forEach(net.minecraft.world.entity.Entity::discard);
     com.simplefun.heads.HeadAbilities.layEgg(level, wearer);

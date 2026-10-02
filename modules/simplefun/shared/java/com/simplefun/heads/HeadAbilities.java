@@ -119,7 +119,7 @@ public final class HeadAbilities {
   }
 
   public static boolean sniffable(BlockState state) {
-    return state.is(BlockTags.DIRT) || state.is(Blocks.MYCELIUM) || state.is(Blocks.PODZOL) || state.is(Blocks.MOSS_BLOCK);
+    return state.is(BlockTags.DIRT) || state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.MYCELIUM) || state.is(Blocks.PODZOL) || state.is(Blocks.MOSS_BLOCK);
   }
 
   /** Was die Trueffelnase ausscharrt: gewichtet, die goldene Karotte selten. */
