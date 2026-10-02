@@ -57,6 +57,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("end_systems_game_test_vault_opens_and_config_preserves_contents", EndSystemsTests::vaultOpensAndConfigPreservesContents).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_channels_stay_isolated_and_stop_at_fifteen", EndSystemsTests::channelsStayIsolatedAndStopAtFifteen).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_matching_lamps_and_config_limits", EndSystemsTests::matchingLampsAndConfigLimits).maxTicks(220).build(),
+            GameTestSpec.named("end_systems_game_test_powder_connects_like_redstone_wire", EndSystemsTests::powderConnectsLikeRedstoneWire).maxTicks(220).build(),
             GameTestSpec.named("smoke_game_test_mod_items_are_registered", SmokeTests::modItemsAreRegistered)
                     .build(),
             GameTestSpec.named("test_centre_game_test_every_mod_item_and_block_has_its_place_in_the_test_centre", TestCentreTests::everyModItemAndBlockHasItsPlaceInTheTestCentre)

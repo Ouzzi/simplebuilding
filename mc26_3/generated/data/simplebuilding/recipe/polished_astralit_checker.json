@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "simplebuilding:polished_astralit",
+    "Q": "minecraft:quartz_block"
+  },
+  "pattern": [
+    "BQ",
+    "QB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "simplebuilding:polished_astralit_checker"
+  }
+}

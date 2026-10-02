@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "simplebuilding:block/astral_redstone"
+    "layer0": "simplebuilding:item/astral_redstone"
   }
 }

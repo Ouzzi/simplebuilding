@@ -251,7 +251,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             node("building/checkmate", building, ModItems.PURPUR_QUARTZ_CHECKER, AdvancementType.TASK, "quartz_checker",
                     any(ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
                             ModItems.RESIN_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER,
-                            ModItems.ENDER_QUARTZ_CHECKER));
+                            ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
+                            ModItems.POLISHED_ENDER_QUARTZ_CHECKER));
         }
 
         private void gadgets(AdvancementHolder tweaks) {

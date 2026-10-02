@@ -88,6 +88,9 @@ public class ModModelProvider extends FabricModelProvider {
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.NIHILITH_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.ASTRALIT_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.ENDER_QUARTZ_CHECKER);
+        registerMirroredChecker(blockStateModelGenerator, ModBlocks.POLISHED_ASTRALIT_CHECKER);
+        registerMirroredChecker(blockStateModelGenerator, ModBlocks.POLISHED_NIHILITH_CHECKER);
+        registerMirroredChecker(blockStateModelGenerator, ModBlocks.POLISHED_ENDER_QUARTZ_CHECKER);
 
         blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRAL_PURPUR_BLOCK);
         blockStateModelGenerator.createTrivialCube(ModBlocks.NIHIL_PURPUR_BLOCK);

@@ -201,4 +201,50 @@ public final class EndSystemsTests {
         } finally { config.machines.endSignalRange = beforeRange; config.features.endSignals = before; }
         helper.succeed();
     }
+
+    /**
+     * Astral/Nihil Redstone lays out like vanilla dust (owner 2026-10-02): an untouched dot stays a dot,
+     * two pieces form a straight line, powder on top of a block makes the lower one climb the wall
+     * ("up") and the upper one reach down, the signal crosses that step losing one per piece, and
+     * nothing connects to the other channel or to vanilla redstone dust.
+     */
+    public static void powderConnectsLikeRedstoneWire(GameTestHelper helper) {
+        if (!active(helper)) return;
+        for (int x = 0; x <= 6; x++) for (int z = 0; z <= 6; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
+        helper.setBlock(new BlockPos(1, 1, 5), ModBlocks.NIHIL_REDSTONE);
+        helper.setBlock(new BlockPos(3, 1, 1), ModBlocks.NIHIL_REDSTONE);
+        helper.setBlock(new BlockPos(4, 1, 1), ModBlocks.NIHIL_REDSTONE);
+        helper.setBlock(new BlockPos(1, 1, 3), ModBlocks.ASTRAL_REDSTONE);
+        helper.setBlock(new BlockPos(2, 1, 3), ModBlocks.NIHIL_REDSTONE);
+        helper.setBlock(new BlockPos(3, 1, 3), Blocks.REDSTONE_WIRE);
+        helper.setBlock(new BlockPos(5, 1, 4), Blocks.STONE);
+        helper.setBlock(new BlockPos(3, 1, 4), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(new BlockPos(4, 1, 4), ModBlocks.NIHIL_REDSTONE);
+        helper.setBlock(new BlockPos(5, 2, 4), ModBlocks.NIHIL_REDSTONE);
+        helper.runAfterDelay(20, () -> {
+            var dot = helper.getBlockState(new BlockPos(1, 1, 5));
+            helper.assertTrue(sides(dot).equals("none none none none"), "lone powder is not a dot: " + sides(dot));
+            helper.assertTrue(sides(helper.getBlockState(new BlockPos(3, 1, 1))).equals("none side none side"), "two pieces are no east-west line: " + sides(helper.getBlockState(new BlockPos(3, 1, 1))));
+            helper.assertTrue(sides(helper.getBlockState(new BlockPos(2, 1, 3))).equals("none none none none"), "nihil powder connected to astral powder or vanilla dust: " + sides(helper.getBlockState(new BlockPos(2, 1, 3))));
+            helper.assertTrue(helper.getBlockState(new BlockPos(1, 1, 3)).getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.EAST)
+                    == net.minecraft.world.level.block.state.properties.RedstoneSide.NONE, "astral powder connected to nihil powder");
+            var lower = helper.getBlockState(new BlockPos(4, 1, 4));
+            helper.assertTrue(sides(lower).equals("none up none side"), "powder does not climb the wall: " + sides(lower));
+            var upper = helper.getBlockState(new BlockPos(5, 2, 4));
+            helper.assertTrue(upper.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.WEST)
+                    == net.minecraft.world.level.block.state.properties.RedstoneSide.SIDE, "upper powder does not reach down: " + sides(upper));
+            int range = EndSignalBlock.range();
+            helper.assertTrue(lower.getValue(EndSignalBlock.POWER) == range, "powder next to the switch has " + lower.getValue(EndSignalBlock.POWER));
+            helper.assertTrue(upper.getValue(EndSignalBlock.POWER) == range - 1, "signal did not climb the step: " + upper.getValue(EndSignalBlock.POWER));
+            helper.assertTrue(helper.getBlockState(new BlockPos(2, 1, 3)).getValue(EndSignalBlock.POWER) == 0, "nihil powder took vanilla or astral power");
+            helper.succeed();
+        });
+    }
+
+    private static String sides(net.minecraft.world.level.block.state.BlockState state) {
+        return state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.NORTH).getSerializedName() + " "
+                + state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.EAST).getSerializedName() + " "
+                + state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.SOUTH).getSerializedName() + " "
+                + state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.WEST).getSerializedName();
+    }
 }

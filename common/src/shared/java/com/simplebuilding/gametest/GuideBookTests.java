@@ -397,7 +397,8 @@ public final class GuideBookTests {
                 ModItems.NETHERITE_CARROT, ModItems.ENDERITE_APPLE, ModItems.ENDERITE_CARROT, ModItems.ENDERITE_SPEAR,
                 com.simplebuilding.tweaks.item.TweaksItems.BLAZE_HEAD, ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER,
                 ModItems.BLACKSTONE_QUARTZ_CHECKER, ModItems.RESIN_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
-                ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ_CHECKER, ModItems.GUIDE_BOOK_ADMIN)) {
+                ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER,
+                ModItems.POLISHED_NIHILITH_CHECKER, ModItems.POLISHED_ENDER_QUARTZ_CHECKER, ModItems.GUIDE_BOOK_ADMIN)) {
             if (!onScreen.contains(item) && item != ModItems.GUIDE_BOOK_ADMIN) {
                 problems.add(item + " is on no guide chapter's screen");
             }

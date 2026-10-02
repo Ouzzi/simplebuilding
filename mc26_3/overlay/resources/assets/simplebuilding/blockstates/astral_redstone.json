@@ -1,52 +1,230 @@
 {
-  "variants": {
-    "power=0": {
-      "model": "simplebuilding:block/astral_redstone"
+  "multipart": [
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_dot"
+      },
+      "when": {
+        "OR": [
+          {
+            "north": "none",
+            "east": "none",
+            "south": "none",
+            "west": "none",
+            "power": "0"
+          },
+          {
+            "east": "side|up",
+            "north": "side|up",
+            "power": "0"
+          },
+          {
+            "east": "side|up",
+            "south": "side|up",
+            "power": "0"
+          },
+          {
+            "south": "side|up",
+            "west": "side|up",
+            "power": "0"
+          },
+          {
+            "north": "side|up",
+            "west": "side|up",
+            "power": "0"
+          }
+        ]
+      }
     },
-    "power=1": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_side0"
+      },
+      "when": {
+        "north": "side|up",
+        "power": "0"
+      }
     },
-    "power=2": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_side_alt0"
+      },
+      "when": {
+        "south": "side|up",
+        "power": "0"
+      }
     },
-    "power=3": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_side_alt1",
+        "y": 270
+      },
+      "when": {
+        "east": "side|up",
+        "power": "0"
+      }
     },
-    "power=4": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_side1",
+        "y": 270
+      },
+      "when": {
+        "west": "side|up",
+        "power": "0"
+      }
     },
-    "power=5": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_up"
+      },
+      "when": {
+        "north": "up",
+        "power": "0"
+      }
     },
-    "power=6": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_up",
+        "y": 90
+      },
+      "when": {
+        "east": "up",
+        "power": "0"
+      }
     },
-    "power=7": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_up",
+        "y": 180
+      },
+      "when": {
+        "south": "up",
+        "power": "0"
+      }
     },
-    "power=8": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_up",
+        "y": 270
+      },
+      "when": {
+        "west": "up",
+        "power": "0"
+      }
     },
-    "power=9": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_dot_on"
+      },
+      "when": {
+        "OR": [
+          {
+            "north": "none",
+            "east": "none",
+            "south": "none",
+            "west": "none",
+            "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+          },
+          {
+            "east": "side|up",
+            "north": "side|up",
+            "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+          },
+          {
+            "east": "side|up",
+            "south": "side|up",
+            "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+          },
+          {
+            "south": "side|up",
+            "west": "side|up",
+            "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+          },
+          {
+            "north": "side|up",
+            "west": "side|up",
+            "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+          }
+        ]
+      }
     },
-    "power=10": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_side0_on"
+      },
+      "when": {
+        "north": "side|up",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      }
     },
-    "power=11": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_side_alt0_on"
+      },
+      "when": {
+        "south": "side|up",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      }
     },
-    "power=12": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_side_alt1_on",
+        "y": 270
+      },
+      "when": {
+        "east": "side|up",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      }
     },
-    "power=13": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_side1_on",
+        "y": 270
+      },
+      "when": {
+        "west": "side|up",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      }
     },
-    "power=14": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_up_on"
+      },
+      "when": {
+        "north": "up",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      }
     },
-    "power=15": {
-      "model": "simplebuilding:block/astral_redstone_active"
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_up_on",
+        "y": 90
+      },
+      "when": {
+        "east": "up",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      }
+    },
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_up_on",
+        "y": 180
+      },
+      "when": {
+        "south": "up",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      }
+    },
+    {
+      "apply": {
+        "model": "simplebuilding:block/astral_redstone_up_on",
+        "y": 270
+      },
+      "when": {
+        "west": "up",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      }
     }
-  }
+  ]
 }

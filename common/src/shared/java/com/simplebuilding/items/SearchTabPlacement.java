@@ -98,7 +98,8 @@ public final class SearchTabPlacement {
                 ModItems.CHISELED_ENDER_QUARTZ_BRICKS,
                 ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
                 ModItems.RESIN_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
-                ModItems.ENDER_QUARTZ_CHECKER));
+                ModItems.ENDER_QUARTZ_CHECKER, ModItems.POLISHED_ASTRALIT_CHECKER, ModItems.POLISHED_NIHILITH_CHECKER,
+                ModItems.POLISHED_ENDER_QUARTZ_CHECKER));
         // Kupfer folgt in der Erz-Reihenfolge auf Stein: die acht Kupferplatten hinter der Steinplatte.
         out.add(Placement.after(BUILDING_BLOCKS, Items.STONE_PRESSURE_PLATE,
                 TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE,

@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplebuilding:item/astralit_switch"
+    "model": "simplebuilding:block/astralit_switch"
   }
 }

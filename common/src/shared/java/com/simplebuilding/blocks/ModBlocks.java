@@ -26,10 +26,10 @@ import java.util.List;
 import java.util.function.Function;
 
 public class ModBlocks {
-    public static final Block NIHIL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone", s -> new EndSignalBlock(false, EndSignalBlock.Kind.POWDER, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
+    public static final Block NIHIL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone", s -> new com.simplebuilding.blocks.custom.EndSignalPowderBlock(false, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
     public static final Block NIHILITH_SWITCH = McVersion.END_SYSTEMS ? registerBlock("nihilith_switch", s -> new EndSignalBlock(false, EndSignalBlock.Kind.SWITCH, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
     public static final Block NIHILITH_LAMP = McVersion.END_SYSTEMS ? registerBlock("nihilith_lamp", s -> new EndSignalBlock(false, EndSignalBlock.Kind.LAMP, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 12 : 0))) : null;
-    public static final Block ASTRAL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("astral_redstone", s -> new EndSignalBlock(true, EndSignalBlock.Kind.POWDER, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
+    public static final Block ASTRAL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("astral_redstone", s -> new com.simplebuilding.blocks.custom.EndSignalPowderBlock(true, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
     public static final Block ASTRALIT_SWITCH = McVersion.END_SYSTEMS ? registerBlock("astralit_switch", s -> new EndSignalBlock(true, EndSignalBlock.Kind.SWITCH, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
     public static final Block ASTRALIT_LAMP = McVersion.END_SYSTEMS ? registerBlock("astralit_lamp", s -> new EndSignalBlock(true, EndSignalBlock.Kind.LAMP, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 12 : 0))) : null;
     public static final Block ASTRAL_VAULT = McVersion.END_SYSTEMS ? registerBlock("astral_vault", Blocks.ENDER_CHEST, s -> new AstralVaultBlock(s.strength(50.0F, 1200.0F))) : null;
@@ -242,6 +242,15 @@ public class ModBlocks {
     // Enderquarz-Schachbrett: wie die uebrigen Quarz-Schachbretter (Saeulenblock, keine Spawns),
     // Eigenschaften vom Enderquarzblock.
     public static final Block ENDER_QUARTZ_CHECKER = registerBlock("ender_quartz_checker", ENDER_QUARTZ_BLOCK,
+            s -> new RotatedPillarBlock(s.isValidSpawn((state, world, pos, type) -> false)));
+    // Schachbretter aus den polierten End-Bloecken (Besitzer 2026-10-02): Quarz neben den Kacheln des
+    // polierten Blocks, Eigenschaften vom polierten Block; Astralit halb aus Quarz leuchtet wie das
+    // Astralit-Quarz-Schachbrett mit 5.
+    public static final Block POLISHED_ASTRALIT_CHECKER = registerBlock("polished_astralit_checker", POLISHED_ASTRALIT,
+            s -> new RotatedPillarBlock(s.lightLevel(state -> 5).isValidSpawn((state, world, pos, type) -> false)));
+    public static final Block POLISHED_NIHILITH_CHECKER = registerBlock("polished_nihilith_checker", POLISHED_NIHILITH,
+            s -> new RotatedPillarBlock(s.isValidSpawn((state, world, pos, type) -> false)));
+    public static final Block POLISHED_ENDER_QUARTZ_CHECKER = registerBlock("polished_ender_quartz_checker", POLISHED_ENDER_QUARTZ,
             s -> new RotatedPillarBlock(s.isValidSpawn((state, world, pos, type) -> false)));
     // Wie quartz_stairs/quartz_slab am Quarzblock: Treppe und Stufe direkt am Grundblock (2026-09-25).
     public static final Block ENDER_QUARTZ_STAIRS = registerBlock("ender_quartz_stairs", ENDER_QUARTZ_BLOCK, s -> new StairBlock(ENDER_QUARTZ_BLOCK.defaultBlockState(), s));

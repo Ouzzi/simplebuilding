@@ -1384,6 +1384,20 @@ def checker_textures():
     return tex
 
 
+def polished_checker_textures(tex):
+    """Schachbretter aus den polierten End-Bloecken (Besitzer 2026-10-02): oben links und unten rechts
+    dasselbe Quarzfeld wie die uebrigen Schachbretter, oben rechts und unten links die Kacheln des
+    polierten Blocks an ihrer eigenen Stelle (die polierten Flaechen bestehen aus vier 8x8-Kacheln)."""
+    out = {}
+    for mat in ("astralit", "nihilith", "ender_quartz"):
+        name = f"polished_{mat}_checker"
+        polished = tex[f"block/polished_{mat}.png"].convert("RGB")
+        img = render(name, checker_rows(["********"] * 8), CHECKER_QUARTZ_PAL, True, template=polished)
+        out[f"block/{name}.png"] = img
+        out[f"block/{name}_mirror.png"] = img.transpose(Image.FLIP_LEFT_RIGHT)
+    return out
+
+
 # ---------------------------------------------------------------------------
 # End-Paletten: Astralit, Nihilith, Enderquarz (je Grundblock, Ziegel, polierter Block, Saeule,
 # Saeulenstirn, gemeisselte Ziegel)
@@ -3161,6 +3175,7 @@ def build():
     tex.update(bundle_open_textures())
     tex.update(backpack_gui_textures())
     tex.update(end_palette_textures())
+    tex.update(polished_checker_textures(tex))  # braucht die polierten End-Bloecke
     tex.update(pad_textures(tex))  # braucht die Enderitplatte aus end_palette_textures
     tex.update(pad_state_textures(tex))  # braucht die Pad-Texturen
     tex.update(echo_sounder_textures())
@@ -3442,6 +3457,9 @@ def build_preview(tex):
                                             "block/ender_quartz_checker.png", "block/ender_quartz_checker_mirror.png")],
                    [checker_wall(tex[f"block/{n}_quartz_checker.png"]) for n in ("nihilith", "astralit")]
                    + [checker_wall(tex["block/ender_quartz_checker.png"])]))
+    groups.append(("Polierte End-Schachbretter", [(f"block/polished_{m}_checker{v}.png", tex[f"block/polished_{m}_checker{v}.png"])
+                                                  for m in ("astralit", "nihilith", "ender_quartz") for v in ("", "_mirror")],
+                   [checker_wall(tex[f"block/polished_{m}_checker.png"]) for m in ("astralit", "nihilith", "ender_quartz")]))
     groups.append(("Vergleich Endstein/Purpur", [(f"block/{n}.png", None) for n in (
         "astral_end_stone", "nihil_end_stone", "astral_purpur_block", "nihil_purpur_block")], []))
     for mat in END_PALETTE_RAMPS:

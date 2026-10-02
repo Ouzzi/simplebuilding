@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplebuilding:item/nihilith_lamp"
+    "model": "simplebuilding:block/nihilith_lamp"
   }
 }

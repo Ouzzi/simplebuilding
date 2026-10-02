@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 253,
+      "count": 256,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3603,7 +3603,7 @@ window.WIKI_DATA = {
         "en_us": "Astral Redstone",
         "de_de": "Astral-Redstone"
       },
-      "texture": "assets/textures/block/astral_redstone.png",
+      "texture": "assets/textures/item/astral_redstone.png",
       "craftedBy": [
         "simplebuilding:astral_redstone"
       ],
@@ -3640,7 +3640,7 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": true
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:astral_vault",
@@ -3846,6 +3846,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_lamp.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
@@ -3964,6 +3965,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_switch.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
@@ -12837,7 +12839,7 @@ window.WIKI_DATA = {
         "en_us": "Nihil Redstone",
         "de_de": "Nihil-Redstone"
       },
-      "texture": "assets/textures/block/nihil_redstone.png",
+      "texture": "assets/textures/item/nihil_redstone.png",
       "craftedBy": [
         "simplebuilding:nihil_redstone"
       ],
@@ -12874,7 +12876,7 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": true
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nihilith_block",
@@ -13006,6 +13008,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_lamp.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
@@ -13154,6 +13157,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_switch.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
@@ -13727,6 +13731,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_pillar",
         "simplebuilding:astralit_pillar_from_polished_astralit_stonecutting",
         "simplebuilding:chiseled_astralit_bricks_from_polished_astralit_stonecutting",
+        "simplebuilding:polished_astralit_checker",
         "simplebuilding:polished_astralit_slab",
         "simplebuilding:polished_astralit_slab_from_polished_astralit_stonecutting",
         "simplebuilding:polished_astralit_stairs",
@@ -13736,6 +13741,21 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/polished_astralit.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:polished_astralit_checker",
+      "name": {
+        "en_us": "Polished Astralit Checker",
+        "de_de": "Poliertes Astralit-Schachbrett"
+      },
+      "texture": "assets/textures/block/polished_astralit_checker.png",
+      "craftedBy": [
+        "simplebuilding:polished_astralit_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/polished_astralit_checker.png",
       "hasCustomBehaviour": false
     },
     {
@@ -13831,6 +13851,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_bricks_from_polished_ender_quartz_stonecutting",
         "simplebuilding:ender_quartz_pillar",
         "simplebuilding:ender_quartz_pillar_from_polished_ender_quartz_stonecutting",
+        "simplebuilding:polished_ender_quartz_checker",
         "simplebuilding:polished_ender_quartz_slab",
         "simplebuilding:polished_ender_quartz_slab_from_polished_ender_quartz_stonecutting",
         "simplebuilding:polished_ender_quartz_stairs",
@@ -13840,6 +13861,49 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/polished_ender_quartz.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_checker",
+      "name": {
+        "en_us": "Polished Ender Quartz Checker",
+        "de_de": "Poliertes Enderquarz-Schachbrett"
+      },
+      "texture": "assets/textures/block/polished_ender_quartz_checker.png",
+      "craftedBy": [
+        "simplebuilding:polished_ender_quartz_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_checker.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5.",
+            "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
+            "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -13918,6 +13982,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_bricks_from_polished_nihilith_stonecutting",
         "simplebuilding:nihilith_pillar",
         "simplebuilding:nihilith_pillar_from_polished_nihilith_stonecutting",
+        "simplebuilding:polished_nihilith_checker",
         "simplebuilding:polished_nihilith_slab",
         "simplebuilding:polished_nihilith_slab_from_polished_nihilith_stonecutting",
         "simplebuilding:polished_nihilith_stairs",
@@ -13927,6 +13992,21 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "icon": "assets/textures/render/polished_nihilith.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_checker",
+      "name": {
+        "en_us": "Polished Nihilit Checker",
+        "de_de": "Poliertes Nihilit-Schachbrett"
+      },
+      "texture": "assets/textures/block/polished_nihilith_checker.png",
+      "craftedBy": [
+        "simplebuilding:polished_nihilith_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_checker.png",
       "hasCustomBehaviour": false
     },
     {
@@ -16401,7 +16481,6 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_switch"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/astral_redstone.png",
       "lootTable": "simplebuilding:blocks/astral_redstone",
       "drops": [
         "simplebuilding:astral_redstone"
@@ -16434,7 +16513,7 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": true
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:astral_vault",
@@ -16633,7 +16712,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "icon": "assets/textures/render/block/astralit_lamp.png",
+      "icon": "assets/textures/render/astralit_lamp.png",
       "lootTable": "simplebuilding:blocks/astralit_lamp",
       "drops": [
         "simplebuilding:astralit_lamp"
@@ -16769,7 +16848,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "icon": "assets/textures/render/block/astralit_switch.png",
+      "icon": "assets/textures/render/astralit_switch.png",
       "lootTable": "simplebuilding:blocks/astralit_switch",
       "drops": [
         "simplebuilding:astralit_switch"
@@ -21259,7 +21338,6 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_switch"
       ],
       "trades": [],
-      "icon": "assets/textures/render/block/nihil_redstone.png",
       "lootTable": "simplebuilding:blocks/nihil_redstone",
       "drops": [
         "simplebuilding:nihil_redstone"
@@ -21292,7 +21370,7 @@ window.WIKI_DATA = {
           ]
         }
       },
-      "hasCustomBehaviour": true
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nihilith_block",
@@ -21444,7 +21522,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "icon": "assets/textures/render/block/nihilith_lamp.png",
+      "icon": "assets/textures/render/nihilith_lamp.png",
       "lootTable": "simplebuilding:blocks/nihilith_lamp",
       "drops": [
         "simplebuilding:nihilith_lamp"
@@ -21580,7 +21658,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "icon": "assets/textures/render/block/nihilith_switch.png",
+      "icon": "assets/textures/render/nihilith_switch.png",
       "lootTable": "simplebuilding:blocks/nihilith_switch",
       "drops": [
         "simplebuilding:nihilith_switch"
@@ -21868,6 +21946,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_pillar",
         "simplebuilding:astralit_pillar_from_polished_astralit_stonecutting",
         "simplebuilding:chiseled_astralit_bricks_from_polished_astralit_stonecutting",
+        "simplebuilding:polished_astralit_checker",
         "simplebuilding:polished_astralit_slab",
         "simplebuilding:polished_astralit_slab_from_polished_astralit_stonecutting",
         "simplebuilding:polished_astralit_stairs",
@@ -21880,6 +21959,25 @@ window.WIKI_DATA = {
       "lootTable": "simplebuilding:blocks/polished_astralit",
       "drops": [
         "simplebuilding:polished_astralit"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:polished_astralit_checker",
+      "name": {
+        "en_us": "Polished Astralit Checker",
+        "de_de": "Poliertes Astralit-Schachbrett"
+      },
+      "texture": "assets/textures/block/polished_astralit_checker.png",
+      "craftedBy": [
+        "simplebuilding:polished_astralit_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/polished_astralit_checker.png",
+      "lootTable": "simplebuilding:blocks/polished_astralit_checker",
+      "drops": [
+        "simplebuilding:polished_astralit_checker"
       ],
       "hasCustomBehaviour": false
     },
@@ -21992,6 +22090,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_bricks_from_polished_ender_quartz_stonecutting",
         "simplebuilding:ender_quartz_pillar",
         "simplebuilding:ender_quartz_pillar_from_polished_ender_quartz_stonecutting",
+        "simplebuilding:polished_ender_quartz_checker",
         "simplebuilding:polished_ender_quartz_slab",
         "simplebuilding:polished_ender_quartz_slab_from_polished_ender_quartz_stonecutting",
         "simplebuilding:polished_ender_quartz_stairs",
@@ -22005,6 +22104,53 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:polished_ender_quartz"
       ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_checker",
+      "name": {
+        "en_us": "Polished Ender Quartz Checker",
+        "de_de": "Poliertes Enderquarz-Schachbrett"
+      },
+      "texture": "assets/textures/block/polished_ender_quartz_checker.png",
+      "craftedBy": [
+        "simplebuilding:polished_ender_quartz_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_checker.png",
+      "lootTable": "simplebuilding:blocks/polished_ender_quartz_checker",
+      "drops": [
+        "simplebuilding:polished_ender_quartz_checker"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5.",
+            "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
+            "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -22095,6 +22241,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_bricks_from_polished_nihilith_stonecutting",
         "simplebuilding:nihilith_pillar",
         "simplebuilding:nihilith_pillar_from_polished_nihilith_stonecutting",
+        "simplebuilding:polished_nihilith_checker",
         "simplebuilding:polished_nihilith_slab",
         "simplebuilding:polished_nihilith_slab_from_polished_nihilith_stonecutting",
         "simplebuilding:polished_nihilith_stairs",
@@ -22107,6 +22254,25 @@ window.WIKI_DATA = {
       "lootTable": "simplebuilding:blocks/polished_nihilith",
       "drops": [
         "simplebuilding:polished_nihilith"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_checker",
+      "name": {
+        "en_us": "Polished Nihilit Checker",
+        "de_de": "Poliertes Nihilit-Schachbrett"
+      },
+      "texture": "assets/textures/block/polished_nihilith_checker.png",
+      "craftedBy": [
+        "simplebuilding:polished_nihilith_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_checker.png",
+      "lootTable": "simplebuilding:blocks/polished_nihilith_checker",
+      "drops": [
+        "simplebuilding:polished_nihilith_checker"
       ],
       "hasCustomBehaviour": false
     },
@@ -33701,6 +33867,36 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:polished_astralit_checker",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_astralit_checker",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_astralit_checker.json",
+      "ingredients": [
+        "minecraft:quartz_block",
+        "simplebuilding:polished_astralit"
+      ],
+      "pattern": [
+        "BQ",
+        "QB"
+      ],
+      "key": {
+        "B": [
+          "simplebuilding:polished_astralit"
+        ],
+        "Q": [
+          "minecraft:quartz_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting",
       "type": "minecraft:stonecutting",
       "category": null,
@@ -34095,6 +34291,36 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_checker",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_ender_quartz_checker",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json",
+      "ingredients": [
+        "minecraft:quartz_block",
+        "simplebuilding:polished_ender_quartz"
+      ],
+      "pattern": [
+        "BQ",
+        "QB"
+      ],
+      "key": {
+        "B": [
+          "simplebuilding:polished_ender_quartz"
+        ],
+        "Q": [
+          "minecraft:quartz_block"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -34573,6 +34799,36 @@ window.WIKI_DATA = {
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_checker",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:polished_nihilith_checker",
+        "count": 4
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_nihilith_checker.json",
+      "ingredients": [
+        "minecraft:quartz_block",
+        "simplebuilding:polished_nihilith"
+      ],
+      "pattern": [
+        "BQ",
+        "QB"
+      ],
+      "key": {
+        "B": [
+          "simplebuilding:polished_nihilith"
+        ],
+        "Q": [
+          "minecraft:quartz_block"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -41599,6 +41855,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_astralit.json"
     },
     {
+      "id": "simplebuilding:blocks/polished_astralit_checker",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:polished_astralit_checker"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_astralit_checker.json"
+    },
+    {
       "id": "simplebuilding:blocks/polished_astralit_slab",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -41679,6 +41951,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_ender_quartz.json"
     },
     {
+      "id": "simplebuilding:blocks/polished_ender_quartz_checker",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:polished_ender_quartz_checker"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_ender_quartz_checker.json"
+    },
+    {
       "id": "simplebuilding:blocks/polished_ender_quartz_slab",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -41741,6 +42029,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_nihilith.json"
+    },
+    {
+      "id": "simplebuilding:blocks/polished_nihilith_checker",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:polished_nihilith_checker"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/polished_nihilith_checker.json"
     },
     {
       "id": "simplebuilding:blocks/polished_nihilith_slab",
@@ -46636,6 +46940,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:polished_astralit_checker",
+          "required": true
+        },
+        {
           "id": "simplebuilding:polished_astralit_slab",
           "required": true
         },
@@ -46656,6 +46964,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:polished_ender_quartz_checker",
+          "required": true
+        },
+        {
           "id": "simplebuilding:polished_ender_quartz_slab",
           "required": true
         },
@@ -46669,6 +46981,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:polished_nihilith",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:polished_nihilith_checker",
           "required": true
         },
         {
@@ -67561,12 +67877,15 @@ window.WIKI_DATA = {
             "simplebuilding:resin_quartz_checker",
             "simplebuilding:astralit_quartz_checker",
             "simplebuilding:nihilith_quartz_checker",
-            "simplebuilding:ender_quartz_checker"
+            "simplebuilding:ender_quartz_checker",
+            "simplebuilding:polished_astralit_checker",
+            "simplebuilding:polished_nihilith_checker",
+            "simplebuilding:polished_ender_quartz_checker"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/building/checkmate.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/building/checkmate.json"
     },
     {
       "id": "simplebuilding:building/let_there_be_light",
@@ -73084,10 +73403,10 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 199,
-    "blocks": 163,
-    "recipes": 443,
-    "lootTables": 162,
+    "items": 202,
+    "blocks": 166,
+    "recipes": 446,
+    "lootTables": 165,
     "trades": 20,
     "enchantments": 19,
     "tags": 46,
