@@ -1744,7 +1744,9 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_echo_sounder_is_registered_and_named_echo_sounder", TweaksTests::theEchoSounderIsRegisteredAndNamedEchoSounder)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_unbreaking_lowers_how_much_the_jump_empties_the_echo_compass", TweaksTests::unbreakingLowersHowMuchTheJumpEmptiesTheEchoCompass)
+            GameTestSpec.named("tweaks_game_test_the_echo_compass_consumes_its_charge_with_unbreaking", TweaksTests::theEchoCompassConsumesItsChargeWithUnbreaking)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_echo_compass_honors_stack_capacity_and_creative_mode", TweaksTests::theEchoCompassHonorsStackCapacityAndCreativeMode)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_echo_compass_charges_for_three_seconds_and_releasing_early_costs_nothing", TweaksTests::theEchoCompassChargesForThreeSecondsAndReleasingEarlyCostsNothing)
                     .build(),

@@ -48,8 +48,8 @@ import org.jetbrains.annotations.Nullable;
  * <p>Haltbarkeit (Besitzer 2026-09-27): ein Sprung leert den Kompass ganz - er ist dann "zerbrochen"
  * (Schaden = {@link #MAX_DAMAGE}, Riss-Textur, kein Glanz) und muss wieder aufgeladen werden: Mending
  * repariert 2 Punkte je XP-Punkt (750 XP fuer den leeren Kompass), am Amboss stellt jede Echoscherbe
- * ein Viertel wieder her (4 Scherben = voll). Unbreaking verringert den Verbrauch wie bei jedem
- * Werkzeug (Unbreaking III leert im Mittel nur ein Viertel). Erst ganz repariert springt er normal.
+ * ein Viertel wieder her (4 Scherben = voll). Auf 26.3 leert auch Unbreaking die gesamte Ladung
+ * (Besitzer 2026-10-02); 26.2 behaelt den reduzierten Verbrauch. Erst ganz repariert springt er normal.
  * Wer den nicht voll reparierten Kompass trotzdem benutzt, provoziert den Bruch: doppelte Ladezeit
  * ({@value #CRACKED_CHARGE_TICKS} Ticks), Warnzeichen (Knacken, Rauch, Funken, Kreischer), der Sprung
  * gelingt, danach zerspringt der Kompass endgueltig - Unbreaking rettet ihn dabei nicht.
@@ -373,10 +373,14 @@ public class EchoCompassItem extends Item {
             level.sendParticles(ParticleTypes.LARGE_SMOKE, x, y + 1.0, z, 12, 0.3, 0.3, 0.3, 0.02);
             return;
         }
-        // Unbreaking wirkt wie bei jedem Werkzeug je Punkt; ueber hurtAndBreak ginge es nicht, weil
-        // Schaden = Maximalwert dort den Bruch ausloest.
-        int damage = EnchantmentHelper.processDurabilityChange(level, stack, MAX_DAMAGE);
-        stack.setDamageValue(Math.min(stack.getMaxDamage(), stack.getDamageValue() + damage));
+        // 26.3: Ein Sprung leert die gesamte tatsaechliche Ladung, auch mit Unbreaking.
+        // Nicht hurtAndBreak verwenden: Das leere Echolot muss zum Reparieren erhalten bleiben.
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            stack.setDamageValue(stack.getMaxDamage());
+        } else {
+            int damage = EnchantmentHelper.processDurabilityChange(level, stack, MAX_DAMAGE);
+            stack.setDamageValue(Math.min(stack.getMaxDamage(), stack.getDamageValue() + damage));
+        }
         if (isCracked(stack)) {
             level.playSound(null, x, y, z, SoundEvents.RESPAWN_ANCHOR_DEPLETE.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
             level.playSound(null, x, y, z, SoundEvents.GLASS_HIT, SoundSource.PLAYERS, 1.0f, 0.6f);

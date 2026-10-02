@@ -210,4 +210,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Erzdetektor: Idle-Animation, Nadel pulsiert, solange nichts gewählt ist. Ist etwas gewählt, läuft die Auswahl-Animation auf der Nadel (siehe Nachtrag 2).
 - [ ] Attractor: Idle-Animation, das Item selbst bleibt unverändert, nur kurz angedeutete Magnetfeldlinien.
 - [ ] Hufeisen-Vorlage (simpleriding): Textur und Name nach derselben Konvention wie die Basic-Upgrade-Vorlage. Der Pfeil wird zu einem Hufeisen; innen Eisen-, außen Kupferfarben.
-- [ ] Echolot: Haltbarkeit wieder wie früher – eine einmalige Nutzung verbraucht die 1500 Haltbarkeit wie vorher. Aktuell wird Haltbarkeit seltsam verbraucht und angezeigt → Ist-Verhalten gegen die frühere Version (git log) prüfen und zurückführen.
+- [x] Echolot: Haltbarkeit wieder wie früher – eine einmalige Nutzung verbraucht die 1500 Haltbarkeit wie vorher. Aktuell wird Haltbarkeit seltsam verbraucht und angezeigt → Ist-Verhalten gegen die frühere Version (git log) prüfen und zurückführen.
+  - Umsetzung auf `claude-gpt-echo`: vollständige Entladung auf 26.3 auch mit Unbreaking; Ladezeit, Riss-Stufen und normale Leiste bleiben. 1728/1728 Server-Tests, 26.2-/Forge-26.3-Compile und vollständiges Gate grün. Historie, Entscheidung und Tests: `docs/ai/PLAN-ECHOLOT-HALTBARKEIT-2026-10-02.md`. Besitzerabnahme im Client bleibt offen.
