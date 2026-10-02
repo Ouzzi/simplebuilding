@@ -86,7 +86,8 @@ def _stroke(start, ux, uy, rx, ry):
 
 
 def needle_path(frame):
-    """(head cells from the hub to the tip, tail cells from the hub outwards) of a needle frame."""
+    """(head cells from the hub to the tip, tail cells from the hub outwards) of a needle frame, one column for the
+    vertical frames (see needle_steps for the drawn, two-column version)."""
     frame %= 32
     if frame > 16:
         head, tail = needle_path(32 - frame)
@@ -98,19 +99,41 @@ def needle_path(frame):
     return head, tail
 
 
+# Straight up / down (frames 16 and 0) the needle is two pixels wide, columns 7 and 8, so it sits exactly on the dial
+# centre x = 7.5 (owner 2026-10-02: at 12 and 6 o'clock it was half a pixel off). Vanilla's recovery compass solves the
+# same problem the other way round - its dial is built round a single pivot pixel and the vertical needle runs in that
+# pixel's column, with a darker side pixel at the base; our dial is symmetric about x = 7.5, so the needle takes both
+# middle columns, the right one a shade darker (light from the top left, as on the recovery compass).
+VERTICAL_FRAMES = (0, 16)
+NEEDLE_SIDE = (170, 160, 190)
+
+
+def needle_steps(frame):
+    """(head steps from the hub to the tip - each step one cell, two side by side on the vertical frames -, tail
+    cells). The glimmer of a calibrated detector runs step by step along the head."""
+    head, tail = needle_path(frame)
+    if frame % 32 in VERTICAL_FRAMES:
+        return [[(7, y), (8, y)] for _, y in head], [(x, y) for _, y in tail for x in (7, 8)]
+    return [[c] for c in head], tail
+
+
 def detector_needle(frame):
     """Frame 0 points down (south), counting clockwise like the current detector_needle_XX (8 = left, 16 = up).
     Head lavender with a white tip (the layer is tinted by the find's distance), a two-pixel grey tail, four marks.
-    The right half (17..31) is the mirror image of the left half (15..1) about x = 7.5, so both sides match."""
+    The right half (17..31) is the mirror image of the left half (15..1) about x = 7.5, so both sides match; the
+    vertical frames are two pixels wide (needle_steps)."""
     im = blank()
-    head, tail = needle_path(frame)
+    steps, tail = needle_steps(frame)
     for p in tail:
         px(im, p[0], p[1], TAIL)
-    for p in head[:-1]:
-        px(im, p[0], p[1], v3.DET['n'])
-    px(im, head[-1][0], head[-1][1], v3.DET['N'])
+    for k, step in enumerate(steps):
+        last = k == len(steps) - 1
+        for j, p in enumerate(step):
+            side = j == 1
+            px(im, p[0], p[1], (v3.DET['n'] if side else v3.DET['N']) if last else (NEEDLE_SIDE if side else v3.DET['n']))
+    cells = {c for step in steps for c in step}
     for m in MARKS:
-        if m not in head and m not in tail:
+        if m not in cells and m not in tail:
             px(im, m[0], m[1], v3.DET['p'])
     return im
 

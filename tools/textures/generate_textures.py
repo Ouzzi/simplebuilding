@@ -2332,6 +2332,8 @@ PAD_ACTIVE_GLOW = {
 # Bilder, die nur in den Hauptbaum (26.2/26.3) gehen - die 1.21.11-Kopie bekommt sie erst im Port-Lauf
 # (Besitzer 2026-09-29: 26.3 zuerst, die Kopie nicht anfassen). Die Zustandsbilder vom 2026-09-29.
 MAIN_TREE_ONLY = {"item/pulsating_trim_template.png", "item/blueprint_signed.png"}  # blueprint_signed: Kontur 2026-10-02
+# Enderit-Apfel/-Karotte 2026-10-02 neu (foods_settled_2026_10_02.py); die 1.21.11-Kopie zieht der Port-Run nach.
+MAIN_TREE_ONLY |= {"item/enderite_apple.png", "item/enderite_carrot.png"}
 # Druckplatten, gedrueckt (powered): Leuchtfarbe und Deckkraft in der Mitte; die Grundbilder liegen in den
 # Ressourcen (Enderit generiert).
 PLATE_ACTIVE_GLOW = {
@@ -2902,8 +2904,9 @@ ENDERITE_GLIMMER = {
     "block/enderite_backpack_top.png": [(5, 4, "g"), (10, 7, "v"), (8, 12, "g")],
     "item/enderite_bundle.png": [(4, 9, "g"), (10, 11, "v"), (6, 12, "g")],
     "item/enderite_quiver.png": [(8, 5, "g"), (6, 8, "v"), (4, 11, "g")],
-    "item/enderite_apple.png": [(5, 8, "g"), (10, 10, "v"), (9, 6, "g")],
-    "item/enderite_carrot.png": [(6, 7, "g"), (4, 10, "v"), (8, 8, "v")],
+    # 2026-10-02: neue Vorlagen aus foods_settled_2026_10_02.py (Netherit-Satz A in Enderit), Punkte von dort
+    "item/enderite_apple.png": [(5, 5, "g"), (8, 12, "v"), (12, 7, "g")],
+    "item/enderite_carrot.png": [(7, 7, "g"), (6, 11, "v"), (3, 13, "g")],
 }
 
 
