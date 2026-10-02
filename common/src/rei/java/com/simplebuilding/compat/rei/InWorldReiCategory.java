@@ -54,6 +54,11 @@ final class InWorldReiCategory implements DisplayCategory<InWorldDisplay> {
             case SHEAR_WOOL -> Items.SHEARS;
             case TRIM_TEMPLATE -> ModItems.GLOWING_TRIM_TEMPLATE;
             case CAULDRON_WASH -> Items.CAULDRON;
+            case PISTON_REPAIR -> ModItems.NETHERITE_NUGGET;
+            case COPPER_PLATE -> Items.HONEYCOMB;
+            case ROTATE -> ModItems.ROTATOR;
+            case CONSTRUCTORS_TOUCH -> Items.STICK;
+            case CORE_ORE -> ModItems.DIAMOND_CORE;
         };
     }
 

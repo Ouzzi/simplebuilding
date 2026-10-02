@@ -98,4 +98,20 @@ public final class SledgehammerGameTest {
     public void sledgehammerTransformHintsCoverBothHandsWithoutSideEffects(GameTestHelper helper) {
         SledgehammerTests.sledgehammerTransformHintsCoverBothHandsWithoutSideEffects(helper);
     }
+    @GameTest
+    public void transformHintPartialFollowsTheUpgradeRules(GameTestHelper helper) {
+        SledgehammerTests.transformHintPartialFollowsTheUpgradeRules(helper);
+    }
+    @GameTest
+    public void transformHintShowsTheBreakerPistonRepair(GameTestHelper helper) {
+        SledgehammerTests.transformHintShowsTheBreakerPistonRepair(helper);
+    }
+    @GameTest
+    public void transformHintCoversCauldronWashAndCopperPlates(GameTestHelper helper) {
+        SledgehammerTests.transformHintCoversCauldronWashAndCopperPlates(helper);
+    }
+    @GameTest
+    public void transformHintSkipsClicksTheBlockOrTheMainHandTakes(GameTestHelper helper) {
+        SledgehammerTests.transformHintSkipsClicksTheBlockOrTheMainHandTakes(helper);
+    }
 }

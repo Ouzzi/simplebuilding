@@ -133,7 +133,7 @@ public final class TieredShulkerBoxes {
      * (and nothing else) and the cauldron one level of water.
      */
     public static final net.minecraft.core.cauldron.CauldronInteraction WASH = (state, level, pos, player, hand, stack) -> {
-        if (!(stack.getItem() instanceof BlockItem item) || tierOf(item.getBlock()) == null || !stack.has(DataComponents.BASE_COLOR)) {
+        if (!isWashable(stack)) {
             return net.minecraft.world.InteractionResult.TRY_WITH_EMPTY_HAND;
         }
         if (!level.isClientSide()) {
@@ -145,6 +145,11 @@ public final class TieredShulkerBoxes {
         }
         return net.minecraft.world.InteractionResult.SUCCESS;
     };
+
+    /** A dyed tier shulker box item; the wash and the hand hint ({@code TransformTargets}) ask this. */
+    public static boolean isWashable(ItemStack stack) {
+        return stack.getItem() instanceof BlockItem item && tierOf(item.getBlock()) != null && stack.has(DataComponents.BASE_COLOR);
+    }
 
     /** The three tier shulker box items. */
     public static List<net.minecraft.world.item.Item> items() {

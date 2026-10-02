@@ -133,14 +133,14 @@ public class BuildingCoreItem extends Item {
     }
 
     /**
-     * Der Erz-Teil eines Blockklicks: nur wenn der Spieler hier bauen darf (Abenteuermodus, Spawnschutz),
+     * Der Erz-Teil eines Blockklicks: nur wenn der Spieler hier bauen darf (Abenteuermodus, Spawnschutz, Claims),
      * dann die Chance "1 zu {@code oneIn}". Kein Text an den Spieler (Besitzer-Regel: Gadgets zeigen
      * nichts im Chat oder ueber der Schnellleiste). Oeffentlich, damit die Spieltests den echten Pfad mit
      * erzwungener Chance fahren koennen.
      */
     public static void transmuteOnClick(ServerLevel server, Player player, ItemStack stack, BlockPos pos,
                                         net.minecraft.core.Direction face, int oneIn) {
-        if (player.mayBuild() && player.mayUseItemAt(pos, face, stack) && server.mayInteract(player, pos)) {
+        if (com.simplebuilding.util.TransformTargets.mayTransform(server, player, pos, face, stack)) {
             CoreOreTransmutation.tryTransmute(server, pos, oneIn, player.getRandom());
         }
     }

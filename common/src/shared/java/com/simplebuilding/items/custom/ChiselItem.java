@@ -441,16 +441,18 @@ public class ChiselItem extends Item {
             return InteractionResult.PASS;
         }
 
-        if (context.getLevel().isClientSide()) {
-            if (player.getCooldowns().isOnCooldown(context.getItemInHand())) {
-                return InteractionResult.PASS;
-            }
-            Block block = context.getLevel().getBlockState(context.getClickedPos()).getBlock();
-            if (getForwardMap().containsKey(block) || getBackwardMap().containsKey(block)
-                    || getTouchForwardMap().containsKey(block) || getTouchBackwardMap().containsKey(block)) {
-                return InteractionResult.SUCCESS;
-            }
+        // Dieselben Rechte wie beim Setzen eines Blocks (Abenteuermodus, Spawnschutz, Claims); die
+        // Hand-Neigung (TransformTargets) fragt genauso.
+        if (!com.simplebuilding.util.TransformTargets.mayTransform(context.getLevel(), player, context.getClickedPos(),
+                context.getClickedFace(), context.getItemInHand())) {
             return InteractionResult.PASS;
+        }
+
+        if (context.getLevel().isClientSide()) {
+            // Der Client entscheidet mit derselben Tabelle wie der Server (canChisel): nur dann ist der
+            // Klick hier verbraucht und geht nicht noch an die andere Hand.
+            return canChisel(context.getLevel(), context.getClickedPos(), context.getItemInHand(), player)
+                    ? InteractionResult.SUCCESS : InteractionResult.PASS;
         }
 
         if (player.getCooldowns().isOnCooldown(context.getItemInHand())) {
@@ -469,31 +471,9 @@ public class ChiselItem extends Item {
         BlockState oldState = world.getBlockState(pos);
         Block oldBlock = oldState.getBlock();
 
-        var hasConstructorsTouch = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH);
-
-        boolean isSneaking = player.isShiftKeyDown();
-        boolean isReverseAction = false;
-
-        Map<Block, Block> currentMap;
-
-        if (this.isDedicatedSpatula) {
-            // Spatel Logik: Standard ist Rückwärts
-            if (isSneaking) {
-                // Spatel + Sneak = Vorwärts? (Optional, aktuell nicht gefordert, aber logisch)
-                currentMap = hasConstructorsTouch ? getTouchForwardMap() : getForwardMap();
-            } else {
-                currentMap = hasConstructorsTouch ? getTouchBackwardMap() : getBackwardMap();
-            }
-        } else {
-            // Meißel Logik: Standard ist Vorwärts
-            if (isSneaking) {
-                // Meißel + Sneak = Rückwärts ("Entchisseln") -> TEUER!
-                currentMap = hasConstructorsTouch ? getTouchBackwardMap() : getBackwardMap();
-                isReverseAction = true;
-            } else {
-                currentMap = hasConstructorsTouch ? getTouchForwardMap() : getForwardMap();
-            }
-        }
+        // Meissel + Schleichen = Rueckwaerts ("Entmeisseln") -> teurer; der Spachtel hat es umgekehrt.
+        boolean isReverseAction = !this.isDedicatedSpatula && player.isShiftKeyDown();
+        Map<Block, Block> currentMap = activeMap(world, stack, player);
 
         if (currentMap.containsKey(oldBlock)) {
             Block newBlock = currentMap.get(oldBlock);
@@ -730,32 +710,23 @@ public class ChiselItem extends Item {
         }
     }
 
-    public boolean canChisel(Level world, BlockPos pos, ItemStack stack, Player player) {
-        // 1. Cooldown Check
-        if (player.getCooldowns().isOnCooldown(stack)) return false;
-
-        BlockState state = world.getBlockState(pos);
-        Block block = state.getBlock();
-
+    /**
+     * Die Tabelle, nach der dieser Klick umformt: der Meissel vorwaerts, mit Schleichen rueckwaerts,
+     * der Spachtel umgekehrt; mit Constructor's Touch die erweiterte Tabelle. {@link #tryChiselBlock}
+     * und {@link #canChisel} (Client-Klick und Hand-Hinweis) fragen beide hier.
+     */
+    private Map<Block, Block> activeMap(Level world, ItemStack stack, Player player) {
         boolean hasConstructorsTouch = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH);
-
-        boolean isSneaking = player.isShiftKeyDown();
-        Map<Block, Block> currentMap;
-
-        if (this.isDedicatedSpatula) {
-            if (isSneaking) {
-                currentMap = hasConstructorsTouch ? getTouchForwardMap() : getForwardMap();
-            } else {
-                currentMap = hasConstructorsTouch ? getTouchBackwardMap() : getBackwardMap();
-            }
-        } else {
-            if (isSneaking) {
-                currentMap = hasConstructorsTouch ? getTouchBackwardMap() : getBackwardMap();
-            } else {
-                currentMap = hasConstructorsTouch ? getTouchForwardMap() : getForwardMap();
-            }
+        boolean forward = this.isDedicatedSpatula == player.isShiftKeyDown();
+        if (forward) {
+            return hasConstructorsTouch ? getTouchForwardMap() : getForwardMap();
         }
-        return currentMap.containsKey(block);
+        return hasConstructorsTouch ? getTouchBackwardMap() : getBackwardMap();
+    }
+
+    public boolean canChisel(Level world, BlockPos pos, ItemStack stack, Player player) {
+        if (player.getCooldowns().isOnCooldown(stack)) return false;
+        return activeMap(world, stack, player).containsKey(world.getBlockState(pos).getBlock());
     }
 
     @Override

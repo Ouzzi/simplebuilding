@@ -1097,7 +1097,8 @@ public final class SledgehammerTests {
                     {Items.DIAMOND_AXE, transformBlock("oxidized_copper"), true}, {Items.DIAMOND_AXE, transformBlock("waxed_copper_block"), true},
                     {Items.DIAMOND_SHOVEL, Blocks.GRASS_BLOCK, true}, {Items.DIAMOND_HOE, Blocks.DIRT, true},
                     {Items.SHEARS, Blocks.PUMPKIN, true},
-                    {ModItems.IRON_CORE, Blocks.STONE, true},
+                    // Owner backlog Q4: the core's ore roll is a chance, not a transformation - no hint.
+                    {ModItems.IRON_CORE, Blocks.STONE, false},
                     {ModItems.ROTATOR, Blocks.OAK_STAIRS, true},
                     {Items.ECHO_SHARD, Blocks.STONE, false}, {Items.GLOW_INK_SAC, Blocks.STONE, false},
                     {ModItems.DIAMOND_SLEDGEHAMMER, Blocks.STONE, true}, {ModItems.STONE_CHISEL, Blocks.STONE, true}}) {
@@ -1127,13 +1128,15 @@ public final class SledgehammerTests {
             player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
             player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
             player.setItemInHand(hand, new ItemStack(Items.GLOW_INK_SAC));
-            helper.assertTrue(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "glow ink alone did not hint on sign");
+            // An empty main hand opens the sign editor first, so an applicator in the off hand never gets the click.
+            boolean applies = hand == InteractionHand.MAIN_HAND;
+            helper.assertValueEqual(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), applies, "glow ink alone on sign / " + hand);
             com.simplebuilding.version.McVersion.setSignTextFacingPlayer(sign, player, net.minecraft.network.chat.Component.literal("Test"), true);
             helper.assertFalse(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "already glowing sign hinted");
             player.setItemInHand(hand, new ItemStack(Items.INK_SAC));
-            helper.assertTrue(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "ink alone did not hint on glowing sign");
+            helper.assertValueEqual(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), applies, "ink alone on glowing sign / " + hand);
             player.setItemInHand(hand, new ItemStack(Items.HONEYCOMB));
-            helper.assertTrue(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "wax alone did not hint on sign");
+            helper.assertValueEqual(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), applies, "wax alone on sign / " + hand);
             sign.setWaxed(true);
             helper.assertFalse(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, hand), "waxed sign hinted");
         }
@@ -1145,6 +1148,210 @@ public final class SledgehammerTests {
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         helper.assertFalse(com.simplebuilding.util.TransformTargets.canTransformTarget(level, hit, player, InteractionHand.OFF_HAND),
                 "nugget advertised a hammer recipe without a hammer");
+        helper.succeed();
+    }
+
+    private static void holding(ServerPlayer player, ItemStack main, ItemStack off) {
+        player.setItemInHand(InteractionHand.MAIN_HAND, main);
+        player.setItemInHand(InteractionHand.OFF_HAND, off);
+    }
+
+    private static boolean fullHint(GameTestHelper helper, BlockHitResult hit, Player player, InteractionHand hand) {
+        return com.simplebuilding.util.TransformTargets.canTransformTarget(helper.getLevel(), hit, player, hand);
+    }
+
+    private static boolean halfHint(GameTestHelper helper, BlockHitResult hit, Player player, InteractionHand hand) {
+        return com.simplebuilding.util.TransformTargets.partialTransformTarget(helper.getLevel(), hit, player, hand);
+    }
+
+    /**
+     * The half tilt (owner 2026-10-01) asks the upgrade's own conditions, minus the one counterpart
+     * that is missing: a hammer strong enough and not cooling down without the stage's material, or
+     * exactly the stage's material without a fitting hammer. A too weak hammer, the material of
+     * another stage, a cooldown and adventure mode show nothing; hammer and material together are
+     * the full tilt in both hands.
+     */
+    public static void transformHintPartialFollowsTheUpgradeRules(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) { helper.succeed(); return; }
+        var level = helper.getLevel();
+        var pos = helper.absolutePos(CENTRE);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        var hit = new BlockHitResult(Vec3.atCenterOf(pos).add(0, 0.5, 0), Direction.UP, pos, false);
+        level.setBlockAndUpdate(pos, com.simplebuilding.blocks.ModBlocks.REINFORCED_FURNACE.defaultBlockState());
+        InteractionHand main = InteractionHand.MAIN_HAND;
+        InteractionHand off = InteractionHand.OFF_HAND;
+
+        holding(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), ItemStack.EMPTY);
+        helper.assertTrue(halfHint(helper, hit, player, main) && !fullHint(helper, hit, player, main), "hammer without nugget: half tilt only");
+        holding(player, new ItemStack(ModItems.STONE_SLEDGEHAMMER), ItemStack.EMPTY);
+        helper.assertFalse(halfHint(helper, hit, player, main), "a hammer too weak for the stage advertised it");
+        holding(player, ItemStack.EMPTY, new ItemStack(ModItems.NETHERITE_NUGGET));
+        helper.assertTrue(halfHint(helper, hit, player, off) && !fullHint(helper, hit, player, off), "nugget without hammer: half tilt only");
+        holding(player, ItemStack.EMPTY, new ItemStack(ModItems.ENDERITE_NUGGET));
+        helper.assertFalse(halfHint(helper, hit, player, off), "the material of another stage advertised this one");
+        holding(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), new ItemStack(ModItems.NETHERITE_NUGGET));
+        for (InteractionHand hand : InteractionHand.values()) {
+            helper.assertTrue(fullHint(helper, hit, player, hand) && !halfHint(helper, hit, player, hand), "complete pair is no full tilt / " + hand);
+        }
+        ItemStack cooling = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        holding(player, cooling, ItemStack.EMPTY);
+        player.getCooldowns().addCooldown(cooling, 20);
+        helper.assertFalse(halfHint(helper, hit, player, main), "a cooling hammer advertised the upgrade");
+        holding(player, new ItemStack(ModItems.NETHERITE_SLEDGEHAMMER), ItemStack.EMPTY);
+        player.setGameMode(GameType.ADVENTURE);
+        helper.assertFalse(halfHint(helper, hit, player, main), "adventure mode advertised the upgrade");
+        player.setGameMode(GameType.SURVIVAL);
+
+        // An undamaged Netherite Piston: its next stage takes the Enderite Nugget, so the Netherite one shows nothing.
+        level.setBlockAndUpdate(pos, com.simplebuilding.blocks.ModBlocks.NETHERITE_PISTON.defaultBlockState());
+        holding(player, ItemStack.EMPTY, new ItemStack(ModItems.NETHERITE_NUGGET));
+        helper.assertFalse(halfHint(helper, hit, player, off) || fullHint(helper, hit, player, off),
+                "a Netherite Nugget advertised an upgrade of the Netherite Piston");
+        helper.succeed();
+    }
+
+    /**
+     * A damaged breaker piston and the nugget of its tier: the nugget tilts fully (in either hand,
+     * also behind a hammer that does nothing there), the real click repairs exactly then, and a
+     * wrong nugget, an undamaged piston, a main hand that places a block or adventure mode show nothing.
+     */
+    public static void transformHintShowsTheBreakerPistonRepair(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) { helper.succeed(); return; }
+        var level = helper.getLevel();
+        var pos = helper.absolutePos(CENTRE);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        var hit = new BlockHitResult(Vec3.atCenterOf(pos).add(0, 0.5, 0), Direction.UP, pos, false);
+        BlockState netherite = com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.withDamage(
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_PISTON.defaultBlockState(), 10);
+        BlockState enderite = com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.withDamage(
+                com.simplebuilding.blocks.ModBlocks.ENDERITE_PISTON.defaultBlockState(), 10);
+        for (InteractionHand hand : InteractionHand.values()) {
+            level.setBlockAndUpdate(pos, netherite);
+            holding(player, ItemStack.EMPTY, ItemStack.EMPTY);
+            player.setItemInHand(hand, new ItemStack(ModItems.NETHERITE_NUGGET));
+            helper.assertTrue(fullHint(helper, hit, player, hand) && !halfHint(helper, hit, player, hand), "repair hint missing / " + hand);
+            player.setItemInHand(hand, new ItemStack(ModItems.ENDERITE_NUGGET));
+            helper.assertFalse(fullHint(helper, hit, player, hand), "Enderite Nugget hinted on a Netherite Piston / " + hand);
+            level.setBlockAndUpdate(pos, enderite);
+            helper.assertTrue(fullHint(helper, hit, player, hand), "Enderite repair hint missing / " + hand);
+            player.setItemInHand(hand, new ItemStack(ModItems.NETHERITE_NUGGET));
+            helper.assertFalse(fullHint(helper, hit, player, hand), "Netherite Nugget hinted on an Enderite Piston / " + hand);
+            level.setBlockAndUpdate(pos, com.simplebuilding.blocks.ModBlocks.NETHERITE_PISTON.defaultBlockState());
+            helper.assertFalse(fullHint(helper, hit, player, hand), "an undamaged piston hinted a repair / " + hand);
+        }
+        level.setBlockAndUpdate(pos, netherite);
+        holding(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), new ItemStack(ModItems.NETHERITE_NUGGET));
+        helper.assertTrue(fullHint(helper, hit, player, InteractionHand.OFF_HAND), "a hammer that does nothing here hid the off-hand repair");
+        holding(player, new ItemStack(Items.DIRT), new ItemStack(ModItems.NETHERITE_NUGGET));
+        helper.assertFalse(fullHint(helper, hit, player, InteractionHand.OFF_HAND), "the off hand hinted although the main hand places a block");
+
+        // The real click agrees: adventure mode refuses and keeps the damage, survival repairs and pays.
+        ItemStack nugget = new ItemStack(ModItems.NETHERITE_NUGGET);
+        holding(player, nugget, ItemStack.EMPTY);
+        player.setGameMode(GameType.ADVENTURE);
+        helper.assertFalse(fullHint(helper, hit, player, InteractionHand.MAIN_HAND), "adventure mode hinted a repair");
+        level.getBlockState(pos).useItemOn(nugget, level, player, InteractionHand.MAIN_HAND, hit);
+        helper.assertValueEqual(com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.damageOf(level.getBlockState(pos)), 10,
+                "adventure mode repaired the piston");
+        player.setGameMode(GameType.SURVIVAL);
+        helper.assertTrue(level.getBlockState(pos).useItemOn(nugget, level, player, InteractionHand.MAIN_HAND, hit).consumesAction(),
+                "the hinted repair did not happen");
+        helper.assertValueEqual(com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.damageOf(level.getBlockState(pos)), 0, "repair left damage");
+        helper.assertValueEqual(nugget.getCount(), 0, "repair did not use the nugget");
+        helper.assertFalse(fullHint(helper, hit, player, InteractionHand.MAIN_HAND), "repaired piston still hinted");
+        helper.succeed();
+    }
+
+    /**
+     * Block interactions that transform: a dyed octant on a water cauldron (not a plain octant, not
+     * an empty cauldron), honeycomb and axe on the copper pressure plate exactly where
+     * {@code CopperPressurePlateBlock#transformWith} changes it - and the real click waxes.
+     */
+    public static void transformHintCoversCauldronWashAndCopperPlates(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) { helper.succeed(); return; }
+        var level = helper.getLevel();
+        var pos = helper.absolutePos(CENTRE);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        var hit = new BlockHitResult(Vec3.atCenterOf(pos).add(0, 0.5, 0), Direction.UP, pos, false);
+        Item dyed = ModItems.COLORED_OCTANT_ITEMS.get(net.minecraft.world.item.DyeColor.RED);
+        for (InteractionHand hand : InteractionHand.values()) {
+            holding(player, ItemStack.EMPTY, ItemStack.EMPTY);
+            level.setBlockAndUpdate(pos, Blocks.WATER_CAULDRON.defaultBlockState()
+                    .setValue(net.minecraft.world.level.block.LayeredCauldronBlock.LEVEL, 3));
+            player.setItemInHand(hand, new ItemStack(dyed));
+            helper.assertTrue(fullHint(helper, hit, player, hand), "dyed octant on a water cauldron / " + hand);
+            player.setItemInHand(hand, new ItemStack(ModItems.OCTANT));
+            helper.assertFalse(fullHint(helper, hit, player, hand), "plain octant hinted a wash / " + hand);
+            level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+            player.setItemInHand(hand, new ItemStack(dyed));
+            helper.assertFalse(fullHint(helper, hit, player, hand), "empty cauldron hinted a wash / " + hand);
+
+            for (Object[] test : new Object[][]{
+                    {com.simplebuilding.tweaks.block.TweaksBlocks.COPPER_PRESSURE_PLATE, Items.HONEYCOMB, true},
+                    {com.simplebuilding.tweaks.block.TweaksBlocks.COPPER_PRESSURE_PLATE, Items.IRON_AXE, false},
+                    {com.simplebuilding.tweaks.block.TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE, Items.IRON_AXE, true},
+                    {com.simplebuilding.tweaks.block.TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, Items.HONEYCOMB, false},
+                    {com.simplebuilding.tweaks.block.TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, Items.IRON_AXE, true},
+                    {com.simplebuilding.tweaks.block.TweaksBlocks.COPPER_PRESSURE_PLATE, Items.STICK, false}}) {
+                level.setBlockAndUpdate(pos, ((Block) test[0]).defaultBlockState());
+                player.setItemInHand(hand, new ItemStack((Item) test[1]));
+                helper.assertValueEqual(fullHint(helper, hit, player, hand), (Boolean) test[2], test[1] + " on " + test[0] + " / " + hand);
+            }
+        }
+        level.setBlockAndUpdate(pos, com.simplebuilding.tweaks.block.TweaksBlocks.COPPER_PRESSURE_PLATE.defaultBlockState());
+        ItemStack honeycomb = new ItemStack(Items.HONEYCOMB, 2);
+        holding(player, honeycomb, ItemStack.EMPTY);
+        helper.assertTrue(level.getBlockState(pos).useItemOn(honeycomb, level, player, InteractionHand.MAIN_HAND, hit).consumesAction()
+                && level.getBlockState(pos).is(com.simplebuilding.tweaks.block.TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE), "the hinted waxing did not happen");
+        helper.assertFalse(fullHint(helper, hit, player, InteractionHand.MAIN_HAND), "waxed plate still hinted honeycomb");
+        helper.succeed();
+    }
+
+    /**
+     * Vanilla's click order: a block's own right-click (a chest's menu, a wooden door) comes before
+     * the rotator - no tilt there unless sneaking, while an iron door turns. The off hand only tilts
+     * when the main hand would not act; the full server click path agrees for the chest and the log.
+     */
+    public static void transformHintSkipsClicksTheBlockOrTheMainHandTakes(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS) { helper.succeed(); return; }
+        var level = helper.getLevel();
+        var pos = helper.absolutePos(CENTRE);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        var hit = new BlockHitResult(Vec3.atCenterOf(pos).add(0, 0.5, 0), Direction.UP, pos, false);
+        InteractionHand main = InteractionHand.MAIN_HAND;
+        InteractionHand off = InteractionHand.OFF_HAND;
+
+        level.setBlockAndUpdate(pos, Blocks.CHEST.defaultBlockState());
+        holding(player, new ItemStack(ModItems.ROTATOR), ItemStack.EMPTY);
+        helper.assertFalse(fullHint(helper, hit, player, main), "rotator hinted on a chest that opens instead");
+        player.setShiftKeyDown(true);
+        helper.assertTrue(fullHint(helper, hit, player, main), "sneaking rotator did not hint on a chest");
+        player.setShiftKeyDown(false);
+        BlockState chest = level.getBlockState(pos);
+        player.gameMode.useItemOn(player, level, player.getMainHandItem(), main, hit);
+        helper.assertValueEqual(level.getBlockState(pos), chest, "the real click turned the chest it should have opened");
+        player.closeContainer();
+
+        level.setBlockAndUpdate(pos, Blocks.OAK_DOOR.defaultBlockState());
+        helper.assertFalse(fullHint(helper, hit, player, main), "rotator hinted on a wooden door that opens instead");
+        level.setBlockAndUpdate(pos, Blocks.IRON_DOOR.defaultBlockState());
+        helper.assertTrue(fullHint(helper, hit, player, main), "rotator did not hint on an iron door");
+
+        level.setBlockAndUpdate(pos, Blocks.OAK_LOG.defaultBlockState());
+        holding(player, ItemStack.EMPTY, new ItemStack(ModItems.ROTATOR));
+        helper.assertTrue(fullHint(helper, hit, player, off), "off-hand rotator behind an empty main hand");
+        holding(player, new ItemStack(Items.DIRT), new ItemStack(ModItems.ROTATOR));
+        helper.assertFalse(fullHint(helper, hit, player, off), "off hand hinted although the main hand places a block");
+        holding(player, new ItemStack(ModItems.ROTATOR), new ItemStack(ModItems.ROTATOR));
+        helper.assertTrue(fullHint(helper, hit, player, main), "main-hand rotator on a log");
+        helper.assertFalse(fullHint(helper, hit, player, off), "off hand hinted although the main hand turns the log");
+        BlockState log = level.getBlockState(pos);
+        player.gameMode.useItemOn(player, level, player.getMainHandItem(), main, hit);
+        helper.assertTrue(level.getBlockState(pos) != log, "the hinted turn did not happen");
         helper.succeed();
     }
 

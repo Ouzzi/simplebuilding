@@ -202,6 +202,21 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
         return () -> DURABILITY_FROZEN.remove(key);
     }
 
+    /**
+     * Ob {@code stack} diesen beschaedigten Brecher repariert: der Klumpen seiner Stufe auf einem
+     * Kolben mit Schaden. Die Reparatur ({@link #useItemOn}) und der Hand-Hinweis
+     * ({@code TransformTargets}) fragen beide hier.
+     */
+    public static boolean canRepairWith(BlockState state, ItemStack stack) {
+        return state.getBlock() instanceof NetheriteBreakerPistonBlock breaker && stack.is(breaker.repairNugget())
+                && damageOf(state) > 0;
+    }
+
+    /** {@link #repairNugget} fuer den Wiki- und JEI-Export ({@code InWorldTransformations}). */
+    public final net.minecraft.world.item.Item repairMaterial() {
+        return repairNugget();
+    }
+
     /** Der Klumpen, der diesen Kolben repariert (so viel wie seine Aufwertung kostet). */
     protected net.minecraft.world.item.Item repairNugget() {
         return ModItems.NETHERITE_NUGGET;
@@ -300,12 +315,14 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     /**
      * Reparatur: der Klumpen der Stufe ({@link #repairNugget}: Netherit bzw. Enderit) stellt die
      * volle Haltbarkeit her (Kreativ: kostenlos). Unversehrt oder mit etwas anderem in der Hand
-     * verhaelt sich der Kolben wie immer.
+     * verhaelt sich der Kolben wie immer, ebenso dort, wo der Spieler nicht bauen darf (Abenteuermodus,
+     * Spawnschutz, fremder Claim).
      */
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
-        if (!stack.is(repairNugget()) || damageOf(state) == 0) {
+        if (!canRepairWith(state, stack)
+                || !com.simplebuilding.util.TransformTargets.mayTransform(world, player, pos, hit.getDirection(), stack)) {
             return super.useItemOn(stack, state, world, pos, player, hand, hit);
         }
         if (world instanceof ServerLevel server) {

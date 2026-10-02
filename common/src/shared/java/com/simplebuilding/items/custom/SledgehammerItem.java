@@ -219,11 +219,18 @@ public class SledgehammerItem extends Item {
 
     /**
      * Whether the player may change the block at {@code pos} - the same question a block placement
-     * asks (spawn protection, claim mods, adventure mode).
+     * asks (spawn protection, claim mods, adventure mode); shared with the hand hint.
      */
     private static boolean mayChange(Level world, Player player, BlockPos pos, Direction side, ItemStack stack) {
-        return player.mayBuild() && world.mayInteract(player, pos) && player.mayUseItemAt(pos, side, stack)
-                && com.simplebuilding.api.WorldPermissions.mayChange(world, player, pos);
+        return com.simplebuilding.util.TransformTargets.mayTransform(world, player, pos, side, stack);
+    }
+
+    /**
+     * Whether a right click with {@code item} strikes this block as a Block of Diamond to be crushed
+     * ({@link #useOn}); the hand hint asks the same. A hammer below the iron tier only clanks.
+     */
+    public static boolean strikesDiamondBlock(BlockState state, Item item) {
+        return state.is(Blocks.DIAMOND_BLOCK) && canCrushDiamondBlock(item);
     }
 
     @Override
@@ -250,15 +257,15 @@ public class SledgehammerItem extends Item {
         }
 
         if (state.is(net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK)) {
-            if (!canCrushDiamondBlock(stack.getItem())) {
+            if (!strikesDiamondBlock(state, stack.getItem())) {
                 // Zu schwach: dumpfer Klang, keine Ladung (keine Einblendung).
                 if (!world.isClientSide()) {
                     world.playSound(null, pos, SoundEvents.METAL_HIT, SoundSource.BLOCKS, 0.8F, 0.5F);
                 }
                 return InteractionResult.FAIL;
             }
-            // Drei einzelne Schlaege statt Gedrueckthalten (Besitzer 2026-10-01), wie bei der abgelegten
-            // Vorlage: jeder Schlag zaehlt, der dritte zerschlaegt den Block.
+            // Einzelne Schlaege statt Gedrueckthalten (Besitzer 2026-10-01), wie bei der abgelegten
+            // Vorlage: jeder Schlag zaehlt, der DIAMOND_BLOCK_STRIKES-te (8) zerschlaegt den Block.
             if (!world.isClientSide()) {
                 strikeDiamondBlock((ServerLevel) world, pos, player, stack);
             }
@@ -613,9 +620,11 @@ public class SledgehammerItem extends Item {
     }
 
     private static void crushDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
-        if (!world.getBlockState(pos).is(Blocks.DIAMOND_BLOCK) || !canCrushDiamondBlock(stack.getItem())) {
+        if (!strikesDiamondBlock(world.getBlockState(pos), stack.getItem())) {
             return;
         }
+        // Der Hammer kann auch in der Nebenhand zuschlagen: zerbricht er, gehoert der Effekt zu dieser Hand.
+        EquipmentSlot slot = player.getOffhandItem() == stack ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
 
         world.destroyBlock(pos, false, player);
         com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.DIAMOND_CRUSH);
@@ -638,7 +647,7 @@ public class SledgehammerItem extends Item {
 
         if (!player.isCreative()) {
             stack.hurtAndBreak(DIAMOND_CRUSH_DAMAGE, world, (ServerPlayer) player,
-                    item -> player.onEquippedItemBroken(item, EquipmentSlot.MAINHAND));
+                    item -> player.onEquippedItemBroken(item, slot));
         }
     }
 

@@ -47,7 +47,12 @@ public final class InWorldRecipeCatalog {
         CHISEL("chisel", "chisel"),
         SHEAR_WOOL("shearWool", "shear_wool"),
         TRIM_TEMPLATE("trimTemplate", "trim_template"),
-        CAULDRON_WASH("cauldronWash", "cauldron_wash");
+        CAULDRON_WASH("cauldronWash", "cauldron_wash"),
+        PISTON_REPAIR("pistonRepair", "piston_repair"),
+        COPPER_PLATE("copperPressurePlate", "copper_plate"),
+        ROTATE("rotator", "rotate"),
+        CONSTRUCTORS_TOUCH("constructorsTouch", "constructors_touch"),
+        CORE_ORE("coreOre", "core_ore");
 
         private final String section;
         private final String id;
@@ -165,6 +170,21 @@ public final class InWorldRecipeCatalog {
         if (sections.containsKey(Kind.CAULDRON_WASH)) {
             cauldronWash(sections.get(Kind.CAULDRON_WASH), resolver, entries);
         }
+        if (sections.containsKey(Kind.PISTON_REPAIR)) {
+            pistonRepair(sections.get(Kind.PISTON_REPAIR), resolver, entries);
+        }
+        if (sections.containsKey(Kind.COPPER_PLATE)) {
+            copperPlate(sections.get(Kind.COPPER_PLATE), resolver, entries);
+        }
+        if (sections.containsKey(Kind.ROTATE)) {
+            rotate(sections.get(Kind.ROTATE), resolver, entries);
+        }
+        if (sections.containsKey(Kind.CONSTRUCTORS_TOUCH)) {
+            constructorsTouch(sections.get(Kind.CONSTRUCTORS_TOUCH), resolver, entries);
+        }
+        if (sections.containsKey(Kind.CORE_ORE)) {
+            coreOre(sections.get(Kind.CORE_ORE), resolver, entries);
+        }
         return new Catalog(Collections.unmodifiableList(entries), Collections.unmodifiableList(problems));
     }
 
@@ -275,7 +295,7 @@ public final class InWorldRecipeCatalog {
         }
         out.add(new Entry(Kind.DIAMOND_CRUSH, "diamond_crush/" + blockId, List.of(Stack.of(block, 1)), hammers,
                 Stack.of(result, crush.get("count").getAsInt()), 0,
-                List.of(Component.translatable("jei.simplebuilding.note.diamond_crush.how"),
+                List.of(Component.translatable("jei.simplebuilding.note.diamond_crush.how", crush.has("strikes") ? crush.get("strikes").getAsInt() : 1),
                         Component.translatable("jei.simplebuilding.note.damage", crush.get("damage").getAsInt()))));
     }
 
@@ -429,6 +449,132 @@ public final class InWorldRecipeCatalog {
                 List.of(Component.translatable("jei.simplebuilding.note.cauldron_wash.how"),
                         Component.translatable("jei.simplebuilding.note.cauldron_wash.water", wash.get("waterLevels").getAsInt()),
                         Component.translatable("jei.simplebuilding.note.cauldron_wash.keeps"))));
+    }
+
+    /** A damaged breaker piston + the nugget of its tier -> the piston at full durability. */
+    private static void pistonRepair(JsonObject repair, Resolver resolver, List<Entry> out) {
+        for (JsonElement element : repair.getAsJsonArray("steps")) {
+            JsonObject step = element.getAsJsonObject();
+            String pistonId = step.get("piston").getAsString();
+            Item piston = resolver.block(pistonId);
+            Item nugget = resolver.item(step.get("nugget").getAsString());
+            if (piston == null || nugget == null) {
+                continue;
+            }
+            out.add(new Entry(Kind.PISTON_REPAIR, "piston_repair/" + pistonId, List.of(Stack.of(piston, 1)), List.of(nugget),
+                    Stack.of(piston, 1), 0,
+                    List.of(Component.translatable("jei.simplebuilding.note.piston_repair.how"),
+                            Component.translatable("jei.simplebuilding.note.piston_repair.full",
+                                    step.get("durability").getAsInt(), step.get("nuggetCount").getAsInt()))));
+        }
+    }
+
+    /** Honeycomb waxes each stage; an axe scrapes the wax off, or else one oxidation stage. */
+    private static void copperPlate(JsonObject plate, Resolver resolver, List<Entry> out) {
+        Item honeycomb = resolver.item(plate.get("honeycomb").getAsString());
+        List<String> axeIds = new ArrayList<>();
+        for (JsonElement element : plate.getAsJsonArray("axes")) {
+            axeIds.add(element.getAsString());
+        }
+        List<Item> axes = resolver.items(axeIds);
+        Component damage = Component.translatable("jei.simplebuilding.note.damage", plate.get("axeDamage").getAsInt());
+        for (String part : List.of("wax", "unwax", "scrape")) {
+            boolean wax = part.equals("wax");
+            List<Item> tools = wax ? (honeycomb == null ? List.of() : List.of(honeycomb)) : axes;
+            for (List<String> pair : pairs(plate.getAsJsonArray(part))) {
+                Item from = resolver.block(pair.get(0));
+                Item to = resolver.block(pair.get(1));
+                if (from == null || to == null || tools.isEmpty()) {
+                    continue;
+                }
+                out.add(new Entry(Kind.COPPER_PLATE, "copper_plate/" + part + "/" + pair.get(0), List.of(Stack.of(from, 1)), tools,
+                        Stack.of(to, 1), 0, wax ? List.of(Component.translatable("jei.simplebuilding.note.copper_plate.wax"))
+                                : List.of(Component.translatable("jei.simplebuilding.note.copper_plate.scrape"), damage)));
+            }
+        }
+    }
+
+    /** The rotator turns a block in place; one example per kind of orientation. */
+    private static void rotate(JsonObject rotator, Resolver resolver, List<Entry> out) {
+        Item tool = resolver.item(rotator.get("tool").getAsString());
+        if (tool == null) {
+            return;
+        }
+        List<Component> notes = List.of(Component.translatable("jei.simplebuilding.note.rotate.how"),
+                Component.translatable("jei.simplebuilding.note.rotate.charge", rotator.get("chargePerTurn").getAsInt(),
+                        rotator.get("maxCharge").getAsInt()));
+        for (JsonElement element : rotator.getAsJsonArray("examples")) {
+            String blockId = element.getAsString();
+            Item block = resolver.block(blockId);
+            if (block != null) {
+                out.add(new Entry(Kind.ROTATE, "rotate/" + blockId, List.of(Stack.of(block, 1)), List.of(tool), Stack.of(block, 1), 0, notes));
+            }
+        }
+    }
+
+    /** A stick with Constructor's Touch turns a block's orientation; one example per kind. */
+    private static void constructorsTouch(JsonObject touch, Resolver resolver, List<Entry> out) {
+        Item tool = resolver.item(touch.get("tool").getAsString());
+        if (tool == null) {
+            return;
+        }
+        List<Component> notes = List.of(Component.translatable("jei.simplebuilding.note.constructors_touch.how"), touchNote());
+        for (JsonElement element : touch.getAsJsonArray("examples")) {
+            String blockId = element.getAsString();
+            Item block = resolver.block(blockId);
+            if (block != null) {
+                out.add(new Entry(Kind.CONSTRUCTORS_TOUCH, "constructors_touch/" + blockId, List.of(Stack.of(block, 1)), List.of(tool),
+                        Stack.of(block, 1), 0, notes));
+            }
+        }
+    }
+
+    /** Every host block + any building core -> one of its ores, with the ore's share and the core chances. */
+    private static void coreOre(JsonObject core, Resolver resolver, List<Entry> out) {
+        List<String> coreIds = new ArrayList<>();
+        int rarest = 0;
+        int likeliest = Integer.MAX_VALUE;
+        for (JsonElement element : core.getAsJsonArray("cores")) {
+            JsonObject entry = element.getAsJsonObject();
+            coreIds.add(entry.get("id").getAsString());
+            rarest = Math.max(rarest, entry.get("oneIn").getAsInt());
+            likeliest = Math.min(likeliest, entry.get("oneIn").getAsInt());
+        }
+        List<Item> cores = resolver.items(coreIds);
+        if (cores.isEmpty()) {
+            resolver.problems.add("core ore chance names no building core");
+            return;
+        }
+        Component how = Component.translatable("jei.simplebuilding.note.core_ore.how");
+        Component chance = Component.translatable("jei.simplebuilding.note.core_ore.chance", likeliest, rarest);
+        for (JsonElement element : core.getAsJsonArray("hosts")) {
+            JsonObject host = element.getAsJsonObject();
+            List<String> blockIds = new ArrayList<>();
+            for (JsonElement block : host.getAsJsonArray("blocks")) {
+                blockIds.add(block.getAsString());
+            }
+            List<Item> blocks = new ArrayList<>();
+            for (String id : blockIds) {
+                Item item = resolver.block(id);
+                if (item != null) {
+                    blocks.add(item);
+                }
+            }
+            if (blocks.isEmpty()) {
+                continue;
+            }
+            for (JsonElement oreElement : host.getAsJsonArray("ores")) {
+                JsonObject ore = oreElement.getAsJsonObject();
+                String oreId = ore.get("id").getAsString();
+                Item oreItem = resolver.block(oreId);
+                if (oreItem == null) {
+                    continue;
+                }
+                out.add(new Entry(Kind.CORE_ORE, "core_ore/" + host.get("host").getAsString() + "/" + oreId,
+                        List.of(new Stack(List.copyOf(blocks), 1)), cores, Stack.of(oreItem, 1), 0,
+                        List.of(how, chance, Component.translatable("jei.simplebuilding.note.core_ore.weight", ore.get("weight").getAsInt()))));
+            }
+        }
     }
 
     // =====================================================================================

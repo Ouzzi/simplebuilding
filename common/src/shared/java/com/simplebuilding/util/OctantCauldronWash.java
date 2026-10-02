@@ -28,8 +28,7 @@ public final class OctantCauldronWash {
     public static final int WATER_LEVELS = 1;
 
     public static final CauldronInteraction INTERACTION = (state, world, pos, player, hand, stack) -> {
-        Item item = stack.getItem();
-        if (!(item instanceof OctantItem) || item == ModItems.OCTANT) {
+        if (!isWashable(stack)) {
             return InteractionResult.PASS;
         }
         if (!world.isClientSide()) {
@@ -50,6 +49,12 @@ public final class OctantCauldronWash {
     };
 
     private OctantCauldronWash() {
+    }
+
+    /** A dyed octant (the plain one has nothing to wash off); the wash and the hand hint ask this. */
+    public static boolean isWashable(ItemStack stack) {
+        Item item = stack.getItem();
+        return item instanceof OctantItem && item != ModItems.OCTANT;
     }
 
     /** Die gefaerbten Oktanten in {@link DyeColor}-Reihenfolge - genau die, die gewaschen werden. */
