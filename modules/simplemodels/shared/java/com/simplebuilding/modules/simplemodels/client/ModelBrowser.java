@@ -145,7 +145,7 @@ public final class ModelBrowser extends Screen {
                     var label = Component.translatable("simplemodels.config." + field.getName()).append(": " + field.get(catalogue.policy()));
                     g.text(font, label, x + 6, y + 48 + row * 23, 0xFFFFFFFF, false);
                     if (my >= y + 48 + row * 23 && my < y + 69 + row * 23)
-                        g.setTooltipForNextFrame(font, Component.translatable("simplemodels.config." + field.getName() + ".tooltip"), mx, my);
+                        g.setTooltipForNextFrame(font, font.split(Component.translatable("simplemodels.config." + field.getName() + ".tooltip"), Math.min(240, width - 16)), mx, my);
                     row++;
                 } catch (ReflectiveOperationException e) { throw new IllegalStateException(e); }
             }

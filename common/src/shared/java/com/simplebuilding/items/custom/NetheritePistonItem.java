@@ -111,6 +111,12 @@ public class NetheritePistonItem extends BlockItem {
                                 Consumer<Component> textConsumer, TooltipFlag type) {
         super.appendHoverText(stack, context, displayComponent, textConsumer, type);
         textConsumer.accept(Component.translatable(tooltipKey).withStyle(ChatFormatting.GRAY));
+        textConsumer.accept(Component.translatable(tooltipKey + ".2").withStyle(ChatFormatting.GRAY));
+        textConsumer.accept(Component.translatable(tooltipKey + ".3").withStyle(ChatFormatting.GRAY));
+        textConsumer.accept(Component.translatable(tooltipKey + ".4").withStyle(ChatFormatting.GRAY));
+        textConsumer.accept(Component.translatable(tooltipKey + ".5").withStyle(ChatFormatting.GRAY));
+        textConsumer.accept(Component.translatable(tooltipKey + ".6").withStyle(ChatFormatting.GRAY));
+        textConsumer.accept(Component.translatable(tooltipKey + ".7").withStyle(ChatFormatting.GRAY));
         int damage = damageOf(stack);
         int max = maxDurability();
         // Advanced tooltips (F3+H) already show vanilla's "Durability: x / y" for a damaged stack.

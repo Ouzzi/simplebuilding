@@ -38,10 +38,7 @@ public class ItemMixin {
         com.simplebuilding.util.TieredShulkerBoxes.tooltip(stack).forEach(textConsumer);
         // Info-Zeilen (Pads, Maschinen, Kolben, Kerne, Enderit-Ruestung, Aepfel), Immersion 2026-09-28.
         com.simplebuilding.items.tooltip.InfoTooltips.lines(stack).forEach(textConsumer);
-        Component upgradeHint = SledgehammerUpgrades.tooltipHint(stack);
-        if (upgradeHint != null) {
-            textConsumer.accept(upgradeHint);
-        }
+        SledgehammerUpgrades.tooltipHints(stack).forEach(textConsumer);
 
         // Client-Side Check für den Player (für Multiplikator)
         Player player = Minecraft.getInstance().player;

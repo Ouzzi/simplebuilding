@@ -63,7 +63,10 @@ public final class InfoTooltips {
         if (com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS
                 && item instanceof com.simplebuilding.items.custom.SledgehammerItem) {
             out.add(gray("tooltip.simplebuilding.sledgehammer.corner"));
+            out.add(gray("tooltip.simplebuilding.sledgehammer.corner.2"));
             out.add(gray("tooltip.simplebuilding.sledgehammer.mining_time"));
+            out.add(gray("tooltip.simplebuilding.sledgehammer.mining_time.2"));
+            out.add(gray("tooltip.simplebuilding.sledgehammer.mining_time.3"));
         }
         if (item instanceof BlockItem blockItem) {
             blockLines(blockItem.getBlock(), out);
@@ -76,6 +79,8 @@ public final class InfoTooltips {
                 || item == ModItems.ENDERITE_LEGGINGS || item == ModItems.ENDERITE_BOOTS) {
             out.add(gray("tooltip.simplebuilding.enderite_armor.void"));
             out.add(gray("tooltip.simplebuilding.enderite_armor.glide"));
+            out.add(gray("tooltip.simplebuilding.enderite_armor.glide.2"));
+            out.add(gray("tooltip.simplebuilding.enderite_armor.glide.3"));
         }
         if (isModFood(item)) {
             foodLines(stack, out);
@@ -116,6 +121,7 @@ public final class InfoTooltips {
             int t = pad.getTier();
             out.add(tier(t, SpawnTeleporterBlock.MAX_TIER));
             out.add(gray("tooltip.simplebuilding.pad.teleport_wait", seconds(SpawnTeleporterBlockEntity.requiredTicks(t))));
+            out.add(gray("tooltip.simplebuilding.pad.teleport_wait.2", seconds(SpawnTeleporterBlockEntity.requiredTicks(t))));
             // Besitzer 2026-09-29: jede Stufe zum eigenen Spawn, mit Redstone zum Weltspawn.
             out.add(gray("tooltip.simplebuilding.pad.teleport_home"));
         } else if (block instanceof PotionPadBlock pad) {
@@ -125,6 +131,7 @@ public final class InfoTooltips {
             // Abklingzeit wie PotionPadBlock#cooldownAt (Config tweaks.padTuning.potionPadCooldownFactor).
             int cooldown = (int) Math.round(com.simplebuilding.tweaks.SimpleTweaks.config().padTuning.potionPadCooldown() * duration);
             out.add(gray("tooltip.simplebuilding.pad.potion", seconds(duration), seconds(cooldown)));
+            out.add(gray("tooltip.simplebuilding.pad.potion.2", seconds(duration), seconds(cooldown)));
         } else if (block instanceof ModFurnaceBlock || block instanceof ModSmokerBlock || block instanceof ModBlastFurnaceBlock) {
             int t = machineTier(block);
             if (t > 0) {
@@ -148,6 +155,7 @@ public final class InfoTooltips {
         } else if (block instanceof ReinforcedPistonBlock) {
             out.add(gray("tooltip.simplebuilding.reinforced_piston.limit", REINFORCED_PUSH_LIMIT));
             out.add(gray("tooltip.simplebuilding.reinforced_piston.breach"));
+            out.add(gray("tooltip.simplebuilding.reinforced_piston.breach.2"));
         } else if (block instanceof LevitatingBlock) {
             out.add(gray("tooltip.simplebuilding.levitating"));
         } else if (block == ModBlocks.SUSPENDED_SAND || block == ModBlocks.SUSPENDED_GRAVEL) {
@@ -195,26 +203,12 @@ public final class InfoTooltips {
         return uses;
     }
 
-    /** "Used in:" and the item names, three to a line. */
+    /** "Used in:" and one item name per line, including long translated names. */
     private static void coreLines(List<Item> uses, List<Component> out) {
         out.add(gray("tooltip.simplebuilding.core.used_in"));
-        MutableComponent line = null;
-        int onLine = 0;
         for (Item use : uses) {
-            if (line == null) {
-                line = Component.literal("  ");
-            } else {
-                line.append(Component.literal(", "));
-            }
-            line.append(Component.translatable(use.getDescriptionId()));
-            if (++onLine == 3) {
-                out.add(line.withStyle(ChatFormatting.DARK_GRAY));
-                line = null;
-                onLine = 0;
-            }
-        }
-        if (line != null) {
-            out.add(line.withStyle(ChatFormatting.DARK_GRAY));
+            out.add(Component.literal("  ").append(Component.translatable(use.getDescriptionId()))
+                    .withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 

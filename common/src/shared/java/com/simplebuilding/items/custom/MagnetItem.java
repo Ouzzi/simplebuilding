@@ -302,6 +302,7 @@ public class MagnetItem extends Item {
             tooltip.accept(Component.translatable("tooltip.simplebuilding.magnet.no_filter").withStyle(ChatFormatting.GRAY));
         }
         tooltip.accept(Component.translatable("tooltip.simplebuilding.magnet.clear").withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.accept(Component.translatable("tooltip.simplebuilding.magnet.clear.2").withStyle(ChatFormatting.DARK_GRAY));
     }
 
     /** Setzt ({@code id}) oder loescht ({@code null}) den gespeicherten Filter. */

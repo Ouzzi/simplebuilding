@@ -129,8 +129,11 @@ public class VelocityGaugeItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
         lines.accept(Component.translatable("tooltip.simplebuilding.velocity_gauge.tooltip").withStyle(ChatFormatting.GRAY));
+        lines.accept(Component.translatable("tooltip.simplebuilding.velocity_gauge.tooltip.2").withStyle(ChatFormatting.GRAY));
         if (!stack.isEnchanted()) {
             lines.accept(Component.translatable("tooltip.simplebuilding.velocity_gauge.touch_hint").withStyle(ChatFormatting.DARK_GRAY));
+            lines.accept(Component.translatable("tooltip.simplebuilding.velocity_gauge.touch_hint.2").withStyle(ChatFormatting.DARK_GRAY));
+            lines.accept(Component.translatable("tooltip.simplebuilding.velocity_gauge.touch_hint.3").withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 

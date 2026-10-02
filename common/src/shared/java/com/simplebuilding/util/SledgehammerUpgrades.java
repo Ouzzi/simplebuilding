@@ -779,25 +779,33 @@ public final class SledgehammerUpgrades {
     }
 
     /**
-     * Die Hinweiszeile fuer die Tooltips der aufwertbaren Maschinen, oder null. Verstaerkte
+     * Die Hinweiszeilen fuer die Tooltips der aufwertbaren Maschinen. Verstaerkte
      * Maschinen nennen das Netherit-Nugget, Netherit-Maschinen das Enderit-Nugget.
      */
-    public static @Nullable Component tooltipHint(ItemStack stack) {
+    public static java.util.List<Component> tooltipHints(ItemStack stack) {
         if (!(stack.getItem() instanceof net.minecraft.world.item.BlockItem blockItem)) {
-            return null;
+            return java.util.List.of();
         }
         Upgrade upgrade = upgradeOf(blockItem.getBlock());
         if (upgrade == null) {
-            return null;
+            return java.util.List.of();
         }
         if (upgrade.isShulkerBox()) {
             String tier = upgrade.toEnderite() ? "enderite" : upgrade.toReinforced() ? "reinforced" : "netherite";
-            return Component.translatable("tooltip.simplebuilding.hammer_upgrade.shulker_box." + tier,
-                    upgrade.materialCost(), blows(upgrade)).withStyle(ChatFormatting.GRAY);
+            String key = "tooltip.simplebuilding.hammer_upgrade.shulker_box." + tier;
+            return java.util.List.of(
+                    Component.translatable(key).withStyle(ChatFormatting.GRAY),
+                    Component.translatable(key + ".2").withStyle(ChatFormatting.GRAY),
+                    Component.translatable(key + ".3", upgrade.materialCost(), blows(upgrade)).withStyle(ChatFormatting.GRAY),
+                    Component.translatable(key + ".4", upgrade.materialCost(), blows(upgrade)).withStyle(ChatFormatting.GRAY));
         }
-        return Component.translatable(upgrade.toEnderite()
+        String key = upgrade.toEnderite()
                 ? "tooltip.simplebuilding.hammer_upgrade.enderite"
                 : upgrade.toReinforced() ? "tooltip.simplebuilding.hammer_upgrade.reinforced"
-                : "tooltip.simplebuilding.hammer_upgrade.netherite").withStyle(ChatFormatting.GRAY);
+                : "tooltip.simplebuilding.hammer_upgrade.netherite";
+        return java.util.List.of(
+                Component.translatable(key).withStyle(ChatFormatting.GRAY),
+                Component.translatable(key + ".2").withStyle(ChatFormatting.GRAY),
+                Component.translatable(key + ".3").withStyle(ChatFormatting.GRAY));
     }
 }

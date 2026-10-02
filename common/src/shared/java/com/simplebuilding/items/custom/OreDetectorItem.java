@@ -841,6 +841,7 @@ public class OreDetectorItem extends Item {
                 textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.target",
                         custom.getBlock().getName().copy().withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.GRAY));
                 textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.place_hint").withStyle(ChatFormatting.DARK_GRAY));
+                textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.place_hint.2").withStyle(ChatFormatting.DARK_GRAY));
             } else {
                 textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.no_target").withStyle(ChatFormatting.RED));
             }

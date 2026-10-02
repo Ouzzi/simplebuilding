@@ -8807,19 +8807,19 @@
         "src/main/java/com/simplebuilding/datagen/ModModelProvider.java"
       ],
       "en": {
-        "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
+        "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
         "details": [
           "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
-          "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
+          "Placed like a log (the pattern follows the axis); no mob spawns on them. These blocks are mined with a pickaxe and drop themselves.",
           "The Astralit Quartz Checker glows with light level 5.",
           "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
         ]
       },
       "de": {
-        "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
+        "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und poliertem Enderquarz.",
         "details": [
           "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
-          "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+          "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Diese Blöcke werden mit der Spitzhacke abgebaut und droppen sich selbst.",
           "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
           "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
         ]
@@ -8872,6 +8872,13 @@
           "de": "Enderquarz-Schachbrett: 2 Enderquarz und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
           "sources": [
             "src/main/generated/data/simplebuilding/recipe/ender_quartz_checker.json"
+          ]
+        },
+        "simplebuilding:polished_ender_quartz_checker": {
+          "en": "Polished Ender Quartz Checker: craft 4 from 2 Polished Ender Quartz blocks and 2 Quartz Blocks in a diagonal checker pattern.",
+          "de": "Poliertes Enderquarz-Schachbrett: 2 polierte Enderquarzblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
+          "sources": [
+            "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
           ]
         }
       }
