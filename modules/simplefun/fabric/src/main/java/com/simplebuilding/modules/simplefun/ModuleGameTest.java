@@ -168,4 +168,9 @@ public final class ModuleGameTest {
   public void headAbilities(GameTestHelper h) {
     com.simplefun.test.FunTests.ALL.get("head_abilities").accept(h);
   }
+
+  @GameTest
+  public void creativeTabs(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("creative_tabs").accept(h);
+  }
 }

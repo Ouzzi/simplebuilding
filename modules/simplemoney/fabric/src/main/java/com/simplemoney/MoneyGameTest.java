@@ -11,6 +11,7 @@ public final class MoneyGameTest {
  @GameTest(maxTicks=100) public void simplebuildingStorage(GameTestHelper h) { com.simplemoney.testing.MoneyTests.storage(h); }
  @GameTest(maxTicks=100) public void recipeOutputs(GameTestHelper h) { com.simplemoney.testing.MoneyTests.recipeOutputs(h); }
  @GameTest(maxTicks=100) public void configWorld(GameTestHelper h) { com.simplemoney.testing.MoneyTests.configWorld(h); }
+ @GameTest(maxTicks=100) public void creativeTabs(GameTestHelper h) { com.simplemoney.testing.MoneyTests.creativeTabs(h); }
  @GameTest(maxTicks=100) public void billUse(GameTestHelper h) { com.simplemoney.testing.MoneyTests.billUse(h); }
  @GameTest(maxTicks=100) public void linkConditions(GameTestHelper h) { com.simplemoney.testing.LinkTests.conditions(h); }
  @GameTest(maxTicks=100) public void linkOffers(GameTestHelper h) { com.simplemoney.testing.LinkTests.offers(h); }

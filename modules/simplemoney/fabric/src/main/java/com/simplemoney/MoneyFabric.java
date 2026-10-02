@@ -12,6 +12,9 @@ public final class MoneyFabric implements ModInitializer {
   SimpleMoney.loadConfig(FabricLoader.getInstance().getConfigDir()); MoneyItems.register(); MoneyItems.registerTab(FabricCreativeModeTab.builder());
   Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE,Identifier.fromNamespaceAndPath("simplemoney","weighted_enchant"),WeightedEnchantFunction.MAP_CODEC);
   MoneyCondition.register();
+  net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS).register(out->{
+   if(out.getDisplayStacks().stream().anyMatch(s->s.is(MoneyItems.SEARCH_ANCHOR)))out.insertAfter(MoneyItems.SEARCH_ANCHOR,MoneyItems.tabStacks(),net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+  });
   LootTableEvents.MODIFY.register((key,builder,source,registries)->MoneyLoot.inject(key.identifier().toString(),builder::withPool));
  }
 }

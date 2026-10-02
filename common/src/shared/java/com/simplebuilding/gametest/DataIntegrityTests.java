@@ -2549,8 +2549,9 @@ public final class DataIntegrityTests {
      * one empty cell ({@code simplebuilding:creative_spacer}): 4 hoppers, gap, 4 furnaces; 4 smokers,
      * gap, 4 blast furnaces; the 6 pistons; 4 bundles, gap, 4 quivers; the 4 backpacks; last the chests
      * (vanilla chest, copper chest, reinforced, netherite, enderite). The plates and pads moved into
-     * their own tab and the building planning into SimpleTools (owner 2026-09-29). On 26.3, the
-     * ender chest/vault row and the two isolated signal families follow the shulker boxes.
+     * their own tab and the building planning into SimpleTools (owner 2026-09-29). On 26.3 the ender
+     * chest and astral vault stand after a gap in the chests row, and the two isolated signal families
+     * follow the shulker boxes.
      *
      * <p>Read back slot by slot from what the tab really emits ({@link #tabSlots}): every cell has to
      * hold the expected item or be a spacer where a gap or the rest of a row belongs; spacers are only
@@ -2575,11 +2576,15 @@ public final class DataIntegrityTests {
                         ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
                 List.of(ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
                 // Truhen: Vanilla-Truhe, Kupfertruhe (die erste Aufwertungsstufe), dann die Mod-Stufen.
-                List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
-                        ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST),
+                // 26.3: nach einer Luecke Endertruhe und Astral-Lager in derselben Zeile (Audit 2026-10-02).
+                McVersion.END_SYSTEMS
+                        ? List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
+                                ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST, gap,
+                                Items.ENDER_CHEST, ModItems.ASTRAL_VAULT)
+                        : List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
+                                ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST),
                 List.of(Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX)));
         if (McVersion.END_SYSTEMS) {
-            expected.add(List.of(Items.ENDER_CHEST, ModItems.ASTRAL_VAULT));
             expected.add(List.of(ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, gap,
                     ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP));
         }
@@ -2680,8 +2685,9 @@ public final class DataIntegrityTests {
     }
 
     /**
-     * SimpleMaterials is laid out in rows like the other tabs (owner 2026-09-28): end ores with their
-     * yield (nihilith ore, shard | astralit ore, dust | ender quartz), the materials in ore order
+     * SimpleMaterials is laid out in rows like the other tabs (owner 2026-09-28): all ore rows together
+     * (sage ore, dimensional scrap, end ores with their yield: nihilith ore, shard | astralit ore, dust |
+     * ender quartz), then the small parts with the iron rod after a gap, the materials in ore order
      * (diamond pebble, cracked diamond, netherite nugget, raw enderite, scrap, nugget, ingot | leather
      * sheet), the building cores copper to enderite, every smithing template in one place - the
      * upgrades (basic, vanilla netherite, enderite), then all vanilla armour trims in vanilla's order
@@ -2717,18 +2723,26 @@ public final class DataIntegrityTests {
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             expected.add(List.of(ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM, ModItems.SAGE_ORB));
         }
-        if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
-            expected.add(List.of(ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP));
-        }
-        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            expected.add(List.of(ModItems.IRON_ROD, ModItems.GOLD_ROD, ModItems.DIAMOND_ROD, ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));
-        }
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             expected.add(List.of(ModItems.DIMENSIONAL_SCRAP_ITEM, ModItems.NETHER_DIMENSIONAL_SCRAP_ITEM, ModItems.END_DIMENSIONAL_SCRAP_ITEM));
         }
+        expected.add(List.of(ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, gap, ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST,
+                gap, ModItems.ENDER_QUARTZ));
+        // Nach allen Erz-Zeilen die Kleinteile, der Eisenstab nach einer Luecke daneben (Audit 2026-10-02).
+        List<Item> parts = new ArrayList<>();
+        if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            parts.addAll(List.of(ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP));
+        }
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            if (!parts.isEmpty()) {
+                parts.add(gap);
+            }
+            parts.addAll(List.of(ModItems.IRON_ROD, ModItems.GOLD_ROD, ModItems.DIAMOND_ROD, ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));
+        }
+        if (!parts.isEmpty()) {
+            expected.add(parts);
+        }
         expected.addAll(List.of(
-                List.of(ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, gap, ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST,
-                        gap, ModItems.ENDER_QUARTZ),
                 List.of(ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND),
                 List.of(Items.ANCIENT_DEBRIS, Items.NETHERITE_SCRAP, ModItems.NETHERITE_NUGGET, Items.NETHERITE_INGOT, gap,
                         ModItems.LEATHER_SHEET),
@@ -3062,12 +3076,12 @@ public final class DataIntegrityTests {
      * SimpleTools is laid out in rows of nine, one family per row from the lowest tier up to
      * enderite, the vanilla tools, weapons and armour of every tier included: chisel, building wand
      * (after a gap the building planning in the same row: blueprint and cartography table, right next
-     * to the enderite wand that builds a blueprint - owner 2026-09-29), sledgehammer, pickaxe, shovel,
-     * hoe, axe, then sword and spear, then helmet, chestplate,
+     * to the enderite wand that builds a blueprint - owner 2026-09-29), sledgehammer, then shovel,
+     * pickaxe, axe and hoe in vanilla order, then sword and spear, then helmet, chestplate,
      * leggings and boots, then the gadgets (compass, recovery compass, echo compass, velocity gauge,
      * ore detector, magnet, rotator, amethyst lens, octant - a full row),
-     * the sixteen coloured octants (one category over two rows) and last the enchanted books, one
-     * per mod enchantment.
+     * the sixteen coloured octants (one category over two rows) and last the books: each guide shelf,
+     * then the enchanted books (one per mod enchantment), each category flowing on after one gap.
      *
      * <p>Read slot by slot like {@link #machinesAndStorageTabIsLaidOutInRowsOfNine}: every cell holds
      * the expected item, a spacer where a gap or the rest of a row belongs.
@@ -3091,10 +3105,11 @@ public final class DataIntegrityTests {
                 ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
                 ModItems.ENDERITE_SLEDGEHAMMER));
         Map<String, Item> enderite = new LinkedHashMap<>();
-        enderite.put("pickaxe", ModItems.ENDERITE_PICKAXE);
+        // Vanillas Werkzeug-Reihenfolge: Schaufel, Spitzhacke, Axt, Hacke.
         enderite.put("shovel", ModItems.ENDERITE_SHOVEL);
-        enderite.put("hoe", ModItems.ENDERITE_HOE);
+        enderite.put("pickaxe", ModItems.ENDERITE_PICKAXE);
         enderite.put("axe", ModItems.ENDERITE_AXE);
+        enderite.put("hoe", ModItems.ENDERITE_HOE);
         enderite.put("sword", ModItems.ENDERITE_SWORD);
         enderite.put("spear", ModItems.ENDERITE_SPEAR);
         enderite.put("helmet", ModItems.ENDERITE_HELMET);
@@ -3125,21 +3140,23 @@ public final class DataIntegrityTests {
             colored.add(ModItems.COLORED_OCTANT_ITEMS.get(color));
         }
         expected.add(colored);
-        // Handbuecher: je Regal eine Kategorie (GuideBooks.Shelf, Lesezeichen-Reihenfolge). Eine Kategorie, die
-        // genau volle Zeilen fuellt, hat keinen Fueller - rowLayout liest sie dann mit der naechsten als eine
-        // (wie bei den Geraeten); die verzauberten Buecher folgen auf das letzte Regal.
+        // Buecher (Audit 2026-10-02): je Regal (GuideBooks.Shelf, Lesezeichen-Reihenfolge) die Handbuecher, dann
+        // die verzauberten Buecher; jede Kategorie fliesst nach genau einer Luecke weiter (keine, wenn die
+        // vorige eine Zeile genau fuellt) und bricht bei Bedarf um - in den Slots also eine lange Kategorie.
         int modEnchantments = (int) helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
                 .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())).count();
-        List<Item> pending = new ArrayList<>();
+        List<Item> books = new ArrayList<>();
         for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
-            com.simplebuilding.guide.GuideBooks.items(shelf).forEach(book -> pending.add(com.simplebuilding.guide.GuideBooks.item(book)));
-            if (pending.size() % 9 != 0) {
-                expected.add(new ArrayList<>(pending));
-                pending.clear();
+            if (!books.isEmpty() && books.size() % 9 != 0) {
+                books.add(Items.AIR);
             }
+            com.simplebuilding.guide.GuideBooks.items(shelf).forEach(book -> books.add(com.simplebuilding.guide.GuideBooks.item(book)));
         }
-        pending.addAll(Collections.nCopies(modEnchantments, Items.ENCHANTED_BOOK));
-        expected.add(pending);
+        if (books.size() % 9 != 0) {
+            books.add(Items.AIR);
+        }
+        books.addAll(Collections.nCopies(modEnchantments, Items.ENCHANTED_BOOK));
+        expected.add(books);
 
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.TOOLS, problems), expectedSlots(expected), "SimpleTools", problems);
         helper.assertTrue(problems.isEmpty(), "tools layout: " + problems);

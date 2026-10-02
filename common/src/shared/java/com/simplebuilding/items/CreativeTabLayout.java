@@ -32,6 +32,10 @@ import java.util.List;
  * (Blaupause, Kartografentisch) rechts neben den Baustaeben, eine eigene Kategorie, die aber keine
  * eigene Zeile braucht. Passt sie nicht mehr in die Zeile, beginnt sie wie jede andere links.
  *
+ * <p>Eine Zeile kann auch nach genau einer leeren Zelle hinter ihrem Vorgaenger weiterfliessen
+ * ({@link Row#flowing}), selbst wenn sie dort nicht ganz passt und in die naechste Zeile umbricht - etwa
+ * die Handbuecher und verzauberten Buecher, damit keine Buecherzeile fast leer auslaeuft (Audit 2026-10-02).
+ *
  * <p>Neue Tabs uebernehmen das Layout, indem sie ihre Kategorien als {@link Row}-Liste beschreiben
  * und {@link #emit} aufrufen.
  */
@@ -52,9 +56,18 @@ public final class CreativeTabLayout {
      * Eine Kategorie: ein Name (nur fuer Tests und Fehlermeldungen) und ihre Stapel in Anzeigereihenfolge.
      * Vanilla zuerst, dann die Stufen aufsteigend.
      */
-    public record Row(String name, List<ItemStack> stacks, boolean besidePrevious) {
+    public record Row(String name, List<ItemStack> stacks, boolean besidePrevious, boolean flowOn) {
         public Row(String name, List<ItemStack> stacks) {
             this(name, stacks, false);
+        }
+
+        public Row(String name, List<ItemStack> stacks, boolean besidePrevious) {
+            this(name, stacks, besidePrevious, false);
+        }
+
+        /** Eine Kategorie, die nach einer leeren Zelle hinter der vorigen weiterlaeuft und bei Bedarf umbricht. */
+        public static Row flowing(String name, List<ItemStack> stacks) {
+            return new Row(name, stacks, false, true);
         }
 
         public static Row of(String name, ItemLike... items) {
@@ -88,6 +101,9 @@ public final class CreativeTabLayout {
             Row next = rows.get(r + 1);
             int padding = remainder == 0 ? 0 : ROW_WIDTH - remainder;
             if (next.besidePrevious() && remainder != 0 && remainder + 1 + next.stacks().size() <= ROW_WIDTH) {
+                padding = 1;
+            }
+            if (next.flowOn() && remainder != 0) {
                 padding = 1;
             }
             column += padding;

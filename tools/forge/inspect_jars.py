@@ -22,7 +22,7 @@ def inspect():
             metadata = json.loads(archive.read("META-INF/jarjar/metadata.json"))
             framework = [item for item in metadata["jars"] if item["identifier"]["group"] == "com.simplebuilding.framework"]
             assert len(framework) == 1, f"Missing/doubled framework in {jar}"
-            assert framework[0]["version"]["artifactVersion"] == "0.1.1"
+            assert framework[0]["version"]["artifactVersion"] == "0.1.2"
             with zipfile.ZipFile(io.BytesIO(archive.read(framework[0]["path"]))) as library:
                 for name in ("Protection", "Protection$Check", "Protection$Target", "CosmeticIntensity", "CosmeticIntensity$Level"):
                     assert f"com/simplebuilding/framework/api/{name}.class" in library.namelist(), (jar, name)

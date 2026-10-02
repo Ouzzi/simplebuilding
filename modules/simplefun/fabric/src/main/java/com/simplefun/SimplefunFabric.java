@@ -26,8 +26,28 @@ public class SimplefunFabric implements ModInitializer {
     SimplefunRegistry.registerEntities();
     SimplefunRegistry.registerEffects();
 
-    CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS)
-        .register(entries -> entries.accept(ModItems.BRICK_SNOWBALL));
+    // Beside the vanilla models, so the search tab lists them there (AnimalHeads.SNOWBALL_ANCHOR).
+    var visibility = net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS;
+    CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT)
+        .register(
+            entries -> {
+              if (entries.getDisplayStacks().stream()
+                  .anyMatch(s -> s.is(com.simplefun.heads.AnimalHeads.SNOWBALL_ANCHOR)))
+                entries.insertAfter(
+                    com.simplefun.heads.AnimalHeads.SNOWBALL_ANCHOR,
+                    java.util.List.of(new net.minecraft.world.item.ItemStack(ModItems.BRICK_SNOWBALL)),
+                    visibility);
+            });
+    CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS)
+        .register(
+            entries -> {
+              if (entries.getDisplayStacks().stream()
+                  .anyMatch(s -> s.is(com.simplefun.heads.AnimalHeads.HEAD_ANCHOR)))
+                entries.insertAfter(
+                    com.simplefun.heads.AnimalHeads.HEAD_ANCHOR,
+                    com.simplefun.heads.AnimalHeads.headStacks(),
+                    visibility);
+            });
     ServerLivingEntityEvents.AFTER_DEATH.register(PlayerHeadDrop::onDeath);
     CommandRegistrationCallback.EVENT.register(
         (dispatcher, access, environment) -> SimplefunCommands.register(dispatcher));

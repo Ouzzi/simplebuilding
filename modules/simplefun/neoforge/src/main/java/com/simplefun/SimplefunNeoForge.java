@@ -58,8 +58,23 @@ public class SimplefunNeoForge {
 
     modBus.addListener(
         (BuildCreativeModeTabContentsEvent event) -> {
-          if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
-            event.accept(ModItems.BRICK_SNOWBALL);
+          // Beside the vanilla models, so the search tab lists them there (AnimalHeads.SNOWBALL_ANCHOR).
+          java.util.List<net.minecraft.world.item.ItemStack> stacks;
+          net.minecraft.world.item.ItemStack previous;
+          if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
+            previous = new net.minecraft.world.item.ItemStack(com.simplefun.heads.AnimalHeads.SNOWBALL_ANCHOR);
+            stacks = java.util.List.of(new net.minecraft.world.item.ItemStack(ModItems.BRICK_SNOWBALL));
+          } else if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS)) {
+            previous = new net.minecraft.world.item.ItemStack(com.simplefun.heads.AnimalHeads.HEAD_ANCHOR);
+            stacks = com.simplefun.heads.AnimalHeads.headStacks();
+          } else return;
+          if (!event.getParentEntries().contains(previous)) return;
+          for (var stack : stacks) {
+            event.insertAfter(
+                previous,
+                stack,
+                net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            previous = stack;
           }
         });
 

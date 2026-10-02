@@ -30,7 +30,7 @@
   "commands.simplefun.bricks.breakGlass": "Ziegel brechen Glas aktiviert: %s",
   "commands.simplefun.bricks.damage": "Ziegel-Schaden gesetzt auf: %s",
   "commands.simplefun.bricks.snowballDamage": "Ziegel-Schneeball-Schaden gesetzt auf: %s",
-  "itemGroup.simplefun.fun": "Simple Fun",
+  "itemgroup.simplefun.fun": "Simple Fun",
   "simplefun.config.tab.heads": "Tierköpfe",
   "simplefun.config.tab.delights": "Kleine Freuden",
   "simplefun.config.tab.gameplay": "Spielmechanik",

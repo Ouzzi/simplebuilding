@@ -16,7 +16,12 @@ public final class Visuals {
   com.simplebuilding.framework.api.CosmeticIntensity.register(MOD_ID,()->
    CONFIG.particles==null || CONFIG.particles.globalLevel==null
     ? com.simplebuilding.framework.api.CosmeticIntensity.Level.SUBTLE
-    : com.simplebuilding.framework.api.CosmeticIntensity.Level.valueOf(CONFIG.particles.globalLevel.name()));
+    : CONFIG.particles.globalLevel.shared());
+  // Per-effect overrides (framework 0.1.2): Simple Sounds follows them too; null = no override, use the global level.
+  com.simplebuilding.framework.api.CosmeticIntensity.registerEffects(MOD_ID,id->{
+   var particles=CONFIG.particles;var level=particles==null||particles.overrides==null?null:particles.overrides.get(id);
+   return level==null?null:level.shared();
+  });
  }
  public static void save(){ConfigOptions.normalize(CONFIG);try{Files.createDirectories(CONFIG_PATH.getParent());Files.writeString(CONFIG_PATH,GSON.toJson(CONFIG));}catch(Exception e){throw new IllegalStateException(e);}}
  public static String formatName(String name,boolean enabled){

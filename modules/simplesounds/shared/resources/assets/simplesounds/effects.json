@@ -2,41 +2,41 @@
   {
     "id": "footstep_dust",
     "category": "movement",
-    "interval": 40,
-    "sound": "minecraft:block.sand.step",
-    "volume": 0.12,
-    "pitch": 1.0
+    "interval": 20,
+    "sound": "minecraft:block.powder_snow.step",
+    "volume": 0.05,
+    "pitch": 1.4
   },
   {
     "id": "cold_breath",
     "category": "weather",
-    "interval": 40,
+    "interval": 160,
     "sound": "minecraft:entity.player.breath",
-    "volume": 0.12,
-    "pitch": 1.0
+    "volume": 0.06,
+    "pitch": 0.9
   },
   {
     "id": "fireflies",
     "category": "nature",
-    "interval": 40,
-    "sound": "minecraft:block.grass.step",
-    "volume": 0.12,
+    "interval": 100,
+    "sound": "minecraft:block.firefly_bush.idle",
+    "volume": 0.1,
     "pitch": 1.0
   },
   {
     "id": "pollen",
     "category": "nature",
-    "interval": 40,
-    "sound": "minecraft:block.azalea_leaves.step",
-    "volume": 0.12,
-    "pitch": 1.0
+    "interval": 120,
+    "sound": "minecraft:block.flowering_azalea.step",
+    "volume": 0.05,
+    "pitch": 1.4
   },
   {
     "id": "fire_sparks",
     "category": "environment",
-    "interval": 40,
-    "sound": "minecraft:block.fire.ambient",
-    "volume": 0.12,
+    "interval": 60,
+    "sound": "minecraft:block.campfire.crackle",
+    "volume": 0.08,
     "pitch": 1.0
   },
   {
@@ -44,39 +44,39 @@
     "category": "water",
     "interval": 40,
     "sound": "minecraft:entity.generic.swim",
-    "volume": 0.12,
-    "pitch": 1.0
+    "volume": 0.05,
+    "pitch": 1.3
   },
   {
     "id": "water_droplets",
     "category": "water",
-    "interval": 40,
+    "interval": 60,
     "sound": "minecraft:block.pointed_dripstone.drip_water",
-    "volume": 0.12,
-    "pitch": 1.0
+    "volume": 0.08,
+    "pitch": 1.1
   },
   {
     "id": "leaf_fall",
     "category": "nature",
-    "interval": 40,
-    "sound": "minecraft:block.cherry_leaves.step",
-    "volume": 0.12,
-    "pitch": 1.0
+    "interval": 100,
+    "sound": "minecraft:block.leaf_litter.step",
+    "volume": 0.06,
+    "pitch": 1.2
   },
   {
     "id": "enchanted_items",
     "category": "magic",
-    "interval": 40,
+    "interval": 200,
     "sound": "minecraft:block.amethyst_block.chime",
-    "volume": 0.12,
-    "pitch": 1.0
+    "volume": 0.05,
+    "pitch": 1.5
   },
   {
     "id": "beacon_aura",
     "category": "magic",
-    "interval": 40,
+    "interval": 200,
     "sound": "minecraft:block.beacon.ambient",
-    "volume": 0.12,
+    "volume": 0.06,
     "pitch": 1.0
   },
   {
@@ -84,15 +84,15 @@
     "category": "reactive",
     "interval": 40,
     "sound": "minecraft:entity.player.hurt",
-    "volume": 0.22,
-    "pitch": 1.0
+    "volume": 0.1,
+    "pitch": 0.8
   },
   {
     "id": "healing_feedback",
     "category": "reactive",
     "interval": 40,
-    "sound": "minecraft:block.amethyst_block.chime",
-    "volume": 0.22,
-    "pitch": 1.0
+    "sound": "minecraft:block.amethyst_block.resonate",
+    "volume": 0.12,
+    "pitch": 1.6
   }
 ]

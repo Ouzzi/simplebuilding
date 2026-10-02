@@ -10,7 +10,12 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.network.chat.Component;
 import java.util.function.Consumer;
-/** Legacy custom data is retained, but only the server ledger grants authority. */
+/**
+ * Legacy custom data is retained, but only the server ledger grants authority.
+ *
+ * <p>Deliberately in no creative tab (audit 2026-10-02): the deed is an inactive legacy item that only
+ * keeps old stacks loadable; it has no recipe and is reachable by /give only.
+ */
 public final class LegacyDeed {
     public static void register() {
         var id = Identifier.fromNamespaceAndPath("simpletweaks", "claim_deed");
@@ -18,8 +23,10 @@ public final class LegacyDeed {
             @Override public net.minecraft.world.InteractionResult use(net.minecraft.world.level.Level level, net.minecraft.world.entity.player.Player user, net.minecraft.world.InteractionHand hand) {
                 if (!(user instanceof net.minecraft.server.level.ServerPlayer player) || !com.simplebuilding.modules.simpletweaks.claims.Claims.enabled(player.level().getServer())) return net.minecraft.world.InteractionResult.PASS;
                 boolean success=com.simplebuilding.modules.simpletweaks.claims.Claims.get(player.level().getServer()).claim(player);
-                player.level().playSound(null,player.blockPosition(),success?net.minecraft.sounds.SoundEvents.EXPERIENCE_ORB_PICKUP:net.minecraft.sounds.SoundEvents.FIRE_EXTINGUISH,net.minecraft.sounds.SoundSource.PLAYERS,.4f,1f);
-                player.level().sendParticles(success?net.minecraft.core.particles.ParticleTypes.HAPPY_VILLAGER:net.minecraft.core.particles.ParticleTypes.SMOKE,player.getX(),player.getY()+1,player.getZ(),6,.3,.3,.3,0);
+                // Same cue family as SimpleBuilding and the other modules: failure is the dry dispenser click.
+                if (success) player.level().playSound(null,player.blockPosition(),net.minecraft.sounds.SoundEvents.EXPERIENCE_ORB_PICKUP,net.minecraft.sounds.SoundSource.PLAYERS,.4f,1f);
+                else player.level().playSound(null,player.blockPosition(),net.minecraft.sounds.SoundEvents.DISPENSER_FAIL,net.minecraft.sounds.SoundSource.PLAYERS,.5f,1.2f);
+                player.level().sendParticles(success?net.minecraft.core.particles.ParticleTypes.HAPPY_VILLAGER:net.minecraft.core.particles.ParticleTypes.SMOKE,player.getX(),player.getY()+1,player.getZ(),success?6:4,.3,.3,.3,0);
                 return success?net.minecraft.world.InteractionResult.SUCCESS:net.minecraft.world.InteractionResult.FAIL;
             }
             @Override public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> out, TooltipFlag flag) {

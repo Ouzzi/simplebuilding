@@ -100,6 +100,9 @@ public class HoeHarvestHandler {
         for (ItemStack drop : drops) Block.popResource(level, pos, drop);
 
         level.playSound(null, pos, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 1.0f, 1.0f);
+        // A few crop crumbs like a vanilla break (not levelEvent 2001: that would play the break sound twice).
+        level.sendParticles(new net.minecraft.core.particles.BlockParticleOption(net.minecraft.core.particles.ParticleTypes.BLOCK, state),
+                pos.getX() + 0.5, pos.getY() + 0.4, pos.getZ() + 0.5, 8, 0.25, 0.2, 0.25, 0.05);
 
         if (!player.isCreative()) {
             tool.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);

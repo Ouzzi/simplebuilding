@@ -11,7 +11,8 @@
     "RidingNautilusMixin",
     "RidingJumpInputMixin",
     "NautilusDashAccess",
-    "RidingCamelMixin"
+    "RidingCamelMixin",
+    "RidingLeapMixin"
   ],
   "injectors": {
     "defaultRequire": 1

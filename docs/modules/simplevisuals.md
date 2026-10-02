@@ -69,6 +69,9 @@ IDs sind persistent und werden nicht aus Übersetzungen abgeleitet. Vanilla-Type
 Partikeltexturen. Stufen: **Off, Subtle, Normal, Strong, Maximum** / **Aus, Dezent, Normal, Stark,
 Maximum**. Globalstandard Subtle; je Effekt entweder globale Stufe oder ausdrückliches Override,
 auch Off. Pro Auslösemöglichkeit 0/1/2/3/4; gemeinsame Grenzen können die tatsächliche Zahl senken.
+Über `framework` `CosmeticIntensity` veröffentlicht Visuals die globale Stufe und (ab 0.1.2) die
+Effekt-Overrides (`registerEffects`); Simple Sounds folgt damit je Effekt. Die Stufen-Enums werden
+über ausdrückliche `switch`-Zuordnungen (`Intensity#shared`) umgesetzt, nicht über Konstantennamen.
 
 | Stabile ID | Kategorie | Vanilla-Typ | Intervall (Ticks) |
 |---|---|---|---|

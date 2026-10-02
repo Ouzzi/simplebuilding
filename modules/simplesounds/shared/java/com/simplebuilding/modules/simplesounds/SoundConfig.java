@@ -15,6 +15,18 @@ public final class SoundConfig {
         private final float gain;
         Level(float gain) { this.gain = gain; }
         public float gain() { return gain; }
+
+        /** Explicit mapping from the shared framework level (exhaustive switch, null stays null). */
+        public static Level of(com.simplebuilding.framework.api.CosmeticIntensity.Level shared) {
+            if (shared == null) return null;
+            return switch (shared) {
+                case OFF -> OFF;
+                case SUBTLE -> SUBTLE;
+                case NORMAL -> NORMAL;
+                case STRONG -> STRONG;
+                case MAXIMUM -> MAXIMUM;
+            };
+        }
     }
 
     public Level globalLevel = Level.SUBTLE;
@@ -37,9 +49,10 @@ public final class SoundConfig {
         overrides.entrySet().removeIf(e -> !ids.contains(e.getKey()) || e.getValue() == null);
     }
 
+    /** Follows Simple Visuals' level for the same effect id: its override there, else its global level. */
     public float volume(SoundsRegistry.Effect effect) {
-        var visuals = followVisuals ? com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals") : null;
-        return volume(effect, visuals == null ? null : Level.valueOf(visuals.name()));
+        var visuals = followVisuals ? com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals", effect.id()) : null;
+        return volume(effect, Level.of(visuals));
     }
 
     public Level level(String effectId, Level visualsLevel) {

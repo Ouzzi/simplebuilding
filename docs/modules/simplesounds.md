@@ -15,29 +15,33 @@ Both mods independently observe the local synchronized player and loaded adjacen
 Simple Sounds deliberately observes only the local player: no remote health/location tracking,
 no extra server packets, no chunk loads and no gameplay authority delegated to the client.
 Simple Visuals is a soft dependency. Client-local `followVisuals` defaults to true and follows
-its active global Off/Subtle/Normal/Strong/Maximum level one-to-one. Each explicit sound effect
-override still wins, including OFF and an override above a global OFF. With following disabled,
-Visuals absent, or an older Visuals version without the API, the independent global level applies
-(default SUBTLE). Visuals effect overrides do not override sound effect settings.
+its active Off/Subtle/Normal/Strong/Maximum level for the same effect id one-to-one: Visuals'
+override for that effect when it has one, otherwise its global level (framework 0.1.2). Each
+explicit sound effect override still wins, including OFF and an override above a global OFF. With
+following disabled, Visuals absent, or an older Visuals version without the API, the independent
+global level applies (default SUBTLE). The three level enums (framework, Visuals, Sounds) are mapped
+by explicit exhaustive switches, never by constant name.
 
-| Effect ID | Vanilla sound | Minimum interval |
-|---|---|---|
-| footstep_dust | block.sand.step | 40 ticks |
-| cold_breath | entity.player.breath | 40 ticks |
-| fireflies | block.grass.step | 40 ticks |
-| pollen | block.azalea_leaves.step | 40 ticks |
-| fire_sparks | block.fire.ambient | 40 ticks |
-| water_ripples | entity.generic.swim | 40 ticks |
-| water_droplets | block.pointed_dripstone.drip_water | 40 ticks |
-| leaf_fall | block.cherry_leaves.step | 40 ticks |
-| enchanted_items | block.amethyst_block.chime | 40 ticks |
-| beacon_aura | block.beacon.ambient | 40 ticks |
-| damage_feedback | entity.player.hurt | 40 ticks |
-| healing_feedback | block.amethyst_block.chime | 40 ticks |
+| Effect ID | Vanilla sound | Minimum interval | Base volume | Pitch |
+|---|---|---|---|---|
+| footstep_dust | block.powder_snow.step | 20 ticks | 0.05 | 1.4 ±0.05 |
+| cold_breath | entity.player.breath | 160 ticks | 0.06 | 0.9 ±0.05 |
+| fireflies | block.firefly_bush.idle | 100 ticks | 0.10 | 1.0 ±0.05 |
+| pollen | block.flowering_azalea.step | 120 ticks | 0.05 | 1.4 ±0.05 |
+| fire_sparks | block.campfire.crackle | 60 ticks | 0.08 | 1.0 ±0.05 |
+| water_ripples | entity.generic.swim | 40 ticks | 0.05 | 1.3 ±0.05 |
+| water_droplets | block.pointed_dripstone.drip_water | 60 ticks | 0.08 | 1.1 ±0.05 |
+| leaf_fall | block.leaf_litter.step | 100 ticks | 0.06 | 1.2 ±0.05 |
+| enchanted_items | block.amethyst_block.chime | 200 ticks | 0.05 | 1.5 ±0.05 |
+| beacon_aura | block.beacon.ambient | 200 ticks | 0.06 | 1.0 ±0.05 |
+| damage_feedback | entity.player.hurt | 40 ticks | 0.10 | 0.8 ±0.05 |
+| healing_feedback | block.amethyst_block.resonate | 40 ticks | 0.12 | 1.6 ±0.05 |
 
-No exclusions. Firefly/pollen sounds are soft rustling interpretations rather than new recordings.
+No exclusions. Each effect has its own vanilla-like interval, volume and pitch (2026-10-02, after
+the audit found identical placeholder values): sparse ambient cues (fireflies use the firefly bush
+idle sound, footstep dust a soft powder-snow step), quieter than the vanilla source they accompany.
 Vanilla audio and its available subtitles are reused; no sounds.json or custom subtitles needed.
-Pitch varies 0.95–1.05. Ambient base volume .12, reactions .22; gains OFF/SUBTLE/NORMAL/
+Pitch varies ±0.05 around the listed value. Gains OFF/SUBTLE/NORMAL/
 STRONG/MAXIMUM are 0/.35/.6/.8/1. Vanilla Ambient/Environment and Master sliders still apply.
 No gain exceeds 1 and final volume never exceeds .25. Existing Vanilla feedback remains audible.
 
@@ -112,8 +116,9 @@ loading an old Sounds JSON without the key. It sends no packets and grants no ga
 authority. The server remains irrelevant to cosmetic audio preferences. Explicit false
 persists. Both loaders use the module's shared EN/DE language resources.
 
-The generic public `framework` 0.1.1 `CosmeticIntensity` API publishes a supplier by mod id.
-Visuals registers its current local global level when loaded. The supplier reads the active
+The generic public `framework` `CosmeticIntensity` API publishes a supplier by mod id (0.1.1) and,
+since 0.1.2, a per-effect function (`registerEffects`, read with `current(modId, effectId)`).
+Visuals registers its current local global level and its effect overrides when loaded. The supplier reads the active
 config each time, so replacing the config or editing its level takes effect immediately
 without disk polling. Sounds resolves the API in the existing playback volume path. No
 provider means fallback to Sounds' own level; no implementation imports, reflection or

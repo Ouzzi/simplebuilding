@@ -19,6 +19,7 @@ public final class DimensionRegistry {
    .strength(-1,3600000).noCollision().noLootTable().lightLevel(s->11).pushReaction(PushReaction.POPPED)
    .setId(ResourceKey.create(Registries.BLOCK,id(path)))));
  }
+ /** Legacy block item only: keeps old stacks loadable. Deliberately in no creative tab (audit 2026-10-02) - no recipe, drop or trade; /give only. */
  public static void items() {
   Registry.register(BuiltInRegistries.ITEM,id("light_blue_portal"),new BlockItem(LEGACY,new Item.Properties().setId(ResourceKey.create(Registries.ITEM,id("light_blue_portal")))));
  }
