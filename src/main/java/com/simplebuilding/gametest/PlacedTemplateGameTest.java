@@ -64,4 +64,9 @@ public final class PlacedTemplateGameTest {
     public void smallPartsLieDownAndTheServerOptionsGateThem(GameTestHelper helper) {
         PlacedTemplateTests.smallPartsLieDownAndTheServerOptionsGateThem(helper);
     }
+
+    @GameTest
+    public void placedEggsGoBackWithSilkTouchAndHatchLikeAThrownEgg(GameTestHelper helper) {
+        PlacedTemplateTests.placedEggsGoBackWithSilkTouchAndHatchLikeAThrownEgg(helper);
+    }
 }

@@ -2519,5 +2519,6 @@
   "text.autoconfig.simplebuilding.option.server.features.placeVanillaItems": "Vanilla-Kleinteile ablegen",
   "text.autoconfig.simplebuilding.option.server.features.placeVanillaItems.@Tooltip": "Schleichen + Rechtsklick legt Stöcke, Barren, Klumpen, Edelsteine, Ziegel und Feuerstein flach auf einen Block. Aus: nur die eigenen Kleinteile der Mod lassen sich ablegen. Serverseitig. Standard: an.",
   "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems": "Nicht ablegbare Items",
-  "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems.@Tooltip": "Item-IDs, die sich nicht mehr ablegen lassen, durch Komma oder Leerzeichen getrennt (ohne Namensraum: minecraft). Schon abgelegte bleiben liegen. Serverseitig. Standard: leer."
+  "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems.@Tooltip": "Item-IDs, die sich nicht mehr ablegen lassen, durch Komma oder Leerzeichen getrennt (ohne Namensraum: minecraft). Schon abgelegte bleiben liegen. Serverseitig. Standard: leer.",
+  "block.simplebuilding.placed_egg": "Gelegtes Ei"
 }

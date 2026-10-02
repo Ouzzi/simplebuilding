@@ -772,6 +772,13 @@ public final class TestCentreSections {
             labels.add(List.of(stack.getHoverName()));
         }
         c.title(0, 5, wallZ, TcText.t("section.materials", "Materials"), TcText.t("section.materials.sub", "tab SimpleMaterials"));
+        if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            // Gelegte Eier zum Ausprobieren (Behutsamkeit / Zerbrechen und Schluepfen).
+            int x = 1;
+            for (var egg : com.simplebuilding.blocks.custom.PlacedEggBlock.Egg.values()) {
+                c.place(x++, 0, 0, ModBlocks.PLACED_EGG.defaultBlockState().setValue(com.simplebuilding.blocks.custom.PlacedEggBlock.EGG, egg));
+            }
+        }
         int end = c.frameGrid(1, 0, wallZ, items, labels, 3);
         c.backWall(0, end, wallZ, 7);
         return c;

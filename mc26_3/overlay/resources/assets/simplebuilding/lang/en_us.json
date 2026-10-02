@@ -2519,5 +2519,6 @@
   "text.autoconfig.simplebuilding.option.server.features.placeVanillaItems": "Place Small Vanilla Items",
   "text.autoconfig.simplebuilding.option.server.features.placeVanillaItems.@Tooltip": "Sneak + right-click lays sticks, ingots, nuggets, gems, bricks and flint flat on a block. Off: only the mod's own small parts can be placed. Server-side. Default: on.",
   "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems": "Unplaceable Items",
-  "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems.@Tooltip": "Item IDs that can no longer be placed, separated by commas or spaces (without a namespace: minecraft). Already placed ones stay. Server-side. Default: empty."
+  "text.autoconfig.simplebuilding.option.server.features.placeDisabledItems.@Tooltip": "Item IDs that can no longer be placed, separated by commas or spaces (without a namespace: minecraft). Already placed ones stay. Server-side. Default: empty.",
+  "block.simplebuilding.placed_egg": "Placed Egg"
 }

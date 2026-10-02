@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "egg=white": {
+      "model": "simplebuilding:block/placed_egg_white"
+    },
+    "egg=blue": {
+      "model": "simplebuilding:block/placed_egg_blue"
+    },
+    "egg=brown": {
+      "model": "simplebuilding:block/placed_egg_brown"
+    }
+  }
+}

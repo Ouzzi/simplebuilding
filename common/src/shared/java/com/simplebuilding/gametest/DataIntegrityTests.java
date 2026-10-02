@@ -148,7 +148,7 @@ public final class DataIntegrityTests {
 
     private static Set<String> blocksWithoutItem() {
         Set<String> blocks = new java.util.HashSet<>(Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
-                "placed_smithing_template", "placed_blueprint", "placed_bundle"));
+                "placed_smithing_template", "placed_blueprint", "placed_bundle", "placed_egg"));
         blocks.addAll(wallVariants().keySet());
         return Set.copyOf(blocks);
     }
@@ -166,7 +166,9 @@ public final class DataIntegrityTests {
             // drops the template stored in its block entity (PlacedTemplateBlock#getDrops)
             "placed_smithing_template", "placed_blueprint",
             // drops the bundle (with its contents) stored in its block entity (PlacedBundleBlock#getDrops)
-            "placed_bundle");
+            "placed_bundle",
+            // silk touch pops the egg, otherwise it breaks and may hatch (PlacedEggBlock#spawnAfterBreak)
+            "placed_egg");
 
     /**
      * The blocks that do <em>not</em> drop themselves, and what they drop instead without Silk

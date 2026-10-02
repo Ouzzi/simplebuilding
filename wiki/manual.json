@@ -10861,6 +10861,24 @@
         "mc26_3/overlay/resources/data/simplebuilding/recipe/stone_pebble.json",
         "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json"
       ]
+    },
+    "placed_egg": {
+      "en": {
+        "summary": "Sneak + right-click with an egg (plain, blue or brown) stands it up on a block. Mined with Silk Touch it comes back; otherwise it breaks and hatches exactly like a thrown egg: a chick in 1 of 8, four chicks in 1 of 32 of those, as babies of the egg's variant.",
+        "details": [
+          "Needs a floor that carries its centre; falls off when the floor goes. Same server options as the small parts: server.features.placeVanillaItems and server.features.placeDisabledItems."
+        ]
+      },
+      "de": {
+        "summary": "Schleichen + Rechtsklick mit einem Ei (normal, blau oder braun) stellt es auf einen Block. Mit Behutsamkeit abgebaut kommt es zurück; sonst zerbricht es und schlüpft genau wie ein geworfenes Ei: in 1 von 8 Fällen ein Küken, davon in 1 von 32 vier, als Jungtiere in der Variante des Eis.",
+        "details": [
+          "Braucht einen Boden, der die Mitte trägt; fällt ab, wenn der Boden fehlt. Dieselben Server-Optionen wie die Kleinteile: server.features.placeVanillaItems und server.features.placeDisabledItems."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedEggBlock.java",
+        "common/src/shared/java/com/simplebuilding/util/PlacedEggs.java"
+      ]
     }
   },
   "inWorld": {

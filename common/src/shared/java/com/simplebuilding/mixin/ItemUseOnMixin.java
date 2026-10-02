@@ -24,6 +24,9 @@ public abstract class ItemUseOnMixin {
     private void simplebuilding$placeTemplate(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         InteractionResult result = PlacedTemplates.tryPlace(context);
         if (result == null) {
+            result = com.simplebuilding.util.PlacedEggs.tryPlace(context);
+        }
+        if (result == null) {
             // Vanilla-Buendel (alle Farben); die Buendel der Mod fragen in ReinforcedBundleItem#useOn selbst.
             result = PlacedBundles.tryPlace(context);
         }

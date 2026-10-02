@@ -796,4 +796,60 @@ public final class PlacedTemplateTests {
         }
         helper.succeed();
     }
+
+    /**
+     * Placed eggs (owner 2026-10-02): sneak + right-click stands a blue egg up; silk touch gives it back, otherwise it
+     * breaks and hatches like a thrown egg - one chick in 8, the chick a baby of the egg's variant.
+     */
+    public static void placedEggsGoBackWithSilkTouchAndHatchLikeAThrownEgg(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        net.minecraft.server.level.ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        BlockPos floor = new BlockPos(1, 1, 1);
+        helper.setBlock(floor, Blocks.STONE);
+        helper.setBlock(floor.above(), Blocks.AIR);
+        player.setShiftKeyDown(true);
+        ItemStack eggs = new ItemStack(Items.BLUE_EGG, 2);
+        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, eggs);
+        BlockPos at = helper.absolutePos(floor);
+        net.minecraft.world.InteractionResult result = eggs.useOn(new net.minecraft.world.item.context.UseOnContext(player,
+                net.minecraft.world.InteractionHand.MAIN_HAND, new net.minecraft.world.phys.BlockHitResult(
+                        net.minecraft.world.phys.Vec3.atCenterOf(at).add(0, 0.5, 0), net.minecraft.core.Direction.UP, at, false)));
+        helper.assertTrue(result.consumesAction(), "sneak + right-click with a blue egg answered " + result);
+        net.minecraft.world.level.block.state.BlockState placed = helper.getLevel().getBlockState(at.above());
+        helper.assertTrue(placed.is(ModBlocks.PLACED_EGG) && placed.getValue(com.simplebuilding.blocks.custom.PlacedEggBlock.EGG)
+                == com.simplebuilding.blocks.custom.PlacedEggBlock.Egg.BLUE, "no blue egg stands on the stone: " + placed);
+        helper.assertValueEqual(eggs.getCount(), 1, "eggs left in hand");
+        ItemStack silk = new ItemStack(Items.IRON_PICKAXE);
+        silk.enchant(helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT)
+                .getOrThrow(net.minecraft.world.item.enchantment.Enchantments.SILK_TOUCH), 1);
+        placed.spawnAfterBreak(helper.getLevel(), at.above(), silk, true);
+        net.minecraft.world.phys.AABB around = new net.minecraft.world.phys.AABB(at.above()).inflate(2.0);
+        helper.assertTrue(helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, around).stream()
+                .anyMatch(e -> e.getItem().is(Items.BLUE_EGG)), "silk touch did not give the blue egg back");
+        // the thrown egg's rule, with a random source whose first draws hatch exactly one chick
+        net.minecraft.util.RandomSource hatching = null;
+        for (long seed = 0; seed < 10_000 && hatching == null; seed++) {
+            net.minecraft.util.RandomSource probe = net.minecraft.util.RandomSource.create(seed);
+            if (probe.nextInt(8) == 0 && probe.nextInt(32) != 0) {
+                hatching = net.minecraft.util.RandomSource.create(seed);
+            }
+        }
+        helper.assertTrue(hatching != null, "no seed hatches one chick");
+        int chicks = com.simplebuilding.blocks.custom.PlacedEggBlock.hatch(helper.getLevel(), at.above(), new ItemStack(Items.BLUE_EGG), hatching);
+        helper.assertValueEqual(chicks, 1, "chicks from a hatching egg");
+        var chick = helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.animal.chicken.Chicken.class, around).stream().findFirst().orElseThrow();
+        helper.assertTrue(chick.isBaby(), "the chick is a baby");
+        int none = 0;
+        net.minecraft.util.RandomSource miss = null;
+        for (long seed = 0; seed < 10_000 && miss == null; seed++) {
+            if (net.minecraft.util.RandomSource.create(seed).nextInt(8) != 0) miss = net.minecraft.util.RandomSource.create(seed);
+        }
+        none = com.simplebuilding.blocks.custom.PlacedEggBlock.hatch(helper.getLevel(), at.above(), new ItemStack(Items.EGG), miss);
+        helper.assertValueEqual(none, 0, "seven eggs in eight do not hatch");
+        helper.succeed();
+    }
 }

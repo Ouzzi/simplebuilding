@@ -145,6 +145,12 @@ public class ModBlocks {
             .strength(0.5F).sound(SoundType.WOOL).noCollision().noLootTable().mapColor(MapColor.NONE)
             .pushReaction(McVersion.PUSH_DESTROYS)));
 
+    // Gelegtes Ei (2026-10-02): Schleichen + Rechtsklick mit einem Ei (PlacedEggs). Kein Item, keine Loot-Tabelle -
+    // Behutsamkeit gibt das Ei zurueck, sonst zerbricht es und schluepft wie ein geworfenes (PlacedEggBlock).
+    public static final Block PLACED_EGG = McVersion.SMALL_PLACEABLES ? registerBlock("placed_egg", s -> new com.simplebuilding.blocks.custom.PlacedEggBlock(s
+            .strength(0.0F).sound(SoundType.BONE_BLOCK).noLootTable().noOcclusion().mapColor(MapColor.SAND)
+            .pushReaction(McVersion.PUSH_DESTROYS))) : null;
+
     // --- 7. ABGESTELLTES BUENDEL ---
     // Schleichen + Rechtsklick mit einem Buendel auf die Oberseite eines Blocks (PlacedBundles): ein
     // 3D-Buendel je Stufe. Kein Item - das Buendel samt Inhalt liegt in der Block-Entity und faellt
