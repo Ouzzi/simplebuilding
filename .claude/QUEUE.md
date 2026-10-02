@@ -164,6 +164,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Zusätzlicher Weg zu Diamant-Kieseln (In-World): Fällt ein Amboss auf einen Diamantblock, entstehen Diamant-Kiesel.
 - [ ] Auto-Schmied analog zum Autocrafter: automatisiert den Schmiedetisch.
 - [x] (claude-tabswiki, wiki/base_materials.py; Geldschein-Wert 3–35 Smaragde aus den Handels-JSONs) Wiki: Auf jeder Item-Seite beim Rezept die benötigten Grundmaterialien insgesamt auflisten (ab Barren, Holzstämmen, Zuckerrohr, Wachs, Bruchstein …), damit klar ist, wie viel Rohmaterial ein Item kostet. Beim Geldschein sein Wert.
+- [x] Strohpuppe / Trainingspuppe (Branch claude-dummy, docs/ai/PLAN-TRAINING-DUMMY-2026-10-02.md; Client-Sichtabnahme und Besitzer-Abnahme der Texturen offen, Vorschau previews/trainingspuppe-vorschau.png):
 - [ ] Strohpuppe / Trainingspuppe:
   - Rezept: Rüstungsständer + Strohballen ergibt einen Stroh-Rüstungsständer.
   - Mit aufgesetztem geschnitzten Kürbis wird daraus eine Trainingspuppe mit gutem Minecraft-Namen. Sie ist unzerstörbar, außer beim Abbauen im Schleichen.
@@ -171,7 +172,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   - Je nach aufgesetztem Kopf zeigt sie den Schaden gegen diese Mob-Art (Gliederfüßer, Untote, Endermen …).
   - Man kann ihr Rüstung anziehen.
   - Bestehende Konzepte im Internet recherchieren und vervollständigen.
-- [ ] Testzentrale: eine Pfeil-Station, an der jeder Pfeil getestet werden kann.
+- [x] Testzentrale: eine Pfeil-Station, an der jeder Pfeil getestet werden kann (Abschnitt `archery`: alle Befiederungs-, Vanilla-, Spektral- und Trank-Pfeile gegen acht Trainingspuppen; Bau in der Besitzerwelt offen).
 - [x] Schachbrett-Blöcke zusätzlich aus poliertem Astralit, poliertem Nihilit und Enderquarz (mit der Textur der polierten Variante; Screenshot der Schachbrett-Zeile).
   Erledigt auf claude-astral: polished_astralit_checker, polished_nihilith_checker, polished_ender_quartz_checker (Rezept 2 polierter Block + 2 Quarzblock → 4). Vorschau previews/polierte-schachbretter-vorschau.png.
 

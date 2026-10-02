@@ -91,6 +91,12 @@ public class Simplebuilding implements ModInitializer {
         ModEntities.registerModEntities();
         com.simplebuilding.effect.ModEffects.registerEffects();
         com.simplebuilding.effect.ModEffects.registerPotions();
+        if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
+            net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry.register(ModEntities.STRAW_ARMOR_STAND,
+                    com.simplebuilding.dummy.TrainingDummy.createAttributes());
+            net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry.register(ModEntities.TRAINING_DUMMY,
+                    com.simplebuilding.dummy.TrainingDummy.createAttributes());
+        }
         ModBlockEntities.registerBlockEntities();
         ModLootTableProvider.modifyLootTables();
         ModTradeOffers.registerModTradeOffers();

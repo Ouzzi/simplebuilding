@@ -81,12 +81,13 @@ public sealed interface TcOp {
 
     /**
      * Ein Ruestungsstaender mit Armen, ohne Schwerkraft. {@code gear} in der Reihenfolge Kopf, Brust,
-     * Beine, Fuesse, Haupthand, Nebenhand; leere Stapel lassen den Platz frei.
+     * Beine, Fuesse, Haupthand, Nebenhand; leere Stapel lassen den Platz frei. {@code dummy}: statt des
+     * Vanilla-Staenders eine Trainingspuppe (Ziel der Pfeil-Station), ohne Arme, mit Schwerkraft.
      */
-    record Stand(BlockPos pos, float yaw, List<ItemStack> gear, Component name) implements TcOp {
+    record Stand(BlockPos pos, float yaw, List<ItemStack> gear, Component name, boolean dummy) implements TcOp {
         @Override
         public TcOp moved(BlockPos offset) {
-            return new Stand(pos.offset(offset), yaw, gear, name);
+            return new Stand(pos.offset(offset), yaw, gear, name, dummy);
         }
     }
 

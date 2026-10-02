@@ -132,12 +132,14 @@ public final class ArrowParts {
     private enum Target {
         NONE, DROWNED, ZOMBIES, UNDEAD;
 
+        /** Bei einer Trainingspuppe zaehlt die Art ihres Kopfes ({@code DummyTargets}). */
         boolean matches(Entity entity) {
+            net.minecraft.world.entity.EntityType<?> type = com.simplebuilding.dummy.DummyTargets.effectiveType(entity);
             return switch (this) {
                 case NONE -> false;
-                case DROWNED -> entity.getType() == net.minecraft.world.entity.EntityTypes.DROWNED;
-                case ZOMBIES -> entity.getType().builtInRegistryHolder().is(EntityTypeTags.ZOMBIES);
-                case UNDEAD -> entity.getType().builtInRegistryHolder().is(EntityTypeTags.UNDEAD);
+                case DROWNED -> type == net.minecraft.world.entity.EntityTypes.DROWNED;
+                case ZOMBIES -> type.builtInRegistryHolder().is(EntityTypeTags.ZOMBIES);
+                case UNDEAD -> type.builtInRegistryHolder().is(EntityTypeTags.UNDEAD);
             };
         }
     }

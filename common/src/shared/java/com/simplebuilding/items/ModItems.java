@@ -298,6 +298,10 @@ public class ModItems {
     public static final Item CRAFTED_ARROW = com.simplebuilding.version.McVersion.FLETCHING
             ? registerItem("crafted_arrow", s -> new com.simplebuilding.fletching.CraftedArrowItem(s)) : null;
 
+    /** Stroh-Ruestungsstaender (2026-10-02); mit geschnitztem Kuerbis wird er zur Trainingspuppe. */
+    public static final Item STRAW_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY
+            ? registerItem("straw_armor_stand", s -> new com.simplebuilding.dummy.StrawArmorStandItem(s.stacksTo(16))) : null;
+
     public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
 
     public static final Item CRACKED_DIAMOND_BLOCK = registerItem("cracked_diamond_block", settings -> new BlockItem(ModBlocks.CRACKED_DIAMOND_BLOCK, settings)); // todo: wie diamond_block nur härter

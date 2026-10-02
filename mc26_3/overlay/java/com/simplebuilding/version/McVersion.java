@@ -60,6 +60,9 @@ public final class McVersion {
             TagKey<net.minecraft.world.level.block.Block> avoid) {
         return entity.randomTeleport(x, y, z, particles, avoid);
     }
+
+    /** Straw Armor Stand and Training Dummy, plus the archery station of the test centre (2026-10-02). */
+    public static final boolean TRAINING_DUMMY = true;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = true;
 

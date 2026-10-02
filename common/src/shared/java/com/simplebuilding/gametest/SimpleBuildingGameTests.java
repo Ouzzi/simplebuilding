@@ -532,6 +532,19 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
                     .build(),
+            GameTestSpec.named("training_dummy_game_test_pumpkin_turns_the_straw_stand_into_training_dummy", TrainingDummyTests::pumpkinTurnsTheStrawStandIntoTrainingDummy)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_only_sneaking_hits_pick_the_dummy_up", TrainingDummyTests::onlySneakingHitsPickTheDummyUp)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_heads_make_enchantments_see_their_mob", TrainingDummyTests::headsMakeEnchantmentsSeeTheirMob)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_armour_and_immunities_shape_the_number", TrainingDummyTests::armourAndImmunitiesShapeTheNumber)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_numbers_cooldown_crits_and_the_summary", TrainingDummyTests::numbersCooldownCritsAndTheSummary)
+                    .maxTicks(120)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_the_archery_station_has_every_arrow_and_its_dummies", TrainingDummyTests::theArcheryStationHasEveryArrowAndItsDummies)
+                    .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_dimensional_scrap_is_enderite_gated_and_indestructible", OreGenAndItemFrameTests::dimensionalScrapIsEnderiteGatedAndIndestructible)
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_sage_ore_generates_in_the_overworld_and_drops_only_with_silk_touch", OreGenAndItemFrameTests::sageOreGeneratesInTheOverworldAndDropsOnlyWithSilkTouch)

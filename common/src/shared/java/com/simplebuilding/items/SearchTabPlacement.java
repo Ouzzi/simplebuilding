@@ -135,6 +135,9 @@ public final class SearchTabPlacement {
             out.add(new Placement(COMBAT, Items.ARROW, false, com.simplebuilding.fletching.ArrowParts.allCombinations().stream()
                     .map(parts -> com.simplebuilding.fletching.ArrowParts.stack(parts, 1)).toList()));
         }
+        if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.ARMOR_STAND, ModItems.STRAW_ARMOR_STAND));
+        }
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             out.add(Placement.after(INGREDIENTS, Items.FLINT, ModItems.FLINT_CHIP, ModItems.STONE_PEBBLE));
         }

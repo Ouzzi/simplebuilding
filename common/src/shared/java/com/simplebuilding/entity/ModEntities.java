@@ -30,7 +30,27 @@ public final class ModEntities {
     public static final EntityType<com.simplebuilding.fletching.CraftedArrow> CRAFTED_ARROW = com.simplebuilding.version.McVersion.FLETCHING
             ? registerArrow("crafted_arrow") : null;
 
+    /** Stroh-Ruestungsstaender (2026-10-02): Masse wie Vanillas Ruestungsstaender. */
+    public static final EntityType<com.simplebuilding.dummy.TrainingDummy> STRAW_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY
+            ? registerDummy("straw_armor_stand") : null;
+
+    /** Trainingspuppe: Stroh-Ruestungsstaender mit geschnitztem Kuerbis (2026-10-02). */
+    public static final EntityType<com.simplebuilding.dummy.TrainingDummy> TRAINING_DUMMY = com.simplebuilding.version.McVersion.TRAINING_DUMMY
+            ? registerDummy("training_dummy") : null;
+
     private ModEntities() {
+    }
+
+    private static EntityType<com.simplebuilding.dummy.TrainingDummy> registerDummy(String name) {
+        Identifier id = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
+        EntityType<com.simplebuilding.dummy.TrainingDummy> type = EntityType.Builder
+                .<com.simplebuilding.dummy.TrainingDummy>of(com.simplebuilding.dummy.TrainingDummy::new, MobCategory.MISC)
+                .noLootTable()
+                .sized(0.5F, 1.975F)
+                .eyeHeight(1.7775F)
+                .clientTrackingRange(10)
+                .build(ResourceKey.create(Registries.ENTITY_TYPE, id));
+        return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type);
     }
 
     private static EntityType<LevitatingBlockEntity> register(String name) {

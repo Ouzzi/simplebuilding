@@ -404,4 +404,111 @@ public final class FeatureStations {
                 TcText.t("sinkdamper.damage", "less fall damage"));
         return c;
     }
+
+    // =====================================================================================
+    // Pfeil-Station: jeder Pfeil gegen Trainingspuppen (Besitzer 2026-10-02)
+    // =====================================================================================
+
+    /** Abstand der Schusslinie (Truhen, z = 1) zu den Puppen. */
+    public static final int ARCHERY_RANGE = 10;
+
+    /** Ziel einer Puppe der Pfeil-Station: Kopf (leer = Kuerbis), Schild-Schluessel, englischer Rueckfall. */
+    record Target(ItemStack head, String key, String label, String sub) {
+    }
+
+    static List<Target> archeryTargets() {
+        return List.of(
+                new Target(new ItemStack(Items.CARVED_PUMPKIN), "archery.plain", "Pumpkin", "no mob type"),
+                new Target(new ItemStack(Items.ZOMBIE_HEAD), "archery.zombie", "Zombie Head", "undead, zombie"),
+                new Target(new ItemStack(TweaksItems.DROWNED_HEAD), "archery.drowned", "Drowned Head", "copper tip"),
+                new Target(new ItemStack(Items.SKELETON_SKULL), "archery.skeleton", "Skeleton Skull", "undead: smite"),
+                new Target(new ItemStack(TweaksItems.SPIDER_HEAD), "archery.spider", "Spider Head", "arthropod: bane"),
+                new Target(new ItemStack(TweaksItems.ENDERMAN_HEAD), "archery.enderman", "Enderman Head", "arrows: immune"),
+                new Target(new ItemStack(TweaksItems.BLAZE_HEAD), "archery.blaze", "Blaze Head", "fire: immune"),
+                new Target(new ItemStack(Items.CARVED_PUMPKIN), "archery.armour", "Iron Armor", "less damage"));
+    }
+
+    /** Alle Trank-Pfeile mit Wirkung, in Registry-Reihenfolge. */
+    static List<ItemStack> tippedArrows() {
+        List<ItemStack> out = new ArrayList<>();
+        for (Holder.Reference<net.minecraft.world.item.alchemy.Potion> potion : net.minecraft.core.registries.BuiltInRegistries.POTION.listElements().toList()) {
+            if (!potion.value().getEffects().isEmpty()) {
+                out.add(net.minecraft.world.item.alchemy.PotionContents.createItemStack(Items.TIPPED_ARROW, potion).copyWithCount(16));
+            }
+        }
+        return out;
+    }
+
+    public static int tippedArrowCount() {
+        return tippedArrows().size();
+    }
+
+    /** Boegen und Armbrueste: schlicht und mit den Verzauberungen, die den Schaden aendern. */
+    static List<ItemStack> launchers(TcContext ctx) {
+        List<ItemStack> out = new ArrayList<>(List.of(new ItemStack(Items.BOW), new ItemStack(Items.CROSSBOW)));
+        for (var set : List.of(List.of(Enchantments.POWER), List.of(Enchantments.POWER, Enchantments.FLAME, Enchantments.PUNCH))) {
+            List<Holder<Enchantment>> holders = new ArrayList<>();
+            set.forEach(key -> ctx.enchantment(key).ifPresent(holders::add));
+            out.add(TcContext.enchanted(new ItemStack(Items.BOW), holders));
+        }
+        for (var key : List.of(Enchantments.MULTISHOT, Enchantments.PIERCING)) {
+            ctx.enchantment(key).ifPresent(holder -> out.add(TcContext.enchanted(new ItemStack(Items.CROSSBOW), List.of(holder))));
+        }
+        out.add(new ItemStack(Items.ARROW, 64));
+        out.add(new ItemStack(Items.SPECTRAL_ARROW, 64));
+        return out;
+    }
+
+    /**
+     * Pfeil-Station: vorn eine Reihe Truhen (Boegen/Armbrueste, alle Befiederungs-Pfeile, alle Trank-Pfeile), zehn
+     * Bloecke dahinter Trainingspuppen mit verschiedenen Koepfen und eine in Eisenruestung. Jede Puppe zeigt den
+     * Schaden gegen die Mob-Art ihres Kopfes.
+     */
+    public static TcCanvas archery(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        if (!com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
+            return c;
+        }
+        int chestZ = 1;
+        int dummyZ = chestZ + ARCHERY_RANGE;
+        int wallZ = dummyZ + 2;
+        List<List<ItemStack>> chests = new ArrayList<>();
+        chests.add(launchers(ctx));
+        if (com.simplebuilding.version.McVersion.FLETCHING) {
+            List<ItemStack> crafted = new ArrayList<>();
+            for (var parts : com.simplebuilding.fletching.ArrowParts.allCombinations()) {
+                crafted.add(com.simplebuilding.fletching.ArrowParts.stack(parts, 16));
+            }
+            for (int i = 0; i < crafted.size(); i += 27) {
+                chests.add(crafted.subList(i, Math.min(crafted.size(), i + 27)));
+            }
+        }
+        List<ItemStack> tipped = tippedArrows();
+        for (int i = 0; i < tipped.size(); i += 27) {
+            chests.add(tipped.subList(i, Math.min(tipped.size(), i + 27)));
+        }
+        int x = 1;
+        for (List<ItemStack> contents : chests) {
+            c.place(x, 0, chestZ, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+            c.contents(x, 0, chestZ, contents);
+            x++;
+        }
+        int dx = 1;
+        for (Target target : archeryTargets()) {
+            List<ItemStack> gear = new ArrayList<>(List.of(target.head(), ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY));
+            if (target.key().equals("archery.armour")) {
+                gear = List.of(target.head(), new ItemStack(Items.IRON_CHESTPLATE), new ItemStack(Items.IRON_LEGGINGS),
+                        new ItemStack(Items.IRON_BOOTS));
+            }
+            c.dummy(dx, 0, dummyZ, 180F, gear, TcText.t(target.key(), target.label()));
+            c.wallSign(dx, 2, wallZ, TcText.bold(TcText.t(target.key(), target.label())), TcText.t(target.key() + ".sub", target.sub()));
+            dx += 2;
+        }
+        int end = Math.max(x, dx);
+        c.title(0, 3, wallZ, TcText.t("section.archery", "Archery"), TcText.t("section.archery.sub", "every arrow, dummies"));
+        c.wallSign(end, 2, wallZ, TcText.bold(TcText.t("archery.how", "Training Dummy")), TcText.t("archery.how.sub", "sneak + hit: pick up"),
+                TcText.t("archery.how.sub2", "red = critical"));
+        c.backWall(0, end, wallZ, 5);
+        return c;
+    }
 }

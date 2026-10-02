@@ -66,6 +66,7 @@
       "com.simplebuilding.gametest.FletchingGameTest",
       "com.simplebuilding.gametest.RareStructureFindsGameTest",
       "com.simplebuilding.gametest.CombatGameTest",
+      "com.simplebuilding.gametest.TrainingDummyGameTest",
       "com.simplebuilding.gametest.ConfigOptionGameTest",
       "com.simplebuilding.gametest.ServerTuningGameTest",
       "com.simplebuilding.gametest.AirJumpGameTest",

@@ -209,19 +209,25 @@ public final class TestCentreBuilder {
                     count++;
                 }
                 case TcOp.Stand stand -> {
-                    ArmorStand entity = new ArmorStand(level, stand.pos().getX() + 0.5, stand.pos().getY(), stand.pos().getZ() + 0.5);
+                    ArmorStand entity = stand.dummy()
+                            ? com.simplebuilding.entity.ModEntities.TRAINING_DUMMY.create(level, net.minecraft.world.entity.EntitySpawnReason.COMMAND)
+                            : new ArmorStand(level, 0, 0, 0);
+                    entity.setPos(stand.pos().getX() + 0.5, stand.pos().getY(), stand.pos().getZ() + 0.5);
                     entity.setYRot(stand.yaw());
                     entity.setYBodyRot(stand.yaw());
                     entity.setYHeadRot(stand.yaw());
-                    entity.setShowArms(true);
+                    entity.setShowArms(!stand.dummy());
                     EquipmentSlot[] slots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET,
                             EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND};
                     for (int i = 0; i < slots.length && i < stand.gear().size(); i++) {
                         entity.setItemSlot(slots[i], stand.gear().get(i).copy());
                     }
                     entity.setCustomName(stand.name());
-                    entity.setCustomNameVisible(true);
-                    McVersion.setInvulnerable(entity, true);
+                    // Die Puppe zeigt ueber dem Kopf ihre Schadenszahlen; ihr Name steht auf dem Schild davor.
+                    entity.setCustomNameVisible(!stand.dummy());
+                    if (!stand.dummy()) {
+                        McVersion.setInvulnerable(entity, true);
+                    }
                     level.addFreshEntity(entity);
                     entities++;
                     count++;

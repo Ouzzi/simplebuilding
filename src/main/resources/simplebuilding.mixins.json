@@ -25,6 +25,8 @@
     "EntityLightRemovalMixin",
     "EndermanSpawnMixin",
     "EnderiteSinkDamperMixin",
+    "EnchantmentHelperDummyMixin",
+    "PlayerAttackDummyMixin",
     "FletchingTableMixin",
     "MetalRodLightningMixin",
     "HostileEntityMixin",

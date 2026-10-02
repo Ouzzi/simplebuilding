@@ -46,6 +46,12 @@ public final class SimplebuildingNeoForge {
         modEventBus.addListener(NeoForgeRegistryBootstrap::onRegister);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(NeoForgeSearchTabPlacement::onBuildContents);
+        if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
+            modEventBus.addListener((net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) -> {
+                event.put(com.simplebuilding.entity.ModEntities.STRAW_ARMOR_STAND, com.simplebuilding.dummy.TrainingDummy.createAttributes().build());
+                event.put(com.simplebuilding.entity.ModEntities.TRAINING_DUMMY, com.simplebuilding.dummy.TrainingDummy.createAttributes().build());
+            });
+        }
         NeoForgeNetworkRegistration.registerPlatformServices();
         NeoForgeGameTests.register(modEventBus);
         NeoForgeItemAutomation.register(modEventBus);
