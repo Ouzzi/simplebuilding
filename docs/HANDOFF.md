@@ -58,7 +58,7 @@ Die detaillierten früheren Laufberichte bleiben in der Git-Historie dieser Date
   Ablegen ohne Touch per Schleichklick, mit Touch per normalem Rechtsklick.
   Ruhezone für beide Formen: `server.tools.attractorMinimumDistance`, Standard 1,25,
   Cap 0,5–2; darin Bewegung dämpfen statt ziehen (`MagnetItem`, `PlacedAttractors`).
-- Amethyst Resonance Rod / Amethyst-Resonanzstab: aktuelle ID `amethyst_lens`,
+- Resonance Rod / Resonanzstab: aktuelle ID `amethyst_lens`,
   `laser_pointer` Legacy-Alias. Rezept IIR/ICA/IIR: Eisenbarren, Redstone, Eisenkern,
   Amethystscherbe. 640 Ladung standardmäßig, 4 je Sekunde; 16 Scherben laden voll.
   Der alte Configschlüssel `beamCostPerSecond` wird nicht gelesen; `chargePerSecond` gilt.

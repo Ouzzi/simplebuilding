@@ -41,6 +41,10 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             }
         }
         // Weisheitserz wie Diamanterz: Spitzhacke ab Eisen.
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.IRON_ROD));
+            builder(BlockTags.NEEDS_STONE_TOOL).add(key(ModBlocks.IRON_ROD));
+        }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));
             builder(BlockTags.NEEDS_IRON_TOOL).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));

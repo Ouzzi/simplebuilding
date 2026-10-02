@@ -214,7 +214,9 @@ public final class TweaksTests {
         Item q = Items.QUARTZ;
         Item n = Items.COPPER_NUGGET;
         Item o = Items.COPPER_INGOT;
-        CraftingInput grid = grid(null, n, Items.AMETHYST_SHARD, n, Items.COMPASS, n, ModItems.COPPER_CORE, n, null);
+        // 26.3 (owner 2026-10-02): a clock in the middle - the gauge is a clock.
+        Item centre = com.simplebuilding.version.McVersion.GADGET_REWORK ? Items.CLOCK : Items.COMPASS;
+        CraftingInput grid = grid(null, n, Items.AMETHYST_SHARD, n, centre, n, ModItems.COPPER_CORE, n, null);
         expectCrafting(helper, grid, ModItems.VELOCITY_GAUGE, "simplebuilding:velocity_gauge");
         CraftingInput quartzRecipe = grid(q, Items.AMETHYST_SHARD, q, n, Items.COMPASS, n, n, ModItems.COPPER_CORE, n);
         helper.assertTrue(craftingResult(helper, quartzRecipe).isEmpty(), "the 2026-09-28 quartz corner recipe still crafts a velocity gauge");
@@ -222,9 +224,9 @@ public final class TweaksTests {
         helper.assertTrue(craftingResult(helper, ingots).isEmpty(), "the previous copper ingot recipe still crafts a velocity gauge");
         CraftingInput oldRecipe = grid(null, Items.AMETHYST_SHARD, null, o, Items.COMPASS, o, q, q, q);
         helper.assertTrue(craftingResult(helper, oldRecipe).isEmpty(), "the old quartz row recipe still crafts a velocity gauge");
-        CraftingInput bottomEmpty = grid(null, n, Items.AMETHYST_SHARD, n, Items.COMPASS, n, ModItems.COPPER_CORE, null, null);
+        CraftingInput bottomEmpty = grid(null, n, Items.AMETHYST_SHARD, n, centre, n, ModItems.COPPER_CORE, null, null);
         helper.assertTrue(craftingResult(helper, bottomEmpty).isEmpty(), "the gauge crafts without the bottom copper nugget");
-        CraftingInput ironCore = grid(null, n, Items.AMETHYST_SHARD, n, Items.COMPASS, n, ModItems.IRON_CORE, n, null);
+        CraftingInput ironCore = grid(null, n, Items.AMETHYST_SHARD, n, centre, n, ModItems.IRON_CORE, n, null);
         helper.assertTrue(craftingResult(helper, ironCore).isEmpty(), "an iron core is accepted instead of the copper core");
         helper.succeed();
     }
@@ -1431,8 +1433,16 @@ public final class TweaksTests {
     public static void theAmethystLensIsCraftedAroundAnIronCore(GameTestHelper helper) {
         Item i = Items.IRON_INGOT;
         Item r = Items.REDSTONE;
-        CraftingInput grid = grid(i, i, r, i, ModItems.IRON_CORE, Items.AMETHYST_SHARD, i, i, r);
-        expectCrafting(helper, grid, TweaksItems.LASER_POINTER, "simplebuilding:amethyst_lens");
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            // 26.3 (owner 2026-10-02): " RA" / "NCR" / "IN " - Iron Rod bottom left, iron nuggets left and bottom.
+            Item nug = Items.IRON_NUGGET;
+            CraftingInput grid = grid(null, r, Items.AMETHYST_SHARD, nug, ModItems.IRON_CORE, r, ModItems.IRON_ROD, nug, null);
+            expectCrafting(helper, grid, TweaksItems.LASER_POINTER, "simplebuilding:amethyst_lens");
+            helper.assertTrue(craftingResult(helper, grid(i, i, r, i, ModItems.IRON_CORE, Items.AMETHYST_SHARD, i, i, r)).isEmpty(), "the 26.2 ingot recipe still works on 26.3");
+        } else {
+            CraftingInput grid = grid(i, i, r, i, ModItems.IRON_CORE, Items.AMETHYST_SHARD, i, i, r);
+            expectCrafting(helper, grid, TweaksItems.LASER_POINTER, "simplebuilding:amethyst_lens");
+        }
         helper.assertTrue(craftingResult(helper, grid(r, Items.AMETHYST_SHARD, r, i, ModItems.IRON_CORE, i, i, i, i)).isEmpty(), "the unrotated rod recipe still works");
         Optional<ItemStack> oldPattern = craftingResult(helper, grid(null, Items.AMETHYST_SHARD, null, i, Items.GLASS, i, i, r, i));
         helper.assertTrue(oldPattern.isEmpty() || !oldPattern.get().is(TweaksItems.LASER_POINTER), "the old glass pattern still makes the lens");

@@ -1233,9 +1233,11 @@ public final class OreDetectorTests {
     public static void theOreDetectorRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         // " ES" / "ECE" / "GE " with S=calibrated sculk sensor, E=echo shard (four), C=compass, G=Gold Core.
+        // 26.3 (owner 2026-10-02): a recovery compass in the middle, like the Echo Sounder.
+        net.minecraft.world.item.Item centre = com.simplebuilding.version.McVersion.GADGET_REWORK ? Items.RECOVERY_COMPASS : Items.COMPASS;
         CraftingInput grid = documentedGrid(
                 null, Items.ECHO_SHARD, Items.CALIBRATED_SCULK_SENSOR,
-                Items.ECHO_SHARD, Items.COMPASS, Items.ECHO_SHARD,
+                Items.ECHO_SHARD, centre, Items.ECHO_SHARD,
                 ModItems.GOLD_CORE, Items.ECHO_SHARD, null);
         Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, grid, level);

@@ -234,15 +234,17 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Besitzer 2026-09-29 (Lauf HH): wie der Detector um 45 Grad gedreht - Amethystscherbe oben
                 // rechts (vorher oben Mitte), Kupfer-Baukern unten links (vorher unten Mitte), Kupfernuggets
                 // oben, unten, links und rechts neben dem Kompass; oben links und unten rechts frei, kein Quarz.
+                // Besitzer 2026-10-02: eine Uhr statt des Kompasses in der Mitte (die Messuhr ist eine Uhr).
+                Item gaugeCentre = com.simplebuilding.version.McVersion.GADGET_REWORK ? Items.CLOCK : Items.COMPASS;
                 shaped(RecipeCategory.TOOLS, ModItems.VELOCITY_GAUGE)
                         .pattern(" NA")
                         .pattern("NCN")
                         .pattern("KN ")
-                        .define('C', Items.COMPASS)
+                        .define('C', gaugeCentre)
                         .define('A', Items.AMETHYST_SHARD)
                         .define('N', Items.COPPER_NUGGET)
                         .define('K', ModItems.COPPER_CORE)
-                        .unlockedBy(getHasName(Items.COMPASS), has(Items.COMPASS))
+                        .unlockedBy(getHasName(gaugeCentre), has(gaugeCentre))
                         .save(output);
 
                 // =================================================================
@@ -255,22 +257,35 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .pattern("I L")
                         .pattern("CI ")
                         .define('R', Items.REDSTONE)
-                        .define('I', Items.IRON_INGOT)
+                        // seit 2026-10-02 (26.3) Eisenstaebe statt der Eisenbarren
+                        .define('I', com.simplebuilding.version.McVersion.GADGET_REWORK ? ModItems.IRON_ROD : Items.IRON_INGOT)
                         .define('C', ModItems.IRON_CORE)
                         .define('L', Items.LAPIS_LAZULI)
                         .unlockedBy(getHasName(ModItems.IRON_CORE), has(ModItems.IRON_CORE))
                         .save(output);
 
-                // Rotator (Besitzer 2026-09-27): Eisen-Baukern unten links, vier Eisenbarren im Kreuz, Enderperle in der Mitte
+                // Rotator (Besitzer 2026-09-27): Eisen-Baukern unten links, vier Eisenbarren im Kreuz, Enderperle in der Mitte;
+                // seit 2026-10-02 vier Eisenstaebe statt der Barren.
                 shaped(RecipeCategory.TOOLS, ModItems.ROTATOR)
                         .pattern(" I ")
                         .pattern("IPI")
                         .pattern("CI ")
-                        .define('I', Items.IRON_INGOT)
+                        .define('I', com.simplebuilding.version.McVersion.GADGET_REWORK ? ModItems.IRON_ROD : Items.IRON_INGOT)
                         .define('P', Items.ENDER_PEARL)
                         .define('C', ModItems.IRON_CORE)
                         .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
                         .save(output);
+
+                // Eisenstab (2026-10-02): wie der Blitzableiter, drei Eisenbarren uebereinander.
+                if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+                    shaped(RecipeCategory.REDSTONE, ModItems.IRON_ROD)
+                            .pattern("I")
+                            .pattern("I")
+                            .pattern("I")
+                            .define('I', Items.IRON_INGOT)
+                            .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+                            .save(output);
+                }
 
                 // =================================================================
                 // LEATHER SHEET (neun Leder, kein Rueckweg)
@@ -377,15 +392,17 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Besitzer 2026-09-29 (Lauf HH): das alte Rezept um 45 Grad gedreht und zwei Echoscherben
                 // weniger - Kompass mittig, Echoscherben oben/unten/links/rechts, Goldkern unten links,
                 // kalibrierter Sculk-Sensor oben rechts, die beiden uebrigen Ecken frei.
+                // Besitzer 2026-10-02: ein Bergungskompass statt des Kompasses, wie beim Echolot.
+                Item detectorCentre = com.simplebuilding.version.McVersion.GADGET_REWORK ? Items.RECOVERY_COMPASS : Items.COMPASS;
                 shaped(RecipeCategory.TOOLS, ModItems.ORE_DETECTOR)
                         .pattern(" ES")
                         .pattern("ECE")
                         .pattern("GE ")
                         .define('E', Items.ECHO_SHARD)
-                        .define('C', Items.COMPASS)
+                        .define('C', detectorCentre)
                         .define('G', ModItems.GOLD_CORE)
                         .define('S', Items.CALIBRATED_SCULK_SENSOR)
-                        .unlockedBy(getHasName(Items.COMPASS), has(Items.COMPASS))
+                        .unlockedBy(getHasName(detectorCentre), has(detectorCentre))
                         .save(output);
 
                 // Aus Simple Tweaks: Druckplatten, Pads, Teleporter, Echo-Kompass
@@ -1136,16 +1153,33 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Amethystlinse (Id amethyst_lens; Simple Tweaks hatte kein Rezept): Eisen-Baukern in
                 // der Mitte, Amethystsplitter rechts, Redstone rechts oben und unten,
                 // Eisenbarren links und oben/unten mittig.
-                shaped(RecipeCategory.TOOLS, TweaksItems.LASER_POINTER)
-                        .pattern("IIR")
-                        .pattern("ICA")
-                        .pattern("IIR")
-                        .define('A', Items.AMETHYST_SHARD)
-                        .define('C', ModItems.IRON_CORE)
-                        .define('I', Items.IRON_INGOT)
-                        .define('R', Items.REDSTONE)
-                        .unlockedBy(getHasName(Items.AMETHYST_SHARD), has(Items.AMETHYST_SHARD))
-                        .save(output);
+                if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+                    // Besitzer 2026-10-02: um 45 Grad gedreht und kompakter - Amethystscherbe oben rechts, Redstone oben
+                    // Mitte und rechts Mitte, Eisen-Baukern in der Mitte, Eisennuggets links Mitte und unten Mitte,
+                    // Eisenstab unten links; oben links und unten rechts frei.
+                    shaped(RecipeCategory.TOOLS, TweaksItems.LASER_POINTER)
+                            .pattern(" RA")
+                            .pattern("NCR")
+                            .pattern("IN ")
+                            .define('A', Items.AMETHYST_SHARD)
+                            .define('C', ModItems.IRON_CORE)
+                            .define('I', ModItems.IRON_ROD)
+                            .define('N', Items.IRON_NUGGET)
+                            .define('R', Items.REDSTONE)
+                            .unlockedBy(getHasName(Items.AMETHYST_SHARD), has(Items.AMETHYST_SHARD))
+                            .save(output);
+                } else {
+                    shaped(RecipeCategory.TOOLS, TweaksItems.LASER_POINTER)
+                            .pattern("IIR")
+                            .pattern("ICA")
+                            .pattern("IIR")
+                            .define('A', Items.AMETHYST_SHARD)
+                            .define('C', ModItems.IRON_CORE)
+                            .define('I', Items.IRON_INGOT)
+                            .define('R', Items.REDSTONE)
+                            .unlockedBy(getHasName(Items.AMETHYST_SHARD), has(Items.AMETHYST_SHARD))
+                            .save(output);
+                }
             }
 
             private void tweaksSmithing(Ingredient template, ItemLike base, ItemLike addition, ItemLike result, String name) {

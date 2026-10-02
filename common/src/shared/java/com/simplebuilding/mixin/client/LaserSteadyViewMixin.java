@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * No view bobbing while the Amethyst Resonance Rod beams (owner 2026-09-29: "the item must not move
+ * No view bobbing while the Resonance Rod beams (owner 2026-09-29: "the item must not move
  * around", the dot belongs in the crosshair centre). {@code GameRenderer#bobView} sways both the
  * world and the first-person hand while walking; with it the dot, which lies on the true view ray,
  * drifted around the fixed screen centre and the rod swung in the hand. Skipping it only while

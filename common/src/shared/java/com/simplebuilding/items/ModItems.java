@@ -275,6 +275,10 @@ public class ModItems {
     public static final Item FLINT_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
             ? registerItem("flint_chip", settings -> new Item(settings)) : null;
 
+    /** Eisenstab (2026-10-02): Blitzableiter aus Eisen, Zutat fuer Resonanzstab und Rotator. */
+    public static final Item IRON_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
+            ? registerItem("iron_rod", settings -> new BlockItem(ModBlocks.IRON_ROD, settings)) : null;
+
     /** Pfeil vom Befiederungstisch; die Teile stehen in der Komponente {@code arrow_parts}. */
     public static final Item CRAFTED_ARROW = com.simplebuilding.version.McVersion.FLETCHING
             ? registerItem("crafted_arrow", s -> new com.simplebuilding.fletching.CraftedArrowItem(s)) : null;

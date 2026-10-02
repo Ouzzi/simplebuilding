@@ -25,7 +25,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Amethyst-Resonanzstab (Registry-Id {@code amethyst_lens} bleibt; bis 2026-09-29 "Amethystlinse", bis
+ * Resonanzstab (Registry-Id {@code amethyst_lens} bleibt; bis 2026-09-29 "Amethystlinse", bis
  * 2026-09-28 laser_pointer; Simple Tweaks: Laserpointer). Gedrueckt halten zeigt einen Punkt, den alle
  * in der Naehe sehen; ruht der Strahl auf einem Block, wirkt er dort ({@link LaserBeam}: schmelzen,
  * zuenden, trocknen, TNT, Lebewesen anzuenden - Verweildauer waechst mit dem Abstand, Klaenge am

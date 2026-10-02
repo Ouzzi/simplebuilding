@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "minecraft:recovery_compass",
+    "E": "minecraft:echo_shard",
+    "G": "simplebuilding:gold_core",
+    "S": "minecraft:calibrated_sculk_sensor"
+  },
+  "pattern": [
+    " ES",
+    "ECE",
+    "GE "
+  ],
+  "result": {
+    "id": "simplebuilding:detector"
+  }
+}

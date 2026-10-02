@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compass": {
+    "has_recovery_compass": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:compass"
+            "items": "minecraft:recovery_compass"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compass"
+      "has_recovery_compass"
     ]
   ],
   "rewards": {

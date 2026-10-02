@@ -2720,6 +2720,9 @@ public final class DataIntegrityTests {
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             expected.add(List.of(ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP));
         }
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            expected.add(List.of(ModItems.IRON_ROD));
+        }
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             expected.add(List.of(ModItems.DIMENSIONAL_SCRAP_ITEM, ModItems.NETHER_DIMENSIONAL_SCRAP_ITEM, ModItems.END_DIMENSIONAL_SCRAP_ITEM));
         }
@@ -4067,7 +4070,7 @@ public final class DataIntegrityTests {
 
     /**
      * Konsistenz der Werkzeugnamen (Besitzer 2026-09-28/29): nach den Umbenennungen Laserpointer ->
-     * Amethystlinse -> Amethyst-Resonanzstab (Amethyst Resonance Rod), Echo-Kompass -> Echolot und
+     * Amethystlinse -> Resonanzstab (Resonance Rod), Echo-Kompass -> Echolot und
      * Tachometer -> Geschwindigkeitsmesser -> Messuhr (Gauge) darf keine Sprachdatei die alten Namen
      * mehr zeigen, und die Verzauberung Berührung des Konstrukteurs heisst im Deutschen ueberall gleich.
      * Die HUD-Kaesten tragen seit 2026-09-29 den Namen des Items als Titel (kein eigener Titel-Schluessel,
@@ -4108,7 +4111,7 @@ public final class DataIntegrityTests {
         }
         java.util.Map<String, String[]> expected = new java.util.LinkedHashMap<>();
         expected.put("item.simplebuilding.velocity_gauge", new String[]{"Gauge", "Messuhr"});
-        expected.put("item.simplebuilding.amethyst_lens", new String[]{"Amethyst Resonance Rod", "Amethyst-Resonanzstab"});
+        expected.put("item.simplebuilding.amethyst_lens", new String[]{"Resonance Rod", "Resonanzstab"});
         expected.put("item.simplebuilding.echo_sounder", new String[]{"Echo Sounder", "Echolot"});
         for (var entry : expected.entrySet()) {
             String english = en.has(entry.getKey()) ? en.get(entry.getKey()).getAsString() : null;

@@ -65,4 +65,9 @@ public final class BlockBehaviourGameTest {
     public void constructionLightShinesButLetsMonstersSpawn(GameTestHelper helper) {
         BlockBehaviourTests.constructionLightShinesButLetsMonstersSpawn(helper);
     }
+
+    @GameTest
+    public void ironRodsAttractLightningOnlyWithinThirtyTwoBlocks(GameTestHelper helper) {
+        BlockBehaviourTests.ironRodsAttractLightningOnlyWithinThirtyTwoBlocks(helper);
+    }
 }

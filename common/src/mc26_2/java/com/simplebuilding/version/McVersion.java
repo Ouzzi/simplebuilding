@@ -49,6 +49,8 @@ public final class McVersion {
     public static final boolean SMALL_PLACEABLES = false;
     /** Bundles, backpacks and quivers dye like vanilla bundles: one fixed colour per dye, no mixing, no washing (2026-10-02). */
     public static final boolean VANILLA_DYEING = false;
+    /** Iron Rod and the reworked gadget recipes (clock in the gauge, recovery compass in the detector, iron rods) (2026-10-02). */
+    public static final boolean GADGET_REWORK = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = false;
 

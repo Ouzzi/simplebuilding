@@ -70,6 +70,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),
+            GameTestSpec.named("block_behaviour_game_test_iron_rods_attract_lightning_only_within_thirty_two_blocks", BlockBehaviourTests::ironRodsAttractLightningOnlyWithinThirtyTwoBlocks)
+                    .build(),
             GameTestSpec.named("block_behaviour_game_test_reinforced_and_netherite_furnaces_smelt_faster_than_vanilla", BlockBehaviourTests::reinforcedAndNetheriteFurnacesSmeltFasterThanVanilla)
                     .maxTicks(BlockBehaviourTests.FURNACE_MAX_TICKS)
                     .build(),

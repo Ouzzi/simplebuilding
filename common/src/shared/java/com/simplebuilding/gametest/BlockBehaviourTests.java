@@ -943,4 +943,31 @@ public final class BlockBehaviourTests {
         return Monster.isDarkEnoughToSpawn(helper.getLevel(), helper.absolutePos(pos), RandomSource.create(0L))
                 ? "dark" : "too bright";
     }
+
+    /**
+     * Iron Rod (owner 2026-10-02): a lightning rod of iron - powered by a strike like the copper rod, but it only
+     * attracts lightning within 32 blocks (copper: 128), found as the top block of its column.
+     */
+    public static void ironRodsAttractLightningOnlyWithinThirtyTwoBlocks(GameTestHelper helper) {
+        if (ModBlocks.IRON_ROD == null) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        BlockPos column = helper.absolutePos(new BlockPos(1, 1, 1));
+        // the rod has to be the top block of its column; the test structure may have a roof, so stand it on top
+        BlockPos rod = new BlockPos(column.getX(), level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, column.getX(), column.getZ()), column.getZ());
+        level.setBlock(rod, ModBlocks.IRON_ROD.defaultBlockState(), 3);
+        helper.assertTrue(ModBlocks.IRON_ROD instanceof net.minecraft.world.level.block.LightningRodBlock, "the iron rod is a lightning rod");
+        java.util.Optional<BlockPos> near = com.simplebuilding.blocks.custom.IronRodBlock.find(level, rod.offset(12, 0, 12));
+        helper.assertTrue(near.isPresent() && near.get().equals(rod.above()), "an iron rod 17 blocks away attracts the bolt, got " + near);
+        java.util.Optional<BlockPos> far = com.simplebuilding.blocks.custom.IronRodBlock.find(level, rod.offset(40, 0, 0));
+        helper.assertTrue(far.isEmpty() || !far.get().equals(rod.above()), "an iron rod 40 blocks away does not");
+        helper.assertValueEqual(com.simplebuilding.blocks.custom.IronRodBlock.RANGE, 32, "iron rod range");
+        BlockState state = level.getBlockState(rod);
+        ((net.minecraft.world.level.block.LightningRodBlock) ModBlocks.IRON_ROD).onLightningStrike(state, level, rod);
+        helper.assertTrue(level.getBlockState(rod).getValue(net.minecraft.world.level.block.LightningRodBlock.POWERED), "a strike powers the iron rod");
+        level.setBlock(rod, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 3);
+        helper.succeed();
+    }
 }

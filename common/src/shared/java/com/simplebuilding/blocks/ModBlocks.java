@@ -151,6 +151,11 @@ public class ModBlocks {
             .strength(0.0F).sound(SoundType.BONE_BLOCK).noLootTable().noOcclusion().mapColor(MapColor.SAND)
             .pushReaction(McVersion.PUSH_DESTROYS))) : null;
 
+    // Eisenstab (2026-10-02): Blitzableiter aus Eisen, zieht Blitze nur in 32 Bloecken an (IronRodBlock).
+    public static final Block IRON_ROD = McVersion.GADGET_REWORK ? registerBlock("iron_rod", s -> new com.simplebuilding.blocks.custom.IronRodBlock(s
+            .mapColor(MapColor.METAL).forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F)
+            .sound(SoundType.METAL).noOcclusion())) : null;
+
     // --- 7. ABGESTELLTES BUENDEL ---
     // Schleichen + Rechtsklick mit einem Buendel auf die Oberseite eines Blocks (PlacedBundles): ein
     // 3D-Buendel je Stufe. Kein Item - das Buendel samt Inhalt liegt in der Block-Entity und faellt

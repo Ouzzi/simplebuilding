@@ -19,8 +19,8 @@ any SimpleBuilding-specific integration.
 | --- | --- |
 | Building wand (plane, line, bridge, roof) | place event for the cell |
 | Blueprint build, octant fill (both run through the wand) | place event for the cell |
-| Amethyst Resonance Rod beam: ignite | place event for the fire cell |
-| Amethyst Resonance Rod beam: melt, dry, light, prime TNT | break event for the block |
+| Resonance Rod beam: ignite | place event for the fire cell |
+| Resonance Rod beam: melt, dry, light, prime TNT | break event for the block |
 | Sledgehammer area swing, Vein Miner, Strip Miner | break event for each extra block (vanilla `ServerPlayerGameMode#destroyBlock`) |
 | Mod pistons (netherite breaker, breach) | piston event and break event with a fake player (config `pistonsFireBreakEvents`) |
 

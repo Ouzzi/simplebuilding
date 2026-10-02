@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "simplebuilding:iron_core",
+    "I": "simplebuilding:iron_rod",
+    "L": "minecraft:lapis_lazuli",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    " R ",
+    "I L",
+    "CI "
+  ],
+  "result": {
+    "id": "simplebuilding:magnet"
+  }
+}

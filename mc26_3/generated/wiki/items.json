@@ -71,6 +71,7 @@
     "simplebuilding:husk_head",
     "simplebuilding:husk_wall_head",
     "simplebuilding:infused_potion_pad",
+    "simplebuilding:iron_rod",
     "simplebuilding:lapis_quartz_checker",
     "simplebuilding:launchpad",
     "simplebuilding:levitating_gravel",
@@ -693,6 +694,9 @@
     {
       "id": "simplebuilding:iron_core",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:iron_rod"
     },
     {
       "attackDamage": 9.0,

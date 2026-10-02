@@ -779,6 +779,10 @@ public final class TestCentreSections {
                 c.place(x++, 0, 0, ModBlocks.PLACED_EGG.defaultBlockState().setValue(com.simplebuilding.blocks.custom.PlacedEggBlock.EGG, egg));
             }
         }
+        if (ModBlocks.IRON_ROD != null) {
+            // Eisenstab aufgestellt (zieht im Gewitter Blitze in 32 Bloecken an).
+            c.place(5, 0, 0, ModBlocks.IRON_ROD);
+        }
         int end = c.frameGrid(1, 0, wallZ, items, labels, 3);
         c.backWall(0, end, wallZ, 7);
         return c;

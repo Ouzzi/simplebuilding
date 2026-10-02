@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "simplebuilding:iron_core",
+    "I": "simplebuilding:iron_rod",
+    "P": "minecraft:ender_pearl"
+  },
+  "pattern": [
+    " I ",
+    "IPI",
+    "CI "
+  ],
+  "result": {
+    "id": "simplebuilding:rotator"
+  }
+}

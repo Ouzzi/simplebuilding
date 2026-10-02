@@ -25,6 +25,7 @@
     "EndermanSpawnMixin",
     "EnderiteSinkDamperMixin",
     "FletchingTableMixin",
+    "IronRodLightningMixin",
     "HostileEntityMixin",
     "ItemEntityMixin",
     "ItemFrameEntityMixin",

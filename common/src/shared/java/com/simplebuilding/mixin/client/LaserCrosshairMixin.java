@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * While the Amethyst Resonance Rod beams, the crosshair steps aside (owner 2026-09-29): the laser
+ * While the Resonance Rod beams, the crosshair steps aside (owner 2026-09-29): the laser
  * dot sits exactly where its centre was ({@code LaserRenderer#dotCentre}) and would otherwise hide
  * under it. Vanilla draws the crosshair in {@code Hud#extractCrosshair} on every loader (NeoForge's
  * crosshair layer calls the same method), so one injection covers all of them.

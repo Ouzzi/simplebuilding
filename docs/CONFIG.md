@@ -29,7 +29,7 @@ Acht Reiter, Reihenfolge = erstes Feld jeder Kategorie in `SimplebuildingConfig`
 | Werkzeuge & Bauen (`building`) | `tools.*`: Baustab-Hunger + Faktor, Attraktor-Reichweite, Rotator-Kosten, Bündel-/Oktant-Bedienung, Vorschau-Deckkraft, Animationen |
 | Verzauberungen & Rüstung (`equipment`) | Luftsprung + Abklingzeit, Besatz-Vorteile, Resonanz-Multiplikator |
 | Kolben (`pistons`) | Verschleißbudgets, Endportalrahmen, Unzerstörbares anderer Mods |
-| Pads & Tweaks (`tweaks`) | `tweaks.*` in Gruppen: Pads an/aus, Pad-Zeiten & -Stärke, Amethyst-Resonanzstab, Abstimmung, Spawn, Dimensionen, Befehle, Leistung |
+| Pads & Tweaks (`tweaks`) | `tweaks.*` in Gruppen: Pads an/aus, Pad-Zeiten & -Stärke, Resonanzstab, Abstimmung, Spawn, Dimensionen, Befehle, Leistung |
 | Beute, Handel & Welt (`world`) | `worldGen.*` (Loot, Kern-Chancen, Handel) und den alten Handbuch-Schalter (auf 26.3 wirkungslos) |
 | Darstellung (Client) (`visuals`) | Buch-Texturen, Besatz-Icons |
 | Kompatibilität & Erweitert (`advanced`) | Kolben-Abbau-Ereignisse (Schutz-Mods), Dev-Kreativ-Tab |

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "C": "simplebuilding:iron_core",
+    "I": "simplebuilding:iron_rod",
+    "N": "minecraft:iron_nugget",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    " RA",
+    "NCR",
+    "IN "
+  ],
+  "result": {
+    "id": "simplebuilding:amethyst_lens"
+  }
+}

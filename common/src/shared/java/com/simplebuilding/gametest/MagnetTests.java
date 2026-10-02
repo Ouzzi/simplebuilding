@@ -867,10 +867,12 @@ public final class MagnetTests {
         // " R " / "I L" / "CI " with R=redstone, I=iron ingot, C=iron core, L=lapis lazuli (owner's recipe
         // 2026-09-28: the lapis moved up from the bottom right to the right middle; before 2026-09-27
         // " IR" / "ILI" / "BI " with a lodestone in the middle).
+        // 26.3 (owner 2026-10-02): Iron Rods in place of the iron ingots.
+        net.minecraft.world.item.Item iron = com.simplebuilding.version.McVersion.GADGET_REWORK ? ModItems.IRON_ROD : Items.IRON_INGOT;
         CraftingInput grid = grid3x3(
                 null, Items.REDSTONE, null,
-                Items.IRON_INGOT, null, Items.LAPIS_LAZULI,
-                ModItems.IRON_CORE, Items.IRON_INGOT, null);
+                iron, null, Items.LAPIS_LAZULI,
+                ModItems.IRON_CORE, iron, null);
 
         Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, grid, level);

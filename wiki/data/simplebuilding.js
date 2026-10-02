@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 248,
+      "count": 249,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -110,7 +110,7 @@ window.WIKI_DATA = {
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
           "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert und sein Dev-Client startet, aber kein Test läuft darauf. Seine Client-Anzeigen sind wie auf den anderen Loadern verdrahtet: Oktant-HUD, Geschwindigkeitsanzeige des Geschwindigkeitsmessers und Luftsprung-Balken über Forges HUD-Ebenen (AddGuiOverlayLayersEvent), Weltmarkierungen und zusätzliche Abbau-Risse über die Mixins LevelRendererMixin / LevelExtractorMixin, die eigenen Buchtexturen der Verzauberungen über SelectItemModelPropertiesMixin.",
           "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Auch die eigenen Menü-, Status- und Tooltip-Texte der Mod - Trichter-Filter, Detektor, Attraktor, Rahmensperre, Struktur-Kompasse, Umschalttasten, Oktant- und Geschwindigkeitsmesser-HUD, Resonanzfeld, Meißel-Tooltip - kommen seit dem 27.09.2026 aus den Sprachdateien; ein Datentest prüft, dass jeder dieser Schlüssel in beiden Dateien mit denselben Platzhaltern steht.",
-          "Das Kreativinventar hat fünf eigene Reiter, jeder in Reihen zu neun angelegt - eine Kategorie je Reihe, zwei kurze Familien nebeneinander mit einem leeren Feld dazwischen: „SimpleTools“ (je Familie eine Reihe von der niedrigsten Stufe bis Enderit: Meißel, Baustäbe - neben dem Enderit-Baustab nach einem leeren Feld die Bauplanung: Blaupause und Vanilla-Kartografentisch -, Vorschlaghämmer, Spitzhacken, Schaufeln, Hacken, Äxte, Schwerter, Speere, Helme, Brustpanzer, Hosen und Stiefel - die Vanilla-Werkzeuge, -Waffen und -Rüstungen aller Stufen eingeschlossen -, danach Pferde- und Nautilusrüstung, die Geräte (Kompass, Bergungskompass, Echolot, Geschwindigkeitsmesser, Detektor, Attraktor, Rotator, Amethyst-Resonanzstab, Oktant), die gefärbten Oktanten, die Handbücher und verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBlocks“ (die Endsteine, je eine Reihe für die Astralit-, Nihilit- und Enderquarz-Palette mit ihrer polierten Reihe darunter, die Quarz-Schachbretter, die Schwerkraftblöcke, dann Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralitziegel), „SimpleMaterials“ (End-Erze, Rohstoffe, Baukerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren), „SimpleMachines“ (jeweils Vanilla zuerst und dann die Stufen: Trichter und Öfen, Räucheröfen und Schmelzöfen, Kolben, Bündel und Köcher, Rucksäcke, Truhen; Symbol: Netherittrichter) und „SimplePads“ (die Druckplatten - Eiche, Stein, polierter Schwarzstein, Wägeplatten schwer und leicht, Diamant, Netherit und Enderit in einer Reihe, die Kupferplatten in der nächsten; die übrigen Holzplatten bleiben im Vanilla-Reiter - dann die Pad-Familien in Erz-Reihenfolge, jede mit ihrer Freischalt-Zutat: Chunk-Loader, Launchpads, Spawn-Teleporter, Elytra-Pads, Trank-Pads und Flypads; Symbol: Elytra-Pad). Der Rest jeder Reihe bleibt leer (unsichtbare Kreativ-Platzhalter, die sich nicht aufnehmen lassen und nie im Suchreiter stehen). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon; nur Kupfer-, Eisen- und Enderit-Kern stehen bewusst in zweien (SimpleMaterials und, als Freischalt-Zutat, SimplePads). Zusätzlich steht jedes Mod-Item im passenden Vanilla-Reiter direkt hinter seinem Vanilla-Vorbild (verstärkter, Netherit- und Enderit-Trichter hinter dem Trichter, die Enderit-Werkzeuge hinter den Netherit-Werkzeugen, die Mod-Platten bei den Vanilla-Platten, Lohen- und Endermankopf bei den Vanilla-Köpfen), sodass der Suchreiter es dort zeigt - einmal - statt ganz am Ende; die verzauberten Bücher der Mod stehen ohnehin zwischen Vanillas Büchern. Ein sechster Reiter, „SimpleEnchants (Dev)“, erscheint nur in einer Entwicklungsumgebung oder mit der Konfigurationsoption showDevEnchantedTab: die beste Stufe jedes verzauberbaren Gegenstands (dazu Stock und Shulkerkiste, denen Berührung des Konstrukteurs eine Funktion gibt) mit jeder passenden Verzauberung auf Höchststufe, je Wahl unter sich ausschließenden Verzauberungen eine Variante (etwa ein Paar Stiefel je Schutzart). Seine Einträge stehen nicht im Suchreiter.",
+          "Das Kreativinventar hat fünf eigene Reiter, jeder in Reihen zu neun angelegt - eine Kategorie je Reihe, zwei kurze Familien nebeneinander mit einem leeren Feld dazwischen: „SimpleTools“ (je Familie eine Reihe von der niedrigsten Stufe bis Enderit: Meißel, Baustäbe - neben dem Enderit-Baustab nach einem leeren Feld die Bauplanung: Blaupause und Vanilla-Kartografentisch -, Vorschlaghämmer, Spitzhacken, Schaufeln, Hacken, Äxte, Schwerter, Speere, Helme, Brustpanzer, Hosen und Stiefel - die Vanilla-Werkzeuge, -Waffen und -Rüstungen aller Stufen eingeschlossen -, danach Pferde- und Nautilusrüstung, die Geräte (Kompass, Bergungskompass, Echolot, Geschwindigkeitsmesser, Detektor, Attraktor, Rotator, Resonanzstab, Oktant), die gefärbten Oktanten, die Handbücher und verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBlocks“ (die Endsteine, je eine Reihe für die Astralit-, Nihilit- und Enderquarz-Palette mit ihrer polierten Reihe darunter, die Quarz-Schachbretter, die Schwerkraftblöcke, dann Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralitziegel), „SimpleMaterials“ (End-Erze, Rohstoffe, Baukerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren), „SimpleMachines“ (jeweils Vanilla zuerst und dann die Stufen: Trichter und Öfen, Räucheröfen und Schmelzöfen, Kolben, Bündel und Köcher, Rucksäcke, Truhen; Symbol: Netherittrichter) und „SimplePads“ (die Druckplatten - Eiche, Stein, polierter Schwarzstein, Wägeplatten schwer und leicht, Diamant, Netherit und Enderit in einer Reihe, die Kupferplatten in der nächsten; die übrigen Holzplatten bleiben im Vanilla-Reiter - dann die Pad-Familien in Erz-Reihenfolge, jede mit ihrer Freischalt-Zutat: Chunk-Loader, Launchpads, Spawn-Teleporter, Elytra-Pads, Trank-Pads und Flypads; Symbol: Elytra-Pad). Der Rest jeder Reihe bleibt leer (unsichtbare Kreativ-Platzhalter, die sich nicht aufnehmen lassen und nie im Suchreiter stehen). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon; nur Kupfer-, Eisen- und Enderit-Kern stehen bewusst in zweien (SimpleMaterials und, als Freischalt-Zutat, SimplePads). Zusätzlich steht jedes Mod-Item im passenden Vanilla-Reiter direkt hinter seinem Vanilla-Vorbild (verstärkter, Netherit- und Enderit-Trichter hinter dem Trichter, die Enderit-Werkzeuge hinter den Netherit-Werkzeugen, die Mod-Platten bei den Vanilla-Platten, Lohen- und Endermankopf bei den Vanilla-Köpfen), sodass der Suchreiter es dort zeigt - einmal - statt ganz am Ende; die verzauberten Bücher der Mod stehen ohnehin zwischen Vanillas Büchern. Ein sechster Reiter, „SimpleEnchants (Dev)“, erscheint nur in einer Entwicklungsumgebung oder mit der Konfigurationsoption showDevEnchantedTab: die beste Stufe jedes verzauberbaren Gegenstands (dazu Stock und Shulkerkiste, denen Berührung des Konstrukteurs eine Funktion gibt) mit jeder passenden Verzauberung auf Höchststufe, je Wahl unter sich ausschließenden Verzauberungen eine Variante (etwa ein Paar Stiefel je Schutzart). Seine Einträge stehen nicht im Suchreiter.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
           "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Attraktor, Rotator und Detektor.",
           "Bereich Blöcke: Trichter, Öfen, Kolben, Schwerkraftblöcke und Erze samt Härte, Werkzeug-Tags, Beutetabellen und den Unterschieden zwischen Verstärkt- und Netherit-Stufe.",
@@ -304,7 +304,7 @@ window.WIKI_DATA = {
           "Finished tools lie around too: Gold and Diamond Chisels in Buried Treasure, a Diamond Chisel in the igloo, a Gold Sledgehammer in bastions, a Diamond Sledgehammer in end cities and ancient cities, an Iron Building Wand in woodland mansions, a Diamond Building Wand in end cities, an Octant in ancient cities, nether fortresses and pillager outposts, a Reinforced Bundle in dungeons, shipwrecks and abandoned mineshafts, a Quiver in ancient cities, pillager outposts and woodland mansions.",
           "Every mod enchantment has a survival source (since 2026-09-28): Bridge comes from end city treasure, Drawer from woodland mansions and the level 4 librarian, Kinetic Protection from the enchanting table; randomly enchanted loot items (Quiver, Reinforced Bundle, Octant, Diamond Sledgehammer, Diamond Building Wand) can also carry any enchantment that fits them.",
           "Loot and trades hang on three config switches (enableLootTableChanges, enableVillagerTrades, enableWanderingTrades), which are on by default and are evaluated when datapacks load (world start, /reload). If the vanilla \"Trade Rebalance\" datapack is active, the mod's Librarian offers disappear; the Mason, the Toolsmith and the Wandering Trader are unaffected.",
-          "Gadgets: Detector, Attractor, Rotator, Amethyst Resonance Rod, Velocity Gauge and Echo Sounder. Recipe cards are read from the current recipe data."
+          "Gadgets: Detector, Attractor, Rotator, Resonance Rod, Velocity Gauge and Echo Sounder. Recipe cards are read from the current recipe data."
         ]
       },
       "de": {
@@ -326,7 +326,7 @@ window.WIKI_DATA = {
           "Auch fertige Werkzeuge liegen herum: Gold- und Diamantmeißel im Vergrabenen Schatz, Diamantmeißel im Iglu, Gold-Vorschlaghammer in Bastionen, Diamant-Vorschlaghammer in Endsiedlungen und Antiken Städten, Eisen-Baustab in Waldanwesen, Diamant-Baustab in Endsiedlungen, Oktant in Antiken Städten, Netherfestungen und Plünderer-Außenposten, Verstärktes Bündel in Verliesen, Schiffswracks und verlassenen Minen, Köcher in Antiken Städten, Plünderer-Außenposten und Waldanwesen.",
           "Jede Mod-Verzauberung hat eine Quelle im Überlebensmodus (seit 2026-09-28): Brücke aus dem Endsiedlungs-Schatz, Schublade aus Waldanwesen und vom Bibliothekar Stufe 4, Kinetischer Schutz vom Zaubertisch; zufällig verzauberte Loot-Gegenstände (Köcher, Verstärktes Bündel, Oktant, Diamant-Vorschlaghammer, Diamant-Baustab) können außerdem jede auf sie passende Verzauberung tragen.",
           "Loot und Handel hängen an drei Konfigurationsschaltern (enableLootTableChanges, enableVillagerTrades, enableWanderingTrades), die standardmäßig eingeschaltet sind und beim Laden der Datenpakete (Weltstart, /reload) ausgewertet werden. Ist das Vanilla-Datenpaket „Trade Rebalance“ aktiv, verschwinden die Bibliothekar-Angebote der Mod; Steinmetz, Werkzeugschmied und fahrender Händler bleiben davon unberührt.",
-          "Geräte: Detektor, Attraktor, Rotator, Amethyst-Resonanzstab, Messuhr und Echolot. Rezeptkarten kommen aus den aktuellen Rezeptdaten."
+          "Geräte: Detektor, Attraktor, Rotator, Resonanzstab, Messuhr und Echolot. Rezeptkarten kommen aus den aktuellen Rezeptdaten."
         ]
       }
     },
@@ -741,7 +741,7 @@ window.WIKI_DATA = {
         "summary": "Six cores - copper, iron, gold, diamond, netherite and enderite - carry the mod's tool tiers: every building wand, several helpers and the enderite pads need one. A core is a nether star set in the tier's material; cores do not stack, and right-clicking one plays a short animation - with a tiny chance of turning the stone you click into ore.",
         "details": [
           "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-          "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+          "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
           "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
           "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
           "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
@@ -753,7 +753,7 @@ window.WIKI_DATA = {
         "summary": "Sechs Kerne - Kupfer, Eisen, Gold, Diamant, Netherit und Enderit - tragen die Werkzeugstufen der Mod: jeder Baustab, mehrere Helfer und die Enderit-Pads brauchen einen. Ein Kern ist ein Netherstern, gefasst im Material seiner Stufe; Kerne stapeln nicht, und ein Rechtsklick spielt eine kurze Animation - mit winziger Chance, den angeklickten Stein in Erz zu verwandeln.",
         "details": [
           "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-          "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethyst-Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+          "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
           "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
           "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
           "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
@@ -1426,7 +1426,7 @@ window.WIKI_DATA = {
         "summary": "The Rotator is a handy tool for turning orientable blocks right where they are in the world, without breaking and replacing them. It helps above all when building with logs and pillars, with furnaces, pistons or hoppers, and with every block that turns in 16 steps. Where you click on a block face decides how it turns. It never breaks: its durability is a charge that you top up at the anvil with ender pearls.",
         "details": [
           "Crafted from 4 iron ingots, 1 Iron Core and 1 ender pearl; the recipe shows up as soon as you own an iron ingot.",
-          "Charge instead of wear (owner 2026-09-28, like the Amethyst Resonance Rod): 1024 charge, every successful rotation costs 1 (Unbreaking saves charge as usual, nothing in creative mode). The Rotator never breaks - at 0 charge it stays in your inventory, shows a dimmed ender pearl, refuses to turn anything (a dry click) and its tooltip says it is empty. Recharge it in an anvil with ender pearls for no levels: every pearl restores 1/16 (64 charge), 16 pearls - one stack - fill an empty Rotator, and only the pearls it needs are taken. Enchantability 15 and the tag minecraft:enchantable/durability stay, so Unbreaking and Mending still fit. The cost per rotation is the config option tools.rotatorChargePerTurn (default 1, 0 = free).",
+          "Charge instead of wear (owner 2026-09-28, like the Resonance Rod): 1024 charge, every successful rotation costs 1 (Unbreaking saves charge as usual, nothing in creative mode). The Rotator never breaks - at 0 charge it stays in your inventory, shows a dimmed ender pearl, refuses to turn anything (a dry click) and its tooltip says it is empty. Recharge it in an anvil with ender pearls for no levels: every pearl restores 1/16 (64 charge), 16 pearls - one stack - fill an empty Rotator, and only the pearls it needs are taken. Enchantability 15 and the tag minecraft:enchantable/durability stay, so Unbreaking and Mending still fit. The cost per rotation is the config option tools.rotatorChargePerTurn (default 1, 0 = free).",
           "Right-click the middle of a face to turn forward, sneak + right-click to turn backwards (no difference on logs and pillars).",
           "Click the rim of a face (outer 2 pixels) and the block aligns to that edge: logs lay their axis toward the edge, furnaces or pistons point toward the edge, 16-step blocks turn a quarter turn.",
           "Logs and pillars: clicking the middle of a face lays the axis in the direction of that face; if it already lies that way, it moves on in the cycle X -> Y -> Z -> X.",
@@ -1442,7 +1442,7 @@ window.WIKI_DATA = {
         "summary": "Der Rotator ist ein handliches Werkzeug, mit dem sich ausrichtbare Blöcke direkt in der Welt drehen lassen, ohne sie abzubauen und neu zu setzen. Er hilft vor allem beim Bauen mit Stämmen und Säulen, bei Öfen, Kolben oder Trichtern und bei allen Blöcken, die sich in 16 Schritten drehen lassen. Wo man auf eine Blockfläche klickt, entscheidet, wie gedreht wird. Er zerbricht nie: Seine Haltbarkeit ist eine Ladung, die du im Amboss mit Enderperlen auffüllst.",
         "details": [
           "Herstellung aus 4 Eisenbarren, 1 Eisenkern und 1 Enderperle; das Rezept erscheint, sobald man einen Eisenbarren besitzt.",
-          "Ladung statt Abnutzung (Besitzer 2026-09-28, wie die Amethyst-Resonanzstab): 1024 Ladung, jede erfolgreiche Drehung kostet 1 (Haltbarkeit spart wie gewohnt, im Kreativmodus kostet nichts). Der Rotator zerbricht nie - bei 0 Ladung bleibt er im Inventar, zeigt eine erloschene Enderperle, dreht nichts mehr (nur ein trockenes Klicken) und sein Tooltip meldet ihn als leer. Aufladen im Amboss mit Enderperlen ohne Stufenkosten: jede Perle gibt 1/16 (64 Ladung) zurück, 16 Perlen - ein Stapel - füllen einen leeren Rotator, verbraucht werden nur die nötigen. Verzauberbarkeit 15 und der Tag minecraft:enchantable/durability bleiben, Haltbarkeit und Reparatur passen also weiterhin. Die Kosten je Drehung sind die Config-Option tools.rotatorChargePerTurn (Standard 1, 0 = kostenlos).",
+          "Ladung statt Abnutzung (Besitzer 2026-09-28, wie die Resonanzstab): 1024 Ladung, jede erfolgreiche Drehung kostet 1 (Haltbarkeit spart wie gewohnt, im Kreativmodus kostet nichts). Der Rotator zerbricht nie - bei 0 Ladung bleibt er im Inventar, zeigt eine erloschene Enderperle, dreht nichts mehr (nur ein trockenes Klicken) und sein Tooltip meldet ihn als leer. Aufladen im Amboss mit Enderperlen ohne Stufenkosten: jede Perle gibt 1/16 (64 Ladung) zurück, 16 Perlen - ein Stapel - füllen einen leeren Rotator, verbraucht werden nur die nötigen. Verzauberbarkeit 15 und der Tag minecraft:enchantable/durability bleiben, Haltbarkeit und Reparatur passen also weiterhin. Die Kosten je Drehung sind die Config-Option tools.rotatorChargePerTurn (Standard 1, 0 = kostenlos).",
           "Rechtsklick auf die Mitte einer Fläche dreht vorwärts, Schleichen + Rechtsklick dreht rückwärts (bei Stämmen und Säulen ohne Unterschied).",
           "Klickt man auf den Rand einer Fläche (äußere 2 Pixel), richtet sich der Block an dieser Kante aus: Stämme legen ihre Achse in Richtung der Kante, Öfen oder Kolben zeigen zur Kante hin, 16-stufige Blöcke drehen eine Vierteldrehung.",
           "Stämme und Säulen: Klick auf die Mitte einer Fläche legt die Achse in die Richtung dieser Fläche; liegt sie schon so, geht es weiter im Zyklus X -> Y -> Z -> X.",
@@ -3130,7 +3130,7 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Simple Tweaks: pads, spawn and server tweaks",
-        "summary": "Almost everything from the Simple Tweaks mod lives in SimpleBuilding now (the claim system stays in Simple Tweaks): pressure plates and pads with an Enderite tier, spawn elytra and spawn teleporters, the echo sounder (formerly echo compass), the Amethyst Resonance Rod (formerly the laser pointer) and a few server options.",
+        "summary": "Almost everything from the Simple Tweaks mod lives in SimpleBuilding now (the claim system stays in Simple Tweaks): pressure plates and pads with an Enderite tier, spawn elytra and spawn teleporters, the echo sounder (formerly echo compass), the Resonance Rod (formerly the laser pointer) and a few server options.",
         "details": [
           "Tier ladder of every plate family: after Netherite comes Enderite, and the nether star tier moves up one: Netherite Elytra Pad III, Enderite Elytra Pad IV, Fine Elytra Pad V; flypads now have three enderite tiers. Each Enderite tier adds one function (see the items). Launchpads and Chunk Loaders have three tiers each (Diamond, Netherite, Enderite).",
           "Upgrades pay with pressure plates: every smithing upgrade of a pad family costs the pressure plate of its target material instead of the raw material - Diamond Pressure Plate for the diamond tiers, Netherite Pressure Plate for the netherite tiers, Enderite Pressure Plate for the enderite tiers. Unchanged: the entry tiers, the plates themselves and the nether star step of the elytra pad. Flypads are an enderite-only family of three tiers now (see the flypad).",
@@ -3146,7 +3146,7 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Simple Tweaks: Pads, Spawn und Server-Einstellungen",
-        "summary": "Fast alles aus der Mod Simple Tweaks steckt jetzt in SimpleBuilding (das Claim-System bleibt in Simple Tweaks): Druckplatten und Pads mit einer Enderit-Stufe, Spawn-Elytra und Spawn-Teleporter, das Echolot (früher Echo-Kompass), die Amethyst-Resonanzstab (früher Laserpointer) und einige Server-Optionen.",
+        "summary": "Fast alles aus der Mod Simple Tweaks steckt jetzt in SimpleBuilding (das Claim-System bleibt in Simple Tweaks): Druckplatten und Pads mit einer Enderit-Stufe, Spawn-Elytra und Spawn-Teleporter, das Echolot (früher Echo-Kompass), die Resonanzstab (früher Laserpointer) und einige Server-Optionen.",
         "details": [
           "Stufenleiter aller Platten-Familien: nach Netherit kommt Enderit, die Netherstern-Stufe rückt eins auf: Netherit-Elytra-Pad III, Enderit-Elytra-Pad IV, Feines Elytra-Pad V; Flugpads haben jetzt drei Enderit-Stufen. Jede Enderit-Stufe bringt eine Zusatzfunktion (siehe die Gegenstände). Startrampen und Chunk-Lader haben je drei Stufen (Diamant, Netherit, Enderit).",
           "Aufwertungen zahlen mit Druckplatten: jede Schmiede-Aufwertung einer Pad-Familie kostet die Druckplatte des Zielmaterials statt des Rohstoffs - Diamant-Druckplatte für die Diamant-Stufen, Netherit-Druckplatte für die Netherit-Stufen, Enderit-Druckplatte für die Enderit-Stufen. Unverändert: die Einstiegsstufen, die Platten selbst und die Netherstern-Stufe des Elytra-Pads. Flugpads sind jetzt eine reine Enderit-Familie mit drei Stufen (siehe Flugpad).",
@@ -3190,7 +3190,7 @@ window.WIKI_DATA = {
         "title": "Modpacks and Servers",
         "summary": "What pack authors and server admins can change without code: the mod asks claim and protection mods through the loader's own events for every block its multi-block tools touch, reads its chisel chains, sledgehammer upgrades and loot from datapack files, offers tags for Vein Miner, the building wand, the magnet and the backpack, fills the common c: tags with its materials and records three player statistics.",
         "details": [
-          "Claims: the building wand (plane, line, bridge, roof, blueprint build, octant fill) fires the loader's place event for every cell, the Amethyst Resonance Rod beam the place event for the fire cell or the break event for the block it melts, dries, lights or primes; the sledgehammer, Vein Miner and Strip Miner break their extra blocks through ServerPlayerGameMode#destroyBlock, which fires the break event itself. A refused cell stays untouched and costs nothing.",
+          "Claims: the building wand (plane, line, bridge, roof, blueprint build, octant fill) fires the loader's place event for every cell, the Resonance Rod beam the place event for the fire cell or the break event for the block it melts, dries, lights or primes; the sledgehammer, Vein Miner and Strip Miner break their extra blocks through ServerPlayerGameMode#destroyBlock, which fires the break event itself. A refused cell stays untouched and costs nothing.",
           "Events per loader: Fabric PlayerBlockBreakEvents.BEFORE (Fabric has no place event, so placements are checked through the same event for the cell about to be filled); NeoForge BreakBlockEvent (BlockEvent.BreakEvent on 1.21.11) and BlockEvent.EntityPlaceEvent; Forge BlockEvent.BreakEvent and BlockEvent.EntityPlaceEvent. Spawn protection and the world border (Level.mayInteract) are checked as well.",
           "Tags: simplebuilding:vein_miner_ores (#c:ores, the vanilla ores, nether quartz ore, nether gold ore, ancient debris, the mod ores), simplebuilding:building_wand_blacklist (never placed by the wand), simplebuilding:attractor_ignore (never pulled by the magnet), simplebuilding:not_allowed_in_backpack. The last three hold only structure void by default.",
           "Common tags: c:ingots/enderite, c:nuggets/enderite and /netherite, c:raw_materials/enderite, c:gems/ender_quartz and /nihilith, c:dusts/astralit, c:storage_blocks/enderite, /cracked_diamond, /ender_quartz, /astralit and /nihilith, c:ores/nihilith and /astralit, c:ores_in_ground/end_stone, each also in its group tag.",
@@ -3496,8 +3496,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:amethyst_lens",
       "name": {
-        "en_us": "Amethyst Resonance Rod",
-        "de_de": "Amethyst-Resonanzstab"
+        "en_us": "Resonance Rod",
+        "de_de": "Resonanzstab"
       },
       "texture": "assets/textures/item/amethyst_lens.png",
       "craftedBy": [
@@ -3511,7 +3511,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Amethyst Resonance Rod projects a red aiming dot while held in use. The rod tilts and emits particles; the normal crosshair is hidden while aiming.",
+          "summary": "The Resonance Rod projects a red aiming dot while held in use. The rod tilts and emits particles; the normal crosshair is hidden while aiming.",
           "details": [
             "Range, color and dot size come from the config section tweaks.laserPointer (default 512 blocks, red). The dot keeps its size in the world (the config size, 0.05-1 block) and only grows far away so it stays about three pixels wide, instead of turning into a huge circle on a distant wall. Range and the on/off switch are the server's: the server sends them to the client and only passes a dot on while the player really uses the lens, at most 12 times a second.",
             "Beam effects (server side, up to the lens range - capped at the server's view distance so the beam never loads chunks -, while the beam rests on the same block face; the times below apply up to 5 blocks away): ice and frosted ice melt into water after 2 s (they evaporate where water does, like in the Nether), packed ice becomes ice and blue ice packed ice; snow layers, snow blocks and powder snow melt away. Campfires, soul campfires, candles and candle cakes light after 1 s. Soul sand and soul soil get soul fire on top after 2 s. Flammable blocks (anything fire can catch: planks, logs, leaves, wool ...) catch fire on the beamed face after 3 s, but only where the fire_spread_radius_around_player game rule lets fire spread. Wet sponges dry after 5 s. TNT is primed after 3 s like with flint and steel (the player counts as the igniter; the tnt_explodes game rule is respected, fire spread and mob griefing are not involved). It never lights a nether portal (unlike flint and steel, no fire is placed into an empty portal frame). Smoke rises while the heat builds up; a sound and particles mark the result.",
@@ -3519,14 +3519,14 @@ window.WIKI_DATA = {
             "Creatures: players and mobs catch fire (4 s) when the beam rests on them, but it takes twice as long as a flammable block at the same distance (6 s up close). Not: fire-immune or invulnerable creatures, creatures in water or rain, players in creative or spectator mode, and other players only where PvP is allowed (pvp game rule, server setting, team friendly fire). Creatures are searched up to 64 blocks along the beam.",
             "Sounds at the dot, audible to players nearby: a quiet hum about once a second while the beam hits anything, a clearly audible sizzle while ice, snow or a sponge heats up and a crackle while something is about to burn or ignite (also creatures), each at most every 8 ticks; the finishing sound of every effect stays.",
             "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
-            "Recipe (crafting, shaped): iron ingot, iron ingot, redstone; iron ingot, iron core, amethyst shard; iron ingot, iron ingot, redstone. In the creative Tools tab it sits with the gadgets.",
+            "Recipe on MC 26.3 (owner 2026-10-02, turned 45 degrees and more compact): \" RA\" / \"NCR\" / \"IN \" - amethyst shard top right, redstone top middle and middle right, Iron Core in the middle, iron nuggets middle left and bottom middle, Iron Rod bottom left. In the creative Tools tab it sits with the gadgets.",
             "Charge defaults to 640, with 4 spent per started second of aiming and 5 per effect. Empty rods do not break. At an anvil, 16 amethyst shards fully recharge a rod without levels; creative players spend no charge.",
             "Constructor's Touch enables distance, target and height measurement in the common HUD panel. The server stores the last measurement on the item. The item id stays simplebuilding:amethyst_lens.",
-            "Recipe: IIR / ICA / IIR (I = iron ingot, R = redstone, C = Iron Core, A = amethyst shard), rotated clockwise from the earlier recipe."
+            "Recipe on MC 26.2: IIR / ICA / IIR (I = iron ingot, R = redstone, C = Iron Core, A = amethyst shard), rotated clockwise from the earlier recipe."
           ]
         },
         "de": {
-          "summary": "Der Amethyst-Resonanzstab zeigt beim Benutzen einen roten Zielpunkt. Er neigt sich und erzeugt Partikel; das Fadenkreuz wird beim Zielen ausgeblendet.",
+          "summary": "Der Resonanzstab zeigt beim Benutzen einen roten Zielpunkt. Er neigt sich und erzeugt Partikel; das Fadenkreuz wird beim Zielen ausgeblendet.",
           "details": [
             "Reichweite, Farbe und Punktgröße stehen in der Config unter tweaks.laserPointer (Standard 512 Blöcke, rot). Der Punkt behält seine Größe in der Welt (die Config-Größe, 0,05-1 Block) und wächst erst in der Ferne mit, damit er etwa drei Pixel breit sichtbar bleibt - statt auf einer fernen Wand zum riesigen Kreis zu werden. Reichweite und Schalter gelten vom Server: er schickt sie dem Client und gibt einen Punkt nur weiter, solange der Spieler die Linse wirklich benutzt, höchstens 12-mal pro Sekunde.",
             "Strahlwirkungen (auf dem Server, bis zur Reichweite der Linse - höchstens bis zur Sichtweite des Servers, damit der Strahl keine Chunks lädt -, solange der Strahl auf derselben Blockseite ruht; die Zeiten gelten bis 5 Blöcke Abstand): Eis und Frosteis schmelzen nach 2 s zu Wasser (verdampfen, wo Wasser verdampft, wie im Nether), Packeis wird zu Eis, Blaueis zu Packeis; Schneeschichten, Schneeblöcke und Pulverschnee schmelzen weg. Lagerfeuer, Seelenlagerfeuer, Kerzen und Kerzenkuchen gehen nach 1 s an. Seelensand und Seelenerde bekommen nach 2 s oben Seelenfeuer. Brennbare Blöcke (alles, was Feuer fangen kann: Bretter, Stämme, Laub, Wolle ...) fangen nach 3 s auf der angestrahlten Seite Feuer - nur, wo die Spielregel fire_spread_radius_around_player Feuer sich ausbreiten lässt. Nasse Schwämme trocknen nach 5 s. TNT wird nach 3 s gezündet wie mit einem Feuerzeug (der Spieler gilt als Zünder; die Spielregel tnt_explodes gilt, Feuerausbreitung und Mob-Griefing spielen keine Rolle). Nie: ein Netherportal (anders als ein Feuerzeug setzt der Strahl kein Feuer in einen leeren Portalrahmen). Solange sich die Hitze aufbaut, steigt Rauch auf; ein Geräusch und Partikel zeigen das Ergebnis.",
@@ -3536,7 +3536,7 @@ window.WIKI_DATA = {
             "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
             "Standardladung 640: Zielen verbraucht 4 je angefangener Sekunde, eine Wirkung weitere 5. Leer zerbricht der Stab nicht. Am Amboss laden 16 Amethystscherben ihn ohne Levelkosten ganz auf; Kreativspieler verbrauchen keine Ladung.",
             "Berührung des Konstrukteurs zeigt Entfernung, Ziel und Höhe im gemeinsamen Anzeigefeld. Der Server speichert die letzte Messung am Item. Die Item-ID bleibt simplebuilding:amethyst_lens.",
-            "Rezept: IIR / ICA / IIR (I = Eisenbarren, R = Redstone, C = Eisenkern, A = Amethystscherbe), gegenüber dem früheren Rezept im Uhrzeigersinn gedreht."
+            "Rezept auf MC 26.3 (Besitzer 2026-10-02, um 45 Grad gedreht und kompakter): „ RA“ / „NCR“ / „IN “ - Amethystscherbe oben rechts, Redstone oben Mitte und rechts Mitte, Eisenkern in der Mitte, Eisennuggets links Mitte und unten Mitte, Eisenstab unten links. Auf MC 26.2: IIR / ICA / IIR (I = Eisenbarren, R = Redstone, C = Eisenkern, A = Amethystscherbe)."
           ]
         },
         "sources": [
@@ -4971,7 +4971,7 @@ window.WIKI_DATA = {
           "summary": "Copper Core: ore conversion chance is 1 in 10000 per eligible block use. A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
           "details": [
             "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
             "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
             "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
@@ -4982,7 +4982,7 @@ window.WIKI_DATA = {
           "summary": "Kupferkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 10000. Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
           "details": [
             "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethyst-Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
             "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
@@ -5411,7 +5411,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Detector is sonar for mining: hold it in your hand and once every 20 ticks it looks for the nearest ore in a sphere around you, turns its amethyst needle toward the find like a compass toward a lodestone, and plays a sound with a faint particle trail from your eyes to the ore; which of the twenty ticks that falls on depends on the player, so that the detectors of several players do not all scan in the same tick. Six modes decide what it looks for, from iron to ancient debris or any block you calibrate it to yourself. Every block between you and the ore damps the ore's signal - soft rock such as netherrack a little, stone more, deepslate and obsidian a lot - and the rarer the ore, the weaker its signal: common ores are read through 4 blocks of stone, diamonds through 2, ancient debris only through 2 netherrack. Through open cave air it finds ores 16 to 24 blocks away. Every ping that finds something costs 1 durability; empty pings are free. The Radius enchantment roughly doubles how much rock the rare ores get through, Constructor's Touch halves every block's loss.",
           "details": [
-            "Crafting (owner 2026-09-29): the old recipe turned by 45 degrees with two echo shards fewer - compass in the middle, echo shards above, below, left and right of it, Gold Core bottom left, calibrated sculk sensor top right, top left and bottom right empty (\" ES\" / \"ECE\" / \"GE \", 4 echo shards); unlocked with your first compass.",
+            "Crafting (owner 2026-09-29): the old recipe turned by 45 degrees with two echo shards fewer - in the middle a recovery compass on MC 26.3 (owner 2026-10-02, like the Echo Sounder) or a compass on 26.2, echo shards above, below, left and right of it, Gold Core bottom left, calibrated sculk sensor top right, top left and bottom right empty (\" ES\" / \"ECE\" / \"GE \", 4 echo shards); unlocked with that compass.",
             "Controls: sneak + right-click without a block targeted switches the mode (costs 1 durability, not in creative mode), sneak + right-click on a block calibrates Custom mode to exactly that block type. Blocks with a block entity - chests, barrels, shulker boxes, spawners and the like - cannot be calibrated: the detector refuses with a low sculk click and stays as it was (a data pack can allow single blocks through the block tag simplebuilding:detector_calibratable). A detector calibrated on such a block before 2026-09-27 keeps its data but no longer finds the block.",
             "Placing (owner 2026-09-29): a calibrated detector (Custom mode with a target block) lays down like a smithing template with sneak + right-click on a block - flat on the floor, on a wall or under a ceiling, with a pixel-exact hitbox; breaking it gives back exactly that detector with its mode, target and enchantments. To calibrate a different block, first sneak + right-click in the air to leave Custom mode. Placed, it keeps searching for its target from the middle of the plate every 2 seconds (twice the main-hand interval, same range, damping and enchantments, no durability cost): a find sends a sculk vibration from the target to the detector, a short trail of the target's block particles and the chime and sculk click of the hand-held ping. It also reacts when a player or mob within 8 blocks holds the target block as an item in either hand: a vibration flies from the detector to them with a high amethyst resonance. No on-screen text. Cheap: it only works while a player is within 32 blocks, and its sphere scans share the 16-per-tick cap of the held detectors (PlacedDetectors).",
             "Signal and range by ore class, not by mode: common ores (coal, copper, iron, redstone, lapis, nether quartz) signal 18 and range 24, gold 13 and 20, diamond and emerald 9 and 16, ancient debris, Astralit Ore and Nihilit Ore 5 and 16. Iron, Gold, Diamond and Netherite mode each search one class; All Ores finds all twelve kinds, each with its own signal and range; Custom uses the class of the calibrated block (a block that is none of these ores counts as common). The range is at once the scan radius in blocks around the block your eyes are in; the tooltip shows it as \"Signal: <signal>, Range: <range>\" (All Ores: the common class plus a line with the rarer classes as signal/range).",
@@ -5450,7 +5450,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Der Detektor ist ein Sonar für den Bergbau: Hältst du ihn in der Hand, sucht er alle 20 Ticks das nächstgelegene Erz in einer Kugel um dich herum, dreht seine Amethyst-Nadel dorthin wie ein Kompass zum Leitstein und meldet es mit einem Klang und einer schwachen Partikelspur von deinen Augen bis zum Fund; auf welchen der zwanzig Ticks die Suche fällt, hängt am Spieler, damit nicht die Detektoren mehrerer Spieler alle im selben Tick suchen. Über sechs Modi legst du fest, wonach gesucht wird, von Eisen bis Antikem Schrott oder einem beliebigen selbst kalibrierten Block. Jeder Block zwischen dir und dem Erz dämpft dessen Signal - weiches Gestein wie Netherrack wenig, Stein mehr, Tiefenschiefer und Obsidian stark - und je seltener das Erz, desto schwächer sein Signal: gewöhnliche Erze liest er durch 4 Blöcke Stein, Diamanten durch 2, Antiken Schrott nur durch 2 Netherrack. Durch offene Höhlenluft findet er Erze in 16 bis 24 Blöcken Entfernung. Jeder Ping, der etwas findet, kostet 1 Haltbarkeit; leere Pings sind frei. Die Verzauberung Radius verdoppelt ungefähr, wie viel Gestein die seltenen Erze durchdringen, Berührung des Konstrukteurs halbiert den Verlust jedes Blocks.",
           "details": [
-            "Herstellung (Besitzer 2026-09-29): das alte Rezept um 45 Grad gedreht und zwei Echoscherben weniger - Kompass in der Mitte, Echoscherben darüber, darunter, links und rechts, Goldkern unten links, kalibrierter Sculk-Sensor oben rechts, oben links und unten rechts frei („ ES“ / „ECE“ / „GE “, 4 Echoscherben); freigeschaltet mit dem ersten Kompass.",
+            "Herstellung (Besitzer 2026-09-29): das alte Rezept um 45 Grad gedreht und zwei Echoscherben weniger - in der Mitte auf MC 26.3 ein Bergungskompass (Besitzer 2026-10-02, wie beim Echolot), auf 26.2 ein Kompass, Echoscherben darüber, darunter, links und rechts, Goldkern unten links, kalibrierter Sculk-Sensor oben rechts, oben links und unten rechts frei („ ES“ / „ECE“ / „GE “, 4 Echoscherben); freigeschaltet mit diesem Kompass.",
             "Bedienung: Schleichen + Rechtsklick ohne anvisierten Block wechselt den Modus (kostet 1 Haltbarkeit, nicht im Kreativmodus), Schleichen + Rechtsklick auf einen Block kalibriert den Modus Kalibriert auf genau diesen Blocktyp. Blöcke mit Blockobjekt - Truhen, Fässer, Shulkerkisten, Spawner und ähnliche - lassen sich nicht kalibrieren: Der Detektor lehnt mit einem tiefen Sculk-Klicken ab und bleibt, wie er war (ein Datenpaket kann einzelne Blöcke über den Block-Tag simplebuilding:detector_calibratable freigeben). Ein vor dem 27.09.2026 auf einen solchen Block kalibrierter Detektor behält seine Daten, findet den Block aber nicht mehr.",
             "Ablegen (Besitzer 2026-09-29): Ein kalibrierter Detektor (Modus Kalibriert mit Zielblock) legt sich mit Schleichen + Rechtsklick auf einen Block wie eine Schmiedevorlage ab - flach auf den Boden, an eine Wand oder unter eine Decke, mit pixelgenauer Trefferform; abgebaut gibt er genau diesen Detektor samt Modus, Ziel und Verzauberungen zurück. Um einen anderen Block zu kalibrieren, zuerst mit Schleichen + Rechtsklick in die Luft den Modus Kalibriert verlassen. Abgelegt sucht er alle 2 Sekunden von der Mitte der Platte aus weiter nach seinem Ziel (doppelter Haupthand-Takt, gleiche Reichweite, Dämpfung und Verzauberungen, keine Haltbarkeitskosten): Ein Fund schickt eine Sculk-Vibration vom Ziel zum Detektor, eine kurze Spur aus Blockpartikeln des Ziels sowie Glocke und Sculk-Klicken wie beim Ping in der Hand. Er schlägt auch an, wenn ein Spieler oder Mob im Umkreis von 8 Blöcken den Zielblock als Item in einer Hand hält: Dann fliegt eine Vibration vom Detektor zu ihm, dazu eine hohe Amethyst-Resonanz. Kein Text auf dem Bildschirm. Sparsam: Er arbeitet nur, solange ein Spieler im Umkreis von 32 Blöcken ist, und seine Kugelsuchen teilen sich die Kappe von 16 je Tick mit den gehaltenen Detektoren (PlacedDetectors).",
             "Signal und Reichweite nach Erzklasse statt nach Modus: gewöhnliche Erze (Kohle, Kupfer, Eisen, Redstone, Lapis, Netherquarz) Signal 18 und Reichweite 24, Gold 13 und 20, Diamant und Smaragd 9 und 16, Antiker Schrott, Astraliterz und Nihiliterz 5 und 16. Die Modi Iron, Gold, Diamond und Netherite suchen je eine Klasse; All Ores findet alle zwölf Sorten, jede mit ihrem eigenen Signal und ihrer eigenen Reichweite; Custom nimmt die Klasse des kalibrierten Blocks (ein Block, der keines dieser Erze ist, zählt als gewöhnlich). Die Reichweite ist zugleich der Suchradius in Blöcken um den Block deiner Augen; der Tooltip zeigt beides als \"Signal: <Signal>, Range: <Reichweite>\" (All Ores: die gewöhnliche Klasse und eine Zeile mit den selteneren Klassen als Signal/Reichweite).",
@@ -6005,7 +6005,7 @@ window.WIKI_DATA = {
           "summary": "Diamond Core: ore conversion chance is 1 in 3500 per eligible block use. A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
           "details": [
             "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
             "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
             "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
@@ -6016,7 +6016,7 @@ window.WIKI_DATA = {
           "summary": "Diamantkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 3500. Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
           "details": [
             "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethyst-Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
             "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
@@ -7709,7 +7709,7 @@ window.WIKI_DATA = {
           "summary": "Enderite Core: ore conversion chance is 1 in 2000 per eligible block use. A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
           "details": [
             "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
             "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
             "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
@@ -7720,7 +7720,7 @@ window.WIKI_DATA = {
           "summary": "Enderitkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 2000. Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
           "details": [
             "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethyst-Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
             "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
@@ -9342,7 +9342,7 @@ window.WIKI_DATA = {
           "summary": "Gold Core: ore conversion chance is 1 in 5000 per eligible block use. A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
           "details": [
             "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
             "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
             "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
@@ -9353,7 +9353,7 @@ window.WIKI_DATA = {
           "summary": "Goldkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 5000. Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
           "details": [
             "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethyst-Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
             "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
@@ -10179,7 +10179,7 @@ window.WIKI_DATA = {
           "summary": "Iron Core: ore conversion chance is 1 in 7000 per eligible block use. A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
           "details": [
             "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
             "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
             "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
@@ -10190,7 +10190,7 @@ window.WIKI_DATA = {
           "summary": "Eisenkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 7000. Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
           "details": [
             "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethyst-Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
             "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
@@ -10199,6 +10199,45 @@ window.WIKI_DATA = {
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:iron_rod",
+      "name": {
+        "en_us": "Iron Rod",
+        "de_de": "Eisenstab"
+      },
+      "texture": "assets/textures/block/iron_rod.png",
+      "craftedBy": [
+        "simplebuilding:iron_rod"
+      ],
+      "usedIn": [
+        "simplebuilding:amethyst_lens",
+        "simplebuilding:magnet",
+        "simplebuilding:rotator"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Rod.",
+          "details": [
+            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range.",
+            "Ingredient of the Resonance Rod and the Rotator. Needs a stone pickaxe or better."
+          ]
+        },
+        "de": {
+          "summary": "Ein Blitzableiter aus Eisen (MC 26.3): drei Eisenbarren übereinander ergeben einen Eisenstab.",
+          "details": [
+            "Er sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist.",
+            "Zutat für den Resonanzstab und den Rotator. Braucht mindestens eine Steinspitzhacke."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/IronRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/IronRodLightningMixin.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -11763,7 +11802,7 @@ window.WIKI_DATA = {
           "summary": "Netherite Core: ore conversion chance is 1 in 2500 per eligible block use. A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
           "details": [
             "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Resonance Rod, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
             "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
             "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
@@ -11774,7 +11813,7 @@ window.WIKI_DATA = {
           "summary": "Netheritkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 2500. Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
           "details": [
             "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethyst-Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Resonanzstab, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
             "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
             "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
@@ -15265,9 +15304,9 @@ window.WIKI_DATA = {
           "summary": "The Rotator is a tool that turns orientable blocks (logs, furnaces, pistons, hoppers and the like) in place with a right-click, without breaking them.",
           "details": [
             "In game the item is called \"Rotator\" in both English and German.",
-            "Recipe (crafting table, shaped): 4 iron ingots, 1 Iron Core and 1 ender pearl in the pattern \" I \" / \"IPI\" / \"CI \" (I = iron ingot, P = ender pearl, C = Iron Core bottom left); recipe category \"equipment\" (RecipeCategory.TOOLS). The item texture shows a small ender pearl inside the arc.",
+            "Recipe (crafting table, shaped \" I \" / \"IPI\" / \"CI \", P = ender pearl, C = Iron Core bottom left): on MC 26.3 the four I are Iron Rods (owner 2026-10-02), on 26.2 iron ingots; recipe category \"equipment\" (RecipeCategory.TOOLS). The item texture shows a small ender pearl inside the arc.",
             "The recipe is unlocked as soon as you have an iron ingot in your inventory.",
-            "Charge: 1024 (the durability is the charge); enchantability 15; every successful rotation costs 1 charge (RotatorItem.drain: Unbreaking applies through EnchantmentHelper.processDurabilityChange, creative costs nothing). The Rotator never breaks - at full damage it stays, is empty (RotatorItem.isEmpty), shows item/rotator_empty (range_dispatch on damage) and answers FAIL with a dispenser-fail click instead of turning. Recharge at the anvil (AnvilRechargeable, shared with the Amethyst Resonance Rod): ender pearls, 0 levels, 64 charge per pearl, 16 pearls = full, only the needed pearls are consumed. The cost is the config option tools.rotatorChargePerTurn (default 1).",
+            "Charge: 1024 (the durability is the charge); enchantability 15; every successful rotation costs 1 charge (RotatorItem.drain: Unbreaking applies through EnchantmentHelper.processDurabilityChange, creative costs nothing). The Rotator never breaks - at full damage it stays, is empty (RotatorItem.isEmpty), shows item/rotator_empty (range_dispatch on damage) and answers FAIL with a dispenser-fail click instead of turning. Recharge at the anvil (AnvilRechargeable, shared with the Resonance Rod): ender pearls, 0 levels, 64 charge per pearl, 16 pearls = full, only the needed pearls are consumed. The cost is the config option tools.rotatorChargePerTurn (default 1).",
             "Stack size 1.",
             "Found in the creative tab \"SimpleTools\", right after the Attractor.",
             "The item model has the parent model minecraft:item/handheld, so the Rotator is held like a tool.",
@@ -15309,9 +15348,9 @@ window.WIKI_DATA = {
           "summary": "Der Rotator ist ein Werkzeug, mit dem man ausrichtbare Blöcke (Stämme, Öfen, Kolben, Trichter und ähnliche) per Rechtsklick an Ort und Stelle drehen kann, ohne sie abzubauen.",
           "details": [
             "Im Spiel heißt das Item auf Deutsch und Englisch \"Rotator\".",
-            "Rezept (Werkbank, geformt): 4 Eisenbarren, 1 Eisenkern und 1 Enderperle im Muster \" I \" / \"IPI\" / \"CI \" (I = Eisenbarren, P = Enderperle, C = Eisenkern unten links); Rezeptkategorie \"equipment\". Die Item-Textur zeigt eine kleine Enderperle im Bogen.",
+            "Rezept (Werkbank, geformt \" I \" / \"IPI\" / \"CI \", P = Enderperle, C = Eisenkern unten links): auf MC 26.3 sind die vier I Eisenstäbe (Besitzer 2026-10-02), auf 26.2 Eisenbarren; Rezeptkategorie \"equipment\". Die Item-Textur zeigt eine kleine Enderperle im Bogen.",
             "Das Rezept wird freigeschaltet, sobald man einen Eisenbarren im Inventar hat.",
-            "Ladung: 1024 (die Haltbarkeit ist die Ladung); Verzauberbarkeit 15; jede erfolgreiche Drehung kostet 1 Ladung (RotatorItem.drain: Haltbarkeit/Unbreaking wirkt über EnchantmentHelper.processDurabilityChange, Kreativ kostet nichts). Der Rotator zerbricht nie - bei vollem Schaden bleibt er, ist leer (RotatorItem.isEmpty), zeigt item/rotator_empty (range_dispatch nach Schaden) und antwortet mit FAIL und einem Werfer-Fehlklick, statt zu drehen. Aufladen im Amboss (AnvilRechargeable, gemeinsam mit der Amethyst-Resonanzstab): Enderperlen, 0 Stufen, 64 Ladung je Perle, 16 Perlen = voll, verbraucht werden nur die nötigen. Die Kosten sind die Config-Option tools.rotatorChargePerTurn (Standard 1).",
+            "Ladung: 1024 (die Haltbarkeit ist die Ladung); Verzauberbarkeit 15; jede erfolgreiche Drehung kostet 1 Ladung (RotatorItem.drain: Haltbarkeit/Unbreaking wirkt über EnchantmentHelper.processDurabilityChange, Kreativ kostet nichts). Der Rotator zerbricht nie - bei vollem Schaden bleibt er, ist leer (RotatorItem.isEmpty), zeigt item/rotator_empty (range_dispatch nach Schaden) und antwortet mit FAIL und einem Werfer-Fehlklick, statt zu drehen. Aufladen im Amboss (AnvilRechargeable, gemeinsam mit der Resonanzstab): Enderperlen, 0 Stufen, 64 Ladung je Perle, 16 Perlen = voll, verbraucht werden nur die nötigen. Die Kosten sind die Config-Option tools.rotatorChargePerTurn (Standard 1).",
             "Stapelgröße 1.",
             "Zu finden im Kreativ-Tab „SimpleTools“, direkt hinter dem Attraktor.",
             "Das Item-Modell hat das Elternmodell minecraft:item/handheld, der Rotator wird also wie ein Werkzeug in der Hand gehalten.",
@@ -16108,7 +16147,8 @@ window.WIKI_DATA = {
             "In the air it shows distance to ground and an estimated fall-damage value before armor. The base depth is 24 blocks; Range adds 16 per level, capped at 64.",
             "The item id stays simplebuilding:velocity_gauge.",
             "Right-click with the Gauge in the main hand toggles auto-walk (a click sound confirms). Switching the main-hand slot or item stops it; changing the off hand does not. An open screen releases the key.",
-            "With Constructor's Touch, auto-walk follows dirt paths and rails: where the way ends straight ahead and continues on exactly one side, the view turns that way."
+            "With Constructor's Touch, auto-walk follows dirt paths and rails: where the way ends straight ahead and continues on exactly one side, the view turns that way.",
+            "Recipe (\" NA\" / \"NCN\" / \"KN \"): amethyst shard top right, copper nuggets around the middle, Copper Core bottom left; in the middle a clock on MC 26.3 (owner 2026-10-02: the gauge is a clock) or a compass on 26.2."
           ]
         },
         "de": {
@@ -16118,7 +16158,8 @@ window.WIKI_DATA = {
             "In der Luft zeigt sie Bodenabstand und geschätzten Fallschaden vor Rüstung. Messtiefe 24 Blöcke, Reichweite ergänzt 16 je Stufe bis höchstens 64.",
             "Die Item-ID bleibt simplebuilding:velocity_gauge.",
             "Rechtsklick mit der Messuhr in der Haupthand schaltet das automatische Laufen um (ein Klickton bestätigt). Ein Wechsel von Haupthand-Slot oder -Item beendet es, ein Wechsel der Nebenhand nicht. Ein offener Bildschirm lässt die Taste los.",
-            "Mit Berührung des Konstrukteurs folgt das Laufen Trampelpfaden und Schienen: Endet der Weg geradeaus und geht genau auf einer Seite weiter, dreht sich der Blick dorthin."
+            "Mit Berührung des Konstrukteurs folgt das Laufen Trampelpfaden und Schienen: Endet der Weg geradeaus und geht genau auf einer Seite weiter, dreht sich der Blick dorthin.",
+            "Rezept („ NA“ / „NCN“ / „KN “): Amethystscherbe oben rechts, Kupfernuggets um die Mitte, Kupferkern unten links; in der Mitte auf MC 26.3 eine Uhr (Besitzer 2026-10-02: die Messuhr ist eine Uhr), auf 26.2 ein Kompass."
           ]
         },
         "sources": [
@@ -16126,7 +16167,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/client/gui/SpeedometerHudOverlay.java",
           "common/src/shared/java/com/simplebuilding/client/GaugeAutowalk.java",
           "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -19349,6 +19391,49 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:iron_rod",
+      "name": {
+        "en_us": "Iron Rod",
+        "de_de": "Eisenstab"
+      },
+      "texture": "assets/textures/block/iron_rod.png",
+      "craftedBy": [
+        "simplebuilding:iron_rod"
+      ],
+      "usedIn": [
+        "simplebuilding:amethyst_lens",
+        "simplebuilding:magnet",
+        "simplebuilding:rotator"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/iron_rod",
+      "drops": [
+        "simplebuilding:iron_rod"
+      ],
+      "note": {
+        "en": {
+          "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Rod.",
+          "details": [
+            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range.",
+            "Ingredient of the Resonance Rod and the Rotator. Needs a stone pickaxe or better."
+          ]
+        },
+        "de": {
+          "summary": "Ein Blitzableiter aus Eisen (MC 26.3): drei Eisenbarren übereinander ergeben einen Eisenstab.",
+          "details": [
+            "Er sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist.",
+            "Zutat für den Resonanzstab und den Rotator. Braucht mindestens eine Steinspitzhacke."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/IronRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/IronRodLightningMixin.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:lapis_quartz_checker",
@@ -24112,17 +24197,18 @@ window.WIKI_DATA = {
         "id": "simplebuilding:amethyst_lens",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/amethyst_lens.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/amethyst_lens.json",
       "ingredients": [
         "minecraft:amethyst_shard",
-        "minecraft:iron_ingot",
+        "minecraft:iron_nugget",
         "minecraft:redstone",
-        "simplebuilding:iron_core"
+        "simplebuilding:iron_core",
+        "simplebuilding:iron_rod"
       ],
       "pattern": [
-        "IIR",
-        "ICA",
-        "IIR"
+        " RA",
+        "NCR",
+        "IN "
       ],
       "key": {
         "A": [
@@ -24132,7 +24218,10 @@ window.WIKI_DATA = {
           "simplebuilding:iron_core"
         ],
         "I": [
-          "minecraft:iron_ingot"
+          "simplebuilding:iron_rod"
+        ],
+        "N": [
+          "minecraft:iron_nugget"
         ],
         "R": [
           "minecraft:redstone"
@@ -24145,11 +24234,61 @@ window.WIKI_DATA = {
           ],
           "changes": [
             {
+              "field": "ingredients",
+              "this": [
+                "minecraft:amethyst_shard",
+                "minecraft:iron_nugget",
+                "minecraft:redstone",
+                "simplebuilding:iron_core",
+                "simplebuilding:iron_rod"
+              ],
+              "other": [
+                "minecraft:amethyst_shard",
+                "minecraft:iron_ingot",
+                "minecraft:redstone",
+                "simplebuilding:iron_core"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "A": [
+                  "minecraft:amethyst_shard"
+                ],
+                "C": [
+                  "simplebuilding:iron_core"
+                ],
+                "I": [
+                  "simplebuilding:iron_rod"
+                ],
+                "N": [
+                  "minecraft:iron_nugget"
+                ],
+                "R": [
+                  "minecraft:redstone"
+                ]
+              },
+              "other": {
+                "A": [
+                  "minecraft:amethyst_shard"
+                ],
+                "C": [
+                  "simplebuilding:iron_core"
+                ],
+                "I": [
+                  "minecraft:iron_ingot"
+                ],
+                "R": [
+                  "minecraft:redstone"
+                ]
+              }
+            },
+            {
               "field": "pattern",
               "this": [
-                "IIR",
-                "ICA",
-                "IIR"
+                " RA",
+                "NCR",
+                "IN "
               ],
               "other": [
                 "RAR",
@@ -24159,10 +24298,80 @@ window.WIKI_DATA = {
             }
           ],
           "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/amethyst_lens.json"
+        },
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:amethyst_shard",
+                "minecraft:iron_nugget",
+                "minecraft:redstone",
+                "simplebuilding:iron_core",
+                "simplebuilding:iron_rod"
+              ],
+              "other": [
+                "minecraft:amethyst_shard",
+                "minecraft:iron_ingot",
+                "minecraft:redstone",
+                "simplebuilding:iron_core"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "A": [
+                  "minecraft:amethyst_shard"
+                ],
+                "C": [
+                  "simplebuilding:iron_core"
+                ],
+                "I": [
+                  "simplebuilding:iron_rod"
+                ],
+                "N": [
+                  "minecraft:iron_nugget"
+                ],
+                "R": [
+                  "minecraft:redstone"
+                ]
+              },
+              "other": {
+                "A": [
+                  "minecraft:amethyst_shard"
+                ],
+                "C": [
+                  "simplebuilding:iron_core"
+                ],
+                "I": [
+                  "minecraft:iron_ingot"
+                ],
+                "R": [
+                  "minecraft:redstone"
+                ]
+              }
+            },
+            {
+              "field": "pattern",
+              "this": [
+                " RA",
+                "NCR",
+                "IN "
+              ],
+              "other": [
+                "IIR",
+                "ICA",
+                "IIR"
+              ]
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/amethyst_lens.json"
         }
       ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
@@ -26682,11 +26891,11 @@ window.WIKI_DATA = {
         "id": "simplebuilding:detector",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/detector.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/detector.json",
       "ingredients": [
         "minecraft:calibrated_sculk_sensor",
-        "minecraft:compass",
         "minecraft:echo_shard",
+        "minecraft:recovery_compass",
         "simplebuilding:gold_core"
       ],
       "pattern": [
@@ -26696,7 +26905,7 @@ window.WIKI_DATA = {
       ],
       "key": {
         "C": [
-          "minecraft:compass"
+          "minecraft:recovery_compass"
         ],
         "E": [
           "minecraft:echo_shard"
@@ -26708,8 +26917,63 @@ window.WIKI_DATA = {
           "minecraft:calibrated_sculk_sensor"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:calibrated_sculk_sensor",
+                "minecraft:echo_shard",
+                "minecraft:recovery_compass",
+                "simplebuilding:gold_core"
+              ],
+              "other": [
+                "minecraft:calibrated_sculk_sensor",
+                "minecraft:compass",
+                "minecraft:echo_shard",
+                "simplebuilding:gold_core"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "C": [
+                  "minecraft:recovery_compass"
+                ],
+                "E": [
+                  "minecraft:echo_shard"
+                ],
+                "G": [
+                  "simplebuilding:gold_core"
+                ],
+                "S": [
+                  "minecraft:calibrated_sculk_sensor"
+                ]
+              },
+              "other": {
+                "C": [
+                  "minecraft:compass"
+                ],
+                "E": [
+                  "minecraft:echo_shard"
+                ],
+                "G": [
+                  "simplebuilding:gold_core"
+                ],
+                "S": [
+                  "minecraft:calibrated_sculk_sensor"
+                ]
+              }
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/detector.json"
+        }
+      ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
@@ -29828,6 +30092,33 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:iron_rod",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:iron_rod",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/iron_rod.json",
+      "ingredients": [
+        "minecraft:iron_ingot"
+      ],
+      "pattern": [
+        "I",
+        "I",
+        "I"
+      ],
+      "key": {
+        "I": [
+          "minecraft:iron_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:iron_sledgehammer",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -30620,12 +30911,12 @@ window.WIKI_DATA = {
         "id": "simplebuilding:magnet",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/magnet.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/magnet.json",
       "ingredients": [
-        "minecraft:iron_ingot",
         "minecraft:lapis_lazuli",
         "minecraft:redstone",
-        "simplebuilding:iron_core"
+        "simplebuilding:iron_core",
+        "simplebuilding:iron_rod"
       ],
       "pattern": [
         " R ",
@@ -30637,7 +30928,7 @@ window.WIKI_DATA = {
           "simplebuilding:iron_core"
         ],
         "I": [
-          "minecraft:iron_ingot"
+          "simplebuilding:iron_rod"
         ],
         "L": [
           "minecraft:lapis_lazuli"
@@ -30646,9 +30937,64 @@ window.WIKI_DATA = {
           "minecraft:redstone"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:lapis_lazuli",
+                "minecraft:redstone",
+                "simplebuilding:iron_core",
+                "simplebuilding:iron_rod"
+              ],
+              "other": [
+                "minecraft:iron_ingot",
+                "minecraft:lapis_lazuli",
+                "minecraft:redstone",
+                "simplebuilding:iron_core"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "C": [
+                  "simplebuilding:iron_core"
+                ],
+                "I": [
+                  "simplebuilding:iron_rod"
+                ],
+                "L": [
+                  "minecraft:lapis_lazuli"
+                ],
+                "R": [
+                  "minecraft:redstone"
+                ]
+              },
+              "other": {
+                "C": [
+                  "simplebuilding:iron_core"
+                ],
+                "I": [
+                  "minecraft:iron_ingot"
+                ],
+                "L": [
+                  "minecraft:lapis_lazuli"
+                ],
+                "R": [
+                  "minecraft:redstone"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/magnet.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ]
     },
@@ -35665,11 +36011,11 @@ window.WIKI_DATA = {
         "id": "simplebuilding:rotator",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/rotator.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/rotator.json",
       "ingredients": [
         "minecraft:ender_pearl",
-        "minecraft:iron_ingot",
-        "simplebuilding:iron_core"
+        "simplebuilding:iron_core",
+        "simplebuilding:iron_rod"
       ],
       "pattern": [
         " I ",
@@ -35681,15 +36027,62 @@ window.WIKI_DATA = {
           "simplebuilding:iron_core"
         ],
         "I": [
-          "minecraft:iron_ingot"
+          "simplebuilding:iron_rod"
         ],
         "P": [
           "minecraft:ender_pearl"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:ender_pearl",
+                "simplebuilding:iron_core",
+                "simplebuilding:iron_rod"
+              ],
+              "other": [
+                "minecraft:ender_pearl",
+                "minecraft:iron_ingot",
+                "simplebuilding:iron_core"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "C": [
+                  "simplebuilding:iron_core"
+                ],
+                "I": [
+                  "simplebuilding:iron_rod"
+                ],
+                "P": [
+                  "minecraft:ender_pearl"
+                ]
+              },
+              "other": {
+                "C": [
+                  "simplebuilding:iron_core"
+                ],
+                "I": [
+                  "minecraft:iron_ingot"
+                ],
+                "P": [
+                  "minecraft:ender_pearl"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/rotator.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ]
     },
@@ -37164,10 +37557,10 @@ window.WIKI_DATA = {
         "id": "simplebuilding:velocity_gauge",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/velocity_gauge.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/velocity_gauge.json",
       "ingredients": [
         "minecraft:amethyst_shard",
-        "minecraft:compass",
+        "minecraft:clock",
         "minecraft:copper_nugget",
         "simplebuilding:copper_core"
       ],
@@ -37181,7 +37574,7 @@ window.WIKI_DATA = {
           "minecraft:amethyst_shard"
         ],
         "C": [
-          "minecraft:compass"
+          "minecraft:clock"
         ],
         "K": [
           "simplebuilding:copper_core"
@@ -37200,7 +37593,7 @@ window.WIKI_DATA = {
               "field": "ingredients",
               "this": [
                 "minecraft:amethyst_shard",
-                "minecraft:compass",
+                "minecraft:clock",
                 "minecraft:copper_nugget",
                 "simplebuilding:copper_core"
               ],
@@ -37219,7 +37612,7 @@ window.WIKI_DATA = {
                   "minecraft:amethyst_shard"
                 ],
                 "C": [
-                  "minecraft:compass"
+                  "minecraft:clock"
                 ],
                 "K": [
                   "simplebuilding:copper_core"
@@ -37261,10 +37654,63 @@ window.WIKI_DATA = {
             }
           ],
           "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/velocity_gauge.json"
+        },
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:amethyst_shard",
+                "minecraft:clock",
+                "minecraft:copper_nugget",
+                "simplebuilding:copper_core"
+              ],
+              "other": [
+                "minecraft:amethyst_shard",
+                "minecraft:compass",
+                "minecraft:copper_nugget",
+                "simplebuilding:copper_core"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "A": [
+                  "minecraft:amethyst_shard"
+                ],
+                "C": [
+                  "minecraft:clock"
+                ],
+                "K": [
+                  "simplebuilding:copper_core"
+                ],
+                "N": [
+                  "minecraft:copper_nugget"
+                ]
+              },
+              "other": {
+                "A": [
+                  "minecraft:amethyst_shard"
+                ],
+                "C": [
+                  "minecraft:compass"
+                ],
+                "K": [
+                  "simplebuilding:copper_core"
+                ],
+                "N": [
+                  "minecraft:copper_nugget"
+                ]
+              }
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/velocity_gauge.json"
         }
       ],
       "lines": [
-        "26.2",
         "26.3"
       ]
     },
@@ -37660,6 +38106,45 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:amethyst_lens",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:amethyst_lens",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/amethyst_lens.json",
+      "ingredients": [
+        "minecraft:amethyst_shard",
+        "minecraft:iron_ingot",
+        "minecraft:redstone",
+        "simplebuilding:iron_core"
+      ],
+      "pattern": [
+        "IIR",
+        "ICA",
+        "IIR"
+      ],
+      "key": {
+        "A": [
+          "minecraft:amethyst_shard"
+        ],
+        "C": [
+          "simplebuilding:iron_core"
+        ],
+        "I": [
+          "minecraft:iron_ingot"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:backpack_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -37768,6 +38253,45 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:detector",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:detector",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/detector.json",
+      "ingredients": [
+        "minecraft:calibrated_sculk_sensor",
+        "minecraft:compass",
+        "minecraft:echo_shard",
+        "simplebuilding:gold_core"
+      ],
+      "pattern": [
+        " ES",
+        "ECE",
+        "GE "
+      ],
+      "key": {
+        "C": [
+          "minecraft:compass"
+        ],
+        "E": [
+          "minecraft:echo_shard"
+        ],
+        "G": [
+          "simplebuilding:gold_core"
+        ],
+        "S": [
+          "minecraft:calibrated_sculk_sensor"
+        ]
+      },
+      "lines": [
+        "26.2"
       ]
     },
     {
@@ -38555,6 +39079,46 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:magnet",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:magnet",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/magnet.json",
+      "ingredients": [
+        "minecraft:iron_ingot",
+        "minecraft:lapis_lazuli",
+        "minecraft:redstone",
+        "simplebuilding:iron_core"
+      ],
+      "pattern": [
+        " R ",
+        "I L",
+        "CI "
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:iron_core"
+        ],
+        "I": [
+          "minecraft:iron_ingot"
+        ],
+        "L": [
+          "minecraft:lapis_lazuli"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:netherite_backpack_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -38808,6 +39372,42 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:rotator",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:rotator",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/rotator.json",
+      "ingredients": [
+        "minecraft:ender_pearl",
+        "minecraft:iron_ingot",
+        "simplebuilding:iron_core"
+      ],
+      "pattern": [
+        " I ",
+        "IPI",
+        "CI "
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:iron_core"
+        ],
+        "I": [
+          "minecraft:iron_ingot"
+        ],
+        "P": [
+          "minecraft:ender_pearl"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:spawn_teleporter_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -38914,6 +39514,45 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:velocity_gauge",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:velocity_gauge",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/velocity_gauge.json",
+      "ingredients": [
+        "minecraft:amethyst_shard",
+        "minecraft:compass",
+        "minecraft:copper_nugget",
+        "simplebuilding:copper_core"
+      ],
+      "pattern": [
+        " NA",
+        "NCN",
+        "KN "
+      ],
+      "key": {
+        "A": [
+          "minecraft:amethyst_shard"
+        ],
+        "C": [
+          "minecraft:compass"
+        ],
+        "K": [
+          "simplebuilding:copper_core"
+        ],
+        "N": [
+          "minecraft:copper_nugget"
+        ]
+      },
+      "lines": [
+        "26.2"
       ]
     }
   ],
@@ -39935,6 +40574,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/infused_potion_pad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/iron_rod",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:iron_rod"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/iron_rod.json"
     },
     {
       "id": "simplebuilding:blocks/lapis_quartz_checker",
@@ -42861,7 +43516,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Constructor's Touch is the mod's all-purpose enchantment: on each tool it unlocks a different extra ability - turning a block's orientation with a plain stick, extra chisel conversions, the Building Wand's settings menu, and more.",
           "details": [
-            "Can be applied (item tag constructors_touch_enchantable) to: Reinforced Bundle, Netherite Bundle, Enderite Bundle, Quiver, Reinforced Quiver, Netherite Quiver, Enderite Quiver, Shulker Box, the four backpacks (#backpacks), chisels Stone through Enderite (#chisel_tools), sledgehammers Stone through Enderite (#sledgehammer_tools), Building Wands Copper through Enderite (#building_wand_enchantable), Velocity Gauge, Amethyst Resonance Rod, Detector, Attractor, all 17 Octants (#octants_enchantable) and the plain Stick (minecraft:stick). Slot: main hand; max level I; anvil cost 1; weight 1; enchanting cost 20 (+10 per level above the first) to 50 (+10 per level above the first).",
+            "Can be applied (item tag constructors_touch_enchantable) to: Reinforced Bundle, Netherite Bundle, Enderite Bundle, Quiver, Reinforced Quiver, Netherite Quiver, Enderite Quiver, Shulker Box, the four backpacks (#backpacks), chisels Stone through Enderite (#chisel_tools), sledgehammers Stone through Enderite (#sledgehammer_tools), Building Wands Copper through Enderite (#building_wand_enchantable), Velocity Gauge, Resonance Rod, Detector, Attractor, all 17 Octants (#octants_enchantable) and the plain Stick (minecraft:stick). Slot: main hand; max level I; anvil cost 1; weight 1; enchanting cost 20 (+10 per level above the first) to 50 (+10 per level above the first).",
             "Stick: right-clicking a block with an enchanted stick advances its first block property (the first entry of state.getProperties()) to the next value; sneaking goes back to the previous one. The new value appears on the action bar as \"property: value\" (sendOverlayMessage). Blocks with no properties are left unchanged.",
             "Chisel and spatula: the enchantment unlocks an extra set of conversions per tool tier (backwards too, by sneaking or with the spatula). Stone tier: Mud Bricks -> Packed Mud -> Mud; Cobblestone -> Mossy Cobblestone (stairs and slabs as well); every log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak) -> stripped log.",
             "Copper/Iron chisel adds: Bricks -> Mud Bricks (stairs and slabs as well); every wood block (the same nine wood types) -> stripped wood; Crimson and Warped Planks -> Stairs -> Slab.",
@@ -42877,7 +43532,7 @@ window.WIKI_DATA = {
             "An enchanted book gets its own book model (\"constructors_touch\").",
             "Not in the enchanting table (minecraft:in_enchanting_table contains only Fast Chiseling from the mod); no villager offer in the trade files.",
             "Where to find it as a book (option enableLootTableChanges): buried treasure (weight 3), igloo (weight 3), common and rare trial chamber reward vaults (weight 3), fishing treasure (weight 2); plus the mod's creative tab.",
-            "Velocity Gauge: with Constructor's Touch its HUD adds the top and average speed since it was taken in hand, on the ground the X/Z parts of the speed and while gliding a warning sign above 15 blocks/s. Amethyst Resonance Rod: with Constructor's Touch it becomes a rangefinder - distance, target block and height next to the crosshair, and the last measurement is stored on the lens and shown in its tooltip. Both get it only in an anvil with a book."
+            "Velocity Gauge: with Constructor's Touch its HUD adds the top and average speed since it was taken in hand, on the ground the X/Z parts of the speed and while gliding a warning sign above 15 blocks/s. Resonance Rod: with Constructor's Touch it becomes a rangefinder - distance, target block and height next to the crosshair, and the last measurement is stored on the lens and shown in its tooltip. Both get it only in an anvil with a book."
           ],
           "controls": [
             "Stick: right-click a block = next value of the first block property; sneak + right-click = previous value.",
@@ -42887,7 +43542,7 @@ window.WIKI_DATA = {
             "Attractor: sneak-click a block or dropped item, or right-click an inventory item, to choose the filter; sneak-click air to clear. Filtering requires Constructor's Touch."
           ],
           "caveats": [
-            "Shulker Box, Reinforced Bundle and Netherite Bundle: it can be applied, but no code reads it there, so it does nothing (every reader of CONSTRUCTORS_TOUCH is ChiselItem, LaserPointerItem and LaserRenderer (Amethyst Resonance Rod), SpeedometerHudOverlay (Velocity Gauge), SledgehammerItem, OreDetectorItem, MagnetItem, QuiverItem, BackpackItem (through BlockItemMixin), ItemFrameEntityMixin, BlockHighlightRenderer, the stick handlers and the Building Wand key check).",
+            "Shulker Box, Reinforced Bundle and Netherite Bundle: it can be applied, but no code reads it there, so it does nothing (every reader of CONSTRUCTORS_TOUCH is ChiselItem, LaserPointerItem and LaserRenderer (Resonance Rod), SpeedometerHudOverlay (Velocity Gauge), SledgehammerItem, OreDetectorItem, MagnetItem, QuiverItem, BackpackItem (through BlockItemMixin), ItemFrameEntityMixin, BlockHighlightRenderer, the stick handlers and the Building Wand key check).",
             "The stick only ever cycles the FIRST property of a block; further properties cannot be reached with it. On top of that the enchanted stick swallows every right-click block interaction (it returns SUCCESS even on blocks with no properties), so the block's normal use is skipped.",
             "Every spatula (item ids *_spatula, untranslated in both language files) is missing from #chisel_tools; the enchantment cannot be put on them at an anvil, even though ChiselItem would read it there. The spatulas are legacy items that LegacySpatulaMigration turns into the chisel of the same tier."
           ]
@@ -42895,7 +43550,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "„Berührung des Konstrukteurs“ ist die Allzweck-Verzauberung der Mod: Auf jedem Werkzeug schaltet sie eine andere Zusatzfunktion frei – vom Drehen der Blockausrichtung mit einem Stock über Extra-Umwandlungen beim Meißel bis zum Einstellungsmenü des Baustabs.",
           "details": [
-            "Anbringbar (Item-Tag constructors_touch_enchantable) auf: Verstärktes Bündel, Netheritbündel, Enderitbündel, Köcher, Verstärkter Köcher, Netheritköcher, Enderitköcher, Shulker-Kiste, die vier Rucksäcke (#backpacks), Meißel Stein bis Enderit (#chisel_tools), Vorschlaghämmer Stein bis Enderit (#sledgehammer_tools), Baustäbe Kupfer bis Enderit (#building_wand_enchantable), Geschwindigkeitsmesser, Amethyst-Resonanzstab, Detektor, Attraktor, alle 17 Oktanten (#octants_enchantable) und den gewöhnlichen Stock (minecraft:stick). Slot: Haupthand; maximale Stufe I; Amboss-Kosten 1; Gewicht 1; Kostenbereich 20 (+10) bis 50 (+10).",
+            "Anbringbar (Item-Tag constructors_touch_enchantable) auf: Verstärktes Bündel, Netheritbündel, Enderitbündel, Köcher, Verstärkter Köcher, Netheritköcher, Enderitköcher, Shulker-Kiste, die vier Rucksäcke (#backpacks), Meißel Stein bis Enderit (#chisel_tools), Vorschlaghämmer Stein bis Enderit (#sledgehammer_tools), Baustäbe Kupfer bis Enderit (#building_wand_enchantable), Geschwindigkeitsmesser, Resonanzstab, Detektor, Attraktor, alle 17 Oktanten (#octants_enchantable) und den gewöhnlichen Stock (minecraft:stick). Slot: Haupthand; maximale Stufe I; Amboss-Kosten 1; Gewicht 1; Kostenbereich 20 (+10) bis 50 (+10).",
             "Stock: Rechtsklick mit einem verzauberten Stock auf einen Block schaltet dessen erste Blockeigenschaft (erster Eintrag von state.getProperties()) auf den nächsten Wert; mit Schleichen auf den vorherigen. Der neue Wert erscheint in der Aktionsleiste als „Eigenschaft: Wert“ (sendOverlayMessage). Blöcke ohne Eigenschaften bleiben unverändert.",
             "Meißel und Spatel: Die Verzauberung schaltet je Werkzeugstufe zusätzliche Umwandlungsreihen frei (auch rückwärts per Schleichen bzw. mit dem Spatel). Steinstufe: Schlammziegel → gepackter Schlamm → Schlamm; Bruchstein → bemooster Bruchstein (auch Treppen und Stufen); alle Stämme (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche) → entrindete Stämme.",
             "Meißel Kupfer/Eisen zusätzlich: Ziegel → Schlammziegel (auch Treppen und Stufen); alle Holzblöcke (dieselben neun Holzarten) → entrindetes Holz; Karmesin- und Wirrbretter → Treppe → Stufe.",
@@ -42911,7 +43566,7 @@ window.WIKI_DATA = {
             "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („constructors_touch“).",
             "Nicht in der Verzauberungstabelle ; kein Händlerangebot in den Handelsdateien.",
             "Fundorte als Buch (Option enableLootTableChanges): vergrabener Schatz (Gewicht 3), Iglu (Gewicht 3), Prüfungskammer normal/selten (Gewicht 3), Angel-Schatz (Gewicht 2); Kreativ-Reiter der Mod.",
-            "Geschwindigkeitsmesser: mit Berührung des Konstrukteurs zeigt sein HUD zusätzlich Höchst- und Durchschnittstempo seit dem Anlegen, am Boden die X/Z-Anteile und im Gleitflug ab 15 Blöcken/s ein Warnzeichen. Amethyst-Resonanzstab: mit Berührung des Konstrukteurs wird sie zum Entfernungsmesser - Entfernung, Zielblock und Höhe neben dem Fadenkreuz, die letzte Messung wird in der Linse gespeichert und im Tooltip gezeigt. Beide bekommen sie nur am Amboss mit einem Buch."
+            "Geschwindigkeitsmesser: mit Berührung des Konstrukteurs zeigt sein HUD zusätzlich Höchst- und Durchschnittstempo seit dem Anlegen, am Boden die X/Z-Anteile und im Gleitflug ab 15 Blöcken/s ein Warnzeichen. Resonanzstab: mit Berührung des Konstrukteurs wird sie zum Entfernungsmesser - Entfernung, Zielblock und Höhe neben dem Fadenkreuz, die letzte Messung wird in der Linse gespeichert und im Tooltip gezeigt. Beide bekommen sie nur am Amboss mit einem Buch."
           ],
           "controls": [
             "Stock: Rechtsklick auf Block = nächster Wert der ersten Blockeigenschaft; Schleichen + Rechtsklick = vorheriger Wert.",
@@ -42921,7 +43576,7 @@ window.WIKI_DATA = {
             "Attraktor: Schleichklick auf Block oder liegendes Item bzw. Rechtsklick auf Inventar-Item wählt den Filter; Schleichklick in die Luft löscht ihn. Filtern braucht Berührung des Konstrukteurs."
           ],
           "caveats": [
-            "Shulker-Kiste, Verstärktes Bündel und Netheritbündel: anbringbar, aber kein Code wertet die Verzauberung dort aus – keine Wirkung (alle Leser von CONSTRUCTORS_TOUCH sind ChiselItem, LaserPointerItem und LaserRenderer (Amethyst-Resonanzstab), SpeedometerHudOverlay (Geschwindigkeitsmesser), SledgehammerItem, OreDetectorItem, MagnetItem, QuiverItem, BackpackItem (über BlockItemMixin), ItemFrameEntityMixin, BlockHighlightRenderer, die Stock-Handler und die Baustab-Tastenabfrage).",
+            "Shulker-Kiste, Verstärktes Bündel und Netheritbündel: anbringbar, aber kein Code wertet die Verzauberung dort aus – keine Wirkung (alle Leser von CONSTRUCTORS_TOUCH sind ChiselItem, LaserPointerItem und LaserRenderer (Resonanzstab), SpeedometerHudOverlay (Geschwindigkeitsmesser), SledgehammerItem, OreDetectorItem, MagnetItem, QuiverItem, BackpackItem (über BlockItemMixin), ItemFrameEntityMixin, BlockHighlightRenderer, die Stock-Handler und die Baustab-Tastenabfrage).",
             "Der Stock schaltet immer nur die ERSTE Eigenschaft des Blocks; weitere Eigenschaften sind mit dem Stock nicht erreichbar. Außerdem fängt der verzauberte Stock jede Rechtsklick-Blockinteraktion ab (liefert SUCCESS, auch bei Blöcken ohne Eigenschaften), die normale Benutzung des Blocks entfällt dabei.",
             "Alle Spatel (Item-Ids *_spatula, ohne Übersetzung in den Sprachdateien) fehlen im Tag chisel_tools; auf sie lässt sich die Verzauberung per Amboss nicht anbringen, obwohl ChiselItem sie dort auswerten würde. Die Spatel sind Altlasten, die LegacySpatulaMigration in den Meißel derselben Stufe verwandelt."
           ]
@@ -47360,10 +48015,10 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
-      "group": "Amethyst Resonance Rod",
-      "groupDe": "Amethyst-Resonanzstab",
-      "label": "Amethyst Resonance Rod",
-      "labelDe": "Amethyst-Resonanzstab",
+      "group": "Resonance Rod",
+      "groupDe": "Resonanzstab",
+      "label": "Resonance Rod",
+      "labelDe": "Resonanzstab",
       "tooltip": "Shows the beam dots and lets the rod melt, light and dry blocks. Off: the rod does nothing. Server-side, sent to clients. Off also removes its recipes (with the next /reload or world start). Default: on.",
       "tooltipDe": "Zeigt die Strahlpunkte und lässt den Stab Blöcke schmelzen, anzünden und trocknen. Aus: Der Stab tut nichts. Serverseitig, an die Clients geschickt. Aus nimmt auch die Rezepte weg (beim nächsten /reload oder Weltstart). Standard: an."
     },
@@ -47375,8 +48030,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
-      "group": "Amethyst Resonance Rod",
-      "groupDe": "Amethyst-Resonanzstab",
+      "group": "Resonance Rod",
+      "groupDe": "Resonanzstab",
       "label": "Dot Color",
       "labelDe": "Punktfarbe",
       "tooltip": "Color of the beam dot (RGB). Client-side. Default: red (#FF0000).",
@@ -47390,8 +48045,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
-      "group": "Amethyst Resonance Rod",
-      "groupDe": "Amethyst-Resonanzstab",
+      "group": "Resonance Rod",
+      "groupDe": "Resonanzstab",
       "label": "Dot Size (Blocks)",
       "labelDe": "Punktgröße (Blöcke)",
       "tooltip": "Size of the dot in blocks (0.05 to 1); far away it only grows so it stays visible. Client-side. Default: 0.25.",
@@ -47405,8 +48060,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
-      "group": "Amethyst Resonance Rod",
-      "groupDe": "Amethyst-Resonanzstab",
+      "group": "Resonance Rod",
+      "groupDe": "Resonanzstab",
       "label": "Max Range (Blocks)",
       "labelDe": "Reichweite (Blöcke)",
       "tooltip": "How far the beam reaches, in blocks (never beyond the server's view distance). Server-side, sent to clients. Default: 512. Range: 1–1024.",
@@ -47420,8 +48075,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
-      "group": "Amethyst Resonance Rod",
-      "groupDe": "Amethyst-Resonanzstab",
+      "group": "Resonance Rod",
+      "groupDe": "Resonanzstab",
       "label": "Charge per Second of Beaming",
       "labelDe": "Ladung je Sekunde Strahlen",
       "tooltip": "Charge the rod uses up for every started second of beaming (a full rod holds 640, one amethyst shard recharges 40). 0 = beaming is free. Default: 4.",
@@ -47435,8 +48090,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
-      "group": "Amethyst Resonance Rod",
-      "groupDe": "Amethyst-Resonanzstab",
+      "group": "Resonance Rod",
+      "groupDe": "Resonanzstab",
       "label": "Charge per Effect",
       "labelDe": "Ladung je Wirkung",
       "tooltip": "Charge used up each time the beam melts, lights, dries or ignites something. 0 = effects are free. Default: 5.",
@@ -48380,8 +49035,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Server & Modpack Tuning",
       "categoryDe": "Server & Modpack-Tuning",
-      "group": "Amethyst Resonance Rod: What the Beam Ignites",
-      "groupDe": "Amethyst-Resonanzstab: was der Strahl entzündet",
+      "group": "Resonance Rod: What the Beam Ignites",
+      "groupDe": "Resonanzstab: was der Strahl entzündet",
       "label": "Ignite Flammable Blocks",
       "labelDe": "Brennbare Blöcke entzünden",
       "tooltip": "Off: the beam no longer sets flammable blocks on fire or lights soul fire (melting, drying and candles still work). Server-side. Default: on.",
@@ -48395,8 +49050,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Server & Modpack Tuning",
       "categoryDe": "Server & Modpack-Tuning",
-      "group": "Amethyst Resonance Rod: What the Beam Ignites",
-      "groupDe": "Amethyst-Resonanzstab: was der Strahl entzündet",
+      "group": "Resonance Rod: What the Beam Ignites",
+      "groupDe": "Resonanzstab: was der Strahl entzündet",
       "label": "Ignite TNT",
       "labelDe": "TNT zünden",
       "tooltip": "Off: the beam no longer primes TNT. Server-side. Default: on.",
@@ -48410,8 +49065,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Server & Modpack Tuning",
       "categoryDe": "Server & Modpack-Tuning",
-      "group": "Amethyst Resonance Rod: What the Beam Ignites",
-      "groupDe": "Amethyst-Resonanzstab: was der Strahl entzündet",
+      "group": "Resonance Rod: What the Beam Ignites",
+      "groupDe": "Resonanzstab: was der Strahl entzündet",
       "label": "Ignite Creatures",
       "labelDe": "Lebewesen anzünden",
       "tooltip": "Off: the beam no longer sets mobs and players on fire. Server-side. Default: on.",
@@ -48532,10 +49187,10 @@ window.WIKI_DATA = {
       "categoryDe": "Server & Modpack-Tuning",
       "group": "Maximum Charges (restart required)",
       "groupDe": "Höchstladungen (Neustart nötig)",
-      "label": "Amethyst Resonance Rod: Maximum Charge",
-      "labelDe": "Amethyst-Resonanzstab: Höchstladung",
-      "tooltip": "Full charge of the Amethyst Resonance Rod (one amethyst shard = 1/16 of it), 64 to 2560. This is the item's durability, fixed when the game starts: takes effect after a restart, and clients need the same value in their config file (ship it with the modpack), otherwise they show wrong charge bars. Default: 640.",
-      "tooltipDe": "Volle Ladung des Amethyst-Resonanzstabs (eine Amethystscherbe = 1/16 davon), 64 bis 2560. Das ist die Haltbarkeit des Gegenstands, beim Spielstart festgelegt: wirkt nach einem Neustart, und Clients brauchen denselben Wert in ihrer Config-Datei (mit dem Modpack ausliefern), sonst zeigen sie falsche Ladebalken. Standard: 640."
+      "label": "Resonance Rod: Maximum Charge",
+      "labelDe": "Resonanzstab: Höchstladung",
+      "tooltip": "Full charge of the Resonance Rod (one amethyst shard = 1/16 of it), 64 to 2560. This is the item's durability, fixed when the game starts: takes effect after a restart, and clients need the same value in their config file (ship it with the modpack), otherwise they show wrong charge bars. Default: 640.",
+      "tooltipDe": "Volle Ladung des Resonanzstabs (eine Amethystscherbe = 1/16 davon), 64 bis 2560. Das ist die Haltbarkeit des Gegenstands, beim Spielstart festgelegt: wirkt nach einem Neustart, und Clients brauchen denselben Wert in ihrer Config-Datei (mit dem Modpack ausliefern), sonst zeigen sie falsche Ladebalken. Standard: 640."
     },
     {
       "name": "server.charges.rotatorMaxCharge",
@@ -65985,8 +66640,8 @@ window.WIKI_DATA = {
         "de_de": "Brennpunkt"
       },
       "description": {
-        "en_us": "Hold the Amethyst Resonance Rod on ice, a candle, a campfire or a wet sponge until it gives in",
-        "de_de": "Halte den Amethyst-Resonanzstab auf Eis, eine Kerze, ein Lagerfeuer oder einen nassen Schwamm, bis er nachgibt"
+        "en_us": "Hold the Resonance Rod on ice, a candle, a campfire or a wet sponge until it gives in",
+        "de_de": "Halte den Resonanzstab auf Eis, eine Kerze, ein Lagerfeuer oder einen nassen Schwamm, bis er nachgibt"
       },
       "criteria": [
         {
@@ -66033,8 +66688,8 @@ window.WIKI_DATA = {
         "de_de": "Fernzündung"
       },
       "description": {
-        "en_us": "Hold the Amethyst Resonance Rod's beam on TNT until it lights",
-        "de_de": "Halte den Strahl des Amethyst-Resonanzstabs auf TNT, bis es zündet"
+        "en_us": "Hold the Resonance Rod's beam on TNT until it lights",
+        "de_de": "Halte den Strahl des Resonanzstabs auf TNT, bis es zündet"
       },
       "criteria": [
         {
@@ -70255,8 +70910,8 @@ window.WIKI_DATA = {
             "de_de": "Brennpunkt"
           },
           "description": {
-            "en_us": "Hold the Amethyst Resonance Rod on ice, a candle, a campfire or a wet sponge until it gives in",
-            "de_de": "Halte den Amethyst-Resonanzstab auf Eis, eine Kerze, ein Lagerfeuer oder einen nassen Schwamm, bis er nachgibt"
+            "en_us": "Hold the Resonance Rod on ice, a candle, a campfire or a wet sponge until it gives in",
+            "de_de": "Halte den Resonanzstab auf Eis, eine Kerze, ein Lagerfeuer oder einen nassen Schwamm, bis er nachgibt"
           },
           "dependencies": [
             "gadgets.intro"
@@ -70274,8 +70929,8 @@ window.WIKI_DATA = {
             "de_de": "Fernzündung"
           },
           "description": {
-            "en_us": "Hold the Amethyst Resonance Rod's beam on TNT until it lights",
-            "de_de": "Halte den Strahl des Amethyst-Resonanzstabs auf TNT, bis es zündet"
+            "en_us": "Hold the Resonance Rod's beam on TNT until it lights",
+            "de_de": "Halte den Strahl des Resonanzstabs auf TNT, bis es zündet"
           },
           "dependencies": [
             "gadgets.laser"
@@ -70609,10 +71264,10 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 194,
-    "blocks": 160,
-    "recipes": 435,
-    "lootTables": 160,
+    "items": 195,
+    "blocks": 161,
+    "recipes": 436,
+    "lootTables": 161,
     "trades": 20,
     "enchantments": 19,
     "tags": 46,

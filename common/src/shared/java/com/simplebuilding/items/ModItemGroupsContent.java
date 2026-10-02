@@ -280,6 +280,10 @@ public final class ModItemGroupsContent {
             // Ablegbare Kleinteile (2026-10-02): Steinkiesel und Feuersteinsplitter.
             rows.add(CreativeTabLayout.Row.of("small_parts", ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP));
         }
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            // Eisenstab (2026-10-02): Zutat der Gadgets, steht wie ein Blitzableiter.
+            rows.add(CreativeTabLayout.Row.of("rods", ModItems.IRON_ROD));
+        }
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             rows.add(CreativeTabLayout.Row.of("dimensional_scrap", ModItems.DIMENSIONAL_SCRAP_ITEM, ModItems.NETHER_DIMENSIONAL_SCRAP_ITEM,
                     ModItems.END_DIMENSIONAL_SCRAP_ITEM));

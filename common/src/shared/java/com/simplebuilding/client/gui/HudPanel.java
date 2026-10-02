@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
  * padding, the item's own name as the title (aqua when enchanted, as the tooltip does), 4 px under
  * the title, 2 px between lines, values in a highlight colour and secondary lines grey. The
  * Octant ({@link RangefinderHudOverlay}), the Gauge ({@link SpeedometerHudOverlay}) and the
- * Amethyst Resonance Rod's distance readout ({@code LaserRenderer#renderHud}) draw through here -
+ * Resonance Rod's distance readout ({@code LaserRenderer#renderHud}) draw through here -
  * nothing else writes free text next to the crosshair any more.
  *
  * <p>Several panels at once stack around the configured anchor in a fixed order (Octant, Gauge,
