@@ -335,47 +335,68 @@ def guide_book_textures():
     return {("item/guide_book.png" if t == "guide" else f"item/guide_book_{t}.png"): guide_book(t) for t in ORDER}
 
 
+# 26.3-Regale (Textur-Audit Q1, 2026-10-02): alle Themenbuecher in der Form der vom Besitzer abgenommenen
+# guide_book.png / guide_book_vanilla_start.png (liegendes Buch wie Vanilla, 1 px dunkle Kontur, Licht von oben
+# links). O Kontur, D/C/L Deckel dunkel/mittel/hell (aus COVERS), A Buende auf dem Ruecken, P/p Seiten,
+# R/r Lesezeichen hell/dunkel. Die beiden abgenommenen Bilder sind Handarbeit und werden nie ueberschrieben.
+MEGA_APPROVED = {"guide", "vanilla_start"}
+MEGA_BOOK = [
+    "................",
+    "........OOO.....",
+    "......OOCCCO....",
+    "....OOCCCCCCO...",
+    "..OOCCCACCCCCO..",
+    "OOCCCCCCACCCCDO.",
+    "OCCCCCCCCACCCDDO",
+    "OOCCCACCCCCCDDP.",
+    "OLDCCCCCCCDDPpPR",
+    "OpLDCCCCCDDPppPr",
+    ".OpLDCCDDPppPDr.",
+    "..OpLDDPppPDD.Rr",
+    "...OpLPpPDD...r.",
+    "....OLPDD.......",
+    ".....OOO........",
+    "................",
+]
+MEGA_PAGES = {"p": "#a8a8a8", "P": "#d6d6d6"}
+MEGA_MOD = {"A": "#fad64c", "r": "#8c1814", "R": "#d6342c"}  # wie guide_book.png: Goldbuende, rotes Band
+MEGA_VANILLA = {"A": "#e6e6e6", "r": "#28681a", "R": "#56aa34"}  # Silberbuende, gruenes Band wie vanilla_start
+
+
+def mega_guide_book(topic):
+    o, s, l, c, d = COVERS[topic]
+    pal = dict(O=o, D=d, C=c, L=l, **MEGA_PAGES)
+    pal.update(MEGA_VANILLA if topic.startswith("vanilla_") else MEGA_MOD)
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    for y, row in enumerate(MEGA_BOOK):
+        for x, ch in enumerate(row):
+            if ch != ".":
+                img.putpixel((x, y), _hex(pal[ch]))
+    return img
+
+
 def mega_guide_textures(check=False):
-    """26.3-only clean covers and chapter inserts, with old/new 16x nearest-neighbor previews."""
+    """26.3-only shelf-guide covers (mc26_3 overlay) with a 16x old/new preview."""
     from pathlib import Path
     root = Path(__file__).resolve().parents[2]
     target = root / "mc26_3/overlay/resources/assets/simplebuilding/textures/item"
     target.mkdir(parents=True, exist_ok=True)
-    # The diagonal corners are transparent; the page block and spine use a single consistent edge.
-    shape = [
-        "................", "................", "....LLLLLLL.....", "...SLCCCCCCLo...",
-        "...gLCCCCCCDOP..", "...SLCCCCCCDOP..", "...SLCCCCCCDOP..", "...SLCCCCCCDOP..",
-        "...SLCCCCCCDOP..", "...SLCCCCCCDOP..", "...SLCCCCCCDOP..", "...gLCCCCCCDOP..",
-        "...SDDDDDDDDoP..", "....ooooooooP...", "................", "................",
-    ]
-    sheet = Image.new("RGBA", (256 * 4, 256 * len(ORDER)), (198, 198, 198, 255))
+    sheet = Image.new("RGBA", (256 * 3, 256 * len(ORDER)), (198, 198, 198, 255))
     failures = []
     for i, topic in enumerate(ORDER):
-        old = guide_book(topic)
-        o, s, l, c, d = COVERS[topic]
-        pal = dict(O=o, S=s, L=l, C=c, D=d, **PAGE)
-        pal.update(SILVER if topic.startswith("vanilla_") else GOLD)
-        img = Image.new("RGBA", (16, 16))
-        for y, row in enumerate(shape):
-            for x, symbol in enumerate(row):
-                if symbol != ".":
-                    img.putpixel((x, y), _hex(pal[symbol]))
-        # Simple open-book emblem: clean paper, one fold, shelf-colored bookmark.
-        paper, shade = _hex("#f1e7cb"), _hex("#cbbb98")
-        for y in range(6, 10):
-            for x in range(6, 11):
-                img.putpixel((x, y), shade if x == 8 else paper)
-        img.putpixel((9, 6), _hex("#b15b36" if topic.startswith("vanilla_") else "#638bc3"))
         name = "guide_book.png" if topic == "guide" else f"guide_book_{topic}.png"
         path = target / name
-        if check:
-            if not path.exists() or Image.open(path).convert("RGBA").tobytes() != img.tobytes():
-                failures.append(name)
+        if topic in MEGA_APPROVED:
+            img = Image.open(path).convert("RGBA")
         else:
-            img.save(path)
-        sheet.alpha_composite(old.resize((256, 256), Image.Resampling.NEAREST), (0, i * 256))
+            img = mega_guide_book(topic)
+            if check:
+                if not path.exists() or Image.open(path).convert("RGBA").tobytes() != img.tobytes():
+                    failures.append(name)
+            else:
+                img.save(path)
+        sheet.alpha_composite(guide_book(topic).resize((256, 256), Image.Resampling.NEAREST), (0, i * 256))
         sheet.alpha_composite(img.resize((256, 256), Image.Resampling.NEAREST), (256, i * 256))
-        # Show the actual 10px tooltip insert at 16x too.
         insert = img.resize((10, 10), Image.Resampling.NEAREST)
         sheet.alpha_composite(insert.resize((160, 160), Image.Resampling.NEAREST), (560, i * 256 + 48))
     if failures:
@@ -384,7 +405,7 @@ def mega_guide_textures(check=False):
         preview = root / "docs/previews/mega-guides-16x.png"
         preview.parent.mkdir(parents=True, exist_ok=True)
         sheet.save(preview)
-    print(f"Mega guides: {len(ORDER)} clean textures, transparent edges, 16x old/new preview")
+    print(f"Mega guides: {len(ORDER) - len(MEGA_APPROVED)} generated + {len(MEGA_APPROVED)} approved hand textures")
 
 
 if __name__ == "__main__":

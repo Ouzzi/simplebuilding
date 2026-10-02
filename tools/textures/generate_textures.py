@@ -65,6 +65,7 @@ from mount_armor_textures import mount_armor_textures  # Enderit-Pferde-/Nautilu
 from potion_pad_textures import POTION_PAD_ANIMATIONS, POTION_PAD_MAIN_ONLY, potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads)
 from guide_book_textures import guide_book_textures, mega_guide_textures, MAIN_LINE_ONLY  # Handbuecher beider Regale
 from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse, 32 Nadeln, Ruhebild
+import vanilla_style  # Vanilla-Stil fuer verrauschte Pads (Textur-Audit Q1)
 from gauge_textures import gauge_textures  # Messuhr: Zifferblatt, 17 Nadeln, Ruhebild (nur Hauptbaum)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -2425,6 +2426,14 @@ def plate_active(base, glow, alpha):
     return img
 
 
+def res_pad(name):
+    """Grundbild eines handgemalten Pads/einer Druckplatte des Besitzers: die unveraenderte Vorlage in
+    hand/pad_res/ (seit dem Vanilla-Stil 2026-10-02 schreibt der Generator die Ressource selbst), sonst die
+    Ressource."""
+    hand = os.path.join(HAND, "pad_res", f"{name}.png")
+    return Image.open(hand if os.path.exists(hand) else os.path.join(TREES[0], "block", f"{name}.png")).convert("RGB")
+
+
 def pad_state_textures(tex):
     """Die Zustandsbilder zu PAD_STATE_SOURCES (braucht die Pad-Texturen aus pad_textures) und die
     gedrueckten Druckplatten (PLATE_ACTIVE_GLOW)."""
@@ -2433,7 +2442,7 @@ def pad_state_textures(tex):
         if source == "hand":
             base = Image.open(os.path.join(HAND, f"{name}.png")).convert("RGB")
         elif source == "res":
-            base = Image.open(os.path.join(TREES[0], "block", f"{name}.png")).convert("RGB")
+            base = res_pad(name)
         else:
             base = tex[f"block/{name}.png"]
         if name.endswith("launchpad"):
@@ -2445,9 +2454,48 @@ def pad_state_textures(tex):
                 MAIN_TREE_ONLY.add(f"block/{name}_active.png")
     for name, (glow, alpha) in PLATE_ACTIVE_GLOW.items():
         key = f"block/{name}.png"
-        base = tex[key] if key in tex else Image.open(os.path.join(TREES[0], "block", f"{name}.png")).convert("RGB")
+        base = tex[key] if key in tex else res_pad(name)
         out[f"block/{name}_active.png"] = plate_active(base, glow, alpha)
         MAIN_TREE_ONLY.add(f"block/{name}_active.png")
+    return out
+
+
+# Vanilla-Stil (Textur-Audit Q1, 2026-10-02): Pads, Teleporter, Chunk-Loader, Launchpads und Kupferplatten hatten
+# durch Alpha-Mischung und Verlaeufe 64-205 Farben (Vanilla-Bloecke p95: 36). Jedes Bild wird zum Schluss auf die
+# Vanilla-Rampe seiner Grundplatte (vanilla_style.RAMPS) plus hoechstens PAD_STYLE_EXTRA feste Toene fuer Schleier,
+# Spirale und Sterne gebracht; die Zeichnung (Spirale, Sterne, Rahmen) bleibt pixelgleich an ihrem Platz.
+# Grundbilder des Besitzers: hand/pad_res/ (unveraendert), die Ressourcen schreibt jetzt der Generator.
+# Nur Hauptbaum (26.2/26.3); die 1.21.11-Kopie zieht der Port-Run nach.
+PAD_STYLE_EXTRA = 14
+PAD_STYLE_BASE = {
+    "chunk_loader": "copper", "netherite_chunk_loader": "copper", "enderite_chunk_loader": "copper",
+    "elytra_pad": "diamond", "reinforced_elytra_pad": "diamond", "netherite_elytra_pad": "diamond",
+    "enderite_elytra_pad": "diamond", "fine_elytra_pad": "diamond",
+    "spawn_teleporter": "gold", "spawn_teleporter_tier_2": "gold", "spawn_teleporter_tier_3": "gold",
+    "spawn_teleporter_tier_4": "gold", "enderite_spawn_teleporter": "gold",
+    "launchpad": "iron", "netherite_launchpad": "iron", "enderite_launchpad": "iron",
+    "flypad_ender": "enderite", "reinforced_flypad_ender": "enderite", "stellar_flypad_ender": "enderite",
+    "netherite_flypad": "netherite",
+    "copper_pressure_plate": "copper", "exposed_copper_pressure_plate": "exposed_copper",
+    "weathered_copper_pressure_plate": "weathered_copper", "oxidized_copper_pressure_plate": "oxidized_copper",
+}
+
+
+def pad_vanilla_style(tex):
+    out = {}
+    for name, ramp in PAD_STYLE_BASE.items():
+        for suffix in ("", "_active", "_charge_1", "_charge_2", "_charge_3"):
+            rel = f"block/{name}{suffix}.png"
+            if rel in tex:
+                src = tex[rel]
+            elif suffix == "" and os.path.exists(os.path.join(HAND, "pad_res", f"{name}.png")):
+                src = res_pad(name)
+            elif suffix == "" and os.path.exists(os.path.join(HAND, f"{name}.png")):
+                src = Image.open(os.path.join(HAND, f"{name}.png")).convert("RGB")
+            else:
+                continue
+            out[rel] = vanilla_style.restyle_block(src, vanilla_style.RAMPS[ramp], extra=PAD_STYLE_EXTRA)
+            MAIN_TREE_ONLY.add(rel)
     return out
 
 
@@ -3118,6 +3166,7 @@ def build():
     tex.update(ore_detector_textures())
     tex.update(mount_armor_textures())
     tex.update(gauge_textures())
+    tex.update(pad_vanilla_style(tex))  # zuletzt: braucht alle Pad-Bilder
     return tex
 
 
