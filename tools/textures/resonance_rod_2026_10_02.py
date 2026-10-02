@@ -24,18 +24,18 @@ PAL = {
     # redstone (vanilla item/redstone)
     'r': (255, 0, 0), 'R': (170, 15, 1), 'q': (92, 7, 0),
 }
-# Owner 2026-10-02 (second pass): shards one pixel higher, shaft one lower; the shaft drawn like vanilla's stick
-# (light outline on the lit side, alternating fill, dark outline on the shadow side) and a rounded bottom end.
+# Owner 2026-10-02 (final): round-9 C - sharper tip, the upright shard one pixel lower and further right - with the
+# whole amethyst part one pixel left so it sits on the shaft; shaft like vanilla's stick, rounded bottom end.
 ROD = [
-    '.......o.....oo.',
-    '......obo...obeo',
-    '......ofgo.obfdo',
-    '......odgoofdgo.',
-    '.......oaodfgo..',
-    '.........gdgooo.',
-    '.......nWlgbedo.',
-    '......nwlsk.ogo.',
-    '.....nlsmk..o...',
+    '.............o..',
+    '.......o....oeo.',
+    '......obo..obfo.',
+    '......ofgoobfdo.',
+    '......odgofdgo..',
+    '.......oodfgo...',
+    '.......ngdgooo..',
+    '......nwlgbedo..',
+    '.....nlsmkogo...',
     '....nwsmk.......',
     '...nrRqk........',
     '..nlsmk.........',
