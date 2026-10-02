@@ -72,6 +72,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // WICHTIG: Registry Zugriff für Tags vorbereiten (für 1.21.2+)
                 // ---------------------------------------------------------
                 HolderGetter<Item> itemRegistry = items();
+                // Nur 26.3: Brau-Rezepte des Listigen Shulkers (datengetriebenes Brauen, ModBrewingProvider).
+                buildVersionRecipes();
 
                 // =================================================================
                 // FIX: DUMMY REZEPT FÜR SCHMIEDETISCH (Glowing Ink)

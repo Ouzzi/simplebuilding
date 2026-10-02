@@ -221,10 +221,17 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
      * Block, sonst der Block ({@link #effectRange}), sonst ein Fehlschuss.
      */
     public static HitResult aim(ServerPlayer player) {
-        double range = effectRange(player);
-        HitResult hit = player.pick(range, 1.0f, false);
-        Vec3 eye = player.getEyePosition();
-        Vec3 view = player.getViewVector(1.0f);
+        return aim(player, effectRange(player), 1.0f);
+    }
+
+    /**
+     * Wie {@link #aim(ServerPlayer)} mit gegebener Reichweite, auf Server und Client gleich (2026-10-02: der Punkt
+     * und die Messung im HUD sitzen auf dem Lebewesen statt auf der Wand dahinter).
+     */
+    public static HitResult aim(Player player, double range, float partialTick) {
+        HitResult hit = player.pick(range, partialTick, false);
+        Vec3 eye = player.getEyePosition(partialTick);
+        Vec3 view = player.getViewVector(partialTick);
         double reach = Math.min(LaserBeam.ENTITY_RANGE, hit.getType() == HitResult.Type.MISS ? range : hit.getLocation().distanceTo(eye));
         EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(player, eye, eye.add(view.scale(reach)),
                 player.getBoundingBox().expandTowards(view.scale(reach)).inflate(1.0),

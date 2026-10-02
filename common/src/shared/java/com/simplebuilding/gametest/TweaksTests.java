@@ -1781,14 +1781,18 @@ public final class TweaksTests {
         try {
             EntityHitResult hit = new EntityHitResult(pig, pig.position().add(0.0, 0.4, 0.0));
             int block = LaserBeam.dwellTicks(LaserBeam.IGNITE_TICKS, player.getEyePosition().distanceTo(hit.getLocation()));
-            beamEntity(player, lens, hit, block);
+            beamEntity(player, lens, hit, block - 1);
+            helper.assertFalse(pig.hasEffect(net.minecraft.world.effect.MobEffects.GLOWING), "the pig was scanned before the dwell time of a block");
+            beamEntity(player, lens, hit, 1);
             helper.assertFalse(pig.getRemainingFireTicks() > 0, "the pig caught fire after the dwell time of a block, not twice that");
+            // 2026-10-02: nach der einfachen Verweildauer wird es gescannt (leuchtet), das kostet eine Wirkungsladung.
+            helper.assertTrue(pig.hasEffect(net.minecraft.world.effect.MobEffects.GLOWING), "the pig does not glow after the dwell time of a block");
+            helper.assertValueEqual(lens.getDamageValue(), LaserPointerItem.EFFECT_COST, "charge spent on scanning the pig");
             beamEntity(player, lens, hit, block - 1);
             helper.assertFalse(pig.getRemainingFireTicks() > 0, "the pig caught fire a tick before twice the block dwell time");
-            helper.assertValueEqual(lens.getDamageValue(), 0, "charge spent before the pig caught fire");
             beamEntity(player, lens, hit, 1);
             helper.assertTrue(pig.getRemainingFireTicks() > 0, "the pig did not catch fire after twice the block dwell time (" + (2 * block) + " ticks)");
-            helper.assertValueEqual(lens.getDamageValue(), LaserPointerItem.EFFECT_COST, "charge spent on setting the pig on fire");
+            helper.assertValueEqual(lens.getDamageValue(), 2 * LaserPointerItem.EFFECT_COST, "charge spent on scanning and setting the pig on fire");
 
             pig.clearFire();
             helper.setBlock(new BlockPos(2, 2, 2), Blocks.WATER);

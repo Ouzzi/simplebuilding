@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:brewing",
+  "input": {
+    "item": "minecraft:lingering_potion",
+    "potion_contents": {
+      "potions": "simplebuilding:crafty_shulker"
+    }
+  },
+  "output": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "simplebuilding:long_crafty_shulker"
+      }
+    },
+    "id": "minecraft:lingering_potion"
+  },
+  "reagent": {
+    "item": "minecraft:redstone"
+  }
+}

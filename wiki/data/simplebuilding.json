@@ -26095,6 +26095,226 @@
       ]
     },
     {
+      "id": "simplebuilding:brewing/lingering_potion_awkward_shulker_head",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_awkward_shulker_head.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/lingering_potion_crafty_shulker_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/lingering_potion_crafty_shulker_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_awkward_shulker_head",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_awkward_shulker_head.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_crafty_shulker_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_crafty_shulker_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_crafty_shulker_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_crafty_shulker_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/potion_long_crafty_shulker_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/potion_long_crafty_shulker_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_awkward_shulker_head",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_awkward_shulker_head.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_crafty_shulker_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_crafty_shulker_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_crafty_shulker_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_crafty_shulker_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brewing/splash_potion_long_crafty_shulker_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brewing/splash_potion_long_crafty_shulker_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:brown_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -45983,10 +46203,6 @@
           "required": true
         },
         {
-          "id": "minecraft:shulker_box",
-          "required": true
-        },
-        {
           "id": "#simplebuilding:backpacks",
           "required": true
         },
@@ -46027,7 +46243,7 @@
           "required": true
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json"
     },
     {
       "id": "simplebuilding:item/copper_chests",
@@ -47717,6 +47933,65 @@
         }
       ],
       "source": "src/main/resources/data/simplebuilding/tags/block/building_wand_blacklist.json"
+    },
+    {
+      "id": "simplebuilding:block/crafty_shulker_unsafe",
+      "replace": false,
+      "values": [
+        {
+          "id": "#minecraft:fire",
+          "required": true
+        },
+        {
+          "id": "minecraft:campfire",
+          "required": true
+        },
+        {
+          "id": "minecraft:soul_campfire",
+          "required": true
+        },
+        {
+          "id": "minecraft:magma_block",
+          "required": true
+        },
+        {
+          "id": "minecraft:cactus",
+          "required": true
+        },
+        {
+          "id": "minecraft:sweet_berry_bush",
+          "required": true
+        },
+        {
+          "id": "minecraft:wither_rose",
+          "required": true
+        },
+        {
+          "id": "minecraft:pointed_dripstone",
+          "required": true
+        },
+        {
+          "id": "minecraft:powder_snow",
+          "required": true
+        },
+        {
+          "id": "minecraft:lava_cauldron",
+          "required": true
+        },
+        {
+          "id": "minecraft:cobweb",
+          "required": true
+        },
+        {
+          "id": "minecraft:end_portal",
+          "required": true
+        },
+        {
+          "id": "minecraft:nether_portal",
+          "required": true
+        }
+      ],
+      "source": "src/main/resources/data/simplebuilding/tags/block/crafty_shulker_unsafe.json"
     },
     {
       "id": "simplebuilding:block/vein_miner_ores",
@@ -49548,6 +49823,96 @@
       "labelDe": "Lebewesen anzünden",
       "tooltip": "Off: the beam no longer sets mobs and players on fire. Server-side. Default: on.",
       "tooltipDe": "Aus: der Strahl setzt keine Mobs und Spieler mehr in Brand. Serverseitig. Standard: an."
+    },
+    {
+      "name": "server.laser.scanEntities",
+      "shortName": "scanEntities",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Resonance Rod: What the Beam Ignites",
+      "groupDe": "Resonanzstab: was der Strahl entzündet",
+      "label": "Scan Creatures",
+      "labelDe": "Lebewesen scannen",
+      "tooltip": "On: a creature held in the beam glows for 5 s (after half the time it takes to ignite), refreshed while the beam stays on it. Costs charge like any effect. Server-side. Default: on.",
+      "tooltipDe": "An: ein Lebewesen im Strahl leuchtet 5 s lang auf (nach der halben Zeit bis zum Anzünden) und wird aufgefrischt, solange der Strahl bleibt. Kostet Ladung wie jede Wirkung. Serverseitig. Standard: an."
+    },
+    {
+      "name": "server.laser.scanPlayers",
+      "shortName": "scanPlayers",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Resonance Rod: What the Beam Ignites",
+      "groupDe": "Resonanzstab: was der Strahl entzündet",
+      "label": "Scan Players",
+      "labelDe": "Spieler scannen",
+      "tooltip": "On: other players glow too, but only where you may hurt them (PvP, teams). Off: players are never scanned. Server-side. Default: off.",
+      "tooltipDe": "An: auch andere Spieler leuchten, aber nur wo man ihnen schaden darf (PvP, Teams). Aus: Spieler werden nie gescannt. Serverseitig. Standard: aus."
+    },
+    {
+      "name": "server.arrows.recoverFromMobs",
+      "shortName": "recoverFromMobs",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Arrows: Recovery From Mobs",
+      "groupDe": "Pfeile: von Mobs zurück",
+      "label": "Drop Hit Arrows on Death",
+      "labelDe": "Treffer-Pfeile beim Tod fallen lassen",
+      "tooltip": "On: an arrow a player shot into a creature (not into players) drops when it dies, with all its parts and effects. Infinity, Creative and Multishot copies never drop. Server-side. Default: on.",
+      "tooltipDe": "An: ein Pfeil, den ein Spieler in ein Lebewesen geschossen hat (nicht in Spieler), fällt bei dessen Tod - mit allen Teilen und Wirkungen. Unendlichkeit, Kreativ und Mehrfachschuss-Kopien fallen nie. Serverseitig. Standard: an."
+    },
+    {
+      "name": "server.arrows.maxPerMob",
+      "shortName": "maxPerMob",
+      "type": "int",
+      "default": "16",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Arrows: Recovery From Mobs",
+      "groupDe": "Pfeile: von Mobs zurück",
+      "label": "Arrows per Creature",
+      "labelDe": "Pfeile je Lebewesen",
+      "tooltip": "How many hit arrows a creature keeps for its death, 1 to 64. Server-side. Default: 16.",
+      "tooltipDe": "Wie viele Treffer-Pfeile sich ein Lebewesen für seinen Tod merkt, 1 bis 64. Serverseitig. Standard: 16."
+    },
+    {
+      "name": "server.craftyShulker.cooldownTicks",
+      "shortName": "cooldownTicks",
+      "type": "int",
+      "default": "60",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Crafty Shulker Effect",
+      "groupDe": "Effekt Listiger Shulker",
+      "label": "Teleport Cooldown (Ticks)",
+      "labelDe": "Teleport-Abklingzeit (Ticks)",
+      "tooltip": "Ticks before the same creature can teleport again, 20 to 1200. Server-side. Default: 60.",
+      "tooltipDe": "Ticks, bevor dasselbe Wesen wieder springen kann, 20 bis 1200. Serverseitig. Standard: 60."
+    },
+    {
+      "name": "server.craftyShulker.radius",
+      "shortName": "radius",
+      "type": "int",
+      "default": "8",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Crafty Shulker Effect",
+      "groupDe": "Effekt Listiger Shulker",
+      "label": "Teleport Range (Blocks)",
+      "labelDe": "Teleport-Reichweite (Blöcke)",
+      "tooltip": "Farthest distance of the teleport, 2 to 16 blocks. Server-side. Default: 8.",
+      "tooltipDe": "Größter Abstand des Sprungs, 2 bis 16 Blöcke. Serverseitig. Standard: 8."
     },
     {
       "name": "server.oreGeneration.endOres",
@@ -73083,12 +73448,12 @@
   "counts": {
     "items": 199,
     "blocks": 163,
-    "recipes": 443,
+    "recipes": 453,
     "lootTables": 162,
     "trades": 20,
     "enchantments": 19,
-    "tags": 46,
-    "config": 178,
+    "tags": 47,
+    "config": 184,
     "inWorld": 436,
     "advancements": 123,
     "features": 43,

@@ -44,9 +44,12 @@ public final class LaserRenderer {
         int color = SimpleTweaks.config().laserPointer.color;
         if (TweaksClient.isAimingLaser(me)) {
             float partialTick = client.getDeltaTracker().getGameTimeDeltaPartialTick(true);
-            HitResult hit = me.pick(SimpleTweaks.effectiveValues().laserRange(), partialTick, false);
+            HitResult hit = LaserPointerItem.aim(me, SimpleTweaks.effectiveValues().laserRange(), partialTick);
             if (hit.getType() != HitResult.Type.MISS) {
-                Direction side = hit instanceof BlockHitResult blockHit ? blockHit.getDirection() : Direction.UP;
+                Vec3 view = me.getViewVector(partialTick);
+                // Auf einem Lebewesen schaut der Punkt zum Spieler (2026-10-02).
+                Direction side = hit instanceof BlockHitResult blockHit ? blockHit.getDirection()
+                        : Direction.getApproximateNearest(-view.x, -view.y, -view.z);
                 // Der eigene Punkt liegt genau auf dem Sehstrahl (= Fadenkreuzmitte, Besitzer 2026-09-29).
                 dot(collector, poseStack, camera, hit.getLocation(), side, color, me.getViewVector(partialTick));
             }
@@ -151,18 +154,33 @@ public final class LaserRenderer {
                 lines, client.font.width("888.8 m"), com.simplebuilding.client.gui.HudPanel.Slot.ROD);
     }
 
-    /** Die Zeilen unter dem Titel: Entfernung (hervorgehoben), Zielblock und Hoehe (grau); "--" ohne Treffer. */
+    /**
+     * Die Zeilen unter dem Titel: Entfernung (hervorgehoben), Ziel und Hoehe (grau); "--" ohne Treffer. Ein
+     * Lebewesen im Strahl (2026-10-02, "scannen") zeigt Name, Leben und Hoehe statt des Blocks dahinter.
+     */
     public static List<Component> hudLines(Minecraft client, LocalPlayer me) {
         List<Component> lines = new ArrayList<>();
         float partialTick = client.getDeltaTracker().getGameTimeDeltaPartialTick(true);
-        HitResult hit = me.pick(SimpleTweaks.effectiveValues().laserRange(), partialTick, false);
-        if (!(hit instanceof BlockHitResult blockHit) || hit.getType() == HitResult.Type.MISS) {
+        HitResult hit = LaserPointerItem.aim(me, SimpleTweaks.effectiveValues().laserRange(), partialTick);
+        if (hit.getType() == HitResult.Type.MISS || !(hit instanceof BlockHitResult || hit instanceof net.minecraft.world.phys.EntityHitResult)) {
             lines.add(Component.translatable("hud.simplebuilding.amethyst_lens.distance", "--").withColor(COLOR_VALUE));
             return lines;
         }
         double distance = hit.getLocation().distanceTo(me.getEyePosition(partialTick));
         lines.add(Component.translatable("hud.simplebuilding.amethyst_lens.distance", String.format("%.1f", distance)).withColor(COLOR_VALUE));
-        BlockPos pos = blockHit.getBlockPos();
+        if (hit instanceof net.minecraft.world.phys.EntityHitResult entityHit) {
+            net.minecraft.world.entity.Entity entity = entityHit.getEntity();
+            lines.add(entity.getDisplayName().copy().withColor(COLOR_READOUT));
+            if (entity instanceof net.minecraft.world.entity.LivingEntity living) {
+                lines.add(Component.translatable("hud.simplebuilding.amethyst_lens.health",
+                        String.format("%.1f", living.getHealth()), String.format("%.1f", living.getMaxHealth())).withColor(COLOR_READOUT));
+            }
+            int y = Mth.floor(entity.getY());
+            lines.add(Component.translatable("hud.simplebuilding.amethyst_lens.height", y,
+                    LaserPointerItem.signed(y - Mth.floor(me.getY()))).withColor(COLOR_READOUT));
+            return lines;
+        }
+        BlockPos pos = ((BlockHitResult) hit).getBlockPos();
         lines.add(me.level().getBlockState(pos).getBlock().getName().copy().withColor(COLOR_READOUT));
         lines.add(Component.translatable("hud.simplebuilding.amethyst_lens.height", pos.getY(),
                 LaserPointerItem.signed(pos.getY() - Mth.floor(me.getY()))).withColor(COLOR_READOUT));

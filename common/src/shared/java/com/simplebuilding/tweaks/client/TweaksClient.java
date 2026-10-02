@@ -79,7 +79,7 @@ public final class TweaksClient {
 
     /** Wo der eigene Laser auftrifft (Reichweite aus der Config), sonst null. */
     public static Vec3 laserHit(LocalPlayer player, float partialTick) {
-        HitResult hit = player.pick(SimpleTweaks.effectiveValues().laserRange(), partialTick, false);
+        HitResult hit = LaserPointerItem.aim(player, SimpleTweaks.effectiveValues().laserRange(), partialTick);
         return hit.getType() == HitResult.Type.MISS ? null : hit.getLocation();
     }
 }

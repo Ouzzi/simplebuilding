@@ -145,7 +145,6 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.REINFORCED_QUIVER))
                 .add(key(ModItems.NETHERITE_QUIVER))
                 .add(key(ModItems.ENDERITE_QUIVER))
-                .add(key(Items.SHULKER_BOX))
                 .addTag(ModTags.Items.BACKPACKS)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
@@ -156,6 +155,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.ORE_DETECTOR))
                 .add(key(ModItems.MAGNET))
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE)
+                // Keine Shulkerkiste: vorerst nicht verzauberbar (Besitzer 2026-10-02, ShulkerBoxEnchantTests).
                 .add(key(Items.STICK));
 
         // Layout-Platzhalter der Kreativ-Tabs: in JEI, REI und EMI versteckt (Konventions-Tag).

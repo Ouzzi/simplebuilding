@@ -3288,7 +3288,7 @@ public final class DataIntegrityTests {
                 ModItems.ENDERITE_BUNDLE, ModItems.ENDERITE_QUIVER, ModItems.ENDERITE_BACKPACK, ModItems.ENDERITE_PICKAXE,
                 ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
                 ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, ModItems.VELOCITY_GAUGE,
-                Items.STICK, Items.SHULKER_BOX);
+                Items.STICK);
         for (Item item : present) {
             if (!byItem.containsKey(item)) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is missing from the dev tab");
@@ -3305,7 +3305,8 @@ public final class DataIntegrityTests {
                 ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER,
                 ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK,
                 Items.NETHERITE_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_BOOTS, Items.LEATHER_BOOTS,
-                Items.NETHERITE_SPEAR, Items.SHEARS, ModItems.ENDERITE_INGOT, ModItems.CREATIVE_SPACER, Items.ENCHANTED_BOOK));
+                Items.NETHERITE_SPEAR, Items.SHEARS, ModItems.ENDERITE_INGOT, ModItems.CREATIVE_SPACER, Items.ENCHANTED_BOOK,
+                Items.SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
         absent.addAll(ModItems.COLORED_OCTANT_ITEMS.values());
         for (Item item : absent) {
             if (byItem.containsKey(item)) {

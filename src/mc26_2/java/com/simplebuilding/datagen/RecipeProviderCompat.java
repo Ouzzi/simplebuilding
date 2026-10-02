@@ -59,5 +59,9 @@ public abstract class RecipeProviderCompat extends FabricRecipeProvider {
         protected int fastMachineTicks(int machineTicks) {
             return machineTicks;
         }
+
+        /** 26.2 braut noch nicht datengetrieben: keine Zusatzrezepte (26.3: Brau-Rezepte). */
+        protected void buildVersionRecipes() {
+        }
     }
 }

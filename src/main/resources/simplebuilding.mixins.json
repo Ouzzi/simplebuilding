@@ -13,6 +13,7 @@
     "BlockStateBaseMixin",
     "BlockItemMixin",
     "AbstractArrowPickupMixin",
+    "AbstractArrowRecoveryMixin",
     "BowItemMixin",
     "CrossbowItemMixin",
     "BrushItemMixin",

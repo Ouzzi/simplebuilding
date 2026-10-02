@@ -23,6 +23,15 @@ public final class NeoForgeRegistryBootstrap {
             }
             return;
         }
+        // Listiger Shulker (2026-10-02): Effekt vor den Traenken, jeweils in ihrem eigenen Ereignis.
+        if (event.getRegistryKey().equals(Registries.MOB_EFFECT)) {
+            com.simplebuilding.effect.ModEffects.registerEffects();
+            return;
+        }
+        if (event.getRegistryKey().equals(Registries.POTION)) {
+            com.simplebuilding.effect.ModEffects.registerPotions();
+            return;
+        }
         if (event.getRegistryKey().equals(Registries.SOUND_EVENT)) {
             com.simplebuilding.util.ModSounds.registerSounds();
             return;
