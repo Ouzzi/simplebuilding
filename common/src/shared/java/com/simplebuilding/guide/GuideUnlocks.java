@@ -101,6 +101,24 @@ public final class GuideUnlocks {
         for (String criterion : holder.value().criteria().keySet()) player.getAdvancements().award(holder, criterion);
     }
 
+    /**
+     * "Unlock anyway" (owner 2026-10-02, {@code GuideUnlockPayload}): a player in creative mode opens a
+     * locked recipe tab without its recipe. Survival, adventure and spectator players get nothing, and
+     * operator tabs stay bound to the permission level. Returns whether the tab is open afterwards.
+     */
+    public static boolean creativeUnlock(ServerPlayer player, Identifier id) {
+        return unlockAnyway(player, id, player.isCreative());
+    }
+
+    /** {@link #creativeUnlock} with the game-mode check passed in (the GameTest mock player is always creative). */
+    public static boolean unlockAnyway(ServerPlayer player, Identifier id, boolean creative) {
+        if (!McVersion.MEGA_GUIDES || !creative) return false;
+        GuideTabs.Tab tab = GuideTabs.get(id);
+        if (tab == null || tab.access() != GuideTabs.Access.RECIPES) return false;
+        player.addTag(tag(tab));
+        return refresh(player, true).contains(id);
+    }
+
     private static void send(ServerPlayer player, List<Identifier> open) {
         if (player.connection != null && PlatformServices.canSendToPlayer(player, GuideStatePayload.ID)) {
             PlatformServices.sendToPlayer(player, new GuideStatePayload(open));

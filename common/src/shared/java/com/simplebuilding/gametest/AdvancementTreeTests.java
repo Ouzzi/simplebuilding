@@ -590,6 +590,40 @@ public final class AdvancementTreeTests {
         return !path.startsWith("recipes/") && !path.startsWith("easter/");
     }
 
+    /**
+     * Owner 2026-10-02: the tab "The Two Shelves" showed the pink-black missing texture. A tab
+     * background is a client asset id ({@code <ns>:<path>} for {@code assets/<ns>/textures/<path>.png}),
+     * not a file path. Every non-vanilla advancement with a background (all mods and modules on the
+     * data path) names one without {@code textures/} and {@code .png}, and - where the classpath carries
+     * the textures of that namespace - one that exists.
+     */
+    public static void everyTabBackgroundNamesAnExistingTexture(GameTestHelper helper) {
+        ClassLoader loader = AdvancementTreeTests.class.getClassLoader();
+        boolean vanillaAssets = loader.getResource("assets/minecraft/textures/gui/advancements/backgrounds/stone.png") != null;
+        List<String> problems = new ArrayList<>();
+        int checked = 0;
+        for (AdvancementHolder holder : helper.getLevel().getServer().getAdvancements().getAllAdvancements()) {
+            if (holder.id().getNamespace().equals("minecraft")) continue;
+            JsonObject display = displayJson(helper, holder);
+            if (display == null || !display.has("background")) continue;
+            checked++;
+            Identifier background = Identifier.parse(display.get("background").getAsString());
+            String path = background.getPath();
+            if (path.startsWith("textures/") || path.endsWith(".png")) {
+                problems.add(holder.id() + " names the file path " + background + " instead of a texture id");
+                continue;
+            }
+            boolean visible = background.getNamespace().equals("minecraft") ? vanillaAssets
+                    : loader.getResource("assets/" + background.getNamespace() + "/textures") != null;
+            if (visible && loader.getResource("assets/" + background.getNamespace() + "/textures/" + path + ".png") == null) {
+                problems.add(holder.id() + " names the missing texture " + background);
+            }
+        }
+        helper.assertTrue(checked >= 5, "only " + checked + " tab backgrounds were found");
+        helper.assertTrue(problems.isEmpty(), problems.size() + " broken tab backgrounds: " + problems);
+        helper.succeed();
+    }
+
     private static List<AdvancementHolder> tree(ServerAdvancementManager manager) {
         List<AdvancementHolder> out = new ArrayList<>();
         for (AdvancementHolder holder : manager.getAllAdvancements()) {

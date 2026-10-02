@@ -79,4 +79,9 @@ public final class GuideBookGameTest {
     public void oldChapterMasksMoveToTheReadingPlayer(GameTestHelper helper) {
         GuideBookTests.oldChapterMasksMoveToTheReadingPlayer(helper);
     }
+
+    @GameTest
+    public void onlyCreativePlayersUnlockLockedTabsAnyway(GameTestHelper helper) {
+        GuideBookTests.onlyCreativePlayersUnlockLockedTabsAnyway(helper);
+    }
 }

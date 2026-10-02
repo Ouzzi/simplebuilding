@@ -44,4 +44,9 @@ public final class AdvancementTreeGameTest {
     public void installingTheQuestBookAddsButNeverOverwrites(GameTestHelper helper) {
         AdvancementTreeTests.installingTheQuestBookAddsButNeverOverwrites(helper);
     }
+
+    @GameTest
+    public void everyTabBackgroundNamesAnExistingTexture(GameTestHelper helper) {
+        AdvancementTreeTests.everyTabBackgroundNamesAnExistingTexture(helper);
+    }
 }

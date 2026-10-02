@@ -37,6 +37,7 @@ public class ModMessages {
         PayloadTypeRegistry.serverboundPlay().register(BlueprintEditPayload.ID, BlueprintEditPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(BlueprintRotatePayload.ID, BlueprintRotatePayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(PlacedBundleScrollPayload.ID, PlacedBundleScrollPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(GuideUnlockPayload.ID, GuideUnlockPayload.CODEC);
 
 
         // Server -> Client (S2C)
@@ -68,6 +69,7 @@ public class ModMessages {
         receive(BlueprintEditPayload.ID, ModMessageHandlers::handleBlueprintEdit);
         receive(BlueprintRotatePayload.ID, ModMessageHandlers::handleBlueprintRotate);
         receive(PlacedBundleScrollPayload.ID, ModMessageHandlers::handlePlacedBundleScroll);
+        receive(GuideUnlockPayload.ID, ModMessageHandlers::handleGuideUnlock);
 
         // Events
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {

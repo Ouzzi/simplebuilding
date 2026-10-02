@@ -345,6 +345,11 @@ public final class ModMessageHandlers {
         BackpackMenus.openCarried(player);
     }
 
+    /** "Unlock anyway" on a locked guide tab: the server checks creative mode and the tab itself. */
+    public static void handleGuideUnlock(GuideUnlockPayload payload, ServerPlayer player) {
+        com.simplebuilding.guide.GuideUnlocks.creativeUnlock(player, payload.tab());
+    }
+
     // =====================================================================================
     // BLAUPAUSE
     // =====================================================================================
