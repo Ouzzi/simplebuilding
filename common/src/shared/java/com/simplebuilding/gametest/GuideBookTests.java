@@ -608,30 +608,23 @@ public final class GuideBookTests {
      */
     public static void onlyOperatorsCraftTheAdminGuide(GameTestHelper helper) {
         if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+            // 26.3: the Server Admin tab is open exactly while the reader is an operator (level 2), checked live.
             ServerPlayer player = mockPlayer(helper);
             var players = helper.getLevel().getServer().getPlayerList();
             boolean wasOp = players.isOp(player.nameAndId());
-            var hand = net.minecraft.world.InteractionHand.MAIN_HAND;
-            ItemStack guide = new ItemStack(ModItems.GUIDE_BOOK);
-            ItemStack key = new ItemStack(GuideBooks.keyItem(GuideBooks.Book.ADMIN), 2);
-            player.setItemInHand(hand, guide);
-            player.getInventory().setItem(9, key);
-            com.simplebuilding.guide.GuideUnlocks.open(player, hand);
+            var admin = GuideBooks.tab(GuideBooks.Book.ADMIN);
             try {
                 players.deop(player.nameAndId());
-                helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, GuideBooks.Book.ADMIN.ordinal()), "non-operator unlock accepted");
-                helper.assertValueEqual(key.getCount(), 2, "denied unlock consumed key");
+                helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.isOpen(player, admin), "non-operator reads Server Admin");
+                helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.refresh(player, false).contains(admin.id()), "non-operator was sent Server Admin");
+                players.op(player.nameAndId(), Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.MODERATOR), Optional.empty());
+                helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.isOpen(player, admin), "level 1 operator reads Server Admin");
+                players.deop(player.nameAndId());
                 players.op(player.nameAndId(), Optional.of(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER), Optional.empty());
                 helper.assertTrue(GuideBooks.isOperator(player), "op did not grant permission");
-                helper.assertTrue(player.getItemInHand(hand) == guide, "op changed held stack");
-                helper.assertTrue(player.containerMenu == player.inventoryMenu, "op left another menu open");
-                helper.assertTrue(!GuideBooks.inserted(guide, GuideBooks.Book.ADMIN), "base book already has admin");
-                helper.assertValueEqual(player.getInventory().countItem(GuideBooks.keyItem(GuideBooks.Book.ADMIN).asItem()), 2, "admin inventory fixture");
-                helper.assertTrue(com.simplebuilding.guide.GuideUnlocks.unlock(player, GuideBooks.Book.ADMIN.ordinal()), "operator unlock refused");
-                helper.assertValueEqual(key.getCount(), 1, "admin unlock cost");
+                helper.assertTrue(com.simplebuilding.guide.GuideUnlocks.refresh(player, false).contains(admin.id()), "operator was not sent Server Admin");
                 players.deop(player.nameAndId());
-                helper.assertTrue(!GuideBooks.isOperator(player), "deop not respected");
-                helper.assertTrue(GuideBooks.inserted(guide, GuideBooks.Book.ADMIN), "deop erased persistent chapter");
+                helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.refresh(player, false).contains(admin.id()), "deop kept Server Admin open");
             } finally { if (wasOp) players.op(player.nameAndId()); else players.deop(player.nameAndId()); }
             succeed(helper);
             return;
@@ -729,6 +722,143 @@ public final class GuideBookTests {
         succeed(helper);
     }
 
+    /**
+     * Owner 2026-10-02 (plan P5/P6): every topic tab is gated by recipes, and every gate is a real,
+     * non-special recipe that a recipe advancement hands out (so the recipe book can learn it at all);
+     * the first gate crafts the item the locked tab names. Hubs are always open, Server Admin by
+     * operator level.
+     */
+    public static void everyGuideTabGateIsAnUnlockableRecipe(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) { succeed(helper); return; }
+        var server = helper.getLevel().getServer();
+        Set<net.minecraft.resources.Identifier> handedOut = new java.util.HashSet<>();
+        for (var advancement : server.getAdvancements().getAllAdvancements()) {
+            for (var recipe : advancement.value().rewards().recipes()) handedOut.add(recipe.identifier());
+        }
+        var context = net.minecraft.world.item.crafting.display.SlotDisplayContext.fromLevel(helper.getLevel());
+        List<String> problems = new ArrayList<>();
+        for (GuideBooks.Book book : GuideBooks.Book.values()) {
+            var tab = GuideBooks.tab(book);
+            if (tab == null) { problems.add(book + " has no tab"); continue; }
+            var expected = book.isHub() ? com.simplebuilding.guide.GuideTabs.Access.ALWAYS
+                    : GuideBooks.operatorOnly(book) ? com.simplebuilding.guide.GuideTabs.Access.OPERATOR : com.simplebuilding.guide.GuideTabs.Access.RECIPES;
+            if (tab.access() != expected) problems.add(book + " opens by " + tab.access() + ", expected " + expected);
+            if (expected != com.simplebuilding.guide.GuideTabs.Access.RECIPES) {
+                if (!tab.gates().isEmpty()) problems.add(book + " has gates it never uses");
+                continue;
+            }
+            for (var key : tab.gateKeys()) {
+                var recipe = server.getRecipeManager().byKey(key);
+                if (recipe.isEmpty()) { problems.add(book + ": gate " + key.identifier() + " is no recipe"); continue; }
+                if (recipe.get().value().isSpecial()) problems.add(book + ": gate " + key.identifier() + " is a special recipe");
+                if (!handedOut.contains(key.identifier())) problems.add(book + ": no advancement unlocks gate " + key.identifier());
+            }
+            var first = server.getRecipeManager().byKey(tab.gateKeys().getFirst());
+            Item hint = tab.hint().get().asItem();
+            if (hint != GuideBooks.hint(book).asItem()) problems.add(book + ": tab hint differs from GuideBooks.hint");
+            if (first.isPresent() && first.get().value().display().stream()
+                    .noneMatch(display -> display.result().resolveForFirstStack(context).is(hint))) {
+                problems.add(book + ": first gate " + tab.gates().getFirst() + " does not craft the named " + hint);
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " gate problems: " + problems);
+        succeed(helper);
+    }
+
+    /**
+     * Owner 2026-10-02: a tab opens as soon as one of its gate recipes is in the player's recipe book -
+     * through {@code awardRecipes}, the path every unlock takes - without consuming anything and
+     * without a click; it stays open when the recipe is taken away, and it opens for that player only.
+     */
+    public static void learningGateRecipesOpensTabsWithoutConsumingItems(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) { succeed(helper); return; }
+        var server = helper.getLevel().getServer();
+        ServerPlayer player = mockPlayer(helper);
+        ServerPlayer other = mockPlayer(helper);
+        var players = server.getPlayerList();
+        boolean wasOp = players.isOp(player.nameAndId());
+        List<String> problems = new ArrayList<>();
+        try {
+            players.deop(player.nameAndId());
+            player.getInventory().clearContent();
+            player.getInventory().setItem(9, new ItemStack(Items.DIRT, 5));
+            Set<net.minecraft.resources.Identifier> expected = new LinkedHashSet<>();
+            for (GuideBooks.Book book : GuideBooks.Book.values()) if (book.isHub()) expected.add(GuideBooks.tabId(book));
+            for (GuideBooks.Book book : GuideBooks.Book.topics()) {
+                var tab = GuideBooks.tab(book);
+                if (tab.access() != com.simplebuilding.guide.GuideTabs.Access.RECIPES) continue;
+                List<RecipeHolder<?>> gates = new ArrayList<>();
+                for (var key : tab.gateKeys()) server.getRecipeManager().byKey(key).ifPresent(gates::add);
+                player.resetRecipes(gates);
+                player.removeTag(com.simplebuilding.guide.GuideUnlocks.tag(tab));
+            }
+            var start = new LinkedHashSet<>(com.simplebuilding.guide.GuideUnlocks.refresh(player, false));
+            if (!start.equals(expected)) problems.add("a fresh player starts with " + start);
+            for (GuideBooks.Book book : GuideBooks.Book.topics()) {
+                var tab = GuideBooks.tab(book);
+                if (tab.access() != com.simplebuilding.guide.GuideTabs.Access.RECIPES) continue;
+                // The last gate: any one of them opens the tab, not only the one the tooltip names.
+                var gate = server.getRecipeManager().byKey(tab.gateKeys().getLast()).orElseThrow();
+                player.awardRecipes(List.of(gate));
+                expected.add(tab.id());
+                if (!player.entityTags().contains(com.simplebuilding.guide.GuideUnlocks.tag(tab))) problems.add(book + ": learning " + gate.id().identifier() + " did not open the tab");
+                var advancement = server.getAdvancements().get(tab.advancement());
+                if (advancement == null) problems.add(book + ": advancement " + tab.advancement() + " is missing");
+                else if (!player.getAdvancements().getOrStartProgress(advancement).isDone()) problems.add(book + ": advancement not awarded");
+                player.resetRecipes(List.of(gate));
+                if (!com.simplebuilding.guide.GuideUnlocks.isOpen(player, tab)) problems.add(book + ": the tab closed again with the recipe");
+                if (other.entityTags().contains(com.simplebuilding.guide.GuideUnlocks.tag(tab))) problems.add(book + ": the tab opened for another player too");
+            }
+            var end = new LinkedHashSet<>(com.simplebuilding.guide.GuideUnlocks.refresh(player, false));
+            if (!end.equals(expected)) problems.add("open tabs " + end + " differ from the learned gates " + expected);
+            if (player.getInventory().getItem(9).getCount() != 5 || !player.getInventory().getItem(9).is(Items.DIRT)) problems.add("opening tabs touched the inventory");
+            if (com.simplebuilding.guide.GuideUnlocks.isOpen(player, GuideBooks.tab(GuideBooks.Book.ADMIN))) problems.add("learning recipes opened Server Admin");
+        } finally {
+            if (wasOp) players.op(player.nameAndId()); else players.deop(player.nameAndId());
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " unlock problems: " + problems);
+        succeed(helper);
+    }
+
+    /**
+     * Chapters inserted the old way (the {@code simplebuilding:guide_chapters} mask) open for the
+     * player who uses the book, or carries it at login; the book then forgets the mask, so every copy
+     * shows its own reader's tabs. Server Admin stays operator-only, whatever an old mask says.
+     */
+    public static void oldChapterMasksMoveToTheReadingPlayer(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) { succeed(helper); return; }
+        ServerPlayer player = mockPlayer(helper);
+        var players = helper.getLevel().getServer().getPlayerList();
+        boolean wasOp = players.isOp(player.nameAndId());
+        var chapters = com.simplebuilding.component.ModDataComponentTypes.GUIDE_CHAPTERS;
+        var tools = GuideBooks.tab(GuideBooks.Book.TOOLS);
+        var caves = GuideBooks.tab(GuideBooks.Book.VANILLA_CAVES);
+        try {
+            players.deop(player.nameAndId());
+            player.getInventory().clearContent();
+            player.removeTag(com.simplebuilding.guide.GuideUnlocks.tag(tools));
+            player.removeTag(com.simplebuilding.guide.GuideUnlocks.tag(caves));
+            ItemStack guide = new ItemStack(ModItems.GUIDE_BOOK);
+            guide.set(chapters, (1 << GuideBooks.Book.TOOLS.ordinal()) | (1 << GuideBooks.Book.ADMIN.ordinal()));
+            player.setItemInHand(InteractionHand.MAIN_HAND, guide);
+            guide.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
+            helper.assertTrue(player.entityTags().contains(com.simplebuilding.guide.GuideUnlocks.tag(tools)), "using an old book did not move its Tools chapter");
+            helper.assertTrue(!player.getMainHandItem().has(chapters), "the used book kept its mask");
+            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.isOpen(player, GuideBooks.tab(GuideBooks.Book.ADMIN)), "an old mask opened Server Admin for a non-operator");
+
+            ItemStack vanilla = new ItemStack(ModItems.GUIDE_BOOK_VANILLA_START);
+            vanilla.set(chapters, 1 << GuideBooks.Book.VANILLA_CAVES.ordinal());
+            player.getInventory().setItem(20, vanilla);
+            com.simplebuilding.tweaks.TweaksContent.onPlayerJoin(player);
+            helper.assertTrue(player.entityTags().contains(com.simplebuilding.guide.GuideUnlocks.tag(caves)), "a carried old book did not move its chapter at login");
+            helper.assertTrue(!player.getInventory().getItem(20).has(chapters), "the carried book kept its mask");
+            helper.assertTrue(com.simplebuilding.guide.GuideUnlocks.refresh(player, false).contains(caves.id()), "the moved chapter is not sent");
+        } finally {
+            if (wasOp) players.op(player.nameAndId()); else players.deop(player.nameAndId());
+        }
+        succeed(helper);
+    }
+
     // =====================================================================================
 
     private static void megaGuideRecipes(GameTestHelper helper) {
@@ -754,64 +884,15 @@ public final class GuideBookTests {
             book.set(DataComponents.CUSTOM_NAME, Component.literal("My guide"));
             player.getInventory().clearContent();
             player.setItemInHand(main, book);
-            var first = shelf.topics().getFirst();
-            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, first.ordinal()), "packet without reading session accepted");
-            com.simplebuilding.guide.GuideUnlocks.open(player, main);
-            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, -1), "negative chapter accepted");
-            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, 1000), "invalid chapter accepted");
-            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, shelf.hub().ordinal()), "hub accepted");
-            var other = (shelf == GuideBooks.Shelf.MOD ? GuideBooks.Shelf.VANILLA : GuideBooks.Shelf.MOD).topics().getFirst();
-            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, other.ordinal()), "cross-shelf chapter accepted");
             for (GuideBooks.Book topic : shelf.topics()) {
                 ItemStack key = new ItemStack(GuideBooks.keyItem(topic), 2);
                 helper.assertTrue(find(helper, List.of(book, key)).isEmpty(), "crafting extension still exists");
-                helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, topic.ordinal()), "unlocked without key item");
-                player.getInventory().setItem(9, key);
-                if (GuideBooks.operatorOnly(topic)) {
-                    helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, topic.ordinal()), "non-operator unlocked admin");
-                    helper.assertValueEqual(key.getCount(), 2, "denied admin consumed item");
-                    player.getInventory().setItem(9, ItemStack.EMPTY);
-                    continue;
-                }
-                int before = GuideBooks.mask(book);
-                // A poisoned key cannot inject a chapter mask.
-                key.set(com.simplebuilding.component.ModDataComponentTypes.GUIDE_CHAPTERS, 1 << GuideBooks.Book.ADMIN.ordinal());
-                helper.assertTrue(com.simplebuilding.guide.GuideUnlocks.unlock(player, topic.ordinal()), "unlock refused " + topic);
-                helper.assertValueEqual(key.getCount(), 1, "unlock must consume exactly one item");
-                helper.assertValueEqual(GuideBooks.mask(book), before | (1 << topic.ordinal()), "server accepted a spoofed mask");
-                helper.assertValueEqual(book.get(DataComponents.CUSTOM_NAME), Component.literal("My guide"), "name erased");
-                helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, topic.ordinal()), "duplicate unlock accepted");
-                helper.assertValueEqual(key.getCount(), 1, "duplicate unlock consumed item");
-                player.getInventory().setItem(9, ItemStack.EMPTY);
-                var ops = net.minecraft.resources.RegistryOps.create(net.minecraft.nbt.NbtOps.INSTANCE, helper.getLevel().registryAccess());
-                var decoded = ItemStack.CODEC.parse(ops, ItemStack.CODEC.encodeStart(ops, book).getOrThrow()).getOrThrow();
-                helper.assertValueEqual(GuideBooks.mask(decoded), GuideBooks.mask(book), "save/load lost chapters from old or new books");
                 var old = new net.minecraft.nbt.CompoundTag();
                 old.putString("id", "simplebuilding:" + topic.itemName()); old.putInt("count", 1);
                 com.simplebuilding.datafix.ModDataFixer.migrateGuide(old);
                 helper.assertTrue((old.getCompound("components").orElseThrow().getIntOr("simplebuilding:guide_chapters", 0) & (1 << topic.ordinal())) != 0, "legacy migration lost chapter");
             }
             helper.assertTrue(find(helper, List.of(book, book.copy())).isEmpty(), "crafting combination still exists");
-            // A moved/replaced book invalidates the exact-stack session.
-            player.setItemInHand(main, new ItemStack(hub));
-            player.getInventory().setItem(9, new ItemStack(GuideBooks.keyItem(first), 2));
-            helper.assertTrue(!com.simplebuilding.guide.GuideUnlocks.unlock(player, first.ordinal()), "stale session changed a different book");
-            com.simplebuilding.guide.GuideUnlocks.open(player, main);
-            player.setGameMode(net.minecraft.world.level.GameType.CREATIVE);
-            helper.assertTrue(com.simplebuilding.guide.GuideUnlocks.unlock(player, first.ordinal()), "creative exchange refused");
-            helper.assertValueEqual(player.getInventory().getItem(9).getCount(), 1, "creative unlock must also cost one item");
-            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
-            var next = shelf.topics().get(1);
-            ItemStack offhandKey = new ItemStack(GuideBooks.keyItem(next), 2);
-            player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, offhandKey);
-            player.containerMenu = null;
-            com.simplebuilding.networking.ModMessageHandlers.handleGuideUnlock(new com.simplebuilding.networking.GuideUnlockPayload(next.ordinal()), player);
-            helper.assertTrue(!GuideBooks.inserted(player.getMainHandItem(), next), "packet accepted outside inventory menu");
-            player.containerMenu = player.inventoryMenu;
-            com.simplebuilding.networking.ModMessageHandlers.handleGuideUnlock(new com.simplebuilding.networking.GuideUnlockPayload(next.ordinal()), player);
-            helper.assertTrue(GuideBooks.inserted(player.getMainHandItem(), next), "registered handler did not unlock from off hand");
-            helper.assertValueEqual(offhandKey.getCount(), 1, "offhand exchange cost");
-            player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, ItemStack.EMPTY);
         }
         helper.assertTrue(problems.isEmpty(), problems.toString());
         succeed(helper);

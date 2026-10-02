@@ -65,3 +65,43 @@ Endgültige Liste im Code (`GuideBooks.gates(Book)`) mit Test „jedes Tor-Rezep
 
 - Rezepte, die Vanilla nicht per Rezeptbuch freischaltet (Spezialrezepte) als Tor meiden.
 - Bitmasken-Altbestand (Migration), Mehrspieler: Buch zeigt Stand des Lesers.
+
+## Stand 2026-10-02 (Branch `claude-guides`)
+
+**Schritt 1 erledigt.** Tor-Liste im Code (`GuideBooks.gates/hint`), Spielerstand als Entity-Tag
+`simplebuilding.guide_tab.<ns>.<pfad>` (übersteht Tod/Neuanmeldung, ohne eigene Persistenz je Loader), Hook
+`GuideRecipeUnlockMixin` auf `ServerPlayer#awardRecipes` (RETURN, nur bei neu hinzugefügten Rezepten; ein Mixin für
+Fabric/NeoForge/Forge), Prüfung zusätzlich beim Betreten (`GuideBooks.onPlayerJoin` → `GuideUnlocks.onJoin`) und beim
+Benutzen. Stand geht per `GuideStatePayload` (S2C, alle drei Loader) an den Client; der alte C2S-`GuideUnlockPayload`,
+die Bestätigungsseite und der Item-Verbrauch sind entfernt. Gesperrter Reiter: Tooltip „Gesperrt. Schalte frei: %s
+herstellen“, Klick tut nichts. Migration: `guide_chapters`-Maske des benutzten/getragenen Buchs → Spieler-Tags, Maske
+wird entfernt; erledigte `guides/*`-Erfolge zählen ebenfalls als offen. Kapitel-Erfolge werden beim Öffnen weiter
+vergeben (Quests lesen sie). Admin bleibt live an OP-Stufe 2 gebunden.
+
+Abweichungen: (a) Spielerstand als Entity-Tag statt eigener Spielerdaten-Datei – vanilla, loaderneutral. (b)
+Steinkiesel-Rezepte (`stone_pebble`, `cobblestone_from_stone_pebbles`) haben keinen Rezept-Erfolg, kommen also nie ins
+Rezeptbuch und taugen nicht als Tor; Bauen nutzt Ziegelsteine/Steinziegel/Kupfer-Baustab. Falls Kiesel gewünscht:
+Rezept-Erfolge für die handgeschriebenen 26.3-Rezepte ergänzen. (c) Besätze: Pulsierende Vorlage (Werkbank) zuerst,
+dazu die Schmiede-Rezepte der Leuchtenden/Strahlenden Vorlage (`*_armor_upgrade_dummy`).
+
+**Schritt 2 teilweise.** `GuideTabs` ist die Registry für Tabs und Freischaltung (`Tab{id, access ALWAYS|RECIPES|OPERATOR,
+gates, hint, advancement}`); SimpleBuilding registriert seine Bücher darüber, Server-Stand und Payload arbeiten nur mit
+Tab-Ids. Bildschirm und Inhalt (`GuideBookScreen`, `GuideContent`) hängen weiter am Enum `GuideBooks.Book` – das ist der
+Teil, der mit Schritt 3 in die Bibliothek wandert.
+
+**Schritt 4 teilweise.** FTB Quests: die erste SimpleBuilding-Quest (`stage_1.welcome`) gibt auf 26.3 das Handbuch
+(`Q.reward`, `tools/quests/generate_quests.py`). Bestehende Installationen bekommen die geänderte Kapiteldatei nicht
+(FtbQuestsDefaults überschreibt nie).
+
+### TODO Schritt 3/4 (offen, zu groß für diesen Lauf)
+
+1. Gemeinsame Bibliothek `simpleguides` als eigenes Gradle-Projekt mit MC-Abhängigkeit (nicht `framework`, das ist reines
+   Java): `GuideTabs`, `GuideUnlocks`, `GuideStatePayload`, `GuideRecipeUnlockMixin` und ein von `Book`-Enum gelöster
+   Bildschirm (`BookDef{id, mod, colour, tabs[TabDef{id, icon, gates, chapters}]}`) wandern dorthin; jede Mod bündelt
+   sie (Jar-in-Jar bzw. Shadow mit Relocation je Mod, damit zwei Mods nicht kollidieren) – Entscheidung Relocation vs.
+   gemeinsames Mod-Jar steht aus. Payload-/Mixin-Registrierung je Loader in die Bibliothek.
+2. Je Modul (`modules/*`, Liste in `modules/modules.json`): Buch-Item (Fabric/NeoForge/Forge), Rezept „Buch + typisches
+   Item der Mod“, Tabs mit Toren wie oben, Inhalt aus `modules/<mod>/wiki/manual.json` (features → Kapitel, als
+   Lang-Keys EN/DE generiert), Cover-Textur. Nicht beim Start im Inventar.
+3. FTB Quests: erste Quest jeder Mod gibt deren Buch (Modul-Questdaten analog `Q.reward`).
+4. Tests: je Modul „jedes Tor-Rezept existiert“ (wie `GuideBookTests#everyGuideTabGateIsAnUnlockableRecipe`).

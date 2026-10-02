@@ -70,6 +70,7 @@ class Q:
     hint: tuple | None = None       # (en, de) extra description line under an advancement's text
     optional: bool = False
     capstone: bool = False          # the stage's last quest: depends on every required quest of it
+    reward: str | None = None       # 26.3 only: an item id given once as the quest's reward (P5: the mod's guide)
 
 
 @dataclass
@@ -91,7 +92,7 @@ CHAPTERS = [
             ("Vanilla basics and your first SimpleBuilding tools. Finish this chapter to unlock Stage 2.",
              "Vanilla-Grundlagen und deine ersten SimpleBuilding-Werkzeuge. Schließ dieses Kapitel ab, um Stufe 2 freizuschalten."),
             1, [
-        Q("welcome", "item:minecraft:crafting_table",
+        Q("welcome", "item:minecraft:crafting_table", reward="simplebuilding:guide_book",
           title=("Welcome to SimpleBuilding", "Willkommen bei SimpleBuilding"),
           desc=("This book leads you through SimpleBuilding in four stages; each one unlocks when the previous one is done, the side chapters open along the way. Items you already carry or find by luck count too.",
                 "Dieses Buch führt dich in vier Stufen durch SimpleBuilding; jede wird frei, sobald die vorige geschafft ist, die Nebenkapitel öffnen sich unterwegs. Gegenstände, die du schon trägst oder zufällig findest, zählen auch.")),
@@ -559,6 +560,9 @@ def build_files(book: Book, fmt: str, mega: bool = False) -> dict[str, str]:
                 quest["optional"] = True
             quest["dependencies"] = [hid("quest", dep) for dep in book.deps[full]]
             quest["tasks"] = [task]
+            if mega and q.reward:
+                # Owner P5: with FTB Quests the first quest hands out the guide for free (it is never a join gift on 26.3).
+                quest["rewards"] = [{"id": hid("reward", full), "type": "item", "item": {"id": q.reward, "count": 1}}]
             quests.append(quest)
             title, desc = book.quest_texts(chapter, q)
             table[f"quest.{quest_id}.title"] = title
@@ -707,10 +711,10 @@ def updated_lang(path: Path, entries: dict[str, str]) -> str:
         entries = dict(entries)
         german = path.stem == "de_de"
         for suffix, en, de in [
-            ("stage_1.guide_book.description", "Book + crafting table: Mega Guide. Open it, click a locked tab and confirm with the required item in your inventory.", "Buch + Werkbank: Mega-Handbuch. Öffne es, klicke einen gesperrten Reiter und bestätige mit dem benötigten Item im Inventar."),
-            ("building.guide.description", "Open the guide, click Building and confirm to consume one brick.", "Öffne das Handbuch, klicke Bauen und bestätige zum Verbrauch eines Ziegels."),
-            ("storage.guide.description", "Open the guide, click Storage and confirm to consume one chest.", "Öffne das Handbuch, klicke Lager und bestätige zum Verbrauch einer Truhe."),
-            ("gadgets.guide.description", "Open the guide, click Pads and confirm to consume one stone pressure plate.", "Öffne das Handbuch, klicke Pads und bestätige zum Verbrauch einer Steindruckplatte.")]:
+            ("stage_1.guide_book.description", "Book + crafting table: Mega Guide; the first quest also gives you one. Its tabs open by themselves once you know one of their recipes - nothing is used up.", "Buch + Werkbank: Mega-Handbuch; die erste Quest schenkt dir auch eins. Seine Reiter öffnen sich von selbst, sobald du eines ihrer Rezepte kennst - nichts wird verbraucht."),
+            ("building.guide.description", "Learn the Bricks, Stone Bricks or Copper Building Wand recipe: the Building tab of the guide opens by itself.", "Lerne das Rezept für Ziegelsteine, Steinziegel oder den Kupfer-Baustab: der Reiter Bauen im Handbuch öffnet sich von selbst."),
+            ("storage.guide.description", "Learn a Chest, Backpack, Quiver or Reinforced Bundle recipe: the Storage tab of the guide opens by itself.", "Lerne das Rezept für Truhe, Rucksack, Köcher oder Verstärktes Bündel: der Reiter Lager im Handbuch öffnet sich von selbst."),
+            ("gadgets.guide.description", "Learn a pressure plate recipe: the Pads tab of the guide opens by itself.", "Lerne ein Druckplatten-Rezept: der Reiter Pads im Handbuch öffnet sich von selbst.")]:
             entries[LANG_KEY + "." + suffix] = de if german else en
     items = [(k, v) for k, v in data.items() if not k.startswith(LANG_KEY + ".")]
     anchor = max((i for i, (k, _) in enumerate(items) if k.startswith("advancements." + NS + ".")), default=len(items) - 1)

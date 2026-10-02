@@ -267,6 +267,10 @@ public class SimplebuildingClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.networking.PistonConfigPayload.ID,
                 (payload, context) -> context.client().execute(payload::apply));
 
+        // Offene Handbuch-Reiter dieses Spielers (P5/P6)
+        ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.networking.GuideStatePayload.ID,
+                (payload, context) -> context.client().execute(payload::apply));
+
         // Trim Data (Hierhin verschoben von ModMessages)
         ClientPlayNetworking.registerGlobalReceiver(TrimDataPayload.ID, (payload, context) -> {
             context.client().execute(() -> {

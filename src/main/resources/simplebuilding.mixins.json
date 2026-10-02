@@ -43,6 +43,7 @@
     "OperatorBookCraftingMixin",
     "OperatorBookCrafterMixin",
     "OperatorBookRecipeUnlockMixin",
+    "GuideRecipeUnlockMixin",
     "ShapelessRecipeMixin",
     "ShearsItemMixin",
     "SlotMixin",

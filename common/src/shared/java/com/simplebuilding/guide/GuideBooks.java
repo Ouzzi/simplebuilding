@@ -269,6 +269,93 @@ public final class GuideBooks {
         };
     }
 
+    // =====================================================================================
+    // Tabs and their gate recipes (26.3, plan P5/P6)
+    // =====================================================================================
+
+    static {
+        if (McVersion.MEGA_GUIDES) {
+            for (Book book : Book.values()) {
+                GuideTabs.Access access = book.isHub() ? GuideTabs.Access.ALWAYS
+                        : operatorOnly(book) ? GuideTabs.Access.OPERATOR : GuideTabs.Access.RECIPES;
+                Identifier advancement = book.isHub() ? null
+                        : Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "guides/" + book.itemName().substring("guide_book_".length()));
+                List<Identifier> gates = new ArrayList<>();
+                for (String gate : gates(book)) gates.add(Identifier.parse(gate));
+                GuideTabs.register(new GuideTabs.Tab(tabId(book), access, gates, () -> hint(book), advancement));
+            }
+        }
+    }
+
+    /** The registry id of a book's tab ({@code simplebuilding:tools}). */
+    public static Identifier tabId(Book book) {
+        return Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, book.id());
+    }
+
+    /** A book's tab in {@link GuideTabs} (26.3 only; null on older lines). */
+    public static GuideTabs.Tab tab(Book book) {
+        return GuideTabs.get(tabId(book));
+    }
+
+    /**
+     * Gate recipes of a topic: the simplest crafting recipe of its stage plus the recipe of the theme's
+     * base item (owner 2026-10-02). One of them in the recipe book opens the tab; the first one is the
+     * one a locked tab names ({@link #hint}). Hubs open always, Server Admin by operator level, so
+     * neither has gates. {@code GuideBookTests#everyGuideTabGateIsAnUnlockableRecipe} proves every id
+     * is a real recipe that a recipe advancement hands out, and that the first one crafts the hint.
+     */
+    public static List<String> gates(Book book) {
+        return switch (book) {
+            case GUIDE, VANILLA_START, ADMIN -> List.of();
+            case TOOLS -> List.of("simplebuilding:stone_chisel");
+            case ENCHANTMENTS -> List.of("minecraft:enchanting_table", "minecraft:bookshelf");
+            // The pebble recipes have no recipe advancement (nothing puts them into the recipe book), so they cannot gate.
+            case BUILDING -> List.of("minecraft:bricks", "minecraft:stone_bricks", "simplebuilding:copper_building_wand");
+            case STORAGE -> List.of("minecraft:chest", "simplebuilding:backpack", "simplebuilding:quiver", "simplebuilding:reinforced_bundle");
+            case MACHINES -> List.of("minecraft:piston", "simplebuilding:reinforced_hopper_from_crafting",
+                    "simplebuilding:reinforced_furnace", "simplebuilding:reinforced_piston");
+            case END -> List.of("simplebuilding:enderite_ingot", "simplebuilding:enderite_ingot_from_scrap",
+                    "simplebuilding:astralit_block_from_end_stone", "simplebuilding:nihilith_block_from_end_stone");
+            case PADS -> List.of("minecraft:stone_pressure_plate", "simplebuilding:copper_pressure_plate", "minecraft:oak_pressure_plate",
+                    "minecraft:light_weighted_pressure_plate", "minecraft:heavy_weighted_pressure_plate");
+            case GADGETS -> List.of("simplebuilding:copper_core_plus", "simplebuilding:velocity_gauge", "simplebuilding:detector", "simplebuilding:magnet");
+            case TRIMS -> List.of("simplebuilding:pulsating_trim_template", "simplebuilding:glowing_armor_upgrade_dummy",
+                    "simplebuilding:emitting_armor_upgrade_dummy");
+            case VANILLA_OVERWORLD -> List.of("minecraft:crafting_table", "minecraft:oak_planks");
+            case VANILLA_CAVES -> List.of("minecraft:torch");
+            case VANILLA_OCEAN -> List.of("minecraft:oak_boat");
+            case VANILLA_NETHER -> List.of("minecraft:flint_and_steel");
+            case VANILLA_END -> List.of("minecraft:ender_eye");
+            case VANILLA_REDSTONE -> List.of("minecraft:redstone_torch");
+            case VANILLA_GEAR -> List.of("minecraft:stone_sword");
+            case VANILLA_FARMING -> List.of("minecraft:bread");
+        };
+    }
+
+    /** The item a locked tab names ("To unlock: craft ..."): the result of its first gate; the key item for hubs and Server Admin. */
+    public static ItemLike hint(Book book) {
+        return switch (book) {
+            case TOOLS -> ModItems.STONE_CHISEL;
+            case ENCHANTMENTS -> Items.ENCHANTING_TABLE;
+            case BUILDING -> Items.BRICKS;
+            case STORAGE -> Items.CHEST;
+            case MACHINES -> Items.PISTON;
+            case END -> ModItems.ENDERITE_INGOT;
+            case PADS -> Items.STONE_PRESSURE_PLATE;
+            case GADGETS -> ModItems.COPPER_CORE;
+            case TRIMS -> ModItems.PULSATING_TRIM_TEMPLATE;
+            case VANILLA_OVERWORLD -> Items.CRAFTING_TABLE;
+            case VANILLA_CAVES -> Items.TORCH;
+            case VANILLA_OCEAN -> Items.OAK_BOAT;
+            case VANILLA_NETHER -> Items.FLINT_AND_STEEL;
+            case VANILLA_END -> Items.ENDER_EYE;
+            case VANILLA_REDSTONE -> Items.REDSTONE_TORCH;
+            case VANILLA_GEAR -> Items.STONE_SWORD;
+            case VANILLA_FARMING -> Items.BREAD;
+            case GUIDE, VANILLA_START, ADMIN -> keyItem(book);
+        };
+    }
+
     /** Eigenschaften eines Buch-Items: bis 16 stapelbar wie ein beschriebenes Buch, Seiten als Standardkomponente. */
     public static Item.Properties properties(Item.Properties settings, Book book) {
         return settings.stacksTo(McVersion.MEGA_GUIDES ? 1 : 16)
@@ -498,7 +585,7 @@ public final class GuideBooks {
             page.append(Component.translatable(topic.key() + ".title").withStyle(ChatFormatting.DARK_GREEN))
                     .append("\n")
                     .append(Component.translatable(TOPICS_KEY + ".recipe",
-                            Component.translatable(keyItem(topic).asItem().getDescriptionId())).withStyle(ChatFormatting.DARK_GRAY));
+                            Component.translatable((McVersion.MEGA_GUIDES ? hint(topic) : keyItem(topic)).asItem().getDescriptionId())).withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 
@@ -543,6 +630,7 @@ public final class GuideBooks {
                     recipes.byKey(key).ifPresent(recipe -> player.awardRecipes(List.of(recipe)));
                 }
             }
+            GuideUnlocks.onJoin(player);
             return;
         }
         if (player.entityTags().contains(GIVEN_TAG) || !giftEnabled()) {

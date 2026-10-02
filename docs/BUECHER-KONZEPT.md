@@ -2,12 +2,15 @@
 
 Aktuell auf 26.3: zwei Basis-Handbücher (`guide_book`, `guide_book_vanilla_start`),
 getrennte Regale. Basisrezepte: Buch + Werkbank bzw. Buch + Holzspitzhacke.
-Gesperrten Themenreiter anklicken und mit Schlüsselitem im Inventar bestätigen: genau
-ein Item wird verbraucht, auch in Creative. Keine Erweiterung/Vereinigung im Handwerksraster,
-kein Erstbeitrittsgeschenk. Admin-Kapitel: OP-Stufe 2. Acht Themenreiter rechts; übrige links
+Themenreiter öffnen sich von selbst, sobald eines ihrer Tor-Rezepte im Rezeptbuch des Spielers
+steht (`GuideBooks.gates`, geprüft bei jedem `ServerPlayer#awardRecipes`, beim Betreten und beim
+Benutzen); nichts wird verbraucht, kein Klick nötig, der Tooltip eines gesperrten Reiters nennt das
+Item. Offene Reiter gehören dem Spieler (Entity-Tag `simplebuilding.guide_tab.<id>`), alte
+`guide_chapters`-Masken gehen an den Leser über. Keine Erweiterung/Vereinigung im Handwerksraster,
+kein Erstbeitrittsgeschenk; mit FTB Quests schenkt die erste Quest das Handbuch. Admin-Kapitel: OP-Stufe 2. Acht Themenreiter rechts; übrige links
 unter Inhalts- und Regalreiter, innerhalb von sechs linken Reitern. Lesen pausiert nicht.
 
-Belege: `GuideBooks`, `GuideUnlocks`, `GuideBookScreen`, `GuideContent`;
+Belege: `GuideBooks`, `GuideTabs`, `GuideUnlocks`, `GuideRecipeUnlockMixin`, `GuideBookScreen`, `GuideContent`;
 `GuideBookTests` und `python tools/guide_book_pages.py` (höchstens 13 Zeilen je Seite).
 Rezeptkarten kommen aus dem Rezeptmanager. Vanilla-Buchseiten bleiben fürs Lesepult.
 

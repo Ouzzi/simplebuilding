@@ -71,6 +71,8 @@ public final class ForgeNetworkRegistration {
                     }))
                     .add(com.simplebuilding.networking.PistonConfigPayload.ID, com.simplebuilding.networking.PistonConfigPayload.CODEC,
                             (payload, ctx) -> handled(ctx).enqueueWork(payload::apply))
+                    .add(com.simplebuilding.networking.GuideStatePayload.ID, com.simplebuilding.networking.GuideStatePayload.CODEC,
+                            (payload, ctx) -> handled(ctx).enqueueWork(payload::apply))
                     .add(TrimDataPayload.ID, TrimDataPayload.CODEC, (payload, ctx) -> handled(ctx).enqueueWork(() -> {
                         if (Minecraft.getInstance().player instanceof SurvivalTracerAccessor accessor) {
                             accessor.simplebuilding$setBaseValues(payload.baseDist(), payload.baseTime(), payload.baseHostile(), payload.basePassive(), payload.baseDamage());
