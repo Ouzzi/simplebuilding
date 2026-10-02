@@ -3,8 +3,8 @@
 Neue Pixelkunst im Vanilla-Stil: Paletten aus Vanillas Barren/Edelsteinen (Kupfer, Eisen, Gold,
 Diamant, Netherit) und SimpleBuildings Enderit-Ausruestungsrampe; 1 px Kontur im dunkelsten
 Materialton (4er-Nachbarschaft, also keine dunklen Eckpixel in diagonalen Stufen), Licht von links
-oben, nie bis an den Rand gemalt. Alle Farben stehen hier im Code; zur Laufzeit liest der Generator
-keine Vanilla-Dateien.
+oben, nie bis an den Rand gemalt. Die historischen Varianten nutzen die Paletten hier im Code;
+die aktuelle Vorlage D liest ihre Eisen- und Kupferfarben aus dem Vanilla-26.3-Jar.
 
 Drei Vorschlaege je neuer Textur (Vorschau ``previews/hufeisen-vorschau.png``):
   Hufeisen   A = aufrecht, offen nach oben ("Glueckshufeisen"), Nagelloecher
@@ -13,7 +13,8 @@ Drei Vorschlaege je neuer Textur (Vorschau ``previews/hufeisen-vorschau.png``):
   Vorlage    A = Kupferplatte mit Eisen-Hufeisen-Gravur
              B = oxidierte Kupferplatte mit Kupfer-Gravur
              C = dunkle Steinplatte (wie Rand-Vorlagen) mit Kupfer-Gravur
-Ausgeliefert werden ITEM_VARIANT und TEMPLATE_VARIANT (Standard A).
+Ausgeliefert werden ITEM_VARIANT (A) und TEMPLATE_VARIANT (D: Basic-Upgrade-Stil,
+Vanilla-Paletten aus dem 26.3-Jar; horseshoe_template_2026_10_02.py).
 
     python tools/textures/horseshoe_textures.py            # schreiben + Vorschau
     python tools/textures/horseshoe_textures.py --check    # nur pruefen, ob Dateien aktuell sind
@@ -32,7 +33,7 @@ ASSETS = ROOT / 'modules/simpleriding/shared/resources/assets/simpleriding/textu
 _OWNER_PREVIEWS = Path.home() / 'code/minecraft-mods/previews'
 PREVIEW = (_OWNER_PREVIEWS if _OWNER_PREVIEWS.is_dir() else ROOT / 'build/previews') / 'hufeisen-vorschau.png'
 ITEM_VARIANT = 'A'
-TEMPLATE_VARIANT = 'A'
+TEMPLATE_VARIANT = 'D'
 
 
 def _hex(h):
@@ -209,6 +210,9 @@ TEMPLATES = {
 
 
 def template_item(variant):
+    if variant == 'D':
+        from horseshoe_template_2026_10_02 import render
+        return render()
     slab, accent = TEMPLATES[variant]
     sp, ap = [_hex(c) for c in slab], [_hex(c) for c in accent]
     img = shade_mask(SLAB, slab)
@@ -375,7 +379,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--check', action='store_true')
     ap.add_argument('--item', default=ITEM_VARIANT, choices='ABC')
-    ap.add_argument('--template', default=TEMPLATE_VARIANT, choices='ABC')
+    ap.add_argument('--template', default=TEMPLATE_VARIANT, choices='ABCD')
     ap.add_argument('--no-preview', action='store_true')
     args = ap.parse_args()
     stale = []

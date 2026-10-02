@@ -85,7 +85,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "0709f77fb02c"
+    "dataHash": "1d3a6ea48df3"
   },
   {
     "id": "simplemodels",
