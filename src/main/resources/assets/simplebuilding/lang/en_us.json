@@ -2248,6 +2248,8 @@
   "text.autoconfig.simplebuilding.option.server.loot.reinforcedShulkerPercent.@Tooltip": "Percent chance that an end city shulker generates reinforced (1.5x health, drops 0-2 Reinforced Shulker Shells). 0 to 10. Applies to newly generated end cities. Server-side. Default: 2.0.",
   "text.autoconfig.simplebuilding.option.server.loot.enderiteShulkerPercent": "Enderite Shulker Chance (%)",
   "text.autoconfig.simplebuilding.option.server.loot.enderiteShulkerPercent.@Tooltip": "Percent chance that an end city shulker generates as an Enderite Shulker (3x health, drops 0-2 Enderite Shulker Shells). 0 to 5. Applies to newly generated end cities. Server-side. Default: 0.5.",
+  "text.autoconfig.simplebuilding.option.server.loot.netheriteShulkerPercent": "Netherite Shulker Chance (%)",
+  "text.autoconfig.simplebuilding.option.server.loot.netheriteShulkerPercent.@Tooltip": "Percent chance that an end city shulker generates as a Netherite Shulker (2x health, drops 0-2 Netherite Shulker Shells). 0 to 5. Applies to newly generated end cities. Server-side. Default: 1.0.",
   "text.autoconfig.simplebuilding.option.server.loot.endermitesPerRareShulker": "Endermites per Rare Shulker",
   "text.autoconfig.simplebuilding.option.server.loot.endermitesPerRareShulker.@Tooltip": "Endermites that appear once around a reinforced or enderite shulker when a player (not in creative or spectator mode) first comes within 24 blocks, on free spots with solid ground. They are not persistent (vanilla removes them after 2 minutes). 0 to 8. Server-side. Default: 4.",
   "text.autoconfig.simplebuilding.option.server.blueprint": "Blueprint",

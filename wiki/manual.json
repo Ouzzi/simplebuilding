@@ -3483,26 +3483,28 @@
       ],
       "en": {
         "title": "Rare structure finds",
-        "summary": "In newly generated structures a loot chest is now and then a better chest with double loot, and end city shulkers are sometimes reinforced or made of enderite.",
+        "summary": "In newly generated structures a loot chest is now and then a better chest with double loot, and end city shulkers are sometimes reinforced, netherite or enderite.",
         "details": [
           "Better chests (server.loot.betterChestPercent, default 1 %, at most 5 %): a Reinforced Chest in strongholds, a Netherite Chest in bastions and nether fortresses, an Enderite Chest in end cities and end ships. It keeps the chest's loot table and rolls it twice.",
           "Double chests: the first half rolls; only if the second half then rolls again with the same chance do both become better, otherwise both stay normal chests.",
           "The roll is fixed by world seed and position, so both halves of a double chest always agree. Existing worlds and already generated structures do not change.",
-          "Rare shulkers (server.loot.reinforcedShulkerPercent 2 %, at most 10 %; server.loot.enderiteShulkerPercent 0.5 %, at most 5 %): a reinforced shulker has 1.5x, an enderite shulker 3x the health. Its shell shows the tier with the texture of the matching tier shulker box.",
+          "Rare shulkers (server.loot.reinforcedShulkerPercent 2 %, at most 10 %; server.loot.netheriteShulkerPercent 1 %, at most 5 %; server.loot.enderiteShulkerPercent 0.5 %, at most 5 %): a reinforced shulker has 1.5x, a netherite shulker 2x, an enderite shulker 3x the health. Its shell shows the tier with the texture of the matching tier shulker box.",
           "Besides the vanilla drop they drop 0-2 shells of their own tier.",
-          "Escort: when a player (not in creative or spectator mode) first comes within 24 blocks of a rare shulker, 4 endermites (server.loot.endermitesPerRareShulker, at most 8) appear once on free spots with solid ground within 3 blocks of it. They are not persistent - vanilla removes them after 2 minutes - and the shulker never calls them again."
+          "Escort: when a player (not in creative or spectator mode) first comes within 24 blocks of a rare shulker, 4 endermites (server.loot.endermitesPerRareShulker, at most 8) appear once on free spots with solid ground within 3 blocks of it. They are not persistent - vanilla removes them after 2 minutes - and the shulker never calls them again.",
+          "A living shulker also takes the nugget of its next tier (iron, netherite, enderite nugget; one per step). A shulker upgraded this way drops no tier shells and calls no endermites."
         ]
       },
       "de": {
         "title": "Seltene Strukturfunde",
-        "summary": "In neu erzeugten Strukturen ist eine Loot-Truhe hin und wieder eine bessere Truhe mit doppelter Beute, und Shulker der End-Stadt sind manchmal verstärkt oder aus Enderit.",
+        "summary": "In neu erzeugten Strukturen ist eine Loot-Truhe hin und wieder eine bessere Truhe mit doppelter Beute, und Shulker der End-Stadt sind manchmal verstärkt, aus Netherit oder aus Enderit.",
         "details": [
           "Bessere Truhen (server.loot.betterChestPercent, Standard 1 %, höchstens 5 %): eine Verstärkte Truhe in der Festung, eine Netherit-Truhe in Bastion und Netherfestung, eine Enderit-Truhe in End-Stadt und End-Schiff. Sie behält die Loot-Tabelle der Truhe und würfelt sie zweimal.",
           "Doppeltruhen: die erste Hälfte würfelt; nur wenn danach auch die zweite Hälfte mit derselben Chance trifft, werden beide besser, sonst bleiben beide normale Truhen.",
           "Der Wurf steht durch Weltseed und Position fest, beide Hälften einer Doppeltruhe sind sich also immer einig. Bestehende Welten und schon erzeugte Strukturen ändern sich nicht.",
-          "Seltene Shulker (server.loot.reinforcedShulkerPercent 2 %, höchstens 10 %; server.loot.enderiteShulkerPercent 0,5 %, höchstens 5 %): ein verstärkter Shulker hat 1,5-faches, ein Enderit-Shulker 3-faches Leben. Seine Hülle zeigt die Stufe mit der Textur der passenden Stufen-Shulkerkiste.",
+          "Seltene Shulker (server.loot.reinforcedShulkerPercent 2 %, höchstens 10 %; server.loot.netheriteShulkerPercent 1 %, höchstens 5 %; server.loot.enderiteShulkerPercent 0,5 %, höchstens 5 %): ein verstärkter Shulker hat 1,5-faches, ein Netherit-Shulker 2-faches, ein Enderit-Shulker 3-faches Leben. Seine Hülle zeigt die Stufe mit der Textur der passenden Stufen-Shulkerkiste.",
           "Neben der Vanilla-Beute lassen sie 0–2 Schalen ihrer eigenen Stufe fallen.",
-          "Begleitung: Kommt ein Spieler (nicht im Kreativ- oder Zuschauermodus) erstmals näher als 24 Blöcke an einen seltenen Shulker, erscheinen einmalig 4 Endermiten (server.loot.endermitesPerRareShulker, höchstens 8) auf freien Plätzen mit festem Boden im Umkreis von 3 Blöcken. Sie sind nicht dauerhaft - Vanilla entfernt sie nach 2 Minuten - und der Shulker ruft sie nie wieder."
+          "Begleitung: Kommt ein Spieler (nicht im Kreativ- oder Zuschauermodus) erstmals näher als 24 Blöcke an einen seltenen Shulker, erscheinen einmalig 4 Endermiten (server.loot.endermitesPerRareShulker, höchstens 8) auf freien Plätzen mit festem Boden im Umkreis von 3 Blöcken. Sie sind nicht dauerhaft - Vanilla entfernt sie nach 2 Minuten - und der Shulker ruft sie nie wieder.",
+          "Auch ein lebender Shulker nimmt den Klumpen seiner nächsten Stufe an (Eisen-, Netherit-, Enderitklumpen; einer je Stufe). Ein so aufgewerteter Shulker lässt keine Stufen-Schalen fallen und ruft keine Endermiten."
         ]
       }
     }
@@ -11133,7 +11135,7 @@
     },
     "*_shulker_shell": {
       "en": {
-        "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced and Enderite Shulkers of end cities drop 0-2 of their own shell; every tier also comes from the shell one tier below in the world.",
+        "summary": "Reinforced, Netherite and Enderite Shulker Shells: the shells of the shulker box tiers. Reinforced, Netherite and Enderite Shulkers of end cities drop 0-2 of their own shell; every tier also comes from the shell one tier below in the world.",
         "details": [
           "Upgrading in the world: place the shell on the ground (sneak + right-click), then right-click it with a nugget: Shulker Shell + Iron Nugget -> Reinforced, Reinforced + Netherite Nugget -> Netherite, Netherite + Enderite Nugget -> Enderite. Each click upgrades exactly one shell by one tier and uses exactly one nugget (none in creative mode); in a pile of several parts the last placed matching shell is upgraded.",
           "Needs the same rights as placing a block there. The held nugget tilts slightly while it would upgrade a shell.",
@@ -11141,7 +11143,7 @@
         ]
       },
       "de": {
-        "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; jede Stufe entsteht außerdem in der Welt aus der Schale eine Stufe darunter.",
+        "summary": "Verstärkte, Netherit- und Enderit-Shulkerschale: die Schalen der Shulkerkisten-Stufen. Verstärkte, Netherit- und Enderit-Shulker der End-Stadt lassen 0–2 ihrer eigenen Schale fallen; jede Stufe entsteht außerdem in der Welt aus der Schale eine Stufe darunter.",
         "details": [
           "Aufwerten in der Welt: die Schale auf den Boden legen (Schleichen + Rechtsklick), dann mit einem Klumpen rechtsklicken: Shulkerschale + Eisenklumpen -> Verstärkt, Verstärkt + Netheritklumpen -> Netherit, Netherit + Enderitklumpen -> Enderit. Jeder Klick wertet genau eine Schale um genau eine Stufe auf und verbraucht genau einen Klumpen (im Kreativmodus keinen); liegen mehrere Teile, trifft es die zuletzt gelegte passende Schale.",
           "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Klumpen neigt sich leicht, solange er eine Schale aufwerten würde.",

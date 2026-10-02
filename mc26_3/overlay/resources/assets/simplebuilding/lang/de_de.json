@@ -2248,6 +2248,8 @@
   "text.autoconfig.simplebuilding.option.server.loot.reinforcedShulkerPercent.@Tooltip": "Prozent-Chance, dass ein Shulker einer End-Stadt verstärkt entsteht (1,5-faches Leben, lässt 0–2 Verstärkte Shulkerschalen fallen). 0 bis 10. Gilt für neu erzeugte End-Städte. Serverseitig. Standard: 2,0.",
   "text.autoconfig.simplebuilding.option.server.loot.enderiteShulkerPercent": "Chance Enderit-Shulker (%)",
   "text.autoconfig.simplebuilding.option.server.loot.enderiteShulkerPercent.@Tooltip": "Prozent-Chance, dass ein Shulker einer End-Stadt als Enderit-Shulker entsteht (3-faches Leben, lässt 0–2 Enderit-Shulkerschalen fallen). 0 bis 5. Gilt für neu erzeugte End-Städte. Serverseitig. Standard: 0,5.",
+  "text.autoconfig.simplebuilding.option.server.loot.netheriteShulkerPercent": "Chance Netherit-Shulker (%)",
+  "text.autoconfig.simplebuilding.option.server.loot.netheriteShulkerPercent.@Tooltip": "Prozent-Chance, dass ein Shulker einer End-Stadt als Netherit-Shulker entsteht (2-faches Leben, lässt 0–2 Netherit-Shulkerschalen fallen). 0 bis 5. Gilt für neu erzeugte End-Städte. Serverseitig. Standard: 1,0.",
   "text.autoconfig.simplebuilding.option.server.loot.endermitesPerRareShulker": "Endermiten je seltenem Shulker",
   "text.autoconfig.simplebuilding.option.server.loot.endermitesPerRareShulker.@Tooltip": "Endermiten, die einmalig um einen verstärkten oder Enderit-Shulker erscheinen, sobald ein Spieler (nicht im Kreativ- oder Zuschauermodus) erstmals näher als 24 Blöcke kommt – auf freien Plätzen mit festem Boden. Sie sind nicht dauerhaft (Vanilla entfernt sie nach 2 Minuten). 0 bis 8. Serverseitig. Standard: 4.",
   "text.autoconfig.simplebuilding.option.server.blueprint": "Blaupause",

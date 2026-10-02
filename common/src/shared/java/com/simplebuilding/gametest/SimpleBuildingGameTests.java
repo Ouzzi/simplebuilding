@@ -804,6 +804,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("rare_structure_finds_game_test_rare_shulker_calls_four_endermites_once_when_players_come_near", RareStructureFindsTests::rareShulkerCallsFourEndermitesOnceWhenPlayersComeNear)
                     .build(),
+            GameTestSpec.named("rare_structure_finds_game_test_living_shulkers_climb_the_tiers_but_upgraded_ones_drop_no_shells", RareStructureFindsTests::livingShulkersClimbTheTiersButUpgradedOnesDropNoShells)
+                    .build(),
             GameTestSpec.named("rare_structure_finds_game_test_placed_shells_upgrade_one_tier_per_nugget", RareStructureFindsTests::placedShellsUpgradeOneTierPerNugget)
                     .build(),
             GameTestSpec.named("rare_structure_finds_game_test_shell_recipes_and_config_caps", RareStructureFindsTests::shellRecipesAndConfigCaps)

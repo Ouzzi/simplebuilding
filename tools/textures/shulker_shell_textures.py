@@ -77,11 +77,11 @@ def preview(path, base, shells):
     scale = 16
     cells = [("vanilla", base)] + [(t, shells[t]) for t in TIERS]
     entity = []
-    for t in ("reinforced", "enderite"):
+    for t in TIERS:
         p = os.path.join(HULL_OUT, t + ".png")
         if os.path.exists(p):
             entity.append((t, Image.open(p).convert("RGBA")))
-    width = len(cells) * (16 * scale + 20) + 20
+    width = max(len(cells) * (16 * scale + 20) + 20, 3 * (64 * 6 + 20) + 20)
     height = 16 * scale + 60 + (64 * 6 + 60 if entity else 0)
     sheet = Image.new("RGBA", (max(width, 2 * (64 * 6 + 20) + 20), height), (40, 40, 46, 255))
     draw = ImageDraw.Draw(sheet)
@@ -95,7 +95,7 @@ def preview(path, base, shells):
     x = 20
     for i, (name, img) in enumerate(entity):
         sheet.alpha_composite(img.resize((64 * 6, 64 * 6), Image.NEAREST), (x, y + 30))
-        draw.text((x, y + 6), "DE"[i] + " " + name + " shulker hull (entity texture)", fill=(235, 235, 235, 255))
+        draw.text((x, y + 6), "DEF"[i] + " " + name + " shulker hull (entity texture)", fill=(235, 235, 235, 255))
         x += 64 * 6 + 20
     os.makedirs(os.path.dirname(path), exist_ok=True)
     sheet.save(path)
@@ -109,7 +109,7 @@ def main():
         img.save(os.path.join(OUT, t + "_shulker_shell.png"))
     os.makedirs(HULL_OUT, exist_ok=True)
     vanilla = vanilla_entity()
-    for t in ("reinforced", "enderite"):
+    for t in TIERS:
         hull(t, vanilla).save(os.path.join(HULL_OUT, t + ".png"))
     if "--preview" in sys.argv:
         preview(sys.argv[sys.argv.index("--preview") + 1], base, shells)

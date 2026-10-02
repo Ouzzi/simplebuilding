@@ -30,6 +30,13 @@ Flag: `McVersion.RARE_STRUCTURE_FINDS` (26.3 true, 26.2 false). Alles serverseit
   2 min – sie wären weg, bevor jemand ankommt), sondern einmalig, sobald ein Spieler (nicht Kreativ/Zuschauer) näher
   als 24 Blöcke kommt: Entity-Tag `simplebuilding.endermite_escort` (gespeichert) + Mixin `Shulker#tick`.
   Sichere Plätze: fester Boden, keine Flüssigkeit, keine Kollision, Umkreis 3. Nicht dauerhaft → nicht farmbar.
+- Nachtrag v2 (Besitzer): Netherit-Shulker `server.loot.netheriteShulkerPercent` 1 % (0..5), Bänder ab 0: Enderit 0,5 %,
+  Netherit 1 %, verstärkt 2 %; Leben 2×, Hülle `rare_shulker/netherite.png`, 0–2 Netherit-Schalen, ebenfalls Endermiten.
+  Easter Egg: lebender Shulker + Klumpen der nächsten Stufe (Eisen/Netherit/Enderit – dieselbe Kette wie die Schalen,
+  `ShulkerShells.steps`, eine einzige Upgrade-Regel) via Mixin `Mob#mobInteract`; ein Klumpen je Stufe, nicht im
+  Kreativ. Exploit-Schutz: Tag `simplebuilding.upgraded_shulker` → keine Stufen-Schalen, keine Endermiten (sonst
+  1 Eisenklumpen → ~1 Schale, billiger als Klumpen + Shulkerschale). Kein Guide-Eintrag, nur ein Wiki-Satz.
+  (Die Hülle liegt tatsächlich unter `textures/entity/rare_shulker/`, Stufenkiste + Vanilla-Kopf.)
 - Drops: `Mob#dropCustomDeathLoot` TAIL, nur Shulker mit Stufe: 0–2 Schalen der eigenen Stufe (zusätzlich zur Vanilla-Schale).
 - Hülle: Client-Mixin `ShulkerRenderer` (extractRenderState TAIL → Stufe in den Render-State per Duck-Interface,
   getTextureLocation HEAD → `simplebuilding:textures/entity/shulker/<stufe>.png`). Wiederverwendung der vorhandenen,

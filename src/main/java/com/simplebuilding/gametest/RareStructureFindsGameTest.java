@@ -43,4 +43,9 @@ public final class RareStructureFindsGameTest {
     public void rareShulkerCallsFourEndermitesOnceWhenPlayersComeNear(GameTestHelper helper) {
         RareStructureFindsTests.rareShulkerCallsFourEndermitesOnceWhenPlayersComeNear(helper);
     }
+
+    @GameTest
+    public void livingShulkersClimbTheTiersButUpgradedOnesDropNoShells(GameTestHelper helper) {
+        RareStructureFindsTests.livingShulkersClimbTheTiersButUpgradedOnesDropNoShells(helper);
+    }
 }

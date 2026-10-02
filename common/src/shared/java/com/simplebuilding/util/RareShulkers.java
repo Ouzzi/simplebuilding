@@ -11,14 +11,21 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Shulker;
+import java.util.List;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Seltene Shulker der End-Stadt (Besitzer 2026-10-02): beim Erzeugen einer End-Stadt wird jeder Wachposten-Shulker
- * mit {@code server.loot.reinforcedShulkerPercent} (2 %, hoechstens 10 %) verstaerkt oder mit
+ * mit {@code server.loot.reinforcedShulkerPercent} (2 %, hoechstens 10 %) verstaerkt, mit
+ * {@code server.loot.netheriteShulkerPercent} (1 %, hoechstens 5 %) zum Netherit- oder mit
  * {@code server.loot.enderiteShulkerPercent} (0,5 %, hoechstens 5 %) zum Enderit-Shulker.
+ *
+ * <p><b>Aufwerten lebender Shulker</b> (Besitzer 2026-10-02, Easter Egg): Rechtsklick mit dem Klumpen der naechsten
+ * Stufe - dieselbe Kette wie bei den Schalen ({@link ShulkerShells#steps}): Eisen-, Netherit-, Enderitklumpen. Ein so
+ * aufgewerteter Shulker ({@link #UPGRADED_TAG}) laesst keine Stufen-Schalen fallen und ruft keine Endermiten, sonst
+ * waere Aufwerten + Toeten ein billiger Weg zu Schalen (ein Klumpen statt Klumpen + Shulkerschale).
  *
  * <p><b>Stufe = Lebens-Modifikator.</b> Die Stufe steckt als Modifikator auf der maximalen Gesundheit
  * ({@link #REINFORCED_HEALTH_ID} +50 % = 1,5-fach, {@link #ENDERITE_HEALTH_ID} +200 % = 3-fach). Vanilla speichert ihn
@@ -29,7 +36,12 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class RareShulkers {
     public static final Identifier REINFORCED_HEALTH_ID = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "reinforced_shulker");
+    public static final Identifier NETHERITE_HEALTH_ID = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "netherite_shulker");
     public static final Identifier ENDERITE_HEALTH_ID = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "enderite_shulker");
+    /** Leben Netherit: 2-fach. */
+    public static final double NETHERITE_HEALTH_FACTOR = 2.0;
+    /** Von einem Spieler aufgewertet (Entity-Tag, gespeichert): keine Stufen-Schalen, keine Begleitung. */
+    public static final String UPGRADED_TAG = "simplebuilding.upgraded_shulker";
     /** Leben verstaerkt: 1,5-fach. */
     public static final double REINFORCED_HEALTH_FACTOR = 1.5;
     /** Leben Enderit: 3-fach. */
@@ -40,12 +52,15 @@ public final class RareShulkers {
     private RareShulkers() {
     }
 
-    /** Die Stufe aus dem Wurf {@code r} in [0, 1): erst Enderit, dann verstaerkt, sonst keine. */
-    public static @Nullable ChestTier tierFor(double r, double enderiteChance, double reinforcedChance) {
+    /** Die Stufe aus dem Wurf {@code r} in [0, 1): erst Enderit, dann Netherit, dann verstaerkt, sonst keine. */
+    public static @Nullable ChestTier tierFor(double r, double enderiteChance, double netheriteChance, double reinforcedChance) {
         if (r < enderiteChance) {
             return ChestTier.ENDERITE;
         }
-        return r < enderiteChance + reinforcedChance ? ChestTier.REINFORCED : null;
+        if (r < enderiteChance + netheriteChance) {
+            return ChestTier.NETHERITE;
+        }
+        return r < enderiteChance + netheriteChance + reinforcedChance ? ChestTier.REINFORCED : null;
     }
 
     /** End-Stadt-Wachposten (Mixin auf {@code handleDataMarker}): wuerfelt die Stufe und setzt sie. */
@@ -53,7 +68,8 @@ public final class RareShulkers {
         if (!com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
             return;
         }
-        ChestTier tier = tierFor(random.nextDouble(), ServerTuning.enderiteShulkerChance(), ServerTuning.reinforcedShulkerChance());
+        ChestTier tier = tierFor(random.nextDouble(), ServerTuning.enderiteShulkerChance(), ServerTuning.netheriteShulkerChance(),
+                ServerTuning.reinforcedShulkerChance());
         if (tier != null) {
             apply(shulker, tier);
             if (ServerTuning.endermitesPerRareShulker() > 0) {
@@ -143,18 +159,64 @@ public final class RareShulkers {
         return level.noCollision(net.minecraft.world.entity.EntityTypes.ENDERMITE.getSpawnAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
     }
 
-    /** Macht {@code shulker} zur Stufe {@code tier} (verstaerkt oder Enderit; Netherit gibt es nicht) mit vollem Leben. */
+    /** Macht {@code shulker} zur Stufe {@code tier} (1,5-/2-/3-faches Leben) mit vollem Leben. */
     public static void apply(Shulker shulker, ChestTier tier) {
         AttributeInstance health = shulker.getAttribute(Attributes.MAX_HEALTH);
-        if (health == null || tier == ChestTier.NETHERITE) {
+        if (health == null) {
             return;
         }
         health.removeModifier(REINFORCED_HEALTH_ID);
+        health.removeModifier(NETHERITE_HEALTH_ID);
         health.removeModifier(ENDERITE_HEALTH_ID);
-        boolean enderite = tier == ChestTier.ENDERITE;
-        health.addPermanentModifier(new AttributeModifier(enderite ? ENDERITE_HEALTH_ID : REINFORCED_HEALTH_ID,
-                (enderite ? ENDERITE_HEALTH_FACTOR : REINFORCED_HEALTH_FACTOR) - 1.0, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+        Identifier id = switch (tier) {
+            case REINFORCED -> REINFORCED_HEALTH_ID;
+            case NETHERITE -> NETHERITE_HEALTH_ID;
+            case ENDERITE -> ENDERITE_HEALTH_ID;
+        };
+        double factor = switch (tier) {
+            case REINFORCED -> REINFORCED_HEALTH_FACTOR;
+            case NETHERITE -> NETHERITE_HEALTH_FACTOR;
+            case ENDERITE -> ENDERITE_HEALTH_FACTOR;
+        };
+        health.addPermanentModifier(new AttributeModifier(id, factor - 1.0, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
         shulker.setHealth(shulker.getMaxHealth());
+    }
+
+    /**
+     * Die Stufe, zu der {@code nugget} einen Shulker der Stufe {@code current} (null = normal) aufwertet, oder null:
+     * genau eine Stufe, mit demselben Klumpen wie die Schale dieser Stufe ({@link ShulkerShells#steps}).
+     */
+    public static @Nullable ChestTier upgradeOf(@Nullable ChestTier current, ItemStack nugget) {
+        List<ShulkerShells.Step> steps = ShulkerShells.steps();
+        int index = current == null ? 0 : current.ordinal() + 1;
+        if (index >= steps.size() || nugget.isEmpty() || !nugget.is(steps.get(index).nugget())) {
+            return null;
+        }
+        return ChestTier.values()[index];
+    }
+
+    /**
+     * Rechtsklick auf einen lebenden Shulker (Mixin auf {@code Mob#mobInteract}): wertet ihn um eine Stufe auf,
+     * verbraucht einen Klumpen (nicht im Kreativmodus), Klang und Partikel. False, wenn der Klumpen nicht passt.
+     */
+    public static boolean upgradeLiving(Shulker shulker, net.minecraft.world.entity.player.Player player, net.minecraft.world.InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        ChestTier next = upgradeOf(tierOf(shulker), stack);
+        if (next == null || shulker.isDeadOrDying()) {
+            return false;
+        }
+        if (!(shulker.level() instanceof ServerLevel level)) {
+            return true;
+        }
+        apply(shulker, next);
+        shulker.addTag(UPGRADED_TAG);
+        shulker.removeTag(ESCORT_TAG);
+        stack.consume(1, player);
+        level.playSound(null, shulker.blockPosition(), net.minecraft.sounds.SoundEvents.SMITHING_TABLE_USE,
+                net.minecraft.sounds.SoundSource.HOSTILE, 0.8F, 1.2F);
+        level.sendParticles(net.minecraft.core.particles.ParticleTypes.WAX_ON, shulker.getX(), shulker.getY() + 0.5, shulker.getZ(),
+                12, 0.4, 0.4, 0.4, 0.05);
+        return true;
     }
 
     /** Die Stufe eines Shulkers (auf Server und Client), oder null. */
@@ -165,6 +227,9 @@ public final class RareShulkers {
         }
         if (health.getModifier(ENDERITE_HEALTH_ID) != null) {
             return ChestTier.ENDERITE;
+        }
+        if (health.getModifier(NETHERITE_HEALTH_ID) != null) {
+            return ChestTier.NETHERITE;
         }
         return health.getModifier(REINFORCED_HEALTH_ID) != null ? ChestTier.REINFORCED : null;
     }
@@ -177,9 +242,9 @@ public final class RareShulkers {
         return Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "textures/entity/rare_shulker/" + tier.textureName() + ".png");
     }
 
-    /** Beim Tod (Mixin auf {@code Mob#dropCustomDeathLoot}): 0-2 Schalen der eigenen Stufe. */
+    /** Beim Tod (Mixin auf {@code Mob#dropCustomDeathLoot}): 0-2 Schalen der eigenen Stufe; aufgewertete keine. */
     public static void dropShells(ServerLevel level, Shulker shulker) {
-        ChestTier tier = tierOf(shulker);
+        ChestTier tier = shulker.entityTags().contains(UPGRADED_TAG) ? null : tierOf(shulker);
         Item shell = tier == null ? null : ShulkerShells.shellOf(tier);
         if (shell == null) {
             return;

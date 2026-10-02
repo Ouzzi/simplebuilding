@@ -126,6 +126,7 @@ public class ServerTuningConfig {
         loot.betterChestPercent = clamp(loot.betterChestPercent, 0.0, ServerTuning.MAX_BETTER_CHEST_PERCENT, 1.0);
         loot.reinforcedShulkerPercent = clamp(loot.reinforcedShulkerPercent, 0.0, ServerTuning.MAX_REINFORCED_SHULKER_PERCENT, 2.0);
         loot.enderiteShulkerPercent = clamp(loot.enderiteShulkerPercent, 0.0, ServerTuning.MAX_ENDERITE_SHULKER_PERCENT, 0.5);
+        loot.netheriteShulkerPercent = clamp(loot.netheriteShulkerPercent, 0.0, ServerTuning.MAX_NETHERITE_SHULKER_PERCENT, 1.0);
         loot.endermitesPerRareShulker = clamp(loot.endermitesPerRareShulker, 0, ServerTuning.MAX_ENDERMITES_PER_RARE_SHULKER);
 
         arrows.maxPerMob = clamp(arrows.maxPerMob, 1, ServerTuning.MAX_ARROWS_PER_MOB);
@@ -396,6 +397,9 @@ public class ServerTuningConfig {
         /** Prozent je Shulker einer neu erzeugten End-Stadt, der zum Enderit-Shulker wird. Hoechstens 5. */
         @ConfigEntry.Gui.Tooltip
         public double enderiteShulkerPercent = 0.5;
+        /** Prozent je Shulker einer neu erzeugten End-Stadt, der zum Netherit-Shulker wird. Hoechstens 5. */
+        @ConfigEntry.Gui.Tooltip
+        public double netheriteShulkerPercent = 1.0;
         /**
          * Endermiten je seltenem Shulker, einmalig, sobald ein Spieler in die Naehe kommt (RareShulkers; nicht dauerhaft).
          * Hoechstens 8.
