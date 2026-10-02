@@ -43,6 +43,12 @@ public final class SimplebuildingForge {
         ForgeModRegistries.register(modBus);
         RegisterEvent.getBus(modBus).addListener(ForgeRegistryBootstrap::onRegister);
         FMLCommonSetupEvent.getBus(modBus).addListener(this::commonSetup);
+        if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
+            net.minecraftforge.event.entity.EntityAttributeCreationEvent.getBus(modBus).addListener(event -> {
+                event.put(com.simplebuilding.entity.ModEntities.STRAW_ARMOR_STAND, com.simplebuilding.dummy.TrainingDummy.createAttributes().build());
+                event.put(com.simplebuilding.entity.ModEntities.TRAINING_DUMMY, com.simplebuilding.dummy.TrainingDummy.createAttributes().build());
+            });
+        }
         ForgeNetworkRegistration.register();
         com.simplebuilding.tweaks.forge.TweaksForge.register(modBus);
         com.simplebuilding.forge.gametest.ForgeGameTests.register(modBus);

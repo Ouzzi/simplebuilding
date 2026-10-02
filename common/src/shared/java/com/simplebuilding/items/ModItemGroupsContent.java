@@ -366,6 +366,10 @@ public final class ModItemGroupsContent {
             rows.add(chests + 1, CreativeTabLayout.Row.besides("astral_storage", Items.ENDER_CHEST, ModItems.ASTRAL_VAULT));
             rows.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, CreativeTabLayout.GAP, ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP));
         }
+        if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
+            // Trainingspuppe (2026-10-02): Ruestungsstaender, daraus der Stroh-Ruestungsstaender.
+            rows.add(CreativeTabLayout.Row.of("training_dummy", Items.ARMOR_STAND, ModItems.STRAW_ARMOR_STAND));
+        }
         return rows;
     }
 

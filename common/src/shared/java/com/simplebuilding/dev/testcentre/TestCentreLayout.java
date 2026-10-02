@@ -41,7 +41,7 @@ public final class TestCentreLayout {
 
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
     public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "states", "storage", "food",
-            "materials", "placeables", "arrows", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
+            "materials", "placeables", "arrows", "archery", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
             "mining", "enchants", "sinkdamper", "tweaks", "devices",
             // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
             "tab_tools", "tab_building_blocks", "tab_materials", "tab_functional", "tab_pads", "tab_arrows",
@@ -163,7 +163,8 @@ public final class TestCentreLayout {
                     + frame.cornerB().toShortString() + " " + frame.shape();
             case TcOp.BlueprintFrame frame -> frame.facing() + " " + frame.cornerA().toShortString() + " "
                     + frame.cornerB().toShortString() + " " + frame.table().toShortString();
-            case TcOp.Stand stand -> stand.yaw() + " " + stand.gear().stream().map(TestCentreLayout::stackText).toList();
+            case TcOp.Stand stand -> stand.yaw() + " " + stand.gear().stream().map(TestCentreLayout::stackText).toList()
+                    + (stand.dummy() ? " dummy" : "");
             case TcOp.Sign sign -> sign.facing() + " " + sign.lines().stream().map(TestCentreLayout::componentText).toList();
             case TcOp.Fill fill -> fill.contents().stream().map(TestCentreLayout::stackText).toList().toString();
             case TcOp.Command command -> command.facing() + " " + command.command() + " "
@@ -193,6 +194,8 @@ public final class TestCentreLayout {
         builders.put("placeables", FeatureStations::placeables);
         // Auf Linien ohne Befiederungstisch (26.2) ein leerer Abschnitt ohne Breite.
         builders.put("arrows", TestCentreSections::arrows);
+        // Pfeil-Station mit Trainingspuppen (2026-10-02); auf 26.2 ebenfalls leer.
+        builders.put("archery", FeatureStations::archery);
         builders.put("chisel", TestCentreSections::chisel);
         builders.put("inworld", TestCentreSections::inWorld);
         builders.put("templates", TestCentreSections::templates);
@@ -310,7 +313,12 @@ public final class TestCentreLayout {
                 case TcOp.Frame frame -> items.add(frame.stack().getItem());
                 case TcOp.OctantFrame frame -> items.add(ModItems.OCTANT);
                 case TcOp.BlueprintFrame frame -> items.add(ModItems.BLUEPRINT);
-                case TcOp.Stand stand -> stand.gear().forEach(stack -> items.add(stack.getItem()));
+                case TcOp.Stand stand -> {
+                    stand.gear().forEach(stack -> items.add(stack.getItem()));
+                    if (stand.dummy()) {
+                        items.add(ModItems.STRAW_ARMOR_STAND);
+                    }
+                }
                 case TcOp.Fill fill -> fill.contents().forEach(stack -> items.add(stack.getItem()));
                 case TcOp.Sign sign -> {
                 }

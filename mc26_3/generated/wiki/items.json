@@ -1188,6 +1188,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:straw_armor_stand",
+      "maxStackSize": 16
+    },
+    {
       "id": "simplebuilding:stray_skull"
     },
     {

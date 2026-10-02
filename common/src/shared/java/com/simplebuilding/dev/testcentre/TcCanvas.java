@@ -132,7 +132,16 @@ public final class TcCanvas {
         for (ItemStack stack : gear) {
             copy.add(stack.copy());
         }
-        add(new TcOp.Stand(new BlockPos(x, y, z), yaw, copy, name));
+        add(new TcOp.Stand(new BlockPos(x, y, z), yaw, copy, name, false));
+    }
+
+    /** Trainingspuppe (nur mit {@code McVersion.TRAINING_DUMMY}); {@code gear} wie bei {@link #stand}. */
+    public void dummy(int x, int y, int z, float yaw, List<ItemStack> gear, Component name) {
+        List<ItemStack> copy = new ArrayList<>();
+        for (ItemStack stack : gear) {
+            copy.add(stack.copy());
+        }
+        add(new TcOp.Stand(new BlockPos(x, y, z), yaw, copy, name, true));
     }
 
     public void contents(int x, int y, int z, List<ItemStack> stacks) {

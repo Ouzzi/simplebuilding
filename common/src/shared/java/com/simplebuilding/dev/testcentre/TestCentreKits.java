@@ -70,7 +70,12 @@ public final class TestCentreKits {
                 case TcOp.Frame frame -> shown.add(frame.stack());
                 case TcOp.OctantFrame frame -> shown.add(new ItemStack(ModItems.OCTANT));
                 case TcOp.BlueprintFrame frame -> shown.add(new ItemStack(ModItems.BLUEPRINT));
-                case TcOp.Stand stand -> shown.addAll(stand.gear());
+                case TcOp.Stand stand -> {
+                    shown.addAll(stand.gear());
+                    if (stand.dummy()) {
+                        shown.add(new ItemStack(ModItems.STRAW_ARMOR_STAND));
+                    }
+                }
                 case TcOp.Fill fill -> shown.addAll(fill.contents());
                 case TcOp.Place place -> {
                     Block block = place.state().getBlock();
@@ -147,6 +152,10 @@ public final class TestCentreKits {
         ItemStack off = ItemStack.EMPTY;
         switch (section) {
             case "armour" -> main = top(ctx, "swords");
+            case "archery" -> {
+                main = new ItemStack(Items.BOW);
+                off = new ItemStack(Items.ARROW, 64);
+            }
             case "tools" -> {
                 main = ctx.maxEnchanted(top(ctx, "pickaxes"));
                 off = ctx.maxEnchanted(top(ctx, "chisels"));

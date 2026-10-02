@@ -119,6 +119,15 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD))
                         .save(output);
 
+                // Trainingspuppe (2026-10-02): Ruestungsstaender + Strohballen = Stroh-Ruestungsstaender.
+                if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
+                    shapeless(RecipeCategory.DECORATIONS, ModItems.STRAW_ARMOR_STAND)
+                            .requires(Items.ARMOR_STAND)
+                            .requires(Items.HAY_BLOCK)
+                            .unlockedBy(getHasName(Items.ARMOR_STAND), has(Items.ARMOR_STAND))
+                            .save(output);
+                }
+
 
                 // =================================================================
                 // CHISELS (Stick + Material + Nugget/Shard) - DIAGONAL
