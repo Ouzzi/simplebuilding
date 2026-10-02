@@ -10,18 +10,19 @@ ROOT = Path(__file__).resolve().parents[2]
 class RecipeProseTests(unittest.TestCase):
     def test_quoted_gadget_recipes_match_generated_patterns(self):
         for item in ('echo_sounder', 'amethyst_lens'):
-            candidates = [ROOT / directory / 'data/simplebuilding/recipe' / (item + '.json')
-                          for directory in ('mc26_3/overlay/resources', 'mc26_3/generated',
-                                            'src/main/generated')]
-            source = next(path for path in candidates if path.exists())
-            recipe = json.loads(source.read_text(encoding='utf-8'))
-            pattern = ' / '.join(recipe['pattern'])
-            for directory in ('src/main/resources', 'mc26_3/overlay/resources'):
+            # each language location quotes the recipe of its own line: src/main = 26.2, the overlay = 26.3
+            lines = {'src/main/resources': ('src/main/generated',),
+                     'mc26_3/overlay/resources': ('mc26_3/overlay/resources', 'mc26_3/generated', 'src/main/generated')}
+            for directory, recipe_dirs in lines.items():
+                candidates = [ROOT / d / 'data/simplebuilding/recipe' / (item + '.json') for d in recipe_dirs]
+                source = next(path for path in candidates if path.exists())
+                recipe = json.loads(source.read_text(encoding='utf-8'))
+                pattern = ' / '.join(recipe['pattern'])
                 for language in ('en_us', 'de_de'):
-                    with self.subTest(item=item, directory=directory, language=language):
-                        lang = json.loads((ROOT / directory / 'assets/simplebuilding/lang'
-                                           / (language + '.json')).read_text(encoding='utf-8'))
-                        self.assertIn(pattern, lang['jei.simplebuilding.info.' + item])
+                        with self.subTest(item=item, directory=directory, language=language):
+                            lang = json.loads((ROOT / directory / 'assets/simplebuilding/lang'
+                                               / (language + '.json')).read_text(encoding='utf-8'))
+                            self.assertIn(pattern, lang['jei.simplebuilding.info.' + item])
 
     def test_module_manual_embedded_recipes_match_source_files(self):
         for path in (ROOT / 'modules').glob('*/wiki/manual.json'):
