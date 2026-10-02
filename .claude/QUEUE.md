@@ -195,3 +195,11 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   - Nur 1×2×2 platzierbar, zwischen zwei festen Blöcken mit 2–3 Blöcken Abstand (beliebige Blöcke, auch Stäbe).
 - [ ] Tooltips aufräumen: zu lange Zeilen kürzen und Zeilenumbrüche einbauen.
 - [ ] Spezial-Shulker (verstärkt/Enderit): in derselben Struktur je Spezial-Shulker 4 Endermiten spawnen.
+
+## Besitzer 2026-10-02 (Nachtrag 3)
+
+- [ ] Resonanzstab und Rotator: Idle-Animation und Benutzungs-Animation.
+- [ ] Erzdetektor: Idle-Animation, Nadel pulsiert, solange nichts gewählt ist. Ist etwas gewählt, läuft die Auswahl-Animation auf der Nadel (siehe Nachtrag 2).
+- [ ] Attractor: Idle-Animation, das Item selbst bleibt unverändert, nur kurz angedeutete Magnetfeldlinien.
+- [ ] Hufeisen-Vorlage (simpleriding): Textur und Name nach derselben Konvention wie die Basic-Upgrade-Vorlage. Der Pfeil wird zu einem Hufeisen; innen Eisen-, außen Kupferfarben.
+- [ ] Echolot: Haltbarkeit wieder wie früher – eine einmalige Nutzung verbraucht die 1500 Haltbarkeit wie vorher. Aktuell wird Haltbarkeit seltsam verbraucht und angezeigt → Ist-Verhalten gegen die frühere Version (git log) prüfen und zurückführen.
