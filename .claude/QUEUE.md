@@ -128,4 +128,4 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Neue Items: Verstärkte, Netherit- und Enderit-Shulkerschale.
 - [ ] Schalen in der Welt aufwerten (wie die anderen In-World-Transformationen): Schale auf den Boden legen und mit einem Nugget rechtsklicken. Eisen/verstärkt → verstärkte Schale, Netherit → Netherit-Schale, Enderit → Enderit-Schale; genau ein Nugget pro Schale.
 - [ ] Rezept der Shulkerkisten-Stufen: Kupfertruhe + eine aufgewertete Schale + eine normale Shulkerschale.
-- [ ] Offen: Wird Netherit über den Nugget oder per Schmieden gewonnen? Ersetzt das Rezept die bisherigen Stufenrezepte oder kommt es dazu? Vorher die bestehenden Rezepte der verstärkten Shulkerkisten prüfen.
+- [x] Geklärt (Besitzer 2026-10-02): Auch die Netherit-Schale entsteht in der Welt mit einem Netherit-Nugget. Das neue Rezept kommt zu den bestehenden Stufenrezepten dazu.
