@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:iron_nugget",
+  "base": "minecraft:diamond",
+  "result": {
+    "id": "simpleriding:diamond_horseshoe"
+  },
+  "template": "simpleriding:horseshoe_smithing_template"
+}

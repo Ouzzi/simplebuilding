@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:iron_nugget",
+  "base": "minecraft:gold_ingot",
+  "result": {
+    "id": "simpleriding:golden_horseshoe"
+  },
+  "template": "simpleriding:horseshoe_smithing_template"
+}

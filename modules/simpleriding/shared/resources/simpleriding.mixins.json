@@ -11,7 +11,21 @@
     "RidingNautilusMixin",
     "RidingJumpInputMixin",
     "NautilusDashAccess",
-    "RidingCamelMixin"
+    "RidingCamelMixin",
+    "HorseshoeHorseMixin",
+    "HorseshoeMenuMixin",
+    "HorseshoeQuickMoveMixin",
+    "HorseshoeXpMixin",
+    "HorseshoeBrushMixin"
+  ],
+  "client": [
+    "client.HorseshoeRenderStateMixin",
+    "client.HorseshoeExtractMixin",
+    "client.LivingRendererAccess",
+    "client.HorseshoeLayerMixin",
+    "client.HorseshoeDonkeyLayerMixin",
+    "client.HorseshoeScreenMixin",
+    "client.HorseshoeClickMixin"
   ],
   "injectors": {
     "defaultRequire": 1

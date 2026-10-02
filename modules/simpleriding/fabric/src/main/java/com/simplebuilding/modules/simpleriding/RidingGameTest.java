@@ -27,4 +27,15 @@ public final class RidingGameTest {
  @GameTest(maxTicks=100) public void allMountSpeedCaps(GameTestHelper h){com.simpleriding.test.RidingTests.allMountSpeedCaps(h);}
  @GameTest(maxTicks=100) public void camelDashBounds(GameTestHelper h){com.simpleriding.test.RidingTests.camelDashBounds(h);}
  @GameTest(maxTicks=100) public void groundFlags(GameTestHelper h){com.simpleriding.test.RidingTests.groundFlags(h);}
+ @GameTest(maxTicks=100) public void horseshoeItems(GameTestHelper h){com.simpleriding.test.HorseshoeTests.items(h);}
+ @GameTest(maxTicks=100) public void horseshoeRecipes(GameTestHelper h){com.simpleriding.test.HorseshoeTests.recipes(h);}
+ @GameTest(maxTicks=100) public void horseshoePoints(GameTestHelper h){com.simpleriding.test.HorseshoeTests.points(h);}
+ @GameTest(maxTicks=100) public void horseshoeEffects(GameTestHelper h){com.simpleriding.test.HorseshoeTests.effects(h);}
+ @GameTest(maxTicks=100) public void horseshoeHandling(GameTestHelper h){com.simpleriding.test.HorseshoeTests.handling(h);}
+ @GameTest(maxTicks=100) public void horseshoeMenu(GameTestHelper h){com.simpleriding.test.HorseshoeTests.menu(h);}
+ @GameTest(maxTicks=100) public void horseshoeSaveAndDrop(GameTestHelper h){com.simpleriding.test.HorseshoeTests.saveAndDrop(h);}
+ @GameTest(maxTicks=100) public void horseshoeWear(GameTestHelper h){com.simpleriding.test.HorseshoeTests.wear(h);}
+ @GameTest(maxTicks=100) public void horseshoeMending(GameTestHelper h){com.simpleriding.test.HorseshoeTests.mending(h);}
+ @GameTest(maxTicks=100) public void horseshoeFall(GameTestHelper h){com.simpleriding.test.HorseshoeTests.fall(h);}
+ @GameTest(maxTicks=100) public void horseshoeLoot(GameTestHelper h){com.simpleriding.test.HorseshoeTests.loot(h);}
 }

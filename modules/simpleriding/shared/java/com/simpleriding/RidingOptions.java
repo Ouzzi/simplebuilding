@@ -41,6 +41,13 @@ public final class RidingOptions {
         new Option("enchantments.swiftRide.nautilusSpeedMultiplier", Kind.FLOAT, 0.2f, 0, 1),
         new Option("enchantments.horseJump.nautilusDashMultiplier", Kind.FLOAT, 0.2f, 0, 0.5),
         new Option("enchantments.horseJump.featherFallingReduction", Kind.FLOAT, 0.12f, 0, 0.12),
-        new Option("enchantments.horseJump.armorEnchantability", Kind.INTEGER, 15, 0, 15)
+        new Option("enchantments.horseJump.armorEnchantability", Kind.INTEGER, 15, 0, 15),
+        new Option("horseshoes.enableHorseshoes", Kind.BOOLEAN, true, 0, 0),
+        new Option("horseshoes.terrainBonus", Kind.FLOAT, 0.5f, 0, 1),
+        new Option("horseshoes.handlingBonus", Kind.FLOAT, 0.3f, 0, 0.5),
+        new Option("horseshoes.fullSetSpeedBonus", Kind.FLOAT, 0.05f, 0, 0.1),
+        new Option("horseshoes.fullSetJumpBonus", Kind.FLOAT, 0.05f, 0, 0.1),
+        new Option("horseshoes.fullSetFallDamageIncrease", Kind.FLOAT, 0.1f, 0, 0.25),
+        new Option("horseshoes.blocksPerDurability", Kind.INTEGER, 40, 8, 400)
     );
 }

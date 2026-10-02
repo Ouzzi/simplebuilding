@@ -154,6 +154,68 @@
       "tooltipKey": "text.autoconfig.simpleriding.option.enchantments.horseJump.armorEnchantability.@Tooltip",
       "maximum": 15,
       "minimum": 0
+    },
+    {
+      "path": "horseshoes.enableHorseshoes",
+      "default": true,
+      "tab": "horseshoes",
+      "nameKey": "text.autoconfig.simpleriding.option.horseshoes.enableHorseshoes",
+      "tooltipKey": "text.autoconfig.simpleriding.option.horseshoes.enableHorseshoes.@Tooltip",
+      "maximum": null
+    },
+    {
+      "path": "horseshoes.terrainBonus",
+      "default": 0.5,
+      "tab": "horseshoes",
+      "nameKey": "text.autoconfig.simpleriding.option.horseshoes.terrainBonus",
+      "tooltipKey": "text.autoconfig.simpleriding.option.horseshoes.terrainBonus.@Tooltip",
+      "maximum": 1,
+      "minimum": 0
+    },
+    {
+      "path": "horseshoes.handlingBonus",
+      "default": 0.3,
+      "tab": "horseshoes",
+      "nameKey": "text.autoconfig.simpleriding.option.horseshoes.handlingBonus",
+      "tooltipKey": "text.autoconfig.simpleriding.option.horseshoes.handlingBonus.@Tooltip",
+      "maximum": 0.5,
+      "minimum": 0
+    },
+    {
+      "path": "horseshoes.fullSetSpeedBonus",
+      "default": 0.05,
+      "tab": "horseshoes",
+      "nameKey": "text.autoconfig.simpleriding.option.horseshoes.fullSetSpeedBonus",
+      "tooltipKey": "text.autoconfig.simpleriding.option.horseshoes.fullSetSpeedBonus.@Tooltip",
+      "maximum": 0.1,
+      "minimum": 0
+    },
+    {
+      "path": "horseshoes.fullSetJumpBonus",
+      "default": 0.05,
+      "tab": "horseshoes",
+      "nameKey": "text.autoconfig.simpleriding.option.horseshoes.fullSetJumpBonus",
+      "tooltipKey": "text.autoconfig.simpleriding.option.horseshoes.fullSetJumpBonus.@Tooltip",
+      "maximum": 0.1,
+      "minimum": 0
+    },
+    {
+      "path": "horseshoes.fullSetFallDamageIncrease",
+      "default": 0.1,
+      "tab": "horseshoes",
+      "nameKey": "text.autoconfig.simpleriding.option.horseshoes.fullSetFallDamageIncrease",
+      "tooltipKey": "text.autoconfig.simpleriding.option.horseshoes.fullSetFallDamageIncrease.@Tooltip",
+      "maximum": 0.25,
+      "minimum": 0
+    },
+    {
+      "path": "horseshoes.blocksPerDurability",
+      "default": 40,
+      "tab": "horseshoes",
+      "nameKey": "text.autoconfig.simpleriding.option.horseshoes.blocksPerDurability",
+      "tooltipKey": "text.autoconfig.simpleriding.option.horseshoes.blocksPerDurability.@Tooltip",
+      "maximum": 400,
+      "minimum": 8
     }
   ]
 }

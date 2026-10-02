@@ -28,7 +28,13 @@ public final class RidingEffects {
   // scaling keeps the resulting flight amplification within the server's total cap.
   apply(e,Attributes.FLYING_SPEED,SPEED,ghast?Math.sqrt(1+boost)-1:boost);
   int jump=ridden&&Riding.CONFIG.safety.enableLeaping&&e instanceof AbstractHorse&&e.getItemBySlot(EquipmentSlot.BODY).is(Riding.ARMOR)?level(e,e.getItemBySlot(EquipmentSlot.BODY),Riding.LEAPING):0;
-  apply(e,Attributes.JUMP_STRENGTH,JUMP,Math.min(RidingConfig.bounded(Riding.CONFIG.safety.maximumJumpBonus,0,1.5f),jump*RidingConfig.bounded(Riding.CONFIG.enchantments.horseJump.jumpStrengthMultiplier,0,RidingConfig.MAX_JUMP_PER_LEVEL)));
+  double jumpBoost=Math.min(RidingConfig.bounded(Riding.CONFIG.safety.maximumJumpBonus,0,1.5f),jump*RidingConfig.bounded(Riding.CONFIG.enchantments.horseJump.jumpStrengthMultiplier,0,RidingConfig.MAX_JUMP_PER_LEVEL));
+  apply(e,Attributes.JUMP_STRENGTH,JUMP,jumpBoost);
+  if(e instanceof AbstractHorse horse){
+   // Horseshoes share the total caps with Tailwind/Leaping (their room is what the enchantments leave).
+   Horseshoes.tick(horse,ridden&&Horseshoes.canWear(horse));
+   Horseshoes.effects(e,ridden,Math.max(0,boost),Math.max(0,jumpBoost));
+  }
  }
  public static float dashScale(LivingEntity e,float claimed){
   float scale=RidingConfig.bounded(claimed,0,1);
@@ -41,8 +47,9 @@ public final class RidingEffects {
   double factor=Math.min(1+bonus,(1+RidingConfig.bounded(Riding.CONFIG.safety.maximumSpeedBonus,0,3))/(1+tailwind));
   return (float)(scale*Math.max(1,factor));
  }
- private static void apply(LivingEntity e,Holder<Attribute> key,Identifier id,double boost){
-  var a=e.getAttribute(key); if(a==null)return; if(boost<=0){a.removeModifier(id);return;}
-  var old=a.getModifier(id); if(old==null||Math.abs(old.amount()-boost)>1e-6)a.addOrUpdateTransientModifier(new AttributeModifier(id,boost,AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+ private static void apply(LivingEntity e,Holder<Attribute> key,Identifier id,double boost){apply(e,key,id,boost,AttributeModifier.Operation.ADD_MULTIPLIED_BASE);}
+ static void apply(LivingEntity e,Holder<Attribute> key,Identifier id,double boost,AttributeModifier.Operation operation){
+  var a=e.getAttribute(key); if(a==null)return; if(!(boost>0)){a.removeModifier(id);return;}
+  var old=a.getModifier(id); if(old==null||Math.abs(old.amount()-boost)>1e-6)a.addOrUpdateTransientModifier(new AttributeModifier(id,boost,operation));
  }
 }
