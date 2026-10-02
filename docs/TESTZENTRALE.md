@@ -1,6 +1,6 @@
 # Testzentrale
 
-Stand 2026-09-28. Die Testzentrale ist eine Welt, in der alles aus SimpleBuilding nebeneinander steht:
+Stand 2026-10-02. Die Testzentrale ist eine Welt, in der alles aus SimpleBuilding nebeneinander steht:
 Rüstungsständer, Rahmenwände, Meißel-Türme, laufende Maschinen, das Detektor-Feld und eine
 Steuerwand mit Befehlsblöcken. Sie wird **aus Code** gebaut (`/sbtestcentre`), ist also auf jeder
 Linie (1.21.11, 26.2, 26.3) und jedem Loader (Fabric, NeoForge, Forge) gleich und wächst mit neuen
@@ -60,7 +60,7 @@ Schild "Items holen" darüber; die Station rückt dafür zwei Spalten nach recht
 - **Haupt- und Nebenhand** für die Interaktionstests der Station, z. B. `inworld`: höchster
   Vorschlaghammer + Aufwertungs-Nugget, `templates`: höchster Vorschlaghammer + Glowstonestaub
   (Leuchttinte im Inventar), `chisel`: höchster Meißel + derselbe mit Constructor's Touch,
-  `planning`: höchster Baustab + Oktant (der Dach-Modus braucht ihn in der Nebenhand), `tools`:
+  `planning`: höchster Baustab + Oktant (der Dach-Modus braucht ihn in der Nebenhand), `states`: leerer Resonanzstab + Amethystsplitter (am Amboss laden), `placeables`: Steinkiesel, `sinkdamper`: Leitern, `tools`:
   höchste Spitzhacke + höchster Meißel (max. verzaubert), `ores`: Detektor, `mining`: Werkzeug mit
   Vielseitigkeit, `blocks`: höchster Baustab, `lightroom`: Baulichter, `tweaks`: Windkugeln,
   `armour`: höchstes Schwert. Ohne Festlegung nimmt die Haupthand das erste gezeigte Item.
@@ -77,18 +77,20 @@ es auch im Kit. Stationen, die nichts zeigen (heute `devices`, `gallery`, `unsor
 Die Abschnitte liegen in Reihen (höchstens 140 Blöcke breit) in +x; vor jeder Reihe ein Gang von
 7 Blöcken in -z. Der Ursprung ist die Standhöhe am Anfang des ersten Gangs. Stand 2026-09-28 (26.2)
 147 × 129 Blöcke, 19 Abschnitte, 704 Rahmen, 29 Rüstungsständer, 46 Befehlsblöcke (Steuerwand und
-Ausgabe-Knöpfe); die Steuerwand allein ist 91 Blöcke breit. Die genaue Lage
+Ausgabe-Knöpfe); die Steuerwand allein ist 91 Blöcke breit. Stand 2026-10-02 (26.3): 145 × 194 Blöcke, 31 Abschnitte, rund 1600 Rahmen, Steuerwand 130 Blöcke breit. Die genaue Lage
 steht im Log des Bau-Tests (`test centre ... sections:`), weil sie aus den Inhalten folgt.
 
 | Id | Inhalt | Quelle der Inhalte |
 |---|---|---|
-| `controls` | Befehlsblöcke mit Knopf: alles/je Abschnitt neu bauen, Kit, Tag/Nacht, Wetter, Kreativ/Überleben, Zombie/Skelett/Creeper im Dunkelraum, Mobs und Drops entfernen. Jeder Befehlsblock steht auf Glas, links Luft, rechts eine Glassäule (Abstand 3), kein Stein verbindet zwei Blöcke: ein Knopf versorgt seinen Träger stark, und ein stark versorgter Leiter löst jeden Befehlsblock daneben mit aus (bis 2026-09-25 feuerte jeder Knopf zwei Befehle). Geprüft statisch und im Lauf, siehe unten | Abschnittsliste, Anker `mob_spawn` |
+| `controls` | Befehlsblöcke mit Knopf: alles/je Abschnitt neu bauen, Kit, Tag/Nacht, Wetter, Gewitter (Eisenstab), Kreativ/Überleben, Zombie/Skelett/Creeper im Dunkelraum, Mobs und Drops entfernen. Jeder Befehlsblock steht auf Glas, links Luft, rechts eine Glassäule (Abstand 3), kein Stein verbindet zwei Blöcke: ein Knopf versorgt seinen Träger stark, und ein stark versorgter Leiter löst jeden Befehlsblock daneben mit aus (bis 2026-09-25 feuerte jeder Knopf zwei Befehle). Geprüft statisch und im Lauf, siehe unten | Abschnittsliste, Anker `mob_spawn` |
 | `armour` | Ständer: jede Rüstungsstufe (mit Schwert), Enderit mit leuchtendem / strahlendem / beidem Besatz, je Besatzmuster ein Enderit-Satz; Wand: alle Schmiedevorlagen, alle Besatzmaterialien, je Muster eine Spalte mit vier Teilen | Tab-Zeilen helmets…boots/swords, Register `trim_pattern`/`trim_material`, alle `SmithingTemplateItem`, alle Items mit `provides_trim_material` |
 | `books` | jede Verzauberung (Mod, dann Vanilla, auch Flüche) als Buch auf Höchststufe mit Schild | Register `enchantment` |
 | `tools` | je Familie eine Zeile unverzaubert und eine max. verzaubert (Meißel, Baustäbe, Vorschlaghämmer, Spitzhacken, Schaufeln, Hacken, Äxte, Schwerter, Speere, Geräte), alte Spachtel; daneben alle Varianten des Entwickler-Tabs (jede exklusive Auswahl) | `ModItemGroupsContent.toolsRows`, `DevEnchantedTab` |
-| `storage` | Bündel, Köcher, Rucksäcke: unverzaubert, alle Verzauberungs-Varianten, gefärbt (rot/limette/blau/gelb); Rucksäcke zusätzlich als Block; daneben abgestellte Bündel (jede Stufe, ein gefärbtes, ein blaues Vanilla-Bündel, je mit vier Items: schleichend hinsehen zeigt das oberste, Rechtsklick nimmt es) | Tab-Zeilen bundles/quivers/backpacks, `PlacedBundles` |
+| `states` | **Kaputt neben heil** (B12): vorn Amboss mit Truhe voller Lade- und Reparaturmaterial (Amethystsplitter, Enderperlen, Echosplitter, Erfahrungsfläschchen, Barren, Weisheitskugeln), rissiger neben heilem Diamantblock, Hochofen mit rissigen Diamanten (→ Diamant), abgenutzter neben neuem Enderit-Ständer, drehbare Blöcke für den Rotator; Wand: Resonanzstab und Rotator leer/halb/voll mit Lade-Material, Echolot in allen drei Riss-Stufen und repariert, Mending-Zeile (rissiges Echolot, abgenutzte Spitzhacke, EP), rissiger Diamant → Kiesel → Diamant; Haltbarkeits-Tafeln: jedes abnutzbare Werkzeug, Gerät und Rüstungsteil fast verbraucht direkt neben dem neuen | `FeatureStations.states`, Tab-Zeilen `DURABILITY_ROWS` |
+| `storage` | Bündel, Köcher, Rucksäcke: unverzaubert, alle Verzauberungs-Varianten, gefärbt (rot/limette/blau/gelb); Rucksäcke zusätzlich als Block; daneben abgestellte Bündel (jede Stufe, ein gefärbtes, ein blaues Vanilla-Bündel, je mit vier Items: schleichend hinsehen zeigt das oberste, Rechtsklick nimmt es) | Tab-Zeilen bundles_and_quivers/backpacks (bis 2026-10-02 las die Station die alten Zeilennamen bundles/quivers und zeigte Bündel und Köcher gar nicht), `PlacedBundles` |
 | `food` | alle Mod-Lebensmittel plus Apfel, Goldapfel, verzauberter Goldapfel, Karotte, goldene Karotte zum Vergleich | Items mit `food` |
 | `materials` | der ganze Tab SimpleMaterials mit Namensschildern | Tab MATERIALS |
+| `placeables` | **Ablegen** (26.3): je Kleinteil aus dem Tag `placeable_small` (Steinkiesel, Feuersteinsplitter, Diamantkiesel, Nuggets, Barren, Vanilla-Teile) Rahmen, Schild und das abgelegte Teil auf dem Boden; die drei Eier aufgestellt; Eisenstab frei unter dem Himmel (nichts darüber; Knopf "Gewitter" auf der Steuerwand) | `FeatureStations.smallParts`, `PlacedEggBlock.Egg` |
 | `arrows` | Befiederungstisch (B14, nur 26.3): ein Tisch zum Ausprobieren, dahinter alle 72 Pfeile, eine Zeile je Spitze | Tab ARROWS |
 | `chisel` | je Meißel-Kette ein Turm (Block für Block) mit dem Startblock davor zum Meißeln; Rahmen mit dem nötigen Meißel (mit Constructor's Touch, wenn nur die Touch-Tabelle die Kette kennt), Schild mit Stufe, Länge, "Kreislauf" | Tabellen des höchsten Meißels (`getForwardMap`/`getTouchForwardMap`) |
 | `inworld` | je In-World-Umwandlung eine Station: Umformen mit dem Vorschlaghammer (Block → Treppe → Stufe, Mod-Blöcke + Stein/Eichenbretter), Diamantblock zerschlagen, Maschinen-Aufwertung (Maschine, Nugget, schwächster passender Hammer), Schere an Wolle, abgelegte Besatzvorlage (26.3), Oktant im Kessel waschen | `InWorldTransformations`, `SledgehammerUpgrades`, `SledgehammerEntityInteraction`, `OctantCauldronWash` |
@@ -99,8 +101,11 @@ steht im Log des Bau-Tests (`test centre ... sections:`), weil sie aus den Inhal
 | `ores` | Detektor-Feld: je Wirtsgestein (Stein, Tiefenschiefer, Netherrack, Endstein) ein Block, darin jedes Erz einzeln in 3/7/11/15 Blöcken Abstand; Schild mit Klasse, Abstand, Reichweite; Detektor im Rahmen | alle Blöcke `*_ore` und Antiker Schutt, `OreDetectorItem.classify` |
 | `planning` | alle Oktanten, Zeile Bauplanung; je Baustab-Modus (Linie, Brücke, Bedecken, Farbpalette, Oktant füllen, Dach) eine Fläche mit passendem Stab; Brücke mit Graben (auf flachem Boden gibt es nichts zu überbrücken), Dach mit Prisma-Oktant im Rahmen und Truhe voll Eichentreppen/-stufen; Beispielhaus mit Kartentisch, Oktant mit gesetzter Auswahl und daraus beim Bau gescannter Blaupause | Tab-Zeilen, `BlueprintScanner` |
 | `mining` | gemischte Wand (Vielseitigkeit), Eisen- und Kohleader (Aderabbau), lange Steinwand (Tunnelabbau), je mit passend verzaubertem Werkzeug | Verzauberungen, Tab-Zeilen |
+| `enchants` | je Mod-Verzauberung, die keine andere Station vorführt (Break Through, Deep Pockets, Air Jump, Drawer, Fast Chiseling, Funnel, Kinetic Protection, Master Builder, Override, Radius, Range), ein Pfosten mit dem höchsten passenden Gegenstand, damit verzaubert, und Hinweis; davor eine Prüfwand (Stein/Erde/Bretter, zwei Lagen) oder für Bündel/Köcher eine Truhe mit Nachschub. Neue Mod-Verzauberungen erscheinen von selbst | Register `enchantment` minus `FeatureStations.SHOWN_ELSEWHERE` |
+| `sinkdamper` | Fallturm für den Sinkdämpfer der Enderit-Rüstung (P8): Säule mit Leiter, Plattform in 12 Blöcken Höhe, Ständer mit vollem Enderit-Satz (das Kit legt ihn ins Inventar) - anziehen, hochklettern, im Fall schleichen; Sprinten bremst | `FeatureStations.sinkDamper` |
 | `tweaks` | die aus Simple Tweaks uebernommenen Pads und Platten: alle Tweaks-Tab-Zeilen als Rahmen, davor Spawn-Teleporter I (50 s) und III (Enderit, 5 s), Elytra-Pad, Flypad I mit eigenem Flugfeld (4 × 4, 6 hoch, auf dem Boden mit Purpur markiert; kein anderes Pad liegt darin - bis 2026-09-28 stand es dicht neben dem Launchpad, wer das testen wollte, flog), Launchpad mit Truhe Windkugeln, Diamant-/oxidierte Kupferplatte an Lampen, Netherit-/Enderit-Platte mit Fass (Diamant) darunter, Leitstein mit Truhe (Echolot; Enderperlen braucht es seit 2026-09-27 nicht mehr), Trank-Pad I mit Truhe Wurf-/Verweiltraenke und Wasserflasche zum Leerwischen (und Lohen- und Endermankopf); Chunk-Loader nur im Rahmen (gesetzt wuerde er Chunks erzwingen) | `TweaksStation`, `TweaksItems.functionalRows` |
 | `devices` | **Grundversorgung für neue Tab-Zeilen**: jede Zeile aus SimpleTools oder Maschinen & Lager, die kein Abschnitt eigens liest, erscheint hier als Rahmenzeile, Blöcke daraus zusätzlich auf dem Boden | Tab-Zeilen minus `KNOWN_TOOL_ROWS`/`KNOWN_FUNCTIONAL_ROWS` |
+| `tab_tools`, `tab_building_blocks`, `tab_materials`, `tab_functional`, `tab_pads`, `tab_arrows` | **Item-orientierter Rundgang** (B12): je Kreativ-Tab eine Wand mit dem ganzen Tab in Anzeigereihenfolge (spaltenweise, sechs Reihen), mit Ausgabe-Knopf. Zählt **nicht** für die Abdeckung: jedes Item braucht trotzdem eine Station zum Ausprobieren (testorientierter Rundgang = alle anderen Abschnitte) | `ModItemGroupsContent.populate` je Tab, `TabBrowser` |
 | `gallery` | jeder Mod-Block, den kein anderer Abschnitt setzt (etwa nur im Rahmen zeigt), einmal auf dem Boden mit Schild - neue Blöcke von selbst. Ausgenommen `TestCentreLayout.frameOnly`: Pads mit Wirkung auf die Umgebung (Elytra-Pad V gäbe auf 128 × 128 Blöcken Elytren, Teleporter versetzen, Chunk-Loader erzwingen Chunks, Kupferplatten altern) und die alten Flypad- und Spawn-Teleporter-Stufen | alle Mod-Blöcke minus gesetzte |
 | `unsorted` | Mod-Items, die nirgends stehen - soll leer sein | Rest |
 
@@ -129,6 +134,9 @@ Rückfall Englisch im Code): ein deutscher Client liest Deutsch, ein englischer 
   Testspieler das Inventar (Erde vorher weg, alle Kit-Stapel da); der Fingerabdruck ist stabil und
   hängt am Ursprung; im Flypad-Flugfeld steht kein anderes Pad. Außerdem prüft der Abdeckungstest
   jetzt, dass jeder Mod-Block mit Item auch **gesetzt** ist (nicht nur gerahmt), außer `frameOnly`.
+- **`broken_and_repaired_states_stand_side_by_side`** (ohne Welt): Resonanzstab und Rotator leer, halb und voll; Echolot in allen drei Riss-Stufen des Item-Modells und repariert; jedes abnutzbare Stück der Haltbarkeits-Zeilen fast verbraucht mit dem neuen direkt östlich daneben; rissiger und heiler Diamantblock, Amboss, Hochofen mit rissigen Diamanten, abgenutzter und neuer Ständer.
+- **`every_creative_tab_has_its_item_browser_wall`** (ohne Welt): je Tab ein Abschnitt `tab_<id>` in `SECTION_IDS`, dessen Rahmen genau die Stapel des Tabs in Tab-Reihenfolge zeigen, mit Ausgabe-Knopf.
+- **`every_feature_station_sets_up_its_scenario`** (ohne Welt): jede Mod-Verzauberung steht auf einem Gegenstand (kein Buch) in `mining`, `planning`, `chisel` oder `enchants`; jedes Kleinteil und jedes Ei liegt in `placeables` (26.3); jeder Eisenstab hat nichts über sich und kein Kupfer-Blitzableiter steht in der Zentrale; die Steuerwand hat den Gewitter-Knopf; der Fallturm ist mindestens 10 hoch, die Leiter reicht bis oben, ein Ständer trägt den vollen Enderit-Satz.
 - **`each_button_runs_exactly_its_own_command_block`** baut die Zentrale bei x = z = 26000 (Chunks
   erzwungen), ersetzt jeden Befehl durch einen Zähler (`summon marker` an einer eigenen Stelle über
   dem Block) und drückt jeden Knopf der Steuerwand und jeden Ausgabe-Knopf wie von Hand: drei Ticks
@@ -157,7 +165,8 @@ Unverwundbarkeit und Inventar die Zwillinge in `common/src/mc26_2/.../McVersion`
   `TestCentreSections`, Zeilenname in `KNOWN_TOOL_ROWS`/`KNOWN_FUNCTIONAL_ROWS`.
 - **Item ohne Tab-Zeile** (etwa nur im Tab SimpleMaterials): steht unter `materials`; sonst landet
   es in `unsorted` und der Abdeckungstest wird rot.
-- **Neuer Abschnitt**: Methode `static TcCanvas name(TcContext ctx)` in `TestCentreSections`,
+- **Neues Feature zum Ausprobieren** (Szenario statt nur Anschauen): Station in `FeatureStations` (oder `TestCentreSections`), dazu eine Prüfung in `every_feature_station_sets_up_its_scenario`. Gegenstände mit Zustand (Ladung, Risse, Haltbarkeit) gehören zusätzlich in `states`.
+- **Neuer Abschnitt**: Methode `static TcCanvas name(TcContext ctx)` in `TestCentreSections` oder `FeatureStations`,
   Id in `TestCentreLayout.SECTION_IDS` (Reihenfolge = Reihenfolge in der Welt) und Eintrag in
   `TestCentreLayout.plan`. Die Steuerwand bekommt den Neu-bauen-Knopf automatisch.
 - **Zeichenregeln**: lokale Koordinaten, y = 0 ist die Standhöhe, Blick der Besucher nach +z,

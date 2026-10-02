@@ -28,6 +28,21 @@ public final class TestCentreGameTest {
         TestCentreTests.commandBlocksAreIsolatedAndEveryStationHasItsGiveButton(helper);
     }
 
+    @GameTest
+    public void brokenAndRepairedStatesStandSideBySide(GameTestHelper helper) {
+        TestCentreTests.brokenAndRepairedStatesStandSideBySide(helper);
+    }
+
+    @GameTest
+    public void everyCreativeTabHasItsItemBrowserWall(GameTestHelper helper) {
+        TestCentreTests.everyCreativeTabHasItsItemBrowserWall(helper);
+    }
+
+    @GameTest
+    public void everyFeatureStationSetsUpItsScenario(GameTestHelper helper) {
+        TestCentreTests.everyFeatureStationSetsUpItsScenario(helper);
+    }
+
     @GameTest(maxTicks = TestCentreTests.BUTTON_RUN_MAX_TICKS)
     public void eachButtonRunsExactlyItsOwnCommandBlock(GameTestHelper helper) {
         TestCentreTests.eachButtonRunsExactlyItsOwnCommandBlock(helper);

@@ -33,15 +33,19 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
  * jeder Reihe verlaeuft ein Gang in -z. Der Ursprung ist die Standhoehe am Anfang des ersten Gangs.
  *
  * <h2>Erweitern</h2>
- * Neuer Abschnitt: Methode in {@link TestCentreSections}, Id in {@link #SECTION_IDS} und Eintrag in
- * {@link #build}. Neues Item: meist nichts zu tun, wenn es in einer Tab-Zeile steht, die ein Abschnitt
+ * Neuer Abschnitt: Methode in {@link TestCentreSections} oder {@link FeatureStations}, Id in
+ * {@link #SECTION_IDS} und Eintrag in {@link #plan}. Neues Item: meist nichts zu tun, wenn es in einer Tab-Zeile steht, die ein Abschnitt
  * liest; sonst erscheint es unter "unsorted" und der Abdeckungstest nennt es.
  */
 public final class TestCentreLayout {
 
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
-    public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "storage", "food",
-            "materials", "arrows", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning", "mining", "tweaks", "devices", "gallery", "unsorted");
+    public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "states", "storage", "food",
+            "materials", "placeables", "arrows", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
+            "mining", "enchants", "sinkdamper", "tweaks", "devices",
+            // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
+            "tab_tools", "tab_building_blocks", "tab_materials", "tab_functional", "tab_pads", "tab_arrows",
+            "gallery", "unsorted");
 
     /**
      * Mod-Items und -Bloecke, die bewusst NICHT in der Zentrale stehen, mit Grund. Jede Ausnahme muss
@@ -182,9 +186,11 @@ public final class TestCentreLayout {
         builders.put("armour", TestCentreSections::armour);
         builders.put("books", TestCentreSections::books);
         builders.put("tools", TestCentreSections::tools);
+        builders.put("states", FeatureStations::states);
         builders.put("storage", TestCentreSections::storage);
         builders.put("food", TestCentreSections::food);
         builders.put("materials", TestCentreSections::materials);
+        builders.put("placeables", FeatureStations::placeables);
         // Auf Linien ohne Befiederungstisch (26.2) ein leerer Abschnitt ohne Breite.
         builders.put("arrows", TestCentreSections::arrows);
         builders.put("chisel", TestCentreSections::chisel);
@@ -196,6 +202,8 @@ public final class TestCentreLayout {
         builders.put("ores", TestCentreSections::ores);
         builders.put("planning", TestCentreSections::planning);
         builders.put("mining", TestCentreSections::mining);
+        builders.put("enchants", FeatureStations::enchants);
+        builders.put("sinkdamper", FeatureStations::sinkDamper);
         builders.put("tweaks", TweaksStation::build);
         builders.put("devices", TestCentreSections::devices);
 
@@ -229,6 +237,12 @@ public final class TestCentreLayout {
         TcCanvas gallery = TestCentreSections.gallery(unplaced);
         collect(gallery.ops(), coveredItems, coveredBlocks);
         canvases.put("gallery", gallery);
+
+        // Item-orientierter Rundgang: je Tab eine Wand. Erst nach der Abdeckung, damit jedes Item
+        // weiterhin eine Station braucht, in der man es ausprobieren kann.
+        for (com.simplebuilding.items.ModItemGroupsContent.Tab tab : com.simplebuilding.items.ModItemGroupsContent.Tab.values()) {
+            canvases.put(TabBrowser.sectionId(tab), TabBrowser.build(ctx, tab));
+        }
 
         // Ausgabe-Knopf je Station: Kit aus dem, was die Station zeigt; die Station rueckt dafuer nach rechts.
         Map<String, TestCentreKits.Kit> kits = new LinkedHashMap<>();
@@ -359,6 +373,8 @@ public final class TestCentreLayout {
         out.add(new TestCentreSections.Control("time set midnight", TcText.t("controls.night", "Night"), Component.empty()));
         out.add(new TestCentreSections.Control("weather clear", TcText.t("controls.clear", "Clear weather"), Component.empty()));
         out.add(new TestCentreSections.Control("weather rain", TcText.t("controls.rain", "Rain"), Component.empty()));
+        out.add(new TestCentreSections.Control("weather thunder", TcText.t("controls.thunder", "Thunder"),
+                TcText.t("controls.thunder.sub", "iron rod test")));
         out.add(new TestCentreSections.Control("gamemode creative @p", TcText.t("controls.creative", "Creative"), Component.empty()));
         out.add(new TestCentreSections.Control("gamemode survival @p", TcText.t("controls.survival", "Survival"), Component.empty()));
         BlockPos spawn = anchors.getOrDefault("mob_spawn", origin);

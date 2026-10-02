@@ -63,6 +63,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_the_whole_centre_builds_and_matches_its_plan", TestCentreTests::theWholeCentreBuildsAndMatchesItsPlan)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_broken_and_repaired_states_stand_side_by_side", TestCentreTests::brokenAndRepairedStatesStandSideBySide)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_every_creative_tab_has_its_item_browser_wall", TestCentreTests::everyCreativeTabHasItsItemBrowserWall)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_every_feature_station_sets_up_its_scenario", TestCentreTests::everyFeatureStationSetsUpItsScenario)
+                    .build(),
             GameTestSpec.named("test_centre_game_test_command_blocks_are_isolated_and_every_station_has_its_give_button", TestCentreTests::commandBlocksAreIsolatedAndEveryStationHasItsGiveButton)
                     .build(),
             GameTestSpec.named("test_centre_game_test_each_button_runs_exactly_its_own_command_block", TestCentreTests::eachButtonRunsExactlyItsOwnCommandBlock)
