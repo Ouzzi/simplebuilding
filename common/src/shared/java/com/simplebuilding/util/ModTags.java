@@ -132,6 +132,8 @@ public class ModTags {
         public static final TagKey<Item> QUADRUPLE_DESPAWN_TIME = createTag("quadruple_despawn_time");
         /** Kleinteile, die sich mit Schleichen + Rechtsklick ablegen lassen (2026-10-02, {@code PlacedTemplates}). */
         public static final TagKey<Item> PLACEABLE_SMALL = createTag("placeable_small");
+        /** Faerbbar wie Vanilla-Buendel (2026-10-02, {@code StorageDyes}): Rucksaecke, Buendel, Koecher. */
+        public static final TagKey<Item> DYEABLE_STORAGE = createTag("dyeable_storage");
         public static final int QUADRUPLE_DESPAWN_LIFETIME = 24000;
         /** Item-Entity nimmt keinerlei Schaden (Feuer, Lava, Explosion, Kaktus, Amboss ...); nur der Despawn entfernt es. */
         public static final TagKey<Item> INDESTRUCTIBLE = createTag("indestructible");

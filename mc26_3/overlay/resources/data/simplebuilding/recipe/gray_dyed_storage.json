@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "category": "equipment",
+  "group": "storage_dye",
+  "input": "#simplebuilding:dyeable_storage",
+  "material": "minecraft:gray_dye",
+  "result": {
+    "components": {
+      "minecraft:dyed_color": 7109507
+    }
+  }
+}

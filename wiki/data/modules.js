@@ -124,7 +124,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "d4e01b392241"
+    "dataHash": "f6c130f9e2cf"
   },
   {
     "id": "simplevisuals",

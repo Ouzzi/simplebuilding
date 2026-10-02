@@ -39,6 +39,7 @@ public final class FunTests {
     ALL.put("lang_config", FunTests::langConfig);
     ALL.put("trades", FunTests::trades);
     ALL.put("head_blocks", FunTests::headBlocks);
+    ALL.put("head_abilities", FunTests::headAbilities);
     for (var t : AnimalHead.values()) ALL.put(t.path(), h -> head(h, t));
     for (var key :
         List.of(
@@ -422,6 +423,42 @@ public final class FunTests {
         throw new AssertionError(e);
       }
     }
+    h.succeed();
+  }
+
+  /** Kopf-Faehigkeiten (2026-10-02): Kuh melken, Schaf scheren mit Pause, Huhn legt ein Ei, Schwein scharrt aus. */
+  public static void headAbilities(GameTestHelper h) {
+    var level = h.getLevel();
+    var wearer = h.makeMockServerPlayerInLevel();
+    var user = h.makeMockServerPlayerInLevel();
+    wearer.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+    user.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+    com.simplefun.heads.HeadAbilities.resetForTests(wearer);
+    var hand = net.minecraft.world.InteractionHand.MAIN_HAND;
+    wearer.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, new net.minecraft.world.item.ItemStack(AnimalHeads.ITEMS.get(AnimalHead.COW)));
+    user.setItemInHand(hand, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.BUCKET));
+    h.assertTrue(com.simplefun.heads.HeadAbilities.interact(wearer, user, hand) == net.minecraft.world.InteractionResult.SUCCESS, "milking the cow head wearer");
+    h.assertTrue(user.getItemInHand(hand).is(net.minecraft.world.item.Items.MILK_BUCKET), "the bucket is full of milk");
+    wearer.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, new net.minecraft.world.item.ItemStack(AnimalHeads.ITEMS.get(AnimalHead.SHEEP)));
+    user.setItemInHand(hand, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SHEARS));
+    h.assertTrue(com.simplefun.heads.HeadAbilities.interact(wearer, user, hand) == net.minecraft.world.InteractionResult.SUCCESS, "shearing the sheep head wearer");
+    h.assertTrue(user.getItemInHand(hand).getDamageValue() == 1, "the shears took one damage");
+    h.assertTrue(com.simplefun.heads.HeadAbilities.interact(wearer, user, hand) == net.minecraft.world.InteractionResult.PASS, "the wool needs time to grow back");
+    user.setItemInHand(hand, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.BUCKET));
+    h.assertTrue(com.simplefun.heads.HeadAbilities.interact(wearer, user, hand) == null, "a sheep head wearer gives no milk");
+    var around = new net.minecraft.world.phys.AABB(wearer.blockPosition()).inflate(3);
+    level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, around).forEach(net.minecraft.world.entity.Entity::discard);
+    com.simplefun.heads.HeadAbilities.layEgg(level, wearer);
+    h.assertTrue(level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, around).stream().anyMatch(e -> e.getItem().is(net.minecraft.world.item.Items.EGG)), "the chicken head laid an egg");
+    h.assertTrue(com.simplefun.heads.HeadAbilities.sniffable(net.minecraft.world.level.block.Blocks.GRASS_BLOCK.defaultBlockState())
+        && !com.simplefun.heads.HeadAbilities.sniffable(net.minecraft.world.level.block.Blocks.STONE.defaultBlockState()), "the truffle nose sniffs soil, not stone");
+    var random = net.minecraft.util.RandomSource.create(1);
+    for (int i = 0; i < 200; i++) {
+      var find = com.simplefun.heads.HeadAbilities.truffle(random);
+      h.assertTrue(java.util.List.of(net.minecraft.world.item.Items.POTATO, net.minecraft.world.item.Items.CARROT, net.minecraft.world.item.Items.BEETROOT_SEEDS,
+          net.minecraft.world.item.Items.BROWN_MUSHROOM, net.minecraft.world.item.Items.RED_MUSHROOM, net.minecraft.world.item.Items.GOLDEN_CARROT).contains(find.getItem()), "unexpected truffle " + find);
+    }
+    com.simplefun.heads.HeadAbilities.resetForTests(wearer);
     h.succeed();
   }
 }

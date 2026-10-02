@@ -11,7 +11,8 @@
     "YeetMixin",
     "AnimalSkullValidityMixin",
     "DelightTickMixin",
-    "KnockbackCapMixin"
+    "KnockbackCapMixin",
+    "HeadInteractMixin"
   ],
   "client": [
     "client.LivingEntityRendererMixin",

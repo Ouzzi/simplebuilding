@@ -372,7 +372,7 @@
   "tooltip.simplebuilding.suspended": "Hangs in mid-air and never falls",
   "tooltip.simplebuilding.core.used_in": "Used in:",
   "tooltip.simplebuilding.enderite_armor.void": "Void damage hits less often, more so with each piece",
-  "tooltip.simplebuilding.enderite_armor.glide": "Sneak while falling: slower fall, less fall damage (more pieces, more damping)",
+  "tooltip.simplebuilding.enderite_armor.glide": "Sneak while falling: slower fall, less fall damage; sprint while falling or gliding: brakes the descent (more pieces, stronger)",
   "tooltip.simplebuilding.food.when_eaten": "When eaten:",
   "tooltip.simplebuilding.hammer_upgrade.reinforced": "Upgrade in the world, keeping the contents: hold right-click on it with any Sledgehammer and a Cracked Diamond in the off hand.",
   "block.simplebuilding.reinforced_piston": "Reinforced Piston",

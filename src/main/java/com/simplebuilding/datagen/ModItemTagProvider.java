@@ -211,8 +211,10 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .addTag(ModTags.Items.BACKPACKS);
         // Gefaerbte Rucksaecke, Buendel und Koecher (minecraft:dyed_color) waescht der Wasserkessel wie
         // Lederruestung: Vanillas Kessel-Verhalten fuer diesen Tag nimmt nur die Farbe weg.
-        builder(ItemTags.CAULDRON_CAN_REMOVE_DYE)
-                .addTag(ModTags.Items.BACKPACKS)
+        var dyeable = com.simplebuilding.version.McVersion.VANILLA_DYEING
+                ? builder(ModTags.Items.DYEABLE_STORAGE) : builder(ItemTags.CAULDRON_CAN_REMOVE_DYE);
+        // 26.3 (VANILLA_DYEING): wie Vanillas Buendel - feste Farben, kein Auswaschen; der Tag speist die Faerberezepte.
+        dyeable.addTag(ModTags.Items.BACKPACKS)
                 .add(key(ModItems.REINFORCED_BUNDLE))
                 .add(key(ModItems.NETHERITE_BUNDLE))
                 .add(key(ModItems.ENDERITE_BUNDLE))

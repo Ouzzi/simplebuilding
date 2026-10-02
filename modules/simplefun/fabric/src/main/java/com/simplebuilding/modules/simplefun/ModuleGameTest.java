@@ -163,4 +163,9 @@ public final class ModuleGameTest {
   public void delightTriggers(GameTestHelper h) {
     com.simplefun.test.FunTests.ALL.get("delight_triggers").accept(h);
   }
+
+  @GameTest
+  public void headAbilities(GameTestHelper h) {
+    com.simplefun.test.FunTests.ALL.get("head_abilities").accept(h);
+  }
 }

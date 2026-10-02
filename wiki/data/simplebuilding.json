@@ -1114,7 +1114,7 @@
         "src/main/resources/assets/simplebuilding/models/block/template_backpack.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/generated/data/minecraft/tags/item/cauldron_can_remove_dye.json",
+        "common/src/shared/java/com/simplebuilding/util/StorageDyes.java",
         "common/src/shared/java/com/simplebuilding/util/DyedStorage.java",
         "src/main/resources/assets/simplebuilding/models/block/template_backpack_dyed.json",
         "common/src/shared/java/com/simplebuilding/client/render/BackpackBlockTint.java",
@@ -1135,7 +1135,7 @@
           "Tooltip: hovering a backpack lists how many slots are used and names the first five stacks; a backpack with something inside adds \"Hold Shift to see contents\". Holding Shift turns that line into a small grid like the vanilla bundle's: every stored stack as an icon with its count, in slot order, nine per row and at most three rows - whatever does not fit is summed up as \"+N\" in the last cell. Works for all four tiers, dyed or not, and needs nothing from the server: the contents travel on the item itself.",
           "Safety: a destroyed backpack item spills its contents like a shulker box; Netherite and Enderite Backpack resist fire and explosions as items, and the Enderite Backpack is protected from the void.",
           "Enchantments (anvil only): Deep Pockets I/II doubles or quadruples the stack limit of stackable items in the backpack; Funnel lets the worn backpack vacuum up items after your bundles; Master Builder on the backpack makes it a material source for the Building Wand and for pick block; Constructor's Touch refills your hand from the backpack when a block stack runs out while placing. Drawer and Color Palette do not go on backpacks.",
-          "Dyeing: a backpack takes dye like leather armor - put it into the crafting grid with one or more dyes (colors mix, and a dyed backpack can be dyed again). Contents, name and enchantments stay; the color shows on the item, on the worn backpack and as a faint tint of the backpack rows in its screen (the extra columns keep their purple). A water cauldron washes the color off again and leaves everything else. The color survives upgrades and setting the backpack down, and the placed backpack shows it as well.",
+          "Dyeing: like the vanilla bundle - backpack plus one dye in the crafting grid gives that dye's fixed color (the leather colors of the vanilla bundles); a new dye replaces the color, colors do not mix and a water cauldron does not wash them off. Contents, name and enchantments stay; the color shows on the item, on the worn backpack and as a faint tint of the backpack rows in its screen (the extra columns keep their purple). The color survives upgrades and setting the backpack down, and the placed backpack shows it as well.",
           "Limits for now: the extra columns are plain storage (they are meant to become special slots later), and the recipe book does not draw from the backpack.",
           "Accessory slots (optional): with Curios (NeoForge) or Trinkets Updated (Fabric) installed, a backpack also fits the back accessory slot, so it no longer takes the chest slot from a chestplate or elytra. A backpack there counts as worn: the backpack key opens it (after one in the chest slot, before one in the inventory), Funnel, Constructor's Touch and Master Builder use it, and it shows on your back unless the slot's render toggle hides it. Without an accessory mod nothing changes. Forge has no accessory mod build for 26.2."
         ]
@@ -1153,7 +1153,7 @@
           "Tooltip: Beim Überfahren zeigt ein Rucksack, wie viele Plätze belegt sind, und nennt die ersten fünf Stapel; hat er Inhalt, kommt \"Umschalt halten, um den Inhalt zu sehen\" dazu. Mit gedrückter Umschalttaste wird daraus ein kleines Raster wie beim Vanilla-Bündel: jeder gelagerte Stapel als Icon mit Anzahl, in Slot-Reihenfolge, neun je Reihe und höchstens drei Reihen - was nicht passt, fasst die letzte Zelle als \"+N\" zusammen. Gilt für alle vier Stufen, gefärbt oder nicht, und braucht nichts vom Server: der Inhalt reist im Item selbst.",
           "Sicherheit: Ein zerstörtes Rucksack-Item verstreut seinen Inhalt wie eine Shulkerkiste; Netherit- und Enderit-Rucksack widerstehen als Item Feuer und Explosionen, und der Enderit-Rucksack ist vor der Leere geschützt.",
           "Verzauberungen (nur Amboss): Tiefe Taschen I/II verdoppelt bzw. vervierfacht die Stapelgrenze stapelbarer Items im Rucksack; mit Trichter saugt der getragene Rucksack Items nach den Bündeln auf; Baumeister auf dem Rucksack macht ihn zur Materialquelle für Baustab und Blockauswahl; Berührung des Konstrukteurs füllt die Hand aus dem Rucksack nach, wenn beim Platzieren ein Blockstapel aufgebraucht ist. Schublade und Farbpalette gehen nicht auf Rucksäcke.",
-          "Färben: Ein Rucksack nimmt Farbstoff an wie Lederrüstung – mit einem oder mehreren Farbstoffen in die Werkbank legen (Farben mischen sich, ein gefärbter Rucksack lässt sich weiter färben). Inhalt, Name und Verzauberungen bleiben; die Farbe zeigt sich am Item, am getragenen Rucksack und als leichte Tönung der Rucksack-Reihen im Bildschirm (die Zusatzspalten bleiben violett). Ein Wasserkessel wäscht die Farbe wieder ab und lässt alles andere. Die Farbe übersteht Aufwertungen und das Abstellen, und auch der abgestellte Rucksack zeigt sie.",
+          "Färben: wie beim Vanilla-Bündel – Rucksack plus ein Farbstoff in der Werkbank ergibt die feste Farbe dieses Farbstoffs (die Lederfarben der Vanilla-Bündel); ein neuer Farbstoff ersetzt die Farbe, Farben mischen sich nicht, und ein Wasserkessel wäscht sie nicht ab. Inhalt, Name und Verzauberungen bleiben; die Farbe zeigt sich am Item, am getragenen Rucksack und als leichte Tönung der Rucksack-Reihen im Bildschirm (die Zusatzspalten bleiben violett). Die Farbe übersteht Aufwertungen und das Abstellen, und auch der abgestellte Rucksack zeigt sie.",
           "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), und das Rezeptbuch greift nicht auf den Rucksack zu.",
           "Accessoire-Slots (optional): Mit Curios (NeoForge) oder Trinkets Updated (Fabric) passt ein Rucksack auch in den Ruecken-Accessoire-Slot und nimmt dann Brustpanzer oder Elytra nicht mehr den Brust-Slot weg. Ein Rucksack dort gilt als getragen: die Rucksack-Taste oeffnet ihn (nach einem im Brust-Slot, vor einem im Inventar), Trichter, Konstrukteurs Hand und Meisterbauer nutzen ihn, und er ist auf dem Ruecken zu sehen, solange der Anzeige-Schalter des Slots ihn nicht ausblendet. Ohne Accessoire-Mod aendert sich nichts. Fuer Forge 26.2 gibt es keinen Build einer Accessoire-Mod."
         ]
@@ -1250,7 +1250,7 @@
         "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/reinforced_bundle_emerald.json",
         "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/generated/data/minecraft/tags/item/cauldron_can_remove_dye.json",
+        "common/src/shared/java/com/simplebuilding/util/StorageDyes.java",
         "common/src/shared/java/com/simplebuilding/util/DyedStorage.java"
       ],
       "en": {
@@ -1273,7 +1273,7 @@
           "The Reinforced Bundle turns up in dungeon chests, shipwreck treasure and abandoned mineshafts, and the wandering trader sells one for 16 emeralds and buys one for 12 emeralds (depending on the config options enableLootTableChanges and enableWanderingTrades).",
           "The Invert Bundle Clicks config option swaps left and right click for inserting and removing.",
           "The mod's quivers inherit from the same item class (QuiverItem extends ReinforcedBundleItem) but only accept arrows (tag minecraft:arrows) and are described separately.",
-          "Dyeing: Reinforced, Netherite and Enderite Bundle take dye like leather armor rather than turning into separate colored items like the vanilla bundle - bundle plus one or more dyes in the crafting grid, colors mix, contents, name and enchantments stay. The color shows on the item, in its open look and as a faint tint of the item slots in the tooltip; a water cauldron washes it off again. Like the vanilla bundle, a mod bundle opens in the inventory while an entry is selected and shows that entry sticking out of it."
+          "Dyeing: Reinforced, Netherite and Enderite Bundle dye like the vanilla bundle - bundle plus one dye in the crafting grid gives that dye's fixed color (the leather colors of the vanilla bundles), a new dye replaces it, colors do not mix and a water cauldron does not wash them off; contents, name and enchantments stay. The color shows on the item, in its open look and as a faint tint of the item slots in the tooltip. Like the vanilla bundle, a mod bundle opens in the inventory while an entry is selected and shows that entry sticking out of it."
         ]
       },
       "de": {
@@ -1296,7 +1296,7 @@
           "Das Verstärkte Bündel liegt in Verliesen, Schiffswracks und verlassenen Minen und wird vom fahrenden Händler für 16 Smaragde verkauft bzw. für 12 Smaragde gekauft (abhängig von den Config-Optionen enableLootTableChanges und enableWanderingTrades).",
           "Die Config-Option Bündel-Klicks vertauschen vertauscht Links- und Rechtsklick für Einlegen und Entnehmen.",
           "Die Köcher der Mod erben von derselben Item-Klasse (QuiverItem extends ReinforcedBundleItem), nehmen aber nur Pfeile (Tag minecraft:arrows) an und werden gesondert beschrieben.",
-          "Färben: Verstärktes, Netherit- und Enderitbündel nehmen Farbstoff an wie Lederrüstung, statt wie das Vanilla-Bündel zu eigenen farbigen Items zu werden – Bündel plus ein oder mehrere Farbstoffe in die Werkbank, Farben mischen sich, Inhalt, Name und Verzauberungen bleiben. Die Farbe zeigt sich am Item, im offenen Zustand und als leichte Tönung der Felder im Tooltip; ein Wasserkessel wäscht sie wieder ab. Wie das Vanilla-Bündel öffnet sich ein Bündel der Mod im Inventar, solange ein Eintrag ausgewählt ist, und zeigt diesen Eintrag."
+          "Färben: Verstärktes, Netherit- und Enderitbündel färben sich wie das Vanilla-Bündel – Bündel plus ein Farbstoff in der Werkbank ergibt die feste Farbe dieses Farbstoffs (die Lederfarben der Vanilla-Bündel), ein neuer Farbstoff ersetzt sie, Farben mischen sich nicht, und ein Wasserkessel wäscht sie nicht ab; Inhalt, Name und Verzauberungen bleiben. Die Farbe zeigt sich am Item, im offenen Zustand und als leichte Tönung der Felder im Tooltip. Wie das Vanilla-Bündel öffnet sich ein Bündel der Mod im Inventar, solange ein Eintrag ausgewählt ist, und zeigt diesen Eintrag."
         ]
       }
     },
@@ -2508,7 +2508,7 @@
           "The check runs on the server only, on every tick of the item entity.",
           "Protection is keyed to the item tag, not to the display name; it therefore works in every language, and a foreign item renamed to \"Enderite\" in an anvil is not protected (a gametest pins both directions).",
           "Void damage on the player: with 1/2/3/4 Enderite armor pieces worn, void damage only lands on ticks whose counter is divisible by 20/40/60/100; every other hit is cancelled.",
-          "Sink damper: sneaking while falling with Enderite armor lowers gravity by 25/45/65/80 % for 1/2/3/4 pieces worn, so the fall speeds up more slowly instead of being stopped, and the fall distance that counts for fall damage shrinks by the same share. Off on the ground, with elytra, while flying, in water or lava and while rising. Movement runs the same on client and server; no effect is given.",
+          "Sink damper: sneaking while falling with Enderite armor lowers gravity by 25/45/65/80 % for 1/2/3/4 pieces worn, so the fall speeds up more slowly instead of being stopped, and the fall distance that counts for fall damage shrinks by the same share. Off on the ground, with elytra, while flying, in water or lava and while rising. Movement runs the same on client and server; no effect is given. Sprint brake: sprinting while falling or gliding with elytra takes 2/3.5/5/6.5 % of the downward speed per tick for 1/2/3/4 pieces - only the vertical speed, the forward speed stays; not while sneaking.",
           "Limitation: void protection only covers items lying in the world as entities, not items inside chests or inventories.",
           "Enderite is made with netherite and keeps everything netherite gives an item: every enderite item from the ingot upwards, the scrap and the nugget are fire resistant and float on lava; the mod's Netherite Sledgehammer, Chisel, Spatula, Building Wand and Core are too (ModItems#netheriteTraits). Enderite armor resists knockback with 0.2 per piece (netherite: 0.1). The Enderite Bundle, Quiver and Backpack survive explosions as dropped items, like the Netherite Bundle, Quiver and Backpack.",
           "Every dropped enderite item lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000 - Raw Enderite Fragments and Raw Enderite Scrap, Enderite Scrap and the upgrade template included (owner decision 2026-09-28; before, only the ingot tier did). The item tag simplebuilding:double_despawn_time decides (it contains #simplebuilding:enderite_items). On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime). The older tag simplebuilding:enderite_ingot_tier (the ingot and everything made from it) still ships for modpacks but no longer decides anything."
@@ -2524,7 +2524,7 @@
           "Die Prüfung erfolgt nur auf dem Server, jeden Tick des Item-Objekts.",
           "Der Schutz hängt am Item-Tag, nicht am Anzeigenamen; er funktioniert daher in jeder Sprache, und ein im Amboss auf „Enderite“ umbenanntes Fremditem ist nicht geschützt (ein Gametest sichert beide Richtungen ab).",
           "Leere-Schaden beim Spieler: Mit 1/2/3/4 getragenen Enderit-Rüstungsteilen trifft der Schaden aus der Leere nur noch in Ticks, deren Zähler durch 20/40/60/100 teilbar ist; alle anderen Treffer werden abgefangen.",
-          "Sinkdämpfer: Wer mit Enderit-Rüstung im Fall schleicht, hat bei 1/2/3/4 getragenen Teilen 25/45/65/80 % weniger Schwerkraft - der Fall beschleunigt langsamer, statt gebremst zu werden -, und der für den Fallschaden zählende Fallweg schrumpft um denselben Anteil. Aus am Boden, mit Elytren, beim Fliegen, in Wasser oder Lava und beim Steigen. Die Bewegung läuft auf Client und Server gleich; es wird kein Effekt vergeben.",
+          "Sinkdämpfer: Wer mit Enderit-Rüstung im Fall schleicht, hat bei 1/2/3/4 getragenen Teilen 25/45/65/80 % weniger Schwerkraft - der Fall beschleunigt langsamer, statt gebremst zu werden -, und der für den Fallschaden zählende Fallweg schrumpft um denselben Anteil. Aus am Boden, mit Elytren, beim Fliegen, in Wasser oder Lava und beim Steigen. Die Bewegung läuft auf Client und Server gleich; es wird kein Effekt vergeben. Sprint-Bremse: Wer im Fall oder im Elytra-Gleitflug sprintet, verliert bei 1/2/3/4 Teilen pro Tick 2/3,5/5/6,5 % seiner Sinkgeschwindigkeit - nur die senkrechte, die Vorwärtsfahrt bleibt; nicht beim Schleichen.",
           "Einschränkung: Der Leere-Schutz gilt nur für Items, die als Gegenstand in der Welt liegen, nicht für Items in Truhen oder Inventaren.",
           "Enderit wird aus Netherit gemacht und behält alles, was Netherit einem Gegenstand gibt: jeder Enderit-Gegenstand ab dem Barren, dazu Enderitplatten und Enderitklumpen, ist feuerfest und schwimmt auf Lava; ebenso Netherit-Vorschlaghammer, -Meißel, -Spachtel, -Baustab und -Kern der Mod (ModItems#netheriteTraits). Enderit-Rüstung widersteht Rückstoß mit 0,2 je Teil (Netherit: 0,1). Enderitbündel, -Köcher und -Rucksack überstehen als fallengelassene Gegenstände Explosionen, wie Netheritbündel, Netheritköcher und Netherit-Rucksack.",
           "Jeder fallengelassene Enderit-Gegenstand bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000 – Rohe Enderitfragmente, Rohe Enderitplatten, Enderitplatten und die Upgrade-Vorlage eingeschlossen (Besitzer-Entscheidung 2026-09-28; vorher nur ab dem Barren). Maßgeblich ist das Item-Tag simplebuilding:double_despawn_time (es enthält #simplebuilding:enderite_items). Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime). Das ältere Tag simplebuilding:enderite_ingot_tier (der Barren und alles daraus) wird für Modpacks weiter mitgeliefert, entscheidet aber nichts mehr."
@@ -3999,8 +3999,7 @@
       },
       "texture": "assets/textures/item/backpack.png",
       "craftedBy": [
-        "simplebuilding:backpack",
-        "simplebuilding:backpack_dyed"
+        "simplebuilding:backpack"
       ],
       "usedIn": [
         "simplebuilding:reinforced_backpack"
@@ -6751,7 +6750,6 @@
       },
       "texture": "assets/textures/item/enderite_backpack.png",
       "craftedBy": [
-        "simplebuilding:enderite_backpack_dyed",
         "simplebuilding:enderite_backpack_smithing"
       ],
       "usedIn": [],
@@ -7294,7 +7292,6 @@
       },
       "texture": "assets/textures/item/enderite_bundle.png",
       "craftedBy": [
-        "simplebuilding:enderite_bundle_dyed",
         "simplebuilding:enderite_bundle_smithing"
       ],
       "usedIn": [],
@@ -8202,7 +8199,6 @@
       },
       "texture": "assets/textures/item/enderite_quiver.png",
       "craftedBy": [
-        "simplebuilding:enderite_quiver_dyed",
         "simplebuilding:enderite_quiver_smithing"
       ],
       "usedIn": [],
@@ -10847,7 +10843,6 @@
       },
       "texture": "assets/textures/item/netherite_backpack.png",
       "craftedBy": [
-        "simplebuilding:netherite_backpack_dyed",
         "simplebuilding:netherite_backpack_smithing"
       ],
       "usedIn": [
@@ -11367,7 +11362,6 @@
       },
       "texture": "assets/textures/item/netherite_bundle.png",
       "craftedBy": [
-        "simplebuilding:netherite_bundle_dyed",
         "simplebuilding:netherite_bundle_smithing"
       ],
       "usedIn": [
@@ -12116,7 +12110,6 @@
       },
       "texture": "assets/textures/item/netherite_quiver.png",
       "craftedBy": [
-        "simplebuilding:netherite_quiver_dyed",
         "simplebuilding:netherite_quiver_smithing"
       ],
       "usedIn": [
@@ -13854,8 +13847,7 @@
       },
       "texture": "assets/textures/item/quiver.png",
       "craftedBy": [
-        "simplebuilding:quiver",
-        "simplebuilding:quiver_dyed"
+        "simplebuilding:quiver"
       ],
       "usedIn": [
         "simplebuilding:reinforced_quiver"
@@ -14027,8 +14019,7 @@
       },
       "texture": "assets/textures/item/reinforced_backpack.png",
       "craftedBy": [
-        "simplebuilding:reinforced_backpack",
-        "simplebuilding:reinforced_backpack_dyed"
+        "simplebuilding:reinforced_backpack"
       ],
       "usedIn": [
         "simplebuilding:netherite_backpack_smithing"
@@ -14291,8 +14282,7 @@
       },
       "texture": "assets/textures/item/reinforced_bundle.png",
       "craftedBy": [
-        "simplebuilding:reinforced_bundle",
-        "simplebuilding:reinforced_bundle_dyed"
+        "simplebuilding:reinforced_bundle"
       ],
       "usedIn": [
         "simplebuilding:netherite_bundle_smithing"
@@ -14824,8 +14814,7 @@
       },
       "texture": "assets/textures/item/reinforced_quiver.png",
       "craftedBy": [
-        "simplebuilding:reinforced_quiver",
-        "simplebuilding:reinforced_quiver_dyed"
+        "simplebuilding:reinforced_quiver"
       ],
       "usedIn": [
         "simplebuilding:netherite_quiver_smithing"
@@ -16615,8 +16604,7 @@
       },
       "texture": "assets/textures/block/backpack_side.png",
       "craftedBy": [
-        "simplebuilding:backpack",
-        "simplebuilding:backpack_dyed"
+        "simplebuilding:backpack"
       ],
       "usedIn": [
         "simplebuilding:reinforced_backpack"
@@ -17826,7 +17814,6 @@
       },
       "texture": "assets/textures/block/enderite_backpack_side.png",
       "craftedBy": [
-        "simplebuilding:enderite_backpack_dyed",
         "simplebuilding:enderite_backpack_smithing"
       ],
       "usedIn": [],
@@ -19691,7 +19678,6 @@
       },
       "texture": "assets/textures/block/netherite_backpack_side.png",
       "craftedBy": [
-        "simplebuilding:netherite_backpack_dyed",
         "simplebuilding:netherite_backpack_smithing"
       ],
       "usedIn": [
@@ -21448,6 +21434,36 @@
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:placed_egg",
+      "name": {
+        "en_us": "Placed Egg",
+        "de_de": "Gelegtes Ei"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Sneak + right-click with an egg (plain, blue or brown) stands it up on a block. Mined with Silk Touch it comes back; otherwise it breaks and hatches exactly like a thrown egg: a chick in 1 of 8, four chicks in 1 of 32 of those, as babies of the egg's variant.",
+          "details": [
+            "Needs a floor that carries its centre; falls off when the floor goes. Same server options as the small parts: server.features.placeVanillaItems and server.features.placeDisabledItems."
+          ]
+        },
+        "de": {
+          "summary": "Schleichen + Rechtsklick mit einem Ei (normal, blau oder braun) stellt es auf einen Block. Mit Behutsamkeit abgebaut kommt es zurück; sonst zerbricht es und schlüpft genau wie ein geworfenes Ei: in 1 von 8 Fällen ein Küken, davon in 1 von 32 vier, als Jungtiere in der Variante des Eis.",
+          "details": [
+            "Braucht einen Boden, der die Mitte trägt; fällt ab, wenn der Boden fehlt. Dieselben Server-Optionen wie die Kleinteile: server.features.placeVanillaItems und server.features.placeDisabledItems."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedEggBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/PlacedEggs.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:placed_smithing_template",
       "name": {
         "en_us": "Placed Smithing Template",
@@ -21934,8 +21950,7 @@
       },
       "texture": "assets/textures/block/reinforced_backpack_side.png",
       "craftedBy": [
-        "simplebuilding:reinforced_backpack",
-        "simplebuilding:reinforced_backpack_dyed"
+        "simplebuilding:reinforced_backpack"
       ],
       "usedIn": [
         "simplebuilding:netherite_backpack_smithing"
@@ -25223,22 +25238,6 @@
       ]
     },
     {
-      "id": "simplebuilding:backpack_dyed",
-      "type": "minecraft:crafting_dye",
-      "category": null,
-      "group": "dyed_backpack",
-      "result": {
-        "id": "simplebuilding:backpack",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/backpack_dyed.json",
-      "ingredients": [],
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:basic_upgrade_template",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -25272,6 +25271,35 @@
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:black_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 3683919
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/black_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:black_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:black_dye"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -25394,6 +25422,35 @@
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:blue_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 4551623
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/blue_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:blue_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:blue_dye"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -25563,6 +25620,35 @@
       ],
       "lines": [
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:brown_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 13732441
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/brown_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:brown_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:brown_dye"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -26462,6 +26548,35 @@
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:cyan_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 1356980
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/cyan_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:cyan_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:cyan_dye"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -27987,22 +28102,6 @@
       ]
     },
     {
-      "id": "simplebuilding:enderite_backpack_dyed",
-      "type": "minecraft:crafting_dye",
-      "category": null,
-      "group": "dyed_backpack",
-      "result": {
-        "id": "simplebuilding:enderite_backpack",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/enderite_backpack_dyed.json",
-      "ingredients": [],
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:enderite_backpack_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -28123,22 +28222,6 @@
       },
       "lines": [
         "1.21.11",
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:enderite_bundle_dyed",
-      "type": "minecraft:crafting_dye",
-      "category": null,
-      "group": "dyed_bundle",
-      "result": {
-        "id": "simplebuilding:enderite_bundle",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/enderite_bundle_dyed.json",
-      "ingredients": [],
-      "lines": [
         "26.2",
         "26.3"
       ]
@@ -28739,22 +28822,6 @@
       ]
     },
     {
-      "id": "simplebuilding:enderite_quiver_dyed",
-      "type": "minecraft:crafting_dye",
-      "category": null,
-      "group": "dyed_quiver",
-      "result": {
-        "id": "simplebuilding:enderite_quiver",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/enderite_quiver_dyed.json",
-      "ingredients": [],
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:enderite_quiver_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -29330,6 +29397,35 @@
       ]
     },
     {
+      "id": "simplebuilding:gray_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 7109507
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/gray_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:gray_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:gray_dye"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:gray_enderite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -29416,6 +29512,35 @@
       },
       "lines": [
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:green_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 7840025
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/green_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:green_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:green_dye"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -30008,6 +30133,35 @@
       ]
     },
     {
+      "id": "simplebuilding:light_blue_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 3190757
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/light_blue_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:light_blue_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:light_blue_dye"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:light_blue_enderite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -30094,6 +30248,35 @@
       },
       "lines": [
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:light_gray_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 11644067
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/light_gray_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:light_gray_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:light_gray_dye"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -30188,6 +30371,35 @@
       ]
     },
     {
+      "id": "simplebuilding:lime_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 10215225
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/lime_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:lime_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:lime_dye"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:lime_enderite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -30274,6 +30486,35 @@
       },
       "lines": [
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:magenta_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 13388217
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/magenta_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:magenta_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:magenta_dye"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -30442,22 +30683,6 @@
       ]
     },
     {
-      "id": "simplebuilding:netherite_backpack_dyed",
-      "type": "minecraft:crafting_dye",
-      "category": null,
-      "group": "dyed_backpack",
-      "result": {
-        "id": "simplebuilding:netherite_backpack",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_backpack_dyed.json",
-      "ingredients": [],
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:netherite_backpack_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -30517,22 +30742,6 @@
       },
       "lines": [
         "1.21.11",
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:netherite_bundle_dyed",
-      "type": "minecraft:crafting_dye",
-      "category": null,
-      "group": "dyed_bundle",
-      "result": {
-        "id": "simplebuilding:netherite_bundle",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_bundle_dyed.json",
-      "ingredients": [],
-      "lines": [
         "26.2",
         "26.3"
       ]
@@ -30843,22 +31052,6 @@
       },
       "lines": [
         "1.21.11",
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:netherite_quiver_dyed",
-      "type": "minecraft:crafting_dye",
-      "category": null,
-      "group": "dyed_quiver",
-      "result": {
-        "id": "simplebuilding:netherite_quiver",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_quiver_dyed.json",
-      "ingredients": [],
-      "lines": [
         "26.2",
         "26.3"
       ]
@@ -32441,6 +32634,35 @@
       ]
     },
     {
+      "id": "simplebuilding:orange_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 16487200
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/orange_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:orange_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:orange_dye"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:orange_enderite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -32527,6 +32749,35 @@
       },
       "lines": [
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:pink_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 16295613
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/pink_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:pink_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:pink_dye"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -34042,6 +34293,35 @@
       ]
     },
     {
+      "id": "simplebuilding:purple_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 9710282
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/purple_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:purple_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:purple_dye"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:purple_enderite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -34205,22 +34485,6 @@
       ]
     },
     {
-      "id": "simplebuilding:quiver_dyed",
-      "type": "minecraft:crafting_dye",
-      "category": null,
-      "group": "dyed_quiver",
-      "result": {
-        "id": "simplebuilding:quiver",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/quiver_dyed.json",
-      "ingredients": [],
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:raw_enderite_synthesis",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -34267,6 +34531,35 @@
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:red_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 13776942
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/red_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:red_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:red_dye"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -34402,22 +34695,6 @@
       ]
     },
     {
-      "id": "simplebuilding:reinforced_backpack_dyed",
-      "type": "minecraft:crafting_dye",
-      "category": null,
-      "group": "dyed_backpack",
-      "result": {
-        "id": "simplebuilding:reinforced_backpack",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_backpack_dyed.json",
-      "ingredients": [],
-      "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:reinforced_blast_furnace",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -34487,22 +34764,6 @@
       },
       "lines": [
         "1.21.11",
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_bundle_dyed",
-      "type": "minecraft:crafting_dye",
-      "category": null,
-      "group": "dyed_bundle",
-      "result": {
-        "id": "simplebuilding:reinforced_bundle",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_bundle_dyed.json",
-      "ingredients": [],
-      "lines": [
         "26.2",
         "26.3"
       ]
@@ -34784,22 +35045,6 @@
       },
       "lines": [
         "1.21.11",
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:reinforced_quiver_dyed",
-      "type": "minecraft:crafting_dye",
-      "category": null,
-      "group": "dyed_quiver",
-      "result": {
-        "id": "simplebuilding:reinforced_quiver",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_quiver_dyed.json",
-      "ingredients": [],
-      "lines": [
         "26.2",
         "26.3"
       ]
@@ -37133,6 +37378,35 @@
       ]
     },
     {
+      "id": "simplebuilding:white_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 15132390
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/white_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:white_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:white_dye"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:white_enderite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -37219,6 +37493,35 @@
       },
       "lines": [
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:yellow_dyed_storage",
+      "type": "minecraft:crafting_transmute",
+      "category": "equipment",
+      "group": "storage_dye",
+      "result": {
+        "id": null,
+        "count": 1,
+        "components": {
+          "minecraft:dyed_color": 15910661
+        }
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/yellow_dyed_storage.json",
+      "ingredients": [
+        "#simplebuilding:dyeable_storage",
+        "minecraft:yellow_dye"
+      ],
+      "slots": {
+        "input": [
+          "#simplebuilding:dyeable_storage"
+        ],
+        "material": [
+          "minecraft:yellow_dye"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -37351,6 +37654,21 @@
       },
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:backpack_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_backpack",
+      "result": {
+        "id": "simplebuilding:backpack",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/backpack_dyed.json",
+      "ingredients": [],
+      "lines": [
+        "26.2"
       ]
     },
     {
@@ -37576,6 +37894,51 @@
           "minecraft:elytra"
         ]
       },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:enderite_backpack_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_backpack",
+      "result": {
+        "id": "simplebuilding:enderite_backpack",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_backpack_dyed.json",
+      "ingredients": [],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:enderite_bundle_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_bundle",
+      "result": {
+        "id": "simplebuilding:enderite_bundle",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_bundle_dyed.json",
+      "ingredients": [],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:enderite_quiver_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_quiver",
+      "result": {
+        "id": "simplebuilding:enderite_quiver",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_quiver_dyed.json",
+      "ingredients": [],
       "lines": [
         "26.2"
       ]
@@ -38189,6 +38552,51 @@
       ]
     },
     {
+      "id": "simplebuilding:netherite_backpack_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_backpack",
+      "result": {
+        "id": "simplebuilding:netherite_backpack",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_backpack_dyed.json",
+      "ingredients": [],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:netherite_bundle_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_bundle",
+      "result": {
+        "id": "simplebuilding:netherite_bundle",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_bundle_dyed.json",
+      "ingredients": [],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:netherite_quiver_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_quiver",
+      "result": {
+        "id": "simplebuilding:netherite_quiver",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_quiver_dyed.json",
+      "ingredients": [],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:octant",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -38334,6 +38742,66 @@
       },
       "lines": [
         "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:quiver_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_quiver",
+      "result": {
+        "id": "simplebuilding:quiver",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/quiver_dyed.json",
+      "ingredients": [],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:reinforced_backpack_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_backpack",
+      "result": {
+        "id": "simplebuilding:reinforced_backpack",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_backpack_dyed.json",
+      "ingredients": [],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:reinforced_bundle_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_bundle",
+      "result": {
+        "id": "simplebuilding:reinforced_bundle",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_bundle_dyed.json",
+      "ingredients": [],
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:reinforced_quiver_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_quiver",
+      "result": {
+        "id": "simplebuilding:reinforced_quiver",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_quiver_dyed.json",
+      "ingredients": [],
+      "lines": [
+        "26.2"
       ]
     },
     {
@@ -45245,6 +45713,45 @@
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/double_despawn_time.json"
+    },
+    {
+      "id": "simplebuilding:item/dyeable_storage",
+      "replace": false,
+      "values": [
+        {
+          "id": "#simplebuilding:backpacks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_bundle",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_bundle",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_bundle",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_quiver",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/dyeable_storage.json"
     },
     {
       "id": "simplebuilding:item/enderite_ingot_tier",
@@ -70100,12 +70607,12 @@
   },
   "counts": {
     "items": 194,
-    "blocks": 159,
-    "recipes": 430,
+    "blocks": 160,
+    "recipes": 435,
     "lootTables": 160,
     "trades": 20,
     "enchantments": 19,
-    "tags": 45,
+    "tags": 46,
     "config": 178,
     "inWorld": 396,
     "advancements": 123,

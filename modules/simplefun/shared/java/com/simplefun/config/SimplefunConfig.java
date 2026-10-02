@@ -34,6 +34,10 @@ public class SimplefunConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip public boolean cowHeadGreeting = true;
     @ConfigEntry.Gui.Tooltip public boolean chickenHeadGreeting = true;
     @ConfigEntry.Gui.Tooltip public boolean sheepHeadGreeting = true;
+    @ConfigEntry.Gui.Tooltip public boolean cowHeadMilking = true;
+    @ConfigEntry.Gui.Tooltip public boolean sheepHeadShearing = true;
+    @ConfigEntry.Gui.Tooltip public boolean chickenHeadEggs = true;
+    @ConfigEntry.Gui.Tooltip public boolean pigHeadTruffles = true;
     @ConfigEntry.Gui.Tooltip public boolean flowerSniff = true;
     @ConfigEntry.Gui.Tooltip public boolean cookieCrumbs = true;
     @ConfigEntry.Gui.Tooltip public boolean appleSparkle = true;

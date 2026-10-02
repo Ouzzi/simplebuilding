@@ -42,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 public class PlacedEggBlock extends Block {
     public static final EnumProperty<Egg> EGG = EnumProperty.create("egg", Egg.class);
     public static final MapCodec<PlacedEggBlock> CODEC = com.simplebuilding.version.BlockCodecs.simple(PlacedEggBlock::new);
-    private static final VoxelShape SHAPE = Block.box(6.0, 0.0, 6.0, 10.0, 6.0, 10.0);
+    private static final VoxelShape SHAPE = Block.box(5.5, 0.0, 5.5, 10.5, 6.5, 10.5);
 
     public enum Egg implements StringRepresentable {
         WHITE("white", Items.EGG), BLUE("blue", Items.BLUE_EGG), BROWN("brown", Items.BROWN_EGG);

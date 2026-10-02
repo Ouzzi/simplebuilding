@@ -1,51 +1,67 @@
-# Plan P5/P6 – Guides je Mod, Freischaltung über Advancements (2026-10-02)
+# Plan P5/P6 – Guides je Mod, Tabs freigeschaltet über Rezepte (2026-10-02, überarbeitet)
 
-Besitzer: Backlog P5, P6, L1 in `docs/ai/BACKLOG-2026-10-01.md`.
+Besitzer: Backlog P5, P6, L1 in `docs/ai/BACKLOG-2026-10-01.md`; Kriterium vom Besitzer (2026-10-02):
+„muss ähnlich wie vorher funktionieren: verschiedene Tabs, jeder Tab gegatet durch ein Crafting-Rezept, so simpel wie
+möglich für diese Stufe“ – Werkzeuge = das erste Werkzeug, das man herstellt; Pads = die Druckplatten der Mod (oder
+Druckplatten allgemein). Sobald eins dieser Rezepte freigeschaltet ist, ist der Tab frei; auch das Grund-Item des Themas
+zählt.
 
 ## Ist-Zustand (26.3, `McVersion.MEGA_GUIDES`)
 
-- Zwei Hub-Items (`guide_book`, `guide_book_vanilla_start`), Kapitel als Bitmaske `GUIDE_CHAPTERS` (20 Bit, alle belegt) am Stapel.
-- Freischalten: Tab anklicken → `GuideUnlockPayload` → `GuideUnlocks.unlock` verbraucht ein Schlüssel-Item und vergibt
-  danach `simplebuilding:guides/<topic>` (Kriterium `impossible`). Kein Weg von Advancement → Kapitel.
-- Rezept: Buch + Schlüssel-Item des Hubs (Datagen). Kein Start-Geschenk auf 26.3. FTB-Quests: keine Rewards.
-- `Book` ist ein geschlossenes Enum, Inhalte über Lang-Keys `book.simplebuilding.*`, Stile in `GuideContent.STYLES`.
-  Module haben keine Bücher (nur `wiki/manual.json`).
+- Zwei Hub-Items (`guide_book`, `guide_book_vanilla_start`), Kapitel = Tabs, Bitmaske `GUIDE_CHAPTERS` (20 Bit) am Stapel.
+- Freischalten heute: Tab anklicken → `GuideUnlockPayload` → `GuideUnlocks.unlock` **verbraucht ein Schlüssel-Item**
+  (`GuideBooks.keyItem`) und vergibt `simplebuilding:guides/<topic>`.
+- Rezept des Hubs: Buch + Schlüssel-Item. Kein Start-Geschenk. FTB-Quests: keine Rewards. Module haben keine Bücher.
 
 ## Ziel
 
-1. Kapitel schalten sich frei, sobald der Spieler den Stand erreicht hat (Advancement), ohne Item-Verbrauch.
-   Gesperrter Tab sagt, was zu tun ist („Erreiche: <Advancement-Titel>“).
-2. Freischaltung gilt pro Spieler (nicht pro Stapel): jedes Exemplar zeigt den Stand seines Lesers.
-3. Jede Mod bekommt ein eigenes, herstellbares Buch im SimpleBuilding-Layout; nicht beim Start im Inventar;
-   mit FTB Quests als kostenlose Belohnung der ersten Quest.
+1. **Tabs bleiben wie heute** (gleiches Layout, gleiche Reihenfolge, gesperrte Tabs grau).
+2. **Freischalten ohne Verbrauch**: ein Tab ist frei, sobald der Spieler **eines der Tor-Rezepte des Tabs im Rezeptbuch
+   freigeschaltet hat** (Vanilla `RecipeBook`, serverseitig `ServerRecipeBook#contains`). Tor-Rezepte = das einfachste
+   Rezept der Stufe, plus die Rezepte des Grund-Items des Themas. Ein gesperrter Tab nennt im Tooltip das Item
+   („Schalte frei: Steinmeißel herstellen“).
+3. Freischaltung gilt **pro Spieler** (jedes Exemplar zeigt den Stand seines Lesers); alte Bitmasken werden übernommen.
+4. Jede Mod bekommt ein eigenes, herstellbares Buch mit denselben Tabs-Mechanik; nicht beim Start im Inventar; mit
+   FTB Quests als kostenlose Belohnung der ersten Quest.
+
+## Tor-Rezepte (Vorschlag, einfachstes Rezept der Stufe)
+
+| Tab | Tor (eines reicht) |
+|---|---|
+| Werkzeuge | Steinmeißel (erstes Werkzeug der Mod) |
+| Verzauberungen | erstes Mod-Buch-Rezept bzw. Bücherregal-/Verzauberungstisch-Rezept |
+| Bauen | Steinkiesel/Bruchstein-Rezepte der Mod, erste Baublock-Palette (z. B. Astralit-Ziegel) |
+| Lager | Rucksack, Köcher oder Verstärktes Bündel |
+| Maschinen | Verstärkter Trichter, Ofen oder Kolben |
+| End | Enderit-Barren bzw. erstes End-Rezept (Astralit/Nihilit) |
+| Pads | Druckplatten der Mod (Kupfer/Eisen …) oder eine Vanilla-Druckplatte |
+| Gadgets | Kupferkern bzw. Messuhr, Erzdetektor, Attraktor |
+| Besätze | Leuchtende/Strahlende Besatzvorlage |
+| Admin | nur Operator (unverändert) |
+| Vanilla-Regal | je Tab das typische Vanilla-Grundrezept (Holzspitzhacke, Fackel, Boot, Feuerzeug, Enderauge, Redstone-Fackel, Steinschwert, Weizen→Brot) |
+
+Endgültige Liste im Code (`GuideBooks.gates(Book)`) mit Test „jedes Tor-Rezept existiert“.
 
 ## Entwurf
 
-- **Gemeinsame Buch-Bibliothek** (L1): Bildschirm, Layout, Seitenumbruch, Lesezeichen, Kapitel-Freischaltung als
-  Registry-API statt Enum: `GuideRegistry.register(BookDef{id, ownerMod, shelf, icon, langPrefix, chapters, unlock})`.
-  Wohnt im SimpleBuilding-Code (`common/.../guide/api`), Module binden sie über den bestehenden `framework`-Weg
-  an, wenn SimpleBuilding fehlt? → Entscheidung: Module ohne SimpleBuilding brauchen den Bildschirm selbst, also
-  Bibliothek als eigenes kleines Mod-Jar (`simpleguides`), das jede Mod per jarJar/include mitbringt (wie `framework`).
-- **Freischaltung**: `ChapterDef.unlock = Advancement-Id` (Vanilla- oder Mod-Advancement). Server prüft beim Öffnen
-  und bei jedem `PlayerAdvancements#award` (Mixin, ein Hook für alle Loader) und schickt die freigeschalteten Kapitel
-  per Payload; gespeichert als Spieler-Attachment/persistente Daten (Liste von Kapitel-Ids, keine Bitgrenze).
-  Alte `GUIDE_CHAPTERS`-Bits werden beim ersten Öffnen in den Spielerstand übernommen (keine Rückschritte).
-  Vorschlag Zuordnung: Werkzeuge = „Steinmeißel herstellen“-Advancement usw.; Admin bleibt Operator.
-- **Bücher je Mod**: Simple QoL, Simple Fun, Simple Riding, Simple Tweaks, Simple Visuals, Simple Money,
-  Simple Sounds, Simple Models, Simple Dimensions. Inhalt aus `wiki/manual.json` (features → Kapitel) automatisch
-  als Lang-Keys erzeugt, damit Wiki und Buch nicht auseinanderlaufen; Rezept Buch + typisches Item der Mod.
-- **FTB Quests**: Generator bekommt `rewards` (Item-Reward Guide) für die erste Quest jeder Mod; Spieler holt ihn
-  kostenlos ab. Ohne FTB Quests: nur Rezept.
+- **Prüfung**: beim Öffnen und bei jedem `ServerRecipeBook#add` (Mixin, ein Hook für alle Loader) prüft der Server die
+  Tore aller Tabs; neu freie Tabs landen im Spielerstand (persistente Spielerdaten, Liste von Tab-Ids) und gehen per
+  Payload an den Client. Kein Item-Verbrauch, kein Klick nötig; Seitenblätter-Klang beim ersten Freiwerden.
+- **Gemeinsame Buch-Bibliothek** (L1): Bildschirm, Layout, Tabs und Freischaltung als Registry statt Enum
+  (`BookDef{id, mod, tabs[TabDef{id, icon, gates, chapters}]}`), als kleines eigenes Jar (`simpleguides`), das jede Mod
+  mitbringt, weil Module nicht von SimpleBuilding abhängen dürfen.
+- **Bücher je Mod**: Inhalt aus `wiki/manual.json` der Mod (features → Kapitel), als Lang-Keys erzeugt; Rezept Buch +
+  typisches Item der Mod; Tabs mit Toren wie oben.
+- **FTB Quests**: erste Quest jeder Mod gibt das Buch als Belohnung.
 
 ## Schritte
 
-1. Spieler-Stand + Advancement-Hook + gesperrter-Tab-Text, SimpleBuilding-Bücher umgestellt; Tests.
-2. Registry-API, SimpleBuilding nutzt sie selbst (Enum → Defs), Tests unverändert grün.
-3. Bibliothek auslagern (`simpleguides`), Module binden ein; je Modul Buch + Rezept + Inhalt aus manual.json.
+1. SimpleBuilding: Tor-Liste, Spielerstand, Rezeptbuch-Hook, Tooltip „Schalte frei: …“, Migration der Bitmaske; Tests.
+2. Registry-API, SimpleBuilding nutzt sie selbst; Tests unverändert grün.
+3. Bibliothek auslagern, Module binden ein (Buch, Rezept, Inhalt aus manual.json).
 4. FTB-Quests-Rewards; Wiki/Doku.
 
 ## Risiken
 
-- Bitmasken-Altbestand in Welten (Migration), Mehrspieler: Buch zeigt Stand des Lesers.
-- Modul-Isolation (Module dürfen nicht von SimpleBuilding abhängen) → eigene Bibliothek nötig.
-- Offene Frage an Besitzer: Advancement-Zuordnung je Kapitel vorschlagen und freigeben lassen.
+- Rezepte, die Vanilla nicht per Rezeptbuch freischaltet (Spezialrezepte) als Tor meiden.
+- Bitmasken-Altbestand (Migration), Mehrspieler: Buch zeigt Stand des Lesers.

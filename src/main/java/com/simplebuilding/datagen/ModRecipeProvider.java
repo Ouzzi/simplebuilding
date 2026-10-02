@@ -213,6 +213,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // Vanillas dyedItem(...) speichert unter minecraft:<id>_dyed; hier dasselbe Rezept
                 // unter simplebuilding:<id>_dyed.
+                // 26.3 faerbt wie Vanillas Buendel (StorageDyes, Overlay-Rezepte <farbe>_dyed_storage).
+                if (!com.simplebuilding.version.McVersion.VANILLA_DYEING) {
                 for (Item backpack : new Item[]{ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK,
                         ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK}) {
                     modDyedItem(backpack, "dyed_backpack");
@@ -223,6 +225,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 for (Item quiver : new Item[]{ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER,
                         ModItems.ENDERITE_QUIVER}) {
                     modDyedItem(quiver, "dyed_quiver");
+                }
                 }
 
                 // =================================================================

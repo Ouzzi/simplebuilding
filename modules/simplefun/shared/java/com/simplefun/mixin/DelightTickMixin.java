@@ -10,5 +10,6 @@ public class DelightTickMixin {
   @Inject(method = "tick", at = @At("TAIL"))
   private void fun$tick(CallbackInfo c) {
     com.simplefun.FunDelights.tick((ServerPlayer) (Object) this);
+    com.simplefun.heads.HeadAbilities.tick((ServerPlayer) (Object) this);
   }
 }

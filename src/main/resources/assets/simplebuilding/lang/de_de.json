@@ -352,7 +352,7 @@
   "tooltip.simplebuilding.suspended": "Schwebt in der Luft und fällt nie",
   "tooltip.simplebuilding.core.used_in": "Verwendet in:",
   "tooltip.simplebuilding.enderite_armor.void": "Leere-Schaden trifft seltener, mit jedem Teil mehr",
-  "tooltip.simplebuilding.enderite_armor.glide": "Im Fall schleichen: langsamer fallen, weniger Fallschaden (mehr Teile, mehr Dämpfung)",
+  "tooltip.simplebuilding.enderite_armor.glide": "Im Fall schleichen: langsamer fallen, weniger Fallschaden; im Fall oder Gleitflug sprinten: bremst das Sinken (mehr Teile, stärker)",
   "tooltip.simplebuilding.food.when_eaten": "Beim Verzehr:",
   "tooltip.simplebuilding.hammer_upgrade.reinforced": "In der Welt aufwerten, der Inhalt bleibt: mit einem beliebigen Vorschlaghammer und einem Rissigen Diamanten in der Nebenhand Rechtsklick darauf halten.",
   "block.simplebuilding.reinforced_piston": "Verstärkter Kolben",

@@ -1026,6 +1026,117 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "modules/simplefun/forge/build.gradle"
       ],
       "related": []
+    },
+    {
+      "id": "config_cowHeadMilking",
+      "en": {
+        "title": "Cow head: milk the wearer",
+        "summary": "Another player can milk whoever wears a cow head with a bucket, like a cow. Default: true. Server-owned; restart required.",
+        "details": [
+          "Another player can milk whoever wears a cow head with a bucket, like a cow. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Kuhkopf: Träger melken",
+        "summary": "Ein anderer Spieler kann den Träger eines Kuhkopfs mit einem Eimer melken, wie eine Kuh. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Ein anderer Spieler kann den Träger eines Kuhkopfs mit einem Eimer melken, wie eine Kuh. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/heads/HeadAbilities.java"
+      ]
+    },
+    {
+      "id": "config_sheepHeadShearing",
+      "en": {
+        "title": "Sheep head: shear the wearer",
+        "summary": "Another player can shear whoever wears a sheep head: 1-3 white wool, then two minutes until the wool has grown back. Default: true. Server-owned; restart required.",
+        "details": [
+          "Another player can shear whoever wears a sheep head: 1-3 white wool, then two minutes until the wool has grown back. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Schafskopf: Träger scheren",
+        "summary": "Ein anderer Spieler kann den Träger eines Schafskopfs scheren: 1-3 weiße Wolle, danach zwei Minuten, bis die Wolle nachgewachsen ist. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Ein anderer Spieler kann den Träger eines Schafskopfs scheren: 1-3 weiße Wolle, danach zwei Minuten, bis die Wolle nachgewachsen ist. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/heads/HeadAbilities.java"
+      ]
+    },
+    {
+      "id": "config_chickenHeadEggs",
+      "en": {
+        "title": "Chicken head: lay eggs",
+        "summary": "Whoever wears a chicken head lays an egg now and then, as often as a chicken (every 5-10 minutes). Default: true. Server-owned; restart required.",
+        "details": [
+          "Whoever wears a chicken head lays an egg now and then, as often as a chicken (every 5-10 minutes). Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Huhnkopf: Eier legen",
+        "summary": "Wer einen Huhnkopf trägt, legt ab und zu ein Ei, so oft wie ein Huhn (alle 5-10 Minuten). Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Wer einen Huhnkopf trägt, legt ab und zu ein Ei, so oft wie ein Huhn (alle 5-10 Minuten). Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/heads/HeadAbilities.java"
+      ]
+    },
+    {
+      "id": "config_pigHeadTruffles",
+      "en": {
+        "title": "Pig head: truffle nose",
+        "summary": "Sneaking for three seconds on grass, dirt, podzol, mycelium or moss with a pig head digs something up (potato, carrot, beetroot seeds, mushrooms, rarely a golden carrot); then two minutes of rest. Default: true. Server-owned; restart required.",
+        "details": [
+          "Sneaking for three seconds on grass, dirt, podzol, mycelium or moss with a pig head digs something up (potato, carrot, beetroot seeds, mushrooms, rarely a golden carrot); then two minutes of rest. Default: true. Server-owned; restart required."
+        ]
+      },
+      "de": {
+        "title": "Schweinekopf: Trüffelnase",
+        "summary": "Drei Sekunden Schleichen auf Gras, Erde, Podsol, Myzel oder Moos mit Schweinekopf scharrt etwas aus (Kartoffel, Karotte, Rote-Bete-Samen, Pilze, selten eine goldene Karotte); danach zwei Minuten Pause. Standard: true. Server bestimmt Werte; Neustart erforderlich.",
+        "details": [
+          "Drei Sekunden Schleichen auf Gras, Erde, Podsol, Myzel oder Moos mit Schweinekopf scharrt etwas aus (Kartoffel, Karotte, Rote-Bete-Samen, Pilze, selten eine goldene Karotte); danach zwei Minuten Pause. Standard: true. Server bestimmt Werte; Neustart erforderlich."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
+        "modules/simplefun/shared/java/com/simplefun/heads/HeadAbilities.java"
+      ]
+    },
+    {
+      "id": "head_abilities",
+      "en": {
+        "title": "Animal head abilities",
+        "summary": "Worn animal heads can do something small and fun: the cow head lets other players milk you, the sheep head lets them shear you, the chicken head lays eggs, the pig head digs things up.",
+        "details": [
+          "Another player can milk whoever wears a cow head with a bucket, like a cow.",
+          "Another player can shear whoever wears a sheep head: 1-3 white wool, then two minutes until the wool has grown back.",
+          "Whoever wears a chicken head lays an egg now and then, as often as a chicken (every 5-10 minutes).",
+          "Sneaking for three seconds on grass, dirt, podzol, mycelium or moss with a pig head digs something up (potato, carrot, beetroot seeds, mushrooms, rarely a golden carrot); then two minutes of rest."
+        ]
+      },
+      "de": {
+        "title": "Fähigkeiten der Tierköpfe",
+        "summary": "Getragene Tierköpfe können etwas Kleines und Lustiges: Mit dem Kuhkopf melken dich andere Spieler, mit dem Schafskopf scheren sie dich, der Huhnkopf legt Eier, der Schweinekopf scharrt Dinge aus.",
+        "details": [
+          "Ein anderer Spieler kann den Träger eines Kuhkopfs mit einem Eimer melken, wie eine Kuh.",
+          "Ein anderer Spieler kann den Träger eines Schafskopfs scheren: 1-3 weiße Wolle, danach zwei Minuten, bis die Wolle nachgewachsen ist.",
+          "Wer einen Huhnkopf trägt, legt ab und zu ein Ei, so oft wie ein Huhn (alle 5-10 Minuten).",
+          "Drei Sekunden Schleichen auf Gras, Erde, Podsol, Myzel oder Moos mit Schweinekopf scharrt etwas aus (Kartoffel, Karotte, Rote-Bete-Samen, Pilze, selten eine goldene Karotte); danach zwei Minuten Pause."
+        ]
+      },
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/heads/HeadAbilities.java",
+        "modules/simplefun/shared/java/com/simplefun/mixin/HeadInteractMixin.java"
+      ]
     }
   ],
   "recipes": [
@@ -1502,7 +1613,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 48,
+    "features": 53,
     "recipes": 1,
     "lootTables": 4,
     "tags": 1,

@@ -92,8 +92,9 @@ public final class DyedStorageTests {
      */
     public static void dyeingColoursEveryBackpackAndBundleAndKeepsItsComponents(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
-        int red = DyeRgb.of(DyeColor.RED);
-        int blue = DyeRgb.of(DyeColor.BLUE);
+        boolean vanilla = com.simplebuilding.version.McVersion.VANILLA_DYEING;
+        int red = vanilla ? com.simplebuilding.util.StorageDyes.colour(DyeColor.RED) : DyeRgb.of(DyeColor.RED);
+        int blue = vanilla ? com.simplebuilding.util.StorageDyes.colour(DyeColor.BLUE) : DyeRgb.of(DyeColor.BLUE);
         List<String> problems = new ArrayList<>();
 
         for (Item item : DYEABLE) {
@@ -122,7 +123,13 @@ public final class DyedStorageTests {
                 continue;
             }
             int mixedColour = DyedStorage.colour(mixed);
-            if (mixedColour == DyedStorage.UNDYED || mixedColour == red || mixedColour == blue) {
+            if (vanilla) {
+                // Wie Vanillas Buendel: der neue Farbstoff ersetzt die Farbe, nichts wird gemischt.
+                if (mixedColour != blue) {
+                    problems.add(item + " dyed red and then blue carries " + Integer.toHexString(mixedColour) + " instead of the blue "
+                            + Integer.toHexString(blue));
+                }
+            } else if (mixedColour == DyedStorage.UNDYED || mixedColour == red || mixedColour == blue) {
                 problems.add(item + " dyed red and then blue carries " + Integer.toHexString(mixedColour)
                         + "; the colours are supposed to mix like leather");
             }
@@ -156,6 +163,24 @@ public final class DyedStorageTests {
         BlockPos cauldron = new BlockPos(2, 1, 2);
         int washesBefore = washCount(player);
         List<String> problems = new ArrayList<>();
+
+        if (com.simplebuilding.version.McVersion.VANILLA_DYEING) {
+            // 26.3 (owner 2026-10-02): like vanilla's coloured bundles the dye stays - the cauldron keeps its water.
+            for (Item item : DYEABLE) {
+                fillCauldron(helper, cauldron, 3);
+                ItemStack dyed = filled(helper, item);
+                dyed.set(DataComponents.DYED_COLOR, new DyedItemColor(com.simplebuilding.util.StorageDyes.colour(DyeColor.LIME)));
+                player.setItemInHand(InteractionHand.MAIN_HAND, dyed);
+                InteractionResult result = useBlockWithHeldItem(helper, player, cauldron);
+                if (result == InteractionResult.SUCCESS || waterLevel(helper, cauldron) != 3
+                        || DyedStorage.colour(player.getMainHandItem()) == DyedStorage.UNDYED) {
+                    problems.add(item + " was washed in the cauldron (" + result + "), vanilla bundles keep their colour");
+                }
+            }
+            helper.assertTrue(problems.isEmpty(), "cauldron problems: " + problems);
+            helper.succeed();
+            return;
+        }
 
         for (Item item : DYEABLE) {
             fillCauldron(helper, cauldron, 3);
@@ -317,7 +342,10 @@ public final class DyedStorageTests {
     }
 
     /** The dye recipe that matches {@code item}: one crafting_dye recipe per item on this line. */
-    private static String dyeRecipeId(Item item) {
+    private static String dyeRecipeId(Item item, DyeColor color) {
+        if (com.simplebuilding.version.McVersion.VANILLA_DYEING) {
+            return "simplebuilding:" + color.getName() + "_dyed_storage";
+        }
         return "simplebuilding:" + BuiltInRegistries.ITEM.getKey(item).getPath() + "_dyed";
     }
 
@@ -331,7 +359,7 @@ public final class DyedStorageTests {
             return null;
         }
         String id = match.get().id().identifier().toString();
-        if (!id.equals(dyeRecipeId(target.getItem()))) {
+        if (!id.equals(dyeRecipeId(target.getItem(), color))) {
             problems.add(target.getItem() + " plus " + color.getName() + " dye matched " + id);
         }
         return match.get().value().assemble(grid);

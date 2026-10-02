@@ -250,6 +250,16 @@ public final class ImmersionTests {
         player.setDeltaMovement(0.0, -0.6, 0.0);
         player.setOnGround(true);
         helper.assertValueEqual(com.simplebuilding.util.EnderiteSinkDamper.damping(player), 0.0, "no damping on the ground");
+        // Sprint brake: only the vertical speed, by pieces; not while sneaking.
+        player.setOnGround(false);
+        player.setShiftKeyDown(false);
+        player.setSprinting(true);
+        helper.assertValueEqual(com.simplebuilding.util.EnderiteSinkDamper.sprintBrake(player), 0.065, "sprint brake with 4 pieces");
+        player.setShiftKeyDown(true);
+        helper.assertValueEqual(com.simplebuilding.util.EnderiteSinkDamper.sprintBrake(player), 0.0, "no sprint brake while sneaking");
+        player.setShiftKeyDown(false);
+        player.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, ItemStack.EMPTY);
+        helper.assertValueEqual(com.simplebuilding.util.EnderiteSinkDamper.sprintBrake(player), 0.05, "sprint brake with 3 pieces");
         helper.succeed();
     }
 
@@ -282,7 +292,7 @@ public final class ImmersionTests {
      */
     public static void armorAndFoodTooltipsExplainWhatTheyDo(GameTestHelper helper) {
         expectLines(helper, ModItems.ENDERITE_BOOTS, "Void damage hits less often, more so with each piece",
-                "Sneak while falling: slower fall, less fall damage (more pieces, more damping)");
+                "Sneak while falling: slower fall, less fall damage; sprint while falling or gliding: brakes the descent (more pieces, stronger)");
         expectLines(helper, ModItems.NETHERITE_APPLE, "When eaten:", " Fire Resistance (4:00)", " Absorption II (0:30)",
                 " Regeneration II (0:10)");
         expectLines(helper, ModItems.ENDERITE_CARROT, "When eaten:", " Night Vision (5:00)", " Speed II (1:00)");

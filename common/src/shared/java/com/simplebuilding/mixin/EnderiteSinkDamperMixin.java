@@ -24,6 +24,18 @@ public abstract class EnderiteSinkDamperMixin {
         }
     }
 
+    /** Sprint-Bremse: nach der Bewegung des Ticks verliert die Sinkgeschwindigkeit ihren Anteil (Client und Server). */
+    @Inject(method = "travel", at = @At("TAIL"))
+    private void simplebuilding$sprintBrake(net.minecraft.world.phys.Vec3 input, org.spongepowered.asm.mixin.injection.callback.CallbackInfo ci) {
+        if ((Object) this instanceof Player player) {
+            double brake = EnderiteSinkDamper.sprintBrake(player);
+            if (brake > 0.0) {
+                net.minecraft.world.phys.Vec3 motion = player.getDeltaMovement();
+                player.setDeltaMovement(motion.x, motion.y * (1.0 - brake), motion.z);
+            }
+        }
+    }
+
     @ModifyVariable(method = "checkFallDamage", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private double simplebuilding$dampFallDistance(double ya, double ignored, boolean onGround, BlockState state, BlockPos pos) {
         if (!onGround && ya < 0.0 && (Object) this instanceof Player player) {
