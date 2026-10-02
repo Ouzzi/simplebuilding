@@ -10581,7 +10581,7 @@ window.WIKI_DATA = {
         "en_us": "Levitating Gravel",
         "de_de": "Aufsteigender Kies"
       },
-      "texture": "assets/textures/block/levitating_gravel.png",
+      "texture": null,
       "craftedBy": [
         "simplebuilding:levitating_gravel"
       ],
@@ -10612,7 +10612,7 @@ window.WIKI_DATA = {
             "If it rises into water or lava it replaces the fluid at the new position; the old position is set to air, not to the displaced fluid.",
             "No flint drop like ordinary gravel: the loot table only drops the block itself.",
             "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its texture is a byte-for-byte copy of the vanilla gravel texture (assets/minecraft/textures/block/gravel.png), so in the world the block cannot be told apart from ordinary gravel."
+            "Its model uses the vanilla gravel texture (minecraft:block/gravel), so in the world the block cannot be told apart from ordinary gravel."
           ]
         },
         "de": {
@@ -10638,7 +10638,7 @@ window.WIKI_DATA = {
             "Steigt er in Wasser oder Lava hinein, ersetzt er die Flüssigkeit an der neuen Position; die alte Position wird auf Luft gesetzt, nicht auf die verdrängte Flüssigkeit.",
             "Kein Feuerstein-Drop wie bei normalem Kies: Die Beutetabelle lässt nur den Block selbst fallen.",
             "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Kiestextur (assets/minecraft/textures/block/gravel.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
+            "Sein Modell nutzt die Vanilla-Kiestextur (minecraft:block/gravel); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
           ]
         },
         "sources": [
@@ -10663,7 +10663,7 @@ window.WIKI_DATA = {
         "en_us": "Levitating Sand",
         "de_de": "Aufsteigender Sand"
       },
-      "texture": "assets/textures/block/levitating_sand.png",
+      "texture": null,
       "craftedBy": [
         "simplebuilding:levitating_sand"
       ],
@@ -10693,7 +10693,7 @@ window.WIKI_DATA = {
             "It never comes back down on its own; there is no code that makes it fall.",
             "If it rises into water or lava it replaces the fluid at the new position; the old position is set to air, not to the displaced fluid.",
             "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its texture is a byte-for-byte copy of the vanilla sand texture (assets/minecraft/textures/block/sand.png), so in the world the block cannot be told apart from ordinary sand."
+            "Its model uses the vanilla sand texture (minecraft:block/sand), so in the world the block cannot be told apart from ordinary sand."
           ]
         },
         "de": {
@@ -10718,7 +10718,7 @@ window.WIKI_DATA = {
             "Er kommt nie von selbst wieder herunter; es gibt keinen Code, der ihn fallen lässt.",
             "Steigt er in Wasser oder Lava hinein, ersetzt er die Flüssigkeit an der neuen Position; die alte Position wird auf Luft gesetzt, nicht auf die verdrängte Flüssigkeit.",
             "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Sandtextur (assets/minecraft/textures/block/sand.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
+            "Sein Modell nutzt die Vanilla-Sandtextur (minecraft:block/sand); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
           ]
         },
         "sources": [
@@ -16000,7 +16000,7 @@ window.WIKI_DATA = {
         "en_us": "Suspended Gravel",
         "de_de": "Schwebender Kies"
       },
-      "texture": "assets/textures/block/suspended_gravel.png",
+      "texture": null,
       "craftedBy": [
         "simplebuilding:suspended_gravel"
       ],
@@ -16024,7 +16024,7 @@ window.WIKI_DATA = {
           "caveats": [
             "No flint drop like ordinary gravel: the loot table only drops the block itself.",
             "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its texture is a byte-for-byte copy of the vanilla gravel texture (assets/minecraft/textures/block/gravel.png), so in the world the block cannot be told apart from ordinary gravel."
+            "Its model uses the vanilla gravel texture (minecraft:block/gravel), so in the world the block cannot be told apart from ordinary gravel."
           ]
         },
         "de": {
@@ -16043,7 +16043,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Kein Feuerstein-Drop wie bei normalem Kies: Die Beutetabelle lässt nur den Block selbst fallen.",
             "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Kiestextur (assets/minecraft/textures/block/gravel.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
+            "Sein Modell nutzt die Vanilla-Kiestextur (minecraft:block/gravel); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
           ]
         },
         "sources": [
@@ -16068,7 +16068,7 @@ window.WIKI_DATA = {
         "en_us": "Suspended Sand",
         "de_de": "Schwebender Sand"
       },
-      "texture": "assets/textures/block/suspended_sand.png",
+      "texture": null,
       "craftedBy": [
         "simplebuilding:suspended_sand"
       ],
@@ -16092,7 +16092,7 @@ window.WIKI_DATA = {
           "caveats": [
             "It behaves exactly like Suspended Gravel; the two differ only in look, sound and recipe.",
             "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its texture is a byte-for-byte copy of the vanilla sand texture (assets/minecraft/textures/block/sand.png), so in the world the block cannot be told apart from ordinary sand."
+            "Its model uses the vanilla sand texture (minecraft:block/sand), so in the world the block cannot be told apart from ordinary sand."
           ]
         },
         "de": {
@@ -16111,7 +16111,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Er verhält sich genau wie der Suspended Gravel; beide unterscheiden sich nur in Aussehen, Geräusch und Rezept.",
             "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Sandtextur (assets/minecraft/textures/block/sand.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
+            "Sein Modell nutzt die Vanilla-Sandtextur (minecraft:block/sand); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
           ]
         },
         "sources": [
@@ -17387,7 +17387,7 @@ window.WIKI_DATA = {
         "en_us": "Diamond Pressure Plate",
         "de_de": "Diamant-Druckplatte"
       },
-      "texture": "assets/textures/block/diamond_pressure_plate.png",
+      "texture": null,
       "craftedBy": [
         "simplebuilding:diamond_pressure_plate"
       ],
@@ -19563,7 +19563,7 @@ window.WIKI_DATA = {
         "en_us": "Levitating Gravel",
         "de_de": "Aufsteigender Kies"
       },
-      "texture": "assets/textures/block/levitating_gravel.png",
+      "texture": null,
       "craftedBy": [
         "simplebuilding:levitating_gravel"
       ],
@@ -19598,7 +19598,7 @@ window.WIKI_DATA = {
             "If it rises into water or lava it replaces the fluid at the new position; the old position is set to air, not to the displaced fluid.",
             "No flint drop like ordinary gravel: the loot table only drops the block itself.",
             "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its texture is a byte-for-byte copy of the vanilla gravel texture (assets/minecraft/textures/block/gravel.png), so in the world the block cannot be told apart from ordinary gravel."
+            "Its model uses the vanilla gravel texture (minecraft:block/gravel), so in the world the block cannot be told apart from ordinary gravel."
           ]
         },
         "de": {
@@ -19624,7 +19624,7 @@ window.WIKI_DATA = {
             "Steigt er in Wasser oder Lava hinein, ersetzt er die Flüssigkeit an der neuen Position; die alte Position wird auf Luft gesetzt, nicht auf die verdrängte Flüssigkeit.",
             "Kein Feuerstein-Drop wie bei normalem Kies: Die Beutetabelle lässt nur den Block selbst fallen.",
             "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Kiestextur (assets/minecraft/textures/block/gravel.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
+            "Sein Modell nutzt die Vanilla-Kiestextur (minecraft:block/gravel); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
           ]
         },
         "sources": [
@@ -19649,7 +19649,7 @@ window.WIKI_DATA = {
         "en_us": "Levitating Sand",
         "de_de": "Aufsteigender Sand"
       },
-      "texture": "assets/textures/block/levitating_sand.png",
+      "texture": null,
       "craftedBy": [
         "simplebuilding:levitating_sand"
       ],
@@ -19683,7 +19683,7 @@ window.WIKI_DATA = {
             "It never comes back down on its own; there is no code that makes it fall.",
             "If it rises into water or lava it replaces the fluid at the new position; the old position is set to air, not to the displaced fluid.",
             "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its texture is a byte-for-byte copy of the vanilla sand texture (assets/minecraft/textures/block/sand.png), so in the world the block cannot be told apart from ordinary sand."
+            "Its model uses the vanilla sand texture (minecraft:block/sand), so in the world the block cannot be told apart from ordinary sand."
           ]
         },
         "de": {
@@ -19708,7 +19708,7 @@ window.WIKI_DATA = {
             "Er kommt nie von selbst wieder herunter; es gibt keinen Code, der ihn fallen lässt.",
             "Steigt er in Wasser oder Lava hinein, ersetzt er die Flüssigkeit an der neuen Position; die alte Position wird auf Luft gesetzt, nicht auf die verdrängte Flüssigkeit.",
             "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Sandtextur (assets/minecraft/textures/block/sand.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
+            "Sein Modell nutzt die Vanilla-Sandtextur (minecraft:block/sand); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
           ]
         },
         "sources": [
@@ -20743,7 +20743,7 @@ window.WIKI_DATA = {
         "en_us": "Netherite Pressure Plate",
         "de_de": "Netherit-Druckplatte"
       },
-      "texture": "assets/textures/block/netherite_pressure_plate.png",
+      "texture": null,
       "craftedBy": [
         "simplebuilding:netherite_pressure_plate_smithing"
       ],
@@ -23806,7 +23806,7 @@ window.WIKI_DATA = {
         "en_us": "Suspended Gravel",
         "de_de": "Schwebender Kies"
       },
-      "texture": "assets/textures/block/suspended_gravel.png",
+      "texture": null,
       "craftedBy": [
         "simplebuilding:suspended_gravel"
       ],
@@ -23834,7 +23834,7 @@ window.WIKI_DATA = {
           "caveats": [
             "No flint drop like ordinary gravel: the loot table only drops the block itself.",
             "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its texture is a byte-for-byte copy of the vanilla gravel texture (assets/minecraft/textures/block/gravel.png), so in the world the block cannot be told apart from ordinary gravel."
+            "Its model uses the vanilla gravel texture (minecraft:block/gravel), so in the world the block cannot be told apart from ordinary gravel."
           ]
         },
         "de": {
@@ -23853,7 +23853,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Kein Feuerstein-Drop wie bei normalem Kies: Die Beutetabelle lässt nur den Block selbst fallen.",
             "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Kiestextur (assets/minecraft/textures/block/gravel.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
+            "Sein Modell nutzt die Vanilla-Kiestextur (minecraft:block/gravel); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
           ]
         },
         "sources": [
@@ -23878,7 +23878,7 @@ window.WIKI_DATA = {
         "en_us": "Suspended Sand",
         "de_de": "Schwebender Sand"
       },
-      "texture": "assets/textures/block/suspended_sand.png",
+      "texture": null,
       "craftedBy": [
         "simplebuilding:suspended_sand"
       ],
@@ -23906,7 +23906,7 @@ window.WIKI_DATA = {
           "caveats": [
             "It behaves exactly like Suspended Gravel; the two differ only in look, sound and recipe.",
             "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
-            "Its texture is a byte-for-byte copy of the vanilla sand texture (assets/minecraft/textures/block/sand.png), so in the world the block cannot be told apart from ordinary sand."
+            "Its model uses the vanilla sand texture (minecraft:block/sand), so in the world the block cannot be told apart from ordinary sand."
           ]
         },
         "de": {
@@ -23925,7 +23925,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Er verhält sich genau wie der Suspended Gravel; beide unterscheiden sich nur in Aussehen, Geräusch und Rezept.",
             "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
-            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Sandtextur (assets/minecraft/textures/block/sand.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
+            "Sein Modell nutzt die Vanilla-Sandtextur (minecraft:block/sand); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
           ]
         },
         "sources": [
