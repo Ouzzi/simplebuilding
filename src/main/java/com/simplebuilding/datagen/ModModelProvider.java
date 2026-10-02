@@ -724,6 +724,11 @@ public class ModModelProvider extends FabricModelProvider {
 
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_NUGGET, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_NUGGET, ModelTemplates.FLAT_ITEM);
+        if (ModItems.REINFORCED_SHULKER_SHELL != null) {
+            itemModelGenerator.generateFlatItem(ModItems.REINFORCED_SHULKER_SHELL, ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(ModItems.NETHERITE_SHULKER_SHELL, ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SHULKER_SHELL, ModelTemplates.FLAT_ITEM);
+        }
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_APPLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CARROT, ModelTemplates.FLAT_ITEM);
 

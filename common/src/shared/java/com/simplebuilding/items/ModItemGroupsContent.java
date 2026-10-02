@@ -406,8 +406,13 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("chests",
                         Items.CHEST, Items.COPPER_CHEST.weathering().unaffected(), ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST,
                         ModItems.ENDERITE_CHEST),
-                CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX,
-                        ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
+                // 26.3: nach einer Luecke die Stufen-Shulkerschalen (2026-10-02) in derselben Zeile.
+                com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS
+                        ? CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX,
+                                ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX, CreativeTabLayout.GAP,
+                                ModItems.REINFORCED_SHULKER_SHELL, ModItems.NETHERITE_SHULKER_SHELL, ModItems.ENDERITE_SHULKER_SHELL)
+                        : CreativeTabLayout.Row.of("shulker_boxes", Items.SHULKER_BOX, ModItems.REINFORCED_SHULKER_BOX,
+                                ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
     }
 
     /**

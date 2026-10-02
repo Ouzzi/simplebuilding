@@ -303,6 +303,18 @@ public class ModItems {
 
     public static final Item ENDERITE_NUGGET = registerItem("enderite_nugget", settings -> new Item(settings.fireResistant()));
 
+    /**
+     * Stufen-Shulkerschalen (Besitzer 2026-10-02): verstaerkte und Enderit-Shulker der End-Stadt lassen 0-2 fallen
+     * ({@link com.simplebuilding.util.RareShulkers}); abgelegt wertet ein Klumpen eine Schale um eine Stufe auf
+     * ({@link com.simplebuilding.util.ShulkerShells}). Rezept: Kupfertruhe + Stufen-Schale + Shulkerschale.
+     */
+    public static final Item REINFORCED_SHULKER_SHELL = com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS
+            ? registerItem("reinforced_shulker_shell", settings -> new Item(settings)) : null;
+    public static final Item NETHERITE_SHULKER_SHELL = com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS
+            ? registerItem("netherite_shulker_shell", settings -> new Item(settings.fireResistant().rarity(UNCOMMON))) : null;
+    public static final Item ENDERITE_SHULKER_SHELL = com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS
+            ? registerItem("enderite_shulker_shell", settings -> new Item(settings.fireResistant().rarity(Rarity.EPIC))) : null;
+
 
 
         public static final Item NIHILITH_SHARD = registerItem("nihilith_shard", s -> new Item(s

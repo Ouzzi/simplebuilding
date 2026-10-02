@@ -74,6 +74,7 @@ final class InWorldCategory implements IRecipeCategory<InWorldRecipeCatalog.Entr
             case ROTATE -> ModItems.ROTATOR;
             case CONSTRUCTORS_TOUCH -> Items.STICK;
             case CORE_ORE -> ModItems.DIAMOND_CORE;
+            case SHELL_UPGRADE -> Items.SHULKER_SHELL;
         };
     }
 

@@ -1805,7 +1805,7 @@ def sync_vanilla_recipes(check: bool) -> list[str]:
 
 INWORLD_KINDS = ("sledgehammer_upgrade", "sledgehammer_reshape", "diamond_crush",
                  "chisel", "chisel_reverse", "trim_template", "cauldron_wash", "shear_wool",
-                 "piston_repair", "copper_plate", "rotate", "constructors_touch", "core_ore")
+                 "piston_repair", "copper_plate", "rotate", "constructors_touch", "core_ore", "shell_upgrade")
 
 
 def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dict, list[str]]:
@@ -1979,6 +1979,19 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                         "output": {"id": ore["id"], "count": 1},
                         "stats": {"weight": ore["weight"]},
                     })
+
+        shell = exported.get("shellUpgrade")
+        if shell:
+            facts["shell_upgrade"] = {}
+            for step in shell["steps"]:
+                entries.append({
+                    "id": f"shell_upgrade/{step['result']}",
+                    "kind": "shell_upgrade",
+                    "inputs": [{"id": step["shell"], "count": 1}, {"id": step["nugget"], "count": step["nuggetCount"]}],
+                    "tools": [step["nugget"]],
+                    "output": {"id": step["result"], "count": 1},
+                    "stats": {},
+                })
 
         chisel = exported.get("chisel", {})
         tables = chisel.get("tables", [])

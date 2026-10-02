@@ -512,6 +512,25 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     }
                 }
 
+                // Zusaetzlich zu den Stufenwegen oben (Besitzer 2026-10-02): Kupfertruhe (jede) + eine Stufen-Shulkerschale
+                // + eine Shulkerschale ergibt die Shulkerkiste dieser Stufe (ShulkerShells).
+                if (com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
+                    for (com.simplebuilding.blocks.custom.ChestTier tier : com.simplebuilding.blocks.custom.ChestTier.values()) {
+                        Item shell = com.simplebuilding.util.ShulkerShells.shellOf(tier);
+                        Item box = switch (tier) {
+                            case REINFORCED -> ModItems.REINFORCED_SHULKER_BOX;
+                            case NETHERITE -> ModItems.NETHERITE_SHULKER_BOX;
+                            case ENDERITE -> ModItems.ENDERITE_SHULKER_BOX;
+                        };
+                        ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.DECORATIONS, box)
+                                .requires(tag(com.simplebuilding.util.ModTags.Items.COPPER_CHESTS))
+                                .requires(shell)
+                                .requires(Items.SHULKER_SHELL)
+                                .unlockedBy(getHasName(shell), has(shell))
+                                .save(output, Simplebuilding.MOD_ID + ":" + BuiltInRegistries.ITEM.getKey(box).getPath() + "_from_shells");
+                    }
+                }
+
                 // Netherit- und Enderit-Trichter (wie alle Netherit- und Enderit-Maschinen) haben kein
                 // Werkbankrezept mehr: sie entstehen in der Welt, per Vorschlaghammer und Nugget
                 // (SledgehammerUpgrades).

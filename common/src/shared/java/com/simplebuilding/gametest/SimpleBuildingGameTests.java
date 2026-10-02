@@ -746,6 +746,20 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_the_trim_multiplier_command_saves_and_syncs_its_value", TrimWiringTests::theTrimMultiplierCommandSavesAndSyncsItsValue)
                     .build(),
+            GameTestSpec.named("rare_structure_finds_game_test_better_chest_tables_rate_and_double_chest_rule", RareStructureFindsTests::betterChestTablesRateAndDoubleChestRule)
+                    .build(),
+            GameTestSpec.named("rare_structure_finds_game_test_bastion_template_chest_becomes_netherite_chest", RareStructureFindsTests::bastionTemplateChestBecomesNetheriteChest)
+                    .build(),
+            GameTestSpec.named("rare_structure_finds_game_test_placed_end_city_chest_becomes_enderite_chest_with_double_loot", RareStructureFindsTests::placedEndCityChestBecomesEnderiteChestWithDoubleLoot)
+                    .build(),
+            GameTestSpec.named("rare_structure_finds_game_test_rare_shulkers_have_tiered_health_and_drop_their_shells", RareStructureFindsTests::rareShulkersHaveTieredHealthAndDropTheirShells)
+                    .build(),
+            GameTestSpec.named("rare_structure_finds_game_test_rare_shulker_calls_four_endermites_once_when_players_come_near", RareStructureFindsTests::rareShulkerCallsFourEndermitesOnceWhenPlayersComeNear)
+                    .build(),
+            GameTestSpec.named("rare_structure_finds_game_test_placed_shells_upgrade_one_tier_per_nugget", RareStructureFindsTests::placedShellsUpgradeOneTierPerNugget)
+                    .build(),
+            GameTestSpec.named("rare_structure_finds_game_test_shell_recipes_and_config_caps", RareStructureFindsTests::shellRecipesAndConfigCaps)
+                    .build(),
             GameTestSpec.named("reinforced_bundle_game_test_insertion_stops_at_the_brim_and_weighs_by_stack_size", ReinforcedBundleTests::insertionStopsAtTheBrimAndWeighsByStackSize)
                     .build(),
             GameTestSpec.named("reinforced_bundle_game_test_insertion_turns_away_what_cannot_go_into_container_items", ReinforcedBundleTests::insertionTurnsAwayWhatCannotGoIntoContainerItems)

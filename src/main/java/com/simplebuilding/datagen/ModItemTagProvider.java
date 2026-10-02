@@ -320,6 +320,11 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 com.simplebuilding.items.ModItems.ENDERITE_NUGGET, com.simplebuilding.items.ModItems.ENDERITE_INGOT)) {
             tag.add(BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow());
         }
+        // Shulkerschalen (Vanilla und Stufen) liegen abgelegt, damit ein Klumpen sie aufwerten kann (ShulkerShells).
+        tag.add(BuiltInRegistries.ITEM.getResourceKey(net.minecraft.world.item.Items.SHULKER_SHELL).orElseThrow());
+        for (net.minecraft.world.item.Item shell : com.simplebuilding.util.ShulkerShells.tierShells()) {
+            tag.add(BuiltInRegistries.ITEM.getResourceKey(shell).orElseThrow());
+        }
     }
 
     private void addVoidProtected() {

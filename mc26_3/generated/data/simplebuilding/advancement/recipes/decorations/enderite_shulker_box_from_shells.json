@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_enderite_shulker_shell": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_shulker_shell"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:enderite_shulker_box_from_shells"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_enderite_shulker_shell"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:enderite_shulker_box_from_shells"
+    ]
+  }
+}

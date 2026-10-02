@@ -24,6 +24,10 @@
     "simplebuilding:diamond_pebble",
     "simplebuilding:netherite_nugget",
     "simplebuilding:enderite_nugget",
-    "simplebuilding:enderite_ingot"
+    "simplebuilding:enderite_ingot",
+    "minecraft:shulker_shell",
+    "simplebuilding:reinforced_shulker_shell",
+    "simplebuilding:netherite_shulker_shell",
+    "simplebuilding:enderite_shulker_shell"
   ]
 }

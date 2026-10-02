@@ -107,6 +107,7 @@ public final class TransformTargets {
 
         // The block's own item interaction (BlockBehaviour#useItemOn), before its empty-hand action.
         if (NetheriteBreakerPistonBlock.canRepairWith(state, stack)) return true;
+        if (ShulkerShells.canUpgrade(level, pos, stack)) return true;
         if (state.getBlock() instanceof CopperPressurePlateBlock plate) return plate.transformWith(state, stack).isPresent();
         if (state.is(Blocks.WATER_CAULDRON) && (OctantCauldronWash.isWashable(stack) || TieredShulkerBoxes.isWashable(stack))) return true;
         if (stack.is(Items.SHEARS) && state.getBlock() instanceof PumpkinBlock) return true;

@@ -109,6 +109,35 @@ public class TieredChestBlockEntity extends ChestBlockEntity {
         return Component.translatable(getBlockState().getBlock().getDescriptionId());
     }
 
+    // --- Beute ---
+
+    /**
+     * Eine Stufen-Truhe mit Loot-Tabelle (eine bessere Struktur-Truhe, {@code BetterChests}) wuerfelt ihre Tabelle
+     * zweimal: doppelte Beute. Der zweite Wurf hat einen abgeleiteten Seed (0 bleibt "zufaellig" wie bei Vanilla).
+     */
+    @Override
+    public void unpackLootTable(@org.jetbrains.annotations.Nullable Player player) {
+        net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable> key = getLootTable();
+        long seed = getLootTableSeed();
+        super.unpackLootTable(player);
+        if (key == null || !com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS
+                || !(this.level instanceof net.minecraft.server.level.ServerLevel server)) {
+            return;
+        }
+        net.minecraft.world.level.storage.loot.LootTable table = server.getServer().reloadableRegistries().getLootTable(key);
+        net.minecraft.world.level.storage.loot.LootParams.Builder params = new net.minecraft.world.level.storage.loot.LootParams.Builder(server)
+                .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN,
+                        net.minecraft.world.phys.Vec3.atCenterOf(this.worldPosition));
+        if (player != null) {
+            params.withLuck(player.getLuck()).withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.THIS_ENTITY, player);
+        }
+        table.fill(this, params.create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.CHEST),
+                seed == 0L ? 0L : seed * 31L + SECOND_ROLL_OFFSET);
+    }
+
+    /** Abstand des zweiten Beute-Seeds. */
+    private static final long SECOND_ROLL_OFFSET = 0x2545_F491_4F6C_DD1DL;
+
     // --- Stapelgrenzen ---
 
     /** Vanillas Container-Obergrenze (99) mal Stufenfaktor, wie beim Rucksack. */
