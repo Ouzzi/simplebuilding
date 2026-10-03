@@ -102,6 +102,10 @@ public class ModModelProvider extends FabricModelProvider {
         for (ModBlocks.EndPalette palette : ModBlocks.END_PALETTES) {
             registerEndPalette(blockStateModelGenerator, palette);
         }
+        // Alternativbloecke (2026-10-03): einfache Wuerfel mit eigener Textur.
+        for (ModBlocks.EndAlternates alternates : ModBlocks.END_ALTERNATES) {
+            alternates.alternates().forEach(blockStateModelGenerator::createTrivialCube);
+        }
 
         // Schwebender/aufsteigender Sand und Kies sehen aus wie Vanilla-Sand und -Kies: die Modelle zeigen direkt
         // auf minecraft:block/sand bzw. gravel (vorher byte-gleiche Kopien im Mod, Textur-Audit 2026-10-02).

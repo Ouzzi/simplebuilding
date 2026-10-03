@@ -1924,6 +1924,14 @@ public final class DataIntegrityTests {
             expectMining(older, older.defaultBlockState().getLightEmission(), 1, minedExpected);
         }
 
+        // The alternative blocks (2026-10-03) are cut 1:1 from their base block, see
+        // endAlternatesFollowTheirBaseBlock.
+        for (ModBlocks.EndAlternates alternates : ModBlocks.END_ALTERNATES) {
+            for (Block alternate : alternates.alternates()) {
+                expectedCuts.add(path(alternates.base()) + " -> 1 " + path(alternate));
+            }
+        }
+
         Set<String> missingCuts = new TreeSet<>(expectedCuts);
         missingCuts.removeAll(cuts);
         Set<String> strayCuts = new TreeSet<>();
@@ -2229,6 +2237,60 @@ public final class DataIntegrityTests {
     }
 
     /** One stonecutter cut "base -> count result"; slabs come two at a time. */
+    /**
+     * The three alternative blocks of the astralit and nihilith base block (owner 2026-10-03) behave like
+     * their base block and are reached three ways. <b>Crafting</b>: four in a square make four of the next
+     * one of the chain - first -> second -> third -> base block (the base block keeps its own square recipe,
+     * four of it make four polished). <b>Stonecutter</b>: each is cut 1:1 from the base block (pinned with the
+     * other end palette cuts in {@link #endBrickSetsAreCraftedCutMinedAndTaggedLikeVanilla}). <b>Chisel</b>: the
+     * enderite chisel continues the palette chain past the base block - base -> first -> second -> third - and
+     * the backward table walks it back. <b>Mining</b>: each needs a pickaxe, drops itself, and glows like its
+     * base block (astralit 10, nihilith 0).
+     *
+     * <p>What breaks this: a chain recipe missing or making something else, a chisel step pointing elsewhere or
+     * losing its way back, an alternate that drops nothing or another block, or that lost its base block's
+     * light or tool.
+     */
+    public static void endAlternatesFollowTheirBaseBlock(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        Map<Identifier, RecipeHolder<?>> modRecipes = modRecipes(level.getServer().getRecipeManager());
+        List<String> problems = new ArrayList<>();
+        ItemStack pickaxe = new ItemStack(Items.IRON_PICKAXE);
+        BlockPos at = helper.absolutePos(new BlockPos(1, 1, 1));
+        for (ModBlocks.EndAlternates alternates : ModBlocks.END_ALTERNATES) {
+            List<Block> chain = alternates.squareChain();
+            for (int i = 0; i < chain.size() - 1; i++) {
+                Block from = chain.get(i);
+                Block to = chain.get(i + 1);
+                assertShapedRecipe(helper, modRecipes, path(to) + "_from_" + path(from), to.asItem(), 4,
+                        new String[]{"##", "##"}, Map.of('#', from.asItem()), problems);
+            }
+            List<Block> chisel = List.of(alternates.base(), alternates.first(), alternates.second(), alternates.third());
+            for (int i = 0; i < chisel.size() - 1; i++) {
+                Block forward = com.simplebuilding.items.custom.ChiselItem.FINAL_ENDERITE_FWD.get(chisel.get(i));
+                Block back = com.simplebuilding.items.custom.ChiselItem.FINAL_ENDERITE_BWD.get(chisel.get(i + 1));
+                if (forward != chisel.get(i + 1)) {
+                    problems.add("enderite chisel on " + path(chisel.get(i)) + " gives " + (forward == null ? "nothing" : path(forward)));
+                }
+                if (back != chisel.get(i)) {
+                    problems.add("enderite spatula on " + path(chisel.get(i + 1)) + " gives " + (back == null ? "nothing" : path(back)));
+                }
+            }
+            int light = alternates.base().defaultBlockState().getLightEmission();
+            for (Block alternate : alternates.alternates()) {
+                StringBuilder got = new StringBuilder();
+                describeMining(helper, level, at, pickaxe, alternate.defaultBlockState(), got);
+                StringBuilder want = new StringBuilder();
+                expectMining(alternate, light, 1, want);
+                if (!got.toString().equals(want.toString())) {
+                    problems.add("mined: " + got + " expected " + want);
+                }
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "end alternative blocks: " + problems);
+        helper.succeed();
+    }
+
     private static void expectCut(Set<String> expected, Block base, Block result, ModBlocks.EndPalette p) {
         int count = p.slabs().contains(result) ? 2 : 1;
         expected.add(path(base) + " -> " + count + " " + path(result));
@@ -2810,11 +2872,13 @@ public final class DataIntegrityTests {
                 List.of(ModItems.ASTRALIT_BLOCK, ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
                         ModItems.ASTRALIT_BRICK_SLAB, ModItems.ASTRALIT_BRICK_WALL, ModItems.ASTRALIT_PILLAR,
                         ModItems.CHISELED_ASTRALIT_BRICKS, ModItems.ASTRAL_PURPUR_BLOCK),
+                List.of(ModItems.VEINED_ASTRALIT, ModItems.CRYSTALLINE_ASTRALIT, ModItems.LAYERED_ASTRALIT),
                 List.of(ModItems.POLISHED_ASTRALIT, ModItems.POLISHED_ASTRALIT_STAIRS, ModItems.POLISHED_ASTRALIT_SLAB,
                         ModItems.POLISHED_ASTRALIT_WALL),
                 List.of(ModItems.NIHILITH_BLOCK, ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
                         ModItems.NIHILITH_BRICK_SLAB, ModItems.NIHILITH_BRICK_WALL, ModItems.NIHILITH_PILLAR,
                         ModItems.CHISELED_NIHILITH_BRICKS, ModItems.NIHIL_PURPUR_BLOCK),
+                List.of(ModItems.VEINED_NIHILITH, ModItems.CRYSTALLINE_NIHILITH, ModItems.FROSTED_NIHILITH),
                 List.of(ModItems.POLISHED_NIHILITH, ModItems.POLISHED_NIHILITH_STAIRS, ModItems.POLISHED_NIHILITH_SLAB,
                         ModItems.POLISHED_NIHILITH_WALL),
                 List.of(ModItems.ENDER_QUARTZ_BLOCK, ModItems.ENDER_QUARTZ_STAIRS, ModItems.ENDER_QUARTZ_SLAB,

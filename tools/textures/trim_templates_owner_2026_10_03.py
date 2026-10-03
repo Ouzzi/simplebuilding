@@ -1,5 +1,8 @@
 """Usage: python tools/textures/trim_templates_owner_2026_10_03.py <vanilla textures dir> [preview png]
 
+SUPERSEDED 2026-10-03 evening: the owner wants his canvases 1:1 with his own background - trim_template_animation_2026_10_03.py
+writes the installed textures; do not run this script any more (its background-colour rule fits only the first canvases).
+
 Owner 2026-10-03 painted the three trim-template motifs himself (Resprite on the iPad) and wants "these textures with
 the correct background for the trims". His canvases were reconstructed cell by cell from the screenshots
 (owner_canvas_2026_10_03.py) into tools/textures/hand/owner/*_trim_template_owner.png:

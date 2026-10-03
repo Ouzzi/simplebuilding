@@ -3301,6 +3301,14 @@
             "simplebuilding:nihilith_bricks"
           ],
           [
+            "simplebuilding:crystalline_astralit",
+            "simplebuilding:veined_astralit"
+          ],
+          [
+            "simplebuilding:crystalline_nihilith",
+            "simplebuilding:veined_nihilith"
+          ],
+          [
             "simplebuilding:ender_quartz_block",
             "simplebuilding:chiseled_ender_quartz_bricks"
           ],
@@ -3333,6 +3341,14 @@
             "simplebuilding:ender_quartz_brick_stairs"
           ],
           [
+            "simplebuilding:frosted_nihilith",
+            "simplebuilding:crystalline_nihilith"
+          ],
+          [
+            "simplebuilding:layered_astralit",
+            "simplebuilding:crystalline_astralit"
+          ],
+          [
             "simplebuilding:nihilith_block",
             "simplebuilding:chiseled_nihilith_bricks"
           ],
@@ -3355,6 +3371,14 @@
           [
             "simplebuilding:nihilith_pillar",
             "simplebuilding:polished_nihilith"
+          ],
+          [
+            "simplebuilding:veined_astralit",
+            "simplebuilding:astralit_block"
+          ],
+          [
+            "simplebuilding:veined_nihilith",
+            "simplebuilding:nihilith_block"
           ]
         ],
         "forward": [
@@ -3735,6 +3759,10 @@
             "minecraft:tuff_brick_stairs"
           ],
           [
+            "simplebuilding:astralit_block",
+            "simplebuilding:veined_astralit"
+          ],
+          [
             "simplebuilding:astralit_bricks",
             "simplebuilding:chiseled_astralit_bricks"
           ],
@@ -3755,6 +3783,14 @@
             "simplebuilding:nihilith_block"
           ],
           [
+            "simplebuilding:crystalline_astralit",
+            "simplebuilding:layered_astralit"
+          ],
+          [
+            "simplebuilding:crystalline_nihilith",
+            "simplebuilding:frosted_nihilith"
+          ],
+          [
             "simplebuilding:ender_quartz_brick_slab",
             "simplebuilding:ender_quartz_slab"
           ],
@@ -3769,6 +3805,10 @@
           [
             "simplebuilding:ender_quartz_pillar",
             "simplebuilding:ender_quartz_bricks"
+          ],
+          [
+            "simplebuilding:nihilith_block",
+            "simplebuilding:veined_nihilith"
           ],
           [
             "simplebuilding:nihilith_bricks",
@@ -3825,6 +3865,14 @@
           [
             "simplebuilding:polished_nihilith_wall",
             "simplebuilding:nihilith_brick_wall"
+          ],
+          [
+            "simplebuilding:veined_astralit",
+            "simplebuilding:crystalline_astralit"
+          ],
+          [
+            "simplebuilding:veined_nihilith",
+            "simplebuilding:crystalline_nihilith"
           ]
         ],
         "touchBackward": [
@@ -4521,6 +4569,14 @@
             "simplebuilding:nihilith_bricks"
           ],
           [
+            "simplebuilding:crystalline_astralit",
+            "simplebuilding:veined_astralit"
+          ],
+          [
+            "simplebuilding:crystalline_nihilith",
+            "simplebuilding:veined_nihilith"
+          ],
+          [
             "simplebuilding:ender_quartz_block",
             "simplebuilding:chiseled_ender_quartz_bricks"
           ],
@@ -4553,6 +4609,14 @@
             "simplebuilding:ender_quartz_brick_stairs"
           ],
           [
+            "simplebuilding:frosted_nihilith",
+            "simplebuilding:crystalline_nihilith"
+          ],
+          [
+            "simplebuilding:layered_astralit",
+            "simplebuilding:crystalline_astralit"
+          ],
+          [
             "simplebuilding:nihilith_block",
             "simplebuilding:chiseled_nihilith_bricks"
           ],
@@ -4575,6 +4639,14 @@
           [
             "simplebuilding:nihilith_pillar",
             "simplebuilding:polished_nihilith"
+          ],
+          [
+            "simplebuilding:veined_astralit",
+            "simplebuilding:astralit_block"
+          ],
+          [
+            "simplebuilding:veined_nihilith",
+            "simplebuilding:nihilith_block"
           ]
         ],
         "touchForward": [
@@ -5235,6 +5307,10 @@
             "minecraft:yellow_concrete_powder"
           ],
           [
+            "simplebuilding:astralit_block",
+            "simplebuilding:veined_astralit"
+          ],
+          [
             "simplebuilding:astralit_bricks",
             "simplebuilding:chiseled_astralit_bricks"
           ],
@@ -5255,6 +5331,14 @@
             "simplebuilding:nihilith_block"
           ],
           [
+            "simplebuilding:crystalline_astralit",
+            "simplebuilding:layered_astralit"
+          ],
+          [
+            "simplebuilding:crystalline_nihilith",
+            "simplebuilding:frosted_nihilith"
+          ],
+          [
             "simplebuilding:ender_quartz_brick_slab",
             "simplebuilding:ender_quartz_slab"
           ],
@@ -5269,6 +5353,10 @@
           [
             "simplebuilding:ender_quartz_pillar",
             "simplebuilding:ender_quartz_bricks"
+          ],
+          [
+            "simplebuilding:nihilith_block",
+            "simplebuilding:veined_nihilith"
           ],
           [
             "simplebuilding:nihilith_bricks",
@@ -5325,6 +5413,14 @@
           [
             "simplebuilding:polished_nihilith_wall",
             "simplebuilding:nihilith_brick_wall"
+          ],
+          [
+            "simplebuilding:veined_astralit",
+            "simplebuilding:crystalline_astralit"
+          ],
+          [
+            "simplebuilding:veined_nihilith",
+            "simplebuilding:crystalline_nihilith"
           ]
         ]
       },

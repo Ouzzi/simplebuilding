@@ -27,6 +27,8 @@
     "simplebuilding:construction_light",
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_diamond_block",
+    "simplebuilding:crystalline_astralit",
+    "simplebuilding:crystalline_nihilith",
     "simplebuilding:diamond_pressure_plate",
     "simplebuilding:drowned_head",
     "simplebuilding:drowned_wall_head",
@@ -61,11 +63,13 @@
     "simplebuilding:exposed_copper_pressure_plate",
     "simplebuilding:fine_elytra_pad",
     "simplebuilding:flypad",
+    "simplebuilding:frosted_nihilith",
     "simplebuilding:husk_head",
     "simplebuilding:husk_wall_head",
     "simplebuilding:infused_potion_pad",
     "simplebuilding:lapis_quartz_checker",
     "simplebuilding:launchpad",
+    "simplebuilding:layered_astralit",
     "simplebuilding:levitating_gravel",
     "simplebuilding:levitating_sand",
     "simplebuilding:netherite_backpack",
@@ -97,15 +101,18 @@
     "simplebuilding:placed_bundle",
     "simplebuilding:placed_smithing_template",
     "simplebuilding:polished_astralit",
+    "simplebuilding:polished_astralit_checker",
     "simplebuilding:polished_astralit_slab",
     "simplebuilding:polished_astralit_stairs",
     "simplebuilding:polished_astralit_wall",
     "simplebuilding:polished_end_stone",
     "simplebuilding:polished_ender_quartz",
+    "simplebuilding:polished_ender_quartz_checker",
     "simplebuilding:polished_ender_quartz_slab",
     "simplebuilding:polished_ender_quartz_stairs",
     "simplebuilding:polished_ender_quartz_wall",
     "simplebuilding:polished_nihilith",
+    "simplebuilding:polished_nihilith_checker",
     "simplebuilding:polished_nihilith_slab",
     "simplebuilding:polished_nihilith_stairs",
     "simplebuilding:polished_nihilith_wall",
@@ -142,6 +149,8 @@
     "simplebuilding:stray_wall_skull",
     "simplebuilding:suspended_gravel",
     "simplebuilding:suspended_sand",
+    "simplebuilding:veined_astralit",
+    "simplebuilding:veined_nihilith",
     "simplebuilding:waxed_copper_pressure_plate",
     "simplebuilding:waxed_exposed_copper_pressure_plate",
     "simplebuilding:waxed_oxidized_copper_pressure_plate",
@@ -277,6 +286,12 @@
     {
       "id": "simplebuilding:creative_spacer",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:crystalline_astralit"
+    },
+    {
+      "id": "simplebuilding:crystalline_nihilith"
     },
     {
       "durability": 1024,
@@ -579,6 +594,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:frosted_nihilith"
+    },
+    {
       "id": "simplebuilding:funny_stick",
       "maxStackSize": 1
     },
@@ -748,6 +766,9 @@
     {
       "id": "simplebuilding:launchpad",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:layered_astralit"
     },
     {
       "id": "simplebuilding:layered_raw_enderite"
@@ -1006,6 +1027,9 @@
       "id": "simplebuilding:polished_astralit"
     },
     {
+      "id": "simplebuilding:polished_astralit_checker"
+    },
+    {
       "id": "simplebuilding:polished_astralit_slab"
     },
     {
@@ -1021,6 +1045,9 @@
       "id": "simplebuilding:polished_ender_quartz"
     },
     {
+      "id": "simplebuilding:polished_ender_quartz_checker"
+    },
+    {
       "id": "simplebuilding:polished_ender_quartz_slab"
     },
     {
@@ -1031,6 +1058,9 @@
     },
     {
       "id": "simplebuilding:polished_nihilith"
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_checker"
     },
     {
       "id": "simplebuilding:polished_nihilith_slab"
@@ -1187,6 +1217,12 @@
     },
     {
       "id": "simplebuilding:suspended_sand"
+    },
+    {
+      "id": "simplebuilding:veined_astralit"
+    },
+    {
+      "id": "simplebuilding:veined_nihilith"
     },
     {
       "id": "simplebuilding:velocity_gauge",

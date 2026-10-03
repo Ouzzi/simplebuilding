@@ -2140,7 +2140,9 @@ def end_palette_textures():
     tex["item/amethyst_lens_empty.png"] = render("amethyst_lens_empty", LASER_POINTER, LASER_POINTER_EMPTY_PAL, False)
     tex["item/enderite_ingot.png"] = render("enderite_ingot", ENDERITE_INGOT, ENDERITE_INGOT_PAL, False)
     tex["item/enderite_scrap.png"] = render("enderite_scrap", ENDERITE_SCRAP, ENDERITE_SCRAP_PAL, False)
-    tex["item/layered_raw_enderite.png"] = render("layered_raw_enderite", LAYERED_RAW_ENDERITE, LAYERED_RAW_ENDERITE_PAL, False)
+    # 2026-10-03: Besitzer-Textur, farbangepasst (layered_raw_enderite_owner_2026_10_03.py); die Datei im
+    # Hauptbaum ist jetzt die Quelle statt der Pixelkarte LAYERED_RAW_ENDERITE.
+    hand_drawn(tex, "item/layered_raw_enderite.png")
     tex["item/enderite_nugget.png"] = render("enderite_nugget", ENDERITE_NUGGET, ENDERITE_NUGGET_PAL, False)
     tex["item/enderite_upgrade_template.png"] = render("enderite_upgrade_template", ENDERITE_UPGRADE_TEMPLATE,
                                                         ENDERITE_UPGRADE_TEMPLATE_PAL, False)
@@ -2337,6 +2339,7 @@ PAD_ACTIVE_GLOW = {
 MAIN_TREE_ONLY = {"item/pulsating_trim_template.png", "item/blueprint_signed.png"}  # blueprint_signed: Kontur 2026-10-02
 # Enderit-Apfel/-Karotte 2026-10-02 neu (foods_settled_2026_10_02.py); die 1.21.11-Kopie zieht der Port-Run nach.
 MAIN_TREE_ONLY |= {"item/enderite_apple.png", "item/enderite_carrot.png", "item/enderite_nugget.png"}
+MAIN_TREE_ONLY |= {"item/blueprint.png", "item/blueprint_edited.png"}  # Kartenblatt-Blaupause 2026-10-03
 # Druckplatten, gedrueckt (powered): Leuchtfarbe und Deckkraft in der Mitte; die Grundbilder liegen in den
 # Ressourcen (Enderit generiert).
 PLATE_ACTIVE_GLOW = {
@@ -3148,10 +3151,10 @@ def build():
     tex = {}  # relpath -> Image
     tex["item/leather_sheet.png"] = render("leather_sheet", LEATHER_SHEET, LEATHER_SHEET_PAL, False)
     tex["item/reinforced_quiver.png"] = render("reinforced_quiver", REINFORCED_QUIVER, REINFORCED_QUIVER_PAL, False)
-    tex["item/blueprint.png"] = render("blueprint", BLUEPRINT, BLUEPRINT_PAL, False)
-    state_pal = dict(BLUEPRINT_PAL, **BLUEPRINT_STATE_PAL)
-    tex["item/blueprint_edited.png"] = render("blueprint_edited", blueprint_state_rows(BLUEPRINT_EDITED_OVER), state_pal, False)
-    tex["item/blueprint_signed.png"] = render("blueprint_signed", BLUEPRINT_SIGNED, BLUEPRINT_SIGNED_PAL, False)
+    # 2026-10-03: Blaupausen im Kartenblatt-Stil (blueprint_settled_2026_10_03.py) ersetzen die Pixelkarten
+    # BLUEPRINT/BLUEPRINT_EDITED_OVER/BLUEPRINT_SIGNED; die Dateien im Hauptbaum sind jetzt die Quelle.
+    for rel in ("item/blueprint.png", "item/blueprint_edited.png", "item/blueprint_signed.png"):
+        hand_drawn(tex, rel)
 
     for tier, prefix in (("basic", ""), ("reinforced", "reinforced_"), ("netherite", "netherite_"), ("enderite", "enderite_")):
         pal = LEATHER_TIERS[tier]

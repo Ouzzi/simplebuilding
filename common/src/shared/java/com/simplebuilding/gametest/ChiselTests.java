@@ -357,9 +357,11 @@ public final class ChiselTests {
 
         Block[][] families = {
                 {ModBlocks.POLISHED_ASTRALIT, ModBlocks.ASTRALIT_PILLAR, ModBlocks.ASTRALIT_BRICKS,
-                        ModBlocks.CHISELED_ASTRALIT_BRICKS, ModBlocks.ASTRALIT_BLOCK},
+                        ModBlocks.CHISELED_ASTRALIT_BRICKS, ModBlocks.ASTRALIT_BLOCK, ModBlocks.VEINED_ASTRALIT,
+                        ModBlocks.CRYSTALLINE_ASTRALIT, ModBlocks.LAYERED_ASTRALIT},
                 {ModBlocks.POLISHED_NIHILITH, ModBlocks.NIHILITH_PILLAR, ModBlocks.NIHILITH_BRICKS,
-                        ModBlocks.CHISELED_NIHILITH_BRICKS, ModBlocks.NIHILITH_BLOCK},
+                        ModBlocks.CHISELED_NIHILITH_BRICKS, ModBlocks.NIHILITH_BLOCK, ModBlocks.VEINED_NIHILITH,
+                        ModBlocks.CRYSTALLINE_NIHILITH, ModBlocks.FROSTED_NIHILITH},
                 {ModBlocks.POLISHED_ENDER_QUARTZ, ModBlocks.ENDER_QUARTZ_PILLAR, ModBlocks.ENDER_QUARTZ_BRICKS,
                         ModBlocks.CHISELED_ENDER_QUARTZ_BRICKS, ModBlocks.ENDER_QUARTZ_BLOCK},
         };
@@ -1628,6 +1630,9 @@ public final class ChiselTests {
             "astralit_bricks>chiseled_astralit_bricks",
             "astralit_pillar>astralit_bricks",
             "chiseled_astralit_bricks>astralit_block",
+            "astralit_block>veined_astralit",
+            "veined_astralit>crystalline_astralit",
+            "crystalline_astralit>layered_astralit",
             "polished_astralit>astralit_pillar",
             "polished_astralit_slab>astralit_brick_slab",
             "polished_astralit_stairs>astralit_brick_stairs",
@@ -1635,6 +1640,9 @@ public final class ChiselTests {
             "nihilith_bricks>chiseled_nihilith_bricks",
             "nihilith_pillar>nihilith_bricks",
             "chiseled_nihilith_bricks>nihilith_block",
+            "nihilith_block>veined_nihilith",
+            "veined_nihilith>crystalline_nihilith",
+            "crystalline_nihilith>frosted_nihilith",
             "polished_nihilith>nihilith_pillar",
             "polished_nihilith_slab>nihilith_brick_slab",
             "polished_nihilith_stairs>nihilith_brick_stairs",

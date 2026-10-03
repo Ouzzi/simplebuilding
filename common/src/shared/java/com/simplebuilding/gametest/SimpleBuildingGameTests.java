@@ -142,6 +142,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_quartz_checkers_are_mined_by_pickaxe_and_crafted_from_their_material", DataIntegrityTests::quartzCheckersAreMinedByPickaxeAndCraftedFromTheirMaterial)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_end_alternates_follow_their_base_block", DataIntegrityTests::endAlternatesFollowTheirBaseBlock)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_end_brick_sets_are_crafted_cut_mined_and_tagged_like_vanilla", DataIntegrityTests::endBrickSetsAreCraftedCutMinedAndTaggedLikeVanilla)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_end_palettes_are_recoloured_from_end_stone_and_purpur_like_dye", DataIntegrityTests::endPalettesAreRecolouredFromEndStoneAndPurpurLikeDye)

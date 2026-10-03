@@ -71,6 +71,9 @@
     "simplebuilding:nihilith_quartz_checker",
     "simplebuilding:astralit_quartz_checker",
     "simplebuilding:ender_quartz_checker",
+    "simplebuilding:polished_astralit_checker",
+    "simplebuilding:polished_nihilith_checker",
+    "simplebuilding:polished_ender_quartz_checker",
     "simplebuilding:polished_end_stone",
     "simplebuilding:astral_end_stone",
     "simplebuilding:nihil_end_stone",
@@ -110,6 +113,12 @@
     "simplebuilding:polished_ender_quartz_slab",
     "simplebuilding:polished_ender_quartz_wall",
     "simplebuilding:ender_quartz_pillar",
-    "simplebuilding:chiseled_ender_quartz_bricks"
+    "simplebuilding:chiseled_ender_quartz_bricks",
+    "simplebuilding:veined_astralit",
+    "simplebuilding:crystalline_astralit",
+    "simplebuilding:layered_astralit",
+    "simplebuilding:veined_nihilith",
+    "simplebuilding:crystalline_nihilith",
+    "simplebuilding:frosted_nihilith"
   ]
 }

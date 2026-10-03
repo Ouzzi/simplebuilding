@@ -12,7 +12,10 @@
               "simplebuilding:resin_quartz_checker",
               "simplebuilding:astralit_quartz_checker",
               "simplebuilding:nihilith_quartz_checker",
-              "simplebuilding:ender_quartz_checker"
+              "simplebuilding:ender_quartz_checker",
+              "simplebuilding:polished_astralit_checker",
+              "simplebuilding:polished_nihilith_checker",
+              "simplebuilding:polished_ender_quartz_checker"
             ]
           }
         ]

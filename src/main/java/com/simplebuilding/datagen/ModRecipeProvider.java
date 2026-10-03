@@ -989,6 +989,26 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 createCoatedStoneCuts(ModBlocks.ASTRAL_END_STONE, ModBlocks.ASTRAL_PURPUR_BLOCK, ModBlocks.ASTRALIT_PALETTE);
                 createCoatedStoneCuts(ModBlocks.NIHIL_END_STONE, ModBlocks.NIHIL_PURPUR_BLOCK, ModBlocks.NIHILITH_PALETTE);
 
+                // Alternativbloecke (2026-10-03): der Steinmetz schneidet jeden 1:1 aus dem Grundblock, und
+                // 4 im Quadrat ergeben 4 des naechsten der Kette (erster -> zweiter -> dritter -> Grundblock).
+                // Ids "<ergebnis>_from_<zutat>", weil der Grundblock schon ein Quadrat-Rezept aus Material hat.
+                for (ModBlocks.EndAlternates alternates : ModBlocks.END_ALTERNATES) {
+                    for (Block alternate : alternates.alternates()) {
+                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, alternate, alternates.base());
+                    }
+                    List<Block> chain = alternates.squareChain();
+                    for (int i = 0; i < chain.size() - 1; i++) {
+                        Block from = chain.get(i);
+                        Block to = chain.get(i + 1);
+                        shaped(RecipeCategory.BUILDING_BLOCKS, to, 4)
+                                .pattern("##")
+                                .pattern("##")
+                                .define('#', from)
+                                .unlockedBy(getHasName(from), has(from))
+                                .save(output, getItemName(to) + "_from_" + getItemName(from));
+                    }
+                }
+
                 // --- GRAVITY BLOCKS ---
                 // Nihilith -> No Gravity (Suspended)
                 createCoatingRecipe(output, ModBlocks.SUSPENDED_SAND, Items.SAND, ModItems.NIHILITH_SHARD);
