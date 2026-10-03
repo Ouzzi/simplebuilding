@@ -11168,22 +11168,20 @@
     },
     "silent_dandelion": {
       "en": {
-        "summary": "A placeable flower that silences mobs within a spherical radius of 8 blocks from its center, including in a flower pot. The server can disable the effect or set the radius from 1 to 16 blocks. Leaving the area or removing the flower restores normal sounds; an existing Silent flag is preserved.",
+        "summary": "Use on a living mob to toggle its sounds. Works on adults, babies and hostile mobs, but not players, armor stands, the Wither or the Ender Dragon. Each use consumes one flower except in Creative. Wait 2 seconds before using it again on the same mob. Silence survives saving. Uses the Golden Dandelion sounds and particles. Planted or potted flowers are decoration only.",
         "details": [
-          "Craft eight Balls of Yarn around a dandelion. This is an area effect, unlike the vanilla Golden Dandelion used on a baby animal. No temporary Silent flag is saved in the mob."
+          "Craft eight Balls of Yarn around a dandelion. Like the Golden Dandelion, this acts on the clicked mob; it toggles Silent instead of age lock."
         ]
       },
       "de": {
-        "summary": "Eine platzierbare Blume, die Mobs in einem Kugelradius von 8 Blöcken ab ihrer Mitte stummschaltet, auch im Blumentopf. Der Server kann den Effekt abschalten oder den Radius auf 1 bis 16 Blöcke setzen. Verlassen des Bereichs oder Entfernen der Blume stellt normale Geräusche wieder her; ein vorhandenes Silent-Flag bleibt erhalten.",
+        "summary": "An einem lebenden Mob benutzen, um seine Geräusche aus- oder einzuschalten. Wirkt bei erwachsenen, jungen und feindlichen Mobs, nicht bei Spielern, Rüstungsständern, Wither oder Enderdrache. Jede Benutzung verbraucht eine Blume, außer im Kreativmodus. Vor erneutem Benutzen am selben Mob 2 Sekunden warten. Stille bleibt beim Speichern erhalten. Sounds und Partikel wie beim goldenen Löwenzahn. Gepflanzte oder eingetopfte Blumen sind nur Dekoration.",
         "details": [
-          "Acht Wollknäuel um einen Löwenzahn craften. Dies ist eine Bereichswirkung, anders als der am Jungtier benutzte goldene Vanilla-Löwenzahn. Die vorübergehende Stille wird nicht im Mob gespeichert."
+          "Acht Wollknäuel um einen Löwenzahn craften. Wie der goldene Löwenzahn wirkt die Blume am angeklickten Mob; sie schaltet Silent statt der Wachstumssperre um."
         ]
       },
       "sources": [
-        "common/src/shared/java/com/simplebuilding/util/SilentDandelions.java",
-        "common/src/shared/java/com/simplebuilding/mixin/SilentDandelionMixin.java",
-        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-        "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/SilentDandelionMixin.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
       ]
     },

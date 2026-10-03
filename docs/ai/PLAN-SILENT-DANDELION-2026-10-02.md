@@ -1,5 +1,54 @@
 # Stiller Löwenzahn und Wollknäuel (2026-10-03)
 
+## Korrektur nach Besitzerauftrag (2026-10-03)
+
+Die folgenden historischen Aura-Entscheidungen sind verworfen. Rechtsklick auf einen lebenden Mob schaltet jetzt Vanilla `Silent` um, gespeichert und synchronisiert durch `Entity#setSilent`. Keine Bereichsprüfung, kein Speicher-Wrapper und kein Config-Abschnitt bleiben bestehen. Blume, Topf, Wollknäuel und Rezepte bleiben erhalten.
+
+- Vanilla-Beleg: lokales 26.3-Jar, `javap -c -p AgeableMob` und `Mob`. `canUseGoldenDandelion` verlangt goldenes Item, Jungtier, Partikeltimer 0 und keinen `CANNOT_BE_AGE_LOCKED`-Tag. `setAgeLockedData` toggelt und setzt Timer 40. Der öffentliche Helper `setAgeLocked` führt den übergebenen Setter aus, verbraucht via `consume(1, player)`, setzt beim Einschalten Persistenz und spielt USE/UNUSE mit PLAYERS, Lautstärke/Tonhöhe 1. `makeAgeLockedParticle` liefert 40 Ticks lang alle zwei Ticks PAUSE_MOB_GROWTH/RESET_MOB_GROWTH. `mobInteract` liefert SUCCESS.
+- Umsetzung: 26.3-Mob-Mixin mit inertem 26.2-Zwilling; Interaktion vor mob-eigenen Menüs über `checkAndHandleImportantInteractions`, wie Namensschild. Vanilla-Helper mit Silent-Setter wiederverwenden; eigener flüchtiger 40-Tick-Timer, serverseitige Änderung. SUCCESS auf beiden Seiten, ohne Client-Mutation. Keine Altersänderung.
+- Bewusste Anpassung: Jungtier-/Wachstumstag-Prüfung entfällt, da ausdrücklich Mobs statt nur Jungtiere stummgeschaltet werden sollen. Erwachsene, Jungtiere und feindliche Mobs sind erlaubt. Spieler und Rüstungsständer sind keine Mobs; Wither/Enderdrache werden zum Erhalt ihrer Kampfrückmeldung ausgeschlossen. Tote Mobs bleiben durch Vanillas interact-Prüfung unberührt. Der Timer verhindert Mehrfachverbrauch wie bei golden.
+- Texte: Wiki, Handbuch, JEI und EN/DE beider Ressourcenbäume; Testzentralen-Hinweis zur Benutzung. Tests ersetzen Aura-Fälle durch echte Player-Interaktionen, beide Toggle-Richtungen, Timer, Survival/Kreativ, Ausschlüsse, NBT-Roundtrip und Dekoration ohne Aura.
+- Verifikation: Datagen; venv-Wiki --all, uv-Wiki --all --check; gefilterte und vollständige Fabric-/NeoForge-26.3-Suiten; 26.2-Fabric/NeoForge- und Forge-26.3-Compile; check, Bücher und Testzentralen-Abdeckung. Keine Clients, kein Push, nur Branch claude-gpt-dandelion.
+
+### Ergebnisse der Korrektur
+
+- Datagen: `BUILD SUCCESSFUL in 3m 44s` (`.ai-runs/dandelion-correction-datagen.log`). Rezepte, Wollknäuel, Blumen-/Topf-Daten und Texturen unverändert; keine neuen generierten Rezept-Diffs.
+- Erster gefilterter Lauf: `NICHT gruen: 10/14 bestanden, 4 rot` (2026-10-03T10-31-41Z-5b06). Testaufbau korrigiert: Standardtimeout 20 war kürzer als Vanillas 40-Tick-Pause; nun 100 in Katalog und Fabric-Adapter. `makeMockPlayer(CREATIVE)` initialisiert die Abilities nicht, deshalb im Test wie beim echten Spielmodus `CREATIVE.updatePlayerAbilities` aufrufen. Kein Gameplay-Fix erforderlich.
+- Gefilterter Abschlusslauf: **`alles gruen: 14/14 bestanden, 0 rot`**, je Loader 7/7 (2026-10-03T10-36-30Z-35ef, `.ai-runs/dandelion-correction-filtered-2.log`). Erwachsene Kuh, Jungtier, Zombie und Villager über `Player.interactOn`; SUCCESS, Verbrauch beider Toggle-Richtungen, Timer, Kreativ-Nebenhand, Spieler/Rüstungsständer/Wither/Enderdrache/tote Mobs, Silent-NBT-Roundtrip, Dekoration ohne Aura, Topf, Rezepte und Garn.
+- Vollständige Fabric-/NeoForge-26.3-Suiten: **`alles gruen: 1758/1758 bestanden, 0 rot`**, je Loader 879/879 (2026-10-03T10-38-55Z-9232, `.ai-runs/dandelion-correction-full.log`). Je 7/7 Testzentralen-Fälle inklusive vollständigem Neubau, Stationsplan und Abdeckung aller Mod-Items/-Blöcke. Besitzerwelt unberührt.
+- Vollständiges `gradlew.bat check -q :compileJava :neoforge:compileJava -Pforge263=true :mc26_3:forge:compileJava -PwikiPython=<uv-Python>`: **`GRADLE_EXIT=0`** (`.ai-runs/dandelion-correction-gate.log`). 26.2 Fabric/NeoForge und Forge 26.3 kompiliert, keine Gate-Prüfung deaktiviert. Einschließlich Ressourcen-/Atlas-/Balance-/Modulprüfungen und 38 erfolgreichen Wiki-Tests.
+- Wiki mit venv `wiki/generate.py --all`, danach uv-Python `--all --check`: **`wiki: up to date, everything documented.`**; im Gesamtgate erneut geprüft. Die zwei Aura-Optionen sind auch aus den generierten Config-Daten entfernt.
+- Handbuch: bestehender Prüfer plus explizite Einbeziehung der beiden bedingt angehängten 26.3-Kapitel (`.ai-runs/check-dandelion-books.py`). Neue EN/DE-Seiten passen. Weiterhin nur die zwei bekannten deutschen Hub-Überläufe (`guide topics 1`: 14, `guide topics 3`: 15 Zeilen), `problems: 2`. Keine neuen Überläufe.
+- Offen: echte Client-Sicht-/Audioabnahme einschließlich Armschwung, Partikeldarstellung, Tooltip/JEI und Handbuch. SUCCESS und Vanilla-Helper sind serverseitig belegt; kein Spielclient gestartet. Forge 26.3 und 26.2 nur kompiliert, keine Laufzeittests dort; kein Port nach 1.21.11/26.4. Bestehende Pixelkunst/Vorschau unverändert. Kein Push/Merge; `.serena/` nicht Bestandteil des Commits.
+
+### Geänderte Dateien dieser Korrektur (23)
+
+- `.claude/QUEUE.md`
+- `common/src/mc26_2/java/com/simplebuilding/mixin/SilentDandelionMixin.java` (inert, neu)
+- `common/src/shared/java/com/simplebuilding/compat/RecipelessJeiInfo.java`
+- `common/src/shared/java/com/simplebuilding/config/ServerTuning.java`
+- `common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java`
+- `common/src/shared/java/com/simplebuilding/dev/testcentre/TestCentreSections.java`
+- `common/src/shared/java/com/simplebuilding/gametest/ConfigOptionTests.java`
+- `common/src/shared/java/com/simplebuilding/gametest/SilentDandelionTests.java`
+- `common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java`
+- `common/src/shared/java/com/simplebuilding/guide/GuideContent.java`
+- `common/src/shared/java/com/simplebuilding/items/tooltip/InfoTooltips.java`
+- `common/src/shared/java/com/simplebuilding/mixin/SilentDandelionMixin.java` (Aura-Mixin gelöscht)
+- `common/src/shared/java/com/simplebuilding/util/SilentDandelions.java` (Bereichsprüfung gelöscht)
+- `docs/ai/PLAN-SILENT-DANDELION-2026-10-02.md`
+- `mc26_3/overlay/java/com/simplebuilding/mixin/SilentDandelionMixin.java` (Benutzungs-Mixin, neu)
+- `mc26_3/overlay/resources/assets/simplebuilding/lang/de_de.json`
+- `mc26_3/overlay/resources/assets/simplebuilding/lang/en_us.json`
+- `src/main/java/com/simplebuilding/gametest/SilentDandelionGameTest.java`
+- `src/main/resources/assets/simplebuilding/lang/de_de.json`
+- `src/main/resources/assets/simplebuilding/lang/en_us.json`
+- `wiki/data/simplebuilding.js`
+- `wiki/data/simplebuilding.json`
+- `wiki/manual.json`
+
+## Historie vor der Korrektur
+
 ## Plan und belegter Ist-Zustand
 
 - Nur dieser Worktree, Branch `claude-gpt-dandelion`; committen, niemals pushen oder master ändern. Keine Minecraft-Clients.

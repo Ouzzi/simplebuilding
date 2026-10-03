@@ -2734,9 +2734,15 @@
   "item.simplebuilding.silent_dandelion": "Stiller Löwenzahn",
   "block.simplebuilding.potted_silent_dandelion": "Eingetopfter stiller Löwenzahn",
   "item.simplebuilding.yarn_ball": "Wollknäuel",
-  "text.autoconfig.simplebuilding.option.server.silentDandelion": "Stiller Löwenzahn",
-  "text.autoconfig.simplebuilding.option.server.silentDandelion.enabled": "Mobs in der Nähe stummschalten",
-  "text.autoconfig.simplebuilding.option.server.silentDandelion.enabled.@Tooltip": "Schaltet Mobs bei gepflanzten oder eingetopften stillen Löwenzähnen stumm. Serverseitig. Standard: an.",
-  "text.autoconfig.simplebuilding.option.server.silentDandelion.radius": "Radius (Blöcke)",
-  "text.autoconfig.simplebuilding.option.server.silentDandelion.radius.@Tooltip": "Kugelradius ab Blumenmitte, 1 bis 16 Blöcke. Serverseitig. Standard: 8."
+  "tooltip.simplebuilding.silent_dandelion": "Am Mob benutzen: Ton an / aus",
+  "tooltip.simplebuilding.silent_dandelion.2": "Eine Blume pro Nutzung; 2 Sekunden warten",
+  "simplebuilding.testcentre.silent_dandelion.use": "Am Mob benutzen",
+  "simplebuilding.testcentre.silent_dandelion.toggle": "Ton an / aus",
+  "simplebuilding.testcentre.silent_dandelion.wait": "2 Sekunden warten",
+  "simplebuilding.testcentre.silent_dandelion.decoration": "Gepflanzt: Deko",
+  "book.simplebuilding.gadgets.13.title": "Stiller Löwenzahn",
+  "book.simplebuilding.gadgets.13.text": "Am lebenden Mob benutzen: Ton aus oder an. Vor erneutem Nutzen 2 Sekunden warten.\nKostet eine Blume, außer in Kreativ. Stille wird gespeichert.",
+  "book.simplebuilding.gadgets.14.title": "Blumengrenzen",
+  "book.simplebuilding.gadgets.14.text": "Wirkt bei jungen, erwachsenen und feindlichen Mobs. Nicht bei Spielern, Rüstungsständern, Wither oder Enderdrache.\nGepflanzt oder im Topf nur Deko, keine Aura.",
+  "jei.simplebuilding.info.silent_dandelion": "An einem lebenden Mob benutzen, um seine Geräusche aus- oder einzuschalten. Wirkt bei erwachsenen, jungen und feindlichen Mobs, nicht bei Spielern, Rüstungsständern, Wither oder Enderdrache. Jede Benutzung verbraucht eine Blume, außer im Kreativmodus. Vor erneutem Benutzen am selben Mob 2 Sekunden warten. Stille bleibt beim Speichern erhalten. Sounds und Partikel wie beim goldenen Löwenzahn. Gepflanzte oder eingetopfte Blumen sind nur Dekoration."
 }

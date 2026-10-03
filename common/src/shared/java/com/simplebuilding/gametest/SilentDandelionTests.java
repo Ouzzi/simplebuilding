@@ -2,8 +2,6 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity;
-import com.simplebuilding.config.ServerTuning;
-import com.simplebuilding.config.ServerTuningConfig;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.version.McVersion;
 import java.util.List;
@@ -34,60 +32,80 @@ public final class SilentDandelionTests {
         return false;
     }
 
-    public static void configIsBoundedAndCanDisableTheArea(GameTestHelper helper) {
+    public static void useTogglesMobsWithVanillaCooldownAndConsumption(GameTestHelper helper) {
         if (!enabled(helper)) return;
-        ServerTuningConfig parsed = ServerTuning.copyOf("{\"silentDandelion\":{\"radius\":999}} ");
-        helper.assertTrue(parsed.silentDandelion.radius == 16, "radius must be capped at 16");
-        helper.assertTrue(ServerTuning.copyOf("{\"silentDandelion\":{\"radius\":-9}}").silentDandelion.radius == 1,
-                "radius must be at least one");
-        helper.assertTrue(ServerTuning.copyOf("{\"silentDandelion\":null}").silentDandelion.radius == 8,
-                "missing group must use defaults");
-        var config = ServerTuning.local().silentDandelion;
-        boolean before = config.enabled;
-        try {
-            helper.setBlock(new BlockPos(2, 1, 2), Blocks.DIRT);
-            helper.setBlock(new BlockPos(2, 2, 2), ModBlocks.SILENT_DANDELION);
-            var cow = helper.spawn(EntityTypes.COW, new BlockPos(3, 2, 2));
-            config.enabled = false;
-            helper.assertTrue(!cow.isSilent(), "disabled flower silenced a mob");
-            config.enabled = true;
-            helper.assertTrue(cow.isSilent(), "enabled flower did not silence a mob");
-            cow.discard();
-            helper.setBlock(new BlockPos(2, 2, 2), Blocks.AIR);
-        } finally {
-            config.enabled = before;
+        var player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        var cow = helper.spawn(EntityTypes.COW, new BlockPos(2, 2, 2));
+        cow.setAge(0);
+        var baby = helper.spawn(EntityTypes.COW, new BlockPos(3, 2, 2));
+        baby.setAge(-24000);
+        var zombie = helper.spawn(EntityTypes.ZOMBIE, new BlockPos(4, 2, 2));
+        var villager = helper.spawn(EntityTypes.VILLAGER, new BlockPos(5, 2, 2));
+        List<net.minecraft.world.entity.Mob> mobs = List.of(cow, baby, zombie, villager);
+        ItemStack flowers = new ItemStack(ModItems.SILENT_DANDELION, 12);
+        player.setItemInHand(InteractionHand.MAIN_HAND, flowers);
+        for (var mob : mobs) {
+            var result = player.interactOn(mob, InteractionHand.MAIN_HAND, mob.position());
+            helper.assertTrue(result == net.minecraft.world.InteractionResult.SUCCESS, "use must return vanilla SUCCESS for arm swing");
+            helper.assertTrue(mob.isSilent() && mob.isPersistenceRequired(), "use must silence and preserve mob");
         }
-        helper.succeed();
+        helper.assertTrue(flowers.getCount() == 8, "one flower consumed per mob");
+        helper.assertTrue(cow.getAge() == 0 && baby.getAge() == -24000, "silence must not change age");
+        // Only retry on the cow: other mobs may have a normal fallback interaction.
+        player.interactOn(cow, InteractionHand.MAIN_HAND, cow.position());
+        helper.assertTrue(cow.isSilent() && flowers.getCount() == 8, "golden-style cooldown must prevent immediate reuse");
+        helper.runAfterDelay(41, () -> {
+            for (var mob : mobs) {
+                player.interactOn(mob, InteractionHand.MAIN_HAND, mob.position());
+                helper.assertTrue(!mob.isSilent(), "second use must restore sound");
+                mob.discard();
+            }
+            helper.assertTrue(flowers.getCount() == 4, "restoring sound also consumes one flower");
+            helper.succeed();
+        });
     }
 
-    public static void onlyMobsInsideTheSphereAreSilent(GameTestHelper helper) {
+    public static void creativeOffhandUseDoesNotConsume(GameTestHelper helper) {
         if (!enabled(helper)) return;
-        BlockPos flower = new BlockPos(2, 2, 2);
-        helper.setBlock(flower.below(), Blocks.DIRT);
-        helper.setBlock(flower, ModBlocks.SILENT_DANDELION);
-        var cow = helper.spawn(EntityTypes.COW, flower.east());
-        var zombie = helper.spawn(EntityTypes.ZOMBIE, flower.north());
-        helper.assertTrue(cow.isSilent() && zombie.isSilent(), "passive and hostile mobs must be silent");
-        Vec3 center = Vec3.atCenterOf(helper.absolutePos(flower));
-        int radius = ServerTuning.silentDandelionRadius();
-        cow.setPos(center.add(radius, 0, 0));
-        helper.assertTrue(cow.isSilent(), "exact radius boundary must be included");
-        cow.setPos(center.add(radius + 0.01, 0, 0));
-        helper.assertTrue(!cow.isSilent(), "leaving the sphere must immediately restore sound");
-        cow.setPos(center.add(radius, radius, 0));
-        helper.assertTrue(!cow.isSilent(), "radius must be spherical, not a cube");
-        cow.setPos(center.add(0, 1, 0));
-        helper.assertTrue(cow.isSilent(), "reentering must silence the mob again");
-        var stand = helper.spawn(EntityTypes.ARMOR_STAND, flower.east());
-        helper.assertTrue(!stand.isSilent(), "non-mobs must remain unaffected");
+        var player = helper.makeMockPlayer(net.minecraft.world.level.GameType.CREATIVE);
+        net.minecraft.world.level.GameType.CREATIVE.updatePlayerAbilities(player.getAbilities());
+        var cow = helper.spawn(EntityTypes.COW, new BlockPos(2, 2, 2));
+        ItemStack flower = new ItemStack(ModItems.SILENT_DANDELION, 2);
+        player.setItemInHand(InteractionHand.OFF_HAND, flower);
+        player.interactOn(cow, InteractionHand.OFF_HAND, cow.position());
+        helper.assertTrue(cow.isSilent(), "creative offhand use must silence");
+        helper.assertTrue(flower.getCount() == 2, "creative offhand use must not consume");
+        helper.runAfterDelay(41, () -> {
+            player.interactOn(cow, InteractionHand.OFF_HAND, cow.position());
+            helper.assertTrue(!cow.isSilent() && flower.getCount() == 2, "creative reuse must not consume");
+            cow.discard();
+            helper.succeed();
+        });
+    }
+
+    public static void playersStandsBossesAndDeadMobsAreUnchanged(GameTestHelper helper) {
+        if (!enabled(helper)) return;
         var player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
-        player.setPos(center);
-        helper.assertTrue(!player.isSilent(), "players must remain unaffected");
-        helper.setBlock(flower, Blocks.AIR);
-        helper.assertTrue(!cow.isSilent() && !zombie.isSilent(), "removing flower must restore sound immediately");
-        cow.discard();
-        zombie.discard();
+        var other = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        var stand = helper.spawn(EntityTypes.ARMOR_STAND, new BlockPos(2, 2, 2));
+        var wither = helper.spawn(EntityTypes.WITHER, new BlockPos(3, 2, 2));
+        var dragon = helper.spawn(EntityTypes.ENDER_DRAGON, new BlockPos(4, 2, 2));
+        var dead = helper.spawn(EntityTypes.COW, new BlockPos(5, 2, 2));
+        dead.setHealth(0);
+        ItemStack flowers = new ItemStack(ModItems.SILENT_DANDELION, 8);
+        player.setItemInHand(InteractionHand.MAIN_HAND, flowers);
+        for (var entity : List.of(other, stand, wither, dragon, dead)) {
+            player.interactOn(entity, InteractionHand.MAIN_HAND, entity.position());
+            helper.assertTrue(!entity.isSilent(), "excluded entity was silenced: " + entity.getType());
+            entity.setSilent(true);
+            player.interactOn(entity, InteractionHand.MAIN_HAND, entity.position());
+            helper.assertTrue(entity.isSilent(), "excluded entity lost existing silence");
+        }
+        helper.assertTrue(flowers.getCount() == 8, "excluded entities must not consume flowers");
         stand.discard();
+        wither.discard();
+        dragon.discard();
+        dead.discard();
         helper.succeed();
     }
 
@@ -102,6 +120,9 @@ public final class SilentDandelionTests {
         planting.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND,
                 new BlockHitResult(Vec3.atCenterOf(soilAbsolute).add(0, 0.5, 0), Direction.UP, soilAbsolute, false)));
         helper.assertTrue(helper.getBlockState(soil.above()).is(ModBlocks.SILENT_DANDELION), "block item must plant on soil");
+        var nearby = helper.spawn(EntityTypes.COW, soil.above().east());
+        helper.assertTrue(!nearby.isSilent(), "planted flower must not silence nearby mobs");
+        nearby.discard();
         helper.setBlock(soil.above(), Blocks.AIR);
         BlockPos pot = new BlockPos(2, 2, 2);
         helper.setBlock(pot.below(), Blocks.STONE);
@@ -113,11 +134,11 @@ public final class SilentDandelionTests {
         helper.getBlockState(pot).useItemOn(flower, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit);
         helper.assertTrue(helper.getBlockState(pot).is(ModBlocks.POTTED_SILENT_DANDELION), "flower did not enter vanilla pot");
         var cow = helper.spawn(EntityTypes.COW, pot.east());
-        helper.assertTrue(cow.isSilent(), "potted flower must have the same aura");
+        helper.assertTrue(!cow.isSilent(), "potted flower must be decoration without an aura");
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         helper.getBlockState(pot).useWithoutItem(helper.getLevel(), player, hit);
         helper.assertTrue(helper.getBlockState(pot).is(Blocks.FLOWER_POT), "empty-hand use must return empty pot");
-        helper.assertTrue(!cow.isSilent(), "unpotting must restore sound");
+        helper.assertTrue(!cow.isSilent(), "unpotting must not change silence");
         helper.assertTrue(player.getMainHandItem().is(ModItems.SILENT_DANDELION), "unpotting must return the flower");
         cow.discard();
         helper.succeed();
@@ -150,27 +171,29 @@ public final class SilentDandelionTests {
         helper.assertTrue(result.is(item) && result.getCount() == count, "wrong recipe result for " + id + ": " + result);
     }
 
-    public static void temporarySilenceIsNeverSavedAndExplicitSilenceSurvives(GameTestHelper helper) {
+    public static void toggledSilenceSurvivesVanillaSaveAndLoad(GameTestHelper helper) {
         if (!enabled(helper)) return;
-        BlockPos flower = new BlockPos(2, 2, 2);
-        helper.setBlock(flower.below(), Blocks.DIRT);
-        helper.setBlock(flower, ModBlocks.SILENT_DANDELION);
-        var cow = helper.spawn(EntityTypes.COW, flower.east());
-        helper.assertTrue(cow.isSilent(), "precondition: cow must be inside area");
+        var player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        ItemStack flowers = new ItemStack(ModItems.SILENT_DANDELION, 2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, flowers);
+        var cow = helper.spawn(EntityTypes.COW, new BlockPos(2, 2, 2));
+        player.interactOn(cow, InteractionHand.MAIN_HAND, cow.position());
         TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
         cow.saveWithoutId(output);
-        helper.assertTrue(!output.buildResult().getBooleanOr("Silent", false), "area silence leaked into saved entity data");
-        helper.setBlock(flower, Blocks.AIR);
-        cow.load(TagValueInput.create(ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), output.buildResult()));
-        helper.assertTrue(!cow.isSilent(), "reloaded cow stayed silent outside area");
-        cow.setSilent(true);
-        helper.setBlock(flower, ModBlocks.SILENT_DANDELION);
-        output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
-        cow.saveWithoutId(output);
-        helper.assertTrue(output.buildResult().getBooleanOr("Silent", false), "explicit silent flag was lost");
-        helper.setBlock(flower, Blocks.AIR);
-        helper.assertTrue(cow.isSilent(), "removing flower cleared explicit silence");
+        helper.assertTrue(output.buildResult().getBooleanOr("Silent", false), "vanilla Silent NBT must persist use");
         cow.discard();
+        var loaded = helper.spawn(EntityTypes.COW, new BlockPos(3, 2, 2));
+        loaded.load(TagValueInput.create(ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), output.buildResult()));
+        helper.assertTrue(loaded.isSilent(), "silence must survive reload");
+        player.interactOn(loaded, InteractionHand.MAIN_HAND, loaded.position());
+        helper.assertTrue(!loaded.isSilent() && flowers.isEmpty(), "reloaded silence must toggle off with one flower");
+        output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
+        loaded.saveWithoutId(output);
+        helper.assertTrue(!output.buildResult().getBooleanOr("Silent", false), "restored sounds must persist as not silent");
+        loaded.setSilent(true);
+        loaded.load(TagValueInput.create(ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), output.buildResult()));
+        helper.assertTrue(!loaded.isSilent(), "loading the second save must restore sound");
+        loaded.discard();
         helper.succeed();
     }
 

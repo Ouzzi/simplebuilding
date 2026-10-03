@@ -4,13 +4,13 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 
 public final class SilentDandelionGameTest {
-    @GameTest
-    public void configIsBoundedAndCanDisableTheArea(GameTestHelper helper) {
-        SilentDandelionTests.configIsBoundedAndCanDisableTheArea(helper);
+    @GameTest(maxTicks = 100)
+    public void creativeOffhandUseDoesNotConsume(GameTestHelper helper) {
+        SilentDandelionTests.creativeOffhandUseDoesNotConsume(helper);
     }
     @GameTest
-    public void onlyMobsInsideTheSphereAreSilent(GameTestHelper helper) {
-        SilentDandelionTests.onlyMobsInsideTheSphereAreSilent(helper);
+    public void playersStandsBossesAndDeadMobsAreUnchanged(GameTestHelper helper) {
+        SilentDandelionTests.playersStandsBossesAndDeadMobsAreUnchanged(helper);
     }
     @GameTest
     public void pottingAndUnpottingUseVanillaInteraction(GameTestHelper helper) {
@@ -21,8 +21,12 @@ public final class SilentDandelionGameTest {
         SilentDandelionTests.recipesUseFourStringOrAnyWoolAndEightYarn(helper);
     }
     @GameTest
-    public void temporarySilenceIsNeverSavedAndExplicitSilenceSurvives(GameTestHelper helper) {
-        SilentDandelionTests.temporarySilenceIsNeverSavedAndExplicitSilenceSurvives(helper);
+    public void toggledSilenceSurvivesVanillaSaveAndLoad(GameTestHelper helper) {
+        SilentDandelionTests.toggledSilenceSurvivesVanillaSaveAndLoad(helper);
+    }
+    @GameTest(maxTicks = 100)
+    public void useTogglesMobsWithVanillaCooldownAndConsumption(GameTestHelper helper) {
+        SilentDandelionTests.useTogglesMobsWithVanillaCooldownAndConsumption(helper);
     }
     @GameTest
     public void yarnPlacesInSmallPartsAndDropsItself(GameTestHelper helper) {

@@ -22,16 +22,6 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
  */
 public class ServerTuningConfig {
 
-    @ConfigEntry.Gui.CollapsibleObject
-    public SilentDandelion silentDandelion = new SilentDandelion();
-
-    public static class SilentDandelion {
-        @ConfigEntry.Gui.Tooltip
-        public boolean enabled = true;
-        @ConfigEntry.Gui.Tooltip
-        public int radius = 8;
-    }
-
     @ConfigEntry.Gui.CollapsibleObject(startExpanded = true)
     public Features features = new Features();
 
@@ -79,8 +69,6 @@ public class ServerTuningConfig {
 
     /** Begrenzt handeditierte oder per Befehl gesetzte Werte; fehlende Gruppen neu. */
     public void validate() {
-        if (silentDandelion == null) silentDandelion = new SilentDandelion();
-        silentDandelion.radius = clamp(silentDandelion.radius, 1, ServerTuning.MAX_SILENT_DANDELION_RADIUS);
         if (features == null) features = new Features();
         if (machines != null) machines.endSignalRange = clamp(machines.endSignalRange, 1, 15);
         if (chunkLoaders == null) chunkLoaders = new ChunkLoaders();

@@ -29,12 +29,6 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class ServerTuning {
 
-    public static final int MAX_SILENT_DANDELION_RADIUS = 16;
-
-    public static int silentDandelionRadius() {
-        return ServerTuningConfig.clamp(get().silentDandelion.radius, 1, MAX_SILENT_DANDELION_RADIUS);
-    }
-
     public static final int MAX_BREAK_SECONDS = 3600;
     public static final int MAX_UPGRADE_SECONDS = 30;
     public static final int MAX_UPGRADE_DAMAGE = 64;

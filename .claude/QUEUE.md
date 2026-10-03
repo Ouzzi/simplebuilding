@@ -195,11 +195,11 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   - Oberwelt: zwei Platten, eine wie „Stan“ (Eminem), eine im NCS-/Alan-Walker-Stil.
   - Nether: wie „Thunderstruck“.
   - Musik nur stilistisch angelehnt, keine Melodie- oder Sample-Kopie. Audio als Mono-OGG (positionsabhängig in der Jukebox). Fundorte je Dimension (z. B. End-Stadt, Bastion, Oberwelt-Struktur). Platten-Texturen im Vanilla-Stil (10 Vorschläge?).
-- [x] Stille Löwenzahn („Silent Dandelion“), gleiche Logik wie die goldene Variante: Mobs in der Nähe machen keine Geräusche (statt nicht zu wachsen).
+- [x] Stille Löwenzahn („Silent Dandelion“), gleiche Logik wie die goldene Variante: Benutzung am Mob schaltet dessen Geräusche um (statt Wachstumssperre).
   - Faden → Wollknäuel (auch platzierbar).
   - 8 Wollknäuel + Löwenzahn = stiller Löwenzahn.
   - Wolle im Crafting = 2 Wollknäuel.
-  - Umgesetzt auf `claude-gpt-dandelion` (26.3): dynamische Stille ohne gespeicherten Silent-Status, Blume/Topf, vier Fäden in Rautenform → ein Knäuel; platzierbar als Kleinteil. Goldener Vanilla-Löwenzahn hat keinen Radius: Annahme für die gewünschte Aura 8 Blöcke, Server-Cap 16. Finale Server-Suiten 1756/1756 und vollständiges Gate grün; Testzentralen inklusive Item-Abdeckung neu gebaut. Plan/Testhistorie: `docs/ai/PLAN-SILENT-DANDELION-2026-10-02.md`. Sicht-/Audioabnahme offen, kein Client gestartet, kein Push.
+  - Korrektur auf `claude-gpt-dandelion` (26.3): Aura/Config entfernt; Benutzung toggelt gespeichertes Vanilla-Silent mit Vanilla-Verbrauch, 40-Tick-Pause, Sounds und Partikeln. Lebende Mobs jeden Alters; Spieler, Rüstungsständer, Wither und Enderdrache ausgeschlossen. Blume/Topf dekorativ; Wollknäuel und Rezepte unverändert. Prüfstand und Historie: `docs/ai/PLAN-SILENT-DANDELION-2026-10-02.md`. Sicht-/Audioabnahme offen, kein Client, kein Push.
 - [ ] Hängematte: tagsüber darauf liegen lässt die Tageszeit schneller laufen.
   - Nur 1×2×2 platzierbar, zwischen zwei festen Blöcken mit 2–3 Blöcken Abstand (beliebige Blöcke, auch Stäbe).
 - [x] Tooltips aufräumen: kurze EN/DE-Zeilen, vorhandene Komponenten-/Font-Umbrüche und beide Hauptmod-Lang-Orte gepflegt. Inventur und Prüfungen: `docs/ai/TOOLTIPS-2026-10-02.md`. Client-Sichtabnahme bleibt offen.
