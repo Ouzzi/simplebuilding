@@ -253,3 +253,9 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Wollknäuel: Rezept aus Faden entfernen (nur noch aus Wolle).
 - [ ] Raw Enderite Scrap (Besitzer-Textur): farblich weiter anpassen, 3 Vorschläge.
 - [x] Blaupausen B/C/C-signiert: Besitzer zufrieden.
+
+## Besitzer 2026-10-03 (Nachtrag 6)
+
+- [ ] Schallplatten: alternative Track-Variante. Eine abgelegte (platzierte) Platte mit dem Vorschlaghammer schlagen → wird zur Alternativ-Platte (etwas angepasste Optik, sonst gleich, spielt Track 2); erneut schlagen → zurück zum Original (Endlosschleife).
+- [ ] Lautsprecher-Blöcke: Astralit bzw. Nihilit mit Holzbrettern außenrum (Rezept analog Notenblock/Plattenspieler). Astralit-Lautsprecher verstärkt nur Plattenspieler-Signale, Nihilit-Lautsprecher nur Notenblock-Signale: höhere Lautstärke/Reichweite beim Spieler, „unverzögerter Lautsprecher“.
+- [ ] Raw Enderite Scrap: Variante D leicht dunkler einbauen.
