@@ -240,3 +240,9 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Mehr Placeables, auch Kerzen und Seegurken; alle Placeables untereinander mischbar machen.
 - [ ] Besatzvorlagen Glowing, Pulsating und Emitting: Textur-Animation.
 - [ ] Partikeleffekte für manche platzierbare Dinge, z. B. Glowing.
+
+## Besitzer 2026-10-03 (claude-texprop)
+- [x] Besatzvorlagen Glowing/Pulsating/Emitting animiert (nur Helligkeit der Besitzer-Motive; mcmeta, interpoliert): `trim_template_animation_2026_10_03.py`, previews/besatz-animationen-vorschau.png + besatz-animation-*.gif. Sichtabnahme im Client offen.
+- [ ] Raw Enderite Scrap (layered_raw_enderite): 10 Vorschläge A–J (previews/raw-enderite-scrap-vorschau.png) – Besitzer wählt.
+- [ ] Astralit-/Nihilith-Block: je 3 neu + 3 Kontrast (previews/astralit-nihilit-vorschau.png, 3x3 gekachelt) – Besitzer wählt.
+- [ ] Blaupause: 10 Vorschläge (previews/blaupausen-vorschau.png) – Besitzer wählt; bearbeitet/signiert folgen der Wahl.
