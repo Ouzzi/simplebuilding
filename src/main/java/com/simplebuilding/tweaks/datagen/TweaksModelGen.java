@@ -7,6 +7,7 @@ import com.simplebuilding.tweaks.block.FlypadBlock;
 import com.simplebuilding.tweaks.block.LegacyTierBlock;
 import com.simplebuilding.tweaks.block.LaunchpadBlock;
 import com.simplebuilding.tweaks.block.PotionPadBlock;
+import com.simplebuilding.tweaks.block.PadBlock;
 import com.simplebuilding.tweaks.block.SpawnTeleporterBlock;
 import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.item.TweaksItems;
@@ -130,11 +131,25 @@ public final class TweaksModelGen {
                 TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_cooling")), generator.modelOutput);
         Identifier active = ModelTemplates.PRESSURE_PLATE_UP.createWithSuffix(block, "_active",
                 TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_active")), generator.modelOutput);
-        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(PotionPadBlock.COOLING, PotionPadBlock.ACTIVE)
+        if (block.defaultBlockState().hasProperty(PadBlock.FADE)) {
+            Identifier[] activeFade = fadeModels(generator, block, "", "_active", ready, active);
+            Identifier[] coolingFade = fadeModels(generator, block, "", "_cooling", ready, cooling);
+            var dispatch = PropertyDispatch.initial(PotionPadBlock.COOLING, PotionPadBlock.ACTIVE, PadBlock.FADE);
+            for (boolean cool : List.of(false, true)) {
+                for (boolean on : List.of(false, true)) {
+                    for (int step = 0; step <= 3; step++) {
+                        dispatch.select(cool, on, step, BlockModelGenerators.plainVariant(cool ? coolingFade[step] : on ? activeFade[step] : ready));
+                    }
+                }
+            }
+            generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(dispatch));
+        } else {
+            generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(PotionPadBlock.COOLING, PotionPadBlock.ACTIVE)
                 .select(true, true, BlockModelGenerators.plainVariant(cooling))
                 .select(true, false, BlockModelGenerators.plainVariant(cooling))
                 .select(false, true, BlockModelGenerators.plainVariant(active))
                 .select(false, false, BlockModelGenerators.plainVariant(ready))));
+        }
         generator.itemModelOutput.accept(block.asItem(), ItemModelUtils.conditional(
                 new HasComponent(com.simplebuilding.tweaks.component.TweaksComponents.POTION_PAD_COOLDOWN, false),
                 ItemModelUtils.plainModel(cooling), ItemModelUtils.plainModel(ready)));
@@ -171,10 +186,32 @@ public final class TweaksModelGen {
                 generator.modelOutput);
         Identifier on = ModelTemplates.PRESSURE_PLATE_UP.createWithSuffix(block, "_active",
                 TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, base + "_active")), generator.modelOutput);
-        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(active)
+        if (block.defaultBlockState().hasProperty(PadBlock.FADE)) {
+            Identifier[] fade = fadeModels(generator, block, base, "_active", off, on);
+            var dispatch = PropertyDispatch.initial(active, PadBlock.FADE);
+            for (int step = 0; step <= 3; step++) {
+                dispatch.select(false, step, BlockModelGenerators.plainVariant(off));
+                dispatch.select(true, step, BlockModelGenerators.plainVariant(fade[step]));
+            }
+            generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(dispatch));
+        } else {
+            generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(active)
                 .select(true, BlockModelGenerators.plainVariant(on))
                 .select(false, BlockModelGenerators.plainVariant(off))));
+        }
         generator.registerSimpleItemModel(block, off);
+    }
+
+    /** Vanilla model steps blend only the effect; the owner's pad drawing stays in place. */
+    private static Identifier[] fadeModels(BlockModelGenerators generator, Block block, String base, String effect,
+                                           Identifier off, Identifier on) {
+        Identifier[] models = {off, null, null, on};
+        for (int step = 1; step < 3; step++) {
+            String suffix = effect + "_fade_" + step;
+            models[step] = ModelTemplates.PRESSURE_PLATE_UP.createWithSuffix(block, suffix,
+                    TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, base + suffix)), generator.modelOutput);
+        }
+        return models;
     }
 
     /** Echte Druckplatten (nicht die Pads): sinken gedrueckt ein wie Vanilla-Platten. */

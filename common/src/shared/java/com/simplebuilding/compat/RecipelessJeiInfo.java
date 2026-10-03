@@ -47,6 +47,9 @@ public final class RecipelessJeiInfo {
     /** Usage hints for craftable items, separate from the recipeless coverage contract. */
     public static Map<String, List<ItemLike>> supplementalPages() {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            map.put("velocity_gauge", List.of(ModItems.VELOCITY_GAUGE));
+        }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             map.put("silent_dandelion", List.of(ModItems.SILENT_DANDELION));
         }

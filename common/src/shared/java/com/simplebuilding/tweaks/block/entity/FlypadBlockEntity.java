@@ -139,9 +139,8 @@ public class FlypadBlockEntity extends OwnedBlockEntity implements PadSignalSour
 
     /** Stellt den sichtbaren Zustand ({@link FlypadBlock#ACTIVE}) ein; derselbe Block, die Block-Entity bleibt. */
     private static void setActive(Level level, BlockPos pos, BlockState state, boolean active) {
-        if (state.hasProperty(FlypadBlock.ACTIVE) && state.getValue(FlypadBlock.ACTIVE) != active
-                && level.getBlockState(pos) == state) {
-            level.setBlock(pos, state.setValue(FlypadBlock.ACTIVE, active), Block.UPDATE_ALL);
+        if (state.hasProperty(FlypadBlock.ACTIVE) && level.getBlockState(pos) == state) {
+            com.simplebuilding.tweaks.block.PadBlock.setActive(level, pos, FlypadBlock.ACTIVE, active);
         }
     }
 

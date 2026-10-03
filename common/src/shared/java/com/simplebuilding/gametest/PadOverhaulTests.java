@@ -6,6 +6,8 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.TweaksConfig;
 import com.simplebuilding.tweaks.block.LaunchpadBlock;
+import com.simplebuilding.tweaks.block.PadBlock;
+import com.simplebuilding.tweaks.block.PotionPadBlock;
 import com.simplebuilding.tweaks.block.LegacyTierBlock;
 import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.block.TweaksFamilies;
@@ -879,6 +881,97 @@ public final class PadOverhaulTests {
                     net.minecraft.world.level.block.state.BlockState cooling = helper.getBlockState(potion);
                     helper.assertTrue(cooling.getValue(com.simplebuilding.tweaks.block.PotionPadBlock.COOLING)
                             && !cooling.getValue(potionActive), "a cooling potion pad is " + cooling);
+                })
+                .thenSucceed();
+    }
+
+    /** Real scheduled ticks: activation, cancellation, restart, cooling and bounded completion. */
+    public static void padEffectsFadeInAndStopSchedulingWhenSettled(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            helper.assertFalse(TweaksBlocks.POTION_PAD.defaultBlockState().hasProperty(PadBlock.FADE), "fade leaked into 26.2");
+            helper.succeed();
+            return;
+        }
+        for (Block block : TweaksBlocks.all()) {
+            if (block instanceof com.simplebuilding.tweaks.block.ElytraPadBlock
+                    || block instanceof com.simplebuilding.tweaks.block.FlypadBlock
+                    || block instanceof com.simplebuilding.tweaks.block.SpawnTeleporterBlock
+                    || block instanceof PotionPadBlock) {
+                helper.assertValueEqual(block.defaultBlockState().getValue(PadBlock.FADE), 0, "default fade of " + block);
+                if (block instanceof com.simplebuilding.tweaks.block.LegacyTierBlock) continue;
+                var active = block instanceof com.simplebuilding.tweaks.block.ElytraPadBlock ? com.simplebuilding.tweaks.block.ElytraPadBlock.ACTIVE
+                        : block instanceof com.simplebuilding.tweaks.block.FlypadBlock ? com.simplebuilding.tweaks.block.FlypadBlock.ACTIVE
+                        : block instanceof com.simplebuilding.tweaks.block.SpawnTeleporterBlock ? com.simplebuilding.tweaks.block.SpawnTeleporterBlock.ACTIVE
+                        : PotionPadBlock.ACTIVE;
+                BlockPos sample = new BlockPos(1, 1, 1);
+                helper.setBlock(sample, block);
+                BlockPos absolute = helper.absolutePos(sample);
+                PadBlock.setActive(helper.getLevel(), absolute, active, true);
+                helper.assertTrue(helper.getLevel().getBlockTicks().hasScheduledTick(absolute, block), "no fade scheduled for " + block);
+                PadBlock.setActive(helper.getLevel(), absolute, active, false);
+                helper.setBlock(sample, Blocks.AIR);
+                String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath();
+                String texture = block instanceof com.simplebuilding.tweaks.block.FlypadBlock ? id + "_ender" : id;
+                String states = resource(helper, "/assets/simplebuilding/blockstates/" + id + ".json");
+                for (int step = 1; step <= 2; step++) {
+                    helper.assertTrue(states.contains("_active_fade_" + step), "missing fade model for " + id);
+                    String model = resource(helper, "/assets/simplebuilding/models/block/" + id + "_active_fade_" + step + ".json");
+                    helper.assertTrue(model.contains(texture + "_active_fade_" + step), "wrong fade texture for " + id);
+                    helper.assertTrue(PadOverhaulTests.class.getResource("/assets/simplebuilding/textures/block/" + texture + "_active_fade_" + step + ".png") != null,
+                            "missing fade texture for " + id);
+                    if (block instanceof PotionPadBlock) {
+                        helper.assertTrue(states.contains("_cooling_fade_" + step), "missing cooling fade model for " + id);
+                        resource(helper, "/assets/simplebuilding/textures/block/" + id + "_cooling_fade_" + step + ".png.mcmeta");
+                    }
+                }
+            }
+        }
+        BlockPos relative = new BlockPos(3, 1, 3);
+        helper.setBlock(relative, TweaksBlocks.POTION_PAD);
+        BlockPos pos = helper.absolutePos(relative);
+        ServerLevel level = helper.getLevel();
+        PotionPadBlockEntity pad = helper.getBlockEntity(relative, PotionPadBlockEntity.class);
+        UUID owner = UUID.randomUUID();
+        pad.setOwner(owner);
+        helper.startSequence()
+                // Loading the structure does not immediately make its chunk block-ticking.
+                .thenWaitUntil(() -> helper.assertTrue(level.shouldTickBlocksAt(net.minecraft.world.level.ChunkPos.pack(pos.getX() >> 4, pos.getZ() >> 4)),
+                        "pad chunk is not ready for scheduled ticks"))
+                .thenExecute(() -> {
+                    PotionPadBlock.absorb(pad, net.minecraft.world.item.alchemy.PotionContents.createItemStack(
+                            Items.SPLASH_POTION, net.minecraft.world.item.alchemy.Potions.SWIFTNESS));
+                    PotionPadBlockEntity.serverTick(level, pos, level.getBlockState(pos), pad);
+                    helper.assertTrue(level.getBlockState(pos).getValue(PotionPadBlock.ACTIVE), "loaded potion pad is not active");
+                    helper.assertTrue(level.getBlockTicks().hasScheduledTick(pos, TweaksBlocks.POTION_PAD), "activation did not schedule fade");
+                    helper.assertValueEqual(level.getBlockState(pos).getValue(PadBlock.FADE), 0, "effect must start invisible");
+                })
+                // GameTest sequences run before scheduled block ticks; observe the completed tick.
+                .thenExecuteAfter(3, () -> {
+                    helper.assertValueEqual(level.getBlockState(pos).getValue(PadBlock.FADE), 1, "first fade step");
+                    helper.setBlock(relative.east(), Blocks.REDSTONE_BLOCK);
+                    PotionPadBlockEntity.serverTick(level, pos, level.getBlockState(pos), pad);
+                    helper.assertValueEqual(level.getBlockState(pos).getValue(PadBlock.FADE), 0, "cancel resets fade");
+                })
+                .thenExecuteAfter(4, () -> {
+                    helper.assertFalse(level.getBlockTicks().hasScheduledTick(pos, TweaksBlocks.POTION_PAD), "off pad keeps scheduling ticks");
+                    helper.setBlock(relative.east(), Blocks.AIR);
+                    PotionPadBlockEntity.serverTick(level, pos, level.getBlockState(pos), pad);
+                    helper.assertValueEqual(level.getBlockState(pos).getValue(PadBlock.FADE), 0, "restart skips initial frame");
+                })
+                .thenExecuteAfter(3, () -> helper.assertValueEqual(level.getBlockState(pos).getValue(PadBlock.FADE), 1, "restart first step"))
+                .thenExecuteAfter(2, () -> helper.assertValueEqual(level.getBlockState(pos).getValue(PadBlock.FADE), 2, "second fade step"))
+                .thenExecuteAfter(2, () -> {
+                    helper.assertValueEqual(level.getBlockState(pos).getValue(PadBlock.FADE), 3, "full effect after six ticks");
+                    helper.assertFalse(level.getBlockTicks().hasScheduledTick(pos, TweaksBlocks.POTION_PAD), "settled pad keeps scheduling ticks");
+                    helper.assertTrue(level.getBlockEntity(pos) == pad && owner.equals(pad.getOwner()), "fade replaced the owned block entity");
+                    pad.setCooldown(100);
+                    PotionPadBlockEntity.serverTick(level, pos, level.getBlockState(pos), pad);
+                    helper.assertTrue(level.getBlockState(pos).getValue(PotionPadBlock.COOLING), "cooling never started");
+                    helper.assertValueEqual(level.getBlockState(pos).getValue(PadBlock.FADE), 0, "cooling starts without a fade");
+                })
+                .thenExecuteAfter(7, () -> {
+                    helper.assertValueEqual(level.getBlockState(pos).getValue(PadBlock.FADE), 3, "cooling fade never finished");
+                    helper.assertFalse(level.getBlockTicks().hasScheduledTick(pos, TweaksBlocks.POTION_PAD), "cooling keeps scheduling fade ticks");
                 })
                 .thenSucceed();
     }

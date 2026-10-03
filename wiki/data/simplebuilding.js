@@ -3264,6 +3264,7 @@ window.WIKI_DATA = {
           "Flypad: active=true while at least one player is in its field - the spiral glows (tiers I and II light cyan, the Stellar Flypad gold), and the four vertical edges of the field shimmer with end rod sparks so you can see where the field ends. Getting flight plays a soft beacon chime only you hear, losing it the beacon's deactivation sound. Flying closer than 1.5 blocks to a side or the ceiling of the field gives a warning note (only you hear it) at most every half second, higher the closer you are, with electric sparks on the nearest wall of the field.",
           "Elytra Pad: a small cloud rises from the pad now and then (bubbles when waterlogged); handing out an elytra adds a puff of clouds, and a boost that is recharged from empty or partly used plays a firework twinkle with a few sparks for the wearer.",
           "Potion Pad: when its cooldown ends it rings an amethyst chime and swirls in the color of the stored potion.",
+          "On MC 26.3, the active textures of Elytra Pads, Flypads, Spawn Teleporters and Potion Pads fade in over six ticks, in three steps. The Potion Pad's cooldown animation fades in the same way. The fade adds no recurring ticks once complete or switched off; activation still follows each pad's existing working state.",
           "Octant: washing a colored octant in a water cauldron splashes (sound and water droplets) instead of happening silently.",
           "Backpack: setting it down rustles like leather armor and puffs a little dust; opening a placed backpack rustles too.",
           "Item tooltips (gray lines, not on-screen text): every pad names its tier (Tier II of III) and what the tier gives - wind charges, the chunk area, the elytra or flight area, the teleport wait, the potion duration and cooldown. Upgraded furnaces, smokers and blast furnaces say how much faster they work (2x, 4x, 8x), double experience and the blast furnace's raw metal bonus; hoppers their transfer rate and filter; the Reinforced Pistons their push limit of 18 and the redstone-block breach; levitating and suspended sand and gravel what they do. Building cores list what they are used in (checked against the loaded recipes by a game test); Enderite armor explains its void protection and glide; the netherite and enderite apples and carrots list their effects with level and duration, like a potion.",
@@ -3279,6 +3280,7 @@ window.WIKI_DATA = {
           "Flypad: active=true, solange mindestens ein Spieler im Feld ist - die Spirale glimmt (Stufe I und II hell türkis, das Stellar-Flypad golden), und die vier senkrechten Kanten des Felds schimmern mit Endstab-Funken, damit man sieht, wo das Feld endet. Flug bekommen spielt einen leisen Leuchtfeuer-Ton, den nur du hörst, Flug verlieren den Abschaltklang des Leuchtfeuers. Wer fliegend näher als 1,5 Blöcke an eine Seite oder die Decke des Felds kommt, hört höchstens jede halbe Sekunde einen Warnton (nur er), höher je näher, mit elektrischen Funken an der nächsten Feldwand.",
           "Elytra-Pad: ab und zu steigt ein Wölkchen vom Pad auf (unter Wasser Blasen); das Ausgeben einer Elytra macht eine Wolke, und ein Boost, der aus leerem oder angebrauchtem Zustand wieder voll wird, knistert wie ein Feuerwerk, mit ein paar Funken für den Träger.",
           "Trank-Pad: endet die Abklingzeit, erklingt ein Amethyst-Glockenspiel und ein Wirbel in der Farbe des gespeicherten Tranks.",
+          "Auf MC 26.3 blenden die aktiven Texturen von Elytra-Pads, Flypads, Spawn-Teleportern und Trank-Pads über sechs Ticks in drei Schritten ein. Die Abklinganimation der Trank-Pads blendet ebenso ein. Nach Abschluss oder Abschalten laufen keine zusätzlichen wiederkehrenden Fade-Ticks; die Aktivierung folgt weiterhin dem jeweiligen Arbeitszustand des Pads.",
           "Oktant: einen gefärbten Oktanten im Wasserkessel zu waschen plätschert (Klang und Wassertropfen), statt lautlos zu geschehen.",
           "Rucksack: abgestellt raschelt er wie Lederrüstung und staubt ein wenig; einen abgestellten Rucksack öffnen raschelt ebenfalls.",
           "Item-Tooltips (graue Zeilen, kein Bildschirmtext): jedes Pad nennt seine Stufe (Stufe II von III) und was sie gibt - Windkugeln, den Chunk-Bereich, den Elytra- oder Flugbereich, die Teleport-Wartezeit, Trankdauer und Abklingzeit. Aufgewertete Öfen, Räucheröfen und Schmelzöfen sagen, wie viel schneller sie arbeiten (2x, 4x, 8x), doppelte Erfahrung und den Rohmetall-Bonus des Schmelzofens; Trichter ihr Tempo und ihren Filter; die verstärkten Kolben ihr Schublimit von 18 und den Durchbruch per Redstone-Block; schwebender und steigender Sand und Kies, was sie tun. Baukerne listen, wofür sie gebraucht werden (ein Spieltest gleicht das mit den geladenen Rezepten ab); Enderit-Rüstung erklärt Leere-Schutz und Gleiten; Netherit- und Enderit-Äpfel und -Karotten listen ihre Wirkungen mit Stufe und Dauer wie ein Trank.",
@@ -3568,7 +3570,7 @@ window.WIKI_DATA = {
             "Creatures: players and mobs catch fire (4 s) when the beam rests on them, but it takes twice as long as a flammable block at the same distance (6 s up close). Not: fire-immune or invulnerable creatures, creatures in water or rain, players in creative or spectator mode, and other players only where PvP is allowed (pvp game rule, server setting, team friendly fire). Creatures are searched up to 64 blocks along the beam.",
             "Sounds at the dot, audible to players nearby: a quiet hum about once a second while the beam hits anything, a clearly audible sizzle while ice, snow or a sponge heats up and a crackle while something is about to burn or ignite (also creatures), each at most every 8 ticks; the finishing sound of every effect stays.",
             "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
-            "Recipe on MC 26.3 (owner 2026-10-02, turned 45 degrees and more compact): \" RA\" / \"NCR\" / \"IN \" - amethyst shard top right, redstone top middle and middle right, Iron Core in the middle, iron nuggets middle left and bottom middle, Iron Rod bottom left. In the creative Tools tab it sits with the gadgets.",
+            "MC 26.3 recipe: \" NA\" / \"RC \" / \"I  \" (N = iron nugget, A = amethyst shard, R = redstone, C = Iron Core, I = Iron Rod). One nugget and one redstone; the fields right of and below the core are empty.",
             "Charge defaults to 640, with 4 spent per started second of aiming and 5 per effect. Empty rods do not break. At an anvil, 16 amethyst shards fully recharge a rod without levels; creative players spend no charge.",
             "Constructor's Touch enables distance, target and height measurement in the common HUD panel. The server stores the last measurement on the item. The item id stays simplebuilding:amethyst_lens.",
             "Recipe on MC 26.2: IIR / ICA / IIR (I = iron ingot, R = redstone, C = Iron Core, A = amethyst shard), rotated clockwise from the earlier recipe."
@@ -3585,7 +3587,7 @@ window.WIKI_DATA = {
             "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
             "Standardladung 640: Zielen verbraucht 4 je angefangener Sekunde, eine Wirkung weitere 5. Leer zerbricht der Stab nicht. Am Amboss laden 16 Amethystscherben ihn ohne Levelkosten ganz auf; Kreativspieler verbrauchen keine Ladung.",
             "Berührung des Konstrukteurs zeigt Entfernung, Ziel und Höhe im gemeinsamen Anzeigefeld. Der Server speichert die letzte Messung am Item. Die Item-ID bleibt simplebuilding:amethyst_lens.",
-            "Rezept auf MC 26.3 (Besitzer 2026-10-02, um 45 Grad gedreht und kompakter): „ RA“ / „NCR“ / „IN “ - Amethystscherbe oben rechts, Redstone oben Mitte und rechts Mitte, Eisenkern in der Mitte, Eisennuggets links Mitte und unten Mitte, Eisenstab unten links. Auf MC 26.2: IIR / ICA / IIR (I = Eisenbarren, R = Redstone, C = Eisenkern, A = Amethystscherbe)."
+            "Rezept auf MC 26.3: „ NA“ / „RC “ / „I  “ (N = Eisennugget, A = Amethystscherbe, R = Redstone, C = Eisenkern, I = Eisenstab). Je ein Nugget und Redstone; rechts und unter dem Kern bleibt es frei. MC 26.2 bleibt IIR / ICA / IIR (I = Eisenbarren)."
           ]
         },
         "sources": [
@@ -17679,7 +17681,7 @@ window.WIKI_DATA = {
             "The item id stays simplebuilding:velocity_gauge.",
             "Right-click with the Gauge in the main hand toggles auto-walk (a click sound confirms). Switching the main-hand slot or item stops it; changing the off hand does not. An open screen releases the key.",
             "With Constructor's Touch, auto-walk follows dirt paths and rails: where the way ends straight ahead and continues on exactly one side, the view turns that way.",
-            "Recipe (\" NA\" / \"NCN\" / \"KN \"): amethyst shard top right, copper nuggets around the middle, Copper Core bottom left; in the middle a clock on MC 26.3 (owner 2026-10-02: the gauge is a clock) or a compass on 26.2."
+            "MC 26.3 recipe: \"AN \" / \"NCN\" / \" NK\" (A = amethyst shard, N = copper nugget, C = clock, K = Copper Core), rotated 90 degrees counterclockwise. MC 26.2 keeps \" NA\" / \"NCN\" / \"KN \" with a compass. Vanilla also accepts horizontally mirrored recipes."
           ]
         },
         "de": {
@@ -17690,7 +17692,7 @@ window.WIKI_DATA = {
             "Die Item-ID bleibt simplebuilding:velocity_gauge.",
             "Rechtsklick mit der Messuhr in der Haupthand schaltet das automatische Laufen um (ein Klickton bestätigt). Ein Wechsel von Haupthand-Slot oder -Item beendet es, ein Wechsel der Nebenhand nicht. Ein offener Bildschirm lässt die Taste los.",
             "Mit Berührung des Konstrukteurs folgt das Laufen Trampelpfaden und Schienen: Endet der Weg geradeaus und geht genau auf einer Seite weiter, dreht sich der Blick dorthin.",
-            "Rezept („ NA“ / „NCN“ / „KN “): Amethystscherbe oben rechts, Kupfernuggets um die Mitte, Kupferkern unten links; in der Mitte auf MC 26.3 eine Uhr (Besitzer 2026-10-02: die Messuhr ist eine Uhr), auf 26.2 ein Kompass."
+            "Rezept auf MC 26.3: „AN “ / „NCN“ / „ NK“ (A = Amethystscherbe, N = Kupfernugget, C = Uhr, K = Kupferkern), 90 Grad gegen den Uhrzeigersinn gedreht. MC 26.2 behält „ NA“ / „NCN“ / „KN “ mit Kompass. Vanilla erlaubt auch horizontal gespiegelte Rezepte."
           ]
         },
         "sources": [
@@ -27531,9 +27533,9 @@ window.WIKI_DATA = {
         "simplebuilding:iron_rod"
       ],
       "pattern": [
-        " RA",
-        "NCR",
-        "IN "
+        " NA",
+        "RC ",
+        "I  "
       ],
       "key": {
         "A": [
@@ -27611,9 +27613,9 @@ window.WIKI_DATA = {
             {
               "field": "pattern",
               "this": [
-                " RA",
-                "NCR",
-                "IN "
+                " NA",
+                "RC ",
+                "I  "
               ],
               "other": [
                 "RAR",
@@ -27682,9 +27684,9 @@ window.WIKI_DATA = {
             {
               "field": "pattern",
               "this": [
-                " RA",
-                "NCR",
-                "IN "
+                " NA",
+                "RC ",
+                "I  "
               ],
               "other": [
                 "IIR",
@@ -27704,11 +27706,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:iron_ingot",
-            "count": 7.222
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 2
+            "count": 7.111
           },
           {
             "id": "minecraft:amethyst_shard",
@@ -27716,6 +27714,10 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:nether_star",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
             "count": 1
           }
         ]
@@ -51083,9 +51085,9 @@ window.WIKI_DATA = {
         "simplebuilding:copper_core"
       ],
       "pattern": [
-        " NA",
+        "AN ",
         "NCN",
-        "KN "
+        " NK"
       ],
       "key": {
         "A": [
@@ -51160,9 +51162,9 @@ window.WIKI_DATA = {
             {
               "field": "pattern",
               "this": [
-                " NA",
+                "AN ",
                 "NCN",
-                "KN "
+                " NK"
               ],
               "other": [
                 "QAQ",
@@ -51223,6 +51225,19 @@ window.WIKI_DATA = {
                   "minecraft:copper_nugget"
                 ]
               }
+            },
+            {
+              "field": "pattern",
+              "this": [
+                "AN ",
+                "NCN",
+                " NK"
+              ],
+              "other": [
+                " NA",
+                "NCN",
+                "KN "
+              ]
             }
           ],
           "source": "src/main/generated/data/simplebuilding/recipe/velocity_gauge.json"

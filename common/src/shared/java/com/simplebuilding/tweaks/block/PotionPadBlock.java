@@ -77,6 +77,7 @@ public class PotionPadBlock extends PadBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(COOLING, ACTIVE);
+        addFadeProperty(builder);
     }
 
     /**

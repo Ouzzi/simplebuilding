@@ -334,7 +334,7 @@ public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalS
         boolean cooling = cooldown > 0;
         if (state.getBlock() instanceof PotionPadBlock && state.hasProperty(PotionPadBlock.COOLING)
                 && state.getValue(PotionPadBlock.COOLING) != cooling) {
-            level.setBlock(worldPosition, state.setValue(PotionPadBlock.COOLING, cooling), Block.UPDATE_ALL);
+            com.simplebuilding.tweaks.block.PadBlock.setActive(level, worldPosition, PotionPadBlock.COOLING, cooling);
             if (!cooling && stored != null && level instanceof ServerLevel server) {
                 // Wieder bereit (Immersion 2026-09-28): ein Glockenspiel-Ton und ein Wirbel in der Trankfarbe.
                 server.playSound(null, worldPosition, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.8F, 1.2F);

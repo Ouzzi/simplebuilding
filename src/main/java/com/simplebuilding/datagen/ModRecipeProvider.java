@@ -303,15 +303,13 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // VELOCITY_GAUGE
                 // =================================================================
-                // Besitzer 2026-09-29 (Lauf HH): wie der Detector um 45 Grad gedreht - Amethystscherbe oben
-                // rechts (vorher oben Mitte), Kupfer-Baukern unten links (vorher unten Mitte), Kupfernuggets
-                // oben, unten, links und rechts neben dem Kompass; oben links und unten rechts frei, kein Quarz.
-                // Besitzer 2026-10-02: eine Uhr statt des Kompasses in der Mitte (die Messuhr ist eine Uhr).
+                // 26.3 Nachtrag 4: 90 Grad gegen den Uhrzeigersinn, Amethyst oben links, Kupferkern unten rechts.
+                // Die vier Kupfernuggets bleiben um die Uhr; 26.2 behaelt Ausrichtung und Kompass.
                 Item gaugeCentre = com.simplebuilding.version.McVersion.GADGET_REWORK ? Items.CLOCK : Items.COMPASS;
                 shaped(RecipeCategory.TOOLS, ModItems.VELOCITY_GAUGE)
-                        .pattern(" NA")
+                        .pattern(com.simplebuilding.version.McVersion.GADGET_REWORK ? "AN " : " NA")
                         .pattern("NCN")
-                        .pattern("KN ")
+                        .pattern(com.simplebuilding.version.McVersion.GADGET_REWORK ? " NK" : "KN ")
                         .define('C', gaugeCentre)
                         .define('A', Items.AMETHYST_SHARD)
                         .define('N', Items.COPPER_NUGGET)
@@ -1262,13 +1260,11 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // der Mitte, Amethystsplitter rechts, Redstone rechts oben und unten,
                 // Eisenbarren links und oben/unten mittig.
                 if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-                    // Besitzer 2026-10-02: um 45 Grad gedreht und kompakter - Amethystscherbe oben rechts, Redstone oben
-                    // Mitte und rechts Mitte, Eisen-Baukern in der Mitte, Eisennuggets links Mitte und unten Mitte,
-                    // Eisenstab unten links; oben links und unten rechts frei.
+                    // Nachtrag 4: Redstone/Nuggets getauscht; rechts und unter dem Kern je eines entfernt.
                     shaped(RecipeCategory.TOOLS, TweaksItems.LASER_POINTER)
-                            .pattern(" RA")
-                            .pattern("NCR")
-                            .pattern("IN ")
+                            .pattern(" NA")
+                            .pattern("RC ")
+                            .pattern("I  ")
                             .define('A', Items.AMETHYST_SHARD)
                             .define('C', ModItems.IRON_CORE)
                             .define('I', ModItems.IRON_ROD)
