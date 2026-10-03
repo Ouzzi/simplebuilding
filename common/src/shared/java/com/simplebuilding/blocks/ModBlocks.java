@@ -164,6 +164,7 @@ public class ModBlocks {
             ? registerBlock("auto_smither", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutoSmitherBlock::new) : null;
     public static final Block PLACED_SMALL_PARTS = McVersion.SMALL_PLACEABLES ? registerBlock("placed_small_parts", s -> new com.simplebuilding.blocks.custom.PlacedSmallPartsBlock(s
             .strength(0.2F).sound(SoundType.STONE).noCollision().noLootTable().noOcclusion().mapColor(MapColor.NONE)
+            .lightLevel(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock::light)
             .pushReaction(McVersion.PUSH_DESTROYS))) : null;
 
     // Eisenstab (2026-10-02): Blitzableiter aus Eisen, zieht Blitze nur in 32 Bloecken an (MetalRodBlock).

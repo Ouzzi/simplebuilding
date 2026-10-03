@@ -258,6 +258,41 @@ public final class FeatureStations {
         if (!eggs.isEmpty()) {
             x++;
         }
+        // Mischungen (2026-10-03): Kerzen und Seegurken mit Kleinteilen. Feuerzeug zuendet an, leere Hand loescht;
+        // die Gurken liegen nass hinter einer Glasscheibe (leuchten nur unter Wasser).
+        if (ModBlocks.PLACED_SMALL_PARTS != null) {
+            var pile = ModBlocks.PLACED_SMALL_PARTS.defaultBlockState()
+                    .setValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.FACING, Direction.SOUTH);
+            var lit = com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.LIT;
+            var wet = com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.WATERLOGGED;
+            c.place(x, 0, floorZ, pile);
+            c.contents(x, 0, floorZ, List.of(new ItemStack(net.minecraft.world.item.Items.CANDLE), new ItemStack(ModItems.STONE_PEBBLE),
+                    new ItemStack(ModItems.STONE_PEBBLE), new ItemStack(net.minecraft.world.item.Items.EGG)));
+            c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("placeables.mix", "Mix")), TcText.t("placeables.mix.candle", "candle, pebbles"),
+                    TcText.t("placeables.mix.light", "flint: light"));
+            x++;
+            c.place(x, 0, floorZ, pile.setValue(lit, true));
+            c.contents(x, 0, floorZ, List.of(new ItemStack(net.minecraft.world.item.Items.DYED_CANDLE.pick(net.minecraft.world.item.DyeColor.RED)),
+                    new ItemStack(net.minecraft.world.item.Items.DYED_CANDLE.pick(net.minecraft.world.item.DyeColor.WHITE)), new ItemStack(ModItems.FLINT_CHIP)));
+            c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("placeables.mix", "Mix")), TcText.t("placeables.mix.lit", "lit candles"),
+                    TcText.t("placeables.mix.out", "hand: put out"));
+            x++;
+            // Nass zwischen zwei Haeufchen (die nimmt fliessendes Wasser nicht an), vorn eine Glasscheibe.
+            c.place(x, 0, floorZ - 1, Blocks.GLASS);
+            c.place(x, 0, floorZ, pile.setValue(wet, true));
+            c.contents(x, 0, floorZ, List.of(new ItemStack(net.minecraft.world.item.Items.SEA_PICKLE),
+                    new ItemStack(net.minecraft.world.item.Items.SEA_PICKLE), new ItemStack(ModItems.STONE_PEBBLE)));
+            c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("placeables.mix", "Mix")), TcText.t("placeables.mix.pickles", "pickles, pebble"),
+                    TcText.t("placeables.mix.water", "glow in water"));
+            x++;
+            c.place(x, 0, floorZ, pile);
+            c.contents(x, 0, floorZ, List.of(new ItemStack(net.minecraft.world.item.Items.GLOWSTONE_DUST),
+                    new ItemStack(net.minecraft.world.item.Items.NETHER_STAR), new ItemStack(net.minecraft.world.item.Items.DYED_CANDLE.pick(net.minecraft.world.item.DyeColor.LIME)),
+                    new ItemStack(net.minecraft.world.item.Items.SEA_PICKLE)));
+            c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("placeables.mix", "Mix")), TcText.t("placeables.mix.glow", "glowing parts"),
+                    TcText.t("placeables.mix.glow.sub", "particles"));
+            x += 2;
+        }
         // Eisenstab: frei vor der Wand, nichts darueber (zieht Blitze nur als oberster Block seiner Saeule an).
         if (ModBlocks.IRON_ROD != null) {
             c.place(x + 1, 0, floorZ - 1, ModBlocks.IRON_ROD);

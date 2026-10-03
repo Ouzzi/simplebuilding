@@ -24439,25 +24439,36 @@ window.WIKI_DATA = {
       "icon": "assets/textures/render/block/placed_small_parts.png",
       "note": {
         "en": {
-          "summary": "Up to 4 small parts on one block, like sea pickles: Stone Pebbles, Flint Chips, eggs and the vanilla small parts (sticks, ingots, nuggets, gems, bricks, flint) in any mix. Sneak + right-click with a small part on top of a block lays the first; sneak + right-click with another one on the spot (or on the block below it) adds it. A fifth stays in your hand.",
+          "summary": "Up to 4 small parts on one block, like sea pickles: Stone Pebbles, Flint Chips, eggs, the vanilla small parts (sticks, ingots, nuggets, gems, bricks, flint, bones, feathers ...) and, mixed in, vanilla candles and sea pickles in any mix. Sneak + right-click with a small part on top of a block lays the first; sneak + right-click with another one on the spot (or on the block below it) adds it. A fifth stays in your hand.",
           "details": [
             "Every part has a fixed place for the number of parts on the spot, slightly turned for variety, and the whole spot turns with the direction you looked when placing the first. Lying parts are thin plates of their item texture (alone as large as a placed smithing template, from two parts on half that size); eggs stand as small 3D eggs in the vanilla egg's colors. The hitbox follows the drawn parts; there is no collision.",
             "Breaking the spot gives every lying part back. Eggs come back with Silk Touch; otherwise each egg breaks and hatches for itself exactly like a thrown egg (a chick in 1 of 8, four in 1 of 32 of those). Explosions, pistons and a missing floor break it like a hand without a tool. Middle-click picks the last part added.",
             "Only on the floor; on a wall or under a ceiling a small part still lies alone like a smithing template. It needs a floor that carries its center and can be placed in water (it becomes waterlogged). Old single placed eggs and small parts lying alone on the floor turn into such a spot when a part is added.",
-            "Server options: server.features.placeVanillaItems (all vanilla parts including eggs) and server.features.placeDisabledItems (single IDs, also mod parts). The limit of 4 is fixed."
+            "Server options: server.features.placeVanillaItems (all vanilla parts including eggs, candles and sea pickles) and server.features.placeDisabledItems (single IDs, also mod parts). The limit of 4 is fixed.",
+            "More small parts: bones, feathers, arrows and spectral arrows, blaze and breeze rods, glowstone dust, glow ink sacs, prismarine crystals, nether stars, rabbit's feet, turtle and armadillo scutes, disc fragments, ghast tears and the mod's Nihilith Shards, Astralit Dust, Ender Quartz, Raw Enderite, Enderite Scrap, Cracked Diamonds and Sage Orbs.",
+            "Candles and sea pickles mix in: alone they stay the vanilla blocks. Sneak + right-click with another part on a vanilla candle or sea pickle block (or the block below it) turns it into a spot with each candle or pickle as one part, keeping lit candles lit and water; a candle of the same color on candles, or a sea pickle on sea pickles, stays vanilla. On a spot, candles and pickles are added like any part. They stand as the vanilla models.",
+            "Light like vanilla: lit candles give 3 per candle, sea pickles under water 3 + 3 per pickle, dry pickles none. Flint and steel, a fire charge or a burning projectile light the candles (not under water); an empty hand puts them out, and so does water flowing in. Lit candles show the vanilla flame and smoke.",
+            "Glowing parts (glowstone dust, glow ink sac, prismarine crystals, nether star, blaze rod, echo shard, Astralit Dust, Sage Orb) now and then show a subtle vanilla particle; the client option \"Glow Particles on Placed Parts\" (tools.placedPartParticles, on by default) turns that off."
           ]
         },
         "de": {
-          "summary": "Bis zu 4 Kleinteile auf einem Block, wie Seegurken: Steinkiesel, Feuersteinsplitter, Eier und die Vanilla-Kleinteile (Stöcke, Barren, Klumpen, Edelsteine, Ziegel, Feuerstein) in beliebiger Mischung. Schleichen + Rechtsklick mit einem Kleinteil auf die Oberseite eines Blocks legt das erste ab; Schleichen + Rechtsklick mit einem weiteren auf den Fleck (oder auf den Block darunter) legt es dazu. Ein fünftes bleibt in der Hand.",
+          "summary": "Bis zu 4 Kleinteile auf einem Block, wie Seegurken: Steinkiesel, Feuersteinsplitter, Eier, die Vanilla-Kleinteile (Stöcke, Barren, Klumpen, Edelsteine, Ziegel, Feuerstein, Knochen, Federn …) und, dazugemischt, Vanilla-Kerzen und Seegurken in beliebiger Mischung. Schleichen + Rechtsklick mit einem Kleinteil auf die Oberseite eines Blocks legt das erste ab; Schleichen + Rechtsklick mit einem weiteren auf den Fleck (oder auf den Block darunter) legt es dazu. Ein fünftes bleibt in der Hand.",
           "details": [
             "Jedes Teil hat je nach Anzahl auf dem Fleck einen festen Platz, leicht gedreht für Abwechslung, und der ganze Fleck dreht sich mit der Blickrichtung beim ersten Ablegen. Liegende Teile sind dünne Platten aus ihrer Item-Textur (allein so groß wie eine abgelegte Schmiedevorlage, ab zwei Teilen halb so groß); Eier stehen als kleine 3D-Eier in den Farben des Vanilla-Eis. Die Trefferform folgt den gezeichneten Teilen; eine Kollision gibt es nicht.",
             "Abbauen gibt jedes liegende Teil zurück. Eier kommen mit Behutsamkeit zurück; sonst zerbricht jedes Ei und schlüpft für sich genau wie ein geworfenes Ei (in 1 von 8 Fällen ein Küken, davon in 1 von 32 vier). Explosionen, Kolben und ein fehlender Boden bauen es ab wie eine Hand ohne Werkzeug. Die mittlere Maustaste nimmt das zuletzt dazugelegte Teil.",
             "Nur auf dem Boden; an der Wand oder unter der Decke liegt ein Kleinteil weiter allein wie eine Schmiedevorlage. Braucht einen Boden, der die Mitte trägt, und lässt sich ins Wasser legen (wird wassergefüllt). Alte einzeln gelegte Eier und allein auf dem Boden liegende Kleinteile werden zu so einem Fleck, wenn man etwas dazulegt.",
-            "Server-Optionen: server.features.placeVanillaItems (alle Vanilla-Teile samt Eiern) und server.features.placeDisabledItems (einzelne IDs, auch Mod-Teile). Die Grenze von 4 ist fest."
+            "Server-Optionen: server.features.placeVanillaItems (alle Vanilla-Teile samt Eiern, Kerzen und Seegurken) und server.features.placeDisabledItems (einzelne IDs, auch Mod-Teile). Die Grenze von 4 ist fest.",
+            "Weitere Kleinteile: Knochen, Federn, Pfeile und Spektralpfeile, Lohen- und Böenruten, Glowstonestaub, Leuchttintenbeutel, Prismarinkristalle, Nethersterne, Hasenpfoten, Schildkröten- und Gürteltier-Hornschilde, Plattenbruchstücke, Ghast-Tränen sowie die Nihilithsplitter, Astralitstaub, Enderquarz, Rohenderit, Enderitschrott, Rissige Diamanten und Weisheitskugeln der Mod.",
+            "Kerzen und Seegurken mischen mit: allein bleiben sie die Vanilla-Blöcke. Schleichen + Rechtsklick mit einem anderen Teil auf einen Vanilla-Kerzen- oder -Seegurkenblock (oder den Block darunter) macht daraus einen Fleck, jede Kerze bzw. Gurke ein Teil; brennende Kerzen brennen weiter, Wasser bleibt. Eine gleichfarbige Kerze auf Kerzen oder eine Seegurke auf Seegurken bleibt Vanilla. Auf einen Fleck legen sich Kerzen und Gurken wie jedes Teil. Sie stehen als die Vanilla-Modelle.",
+            "Licht wie bei Vanilla: brennende Kerzen geben 3 je Kerze, Seegurken unter Wasser 3 + 3 je Gurke, trockene Gurken nichts. Feuerzeug, Feuerkugel oder ein brennendes Geschoss zünden die Kerzen an (nicht unter Wasser); die leere Hand löscht sie, ebenso hineinlaufendes Wasser. Brennende Kerzen zeigen die Vanilla-Flamme und Rauch.",
+            "Leuchtende Teile (Glowstonestaub, Leuchttintenbeutel, Prismarinkristalle, Netherstern, Lohenrute, Echoscherbe, Astralitstaub, Weisheitskugel) zeigen ab und zu einen dezenten Vanilla-Partikel; die Client-Option „Glanz-Partikel an abgelegten Teilen“ (tools.placedPartParticles, standardmäßig an) schaltet das ab."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
+          "common/src/shared/java/com/simplebuilding/util/PlacedPartParticles.java",
+          "common/src/shared/java/com/simplebuilding/mixin/BlockItemMixin.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedSmallPartsBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/client/render/PlacedSmallPartsRenderer.java",
@@ -61510,6 +61521,94 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "minecraft:bone",
+          "required": true
+        },
+        {
+          "id": "minecraft:feather",
+          "required": true
+        },
+        {
+          "id": "minecraft:arrow",
+          "required": true
+        },
+        {
+          "id": "minecraft:spectral_arrow",
+          "required": true
+        },
+        {
+          "id": "minecraft:blaze_rod",
+          "required": true
+        },
+        {
+          "id": "minecraft:breeze_rod",
+          "required": true
+        },
+        {
+          "id": "minecraft:glowstone_dust",
+          "required": true
+        },
+        {
+          "id": "minecraft:glow_ink_sac",
+          "required": true
+        },
+        {
+          "id": "minecraft:prismarine_crystals",
+          "required": true
+        },
+        {
+          "id": "minecraft:nether_star",
+          "required": true
+        },
+        {
+          "id": "minecraft:rabbit_foot",
+          "required": true
+        },
+        {
+          "id": "minecraft:turtle_scute",
+          "required": true
+        },
+        {
+          "id": "minecraft:armadillo_scute",
+          "required": true
+        },
+        {
+          "id": "minecraft:disc_fragment_5",
+          "required": true
+        },
+        {
+          "id": "minecraft:ghast_tear",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_shard",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_dust",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:raw_enderite",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_scrap",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cracked_diamond",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:sage_orb",
+          "required": true
+        },
+        {
           "id": "minecraft:shulker_shell",
           "required": true
         },
@@ -62232,6 +62331,21 @@ window.WIKI_DATA = {
       "labelDe": "Stärke des Umwandlungshinweises",
       "tooltip": "How strongly the held item tilts when it can\ntransform the block you aim at, in percent of\nthe original motion. A partial hint (hammer\nor material missing) shows half of it.\nClient-side. Default: 50.",
       "tooltipDe": "Wie stark sich das gehaltene Item neigt, wenn\nes den anvisierten Block umwandeln kann, in\nProzent der ursprünglichen Bewegung. Ein\nTeil-Hinweis (Hammer oder Material fehlt)\nzeigt die Hälfte davon. Clientseitig.\nStandard: 50."
+    },
+    {
+      "name": "tools.placedPartParticles",
+      "shortName": "placedPartParticles",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Tools & Building",
+      "categoryDe": "Werkzeuge & Bauen",
+      "group": "Tools & Building",
+      "groupDe": "Werkzeuge & Bauen",
+      "label": "Glow Particles on Placed Parts",
+      "labelDe": "Glanz-Partikel an abgelegten Teilen",
+      "tooltip": "Subtle vanilla particles above glowing\nsmall parts lying on the floor (glowstone\ndust, nether star, sage orb ...). Candle\nflames always show, like vanilla.\nClient-side. Default: on.",
+      "tooltipDe": "Dezente Vanilla-Partikel über leuchtenden\nabgelegten Kleinteilen (Glowstonestaub,\nNetherstern, Weisheitskugel ...).\nKerzenflammen bleiben immer an, wie\nbei Vanilla. Clientseitig. Standard: an."
     },
     {
       "name": "enableDoubleJump",

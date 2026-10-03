@@ -89,4 +89,24 @@ public final class PlacedTemplateGameTest {
     public void theEggModelMatchesTheEggHitbox(GameTestHelper helper) {
         PlacedTemplateTests.theEggModelMatchesTheEggHitbox(helper);
     }
+
+    @GameTest
+    public void theNewSmallPartsLieDownMixAndGlowingOnesHaveParticles(GameTestHelper helper) {
+        PlacedTemplateTests.theNewSmallPartsLieDownMixAndGlowingOnesHaveParticles(helper);
+    }
+
+    @GameTest
+    public void candlesAndSeaPicklesMixWithSmallPartsOnlyWhenMixed(GameTestHelper helper) {
+        PlacedTemplateTests.candlesAndSeaPicklesMixWithSmallPartsOnlyWhenMixed(helper);
+    }
+
+    @GameTest
+    public void mixedCandlesLightAndGoOutAndPicklesGlowOnlyUnderWater(GameTestHelper helper) {
+        PlacedTemplateTests.mixedCandlesLightAndGoOutAndPicklesGlowOnlyUnderWater(helper);
+    }
+
+    @GameTest
+    public void oldPilesLoadUnlitAndTheCandleModelsAreTheVanillaOnes(GameTestHelper helper) {
+        PlacedTemplateTests.oldPilesLoadUnlitAndTheCandleModelsAreTheVanillaOnes(helper);
+    }
 }
