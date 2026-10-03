@@ -92,6 +92,8 @@ public final class SearchTabPlacement {
             out.add(Placement.after(REDSTONE_BLOCKS, Items.LEVER, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH));
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.REDSTONE_LAMP, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.ENDER_CHEST, ModItems.ASTRAL_VAULT));
+            // End-Kolben vor dem Schleimblock, also hinter den Kolbenstufen der Mod (die stehen hinter dem Klebekolben).
+            out.add(Placement.before(REDSTONE_BLOCKS, Items.SLIME_BLOCK, ModItems.NIHIL_PISTON, ModItems.ASTRAL_PISTON));
         }
 
         // --- Bausteine: End-Paletten hinter Purpur, Enderquarz und Schachbretter hinter Glattquarz,

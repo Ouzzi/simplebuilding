@@ -120,3 +120,67 @@ Block **mit einem Feld Lücke**:
 - Nihil-Kolben: Lücke-Variante (Block mit 1 Feld Abstand rückt heran) – passt das?
 - Sollen DESTROY-Blöcke (Pflanzen) wie bei Vanilla zerstört werden dürfen, oder bleibt es beim sicheren „nichts tun“?
 - Welche Textur (A/B/C) nach Vorschau?
+
+---
+
+## 11. Umsetzungsplan (2026-10-03, Branch `claude-pistons`)
+
+Status ab hier: **wird umgesetzt**. Besitzer „weiter mit der Queue“; offene Fragen mit Standardannahmen entschieden:
+- Nihil-Kolben: **Lücken-Variante** (Q = pos+2d → Z = pos+d).
+- DESTROY-Blöcke (Pflanzen, Fackeln, Türen …) als Quelle: **nichts tun** (Richtung entfällt, kein Zerstören).
+- Textur: Vorschau A/B/C (`previews/astral-nihil-kolben-vorschau.png`), **A eingebaut**, Besitzer kann umwählen
+  (Generator `tools/textures/end_pistons_2026_10_03.py --install B|C`).
+- Nihil-Rezept mit **klebrigem Kolben** in der Mitte (zieht), Astral mit normalem Kolben.
+- Ein ersetzbares **Ziel** (Gras, Schneeschicht, fließendes Wasser) wird wie bei Vanilla mit Drops geräumt (Abschnitt 3).
+
+### Technik (Abweichung von Abschnitt 8 benannt)
+- `EndPistonBlock extends EndSignalBlock` mit neuer `Kind.PISTON` statt eigener `active`-Eigenschaft: der Kolben
+  verhält sich beim Empfang **genau wie die Lampe** (`POWER` = empfangenes Signal, Pulver verbindet sich sichtbar über
+  `sameChannel`, Kolben gibt kein Signal weiter: `receivedFrom` behandelt PISTON wie LAMP). „Aktiv“ = `power>0`.
+- Flanke: im 2-Tick-Abfragetakt der Kanalblöcke; `POWER` alt 0 → neu >0 löst aus. Nach dem Auslösen wird der nächste
+  Abfrage-Tick erst nach `machines.endPistonCooldownTicks` (4..100, Standard 8, Clamp in `validate` und beim Zugriff)
+  geplant – Abklingzeit ohne Block-Entity. `onPlace` plant nur bei neuem Block (sonst würde der Zustandswechsel im Tick
+  die Abklingzeit durch einen 2-Tick-Termin ersetzen).
+- `features.endPistons` (Standard an) **und** `features.endSignals` müssen an sein; sonst Power 0, keine Bewegung.
+  Rezepte fallen bei `endPistons=false` mit dem nächsten Datenpaket-Laden weg (`RecipeFilter`, `RECIPES_ON_RELOAD`).
+- `EndPistonMoves` (shared): `plan(level, pos, astral)` → Züge (reine Prüfung), `fire(level, pos, astral)` wendet an.
+  Beweglichkeit: `PistonBaseBlock.isPushable(..., allowDestroy=false, facing)` (Bauhöhe, Weltgrenze, Obsidian/
+  Ankerblock/verstärkter Tiefenschiefer, Härte −1, BLOCK/DESTROY, PUSH_ONLY nur in Kolbenrichtung, Block-Entities) plus
+  eigene Sperren: Härte <0, Tag `simplebuilding:end_piston_immovable`, alle Kolben/Kolbenköpfe/bewegte Kolben,
+  **alle End-Signalblöcke** (Pulver, Schalter, Lampe, Kolben – Ergänzung beim Bau: sonst stößt der Astral-Kolben
+  sein eigenes Pulver/seinen Schalter weg),
+  zweiteilige Blöcke (`double_block_half`, `bed_part`), Flüssigkeitsblöcke. Ziel: geladen, in Bauhöhe/Weltgrenze, Luft
+  oder ersetzbar ohne Flüssigkeitsquelle. Claims: `WorldPermissions.mayAutomate(level, kolben, Q|Z)`.
+- Sperrmenge je Level und Spieltick (`WeakHashMap<Level, Lock>`), Zustandsvergleich vor jedem Zug.
+- Bewegung über `minecraft:moving_piston` + `MovingPistonBlock.newMovingBlockEntity` (Astral: extending, Nihil:
+  retracting mit Blickrichtung d → Bewegung −d), Quelle wird Luft (Flags 82 wie Vanilla), danach Nachbar-Updates;
+  Kolbensound mit Tonhöhe 1,2–1,3, wenige `REVERSE_PORTAL`-Partikel, kein Text.
+- Registrierung hinter `McVersion.END_SYSTEMS` (26.3 an, 26.2 aus → `null`, wie Lampe/Schalter); Kein neues Flag nötig.
+
+### Dateien
+- Code: `blocks/custom/EndPistonBlock.java`, `blocks/custom/EndPistonMoves.java`, `EndSignalBlock` (Kind.PISTON),
+  `ModBlocks`, `ModItems`, `ModItemGroupsContent` (Zeile `end_signals`: Nihil-Kolben hinter Nihil-Lampe, Astral-Kolben
+  hinter Astral-Lampe = 9 Plätze), `SearchTabPlacement` (hinter Vanilla-Klebekolben), `ServerTuningConfig`,
+  `ConfigOptions`, `RecipeFilter`, `RecipelessJeiInfo` (Hinweisseite), `GuideContent` (Kapitel End-Signale),
+  `ModTags` (`END_PISTON_IMMOVABLE`), `TestCentreSections.devices` (zwei Vorführreihen).
+- Datagen: Rezepte, Beute, Pickaxe-Tag, Immovable-Tag (alle `END_SYSTEMS`-geschützt) → `mc26_3/generated`.
+- Ressourcen von Hand (wie Lampe): Blockstates/Modelle/Item-Modelle in `mc26_3/overlay/resources`, Texturen vom Generator.
+- Lang EN/DE in `src/main/resources` und `mc26_3/overlay/resources` (Blöcke, Items, Config, JEI-Hinweis).
+- Tests: `EndSystemsTests` + Fabric-Adapter + Katalog; Erwartungen in `DataIntegrityTests`, `ConfigOptionTests`,
+  `GuideBookTests` nachziehen.
+- Wiki: `wiki/manual.json` (End-Signale-Seite: Kolben-Absatz, belegbar), `wiki/generate.py --all`.
+
+### Tests (Abschnitt 9 konkret)
+1. `pistonPushesAllSixAtOnce` – Astral drückt 6 Nachbarn je 1 Feld im selben Aufruf.
+2. `pistonNeverChains` – belegtes Ziel → Block bleibt, dahinterliegender bleibt.
+3. `nihilPullsAcrossTheGap` – Nihil zieht 6 Blöcke mit Lücke heran, direkt anliegende bleiben.
+4. `pistonLeavesImmovablesAlone` – Obsidian, Bedrock, Truhe (Block-Entity), Tür, Kolben, Fackel/Pflanze bleiben;
+   nichts zerstört; PUSH_ONLY (glasierte Keramik) Astral ja / Nihil nein.
+5. `twoPistonsMoveABlockOnce` – zwei Astral-Kolben auf denselben Block im selben Tick: genau eine Bewegung, Blockzahl gleich.
+6. `pistonFiresOnRisingEdgeOnly` – Dauersignal löst einmal aus; Abklingzeit-Clamp 4..100; Feature aus → nichts.
+7. `pistonIgnoresVanillaAndOtherChannel` – Redstoneblock und Nihil-Schalter lösen den Astral-Kolben nicht aus.
+
+### Risiken
+- Moving-Piston-Block-Entity ohne Vanilla-Kolben: Vanilla prüft beim Abschluss keinen Kolben → unkritisch
+  (dasselbe nutzt `PistonBreachTests.placeMovingBlock`).
+- Tab-/Integritätstests mit festen Zeilen müssen nachgezogen werden.

@@ -1,6 +1,7 @@
 {
   "blocks": [
     "simplebuilding:astral_end_stone",
+    "simplebuilding:astral_piston",
     "simplebuilding:astral_purpur_block",
     "simplebuilding:astral_redstone",
     "simplebuilding:astral_vault",
@@ -113,6 +114,7 @@
     "simplebuilding:netherite_smoker",
     "simplebuilding:netherite_trapped_chest",
     "simplebuilding:nihil_end_stone",
+    "simplebuilding:nihil_piston",
     "simplebuilding:nihil_purpur_block",
     "simplebuilding:nihil_redstone",
     "simplebuilding:nihilith_block",
@@ -207,6 +209,9 @@
     },
     {
       "id": "simplebuilding:astral_end_stone"
+    },
+    {
+      "id": "simplebuilding:astral_piston"
     },
     {
       "id": "simplebuilding:astral_purpur_block"
@@ -956,6 +961,9 @@
     },
     {
       "id": "simplebuilding:nihil_end_stone"
+    },
+    {
+      "id": "simplebuilding:nihil_piston"
     },
     {
       "id": "simplebuilding:nihil_purpur_block"

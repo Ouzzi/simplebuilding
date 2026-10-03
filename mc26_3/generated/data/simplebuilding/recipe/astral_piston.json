@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "K": "minecraft:piston",
+    "P": "simplebuilding:polished_astralit",
+    "R": "simplebuilding:astral_redstone"
+  },
+  "pattern": [
+    "PRP",
+    "RKR",
+    "PRP"
+  ],
+  "result": {
+    "id": "simplebuilding:astral_piston"
+  }
+}

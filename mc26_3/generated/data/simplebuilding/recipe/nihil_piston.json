@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "K": "minecraft:sticky_piston",
+    "P": "simplebuilding:polished_nihilith",
+    "R": "simplebuilding:nihil_redstone"
+  },
+  "pattern": [
+    "PRP",
+    "RKR",
+    "PRP"
+  ],
+  "result": {
+    "id": "simplebuilding:nihil_piston"
+  }
+}

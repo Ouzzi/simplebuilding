@@ -205,6 +205,13 @@ public class ModTags {
          * octant fill. By default only the creative-only structure void; for modpacks that want to
          * keep e.g. a mod's machine or a valuable block out of mass placement.
          */
+        /**
+         * Blocks an Astral/Nihil piston never moves, on top of its built-in rules (unbreakable, block
+         * entities, pistons, two-part blocks, push reaction BLOCK/DESTROY): end portal frames, reinforced
+         * deepslate, the mod's breachable extras and anything a modpack adds.
+         */
+        public static final TagKey<Block> END_PISTON_IMMOVABLE = createTag("end_piston_immovable");
+
         public static final TagKey<Block> BUILDING_WAND_BLACKLIST = createTag("building_wand_blacklist");
 
         /**
