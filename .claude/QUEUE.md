@@ -152,7 +152,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Pfeile, die einen Mob getroffen haben, sollen wieder aufsammelbar sein, am besten wenn er gestorben ist (teure Pfeile lohnen sich dann). (claude-combat: fallen beim Tod mit allen Teilen; nur Spieler-Pfeile mit Aufheben erlaubt; `server.arrows`; docs/ai/PLAN-COMBAT-2026-10-02.md)
 - [x] Das Rezept des Spawn-Elytra-Pads wird nicht angezeigt (JEI zeigt nur die Info). → Fabric synchronisierte eigene Rezept-Serializer nicht an JEI; jetzt angemeldet (claude-pads, Plan docs/ai/PLAN-PADS-2026-10-02.md). Client-Sicht offen.
 - [x] Rezepte der Trank-Pads (claude-pads; II jetzt UNCOMMON wie die übrigen Netherit-Stufen):
-- [ ] Rezepte der Trank-Pads:
+- [x] Rezepte der Trank-Pads: (claude-pads, master 8d443a67)
   - Verstärktes Trank-Pad: Netherit-Aufwertung + Netherit-Druckplatte.
   - Infundiertes Trank-Pad 3: Enderit-Aufwertung + Enderit-Druckplatte.
 - [x] Das Rezept des Flypads wird auch nicht angezeigt. Höhe je Stufe = Breite der Grundfläche × 2. → gleiche Sync-Ursache; Höhen 8/16/32 (claude-pads).
@@ -161,11 +161,11 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Guide-Buch-Texturen überarbeiten (10 Vorschläge). Besitzer wählte J (Prachtband), eingebaut auf 26.3 (claude-guideui), Vorschau previews/guide-buecher-J-eingebaut.png.
 - [ ] Simple Money: 10 Textur-Vorschläge für Special Fiber, 10 für Resin Fiber. Runde 2 mit eigenen Item-Formen je A–J (previews/money-fasern-v2-vorschau.png, `money_fiber_proposals_v2_2026_10_02.py`) – Besitzer wählt.
 - [x] Simple Money: Schmelzzeiten der Geld-Teile erhöhen, damit es in SimpleBuilding-Welten balanciert ist. claude-texprop: roher Schein → Geldschein 10000 → 24000 Ticks (Vanilla-Schmelzofen 1 Schein/Spieltag, SB-Öfen 2/4/8); Begründung in docs/modules/simplemoney.md.
-- [ ] Zusätzlicher Weg zu Diamant-Kieseln (In-World): Fällt ein Amboss auf einen Diamantblock, entstehen Diamant-Kiesel.
+- [x] Zusätzlicher Weg zu Diamant-Kieseln (In-World): Fällt ein Amboss auf einen Diamantblock, entstehen Diamant-Kiesel. (GPT anvil: 72 Kiesel je Diamantblock, master 8d443a67)
 - [x] Auto-Schmied analog zum Autocrafter: automatisiert den Schmiedetisch. (Branch claude-workstations, wartet auf Abnahme)
 - [x] (claude-tabswiki, wiki/base_materials.py; Geldschein-Wert 3–35 Smaragde aus den Handels-JSONs) Wiki: Auf jeder Item-Seite beim Rezept die benötigten Grundmaterialien insgesamt auflisten (ab Barren, Holzstämmen, Zuckerrohr, Wachs, Bruchstein …), damit klar ist, wie viel Rohmaterial ein Item kostet. Beim Geldschein sein Wert.
 - [x] Strohpuppe / Trainingspuppe (Branch claude-dummy, docs/ai/PLAN-TRAINING-DUMMY-2026-10-02.md; Client-Sichtabnahme und Besitzer-Abnahme der Texturen offen, Vorschau previews/trainingspuppe-vorschau.png):
-- [ ] Strohpuppe / Trainingspuppe:
+- [x] Strohpuppe / Trainingspuppe: (claude-dummy, master 8d443a67; Besitzer: ok)
   - Rezept: Rüstungsständer + Strohballen ergibt einen Stroh-Rüstungsständer.
   - Mit aufgesetztem geschnitzten Kürbis wird daraus eine Trainingspuppe mit gutem Minecraft-Namen. Sie ist unzerstörbar, außer beim Abbauen im Schleichen.
   - Sie zeigt allen Schaden an, auch kritische Treffer.
@@ -188,8 +188,8 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 ## Besitzer 2026-10-02 (Nachtrag 2)
 
-- [ ] Erzdetektor: Die Auswahl-Animation (läuft heute am Slot-Rand, wenn ein Block gewählt ist) soll stattdessen auf der Nadel laufen.
-- [ ] Erzdetektor: Nadel vorher breiter machen wie beim Bergungskompass (falls noch nicht geschehen).
+- [x] Erzdetektor: Die Auswahl-Animation (läuft heute am Slot-Rand, wenn ein Block gewählt ist) soll stattdessen auf der Nadel laufen. (claude-texprop, master 8d443a67)
+- [x] Erzdetektor: Nadel vorher breiter machen wie beim Bergungskompass (falls noch nicht geschehen). (claude-texprop, 12/6 Uhr mittig, master 8d443a67)
 - [ ] Eigene Schallplatte je Dimension, „gehen ab“ wie Pigstep/Otherside:
   - End: Stil wie das Instrumental von „What I've Done“ (Linkin Park).
   - Oberwelt: zwei Platten, eine wie „Stan“ (Eminem), eine im NCS-/Alan-Walker-Stil.
@@ -202,18 +202,18 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Hängematte: tagsüber darauf liegen lässt die Tageszeit schneller laufen.
   - Nur 1×2×2 platzierbar, zwischen zwei festen Blöcken mit 2–3 Blöcken Abstand (beliebige Blöcke, auch Stäbe).
 - [x] Tooltips aufräumen: kurze EN/DE-Zeilen, vorhandene Komponenten-/Font-Umbrüche und beide Hauptmod-Lang-Orte gepflegt. Inventur und Prüfungen: `docs/ai/TOOLTIPS-2026-10-02.md`. Client-Sichtabnahme bleibt offen.
-- [ ] Spezial-Shulker (verstärkt/Enderit): in derselben Struktur je Spezial-Shulker 4 Endermiten spawnen.
+- [x] Spezial-Shulker (verstärkt/Enderit): in derselben Struktur je Spezial-Shulker 4 Endermiten spawnen. (claude-loot, beim Annähern eines Spielers, master 8d443a67)
 
 ## Besitzer 2026-10-02 (Nachtrag 3)
 
 - [ ] Resonanzstab und Rotator: Idle-Animation und Benutzungs-Animation.
-- [ ] Erzdetektor: Idle-Animation, Nadel pulsiert, solange nichts gewählt ist. Ist etwas gewählt, läuft die Auswahl-Animation auf der Nadel (siehe Nachtrag 2).
+- [x] Erzdetektor: Idle-Animation, Nadel pulsiert, solange nichts gewählt ist. Ist etwas gewählt, läuft die Auswahl-Animation auf der Nadel (siehe Nachtrag 2). (claude-texprop Ruhepuls, master 8d443a67)
 - [ ] Attractor: Idle-Animation, das Item selbst bleibt unverändert, nur kurz angedeutete Magnetfeldlinien.
 - [x] Hufeisen-Vorlage (simpleriding): Basic-Upgrade-Silhouette mit Eisen-Hufeisen und Kupferplatte, Name „Horseshoe Upgrade“ / „Hufeisen-Aufwertung“, EN/DE-Tooltips nach Rezepten. Generator und 16-fache Vorher-/Nachher-Vorschau vorhanden; Sichtabnahme im Spiel offen. Prüfstand: `docs/ai/PLAN-HORSESHOE-TEMPLATE-2026-10-02.md`.
 - [x] Echolot: Haltbarkeit wieder wie früher – eine einmalige Nutzung verbraucht die 1500 Haltbarkeit wie vorher. Aktuell wird Haltbarkeit seltsam verbraucht und angezeigt → Ist-Verhalten gegen die frühere Version (git log) prüfen und zurückführen.
   - Umsetzung auf `claude-gpt-echo`: vollständige Entladung auf 26.3 auch mit Unbreaking; Ladezeit, Riss-Stufen und normale Leiste bleiben. 1728/1728 Server-Tests, 26.2-/Forge-26.3-Compile und vollständiges Gate grün. Historie, Entscheidung und Tests: `docs/ai/PLAN-ECHOLOT-HALTBARKEIT-2026-10-02.md`. Besitzerabnahme im Client bleibt offen.
-- [ ] Hufeisen-Vorlage (simpleriding): Textur und Name nach derselben Konvention wie die Basic-Upgrade-Vorlage. Der Pfeil wird zu einem Hufeisen; innen Eisen-, außen Kupferfarben.
-- [ ] Echolot: Haltbarkeit wieder wie früher – eine einmalige Nutzung verbraucht die 1500 Haltbarkeit wie vorher. Aktuell wird Haltbarkeit seltsam verbraucht und angezeigt → Ist-Verhalten gegen die frühere Version (git log) prüfen und zurückführen.
+- [x] Hufeisen-Vorlage (simpleriding): Textur und Name nach derselben Konvention wie die Basic-Upgrade-Vorlage. Der Pfeil wird zu einem Hufeisen; innen Eisen-, außen Kupferfarben. (GPT horseshoe, master 8d443a67)
+- [x] Echolot: Haltbarkeit wieder wie früher – eine einmalige Nutzung verbraucht die 1500 Haltbarkeit wie vorher. Aktuell wird Haltbarkeit seltsam verbraucht und angezeigt → Ist-Verhalten gegen die frühere Version (git log) prüfen und zurückführen. (GPT echo: volle Ladung je Sprung auf 26.3, master 8d443a67)
 
 ## Worker Amboss-Kiesel 2026-10-02
 - [x] Zusaetzlicher 26.3-In-World-Weg: fallender Amboss verbraucht Diamantblock fuer 72 Kiesel; JEI/REI/Wiki, EN/DE. Fabric/NeoForge: 1732/1732 Server-Tests, Wiki: 38 Tests, volles Gate und 26.2-/Forge-Compiles gruen. Plan, Nebenbefunde und offene Client-/Integrationsabnahmen: `docs/ai/PLAN-AMBOSS-KIESEL-2026-10-02.md`. Kein Push.
