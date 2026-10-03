@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "active=false,fade=0": {
+      "model": "simplebuilding:block/reinforced_flypad"
+    },
+    "active=false,fade=1": {
+      "model": "simplebuilding:block/reinforced_flypad"
+    },
+    "active=false,fade=2": {
+      "model": "simplebuilding:block/reinforced_flypad"
+    },
+    "active=false,fade=3": {
+      "model": "simplebuilding:block/reinforced_flypad"
+    },
+    "active=true,fade=0": {
+      "model": "simplebuilding:block/reinforced_flypad"
+    },
+    "active=true,fade=1": {
+      "model": "simplebuilding:block/reinforced_flypad_active_fade_1"
+    },
+    "active=true,fade=2": {
+      "model": "simplebuilding:block/reinforced_flypad_active_fade_2"
+    },
+    "active=true,fade=3": {
+      "model": "simplebuilding:block/reinforced_flypad_active"
+    }
+  }
+}

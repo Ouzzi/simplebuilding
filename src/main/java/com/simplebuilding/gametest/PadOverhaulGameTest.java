@@ -10,6 +10,11 @@ import net.minecraft.gametest.framework.GameTestHelper;
  */
 public final class PadOverhaulGameTest {
 
+    @GameTest(maxTicks = 60)
+    public void padEffectsFadeInAndStopSchedulingWhenSettled(GameTestHelper helper) {
+        PadOverhaulTests.padEffectsFadeInAndStopSchedulingWhenSettled(helper);
+    }
+
     @GameTest
     public void spawnTeleporterSignalChangesResetTheEntireWarmup(GameTestHelper helper) {
         PadOverhaulTests.spawnTeleporterSignalChangesResetTheEntireWarmup(helper);

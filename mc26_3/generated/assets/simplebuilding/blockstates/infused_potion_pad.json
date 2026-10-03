@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "active=false,cooling=false,fade=0": {
+      "model": "simplebuilding:block/infused_potion_pad"
+    },
+    "active=false,cooling=false,fade=1": {
+      "model": "simplebuilding:block/infused_potion_pad"
+    },
+    "active=false,cooling=false,fade=2": {
+      "model": "simplebuilding:block/infused_potion_pad"
+    },
+    "active=false,cooling=false,fade=3": {
+      "model": "simplebuilding:block/infused_potion_pad"
+    },
+    "active=false,cooling=true,fade=0": {
+      "model": "simplebuilding:block/infused_potion_pad"
+    },
+    "active=false,cooling=true,fade=1": {
+      "model": "simplebuilding:block/infused_potion_pad_cooling_fade_1"
+    },
+    "active=false,cooling=true,fade=2": {
+      "model": "simplebuilding:block/infused_potion_pad_cooling_fade_2"
+    },
+    "active=false,cooling=true,fade=3": {
+      "model": "simplebuilding:block/infused_potion_pad_cooling"
+    },
+    "active=true,cooling=false,fade=0": {
+      "model": "simplebuilding:block/infused_potion_pad"
+    },
+    "active=true,cooling=false,fade=1": {
+      "model": "simplebuilding:block/infused_potion_pad_active_fade_1"
+    },
+    "active=true,cooling=false,fade=2": {
+      "model": "simplebuilding:block/infused_potion_pad_active_fade_2"
+    },
+    "active=true,cooling=false,fade=3": {
+      "model": "simplebuilding:block/infused_potion_pad_active"
+    },
+    "active=true,cooling=true,fade=0": {
+      "model": "simplebuilding:block/infused_potion_pad"
+    },
+    "active=true,cooling=true,fade=1": {
+      "model": "simplebuilding:block/infused_potion_pad_cooling_fade_1"
+    },
+    "active=true,cooling=true,fade=2": {
+      "model": "simplebuilding:block/infused_potion_pad_cooling_fade_2"
+    },
+    "active=true,cooling=true,fade=3": {
+      "model": "simplebuilding:block/infused_potion_pad_cooling"
+    }
+  }
+}

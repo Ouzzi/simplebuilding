@@ -58,6 +58,7 @@ public class SpawnTeleporterBlock extends WaterloggedPadBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(ACTIVE);
+        addFadeProperty(builder);
     }
 
     /** Redstone wechselt nur das Ziel (Weltspawn statt eigener Spawn), abgeschaltet wird nichts. */

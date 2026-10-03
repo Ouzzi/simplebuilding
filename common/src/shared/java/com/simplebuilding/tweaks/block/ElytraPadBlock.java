@@ -47,6 +47,7 @@ public class ElytraPadBlock extends WaterloggedPadBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(ACTIVE);
+        addFadeProperty(builder);
     }
 
     public int getTier() {

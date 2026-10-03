@@ -1527,6 +1527,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("pad_overhaul_game_test_pads_and_gadgets_write_no_text_on_the_screen", PadOverhaulTests::padsAndGadgetsWriteNoTextOnTheScreen)
                     .maxTicks(PadOverhaulTests.NO_TEXT_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("pad_overhaul_game_test_pad_effects_fade_in_and_stop_scheduling_when_settled", PadOverhaulTests::padEffectsFadeInAndStopSchedulingWhenSettled)
+                    .maxTicks(60)
+                    .build(),
             GameTestSpec.named("pad_overhaul_game_test_the_echo_sounder_cooldown_is_four_times_longer", PadOverhaulTests::theEchoSounderCooldownIsFourTimesLonger)
                     .build(),
             GameTestSpec.named("pad_overhaul_game_test_the_echo_sounder_does_not_relink_the_lodestone_it_is_linked_to", PadOverhaulTests::theEchoSounderDoesNotRelinkTheLodestoneItIsLinkedTo)

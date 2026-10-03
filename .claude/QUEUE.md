@@ -225,8 +225,9 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 ## Besitzer 2026-10-03 (Nachtrag 4)
 
 - [ ] Redstone-Truhen (trapped chests) für jede der drei Truhen-Varianten (verstärkt, Netherit, Enderit).
-- [ ] Resonanzstab-Rezept: Redstone und Nuggets tauschen und unten rechts jeweils einen davon entfernen.
-- [ ] Geschwindigkeitsmesser: neues Rezept, gegen den Uhrzeigersinn gedreht.
+- [x] Resonanzstab-Rezept: Redstone und Nuggets tauschen und unten rechts jeweils einen davon entfernen. (claude-gpt-recipes: ` NA` / `RC ` / `I  `; Annahme: Felder rechts und unterhalb des Kerns entfernen, da die Ecke bereits leer war. Plan: `docs/ai/PLAN-REZEPTE-PAD-FADE-2026-10-02.md`.)
+- [x] Geschwindigkeitsmesser: neues Rezept, gegen den Uhrzeigersinn gedreht. (claude-gpt-recipes: `AN ` / `NCN` / ` NK`; Rezepte, JEI, Wiki und EN/DE in beiden Ressourcenbäumen angepasst.)
+- [ ] Trainingspuppe neu denken:
 - [x] Trainingspuppe neu denken: (claude-dummy Runde 2: Sackkopf, jeder Treffer, Schere, eigenes Item)
   - Ein (verbesserter/Stroh-)Rüstungsständer mit aufgesetztem geschnitzten Kürbis bekommt die Textur einer Trainingspuppe, trägt den Kürbis aber NICHT sichtbar – er wird dadurch zur neuen Entity.
   - Die Entity reagiert bei JEDEM Treffer (aktuell verbuggt: nur beim ersten Treffer eine Anzeige).
@@ -234,7 +235,8 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   - Beim Abbauen droppt die Trainingspuppe als eigenes Item.
 - [x] Stroh-Rüstungsständer: einen Nutzen im Vanilla-Spiel geben. (Vogelscheuche: kein Feld-Zertrampeln im Radius 8, Config 0–16)
 - [x] Blaupausen überarbeiten, damit sie besser in Vanilla passen. (Kartenblatt B/C/C-signiert eingebaut, Besitzer zufrieden)
-- [ ] Pads: Steht man darauf, soll die Textur-Animation einblenden statt mit dem ersten Frame hart zu starten.
+- [x] Pads: Steht man darauf, soll die Textur-Animation einblenden statt mit dem ersten Frame hart zu starten. (claude-gpt-recipes: 26.3, vier Vanilla-Modellstufen über sechs Ticks, keine zusätzlichen Dauerticks; Fabric/NeoForge 1776/1776 grün. Vorschau: `previews/pad-fade-vorschau.png`; Sichtabnahme im Client offen.)
+- [ ] Raw Enderite Scrap: neue Textur, 10 Vorschläge.
 - [x] Raw Enderite Scrap: neue Textur, 10 Vorschläge. (Besitzer-Textur eingebaut; Farb-Feinschliff siehe Nachtrag 5)
 - [x] Astralit und Nihilit: je 3 neue Textur-Vorschläge plus 3 Kontrast-Anpassungen der jetzigen Textur (je 6 Vorschläge). (als Alternativblöcke A–C eingebaut; Material siehe eigener Punkt)
 - [x] Mehr Placeables, auch Kerzen und Seegurken; alle Placeables untereinander mischbar machen. (claude-placeables2: 15 neue Teile, Kerzen/Seegurken mischbar)

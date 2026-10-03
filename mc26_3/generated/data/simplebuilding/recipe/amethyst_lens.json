@@ -9,9 +9,9 @@
     "R": "minecraft:redstone"
   },
   "pattern": [
-    " RA",
-    "NCR",
-    "IN "
+    " NA",
+    "RC ",
+    "I  "
   ],
   "result": {
     "id": "simplebuilding:amethyst_lens"

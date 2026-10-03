@@ -8,8 +8,20 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class RecipeProseTests(unittest.TestCase):
+    def test_followup_four_recipe_layouts(self):
+        directory = ROOT / 'mc26_3/generated/data/simplebuilding/recipe'
+        rod = json.loads((directory / 'amethyst_lens.json').read_text(encoding='utf-8'))
+        self.assertEqual(rod['pattern'], [' NA', 'RC ', 'I  '])
+        self.assertEqual(rod['key']['N'], 'minecraft:iron_nugget')
+        self.assertEqual(rod['key']['R'], 'minecraft:redstone')
+        gauge = json.loads((directory / 'velocity_gauge.json').read_text(encoding='utf-8'))
+        before = [' NA', 'NCN', 'KN ']
+        rotated = [''.join(row[col] for row in before) for col in (2, 1, 0)]
+        self.assertEqual(gauge['pattern'], rotated)
+        self.assertEqual(gauge['key']['C'], 'minecraft:clock')
+
     def test_quoted_gadget_recipes_match_generated_patterns(self):
-        for item in ('echo_sounder', 'amethyst_lens'):
+        for item in ('echo_sounder', 'amethyst_lens', 'velocity_gauge'):
             # each language location quotes the recipe of its own line: src/main = 26.2, the overlay = 26.3
             lines = {'src/main/resources': ('src/main/generated',),
                      'mc26_3/overlay/resources': ('mc26_3/overlay/resources', 'mc26_3/generated', 'src/main/generated')}

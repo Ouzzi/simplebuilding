@@ -38,6 +38,17 @@ import org.jetbrains.annotations.Nullable;
  * ({@link #animateSwitchedOff}).
  */
 public abstract class PadBlock extends BaseEntityBlock {
+    /** Visual effect strength; three scheduled steps, never an idle ticker. */
+    public static final net.minecraft.world.level.block.state.properties.IntegerProperty FADE =
+            net.minecraft.world.level.block.state.properties.IntegerProperty.create("fade", 0, 3);
+    public static final int FADE_TICKS = 2;
+
+    protected static void addFadeProperty(net.minecraft.world.level.block.state.StateDefinition.Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            builder.add(FADE);
+        }
+    }
+
     private final VoxelShape shape;
     private final float ownerSpeed;
     private final float strangerSpeed;
@@ -78,9 +89,40 @@ public abstract class PadBlock extends BaseEntityBlock {
      * baut den Chunk des Clients neu). Die Block-Entity bleibt, es ist derselbe Block.
      */
     public static void setActive(Level level, BlockPos pos, net.minecraft.world.level.block.state.properties.BooleanProperty active, boolean on) {
+        if (level.isClientSide()) return;
         BlockState state = level.getBlockState(pos);
         if (state.hasProperty(active) && state.getValue(active) != on) {
-            level.setBlock(pos, state.setValue(active, on), net.minecraft.world.level.block.Block.UPDATE_ALL);
+            BlockState next = state.setValue(active, on);
+            if (state.hasProperty(FADE) && visualMode(state) != visualMode(next)) {
+                next = next.setValue(FADE, 0);
+            }
+            level.setBlock(pos, next, net.minecraft.world.level.block.Block.UPDATE_ALL);
+            state = next;
+        }
+        // Also resumes a saved active pad whose fade has not finished yet.
+        if (state.hasProperty(FADE) && visualMode(state) != 0 && state.getValue(FADE) < 3) {
+            level.scheduleTick(pos, state.getBlock(), FADE_TICKS);
+        }
+    }
+
+    private static int visualMode(BlockState state) {
+        if (state.hasProperty(PotionPadBlock.COOLING) && state.getValue(PotionPadBlock.COOLING)) return 2;
+        // Properties with the same name are distinct instances in the four pad families.
+        var active = state.getBlock() instanceof ElytraPadBlock ? ElytraPadBlock.ACTIVE
+                : state.getBlock() instanceof FlypadBlock ? FlypadBlock.ACTIVE
+                : state.getBlock() instanceof SpawnTeleporterBlock ? SpawnTeleporterBlock.ACTIVE
+                : PotionPadBlock.ACTIVE;
+        return state.hasProperty(active) && state.getValue(active) ? 1 : 0;
+    }
+
+    @Override
+    protected void tick(BlockState state, net.minecraft.server.level.ServerLevel level, BlockPos pos,
+                        net.minecraft.util.RandomSource random) {
+        if (!state.hasProperty(FADE) || visualMode(state) == 0 || state.getValue(FADE) == 3) return;
+        int step = state.getValue(FADE) + 1;
+        level.setBlock(pos, state.setValue(FADE, step), net.minecraft.world.level.block.Block.UPDATE_CLIENTS);
+        if (step < 3) {
+            level.scheduleTick(pos, this, FADE_TICKS);
         }
     }
 

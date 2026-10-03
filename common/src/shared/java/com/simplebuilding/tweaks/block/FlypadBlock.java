@@ -46,6 +46,7 @@ public class FlypadBlock extends PadBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(ACTIVE);
+        addFadeProperty(builder);
     }
 
     /**
