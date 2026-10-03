@@ -227,19 +227,19 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Redstone-Truhen (trapped chests) für jede der drei Truhen-Varianten (verstärkt, Netherit, Enderit).
 - [ ] Resonanzstab-Rezept: Redstone und Nuggets tauschen und unten rechts jeweils einen davon entfernen.
 - [ ] Geschwindigkeitsmesser: neues Rezept, gegen den Uhrzeigersinn gedreht.
-- [ ] Trainingspuppe neu denken:
+- [x] Trainingspuppe neu denken: (claude-dummy Runde 2: Sackkopf, jeder Treffer, Schere, eigenes Item)
   - Ein (verbesserter/Stroh-)Rüstungsständer mit aufgesetztem geschnitzten Kürbis bekommt die Textur einer Trainingspuppe, trägt den Kürbis aber NICHT sichtbar – er wird dadurch zur neuen Entity.
   - Die Entity reagiert bei JEDEM Treffer (aktuell verbuggt: nur beim ersten Treffer eine Anzeige).
   - Mit der Schere rückgängig machen.
   - Beim Abbauen droppt die Trainingspuppe als eigenes Item.
-- [ ] Stroh-Rüstungsständer: einen Nutzen im Vanilla-Spiel geben.
-- [ ] Blaupausen überarbeiten, damit sie besser in Vanilla passen.
+- [x] Stroh-Rüstungsständer: einen Nutzen im Vanilla-Spiel geben. (Vogelscheuche: kein Feld-Zertrampeln im Radius 8, Config 0–16)
+- [x] Blaupausen überarbeiten, damit sie besser in Vanilla passen. (Kartenblatt B/C/C-signiert eingebaut, Besitzer zufrieden)
 - [ ] Pads: Steht man darauf, soll die Textur-Animation einblenden statt mit dem ersten Frame hart zu starten.
-- [ ] Raw Enderite Scrap: neue Textur, 10 Vorschläge.
-- [ ] Astralit und Nihilit: je 3 neue Textur-Vorschläge plus 3 Kontrast-Anpassungen der jetzigen Textur (je 6 Vorschläge).
-- [ ] Mehr Placeables, auch Kerzen und Seegurken; alle Placeables untereinander mischbar machen.
-- [ ] Besatzvorlagen Glowing, Pulsating und Emitting: Textur-Animation.
-- [ ] Partikeleffekte für manche platzierbare Dinge, z. B. Glowing.
+- [x] Raw Enderite Scrap: neue Textur, 10 Vorschläge. (Besitzer-Textur eingebaut; Farb-Feinschliff siehe Nachtrag 5)
+- [x] Astralit und Nihilit: je 3 neue Textur-Vorschläge plus 3 Kontrast-Anpassungen der jetzigen Textur (je 6 Vorschläge). (als Alternativblöcke A–C eingebaut; Material siehe eigener Punkt)
+- [x] Mehr Placeables, auch Kerzen und Seegurken; alle Placeables untereinander mischbar machen. (claude-placeables2: 15 neue Teile, Kerzen/Seegurken mischbar)
+- [x] Besatzvorlagen Glowing, Pulsating und Emitting: Textur-Animation. (auf Besitzer-Texturen eingebaut)
+- [x] Partikeleffekte für manche platzierbare Dinge, z. B. Glowing. (PlacedPartParticles, Client-Option)
 
 ## Besitzer 2026-10-03 (claude-texprop)
 - [x] Besatzvorlagen Glowing/Pulsating/Emitting: zweite Besitzer-Leinwände 1:1 (eigener Hintergrund), animiert nur auf seinen Motivpixeln (`trim_template_animation_2026_10_03.py`, previews/besatz-besitzer-final-vorschau.png + besatz-animation-*.gif). Sichtabnahme im Client offen.
