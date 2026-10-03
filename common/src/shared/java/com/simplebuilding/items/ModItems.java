@@ -580,6 +580,13 @@ public class ModItems {
 
     public static final Item ENDERITE_CHEST = registerItem("enderite_chest", s -> new BlockItem(ModBlocks.ENDERITE_CHEST, s.fireResistant().rarity(Rarity.EPIC)));
 
+    public static final Item REINFORCED_TRAPPED_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+            ? registerItem("reinforced_trapped_chest", s -> new BlockItem(ModBlocks.REINFORCED_TRAPPED_CHEST, s)) : null;
+    public static final Item NETHERITE_TRAPPED_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+            ? registerItem("netherite_trapped_chest", s -> new BlockItem(ModBlocks.NETHERITE_TRAPPED_CHEST, s.fireResistant().rarity(UNCOMMON))) : null;
+    public static final Item ENDERITE_TRAPPED_CHEST = com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+            ? registerItem("enderite_trapped_chest", s -> new BlockItem(ModBlocks.ENDERITE_TRAPPED_CHEST, s.fireResistant().rarity(Rarity.EPIC))) : null;
+
     // Shulkerkisten-Stufen: wie die Truhen Verstaerkt COMMON, Netherit UNCOMMON, Enderit EPIC, Netherit
     // und Enderit feuerfest; Stapelgroesse 1 und leerer Inhalt wie Vanillas Shulkerkiste.
     public static final Item REINFORCED_SHULKER_BOX = registerItem("reinforced_shulker_box",

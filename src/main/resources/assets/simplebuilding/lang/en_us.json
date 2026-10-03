@@ -2784,5 +2784,12 @@
   "book.simplebuilding.gadgets.13.text": "Use on a living mob: sound off or on. Wait 2 seconds before using again.\nCosts one flower per use, except in Creative. Silence is saved.",
   "book.simplebuilding.gadgets.14.title": "Flower Limits",
   "book.simplebuilding.gadgets.14.text": "Works on adult, baby and hostile mobs. Players, armor stands, Wither and Ender Dragon are excluded.\nPlanted or potted: decoration only, no area effect.",
-  "jei.simplebuilding.info.silent_dandelion": "Use on a living mob to toggle its sounds. Works on adults, babies and hostile mobs, but not players, armor stands, the Wither or the Ender Dragon. Each use consumes one flower except in Creative. Wait 2 seconds before using it again on the same mob. Silence survives saving. Uses the Golden Dandelion sounds and particles. Planted or potted flowers are decoration only."
+  "jei.simplebuilding.info.silent_dandelion": "Use on a living mob to toggle its sounds. Works on adults, babies and hostile mobs, but not players, armor stands, the Wither or the Ender Dragon. Each use consumes one flower except in Creative. Wait 2 seconds before using it again on the same mob. Silence survives saving. Uses the Golden Dandelion sounds and particles. Planted or potted flowers are decoration only.",
+  "block.simplebuilding.reinforced_trapped_chest": "Reinforced Trapped Chest",
+  "item.simplebuilding.reinforced_trapped_chest": "Reinforced Trapped Chest",
+  "block.simplebuilding.netherite_trapped_chest": "Netherite Trapped Chest",
+  "item.simplebuilding.netherite_trapped_chest": "Netherite Trapped Chest",
+  "block.simplebuilding.enderite_trapped_chest": "Enderite Trapped Chest",
+  "item.simplebuilding.enderite_trapped_chest": "Enderite Trapped Chest",
+  "simplebuilding.testcentre.storage.trapped_chests": "Trapped chests"
 }

@@ -224,7 +224,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 ## Besitzer 2026-10-03 (Nachtrag 4)
 
-- [ ] Redstone-Truhen (trapped chests) für jede der drei Truhen-Varianten (verstärkt, Netherit, Enderit).
+- [x] Redstone-Truhen (trapped chests) für jede der drei Truhen-Varianten (verstärkt, Netherit, Enderit). (`claude-gpt-trapped`: Vanilla-Signal, gleiche Lager-/Upgrade-Eigenschaften, Rezepte/Tags/Loot, EN/DE, Wiki und Texturvorschau; Fabric/NeoForge 26.3 1784/1784 grün, 26.2-/Forge-26.3-Compile und volles check grün. Plan: `docs/ai/PLAN-REDSTONE-TRUHEN-2026-10-02.md`. Client-Sichtabnahme offen; zwei unveränderte Handbuch-Seitenüberläufe separat dokumentiert.)
 - [ ] Resonanzstab-Rezept: Redstone und Nuggets tauschen und unten rechts jeweils einen davon entfernen.
 - [ ] Geschwindigkeitsmesser: neues Rezept, gegen den Uhrzeigersinn gedreht.
 - [ ] Trainingspuppe neu denken:

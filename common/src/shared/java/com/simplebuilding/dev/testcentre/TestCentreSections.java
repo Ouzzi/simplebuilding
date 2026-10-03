@@ -675,6 +675,15 @@ public final class TestCentreSections {
             }
         }
         bx = placedBundles(c, bx);
+        if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+            lines.add(new TcCanvas.Line(TcText.t("storage.trapped_chests", "Trapped chests"), ctx.row("trapped_chests")));
+            for (Block chest : List.of(ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST)) {
+                c.place(bx, 0, 1, facing(chest.defaultBlockState(), Direction.NORTH));
+                c.place(bx + 1, 0, 1, Blocks.REDSTONE_LAMP);
+                c.sign(bx, 0, 2, Direction.NORTH, chest.getName());
+                bx += 3;
+            }
+        }
         c.title(0, lines.size() + 1, wallZ, TcText.t("section.storage", "Storage"),
                 TcText.t("section.storage.sub", "plain, enchanted, dyed"));
         int end = c.rowsPanel(0, lines.size(), wallZ, lines);

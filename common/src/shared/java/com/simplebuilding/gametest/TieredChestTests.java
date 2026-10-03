@@ -334,6 +334,204 @@ public final class TieredChestTests {
     }
 
     // =====================================================================================
+    // TRAPPED CHESTS (26.3)
+    // =====================================================================================
+
+    public static void trappedCapacityComparatorAndPropertiesMatchNormalTiers(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
+        Block[] normal = {ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST};
+        Block[] trapped = trappedChests();
+        int[] slots = {36, 45, 54};
+        int[] limits = {64, 128, 256};
+        for (int i = 0; i < trapped.length; i++) {
+            BlockPos pos = new BlockPos(1 + i * 3, 1, 1);
+            helper.setBlock(pos, trapped[i]);
+            TieredChestBlockEntity chest = (TieredChestBlockEntity) container(helper, pos);
+            helper.assertValueEqual(chest.getContainerSize(), slots[i], "single capacity");
+            helper.assertValueEqual(chest.getMaxStackSize(new ItemStack(Items.STONE)), limits[i], "stone limit");
+            helper.assertValueEqual(chest.getMaxStackSize(new ItemStack(Items.IRON_SWORD)), 1, "unstackable limit");
+            BlockState state = helper.getBlockState(pos);
+            BlockPos absolute = helper.absolutePos(pos);
+            helper.assertTrue(state.getDestroySpeed(helper.getLevel(), absolute) == normal[i].defaultBlockState().getDestroySpeed(helper.getLevel(), absolute)
+                    && trapped[i].getExplosionResistance() == normal[i].getExplosionResistance(), "tier hardness and blast resistance");
+            ItemStack item = new ItemStack(trapped[i]);
+            ItemStack base = new ItemStack(normal[i]);
+            helper.assertTrue(item.getRarity() == base.getRarity()
+                    && java.util.Objects.equals(item.get(DataComponents.DAMAGE_RESISTANT), base.get(DataComponents.DAMAGE_RESISTANT)),
+                    "tier item rarity and fire resistance");
+            helper.assertValueEqual(state.getAnalogOutputSignal(helper.getLevel(), absolute, Direction.NORTH), 0, "empty comparator");
+            for (int slot = 0; slot < slots[i]; slot++) chest.setItem(slot, new ItemStack(Items.STONE, limits[i] / 2));
+            helper.assertValueEqual(state.getAnalogOutputSignal(helper.getLevel(), absolute, Direction.NORTH), 8, "half comparator");
+            for (int slot = 0; slot < slots[i]; slot++) chest.setItem(slot, new ItemStack(Items.STONE, limits[i]));
+            helper.assertValueEqual(state.getAnalogOutputSignal(helper.getLevel(), absolute, Direction.NORTH), 15, "full comparator");
+            BlockPos other = pos.east();
+            placeDouble(helper, trapped[i], pos, other);
+            Container both = ChestBlock.getContainer((ChestBlock) trapped[i], helper.getBlockState(pos), helper.getLevel(), absolute, true);
+            helper.assertTrue(both != null && both.getContainerSize() == slots[i] * 2, "double capacity");
+        }
+        helper.succeed();
+    }
+
+    public static void trappedDoubleChestsRequireTheSameKind(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
+        ServerPlayer player = smith(helper);
+        Block[] trapped = trappedChests();
+        Block[] normal = {ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST};
+        for (int i = 0; i < trapped.length; i++) {
+            for (Block candidate : new Block[]{trapped[i], normal[i], trapped[(i + 1) % 3], Blocks.TRAPPED_CHEST}) {
+                BlockPos first = new BlockPos(1, 1, 1);
+                BlockPos second = first.east();
+                helper.setBlock(first, Blocks.AIR);
+                helper.setBlock(second, Blocks.AIR);
+                place(helper, player, trapped[i].asItem(), first);
+                place(helper, player, candidate.asItem(), second);
+                boolean same = candidate == trapped[i];
+                helper.assertTrue((helper.getBlockState(first).getValue(ChestBlock.TYPE) != ChestType.SINGLE) == same
+                        && (helper.getBlockState(second).getValue(ChestBlock.TYPE) != ChestType.SINGLE) == same,
+                        "pairing " + trapped[i] + " with " + candidate);
+            }
+        }
+        helper.succeed();
+    }
+
+    public static void trappedRecipesUseTheMatchingChestAndHook(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
+        Item[] normal = {ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST};
+        Block[] trapped = trappedChests();
+        for (int i = 0; i < normal.length; i++) {
+            for (boolean reverse : new boolean[]{false, true}) {
+                var grid = net.minecraft.world.item.crafting.CraftingInput.of(2, 2, reverse
+                        ? List.of(new ItemStack(Items.TRIPWIRE_HOOK), ItemStack.EMPTY, ItemStack.EMPTY, new ItemStack(normal[i]))
+                        : List.of(new ItemStack(normal[i]), ItemStack.EMPTY, new ItemStack(Items.TRIPWIRE_HOOK), ItemStack.EMPTY));
+                var recipe = helper.getLevel().getServer().getRecipeManager().getRecipeFor(
+                        net.minecraft.world.item.crafting.RecipeType.CRAFTING, grid, helper.getLevel());
+                helper.assertTrue(recipe.isPresent(), "chest + hook recipe exists in both arrangements");
+                ItemStack result = recipe.orElseThrow().value().assemble(grid);
+                helper.assertTrue(result.is(trapped[i].asItem()) && result.getCount() == 1, "matching trapped tier output");
+            }
+            var blockTag = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK,
+                    Identifier.fromNamespaceAndPath("c", "chests/trapped"));
+            var itemTag = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
+                    Identifier.fromNamespaceAndPath("c", "chests/trapped"));
+            helper.assertTrue(trapped[i].defaultBlockState().is(blockTag) && new ItemStack(trapped[i]).is(itemTag), "common trapped tags");
+            BlockPos pos = new BlockPos(1 + i * 2, 1, 1);
+            helper.setBlock(pos, trapped[i]);
+            BaseContainerBlockEntity chest = container(helper, pos);
+            chest.applyComponents(DataComponentMap.builder().set(DataComponents.CUSTOM_NAME, Component.literal("Wired"))
+                    .build(), DataComponentPatch.EMPTY);
+            List<ItemStack> drops = Block.getDrops(helper.getBlockState(pos), helper.getLevel(), helper.absolutePos(pos), chest);
+            helper.assertTrue(drops.size() == 1 && drops.getFirst().is(trapped[i].asItem())
+                    && drops.getFirst().getHoverName().getString().equals("Wired"), "named chest loot");
+        }
+        helper.succeed();
+    }
+
+    public static void trappedSignalCountsViewersAndUpdatesNeighbors(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
+        ServerPlayer player = smith(helper);
+        ServerPlayer second = smith(helper);
+        BlockPos pos = new BlockPos(2, 2, 2);
+        BlockPos wire = pos.east();
+        BlockPos lowerWire = pos.below().west();
+        helper.setBlock(wire.below(), Blocks.STONE);
+        helper.setBlock(lowerWire.below(), Blocks.STONE);
+        for (Block block : trappedChests()) {
+            helper.setBlock(pos.below(), Blocks.STONE);
+            helper.setBlock(pos, block);
+            helper.setBlock(wire, Blocks.REDSTONE_WIRE);
+            helper.setBlock(lowerWire, Blocks.REDSTONE_WIRE);
+            TieredChestBlockEntity chest = (TieredChestBlockEntity) container(helper, pos);
+            helper.assertTrue(chest.getType().isValid(block.defaultBlockState()), "entity type supports trapped block");
+            standOn(helper, player, pos);
+            openChestMenu(helper, player, pos);
+            chest.recheckOpen();
+            assertTrappedSignal(helper, pos, 1);
+            helper.assertValueEqual(helper.getBlockState(wire).getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWER), 1, "neighbor wire updates on open");
+            helper.assertValueEqual(helper.getBlockState(lowerWire).getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWER), 1, "block below powers its neighbor");
+            standOn(helper, second, pos);
+            openChestMenu(helper, second, pos);
+            chest.recheckOpen();
+            assertTrappedSignal(helper, pos, 2);
+            second.closeContainer();
+            assertTrappedSignal(helper, pos, 1);
+            player.closeContainer();
+            assertTrappedSignal(helper, pos, 0);
+            helper.assertValueEqual(helper.getBlockState(wire).getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWER), 0, "neighbor wire updates on close");
+            helper.assertValueEqual(helper.getBlockState(lowerWire).getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWER), 0, "block below updates on close");
+            var spectator = helper.makeMockPlayer(net.minecraft.world.level.GameType.SPECTATOR);
+            helper.assertTrue(spectator.isSpectator(), "test player is a spectator");
+            chest.startOpen(spectator);
+            assertTrappedSignal(helper, pos, 0);
+            // Exercise the same counter callbacks as menus, beyond the vanilla redstone cap.
+            for (int count = 1; count <= 16; count++) {
+                chest.startOpen(player);
+                assertTrappedSignal(helper, pos, Math.min(15, count));
+            }
+            for (int count = 15; count >= 0; count--) {
+                chest.stopOpen(player);
+                assertTrappedSignal(helper, pos, Math.min(15, count));
+            }
+        }
+        // Both halves count every viewer of the shared menu.
+        BlockPos other = pos.east();
+        helper.setBlock(other, Blocks.AIR);
+        placeDouble(helper, ModBlocks.ENDERITE_TRAPPED_CHEST, pos, other);
+        standOn(helper, player, pos);
+        openChestMenu(helper, player, pos);
+        assertTrappedSignal(helper, pos, 1);
+        assertTrappedSignal(helper, other, 1);
+        player.closeContainer();
+        assertTrappedSignal(helper, pos, 0);
+        assertTrappedSignal(helper, other, 0);
+        helper.succeed();
+    }
+
+    public static void trappedUpgradesKeepBothHalvesAndContents(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) { helper.succeed(); return; }
+        ServerPlayer player = smith(helper);
+        BlockPos left = new BlockPos(1, 1, 1);
+        BlockPos right = left.east();
+        placeDouble(helper, ModBlocks.REINFORCED_TRAPPED_CHEST, left, right);
+        container(helper, left).applyComponents(DataComponentMap.builder()
+                .set(DataComponents.CUSTOM_NAME, Component.literal("Redstone stock")).build(), DataComponentPatch.EMPTY);
+        container(helper, left).setItem(3, new ItemStack(Items.IRON_INGOT, 12));
+        container(helper, right).setItem(20, new ItemStack(Items.GOLD_INGOT, 7));
+        hammer(helper, player, left, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, 2, "trapped -> netherite");
+        assertDouble(helper, ModBlocks.NETHERITE_TRAPPED_CHEST, left, right, "trapped netherite");
+        helper.assertTrue(player.getOffhandItem().isEmpty(), "two netherite nuggets consumed");
+        hammer(helper, player, left, ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, 2, "trapped -> enderite");
+        assertDouble(helper, ModBlocks.ENDERITE_TRAPPED_CHEST, left, right, "trapped enderite");
+        helper.assertTrue(player.getOffhandItem().isEmpty(), "two enderite nuggets consumed");
+        helper.assertValueEqual(container(helper, left).getItem(3).getCount(), 12, "first half contents");
+        helper.assertValueEqual(container(helper, right).getItem(20).getCount(), 7, "second half contents");
+        helper.assertValueEqual(container(helper, left).getName().getString(), "Redstone stock", "custom name");
+        helper.succeed();
+    }
+
+    private static Block[] trappedChests() {
+        return new Block[]{ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST};
+    }
+
+    private static void openChestMenu(GameTestHelper helper, ServerPlayer player, BlockPos pos) {
+        // Like HopperTests: NeoForge's mock connection rejects advanced_open_screen. Exercise the
+        // real block menu provider and its lifecycle without pretending to have a connected client.
+        var provider = helper.getBlockState(pos).getMenuProvider(helper.getLevel(), helper.absolutePos(pos));
+        helper.assertTrue(provider != null, "unblocked chest offers a menu");
+        var menu = provider.createMenu(1, player.getInventory(), player);
+        helper.assertTrue(menu instanceof TieredChestMenu, "chest offers the tier menu");
+        player.containerMenu = menu;
+    }
+
+    private static void assertTrappedSignal(GameTestHelper helper, BlockPos pos, int expected) {
+        BlockState state = helper.getBlockState(pos);
+        for (Direction direction : Direction.values()) {
+            helper.assertValueEqual(state.getSignal(helper.getLevel(), helper.absolutePos(pos), direction), expected, "weak signal " + direction);
+            helper.assertValueEqual(state.getDirectSignal(helper.getLevel(), helper.absolutePos(pos), direction),
+                    direction == Direction.UP ? expected : 0, "strong signal " + direction);
+        }
+    }
+
+    // =====================================================================================
     // HELPERS
     // =====================================================================================
 

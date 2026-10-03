@@ -69,6 +69,7 @@
     "simplebuilding:enderite_shulker_box",
     "simplebuilding:enderite_smoker",
     "simplebuilding:enderite_spawn_teleporter",
+    "simplebuilding:enderite_trapped_chest",
     "simplebuilding:enderman_head",
     "simplebuilding:enderman_wall_head",
     "simplebuilding:exposed_copper_pressure_plate",
@@ -106,6 +107,7 @@
     "simplebuilding:netherite_rod",
     "simplebuilding:netherite_shulker_box",
     "simplebuilding:netherite_smoker",
+    "simplebuilding:netherite_trapped_chest",
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_purpur_block",
     "simplebuilding:nihil_redstone",
@@ -161,6 +163,7 @@
     "simplebuilding:reinforced_shulker_box",
     "simplebuilding:reinforced_smoker",
     "simplebuilding:reinforced_sticky_piston",
+    "simplebuilding:reinforced_trapped_chest",
     "simplebuilding:resin_quartz_checker",
     "simplebuilding:sage_ore",
     "simplebuilding:shulker_head",
@@ -655,6 +658,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:enderite_trapped_chest"
+    },
+    {
       "id": "simplebuilding:enderite_upgrade_template"
     },
     {
@@ -926,6 +932,9 @@
       "enchantability": 15,
       "id": "simplebuilding:netherite_spatula",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_trapped_chest"
     },
     {
       "id": "simplebuilding:nihil_end_stone"
@@ -1209,6 +1218,9 @@
     },
     {
       "id": "simplebuilding:reinforced_sticky_piston"
+    },
+    {
+      "id": "simplebuilding:reinforced_trapped_chest"
     },
     {
       "id": "simplebuilding:resin_quartz_checker"

@@ -10,6 +10,31 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class TieredChestGameTest {
 
     @GameTest
+    public void trappedCapacityComparatorAndPropertiesMatchNormalTiers(GameTestHelper helper) {
+        TieredChestTests.trappedCapacityComparatorAndPropertiesMatchNormalTiers(helper);
+    }
+
+    @GameTest
+    public void trappedDoubleChestsRequireTheSameKind(GameTestHelper helper) {
+        TieredChestTests.trappedDoubleChestsRequireTheSameKind(helper);
+    }
+
+    @GameTest
+    public void trappedRecipesUseTheMatchingChestAndHook(GameTestHelper helper) {
+        TieredChestTests.trappedRecipesUseTheMatchingChestAndHook(helper);
+    }
+
+    @GameTest
+    public void trappedSignalCountsViewersAndUpdatesNeighbors(GameTestHelper helper) {
+        TieredChestTests.trappedSignalCountsViewersAndUpdatesNeighbors(helper);
+    }
+
+    @GameTest
+    public void trappedUpgradesKeepBothHalvesAndContents(GameTestHelper helper) {
+        TieredChestTests.trappedUpgradesKeepBothHalvesAndContents(helper);
+    }
+
+    @GameTest
     public void singleChestClimbsFromCopperToEnderiteKeepingItsContents(GameTestHelper helper) {
         TieredChestTests.singleChestClimbsFromCopperToEnderiteKeepingItsContents(helper);
     }

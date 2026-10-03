@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "simplebuilding:netherite_chest",
+    "minecraft:tripwire_hook"
+  ],
+  "result": {
+    "id": "simplebuilding:netherite_trapped_chest"
+  }
+}

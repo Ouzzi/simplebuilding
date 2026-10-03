@@ -72,6 +72,8 @@ public final class InWorldExportTests {
                 + "netherite_piston>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_shulker_box>netherite_sledgehammer/enderite_nuggetx2/10per/100, "
                 + "netherite_smoker>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
+                + (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+                        ? "netherite_trapped_chest>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + "reinforced_blast_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_chest>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
@@ -79,7 +81,9 @@ public final class InWorldExportTests {
                 + "reinforced_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_shulker_box>diamond_sledgehammer/netherite_nuggetx2/4per/40, "
                 + "reinforced_smoker>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
-                + "reinforced_sticky_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20]";
+                + "reinforced_sticky_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20"
+                + (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS
+                        ? ", reinforced_trapped_chest>diamond_sledgehammer/netherite_nuggetx1/4per/20" : "") + "]";
         helper.assertTrue(summary.toString().equals(expected), "upgrade steps: expected " + expected + " but were " + summary);
         String timing = up.get("durationTicks").getAsInt() + "/" + up.get("hitIntervalTicks").getAsInt() + "/" + up.get("hits").getAsInt();
         helper.assertTrue(timing.equals("100/20/5"), "duration/interval/blows: expected 100/20/5 but were " + timing);

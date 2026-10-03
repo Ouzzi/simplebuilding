@@ -82,9 +82,9 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(ModBlocks.ENDERITE_HOPPER);
 
         // Truhen wie Vanillas Truhe: sich selbst, mit dem Namen aus dem Amboss (der Inhalt faellt heraus).
-        add(ModBlocks.REINFORCED_CHEST, createNameableBlockEntityTable(ModBlocks.REINFORCED_CHEST));
-        add(ModBlocks.NETHERITE_CHEST, createNameableBlockEntityTable(ModBlocks.NETHERITE_CHEST));
-        add(ModBlocks.ENDERITE_CHEST, createNameableBlockEntityTable(ModBlocks.ENDERITE_CHEST));
+        for (Block chest : ModBlocks.tieredChests()) {
+            add(chest, createNameableBlockEntityTable(chest));
+        }
 
         // Gestufte Shulkerkisten wie Vanillas Shulkerkiste: sich selbst mit Inhalt, Name und Schloss -
         // dazu die Farbe und die echten Anzahlen der Plaetze ueber 99. Ohne survives_explosion.

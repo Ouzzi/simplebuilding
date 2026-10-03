@@ -1336,22 +1336,32 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("sledgehammer_upgrade_game_test_netherite_machine_recipes_and_their_unlocks_are_gone", SledgehammerUpgradeTests::netheriteMachineRecipesAndTheirUnlocksAreGone)
                     .build(),
-            GameTestSpec.named("tiered_chest_game_test_single_chest_climbs_from_copper_to_enderite_keeping_its_contents", TieredChestTests::singleChestClimbsFromCopperToEnderiteKeepingItsContents)
-                    .build(),
-            GameTestSpec.named("tiered_chest_game_test_double_chest_upgrades_both_halves_together", TieredChestTests::doubleChestUpgradesBothHalvesTogether)
-                    .build(),
-            GameTestSpec.named("tiered_chest_game_test_slot_counts_and_stack_limits_follow_the_tier", TieredChestTests::slotCountsAndStackLimitsFollowTheTier)
-                    .build(),
-            GameTestSpec.named("tiered_chest_game_test_double_chests_form_only_from_equal_tiers", TieredChestTests::doubleChestsFormOnlyFromEqualTiers)
-                    .build(),
-            GameTestSpec.named("tiered_chest_game_test_vanilla_hoppers_fill_and_empty_oversized_slots", TieredChestTests::vanillaHoppersFillAndEmptyOversizedSlots)
-                    .maxTicks(TieredChestTests.HOPPER_MAX_TICKS)
+            GameTestSpec.named("tiered_chest_game_test_chest_items_follow_the_family_scheme", TieredChestTests::chestItemsFollowTheFamilyScheme)
                     .build(),
             GameTestSpec.named("tiered_chest_game_test_comparator_reads_oversized_slots_against_the_tier_limit", TieredChestTests::comparatorReadsOversizedSlotsAgainstTheTierLimit)
                     .build(),
+            GameTestSpec.named("tiered_chest_game_test_double_chest_upgrades_both_halves_together", TieredChestTests::doubleChestUpgradesBothHalvesTogether)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_double_chests_form_only_from_equal_tiers", TieredChestTests::doubleChestsFormOnlyFromEqualTiers)
+                    .build(),
             GameTestSpec.named("tiered_chest_game_test_oversized_stacks_survive_saving_and_loading", TieredChestTests::oversizedStacksSurviveSavingAndLoading)
                     .build(),
-            GameTestSpec.named("tiered_chest_game_test_chest_items_follow_the_family_scheme", TieredChestTests::chestItemsFollowTheFamilyScheme)
+            GameTestSpec.named("tiered_chest_game_test_single_chest_climbs_from_copper_to_enderite_keeping_its_contents", TieredChestTests::singleChestClimbsFromCopperToEnderiteKeepingItsContents)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_slot_counts_and_stack_limits_follow_the_tier", TieredChestTests::slotCountsAndStackLimitsFollowTheTier)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_trapped_capacity_comparator_and_properties_match_normal_tiers", TieredChestTests::trappedCapacityComparatorAndPropertiesMatchNormalTiers)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_trapped_double_chests_require_the_same_kind", TieredChestTests::trappedDoubleChestsRequireTheSameKind)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_trapped_recipes_use_the_matching_chest_and_hook", TieredChestTests::trappedRecipesUseTheMatchingChestAndHook)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_trapped_signal_counts_viewers_and_updates_neighbors", TieredChestTests::trappedSignalCountsViewersAndUpdatesNeighbors)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_trapped_upgrades_keep_both_halves_and_contents", TieredChestTests::trappedUpgradesKeepBothHalvesAndContents)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_vanilla_hoppers_fill_and_empty_oversized_slots", TieredChestTests::vanillaHoppersFillAndEmptyOversizedSlots)
+                    .maxTicks(TieredChestTests.HOPPER_MAX_TICKS)
                     .build(),
             GameTestSpec.named("tiered_shulker_box_game_test_vanilla_box_climbs_to_enderite_in_ten_blows_keeping_contents_and_color", TieredShulkerBoxTests::vanillaBoxClimbsToEnderiteInTenBlowsKeepingContentsAndColor)
                     .build(),

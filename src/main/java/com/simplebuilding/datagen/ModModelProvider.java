@@ -162,6 +162,11 @@ public class ModModelProvider extends FabricModelProvider {
         registerTieredChest(blockStateModelGenerator, ModBlocks.REINFORCED_CHEST, ModBlocks.CRACKED_DIAMOND_BLOCK);
         registerTieredChest(blockStateModelGenerator, ModBlocks.NETHERITE_CHEST, net.minecraft.world.level.block.Blocks.NETHERITE_BLOCK);
         registerTieredChest(blockStateModelGenerator, ModBlocks.ENDERITE_CHEST, ModBlocks.ENDERITE_BLOCK);
+        if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+            registerTieredChest(blockStateModelGenerator, ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.CRACKED_DIAMOND_BLOCK);
+            registerTieredChest(blockStateModelGenerator, ModBlocks.NETHERITE_TRAPPED_CHEST, net.minecraft.world.level.block.Blocks.NETHERITE_BLOCK);
+            registerTieredChest(blockStateModelGenerator, ModBlocks.ENDERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_BLOCK);
+        }
 
         // Gestufte Shulkerkisten: wie Vanillas Shulkerkisten ein Partikel-Blockmodell (gezeichnet wird
         // vom TieredShulkerBoxRenderer), das Item ueber Vanillas Spezialmodell "minecraft:shulker_box",
@@ -453,10 +458,10 @@ public class ModModelProvider extends FabricModelProvider {
 
     private void registerTieredChest(BlockModelGenerators generator, Block chest, Block particle) {
         generator.createParticleOnlyBlock(chest, particle);
-        com.simplebuilding.blocks.custom.ChestTier tier = ((com.simplebuilding.blocks.custom.TieredChestBlock) chest).tier();
+        String texture = ((com.simplebuilding.blocks.custom.TieredChestBlock) chest).textureName();
         generator.itemModelOutput.accept(chest.asItem(), ItemModelUtils.specialModel(Identifier.withDefaultNamespace("item/chest"),
                 new net.minecraft.client.renderer.special.ChestSpecialRenderer.Unbaked(
-                        Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, tier.textureName()))));
+                        Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, texture))));
     }
 
     private void registerTieredShulkerBox(BlockModelGenerators generator, Block box) {

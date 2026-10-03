@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 279,
+      "count": 282,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -1168,7 +1168,10 @@
         "simplebuilding:enderite_chest",
         "simplebuilding:cracked_diamond",
         "simplebuilding:netherite_nugget",
-        "simplebuilding:enderite_nugget"
+        "simplebuilding:enderite_nugget",
+        "simplebuilding:reinforced_trapped_chest",
+        "simplebuilding:netherite_trapped_chest",
+        "simplebuilding:enderite_trapped_chest"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
@@ -1186,7 +1189,8 @@
         "common/src/shared/java/com/simplebuilding/items/ModItems.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
-        "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java",
+        "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java"
       ],
       "en": {
         "title": "Chest tiers",
@@ -1197,7 +1201,8 @@
           "Double chests form only from equal tiers.",
           "The menus show everything at once: 9x4, 9x5 and 9x6 for single chests, 12x6, 15x6 and 18x6 for double chests - all within GUI scale 4 at 1080p. Oversized slots are tinted and the title row names the stack factor.",
           "Automation: vanilla hoppers, hopper minecarts and the mod's hoppers fill the oversized slots to their limit; comparators count against it. On NeoForge pipes see the chest (a double chest as one inventory) with the same limits through the item capability. On Forge (compile-only port) automation goes through Forge's own item handler and fills oversized slots only up to a normal stack.",
-          "Rendering: the chests use vanilla's chest model and renderer path with their own textures (no extra per-tick work). Chest optimisation mods that replace the vanilla chest renderer with a static model only affect vanilla chests; the tier chests keep drawing themselves and nothing breaks."
+          "Rendering: the chests use vanilla's chest model and renderer path with their own textures (no extra per-tick work). Chest optimisation mods that replace the vanilla chest renderer with a static model only affect vanilla chests; the tier chests keep drawing themselves and nothing breaks.",
+          "26.3 adds a trapped variant of every tier: matching chest + tripwire hook, viewer signal 0–15, same storage and hammer upgrades. Only matching trapped tiers connect."
         ]
       },
       "de": {
@@ -1209,7 +1214,8 @@
           "Doppeltruhen bilden sich nur aus gleichen Stufen.",
           "Die Menüs zeigen alles auf einmal: 9x4, 9x5 und 9x6 für einzelne Truhen, 12x6, 15x6 und 18x6 für Doppeltruhen - alles innerhalb GUI-Skala 4 bei 1080p. Übergroße Plätze sind getönt, die Titelzeile nennt den Stapelfaktor.",
           "Automatisierung: Vanilla-Trichter, Trichterloren und die Mod-Trichter füllen die übergroßen Plätze bis zur Grenze; Komparatoren zählen dagegen. Auf NeoForge sehen Rohre die Truhe (eine Doppeltruhe als ein Lager) über die Item-Capability mit denselben Grenzen. Auf Forge (nur Kompilier-Portierung) läuft Automatisierung über Forges eigenen Item-Handler und füllt übergroße Plätze nur bis zu einem normalen Stapel.",
-          "Darstellung: die Truhen nutzen Vanillas Truhenmodell und Renderer-Weg mit eigenen Texturen (keine zusätzliche Arbeit je Tick). Truhen-Optimierer, die Vanillas Truhen-Renderer durch ein statisches Modell ersetzen, betreffen nur Vanilla-Truhen; die Stufen-Truhen zeichnen sich weiter selbst, nichts bricht."
+          "Darstellung: die Truhen nutzen Vanillas Truhenmodell und Renderer-Weg mit eigenen Texturen (keine zusätzliche Arbeit je Tick). Truhen-Optimierer, die Vanillas Truhen-Renderer durch ein statisches Modell ersetzen, betreffen nur Vanilla-Truhen; die Stufen-Truhen zeichnen sich weiter selbst, nichts bricht.",
+          "26.3 ergänzt eine Redstone-Variante jeder Stufe: passende Truhe + Haken, Betrachtersignal 0–15, gleicher Stauraum und gleiche Hammer-Aufwertungen. Nur passende Redstone-Stufen verbinden sich."
         ]
       }
     },
@@ -7817,7 +7823,9 @@
       },
       "texture": "assets/textures/block/enderite_block.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:enderite_trapped_chest"
+      ],
       "trades": [],
       "icon": "assets/textures/render/enderite_chest.png",
       "note": {
@@ -9235,6 +9243,54 @@
         "durability": 2530,
         "enchantability": 18,
         "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_trapped_chest",
+      "name": {
+        "en_us": "Enderite Trapped Chest",
+        "de_de": "Enderit-Redstone-Truhe"
+      },
+      "texture": "assets/textures/block/enderite_block.png",
+      "craftedBy": [
+        "simplebuilding:enderite_trapped_chest"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_trapped_chest.png",
+      "note": {
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        ],
+        "en": {
+          "summary": "Enderite Trapped Chest (26.3): 54 slots, 108 in a double chest; stack limit x4 (unstackable items remain at 1).",
+          "details": [
+            "Crafted shapelessly from the matching normal tier chest and one tripwire hook.",
+            "Emits one redstone strength per viewer, capped at 15; spectators do not count. Powers adjacent components and strongly powers the block below. Closing the last menu turns the signal off. Comparators still measure the contents against this tier’s stack limit.",
+            "Only two trapped chests of the same tier join; normal chests and other trapped tiers stay separate. Both halves emit the viewer signal.",
+            "Upgrade a placed Reinforced Trapped Chest with a Diamond Sledgehammer or better and a Netherite Nugget in the off hand; upgrade Netherite with a Netherite Sledgehammer or better and an Enderite Nugget. Hold use for 5 seconds. Double chests upgrade both halves and cost two nuggets. Contents, name, lock and waterlogging are preserved.",
+            "Uses the matching normal tier’s slots, stack limits, hardness, blast resistance, sounds and item rarity. Netherite and Enderite items are fire resistant. The red accent around the latch distinguishes the trapped variant."
+          ]
+        },
+        "de": {
+          "summary": "Enderit-Redstone-Truhe (26.3): 54 Plätze, 108 als Doppeltruhe; Stapelgrenze x4 (nicht stapelbare Items bleiben bei 1).",
+          "details": [
+            "Formloses Rezept aus der normalen Truhe derselben Stufe und einem Haken.",
+            "Gibt je Betrachter eine Redstone-Signalstärke aus, höchstens 15; Zuschauer zählen nicht. Versorgt benachbarte Komponenten und den Block darunter mit starkem Signal. Nach Schließen des letzten Menüs ist das Signal aus. Komparatoren messen weiterhin den Inhalt gegen die Stapelgrenze dieser Stufe.",
+            "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
+            "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
+            "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
+          ]
+        }
       },
       "hasCustomBehaviour": false
     },
@@ -12477,7 +12533,9 @@
       },
       "texture": "assets/textures/item/netherite_chest.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:netherite_trapped_chest"
+      ],
       "trades": [],
       "icon": "assets/textures/render/netherite_chest.png",
       "note": {
@@ -13672,6 +13730,54 @@
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:netherite_trapped_chest",
+      "name": {
+        "en_us": "Netherite Trapped Chest",
+        "de_de": "Netherit-Redstone-Truhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:netherite_trapped_chest"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/netherite_trapped_chest.png",
+      "note": {
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        ],
+        "en": {
+          "summary": "Netherite Trapped Chest (26.3): 45 slots, 90 in a double chest; stack limit x2 (unstackable items remain at 1).",
+          "details": [
+            "Crafted shapelessly from the matching normal tier chest and one tripwire hook.",
+            "Emits one redstone strength per viewer, capped at 15; spectators do not count. Powers adjacent components and strongly powers the block below. Closing the last menu turns the signal off. Comparators still measure the contents against this tier’s stack limit.",
+            "Only two trapped chests of the same tier join; normal chests and other trapped tiers stay separate. Both halves emit the viewer signal.",
+            "Upgrade a placed Reinforced Trapped Chest with a Diamond Sledgehammer or better and a Netherite Nugget in the off hand; upgrade Netherite with a Netherite Sledgehammer or better and an Enderite Nugget. Hold use for 5 seconds. Double chests upgrade both halves and cost two nuggets. Contents, name, lock and waterlogging are preserved.",
+            "Uses the matching normal tier’s slots, stack limits, hardness, blast resistance, sounds and item rarity. Netherite and Enderite items are fire resistant. The red accent around the latch distinguishes the trapped variant."
+          ]
+        },
+        "de": {
+          "summary": "Netherit-Redstone-Truhe (26.3): 45 Plätze, 90 als Doppeltruhe; Stapelgrenze x2 (nicht stapelbare Items bleiben bei 1).",
+          "details": [
+            "Formloses Rezept aus der normalen Truhe derselben Stufe und einem Haken.",
+            "Gibt je Betrachter eine Redstone-Signalstärke aus, höchstens 15; Zuschauer zählen nicht. Versorgt benachbarte Komponenten und den Block darunter mit starkem Signal. Nach Schließen des letzten Menüs ist das Signal aus. Komparatoren messen weiterhin den Inhalt gegen die Stapelgrenze dieser Stufe.",
+            "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
+            "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
+            "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nihil_end_stone",
@@ -15914,7 +16020,9 @@
       "craftedBy": [
         "simplebuilding:reinforced_chest"
       ],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:reinforced_trapped_chest"
+      ],
       "trades": [],
       "icon": "assets/textures/render/reinforced_chest.png",
       "note": {
@@ -16685,6 +16793,54 @@
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:reinforced_trapped_chest",
+      "name": {
+        "en_us": "Reinforced Trapped Chest",
+        "de_de": "Verstärkte Redstone-Truhe"
+      },
+      "texture": "assets/textures/block/cracked_diamond_block.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_trapped_chest"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/reinforced_trapped_chest.png",
+      "note": {
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        ],
+        "en": {
+          "summary": "Reinforced Trapped Chest (26.3): 36 slots, 72 in a double chest; stack limit x1 (unstackable items remain at 1).",
+          "details": [
+            "Crafted shapelessly from the matching normal tier chest and one tripwire hook.",
+            "Emits one redstone strength per viewer, capped at 15; spectators do not count. Powers adjacent components and strongly powers the block below. Closing the last menu turns the signal off. Comparators still measure the contents against this tier’s stack limit.",
+            "Only two trapped chests of the same tier join; normal chests and other trapped tiers stay separate. Both halves emit the viewer signal.",
+            "Upgrade a placed Reinforced Trapped Chest with a Diamond Sledgehammer or better and a Netherite Nugget in the off hand; upgrade Netherite with a Netherite Sledgehammer or better and an Enderite Nugget. Hold use for 5 seconds. Double chests upgrade both halves and cost two nuggets. Contents, name, lock and waterlogging are preserved.",
+            "Uses the matching normal tier’s slots, stack limits, hardness, blast resistance, sounds and item rarity. Netherite and Enderite items are fire resistant. The red accent around the latch distinguishes the trapped variant."
+          ]
+        },
+        "de": {
+          "summary": "Verstärkte Redstone-Truhe (26.3): 36 Plätze, 72 als Doppeltruhe; Stapelgrenze x1 (nicht stapelbare Items bleiben bei 1).",
+          "details": [
+            "Formloses Rezept aus der normalen Truhe derselben Stufe und einem Haken.",
+            "Gibt je Betrachter eine Redstone-Signalstärke aus, höchstens 15; Zuschauer zählen nicht. Versorgt benachbarte Komponenten und den Block darunter mit starkem Signal. Nach Schließen des letzten Menüs ist das Signal aus. Komparatoren messen weiterhin den Inhalt gegen die Stapelgrenze dieser Stufe.",
+            "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
+            "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
+            "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:resin_quartz_checker",
@@ -20208,7 +20364,9 @@
       },
       "texture": "assets/textures/block/enderite_block.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:enderite_trapped_chest"
+      ],
       "trades": [],
       "icon": "assets/textures/render/enderite_chest.png",
       "lootTable": "simplebuilding:blocks/enderite_chest",
@@ -21157,6 +21315,58 @@
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java"
         ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_trapped_chest",
+      "name": {
+        "en_us": "Enderite Trapped Chest",
+        "de_de": "Enderit-Redstone-Truhe"
+      },
+      "texture": "assets/textures/block/enderite_block.png",
+      "craftedBy": [
+        "simplebuilding:enderite_trapped_chest"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_trapped_chest.png",
+      "lootTable": "simplebuilding:blocks/enderite_trapped_chest",
+      "drops": [
+        "simplebuilding:enderite_trapped_chest"
+      ],
+      "note": {
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        ],
+        "en": {
+          "summary": "Enderite Trapped Chest (26.3): 54 slots, 108 in a double chest; stack limit x4 (unstackable items remain at 1).",
+          "details": [
+            "Crafted shapelessly from the matching normal tier chest and one tripwire hook.",
+            "Emits one redstone strength per viewer, capped at 15; spectators do not count. Powers adjacent components and strongly powers the block below. Closing the last menu turns the signal off. Comparators still measure the contents against this tier’s stack limit.",
+            "Only two trapped chests of the same tier join; normal chests and other trapped tiers stay separate. Both halves emit the viewer signal.",
+            "Upgrade a placed Reinforced Trapped Chest with a Diamond Sledgehammer or better and a Netherite Nugget in the off hand; upgrade Netherite with a Netherite Sledgehammer or better and an Enderite Nugget. Hold use for 5 seconds. Double chests upgrade both halves and cost two nuggets. Contents, name, lock and waterlogging are preserved.",
+            "Uses the matching normal tier’s slots, stack limits, hardness, blast resistance, sounds and item rarity. Netherite and Enderite items are fire resistant. The red accent around the latch distinguishes the trapped variant."
+          ]
+        },
+        "de": {
+          "summary": "Enderit-Redstone-Truhe (26.3): 54 Plätze, 108 als Doppeltruhe; Stapelgrenze x4 (nicht stapelbare Items bleiben bei 1).",
+          "details": [
+            "Formloses Rezept aus der normalen Truhe derselben Stufe und einem Haken.",
+            "Gibt je Betrachter eine Redstone-Signalstärke aus, höchstens 15; Zuschauer zählen nicht. Versorgt benachbarte Komponenten und den Block darunter mit starkem Signal. Nach Schließen des letzten Menüs ist das Signal aus. Komparatoren messen weiterhin den Inhalt gegen die Stapelgrenze dieser Stufe.",
+            "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
+            "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
+            "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
+          ]
+        }
       },
       "hasCustomBehaviour": false
     },
@@ -22675,7 +22885,9 @@
       },
       "texture": "assets/textures/block/netherite_chest.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:netherite_trapped_chest"
+      ],
       "trades": [],
       "icon": "assets/textures/render/netherite_chest.png",
       "lootTable": "simplebuilding:blocks/netherite_chest",
@@ -23656,6 +23868,58 @@
         "cookingTicksPerTick": 4
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:netherite_trapped_chest",
+      "name": {
+        "en_us": "Netherite Trapped Chest",
+        "de_de": "Netherit-Redstone-Truhe"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:netherite_trapped_chest"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/netherite_trapped_chest.png",
+      "lootTable": "simplebuilding:blocks/netherite_trapped_chest",
+      "drops": [
+        "simplebuilding:netherite_trapped_chest"
+      ],
+      "note": {
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        ],
+        "en": {
+          "summary": "Netherite Trapped Chest (26.3): 45 slots, 90 in a double chest; stack limit x2 (unstackable items remain at 1).",
+          "details": [
+            "Crafted shapelessly from the matching normal tier chest and one tripwire hook.",
+            "Emits one redstone strength per viewer, capped at 15; spectators do not count. Powers adjacent components and strongly powers the block below. Closing the last menu turns the signal off. Comparators still measure the contents against this tier’s stack limit.",
+            "Only two trapped chests of the same tier join; normal chests and other trapped tiers stay separate. Both halves emit the viewer signal.",
+            "Upgrade a placed Reinforced Trapped Chest with a Diamond Sledgehammer or better and a Netherite Nugget in the off hand; upgrade Netherite with a Netherite Sledgehammer or better and an Enderite Nugget. Hold use for 5 seconds. Double chests upgrade both halves and cost two nuggets. Contents, name, lock and waterlogging are preserved.",
+            "Uses the matching normal tier’s slots, stack limits, hardness, blast resistance, sounds and item rarity. Netherite and Enderite items are fire resistant. The red accent around the latch distinguishes the trapped variant."
+          ]
+        },
+        "de": {
+          "summary": "Netherit-Redstone-Truhe (26.3): 45 Plätze, 90 als Doppeltruhe; Stapelgrenze x2 (nicht stapelbare Items bleiben bei 1).",
+          "details": [
+            "Formloses Rezept aus der normalen Truhe derselben Stufe und einem Haken.",
+            "Gibt je Betrachter eine Redstone-Signalstärke aus, höchstens 15; Zuschauer zählen nicht. Versorgt benachbarte Komponenten und den Block darunter mit starkem Signal. Nach Schließen des letzten Menüs ist das Signal aus. Komparatoren messen weiterhin den Inhalt gegen die Stapelgrenze dieser Stufe.",
+            "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
+            "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
+            "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nihil_end_stone",
@@ -25449,7 +25713,9 @@
       "craftedBy": [
         "simplebuilding:reinforced_chest"
       ],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:reinforced_trapped_chest"
+      ],
       "trades": [],
       "icon": "assets/textures/render/reinforced_chest.png",
       "lootTable": "simplebuilding:blocks/reinforced_chest",
@@ -26370,6 +26636,58 @@
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:reinforced_trapped_chest",
+      "name": {
+        "en_us": "Reinforced Trapped Chest",
+        "de_de": "Verstärkte Redstone-Truhe"
+      },
+      "texture": "assets/textures/block/cracked_diamond_block.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_trapped_chest"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/reinforced_trapped_chest.png",
+      "lootTable": "simplebuilding:blocks/reinforced_trapped_chest",
+      "drops": [
+        "simplebuilding:reinforced_trapped_chest"
+      ],
+      "note": {
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/TieredTrappedChestBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        ],
+        "en": {
+          "summary": "Reinforced Trapped Chest (26.3): 36 slots, 72 in a double chest; stack limit x1 (unstackable items remain at 1).",
+          "details": [
+            "Crafted shapelessly from the matching normal tier chest and one tripwire hook.",
+            "Emits one redstone strength per viewer, capped at 15; spectators do not count. Powers adjacent components and strongly powers the block below. Closing the last menu turns the signal off. Comparators still measure the contents against this tier’s stack limit.",
+            "Only two trapped chests of the same tier join; normal chests and other trapped tiers stay separate. Both halves emit the viewer signal.",
+            "Upgrade a placed Reinforced Trapped Chest with a Diamond Sledgehammer or better and a Netherite Nugget in the off hand; upgrade Netherite with a Netherite Sledgehammer or better and an Enderite Nugget. Hold use for 5 seconds. Double chests upgrade both halves and cost two nuggets. Contents, name, lock and waterlogging are preserved.",
+            "Uses the matching normal tier’s slots, stack limits, hardness, blast resistance, sounds and item rarity. Netherite and Enderite items are fire resistant. The red accent around the latch distinguishes the trapped variant."
+          ]
+        },
+        "de": {
+          "summary": "Verstärkte Redstone-Truhe (26.3): 36 Plätze, 72 als Doppeltruhe; Stapelgrenze x1 (nicht stapelbare Items bleiben bei 1).",
+          "details": [
+            "Formloses Rezept aus der normalen Truhe derselben Stufe und einem Haken.",
+            "Gibt je Betrachter eine Redstone-Signalstärke aus, höchstens 15; Zuschauer zählen nicht. Versorgt benachbarte Komponenten und den Block darunter mit starkem Signal. Nach Schließen des letzten Menüs ist das Signal aus. Komparatoren messen weiterhin den Inhalt gegen die Stapelgrenze dieser Stufe.",
+            "Nur zwei Redstone-Truhen derselben Stufe verbinden sich; normale Truhen und andere Redstone-Stufen bleiben getrennt. Beide Hälften geben das Betrachtersignal aus.",
+            "Gesetzte Verstärkte Redstone-Truhe mit Diamant-Vorschlaghammer oder besser und Netheritklumpen in der Nebenhand aufwerten; Netherit mit Netherit-Vorschlaghammer oder besser und Enderitklumpen. Benutzung 5 Sekunden halten. Doppeltruhen werden gemeinsam aufgewertet und kosten zwei Klumpen. Inhalt, Name, Schloss und Wasserfüllung bleiben erhalten.",
+            "Plätze, Stapelgrenzen, Härte, Explosionsresistenz, Sounds und Seltenheit entsprechen der normalen Stufe. Netherit- und Enderit-Items sind feuerfest. Der rote Akzent um die Schließe kennzeichnet die Redstone-Variante."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:resin_quartz_checker",
@@ -36071,6 +36389,49 @@
       }
     },
     {
+      "id": "simplebuilding:enderite_trapped_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_trapped_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_trapped_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "simplebuilding:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:enderite_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:enderite_upgrade_template",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -41328,6 +41689,49 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_trapped_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_trapped_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_trapped_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "simplebuilding:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.188
           }
         ]
       }
@@ -48499,6 +48903,53 @@
       }
     },
     {
+      "id": "simplebuilding:reinforced_trapped_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_trapped_chest",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_trapped_chest.json",
+      "ingredients": [
+        "minecraft:tripwire_hook",
+        "simplebuilding:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:reinforced_chest"
+        ],
+        [
+          "minecraft:tripwire_hook"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:diamond_pebble",
+            "count": 18
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2.188
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:resin_quartz_checker",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -54514,6 +54965,22 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_spawn_teleporter.json"
     },
     {
+      "id": "simplebuilding:blocks/enderite_trapped_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:enderite_trapped_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_trapped_chest.json"
+    },
+    {
       "id": "simplebuilding:blocks/enderman_head",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -55040,6 +55507,22 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_smoker.json"
+    },
+    {
+      "id": "simplebuilding:blocks/netherite_trapped_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:netherite_trapped_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_trapped_chest.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_end_stone",
@@ -55839,6 +56322,22 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_sticky_piston.json"
+    },
+    {
+      "id": "simplebuilding:blocks/reinforced_trapped_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:reinforced_trapped_chest"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_trapped_chest.json"
     },
     {
       "id": "simplebuilding:blocks/resin_quartz_checker",
@@ -60924,6 +61423,10 @@
         {
           "id": "simplebuilding:enderite_sword",
           "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_trapped_chest",
+          "required": true
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json"
@@ -61098,6 +61601,10 @@
         },
         {
           "id": "simplebuilding:enderite_sword",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_trapped_chest",
           "required": true
         },
         {
@@ -65742,6 +66249,37 @@
         ]
       },
       {
+        "id": "sledgehammer_upgrade/simplebuilding:netherite_trapped_chest",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:netherite_trapped_chest",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:netherite_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:enderite_trapped_chest",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 10,
+          "damage": 50
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
         "id": "sledgehammer_upgrade/simplebuilding:reinforced_blast_furnace",
         "kind": "sledgehammer_upgrade",
         "inputs": [
@@ -66000,6 +66538,37 @@
         },
         "lines": [
           "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:reinforced_trapped_chest",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:reinforced_trapped_chest",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:netherite_trapped_chest",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 4,
+          "damage": 20
+        },
+        "lines": [
           "26.3"
         ]
       },
@@ -87408,15 +87977,15 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 225,
-    "blocks": 188,
-    "recipes": 586,
-    "lootTables": 186,
+    "items": 228,
+    "blocks": 191,
+    "recipes": 589,
+    "lootTables": 189,
     "trades": 20,
     "enchantments": 19,
     "tags": 47,
     "config": 190,
-    "inWorld": 440,
+    "inWorld": 442,
     "advancements": 123,
     "features": 44,
     "undocumented": 0,

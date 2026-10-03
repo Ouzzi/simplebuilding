@@ -2784,5 +2784,12 @@
   "book.simplebuilding.gadgets.13.text": "Am lebenden Mob benutzen: Ton aus oder an. Vor erneutem Nutzen 2 Sekunden warten.\nKostet eine Blume, außer in Kreativ. Stille wird gespeichert.",
   "book.simplebuilding.gadgets.14.title": "Blumengrenzen",
   "book.simplebuilding.gadgets.14.text": "Wirkt bei jungen, erwachsenen und feindlichen Mobs. Nicht bei Spielern, Rüstungsständern, Wither oder Enderdrache.\nGepflanzt oder im Topf nur Deko, keine Aura.",
-  "jei.simplebuilding.info.silent_dandelion": "An einem lebenden Mob benutzen, um seine Geräusche aus- oder einzuschalten. Wirkt bei erwachsenen, jungen und feindlichen Mobs, nicht bei Spielern, Rüstungsständern, Wither oder Enderdrache. Jede Benutzung verbraucht eine Blume, außer im Kreativmodus. Vor erneutem Benutzen am selben Mob 2 Sekunden warten. Stille bleibt beim Speichern erhalten. Sounds und Partikel wie beim goldenen Löwenzahn. Gepflanzte oder eingetopfte Blumen sind nur Dekoration."
+  "jei.simplebuilding.info.silent_dandelion": "An einem lebenden Mob benutzen, um seine Geräusche aus- oder einzuschalten. Wirkt bei erwachsenen, jungen und feindlichen Mobs, nicht bei Spielern, Rüstungsständern, Wither oder Enderdrache. Jede Benutzung verbraucht eine Blume, außer im Kreativmodus. Vor erneutem Benutzen am selben Mob 2 Sekunden warten. Stille bleibt beim Speichern erhalten. Sounds und Partikel wie beim goldenen Löwenzahn. Gepflanzte oder eingetopfte Blumen sind nur Dekoration.",
+  "block.simplebuilding.reinforced_trapped_chest": "Verstärkte Redstone-Truhe",
+  "item.simplebuilding.reinforced_trapped_chest": "Verstärkte Redstone-Truhe",
+  "block.simplebuilding.netherite_trapped_chest": "Netherit-Redstone-Truhe",
+  "item.simplebuilding.netherite_trapped_chest": "Netherit-Redstone-Truhe",
+  "block.simplebuilding.enderite_trapped_chest": "Enderit-Redstone-Truhe",
+  "item.simplebuilding.enderite_trapped_chest": "Enderit-Redstone-Truhe",
+  "simplebuilding.testcentre.storage.trapped_chests": "Redstone-Truhen"
 }

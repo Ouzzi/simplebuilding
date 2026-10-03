@@ -119,7 +119,7 @@ public final class ForgeModRegistries {
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity>> TIERED_CHEST_BE =
             BLOCK_ENTITIES.register("tiered_chest", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity>(
                     com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity::new,
-                    Set.of(ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST)));
+                    Set.of(ModBlocks.tieredChests())));
 
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity>> TIERED_SHULKER_BOX_BE =
             BLOCK_ENTITIES.register("tiered_shulker_box", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity>(
