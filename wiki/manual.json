@@ -11165,6 +11165,47 @@
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
       ]
+    },
+    "silent_dandelion": {
+      "en": {
+        "summary": "A placeable flower that silences mobs within a spherical radius of 8 blocks from its center, including in a flower pot. The server can disable the effect or set the radius from 1 to 16 blocks. Leaving the area or removing the flower restores normal sounds; an existing Silent flag is preserved.",
+        "details": [
+          "Craft eight Balls of Yarn around a dandelion. This is an area effect, unlike the vanilla Golden Dandelion used on a baby animal. No temporary Silent flag is saved in the mob."
+        ]
+      },
+      "de": {
+        "summary": "Eine platzierbare Blume, die Mobs in einem Kugelradius von 8 Blöcken ab ihrer Mitte stummschaltet, auch im Blumentopf. Der Server kann den Effekt abschalten oder den Radius auf 1 bis 16 Blöcke setzen. Verlassen des Bereichs oder Entfernen der Blume stellt normale Geräusche wieder her; ein vorhandenes Silent-Flag bleibt erhalten.",
+        "details": [
+          "Acht Wollknäuel um einen Löwenzahn craften. Dies ist eine Bereichswirkung, anders als der am Jungtier benutzte goldene Vanilla-Löwenzahn. Die vorübergehende Stille wird nicht im Mob gespeichert."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/SilentDandelions.java",
+        "common/src/shared/java/com/simplebuilding/mixin/SilentDandelionMixin.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+      ]
+    },
+    "yarn_ball": {
+      "en": {
+        "summary": "Four strings in a diamond arrangement craft one Ball of Yarn; one wool block of any color crafts two. Eight balls around a dandelion craft a Silent Dandelion.",
+        "details": [
+          "Sneak + use places yarn with the existing small parts: up to four parts on one spot. The placed item uses the same yarn sprite and drops itself when broken. Server placement options still apply."
+        ]
+      },
+      "de": {
+        "summary": "Vier Fäden in Rautenform ergeben ein Wollknäuel; ein Wollblock beliebiger Farbe ergibt zwei. Acht Knäuel um einen Löwenzahn ergeben einen stillen Löwenzahn.",
+        "details": [
+          "Schleichen + Benutzen legt das Knäuel mit den vorhandenen Kleinteilen ab: bis zu vier Teile auf einem Fleck. Abgelegt nutzt es dieselbe Knäuel-Textur und droppt sich beim Abbauen. Die serverseitigen Platzierungsoptionen gelten weiterhin."
+        ]
+      },
+      "sources": [
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+        "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
+        "tools/textures/silent_dandelion_2026_10_03.py"
+      ]
     }
   },
   "inWorld": {

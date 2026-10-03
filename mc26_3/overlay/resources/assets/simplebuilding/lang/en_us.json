@@ -2729,5 +2729,14 @@
   "tooltip.simplebuilding.ore_detector.place_hint.2": "Sneak + Use in the air: switch mode.",
   "tooltip.simplebuilding.sledgehammer.corner.2": "Constructor's Touch: reverse reshaping.",
   "tooltip.simplebuilding.sledgehammer.mining_time.2": "Blocks 2–9: +0.8× each; then +0.7× each.",
-  "tooltip.simplebuilding.sledgehammer.mining_time.3": "Octant: 2× per block."
+  "tooltip.simplebuilding.sledgehammer.mining_time.3": "Octant: 2× per block.",
+  "block.simplebuilding.silent_dandelion": "Silent Dandelion",
+  "item.simplebuilding.silent_dandelion": "Silent Dandelion",
+  "block.simplebuilding.potted_silent_dandelion": "Potted Silent Dandelion",
+  "item.simplebuilding.yarn_ball": "Ball of Yarn",
+  "text.autoconfig.simplebuilding.option.server.silentDandelion": "Silent Dandelion",
+  "text.autoconfig.simplebuilding.option.server.silentDandelion.enabled": "Silence Nearby Mobs",
+  "text.autoconfig.simplebuilding.option.server.silentDandelion.enabled.@Tooltip": "Silences mobs near planted or potted Silent Dandelions. Server-side. Default: enabled.",
+  "text.autoconfig.simplebuilding.option.server.silentDandelion.radius": "Radius (Blocks)",
+  "text.autoconfig.simplebuilding.option.server.silentDandelion.radius.@Tooltip": "Spherical radius from the flower center, 1 to 16 blocks. Server-side. Default: 8."
 }

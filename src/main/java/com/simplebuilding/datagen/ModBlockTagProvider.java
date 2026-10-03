@@ -30,6 +30,10 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider arg) {
+        if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
+            builder(BlockTags.SMALL_FLOWERS).add(key(ModBlocks.SILENT_DANDELION));
+            builder(BlockTags.FLOWER_POTS).add(key(ModBlocks.POTTED_SILENT_DANDELION));
+        }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_VAULT));
         // Dimensions-Schrott: Spitzhacke (Enderit prueft der Block selbst), immun gegen Wither und Drache.
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {

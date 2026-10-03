@@ -83,6 +83,10 @@ public final class SearchTabPlacement {
     /** Alle Einfuegungen, je Vanilla-Tab in der Reihenfolge, in der sie ausgefuehrt werden. */
     public static List<Placement> placements() {
         List<Placement> out = new ArrayList<>();
+        if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
+            out.add(Placement.after(FOOD_AND_DRINKS, Items.GOLDEN_DANDELION, ModItems.SILENT_DANDELION));
+            out.add(Placement.after(INGREDIENTS, Items.STRING, ModItems.YARN_BALL));
+        }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             out.add(Placement.after(REDSTONE_BLOCKS, Items.REDSTONE, ModItems.NIHIL_REDSTONE, ModItems.ASTRAL_REDSTONE));
             out.add(Placement.after(REDSTONE_BLOCKS, Items.LEVER, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH));

@@ -861,6 +861,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_funnel_pickup_counts_what_it_took", BundleWiringTests::funnelPickupCountsWhatItTook)
                     .build(),
+            GameTestSpec.named("silent_dandelion_game_test_config_is_bounded_and_can_disable_the_area", SilentDandelionTests::configIsBoundedAndCanDisableTheArea).build(),
+            GameTestSpec.named("silent_dandelion_game_test_only_mobs_inside_the_sphere_are_silent", SilentDandelionTests::onlyMobsInsideTheSphereAreSilent).build(),
+            GameTestSpec.named("silent_dandelion_game_test_potting_and_unpotting_use_vanilla_interaction", SilentDandelionTests::pottingAndUnpottingUseVanillaInteraction).build(),
+            GameTestSpec.named("silent_dandelion_game_test_recipes_use_four_string_or_any_wool_and_eight_yarn", SilentDandelionTests::recipesUseFourStringOrAnyWoolAndEightYarn).build(),
+            GameTestSpec.named("silent_dandelion_game_test_temporary_silence_is_never_saved_and_explicit_silence_survives", SilentDandelionTests::temporarySilenceIsNeverSavedAndExplicitSilenceSurvives).build(),
+            GameTestSpec.named("silent_dandelion_game_test_yarn_places_in_small_parts_and_drops_itself", SilentDandelionTests::yarnPlacesInSmallPartsAndDropsItself).build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_corners_subtract_only_the_aimed_quarter", SledgehammerTests::sledgehammerCornersSubtractOnlyTheAimedQuarter).build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_transform_hints_cover_both_hands_without_side_effects", SledgehammerTests::sledgehammerTransformHintsCoverBothHandsWithoutSideEffects).build(),
             GameTestSpec.named("sledgehammer_game_test_transform_hint_partial_follows_the_upgrade_rules", SledgehammerTests::transformHintPartialFollowsTheUpgradeRules).build(),

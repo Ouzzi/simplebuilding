@@ -52,6 +52,10 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
 
     @Override
     public void generate() {
+        if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
+            dropSelf(ModBlocks.SILENT_DANDELION);
+            dropPottedContents(ModBlocks.POTTED_SILENT_DANDELION);
+        }
         // Aus Simple Tweaks: jede Platte droppt sich selbst (wie dort).
         com.simplebuilding.tweaks.block.TweaksBlocks.all().forEach(this::dropSelf);
         // Mob-Koepfe: der Wandkopf teilt die Tabelle des stehenden (wie Vanillas wallVariant).

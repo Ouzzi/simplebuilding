@@ -797,6 +797,13 @@ public final class TestCentreSections {
             c.place(5, 0, 0, ModBlocks.IRON_ROD);
             c.place(6, 0, 0, ModBlocks.GOLD_ROD);
         }
+        if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
+            c.place(7, -1, 0, Blocks.DIRT);
+            c.place(7, 0, 0, ModBlocks.SILENT_DANDELION);
+            c.place(8, 0, 0, ModBlocks.POTTED_SILENT_DANDELION);
+            c.place(9, 0, 0, ModBlocks.PLACED_SMALL_PARTS);
+            c.contents(9, 0, 0, List.of(new ItemStack(ModItems.YARN_BALL)));
+        }
         int end = c.frameGrid(1, 0, wallZ, items, labels, 3);
         c.backWall(0, end, wallZ, 7);
         return c;

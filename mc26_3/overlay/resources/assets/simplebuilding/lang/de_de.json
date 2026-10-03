@@ -2729,5 +2729,14 @@
   "tooltip.simplebuilding.ore_detector.place_hint.2": "Schleich-Benutzen in Luft: Modus wechseln.",
   "tooltip.simplebuilding.sledgehammer.corner.2": "Berührung des Konstrukteurs: rückwärts formen.",
   "tooltip.simplebuilding.sledgehammer.mining_time.2": "Blöcke 2–9: je +0,8×; danach je +0,7×.",
-  "tooltip.simplebuilding.sledgehammer.mining_time.3": "Oktant: 2× je Block."
+  "tooltip.simplebuilding.sledgehammer.mining_time.3": "Oktant: 2× je Block.",
+  "block.simplebuilding.silent_dandelion": "Stiller Löwenzahn",
+  "item.simplebuilding.silent_dandelion": "Stiller Löwenzahn",
+  "block.simplebuilding.potted_silent_dandelion": "Eingetopfter stiller Löwenzahn",
+  "item.simplebuilding.yarn_ball": "Wollknäuel",
+  "text.autoconfig.simplebuilding.option.server.silentDandelion": "Stiller Löwenzahn",
+  "text.autoconfig.simplebuilding.option.server.silentDandelion.enabled": "Mobs in der Nähe stummschalten",
+  "text.autoconfig.simplebuilding.option.server.silentDandelion.enabled.@Tooltip": "Schaltet Mobs bei gepflanzten oder eingetopften stillen Löwenzähnen stumm. Serverseitig. Standard: an.",
+  "text.autoconfig.simplebuilding.option.server.silentDandelion.radius": "Radius (Blöcke)",
+  "text.autoconfig.simplebuilding.option.server.silentDandelion.radius.@Tooltip": "Kugelradius ab Blumenmitte, 1 bis 16 Blöcke. Serverseitig. Standard: 8."
 }

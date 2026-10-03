@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 261,
+      "count": 263,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -15936,6 +15936,41 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:silent_dandelion",
+      "name": {
+        "en_us": "Silent Dandelion",
+        "de_de": "Stiller Löwenzahn"
+      },
+      "texture": "assets/textures/block/silent_dandelion.png",
+      "craftedBy": [
+        "simplebuilding:silent_dandelion"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A placeable flower that silences mobs within a spherical radius of 8 blocks from its center, including in a flower pot. The server can disable the effect or set the radius from 1 to 16 blocks. Leaving the area or removing the flower restores normal sounds; an existing Silent flag is preserved.",
+          "details": [
+            "Craft eight Balls of Yarn around a dandelion. This is an area effect, unlike the vanilla Golden Dandelion used on a baby animal. No temporary Silent flag is saved in the mob."
+          ]
+        },
+        "de": {
+          "summary": "Eine platzierbare Blume, die Mobs in einem Kugelradius von 8 Blöcken ab ihrer Mitte stummschaltet, auch im Blumentopf. Der Server kann den Effekt abschalten oder den Radius auf 1 bis 16 Blöcke setzen. Verlassen des Bereichs oder Entfernen der Blume stellt normale Geräusche wieder her; ein vorhandenes Silent-Flag bleibt erhalten.",
+          "details": [
+            "Acht Wollknäuel um einen Löwenzahn craften. Dies ist eine Bereichswirkung, anders als der am Jungtier benutzte goldene Vanilla-Löwenzahn. Die vorübergehende Stille wird nicht im Mob gespeichert."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/SilentDandelions.java",
+          "common/src/shared/java/com/simplebuilding/mixin/SilentDandelionMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:spawn_elytra",
       "name": {
         "en_us": "Spawn Elytra",
@@ -16670,6 +16705,43 @@
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:yarn_ball",
+      "name": {
+        "en_us": "Ball of Yarn",
+        "de_de": "Wollknäuel"
+      },
+      "texture": "assets/textures/item/yarn_ball.png",
+      "craftedBy": [
+        "simplebuilding:yarn_ball_from_string",
+        "simplebuilding:yarn_ball_from_wool"
+      ],
+      "usedIn": [
+        "simplebuilding:silent_dandelion"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Four strings in a diamond arrangement craft one Ball of Yarn; one wool block of any color crafts two. Eight balls around a dandelion craft a Silent Dandelion.",
+          "details": [
+            "Sneak + use places yarn with the existing small parts: up to four parts on one spot. The placed item uses the same yarn sprite and drops itself when broken. Server placement options still apply."
+          ]
+        },
+        "de": {
+          "summary": "Vier Fäden in Rautenform ergeben ein Wollknäuel; ein Wollblock beliebiger Farbe ergibt zwei. Acht Knäuel um einen Löwenzahn ergeben einen stillen Löwenzahn.",
+          "details": [
+            "Schleichen + Benutzen legt das Knäuel mit den vorhandenen Kleinteilen ab: bis zu vier Teile auf einem Fleck. Abgelegt nutzt es dieselbe Knäuel-Textur und droppt sich beim Abbauen. Die serverseitigen Platzierungsoptionen gelten weiterhin."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
+          "tools/textures/silent_dandelion_2026_10_03.py"
+        ]
+      },
+      "hasCustomBehaviour": false
     }
   ],
   "blocks": [
@@ -22711,6 +22783,24 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:potted_silent_dandelion",
+      "name": {
+        "en_us": "Potted Silent Dandelion",
+        "de_de": "Eingetopfter stiller Löwenzahn"
+      },
+      "texture": "assets/textures/block/silent_dandelion.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/potted_silent_dandelion.png",
+      "lootTable": "simplebuilding:blocks/potted_silent_dandelion",
+      "drops": [
+        "minecraft:flower_pot",
+        "simplebuilding:silent_dandelion"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:purpur_quartz_checker",
       "name": {
         "en_us": "Purpur Quartz Checker",
@@ -24091,6 +24181,46 @@
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/shulker_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:silent_dandelion",
+      "name": {
+        "en_us": "Silent Dandelion",
+        "de_de": "Stiller Löwenzahn"
+      },
+      "texture": "assets/textures/block/silent_dandelion.png",
+      "craftedBy": [
+        "simplebuilding:silent_dandelion"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/silent_dandelion.png",
+      "lootTable": "simplebuilding:blocks/silent_dandelion",
+      "drops": [
+        "simplebuilding:silent_dandelion"
+      ],
+      "note": {
+        "en": {
+          "summary": "A placeable flower that silences mobs within a spherical radius of 8 blocks from its center, including in a flower pot. The server can disable the effect or set the radius from 1 to 16 blocks. Leaving the area or removing the flower restores normal sounds; an existing Silent flag is preserved.",
+          "details": [
+            "Craft eight Balls of Yarn around a dandelion. This is an area effect, unlike the vanilla Golden Dandelion used on a baby animal. No temporary Silent flag is saved in the mob."
+          ]
+        },
+        "de": {
+          "summary": "Eine platzierbare Blume, die Mobs in einem Kugelradius von 8 Blöcken ab ihrer Mitte stummschaltet, auch im Blumentopf. Der Server kann den Effekt abschalten oder den Radius auf 1 bis 16 Blöcke setzen. Verlassen des Bereichs oder Entfernen der Blume stellt normale Geräusche wieder her; ein vorhandenes Silent-Flag bleibt erhalten.",
+          "details": [
+            "Acht Wollknäuel um einen Löwenzahn craften. Dies ist eine Bereichswirkung, anders als der am Jungtier benutzte goldene Vanilla-Löwenzahn. Die vorübergehende Stille wird nicht im Mob gespeichert."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/SilentDandelions.java",
+          "common/src/shared/java/com/simplebuilding/mixin/SilentDandelionMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -44857,6 +44987,50 @@
       }
     },
     {
+      "id": "simplebuilding:silent_dandelion",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:silent_dandelion",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/silent_dandelion.json",
+      "ingredients": [
+        "minecraft:dandelion",
+        "simplebuilding:yarn_ball"
+      ],
+      "pattern": [
+        "YYY",
+        "YDY",
+        "YYY"
+      ],
+      "key": {
+        "D": [
+          "minecraft:dandelion"
+        ],
+        "Y": [
+          "simplebuilding:yarn_ball"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 32
+          },
+          {
+            "id": "minecraft:dandelion",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:spawn_teleporter_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -47701,6 +47875,76 @@
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:yarn_ball_from_string",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:yarn_ball",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/yarn_ball_from_string.json",
+      "ingredients": [
+        "minecraft:string"
+      ],
+      "pattern": [
+        " S ",
+        "S S",
+        " S "
+      ],
+      "key": {
+        "S": [
+          "minecraft:string"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:yarn_ball_from_wool",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:yarn_ball",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/yarn_ball_from_wool.json",
+      "ingredients": [
+        "#minecraft:wool"
+      ],
+      "ingredientGroups": [
+        [
+          "#minecraft:wool"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:wool"
+        ]
+      }
     },
     {
       "id": "simplebuilding:yellow_dyed_storage",
@@ -51203,6 +51447,30 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/potion_pad.json"
     },
     {
+      "id": "simplebuilding:blocks/potted_silent_dandelion",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:flower_pot"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:silent_dandelion"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/potted_silent_dandelion.json"
+    },
+    {
       "id": "simplebuilding:blocks/purpur_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -51458,6 +51726,22 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/shulker_head.json"
+    },
+    {
+      "id": "simplebuilding:blocks/silent_dandelion",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:silent_dandelion"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/silent_dandelion.json"
     },
     {
       "id": "simplebuilding:blocks/silverfish_head",
@@ -56836,6 +57120,10 @@
       "replace": false,
       "values": [
         {
+          "id": "simplebuilding:yarn_ball",
+          "required": true
+        },
+        {
           "id": "minecraft:stick",
           "required": true
         },
@@ -58738,6 +59026,36 @@
       "labelDe": "Kreativ-Tab „SimpleEnchants (Dev)“ zeigen",
       "tooltip": "Shows the creative tab \"SimpleEnchants (Dev)\"\noutside development environments too: the\nbest tier of every enchantable item,\npre-enchanted at max level. Takes effect when\nthe creative tabs are rebuilt (at the latest\nafter rejoining). Default: off.",
       "tooltipDe": "Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“\nauch außerhalb von Entwicklungsumgebungen:\ndie beste Stufe jedes verzauberbaren\nGegenstands, vorverzaubert auf Höchststufe.\nWirkt beim Neuaufbau der Kreativ-Tabs\n(spätestens nach erneutem Betreten).\nStandard: aus."
+    },
+    {
+      "name": "server.silentDandelion.enabled",
+      "shortName": "enabled",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Silent Dandelion",
+      "groupDe": "Stiller Löwenzahn",
+      "label": "Silence Nearby Mobs",
+      "labelDe": "Mobs in der Nähe stummschalten",
+      "tooltip": "Silences mobs near planted or potted Silent Dandelions. Server-side. Default: enabled.",
+      "tooltipDe": "Schaltet Mobs bei gepflanzten oder eingetopften stillen Löwenzähnen stumm. Serverseitig. Standard: an."
+    },
+    {
+      "name": "server.silentDandelion.radius",
+      "shortName": "radius",
+      "type": "int",
+      "default": "8",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Silent Dandelion",
+      "groupDe": "Stiller Löwenzahn",
+      "label": "Radius (Blocks)",
+      "labelDe": "Radius (Blöcke)",
+      "tooltip": "Spherical radius from the flower center, 1 to 16 blocks. Server-side. Default: 8.",
+      "tooltipDe": "Kugelradius ab Blumenmitte, 1 bis 16 Blöcke. Serverseitig. Standard: 8."
     },
     {
       "name": "server.features.endSignals",
@@ -82911,14 +83229,14 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 207,
-    "blocks": 167,
-    "recipes": 587,
-    "lootTables": 166,
+    "items": 209,
+    "blocks": 169,
+    "recipes": 590,
+    "lootTables": 168,
     "trades": 20,
     "enchantments": 19,
     "tags": 47,
-    "config": 189,
+    "config": 191,
     "inWorld": 440,
     "advancements": 123,
     "features": 44,

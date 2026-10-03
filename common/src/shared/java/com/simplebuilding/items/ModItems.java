@@ -269,6 +269,11 @@ public class ModItems {
     // Neun Leder in einer Platte: Zutat des verstaerkten Buendels und des verstaerkten Koechers.
     public static final Item LEATHER_SHEET = registerItem("leather_sheet", settings -> new Item(settings));
 
+    public static final Item SILENT_DANDELION = com.simplebuilding.version.McVersion.SILENT_DANDELION
+            ? registerItem("silent_dandelion", settings -> new BlockItem(ModBlocks.SILENT_DANDELION, settings)) : null;
+    public static final Item YARN_BALL = com.simplebuilding.version.McVersion.SILENT_DANDELION
+            ? registerItem("yarn_ball", Item::new) : null;
+
     public static final Item DIAMOND_PEBBLE = registerItem("diamond_pebble", settings -> new Item(settings));
 
     /** Steinkiesel: neun aus einem Bruchstein, zum Ablegen und zurueck zu Bruchstein (2026-10-02). */

@@ -319,6 +319,9 @@ public final class ModItemGroupsContent {
             rows.add(CreativeTabLayout.Row.besides("rods", ModItems.IRON_ROD, ModItems.GOLD_ROD, ModItems.DIAMOND_ROD,
                     ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));
         }
+        if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
+            rows.add(CreativeTabLayout.Row.of("silent_dandelion", Items.GOLDEN_DANDELION, ModItems.SILENT_DANDELION, ModItems.YARN_BALL));
+        }
         rows.addAll(List.of(
                 // Vanilla-Diamant und -Netherit gehoeren zur Werkstoffkette (Besitzer 2026-10-01): je Material
                 // eine Zeile vom Rohstoff zum fertigen Werkstoff, der Lederfetzen hinter Netherit.

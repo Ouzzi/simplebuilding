@@ -26,6 +26,12 @@ import java.util.List;
 import java.util.function.Function;
 
 public class ModBlocks {
+    public static final Block SILENT_DANDELION = McVersion.SILENT_DANDELION
+            ? registerBlock("silent_dandelion", Blocks.DANDELION, s -> new net.minecraft.world.level.block.FlowerBlock(
+                    net.minecraft.world.effect.MobEffects.SATURATION, 0.35F, s)) : null;
+    public static final Block POTTED_SILENT_DANDELION = McVersion.SILENT_DANDELION
+            ? registerBlock("potted_silent_dandelion", Blocks.POTTED_DANDELION,
+                    s -> new net.minecraft.world.level.block.FlowerPotBlock(SILENT_DANDELION, s)) : null;
     public static final Block NIHIL_REDSTONE = McVersion.END_SYSTEMS ? registerBlock("nihil_redstone", s -> new com.simplebuilding.blocks.custom.EndSignalPowderBlock(false, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
     public static final Block NIHILITH_SWITCH = McVersion.END_SYSTEMS ? registerBlock("nihilith_switch", s -> new EndSignalBlock(false, EndSignalBlock.Kind.SWITCH, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 3 : 0))) : null;
     public static final Block NIHILITH_LAMP = McVersion.END_SYSTEMS ? registerBlock("nihilith_lamp", s -> new EndSignalBlock(false, EndSignalBlock.Kind.LAMP, s.strength(0.2F).noOcclusion().isRedstoneConductor((state, world, pos) -> false).sound(SoundType.AMETHYST).lightLevel(state -> state.getValue(EndSignalBlock.POWER) > 0 ? 12 : 0))) : null;
