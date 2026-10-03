@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 289,
+      "count": 291,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3442,7 +3442,11 @@
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
         "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndPistonBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndPistonMoves.java",
+        "mc26_3/generated/data/simplebuilding/recipe/astral_piston.json",
+        "mc26_3/generated/data/simplebuilding/recipe/nihil_piston.json"
       ],
       "related": [
         "simplebuilding:nihil_redstone",
@@ -3450,7 +3454,9 @@
         "simplebuilding:nihilith_switch",
         "simplebuilding:astralit_switch",
         "simplebuilding:nihilith_lamp",
-        "simplebuilding:astralit_lamp"
+        "simplebuilding:astralit_lamp",
+        "simplebuilding:astral_piston",
+        "simplebuilding:nihil_piston"
       ],
       "en": {
         "title": "Isolated End Signals",
@@ -3459,7 +3465,10 @@
           "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
           "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
           "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access.",
+          "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They receive their own channel like a lamp and relay nothing; they fire when the signal switches on, not while it stays on.",
+          "On firing, the Astral Piston pushes the block on each of its six sides one cell away; the Nihil Piston pulls the block two cells away on each side into the cell next to it. Exactly one block per side, never a chain: if the target cell is not air or replaceable, or holds a liquid source, that side does nothing. Block entities, unbreakable blocks, pistons, End signal blocks, two-part blocks, liquids, blocks that break or refuse a piston and the tag simplebuilding:end_piston_immovable stay put; glazed terracotta is pushed but not pulled. A block moves at most once per game tick, however many End pistons fire.",
+          "server.machines.endPistonCooldownTicks (default 8, clamped to 4–100) is the wait after firing. server.features.endPistons (default true) needs server.features.endSignals as well; switched off, the pistons do nothing and their recipes disappear on datapack reload."
         ]
       },
       "de": {
@@ -3469,7 +3478,10 @@
           "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
           "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
           "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff.",
+          "Astral-Kolben und Nihil-Kolben: ein Kolben (Nihil: ein klebriger Kolben) in der Mitte, vier passende Redstone an den Kanten und vier Polierter Astralit bzw. Polierter Nihilit in den Ecken. Sie empfangen ihren eigenen Kanal wie eine Lampe und leiten nichts weiter; sie lösen aus, wenn das Signal einschaltet, nicht solange es anliegt.",
+          "Beim Auslösen drückt der Astral-Kolben den Block auf jeder seiner sechs Seiten ein Feld weg; der Nihil-Kolben holt auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich. Genau ein Block je Seite, nie eine Kette: Ist das Zielfeld weder Luft noch ersetzbar oder steht dort eine Flüssigkeitsquelle, tut diese Seite nichts. Block-Entities, unzerstörbare Blöcke, Kolben, End-Signalblöcke, zweiteilige Blöcke, Flüssigkeiten, Blöcke, die an einem Kolben brechen oder ihn verweigern, und der Tag simplebuilding:end_piston_immovable bleiben stehen; glasierte Keramik wird gedrückt, aber nicht gezogen. Ein Block bewegt sich höchstens einmal pro Spieltick, egal wie viele End-Kolben auslösen.",
+          "server.machines.endPistonCooldownTicks (Standard 8, begrenzt auf 4–100) ist die Wartezeit nach dem Auslösen. server.features.endPistons (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet tun die Kolben nichts und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
       }
     },
@@ -3644,6 +3656,21 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_piston",
+      "name": {
+        "en_us": "Astral Piston",
+        "de_de": "Astral-Kolben"
+      },
+      "texture": "assets/textures/block/astral_piston.png",
+      "craftedBy": [
+        "simplebuilding:astral_piston"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_piston.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_purpur_block",
       "name": {
         "en_us": "Astral Purpur Block",
@@ -3671,6 +3698,7 @@
         "simplebuilding:astral_redstone"
       ],
       "usedIn": [
+        "simplebuilding:astral_piston",
         "simplebuilding:astralit_lamp",
         "simplebuilding:astralit_switch"
       ],
@@ -13890,6 +13918,21 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_piston",
+      "name": {
+        "en_us": "Nihil Piston",
+        "de_de": "Nihil-Kolben"
+      },
+      "texture": "assets/textures/block/nihil_piston.png",
+      "craftedBy": [
+        "simplebuilding:nihil_piston"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_piston.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihil_purpur_block",
       "name": {
         "en_us": "Nihil Purpur Block",
@@ -13917,6 +13960,7 @@
         "simplebuilding:nihil_redstone"
       ],
       "usedIn": [
+        "simplebuilding:nihil_piston",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:nihilith_switch"
       ],
@@ -14942,6 +14986,7 @@
         "simplebuilding:polished_astralit_from_astralit_block_stonecutting"
       ],
       "usedIn": [
+        "simplebuilding:astral_piston",
         "simplebuilding:astralit_brick_slab_from_polished_astralit_stonecutting",
         "simplebuilding:astralit_brick_stairs_from_polished_astralit_stonecutting",
         "simplebuilding:astralit_brick_wall_from_polished_astralit_stonecutting",
@@ -15195,6 +15240,7 @@
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_polished_nihilith_stonecutting",
+        "simplebuilding:nihil_piston",
         "simplebuilding:nihilith_brick_slab_from_polished_nihilith_stonecutting",
         "simplebuilding:nihilith_brick_stairs_from_polished_nihilith_stonecutting",
         "simplebuilding:nihilith_brick_wall_from_polished_nihilith_stonecutting",
@@ -18232,6 +18278,25 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_piston",
+      "name": {
+        "en_us": "Astral Piston",
+        "de_de": "Astral-Kolben"
+      },
+      "texture": "assets/textures/block/astral_piston.png",
+      "craftedBy": [
+        "simplebuilding:astral_piston"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_piston.png",
+      "lootTable": "simplebuilding:blocks/astral_piston",
+      "drops": [
+        "simplebuilding:astral_piston"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_purpur_block",
       "name": {
         "en_us": "Astral Purpur Block",
@@ -18263,6 +18328,7 @@
         "simplebuilding:astral_redstone"
       ],
       "usedIn": [
+        "simplebuilding:astral_piston",
         "simplebuilding:astralit_lamp",
         "simplebuilding:astralit_switch"
       ],
@@ -24207,6 +24273,25 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_piston",
+      "name": {
+        "en_us": "Nihil Piston",
+        "de_de": "Nihil-Kolben"
+      },
+      "texture": "assets/textures/block/nihil_piston.png",
+      "craftedBy": [
+        "simplebuilding:nihil_piston"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_piston.png",
+      "lootTable": "simplebuilding:blocks/nihil_piston",
+      "drops": [
+        "simplebuilding:nihil_piston"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihil_purpur_block",
       "name": {
         "en_us": "Nihil Purpur Block",
@@ -24238,6 +24323,7 @@
         "simplebuilding:nihil_redstone"
       ],
       "usedIn": [
+        "simplebuilding:nihil_piston",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:nihilith_switch"
       ],
@@ -25009,6 +25095,7 @@
         "simplebuilding:polished_astralit_from_astralit_block_stonecutting"
       ],
       "usedIn": [
+        "simplebuilding:astral_piston",
         "simplebuilding:astralit_brick_slab_from_polished_astralit_stonecutting",
         "simplebuilding:astralit_brick_stairs_from_polished_astralit_stonecutting",
         "simplebuilding:astralit_brick_wall_from_polished_astralit_stonecutting",
@@ -25306,6 +25393,7 @@
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_polished_nihilith_stonecutting",
+        "simplebuilding:nihil_piston",
         "simplebuilding:nihilith_brick_slab_from_polished_nihilith_stonecutting",
         "simplebuilding:nihilith_brick_stairs_from_polished_nihilith_stonecutting",
         "simplebuilding:nihilith_brick_wall_from_polished_nihilith_stonecutting",
@@ -28393,6 +28481,66 @@
           {
             "id": "simplebuilding:astralit_dust",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_piston",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_piston",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_piston.json",
+      "ingredients": [
+        "minecraft:piston",
+        "simplebuilding:astral_redstone",
+        "simplebuilding:polished_astralit"
+      ],
+      "pattern": [
+        "PRP",
+        "RKR",
+        "PRP"
+      ],
+      "key": {
+        "K": [
+          "minecraft:piston"
+        ],
+        "P": [
+          "simplebuilding:polished_astralit"
+        ],
+        "R": [
+          "simplebuilding:astral_redstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 18
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 4
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 3
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.75
           }
         ]
       }
@@ -42406,6 +42554,70 @@
       }
     },
     {
+      "id": "simplebuilding:nihil_piston",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_piston",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_piston.json",
+      "ingredients": [
+        "minecraft:sticky_piston",
+        "simplebuilding:nihil_redstone",
+        "simplebuilding:polished_nihilith"
+      ],
+      "pattern": [
+        "PRP",
+        "RKR",
+        "PRP"
+      ],
+      "key": {
+        "K": [
+          "minecraft:sticky_piston"
+        ],
+        "P": [
+          "simplebuilding:polished_nihilith"
+        ],
+        "R": [
+          "simplebuilding:nihil_redstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 18
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 4
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 3
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:slime_ball",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.75
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nihil_purpur_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -54713,6 +54925,22 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_end_stone.json"
     },
     {
+      "id": "simplebuilding:blocks/astral_piston",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_piston"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_piston.json"
+    },
+    {
       "id": "simplebuilding:blocks/astral_purpur_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -56353,6 +56581,22 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_end_stone.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_piston",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_piston"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_piston.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_purpur_block",
@@ -61263,6 +61507,37 @@
   ],
   "tags": [
     {
+      "id": "simplebuilding:block/end_piston_immovable",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:end_portal_frame",
+          "required": true
+        },
+        {
+          "id": "minecraft:reinforced_deepslate",
+          "required": true
+        },
+        {
+          "id": "minecraft:bedrock",
+          "required": true
+        },
+        {
+          "id": "minecraft:ender_chest",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_vault",
+          "required": true
+        },
+        {
+          "id": "#simplebuilding:piston_breachable_extra",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/tags/block/end_piston_immovable.json"
+    },
+    {
       "id": "simplebuilding:block/piston_breach_immune",
       "replace": false,
       "values": [
@@ -65605,6 +65880,26 @@
       "reload": "recipes",
       "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.features.endPistons",
+      "shortName": "endPistons",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "End Pistons",
+      "labelDe": "End-Kolben",
+      "tooltip": "Astral and Nihil pistons move blocks.\nRecipes update on datapack reload.\nDefault: true.",
+      "tooltipDe": "Astral- und Nihil-Kolben bewegen Bloecke.\nRezepte nach Datenpaket-Neuladen.\nStandard: true."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.astralVault",
       "shortName": "astralVault",
       "type": "boolean",
@@ -66667,6 +66962,29 @@
       "labelDe": "End-Signalreichweite (1–15)",
       "tooltip": "Maximum redstone segments per channel,\nlimited to 1-15. Default: 15.",
       "tooltipDe": "Maximale Redstone-Segmente pro Kanal,\nbegrenzt auf 1-15. Standard: 15."
+    },
+    {
+      "range": [
+        4.0,
+        100.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.machines.endPistonCooldownTicks",
+      "shortName": "endPistonCooldownTicks",
+      "type": "int",
+      "default": "8",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "End Piston Cooldown (4–100)",
+      "labelDe": "End-Kolben-Abklingzeit (4–100)",
+      "tooltip": "Ticks a piston waits after firing,\nlimited to 4-100. Default: 8.",
+      "tooltipDe": "Ticks Wartezeit nach dem Ausloesen,\nbegrenzt auf 4-100. Standard: 8."
     },
     {
       "range": [
@@ -91136,14 +91454,14 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 235,
-    "blocks": 197,
-    "recipes": 601,
-    "lootTables": 195,
+    "items": 237,
+    "blocks": 199,
+    "recipes": 603,
+    "lootTables": 197,
     "trades": 20,
     "enchantments": 19,
-    "tags": 47,
-    "config": 192,
+    "tags": 48,
+    "config": 194,
     "inWorld": 454,
     "advancements": 123,
     "features": 44,
