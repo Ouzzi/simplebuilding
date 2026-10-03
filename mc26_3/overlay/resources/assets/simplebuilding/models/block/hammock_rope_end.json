@@ -1,0 +1,294 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "#rope",
+    "rope": "simplebuilding:block/hammock_rope"
+  },
+  "elements": [
+    {
+      "name": "rope_west",
+      "from": [
+        1,
+        -6,
+        0.5
+      ],
+      "to": [
+        2,
+        9,
+        1.5
+      ],
+      "rotation": {
+        "origin": [
+          1.5,
+          -6,
+          1
+        ],
+        "axis": "z",
+        "angle": -22.5
+      },
+      "faces": {
+        "north": {
+          "texture": "#rope",
+          "uv": [
+            7,
+            0,
+            8,
+            15
+          ]
+        },
+        "east": {
+          "texture": "#rope",
+          "uv": [
+            9,
+            0,
+            10,
+            15
+          ]
+        },
+        "south": {
+          "texture": "#rope",
+          "uv": [
+            8,
+            0,
+            9,
+            15
+          ]
+        },
+        "west": {
+          "texture": "#rope",
+          "uv": [
+            10,
+            0,
+            11,
+            15
+          ]
+        },
+        "up": {
+          "texture": "#rope",
+          "uv": [
+            7,
+            0,
+            8,
+            1
+          ]
+        },
+        "down": {
+          "texture": "#rope",
+          "uv": [
+            8,
+            0,
+            9,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "name": "rope_east",
+      "from": [
+        14,
+        -6,
+        0.5
+      ],
+      "to": [
+        15,
+        9,
+        1.5
+      ],
+      "rotation": {
+        "origin": [
+          14.5,
+          -6,
+          1
+        ],
+        "axis": "z",
+        "angle": 22.5
+      },
+      "faces": {
+        "north": {
+          "texture": "#rope",
+          "uv": [
+            7,
+            0,
+            8,
+            15
+          ]
+        },
+        "east": {
+          "texture": "#rope",
+          "uv": [
+            9,
+            0,
+            10,
+            15
+          ]
+        },
+        "south": {
+          "texture": "#rope",
+          "uv": [
+            8,
+            0,
+            9,
+            15
+          ]
+        },
+        "west": {
+          "texture": "#rope",
+          "uv": [
+            10,
+            0,
+            11,
+            15
+          ]
+        },
+        "up": {
+          "texture": "#rope",
+          "uv": [
+            7,
+            0,
+            8,
+            1
+          ]
+        },
+        "down": {
+          "texture": "#rope",
+          "uv": [
+            8,
+            0,
+            9,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "name": "knot",
+      "from": [
+        7,
+        6.5,
+        0
+      ],
+      "to": [
+        9,
+        9,
+        2.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rope",
+          "uv": [
+            4,
+            4,
+            6,
+            6
+          ]
+        },
+        "east": {
+          "texture": "#rope",
+          "uv": [
+            4,
+            4,
+            6,
+            6
+          ]
+        },
+        "south": {
+          "texture": "#rope",
+          "uv": [
+            4,
+            4,
+            6,
+            6
+          ]
+        },
+        "west": {
+          "texture": "#rope",
+          "uv": [
+            4,
+            4,
+            6,
+            6
+          ]
+        },
+        "up": {
+          "texture": "#rope",
+          "uv": [
+            4,
+            4,
+            6,
+            6
+          ]
+        },
+        "down": {
+          "texture": "#rope",
+          "uv": [
+            4,
+            4,
+            6,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "name": "tie",
+      "from": [
+        7.5,
+        7.25,
+        -6
+      ],
+      "to": [
+        8.5,
+        8.25,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#rope",
+          "uv": [
+            7,
+            7,
+            8,
+            8
+          ]
+        },
+        "east": {
+          "texture": "#rope",
+          "uv": [
+            0,
+            7,
+            6,
+            8
+          ]
+        },
+        "west": {
+          "texture": "#rope",
+          "uv": [
+            0,
+            8,
+            6,
+            9
+          ]
+        },
+        "up": {
+          "texture": "#rope",
+          "uv": [
+            7,
+            0,
+            8,
+            6
+          ]
+        },
+        "down": {
+          "texture": "#rope",
+          "uv": [
+            8,
+            0,
+            9,
+            6
+          ]
+        }
+      }
+    }
+  ]
+}

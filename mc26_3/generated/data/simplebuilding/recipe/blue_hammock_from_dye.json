@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "hammock_dye",
+  "ingredients": [
+    "minecraft:blue_dye",
+    [
+      "simplebuilding:white_hammock",
+      "simplebuilding:light_gray_hammock",
+      "simplebuilding:gray_hammock",
+      "simplebuilding:black_hammock",
+      "simplebuilding:brown_hammock",
+      "simplebuilding:red_hammock",
+      "simplebuilding:orange_hammock",
+      "simplebuilding:yellow_hammock",
+      "simplebuilding:lime_hammock",
+      "simplebuilding:green_hammock",
+      "simplebuilding:cyan_hammock",
+      "simplebuilding:light_blue_hammock",
+      "simplebuilding:purple_hammock",
+      "simplebuilding:magenta_hammock",
+      "simplebuilding:pink_hammock"
+    ]
+  ],
+  "result": {
+    "id": "simplebuilding:blue_hammock"
+  }
+}

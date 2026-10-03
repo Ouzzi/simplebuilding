@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "simplebuilding:orange_hammock",
+            "state": {
+              "part": "head"
+            }
+          },
+          "name": "simplebuilding:orange_hammock"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

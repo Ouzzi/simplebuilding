@@ -66,6 +66,11 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         if (ModBlocks.GOLD_ROD != null) dropSelf(ModBlocks.GOLD_ROD);
         if (ModBlocks.NETHERITE_ROD != null) dropSelf(ModBlocks.NETHERITE_ROD);
         if (ModBlocks.ENDERITE_ROD != null) dropSelf(ModBlocks.ENDERITE_ROD);
+        // Haengematten wie Betten: nur das Kopfteil des Tuchs gibt das Item (die anderen Teile fallen mit).
+        for (net.minecraft.world.level.block.Block hammock : ModBlocks.HAMMOCKS) {
+            add(hammock, createSinglePropConditionTable(hammock, com.simplebuilding.blocks.custom.HammockBlock.PART,
+                    net.minecraft.world.level.block.state.properties.BedPart.HEAD));
+        }
         dropSelf(ModBlocks.CRACKED_DIAMOND_BLOCK);
 
         dropSelf(ModBlocks.REINFORCED_HOPPER);

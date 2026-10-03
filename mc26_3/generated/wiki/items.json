@@ -16,13 +16,16 @@
     "simplebuilding:astralit_switch",
     "simplebuilding:auto_smither",
     "simplebuilding:backpack",
+    "simplebuilding:black_hammock",
     "simplebuilding:blackstone_quartz_checker",
     "simplebuilding:blaze_head",
     "simplebuilding:blaze_wall_head",
+    "simplebuilding:blue_hammock",
     "simplebuilding:bogged_skull",
     "simplebuilding:bogged_wall_skull",
     "simplebuilding:breeze_head",
     "simplebuilding:breeze_wall_head",
+    "simplebuilding:brown_hammock",
     "simplebuilding:cave_spider_head",
     "simplebuilding:cave_spider_wall_head",
     "simplebuilding:chiseled_astralit_bricks",
@@ -32,6 +35,7 @@
     "simplebuilding:construction_light",
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_diamond_block",
+    "simplebuilding:cyan_hammock",
     "simplebuilding:deepslate_sage_ore",
     "simplebuilding:diamond_pressure_plate",
     "simplebuilding:dimensional_scrap",
@@ -71,6 +75,9 @@
     "simplebuilding:fine_elytra_pad",
     "simplebuilding:flypad",
     "simplebuilding:gold_rod",
+    "simplebuilding:gray_hammock",
+    "simplebuilding:green_hammock",
+    "simplebuilding:hammock_rope",
     "simplebuilding:husk_head",
     "simplebuilding:husk_wall_head",
     "simplebuilding:infused_potion_pad",
@@ -79,6 +86,10 @@
     "simplebuilding:launchpad",
     "simplebuilding:levitating_gravel",
     "simplebuilding:levitating_sand",
+    "simplebuilding:light_blue_hammock",
+    "simplebuilding:light_gray_hammock",
+    "simplebuilding:lime_hammock",
+    "simplebuilding:magenta_hammock",
     "simplebuilding:nether_dimensional_scrap",
     "simplebuilding:netherite_backpack",
     "simplebuilding:netherite_blast_furnace",
@@ -108,7 +119,9 @@
     "simplebuilding:nihilith_pillar",
     "simplebuilding:nihilith_quartz_checker",
     "simplebuilding:nihilith_switch",
+    "simplebuilding:orange_hammock",
     "simplebuilding:oxidized_copper_pressure_plate",
+    "simplebuilding:pink_hammock",
     "simplebuilding:placed_blueprint",
     "simplebuilding:placed_bundle",
     "simplebuilding:placed_egg",
@@ -131,7 +144,9 @@
     "simplebuilding:polished_nihilith_stairs",
     "simplebuilding:polished_nihilith_wall",
     "simplebuilding:potion_pad",
+    "simplebuilding:purple_hammock",
     "simplebuilding:purpur_quartz_checker",
+    "simplebuilding:red_hammock",
     "simplebuilding:reinforced_backpack",
     "simplebuilding:reinforced_blast_furnace",
     "simplebuilding:reinforced_chest",
@@ -168,7 +183,9 @@
     "simplebuilding:waxed_exposed_copper_pressure_plate",
     "simplebuilding:waxed_oxidized_copper_pressure_plate",
     "simplebuilding:waxed_weathered_copper_pressure_plate",
-    "simplebuilding:weathered_copper_pressure_plate"
+    "simplebuilding:weathered_copper_pressure_plate",
+    "simplebuilding:white_hammock",
+    "simplebuilding:yellow_hammock"
   ],
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
   "items": [
@@ -233,10 +250,18 @@
       "id": "simplebuilding:basic_upgrade_template"
     },
     {
+      "id": "simplebuilding:black_hammock",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:blackstone_quartz_checker"
     },
     {
       "id": "simplebuilding:blaze_head"
+    },
+    {
+      "id": "simplebuilding:blue_hammock",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:blueprint",
@@ -247,6 +272,10 @@
     },
     {
       "id": "simplebuilding:breeze_head"
+    },
+    {
+      "id": "simplebuilding:brown_hammock",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:cave_spider_head"
@@ -316,6 +345,10 @@
     },
     {
       "id": "simplebuilding:creative_spacer",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:cyan_hammock",
       "maxStackSize": 1
     },
     {
@@ -685,6 +718,14 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:gray_hammock",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:green_hammock",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:guide_book",
       "maxStackSize": 1
     },
@@ -755,6 +796,22 @@
     },
     {
       "id": "simplebuilding:levitating_sand"
+    },
+    {
+      "id": "simplebuilding:light_blue_hammock",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:light_gray_hammock",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:lime_hammock",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:magenta_hammock",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:magnet",
@@ -1013,7 +1070,15 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:orange_hammock",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:oxidized_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:pink_hammock",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:polished_astralit"
@@ -1071,6 +1136,10 @@
       "id": "simplebuilding:pulsating_trim_template"
     },
     {
+      "id": "simplebuilding:purple_hammock",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:purpur_quartz_checker"
     },
     {
@@ -1080,6 +1149,10 @@
     },
     {
       "id": "simplebuilding:raw_enderite"
+    },
+    {
+      "id": "simplebuilding:red_hammock",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:reinforced_backpack",
@@ -1245,6 +1318,14 @@
     },
     {
       "id": "simplebuilding:weathered_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:white_hammock",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:yellow_hammock",
+      "maxStackSize": 1
     }
   ],
   "note": "Aus der Item-Registry erzeugt (gradlew runDatagen) - nicht von Hand aendern.",

@@ -181,6 +181,41 @@ public class ModBlocks {
             .mapColor(MapColor.COLOR_BLACK).forceSolidOn().requiresCorrectToolForDrops().strength(50.0F, 1200.0F)
             .sound(SoundType.NETHERITE_BLOCK).noOcclusion())) : null;
 
+    // Haengematten (2026-10-02, McVersion.HAMMOCK): 16 Farben wie Betten, haengen zwischen zwei Ankern (HammockLayout).
+    // Untere Lage = Tuch, obere = Seile; nur das untere Kopfteil hat Beute (das Item). Bei 3 Bloecken Abstand
+    // ueberbrueckt das Seilstueck (ohne Item/Beute) den Rest bis zum Kopf-Anker.
+    public static final Block HAMMOCK_ROPE = McVersion.HAMMOCK ? registerBlock("hammock_rope", s -> new com.simplebuilding.blocks.custom.HammockRopeBlock(s
+            .strength(0.2F).sound(SoundType.WOOL).noCollision().noOcclusion().noLootTable().mapColor(MapColor.WOOL)
+            .pushReaction(McVersion.PUSH_DESTROYS))) : null;
+    public static final Block WHITE_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.WHITE);
+    public static final Block ORANGE_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.ORANGE);
+    public static final Block MAGENTA_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.MAGENTA);
+    public static final Block LIGHT_BLUE_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.LIGHT_BLUE);
+    public static final Block YELLOW_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.YELLOW);
+    public static final Block LIME_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.LIME);
+    public static final Block PINK_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.PINK);
+    public static final Block GRAY_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.GRAY);
+    public static final Block LIGHT_GRAY_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.LIGHT_GRAY);
+    public static final Block CYAN_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.CYAN);
+    public static final Block PURPLE_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.PURPLE);
+    public static final Block BLUE_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.BLUE);
+    public static final Block BROWN_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.BROWN);
+    public static final Block GREEN_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.GREEN);
+    public static final Block RED_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.RED);
+    public static final Block BLACK_HAMMOCK = hammock(net.minecraft.world.item.DyeColor.BLACK);
+    /** Alle Haengematten in der Farbreihenfolge der Kreativ-Tabs (wie Vanillas Betten); leer ohne McVersion.HAMMOCK. */
+    public static final List<Block> HAMMOCKS = McVersion.HAMMOCK ? List.of(WHITE_HAMMOCK, LIGHT_GRAY_HAMMOCK, GRAY_HAMMOCK,
+            BLACK_HAMMOCK, BROWN_HAMMOCK, RED_HAMMOCK, ORANGE_HAMMOCK, YELLOW_HAMMOCK, LIME_HAMMOCK, GREEN_HAMMOCK, CYAN_HAMMOCK,
+            LIGHT_BLUE_HAMMOCK, BLUE_HAMMOCK, PURPLE_HAMMOCK, MAGENTA_HAMMOCK, PINK_HAMMOCK) : List.of();
+
+    private static Block hammock(net.minecraft.world.item.DyeColor color) {
+        if (!McVersion.HAMMOCK) {
+            return null;
+        }
+        return registerBlock(color.getSerializedName() + "_hammock", s -> new com.simplebuilding.blocks.custom.HammockBlock(color, s
+                .strength(0.2F).sound(SoundType.WOOL).noOcclusion().mapColor(color.getMapColor())
+                .pushReaction(McVersion.PUSH_DESTROYS)));
+    }
     // --- 7. ABGESTELLTES BUENDEL ---
     // Schleichen + Rechtsklick mit einem Buendel auf die Oberseite eines Blocks (PlacedBundles): ein
     // 3D-Buendel je Stufe. Kein Item - das Buendel samt Inhalt liegt in der Block-Entity und faellt

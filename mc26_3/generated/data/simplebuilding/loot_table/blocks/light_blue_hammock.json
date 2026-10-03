@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "simplebuilding:light_blue_hammock",
+            "state": {
+              "part": "head"
+            }
+          },
+          "name": "simplebuilding:light_blue_hammock"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

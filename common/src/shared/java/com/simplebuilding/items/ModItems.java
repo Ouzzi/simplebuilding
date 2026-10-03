@@ -284,6 +284,30 @@ public class ModItems {
     /** Goldstab (2026-10-02): Blitzableiter aus Gold, zieht Blitze in 64 Bloecken an. */
     public static final Item GOLD_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
             ? registerItem("gold_rod", settings -> new BlockItem(ModBlocks.GOLD_ROD, settings)) : null;
+    // Haengematten (2026-10-02, McVersion.HAMMOCK): HammockItem haengt alle Bloecke auf einmal auf.
+    public static final Item WHITE_HAMMOCK = hammockItem(ModBlocks.WHITE_HAMMOCK);
+    public static final Item ORANGE_HAMMOCK = hammockItem(ModBlocks.ORANGE_HAMMOCK);
+    public static final Item MAGENTA_HAMMOCK = hammockItem(ModBlocks.MAGENTA_HAMMOCK);
+    public static final Item LIGHT_BLUE_HAMMOCK = hammockItem(ModBlocks.LIGHT_BLUE_HAMMOCK);
+    public static final Item YELLOW_HAMMOCK = hammockItem(ModBlocks.YELLOW_HAMMOCK);
+    public static final Item LIME_HAMMOCK = hammockItem(ModBlocks.LIME_HAMMOCK);
+    public static final Item PINK_HAMMOCK = hammockItem(ModBlocks.PINK_HAMMOCK);
+    public static final Item GRAY_HAMMOCK = hammockItem(ModBlocks.GRAY_HAMMOCK);
+    public static final Item LIGHT_GRAY_HAMMOCK = hammockItem(ModBlocks.LIGHT_GRAY_HAMMOCK);
+    public static final Item CYAN_HAMMOCK = hammockItem(ModBlocks.CYAN_HAMMOCK);
+    public static final Item PURPLE_HAMMOCK = hammockItem(ModBlocks.PURPLE_HAMMOCK);
+    public static final Item BLUE_HAMMOCK = hammockItem(ModBlocks.BLUE_HAMMOCK);
+    public static final Item BROWN_HAMMOCK = hammockItem(ModBlocks.BROWN_HAMMOCK);
+    public static final Item GREEN_HAMMOCK = hammockItem(ModBlocks.GREEN_HAMMOCK);
+    public static final Item RED_HAMMOCK = hammockItem(ModBlocks.RED_HAMMOCK);
+    public static final Item BLACK_HAMMOCK = hammockItem(ModBlocks.BLACK_HAMMOCK);
+    /** Alle Haengematten in der Farbreihenfolge der Kreativ-Tabs (wie Vanillas Betten); leer ohne McVersion.HAMMOCK. */
+    public static final List<Item> HAMMOCKS = ModBlocks.HAMMOCKS.stream().map(net.minecraft.world.level.block.Block::asItem).toList();
+
+    private static Item hammockItem(net.minecraft.world.level.block.Block block) {
+        return block == null ? null : registerItem(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath(),
+                settings -> new com.simplebuilding.items.custom.HammockItem(block, settings.stacksTo(1)));
+    }
     /** Diamantstab (2026-10-02): Item wie die Lohenrute, Pfeilschaft; drei Diamanten hin, drei zurueck. */
     public static final Item DIAMOND_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
             ? registerItem("diamond_rod", settings -> new Item(settings)) : null;
