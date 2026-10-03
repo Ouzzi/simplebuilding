@@ -61,6 +61,13 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("end_systems_game_test_channels_stay_isolated_and_stop_at_fifteen", EndSystemsTests::channelsStayIsolatedAndStopAtFifteen).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_matching_lamps_and_config_limits", EndSystemsTests::matchingLampsAndConfigLimits).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_powder_connects_like_redstone_wire", EndSystemsTests::powderConnectsLikeRedstoneWire).maxTicks(220).build(),
+            GameTestSpec.named("end_systems_game_test_piston_pushes_all_six_at_once", EndSystemsTests::pistonPushesAllSixAtOnce).maxTicks(100).build(),
+            GameTestSpec.named("end_systems_game_test_piston_never_chains", EndSystemsTests::pistonNeverChains).maxTicks(100).build(),
+            GameTestSpec.named("end_systems_game_test_nihil_pulls_across_the_gap", EndSystemsTests::nihilPullsAcrossTheGap).maxTicks(100).build(),
+            GameTestSpec.named("end_systems_game_test_piston_leaves_immovables_alone", EndSystemsTests::pistonLeavesImmovablesAlone).maxTicks(100).build(),
+            GameTestSpec.named("end_systems_game_test_two_pistons_move_one_block_once", EndSystemsTests::twoPistonsMoveOneBlockOnce).maxTicks(100).build(),
+            GameTestSpec.named("end_systems_game_test_piston_fires_on_rising_edge_only", EndSystemsTests::pistonFiresOnRisingEdgeOnly).maxTicks(100).build(),
+            GameTestSpec.named("end_systems_game_test_piston_ignores_vanilla_and_other_channel", EndSystemsTests::pistonIgnoresVanillaAndOtherChannel).maxTicks(100).build(),
             GameTestSpec.named("smoke_game_test_mod_items_are_registered", SmokeTests::modItemsAreRegistered)
                     .build(),
             GameTestSpec.named("test_centre_game_test_every_mod_item_and_block_has_its_place_in_the_test_centre", TestCentreTests::everyModItemAndBlockHasItsPlaceInTheTestCentre)

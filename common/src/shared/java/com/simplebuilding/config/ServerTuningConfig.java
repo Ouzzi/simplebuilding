@@ -74,6 +74,7 @@ public class ServerTuningConfig {
     public void validate() {
         if (features == null) features = new Features();
         if (machines != null) machines.endSignalRange = clamp(machines.endSignalRange, 1, 15);
+        if (machines != null) machines.endPistonCooldownTicks = clamp(machines.endPistonCooldownTicks, 4, 100);
         if (chunkLoaders == null) chunkLoaders = new ChunkLoaders();
         if (dimensionLocks == null) dimensionLocks = new DimensionLocks();
         if (laser == null) laser = new Laser();
@@ -161,6 +162,9 @@ public class ServerTuningConfig {
     public static class Features {
         @ConfigEntry.Gui.Tooltip
         public boolean endSignals = true;
+        /** Astral-/Nihil-Kolben bewegen Bloecke (nur mit endSignals); aus: sie bleiben stehen, Rezepte fallen weg. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean endPistons = true;
         @ConfigEntry.Gui.Tooltip
         public boolean astralVault = true;
         /** Die Verzauberung Luftsprung wirkt (unabhaengig vom Client-Schalter enableDoubleJump). */
@@ -339,6 +343,9 @@ public class ServerTuningConfig {
     public static class Machines {
         @ConfigEntry.Gui.Tooltip
         public int endSignalRange = 15;
+        /** Wartezeit nach dem Ausloesen eines Astral-/Nihil-Kolbens, 4..100 Ticks. */
+        @ConfigEntry.Gui.Tooltip
+        public int endPistonCooldownTicks = 8;
         @ConfigEntry.Gui.Tooltip
         public int reinforcedHopperSpeed = 2;
         @ConfigEntry.Gui.Tooltip

@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 280,
+      "count": 288,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -1803,6 +1803,9 @@ window.WIKI_DATA = {
       "id": "end_building_blocks",
       "related": [
         "simplebuilding:astralit_block",
+        "simplebuilding:veined_astralit",
+        "simplebuilding:crystalline_astralit",
+        "simplebuilding:layered_astralit",
         "simplebuilding:astralit_bricks",
         "simplebuilding:astralit_brick_stairs",
         "simplebuilding:astralit_brick_slab",
@@ -1814,6 +1817,9 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_pillar",
         "simplebuilding:chiseled_astralit_bricks",
         "simplebuilding:nihilith_block",
+        "simplebuilding:veined_nihilith",
+        "simplebuilding:crystalline_nihilith",
+        "simplebuilding:frosted_nihilith",
         "simplebuilding:nihilith_bricks",
         "simplebuilding:nihilith_brick_stairs",
         "simplebuilding:nihilith_brick_slab",
@@ -1856,7 +1862,8 @@ window.WIKI_DATA = {
         "src/main/generated/data/simplebuilding/recipe/astralit_block_from_end_stone.json",
         "src/main/generated/data/simplebuilding/recipe/ender_quartz_block_from_quartz_block.json",
         "src/main/generated/data/simplebuilding/recipe/ender_quartz.json",
-        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java"
+        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
+        "tools/textures/astralit_nihilit_alternates_2026_10_03.py"
       ],
       "en": {
         "title": "End Palettes: Astralit, Nihilit and Ender Quartz",
@@ -1870,7 +1877,8 @@ window.WIKI_DATA = {
           "All blocks: hardness 3, blast resistance 9, a pickaxe is needed for the drop. Astralit blocks emit light level 10, Nihilit and Ender Quartz blocks none.",
           "Pillars can be placed along any axis; a double slab drops two slabs; stairs, slabs and walls are in the vanilla block and item tags of their shape, so the walls connect like any vanilla wall.",
           "Polished, Astral and Nihil End Stone and the Astral and Nihil Purpur Blocks are in the mineable/pickaxe tag as well.",
-          "All of them sit in the creative tab \"SimpleBlocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilit turquoise shards and Ender Quartz veins; the Chiseled Bricks carry a quiet relief emblem in the block's own colors, like vanilla chiseled blocks: a shulker box with its head in the opening, an Enderman eye with a horizontal slit and a dragon eye with a vertical slit."
+          "All of them sit in the creative tab \"SimpleBlocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilit turquoise shards and Ender Quartz veins; the Chiseled Bricks carry a quiet relief emblem in the block's own colors, like vanilla chiseled blocks: a shulker box with its head in the opening, an Enderman eye with a horizontal slit and a dragon eye with a vertical slit.",
+          "Alternative blocks: Astralit has Veined, Crystalline and Layered Astralit, Nihilit has Veined, Crystalline and Frosted Nihilit - the same block with a different pattern, copying the base block's properties (Astralit ones glow too), mined with a pickaxe, each dropping itself. The stonecutter cuts each 1:1 from the base block; 4 in a square make 4 of the next one (Veined -> Crystalline -> Layered/Frosted -> base block). The enderite chisel continues the palette chain past the base block (base -> Veined -> Crystalline -> Layered/Frosted), the spatula walks it back. They sit in their own row of the SimpleBlocks tab under the base block's row."
         ]
       },
       "de": {
@@ -1885,7 +1893,8 @@ window.WIKI_DATA = {
           "Alle Blöcke: Härte 3, Explosionsfestigkeit 9, für den Drop braucht es eine Spitzhacke. Astralit-Blöcke leuchten mit Lichtstufe 10, Nihilit- und Enderquarz-Blöcke gar nicht.",
           "Säulen lassen sich in jeder Achse setzen; eine Doppelstufe lässt zwei Stufen fallen; Treppen, Stufen und Mauern stehen in den Vanilla-Block- und -Item-Tags ihrer Form, die Mauern verbinden sich also wie jede Vanilla-Mauer.",
           "Polierter, Astral- und Nihil-Endstein sowie Astral- und Nihil-Purpurblock stehen ebenfalls im Tag mineable/pickaxe.",
-          "Alle liegen im Kreativ-Tab „SimpleBlocks“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilitsplittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz."
+          "Alle liegen im Kreativ-Tab „SimpleBlocks“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilitsplittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz.",
+          "Alternativblöcke: Astralit hat Geäderten, Kristallinen und Geschichteten Astralit, Nihilit hat Geäderten, Kristallinen und Bereiften Nihilit - derselbe Block mit anderem Muster, mit den Eigenschaften des Grundblocks (Astralit leuchtet auch hier), mit der Spitzhacke abbaubar, jeder droppt sich selbst. Der Steinmetz schneidet jeden 1:1 aus dem Grundblock; 4 im Quadrat ergeben 4 des nächsten (Geädert -> Kristallin -> Geschichtet/Bereift -> Grundblock). Der Enderit-Meißel führt die Palettenkette über den Grundblock hinaus weiter (Grundblock -> Geädert -> Kristallin -> Geschichtet/Bereift), der Spachtel zurück. Sie stehen in einer eigenen Zeile des Tabs „SimpleBlocks“ unter der Zeile des Grundblocks."
         ]
       }
     },
@@ -3428,7 +3437,11 @@ window.WIKI_DATA = {
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
         "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndPistonBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndPistonMoves.java",
+        "mc26_3/generated/data/simplebuilding/recipe/astral_piston.json",
+        "mc26_3/generated/data/simplebuilding/recipe/nihil_piston.json"
       ],
       "related": [
         "simplebuilding:nihil_redstone",
@@ -3436,7 +3449,9 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_switch",
         "simplebuilding:astralit_switch",
         "simplebuilding:nihilith_lamp",
-        "simplebuilding:astralit_lamp"
+        "simplebuilding:astralit_lamp",
+        "simplebuilding:astral_piston",
+        "simplebuilding:nihil_piston"
       ],
       "en": {
         "title": "Isolated End Signals",
@@ -3445,7 +3460,10 @@ window.WIKI_DATA = {
           "A Nihilit Shard or Astralit Dust plus redstone crafts two Nihil Redstone or Astral Redstone, respectively. Matching redstone plus a lever crafts a switch; matching redstone plus a redstone lamp crafts a lamp.",
           "Only horizontal neighbors of the same material exchange signals. Astral Redstone and Nihil Redstone must stand on a sturdy top face. Switches power at most 15 redstone segments; lamps receive but do not relay. No vanilla redstone signal is read or emitted.",
           "Each segment updates every two game ticks. Removing or turning off a source makes the signal decay; closed loops do not retain power. Unloaded chunks are not forced to load.",
-          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access."
+          "The server feature switch disables signals and removes their recipes on datapack reload. server.machines.endSignalRange is clamped to 1–15, including at the runtime access.",
+          "Astral Piston and Nihil Piston: a piston (Nihil: a sticky piston) in the middle, four matching redstone on the edges and four Polished Astralit or Polished Nihilit in the corners. They receive their own channel like a lamp and relay nothing; they fire when the signal switches on, not while it stays on.",
+          "On firing, the Astral Piston pushes the block on each of its six sides one cell away; the Nihil Piston pulls the block two cells away on each side into the cell next to it. Exactly one block per side, never a chain: if the target cell is not air or replaceable, or holds a liquid source, that side does nothing. Block entities, unbreakable blocks, pistons, End signal blocks, two-part blocks, liquids, blocks that break or refuse a piston and the tag simplebuilding:end_piston_immovable stay put; glazed terracotta is pushed but not pulled. A block moves at most once per game tick, however many End pistons fire.",
+          "server.machines.endPistonCooldownTicks (default 8, clamped to 4–100) is the wait after firing. server.features.endPistons (default true) needs server.features.endSignals as well; switched off, the pistons do nothing and their recipes disappear on datapack reload."
         ]
       },
       "de": {
@@ -3455,7 +3473,10 @@ window.WIKI_DATA = {
           "Nihilitsplitter oder Astralitstaub mit Redstone ergibt jeweils zwei Nihil-Redstone oder Astral-Redstone. Passender Redstone mit Hebel ergibt einen Schalter; mit Redstone-Lampe eine Lampe.",
           "Nur horizontale Nachbarn desselben Materials tauschen Signale aus. Astral-Redstone und Nihil-Redstone brauchen eine tragfaehige Oberseite. Schalter versorgen maximal 15 Redstone-Segmente; Lampen empfangen und leiten nicht weiter. Vanilla-Redstone wird weder gelesen noch ausgegeben.",
           "Jedes Segment aktualisiert alle zwei Spielticks. Ohne aktive Quelle klingt das Signal ab; geschlossene Schleifen halten es nicht. Es werden keine Chunks zwangsweise geladen.",
-          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff."
+          "Der serverseitige Schalter deaktiviert Signale und entfernt ihre Rezepte beim Datenpaket-Neuladen. server.machines.endSignalRange wird auf 1–15 begrenzt, auch beim Zugriff.",
+          "Astral-Kolben und Nihil-Kolben: ein Kolben (Nihil: ein klebriger Kolben) in der Mitte, vier passende Redstone an den Kanten und vier Polierter Astralit bzw. Polierter Nihilit in den Ecken. Sie empfangen ihren eigenen Kanal wie eine Lampe und leiten nichts weiter; sie lösen aus, wenn das Signal einschaltet, nicht solange es anliegt.",
+          "Beim Auslösen drückt der Astral-Kolben den Block auf jeder seiner sechs Seiten ein Feld weg; der Nihil-Kolben holt auf jeder Seite den Block im Abstand zwei auf das Feld direkt neben sich. Genau ein Block je Seite, nie eine Kette: Ist das Zielfeld weder Luft noch ersetzbar oder steht dort eine Flüssigkeitsquelle, tut diese Seite nichts. Block-Entities, unzerstörbare Blöcke, Kolben, End-Signalblöcke, zweiteilige Blöcke, Flüssigkeiten, Blöcke, die an einem Kolben brechen oder ihn verweigern, und der Tag simplebuilding:end_piston_immovable bleiben stehen; glasierte Keramik wird gedrückt, aber nicht gezogen. Ein Block bewegt sich höchstens einmal pro Spieltick, egal wie viele End-Kolben auslösen.",
+          "server.machines.endPistonCooldownTicks (Standard 8, begrenzt auf 4–100) ist die Wartezeit nach dem Auslösen. server.features.endPistons (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet tun die Kolben nichts und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
       }
     },
@@ -3630,6 +3651,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_piston",
+      "name": {
+        "en_us": "Astral Piston",
+        "de_de": "Astral-Kolben"
+      },
+      "texture": "assets/textures/block/astral_piston.png",
+      "craftedBy": [
+        "simplebuilding:astral_piston"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_piston.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_purpur_block",
       "name": {
         "en_us": "Astral Purpur Block",
@@ -3657,6 +3693,7 @@ window.WIKI_DATA = {
         "simplebuilding:astral_redstone"
       ],
       "usedIn": [
+        "simplebuilding:astral_piston",
         "simplebuilding:astralit_lamp",
         "simplebuilding:astralit_switch"
       ],
@@ -3744,7 +3781,8 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:astralit_block",
         "simplebuilding:astralit_block_from_astral_end_stone_stonecutting",
-        "simplebuilding:astralit_block_from_end_stone"
+        "simplebuilding:astralit_block_from_end_stone",
+        "simplebuilding:astralit_block_from_layered_astralit"
       ],
       "usedIn": [
         "simplebuilding:astralit_brick_slab_from_astralit_block_stonecutting",
@@ -3753,11 +3791,14 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_bricks_from_astralit_block_stonecutting",
         "simplebuilding:astralit_pillar_from_astralit_block_stonecutting",
         "simplebuilding:chiseled_astralit_bricks_from_astralit_block_stonecutting",
+        "simplebuilding:crystalline_astralit_from_astralit_block_stonecutting",
+        "simplebuilding:layered_astralit_from_astralit_block_stonecutting",
         "simplebuilding:polished_astralit",
         "simplebuilding:polished_astralit_from_astralit_block_stonecutting",
         "simplebuilding:polished_astralit_slab_from_astralit_block_stonecutting",
         "simplebuilding:polished_astralit_stairs_from_astralit_block_stonecutting",
-        "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting"
+        "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting",
+        "simplebuilding:veined_astralit_from_astralit_block_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/astralit_block.png",
@@ -5655,6 +5696,42 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:crystalline_astralit",
+      "name": {
+        "en_us": "Crystalline Astralit",
+        "de_de": "Kristalliner Astralit"
+      },
+      "texture": "assets/textures/block/crystalline_astralit.png",
+      "craftedBy": [
+        "simplebuilding:crystalline_astralit_from_astralit_block_stonecutting",
+        "simplebuilding:crystalline_astralit_from_veined_astralit"
+      ],
+      "usedIn": [
+        "simplebuilding:layered_astralit_from_crystalline_astralit"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/crystalline_astralit.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:crystalline_nihilith",
+      "name": {
+        "en_us": "Crystalline Nihilit",
+        "de_de": "Kristalliner Nihilit"
+      },
+      "texture": "assets/textures/block/crystalline_nihilith.png",
+      "craftedBy": [
+        "simplebuilding:crystalline_nihilith_from_nihilith_block_stonecutting",
+        "simplebuilding:crystalline_nihilith_from_veined_nihilith"
+      ],
+      "usedIn": [
+        "simplebuilding:frosted_nihilith_from_crystalline_nihilith"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/crystalline_nihilith.png",
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:cyan_hammock",
@@ -9323,6 +9400,24 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:frosted_nihilith",
+      "name": {
+        "en_us": "Frosted Nihilit",
+        "de_de": "Bereifter Nihilit"
+      },
+      "texture": "assets/textures/block/frosted_nihilith.png",
+      "craftedBy": [
+        "simplebuilding:frosted_nihilith_from_crystalline_nihilith",
+        "simplebuilding:frosted_nihilith_from_nihilith_block_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:nihilith_block_from_frosted_nihilith"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/frosted_nihilith.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:glowing_trim_template",
       "name": {
         "en_us": "Glowing Armor Trim",
@@ -11182,6 +11277,24 @@ window.WIKI_DATA = {
           ]
         }
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:layered_astralit",
+      "name": {
+        "en_us": "Layered Astralit",
+        "de_de": "Geschichteter Astralit"
+      },
+      "texture": "assets/textures/block/layered_astralit.png",
+      "craftedBy": [
+        "simplebuilding:layered_astralit_from_astralit_block_stonecutting",
+        "simplebuilding:layered_astralit_from_crystalline_astralit"
+      ],
+      "usedIn": [
+        "simplebuilding:astralit_block_from_layered_astralit"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/layered_astralit.png",
       "hasCustomBehaviour": false
     },
     {
@@ -13700,6 +13813,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_piston",
+      "name": {
+        "en_us": "Nihil Piston",
+        "de_de": "Nihil-Kolben"
+      },
+      "texture": "assets/textures/block/nihil_piston.png",
+      "craftedBy": [
+        "simplebuilding:nihil_piston"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_piston.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihil_purpur_block",
       "name": {
         "en_us": "Nihil Purpur Block",
@@ -13727,6 +13855,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_redstone"
       ],
       "usedIn": [
+        "simplebuilding:nihil_piston",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:nihilith_switch"
       ],
@@ -13771,10 +13900,13 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:nihilith_block",
         "simplebuilding:nihilith_block_from_end_stone",
+        "simplebuilding:nihilith_block_from_frosted_nihilith",
         "simplebuilding:nihilith_block_from_nihil_end_stone_stonecutting"
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_nihilith_block_stonecutting",
+        "simplebuilding:crystalline_nihilith_from_nihilith_block_stonecutting",
+        "simplebuilding:frosted_nihilith_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_brick_slab_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_brick_stairs_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_brick_wall_from_nihilith_block_stonecutting",
@@ -13784,7 +13916,8 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_from_nihilith_block_stonecutting",
         "simplebuilding:polished_nihilith_slab_from_nihilith_block_stonecutting",
         "simplebuilding:polished_nihilith_stairs_from_nihilith_block_stonecutting",
-        "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting"
+        "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting",
+        "simplebuilding:veined_nihilith_from_nihilith_block_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/nihilith_block.png",
@@ -14748,6 +14881,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_from_astralit_block_stonecutting"
       ],
       "usedIn": [
+        "simplebuilding:astral_piston",
         "simplebuilding:astralit_brick_slab_from_polished_astralit_stonecutting",
         "simplebuilding:astralit_brick_stairs_from_polished_astralit_stonecutting",
         "simplebuilding:astralit_brick_wall_from_polished_astralit_stonecutting",
@@ -15001,6 +15135,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_polished_nihilith_stonecutting",
+        "simplebuilding:nihil_piston",
         "simplebuilding:nihilith_brick_slab_from_polished_nihilith_stonecutting",
         "simplebuilding:nihilith_brick_stairs_from_polished_nihilith_stonecutting",
         "simplebuilding:nihilith_brick_wall_from_polished_nihilith_stonecutting",
@@ -17698,6 +17833,40 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:veined_astralit",
+      "name": {
+        "en_us": "Veined Astralit",
+        "de_de": "Geäderter Astralit"
+      },
+      "texture": "assets/textures/block/veined_astralit.png",
+      "craftedBy": [
+        "simplebuilding:veined_astralit_from_astralit_block_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:crystalline_astralit_from_veined_astralit"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/veined_astralit.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:veined_nihilith",
+      "name": {
+        "en_us": "Veined Nihilit",
+        "de_de": "Geäderter Nihilit"
+      },
+      "texture": "assets/textures/block/veined_nihilith.png",
+      "craftedBy": [
+        "simplebuilding:veined_nihilith_from_nihilith_block_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:crystalline_nihilith_from_veined_nihilith"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/veined_nihilith.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:velocity_gauge",
       "name": {
         "en_us": "Gauge",
@@ -17955,6 +18124,25 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_piston",
+      "name": {
+        "en_us": "Astral Piston",
+        "de_de": "Astral-Kolben"
+      },
+      "texture": "assets/textures/block/astral_piston.png",
+      "craftedBy": [
+        "simplebuilding:astral_piston"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astral_piston.png",
+      "lootTable": "simplebuilding:blocks/astral_piston",
+      "drops": [
+        "simplebuilding:astral_piston"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_purpur_block",
       "name": {
         "en_us": "Astral Purpur Block",
@@ -17986,6 +18174,7 @@ window.WIKI_DATA = {
         "simplebuilding:astral_redstone"
       ],
       "usedIn": [
+        "simplebuilding:astral_piston",
         "simplebuilding:astralit_lamp",
         "simplebuilding:astralit_switch"
       ],
@@ -18081,7 +18270,8 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:astralit_block",
         "simplebuilding:astralit_block_from_astral_end_stone_stonecutting",
-        "simplebuilding:astralit_block_from_end_stone"
+        "simplebuilding:astralit_block_from_end_stone",
+        "simplebuilding:astralit_block_from_layered_astralit"
       ],
       "usedIn": [
         "simplebuilding:astralit_brick_slab_from_astralit_block_stonecutting",
@@ -18090,11 +18280,14 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_bricks_from_astralit_block_stonecutting",
         "simplebuilding:astralit_pillar_from_astralit_block_stonecutting",
         "simplebuilding:chiseled_astralit_bricks_from_astralit_block_stonecutting",
+        "simplebuilding:crystalline_astralit_from_astralit_block_stonecutting",
+        "simplebuilding:layered_astralit_from_astralit_block_stonecutting",
         "simplebuilding:polished_astralit",
         "simplebuilding:polished_astralit_from_astralit_block_stonecutting",
         "simplebuilding:polished_astralit_slab_from_astralit_block_stonecutting",
         "simplebuilding:polished_astralit_stairs_from_astralit_block_stonecutting",
-        "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting"
+        "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting",
+        "simplebuilding:veined_astralit_from_astralit_block_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/astralit_block.png",
@@ -19351,6 +19544,50 @@ window.WIKI_DATA = {
       "lootTable": "simplebuilding:blocks/cracked_diamond_block",
       "drops": [
         "simplebuilding:cracked_diamond_block"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:crystalline_astralit",
+      "name": {
+        "en_us": "Crystalline Astralit",
+        "de_de": "Kristalliner Astralit"
+      },
+      "texture": "assets/textures/block/crystalline_astralit.png",
+      "craftedBy": [
+        "simplebuilding:crystalline_astralit_from_astralit_block_stonecutting",
+        "simplebuilding:crystalline_astralit_from_veined_astralit"
+      ],
+      "usedIn": [
+        "simplebuilding:layered_astralit_from_crystalline_astralit"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/crystalline_astralit.png",
+      "lootTable": "simplebuilding:blocks/crystalline_astralit",
+      "drops": [
+        "simplebuilding:crystalline_astralit"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:crystalline_nihilith",
+      "name": {
+        "en_us": "Crystalline Nihilit",
+        "de_de": "Kristalliner Nihilit"
+      },
+      "texture": "assets/textures/block/crystalline_nihilith.png",
+      "craftedBy": [
+        "simplebuilding:crystalline_nihilith_from_nihilith_block_stonecutting",
+        "simplebuilding:crystalline_nihilith_from_veined_nihilith"
+      ],
+      "usedIn": [
+        "simplebuilding:frosted_nihilith_from_crystalline_nihilith"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/crystalline_nihilith.png",
+      "lootTable": "simplebuilding:blocks/crystalline_nihilith",
+      "drops": [
+        "simplebuilding:crystalline_nihilith"
       ],
       "hasCustomBehaviour": false
     },
@@ -21443,6 +21680,28 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:frosted_nihilith",
+      "name": {
+        "en_us": "Frosted Nihilit",
+        "de_de": "Bereifter Nihilit"
+      },
+      "texture": "assets/textures/block/frosted_nihilith.png",
+      "craftedBy": [
+        "simplebuilding:frosted_nihilith_from_crystalline_nihilith",
+        "simplebuilding:frosted_nihilith_from_nihilith_block_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:nihilith_block_from_frosted_nihilith"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/frosted_nihilith.png",
+      "lootTable": "simplebuilding:blocks/frosted_nihilith",
+      "drops": [
+        "simplebuilding:frosted_nihilith"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:gold_rod",
       "name": {
         "en_us": "Gold Rod",
@@ -21912,6 +22171,28 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:layered_astralit",
+      "name": {
+        "en_us": "Layered Astralit",
+        "de_de": "Geschichteter Astralit"
+      },
+      "texture": "assets/textures/block/layered_astralit.png",
+      "craftedBy": [
+        "simplebuilding:layered_astralit_from_astralit_block_stonecutting",
+        "simplebuilding:layered_astralit_from_crystalline_astralit"
+      ],
+      "usedIn": [
+        "simplebuilding:astralit_block_from_layered_astralit"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/layered_astralit.png",
+      "lootTable": "simplebuilding:blocks/layered_astralit",
+      "drops": [
+        "simplebuilding:layered_astralit"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -23730,6 +24011,25 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_piston",
+      "name": {
+        "en_us": "Nihil Piston",
+        "de_de": "Nihil-Kolben"
+      },
+      "texture": "assets/textures/block/nihil_piston.png",
+      "craftedBy": [
+        "simplebuilding:nihil_piston"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_piston.png",
+      "lootTable": "simplebuilding:blocks/nihil_piston",
+      "drops": [
+        "simplebuilding:nihil_piston"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihil_purpur_block",
       "name": {
         "en_us": "Nihil Purpur Block",
@@ -23761,6 +24061,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_redstone"
       ],
       "usedIn": [
+        "simplebuilding:nihil_piston",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:nihilith_switch"
       ],
@@ -23809,10 +24110,13 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:nihilith_block",
         "simplebuilding:nihilith_block_from_end_stone",
+        "simplebuilding:nihilith_block_from_frosted_nihilith",
         "simplebuilding:nihilith_block_from_nihil_end_stone_stonecutting"
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_nihilith_block_stonecutting",
+        "simplebuilding:crystalline_nihilith_from_nihilith_block_stonecutting",
+        "simplebuilding:frosted_nihilith_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_brick_slab_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_brick_stairs_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_brick_wall_from_nihilith_block_stonecutting",
@@ -23822,7 +24126,8 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_from_nihilith_block_stonecutting",
         "simplebuilding:polished_nihilith_slab_from_nihilith_block_stonecutting",
         "simplebuilding:polished_nihilith_stairs_from_nihilith_block_stonecutting",
-        "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting"
+        "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting",
+        "simplebuilding:veined_nihilith_from_nihilith_block_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/nihilith_block.png",
@@ -24528,6 +24833,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_from_astralit_block_stonecutting"
       ],
       "usedIn": [
+        "simplebuilding:astral_piston",
         "simplebuilding:astralit_brick_slab_from_polished_astralit_stonecutting",
         "simplebuilding:astralit_brick_stairs_from_polished_astralit_stonecutting",
         "simplebuilding:astralit_brick_wall_from_polished_astralit_stonecutting",
@@ -24825,6 +25131,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_polished_nihilith_stonecutting",
+        "simplebuilding:nihil_piston",
         "simplebuilding:nihilith_brick_slab_from_polished_nihilith_stonecutting",
         "simplebuilding:nihilith_brick_stairs_from_polished_nihilith_stonecutting",
         "simplebuilding:nihilith_brick_wall_from_polished_nihilith_stonecutting",
@@ -27158,6 +27465,48 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:veined_astralit",
+      "name": {
+        "en_us": "Veined Astralit",
+        "de_de": "Geäderter Astralit"
+      },
+      "texture": "assets/textures/block/veined_astralit.png",
+      "craftedBy": [
+        "simplebuilding:veined_astralit_from_astralit_block_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:crystalline_astralit_from_veined_astralit"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/veined_astralit.png",
+      "lootTable": "simplebuilding:blocks/veined_astralit",
+      "drops": [
+        "simplebuilding:veined_astralit"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:veined_nihilith",
+      "name": {
+        "en_us": "Veined Nihilit",
+        "de_de": "Geäderter Nihilit"
+      },
+      "texture": "assets/textures/block/veined_nihilith.png",
+      "craftedBy": [
+        "simplebuilding:veined_nihilith_from_nihilith_block_stonecutting"
+      ],
+      "usedIn": [
+        "simplebuilding:crystalline_nihilith_from_veined_nihilith"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/veined_nihilith.png",
+      "lootTable": "simplebuilding:blocks/veined_nihilith",
+      "drops": [
+        "simplebuilding:veined_nihilith"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:waxed_copper_pressure_plate",
       "name": {
         "en_us": "Waxed Copper Pressure Plate",
@@ -27821,6 +28170,66 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:astral_piston",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_piston",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_piston.json",
+      "ingredients": [
+        "minecraft:piston",
+        "simplebuilding:astral_redstone",
+        "simplebuilding:polished_astralit"
+      ],
+      "pattern": [
+        "PRP",
+        "RKR",
+        "PRP"
+      ],
+      "key": {
+        "K": [
+          "minecraft:piston"
+        ],
+        "P": [
+          "simplebuilding:polished_astralit"
+        ],
+        "R": [
+          "simplebuilding:astral_redstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 18
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 4
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 3
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.75
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:astral_purpur_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -28081,6 +28490,42 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:astralit_dust",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_block_from_layered_astralit",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_block",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/astralit_block_from_layered_astralit.json",
+      "ingredients": [
+        "simplebuilding:layered_astralit"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:layered_astralit"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:veined_astralit",
+            "count": 4
           }
         ]
       }
@@ -31633,6 +32078,142 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:cracked_diamond_block",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:crystalline_astralit_from_astralit_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:crystalline_astralit",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/crystalline_astralit_from_astralit_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:crystalline_astralit_from_veined_astralit",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:crystalline_astralit",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/crystalline_astralit_from_veined_astralit.json",
+      "ingredients": [
+        "simplebuilding:veined_astralit"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:veined_astralit"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:crystalline_nihilith_from_nihilith_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:crystalline_nihilith",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/crystalline_nihilith_from_nihilith_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:crystalline_nihilith_from_veined_nihilith",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:crystalline_nihilith",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/crystalline_nihilith_from_veined_nihilith.json",
+      "ingredients": [
+        "simplebuilding:veined_nihilith"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:veined_nihilith"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -37786,6 +38367,74 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:frosted_nihilith_from_crystalline_nihilith",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:frosted_nihilith",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/frosted_nihilith_from_crystalline_nihilith.json",
+      "ingredients": [
+        "simplebuilding:crystalline_nihilith"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:crystalline_nihilith"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:frosted_nihilith_from_nihilith_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:frosted_nihilith",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/frosted_nihilith_from_nihilith_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:glowing_armor_upgrade_dummy",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -39221,6 +39870,74 @@ window.WIKI_DATA = {
         ],
         "tagExamples": [
           "#simplebuilding:trial_chamber_heads"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:layered_astralit_from_astralit_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:layered_astralit",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/layered_astralit_from_astralit_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:layered_astralit_from_crystalline_astralit",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:layered_astralit",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/layered_astralit_from_crystalline_astralit.json",
+      "ingredients": [
+        "simplebuilding:crystalline_astralit"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:crystalline_astralit"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 16
+          }
         ]
       }
     },
@@ -41435,6 +42152,70 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:nihil_piston",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_piston",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_piston.json",
+      "ingredients": [
+        "minecraft:sticky_piston",
+        "simplebuilding:nihil_redstone",
+        "simplebuilding:polished_nihilith"
+      ],
+      "pattern": [
+        "PRP",
+        "RKR",
+        "PRP"
+      ],
+      "key": {
+        "K": [
+          "minecraft:sticky_piston"
+        ],
+        "P": [
+          "simplebuilding:polished_nihilith"
+        ],
+        "R": [
+          "simplebuilding:nihil_redstone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 18
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 4
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 3
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:slime_ball",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.75
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nihil_purpur_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -41598,6 +42379,42 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_block_from_frosted_nihilith",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_block",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/nihilith_block_from_frosted_nihilith.json",
+      "ingredients": [
+        "simplebuilding:frosted_nihilith"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:frosted_nihilith"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -44421,7 +45238,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:polished_astralit_checker",
         "count": 4
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_astralit_checker.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/polished_astralit_checker.json",
       "ingredients": [
         "minecraft:quartz_block",
         "simplebuilding:polished_astralit"
@@ -44439,6 +45256,7 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -45017,7 +45835,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:polished_ender_quartz_checker",
         "count": 4
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json",
       "ingredients": [
         "minecraft:quartz_block",
         "simplebuilding:polished_ender_quartz"
@@ -45035,6 +45853,7 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -45835,7 +46654,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:polished_nihilith_checker",
         "count": 4
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_nihilith_checker.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/polished_nihilith_checker.json",
       "ingredients": [
         "minecraft:quartz_block",
         "simplebuilding:polished_nihilith"
@@ -45853,6 +46672,7 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -51167,6 +51987,70 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:veined_astralit_from_astralit_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:veined_astralit",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/veined_astralit_from_astralit_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:veined_nihilith_from_nihilith_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:veined_nihilith",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/veined_nihilith_from_nihilith_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:velocity_gauge",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -53615,6 +54499,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_end_stone.json"
     },
     {
+      "id": "simplebuilding:blocks/astral_piston",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_piston"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_piston.json"
+    },
+    {
       "id": "simplebuilding:blocks/astral_purpur_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -54102,6 +55002,38 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_diamond_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/crystalline_astralit",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:crystalline_astralit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crystalline_astralit.json"
+    },
+    {
+      "id": "simplebuilding:blocks/crystalline_nihilith",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:crystalline_nihilith"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crystalline_nihilith.json"
     },
     {
       "id": "simplebuilding:blocks/cyan_hammock",
@@ -54681,6 +55613,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/flypad.json"
     },
     {
+      "id": "simplebuilding:blocks/frosted_nihilith",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:frosted_nihilith"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/frosted_nihilith.json"
+    },
+    {
       "id": "simplebuilding:blocks/gold_rod",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -54807,6 +55755,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/launchpad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/layered_astralit",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:layered_astralit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/layered_astralit.json"
     },
     {
       "id": "simplebuilding:blocks/levitating_gravel",
@@ -55159,6 +56123,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_end_stone.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_piston",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_piston"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_piston.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_purpur_block",
@@ -56183,6 +57163,38 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json"
+    },
+    {
+      "id": "simplebuilding:blocks/veined_astralit",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:veined_astralit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/veined_astralit.json"
+    },
+    {
+      "id": "simplebuilding:blocks/veined_nihilith",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:veined_nihilith"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/veined_nihilith.json"
     },
     {
       "id": "simplebuilding:blocks/waxed_copper_pressure_plate",
@@ -59621,6 +60633,37 @@ window.WIKI_DATA = {
   ],
   "tags": [
     {
+      "id": "simplebuilding:block/end_piston_immovable",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:end_portal_frame",
+          "required": true
+        },
+        {
+          "id": "minecraft:reinforced_deepslate",
+          "required": true
+        },
+        {
+          "id": "minecraft:bedrock",
+          "required": true
+        },
+        {
+          "id": "minecraft:ender_chest",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astral_vault",
+          "required": true
+        },
+        {
+          "id": "#simplebuilding:piston_breachable_extra",
+          "required": true
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/tags/block/end_piston_immovable.json"
+    },
+    {
       "id": "simplebuilding:block/piston_breach_immune",
       "replace": false,
       "values": [
@@ -60003,7 +61046,7 @@ window.WIKI_DATA = {
           "required": true
         }
       ],
-      "source": "mc26_3/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json"
+      "source": "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json"
     },
     {
       "id": "simplebuilding:item/copper_chests",
@@ -63443,6 +64486,21 @@ window.WIKI_DATA = {
       "tooltipDe": "End-Signalkanaele aktivieren. Rezepte nach\nDatenpaket-Neuladen. Standard: true."
     },
     {
+      "name": "server.features.endPistons",
+      "shortName": "endPistons",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "End Pistons",
+      "labelDe": "End-Kolben",
+      "tooltip": "Astral and Nihil pistons move blocks.\nRecipes update on datapack reload.\nDefault: true.",
+      "tooltipDe": "Astral- und Nihil-Kolben bewegen Bloecke.\nRezepte nach Datenpaket-Neuladen.\nStandard: true."
+    },
+    {
       "name": "server.features.astralVault",
       "shortName": "astralVault",
       "type": "boolean",
@@ -64191,6 +65249,21 @@ window.WIKI_DATA = {
       "labelDe": "End-Signalreichweite (1–15)",
       "tooltip": "Maximum redstone segments per channel,\nlimited to 1-15. Default: 15.",
       "tooltipDe": "Maximale Redstone-Segmente pro Kanal,\nbegrenzt auf 1-15. Standard: 15."
+    },
+    {
+      "name": "server.machines.endPistonCooldownTicks",
+      "shortName": "endPistonCooldownTicks",
+      "type": "int",
+      "default": "8",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "End Piston Cooldown (4–100)",
+      "labelDe": "End-Kolben-Abklingzeit (4–100)",
+      "tooltip": "Ticks a piston waits after firing,\nlimited to 4-100. Default: 8.",
+      "tooltipDe": "Ticks Wartezeit nach dem Ausloesen,\nbegrenzt auf 4-100. Standard: 8."
     },
     {
       "name": "server.machines.reinforcedHopperSpeed",
@@ -70443,6 +71516,30 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "id": "chisel/simplebuilding:astralit_block/simplebuilding:veined_astralit",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:astralit_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:veined_astralit",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
         "id": "chisel/simplebuilding:astralit_bricks/simplebuilding:chiseled_astralit_bricks",
         "kind": "chisel",
         "inputs": [
@@ -70568,6 +71665,54 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "id": "chisel/simplebuilding:crystalline_astralit/simplebuilding:layered_astralit",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:crystalline_astralit",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:layered_astralit",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:crystalline_nihilith/simplebuilding:frosted_nihilith",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:crystalline_nihilith",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:frosted_nihilith",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
         "id": "chisel/simplebuilding:ender_quartz_brick_slab/simplebuilding:ender_quartz_slab",
         "kind": "chisel",
         "inputs": [
@@ -70663,6 +71808,30 @@ window.WIKI_DATA = {
         },
         "lines": [
           "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:nihilith_block/simplebuilding:veined_nihilith",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:nihilith_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:veined_nihilith",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
           "26.2",
           "26.3"
         ]
@@ -71013,6 +72182,54 @@ window.WIKI_DATA = {
         },
         "lines": [
           "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:veined_astralit/simplebuilding:crystalline_astralit",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:veined_astralit",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:crystalline_astralit",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:veined_nihilith/simplebuilding:crystalline_nihilith",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:veined_nihilith",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:crystalline_nihilith",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
           "26.2",
           "26.3"
         ]
@@ -76040,6 +77257,54 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "id": "chisel_reverse/simplebuilding:crystalline_astralit/simplebuilding:veined_astralit",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:crystalline_astralit",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:veined_astralit",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:crystalline_nihilith/simplebuilding:veined_nihilith",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:crystalline_nihilith",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:veined_nihilith",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
         "id": "chisel_reverse/simplebuilding:ender_quartz_block/simplebuilding:chiseled_ender_quartz_bricks",
         "kind": "chisel_reverse",
         "inputs": [
@@ -76240,6 +77505,54 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "id": "chisel_reverse/simplebuilding:frosted_nihilith/simplebuilding:crystalline_nihilith",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:frosted_nihilith",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:crystalline_nihilith",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:layered_astralit/simplebuilding:crystalline_astralit",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:layered_astralit",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:crystalline_astralit",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
         "id": "chisel_reverse/simplebuilding:nihilith_block/simplebuilding:chiseled_nihilith_bricks",
         "kind": "chisel_reverse",
         "inputs": [
@@ -76385,6 +77698,54 @@ window.WIKI_DATA = {
         },
         "lines": [
           "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:veined_astralit/simplebuilding:astralit_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:veined_astralit",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:astralit_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:veined_nihilith/simplebuilding:nihilith_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:veined_nihilith",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:nihilith_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
           "26.2",
           "26.3"
         ]
@@ -82111,7 +83472,7 @@ window.WIKI_DATA = {
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/building/checkmate.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/building/checkmate.json"
     },
     {
       "id": "simplebuilding:building/let_there_be_light",
@@ -87629,15 +88990,15 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 226,
-    "blocks": 188,
-    "recipes": 587,
-    "lootTables": 186,
+    "items": 234,
+    "blocks": 196,
+    "recipes": 601,
+    "lootTables": 194,
     "trades": 20,
     "enchantments": 19,
-    "tags": 47,
-    "config": 191,
-    "inWorld": 440,
+    "tags": 48,
+    "config": 194,
+    "inWorld": 452,
     "advancements": 123,
     "features": 44,
     "undocumented": 0,

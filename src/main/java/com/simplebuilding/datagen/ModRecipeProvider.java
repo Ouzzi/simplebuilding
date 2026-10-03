@@ -98,6 +98,22 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     }
                 }
 
+                // Astral-/Nihil-Kolben (2026-10-03): Kolben in der Mitte, Kanal-Redstone an den Kanten, polierter
+                // Stein der Farbe in den Ecken; der Nihil-Kolben zieht und bekommt deshalb den Klebekolben.
+                if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
+                    for (boolean astral : new boolean[]{true, false}) {
+                        shaped(RecipeCategory.REDSTONE, astral ? ModItems.ASTRAL_PISTON : ModItems.NIHIL_PISTON)
+                                .pattern("PRP")
+                                .pattern("RKR")
+                                .pattern("PRP")
+                                .define('P', astral ? ModItems.POLISHED_ASTRALIT : ModItems.POLISHED_NIHILITH)
+                                .define('R', astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE)
+                                .define('K', astral ? Items.PISTON : Items.STICKY_PISTON)
+                                .unlockedBy(getHasName(astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE),
+                                        has(astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE))
+                                .save(output);
+                    }
+                }
                 // Auto-Schmied wie der Crafter: Eisen ringsum, Schmiedetisch in der Mitte, Redstone und Spender unten.
                 if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
                     shaped(RecipeCategory.REDSTONE, ModItems.AUTO_SMITHER)

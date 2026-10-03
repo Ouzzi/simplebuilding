@@ -1295,6 +1295,23 @@ public final class TestCentreSections {
                 for (int x = 1; x <= 15; x++) c.place(x, 0, z, powder);
                 c.place(16, 0, z, lamp);
             }
+            // Astral-/Nihil-Kolben (2026-10-03): Schalter (aus) - Pulver - Kolben auf Obsidian (unbeweglich),
+            // Sandstein drumherum: Astral drueckt die anliegenden weg, Nihil holt die mit einem Feld Luecke heran.
+            for (int lane = 0; lane < 2; lane++) {
+                boolean astral = lane == 0;
+                int z = 9 + lane * 5;
+                for (int x = 0; x <= 6; x++) for (int dz = -2; dz <= 2; dz++) c.place(x, -1, z + dz, Blocks.STONE);
+                c.place(0, 0, z, astral ? ModBlocks.ASTRALIT_SWITCH : ModBlocks.NIHILITH_SWITCH);
+                // Zwei Pulver: das hintere liegt fuer den Nihil-Kolben im Zugabstand, sein Zielfeld ist aber belegt.
+                for (int x = 1; x <= 2; x++) c.place(x, 0, z, astral ? ModBlocks.ASTRAL_REDSTONE : ModBlocks.NIHIL_REDSTONE);
+                c.place(3, -1, z, Blocks.OBSIDIAN);
+                c.place(3, 0, z, astral ? ModBlocks.ASTRAL_PISTON : ModBlocks.NIHIL_PISTON);
+                int gap = astral ? 1 : 2;
+                c.place(3 + gap, 0, z, Blocks.SANDSTONE);
+                c.place(3, gap, z, Blocks.SANDSTONE);
+                c.place(3, 0, z + gap, Blocks.SANDSTONE);
+                c.place(3, 0, z - gap, Blocks.SANDSTONE);
+            }
         }
         int wallZ = 3;
         List<TcCanvas.Line> lines = new ArrayList<>();

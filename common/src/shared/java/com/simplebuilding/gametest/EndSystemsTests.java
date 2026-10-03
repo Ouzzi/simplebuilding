@@ -22,6 +22,8 @@ import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.List;
+
 public final class EndSystemsTests {
     public static void redstoneRecipesYieldTwo(GameTestHelper helper) {
         if (!active(helper)) return;
@@ -239,6 +241,236 @@ public final class EndSystemsTests {
             helper.assertTrue(helper.getBlockState(new BlockPos(2, 1, 3)).getValue(EndSignalBlock.POWER) == 0, "nihil powder took vanilla or astral power");
             helper.succeed();
         });
+    }
+
+    // ----- Astral-/Nihil-Kolben (docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md, Abschnitt 9) -----
+
+    private static final BlockPos PISTON = new BlockPos(3, 3, 3);
+
+    private static int fire(GameTestHelper helper, BlockPos rel, boolean astral) {
+        return com.simplebuilding.blocks.custom.EndPistonMoves.fire(helper.getLevel(), helper.absolutePos(rel), astral);
+    }
+
+    private static boolean isMoving(GameTestHelper helper, BlockPos rel) {
+        return helper.getBlockState(rel).is(Blocks.MOVING_PISTON);
+    }
+
+    /** Stones and moving blocks carrying stone in the room: a move must neither add nor lose one. */
+    private static int stones(GameTestHelper helper) {
+        int count = 0;
+        for (BlockPos rel : BlockPos.betweenClosed(0, 0, 0, 7, 7, 7)) {
+            var state = helper.getBlockState(rel);
+            if (state.is(Blocks.STONE)) count++;
+            else if (state.is(Blocks.MOVING_PISTON)
+                    && helper.getLevel().getBlockEntity(helper.absolutePos(rel)) instanceof net.minecraft.world.level.block.piston.PistonMovingBlockEntity moving
+                    && moving.getMovedState().is(Blocks.STONE)) count++;
+        }
+        return count;
+    }
+
+    private static int droppedItems(GameTestHelper helper) {
+        var corner = Vec3.atLowerCornerOf(helper.absolutePos(BlockPos.ZERO));
+        return helper.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,
+                new net.minecraft.world.phys.AABB(corner.add(-2, -2, -2), corner.add(10, 10, 10))).size();
+    }
+
+    /** The Astral piston pushes all six neighbours one cell, in one call, and nothing further. */
+    public static void pistonPushesAllSixAtOnce(GameTestHelper helper) {
+        if (!active(helper)) return;
+        helper.setBlock(PISTON, ModBlocks.ASTRAL_PISTON);
+        for (Direction d : Direction.values()) helper.setBlock(PISTON.relative(d), Blocks.STONE);
+        helper.assertTrue(fire(helper, PISTON, true) == 6, "astral piston did not move all six neighbours");
+        for (Direction d : Direction.values()) {
+            helper.assertTrue(isMoving(helper, PISTON.relative(d, 2)), "no moving block towards " + d);
+            helper.assertTrue(helper.getBlockState(PISTON.relative(d)).isAir(), "source left behind towards " + d);
+        }
+        helper.runAfterDelay(8, () -> {
+            for (Direction d : Direction.values()) {
+                helper.assertTrue(helper.getBlockState(PISTON.relative(d, 2)).is(Blocks.STONE), "stone did not land towards " + d);
+                helper.assertTrue(helper.getBlockState(PISTON.relative(d)).isAir(), "neighbour cell not empty towards " + d);
+            }
+            helper.assertTrue(helper.getBlockState(PISTON).is(ModBlocks.ASTRAL_PISTON), "the piston itself moved");
+            helper.assertTrue(stones(helper) == 6 && droppedItems(helper) == 0, "stones were duplicated, lost or dropped");
+            helper.succeed();
+        });
+    }
+
+    /** A taken target stops that side: no chain, the block stays; a liquid source is never replaced; grass is. */
+    public static void pistonNeverChains(GameTestHelper helper) {
+        if (!active(helper)) return;
+        helper.setBlock(PISTON, ModBlocks.ASTRAL_PISTON);
+        helper.setBlock(new BlockPos(4, 3, 3), Blocks.STONE);
+        helper.setBlock(new BlockPos(5, 3, 3), Blocks.DIRT);
+        helper.setBlock(new BlockPos(3, 4, 3), Blocks.STONE);
+        helper.setBlock(new BlockPos(3, 5, 3), Blocks.WATER);
+        helper.setBlock(new BlockPos(1, 2, 3), Blocks.DIRT);
+        helper.setBlock(new BlockPos(2, 3, 3), Blocks.STONE);
+        helper.setBlock(new BlockPos(1, 3, 3), Blocks.SHORT_GRASS);
+        helper.assertTrue(fire(helper, PISTON, true) == 1, "only the side towards the grass may move");
+        helper.assertTrue(helper.getBlockState(new BlockPos(4, 3, 3)).is(Blocks.STONE)
+                && helper.getBlockState(new BlockPos(5, 3, 3)).is(Blocks.DIRT)
+                && helper.getBlockState(new BlockPos(6, 3, 3)).isAir(), "a row was pushed (chain)");
+        helper.assertTrue(helper.getBlockState(new BlockPos(3, 4, 3)).is(Blocks.STONE)
+                && helper.getBlockState(new BlockPos(3, 5, 3)).getFluidState().isSource(), "a water source was replaced");
+        helper.assertTrue(isMoving(helper, new BlockPos(1, 3, 3)), "replaceable grass target was not taken");
+        helper.succeed();
+    }
+
+    /** The Nihil piston pulls the block across a one-cell gap; a block already touching it stays. */
+    public static void nihilPullsAcrossTheGap(GameTestHelper helper) {
+        if (!active(helper)) return;
+        helper.setBlock(PISTON, ModBlocks.NIHIL_PISTON);
+        for (Direction d : Direction.values()) {
+            if (d != Direction.EAST) helper.setBlock(PISTON.relative(d, 2), Blocks.STONE);
+        }
+        helper.setBlock(new BlockPos(4, 3, 3), Blocks.DIRT);
+        helper.setBlock(new BlockPos(5, 3, 3), Blocks.STONE);
+        helper.assertTrue(fire(helper, PISTON, false) == 5, "nihil piston did not pull the five gapped blocks");
+        helper.runAfterDelay(8, () -> {
+            for (Direction d : Direction.values()) {
+                if (d == Direction.EAST) continue;
+                helper.assertTrue(helper.getBlockState(PISTON.relative(d)).is(Blocks.STONE), "stone not pulled from " + d);
+                helper.assertTrue(helper.getBlockState(PISTON.relative(d, 2)).isAir(), "stone left at distance two " + d);
+            }
+            helper.assertTrue(helper.getBlockState(new BlockPos(4, 3, 3)).is(Blocks.DIRT)
+                    && helper.getBlockState(new BlockPos(5, 3, 3)).is(Blocks.STONE), "touching block moved or was passed");
+            helper.assertTrue(stones(helper) == 6 && droppedItems(helper) == 0, "stones were duplicated, lost or dropped");
+            helper.succeed();
+        });
+    }
+
+    /**
+     * Obsidian, bedrock, a chest (block entity), a door (two parts, DESTROY), a torch (DESTROY) and a
+     * vanilla piston stay where they are, nothing is broken; glazed terracotta (PUSH_ONLY) is pushed by
+     * the Astral piston but never pulled by the Nihil piston.
+     */
+    public static void pistonLeavesImmovablesAlone(GameTestHelper helper) {
+        if (!active(helper)) return;
+        helper.setBlock(PISTON, ModBlocks.ASTRAL_PISTON);
+        helper.setBlock(new BlockPos(4, 3, 3), Blocks.OBSIDIAN);
+        helper.setBlock(new BlockPos(2, 3, 3), Blocks.CHEST);
+        helper.setBlock(new BlockPos(3, 4, 3), Blocks.BEDROCK);
+        helper.setBlock(new BlockPos(3, 2, 3), Blocks.PISTON);
+        helper.setBlock(new BlockPos(3, 3, 4), Blocks.OAK_DOOR.defaultBlockState());
+        helper.setBlock(new BlockPos(3, 4, 4), Blocks.OAK_DOOR.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.DOUBLE_BLOCK_HALF,
+                        net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER));
+        helper.setBlock(new BlockPos(3, 2, 2), Blocks.STONE);
+        helper.setBlock(new BlockPos(3, 3, 2), Blocks.TORCH);
+        helper.assertTrue(fire(helper, PISTON, true) == 0, "an immovable block was moved");
+        helper.assertTrue(helper.getBlockState(new BlockPos(4, 3, 3)).is(Blocks.OBSIDIAN)
+                && helper.getBlockState(new BlockPos(2, 3, 3)).is(Blocks.CHEST)
+                && helper.getLevel().getBlockEntity(helper.absolutePos(new BlockPos(2, 3, 3))) != null
+                && helper.getBlockState(new BlockPos(3, 4, 3)).is(Blocks.BEDROCK)
+                && helper.getBlockState(new BlockPos(3, 2, 3)).is(Blocks.PISTON)
+                && helper.getBlockState(new BlockPos(3, 3, 4)).is(Blocks.OAK_DOOR)
+                && helper.getBlockState(new BlockPos(3, 4, 4)).is(Blocks.OAK_DOOR)
+                && helper.getBlockState(new BlockPos(3, 3, 2)).is(Blocks.TORCH), "an immovable block changed");
+        helper.assertTrue(droppedItems(helper) == 0, "an immovable block was broken");
+        // PUSH_ONLY: Astral pushes it away, Nihil does not pull it.
+        helper.setBlock(new BlockPos(4, 3, 3), Blocks.GLAZED_TERRACOTTA.white());
+        helper.assertTrue(fire(helper, PISTON, true) == 1 && isMoving(helper, new BlockPos(5, 3, 3)), "astral did not push glazed terracotta");
+        BlockPos nihil = new BlockPos(3, 3, 6);
+        helper.setBlock(nihil, ModBlocks.NIHIL_PISTON);
+        helper.setBlock(new BlockPos(1, 3, 6), Blocks.GLAZED_TERRACOTTA.white());
+        helper.assertTrue(fire(helper, nihil, false) == 0, "nihil pulled glazed terracotta");
+        helper.succeed();
+    }
+
+    /** Two pistons on one block, or on one target, in the same tick: exactly one move, nothing duplicated. */
+    public static void twoPistonsMoveOneBlockOnce(GameTestHelper helper) {
+        if (!active(helper)) return;
+        // Same block: A pushes it east, B pushes it south.
+        helper.setBlock(new BlockPos(1, 2, 2), ModBlocks.ASTRAL_PISTON);
+        helper.setBlock(new BlockPos(2, 2, 1), ModBlocks.ASTRAL_PISTON);
+        helper.setBlock(new BlockPos(2, 2, 2), Blocks.STONE);
+        int first = fire(helper, new BlockPos(1, 2, 2), true) + fire(helper, new BlockPos(2, 2, 1), true);
+        helper.assertTrue(first == 1, "one block moved " + first + " times in one tick");
+        // Same target: A and B push towards (4, 5, 4) from both sides.
+        helper.setBlock(new BlockPos(2, 5, 4), ModBlocks.ASTRAL_PISTON);
+        helper.setBlock(new BlockPos(3, 5, 4), Blocks.STONE);
+        helper.setBlock(new BlockPos(6, 5, 4), ModBlocks.ASTRAL_PISTON);
+        helper.setBlock(new BlockPos(5, 5, 4), Blocks.STONE);
+        int second = fire(helper, new BlockPos(2, 5, 4), true) + fire(helper, new BlockPos(6, 5, 4), true);
+        helper.assertTrue(second == 1, "two blocks moved into one cell: " + second);
+        helper.assertTrue(stones(helper) == 3, "stones were duplicated or lost: " + stones(helper));
+        helper.runAfterDelay(8, () -> {
+            helper.assertTrue(stones(helper) == 3 && droppedItems(helper) == 0, "stones were duplicated, lost or dropped after landing");
+            helper.succeed();
+        });
+    }
+
+    /** Rising edge only: a held signal fires once; the cooldown is capped 4..100; switched off, nothing moves. */
+    public static void pistonFiresOnRisingEdgeOnly(GameTestHelper helper) {
+        if (!active(helper)) return;
+        var config = ServerTuning.get();
+        int beforeCooldown = config.machines.endPistonCooldownTicks;
+        boolean before = config.features.endPistons;
+        try {
+            config.machines.endPistonCooldownTicks = 1;
+            helper.assertTrue(com.simplebuilding.blocks.custom.EndPistonBlock.cooldown() == 4, "cooldown floor bypassed");
+            config.machines.endPistonCooldownTicks = 999;
+            helper.assertTrue(com.simplebuilding.blocks.custom.EndPistonBlock.cooldown() == 100, "cooldown cap bypassed");
+            config.machines.endPistonCooldownTicks = 8;
+            for (int x = 0; x <= 7; x++) for (int z = 0; z <= 7; z++) helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
+            helper.setBlock(new BlockPos(3, 0, 3), Blocks.STONE);
+            BlockPos piston = new BlockPos(3, 2, 3), sw = new BlockPos(2, 2, 3);
+            helper.setBlock(piston, ModBlocks.ASTRAL_PISTON);
+            helper.setBlock(new BlockPos(4, 2, 3), Blocks.STONE);
+            Runnable tick = () -> {
+                var pos = helper.absolutePos(piston);
+                helper.getLevel().getBlockState(pos).tick(helper.getLevel(), pos, helper.getLevel().getRandom());
+            };
+            helper.setBlock(sw, ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+            tick.run();
+            helper.assertTrue(helper.getBlockState(piston).getValue(EndSignalBlock.POWER) > 0, "piston does not receive its switch");
+            helper.assertTrue(isMoving(helper, new BlockPos(5, 2, 3)), "rising edge did not fire");
+            helper.setBlock(new BlockPos(3, 3, 3), Blocks.STONE);
+            tick.run();
+            helper.assertTrue(helper.getBlockState(new BlockPos(3, 3, 3)).is(Blocks.STONE), "held signal fired again");
+            helper.setBlock(sw, ModBlocks.ASTRALIT_SWITCH);
+            tick.run();
+            helper.assertTrue(helper.getBlockState(piston).getValue(EndSignalBlock.POWER) == 0, "signal latched after switch off");
+            helper.setBlock(sw, ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+            tick.run();
+            helper.assertTrue(isMoving(helper, new BlockPos(3, 4, 3)), "second rising edge did not fire");
+            config.features.endPistons = false;
+            helper.setBlock(sw, ModBlocks.ASTRALIT_SWITCH);
+            tick.run();
+            helper.setBlock(new BlockPos(3, 2, 4), Blocks.STONE);
+            helper.setBlock(sw, ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+            tick.run();
+            helper.assertTrue(helper.getBlockState(piston).getValue(EndSignalBlock.POWER) == 0
+                    && helper.getBlockState(new BlockPos(3, 2, 4)).is(Blocks.STONE), "disabled piston moved or took power");
+        } finally { config.machines.endPistonCooldownTicks = beforeCooldown; config.features.endPistons = before; }
+        helper.succeed();
+    }
+
+    /** Vanilla redstone and the other channel never trigger; the channel's powder visibly connects. */
+    public static void pistonIgnoresVanillaAndOtherChannel(GameTestHelper helper) {
+        if (!active(helper)) return;
+        for (int x = 0; x <= 7; x++) for (int z = 0; z <= 7; z++) helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
+        BlockPos astral = new BlockPos(2, 2, 2), nihil = new BlockPos(5, 2, 5);
+        helper.setBlock(astral, ModBlocks.ASTRAL_PISTON);
+        helper.setBlock(astral.west(), Blocks.REDSTONE_BLOCK);
+        helper.setBlock(astral.east(), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(astral.above(), Blocks.STONE);
+        helper.setBlock(nihil, ModBlocks.NIHIL_PISTON);
+        helper.setBlock(nihil.west(), ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(nihil.above(2), Blocks.STONE);
+        helper.setBlock(astral.north(), ModBlocks.ASTRAL_REDSTONE);
+        for (BlockPos rel : List.of(astral, nihil, astral.north())) {
+            var pos = helper.absolutePos(rel);
+            helper.getLevel().getBlockState(pos).tick(helper.getLevel(), pos, helper.getLevel().getRandom());
+        }
+        helper.assertTrue(helper.getBlockState(astral).getValue(EndSignalBlock.POWER) == 0
+                && helper.getBlockState(astral.above()).is(Blocks.STONE), "astral piston took vanilla or nihil power");
+        helper.assertTrue(helper.getBlockState(nihil).getValue(EndSignalBlock.POWER) == 0
+                && helper.getBlockState(nihil.above(2)).is(Blocks.STONE), "nihil piston took astral power");
+        helper.assertTrue(helper.getBlockState(astral.north()).getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.SOUTH)
+                .isConnected(), "astral powder does not connect to the astral piston");
+        helper.assertTrue(helper.getBlockState(astral.north()).getValue(EndSignalBlock.POWER) == 0, "piston passed a signal on");
+        helper.succeed();
     }
 
     private static String sides(net.minecraft.world.level.block.state.BlockState state) {

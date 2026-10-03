@@ -2788,8 +2788,8 @@ public final class DataIntegrityTests {
             expected.add(3, List.of(ModItems.AUTO_SMITHER));
         }
         if (McVersion.END_SYSTEMS) {
-            expected.add(List.of(ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, gap,
-                    ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP));
+            expected.add(List.of(ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, ModItems.NIHIL_PISTON, gap,
+                    ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP, ModItems.ASTRAL_PISTON));
         }
         if (McVersion.TRAINING_DUMMY) {
             expected.add(List.of(ModItems.STRAW_ARMOR_STAND, ModItems.TRAINING_DUMMY));

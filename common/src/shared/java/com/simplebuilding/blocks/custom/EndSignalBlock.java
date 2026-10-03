@@ -25,7 +25,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** Two entirely private, horizontal signal networks. No vanilla signal is read or emitted. */
 public class EndSignalBlock extends Block {
-    public enum Kind { POWDER, SWITCH, LAMP }
+    /** PISTON: the Astral/Nihil piston, a receiver like the lamp ({@link EndPistonBlock}). */
+    public enum Kind { POWDER, SWITCH, LAMP, PISTON }
     public static final IntegerProperty POWER = BlockStateProperties.POWER;
     public static final BooleanProperty ENABLED = BooleanProperty.create("enabled");
     private final boolean astral;
@@ -85,7 +86,8 @@ public class EndSignalBlock extends Block {
 
     /** What a neighbour of this channel hands over: a switch its full range, powder its power minus one step. */
     protected int receivedFrom(BlockState neighbor) {
-        if (!(neighbor.getBlock() instanceof EndSignalBlock other) || other.astral != astral || other.kind == Kind.LAMP) return 0;
+        if (!(neighbor.getBlock() instanceof EndSignalBlock other) || other.astral != astral
+                || other.kind == Kind.LAMP || other.kind == Kind.PISTON) return 0;
         return other.kind == Kind.SWITCH
                 ? (neighbor.getValue(ENABLED) ? range() : 0)
                 : Math.max(0, Math.min(range(), neighbor.getValue(POWER)) - (kind == Kind.POWDER ? 1 : 0));

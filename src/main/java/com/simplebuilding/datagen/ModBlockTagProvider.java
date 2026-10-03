@@ -34,7 +34,19 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             builder(BlockTags.SMALL_FLOWERS).add(key(ModBlocks.SILENT_DANDELION));
             builder(BlockTags.FLOWER_POTS).add(key(ModBlocks.POTTED_SILENT_DANDELION));
         }
-        if (com.simplebuilding.version.McVersion.END_SYSTEMS) builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_VAULT));
+        if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_VAULT))
+                    .add(key(ModBlocks.ASTRAL_PISTON)).add(key(ModBlocks.NIHIL_PISTON));
+            // Astral-/Nihil-Kolben: zusaetzlich zu ihren festen Regeln (unzerstoerbar, Block-Entity, Kolben,
+            // Doppelbloecke, BLOCK/DESTROY) nie bewegt - Portalrahmen, verstaerkter Tiefenschiefer, Durchbruch-Extras.
+            builder(ModTags.Blocks.END_PISTON_IMMOVABLE)
+                    .add(key(Blocks.END_PORTAL_FRAME))
+                    .add(key(Blocks.REINFORCED_DEEPSLATE))
+                    .add(key(Blocks.BEDROCK))
+                    .add(key(Blocks.ENDER_CHEST))
+                    .add(key(ModBlocks.ASTRAL_VAULT))
+                    .forceAddTag(ModTags.Blocks.PISTON_BREACHABLE_EXTRA);
+        }
         // Dimensions-Schrott: Spitzhacke (Enderit prueft der Block selbst), immun gegen Wither und Drache.
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             for (var scrap : java.util.List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP)) {
