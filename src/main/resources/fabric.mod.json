@@ -115,6 +115,7 @@
       "com.simplebuilding.gametest.PotionPadRuleGameTest",
       "com.simplebuilding.gametest.PerformanceGameTest",
       "com.simplebuilding.gametest.PlacedTemplateGameTest",
+      "com.simplebuilding.gametest.SilentDandelionGameTest",
       "com.simplebuilding.gametest.PulsatingTrimGameTest",
       "com.simplebuilding.gametest.PlacedBundleGameTest",
       "com.simplebuilding.gametest.TweaksEasterGameTest",

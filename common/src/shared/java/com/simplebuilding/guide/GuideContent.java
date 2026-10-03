@@ -346,6 +346,14 @@ public final class GuideContent {
     }
 
     static {
+        if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
+            GuideBooks.Book book = GuideBooks.Book.GADGETS;
+            BookStyle old = STYLES.get(book);
+            var chapters = new ArrayList<>(old.chapters());
+            chapters.add(ch("simplebuilding:silent_dandelion", List.of("simplebuilding:silent_dandelion"), List.of("simplebuilding:yarn_ball")));
+            chapters.add(ch("simplebuilding:silent_dandelion", List.of(), List.of("minecraft:flower_pot")));
+            STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
+        }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             for (GuideBooks.Book book : List.of(GuideBooks.Book.STORAGE, GuideBooks.Book.END)) {
                 BookStyle old = STYLES.get(book);

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "D": "minecraft:dandelion",
+    "Y": "simplebuilding:yarn_ball"
+  },
+  "pattern": [
+    "YYY",
+    "YDY",
+    "YYY"
+  ],
+  "result": {
+    "id": "simplebuilding:silent_dandelion"
+  }
+}

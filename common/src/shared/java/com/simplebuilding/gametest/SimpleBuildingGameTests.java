@@ -877,6 +877,13 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_funnel_pickup_counts_what_it_took", BundleWiringTests::funnelPickupCountsWhatItTook)
                     .build(),
+            GameTestSpec.named("silent_dandelion_game_test_creative_offhand_use_does_not_consume", SilentDandelionTests::creativeOffhandUseDoesNotConsume).maxTicks(100).build(),
+            GameTestSpec.named("silent_dandelion_game_test_players_stands_bosses_and_dead_mobs_are_unchanged", SilentDandelionTests::playersStandsBossesAndDeadMobsAreUnchanged).build(),
+            GameTestSpec.named("silent_dandelion_game_test_potting_and_unpotting_use_vanilla_interaction", SilentDandelionTests::pottingAndUnpottingUseVanillaInteraction).build(),
+            GameTestSpec.named("silent_dandelion_game_test_recipes_use_four_string_or_any_wool_and_eight_yarn", SilentDandelionTests::recipesUseFourStringOrAnyWoolAndEightYarn).build(),
+            GameTestSpec.named("silent_dandelion_game_test_toggled_silence_survives_vanilla_save_and_load", SilentDandelionTests::toggledSilenceSurvivesVanillaSaveAndLoad).build(),
+            GameTestSpec.named("silent_dandelion_game_test_use_toggles_mobs_with_vanilla_cooldown_and_consumption", SilentDandelionTests::useTogglesMobsWithVanillaCooldownAndConsumption).maxTicks(100).build(),
+            GameTestSpec.named("silent_dandelion_game_test_yarn_places_in_small_parts_and_drops_itself", SilentDandelionTests::yarnPlacesInSmallPartsAndDropsItself).build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_corners_subtract_only_the_aimed_quarter", SledgehammerTests::sledgehammerCornersSubtractOnlyTheAimedQuarter).build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_transform_hints_cover_both_hands_without_side_effects", SledgehammerTests::sledgehammerTransformHintsCoverBothHandsWithoutSideEffects).build(),
             GameTestSpec.named("sledgehammer_game_test_transform_hint_partial_follows_the_upgrade_rules", SledgehammerTests::transformHintPartialFollowsTheUpgradeRules).build(),

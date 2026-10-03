@@ -152,6 +152,7 @@ public final class DataIntegrityTests {
                 // the ropes of a hammock (end and span), placed and dropped with their hammock
                 "hammock_rope"));
         blocks.addAll(wallVariants().keySet());
+        blocks.add("potted_silent_dandelion");
         return Set.copyOf(blocks);
     }
 
@@ -1027,6 +1028,16 @@ public final class DataIntegrityTests {
                     ? ORE_DROPS.get(blockId.getPath())
                     : BuiltInRegistries.ITEM.getValue(lootOwner);
             List<List<ItemStack>> rolls = rollBlockLoot(helper, block, table);
+            if (blockId.getPath().equals("potted_silent_dandelion")) {
+                for (List<ItemStack> produced : rolls) {
+                    if (produced.size() != 2 || produced.stream().anyMatch(s -> s.getCount() != 1)
+                            || produced.stream().noneMatch(s -> s.is(Items.FLOWER_POT))
+                            || produced.stream().noneMatch(s -> s.is(ModItems.SILENT_DANDELION))) {
+                        problems.add(actual + " must drop one flower pot and one silent dandelion: " + produced);
+                    }
+                }
+                continue;
+            }
             if (EXPERIENCE_ORES.contains(blockId.getPath())) {
                 for (List<ItemStack> produced : rolls) {
                     if (produced.size() > 1 || produced.stream().anyMatch(s -> !s.is(ModItems.SAGE_ORB) || s.getCount() != 1)) {
@@ -2408,7 +2419,9 @@ public final class DataIntegrityTests {
         if (trims < 18) {
             problems.add("only " + trims + " vanilla armour trim templates are registered");
         }
+        if (McVersion.SILENT_DANDELION) vanillaHome.put(Items.GOLDEN_DANDELION, ModItemGroupsContent.Tab.MATERIALS);
         if (vanillaHome.size() != 11 + 5 + 42 + 28 + 11 + 2 + 1 + 5 + trims + (McVersion.END_SYSTEMS ? 1 : 0)
+                + (McVersion.SILENT_DANDELION ? 1 : 0)
                 || vanillaHome.containsKey(Items.AIR)) {
             problems.add("the vanilla tool and armour list names an item that does not exist: " + vanillaHome.size() + " entries");
         }
@@ -2877,6 +2890,9 @@ public final class DataIntegrityTests {
         }
         if (!parts.isEmpty()) {
             expected.add(parts);
+        }
+        if (McVersion.SILENT_DANDELION) {
+            expected.add(List.of(Items.GOLDEN_DANDELION, ModItems.SILENT_DANDELION, ModItems.YARN_BALL));
         }
         expected.addAll(List.of(
                 List.of(ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND),

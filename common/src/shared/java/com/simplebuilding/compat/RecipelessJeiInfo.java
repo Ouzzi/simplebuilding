@@ -47,6 +47,9 @@ public final class RecipelessJeiInfo {
     /** Usage hints for craftable items, separate from the recipeless coverage contract. */
     public static Map<String, List<ItemLike>> supplementalPages() {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
+        if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
+            map.put("silent_dandelion", List.of(ModItems.SILENT_DANDELION));
+        }
         // Pfeile: seit 2026-10-02 mit Befiederungsrezepten (nur fuers Vanilla-Rezeptbuch), JEI zeigt sie nicht - Hinweis bleibt.
         if (com.simplebuilding.version.McVersion.FLETCHING) {
             map.put("crafted_arrow", List.of(ModItems.CRAFTED_ARROW));

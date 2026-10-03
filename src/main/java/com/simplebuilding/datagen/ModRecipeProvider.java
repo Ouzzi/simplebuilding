@@ -74,6 +74,19 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 HolderGetter<Item> itemRegistry = items();
                 // Nur 26.3: Brau-Rezepte des Listigen Shulkers (datengetriebenes Brauen, ModBrewingProvider).
                 buildVersionRecipes();
+                if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
+                    shaped(RecipeCategory.MISC, ModItems.YARN_BALL)
+                            .pattern(" S ").pattern("S S").pattern(" S ").define('S', Items.STRING)
+                            .unlockedBy("has_string", has(Items.STRING))
+                            .save(output, "yarn_ball_from_string");
+                    shapeless(RecipeCategory.MISC, ModItems.YARN_BALL, 2)
+                            .requires(net.minecraft.tags.BlockItemTags.WOOL.item()).unlockedBy("has_wool", has(net.minecraft.tags.BlockItemTags.WOOL.item()))
+                            .save(output, "yarn_ball_from_wool");
+                    shaped(RecipeCategory.DECORATIONS, ModItems.SILENT_DANDELION)
+                            .pattern("YYY").pattern("YDY").pattern("YYY")
+                            .define('Y', ModItems.YARN_BALL).define('D', Items.DANDELION)
+                            .unlockedBy("has_yarn_ball", has(ModItems.YARN_BALL)).save(output);
+                }
 
                 // Befiederungstisch (B14): ein Rezept je Teile-Kombination, nur fuer das Vanilla-Rezeptbuch des Tisches.
                 // Kein Freischalt-Advancement: das Oeffnen des Tisches schaltet alle frei (FletchingRecipes.unlockAll).

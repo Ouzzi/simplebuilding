@@ -38,6 +38,10 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
+        if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
+            builder(ModTags.Items.PLACEABLE_SMALL).add(key(ModItems.YARN_BALL));
+            builder(BlockItemTags.SMALL_FLOWERS.item()).add(key(ModItems.SILENT_DANDELION));
+        }
         builder(ModTags.Items.CHISEL_TOOLS)
                 .add(key(ModItems.STONE_CHISEL))
                 .add(key(ModItems.COPPER_CHISEL))
