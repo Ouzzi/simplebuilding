@@ -247,3 +247,9 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Astralit-/Nihilith-Alternativblöcke A–C eingebaut (veined/crystalline/layered Astralit, veined/crystalline/frosted Nihilith; Meißel-Kette ab Grundblock, Steinmetz, Quadrat-Kette). Grundblock unverändert.
 - [ ] Astralit-/Nihilith-MATERIAL: je 10 Vorschläge (previews/astralit-nihilit-material-vorschau.png) – Besitzer wählt.
 - [x] Blaupause eingebaut (Kartenblatt: frisch B, bearbeitet C, signiert C dunkel + Siegel; previews/blaupausen-eingebaut.png). 1.21.11-Kopien im Port-Run.
+
+## Besitzer 2026-10-03 (Nachtrag 5)
+
+- [ ] Wollknäuel: Rezept aus Faden entfernen (nur noch aus Wolle).
+- [ ] Raw Enderite Scrap (Besitzer-Textur): farblich weiter anpassen, 3 Vorschläge.
+- [x] Blaupausen B/C/C-signiert: Besitzer zufrieden.
