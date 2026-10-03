@@ -103,3 +103,12 @@ Spiegelprüfung Detektor (Skript), Vorschauen ansehen, `check_data.py`, Wiki `--
   vom Besitzer, Januar; Pulsating aktuelle Textur) pixelweise klassifiziert und übertragen; Pulsating dezenter mit
   mehr Glimmer.
 - Fasern Runde 3 (Vorschlag): aus dem Vanilla-Faden (Strang 1 px, zwei helle Töne, Schatten darunter) abgeleitet.
+
+## Nachtrag 5 (Besitzer, 2026-10-03): eigene Motive eingebaut
+- Drei Resprite-Screenshots: Leinwand am Rahmen (rgb 34,34,34) gefunden, 16x16 Zellen, Median der Zellmitte,
+  Schachbrett (192/128 grau) = transparent (`owner_canvas_2026_10_03.py`); Ergebnis in tools/textures/hand/owner/.
+- Zuordnung: Bild 1 (goldenes Kreuz mit Strahlen über grauem Gitter) = Emitting wie Original 1c6980c4; Bild 2
+  (cyan Glimmer) = Pulsating; Bild 3 (goldene Flecken ohne Strahlen) = Glowing.
+- Motiv = alle Pixel außer den vier Hintergrundfarben der Leinwand (Umriss + drei Navy-Töne); 1:1 auf Hintergrund A
+  gesetzt, kein Pixel außerhalb der A-Silhouette. Eingebaut in src/main und die 1.21.11-Kopie; Pulsating nicht mehr
+  aus der Pixelkarte von generate_textures.py (dort jetzt hand_drawn).

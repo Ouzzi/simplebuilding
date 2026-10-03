@@ -2134,8 +2134,9 @@ def end_palette_textures():
                                                      BASIC_UPGRADE_TEMPLATE_PAL, False)
     tex["item/diamond_pebble.png"] = render("diamond_pebble", DIAMOND_PEBBLE, DIAMOND_PEBBLE_PAL, False)
     tex.update(building_core_textures())
-    tex["item/pulsating_trim_template.png"] = render("pulsating_trim_template", PULSATING_TRIM_TEMPLATE,
-                                                      PULSATING_TRIM_TEMPLATE_PAL, False)
+    # 2026-10-03: die Besitzer-Motive auf Hintergrund A (trim_templates_owner_2026_10_03.py) ersetzen die Pixelkarte
+    # PULSATING_TRIM_TEMPLATE; die Datei im Hauptbaum ist jetzt die Quelle (wie bei glowing/emitting).
+    hand_drawn(tex, "item/pulsating_trim_template.png")
     tex.update(enderite_gear_variant(ENDERITE_GEAR_ACTIVE))
     apply_enderite_handles(tex)
     tex.update(vanilla_book_textures())
