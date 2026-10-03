@@ -98,12 +98,14 @@ public final class SearchTabPlacement {
         // Platten und Speicherbloecke in Erz-Reihenfolge bei Vanillas Platten und Bloecken.
         out.add(Placement.after(BUILDING_BLOCKS, Items.PURPUR_SLAB,
                 ModItems.POLISHED_END_STONE, ModItems.ASTRAL_END_STONE,
-                ModItems.ASTRALIT_BLOCK, ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
+                ModItems.ASTRALIT_BLOCK, ModItems.VEINED_ASTRALIT, ModItems.CRYSTALLINE_ASTRALIT, ModItems.LAYERED_ASTRALIT,
+                ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
                 ModItems.ASTRALIT_BRICK_SLAB, ModItems.ASTRALIT_BRICK_WALL, ModItems.POLISHED_ASTRALIT,
                 ModItems.POLISHED_ASTRALIT_STAIRS, ModItems.POLISHED_ASTRALIT_SLAB, ModItems.POLISHED_ASTRALIT_WALL,
                 ModItems.ASTRALIT_PILLAR, ModItems.CHISELED_ASTRALIT_BRICKS, ModItems.ASTRAL_PURPUR_BLOCK,
                 ModItems.NIHIL_END_STONE,
-                ModItems.NIHILITH_BLOCK, ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
+                ModItems.NIHILITH_BLOCK, ModItems.VEINED_NIHILITH, ModItems.CRYSTALLINE_NIHILITH, ModItems.FROSTED_NIHILITH,
+                ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
                 ModItems.NIHILITH_BRICK_SLAB, ModItems.NIHILITH_BRICK_WALL, ModItems.POLISHED_NIHILITH,
                 ModItems.POLISHED_NIHILITH_STAIRS, ModItems.POLISHED_NIHILITH_SLAB, ModItems.POLISHED_NIHILITH_WALL,
                 ModItems.NIHILITH_PILLAR, ModItems.CHISELED_NIHILITH_BRICKS, ModItems.NIHIL_PURPUR_BLOCK));

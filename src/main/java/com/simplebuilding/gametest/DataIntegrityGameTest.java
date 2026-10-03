@@ -82,6 +82,11 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void endAlternatesFollowTheirBaseBlock(GameTestHelper helper) {
+        DataIntegrityTests.endAlternatesFollowTheirBaseBlock(helper);
+    }
+
+    @GameTest
     public void endBrickSetsAreCraftedCutMinedAndTaggedLikeVanilla(GameTestHelper helper) {
         DataIntegrityTests.endBrickSetsAreCraftedCutMinedAndTaggedLikeVanilla(helper);
     }

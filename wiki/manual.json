@@ -1771,6 +1771,9 @@
       "id": "end_building_blocks",
       "related": [
         "simplebuilding:astralit_block",
+        "simplebuilding:veined_astralit",
+        "simplebuilding:crystalline_astralit",
+        "simplebuilding:layered_astralit",
         "simplebuilding:astralit_bricks",
         "simplebuilding:astralit_brick_stairs",
         "simplebuilding:astralit_brick_slab",
@@ -1782,6 +1785,9 @@
         "simplebuilding:astralit_pillar",
         "simplebuilding:chiseled_astralit_bricks",
         "simplebuilding:nihilith_block",
+        "simplebuilding:veined_nihilith",
+        "simplebuilding:crystalline_nihilith",
+        "simplebuilding:frosted_nihilith",
         "simplebuilding:nihilith_bricks",
         "simplebuilding:nihilith_brick_stairs",
         "simplebuilding:nihilith_brick_slab",
@@ -1824,7 +1830,8 @@
         "src/main/generated/data/simplebuilding/recipe/astralit_block_from_end_stone.json",
         "src/main/generated/data/simplebuilding/recipe/ender_quartz_block_from_quartz_block.json",
         "src/main/generated/data/simplebuilding/recipe/ender_quartz.json",
-        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java"
+        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
+        "tools/textures/astralit_nihilit_alternates_2026_10_03.py"
       ],
       "en": {
         "title": "End Palettes: Astralit, Nihilit and Ender Quartz",
@@ -1838,7 +1845,8 @@
           "All blocks: hardness 3, blast resistance 9, a pickaxe is needed for the drop. Astralit blocks emit light level 10, Nihilit and Ender Quartz blocks none.",
           "Pillars can be placed along any axis; a double slab drops two slabs; stairs, slabs and walls are in the vanilla block and item tags of their shape, so the walls connect like any vanilla wall.",
           "Polished, Astral and Nihil End Stone and the Astral and Nihil Purpur Blocks are in the mineable/pickaxe tag as well.",
-          "All of them sit in the creative tab \"SimpleBlocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilit turquoise shards and Ender Quartz veins; the Chiseled Bricks carry a quiet relief emblem in the block's own colors, like vanilla chiseled blocks: a shulker box with its head in the opening, an Enderman eye with a horizontal slit and a dragon eye with a vertical slit."
+          "All of them sit in the creative tab \"SimpleBlocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilit turquoise shards and Ender Quartz veins; the Chiseled Bricks carry a quiet relief emblem in the block's own colors, like vanilla chiseled blocks: a shulker box with its head in the opening, an Enderman eye with a horizontal slit and a dragon eye with a vertical slit.",
+          "Alternative blocks: Astralit has Veined, Crystalline and Layered Astralit, Nihilit has Veined, Crystalline and Frosted Nihilit - the same block with a different pattern, copying the base block's properties (Astralit ones glow too), mined with a pickaxe, each dropping itself. The stonecutter cuts each 1:1 from the base block; 4 in a square make 4 of the next one (Veined -> Crystalline -> Layered/Frosted -> base block). The enderite chisel continues the palette chain past the base block (base -> Veined -> Crystalline -> Layered/Frosted), the spatula walks it back. They sit in their own row of the SimpleBlocks tab under the base block's row."
         ]
       },
       "de": {
@@ -1853,7 +1861,8 @@
           "Alle Blöcke: Härte 3, Explosionsfestigkeit 9, für den Drop braucht es eine Spitzhacke. Astralit-Blöcke leuchten mit Lichtstufe 10, Nihilit- und Enderquarz-Blöcke gar nicht.",
           "Säulen lassen sich in jeder Achse setzen; eine Doppelstufe lässt zwei Stufen fallen; Treppen, Stufen und Mauern stehen in den Vanilla-Block- und -Item-Tags ihrer Form, die Mauern verbinden sich also wie jede Vanilla-Mauer.",
           "Polierter, Astral- und Nihil-Endstein sowie Astral- und Nihil-Purpurblock stehen ebenfalls im Tag mineable/pickaxe.",
-          "Alle liegen im Kreativ-Tab „SimpleBlocks“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilitsplittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz."
+          "Alle liegen im Kreativ-Tab „SimpleBlocks“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilitsplittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz.",
+          "Alternativblöcke: Astralit hat Geäderten, Kristallinen und Geschichteten Astralit, Nihilit hat Geäderten, Kristallinen und Bereiften Nihilit - derselbe Block mit anderem Muster, mit den Eigenschaften des Grundblocks (Astralit leuchtet auch hier), mit der Spitzhacke abbaubar, jeder droppt sich selbst. Der Steinmetz schneidet jeden 1:1 aus dem Grundblock; 4 im Quadrat ergeben 4 des nächsten (Geädert -> Kristallin -> Geschichtet/Bereift -> Grundblock). Der Enderit-Meißel führt die Palettenkette über den Grundblock hinaus weiter (Grundblock -> Geädert -> Kristallin -> Geschichtet/Bereift), der Spachtel zurück. Sie stehen in einer eigenen Zeile des Tabs „SimpleBlocks“ unter der Zeile des Grundblocks."
         ]
       }
     },

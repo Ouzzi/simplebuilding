@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_frosted_nihilith": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:frosted_nihilith"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:nihilith_block_from_frosted_nihilith"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_frosted_nihilith"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:nihilith_block_from_frosted_nihilith"
+    ]
+  }
+}

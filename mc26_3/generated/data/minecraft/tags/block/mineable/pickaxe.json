@@ -124,6 +124,12 @@
     "simplebuilding:polished_ender_quartz_slab",
     "simplebuilding:polished_ender_quartz_wall",
     "simplebuilding:ender_quartz_pillar",
-    "simplebuilding:chiseled_ender_quartz_bricks"
+    "simplebuilding:chiseled_ender_quartz_bricks",
+    "simplebuilding:veined_astralit",
+    "simplebuilding:crystalline_astralit",
+    "simplebuilding:layered_astralit",
+    "simplebuilding:veined_nihilith",
+    "simplebuilding:crystalline_nihilith",
+    "simplebuilding:frosted_nihilith"
   ]
 }

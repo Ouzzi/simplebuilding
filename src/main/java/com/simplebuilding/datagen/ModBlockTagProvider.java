@@ -140,6 +140,10 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             palette.slabs().forEach(block -> builder(BlockTags.SLABS).add(key(block)));
             palette.walls().forEach(block -> builder(BlockTags.WALLS).add(key(block)));
         }
+        // Alternativbloecke der Grundbloecke (2026-10-03): Spitzhacke wie ihr Grundblock.
+        for (ModBlocks.EndAlternates alternates : ModBlocks.END_ALTERNATES) {
+            alternates.alternates().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));
+        }
 
         // Needs Diamond Tool (oder Netherite)
         builder(BlockTags.NEEDS_DIAMOND_TOOL)

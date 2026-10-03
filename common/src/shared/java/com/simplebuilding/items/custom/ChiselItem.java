@@ -280,12 +280,17 @@ public class ChiselItem extends Item {
         // as vanilla quartz in the gold tier: [polished -> pillar -> bricks -> chiseled -> block].
         registerEndStoneFamily(ModBlocks.POLISHED_ASTRALIT, ModBlocks.ASTRALIT_PILLAR, ModBlocks.ASTRALIT_BRICKS,
                 ModBlocks.CHISELED_ASTRALIT_BRICKS, ModBlocks.ASTRALIT_BLOCK);
+        // Alternativbloecke (2026-10-03): die Kette laeuft vom Grundblock weiter, ebenfalls 1:1 im Steinmetz.
+        registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.ASTRALIT_BLOCK,
+                ModBlocks.VEINED_ASTRALIT, ModBlocks.CRYSTALLINE_ASTRALIT, ModBlocks.LAYERED_ASTRALIT);
         registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ASTRALIT_STAIRS, ModBlocks.ASTRALIT_BRICK_STAIRS);
         registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ASTRALIT_SLAB, ModBlocks.ASTRALIT_BRICK_SLAB);
         registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ASTRALIT_WALL, ModBlocks.ASTRALIT_BRICK_WALL);
 
         registerEndStoneFamily(ModBlocks.POLISHED_NIHILITH, ModBlocks.NIHILITH_PILLAR, ModBlocks.NIHILITH_BRICKS,
                 ModBlocks.CHISELED_NIHILITH_BRICKS, ModBlocks.NIHILITH_BLOCK);
+        registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.NIHILITH_BLOCK,
+                ModBlocks.VEINED_NIHILITH, ModBlocks.CRYSTALLINE_NIHILITH, ModBlocks.FROSTED_NIHILITH);
         registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_NIHILITH_STAIRS, ModBlocks.NIHILITH_BRICK_STAIRS);
         registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_NIHILITH_SLAB, ModBlocks.NIHILITH_BRICK_SLAB);
         registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_NIHILITH_WALL, ModBlocks.NIHILITH_BRICK_WALL);

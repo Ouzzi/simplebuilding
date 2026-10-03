@@ -112,3 +112,18 @@ Spiegelprüfung Detektor (Skript), Vorschauen ansehen, `check_data.py`, Wiki `--
 - Motiv = alle Pixel außer den vier Hintergrundfarben der Leinwand (Umriss + drei Navy-Töne); 1:1 auf Hintergrund A
   gesetzt, kein Pixel außerhalb der A-Silhouette. Eingebaut in src/main und die 1.21.11-Kopie; Pulsating nicht mehr
   aus der Pixelkarte von generate_textures.py (dort jetzt hand_drawn).
+
+## Nachtrag 6 (Besitzer 2026-10-03 abends)
+- Besatzvorlagen: zweite Besitzer-Leinwände 1:1 (eigener Hintergrund) eingebaut, Animation nur auf seinen Motivpixeln.
+- Raw Enderite Scrap: Besitzer-Textur, Form 1:1, Farben Rang für Rang auf die 10-stufige Enderit-Schrott-Rampe.
+- Blaupause eingebaut (Kartenblatt): frisch = B, bearbeitet = C, signiert = C dunkler + bisheriges Siegel.
+- Astralit/Nihilith-Material: 10 Vorschläge (nicht eingebaut).
+- Alternativblöcke (eingebaut): je 3 (veined/crystalline/layered Astralit, veined/crystalline/frosted Nihilith),
+  Eigenschaften vom Grundblock. Gewinnung: Enderit-Meißel verlängert die Palettenkette linear (… gemeißelte
+  Ziegel → Grundblock → A → B → C; Spachtel zurück). ABWEICHUNG: kein Meißel-Ring C → Grundblock, weil der
+  Rückweg Grundblock → gemeißelte Ziegel sonst überschrieben würde (Reversibilitäts-Test). Quadrat-Rezepte
+  A → 4 B → 4 C → 4 Grundblock (Grundblock → A per Steinmetz 1:1, sein Quadrat bleibt → 4 poliert).
+  Tags (Spitzhacke), Beute (sich selbst), Modelle, Lang EN/DE beide Orte, Kreativ-Zeile unter dem Grundblock,
+  Suchreiter, Wiki (end_building_blocks), Tests: ChiselTests (Kette + festgenagelte Tabelle),
+  DataIntegrity (Reiter-Zeilen, Steinmetz, neuer Test end_alternates_follow_their_base_block). Kein Flag nötig
+  (normale Blöcke, 26.2 und 26.3).

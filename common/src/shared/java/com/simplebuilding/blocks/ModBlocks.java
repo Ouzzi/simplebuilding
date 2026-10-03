@@ -308,6 +308,15 @@ public class ModBlocks {
             s -> new RotatedPillarBlock(s.isValidSpawn((state, world, pos, type) -> false)));
     // Wie quartz_stairs/quartz_slab am Quarzblock: Treppe und Stufe direkt am Grundblock (2026-09-25).
     public static final Block ENDER_QUARTZ_STAIRS = registerBlock("ender_quartz_stairs", ENDER_QUARTZ_BLOCK, s -> new StairBlock(ENDER_QUARTZ_BLOCK.defaultBlockState(), s));
+    // Alternativbloecke (Besitzer 2026-10-03): je drei weitere Grundblock-Muster fuer Astralit und Nihilith
+    // (Texturen aus astralit_nihilit_alternates_2026_10_03.py), Eigenschaften vom Grundblock (Astralit leuchtet).
+    // Der Grundblock selbst bleibt unveraendert; Gewinnung siehe END_ALTERNATES.
+    public static final Block VEINED_ASTRALIT = registerBlock("veined_astralit", ASTRALIT_BLOCK, Block::new);
+    public static final Block CRYSTALLINE_ASTRALIT = registerBlock("crystalline_astralit", ASTRALIT_BLOCK, Block::new);
+    public static final Block LAYERED_ASTRALIT = registerBlock("layered_astralit", ASTRALIT_BLOCK, Block::new);
+    public static final Block VEINED_NIHILITH = registerBlock("veined_nihilith", NIHILITH_BLOCK, Block::new);
+    public static final Block CRYSTALLINE_NIHILITH = registerBlock("crystalline_nihilith", NIHILITH_BLOCK, Block::new);
+    public static final Block FROSTED_NIHILITH = registerBlock("frosted_nihilith", NIHILITH_BLOCK, Block::new);
     public static final Block ENDER_QUARTZ_SLAB = registerBlock("ender_quartz_slab", ENDER_QUARTZ_BLOCK, SlabBlock::new);
 
     /**
@@ -357,6 +366,30 @@ public class ModBlocks {
             POLISHED_ENDER_QUARTZ_STAIRS, POLISHED_ENDER_QUARTZ_SLAB, POLISHED_ENDER_QUARTZ_WALL, ENDER_QUARTZ_PILLAR,
             CHISELED_ENDER_QUARTZ_BRICKS, ENDER_QUARTZ_STAIRS, ENDER_QUARTZ_SLAB);
     public static final List<EndPalette> END_PALETTES = List.of(ASTRALIT_PALETTE, NIHILITH_PALETTE, ENDER_QUARTZ_PALETTE);
+
+    /**
+     * Drei Alternativbloecke zu einem Grundblock (Besitzer 2026-10-03), in Kettenreihenfolge. Gewinnung:
+     * der Enderit-Meissel fuehrt die Kette der Palette weiter (... gemeisselte Ziegel -> Grundblock -> erster ->
+     * zweiter -> dritter; der Spachtel zurueck), der Steinmetz schneidet jeden aus dem Grundblock (1 -> 1), und
+     * 4 im Quadrat ergeben 4 des naechsten (erster -> zweiter -> dritter -> Grundblock). Der Grundblock selbst
+     * behaelt sein Quadrat-Rezept (-> 4 polierte); ein Meissel-Ring dritter -> Grundblock wuerde den Rueckweg der
+     * Palettenkette (Grundblock -> gemeisselte Ziegel) ueberschreiben. Datagen und Tests laufen ueber
+     * {@link #END_ALTERNATES}.
+     */
+    public record EndAlternates(Block base, Block first, Block second, Block third) {
+        public List<Block> alternates() {
+            return List.of(first, second, third);
+        }
+
+        /** Die Quadrat-Kette: jeder Block ergibt 4 des naechsten, der dritte wieder den Grundblock. */
+        public List<Block> squareChain() {
+            return List.of(first, second, third, base);
+        }
+    }
+
+    public static final List<EndAlternates> END_ALTERNATES = List.of(
+            new EndAlternates(ASTRALIT_BLOCK, VEINED_ASTRALIT, CRYSTALLINE_ASTRALIT, LAYERED_ASTRALIT),
+            new EndAlternates(NIHILITH_BLOCK, VEINED_NIHILITH, CRYSTALLINE_NIHILITH, FROSTED_NIHILITH));
 
 
     // Beide schwebenden Bloecke haben eine volle Kollisionsbox: Man steht auf ihnen, Gegenstaende

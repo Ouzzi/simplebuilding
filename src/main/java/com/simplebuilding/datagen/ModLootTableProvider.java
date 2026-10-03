@@ -145,6 +145,10 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
                 }
             }
         }
+        // Alternativbloecke (2026-10-03) droppen sich selbst wie ihr Grundblock.
+        for (ModBlocks.EndAlternates alternates : ModBlocks.END_ALTERNATES) {
+            alternates.alternates().forEach(this::dropSelf);
+        }
 
         dropSelf(ModBlocks.SUSPENDED_SAND);
         dropSelf(ModBlocks.SUSPENDED_GRAVEL);

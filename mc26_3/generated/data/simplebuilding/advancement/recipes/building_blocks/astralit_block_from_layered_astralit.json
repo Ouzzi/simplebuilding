@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_layered_astralit": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:layered_astralit"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:astralit_block_from_layered_astralit"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_layered_astralit"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:astralit_block_from_layered_astralit"
+    ]
+  }
+}

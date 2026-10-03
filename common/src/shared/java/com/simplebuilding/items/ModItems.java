@@ -203,6 +203,12 @@ public class ModItems {
     // Vervollstaendigte End-Paletten (siehe ModBlocks.END_PALETTES)
     public static final Item ASTRALIT_BLOCK = registerItem("astralit_block", s -> new BlockItem(ModBlocks.ASTRALIT_BLOCK, s));
     public static final Item POLISHED_ASTRALIT = registerItem("polished_astralit", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT, s));
+    public static final Item VEINED_ASTRALIT = registerItem("veined_astralit", s -> new BlockItem(ModBlocks.VEINED_ASTRALIT, s));
+    public static final Item CRYSTALLINE_ASTRALIT = registerItem("crystalline_astralit", s -> new BlockItem(ModBlocks.CRYSTALLINE_ASTRALIT, s));
+    public static final Item LAYERED_ASTRALIT = registerItem("layered_astralit", s -> new BlockItem(ModBlocks.LAYERED_ASTRALIT, s));
+    public static final Item VEINED_NIHILITH = registerItem("veined_nihilith", s -> new BlockItem(ModBlocks.VEINED_NIHILITH, s));
+    public static final Item CRYSTALLINE_NIHILITH = registerItem("crystalline_nihilith", s -> new BlockItem(ModBlocks.CRYSTALLINE_NIHILITH, s));
+    public static final Item FROSTED_NIHILITH = registerItem("frosted_nihilith", s -> new BlockItem(ModBlocks.FROSTED_NIHILITH, s));
     public static final Item POLISHED_ASTRALIT_STAIRS = registerItem("polished_astralit_stairs", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT_STAIRS, s));
     public static final Item POLISHED_ASTRALIT_SLAB = registerItem("polished_astralit_slab", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT_SLAB, s));
     public static final Item POLISHED_ASTRALIT_WALL = registerItem("polished_astralit_wall", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT_WALL, s));
