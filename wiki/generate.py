@@ -46,6 +46,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import model_render  # noqa: E402  (neighbour module; draws the 3D icons when Pillow/numpy exist)
 import obtain_sources  # noqa: E402  (loot chests, fishing, vaults, mob drops)
 import base_materials  # noqa: E402  (raw materials of a recipe in total)
+import trade_sources  # noqa: E402
+import config_metadata  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 WIKI = REPO / "wiki"
@@ -995,6 +997,11 @@ def collect_trades(roots: dict) -> list[dict]:
             "source": rel(path),
         })
     trades.sort(key=lambda t: (t["profession"], t["level"] or 0, t["id"]))
+    if roots.get("client_jar_version") == "26.3":
+        trade_sources.annotate(trades, [REPO / roots["generated_data"] / "..",
+                                       REPO / roots["resource_data"] / "..",
+                                       REPO / "mc26_3/overlay/resources/data"],
+                               WIKI / "data/vanilla-trades-26.3.json")
     return trades
 
 
@@ -1210,6 +1217,16 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
     server_path = path.parent / "ServerTuningConfig.java"
     if server_path.exists():
         by_file[server_path] = parse_config_classes(server_path)
+    metadata_files = list(by_file)
+    tuning_path = path.parent / "ServerTuning.java"
+    if tuning_path.exists():
+        metadata_files.append(tuning_path)
+    scarecrow_path = path.parents[1] / 'dummy/Scarecrow.java'
+    if scarecrow_path.exists():
+        metadata_files.append(scarecrow_path)
+    bounds = config_metadata.read_metadata(metadata_files)
+    sets_path = path.parent / "ConfigOptions.java"
+    option_sets = config_metadata.option_sets(sets_path)
 
     def resolve(type_name: str, from_file: Path):
         if type_name in by_file.get(from_file, {}):
@@ -1223,7 +1240,8 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
     prefix = f"text.autoconfig.{NS}."
     out: list[dict] = []
 
-    def walk(fields: list, file: Path, path_prefix: str, category: str | None, group: str | None):
+    def walk(fields: list, file: Path, path_prefix: str, category: str | None, group: str | None,
+             owners: list):
         for field in fields:
             annotations = " ".join(field["annotations"])
             if field["static"] or "Gui.Excluded" in annotations:
@@ -1234,12 +1252,31 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
             type_name = field["type"].split(".")[-1]
             sub_file, sub_fields = resolve(type_name, file) if type_name not in VALUE_TYPES else (None, None)
             if sub_fields is not None:
-                walk(sub_fields, sub_file, name + ".", tab, name)
+                walk(sub_fields, sub_file, name + ".", tab, name,
+                     owners + [(sub_file, type_name, name + ".")])
                 continue
             if type_name not in VALUE_TYPES:
                 continue
             key = f"{prefix}option.{name}"
+            value_range = None
+            bound = re.search(r'BoundedDiscrete\(min\s*=\s*([\d.-]+),\s*max\s*=\s*([\d.-]+)\)', annotations)
+            if bound:
+                value_range = [float(bound[1]), float(bound[2])]
+            for owner_file, owner_class, owner_prefix in owners:
+                validated = bounds.get((owner_file, owner_class, name[len(owner_prefix):]))
+                if not validated and type_name == 'double' and owner_prefix == path_prefix:
+                    validated = bounds.get((owner_file, owner_class, '*double*'))
+                if validated:
+                    value_range = validated
+            metadata = {"range": value_range, "side": None, "reload": None, "source": rel(file)}
+            if option_sets is not None:
+                metadata.update(side="client" if name in option_sets['CLIENT_SIDE'] else "server",
+                                reload="restart" if name in option_sets['RESTART_REQUIRED'] else
+                                "yes" if name in option_sets['APPLY_ON_RELOAD'] else
+                                "recipes" if name in option_sets['RECIPES_ON_RELOAD'] else "no",
+                                scopeSource=rel(sets_path))
             out.append({
+                **metadata,
                 "name": name,
                 "shortName": field["name"],
                 "type": type_name,
@@ -1255,7 +1292,8 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
                 "tooltipDe": de.get(key + ".@Tooltip"),
             })
 
-    walk(by_file[path].get("SimplebuildingConfig", []), path, "", None, None)
+    walk(by_file[path].get("SimplebuildingConfig", []), path, "", None, None,
+         [(path, "SimplebuildingConfig", "")])
     return out
 
 
@@ -2612,6 +2650,12 @@ def main() -> int:
     unknown = selected - {e['id'] for e in entries}
     if unknown:
         parser.error('Unknown module: ' + ', '.join(sorted(unknown)))
+    if 'simplebuilding' in selected and args.line == '26.3':
+        trade_problems = trade_sources.sync_cache(client_jar('26.3'), WIKI / 'data/vanilla-trades-26.3.json', args.check)
+        if trade_problems:
+            for problem in trade_problems:
+                print('PROBLEM:', problem)
+            return 1
     module_result = module_wiki.sync(sys.modules[__name__], entries, selected, args.check, args.strict)
     if 'simplebuilding' not in selected:
         return module_result

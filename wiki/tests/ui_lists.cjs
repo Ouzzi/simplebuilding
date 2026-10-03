@@ -105,6 +105,61 @@ const server = http.createServer((req, res) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await wrap.focus();
     assert.ok(await wrap.evaluate(el => el.clientWidth <= 390));
+    // Deep links override persisted filters for this visit, including the block-only view.
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await visit('?mod=simplebuilding&tab=items&lang=en');
+    await filter.fill('no-such-item-xyz');
+    await page.locator('[data-iv=kind][data-v=blocks]').click();
+    await page.locator('#iv-rc').check();
+    await visit('?mod=simplebuilding&tab=items&f=simplebuilding:diamond_core&lang=en');
+    let focused = page.locator('.row-focused');
+    assert.equal(await focused.getAttribute('data-focus'), 'simplebuilding:diamond_core');
+    assert.ok(await focused.isVisible());
+    assert.ok(await focused.evaluate(el => el === document.activeElement));
+    assert.equal(await filter.inputValue(), '');
+    await page.reload(); await page.locator('.row-focused').waitFor();
+    await visit('?mod=simplebuilding&tab=items&lang=en');
+    assert.equal(await filter.inputValue(), 'no-such-item-xyz');
+    // Config permalink, literal id matching and scroll inside a long table.
+    await visit('?mod=simplebuilding&tab=config&f=server.loot.globalLootMultiplier&lang=de');
+    focused = page.locator('.row-focused');
+    assert.equal(await focused.getAttribute('data-focus'), 'server.loot.globalLootMultiplier');
+    assert.match(await focused.innerText(), /0 … 3[\s\S]*Server[\s\S]*Ja \(Datenladen\)/);
+    assert.equal(await page.getByRole('columnheader', { name: 'Wertebereich', exact: true }).count(), 1);
+    assert.equal(await page.getByRole('columnheader', { name: 'Wirkt bei /reload' }).count(), 1);
+    const bounds = await focused.boundingBox();
+    assert.ok(bounds.y >= 0 && bounds.y < 800, JSON.stringify(bounds));
+    assert.match(await focused.locator('a').first().getAttribute('href'), /f=server.loot.globalLootMultiplier/);
+    await page.waitForTimeout(2500);
+    assert.equal(await page.locator('.row-focused').count(), 0);
+    await visit('?mod=simplebuilding&f=worldGen.enableLootTableChanges&lang=en');
+    assert.equal(await page.locator('.row-focused').getAttribute('data-focus'), 'worldGen.enableLootTableChanges');
+    await visit('?mod=simplebuilding&tab=trades&f=simplebuilding:wandering_trader/emerald_diamond_core&lang=de');
+    focused = page.locator('.row-focused');
+    assert.match(await focused.innerText(), /Im Angebot je Händler \/ Dorfbewohner[\s\S]*0,9204/);
+    assert.match(await focused.innerText(), /23 Kandidaten; bis zu 2 erfolgreiche Angebote/);
+    await visit('?mod=simplebuilding&tab=loot&lang=de');
+    assert.ok(await page.locator('.ob-shared').count() > 0);
+    assert.ok(await page.locator('.ob-attempts').count() > 0);
+    assert.match(await page.locator('#main').innerText(), /Ø .* Stück je Kiste/);
+    const lootLink = page.locator('.ob-card a').filter({ hasText: 'Link zu dieser Zeile' }).first();
+    const lootHref = await lootLink.getAttribute('href');
+    await visit(lootHref.slice(lootHref.indexOf('?')));
+    assert.ok(await page.locator('.row-focused.ob-card').isVisible());
+    assert.equal(await page.locator('.row-focused').evaluate(el => !!el.closest('details:not([open])')), false);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await visit('?mod=simplebuilding&tab=config&f=hudScale&lang=en');
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= 390));
+    await visit('?mod=simplebuilding&tab=missing/path&lang=de');
+    assert.match(await page.locator('.notfound').innerText(), /tab=missing\/path/);
+    await page.locator('.notfound a').last().click();
+    assert.equal(await page.locator('.notfound').count(), 0);
+    await visit('?mod=simplebuilding&tab=config&f=' + encodeURIComponent('<img src=x onerror=alert(1)>'));
+    assert.match(await page.getByRole('status').innerText(), /<img src=x onerror=alert\(1\)>/);
+    assert.equal(await page.locator('#main img[onerror]').count(), 0);
+    // Legacy hash routes preserve f as well.
+    await visit('?mod=simplebuilding&lang=en#/config?f=hudScale');
+    assert.equal(await page.locator('.row-focused').getAttribute('data-focus'), 'hudScale');
     // Unavailable storage must still preserve filters within the current session.
     await page.addInitScript(() => {
       Storage.prototype.getItem = Storage.prototype.setItem = () => { throw new Error('storage disabled'); };
@@ -113,7 +168,7 @@ const server = http.createServer((req, res) => {
     await filter.fill('hammer'); await visible.first().click(); await page.goBack();
     assert.equal(await filter.inputValue(), 'hammer');
     assert.deepEqual(errors, []);
-    console.log('PASS: list navigation/reload, module isolation, reset, recipe query, items+blocks views, grouped recipes, sticky headers, mobile and unavailable storage');
+    console.log('PASS: list navigation/reload, module isolation, reset, recipe query, items+blocks views, grouped recipes, sticky headers, mobile, deep links, trade/loot/config metrics, missing paths, escaping and unavailable storage');
   } finally {
     if (browser) await browser.close();
     server.close();
