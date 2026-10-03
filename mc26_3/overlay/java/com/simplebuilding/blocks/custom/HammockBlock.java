@@ -16,6 +16,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.attribute.BedRule;
 import net.minecraft.world.attribute.EnvironmentAttribute;
 import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -84,6 +85,14 @@ public class HammockBlock extends AbstractBedBlock {
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return CLOTH_COLLISION.get(state.getValue(FACING));
+    }
+
+    /**
+     * Forge 26.3: {@code IForgeBlock#isBed} only knows {@code BedBlock}; without this the lying direction (and the
+     * sleeping-pose orientation) is UP. No {@code @Override}: Fabric/NeoForge have no such method with this signature.
+     */
+    public boolean isBed(BlockState state, BlockGetter level, BlockPos pos, @Nullable Entity entity) {
+        return true;
     }
 
     @Override
