@@ -140,10 +140,10 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   - Verstärkte Truhe in der Festung (Stronghold), Netherit-Truhe in der Bastion oder der Netherfestung, Enderit-Truhe in der End-Stadt oder auf dem End-Schiff.
   - Inhalt: doppelter oder höherstufiger Loot.
   - Doppeltruhen: Würfelt die erste Hälfte die bessere Truhe, wird die zweite Hälfte mit 1 % neu gewürfelt. Klappt das, werden beide besser, sonst bleiben beide normale Truhen.
-- [ ] Enderit-Nugget-Textur passend zur Barren-Textur und zu Vanilla überarbeiten (10 Vorschläge). Runde 1 (previews/enderit-nugget-vorschau.png): Formen ok, Farbe anpassen; Runde 2 A–J liegt vor (previews/enderit-nugget-v2-vorschau.png, `enderite_nugget_proposals_v2_2026_10_02.py`) – Besitzer wählt.
+- [x] Enderit-Nugget-Textur passend zur Barren-Textur und zu Vanilla überarbeiten (10 Vorschläge). Eingebaut (claude-texprop): Runde-1-Vorschlag G mit sauber geschlossener rechter Spitze (generate_textures.py ENDERITE_NUGGET, Hauptbaum; previews/enderit-nugget-G-eingebaut.png). 1.21.11-Kopie und Pfeilspitzen-Ableitung (arrow_part_textures.py) im Port-Run/bei Bedarf nachziehen.
 - [x] Weisheitserz-Textur etwas kleiner und langsamer animieren. claude-texprop: Erzmuster beider Erze ~1/6 kleiner, Weisheitskugel-Puls frametime 1 → 2 (das Erz selbst ist nicht animiert); `sage_ore_smaller_2026_10_02.py`, previews/weisheitserz-vorher-nachher.png. Sichtabnahme im Client offen.
 - [ ] Die Advancement-Seite sieht falsch aus (Screenshot: Pink-Schwarz-Fehltextur als Hintergrund im Tab „The Two Shelves“) → Hintergrund-Textur reparieren.
-- [ ] 10 Alternativ-Vorschläge für die eigenen Besatzvorlagen (Glowing, Pulsating, Emitting). Runde 2 getrennt: Hintergründe A–J (previews/besatz-hintergruende-vorschau.png) und Motive A–J auf Hintergrund A (previews/besatz-motive-vorschau.png), `trim_template_bg_motif_2026_10_02.py` – Besitzer wählt.
+- [ ] 10 Alternativ-Vorschläge für die eigenen Besatzvorlagen (Glowing, Pulsating, Emitting). Runde 3: Hintergrund A für alle, Original-Motive (Besitzer) darauf übertragen, je A Imitation + B/C Abwandlung (previews/besatz-original-motive-vorschau.png, `trim_template_original_motifs_2026_10_02.py`) – Besitzer wählt.
 - [x] 10 Vorschläge für Netherit-Apfel, Enderit-Apfel und Netherit-/Enderit-Karotte. Eingebaut (claude-texprop): Netherit = Satz A, Enderit = Umfärbung + Enderit-Glimmer (`foods_settled_2026_10_02.py`, previews/netherit-enderit-essen-eingebaut.png); 1.21.11-Kopien im Port-Run.
 - [ ] Pfeile, die einen Mob getroffen haben, sollen wieder aufsammelbar sein, am besten wenn er gestorben ist (teure Pfeile lohnen sich dann).
 - [ ] Das Rezept des Spawn-Elytra-Pads wird nicht angezeigt (JEI zeigt nur die Info).
@@ -154,7 +154,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Shulkerkopf: Das 3D-Modell ist nur im Inventar zu groß und wird abgeschnitten (Screenshot).
 - [ ] Silberfischkopf viel kleiner: im Inventar, auf dem Kopf und abgestellt.
 - [ ] Guide-Buch-Texturen überarbeiten (10 Vorschläge).
-- [ ] Simple Money: 10 Textur-Vorschläge für Special Fiber, 10 für Resin Fiber. Runde 2 mit eigenen Item-Formen je A–J (previews/money-fasern-v2-vorschau.png, `money_fiber_proposals_v2_2026_10_02.py`) – Besitzer wählt.
+- [ ] Simple Money: 10 Textur-Vorschläge für Special Fiber, 10 für Resin Fiber. Runde 3 aus dem Vanilla-Faden abgeleitet, je A–J (previews/money-fasern-v3-vorschau.png, `money_fiber_proposals_v3_2026_10_02.py`) – Besitzer wählt.
 - [x] Simple Money: Schmelzzeiten der Geld-Teile erhöhen, damit es in SimpleBuilding-Welten balanciert ist. claude-texprop: roher Schein → Geldschein 10000 → 24000 Ticks (Vanilla-Schmelzofen 1 Schein/Spieltag, SB-Öfen 2/4/8); Begründung in docs/modules/simplemoney.md.
 - [ ] Zusätzlicher Weg zu Diamant-Kieseln (In-World): Fällt ein Amboss auf einen Diamantblock, entstehen Diamant-Kiesel.
 - [ ] Auto-Schmied analog zum Autocrafter: automatisiert den Schmiedetisch.

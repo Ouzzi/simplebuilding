@@ -92,3 +92,14 @@ Spiegelprüfung Detektor (Skript), Vorschauen ansehen, `check_data.py`, Wiki `--
   statisch (keine mcmeta). Verzauberte Äpfel nutzen dieselben Texturen. 1.21.11-Kopien bleiben (Port-Run).
   Generator `foods_settled_2026_10_02.py`, Vorschau previews/netherit-enderit-essen-eingebaut.png.
 - Weitere Vorschläge (nicht eingebaut): Enderit-Nugget v2, Besatz-Hintergründe + -Motive, Money-Fasern v2.
+
+## Nachtrag 4 (Besitzer, Runde 3)
+- Enderit-Nugget EINGEBAUT: Runde-1-Vorschlag G (halber Enderitbarren als Klumpen) mit geschlossener rechter Spitze
+  (überstehendes Pixel entfernt, dunkler Rand x = 11 wie links, helle Pixel davor eine Stufe dunkler). Quelle ist
+  `generate_textures.py` (ENDERITE_NUGGET, nur Hauptbaum); Prüfung + Vorschau `enderite_nugget_settled_2026_10_02.py`.
+  Offen: 1.21.11-Kopie (Port-Run); Pfeilspitzen-Texturen aus `arrow_part_textures.py` leiten sich vom Nugget ab und
+  wurden nicht neu erzeugt.
+- Besatzvorlagen Runde 3 (Vorschlag): Hintergrund A für alle drei; Motive aus den Originaltexturen (Glowing/Emitting
+  vom Besitzer, Januar; Pulsating aktuelle Textur) pixelweise klassifiziert und übertragen; Pulsating dezenter mit
+  mehr Glimmer.
+- Fasern Runde 3 (Vorschlag): aus dem Vanilla-Faden (Strang 1 px, zwei helle Töne, Schatten darunter) abgeleitet.
