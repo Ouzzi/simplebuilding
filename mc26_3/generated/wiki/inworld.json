@@ -8438,6 +8438,17 @@
         "totalDamage": 50
       },
       {
+        "damagePerHit": 10,
+        "durationTicks": 100,
+        "from": "simplebuilding:netherite_trapped_chest",
+        "hits": 5,
+        "minimumHammer": "simplebuilding:netherite_sledgehammer",
+        "nugget": "simplebuilding:enderite_nugget",
+        "nuggetCount": 1,
+        "to": "simplebuilding:enderite_trapped_chest",
+        "totalDamage": 50
+      },
+      {
         "damagePerHit": 4,
         "durationTicks": 100,
         "from": "simplebuilding:reinforced_blast_furnace",
@@ -8523,6 +8534,17 @@
         "nugget": "simplebuilding:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_piston",
+        "totalDamage": 20
+      },
+      {
+        "damagePerHit": 4,
+        "durationTicks": 100,
+        "from": "simplebuilding:reinforced_trapped_chest",
+        "hits": 5,
+        "minimumHammer": "simplebuilding:diamond_sledgehammer",
+        "nugget": "simplebuilding:netherite_nugget",
+        "nuggetCount": 1,
+        "to": "simplebuilding:netherite_trapped_chest",
         "totalDamage": 20
       }
     ]

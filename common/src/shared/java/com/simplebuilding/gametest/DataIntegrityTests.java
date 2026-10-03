@@ -2434,6 +2434,7 @@ public final class DataIntegrityTests {
             vanillaHome.put(counterpart, ModItemGroupsContent.Tab.FUNCTIONAL);
         }
         if (McVersion.END_SYSTEMS) vanillaHome.put(Items.ENDER_CHEST, ModItemGroupsContent.Tab.FUNCTIONAL);
+        if (McVersion.TRAPPED_TIERED_CHESTS) vanillaHome.put(Items.TRAPPED_CHEST, ModItemGroupsContent.Tab.FUNCTIONAL);
         vanillaHome.put(Items.CARTOGRAPHY_TABLE, ModItemGroupsContent.Tab.TOOLS);
         // Die Vanilla-Druckplatten neben den Mod-Platten in SimplePads - von den Holzplatten nur Eiche
         // (Besitzer 2026-09-29); die anderen Holzarten stehen in keinem Mod-Tab.
@@ -2484,6 +2485,7 @@ public final class DataIntegrityTests {
         if (McVersion.SILENT_DANDELION) vanillaHome.put(Items.GOLDEN_DANDELION, ModItemGroupsContent.Tab.MATERIALS);
         if (vanillaHome.size() != 11 + 5 + 42 + 28 + 11 + 2 + 1 + 5 + trims + (McVersion.END_SYSTEMS ? 1 : 0)
                 + (McVersion.SILENT_DANDELION ? 1 : 0)
+                + (McVersion.TRAPPED_TIERED_CHESTS ? 1 : 0)
                 || vanillaHome.containsKey(Items.AIR)) {
             problems.add("the vanilla tool and armour list names an item that does not exist: " + vanillaHome.size() + " entries");
         }
@@ -2786,6 +2788,12 @@ public final class DataIntegrityTests {
         if (McVersion.AUTO_SMITHER) {
             // Auto-Schmied (2026-10-02) als eigene Zeile direkt hinter den Kolben.
             expected.add(3, List.of(ModItems.AUTO_SMITHER));
+        }
+        if (McVersion.TRAPPED_TIERED_CHESTS) {
+            int shulkers = java.util.stream.IntStream.range(0, expected.size())
+                    .filter(i -> expected.get(i).contains(Items.SHULKER_BOX)).findFirst().orElseThrow();
+            expected.add(shulkers, List.of(Items.TRAPPED_CHEST, ModItems.REINFORCED_TRAPPED_CHEST,
+                    ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST));
         }
         if (McVersion.END_SYSTEMS) {
             expected.add(List.of(ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, gap,

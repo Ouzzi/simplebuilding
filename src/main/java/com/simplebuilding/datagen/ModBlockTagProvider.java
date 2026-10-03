@@ -30,6 +30,15 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider arg) {
+        if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+            for (var chest : java.util.List.of(ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST)) {
+                builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(chest));
+                builder(net.minecraft.tags.TagKey.<Block>create(net.minecraft.core.registries.Registries.BLOCK,
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("c", "chests/trapped"))).add(key(chest));
+                builder(net.minecraft.tags.TagKey.<Block>create(net.minecraft.core.registries.Registries.BLOCK,
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("c", "chests"))).add(key(chest));
+            }
+        }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             builder(BlockTags.SMALL_FLOWERS).add(key(ModBlocks.SILENT_DANDELION));
             builder(BlockTags.FLOWER_POTS).add(key(ModBlocks.POTTED_SILENT_DANDELION));

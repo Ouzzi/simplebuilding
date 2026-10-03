@@ -42,11 +42,14 @@ import org.jetbrains.annotations.Nullable;
  */
 public class TieredChestRenderer implements BlockEntityRenderer<TieredChestBlockEntity, TieredChestRenderer.State> {
     private static final SpriteId[][] SPRITES = new SpriteId[ChestTier.values().length][];
+    private static final SpriteId[][] TRAPPED_SPRITES = new SpriteId[ChestTier.values().length][];
 
     static {
         for (ChestTier tier : ChestTier.values()) {
             String name = tier.textureName();
             SPRITES[tier.ordinal()] = new SpriteId[]{sprite(name), sprite(name + "_left"), sprite(name + "_right")};
+            TRAPPED_SPRITES[tier.ordinal()] = new SpriteId[]{sprite(name + "_trapped"),
+                    sprite(name + "_trapped_left"), sprite(name + "_trapped_right")};
         }
     }
 
@@ -64,7 +67,11 @@ public class TieredChestRenderer implements BlockEntityRenderer<TieredChestBlock
 
     /** Der Sprite einer Stufe fuer eine Truhenform (einzeln, links, rechts). */
     public static SpriteId spriteFor(ChestTier tier, ChestType type) {
-        SpriteId[] set = SPRITES[tier.ordinal()];
+        return spriteFor(tier, type, false);
+    }
+
+    public static SpriteId spriteFor(ChestTier tier, ChestType type, boolean trapped) {
+        SpriteId[] set = (trapped ? TRAPPED_SPRITES : SPRITES)[tier.ordinal()];
         return switch (type) {
             case SINGLE -> set[0];
             case LEFT -> set[1];
@@ -75,6 +82,7 @@ public class TieredChestRenderer implements BlockEntityRenderer<TieredChestBlock
     /** Vanillas Zustand plus die Stufe. */
     public static class State extends ChestRenderState {
         public ChestTier tier = ChestTier.REINFORCED;
+        public boolean trapped;
     }
 
     @Override
@@ -90,6 +98,7 @@ public class TieredChestRenderer implements BlockEntityRenderer<TieredChestBlock
         state.type = blockState.hasProperty(ChestBlock.TYPE) ? blockState.getValue(ChestBlock.TYPE) : ChestType.SINGLE;
         state.facing = blockState.hasProperty(ChestBlock.FACING) ? blockState.getValue(ChestBlock.FACING) : Direction.SOUTH;
         state.tier = chest.tier();
+        state.trapped = blockState.getBlock() instanceof TieredChestBlock block && block.isTrapped();
         DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> combined;
         if (chest.getLevel() != null && blockState.getBlock() instanceof TieredChestBlock block) {
             combined = block.combine(blockState, chest.getLevel(), chest.getBlockPos(), true);
@@ -109,7 +118,7 @@ public class TieredChestRenderer implements BlockEntityRenderer<TieredChestBlock
         float open = 1.0F - state.open;
         open = 1.0F - open * open * open;
         com.simplebuilding.version.McClientVersion.submitChestModel(collector, this.models.select(state.type), open, poseStack,
-                state.lightCoords, spriteFor(state.tier, state.type), this.sprites, state.breakProgress);
+                state.lightCoords, spriteFor(state.tier, state.type, state.trapped), this.sprites, state.breakProgress);
         poseStack.popPose();
     }
 }

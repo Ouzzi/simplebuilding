@@ -256,6 +256,10 @@ public final class SledgehammerUpgrades {
             }
             toNetherite(map, ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST);
             toEnderite(map, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST);
+            if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+                toNetherite(map, ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST);
+                toEnderite(map, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST);
+            }
             // Shulkerkisten: jede der 17 Vanilla-Shulkerkisten (ungefaerbt und 16 Farben) -> Verstaerkt ->
             // Netherit -> Enderit, teurer als die Truhen (TieredShulkerBoxes). Farbe und Inhalt bleiben.
             int factor = TieredShulkerBoxes.SHULKER_UPGRADE_DURATION_FACTOR;

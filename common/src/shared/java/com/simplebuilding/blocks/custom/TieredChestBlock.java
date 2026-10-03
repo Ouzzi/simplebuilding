@@ -63,6 +63,14 @@ public class TieredChestBlock extends ChestBlock {
         return this.tier;
     }
 
+    public boolean isTrapped() {
+        return false;
+    }
+
+    public String textureName() {
+        return this.tier.textureName() + (isTrapped() ? "_trapped" : "");
+    }
+
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new TieredChestBlockEntity(pos, state);

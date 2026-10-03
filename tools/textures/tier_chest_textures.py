@@ -12,6 +12,8 @@ import os
 import random
 import sys
 from PIL import Image
+from PIL import ImageDraw, ImageFont
+from pathlib import Path
 
 ASSETS = "src/main/resources/assets/simplebuilding/textures"
 RAMPS = {
@@ -80,6 +82,99 @@ def chest(vanilla, tier, width, seed):
     return img
 
 
+def trapped_texture(base, normal, trapped):
+    """Use Vanilla's exact accent mask, leaving the owner's tier texture untouched elsewhere."""
+    out = base.copy()
+    for y in range(base.height):
+        for x in range(base.width):
+            if normal.getpixel((x, y)) != trapped.getpixel((x, y)):
+                light = lum(base.getpixel((x, y)))
+                out.putpixel((x, y), (min(210, round(64 + light * .65)),
+                                     round(20 + light * .12), round(18 + light * .10),
+                                     base.getpixel((x, y))[3]))
+    return out
+
+
+def front(img, width=14):
+    """Flat front from Vanilla's lid/base UVs; nearest-neighbor previews only."""
+    out = Image.new("RGBA", (width, 15))
+    x = 28 + width
+    out.paste(img.crop((x, 14, x + width, 19)).transpose(Image.Transpose.ROTATE_180), (0, 0))
+    out.paste(img.crop((x, 33, x + width, 43)).transpose(Image.Transpose.ROTATE_180), (0, 5))
+    # Front face of the separate latch cuboid; double halves carry one pixel each.
+    latch_width = 2 if width == 14 else 1
+    latch = img.crop((1, 1, 1 + latch_width, 5)).transpose(Image.Transpose.ROTATE_180)
+    out.alpha_composite(latch, ((width - latch_width) // 2, 3))
+    return out
+
+
+def trapped_main():
+    import argparse
+    parser = argparse.ArgumentParser(description="Derive 26.3 trapped chests from the existing owner textures.")
+    parser.add_argument("--trapped", action="store_true")
+    parser.add_argument("--vanilla", required=True, type=Path, help="Vanilla entity/chest directory")
+    parser.add_argument("--preview", type=Path)
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args()
+    target = Path("mc26_3/overlay/resources/assets/simplebuilding/textures/entity/chest")
+    rows = []
+    vanilla = {}
+    for suffix in ("", "_left", "_right"):
+        vanilla[suffix] = tuple(Image.open(args.vanilla / f"{kind}{suffix}.png").convert("RGBA")
+                                for kind in ("normal", "trapped"))
+    rows.append(("A  Vanilla", vanilla[""][0], vanilla[""][1],
+                 vanilla["_left"][0], vanilla["_right"][0], vanilla["_left"][1], vanilla["_right"][1]))
+    for index, tier in enumerate(RAMPS):
+        originals, outputs = {}, {}
+        for suffix in ("", "_left", "_right"):
+            source = Path(ASSETS) / "entity/chest" / f"{tier}{suffix}.png"
+            overlay = target / source.name
+            base = Image.open(overlay if overlay.exists() else source).convert("RGBA")
+            result = trapped_texture(base, *vanilla[suffix])
+            path = target / f"{tier}_trapped{suffix}.png"
+            if args.check:
+                assert path.exists() and Image.open(path).convert("RGBA").tobytes() == result.tobytes(), f"stale texture: {path}"
+            else:
+                target.mkdir(parents=True, exist_ok=True)
+                result.save(path)
+            originals[suffix], outputs[suffix] = base, result
+        rows.append((f"{chr(66 + index)}  {tier.title()}", originals[""], outputs[""],
+                     originals["_left"], originals["_right"], outputs["_left"], outputs["_right"]))
+    if args.preview:
+        scale = 16
+        canvas = Image.new("RGB", (1580, 1320), "#20242b")
+        draw = ImageDraw.Draw(canvas)
+        try:
+            font = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 22)
+        except OSError:
+            font = ImageFont.load_default(size=22)
+        draw.text((24, 14), "Redstone-Truhen | Original / Rotakzent | 16x, ungefiltert", font=font, fill="white")
+        for x, label in [(24, "Einzeltruhe normal"), (280, "Redstone"), (550, "Doppeltruhe normal"), (1060, "Redstone")]:
+            draw.text((x, 49), label, font=font, fill="#cbd5e1")
+        for row, (label, normal, trapped, left, right, tleft, tright) in enumerate(rows):
+            y = 100 + row * 300
+            draw.text((24, y), label, font=font, fill="white")
+            for x, img in [(24, front(normal)), (280, front(trapped))]:
+                preview = img.resize((img.width * scale, img.height * scale), Image.Resampling.NEAREST)
+                canvas.paste(preview, (x, y + 34), preview)
+            for x, a, b in [(550, left, right), (1060, tleft, tright)]:
+                # Latches meet at the seam of the two halves.
+                pair = Image.new("RGBA", (30, 15))
+                for offset, source in [(0, b), (15, a)]:
+                    # Chest LEFT/RIGHT are named from behind; front view reverses their order.
+                    face = Image.new("RGBA", (15, 15))
+                    face.paste(source.crop((43, 14, 58, 19)).transpose(Image.Transpose.ROTATE_180), (0, 0))
+                    face.paste(source.crop((43, 33, 58, 43)).transpose(Image.Transpose.ROTATE_180), (0, 5))
+                    pair.paste(face, (offset, 0))
+                pair.alpha_composite(a.crop((1, 1, 2, 5)).transpose(Image.Transpose.ROTATE_180), (14, 3))
+                pair.alpha_composite(b.crop((1, 1, 2, 5)).transpose(Image.Transpose.ROTATE_180), (15, 3))
+                preview = pair.resize((480, 240), Image.Resampling.NEAREST)
+                canvas.paste(preview, (x, y + 34), preview)
+        args.preview.parent.mkdir(parents=True, exist_ok=True)
+        canvas.save(args.preview)
+    print("trapped chest textures: 9/9 current" if args.check else "trapped chest textures: 9 generated")
+
+
 def main():
     src = sys.argv[1]
     preview = sys.argv[2] if len(sys.argv) > 2 else None
@@ -98,4 +193,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    trapped_main() if "--trapped" in sys.argv else main()

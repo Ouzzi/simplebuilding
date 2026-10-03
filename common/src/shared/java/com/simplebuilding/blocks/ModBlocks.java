@@ -116,6 +116,24 @@ public class ModBlocks {
     public static final Block ENDERITE_CHEST = registerBlock("enderite_chest", Blocks.IRON_BLOCK, s -> new TieredChestBlock(ChestTier.ENDERITE,
             s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK).mapColor(MapColor.COLOR_PURPLE)));
 
+    public static final Block REINFORCED_TRAPPED_CHEST = McVersion.TRAPPED_TIERED_CHESTS
+            ? registerBlock("reinforced_trapped_chest", REINFORCED_CHEST,
+                    s -> new com.simplebuilding.blocks.custom.TieredTrappedChestBlock((TieredChestBlock) REINFORCED_CHEST, s)) : null;
+    public static final Block NETHERITE_TRAPPED_CHEST = McVersion.TRAPPED_TIERED_CHESTS
+            ? registerBlock("netherite_trapped_chest", NETHERITE_CHEST,
+                    s -> new com.simplebuilding.blocks.custom.TieredTrappedChestBlock((TieredChestBlock) NETHERITE_CHEST, s)) : null;
+    public static final Block ENDERITE_TRAPPED_CHEST = McVersion.TRAPPED_TIERED_CHESTS
+            ? registerBlock("enderite_trapped_chest", ENDERITE_CHEST,
+                    s -> new com.simplebuilding.blocks.custom.TieredTrappedChestBlock((TieredChestBlock) ENDERITE_CHEST, s)) : null;
+
+    /** Every registered block sharing the tier chest entity, without nulls on older lines. */
+    public static Block[] tieredChests() {
+        return McVersion.TRAPPED_TIERED_CHESTS
+                ? new Block[]{REINFORCED_CHEST, NETHERITE_CHEST, ENDERITE_CHEST,
+                        REINFORCED_TRAPPED_CHEST, NETHERITE_TRAPPED_CHEST, ENDERITE_TRAPPED_CHEST}
+                : new Block[]{REINFORCED_CHEST, NETHERITE_CHEST, ENDERITE_CHEST};
+    }
+
     // Shulkerkisten-Stufen ueber der Vanilla-Shulkerkiste (siehe TieredShulkerBoxes): Plaetze und
     // Stapelfaktor der Truhen derselben Stufe. Aus Vanillas Shulkerkiste kopiert (dynamische Form,
     // keine Verdeckung, vom Kolben zerstoert und mit Inhalt fallen gelassen, kein Werkzeug noetig),

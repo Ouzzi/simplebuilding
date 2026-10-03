@@ -181,10 +181,19 @@ public final class SearchTabPlacement {
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.BLAST_FURNACE,
                 ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE, ModItems.ENDERITE_BLAST_FURNACE));
         // Hinter der letzten Kupfertruhe (Vanilla fuehrt alle Oxidations- und Wachsstufen).
-        out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.COPPER_CHEST.asList().getLast(),
+        List<ItemLike> chests = new ArrayList<>(List.of(
                 ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST));
+        if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+            chests.addAll(List.of(ModItems.REINFORCED_TRAPPED_CHEST,
+                    ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST));
+        }
+        out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.COPPER_CHEST.asList().getLast(), chests.toArray(ItemLike[]::new)));
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.SHULKER_BOX,
                 ModItems.REINFORCED_SHULKER_BOX, ModItems.NETHERITE_SHULKER_BOX, ModItems.ENDERITE_SHULKER_BOX));
+        if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+            out.add(Placement.after(REDSTONE_BLOCKS, Items.TRAPPED_CHEST,
+                    ModItems.REINFORCED_TRAPPED_CHEST, ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST).asSecondary());
+        }
         List<ItemLike> heads = new ArrayList<>(TweaksItems.mobHeadsInSpawnOrder());
         out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.PIGLIN_HEAD, heads.toArray(ItemLike[]::new)));
 

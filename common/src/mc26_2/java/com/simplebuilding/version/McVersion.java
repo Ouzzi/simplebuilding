@@ -38,6 +38,8 @@ import java.util.stream.Stream;
  * overlay class has a counterpart on the other line.
  */
 public final class McVersion {
+    /** Redstone variants of the three chest tiers (26.3 first). */
+    public static final boolean TRAPPED_TIERED_CHESTS = false;
     public static final boolean SILENT_DANDELION = false;
     /** Falling anvils crush diamond blocks (26.3 first). */
     public static final boolean ANVIL_DIAMOND_CRUSH = false;

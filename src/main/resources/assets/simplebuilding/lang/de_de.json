@@ -2812,5 +2812,12 @@
   "tooltip.simplebuilding.training_dummy": "Zeigt jeden Treffer als Zahl; Schleichen + Schlag baut sie ab, die Schere macht sie wieder zum Ständer",
   "text.autoconfig.simplebuilding.option.server.features.scarecrowRadius": "Vogelscheuchen-Umkreis",
   "text.autoconfig.simplebuilding.option.server.features.scarecrowRadius.@Tooltip": "In so vielen Blöcken um einen Stroh-\nRüstungsständer oder eine Trainingspuppe\nzertrampeln Tiere und Monster kein\nAckerland (Spieler schon). 0 = aus,\nhöchstens 16. Serverseitig. Standard: 8.",
-  "jei.simplebuilding.info.velocity_gauge": "Rezept: „ NA / NCN / KN “ (A = Amethystscherbe, N = Kupfernugget, C = Kompass, K = Kupferkern). In einer Hand gehalten zeigt die Messuhr das Tempo, in der Luft auch die Höhe über dem Boden."
+  "jei.simplebuilding.info.velocity_gauge": "Rezept: „ NA / NCN / KN “ (A = Amethystscherbe, N = Kupfernugget, C = Kompass, K = Kupferkern). In einer Hand gehalten zeigt die Messuhr das Tempo, in der Luft auch die Höhe über dem Boden.",
+  "block.simplebuilding.reinforced_trapped_chest": "Verstärkte Redstone-Truhe",
+  "item.simplebuilding.reinforced_trapped_chest": "Verstärkte Redstone-Truhe",
+  "block.simplebuilding.netherite_trapped_chest": "Netherit-Redstone-Truhe",
+  "item.simplebuilding.netherite_trapped_chest": "Netherit-Redstone-Truhe",
+  "block.simplebuilding.enderite_trapped_chest": "Enderit-Redstone-Truhe",
+  "item.simplebuilding.enderite_trapped_chest": "Enderit-Redstone-Truhe",
+  "simplebuilding.testcentre.storage.trapped_chests": "Redstone-Truhen"
 }

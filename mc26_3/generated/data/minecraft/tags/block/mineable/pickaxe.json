@@ -1,5 +1,8 @@
 {
   "values": [
+    "simplebuilding:reinforced_trapped_chest",
+    "simplebuilding:netherite_trapped_chest",
+    "simplebuilding:enderite_trapped_chest",
     "simplebuilding:astral_vault",
     "simplebuilding:dimensional_scrap",
     "simplebuilding:nether_dimensional_scrap",

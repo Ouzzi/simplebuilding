@@ -63,7 +63,7 @@ public class ModBlockEntities {
         TIERED_CHEST_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "tiered_chest"),
                 FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity::new,
-                        ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST).build());
+                        ModBlocks.tieredChests()).build());
 
         TIERED_SHULKER_BOX_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "tiered_shulker_box"),

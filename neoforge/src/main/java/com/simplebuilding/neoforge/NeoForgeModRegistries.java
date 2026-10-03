@@ -127,7 +127,7 @@ public final class NeoForgeModRegistries {
     public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity>> TIERED_CHEST_BE =
             BLOCK_ENTITIES.register("tiered_chest", () -> new BlockEntityType<>(
                     com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity::new,
-                    ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST));
+                    ModBlocks.tieredChests()));
 
     public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity>> TIERED_SHULKER_BOX_BE =
             BLOCK_ENTITIES.register("tiered_shulker_box", () -> new BlockEntityType<>(

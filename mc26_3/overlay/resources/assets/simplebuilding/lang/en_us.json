@@ -2812,5 +2812,12 @@
   "tooltip.simplebuilding.training_dummy": "Shows every hit as a number; sneak + hit picks it up, shears turn it back",
   "text.autoconfig.simplebuilding.option.server.features.scarecrowRadius": "Scarecrow Radius",
   "text.autoconfig.simplebuilding.option.server.features.scarecrowRadius.@Tooltip": "Within this many blocks of a Straw Armor\nStand or Training Dummy, animals and\nmonsters do not trample farmland\n(players still do). 0 = off, max 16.\nServer-side. Default: 8.",
-  "jei.simplebuilding.info.velocity_gauge": "Recipe: \"AN  / NCN /  NK\" (A = amethyst shard, N = copper nugget, C = clock, K = Copper Core). Held in either hand, the Gauge shows speed; in the air it also shows height above ground."
+  "jei.simplebuilding.info.velocity_gauge": "Recipe: \"AN  / NCN /  NK\" (A = amethyst shard, N = copper nugget, C = clock, K = Copper Core). Held in either hand, the Gauge shows speed; in the air it also shows height above ground.",
+  "block.simplebuilding.reinforced_trapped_chest": "Reinforced Trapped Chest",
+  "item.simplebuilding.reinforced_trapped_chest": "Reinforced Trapped Chest",
+  "block.simplebuilding.netherite_trapped_chest": "Netherite Trapped Chest",
+  "item.simplebuilding.netherite_trapped_chest": "Netherite Trapped Chest",
+  "block.simplebuilding.enderite_trapped_chest": "Enderite Trapped Chest",
+  "item.simplebuilding.enderite_trapped_chest": "Enderite Trapped Chest",
+  "simplebuilding.testcentre.storage.trapped_chests": "Trapped chests"
 }

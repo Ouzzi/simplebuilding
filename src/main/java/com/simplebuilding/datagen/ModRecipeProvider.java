@@ -553,6 +553,16 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(ModItems.CRACKED_DIAMOND), has(ModItems.CRACKED_DIAMOND))
                         .save(output);
 
+                if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
+                    Item[] normal = {ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST};
+                    Item[] trapped = {ModItems.REINFORCED_TRAPPED_CHEST, ModItems.NETHERITE_TRAPPED_CHEST, ModItems.ENDERITE_TRAPPED_CHEST};
+                    for (int i = 0; i < normal.length; i++) {
+                        ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.REDSTONE, trapped[i])
+                                .requires(normal[i]).requires(Items.TRIPWIRE_HOOK)
+                                .unlockedBy(getHasName(normal[i]), has(normal[i])).save(output);
+                    }
+                }
+
                 // Verstaerkte Shulkerkiste aus einer Vanilla-Shulkerkiste (jede Farbe) und vier Rissigen
                 // Diamanten - doppelt so viel wie die Aufwertung in der Welt (zwei, TieredShulkerBoxes).
                 // crafting_transmute behaelt Inhalt und Namen; die Farbe der Vanilla-Kiste (ihr Block)

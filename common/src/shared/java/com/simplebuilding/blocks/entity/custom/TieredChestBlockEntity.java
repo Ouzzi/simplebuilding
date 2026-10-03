@@ -275,6 +275,17 @@ public class TieredChestBlockEntity extends ChestBlockEntity {
         return this.openers.getOpenerCount();
     }
 
+    @Override
+    protected void signalOpenCount(Level level, BlockPos pos, BlockState state, int previous, int current) {
+        super.signalOpenCount(level, pos, state, previous, current);
+        if (previous != current && state.getBlock() instanceof TieredChestBlock chest && chest.isTrapped()) {
+            var orientation = net.minecraft.world.level.redstone.ExperimentalRedstoneUtils.initialOrientation(
+                    level, state.getValue(ChestBlock.FACING).getOpposite(), Direction.UP);
+            level.updateNeighborsAt(pos, chest, orientation);
+            level.updateNeighborsAt(pos.below(), chest, orientation);
+        }
+    }
+
     /** Wie Vanillas {@code ChestBlockEntity#playSound}: eine Doppeltruhe klingt einmal, aus ihrer Mitte. */
     private static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent event) {
         ChestType type = state.getValue(ChestBlock.TYPE);
