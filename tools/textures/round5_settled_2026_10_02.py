@@ -4,7 +4,8 @@ Writes what the owner settled after rounds 4 and 5 (2026-10-02) into the 26.3 ov
 - Ore Detector: round-5 dial (round-4 B, top-left rim fixed) and its 32 needle frames in the tilted view (superseded by
   ore_detector_centred_2026_10_02.py: centred, wider needle, pulsing resting item - run that one afterwards); the resting
   item (no find) shows the needle north, dimmed.
-- Attractor: round-5 A (redstone red, lapis blue, iron tips).
+- Attractor: round-5 A (redstone red, lapis blue, iron tips). Run gadget_animations_2026_10_03.py afterwards (idle field
+  lines; it also turns the resonance rod into its animation strips).
 - Echo Sounder: round-4 B sonar on the clean frame - 32 direction frames (same numbering as vanilla compass_XX:
   16 = up, clockwise), each animated (the inner ring pulses, 4 frames of 2 ticks), and the three cracked stages.
 - Resonance Rod: redrawn (resonance_rod_2026_10_02.py).

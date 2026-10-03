@@ -5,7 +5,8 @@ Vanilla item language: diagonal like a tool, iron shaft three pixels thick with 
 amethyst_shard palette - a long one on the axis, a short one up and a short one to the right.
 item/amethyst_lens = charged, item/amethyst_lens_empty = no charge (shards and redstone dimmed).
 
-Usage: python tools/textures/resonance_rod_2026_10_02.py [out dir]  (default: the 26.3 overlay)"""
+Usage: python tools/textures/resonance_rod_2026_10_02.py [out dir]  (default: the 26.3 overlay)
+Afterwards run gadget_animations_2026_10_03.py: it turns item/amethyst_lens into the idle animation strip."""
 import os
 import sys
 

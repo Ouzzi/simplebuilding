@@ -266,6 +266,8 @@ a.badge:hover { border-color: var(--accent); color: var(--accent); text-decorati
 .slot { display: inline-flex; align-items: center; justify-content: center; position: relative; width: 56px; height: 56px; background: var(--slot-bg); border: 0; box-shadow: inset 2px 2px 0 var(--slot-lo), inset -2px -2px 0 var(--slot-hi); border-radius: 2px; color: var(--slot-text); overflow: hidden; flex: none; text-decoration: none; }
 a.slot:hover { text-decoration: none; background: color-mix(in srgb, var(--slot-bg) 80%, var(--accent)); }
 .slot img { width: 40px; height: 40px; image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+/* Animated item textures are vertical strips (one 16x16 frame under the other): show the first frame. */
+img[src*="assets/textures/"] { object-fit: cover; object-position: top; }
 .slot-text { font-size: 9.5px; line-height: 1.12; text-align: center; padding: 2px 3px; word-break: break-word; color: var(--slot-text); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .slot-tag { box-shadow: inset 2px 2px 0 var(--slot-lo), inset -2px -2px 0 var(--slot-hi), inset 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent); }
 .slot-tag .slot-text { color: var(--accent-strong); }

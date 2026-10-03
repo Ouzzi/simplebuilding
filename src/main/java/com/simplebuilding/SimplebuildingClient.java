@@ -247,6 +247,10 @@ public class SimplebuildingClient implements ClientModInitializer {
         net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperties.ID_MAPPER.put(
                 com.simplebuilding.client.property.GaugeNeedleModelProperty.ID,
                 com.simplebuilding.client.property.GaugeNeedleModelProperty.CODEC);
+        // 26.3-Rotator: Drehanimation, solange ein Klick den anvisierten Block drehen wuerde (assets/simplebuilding/items/rotator.json).
+        net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperties.ID_MAPPER.put(
+                com.simplebuilding.client.property.TransformHintModelProperty.ID,
+                com.simplebuilding.client.property.TransformHintModelProperty.CODEC);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {

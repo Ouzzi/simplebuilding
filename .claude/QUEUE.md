@@ -206,9 +206,9 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 ## Besitzer 2026-10-02 (Nachtrag 3)
 
-- [ ] Resonanzstab und Rotator: Idle-Animation und Benutzungs-Animation.
+- [x] Resonanzstab und Rotator: Idle-Animation und Benutzungs-Animation. (claude-anims: Stab Ruhe-Funkeln + Resonanzwellen bei `using_item`; Rotator Ruhe-Glanz + Drehung, solange ein Klick den anvisierten Block drehen wuerde – `simplebuilding:transform_hint`; leer still. Sichtabnahme im Client offen, `docs/ai/PLAN-GADGET-ANIMATIONEN-2026-10-02.md`)
 - [x] Erzdetektor: Idle-Animation, Nadel pulsiert, solange nichts gewählt ist. Ist etwas gewählt, läuft die Auswahl-Animation auf der Nadel (siehe Nachtrag 2). (claude-texprop Ruhepuls, master 8d443a67)
-- [ ] Attractor: Idle-Animation, das Item selbst bleibt unverändert, nur kurz angedeutete Magnetfeldlinien.
+- [x] Attractor: Idle-Animation, das Item selbst bleibt unverändert, nur kurz angedeutete Magnetfeldlinien. (claude-anims: ~0,7 s Feldlinien alle ~7 s; Sichtabnahme im Client offen)
 - [x] Hufeisen-Vorlage (simpleriding): Basic-Upgrade-Silhouette mit Eisen-Hufeisen und Kupferplatte, Name „Horseshoe Upgrade“ / „Hufeisen-Aufwertung“, EN/DE-Tooltips nach Rezepten. Generator und 16-fache Vorher-/Nachher-Vorschau vorhanden; Sichtabnahme im Spiel offen. Prüfstand: `docs/ai/PLAN-HORSESHOE-TEMPLATE-2026-10-02.md`.
 - [x] Echolot: Haltbarkeit wieder wie früher – eine einmalige Nutzung verbraucht die 1500 Haltbarkeit wie vorher. Aktuell wird Haltbarkeit seltsam verbraucht und angezeigt → Ist-Verhalten gegen die frühere Version (git log) prüfen und zurückführen.
   - Umsetzung auf `claude-gpt-echo`: vollständige Entladung auf 26.3 auch mit Unbreaking; Ladezeit, Riss-Stufen und normale Leiste bleiben. 1728/1728 Server-Tests, 26.2-/Forge-26.3-Compile und vollständiges Gate grün. Historie, Entscheidung und Tests: `docs/ai/PLAN-ECHOLOT-HALTBARKEIT-2026-10-02.md`. Besitzerabnahme im Client bleibt offen.

@@ -82,6 +82,7 @@ public final class SimplebuildingNeoForgeClient {
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerHudLayers);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerSelectItemProperties);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerRangeSelectItemProperties);
+        modEventBus.addListener(SimplebuildingNeoForgeClient::registerConditionalItemProperties);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerTooltipComponents);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerBlockTints);
         NeoForge.EVENT_BUS.addListener(this::onClientTick);
@@ -212,6 +213,12 @@ public final class SimplebuildingNeoForgeClient {
     public static void registerRangeSelectItemProperties(net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent event) {
         event.register(com.simplebuilding.client.property.GaugeNeedleModelProperty.ID,
                 com.simplebuilding.client.property.GaugeNeedleModelProperty.CODEC);
+    }
+
+    /** 26.3-Rotator: Drehanimation, solange ein Klick den anvisierten Block drehen wuerde (simplebuilding:transform_hint). */
+    public static void registerConditionalItemProperties(net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent event) {
+        event.register(com.simplebuilding.client.property.TransformHintModelProperty.ID,
+                com.simplebuilding.client.property.TransformHintModelProperty.CODEC);
     }
 
     /** Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity. */
