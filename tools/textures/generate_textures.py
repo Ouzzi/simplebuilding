@@ -1915,29 +1915,31 @@ LAYERED_RAW_ENDERITE_PAL = {
     "6": "#6841a9", "5": "#553190", "4": "#4a2784", "3": "#442871", "2": "#2c1356",
 }
 
-# Enderitklumpen: oben der runde Klumpen der urspruenglichen Textur, darunter ein Tropfstein-Keil
-# mit dunklem Band, der nach unten spitz zulaeuft; Tropfen und seitliche Tropfspuren bleiben.
+# Enderitklumpen (Besitzer 2026-10-02): Runde-1-Vorschlag G (enderite_nugget_proposals_2026_10_02.py, der
+# halbe Enderitbarren als eigene Klumpenform) mit sauber geschlossener rechter Spitze: der ueberstehende Pixel
+# (12, 8) faellt weg, rechts schliesst der dunkle Rand wie links (x = 11 in den Zeilen 7-9), die hellen Pixel davor
+# eine Stufe dunkler. Farben: die Rampe des Enderitbarrens (O Umriss, 1..8 dunkel -> hell).
 ENDERITE_NUGGET = [
     "................",
     "................",
     "................",
-    "........77O.....",
-    "......H7665O....",
-    ".....7676553O...",
-    ".....766555O....",
-    "....O.R4432O....",
-    "....O.H653O.O...",
-    "......R532O.....",
-    ".......53O......",
-    ".......3O..O....",
-    "........4..O....",
-    "........3.......",
-    "........O.......",
+    "................",
+    "................",
+    ".......OOO......",
+    "....OOO336O.....",
+    "...O3368663O....",
+    "...O4665772O....",
+    "...O4473221O....",
+    "....O4211OO.....",
+    ".....OOOO.......",
+    "................",
+    "................",
+    "................",
     "................",
 ]
 ENDERITE_NUGGET_PAL = {
-    "O": "#341145", "H": "#a881eb", "7": "#8464bc", "6": "#765aa6", "5": "#543487", "4": "#513279",
-    "3": "#3e2263", "R": "#4a2d70", "2": "#2f1446",
+    "O": "#1c0a33", "1": "#472480", "2": "#55309a", "3": "#6d45b8", "4": "#7b51c9", "5": "#8e63dc",
+    "6": "#a57de9", "7": "#cfb2fb", "8": "#f1e8ff",
 }
 
 
@@ -2333,7 +2335,7 @@ PAD_ACTIVE_GLOW = {
 # (Besitzer 2026-09-29: 26.3 zuerst, die Kopie nicht anfassen). Die Zustandsbilder vom 2026-09-29.
 MAIN_TREE_ONLY = {"item/pulsating_trim_template.png", "item/blueprint_signed.png"}  # blueprint_signed: Kontur 2026-10-02
 # Enderit-Apfel/-Karotte 2026-10-02 neu (foods_settled_2026_10_02.py); die 1.21.11-Kopie zieht der Port-Run nach.
-MAIN_TREE_ONLY |= {"item/enderite_apple.png", "item/enderite_carrot.png"}
+MAIN_TREE_ONLY |= {"item/enderite_apple.png", "item/enderite_carrot.png", "item/enderite_nugget.png"}
 # Druckplatten, gedrueckt (powered): Leuchtfarbe und Deckkraft in der Mitte; die Grundbilder liegen in den
 # Ressourcen (Enderit generiert).
 PLATE_ACTIVE_GLOW = {
