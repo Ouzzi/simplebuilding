@@ -1,5 +1,7 @@
 """Usage: python tools/textures/layered_raw_enderite_owner_2026_10_03.py <vanilla textures dir> [preview png]
 
+SUPERSEDED 2026-10-03: the installed colours come from raw_enderite_scrap_settled_2026_10_03.py (variant D, darker).
+
 Owner 2026-10-03: "the enderite texture is not good, I made my own - only adjust the colours to stay consistent with
 the other netherite stuff". His Resprite canvas (reconstructed into tools/textures/hand/owner/
 layered_raw_enderite_owner.png) is a layered chunk like vanilla's netherite scrap, so it is the Raw Enderite Scrap
