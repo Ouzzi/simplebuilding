@@ -945,9 +945,10 @@ public final class BlockBehaviourTests {
     }
 
     /**
-     * Iron and Gold Rod (owner 2026-10-02): lightning rods of iron and gold - powered by a strike like the copper rod,
-     * but each only attracts lightning within its own range (iron 32, gold 64; copper: 128), found as the top block of
-     * its column. Among the metal rods that reach the strike the nearest wins, even against a rod with more range.
+     * Iron, Gold, Netherite and Enderite Rod (owner 2026-10-02/03): lightning rods of metal - powered by a strike like the
+     * copper rod, but each only attracts lightning within its own range (iron 32, gold 64, netherite 96, enderite 128 =
+     * copper), found as the top block of its column. Among the metal rods that reach the strike the nearest wins, even
+     * against a rod with more range.
      */
     public static void metalRodsAttractLightningWithinTheirOwnRange(GameTestHelper helper) {
         if (ModBlocks.IRON_ROD == null) {
@@ -958,6 +959,9 @@ public final class BlockBehaviourTests {
         helper.assertTrue(ModBlocks.IRON_ROD instanceof net.minecraft.world.level.block.LightningRodBlock, "the iron rod is a lightning rod");
         helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.IRON_ROD).range(), 32, "iron rod range");
         helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.GOLD_ROD).range(), 64, "gold rod range");
+        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.NETHERITE_ROD).range(), 96, "netherite rod range");
+        helper.assertValueEqual(((com.simplebuilding.blocks.custom.MetalRodBlock) ModBlocks.ENDERITE_ROD).range(), 128, "enderite rod range");
+        helper.assertValueEqual(com.simplebuilding.blocks.custom.MetalRodBlock.MAX_RANGE, 128, "no metal rod reaches further than copper");
         BlockPos iron = onTop(level, helper.absolutePos(new BlockPos(1, 1, 1)), ModBlocks.IRON_ROD);
         java.util.Optional<BlockPos> near = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, iron.offset(12, 0, 12));
         helper.assertTrue(near.isPresent() && near.get().equals(iron.above()), "an iron rod 17 blocks away attracts the bolt, got " + near);
@@ -975,7 +979,19 @@ public final class BlockBehaviourTests {
         helper.assertTrue(beyond.isEmpty() || !(beyond.get().equals(gold.above()) || beyond.get().equals(iron.above())),
                 "a gold rod 70 blocks away still attracts the bolt, got " + beyond);
 
-        for (BlockPos rod : List.of(iron, gold)) {
+        // Netherit rechts vom Eisenstab, Enderit links davon: jeder erreicht, was die kleineren nicht mehr erreichen.
+        BlockPos netherite = onTop(level, iron.offset(4, 0, 0), ModBlocks.NETHERITE_ROD);
+        BlockPos enderite = onTop(level, iron.offset(-2, 0, 0), ModBlocks.ENDERITE_ROD);
+        java.util.Optional<BlockPos> netheriteOnly = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, netherite.offset(90, 0, 0));
+        helper.assertTrue(netheriteOnly.isPresent() && netheriteOnly.get().equals(netherite.above()),
+                "a netherite rod 90 blocks away wins over the enderite rod 96 blocks away, got " + netheriteOnly);
+        java.util.Optional<BlockPos> enderiteOnly = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, enderite.offset(-120, 0, 0));
+        helper.assertTrue(enderiteOnly.isPresent() && enderiteOnly.get().equals(enderite.above()),
+                "an enderite rod 120 blocks away attracts the bolt the netherite rod (126) no longer reaches, got " + enderiteOnly);
+        java.util.Optional<BlockPos> outOfReach = com.simplebuilding.blocks.custom.MetalRodBlock.find(level, enderite.offset(-130, 0, 0));
+        helper.assertTrue(outOfReach.isEmpty() || !outOfReach.get().equals(enderite.above()), "an enderite rod 130 blocks away still attracts the bolt");
+
+        for (BlockPos rod : List.of(iron, gold, netherite, enderite)) {
             BlockState state = level.getBlockState(rod);
             ((net.minecraft.world.level.block.LightningRodBlock) state.getBlock()).onLightningStrike(state, level, rod);
             helper.assertTrue(level.getBlockState(rod).getValue(net.minecraft.world.level.block.LightningRodBlock.POWERED), "a strike powers " + state.getBlock());
@@ -994,7 +1010,8 @@ public final class BlockBehaviourTests {
     /**
      * Material rods (owner 2026-10-02): Gold and Diamond Rod from three stacked like the Iron Rod; Iron, Gold and
      * Diamond Rod fall back into their three pieces; the Netherite Rod is smithed from the Diamond Rod and the Enderite
-     * Rod from the Netherite Rod, with no way back. Netherite and Enderite Rod do not burn.
+     * Rod from the Netherite Rod, with no way back. Netherite and Enderite Rod do not burn and, since 2026-10-03, are
+     * lightning-rod blocks like the Iron and Gold Rod; the Diamond Rod stays an item.
      */
     public static void materialRodsCraftBackAndSmithUpward(GameTestHelper helper) {
         if (com.simplebuilding.items.ModItems.GOLD_ROD == null) {
@@ -1026,6 +1043,12 @@ public final class BlockBehaviourTests {
             helper.assertTrue(new ItemStack(fireproof).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT), fireproof + " is not fire resistant");
         }
         helper.assertFalse(new ItemStack(diamond).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT), "the diamond rod is fire resistant");
+        helper.assertTrue(netherite instanceof net.minecraft.world.item.BlockItem block && block.getBlock() == ModBlocks.NETHERITE_ROD,
+                "the netherite rod smiths into its block");
+        helper.assertTrue(enderite instanceof net.minecraft.world.item.BlockItem block && block.getBlock() == ModBlocks.ENDERITE_ROD,
+                "the enderite rod smiths into its block");
+        helper.assertFalse(diamond instanceof net.minecraft.world.item.BlockItem, "the diamond rod can be placed");
+        helper.assertTrue(new ItemStack(enderite).is(com.simplebuilding.util.ModTags.Items.ENDERITE_ITEMS), "the enderite rod is not void-safe");
         helper.succeed();
     }
 

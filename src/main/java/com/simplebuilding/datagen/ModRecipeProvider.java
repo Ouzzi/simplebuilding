@@ -321,7 +321,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
                             .save(output);
                     // Material-Staebe (2026-10-02): Gold- und Diamantstab ebenso aus drei uebereinander; Eisen, Gold
-                    // und Diamant zerfallen wieder in ihre drei Teile. Netherit und Enderit nur am Schmiedetisch
+                    // und Diamant zerfallen wieder in ihre drei Teile. Netherit- und Enderitstab (Bloecke seit 2026-10-03) nur am Schmiedetisch
                     // (Einbahn wie jede Aufwertung).
                     rod(ModItems.GOLD_ROD, Items.GOLD_INGOT, RecipeCategory.REDSTONE);
                     rod(ModItems.DIAMOND_ROD, Items.DIAMOND, RecipeCategory.MISC);

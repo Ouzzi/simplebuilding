@@ -217,3 +217,6 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 ## Worker Amboss-Kiesel 2026-10-02
 - [x] Zusaetzlicher 26.3-In-World-Weg: fallender Amboss verbraucht Diamantblock fuer 72 Kiesel; JEI/REI/Wiki, EN/DE. Fabric/NeoForge: 1732/1732 Server-Tests, Wiki: 38 Tests, volles Gate und 26.2-/Forge-Compiles gruen. Plan, Nebenbefunde und offene Client-/Integrationsabnahmen: `docs/ai/PLAN-AMBOSS-KIESEL-2026-10-02.md`. Kein Push.
+
+## Besitzer 2026-10-03 (Material-Stäbe)
+- [x] Netherit- und Enderitstab wie der Blitzableiter (aufstellbare Blöcke wie Eisen-/Goldstab, Reichweite 96/128), keine Pfeile mehr daraus; nur der Diamantstab bleibt Item und Pfeilschaft. (claude-rods2: 90 statt 126 Fletching-Rezepte, alte Pfeile laden mit Stock-Schaft; Vorschau previews/netherit-enderit-stab-vorschau.png; Fabric/NeoForge 26.3 je 873/873, 26.2-/Forge-26.3-Compile grün; Plan: docs/ai/PLAN-RODS-2026-10-02.md Nachtrag. Sichtabnahme im Client offen.)

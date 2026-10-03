@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplebuilding:item/netherite_rod"
+    "model": "simplebuilding:block/netherite_rod"
   }
 }

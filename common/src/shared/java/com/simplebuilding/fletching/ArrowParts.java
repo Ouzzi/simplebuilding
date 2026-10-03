@@ -64,34 +64,41 @@ public final class ArrowParts {
     }
 
     /**
-     * Schaft: Material, Schwerkraft-Faktor, Schadensbonus und zusaetzliche Durchbohrung. Die Material-Staebe
-     * (2026-10-02, nur mit {@code McVersion.GADGET_REWORK}): Diamant durchbohrt ein Ziel mehr, Netherit +1 Schaden und
-     * der Pfeil-Stapel verbrennt nicht ({@link #fireproof}), Enderit fliegt flacher (0,7) und +1 Schaden.
+     * Schaft: Material, Schwerkraft-Faktor, Schadensbonus und zusaetzliche Durchbohrung. Der Diamantstab (2026-10-02,
+     * nur mit {@code McVersion.GADGET_REWORK}) durchbohrt ein Ziel mehr. Netherit- und Enderitstab sind seit 2026-10-03
+     * Blitzableiter-Bloecke und keine Schaefte mehr; alte Pfeile mit diesen Schaeften liest {@link #byName} als Stock.
      */
     public enum Shaft implements StringRepresentable {
-        STICK("stick", () -> Items.STICK, 1.0, 0.0, 0, false),
-        END_ROD("end_rod", () -> Items.END_ROD, 0.5, 0.0, 0, false),
-        BLAZE_ROD("blaze_rod", () -> Items.BLAZE_ROD, 1.0, 0.0, 0, false),
-        BREEZE_ROD("breeze_rod", () -> Items.BREEZE_ROD, 1.0, 0.0, 0, false),
-        DIAMOND_ROD("diamond_rod", () -> ModItems.DIAMOND_ROD, 1.0, 0.0, 1, false),
-        NETHERITE_ROD("netherite_rod", () -> ModItems.NETHERITE_ROD, 1.0, 1.0, 0, true),
-        ENDERITE_ROD("enderite_rod", () -> ModItems.ENDERITE_ROD, 0.7, 1.0, 0, false);
+        STICK("stick", () -> Items.STICK, 1.0, 0.0, 0),
+        END_ROD("end_rod", () -> Items.END_ROD, 0.5, 0.0, 0),
+        BLAZE_ROD("blaze_rod", () -> Items.BLAZE_ROD, 1.0, 0.0, 0),
+        BREEZE_ROD("breeze_rod", () -> Items.BREEZE_ROD, 1.0, 0.0, 0),
+        DIAMOND_ROD("diamond_rod", () -> ModItems.DIAMOND_ROD, 1.0, 0.0, 1);
+
+        /**
+         * Liest den Schaft tolerant: ein unbekannter Name - etwa {@code netherite_rod}/{@code enderite_rod} aus Pfeilen,
+         * die vor 2026-10-03 hergestellt wurden - wird zum Stock, damit der Pfeil-Stapel erhalten bleibt.
+         */
+        public static final Codec<Shaft> CODEC = Codec.STRING.xmap(Shaft::byName, Shaft::getSerializedName);
 
         private final String id;
         private final Supplier<Item> input;
         public final double gravity;
         public final double damageBonus;
         public final int extraPierce;
-        /** Pfeile mit diesem Schaft verbrennen als Item nicht in Feuer und Lava (wie Netherit-Items). */
-        public final boolean fireproof;
 
-        Shaft(String id, Supplier<Item> input, double gravity, double damageBonus, int extraPierce, boolean fireproof) {
+        Shaft(String id, Supplier<Item> input, double gravity, double damageBonus, int extraPierce) {
             this.id = id;
             this.input = input;
             this.gravity = gravity;
             this.damageBonus = damageBonus;
             this.extraPierce = extraPierce;
-            this.fireproof = fireproof;
+        }
+
+        /** Der Schaft mit diesem Namen; unbekannte Namen ergeben den Stock. */
+        public static Shaft byName(String id) {
+            for (Shaft shaft : values()) if (shaft.id.equals(id)) return shaft;
+            return STICK;
         }
 
         public Item input() {
@@ -163,7 +170,7 @@ public final class ArrowParts {
         public static final Parts VANILLA = new Parts(Tip.FLINT, Shaft.STICK, Fletching.FEATHER);
         public static final Codec<Parts> CODEC = RecordCodecBuilder.create(i -> i.group(
                 StringRepresentable.fromEnum(Tip::values).fieldOf("tip").forGetter(Parts::tip),
-                StringRepresentable.fromEnum(Shaft::values).fieldOf("shaft").forGetter(Parts::shaft),
+                Shaft.CODEC.fieldOf("shaft").forGetter(Parts::shaft),
                 StringRepresentable.fromEnum(Fletching::values).fieldOf("fletching").forGetter(Parts::fletching)
         ).apply(i, Parts::new));
         public static final StreamCodec<RegistryFriendlyByteBuf, Parts> STREAM_CODEC = StreamCodec.composite(
@@ -205,11 +212,6 @@ public final class ArrowParts {
         stack.set(net.minecraft.core.component.DataComponents.CUSTOM_MODEL_DATA,
                 new net.minecraft.world.item.component.CustomModelData(java.util.List.of(), java.util.List.of(), parts.modelStrings(), java.util.List.of()));
         return stack;
-    }
-
-    /** Ob der Pfeil-Stapel ein Pfeil vom Befiederungstisch mit feuerfestem Schaft ist (ItemEntityMixin). */
-    public static boolean isFireproofArrow(ItemStack stack) {
-        return ModItems.CRAFTED_ARROW != null && stack.is(ModItems.CRAFTED_ARROW) && of(stack).shaft().fireproof;
     }
 
     /** Alle Kombinationen, sortiert Spitze, Schaft, Befiederung (Kreativ-Tab und Suchtab). */

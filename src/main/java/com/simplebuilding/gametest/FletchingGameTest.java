@@ -20,8 +20,13 @@ public final class FletchingGameTest {
     }
 
     @GameTest
-    public void rodShaftsPierceHitHarderAndResistFire(GameTestHelper helper) {
-        FletchingTests.rodShaftsPierceHitHarderAndResistFire(helper);
+    public void materialShaftsAreOnlyTheDiamondRod(GameTestHelper helper) {
+        FletchingTests.materialShaftsAreOnlyTheDiamondRod(helper);
+    }
+
+    @GameTest
+    public void oldNetheriteAndEnderiteShaftsLoadAsSticks(GameTestHelper helper) {
+        FletchingTests.oldNetheriteAndEnderiteShaftsLoadAsSticks(helper);
     }
 
     @GameTest

@@ -93,10 +93,11 @@ public final class FletchingTests {
     }
 
     /**
-     * Material-Stab-Schaefte (2026-10-02): Diamant durchbohrt ein Ziel mehr, Netherit +1 Schaden und der Pfeil-Stapel
-     * verbrennt als Item nicht, Enderit 30 % weniger Schwerkraft und +1 Schaden; der Tisch nimmt die Staebe als Schaft.
+     * Material-Stab-Schaefte: nur der Diamantstab (2026-10-02) ist ein Schaft und durchbohrt ein Ziel mehr. Netherit- und
+     * Enderitstab sind seit 2026-10-03 Blitzableiter-Bloecke (Besitzer): sie passen nicht in den Schaft-Slot, der Tisch
+     * macht aus ihnen nichts, und kein Fletching-Rezept nimmt sie (9 Spitzen x 5 Schaefte x 2 Befiederungen = 90).
      */
-    public static void rodShaftsPierceHitHarderAndResistFire(GameTestHelper helper) {
+    public static void materialShaftsAreOnlyTheDiamondRod(GameTestHelper helper) {
         if (!McVersion.FLETCHING || ModItems.DIAMOND_ROD == null) {
             helper.succeed();
             return;
@@ -107,26 +108,59 @@ public final class FletchingTests {
         helper.assertValueEqual((int) arrow(helper, parts(ArrowParts.Tip.NETHERITE, ArrowParts.Shaft.DIAMOND_ROD, ArrowParts.Fletching.FEATHER)).getPierceLevel(),
                 2, "pierce level of a netherite tip on a diamond rod shaft");
         helper.assertValueEqual(parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.DIAMOND_ROD, ArrowParts.Fletching.FEATHER).bonusAgainst(cow), 0.0, "diamond rod damage bonus");
-        helper.assertValueEqual(parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.NETHERITE_ROD, ArrowParts.Fletching.FEATHER).bonusAgainst(cow), 1.0, "netherite rod damage bonus");
-        helper.assertValueEqual(parts(ArrowParts.Tip.DIAMOND, ArrowParts.Shaft.ENDERITE_ROD, ArrowParts.Fletching.FEATHER).bonusAgainst(cow), 2.0, "diamond tip on an enderite rod");
-        helper.assertTrue(Math.abs(arrow(helper, parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.ENDERITE_ROD, ArrowParts.Fletching.FEATHER)).getGravity()
-                - 0.035) < 1.0E-9, "gravity with an enderite rod shaft");
-        helper.assertValueEqual(arrow(helper, parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.NETHERITE_ROD, ArrowParts.Fletching.FEATHER)).getGravity(),
-                0.05, "gravity with a netherite rod shaft");
-
-        Vec3 at = helper.absoluteVec(new Vec3(2.5, 2.0, 2.5));
-        net.minecraft.world.entity.item.ItemEntity fireproof = new net.minecraft.world.entity.item.ItemEntity(helper.getLevel(), at.x, at.y, at.z,
-                ArrowParts.stack(parts(ArrowParts.Tip.FLINT, ArrowParts.Shaft.NETHERITE_ROD, ArrowParts.Fletching.FEATHER), 4));
-        net.minecraft.world.entity.item.ItemEntity plain = new net.minecraft.world.entity.item.ItemEntity(helper.getLevel(), at.x, at.y, at.z,
-                ArrowParts.stack(ArrowParts.Parts.VANILLA, 4));
-        helper.assertTrue(fireproof.fireImmune(), "netherite rod arrows catch fire as an item");
-        helper.assertFalse(fireproof.hurtServer(helper.getLevel(), helper.getLevel().damageSources().lava(), 4.0F), "lava hurts netherite rod arrows");
-        helper.assertFalse(plain.fireImmune(), "plain crafted arrows are fire immune");
-
         helper.assertValueEqual(FletchingMenu.partSlotFor(new ItemStack(ModItems.DIAMOND_ROD)), FletchingMenu.SHAFT_SLOT, "the diamond rod fits the shaft slot");
-        helper.assertValueEqual(FletchingMenu.partSlotFor(new ItemStack(ModItems.ENDERITE_ROD)), FletchingMenu.SHAFT_SLOT, "the enderite rod fits the shaft slot");
-        ItemStack result = FletchingMenu.resultFor(new ItemStack(Items.FLINT), new ItemStack(ModItems.NETHERITE_ROD), new ItemStack(Items.FEATHER));
-        helper.assertValueEqual(ArrowParts.of(result).shaft(), ArrowParts.Shaft.NETHERITE_ROD, "shaft of the table result");
+        helper.assertValueEqual(ArrowParts.Shaft.values().length, 5, "shafts: stick, end rod, blaze rod, breeze rod, diamond rod");
+        helper.assertValueEqual(ArrowParts.allCombinations().size(), 90, "arrow combinations");
+
+        for (net.minecraft.world.item.Item rod : java.util.List.of(ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD)) {
+            helper.assertTrue(ArrowParts.shaftFor(new ItemStack(rod)) == null, rod + " is still an arrow shaft");
+            helper.assertValueEqual(FletchingMenu.partSlotFor(new ItemStack(rod)), -1, rod + " fits a part slot");
+            helper.assertTrue(FletchingMenu.resultFor(new ItemStack(Items.FLINT), new ItemStack(rod), new ItemStack(Items.FEATHER)).isEmpty(),
+                    "the table makes arrows from " + rod);
+        }
+        for (String old : java.util.List.of("netherite_rod", "enderite_rod")) {
+            Identifier id = Identifier.fromNamespaceAndPath("simplebuilding", "fletching/flint_" + old + "_feather");
+            helper.assertTrue(helper.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, id)).isEmpty(),
+                    "the old fletching recipe " + id + " is still loaded");
+        }
+        helper.getLevel().getServer().getRecipeManager().getRecipes().stream()
+                .filter(holder -> holder.value() instanceof FletchingRecipe)
+                .map(holder -> (FletchingRecipe) holder.value())
+                .forEach(recipe -> helper.assertTrue(recipe.shaft().input() != ModItems.NETHERITE_ROD && recipe.shaft().input() != ModItems.ENDERITE_ROD,
+                        "a fletching recipe takes a netherite or enderite rod: " + recipe.idPath()));
+        helper.succeed();
+    }
+
+    /**
+     * Save-Kompatibilitaet (2026-10-03): Pfeile, die noch mit Netherit- oder Enderitstab-Schaft gespeichert sind, laden
+     * mit Stock-Schaft - Spitze, Befiederung und Anzahl bleiben, nichts verschwindet oder bricht ab.
+     */
+    public static void oldNetheriteAndEnderiteShaftsLoadAsSticks(GameTestHelper helper) {
+        if (!McVersion.FLETCHING) {
+            helper.succeed();
+            return;
+        }
+        for (String old : java.util.List.of("netherite_rod", "enderite_rod", "no_such_shaft")) {
+            com.google.gson.JsonObject json = new com.google.gson.JsonObject();
+            json.addProperty("tip", "diamond");
+            json.addProperty("shaft", old);
+            json.addProperty("fletching", "phantom_membrane");
+            ArrowParts.Parts loaded = ArrowParts.Parts.CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE, json).getOrThrow();
+            helper.assertValueEqual(loaded, parts(ArrowParts.Tip.DIAMOND, ArrowParts.Shaft.STICK, ArrowParts.Fletching.PHANTOM_MEMBRANE),
+                    "arrow parts with the shaft " + old);
+
+            com.google.gson.JsonObject stack = new com.google.gson.JsonObject();
+            stack.addProperty("id", "simplebuilding:crafted_arrow");
+            stack.addProperty("count", 7);
+            com.google.gson.JsonObject components = new com.google.gson.JsonObject();
+            components.add("simplebuilding:arrow_parts", json);
+            stack.add("components", components);
+            ItemStack decoded = ItemStack.CODEC.parse(helper.getLevel().registryAccess().createSerializationContext(com.mojang.serialization.JsonOps.INSTANCE), stack)
+                    .getOrThrow();
+            helper.assertTrue(decoded.is(ModItems.CRAFTED_ARROW) && decoded.getCount() == 7, "an old arrow stack with the shaft " + old + " loads as " + decoded);
+            helper.assertValueEqual(ArrowParts.of(decoded).shaft(), ArrowParts.Shaft.STICK, "shaft of an old arrow stack with " + old);
+            helper.assertValueEqual(ArrowParts.of(decoded).tip(), ArrowParts.Tip.DIAMOND, "tip of an old arrow stack with " + old);
+        }
         helper.succeed();
     }
 

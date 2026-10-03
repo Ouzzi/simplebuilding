@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * Metallstaebe: findet Vanilla keinen Kupfer-Blitzableiter, zieht der naechste Eisen- oder Goldstab den Blitz an,
- * dessen eigene Reichweite (32 bzw. 64 Bloecke) reicht ({@link MetalRodBlock#find}).
+ * Metallstaebe: findet Vanilla keinen Kupfer-Blitzableiter, zieht der naechste Eisen-, Gold-, Netherit- oder
+ * Enderitstab den Blitz an, dessen eigene Reichweite (32, 64, 96 bzw. 128 Bloecke) reicht ({@link MetalRodBlock#find}).
  */
 @Mixin(ServerLevel.class)
 public abstract class MetalRodLightningMixin {
