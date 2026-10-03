@@ -1033,6 +1033,235 @@ public final class PlacedTemplateTests {
     }
 
     // =====================================================================================
+    // Placeables v2 (Besitzer 2026-10-03): neue Kleinteile, Kerzen und Seegurken gemischt, Partikel
+    // =====================================================================================
+
+    /**
+     * New small parts (owner 2026-10-03): bones, feathers, arrows, glowstone dust, nether stars ... and the mod's own
+     * small materials are in the tag, lie down and mix up to four; glowing ones have a particle, plain ones none.
+     */
+    public static void theNewSmallPartsLieDownMixAndGlowingOnesHaveParticles(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        List<Item> expected = new java.util.ArrayList<>(List.of(Items.BONE, Items.FEATHER, Items.ARROW, Items.SPECTRAL_ARROW,
+                Items.BLAZE_ROD, Items.BREEZE_ROD, Items.GLOWSTONE_DUST, Items.GLOW_INK_SAC, Items.PRISMARINE_CRYSTALS,
+                Items.NETHER_STAR, Items.RABBIT_FOOT, Items.TURTLE_SCUTE, Items.ARMADILLO_SCUTE, Items.DISC_FRAGMENT_5, Items.GHAST_TEAR));
+        for (Item own : java.util.Arrays.asList(ModItems.NIHILITH_SHARD, ModItems.ASTRALIT_DUST, ModItems.ENDER_QUARTZ, ModItems.RAW_ENDERITE,
+                ModItems.ENDERITE_SCRAP, ModItems.CRACKED_DIAMOND, ModItems.SAGE_ORB)) {
+            if (own != null) {
+                expected.add(own);
+            }
+        }
+        for (Item item : expected) {
+            helper.assertTrue(new ItemStack(item).is(com.simplebuilding.util.ModTags.Items.PLACEABLE_SMALL), item + " is not in placeable_small");
+        }
+        helper.assertFalse(new ItemStack(Items.CANDLE).is(com.simplebuilding.util.ModTags.Items.PLACEABLE_SMALL),
+                "candles must stay out of the tag (alone they stay vanilla)");
+        ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 4.5));
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        player.setShiftKeyDown(true);
+        BlockPos floor = new BlockPos(1, 1, 1);
+        helper.setBlock(floor, Blocks.STONE);
+        helper.setBlock(floor.above(), Blocks.AIR);
+        for (Item item : List.of(Items.BONE, Items.FEATHER, Items.GLOWSTONE_DUST, Items.NETHER_STAR)) {
+            helper.assertTrue(use(helper, player, new ItemStack(item, 2), floor, Direction.UP).consumesAction(), item + " was not laid down");
+        }
+        helper.assertValueEqual(parts(helper, floor.above()), List.of(Items.BONE, Items.FEATHER, Items.GLOWSTONE_DUST, Items.NETHER_STAR),
+                "the mixed new parts");
+        helper.assertTrue(com.simplebuilding.util.PlacedPartParticles.glowOf(new ItemStack(Items.GLOWSTONE_DUST)) != null, "glowstone dust has no particle");
+        helper.assertTrue(com.simplebuilding.util.PlacedPartParticles.glowOf(new ItemStack(Items.NETHER_STAR)) != null, "the nether star has no particle");
+        if (ModItems.SAGE_ORB != null) {
+            helper.assertTrue(com.simplebuilding.util.PlacedPartParticles.glowOf(new ItemStack(ModItems.SAGE_ORB)) != null, "the sage orb has no particle");
+        }
+        helper.assertTrue(com.simplebuilding.util.PlacedPartParticles.glowOf(new ItemStack(Items.BONE)) == null, "a bone glows");
+        helper.assertValueEqual(helper.getBlockState(floor.above()).getLightEmission(), 0, "light of a pile without candles or pickles");
+        helper.succeed();
+    }
+
+    /**
+     * Candles and sea pickles (owner 2026-10-03): alone they stay the vanilla blocks; sneak + right-click with another part
+     * on a vanilla candle (or the floor below it) turns it into a pile - candle + 2 pebbles + egg - keeping the candle,
+     * a same-coloured candle stays vanilla; a lit vanilla candle stays lit in the pile; breaking gives every part back.
+     */
+    public static void candlesAndSeaPicklesMixWithSmallPartsOnlyWhenMixed(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 4.5));
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        player.setShiftKeyDown(true);
+        // alone: a candle placed on bare stone is the vanilla candle
+        BlockPos alone = new BlockPos(5, 1, 1);
+        helper.setBlock(alone, Blocks.STONE);
+        helper.setBlock(alone.above(), Blocks.AIR);
+        helper.assertTrue(use(helper, player, new ItemStack(Items.CANDLE, 2), alone, Direction.UP).consumesAction(), "the candle was not placed");
+        helper.assertTrue(helper.getBlockState(alone.above()).is(Blocks.CANDLE), "a lone candle is not vanilla but " + helper.getBlockState(alone.above()));
+        ItemStack sameCandles = new ItemStack(Items.CANDLE, 2);
+        use(helper, player, sameCandles, alone.above(), Direction.UP);
+        helper.assertTrue(helper.getBlockState(alone.above()).is(Blocks.CANDLE), "a same-coloured candle turned the candle into a pile");
+        helper.assertValueEqual(sameCandles.getCount(), 2, "same-coloured candles left");
+
+        // mixed: candle + pebble (on the candle) + pebble (from the floor) + egg
+        BlockPos floor = new BlockPos(1, 1, 1);
+        BlockPos spot = floor.above();
+        helper.setBlock(floor, Blocks.STONE);
+        helper.setBlock(spot, Blocks.CANDLE);
+        ItemStack pebbles = new ItemStack(ModItems.STONE_PEBBLE, 3);
+        helper.assertTrue(use(helper, player, pebbles, spot, Direction.UP).consumesAction(), "the pebble did not mix with the candle");
+        helper.assertTrue(helper.getBlockState(spot).is(ModBlocks.PLACED_SMALL_PARTS), "no pile but " + helper.getBlockState(spot));
+        helper.assertTrue(use(helper, player, pebbles, floor, Direction.UP).consumesAction(), "the pebble was not added from the floor");
+        helper.assertTrue(use(helper, player, new ItemStack(Items.EGG), spot, Direction.UP).consumesAction(), "the egg was not added");
+        helper.assertValueEqual(parts(helper, spot), List.of(Items.CANDLE, ModItems.STONE_PEBBLE, ModItems.STONE_PEBBLE, Items.EGG), "the mix");
+        helper.assertValueEqual(helper.getBlockState(spot).getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.CANDLES), 1, "candle count");
+        helper.assertFalse(use(helper, player, new ItemStack(Items.CANDLE), spot, Direction.UP).consumesAction(), "a fifth part (candle) was taken");
+
+        // a lit vanilla candle pair stays lit, a candle added to a pile joins it
+        BlockPos litSpot = new BlockPos(3, 2, 1);
+        helper.setBlock(litSpot.below(), Blocks.STONE);
+        helper.setBlock(litSpot, Blocks.CANDLE.defaultBlockState().setValue(net.minecraft.world.level.block.CandleBlock.CANDLES, 2)
+                .setValue(net.minecraft.world.level.block.CandleBlock.LIT, true));
+        helper.assertTrue(use(helper, player, new ItemStack(ModItems.FLINT_CHIP), litSpot, Direction.UP).consumesAction(), "the chip did not mix");
+        BlockState lit = helper.getBlockState(litSpot);
+        helper.assertTrue(lit.is(ModBlocks.PLACED_SMALL_PARTS) && lit.getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.LIT),
+                "the lit candles went out: " + lit);
+        helper.assertValueEqual(lit.getLightEmission(), 6, "light of two lit candles in a pile");
+        Item redCandle = Items.DYED_CANDLE.pick(net.minecraft.world.item.DyeColor.RED);
+        helper.assertTrue(use(helper, player, new ItemStack(redCandle), litSpot, Direction.UP).consumesAction(), "a red candle was not added to the pile");
+        helper.assertValueEqual(helper.getBlockState(litSpot).getLightEmission(), 9, "light of three lit candles");
+
+        // breaking by hand gives every part back (candles as candles)
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        player.gameMode.destroyBlock(helper.absolutePos(litSpot));
+        helper.assertTrue(helper.getBlockState(litSpot).isAir(), "the pile was not broken");
+        helper.assertValueEqual(droppedCount(helper, litSpot, Items.CANDLE), 2, "candles dropped");
+        helper.assertValueEqual(droppedCount(helper, litSpot, redCandle), 1, "red candles dropped");
+        helper.assertValueEqual(droppedCount(helper, litSpot, ModItems.FLINT_CHIP), 1, "flint chips dropped");
+        helper.succeed();
+    }
+
+    /**
+     * Light and fire on a mixed pile (owner 2026-10-03): flint and steel lights the candles (and wears), an empty hand puts
+     * them out, water puts them out and keeps them from being lit; sea pickles glow 3 + 3 each only under water (a wet
+     * vanilla pickle pair mixed with a pebble glows 9), dry they are dark.
+     */
+    public static void mixedCandlesLightAndGoOutAndPicklesGlowOnlyUnderWater(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 4.5));
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        BlockPos spot = pile(helper, new BlockPos(1, 1, 1), new ItemStack(Items.CANDLE), new ItemStack(ModItems.STONE_PEBBLE));
+        helper.assertValueEqual(helper.getBlockState(spot).getLightEmission(), 0, "light of unlit candles");
+        ItemStack flint = new ItemStack(Items.FLINT_AND_STEEL);
+        player.setItemInHand(InteractionHand.MAIN_HAND, flint);
+        InteractionResult lighting = helper.getBlockState(spot).useItemOn(flint, helper.getLevel(), player, InteractionHand.MAIN_HAND, hitTop(helper, spot));
+        helper.assertTrue(lighting.consumesAction(), "flint and steel answered " + lighting);
+        helper.assertTrue(helper.getBlockState(spot).getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.LIT), "the candle was not lit");
+        helper.assertValueEqual(helper.getBlockState(spot).getLightEmission(), 3, "light of one lit candle");
+        helper.assertValueEqual(flint.getDamageValue(), 1, "flint and steel wear");
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        InteractionResult out = helper.getBlockState(spot).useItemOn(ItemStack.EMPTY, helper.getLevel(), player, InteractionHand.MAIN_HAND, hitTop(helper, spot));
+        helper.assertTrue(out.consumesAction(), "the empty hand answered " + out);
+        helper.assertFalse(helper.getBlockState(spot).getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.LIT), "the candle still burns");
+        helper.assertValueEqual(helper.getBlockState(spot).getLightEmission(), 0, "light after putting it out");
+
+        // water puts it out, and wet candles do not light
+        helper.setBlock(spot, helper.getBlockState(spot).setValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.LIT, true));
+        BlockPos abs = helper.absolutePos(spot);
+        BlockState burning = helper.getBlockState(spot);
+        helper.assertTrue(((net.minecraft.world.level.block.SimpleWaterloggedBlock) burning.getBlock())
+                .placeLiquid(helper.getLevel(), abs, burning, net.minecraft.world.level.material.Fluids.WATER.getSource(false)), "water did not fill the pile");
+        BlockState wet = helper.getBlockState(spot);
+        helper.assertTrue(wet.getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.WATERLOGGED)
+                && !wet.getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.LIT), "water did not put the candle out: " + wet);
+        helper.assertFalse(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.canLight(wet), "a wet candle can be lit");
+
+        // pickles: a wet vanilla pair mixed with a pebble glows 9, a dry mix is dark
+        player.setShiftKeyDown(true);
+        BlockPos pickleSpot = new BlockPos(3, 2, 1);
+        basin(helper, 2, 0, 4, 2);
+        helper.setBlock(pickleSpot.below(), Blocks.STONE);
+        helper.setBlock(pickleSpot, Blocks.SEA_PICKLE.defaultBlockState().setValue(net.minecraft.world.level.block.SeaPickleBlock.PICKLES, 2)
+                .setValue(net.minecraft.world.level.block.SeaPickleBlock.WATERLOGGED, true));
+        helper.assertTrue(use(helper, player, new ItemStack(ModItems.STONE_PEBBLE), pickleSpot, Direction.UP).consumesAction(),
+                "the pebble did not mix with the pickles");
+        BlockState pickles = helper.getBlockState(pickleSpot);
+        helper.assertTrue(pickles.is(ModBlocks.PLACED_SMALL_PARTS) && pickles.getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.WATERLOGGED),
+                "no wet pile but " + pickles);
+        helper.assertValueEqual(parts(helper, pickleSpot), List.of(Items.SEA_PICKLE, Items.SEA_PICKLE, ModItems.STONE_PEBBLE), "the pickle mix");
+        helper.assertValueEqual(pickles.getLightEmission(), 9, "light of two wet pickles");
+        BlockPos dry = pile(helper, new BlockPos(6, 1, 5), new ItemStack(Items.SEA_PICKLE), new ItemStack(ModItems.FLINT_CHIP));
+        helper.assertValueEqual(helper.getBlockState(dry).getLightEmission(), 0, "light of a dry pickle");
+        helper.assertValueEqual(helper.getBlockState(dry).getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.PICKLES), 1, "pickle count");
+        helper.succeed();
+    }
+
+    /**
+     * Save compatibility (owner 2026-10-03): a pile saved before candles and pickles (only facing and waterlogged) loads as
+     * the pile with lit=false, candles=0, pickles=0 and no light; the candle and pickle item definitions the renderer draws
+     * through point at the vanilla block models.
+     */
+    public static void oldPilesLoadUnlitAndTheCandleModelsAreTheVanillaOnes(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        // Ein heutiger Zustand, als NBT geschrieben, dann ohne die neuen Eigenschaften - so steht er in alten Welten.
+        CompoundTag tag = net.minecraft.nbt.NbtUtils.writeBlockState(ModBlocks.PLACED_SMALL_PARTS.defaultBlockState()
+                .setValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.FACING, Direction.EAST)
+                .setValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.LIT, true)
+                .setValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.CANDLES, 2));
+        CompoundTag properties = null;
+        for (String key : tag.keySet()) {
+            if (tag.get(key) instanceof CompoundTag compound && compound.contains("facing")) {
+                properties = compound;
+            }
+        }
+        helper.assertTrue(properties != null, "no properties in " + tag);
+        properties.remove("lit");
+        properties.remove("candles");
+        properties.remove("pickles");
+        // So liest auch die Welt Blockzustaende aus NBT: fehlende Eigenschaften bekommen den Standardwert.
+        BlockState old = net.minecraft.nbt.NbtUtils.readBlockState(
+                helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.BLOCK), tag);
+        helper.assertTrue(old.is(ModBlocks.PLACED_SMALL_PARTS), "the old pile did not load: " + old);
+        helper.assertTrue(!old.getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.LIT)
+                && old.getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.CANDLES) == 0
+                && old.getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.PICKLES) == 0
+                && old.getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.FACING) == Direction.EAST, "old pile state " + old);
+        helper.assertValueEqual(old.getLightEmission(), 0, "light of an old pile");
+        int candles = 0;
+        for (Item item : net.minecraft.core.registries.BuiltInRegistries.ITEM) {
+            if (!PlacedSmallParts.isCandle(new ItemStack(item))) {
+                continue;
+            }
+            candles++;
+            String path = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item).getPath();
+            for (String lit : List.of("", "_lit")) {
+                com.google.gson.JsonObject definition = resourceJson(helper, "/assets/simplebuilding/items/placed_" + path + lit + ".json");
+                helper.assertValueEqual(definition.getAsJsonObject("model").get("model").getAsString(), "minecraft:block/" + path + "_one_candle" + lit,
+                        path + lit + " item definition");
+            }
+        }
+        helper.assertValueEqual(candles, 17, "vanilla candles");
+        for (String pickle : List.of("sea_pickle", "dead_sea_pickle")) {
+            com.google.gson.JsonObject definition = resourceJson(helper, "/assets/simplebuilding/items/placed_" + pickle + ".json");
+            helper.assertValueEqual(definition.getAsJsonObject("model").get("model").getAsString(), "minecraft:block/" + pickle, pickle + " item definition");
+        }
+        helper.succeed();
+    }
+
+    /** Ein Treffer von oben auf die Mitte des Blocks {@code pos} (relativ). */
+    private static BlockHitResult hitTop(GameTestHelper helper, BlockPos pos) {
+        BlockPos abs = helper.absolutePos(pos);
+        return new BlockHitResult(new Vec3(abs.getX() + 0.5, abs.getY() + 0.05, abs.getZ() + 0.5), Direction.UP, abs, false);
+    }
+
+    // =====================================================================================
 
     /** Die Items des Haeufchens an {@code pos} (relativ), leer, wenn dort keins liegt. */
     private static List<Item> parts(GameTestHelper helper, BlockPos pos) {

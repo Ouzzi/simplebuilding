@@ -1694,6 +1694,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_template_game_test_the_egg_model_matches_the_egg_hitbox", PlacedTemplateTests::theEggModelMatchesTheEggHitbox)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_the_new_small_parts_lie_down_mix_and_glowing_ones_have_particles", PlacedTemplateTests::theNewSmallPartsLieDownMixAndGlowingOnesHaveParticles)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_candles_and_sea_pickles_mix_with_small_parts_only_when_mixed", PlacedTemplateTests::candlesAndSeaPicklesMixWithSmallPartsOnlyWhenMixed)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_mixed_candles_light_and_go_out_and_pickles_glow_only_under_water", PlacedTemplateTests::mixedCandlesLightAndGoOutAndPicklesGlowOnlyUnderWater)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_old_piles_load_unlit_and_the_candle_models_are_the_vanilla_ones", PlacedTemplateTests::oldPilesLoadUnlitAndTheCandleModelsAreTheVanillaOnes)
+                    .build(),
             GameTestSpec.named("placed_template_game_test_small_parts_lie_down_and_the_server_options_gate_them", PlacedTemplateTests::smallPartsLieDownAndTheServerOptionsGateThem)
                     .build(),
             GameTestSpec.named("placed_template_game_test_sneak_use_places_templates_on_the_floor_against_the_wall_and_under_the_ceiling", PlacedTemplateTests::sneakUsePlacesTemplatesOnTheFloorAgainstTheWallAndUnderTheCeiling)

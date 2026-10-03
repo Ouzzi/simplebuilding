@@ -280,6 +280,13 @@ public class SimplebuildingConfig implements ConfigData {
         @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
         public int transformHintStrength = 50;
 
+        /**
+         * Dezente Vanilla-Partikel ueber abgelegten leuchtenden Kleinteilen (Glowstonestaub, Netherstern,
+         * Weisheitskugel ...; PlacedPartParticles, 2026-10-03). Kerzenflammen bleiben immer an (wie Vanilla). Clientseitig.
+         */
+        @ConfigEntry.Gui.Tooltip
+        public boolean placedPartParticles = true;
+
         void validate() {
             wandHungerMultiplier = nonNegative(wandHungerMultiplier, 1.0);
             transformHintStrength = Math.max(0, Math.min(100, transformHintStrength));

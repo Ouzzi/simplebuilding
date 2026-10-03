@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -18,11 +19,16 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CandleBlock;
+import net.minecraft.world.level.block.SeaPickleBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -57,6 +63,12 @@ import org.joml.Vector3f;
  *
  * <p>Alte Welten: das einzelne gelegte Ei ({@code placed_egg}) und ein einzeln auf den Boden gelegtes Kleinteil
  * ({@code placed_smithing_template}) bleiben, wie sie sind; legt man etwas dazu, werden sie zum Haeufchen.
+ *
+ * <p>Kerzen und Seegurken (Besitzer 2026-10-03): Vanilla-Bloecke mit 1-4 Stueck. Allein bleiben sie Vanilla; erst ein
+ * anderes Teil macht daraus ein Haeufchen (Schleichen + Rechtsklick mit dem Teil auf den Kerzen-/Seegurkenblock oder den
+ * Boden darunter, {@link #isPileSpot}): die Kerzen bzw. Gurken werden einzelne Teile, Brennen und Wasser bleiben.
+ * Auf ein Haeufchen legen sich Kerzen und Seegurken wie jedes andere Teil. Sie stehen als ihr Vanilla-Blockmodell
+ * ({@link Kind#CANDLE}, {@link Kind#PICKLE}); das Licht rechnet {@link PlacedSmallPartsBlock#light} aus dem Blockzustand.
  */
 public final class PlacedSmallParts {
     /** Hoechstens so viele Teile auf einem Block (feste Server-Obergrenze, wie Seegurken). */
@@ -84,6 +96,38 @@ public final class PlacedSmallParts {
             {0.0F, 0.5F, 1.5F}, {0.5F, 1.0F, 2.0F}, {1.0F, 3.5F, 2.5F}, {3.5F, 4.5F, 2.0F}, {4.5F, 5.0F, 1.5F}, {5.0F, 5.5F, 1.0F},
     };
 
+    /** Quader einer Vanilla-Kerze ({@code block/template_candle}, ohne Docht): {y0, y1, halbe Breite}. */
+    public static final float[][] CANDLE_BOXES = {{0.0F, 6.0F, 1.0F}};
+    /** Quader einer Vanilla-Seegurke ({@code block/sea_pickle}, ohne Spross): {y0, y1, halbe Breite}. */
+    public static final float[][] PICKLE_BOXES = {{0.0F, 6.0F, 2.0F}};
+
+    /** Wie ein Teil auf dem Fleck liegt bzw. steht. */
+    public enum Kind {
+        /** Flache Platte aus der Item-Textur. */
+        PLATE,
+        /** Aufrechtes 3D-Ei. */
+        EGG,
+        /** Eine Vanilla-Kerze (Blockmodell, brennt mit dem Fleck). */
+        CANDLE,
+        /** Eine Vanilla-Seegurke (Blockmodell, leuchtet unter Wasser). */
+        PICKLE;
+
+        /** Steht aufrecht auf dem Boden (Blockmodell, Mitte im Ursprung) statt flach zu liegen. */
+        public boolean standing() {
+            return this != PLATE;
+        }
+
+        /** Die Quader des stehenden Modells (Pixel, um x = z = 8). */
+        public float[][] boxes() {
+            return switch (this) {
+                case EGG -> EGG_BOXES;
+                case CANDLE -> CANDLE_BOXES;
+                case PICKLE -> PICKLE_BOXES;
+                case PLATE -> new float[0][];
+            };
+        }
+    }
+
     private PlacedSmallParts() {
     }
 
@@ -91,9 +135,38 @@ public final class PlacedSmallParts {
     // Was sich ablegen laesst
     // =====================================================================================
 
-    /** Ein Kleinteil oder ein Ei, das die Server-Optionen zulassen. */
+    /** Ein Kleinteil, ein Ei, eine Kerze oder eine Seegurke, das die Server-Optionen zulassen. */
     public static boolean isPart(ItemStack stack) {
-        return PlacedTemplates.isPlaceableSmall(stack) || PlacedEggs.isPlaceableEgg(stack);
+        return PlacedTemplates.isPlaceableSmall(stack) || PlacedEggs.isPlaceableEgg(stack) || isBlockPart(stack);
+    }
+
+    /**
+     * Eine Vanilla-Kerze (alle 17) oder Seegurke, die die Server-Optionen zulassen ({@code placeVanillaItems},
+     * {@code placeDisabledItems}). Sie wird nur gemischt zum Teil eines Haeufchens; allein bleibt sie Vanilla.
+     */
+    public static boolean isBlockPart(ItemStack stack) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES || !(isCandle(stack) || stack.is(Items.SEA_PICKLE))) {
+            return false;
+        }
+        var features = com.simplebuilding.config.ServerTuning.get().features;
+        return features.placeVanillaItems && !PlacedTemplates.itemListed(features.placeDisabledItems, BuiltInRegistries.ITEM.getKey(stack.getItem()));
+    }
+
+    /** Eine Vanilla-Kerze (ungefaerbt oder eine der 16 Farben). */
+    public static boolean isCandle(ItemStack stack) {
+        return !stack.isEmpty() && "minecraft".equals(BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace())
+                && Block.byItem(stack.getItem()) instanceof CandleBlock;
+    }
+
+    /** Wie das Teil auf dem Fleck liegt bzw. steht. */
+    public static Kind kind(ItemStack stack) {
+        if (isEgg(stack)) {
+            return Kind.EGG;
+        }
+        if (isCandle(stack)) {
+            return Kind.CANDLE;
+        }
+        return stack.is(Items.SEA_PICKLE) ? Kind.PICKLE : Kind.PLATE;
     }
 
     /** Ein Ei (normal, blau, braun) - steht aufrecht, zerbricht ohne Behutsamkeit. */
@@ -119,13 +192,14 @@ public final class PlacedSmallParts {
         }
         Level level = context.getLevel();
         BlockPos clicked = context.getClickedPos();
-        BlockPos pile = isPileSpot(level, clicked) ? clicked
-                : context.getClickedFace() == Direction.UP && isPileSpot(level, clicked.above()) ? clicked.above() : null;
+        BlockPos pile = isPileSpot(level, clicked, stack) ? clicked
+                : context.getClickedFace() == Direction.UP && isPileSpot(level, clicked.above(), stack) ? clicked.above() : null;
         if (pile != null) {
             // Voll (oder nicht erweiterbar): abgelehnt, das Teil bleibt in der Hand - und ein Ei fliegt nicht los.
             return add(level, pile, player, stack) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
         }
-        if (context.getClickedFace() != Direction.UP) {
+        // Kerzen und Seegurken legen allein nie ein Haeufchen an: das bleibt der Vanilla-Block.
+        if (isBlockPart(stack) || context.getClickedFace() != Direction.UP) {
             return null;
         }
         BlockPlaceContext place = new BlockPlaceContext(context);
@@ -149,8 +223,12 @@ public final class PlacedSmallParts {
         return InteractionResult.SUCCESS;
     }
 
-    /** Ein Fleck, auf den sich etwas dazulegen laesst: ein Haeufchen, ein altes gelegtes Ei, ein liegendes Kleinteil. */
-    public static boolean isPileSpot(Level level, BlockPos pos) {
+    /**
+     * Ein Fleck, auf den sich {@code stack} dazulegen laesst: ein Haeufchen, ein altes gelegtes Ei, ein liegendes
+     * Kleinteil - oder ein Vanilla-Kerzen- bzw. Seegurkenblock, wenn {@code stack} etwas anderes ist (eine gleichfarbige
+     * Kerze auf Kerzen, eine Seegurke auf Seegurken bleiben Vanilla).
+     */
+    public static boolean isPileSpot(Level level, BlockPos pos, ItemStack stack) {
         BlockState state = level.getBlockState(pos);
         if (state.getBlock() instanceof PlacedSmallPartsBlock) {
             return true;
@@ -158,8 +236,19 @@ public final class PlacedSmallParts {
         if (ModBlocks.PLACED_EGG != null && state.is(ModBlocks.PLACED_EGG)) {
             return true;
         }
+        if (isCandleBlock(state)) {
+            return !stack.is(state.getBlock().asItem());
+        }
+        if (state.is(Blocks.SEA_PICKLE)) {
+            return !stack.is(Items.SEA_PICKLE);
+        }
         return state.is(ModBlocks.PLACED_SMITHING_TEMPLATE) && state.getValue(PlacedTemplateBlock.FACE) == AttachFace.FLOOR
                 && level.getBlockEntity(pos) instanceof PlacedTemplateBlockEntity be && isSmallPart(be.getTemplate());
+    }
+
+    /** Ein Vanilla-Kerzenblock (1-4 Kerzen einer Farbe). */
+    private static boolean isCandleBlock(BlockState state) {
+        return state.getBlock() instanceof CandleBlock && isCandle(new ItemStack(state.getBlock().asItem()));
     }
 
     /** Ein Kleinteil des Tags, unabhaengig von den Server-Optionen (was schon liegt, darf liegen bleiben). */
@@ -186,32 +275,51 @@ public final class PlacedSmallParts {
             }
             return true;
         }
-        // Alte Einzelteile: erst zum Haeufchen machen, dann dazulegen.
-        ItemStack old;
-        Direction facing;
+        // Alte Einzelteile und Vanilla-Kerzen/-Seegurken: erst zum Haeufchen machen, dann dazulegen.
+        List<ItemStack> old = new ArrayList<>();
+        Direction facing = player.getDirection();
+        boolean lit = false;
+        boolean vanillaBlock = false;
         if (ModBlocks.PLACED_EGG != null && state.is(ModBlocks.PLACED_EGG)) {
-            old = new ItemStack(state.getValue(PlacedEggBlock.EGG).item());
-            facing = player.getDirection();
+            old.add(new ItemStack(state.getValue(PlacedEggBlock.EGG).item()));
         } else if (state.is(ModBlocks.PLACED_SMITHING_TEMPLATE) && level.getBlockEntity(pos) instanceof PlacedTemplateBlockEntity template
                 && isSmallPart(template.getTemplate())) {
-            old = template.getTemplate().copyWithCount(1);
+            old.add(template.getTemplate().copyWithCount(1));
             facing = state.getValue(PlacedTemplateBlock.FACING);
+        } else if (isCandleBlock(state) && !stack.is(state.getBlock().asItem())) {
+            for (int i = 0; i < state.getValue(CandleBlock.CANDLES); i++) {
+                old.add(new ItemStack(state.getBlock().asItem()));
+            }
+            lit = state.getValue(CandleBlock.LIT);
+            vanillaBlock = true;
+        } else if (state.is(Blocks.SEA_PICKLE) && !stack.is(Items.SEA_PICKLE)) {
+            for (int i = 0; i < state.getValue(SeaPickleBlock.PICKLES); i++) {
+                old.add(new ItemStack(Items.SEA_PICKLE));
+            }
+            vanillaBlock = true;
         } else {
+            return false;
+        }
+        if (old.size() >= MAX_PARTS) {
+            return false;
+        }
+        BlockState pile = ModBlocks.PLACED_SMALL_PARTS.defaultBlockState().setValue(PlacedSmallPartsBlock.FACING, facing)
+                .setValue(PlacedSmallPartsBlock.WATERLOGGED, state.getFluidState().is(Fluids.WATER))
+                .setValue(PlacedSmallPartsBlock.LIT, lit);
+        if (vanillaBlock && !pile.canSurvive(level, pos)) {
             return false;
         }
         if (level.isClientSide()) {
             return true;
         }
-        BlockState pile = ModBlocks.PLACED_SMALL_PARTS.defaultBlockState().setValue(PlacedSmallPartsBlock.FACING, facing)
-                .setValue(PlacedSmallPartsBlock.WATERLOGGED, state.getFluidState().is(Fluids.WATER));
-        // Ohne Drops austauschen: das alte Teil wandert in das Haeufchen.
+        // Ohne Drops austauschen: die alten Teile wandern in das Haeufchen.
         if (!level.setBlock(pos, pile, 3)) {
             return false;
         }
         if (!(level.getBlockEntity(pos) instanceof PlacedSmallPartsBlockEntity be)) {
             return false;
         }
-        be.setParts(List.of(old));
+        be.setParts(old);
         if (!be.add(stack)) {
             return false;
         }
@@ -223,6 +331,10 @@ public final class PlacedSmallParts {
     private static void placed(Level level, BlockPos pos, Player player, BlockState state, ItemStack stack) {
         if (isEgg(stack)) {
             level.playSound(null, pos, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.5F, 1.6F);
+        } else if (isCandle(stack) || stack.is(Items.SEA_PICKLE)) {
+            // Der Klang des Vanilla-Blocks (Kerze bzw. Seegurke).
+            SoundType sound = Block.byItem(stack.getItem()).defaultBlockState().getSoundType();
+            level.playSound(null, pos, sound.getPlaceSound(), SoundSource.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
         } else {
             SoundType sound = state.getSoundType();
             level.playSound(null, pos, sound.getPlaceSound(), SoundSource.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
@@ -312,17 +424,18 @@ public final class PlacedSmallParts {
     /**
      * Vom Blockursprung zum Modellraum von Teil {@code index} (von {@code count}), so wie ein Item-Modell ohne
      * Anzeige-Transformation gezeichnet wird (Mitte des Modells im Ursprung). Liegende Teile: die Platte flach, die
-     * Oberkante nach {@code facing}; Eier: das Blockmodell des Eis mit seiner Unterkante auf dem Boden.
+     * Oberkante nach {@code facing}; stehende Teile (Eier, Kerzen, Seegurken, {@link Kind#standing}): das Blockmodell mit
+     * seiner Unterkante auf dem Boden, die Modellmitte (8, 8, 8) im Ursprung - dort sitzt auch die Kerzenflamme.
      */
-    public static void place(Ops ops, Direction facing, int count, int index, boolean egg) {
+    public static void place(Ops ops, Direction facing, int count, int index, boolean standing) {
         float[] slot = SLOTS[Math.max(0, Math.min(MAX_PARTS, count) - 1)][Math.max(0, Math.min(index, count - 1))];
         float lift = index * LIFT;
         ops.translate(0.5F, 0.0F, 0.5F);
         ops.rotateY(rad(180.0F - facing.toYRot()));
         ops.translate((slot[0] - 8.0F) / 16.0F, 0.0F, (slot[1] - 8.0F) / 16.0F);
         ops.rotateY(rad(slot[2]));
-        if (egg) {
-            // Eier stehen immer auf dem Boden (das Ei kann eine darunter liegende Platte streifen, das stoert nicht).
+        if (standing) {
+            // Stehende Teile stehen immer auf dem Boden (sie koennen eine liegende Platte streifen, das stoert nicht).
             ops.translate(0.0F, 0.5F, 0.0F);
             return;
         }
@@ -350,15 +463,15 @@ public final class PlacedSmallParts {
         return shape.optimize();
     }
 
-    /** Trefferform eines Teils: die Quader des Eis bzw. die deckenden Pixel der Item-Textur. */
+    /** Trefferform eines Teils: die Quader des stehenden Modells bzw. die deckenden Pixel der Item-Textur. */
     public static VoxelShape partShape(ItemStack part, Direction facing, int count, int index) {
-        boolean egg = isEgg(part);
+        Kind kind = kind(part);
         Matrix4f m = new Matrix4f();
-        place(new MatrixOps(m), facing, count, index, egg);
+        place(new MatrixOps(m), facing, count, index, kind.standing());
         m.translate(-0.5F, -0.5F, -0.5F);
         VoxelShape shape = Shapes.empty();
-        if (egg) {
-            for (float[] box : EGG_BOXES) {
+        if (kind.standing()) {
+            for (float[] box : kind.boxes()) {
                 float lo = (8.0F - box[2]) / 16.0F;
                 float hi = (8.0F + box[2]) / 16.0F;
                 shape = Shapes.or(shape, box(m, lo, box[0] / 16.0F, lo, hi, box[1] / 16.0F, hi));
@@ -389,6 +502,38 @@ public final class PlacedSmallParts {
             v = end;
         }
         return shape;
+    }
+
+    /**
+     * Die Mitte von Teil {@code index} (von {@code count}) relativ zum Blockursprung: bei stehenden Teilen die
+     * Modellmitte, wo die Flamme einer Kerze sitzt (wie Vanilla 8 Pixel ueber dem Boden), bei liegenden die Platte.
+     */
+    public static Vector3f center(Direction facing, int count, int index, boolean standing) {
+        Matrix4f m = new Matrix4f();
+        place(new MatrixOps(m), facing, count, index, standing);
+        return m.transformPosition(0.0F, 0.0F, 0.0F, new Vector3f());
+    }
+
+    /** Wie viele Kerzen unter den Teilen sind. */
+    public static int candles(List<ItemStack> parts) {
+        int n = 0;
+        for (ItemStack part : parts) {
+            if (isCandle(part)) {
+                n++;
+            }
+        }
+        return n;
+    }
+
+    /** Wie viele Seegurken unter den Teilen sind. */
+    public static int pickles(List<ItemStack> parts) {
+        int n = 0;
+        for (ItemStack part : parts) {
+            if (part.is(Items.SEA_PICKLE)) {
+                n++;
+            }
+        }
+        return n;
     }
 
     private static VoxelShape box(Matrix4f m, float x0, float y0, float z0, float x1, float y1, float z1) {

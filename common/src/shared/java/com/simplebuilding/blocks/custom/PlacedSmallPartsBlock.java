@@ -8,10 +8,13 @@ import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -25,6 +28,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -43,15 +48,51 @@ import org.jetbrains.annotations.Nullable;
  * <p>Abbauen ({@link #getDrops}, {@link #spawnAfterBreak}, {@link #playerWillDestroy}): jedes liegende Teil faellt als es
  * selbst heraus; Eier mit Behutsamkeit ebenso, sonst zerbrechen sie und schluepfen wie geworfene Eier. Explosionen,
  * Kolben und ein weggenommener Boden bauen ohne Werkzeug ab. Keine Loot-Tabelle.
+ *
+ * <p>Kerzen und Seegurken (2026-10-03): {@link #LIT}, {@link #CANDLES} und {@link #PICKLES} tragen, was das Licht braucht
+ * ({@link #light}); die Zaehler gleicht die Block-Entity nach jeder Teil-Aenderung ab. Feuerzeug, Feuerkugel und
+ * brennende Geschosse zuenden an, die leere Hand und Wasser loeschen - wie beim Vanilla-Kerzenblock.
  */
 public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    /** Die Kerzen des Flecks brennen (alle zusammen, wie bei einem Vanilla-Kerzenblock). */
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
+    /** Zahl der Kerzen unter den Teilen (aus der Block-Entity abgeglichen, nur fuers Licht). */
+    public static final IntegerProperty CANDLES = IntegerProperty.create("candles", 0, PlacedSmallParts.MAX_PARTS);
+    /** Zahl der Seegurken unter den Teilen (aus der Block-Entity abgeglichen, nur fuers Licht). */
+    public static final IntegerProperty PICKLES = IntegerProperty.create("pickles", 0, PlacedSmallParts.MAX_PARTS);
     public static final MapCodec<PlacedSmallPartsBlock> CODEC = BlockCodecs.simple(PlacedSmallPartsBlock::new);
 
     public PlacedSmallPartsBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
+        // Alte Welten: Haeufchen ohne lit/candles/pickles laden mit diesen Standardwerten - richtig, sie hatten keine.
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false)
+                .setValue(LIT, false).setValue(CANDLES, 0).setValue(PICKLES, 0));
+    }
+
+    /**
+     * Licht wie die Vanilla-Bloecke, nur aus dem Zustand: unter Wasser leuchten Seegurken (3 + 3 je Gurke), trocken
+     * brennende Kerzen (3 je Kerze). Kerzen brennen nie unter Wasser, Gurken leuchten nie trocken.
+     */
+    public static int light(BlockState state) {
+        if (state.getValue(WATERLOGGED)) {
+            int pickles = state.getValue(PICKLES);
+            return pickles > 0 ? Math.min(15, 3 + 3 * pickles) : 0;
+        }
+        return state.getValue(LIT) ? Math.min(15, 3 * state.getValue(CANDLES)) : 0;
+    }
+
+    /** Der Zustand mit den Zaehlern dieser Teile; ohne Kerzen brennt nichts. */
+    public static BlockState withCounts(BlockState state, List<ItemStack> parts) {
+        int candles = Math.min(PlacedSmallParts.MAX_PARTS, PlacedSmallParts.candles(parts));
+        int pickles = Math.min(PlacedSmallParts.MAX_PARTS, PlacedSmallParts.pickles(parts));
+        return state.setValue(CANDLES, candles).setValue(PICKLES, pickles).setValue(LIT, state.getValue(LIT) && candles > 0);
+    }
+
+    /** Laesst sich anzuenden: Kerzen da, aus, trocken (wie {@code CandleBlock#canLight}). */
+    public static boolean canLight(BlockState state) {
+        return state.getValue(CANDLES) > 0 && !state.getValue(LIT) && !state.getValue(WATERLOGGED);
     }
 
     // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.
@@ -61,7 +102,7 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, WATERLOGGED);
+        builder.add(FACING, WATERLOGGED, LIT, CANDLES, PICKLES);
     }
 
     /** Oberkante der Teile in die Blickrichtung; wassergefuellt in einer Wasserquelle. */
@@ -102,6 +143,48 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
     @Override
     protected FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
+
+    /** Wasser hinein loescht brennende Kerzen (wie {@code CandleBlock#placeLiquid}). */
+    @Override
+    public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluid) {
+        if (state.getValue(WATERLOGGED) || fluid.getType() != Fluids.WATER) {
+            return false;
+        }
+        BlockState wet = state.setValue(WATERLOGGED, true);
+        if (state.getValue(LIT)) {
+            wet = wet.setValue(LIT, false);
+            level.playSound(null, pos, SoundEvents.CANDLE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
+        }
+        level.setBlock(pos, wet, Block.UPDATE_ALL);
+        level.scheduleTick(pos, fluid.getType(), fluid.getType().getTickDelay(level));
+        return true;
+    }
+
+    /** Ein brennendes Geschoss zuendet die Kerzen an (wie {@code AbstractCandleBlock#onProjectileHit}). */
+    @Override
+    protected void onProjectileHit(net.minecraft.world.level.Level level, BlockState state, net.minecraft.world.phys.BlockHitResult hit,
+                                   net.minecraft.world.entity.projectile.Projectile projectile) {
+        if (!level.isClientSide() && projectile.isOnFire() && canLight(state)) {
+            level.setBlock(hit.getBlockPos(), state.setValue(LIT, true), Block.UPDATE_ALL_IMMEDIATE);
+        }
+    }
+
+    /** Loescht die Kerzen: Rauch an jedem Docht (Client), Klang und Spielereignis (Server). */
+    public static void extinguish(@Nullable net.minecraft.world.entity.player.Player player, BlockState state, net.minecraft.world.level.Level level, BlockPos pos) {
+        if (level.isClientSide()) {
+            com.simplebuilding.util.PlacedPartParticles.wickSmoke(level, pos, state);
+            return;
+        }
+        level.setBlock(pos, state.setValue(LIT, false), Block.UPDATE_ALL_IMMEDIATE);
+        level.playSound(null, pos, SoundEvents.CANDLE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+    }
+
+    /** Flamme und Rauch der brennenden Kerzen, dezente Glanz-Partikel leuchtender Teile ({@code PlacedPartParticles}). */
+    @Override
+    public void animateTick(BlockState state, net.minecraft.world.level.Level level, BlockPos pos, RandomSource random) {
+        com.simplebuilding.util.PlacedPartParticles.animate(state, level, pos, random);
     }
 
     @Override
@@ -156,6 +239,28 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
                                                               BlockPos pos, net.minecraft.world.entity.player.Player player,
                                                               net.minecraft.world.InteractionHand hand, net.minecraft.world.phys.BlockHitResult hit) {
         if (com.simplebuilding.util.ShulkerShells.upgrade(level, pos, player, stack)) {
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        }
+        // Leere Hand loescht brennende Kerzen (wie CandleBlock#useItemOn).
+        if (stack.isEmpty() && state.getValue(LIT) && player.getAbilities().mayBuild) {
+            extinguish(player, state, level, pos);
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        }
+        // Feuerzeug oder Feuerkugel zuenden die Kerzen an (Vanilla-Klang, Haltbarkeit bzw. eine Kugel).
+        boolean flint = stack.is(net.minecraft.world.item.Items.FLINT_AND_STEEL);
+        if ((flint || stack.is(net.minecraft.world.item.Items.FIRE_CHARGE)) && canLight(state)) {
+            if (!level.isClientSide()) {
+                level.setBlock(pos, state.setValue(LIT, true), Block.UPDATE_ALL_IMMEDIATE);
+                RandomSource random = level.getRandom();
+                if (flint) {
+                    level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+                    stack.hurtAndBreak(1, player, hand);
+                } else {
+                    level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+                    stack.consume(1, player);
+                }
+                level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+            }
             return net.minecraft.world.InteractionResult.SUCCESS;
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hit);

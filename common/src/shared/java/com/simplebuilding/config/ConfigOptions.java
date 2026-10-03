@@ -43,6 +43,7 @@ public final class ConfigOptions {
             "tools.enableToolAnimations",
             "tools.enableChiselAnimation",
             "tools.transformHintStrength",
+            "tools.placedPartParticles",
             "tweaks.laserPointer.color",
             "tweaks.laserPointer.scale",
             "tweaks.optimization.scaleXpOrbs");

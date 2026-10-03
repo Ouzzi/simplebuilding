@@ -28,6 +28,23 @@ public abstract class BlockItemMixin {
     @Unique
     private static final ThreadLocal<ItemStack> SIMPLEBUILDING_PLACING = new ThreadLocal<>();
 
+    /**
+     * Kerzen und Seegurken (2026-10-03) mischen sich mit den Kleinteilen: Schleichen + Rechtsklick auf ein Haeufchen
+     * legt sie dazu, auf einen Vanilla-Kerzen-/Seegurkenblock einer anderen Art macht daraus ein Haeufchen
+     * ({@link com.simplebuilding.util.PlacedSmallParts#tryPlace}). Allein legen sie sich weiter als Vanilla-Block.
+     * {@code BlockItem} ueberschreibt {@code useOn}, daher hier und nicht im {@code ItemUseOnMixin}.
+     */
+    @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
+    private void simplebuilding$mixIntoSmallParts(net.minecraft.world.item.context.UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
+        if (!com.simplebuilding.util.PlacedSmallParts.isBlockPart(context.getItemInHand())) {
+            return;
+        }
+        InteractionResult result = com.simplebuilding.util.PlacedSmallParts.tryPlace(context);
+        if (result != null) {
+            cir.setReturnValue(result);
+        }
+    }
+
     @Inject(method = "place", at = @At("HEAD"))
     private void simplebuilding$rememberPlacedStack(BlockPlaceContext context, CallbackInfoReturnable<InteractionResult> cir) {
         SIMPLEBUILDING_PLACING.set(context.getItemInHand().copy());

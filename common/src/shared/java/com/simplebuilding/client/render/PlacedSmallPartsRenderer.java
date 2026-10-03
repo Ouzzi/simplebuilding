@@ -46,11 +46,14 @@ public class PlacedSmallPartsRenderer implements BlockEntityRenderer<PlacedSmall
         this.itemModelResolver = context.itemModelResolver();
     }
 
-    /** Was der Renderer je Bild braucht: Richtung, Anzahl, je Teil Modell und ob es ein Ei ist. */
+    /** Ersatz-Stapel fuer Kerzen und Seegurken, je Item-Definition ({@code simplebuilding:placed_<kerze>[_lit]} ...). */
+    private static final Map<String, ItemStack> BLOCK_MODELS = new java.util.concurrent.ConcurrentHashMap<>();
+
+    /** Was der Renderer je Bild braucht: Richtung, Anzahl, je Teil Modell und ob es aufrecht steht. */
     public static class State extends BlockEntityRenderState {
         public Direction facing = Direction.NORTH;
         public int count;
-        public final boolean[] egg = new boolean[PlacedSmallParts.MAX_PARTS];
+        public final boolean[] standing = new boolean[PlacedSmallParts.MAX_PARTS];
         public final ItemStackRenderState[] items = new ItemStackRenderState[PlacedSmallParts.MAX_PARTS];
 
         public State() {
@@ -74,12 +77,31 @@ public class PlacedSmallPartsRenderer implements BlockEntityRenderer<PlacedSmall
         });
     }
 
+    /**
+     * Der Ersatz-Stapel fuer eine Kerze bzw. Seegurke: die Item-Definition zeigt auf das Vanilla-Blockmodell einer
+     * einzelnen Kerze ({@code minecraft:block/<farbe>_candle_one_candle[_lit]}) bzw. Seegurke
+     * ({@code minecraft:block/[dead_]sea_pickle}); erzeugt von {@code tools/textures/placeables_v2_2026_10_03.py}.
+     */
+    private static ItemStack blockModel(ItemStack part, PlacedSmallParts.Kind kind, boolean lit, boolean wet) {
+        String name = kind == PlacedSmallParts.Kind.CANDLE
+                ? "placed_" + net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(part.getItem()).getPath() + (lit ? "_lit" : "")
+                : wet ? "placed_sea_pickle" : "placed_dead_sea_pickle";
+        return BLOCK_MODELS.computeIfAbsent(name, n -> {
+            ItemStack stack = new ItemStack(part.getItem());
+            stack.set(DataComponents.ITEM_MODEL, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, n));
+            return stack;
+        });
+    }
+
     @Override
     public void extractRenderState(PlacedSmallPartsBlockEntity blockEntity, State state, float partialTicks, Vec3 cameraPosition,
                                    ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
         BlockState blockState = blockEntity.getBlockState();
-        state.facing = blockState.getBlock() instanceof PlacedSmallPartsBlock ? blockState.getValue(PlacedSmallPartsBlock.FACING) : Direction.NORTH;
+        boolean pile = blockState.getBlock() instanceof PlacedSmallPartsBlock;
+        state.facing = pile ? blockState.getValue(PlacedSmallPartsBlock.FACING) : Direction.NORTH;
+        boolean lit = pile && blockState.getValue(PlacedSmallPartsBlock.LIT);
+        boolean wet = pile && blockState.getValue(PlacedSmallPartsBlock.WATERLOGGED);
         List<ItemStack> parts = blockEntity.parts();
         state.count = Math.min(parts.size(), PlacedSmallParts.MAX_PARTS);
         int seed = (int) blockEntity.getBlockPos().asLong();
@@ -89,10 +111,14 @@ public class PlacedSmallPartsRenderer implements BlockEntityRenderer<PlacedSmall
                 continue;
             }
             ItemStack part = parts.get(i);
-            PlacedEggBlock.Egg egg = PlacedEggBlock.Egg.of(part);
-            state.egg[i] = egg != null;
-            this.itemModelResolver.updateForTopItem(state.items[i], egg != null ? eggModel(egg) : part, ItemDisplayContext.NONE,
-                    blockEntity.getLevel(), null, seed + i);
+            PlacedSmallParts.Kind kind = PlacedSmallParts.kind(part);
+            state.standing[i] = kind.standing();
+            ItemStack model = switch (kind) {
+                case EGG -> eggModel(PlacedEggBlock.Egg.of(part));
+                case CANDLE, PICKLE -> blockModel(part, kind, lit, wet);
+                case PLATE -> part;
+            };
+            this.itemModelResolver.updateForTopItem(state.items[i], model, ItemDisplayContext.NONE, blockEntity.getLevel(), null, seed + i);
         }
     }
 
@@ -103,7 +129,7 @@ public class PlacedSmallPartsRenderer implements BlockEntityRenderer<PlacedSmall
                 continue;
             }
             poseStack.pushPose();
-            PlacedSmallParts.place(new PoseOps(poseStack), state.facing, state.count, i, state.egg[i]);
+            PlacedSmallParts.place(new PoseOps(poseStack), state.facing, state.count, i, state.standing[i]);
             state.items[i].submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.popPose();
         }

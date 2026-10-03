@@ -74,6 +74,12 @@ public class PlacedSmallPartsBlockEntity extends BlockEntity {
         this.shape = null;
         setChanged();
         if (this.level != null && !this.level.isClientSide()) {
+            // Kerzen-/Seegurken-Zaehler im Blockzustand (Licht) nachziehen; derselbe Block behaelt die Block-Entity.
+            BlockState state = getBlockState();
+            BlockState synced = state.getBlock() instanceof PlacedSmallPartsBlock ? PlacedSmallPartsBlock.withCounts(state, this.parts) : state;
+            if (synced != state && this.level.getBlockState(this.worldPosition) == state) {
+                this.level.setBlock(this.worldPosition, synced, Block.UPDATE_ALL);
+            }
             this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
     }

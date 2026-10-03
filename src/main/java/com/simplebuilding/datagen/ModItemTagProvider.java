@@ -324,6 +324,30 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 com.simplebuilding.items.ModItems.ENDERITE_NUGGET, com.simplebuilding.items.ModItems.ENDERITE_INGOT)) {
             tag.add(BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow());
         }
+        // Placeables v2 (Besitzer 2026-10-03): weitere vanilla-nahe Kleinteile ohne eigenes Setzen (keine Bloecke, keine
+        // Wurf-Items). Toepferscherben bewusst nicht (23 Varianten, gehoeren auf den Krug). Kerzen und Seegurken stehen
+        // NICHT im Tag: sie bleiben allein Vanilla und mischen nur (PlacedSmallParts#isBlockPart).
+        for (net.minecraft.world.item.Item item : java.util.List.of(
+                net.minecraft.world.item.Items.BONE, net.minecraft.world.item.Items.FEATHER,
+                net.minecraft.world.item.Items.ARROW, net.minecraft.world.item.Items.SPECTRAL_ARROW,
+                net.minecraft.world.item.Items.BLAZE_ROD, net.minecraft.world.item.Items.BREEZE_ROD,
+                net.minecraft.world.item.Items.GLOWSTONE_DUST, net.minecraft.world.item.Items.GLOW_INK_SAC,
+                net.minecraft.world.item.Items.PRISMARINE_CRYSTALS, net.minecraft.world.item.Items.NETHER_STAR,
+                net.minecraft.world.item.Items.RABBIT_FOOT, net.minecraft.world.item.Items.TURTLE_SCUTE,
+                net.minecraft.world.item.Items.ARMADILLO_SCUTE, net.minecraft.world.item.Items.DISC_FRAGMENT_5,
+                net.minecraft.world.item.Items.GHAST_TEAR)) {
+            tag.add(BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow());
+        }
+        // Eigene Kleinmaterialien, damit alle eigenen Kleinteile untereinander mischen (nur registrierte).
+        for (net.minecraft.world.item.Item item : java.util.Arrays.asList(
+                com.simplebuilding.items.ModItems.NIHILITH_SHARD, com.simplebuilding.items.ModItems.ASTRALIT_DUST,
+                com.simplebuilding.items.ModItems.ENDER_QUARTZ, com.simplebuilding.items.ModItems.RAW_ENDERITE,
+                com.simplebuilding.items.ModItems.ENDERITE_SCRAP, com.simplebuilding.items.ModItems.CRACKED_DIAMOND,
+                com.simplebuilding.items.ModItems.SAGE_ORB)) {
+            if (item != null) {
+                tag.add(BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow());
+            }
+        }
         // Shulkerschalen (Vanilla und Stufen) liegen abgelegt, damit ein Klumpen sie aufwerten kann (ShulkerShells).
         tag.add(BuiltInRegistries.ITEM.getResourceKey(net.minecraft.world.item.Items.SHULKER_SHELL).orElseThrow());
         for (net.minecraft.world.item.Item shell : com.simplebuilding.util.ShulkerShells.tierShells()) {
