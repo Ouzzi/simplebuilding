@@ -177,6 +177,11 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void gadgetAnimationsHangOnTheirModelConditions(GameTestHelper helper) {
+        DataIntegrityTests.gadgetAnimationsHangOnTheirModelConditions(helper);
+    }
+
+    @GameTest
     public void everyVanillaEnchantmentHasItsOwnBookModel(GameTestHelper helper) {
         DataIntegrityTests.everyVanillaEnchantmentHasItsOwnBookModel(helper);
     }

@@ -230,7 +230,10 @@ public final class TweaksModelGen {
      * Amethystlinse ({@code amethyst_lens}): leer (Schaden = Haltbarkeit, normiert 1,0) zeigt
      * {@code item/amethyst_lens_empty}. Solange dieses Bild noch nicht gezeichnet ist, nimmt das
      * Leer-Modell das normale Bild, damit nie die Fehltextur erscheint - nach dem Zeichnen reicht ein
-     * neuer Datagen-Lauf.
+     * neuer Datagen-Lauf. Auf 26.3 ({@code GADGET_REWORK}, Besitzer 2026-10-02) ist {@code item/amethyst_lens}
+     * eine Ruhe-Animation und waehrend der Benutzung ({@code minecraft:using_item}) zeigt der geladene Stab
+     * {@code item/amethyst_lens_active} (Resonanzwellen); leer bleibt er still. Texturen nur im 26.3-Overlay
+     * ({@code tools/textures/gadget_animations_2026_10_03.py}).
      */
     private static void laserLens(ItemModelGenerators generator) {
         Identifier full = ModelTemplates.FLAT_ITEM.create(TweaksItems.LASER_POINTER, TextureMapping.layer0(TweaksItems.LASER_POINTER), generator.modelOutput);
@@ -238,8 +241,15 @@ public final class TweaksModelGen {
         Identifier empty = ModelTemplates.FLAT_ITEM.create(emptyTexture,
                 TextureMapping.layer0(textureExists(emptyTexture) ? new Material(emptyTexture) : TextureMapping.getItemTexture(TweaksItems.LASER_POINTER)),
                 generator.modelOutput);
+        ItemModel.Unbaked charged = ItemModelUtils.plainModel(full);
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            Identifier active = ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(TweaksItems.LASER_POINTER, "_active"),
+                    TextureMapping.layer0(TextureMapping.getItemTexture(TweaksItems.LASER_POINTER, "_active")), generator.modelOutput);
+            charged = ItemModelUtils.conditional(new net.minecraft.client.renderer.item.properties.conditional.IsUsingItem(),
+                    ItemModelUtils.plainModel(active), charged);
+        }
         generator.itemModelOutput.accept(TweaksItems.LASER_POINTER, ItemModelUtils.rangeSelect(new Damage(true),
-                ItemModelUtils.plainModel(full), ItemModelUtils.override(ItemModelUtils.plainModel(empty), 1.0F)));
+                charged, ItemModelUtils.override(ItemModelUtils.plainModel(empty), 1.0F)));
     }
 
     /** Sucht {@code textures/<pfad>.png} in den src/main/resources ueber dem Datagen-Ausgabeordner. */

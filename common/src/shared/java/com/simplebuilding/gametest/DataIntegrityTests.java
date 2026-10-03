@@ -3791,6 +3791,70 @@ public final class DataIntegrityTests {
     }
 
     /**
+     * Gadget animations (owner 2026-10-02, addition 3; 26.3 only, {@code GADGET_REWORK}): the charged Resonance Rod
+     * switches to {@code item/amethyst_lens_active} while used ({@code minecraft:using_item}), the charged Rotator to
+     * {@code item/rotator_active} while a click would turn the aimed block ({@code simplebuilding:transform_hint});
+     * the empty variants stay on their still pictures, checked before the condition. The idle textures
+     * ({@code amethyst_lens}, {@code rotator}, {@code magnet}) and both active ones are animation strips of
+     * 16x16 frames with an {@code .mcmeta}; the empty ones are single frames. On 26.2 the definitions keep
+     * the plain charged model (the animated textures live in the 26.3 overlay only).
+     *
+     * <p>What breaks this: datagen not re-run, a condition on the wrong branch, a texture strip replaced by
+     * a still picture (resonance_rod_2026_10_02.py or round5 run without gadget_animations_2026_10_03.py).
+     */
+    public static void gadgetAnimationsHangOnTheirModelConditions(GameTestHelper helper) {
+        java.util.Map<String, String> conditions = java.util.Map.of("amethyst_lens", "minecraft:using_item",
+                "rotator", MOD_ID + ":transform_hint");
+        for (java.util.Map.Entry<String, String> e : conditions.entrySet()) {
+            String item = e.getKey();
+            JsonObject definition = shippedJson("assets/" + MOD_ID + "/items/" + item + ".json", json -> true);
+            helper.assertTrue(definition != null, "no item definition for " + item);
+            JsonObject model = definition.getAsJsonObject("model");
+            helper.assertValueEqual(model.get("type").getAsString(), "minecraft:range_dispatch", item + " model type");
+            helper.assertValueEqual(model.get("property").getAsString(), "minecraft:damage", item + " dispatch property");
+            JsonObject emptyEntry = model.getAsJsonArray("entries").get(0).getAsJsonObject();
+            helper.assertValueEqual(emptyEntry.getAsJsonObject("model").get("model").getAsString(),
+                    MOD_ID + ":item/" + item + "_empty", item + " empty model");
+            JsonObject charged = model.getAsJsonObject("fallback");
+            if (McVersion.GADGET_REWORK) {
+                helper.assertValueEqual(charged.get("type").getAsString(), "minecraft:condition", item + " charged model type");
+                helper.assertValueEqual(charged.get("property").getAsString(), e.getValue(), item + " condition");
+                helper.assertValueEqual(charged.getAsJsonObject("on_true").get("model").getAsString(),
+                        MOD_ID + ":item/" + item + "_active", item + " model while active");
+                helper.assertValueEqual(charged.getAsJsonObject("on_false").get("model").getAsString(),
+                        MOD_ID + ":item/" + item, item + " idle model");
+            } else {
+                helper.assertValueEqual(charged.get("model").getAsString(), MOD_ID + ":item/" + item, item + " charged model (26.2)");
+            }
+        }
+        if (McVersion.GADGET_REWORK) {
+            for (String texture : List.of("amethyst_lens", "amethyst_lens_active", "rotator", "rotator_active", "magnet")) {
+                int[] size = pngSize("assets/" + MOD_ID + "/textures/item/" + texture + ".png");
+                helper.assertTrue(size[0] == 16 && size[1] % 16 == 0 && size[1] > 16, texture + ".png is no animation strip: " + size[0] + "x" + size[1]);
+                JsonObject meta = shippedJson("assets/" + MOD_ID + "/textures/item/" + texture + ".png.mcmeta", json -> true);
+                helper.assertTrue(meta != null && meta.has("animation"), texture + ".png.mcmeta missing");
+            }
+            for (String texture : List.of("amethyst_lens_empty", "rotator_empty")) {
+                int[] size = pngSize("assets/" + MOD_ID + "/textures/item/" + texture + ".png");
+                helper.assertTrue(size[0] == 16 && size[1] == 16, texture + ".png should stay a still picture");
+            }
+        }
+        helper.succeed();
+    }
+
+    /** Width and height from a shipped PNG's IHDR chunk. */
+    private static int[] pngSize(String path) {
+        try (InputStream in = DataIntegrityTests.class.getClassLoader().getResourceAsStream(path)) {
+            if (in == null) throw new IllegalStateException("missing " + path);
+            byte[] head = in.readNBytes(24);
+            java.nio.ByteBuffer b = java.nio.ByteBuffer.wrap(head);
+            return new int[]{b.getInt(16), b.getInt(20)};
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("cannot read " + path, e);
+        }
+    }
+
+    /**
      * Every registered item of the mod has an item definition ({@code assets/simplebuilding/items/<id>.json})
      * that draws something, and everything that definition references resolves:
      * <ul>

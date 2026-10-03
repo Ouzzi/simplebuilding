@@ -218,16 +218,29 @@ public class ModModelProvider extends FabricModelProvider {
      */
     /**
      * Rotator (seit 2026-09-28 mit Ladung wie die Amethystlinse): leer (Schaden = Haltbarkeit,
-     * normiert 1,0) zeigt {@code item/rotator_empty} - die Enderperle ist erloschen.
+     * normiert 1,0) zeigt {@code item/rotator_empty} - die Enderperle ist erloschen. Auf 26.3
+     * ({@code GADGET_REWORK}, Besitzer 2026-10-02) ist {@code item/rotator} eine Ruhe-Animation, und solange
+     * ein Klick den anvisierten Block drehen wuerde ({@code simplebuilding:transform_hint}, dieselbe Frage
+     * wie der Hand-Hinweis), dreht sich {@code item/rotator_active}. Texturen nur im 26.3-Overlay.
      */
     private static void generateRotator(ItemModelGenerators generator) {
         Item rotator = ModItems.ROTATOR;
         Identifier full = ModelTemplates.FLAT_HANDHELD_ITEM.create(rotator, TextureMapping.layer0(rotator), generator.modelOutput);
         Identifier empty = ModelTemplates.FLAT_HANDHELD_ITEM.create(ModelLocationUtils.getModelLocation(rotator, "_empty"),
                 TextureMapping.layer0(TextureMapping.getItemTexture(rotator, "_empty")), generator.modelOutput);
+        ItemModel.Unbaked charged = ItemModelUtils.plainModel(full);
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperties.ID_MAPPER.put(
+                    com.simplebuilding.client.property.TransformHintModelProperty.ID,
+                    com.simplebuilding.client.property.TransformHintModelProperty.CODEC);
+            Identifier active = ModelTemplates.FLAT_HANDHELD_ITEM.create(ModelLocationUtils.getModelLocation(rotator, "_active"),
+                    TextureMapping.layer0(TextureMapping.getItemTexture(rotator, "_active")), generator.modelOutput);
+            charged = ItemModelUtils.conditional(new com.simplebuilding.client.property.TransformHintModelProperty(),
+                    ItemModelUtils.plainModel(active), charged);
+        }
         generator.itemModelOutput.accept(rotator, ItemModelUtils.rangeSelect(
                 new net.minecraft.client.renderer.item.properties.numeric.Damage(true),
-                ItemModelUtils.plainModel(full), ItemModelUtils.override(ItemModelUtils.plainModel(empty), 1.0F)));
+                charged, ItemModelUtils.override(ItemModelUtils.plainModel(empty), 1.0F)));
     }
 
     /**
