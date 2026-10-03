@@ -221,3 +221,22 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 ## Besitzer 2026-10-03 (Material-Stäbe)
 - [x] Netherit- und Enderitstab wie der Blitzableiter (aufstellbare Blöcke wie Eisen-/Goldstab, Reichweite 96/128), keine Pfeile mehr daraus; nur der Diamantstab bleibt Item und Pfeilschaft. (claude-rods2: 90 statt 126 Fletching-Rezepte, alte Pfeile laden mit Stock-Schaft; Vorschau previews/netherit-enderit-stab-vorschau.png; Fabric/NeoForge 26.3 je 873/873, 26.2-/Forge-26.3-Compile grün; Plan: docs/ai/PLAN-RODS-2026-10-02.md Nachtrag. Sichtabnahme im Client offen.)
+
+## Besitzer 2026-10-03 (Nachtrag 4)
+
+- [ ] Redstone-Truhen (trapped chests) für jede der drei Truhen-Varianten (verstärkt, Netherit, Enderit).
+- [ ] Resonanzstab-Rezept: Redstone und Nuggets tauschen und unten rechts jeweils einen davon entfernen.
+- [ ] Geschwindigkeitsmesser: neues Rezept, gegen den Uhrzeigersinn gedreht.
+- [ ] Trainingspuppe neu denken:
+  - Ein (verbesserter/Stroh-)Rüstungsständer mit aufgesetztem geschnitzten Kürbis bekommt die Textur einer Trainingspuppe, trägt den Kürbis aber NICHT sichtbar – er wird dadurch zur neuen Entity.
+  - Die Entity reagiert bei JEDEM Treffer (aktuell verbuggt: nur beim ersten Treffer eine Anzeige).
+  - Mit der Schere rückgängig machen.
+  - Beim Abbauen droppt die Trainingspuppe als eigenes Item.
+- [ ] Stroh-Rüstungsständer: einen Nutzen im Vanilla-Spiel geben.
+- [ ] Blaupausen überarbeiten, damit sie besser in Vanilla passen.
+- [ ] Pads: Steht man darauf, soll die Textur-Animation einblenden statt mit dem ersten Frame hart zu starten.
+- [ ] Raw Enderite Scrap: neue Textur, 10 Vorschläge.
+- [ ] Astralit und Nihilit: je 3 neue Textur-Vorschläge plus 3 Kontrast-Anpassungen der jetzigen Textur (je 6 Vorschläge).
+- [ ] Mehr Placeables, auch Kerzen und Seegurken; alle Placeables untereinander mischbar machen.
+- [ ] Besatzvorlagen Glowing, Pulsating und Emitting: Textur-Animation.
+- [ ] Partikeleffekte für manche platzierbare Dinge, z. B. Glowing.
