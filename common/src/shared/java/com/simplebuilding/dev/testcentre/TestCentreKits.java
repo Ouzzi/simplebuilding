@@ -74,6 +74,7 @@ public final class TestCentreKits {
                     shown.addAll(stand.gear());
                     if (stand.dummy()) {
                         shown.add(new ItemStack(ModItems.STRAW_ARMOR_STAND));
+                        shown.add(new ItemStack(ModItems.TRAINING_DUMMY));
                     }
                 }
                 case TcOp.Fill fill -> shown.addAll(fill.contents());

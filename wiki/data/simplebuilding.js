@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 279,
+      "count": 280,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -17483,37 +17483,35 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:straw_armor_stand"
       ],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:training_dummy"
+      ],
       "trades": [],
       "properties": {
         "maxStackSize": 16
       },
       "note": {
         "en": {
-          "summary": "An armor stand stuffed with straw: Armor Stand + Hay Bale (shapeless). Put a carved pumpkin on it and it becomes a Training Dummy.",
+          "summary": "An armor stand stuffed with straw: Armor Stand + Hay Bale (shapeless). It works as a scarecrow; a carved pumpkin turns it into a Training Dummy.",
           "details": [
             "Placed and dressed like an armor stand; two quick hits (one in creative) or an explosion break it and drop the Straw Armor Stand and its equipment.",
-            "Training Dummy: never takes damage and never dies (no XP, no loot), is not knocked back, and its armor does not wear out. Only a sneaking hit by a player who may build there picks it up (Straw Armor Stand + equipment drop; in creative nothing drops, as with armor stands).",
-            "Every hit shows a floating number (a text display, 1 s): red bold = critical hit (full-strength falling melee hit, critical arrow), gold = fire, yellow = explosion, purple = magic, white = other; at most 12 numbers per dummy. After 3 s without a hit and at least 2 hits it shows the total, the time from the first to the last hit (at least 1 s) and the damage per second, then starts counting anew.",
-            "The number is the damage the mob of its head would take: the head picks the mob (vanilla, SimpleBuilding and Simple Fun heads; pumpkin, player head or none = no mob type). Damage enchantments (Smite, Bane of Arthropods, Impaling and any data-driven enchantment conditioned on entity type tags) and the fletching tips see that mob. The mob's immunities count (fire against a blaze head, arrows against an enderman head, shown as Immune), freezing hurts freeze-sensitive mobs five times, and hits within 10 ticks only count above the last one, as with mobs.",
-            "Armor reduces the number like on a mob: the dummy's armor and armor toughness plus the natural armor of its mob (a zombie has 2), then Protection enchantments and Resistance."
+            "Scarecrow: within server.features.scarecrowRadius blocks (default 8, 0 = off, at most 16) of a Straw Armor Stand or a Training Dummy, animals and monsters do not trample farmland; players still do.",
+            "Right-click with a carved pumpkin: the pumpkin is used up (it does not sit on the head) and the stand becomes a Training Dummy with the same equipment, name and rotation. Plain armor stands are not changed by a pumpkin."
           ]
         },
         "de": {
-          "summary": "Ein mit Stroh gestopfter Rüstungsständer: Rüstungsständer + Strohballen (formlos). Mit aufgesetztem geschnitztem Kürbis wird er zur Trainingspuppe.",
+          "summary": "Ein mit Stroh gestopfter Rüstungsständer: Rüstungsständer + Strohballen (formlos). Er dient als Vogelscheuche; ein geschnitzter Kürbis macht ihn zur Trainingspuppe.",
           "details": [
             "Wird aufgestellt und angezogen wie ein Rüstungsständer; zwei schnelle Schläge (im Kreativmodus einer) oder eine Explosion zerstören ihn, dann fallen der Stroh-Rüstungsständer und seine Ausrüstung.",
-            "Trainingspuppe: nimmt nie Schaden und stirbt nie (kein XP, keine Beute), wird nicht zurückgestoßen, ihre Rüstung nutzt sich nicht ab. Nur ein Schleich-Schlag eines Spielers, der dort bauen darf, baut sie ab (Stroh-Rüstungsständer + Ausrüstung fallen; im Kreativmodus fällt nichts, wie beim Rüstungsständer).",
-            "Jeder Treffer zeigt eine schwebende Zahl (Textanzeige, 1 s): rot fett = kritischer Treffer (voller Schlag im Fallen, kritischer Pfeil), gold = Feuer, gelb = Explosion, lila = Magie, weiß = sonst; höchstens 12 Zahlen je Puppe. Nach 3 s ohne Treffer und mindestens 2 Treffern zeigt sie die Summe, die Zeit vom ersten bis zum letzten Treffer (mindestens 1 s) und den Schaden je Sekunde und zählt dann neu.",
-            "Die Zahl ist der Schaden, den der Mob ihres Kopfes bekäme: der Kopf bestimmt den Mob (Vanilla-, SimpleBuilding- und Simple-Fun-Köpfe; Kürbis, Spielerkopf oder keiner = keine Mob-Art). Schadens-Verzauberungen (Bann, Nemesis der Gliederfüßer, Harpune und jede datengetriebene Verzauberung mit Bedingung über Entity-Type-Tags) und die Befiederungs-Spitzen sehen diesen Mob. Seine Immunitäten zählen (Feuer gegen den Lohenkopf, Pfeile gegen den Endermankopf, angezeigt als Immun), Frost trifft frostempfindliche Mobs fünffach, und Treffer innerhalb von 10 Ticks zählen wie bei Mobs nur über dem letzten.",
-            "Rüstung senkt die Zahl wie bei einem Mob: Rüstung und Rüstungshärte der Puppe plus die natürliche Rüstung ihres Mobs (Zombie 2), danach Schutz-Verzauberungen und Resistenz."
+            "Vogelscheuche: im Umkreis von server.features.scarecrowRadius Blöcken (Standard 8, 0 = aus, höchstens 16) um einen Stroh-Rüstungsständer oder eine Trainingspuppe zertrampeln Tiere und Monster kein Ackerland; Spieler weiterhin.",
+            "Rechtsklick mit einem geschnitzten Kürbis: der Kürbis wird verbraucht (er sitzt nicht auf dem Kopf) und der Ständer wird zur Trainingspuppe mit derselben Ausrüstung, demselben Namen und derselben Drehung. Normale Rüstungsständer ändert ein Kürbis nicht."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/dummy/TrainingDummy.java",
-          "common/src/shared/java/com/simplebuilding/dummy/DummyTargets.java",
           "common/src/shared/java/com/simplebuilding/dummy/StrawArmorStandItem.java",
-          "common/src/shared/java/com/simplebuilding/mixin/EnchantmentHelperDummyMixin.java",
+          "common/src/shared/java/com/simplebuilding/dummy/Scarecrow.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
@@ -17651,6 +17649,50 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "common/src/shared/java/com/simplebuilding/gametest/GravityBlockTests.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:training_dummy",
+      "name": {
+        "en_us": "Training Dummy",
+        "de_de": "Trainingspuppe"
+      },
+      "texture": "assets/textures/item/training_dummy.png",
+      "craftedBy": [
+        "simplebuilding:training_dummy"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "A straw dummy with a sack head and a target on its chest: Straw Armor Stand + carved pumpkin (shapeless), or a carved pumpkin right-clicked onto a placed Straw Armor Stand. It shows every hit as a floating number.",
+          "details": [
+            "Never takes damage and never dies (no XP, no loot), is not knocked back, and its armor does not wear out. Only a sneaking hit by a player who may build there picks it up: the Training Dummy item and its equipment drop (in creative nothing drops). Right-click with shears turns it back into a Straw Armor Stand: the carved pumpkin drops, the equipment stays, the shears lose 1 durability.",
+            "Every hit makes it wobble and shows a floating number (a text display, 1 s): red bold = critical hit (full-strength falling melee hit, critical arrow), gold = fire, yellow = explosion, purple = magic, white = other, gray 0 = a hit inside the cooldown that would not count on a mob; at most 12 numbers per dummy. After 3 s without a hit and at least 2 hits it shows the total, the time from the first to the last hit (at least 1 s) and the damage per second, then starts counting anew.",
+            "The number is the damage the mob of its head would take: the head picks the mob (vanilla, SimpleBuilding and Simple Fun heads; pumpkin, player head or none = no mob type). Damage enchantments (Smite, Bane of Arthropods, Impaling and any data-driven enchantment conditioned on entity type tags) and the fletching tips see that mob. The mob's immunities count (fire against a blaze head, arrows against an enderman head, shown as Immune), freezing hurts freeze-sensitive mobs five times, and hits within 10 ticks only count above the last one, as with mobs.",
+            "Armor reduces the number like on a mob: the dummy's armor and armor toughness plus the natural armor of its mob (a zombie has 2), then Protection enchantments and Resistance."
+          ]
+        },
+        "de": {
+          "summary": "Eine Strohpuppe mit Sackkopf und Zielscheibe auf der Brust: Stroh-Rüstungsständer + geschnitzter Kürbis (formlos) oder ein Kürbis per Rechtsklick auf einen aufgestellten Stroh-Rüstungsständer. Sie zeigt jeden Treffer als schwebende Zahl.",
+          "details": [
+            "Nimmt nie Schaden und stirbt nie (kein XP, keine Beute), wird nicht zurückgestoßen, ihre Rüstung nutzt sich nicht ab. Nur ein Schleich-Schlag eines Spielers, der dort bauen darf, baut sie ab: das Item Trainingspuppe und die Ausrüstung fallen (im Kreativmodus nichts). Rechtsklick mit der Schere macht sie wieder zum Stroh-Rüstungsständer: der geschnitzte Kürbis fällt heraus, die Ausrüstung bleibt, die Schere verliert 1 Haltbarkeit.",
+            "Jeder Treffer lässt sie wackeln und zeigt eine schwebende Zahl (Textanzeige, 1 s): rot fett = kritischer Treffer (voller Schlag im Fallen, kritischer Pfeil), gold = Feuer, gelb = Explosion, lila = Magie, weiß = sonst, graue 0 = ein Treffer in der Trefferpause, der bei einem Mob nicht zählen würde; höchstens 12 Zahlen je Puppe. Nach 3 s ohne Treffer und mindestens 2 Treffern zeigt sie die Summe, die Zeit vom ersten bis zum letzten Treffer (mindestens 1 s) und den Schaden je Sekunde und zählt dann neu.",
+            "Die Zahl ist der Schaden, den der Mob ihres Kopfes bekäme: der Kopf bestimmt den Mob (Vanilla-, SimpleBuilding- und Simple-Fun-Köpfe; Kürbis, Spielerkopf oder keiner = keine Mob-Art). Schadens-Verzauberungen (Bann, Nemesis der Gliederfüßer, Harpune und jede datengetriebene Verzauberung mit Bedingung über Entity-Type-Tags) und die Befiederungs-Spitzen sehen diesen Mob. Seine Immunitäten zählen (Feuer gegen den Lohenkopf, Pfeile gegen den Endermankopf, angezeigt als Immun), Frost trifft frostempfindliche Mobs fünffach, und Treffer innerhalb von 10 Ticks zählen wie bei Mobs nur über dem letzten.",
+            "Rüstung senkt die Zahl wie bei einem Mob: Rüstung und Rüstungshärte der Puppe plus die natürliche Rüstung ihres Mobs (Zombie 2), danach Schutz-Verzauberungen und Resistenz."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/dummy/TrainingDummy.java",
+          "common/src/shared/java/com/simplebuilding/dummy/DummyTargets.java",
+          "common/src/shared/java/com/simplebuilding/dummy/client/DummyStuffingLayer.java",
+          "common/src/shared/java/com/simplebuilding/mixin/EnchantmentHelperDummyMixin.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -49231,6 +49273,53 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:training_dummy",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:training_dummy",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/training_dummy.json",
+      "ingredients": [
+        "minecraft:carved_pumpkin",
+        "simplebuilding:straw_armor_stand"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:straw_armor_stand"
+        ],
+        [
+          "minecraft:carved_pumpkin"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:wheat",
+            "count": 9
+          },
+          {
+            "id": "minecraft:carved_pumpkin",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.75
+          },
+          {
+            "id": "minecraft:stone",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:upgrade_copper_axe_to_iron_axe",
       "type": "simplebuilding:count_based_smithing",
       "category": null,
@@ -63418,6 +63507,21 @@ window.WIKI_DATA = {
       "labelDe": "Schwebende & hängende Blöcke",
       "tooltip": "Off: Levitating and Suspended Sand and Gravel\ncan no longer be crafted; placed blocks stay\nas they are. Its recipes vanish with the next\n/reload or world start. Server-side. Default:\non.",
       "tooltipDe": "Aus: schwebender und hängender Sand und Kies\nlassen sich nicht mehr herstellen; gesetzte\nBlöcke bleiben, wie sie sind. Die Rezepte\nverschwinden beim nächsten /reload oder\nWeltstart. Serverseitig. Standard: an."
+    },
+    {
+      "name": "server.features.scarecrowRadius",
+      "shortName": "scarecrowRadius",
+      "type": "int",
+      "default": "8",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Scarecrow Radius",
+      "labelDe": "Vogelscheuchen-Umkreis",
+      "tooltip": "Within this many blocks of a Straw Armor\nStand or Training Dummy, animals and\nmonsters do not trample farmland\n(players still do). 0 = off, max 16.\nServer-side. Default: 8.",
+      "tooltipDe": "In so vielen Blöcken um einen Stroh-\nRüstungsständer oder eine Trainingspuppe\nzertrampeln Tiere und Monster kein\nAckerland (Spieler schon). 0 = aus,\nhöchstens 16. Serverseitig. Standard: 8."
     },
     {
       "name": "server.chunkLoaders.requireOwnerOnline",
@@ -87411,14 +87515,14 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 225,
+    "items": 226,
     "blocks": 188,
-    "recipes": 586,
+    "recipes": 587,
     "lootTables": 186,
     "trades": 20,
     "enchantments": 19,
     "tags": 47,
-    "config": 190,
+    "config": 191,
     "inWorld": 440,
     "advancements": 123,
     "features": 44,

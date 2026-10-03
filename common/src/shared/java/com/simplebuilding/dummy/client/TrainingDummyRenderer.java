@@ -9,17 +9,20 @@ import net.minecraft.resources.Identifier;
 public class TrainingDummyRenderer extends ArmorStandRenderer {
     private final Identifier texture;
 
-    public TrainingDummyRenderer(EntityRendererProvider.Context context, String name) {
+    public TrainingDummyRenderer(EntityRendererProvider.Context context, String name, boolean stuffed) {
         super(context);
         this.texture = Identifier.fromNamespaceAndPath("simplebuilding", "textures/entity/training_dummy/" + name + ".png");
+        if (stuffed) {
+            this.addLayer(new DummyStuffingLayer(this));
+        }
     }
 
     public static EntityRendererProvider<net.minecraft.world.entity.decoration.ArmorStand> straw() {
-        return context -> new TrainingDummyRenderer(context, "straw_armor_stand");
+        return context -> new TrainingDummyRenderer(context, "straw_armor_stand", false);
     }
 
     public static EntityRendererProvider<net.minecraft.world.entity.decoration.ArmorStand> dummy() {
-        return context -> new TrainingDummyRenderer(context, "training_dummy");
+        return context -> new TrainingDummyRenderer(context, "training_dummy", true);
     }
 
     @Override

@@ -38,4 +38,14 @@ public final class TrainingDummyGameTest {
     public void theArcheryStationHasEveryArrowAndItsDummies(GameTestHelper helper) {
         TrainingDummyTests.theArcheryStationHasEveryArrowAndItsDummies(helper);
     }
+
+    @GameTest(maxTicks = 120)
+    public void everyHitShowsItsNumberAfterTheCooldown(GameTestHelper helper) {
+        TrainingDummyTests.everyHitShowsItsNumberAfterTheCooldown(helper);
+    }
+
+    @GameTest
+    public void scarecrowKeepsMobsFromTramplingFarmland(GameTestHelper helper) {
+        TrainingDummyTests.scarecrowKeepsMobsFromTramplingFarmland(helper);
+    }
 }

@@ -1,6 +1,5 @@
 package com.simplebuilding.dummy;
 
-import com.simplebuilding.entity.ModEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -20,10 +19,15 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-/** Stellt einen Stroh-Ruestungsstaender auf; Ablauf wie Vanillas {@code ArmorStandItem}. */
+/** Stellt einen Stroh-Ruestungsstaender oder eine Trainingspuppe auf; Ablauf wie Vanillas {@code ArmorStandItem}. */
 public class StrawArmorStandItem extends Item {
-    public StrawArmorStandItem(Properties properties) {
+    private final java.util.function.Supplier<EntityType<TrainingDummy>> type;
+    private final String tooltip;
+
+    public StrawArmorStandItem(Properties properties, java.util.function.Supplier<EntityType<TrainingDummy>> type, String tooltip) {
         super(properties);
+        this.type = type;
+        this.tooltip = tooltip;
     }
 
     @Override
@@ -35,7 +39,7 @@ public class StrawArmorStandItem extends Item {
         BlockPos pos = new BlockPlaceContext(context).getClickedPos();
         ItemStack stack = context.getItemInHand();
         Vec3 bottom = Vec3.atBottomCenterOf(pos);
-        EntityType<TrainingDummy> type = ModEntities.STRAW_ARMOR_STAND;
+        EntityType<TrainingDummy> type = this.type.get();
         AABB box = type.getDimensions().makeBoundingBox(bottom.x(), bottom.y(), bottom.z());
         if (!level.noCollision(null, box) || !level.getEntities(null, box).isEmpty()) {
             return InteractionResult.FAIL;
@@ -59,7 +63,7 @@ public class StrawArmorStandItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display,
             java.util.function.Consumer<net.minecraft.network.chat.Component> lines, net.minecraft.world.item.TooltipFlag flag) {
-        lines.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplebuilding.straw_armor_stand")
+        lines.accept(net.minecraft.network.chat.Component.translatable(this.tooltip)
                 .withStyle(net.minecraft.ChatFormatting.GRAY));
     }
 }

@@ -92,6 +92,7 @@ public class ServerTuningConfig {
 
         if (dimensionLocks.chunkLoaderBlockedDimensions == null) dimensionLocks.chunkLoaderBlockedDimensions = "";
         if (features.placeDisabledItems == null || features.placeDisabledItems.length() > 4096) features.placeDisabledItems = "";
+        features.scarecrowRadius = clamp(features.scarecrowRadius, 0, com.simplebuilding.dummy.Scarecrow.MAX_RADIUS);
         if (dimensionLocks.flypadBlockedDimensions == null) dimensionLocks.flypadBlockedDimensions = "";
         if (dimensionLocks.echoSounderBlockedDimensions == null) dimensionLocks.echoSounderBlockedDimensions = "";
 
@@ -191,6 +192,12 @@ public class ServerTuningConfig {
         /** Schwebender und haengender Sand/Kies: nur die Rezepte (gesetzte Bloecke bleiben, wie sie sind). */
         @ConfigEntry.Gui.Tooltip
         public boolean levitatingBlocks = true;
+        /**
+         * Vogelscheuche (2026-10-03): im Umkreis so vieler Bloecke um einen Stroh-Ruestungsstaender oder eine
+         * Trainingspuppe zertrampeln Tiere und Monster kein Ackerland. 0 = aus, hoechstens 16.
+         */
+        @ConfigEntry.Gui.Tooltip
+        public int scarecrowRadius = 8;
     }
 
     public static class ChunkLoaders {
