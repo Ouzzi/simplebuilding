@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hammock",
+  "key": {
+    "/": "minecraft:stick",
+    "F": "minecraft:string",
+    "W": "minecraft:pink_wool"
+  },
+  "pattern": [
+    "/F/",
+    "WWW"
+  ],
+  "result": {
+    "id": "simplebuilding:pink_hammock"
+  }
+}

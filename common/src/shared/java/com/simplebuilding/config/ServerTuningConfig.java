@@ -41,6 +41,9 @@ public class ServerTuningConfig {
     public CraftyShulker craftyShulker = new CraftyShulker();
 
     @ConfigEntry.Gui.CollapsibleObject
+    public Hammock hammock = new Hammock();
+
+    @ConfigEntry.Gui.CollapsibleObject
     public OreGeneration oreGeneration = new OreGeneration();
 
     @ConfigEntry.Gui.CollapsibleObject
@@ -76,6 +79,7 @@ public class ServerTuningConfig {
         if (laser == null) laser = new Laser();
         if (arrows == null) arrows = new Arrows();
         if (craftyShulker == null) craftyShulker = new CraftyShulker();
+        if (hammock == null) hammock = new Hammock();
         if (oreGeneration == null) oreGeneration = new OreGeneration();
         if (pads == null) pads = new Pads();
         if (charges == null) charges = new Charges();
@@ -132,6 +136,7 @@ public class ServerTuningConfig {
         arrows.maxPerMob = clamp(arrows.maxPerMob, 1, ServerTuning.MAX_ARROWS_PER_MOB);
         craftyShulker.cooldownTicks = clamp(craftyShulker.cooldownTicks, ServerTuning.MIN_CRAFTY_COOLDOWN, ServerTuning.MAX_CRAFTY_COOLDOWN);
         craftyShulker.radius = clamp(craftyShulker.radius, ServerTuning.MIN_CRAFTY_RADIUS, ServerTuning.MAX_CRAFTY_RADIUS);
+        hammock.timeFactor = clamp(hammock.timeFactor, 1, ServerTuning.MAX_HAMMOCK_FACTOR);
 
         blueprint.maxBlocksPerTick = clamp(blueprint.maxBlocksPerTick, 1, ServerTuning.MAX_BLUEPRINT_BLOCKS_PER_TICK);
 
@@ -243,6 +248,13 @@ public class ServerTuningConfig {
         /** Groesster Abstand des Teleports in Bloecken (2 bis 16). */
         @ConfigEntry.Gui.Tooltip
         public int radius = 8;
+    }
+
+    /** Haengematte (2026-10-02): Zeitraffer, solange genug Spieler tagsueber darin liegen. */
+    public static class Hammock {
+        /** Uhr-Ticks je Tick (1 bis 20; 1 = kein Zeitraffer). */
+        @ConfigEntry.Gui.Tooltip
+        public int timeFactor = 8;
     }
 
     /** Erzvorkommen im End; wirken beim naechsten Weltstart und nur fuer neu erzeugte Chunks. */

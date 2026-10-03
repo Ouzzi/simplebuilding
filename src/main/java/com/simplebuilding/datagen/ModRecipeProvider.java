@@ -145,6 +145,30 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD))
                         .save(output);
 
+                // Haengematten (2026-10-02): Stock, Faden, Stock ueber drei Wolle einer Farbe; Faerben wie Betten
+                // (jede andere Haengematte + Farbstoff).
+                if (com.simplebuilding.version.McVersion.HAMMOCK) {
+                    for (Item hammock : ModItems.HAMMOCKS) {
+                        DyeColor color = ((com.simplebuilding.blocks.custom.HammockBlock) ((net.minecraft.world.item.BlockItem) hammock).getBlock()).getColor();
+                        Item wool = Items.WOOL.pick(color);
+                        shaped(RecipeCategory.DECORATIONS, hammock)
+                                .pattern("/F/")
+                                .pattern("WWW")
+                                .define('/', Items.STICK)
+                                .define('F', Items.STRING)
+                                .define('W', wool)
+                                .group("hammock")
+                                .unlockedBy(getHasName(wool), has(wool))
+                                .save(output);
+                        Item dye = getDyeItem(color);
+                        ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.DECORATIONS, hammock)
+                                .requires(dye)
+                                .requires(Ingredient.of(ModItems.HAMMOCKS.stream().filter(other -> other != hammock)))
+                                .group("hammock_dye")
+                                .unlockedBy(getHasName(dye), has(dye))
+                                .save(output, getSimpleRecipeName(hammock) + "_from_dye");
+                    }
+                }
                 // Trainingspuppe (2026-10-02): Ruestungsstaender + Strohballen = Stroh-Ruestungsstaender.
                 if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
                     shapeless(RecipeCategory.DECORATIONS, ModItems.STRAW_ARMOR_STAND)

@@ -199,7 +199,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   - Faden → Wollknäuel (auch platzierbar).
   - 8 Wollknäuel + Löwenzahn = stiller Löwenzahn.
   - Wolle im Crafting = 2 Wollknäuel.
-- [ ] Hängematte: tagsüber darauf liegen lässt die Tageszeit schneller laufen.
+- [x] Hängematte: tagsüber darauf liegen lässt die Tageszeit schneller laufen. (claude-hammock, Plan/Stand: `docs/ai/PLAN-HAENGEMATTE-2026-10-02.md`; Client-Sichtabnahme offen)
   - Nur 1×2×2 platzierbar, zwischen zwei festen Blöcken mit 2–3 Blöcken Abstand (beliebige Blöcke, auch Stäbe).
 - [x] Tooltips aufräumen: kurze EN/DE-Zeilen, vorhandene Komponenten-/Font-Umbrüche und beide Hauptmod-Lang-Orte gepflegt. Inventur und Prüfungen: `docs/ai/TOOLTIPS-2026-10-02.md`. Client-Sichtabnahme bleibt offen.
 - [x] Spezial-Shulker (verstärkt/Enderit): in derselben Struktur je Spezial-Shulker 4 Endermiten spawnen. (claude-loot, beim Annähern eines Spielers, master 8d443a67)

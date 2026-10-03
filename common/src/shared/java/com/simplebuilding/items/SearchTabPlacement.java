@@ -138,6 +138,10 @@ public final class SearchTabPlacement {
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.ARMOR_STAND, ModItems.STRAW_ARMOR_STAND));
         }
+        if (com.simplebuilding.version.McVersion.HAMMOCK) {
+            // Haengematten direkt hinter den Vanilla-Betten (das rosa Bett ist das letzte der Farbreihe).
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.BED.pick(DyeColor.PINK), ModItems.HAMMOCKS.toArray(ItemLike[]::new)));
+        }
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             out.add(Placement.after(INGREDIENTS, Items.FLINT, ModItems.FLINT_CHIP, ModItems.STONE_PEBBLE));
         }

@@ -30,6 +30,8 @@
     "PlayerAttackDummyMixin",
     "FletchingTableMixin",
     "MetalRodLightningMixin",
+    "HammockPlayerMixin",
+    "HammockServerLevelMixin",
     "HostileEntityMixin",
     "ItemEntityMixin",
     "ItemFrameEntityMixin",

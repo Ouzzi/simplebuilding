@@ -963,6 +963,25 @@ public final class TestCentreSections {
             c.sign(sx, 0, pz - 1, Direction.NORTH, ModBlocks.AUTO_SMITHER.getName(),
                     TcText.t("machines.auto_smither", "flip the lever: smiths once"));
         }
+        // Haengematten: alle 16 Farben zwischen Zaunpfosten (2 frei), die letzte ueber 3 Bloecke mit Seilstueck.
+        // Tagsueber hinlegen beschleunigt die Zeit (advance_time an, genug Spieler).
+        if (!ModBlocks.HAMMOCKS.isEmpty()) {
+            int hx = (ModBlocks.AUTO_SMITHER != null ? px + 4 : px + 1);
+            c.sign(hx, 0, pz - 1, Direction.NORTH, TcText.bold(TcText.t("machines.hammocks", "Hammocks")),
+                    TcText.t("machines.hammocks.sub", "rest by day: time runs faster"));
+            for (int i = 0; i < ModBlocks.HAMMOCKS.size(); i++) {
+                int col = hx + 1 + i;
+                int gap = i == ModBlocks.HAMMOCKS.size() - 1 ? com.simplebuilding.blocks.custom.HammockLayout.MAX_GAP
+                        : com.simplebuilding.blocks.custom.HammockLayout.MIN_GAP;
+                for (int z : new int[]{pz, pz + gap + 1}) {
+                    c.place(col, 0, z, Blocks.OAK_FENCE);
+                    c.place(col, 1, z, Blocks.OAK_FENCE);
+                }
+                com.simplebuilding.blocks.custom.HammockLayout.states(ModBlocks.HAMMOCKS.get(i), ModBlocks.HAMMOCK_ROPE,
+                        new com.simplebuilding.blocks.custom.HammockLayout.Spot(new net.minecraft.core.BlockPos(col, 1, pz + 1), Direction.SOUTH, gap))
+                        .forEach((pos, state) -> c.place(pos.getX(), pos.getY(), pos.getZ(), state));
+            }
+        }
         return c;
     }
 

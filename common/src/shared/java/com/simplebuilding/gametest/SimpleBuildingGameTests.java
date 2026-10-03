@@ -537,6 +537,18 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
                     .build(),
+            GameTestSpec.named("hammock_game_test_hangs_only_between_two_anchors_two_or_three_apart", HammockTests::hangsOnlyBetweenTwoAnchorsTwoOrThreeApart)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_losing_an_anchor_drops_the_hammock_once", HammockTests::losingAnAnchorDropsTheHammockOnce)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_breaking_one_part_drops_once_except_in_creative", HammockTests::breakingOnePartDropsOnceExceptInCreative)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_resting_by_day_keeps_the_phantom_timer_and_speeds_the_clock", HammockTests::restingByDayKeepsThePhantomTimerAndSpeedsTheClock)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_clock_speeds_up_only_by_day_with_enough_resters", HammockTests::clockSpeedsUpOnlyByDayWithEnoughResters)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_time_factor_is_capped_on_the_server", HammockTests::timeFactorIsCappedOnTheServer)
+                    .build(),
             GameTestSpec.named("training_dummy_game_test_pumpkin_turns_the_straw_stand_into_training_dummy", TrainingDummyTests::pumpkinTurnsTheStrawStandIntoTrainingDummy)
                     .build(),
             GameTestSpec.named("training_dummy_game_test_only_sneaking_hits_pick_the_dummy_up", TrainingDummyTests::onlySneakingHitsPickTheDummyUp)

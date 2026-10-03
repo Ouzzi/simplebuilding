@@ -66,6 +66,8 @@ public final class ServerTuning {
     public static final int MAX_CRAFTY_COOLDOWN = 1200;
     public static final int MIN_CRAFTY_RADIUS = 2;
     public static final int MAX_CRAFTY_RADIUS = 16;
+    /** Hammock: at most this many clock ticks per tick while players rest (1 = off). */
+    public static final int MAX_HAMMOCK_FACTOR = 20;
     public static final int MIN_LENS = 64;
     public static final int MAX_LENS = 2560;
     public static final int MIN_ROTATOR = 64;
@@ -308,6 +310,11 @@ public final class ServerTuning {
 
     public static int craftyShulkerRadius() {
         return ServerTuningConfig.clamp(get().craftyShulker.radius, MIN_CRAFTY_RADIUS, MAX_CRAFTY_RADIUS);
+    }
+
+    /** Clock ticks per tick while enough players rest in hammocks (1..20, see HammockTime); nur Server. */
+    public static int hammockTimeFactor() {
+        return ServerTuningConfig.clamp(get().hammock.timeFactor, 1, MAX_HAMMOCK_FACTOR);
     }
 
     public static int blueprintBlocksPerTick() {

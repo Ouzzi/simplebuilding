@@ -74,6 +74,8 @@ public final class McVersion {
 
     /** Straw Armor Stand and Training Dummy, plus the archery station of the test centre (2026-10-02). */
     public static final boolean TRAINING_DUMMY = false;
+    /** Hammock (2026-10-02): needs vanilla's AbstractBedBlock (26.3); resting by day speeds the clock up. */
+    public static final boolean HAMMOCK = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = false;
 

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "simplebuilding:cyan_hammock",
+            "state": {
+              "part": "head"
+            }
+          },
+          "name": "simplebuilding:cyan_hammock"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

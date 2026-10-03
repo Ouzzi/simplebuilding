@@ -398,6 +398,10 @@ public final class ModItemGroupsContent {
             // Trainingspuppe (2026-10-02): der Stroh-Ruestungsstaender (Vanilla-Items gehoeren nicht in Mod-Tabs).
             rows.add(CreativeTabLayout.Row.of("training_dummy", ModItems.STRAW_ARMOR_STAND));
         }
+        if (com.simplebuilding.version.McVersion.HAMMOCK) {
+            // Haengematten (2026-10-02): 16 Farben in Vanillas Bett-Reihenfolge, laufen in die naechste Zeile weiter.
+            rows.add(CreativeTabLayout.Row.of("hammocks", ModItems.HAMMOCKS.toArray(net.minecraft.world.level.ItemLike[]::new)));
+        }
         return rows;
     }
 
