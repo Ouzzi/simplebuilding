@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 261,
+      "count": 279,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -4307,6 +4307,77 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:black_hammock",
+      "name": {
+        "en_us": "Black Hammock",
+        "de_de": "Schwarze Hängematte"
+      },
+      "texture": "assets/textures/item/black_hammock.png",
+      "craftedBy": [
+        "simplebuilding:black_hammock",
+        "simplebuilding:black_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:blackstone_quartz_checker",
       "name": {
         "en_us": "Blackstone Quartz Checker",
@@ -4347,6 +4418,77 @@ window.WIKI_DATA = {
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
         }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:blue_hammock",
+      "name": {
+        "en_us": "Blue Hammock",
+        "de_de": "Blaue Hängematte"
+      },
+      "texture": "assets/textures/item/blue_hammock.png",
+      "craftedBy": [
+        "simplebuilding:blue_hammock",
+        "simplebuilding:blue_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
       },
       "hasCustomBehaviour": false
     },
@@ -4400,6 +4542,77 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:brown_hammock",
+      "name": {
+        "en_us": "Brown Hammock",
+        "de_de": "Braune Hängematte"
+      },
+      "texture": "assets/textures/item/brown_hammock.png",
+      "craftedBy": [
+        "simplebuilding:brown_hammock",
+        "simplebuilding:brown_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:chiseled_astralit_bricks",
@@ -5442,6 +5655,77 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:cyan_hammock",
+      "name": {
+        "en_us": "Cyan Hammock",
+        "de_de": "Türkise Hängematte"
+      },
+      "texture": "assets/textures/item/cyan_hammock.png",
+      "craftedBy": [
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:cyan_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:deepslate_sage_ore",
@@ -9828,6 +10112,148 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:gray_hammock",
+      "name": {
+        "en_us": "Gray Hammock",
+        "de_de": "Graue Hängematte"
+      },
+      "texture": "assets/textures/item/gray_hammock.png",
+      "craftedBy": [
+        "simplebuilding:gray_hammock",
+        "simplebuilding:gray_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:green_hammock",
+      "name": {
+        "en_us": "Green Hammock",
+        "de_de": "Grüne Hängematte"
+      },
+      "texture": "assets/textures/item/green_hammock.png",
+      "craftedBy": [
+        "simplebuilding:green_hammock",
+        "simplebuilding:green_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:guide_book",
       "name": {
         "en_us": "Mega Guide: SimpleBuilding",
@@ -10987,6 +11413,290 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:light_blue_hammock",
+      "name": {
+        "en_us": "Light Blue Hammock",
+        "de_de": "Hellblaue Hängematte"
+      },
+      "texture": "assets/textures/item/light_blue_hammock.png",
+      "craftedBy": [
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_blue_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:light_gray_hammock",
+      "name": {
+        "en_us": "Light Gray Hammock",
+        "de_de": "Hellgraue Hängematte"
+      },
+      "texture": "assets/textures/item/light_gray_hammock.png",
+      "craftedBy": [
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:light_gray_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:lime_hammock",
+      "name": {
+        "en_us": "Lime Hammock",
+        "de_de": "Hellgrüne Hängematte"
+      },
+      "texture": "assets/textures/item/lime_hammock.png",
+      "craftedBy": [
+        "simplebuilding:lime_hammock",
+        "simplebuilding:lime_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:magenta_hammock",
+      "name": {
+        "en_us": "Magenta Hammock",
+        "de_de": "Magenta Hängematte"
+      },
+      "texture": "assets/textures/item/magenta_hammock.png",
+      "craftedBy": [
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:magenta_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:magnet",
@@ -13884,6 +14594,148 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:orange_hammock",
+      "name": {
+        "en_us": "Orange Hammock",
+        "de_de": "Orange Hängematte"
+      },
+      "texture": "assets/textures/item/orange_hammock.png",
+      "craftedBy": [
+        "simplebuilding:orange_hammock",
+        "simplebuilding:orange_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:pink_hammock",
+      "name": {
+        "en_us": "Pink Hammock",
+        "de_de": "Rosa Hängematte"
+      },
+      "texture": "assets/textures/item/pink_hammock.png",
+      "craftedBy": [
+        "simplebuilding:pink_hammock",
+        "simplebuilding:pink_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:polished_astralit",
       "name": {
         "en_us": "Polished Astralit",
@@ -14254,6 +15106,77 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:purple_hammock",
+      "name": {
+        "en_us": "Purple Hammock",
+        "de_de": "Violette Hängematte"
+      },
+      "texture": "assets/textures/item/purple_hammock.png",
+      "craftedBy": [
+        "simplebuilding:purple_hammock",
+        "simplebuilding:purple_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:purpur_quartz_checker",
       "name": {
         "en_us": "Purpur Quartz Checker",
@@ -14467,6 +15390,77 @@ window.WIKI_DATA = {
         "simplebuilding:layered_raw_enderite"
       ],
       "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:red_hammock",
+      "name": {
+        "en_us": "Red Hammock",
+        "de_de": "Rote Hängematte"
+      },
+      "texture": "assets/textures/item/red_hammock.png",
+      "craftedBy": [
+        "simplebuilding:red_hammock",
+        "simplebuilding:red_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -15942,6 +16936,39 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:silent_dandelion",
+      "name": {
+        "en_us": "Silent Dandelion",
+        "de_de": "Stiller Löwenzahn"
+      },
+      "texture": "assets/textures/block/silent_dandelion.png",
+      "craftedBy": [
+        "simplebuilding:silent_dandelion"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Use on a living mob to toggle its sounds. Works on adults, babies and hostile mobs, but not players, armor stands, the Wither or the Ender Dragon. Each use consumes one flower except in Creative. Wait 2 seconds before using it again on the same mob. Silence survives saving. Uses the Golden Dandelion sounds and particles. Planted or potted flowers are decoration only.",
+          "details": [
+            "Craft eight Balls of Yarn around a dandelion. Like the Golden Dandelion, this acts on the clicked mob; it toggles Silent instead of age lock."
+          ]
+        },
+        "de": {
+          "summary": "An einem lebenden Mob benutzen, um seine Geräusche aus- oder einzuschalten. Wirkt bei erwachsenen, jungen und feindlichen Mobs, nicht bei Spielern, Rüstungsständern, Wither oder Enderdrache. Jede Benutzung verbraucht eine Blume, außer im Kreativmodus. Vor erneutem Benutzen am selben Mob 2 Sekunden warten. Stille bleibt beim Speichern erhalten. Sounds und Partikel wie beim goldenen Löwenzahn. Gepflanzte oder eingetopfte Blumen sind nur Dekoration.",
+          "details": [
+            "Acht Wollknäuel um einen Löwenzahn craften. Wie der goldene Löwenzahn wirkt die Blume am angeklickten Mob; sie schaltet Silent statt der Wachstumssperre um."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/mixin/SilentDandelionMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:spawn_elytra",
       "name": {
         "en_us": "Spawn Elytra",
@@ -16676,6 +17703,185 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:white_hammock",
+      "name": {
+        "en_us": "White Hammock",
+        "de_de": "Weiße Hängematte"
+      },
+      "texture": "assets/textures/item/white_hammock.png",
+      "craftedBy": [
+        "simplebuilding:white_hammock",
+        "simplebuilding:white_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:yarn_ball",
+      "name": {
+        "en_us": "Ball of Yarn",
+        "de_de": "Wollknäuel"
+      },
+      "texture": "assets/textures/item/yarn_ball.png",
+      "craftedBy": [
+        "simplebuilding:yarn_ball_from_string",
+        "simplebuilding:yarn_ball_from_wool"
+      ],
+      "usedIn": [
+        "simplebuilding:silent_dandelion"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "Four strings in a diamond arrangement craft one Ball of Yarn; one wool block of any color crafts two. Eight balls around a dandelion craft a Silent Dandelion.",
+          "details": [
+            "Sneak + use places yarn with the existing small parts: up to four parts on one spot. The placed item uses the same yarn sprite and drops itself when broken. Server placement options still apply."
+          ]
+        },
+        "de": {
+          "summary": "Vier Fäden in Rautenform ergeben ein Wollknäuel; ein Wollblock beliebiger Farbe ergibt zwei. Acht Knäuel um einen Löwenzahn ergeben einen stillen Löwenzahn.",
+          "details": [
+            "Schleichen + Benutzen legt das Knäuel mit den vorhandenen Kleinteilen ab: bis zu vier Teile auf einem Fleck. Abgelegt nutzt es dieselbe Knäuel-Textur und droppt sich beim Abbauen. Die serverseitigen Platzierungsoptionen gelten weiterhin."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
+          "tools/textures/silent_dandelion_2026_10_03.py"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:yellow_hammock",
+      "name": {
+        "en_us": "Yellow Hammock",
+        "de_de": "Gelbe Hängematte"
+      },
+      "texture": "assets/textures/item/yellow_hammock.png",
+      "craftedBy": [
+        "simplebuilding:yellow_hammock",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
     }
   ],
   "blocks": [
@@ -17365,6 +18571,82 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:black_hammock",
+      "name": {
+        "en_us": "Black Hammock",
+        "de_de": "Schwarze Hängematte"
+      },
+      "texture": "assets/textures/item/black_hammock.png",
+      "craftedBy": [
+        "simplebuilding:black_hammock",
+        "simplebuilding:black_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/black_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/black_hammock",
+      "drops": [
+        "simplebuilding:black_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:blackstone_quartz_checker",
       "name": {
         "en_us": "Blackstone Quartz Checker",
@@ -17474,6 +18756,82 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:blue_hammock",
+      "name": {
+        "en_us": "Blue Hammock",
+        "de_de": "Blaue Hängematte"
+      },
+      "texture": "assets/textures/item/blue_hammock.png",
+      "craftedBy": [
+        "simplebuilding:blue_hammock",
+        "simplebuilding:blue_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/blue_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/blue_hammock",
+      "drops": [
+        "simplebuilding:blue_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:bogged_skull",
       "name": {
         "en_us": "Bogged Skull",
@@ -17531,6 +18889,82 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/breeze_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:brown_hammock",
+      "name": {
+        "en_us": "Brown Hammock",
+        "de_de": "Braune Hängematte"
+      },
+      "texture": "assets/textures/item/brown_hammock.png",
+      "craftedBy": [
+        "simplebuilding:brown_hammock",
+        "simplebuilding:brown_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/brown_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/brown_hammock",
+      "drops": [
+        "simplebuilding:brown_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -17876,6 +19310,82 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:cracked_diamond_block"
       ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cyan_hammock",
+      "name": {
+        "en_us": "Cyan Hammock",
+        "de_de": "Türkise Hängematte"
+      },
+      "texture": "assets/textures/item/cyan_hammock.png",
+      "craftedBy": [
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:cyan_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/cyan_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/cyan_hammock",
+      "drops": [
+        "simplebuilding:cyan_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -19933,6 +21443,183 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:gray_hammock",
+      "name": {
+        "en_us": "Gray Hammock",
+        "de_de": "Graue Hängematte"
+      },
+      "texture": "assets/textures/item/gray_hammock.png",
+      "craftedBy": [
+        "simplebuilding:gray_hammock",
+        "simplebuilding:gray_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/gray_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/gray_hammock",
+      "drops": [
+        "simplebuilding:gray_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:green_hammock",
+      "name": {
+        "en_us": "Green Hammock",
+        "de_de": "Grüne Hängematte"
+      },
+      "texture": "assets/textures/item/green_hammock.png",
+      "craftedBy": [
+        "simplebuilding:green_hammock",
+        "simplebuilding:green_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/green_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/green_hammock",
+      "drops": [
+        "simplebuilding:green_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:hammock_rope",
+      "name": {
+        "en_us": "Hammock Rope",
+        "de_de": "Hängemattenseil"
+      },
+      "texture": "assets/textures/block/hammock_rope.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/hammock_rope.png",
+      "note": {
+        "en": {
+          "summary": "The ropes of a hammock: one above each cloth block up to its anchor, and a rope span when the anchors are 3 blocks apart. No item and no drops; it falls with its hammock, and a click on it lies you down like a click on the cloth."
+        },
+        "de": {
+          "summary": "Die Seile einer Hängematte: je eines über jedem Tuchblock bis zu seinem Anker und ein Seilstück, wenn die Anker 3 Blöcke auseinander liegen. Kein Item und keine Drops; es fällt mit seiner Hängematte, ein Klick darauf legt dich hin wie ein Klick aufs Tuch."
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockRopeBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:husk_head",
       "name": {
         "en_us": "Husk Head",
@@ -20354,6 +22041,310 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:light_blue_hammock",
+      "name": {
+        "en_us": "Light Blue Hammock",
+        "de_de": "Hellblaue Hängematte"
+      },
+      "texture": "assets/textures/item/light_blue_hammock.png",
+      "craftedBy": [
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_blue_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/light_blue_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/light_blue_hammock",
+      "drops": [
+        "simplebuilding:light_blue_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:light_gray_hammock",
+      "name": {
+        "en_us": "Light Gray Hammock",
+        "de_de": "Hellgraue Hängematte"
+      },
+      "texture": "assets/textures/item/light_gray_hammock.png",
+      "craftedBy": [
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:light_gray_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/light_gray_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/light_gray_hammock",
+      "drops": [
+        "simplebuilding:light_gray_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:lime_hammock",
+      "name": {
+        "en_us": "Lime Hammock",
+        "de_de": "Hellgrüne Hängematte"
+      },
+      "texture": "assets/textures/item/lime_hammock.png",
+      "craftedBy": [
+        "simplebuilding:lime_hammock",
+        "simplebuilding:lime_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/lime_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/lime_hammock",
+      "drops": [
+        "simplebuilding:lime_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:magenta_hammock",
+      "name": {
+        "en_us": "Magenta Hammock",
+        "de_de": "Magenta Hängematte"
+      },
+      "texture": "assets/textures/item/magenta_hammock.png",
+      "craftedBy": [
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:magenta_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/magenta_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/magenta_hammock",
+      "drops": [
+        "simplebuilding:magenta_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nether_dimensional_scrap",
@@ -22088,6 +24079,82 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:orange_hammock",
+      "name": {
+        "en_us": "Orange Hammock",
+        "de_de": "Orange Hängematte"
+      },
+      "texture": "assets/textures/item/orange_hammock.png",
+      "craftedBy": [
+        "simplebuilding:orange_hammock",
+        "simplebuilding:orange_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/orange_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/orange_hammock",
+      "drops": [
+        "simplebuilding:orange_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:oxidized_copper_pressure_plate",
       "name": {
         "en_us": "Oxidized Copper Pressure Plate",
@@ -22134,6 +24201,82 @@ window.WIKI_DATA = {
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:pink_hammock",
+      "name": {
+        "en_us": "Pink Hammock",
+        "de_de": "Rosa Hängematte"
+      },
+      "texture": "assets/textures/item/pink_hammock.png",
+      "craftedBy": [
+        "simplebuilding:pink_hammock",
+        "simplebuilding:pink_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/pink_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/pink_hammock",
+      "drops": [
+        "simplebuilding:pink_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -22803,6 +24946,100 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:potted_silent_dandelion",
+      "name": {
+        "en_us": "Potted Silent Dandelion",
+        "de_de": "Eingetopfter stiller Löwenzahn"
+      },
+      "texture": "assets/textures/block/silent_dandelion.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/potted_silent_dandelion.png",
+      "lootTable": "simplebuilding:blocks/potted_silent_dandelion",
+      "drops": [
+        "minecraft:flower_pot",
+        "simplebuilding:silent_dandelion"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:purple_hammock",
+      "name": {
+        "en_us": "Purple Hammock",
+        "de_de": "Violette Hängematte"
+      },
+      "texture": "assets/textures/item/purple_hammock.png",
+      "craftedBy": [
+        "simplebuilding:purple_hammock",
+        "simplebuilding:purple_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/purple_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/purple_hammock",
+      "drops": [
+        "simplebuilding:purple_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:purpur_quartz_checker",
       "name": {
         "en_us": "Purpur Quartz Checker",
@@ -22847,6 +25084,82 @@ window.WIKI_DATA = {
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
         }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:red_hammock",
+      "name": {
+        "en_us": "Red Hammock",
+        "de_de": "Rote Hängematte"
+      },
+      "texture": "assets/textures/item/red_hammock.png",
+      "craftedBy": [
+        "simplebuilding:red_hammock",
+        "simplebuilding:red_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/red_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/red_hammock",
+      "drops": [
+        "simplebuilding:red_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
       },
       "hasCustomBehaviour": false
     },
@@ -24186,6 +26499,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:silent_dandelion",
+      "name": {
+        "en_us": "Silent Dandelion",
+        "de_de": "Stiller Löwenzahn"
+      },
+      "texture": "assets/textures/block/silent_dandelion.png",
+      "craftedBy": [
+        "simplebuilding:silent_dandelion"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/silent_dandelion.png",
+      "lootTable": "simplebuilding:blocks/silent_dandelion",
+      "drops": [
+        "simplebuilding:silent_dandelion"
+      ],
+      "note": {
+        "en": {
+          "summary": "Use on a living mob to toggle its sounds. Works on adults, babies and hostile mobs, but not players, armor stands, the Wither or the Ender Dragon. Each use consumes one flower except in Creative. Wait 2 seconds before using it again on the same mob. Silence survives saving. Uses the Golden Dandelion sounds and particles. Planted or potted flowers are decoration only.",
+          "details": [
+            "Craft eight Balls of Yarn around a dandelion. Like the Golden Dandelion, this acts on the clicked mob; it toggles Silent instead of age lock."
+          ]
+        },
+        "de": {
+          "summary": "An einem lebenden Mob benutzen, um seine Geräusche aus- oder einzuschalten. Wirkt bei erwachsenen, jungen und feindlichen Mobs, nicht bei Spielern, Rüstungsständern, Wither oder Enderdrache. Jede Benutzung verbraucht eine Blume, außer im Kreativmodus. Vor erneutem Benutzen am selben Mob 2 Sekunden warten. Stille bleibt beim Speichern erhalten. Sounds und Partikel wie beim goldenen Löwenzahn. Gepflanzte oder eingetopfte Blumen sind nur Dekoration.",
+          "details": [
+            "Acht Wollknäuel um einen Löwenzahn craften. Wie der goldene Löwenzahn wirkt die Blume am angeklickten Mob; sie schaltet Silent statt der Wachstumssperre um."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/mixin/SilentDandelionMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:silverfish_head",
       "name": {
         "en_us": "Silverfish Head",
@@ -25004,6 +27355,158 @@ window.WIKI_DATA = {
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:white_hammock",
+      "name": {
+        "en_us": "White Hammock",
+        "de_de": "Weiße Hängematte"
+      },
+      "texture": "assets/textures/item/white_hammock.png",
+      "craftedBy": [
+        "simplebuilding:white_hammock",
+        "simplebuilding:white_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/white_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/white_hammock",
+      "drops": [
+        "simplebuilding:white_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:yellow_hammock",
+      "name": {
+        "en_us": "Yellow Hammock",
+        "de_de": "Gelbe Hängematte"
+      },
+      "texture": "assets/textures/item/yellow_hammock.png",
+      "craftedBy": [
+        "simplebuilding:yellow_hammock",
+        "simplebuilding:yellow_hammock_from_dye"
+      ],
+      "usedIn": [
+        "simplebuilding:black_hammock_from_dye",
+        "simplebuilding:blue_hammock_from_dye",
+        "simplebuilding:brown_hammock_from_dye",
+        "simplebuilding:cyan_hammock_from_dye",
+        "simplebuilding:gray_hammock_from_dye",
+        "simplebuilding:green_hammock_from_dye",
+        "simplebuilding:light_blue_hammock_from_dye",
+        "simplebuilding:light_gray_hammock_from_dye",
+        "simplebuilding:lime_hammock_from_dye",
+        "simplebuilding:magenta_hammock_from_dye",
+        "simplebuilding:orange_hammock_from_dye",
+        "simplebuilding:pink_hammock_from_dye",
+        "simplebuilding:purple_hammock_from_dye",
+        "simplebuilding:red_hammock_from_dye",
+        "simplebuilding:white_hammock_from_dye"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/block/yellow_hammock.png",
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/yellow_hammock",
+      "drops": [
+        "simplebuilding:yellow_hammock"
+      ],
+      "note": {
+        "en": {
+          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "details": [
+            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
+            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
+            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
+            "Dye it like a bed: any other hammock + a dye gives that color."
+          ]
+        },
+        "de": {
+          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "details": [
+            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
+            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
+            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
+            "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
+          ]
+        },
+        "sources": [
+          "mc26_3/overlay/java/com/simplebuilding/blocks/custom/HammockBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockTime.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -26913,6 +29416,128 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:black_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:black_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/black_hammock.json",
+      "ingredients": [
+        "minecraft:black_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:black_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:black_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:black_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/black_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:black_dye",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:black_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:black_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -27076,6 +29701,128 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:blue_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:blue_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/blue_hammock.json",
+      "ingredients": [
+        "minecraft:blue_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:blue_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:blue_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:blue_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/blue_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:blue_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:blue_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:blue_netherite_shulker_box",
@@ -27520,6 +30267,128 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:brown_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:brown_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brown_hammock.json",
+      "ingredients": [
+        "minecraft:brown_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:brown_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:cocoa_beans",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:brown_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:brown_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/brown_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:brown_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:brown_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:cocoa_beans",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:brown_netherite_shulker_box",
@@ -28774,6 +31643,136 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:cyan_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:cyan_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cyan_hammock.json",
+      "ingredients": [
+        "minecraft:cyan_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:cyan_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:cyan_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:cyan_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/cyan_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:cyan_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:cyan_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:cyan_netherite_shulker_box",
@@ -35093,6 +38092,136 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:gray_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:gray_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/gray_hammock.json",
+      "ingredients": [
+        "minecraft:gray_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:gray_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:gray_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:gray_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/gray_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:gray_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:gray_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.167
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:gray_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -35211,6 +38340,128 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:green_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:green_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/green_hammock.json",
+      "ingredients": [
+        "minecraft:green_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:green_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:green_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:green_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/green_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:green_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:green_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:green_netherite_shulker_box",
@@ -36157,6 +39408,128 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:light_blue_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:light_blue_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_blue_hammock.json",
+      "ingredients": [
+        "minecraft:light_blue_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:light_blue_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:blue_orchid",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:light_blue_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:light_blue_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_blue_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:light_blue_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:light_blue_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:blue_orchid",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:light_blue_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -36275,6 +39648,128 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:light_gray_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:light_gray_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_gray_hammock.json",
+      "ingredients": [
+        "minecraft:light_gray_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:light_gray_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:azure_bluet",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:light_gray_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:light_gray_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/light_gray_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:light_gray_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:light_gray_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:azure_bluet",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:light_gray_netherite_shulker_box",
@@ -36397,6 +39892,136 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:lime_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:lime_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/lime_hammock.json",
+      "ingredients": [
+        "minecraft:lime_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:lime_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:lime_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:lime_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/lime_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:lime_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:lime_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:cactus",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.167
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:lime_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -36515,6 +40140,128 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:magenta_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:magenta_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/magenta_hammock.json",
+      "ingredients": [
+        "minecraft:magenta_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:magenta_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:allium",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:magenta_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:magenta_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/magenta_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:magenta_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:magenta_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:allium",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:magenta_netherite_shulker_box",
@@ -40152,6 +43899,128 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:orange_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:orange_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/orange_hammock.json",
+      "ingredients": [
+        "minecraft:orange_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:orange_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:open_eyeblossom",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:orange_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:orange_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/orange_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:orange_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:orange_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:open_eyeblossom",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:orange_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -40270,6 +44139,128 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:pink_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:pink_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pink_hammock.json",
+      "ingredients": [
+        "minecraft:pink_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:pink_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:cactus_flower",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:pink_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:pink_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pink_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:pink_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:pink_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:cactus_flower",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:pink_netherite_shulker_box",
@@ -42581,6 +46572,136 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:purple_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:purple_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/purple_hammock.json",
+      "ingredients": [
+        "minecraft:purple_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:purple_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:beetroot",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 1.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:purple_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:purple_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/purple_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:purple_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:purple_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:beetroot",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:lapis_lazuli",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:purple_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -42869,6 +46990,128 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:red_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:red_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/red_hammock.json",
+      "ingredients": [
+        "minecraft:red_wool",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:red_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:beetroot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:red_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:red_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/red_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:red_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:white_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:red_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:beetroot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:red_netherite_shulker_box",
@@ -44403,6 +48646,50 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:nether_star",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:silent_dandelion",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:silent_dandelion",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/silent_dandelion.json",
+      "ingredients": [
+        "minecraft:dandelion",
+        "simplebuilding:yarn_ball"
+      ],
+      "pattern": [
+        "YYY",
+        "YDY",
+        "YYY"
+      ],
+      "key": {
+        "D": [
+          "minecraft:dandelion"
+        ],
+        "Y": [
+          "simplebuilding:yarn_ball"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 32
+          },
+          {
+            "id": "minecraft:dandelion",
             "count": 1
           }
         ]
@@ -47195,6 +51482,128 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:white_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:white_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/white_hammock.json",
+      "ingredients": [
+        "minecraft:stick",
+        "minecraft:string",
+        "minecraft:white_wool"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:white_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:white_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:white_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/white_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:white_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:yellow_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:white_dye"
+        ],
+        [
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:yellow_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:azure_bluet",
+            "count": 3
+          },
+          {
+            "id": "minecraft:bone",
+            "count": 0.333
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:white_netherite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -47255,6 +51664,76 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:yarn_ball_from_string",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:yarn_ball",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/yarn_ball_from_string.json",
+      "ingredients": [
+        "minecraft:string"
+      ],
+      "pattern": [
+        " S ",
+        "S S",
+        " S "
+      ],
+      "key": {
+        "S": [
+          "minecraft:string"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:yarn_ball_from_wool",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:yarn_ball",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/yarn_ball_from_wool.json",
+      "ingredients": [
+        "#minecraft:wool"
+      ],
+      "ingredientGroups": [
+        [
+          "#minecraft:wool"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 4
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:wool"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:yellow_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -47313,6 +51792,128 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:yellow_hammock",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": "hammock",
+      "result": {
+        "id": "simplebuilding:yellow_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/yellow_hammock.json",
+      "ingredients": [
+        "minecraft:stick",
+        "minecraft:string",
+        "minecraft:yellow_wool"
+      ],
+      "pattern": [
+        "/F/",
+        "WWW"
+      ],
+      "key": {
+        "/": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:string"
+        ],
+        "W": [
+          "minecraft:yellow_wool"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:dandelion",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:yellow_hammock_from_dye",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": "hammock_dye",
+      "result": {
+        "id": "simplebuilding:yellow_hammock",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/yellow_hammock_from_dye.json",
+      "ingredients": [
+        "minecraft:yellow_dye",
+        "simplebuilding:black_hammock",
+        "simplebuilding:blue_hammock",
+        "simplebuilding:brown_hammock",
+        "simplebuilding:cyan_hammock",
+        "simplebuilding:gray_hammock",
+        "simplebuilding:green_hammock",
+        "simplebuilding:light_blue_hammock",
+        "simplebuilding:light_gray_hammock",
+        "simplebuilding:lime_hammock",
+        "simplebuilding:magenta_hammock",
+        "simplebuilding:orange_hammock",
+        "simplebuilding:pink_hammock",
+        "simplebuilding:purple_hammock",
+        "simplebuilding:red_hammock",
+        "simplebuilding:white_hammock"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:yellow_dye"
+        ],
+        [
+          "simplebuilding:white_hammock",
+          "simplebuilding:light_gray_hammock",
+          "simplebuilding:gray_hammock",
+          "simplebuilding:black_hammock",
+          "simplebuilding:brown_hammock",
+          "simplebuilding:red_hammock",
+          "simplebuilding:orange_hammock",
+          "simplebuilding:lime_hammock",
+          "simplebuilding:green_hammock",
+          "simplebuilding:cyan_hammock",
+          "simplebuilding:light_blue_hammock",
+          "simplebuilding:blue_hammock",
+          "simplebuilding:purple_hammock",
+          "simplebuilding:magenta_hammock",
+          "simplebuilding:pink_hammock"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 13
+          },
+          {
+            "id": "minecraft:dandelion",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
     },
     {
       "id": "simplebuilding:yellow_netherite_shulker_box",
@@ -49163,6 +53764,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/backpack.json"
     },
     {
+      "id": "simplebuilding:blocks/black_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:black_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/black_hammock.json"
+    },
+    {
       "id": "simplebuilding:blocks/blackstone_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -49195,6 +53812,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blaze_head.json"
     },
     {
+      "id": "simplebuilding:blocks/blue_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:blue_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blue_hammock.json"
+    },
+    {
       "id": "simplebuilding:blocks/bogged_skull",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -49225,6 +53858,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/breeze_head.json"
+    },
+    {
+      "id": "simplebuilding:blocks/brown_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:brown_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/brown_hammock.json"
     },
     {
       "id": "simplebuilding:blocks/cave_spider_head",
@@ -49353,6 +54002,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_diamond_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/cyan_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:cyan_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cyan_hammock.json"
     },
     {
       "id": "simplebuilding:blocks/deepslate_sage_ore",
@@ -49932,6 +54597,38 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gold_rod.json"
     },
     {
+      "id": "simplebuilding:blocks/gray_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:gray_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gray_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/green_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:green_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/green_hammock.json"
+    },
+    {
       "id": "simplebuilding:blocks/husk_head",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -50042,6 +54739,70 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/levitating_sand.json"
+    },
+    {
+      "id": "simplebuilding:blocks/light_blue_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:light_blue_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_blue_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/light_gray_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:light_gray_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_gray_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/lime_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:lime_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/lime_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/magenta_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:magenta_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/magenta_hammock.json"
     },
     {
       "id": "simplebuilding:blocks/nether_dimensional_scrap",
@@ -50499,6 +55260,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihilith_switch.json"
     },
     {
+      "id": "simplebuilding:blocks/orange_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:orange_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/orange_hammock.json"
+    },
+    {
       "id": "simplebuilding:blocks/oxidized_copper_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -50513,6 +55290,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/oxidized_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/pink_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:pink_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/pink_hammock.json"
     },
     {
       "id": "simplebuilding:blocks/polished_astralit",
@@ -50787,6 +55580,46 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/potion_pad.json"
     },
     {
+      "id": "simplebuilding:blocks/potted_silent_dandelion",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:flower_pot"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:silent_dandelion"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/potted_silent_dandelion.json"
+    },
+    {
+      "id": "simplebuilding:blocks/purple_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:purple_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/purple_hammock.json"
+    },
+    {
       "id": "simplebuilding:blocks/purpur_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -50801,6 +55634,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/purpur_quartz_checker.json"
+    },
+    {
+      "id": "simplebuilding:blocks/red_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:red_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/red_hammock.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_backpack",
@@ -51042,6 +55891,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/shulker_head.json"
+    },
+    {
+      "id": "simplebuilding:blocks/silent_dandelion",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:silent_dandelion"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/silent_dandelion.json"
     },
     {
       "id": "simplebuilding:blocks/silverfish_head",
@@ -51298,6 +56163,38 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/weathered_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/white_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:white_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/white_hammock.json"
+    },
+    {
+      "id": "simplebuilding:blocks/yellow_hammock",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:yellow_hammock"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/yellow_hammock.json"
     },
     {
       "id": "simplebuilding:inject/charged_creeper/root",
@@ -56420,6 +61317,10 @@ window.WIKI_DATA = {
       "replace": false,
       "values": [
         {
+          "id": "simplebuilding:yarn_ball",
+          "required": true
+        },
+        {
           "id": "minecraft:stick",
           "required": true
         },
@@ -58712,6 +63613,21 @@ window.WIKI_DATA = {
       "labelDe": "Teleport-Reichweite (Blöcke)",
       "tooltip": "Farthest distance of the teleport, 2 to 16\nblocks. Server-side. Default: 8.",
       "tooltipDe": "Größter Abstand des Sprungs, 2 bis 16 Blöcke.\nServerseitig. Standard: 8."
+    },
+    {
+      "name": "server.hammock.timeFactor",
+      "shortName": "timeFactor",
+      "type": "int",
+      "default": "8",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Hammock",
+      "groupDe": "Hängematte",
+      "label": "Time-Lapse Factor",
+      "labelDe": "Zeitraffer-Faktor",
+      "tooltip": "Clock ticks per tick while enough players\nrest in hammocks by day, 1 to 20 (1 = off).\nServer-side. Default: 8.",
+      "tooltipDe": "Uhr-Ticks je Tick, solange genug Spieler\ntagsüber in Hängematten liegen, 1 bis 20\n(1 = aus). Serverseitig. Standard: 8."
     },
     {
       "name": "server.oreGeneration.endOres",
@@ -82495,14 +87411,14 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 207,
-    "blocks": 169,
-    "recipes": 551,
-    "lootTables": 168,
+    "items": 225,
+    "blocks": 188,
+    "recipes": 586,
+    "lootTables": 186,
     "trades": 20,
     "enchantments": 19,
     "tags": 47,
-    "config": 189,
+    "config": 190,
     "inWorld": 440,
     "advancements": 123,
     "features": 44,

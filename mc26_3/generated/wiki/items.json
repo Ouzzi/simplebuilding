@@ -144,6 +144,7 @@
     "simplebuilding:polished_nihilith_stairs",
     "simplebuilding:polished_nihilith_wall",
     "simplebuilding:potion_pad",
+    "simplebuilding:potted_silent_dandelion",
     "simplebuilding:purple_hammock",
     "simplebuilding:purpur_quartz_checker",
     "simplebuilding:red_hammock",
@@ -164,6 +165,7 @@
     "simplebuilding:sage_ore",
     "simplebuilding:shulker_head",
     "simplebuilding:shulker_wall_head",
+    "simplebuilding:silent_dandelion",
     "simplebuilding:silverfish_head",
     "simplebuilding:silverfish_wall_head",
     "simplebuilding:slime_head",
@@ -1228,6 +1230,9 @@
       "id": "simplebuilding:shulker_head"
     },
     {
+      "id": "simplebuilding:silent_dandelion"
+    },
+    {
       "id": "simplebuilding:silverfish_head"
     },
     {
@@ -1322,6 +1327,9 @@
     {
       "id": "simplebuilding:white_hammock",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:yarn_ball"
     },
     {
       "id": "simplebuilding:yellow_hammock",
