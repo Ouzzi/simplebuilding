@@ -17,8 +17,8 @@ public final class SilentDandelionGameTest {
         SilentDandelionTests.pottingAndUnpottingUseVanillaInteraction(helper);
     }
     @GameTest
-    public void recipesUseFourStringOrAnyWoolAndEightYarn(GameTestHelper helper) {
-        SilentDandelionTests.recipesUseFourStringOrAnyWoolAndEightYarn(helper);
+    public void recipesUseAnyWoolAndEightYarn(GameTestHelper helper) {
+        SilentDandelionTests.recipesUseAnyWoolAndEightYarn(helper);
     }
     @GameTest
     public void toggledSilenceSurvivesVanillaSaveAndLoad(GameTestHelper helper) {

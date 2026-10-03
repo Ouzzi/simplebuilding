@@ -11280,13 +11280,13 @@
     },
     "yarn_ball": {
       "en": {
-        "summary": "Four strings in a diamond arrangement craft one Ball of Yarn; one wool block of any color crafts two. Eight balls around a dandelion craft a Silent Dandelion.",
+        "summary": "One wool block of any color crafts two Balls of Yarn (there is no recipe from string). Eight balls around a dandelion craft a Silent Dandelion.",
         "details": [
           "Sneak + use places yarn with the existing small parts: up to four parts on one spot. The placed item uses the same yarn sprite and drops itself when broken. Server placement options still apply."
         ]
       },
       "de": {
-        "summary": "Vier Fäden in Rautenform ergeben ein Wollknäuel; ein Wollblock beliebiger Farbe ergibt zwei. Acht Knäuel um einen Löwenzahn ergeben einen stillen Löwenzahn.",
+        "summary": "Ein Wollblock beliebiger Farbe ergibt zwei Wollknäuel (aus Faden gibt es kein Rezept). Acht Knäuel um einen Löwenzahn ergeben einen stillen Löwenzahn.",
         "details": [
           "Schleichen + Benutzen legt das Knäuel mit den vorhandenen Kleinteilen ab: bis zu vier Teile auf einem Fleck. Abgelegt nutzt es dieselbe Knäuel-Textur und droppt sich beim Abbauen. Die serverseitigen Platzierungsoptionen gelten weiterhin."
         ]

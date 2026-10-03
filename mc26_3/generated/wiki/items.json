@@ -35,6 +35,8 @@
     "simplebuilding:construction_light",
     "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_diamond_block",
+    "simplebuilding:crystalline_astralit",
+    "simplebuilding:crystalline_nihilith",
     "simplebuilding:cyan_hammock",
     "simplebuilding:deepslate_sage_ore",
     "simplebuilding:diamond_pressure_plate",
@@ -74,6 +76,7 @@
     "simplebuilding:exposed_copper_pressure_plate",
     "simplebuilding:fine_elytra_pad",
     "simplebuilding:flypad",
+    "simplebuilding:frosted_nihilith",
     "simplebuilding:gold_rod",
     "simplebuilding:gray_hammock",
     "simplebuilding:green_hammock",
@@ -84,6 +87,7 @@
     "simplebuilding:iron_rod",
     "simplebuilding:lapis_quartz_checker",
     "simplebuilding:launchpad",
+    "simplebuilding:layered_astralit",
     "simplebuilding:levitating_gravel",
     "simplebuilding:levitating_sand",
     "simplebuilding:light_blue_hammock",
@@ -181,6 +185,8 @@
     "simplebuilding:stray_wall_skull",
     "simplebuilding:suspended_gravel",
     "simplebuilding:suspended_sand",
+    "simplebuilding:veined_astralit",
+    "simplebuilding:veined_nihilith",
     "simplebuilding:waxed_copper_pressure_plate",
     "simplebuilding:waxed_exposed_copper_pressure_plate",
     "simplebuilding:waxed_oxidized_copper_pressure_plate",
@@ -348,6 +354,12 @@
     {
       "id": "simplebuilding:creative_spacer",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:crystalline_astralit"
+    },
+    {
+      "id": "simplebuilding:crystalline_nihilith"
     },
     {
       "id": "simplebuilding:cyan_hammock",
@@ -675,6 +687,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:frosted_nihilith"
+    },
+    {
       "id": "simplebuilding:funny_stick",
       "maxStackSize": 1
     },
@@ -786,6 +801,9 @@
     {
       "id": "simplebuilding:launchpad",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:layered_astralit"
     },
     {
       "id": "simplebuilding:layered_raw_enderite"
@@ -1308,6 +1326,12 @@
     {
       "id": "simplebuilding:training_dummy",
       "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:veined_astralit"
+    },
+    {
+      "id": "simplebuilding:veined_nihilith"
     },
     {
       "id": "simplebuilding:velocity_gauge",

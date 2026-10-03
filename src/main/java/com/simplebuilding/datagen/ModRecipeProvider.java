@@ -75,10 +75,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Nur 26.3: Brau-Rezepte des Listigen Shulkers (datengetriebenes Brauen, ModBrewingProvider).
                 buildVersionRecipes();
                 if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
-                    shaped(RecipeCategory.MISC, ModItems.YARN_BALL)
-                            .pattern(" S ").pattern("S S").pattern(" S ").define('S', Items.STRING)
-                            .unlockedBy("has_string", has(Items.STRING))
-                            .save(output, "yarn_ball_from_string");
+                    // Besitzer 2026-10-03: kein Rezept aus Faden mehr, nur Wolle -> 2 Knaeuel.
                     shapeless(RecipeCategory.MISC, ModItems.YARN_BALL, 2)
                             .requires(net.minecraft.tags.BlockItemTags.WOOL.item()).unlockedBy("has_wool", has(net.minecraft.tags.BlockItemTags.WOOL.item()))
                             .save(output, "yarn_ball_from_wool");

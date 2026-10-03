@@ -144,12 +144,24 @@ public final class SilentDandelionTests {
         helper.succeed();
     }
 
-    public static void recipesUseFourStringOrAnyWoolAndEightYarn(GameTestHelper helper) {
+    /**
+     * The Ball of Yarn comes from wool only (owner 2026-10-03: the string recipe is gone): one wool block of any
+     * colour makes two, eight balls around a dandelion a Silent Dandelion. Four string in the old diamond shape
+     * craft nothing of the mod any more.
+     */
+    public static void recipesUseAnyWoolAndEightYarn(GameTestHelper helper) {
         if (!enabled(helper)) return;
-        // Diamond arrangement leaves vanilla's 2x2 white wool recipe unambiguous.
-        craft(helper, "yarn_ball_from_string", CraftingInput.of(3, 3, List.of(ItemStack.EMPTY, new ItemStack(Items.STRING),
+        helper.assertTrue(helper.getLevel().getServer().getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(
+                        net.minecraft.core.registries.Registries.RECIPE,
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "yarn_ball_from_string"))).isEmpty(),
+                "the string recipe for the Ball of Yarn is still loaded");
+        CraftingInput diamond = CraftingInput.of(3, 3, List.of(ItemStack.EMPTY, new ItemStack(Items.STRING),
                 ItemStack.EMPTY, new ItemStack(Items.STRING), ItemStack.EMPTY, new ItemStack(Items.STRING),
-                ItemStack.EMPTY, new ItemStack(Items.STRING), ItemStack.EMPTY)), ModItems.YARN_BALL, 1);
+                ItemStack.EMPTY, new ItemStack(Items.STRING), ItemStack.EMPTY));
+        helper.assertTrue(helper.getLevel().getServer().getRecipeManager()
+                        .getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, diamond, helper.getLevel())
+                        .filter(r -> r.value().assemble(diamond).is(ModItems.YARN_BALL)).isEmpty(),
+                "four string still craft a Ball of Yarn");
         for (var color : net.minecraft.world.item.DyeColor.values()) {
             Item wool = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(
                     net.minecraft.resources.Identifier.withDefaultNamespace(color.getName() + "_wool"));
