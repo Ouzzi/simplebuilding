@@ -1,7 +1,7 @@
 """Usage: python tools/textures/trim_template_animation_2026_10_03.py <vanilla textures dir> [preview dir]
 
-Owner 2026-10-03: the three trim templates get a calm texture animation on top of his own motifs (placed on
-background A by trim_templates_owner_2026_10_03.py). Motif pixel positions never change - only their brightness:
+Owner 2026-10-03: the three trim templates get a calm texture animation on top of his own textures - his Resprite
+canvases exactly as he painted them, background included (tools/textures/hand/owner/). Motif pixel positions never change - only their brightness:
 - Glowing:   the gold patches glow softly (two frames, dim <-> bright, interpolated, 2 x 20 ticks).
 - Pulsating: the glints pulse in turns - three groups, each lit in its own frame (interpolated, 3 x 10 ticks).
 - Emitting:  a bright ring runs from the centre outwards over the rays (6 frames, interpolated, 6 x 4 ticks).
@@ -35,11 +35,24 @@ def scale(c, k):
     return tuple(round(v * k) for v in c)
 
 
+def is_motif(name, c):
+    """The owner's motif pixels on his own canvases (second set, 2026-10-03 evening): Emitting = the warm gold/beige
+    cross, rays and lattice; Pulsating = the bright cyan glints; Glowing = the cyan glow spots. Everything else is his
+    background and stays as painted."""
+    r, g, b = c
+    lum = ps.lum(c)
+    if name == 'emitting':
+        return r > b + 10 and lum >= 60
+    if name == 'pulsating':
+        return b > r + 40 and lum >= 90
+    return g > r + 30 and lum >= 70
+
+
 def static(name):
-    th = r1.themes()
-    plate = bgm.backgrounds(th[owner.THEMES[name]]['body'])[0][1]
-    own, built, _ = owner.build(name, plate)
-    return built, owner.motif_pixels(own)
+    """Owner 2026-10-03: his canvases exactly 1:1, with his own background. The animation sits on
+    tools/textures/hand/owner/<name>_trim_template_owner.png."""
+    own = ps.load(os.path.join(owner.OWNER, f'{name}_trim_template_owner.png'))
+    return own, {p: own.getpixel(p)[:3] for p in ps.opaque(own) if is_motif(name, own.getpixel(p)[:3])}
 
 
 def frames(name):
@@ -97,8 +110,8 @@ def main():
         gif[0].save(os.path.join(OUT, f'besatz-animation-{name}.gif'), save_all=True, append_images=gif[1:],
                     duration=round(ticks * 50 / 4), loop=0)
         rows.append((f'{name} ({len(fr)} x {ticks} Ticks)', fr))
-    ps.sheet('Besatzvorlagen - Animation der Besitzer-Motive (nur Helligkeit, Motivpixel unveraendert; Spalten = Frames)',
-             [], rows, os.path.join(OUT, 'besatz-animationen-vorschau.png'), scale=10,
+    ps.sheet('Besatzvorlagen final: Besitzer-Texturen 1:1 mit Animation (nur Helligkeit der Motivpixel; Spalten = Frames)',
+             [], rows, os.path.join(OUT, 'besatz-besitzer-final-vorschau.png'), scale=10,
              notes=['Glowing: Goldflecken leuchten sanft auf und ab.  Pulsating: drei Glimmergruppen pulsieren abwechselnd.',
                     'Emitting: heller Ring laeuft vom Zentrum nach aussen ueber die Strahlen.  Alle Frames interpoliert.'])
     print('ok')
