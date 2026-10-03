@@ -8889,7 +8889,7 @@
           "en": "Polished Ender Quartz Checker: craft 4 from 2 Polished Ender Quartz blocks and 2 Quartz Blocks in a diagonal checker pattern.",
           "de": "Poliertes Enderquarz-Schachbrett: 2 polierte Enderquarzblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
           "sources": [
-            "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
+            "src/main/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
           ]
         }
       }

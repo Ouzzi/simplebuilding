@@ -1803,6 +1803,9 @@ window.WIKI_DATA = {
       "id": "end_building_blocks",
       "related": [
         "simplebuilding:astralit_block",
+        "simplebuilding:veined_astralit",
+        "simplebuilding:crystalline_astralit",
+        "simplebuilding:layered_astralit",
         "simplebuilding:astralit_bricks",
         "simplebuilding:astralit_brick_stairs",
         "simplebuilding:astralit_brick_slab",
@@ -1814,6 +1817,9 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_pillar",
         "simplebuilding:chiseled_astralit_bricks",
         "simplebuilding:nihilith_block",
+        "simplebuilding:veined_nihilith",
+        "simplebuilding:crystalline_nihilith",
+        "simplebuilding:frosted_nihilith",
         "simplebuilding:nihilith_bricks",
         "simplebuilding:nihilith_brick_stairs",
         "simplebuilding:nihilith_brick_slab",
@@ -1856,7 +1862,8 @@ window.WIKI_DATA = {
         "src/main/generated/data/simplebuilding/recipe/astralit_block_from_end_stone.json",
         "src/main/generated/data/simplebuilding/recipe/ender_quartz_block_from_quartz_block.json",
         "src/main/generated/data/simplebuilding/recipe/ender_quartz.json",
-        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java"
+        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
+        "tools/textures/astralit_nihilit_alternates_2026_10_03.py"
       ],
       "en": {
         "title": "End Palettes: Astralit, Nihilit and Ender Quartz",
@@ -1870,7 +1877,8 @@ window.WIKI_DATA = {
           "All blocks: hardness 3, blast resistance 9, a pickaxe is needed for the drop. Astralit blocks emit light level 10, Nihilit and Ender Quartz blocks none.",
           "Pillars can be placed along any axis; a double slab drops two slabs; stairs, slabs and walls are in the vanilla block and item tags of their shape, so the walls connect like any vanilla wall.",
           "Polished, Astral and Nihil End Stone and the Astral and Nihil Purpur Blocks are in the mineable/pickaxe tag as well.",
-          "All of them sit in the creative tab \"SimpleBlocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilit turquoise shards and Ender Quartz veins; the Chiseled Bricks carry a quiet relief emblem in the block's own colors, like vanilla chiseled blocks: a shulker box with its head in the opening, an Enderman eye with a horizontal slit and a dragon eye with a vertical slit."
+          "All of them sit in the creative tab \"SimpleBlocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilit turquoise shards and Ender Quartz veins; the Chiseled Bricks carry a quiet relief emblem in the block's own colors, like vanilla chiseled blocks: a shulker box with its head in the opening, an Enderman eye with a horizontal slit and a dragon eye with a vertical slit.",
+          "Alternative blocks: Astralit has Veined, Crystalline and Layered Astralit, Nihilit has Veined, Crystalline and Frosted Nihilit - the same block with a different pattern, copying the base block's properties (Astralit ones glow too), mined with a pickaxe, each dropping itself. The stonecutter cuts each 1:1 from the base block; 4 in a square make 4 of the next one (Veined -> Crystalline -> Layered/Frosted -> base block). The enderite chisel continues the palette chain past the base block (base -> Veined -> Crystalline -> Layered/Frosted), the spatula walks it back. They sit in their own row of the SimpleBlocks tab under the base block's row."
         ]
       },
       "de": {
@@ -1885,7 +1893,8 @@ window.WIKI_DATA = {
           "Alle Blöcke: Härte 3, Explosionsfestigkeit 9, für den Drop braucht es eine Spitzhacke. Astralit-Blöcke leuchten mit Lichtstufe 10, Nihilit- und Enderquarz-Blöcke gar nicht.",
           "Säulen lassen sich in jeder Achse setzen; eine Doppelstufe lässt zwei Stufen fallen; Treppen, Stufen und Mauern stehen in den Vanilla-Block- und -Item-Tags ihrer Form, die Mauern verbinden sich also wie jede Vanilla-Mauer.",
           "Polierter, Astral- und Nihil-Endstein sowie Astral- und Nihil-Purpurblock stehen ebenfalls im Tag mineable/pickaxe.",
-          "Alle liegen im Kreativ-Tab „SimpleBlocks“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilitsplittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz."
+          "Alle liegen im Kreativ-Tab „SimpleBlocks“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilitsplittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz.",
+          "Alternativblöcke: Astralit hat Geäderten, Kristallinen und Geschichteten Astralit, Nihilit hat Geäderten, Kristallinen und Bereiften Nihilit - derselbe Block mit anderem Muster, mit den Eigenschaften des Grundblocks (Astralit leuchtet auch hier), mit der Spitzhacke abbaubar, jeder droppt sich selbst. Der Steinmetz schneidet jeden 1:1 aus dem Grundblock; 4 im Quadrat ergeben 4 des nächsten (Geädert -> Kristallin -> Geschichtet/Bereift -> Grundblock). Der Enderit-Meißel führt die Palettenkette über den Grundblock hinaus weiter (Grundblock -> Geädert -> Kristallin -> Geschichtet/Bereift), der Spachtel zurück. Sie stehen in einer eigenen Zeile des Tabs „SimpleBlocks“ unter der Zeile des Grundblocks."
         ]
       }
     },
@@ -3744,7 +3753,8 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:astralit_block",
         "simplebuilding:astralit_block_from_astral_end_stone_stonecutting",
-        "simplebuilding:astralit_block_from_end_stone"
+        "simplebuilding:astralit_block_from_end_stone",
+        "simplebuilding:astralit_block_from_layered_astralit"
       ],
       "usedIn": [
         "simplebuilding:astralit_brick_slab_from_astralit_block_stonecutting",
@@ -3753,11 +3763,14 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_bricks_from_astralit_block_stonecutting",
         "simplebuilding:astralit_pillar_from_astralit_block_stonecutting",
         "simplebuilding:chiseled_astralit_bricks_from_astralit_block_stonecutting",
+        "simplebuilding:crystalline_astralit_from_astralit_block_stonecutting",
+        "simplebuilding:layered_astralit_from_astralit_block_stonecutting",
         "simplebuilding:polished_astralit",
         "simplebuilding:polished_astralit_from_astralit_block_stonecutting",
         "simplebuilding:polished_astralit_slab_from_astralit_block_stonecutting",
         "simplebuilding:polished_astralit_stairs_from_astralit_block_stonecutting",
-        "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting"
+        "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting",
+        "simplebuilding:veined_astralit_from_astralit_block_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/astralit_block.png",
@@ -13771,10 +13784,13 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:nihilith_block",
         "simplebuilding:nihilith_block_from_end_stone",
+        "simplebuilding:nihilith_block_from_frosted_nihilith",
         "simplebuilding:nihilith_block_from_nihil_end_stone_stonecutting"
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_nihilith_block_stonecutting",
+        "simplebuilding:crystalline_nihilith_from_nihilith_block_stonecutting",
+        "simplebuilding:frosted_nihilith_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_brick_slab_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_brick_stairs_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_brick_wall_from_nihilith_block_stonecutting",
@@ -13784,7 +13800,8 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_from_nihilith_block_stonecutting",
         "simplebuilding:polished_nihilith_slab_from_nihilith_block_stonecutting",
         "simplebuilding:polished_nihilith_stairs_from_nihilith_block_stonecutting",
-        "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting"
+        "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting",
+        "simplebuilding:veined_nihilith_from_nihilith_block_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/nihilith_block.png",
@@ -14909,7 +14926,7 @@ window.WIKI_DATA = {
           "tools/textures/generate_textures.py",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
-          "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
+          "src/main/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
         ],
         "en": {
           "summary": "Polished Ender Quartz Checker: craft 4 from 2 Polished Ender Quartz blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
@@ -18081,7 +18098,8 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:astralit_block",
         "simplebuilding:astralit_block_from_astral_end_stone_stonecutting",
-        "simplebuilding:astralit_block_from_end_stone"
+        "simplebuilding:astralit_block_from_end_stone",
+        "simplebuilding:astralit_block_from_layered_astralit"
       ],
       "usedIn": [
         "simplebuilding:astralit_brick_slab_from_astralit_block_stonecutting",
@@ -18090,11 +18108,14 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_bricks_from_astralit_block_stonecutting",
         "simplebuilding:astralit_pillar_from_astralit_block_stonecutting",
         "simplebuilding:chiseled_astralit_bricks_from_astralit_block_stonecutting",
+        "simplebuilding:crystalline_astralit_from_astralit_block_stonecutting",
+        "simplebuilding:layered_astralit_from_astralit_block_stonecutting",
         "simplebuilding:polished_astralit",
         "simplebuilding:polished_astralit_from_astralit_block_stonecutting",
         "simplebuilding:polished_astralit_slab_from_astralit_block_stonecutting",
         "simplebuilding:polished_astralit_stairs_from_astralit_block_stonecutting",
-        "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting"
+        "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting",
+        "simplebuilding:veined_astralit_from_astralit_block_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/astralit_block.png",
@@ -23809,10 +23830,13 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:nihilith_block",
         "simplebuilding:nihilith_block_from_end_stone",
+        "simplebuilding:nihilith_block_from_frosted_nihilith",
         "simplebuilding:nihilith_block_from_nihil_end_stone_stonecutting"
       ],
       "usedIn": [
         "simplebuilding:chiseled_nihilith_bricks_from_nihilith_block_stonecutting",
+        "simplebuilding:crystalline_nihilith_from_nihilith_block_stonecutting",
+        "simplebuilding:frosted_nihilith_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_brick_slab_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_brick_stairs_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_brick_wall_from_nihilith_block_stonecutting",
@@ -23822,7 +23846,8 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_from_nihilith_block_stonecutting",
         "simplebuilding:polished_nihilith_slab_from_nihilith_block_stonecutting",
         "simplebuilding:polished_nihilith_stairs_from_nihilith_block_stonecutting",
-        "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting"
+        "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting",
+        "simplebuilding:veined_nihilith_from_nihilith_block_stonecutting"
       ],
       "trades": [],
       "icon": "assets/textures/render/nihilith_block.png",
@@ -24721,7 +24746,7 @@ window.WIKI_DATA = {
           "tools/textures/generate_textures.py",
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
-          "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
+          "src/main/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json"
         ],
         "en": {
           "summary": "Polished Ender Quartz Checker: craft 4 from 2 Polished Ender Quartz blocks and 2 Quartz Blocks in a diagonal checker pattern. Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
@@ -28081,6 +28106,42 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:astralit_dust",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_block_from_layered_astralit",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_block",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/astralit_block_from_layered_astralit.json",
+      "ingredients": [
+        "simplebuilding:layered_astralit"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:layered_astralit"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:veined_astralit",
+            "count": 4
           }
         ]
       }
@@ -31633,6 +31694,142 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:cracked_diamond_block",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:crystalline_astralit_from_astralit_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:crystalline_astralit",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/crystalline_astralit_from_astralit_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:crystalline_astralit_from_veined_astralit",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:crystalline_astralit",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/crystalline_astralit_from_veined_astralit.json",
+      "ingredients": [
+        "simplebuilding:veined_astralit"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:veined_astralit"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:crystalline_nihilith_from_nihilith_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:crystalline_nihilith",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/crystalline_nihilith_from_nihilith_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:crystalline_nihilith_from_veined_nihilith",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:crystalline_nihilith",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/crystalline_nihilith_from_veined_nihilith.json",
+      "ingredients": [
+        "simplebuilding:veined_nihilith"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:veined_nihilith"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -37786,6 +37983,74 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:frosted_nihilith_from_crystalline_nihilith",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:frosted_nihilith",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/frosted_nihilith_from_crystalline_nihilith.json",
+      "ingredients": [
+        "simplebuilding:crystalline_nihilith"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:crystalline_nihilith"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:frosted_nihilith_from_nihilith_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:frosted_nihilith",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/frosted_nihilith_from_nihilith_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:glowing_armor_upgrade_dummy",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -39221,6 +39486,74 @@ window.WIKI_DATA = {
         ],
         "tagExamples": [
           "#simplebuilding:trial_chamber_heads"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:layered_astralit_from_astralit_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:layered_astralit",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/layered_astralit_from_astralit_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:layered_astralit_from_crystalline_astralit",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:layered_astralit",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/layered_astralit_from_crystalline_astralit.json",
+      "ingredients": [
+        "simplebuilding:crystalline_astralit"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:crystalline_astralit"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 16
+          }
         ]
       }
     },
@@ -41598,6 +41931,42 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_block_from_frosted_nihilith",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_block",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/nihilith_block_from_frosted_nihilith.json",
+      "ingredients": [
+        "simplebuilding:frosted_nihilith"
+      ],
+      "pattern": [
+        "##",
+        "##"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:frosted_nihilith"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -44421,7 +44790,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:polished_astralit_checker",
         "count": 4
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_astralit_checker.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/polished_astralit_checker.json",
       "ingredients": [
         "minecraft:quartz_block",
         "simplebuilding:polished_astralit"
@@ -44439,6 +44808,7 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -45017,7 +45387,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:polished_ender_quartz_checker",
         "count": 4
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/polished_ender_quartz_checker.json",
       "ingredients": [
         "minecraft:quartz_block",
         "simplebuilding:polished_ender_quartz"
@@ -45035,6 +45405,7 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -45835,7 +46206,7 @@ window.WIKI_DATA = {
         "id": "simplebuilding:polished_nihilith_checker",
         "count": 4
       },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/polished_nihilith_checker.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/polished_nihilith_checker.json",
       "ingredients": [
         "minecraft:quartz_block",
         "simplebuilding:polished_nihilith"
@@ -45853,6 +46224,7 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
+        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -51167,6 +51539,70 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:veined_astralit_from_astralit_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:veined_astralit",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/veined_astralit_from_astralit_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:veined_nihilith_from_nihilith_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:veined_nihilith",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/veined_nihilith_from_nihilith_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:velocity_gauge",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -54104,6 +54540,38 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cracked_diamond_block.json"
     },
     {
+      "id": "simplebuilding:blocks/crystalline_astralit",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:crystalline_astralit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crystalline_astralit.json"
+    },
+    {
+      "id": "simplebuilding:blocks/crystalline_nihilith",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:crystalline_nihilith"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crystalline_nihilith.json"
+    },
+    {
       "id": "simplebuilding:blocks/cyan_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -54681,6 +55149,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/flypad.json"
     },
     {
+      "id": "simplebuilding:blocks/frosted_nihilith",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:frosted_nihilith"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/frosted_nihilith.json"
+    },
+    {
       "id": "simplebuilding:blocks/gold_rod",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -54807,6 +55291,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/launchpad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/layered_astralit",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:layered_astralit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/layered_astralit.json"
     },
     {
       "id": "simplebuilding:blocks/levitating_gravel",
@@ -56185,6 +56685,38 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json"
     },
     {
+      "id": "simplebuilding:blocks/veined_astralit",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:veined_astralit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/veined_astralit.json"
+    },
+    {
+      "id": "simplebuilding:blocks/veined_nihilith",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:veined_nihilith"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/veined_nihilith.json"
+    },
+    {
       "id": "simplebuilding:blocks/waxed_copper_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -57009,7 +57541,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableVillagerTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/librarian/3/emerald_building_book.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/librarian/3/emerald_building_book.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:librarian/level_3",
+            "poolSize": 4,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.5,
+              0.6666666666666666
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.5,
+          0.6666666666666666
+        ]
+      }
     },
     {
       "id": "simplebuilding:librarian/4/emerald_advanced_book",
@@ -57048,7 +57600,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableVillagerTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/librarian/4/emerald_advanced_book.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/librarian/4/emerald_advanced_book.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:librarian/level_4",
+            "poolSize": 5,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.4,
+              0.5
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.4,
+          0.5
+        ]
+      }
     },
     {
       "id": "simplebuilding:librarian/5/emerald_master_book",
@@ -57127,7 +57699,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableVillagerTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:librarian/level_5",
+            "poolSize": 3,
+            "draws": 3,
+            "chance": 1.0,
+            "bounds": [
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        "chance": 1.0,
+        "bounds": [
+          1.0,
+          1.0
+        ]
+      }
     },
     {
       "id": "simplebuilding:mason/4/emerald_copper_building_wand",
@@ -57150,7 +57742,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableVillagerTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/mason/4/emerald_copper_building_wand.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/mason/4/emerald_copper_building_wand.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:mason/level_4",
+            "poolSize": 34,
+            "draws": 2,
+            "chance": 0.058823529411764705,
+            "bounds": [
+              0.058823529411764705,
+              0.058823529411764705
+            ]
+          }
+        ],
+        "chance": 0.058823529411764705,
+        "bounds": [
+          0.058823529411764705,
+          0.058823529411764705
+        ]
+      }
     },
     {
       "id": "simplebuilding:toolsmith/3/emerald_copper_chisel",
@@ -57184,7 +57796,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableVillagerTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/toolsmith/3/emerald_copper_chisel.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/toolsmith/3/emerald_copper_chisel.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:toolsmith/level_3",
+            "poolSize": 8,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.25,
+              0.4
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.25,
+          0.4
+        ]
+      }
     },
     {
       "id": "simplebuilding:toolsmith/3/emerald_gold_chisel",
@@ -57218,7 +57850,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableVillagerTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/toolsmith/3/emerald_gold_chisel.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/toolsmith/3/emerald_gold_chisel.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:toolsmith/level_3",
+            "poolSize": 8,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.25,
+              0.4
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.25,
+          0.4
+        ]
+      }
     },
     {
       "id": "simplebuilding:toolsmith/3/emerald_iron_chisel",
@@ -57252,7 +57904,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableVillagerTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/toolsmith/3/emerald_iron_chisel.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/toolsmith/3/emerald_iron_chisel.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:toolsmith/level_3",
+            "poolSize": 8,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.25,
+              0.4
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.25,
+          0.4
+        ]
+      }
     },
     {
       "id": "simplebuilding:toolsmith/4/emerald_diamond_sledgehammer",
@@ -57304,7 +57976,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableVillagerTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:toolsmith/level_4",
+            "poolSize": 5,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.4,
+              0.6666666666666666
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.4,
+          0.6666666666666666
+        ]
+      }
     },
     {
       "id": "simplebuilding:toolsmith/4/emerald_iron_sledgehammer",
@@ -57356,7 +58048,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableVillagerTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:toolsmith/level_4",
+            "poolSize": 5,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.4,
+              0.6666666666666666
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.4,
+          0.6666666666666666
+        ]
+      }
     },
     {
       "id": "simplebuilding:toolsmith/5/emerald_mining_pickaxe",
@@ -57410,7 +58122,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableVillagerTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/toolsmith/5/emerald_mining_pickaxe.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/toolsmith/5/emerald_mining_pickaxe.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:toolsmith/level_5",
+            "poolSize": 2,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          1.0,
+          1.0
+        ]
+      }
     },
     {
       "id": "simplebuilding:wandering_trader/emerald_copper_cores",
@@ -57433,7 +58165,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableWanderingTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_copper_cores.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_copper_cores.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:wandering_trader/uncommon",
+            "poolSize": 23,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.09603825522303784,
+              0.1008888699020278
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.09603825522303784,
+          0.1008888699020278
+        ]
+      }
     },
     {
       "id": "simplebuilding:wandering_trader/emerald_diamond_core",
@@ -57456,7 +58208,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableWanderingTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_diamond_core.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_diamond_core.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:wandering_trader/uncommon",
+            "poolSize": 23,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.009203839638622247,
+              0.009648268398268399
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.009203839638622247,
+          0.009648268398268399
+        ]
+      }
     },
     {
       "id": "simplebuilding:wandering_trader/emerald_diamond_pebbles",
@@ -57479,7 +58251,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableWanderingTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_diamond_pebbles.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_diamond_pebbles.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:wandering_trader/common",
+            "poolSize": 79,
+            "draws": 5,
+            "chance": 0.06329113924050633,
+            "bounds": [
+              0.06329113924050633,
+              0.06329113924050633
+            ]
+          }
+        ],
+        "chance": 0.06329113924050633,
+        "bounds": [
+          0.06329113924050633,
+          0.06329113924050633
+        ]
+      }
     },
     {
       "id": "simplebuilding:wandering_trader/emerald_gold_core",
@@ -57502,7 +58294,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableWanderingTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_gold_core.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_gold_core.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:wandering_trader/uncommon",
+            "poolSize": 23,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.02316487859966121,
+              0.02429112554112554
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.02316487859966121,
+          0.02429112554112554
+        ]
+      }
     },
     {
       "id": "simplebuilding:wandering_trader/emerald_iron_cores",
@@ -57525,7 +58337,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableWanderingTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_iron_cores.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_iron_cores.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:wandering_trader/uncommon",
+            "poolSize": 23,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.04686617730095992,
+              0.04917207792207792
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.04686617730095992,
+          0.04917207792207792
+        ]
+      }
     },
     {
       "id": "simplebuilding:wandering_trader/emerald_octant",
@@ -57548,7 +58380,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableWanderingTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_octant.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_octant.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:wandering_trader/uncommon",
+            "poolSize": 23,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.09603825522303784,
+              0.1008888699020278
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.09603825522303784,
+          0.1008888699020278
+        ]
+      }
     },
     {
       "id": "simplebuilding:wandering_trader/emerald_reinforced_bundle",
@@ -57571,7 +58423,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableWanderingTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_reinforced_bundle.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_reinforced_bundle.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:wandering_trader/uncommon",
+            "poolSize": 23,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.09603825522303784,
+              0.1008888699020278
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.09603825522303784,
+          0.1008888699020278
+        ]
+      }
     },
     {
       "id": "simplebuilding:wandering_trader/emerald_wand_book",
@@ -57600,7 +58472,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableWanderingTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_wand_book.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_wand_book.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:wandering_trader/uncommon",
+            "poolSize": 23,
+            "draws": 2,
+            "chance": null,
+            "bounds": [
+              0.09603825522303784,
+              0.1008888699020278
+            ]
+          }
+        ],
+        "chance": null,
+        "bounds": [
+          0.09603825522303784,
+          0.1008888699020278
+        ]
+      }
     },
     {
       "id": "simplebuilding:wandering_trader/octant_emerald",
@@ -57623,7 +58515,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableWanderingTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/octant_emerald.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/octant_emerald.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:wandering_trader/buying",
+            "poolSize": 8,
+            "draws": 2,
+            "chance": 0.25,
+            "bounds": [
+              0.25,
+              0.25
+            ]
+          }
+        ],
+        "chance": 0.25,
+        "bounds": [
+          0.25,
+          0.25
+        ]
+      }
     },
     {
       "id": "simplebuilding:wandering_trader/reinforced_bundle_emerald",
@@ -57646,7 +58558,27 @@ window.WIKI_DATA = {
       "configFlags": [
         "enableWanderingTrades"
       ],
-      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/reinforced_bundle_emerald.json"
+      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/reinforced_bundle_emerald.json",
+      "availability": {
+        "profile": "vanilla-plus-selected-mod",
+        "pools": [
+          {
+            "id": "minecraft:wandering_trader/buying",
+            "poolSize": 8,
+            "draws": 2,
+            "chance": 0.25,
+            "bounds": [
+              0.25,
+              0.25
+            ]
+          }
+        ],
+        "chance": 0.25,
+        "bounds": [
+          0.25,
+          0.25
+        ]
+      }
     }
   ],
   "enchantments": [
@@ -60003,7 +60935,7 @@ window.WIKI_DATA = {
           "required": true
         }
       ],
-      "source": "mc26_3/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json"
+      "source": "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json"
     },
     {
       "id": "simplebuilding:item/copper_chests",
@@ -62183,6 +63115,11 @@ window.WIKI_DATA = {
   ],
   "config": [
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tools.buildingWandHungerCost",
       "shortName": "buildingWandHungerCost",
       "type": "boolean",
@@ -62198,6 +63135,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Experimentell. Viel auf einmal bauen macht\nhungrig: Pro Klick oder Blaupausen-Bau sind\ndie ersten Blöcke frei (1/16 des größten\nWürfels des Stabs, mindestens 256 - normale\nFlächen kosten nie etwas); jeder weitere\nBlock erzeugt Erschöpfung, bei stärkeren\nStäben weniger (ein Kupfer-Baustab, der\n16x16x16 füllt, kostet etwa ein Viertel der\nHungerleiste, ein Enderit-Baustab mit\n128x128x128 die ganze Leiste). Der\nKreativmodus ist ausgenommen. Verursacht nie\nselbst Schaden. Serverseitig. Standard: an."
     },
     {
+      "range": [
+        0,
+        null
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tools.wandHungerMultiplier",
       "shortName": "wandHungerMultiplier",
       "type": "double",
@@ -62213,6 +63158,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Erschöpfung jedes Blocks\nüber dem Freibetrag (siehe Hungerkosten des\nBaustabs). 0,5 = halb so hungrig, 2 = doppelt\nso hungrig, 0 = Bauen kostet nichts. Der\nFreibetrag bleibt. Serverseitig. Standard:\n1,0."
     },
     {
+      "range": [
+        0,
+        null
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tools.magnetRangeMultiplier",
       "shortName": "magnetRangeMultiplier",
       "type": "double",
@@ -62228,6 +63181,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Faktor darauf, wie weit der Attractor Items\nzieht (3 Blöcke, +1,5 je Stufe Reichweite,\nhöchstens 7,5; nach diesem Faktor nie über\n12). 2 = doppelt so weit, 0 = der Attractor\nzieht nichts. Serverseitig. Standard: 1.0."
     },
     {
+      "range": [
+        0.0,
+        null
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tools.rotatorChargePerTurn",
       "shortName": "rotatorChargePerTurn",
       "type": "int",
@@ -62243,6 +63204,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Ladung, die eine Drehung des Rotators\nverbraucht (voll sind 1024, 16 Enderperlen\nladen auf). 0 = Drehen kostet nichts, 2 =\nhalb so viele Drehungen je Ladung.\nHaltbarkeit wirkt weiter. Serverseitig.\nStandard: 1."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tools.invertBundleInteractions",
       "shortName": "invertBundleInteractions",
       "type": "boolean",
@@ -62258,6 +63224,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Vertauscht die Maustasten bei den Bündeln und\nKöchern der Mod: aus legt Linksklick ein und\nRechtsklick nimmt heraus; an umgekehrt.\nStandard: aus."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tools.invertOctantSneak",
       "shortName": "invertOctantSneak",
       "type": "boolean",
@@ -62273,6 +63244,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: Der Oktant zeichnet die Flächenfigur\nnur, wenn er Berührung des Konstrukteurs\nträgt. An: umgekehrt. Die beiden\nEckpunkt-Umrisse werden immer gezeichnet.\nClientseitig. Standard: aus."
     },
     {
+      "range": [
+        0.0,
+        100.0
+      ],
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tools.buildingHighlightOpacity",
       "shortName": "buildingHighlightOpacity",
       "type": "int",
@@ -62288,6 +63267,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Deckkraft der gefüllten Vorschauflächen von\nVorschlaghammer und Oktant in Prozent (0 =\nunsichtbar, 100 = deckend). Clientseitig.\nStandard: 40."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tools.enableToolAnimations",
       "shortName": "enableToolAnimations",
       "type": "boolean",
@@ -62303,6 +63287,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Hauptschalter für die Handanimationen von\nMeißel und Vorschlaghammer in der\nIch-Ansicht. Clientseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tools.enableChiselAnimation",
       "shortName": "enableChiselAnimation",
       "type": "boolean",
@@ -62318,6 +63307,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Kippt den gehaltenen Meißel, wenn du auf\neinen Block zielst, den er umwandeln kann.\nSpielt nur, wenn auch Werkzeug-Animationen an\nist. Clientseitig. Standard: an."
     },
     {
+      "range": [
+        0.0,
+        100.0
+      ],
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tools.transformHintStrength",
       "shortName": "transformHintStrength",
       "type": "int",
@@ -62333,6 +63330,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie stark sich das gehaltene Item neigt, wenn\nes den anvisierten Block umwandeln kann, in\nProzent der ursprünglichen Bewegung. Ein\nTeil-Hinweis (Hammer oder Material fehlt)\nzeigt die Hälfte davon. Clientseitig.\nStandard: 50."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tools.placedPartParticles",
       "shortName": "placedPartParticles",
       "type": "boolean",
@@ -62348,6 +63350,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Dezente Vanilla-Partikel über leuchtenden\nabgelegten Kleinteilen (Glowstonestaub,\nNetherstern, Weisheitskugel ...).\nKerzenflammen bleiben immer an, wie\nbei Vanilla. Clientseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "enableDoubleJump",
       "shortName": "enableDoubleJump",
       "type": "boolean",
@@ -62363,6 +63370,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Erlaubt den Luftsprung\n(Doppelsprung-Verzauberung auf Stiefeln): in\nder Luft erneut springen. Aus: keine\nLuftsprünge. Das ist eine Einstellung deines\neigenen Clients. Standard: an."
     },
     {
+      "range": [
+        20.0,
+        6000.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "airJumpCooldownTicks",
       "shortName": "airJumpCooldownTicks",
       "type": "int",
@@ -62378,6 +63393,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Zeit zwischen zwei Luftsprüngen bei\nLuftsprung I in Ticks (20 Ticks = 1 s); Stufe\nII wartet halb so lange. Gehalten zwischen 20\nund 6000. Auf einem Server gilt der Wert des\nServers und wird an alle Spieler geschickt.\nStandard: 400 (20 s, auf Stufe II 10 s)."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "enableArmorTrimBenefits",
       "shortName": "enableArmorTrimBenefits",
       "type": "boolean",
@@ -62393,6 +63413,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Gibt dir die Spielboni der Besatzmuster und\n-materialien (zum Beispiel Wasseratmung).\nDein Client meldet die Einstellung beim\nBetreten einer Welt; eine Änderung wirkt nach\nerneutem Betreten. Standard: an."
     },
     {
+      "range": [
+        0.0,
+        null
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "trimBenefitBaseMultiplier",
       "shortName": "trimBenefitBaseMultiplier",
       "type": "double",
@@ -62408,6 +63436,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Basis der Besatz-Resonanz: höhere Werte\nmachen passende Besätze stärker (0 bis 10).\nAuch mit /simplebuilding config\nsetTrimMultiplier einstellbar. Auf einem\nServer gilt der Wert des Servers und wird\nallen Spielern angezeigt. Standard: 2,0."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "breakerPistonsLoseDurability",
       "shortName": "breakerPistonsLoseDurability",
       "type": "boolean",
@@ -62423,6 +63456,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Wenn aktiviert (Standard), kostet jeder\nBlock, den ein Netherit- oder Enderitkolben\nbeim Ausfahren zerstört, 1 Haltbarkeit: 226\nbeim Netheritkolben, 281 beim Enderitkolben\n(1/9 der Spitzhacke ihrer Stufe). Ist sie\naufgebraucht, wird der Enderitkolben zum\nNetheritkolben mit voller Haltbarkeit und der\nNetheritkolben zum Verstärkten Kolben. Ein\nKlumpen der Stufe stellt die volle\nHaltbarkeit wieder her. Deaktiviert: sie\nverlieren nie Haltbarkeit. Serverseitig.\nStandard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "pistonsBreachEndPortalFrames",
       "shortName": "pistonsBreachEndPortalFrames",
       "type": "boolean",
@@ -62438,6 +63476,11 @@ window.WIKI_DATA = {
       "tooltipDe": "An: Die Kolben der Mod behandeln\nEndportalrahmen wie andere unzerstörbare\nBlöcke - ein mit einem Redstoneblock\nbezahlter Verstärkter Kolben kann einen\nschieben, ein Netherit- oder Enderitkolben\nihn zerstören. Aus: Endportalrahmen bleiben\nunangetastet. Serverseitig, an die Clients\ngeschickt. Standard: aus."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "pistonsBreachModdedUnbreakables",
       "shortName": "pistonsBreachModdedUnbreakables",
       "type": "boolean",
@@ -62453,6 +63496,11 @@ window.WIKI_DATA = {
       "tooltipDe": "An: Die Kolben der Mod behandeln auch\nunzerstörbare Blöcke (Härte -1) anderer Mods\nals durchbrechbar. Aus: Nur die\nunzerstörbaren Blöcke von Vanilla und der Tag\nsimplebuilding:piston_breachable_extra\nzählen. Serverseitig, an die Clients\ngeschickt. Standard: aus."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.pads.enableChunkLoaders",
       "shortName": "enableChunkLoaders",
       "type": "boolean",
@@ -62468,6 +63516,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: Chunk-Lader bleiben setzbar, geben aber\nihre Chunks frei und tun nichts. Aus nimmt\nauch die Rezepte weg (beim nächsten /reload\noder Weltstart). Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.pads.enableElytraPads",
       "shortName": "enableElytraPads",
       "type": "boolean",
@@ -62483,6 +63536,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: Elytra-Pads verteilen und laden nichts.\nAus nimmt auch die Rezepte weg (beim nächsten\n/reload oder Weltstart). Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.pads.enableFlypads",
       "shortName": "enableFlypads",
       "type": "boolean",
@@ -62498,6 +63556,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: Flugpads nehmen den Kreativflug zurück\nund geben keinen. Aus nimmt auch die Rezepte\nweg (beim nächsten /reload oder Weltstart).\nStandard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.pads.enableSpawnTeleporters",
       "shortName": "enableSpawnTeleporters",
       "type": "boolean",
@@ -62513,6 +63576,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: Spawn-Teleporter teleportieren nicht.\nAus nimmt auch die Rezepte weg (beim nächsten\n/reload oder Weltstart). Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.pads.enableLaunchpads",
       "shortName": "enableLaunchpads",
       "type": "boolean",
@@ -62528,6 +63596,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: Startrampen starten nicht. Aus nimmt\nauch die Rezepte weg (beim nächsten /reload\noder Weltstart). Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.pads.enableTimedCopperPlates",
       "shortName": "enableTimedCopperPlates",
       "type": "boolean",
@@ -62543,6 +63616,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: Kupfer-Druckplatten lösen nie aus.\nStandard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.pads.enableFilterPlates",
       "shortName": "enableFilterPlates",
       "type": "boolean",
@@ -62558,6 +63636,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: Netherit- und Enderit-Druckplatten lösen\nnie aus. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.pads.enablePotionPads",
       "shortName": "enablePotionPads",
       "type": "boolean",
@@ -62573,6 +63656,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: Trank-Pads behalten ihren Trank, geben\naber keine Wirkungen. Aus nimmt auch die\nRezepte weg (beim nächsten /reload oder\nWeltstart). Standard: an."
     },
     {
+      "range": [
+        1.0,
+        12000.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.padTuning.teleporterTier1WarmupTicks",
       "shortName": "teleporterTier1WarmupTicks",
       "type": "int",
@@ -62588,6 +63679,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie lange ein Spieler still auf einem\nSpawn-Teleporter I stehen muss, bis er\nspringt, in Ticks (20 = 1 s). Standard: 1000\n(50 s). Bereich: 1–12000,"
     },
     {
+      "range": [
+        1.0,
+        12000.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.padTuning.teleporterTier2WarmupTicks",
       "shortName": "teleporterTier2WarmupTicks",
       "type": "int",
@@ -62603,6 +63702,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Dasselbe für Spawn-Teleporter II. Standard:\n400 (20 s). Bereich: 1–12000,"
     },
     {
+      "range": [
+        1.0,
+        12000.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.padTuning.teleporterTier3WarmupTicks",
       "shortName": "teleporterTier3WarmupTicks",
       "type": "int",
@@ -62618,6 +63725,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Dasselbe für den Enderit-Spawn-Teleporter III\n(die letzte Easter-Stufe wartet halb so\nlange). Standard: 100 (5 s). Bereich:\n1–12000,"
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.padTuning.launchpadStrengthMultiplier",
       "shortName": "launchpadStrengthMultiplier",
       "type": "double",
@@ -62633,6 +63748,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Startstärke der Startrampen\n(1,5 plus 0,8 je Windkugel). 0,5 = halb so\nhoch, 2 = doppelt so stark. Standard: 1,0.\nBereich: 0–2,0,"
     },
     {
+      "range": [
+        1.0,
+        1200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.padTuning.potionPadChargeStepTicks",
       "shortName": "potionPadChargeStepTicks",
       "type": "int",
@@ -62648,6 +63771,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wer auf einem Trank-Pad steht, bekommt in\ndrei Schritten 25 %, 50 % und dann 100 % der\nWirkdauer; das ist die Länge eines Schritts\nin Ticks. Standard: 20 (1 s, voll nach 3 s).\nBereich: 1–1200,"
     },
     {
+      "range": [
+        0.0,
+        10.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.padTuning.potionPadCooldownFactor",
       "shortName": "potionPadCooldownFactor",
       "type": "double",
@@ -62663,6 +63794,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Nach einer vollen Ladung kühlt das Trank-Pad\nso viele Male die gegebene Wirkdauer lang ab,\nmal dem eigenen Faktor der Wirkung\n(Direktheilung und Direktschaden 2,\nNachtsicht 0,5, siehe docs/TRANK-PADS.md). 0\n= keine Abklingzeit. Standard: 2,0. Bereich:\n0–10,0,"
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.laserPointer.enable",
       "shortName": "enable",
       "type": "boolean",
@@ -62678,6 +63814,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Zeigt die Strahlpunkte und lässt den Stab\nBlöcke schmelzen, anzünden und trocknen. Aus:\nDer Stab tut nichts. Serverseitig, an die\nClients geschickt. Aus nimmt auch die Rezepte\nweg (beim nächsten /reload oder Weltstart).\nStandard: an."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.laserPointer.color",
       "shortName": "color",
       "type": "int",
@@ -62693,6 +63834,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Farbe des Strahlpunkts (RGB). Clientseitig.\nStandard: rot (#FF0000)."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.laserPointer.scale",
       "shortName": "scale",
       "type": "float",
@@ -62708,6 +63854,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Größe des Punkts in Blöcken (0,05 bis 1); in\nder Ferne wächst er nur, damit er sichtbar\nbleibt. Clientseitig. Standard: 0,25."
     },
     {
+      "range": [
+        1.0,
+        1024.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.laserPointer.range",
       "shortName": "range",
       "type": "int",
@@ -62723,6 +63877,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie weit der Strahl reicht, in Blöcken (nie\nüber die Sichtweite des Servers hinaus).\nServerseitig, an die Clients geschickt.\nStandard: 512. Bereich: 1–1024,"
     },
     {
+      "range": [
+        0.0,
+        null
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.laserPointer.chargePerSecond",
       "shortName": "chargePerSecond",
       "type": "int",
@@ -62738,6 +63900,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Ladung, die der Stab je angefangener Sekunde\nStrahlen verbraucht (voll sind 640, eine\nAmethystscherbe lädt 40 auf). 0 = Strahlen\nkostet nichts. Standard: 4."
     },
     {
+      "range": [
+        0.0,
+        null
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.laserPointer.effectCost",
       "shortName": "effectCost",
       "type": "int",
@@ -62753,6 +63923,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Ladung, die jedes Schmelzen, Anzünden oder\nTrocknen durch den Strahl verbraucht. 0 =\nWirkungen kosten nichts. Standard: 5."
     },
     {
+      "range": [
+        1.0,
+        64.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.balancing.rocketStackSize",
       "shortName": "rocketStackSize",
       "type": "int",
@@ -62768,6 +63946,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie viele Feuerwerksraketen in einen Stapel\npassen (1 bis 64); 16 schwächt den Elytraflug\nab. Serverseitig, an die Clients geschickt.\nStandard: 64."
     },
     {
+      "range": [
+        0.0,
+        12000.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.balancing.echoSounderJumpCooldownTicks",
       "shortName": "echoSounderJumpCooldownTicks",
       "type": "int",
@@ -62783,6 +63969,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Abklingzeit des Echolots nach einem Sprung zu\nseinem Leitstein, in Ticks (20 = 1 s). 0 =\nkeine Abklingzeit. Standard: 480 (24 s).\nBereich: 0–12000,"
     },
     {
+      "range": [
+        0.0,
+        12000.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.balancing.echoSounderAttemptLockTicks",
       "shortName": "echoSounderAttemptLockTicks",
       "type": "int",
@@ -62798,6 +63992,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Längste Sperre des Echolots nach einem\nVersuch ohne Sprung (zu früh losgelassen,\nLeitstein fehlt) und nach dem Verknuepfen, in\nTicks (20 = 1 s): 1 s direkt am Leitstein,\ndie volle Zeit ab 1000 Blöcken Entfernung\noder in einer anderen Dimension. Angezeigt\nals Abklingzeit des Items. 0 = keine Sperre.\nStandard: 100 (5 s). Bereich: 0–12000,"
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.forceExactSpawn",
       "shortName": "forceExactSpawn",
       "type": "boolean",
@@ -62813,6 +64012,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Spieler erscheinen genau auf dem Spawnblock\n(und der Bettmitte) statt zufällig darum.\nStandard: aus."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.disableFallDamageInSpawn",
       "shortName": "disableFallDamageInSpawn",
       "type": "boolean",
@@ -62828,6 +64032,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Solange die Spawn-Elytra an ist: kein\nFallschaden im Spawnradius. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.useCustomWorldSpawn",
       "shortName": "useCustomWorldSpawn",
       "type": "boolean",
@@ -62843,6 +64052,11 @@ window.WIKI_DATA = {
       "tooltipDe": "An: Der Weltspawn wird auf die Koordinaten\nunten gesetzt (beim Laden der Oberwelt oder,\nper Befehl gesetzt, sofort). Standard: aus."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.xCoordSpawnPoint",
       "shortName": "xCoordSpawnPoint",
       "type": "int",
@@ -62858,6 +64072,11 @@ window.WIKI_DATA = {
       "tooltipDe": "X des eigenen Weltspawns. Standard: 0."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.yCoordSpawnPoint",
       "shortName": "yCoordSpawnPoint",
       "type": "int",
@@ -62873,6 +64092,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Y des eigenen Weltspawns; -1 nimmt den\nobersten Block bei X/Z. Standard: -1."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.zCoordSpawnPoint",
       "shortName": "zCoordSpawnPoint",
       "type": "int",
@@ -62888,6 +64112,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Z des eigenen Weltspawns. Standard: 0."
     },
     {
+      "range": [
+        0.0,
+        64.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.firstJoinTeleporterCount",
       "shortName": "firstJoinTeleporterCount",
       "type": "int",
@@ -62903,6 +64135,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Spawn-Teleporter, die jeder Spieler beim\nersten Betreten bekommt (0 bis 64, 0 =\nkeine). Standard: 0."
     },
     {
+      "range": [
+        0.0,
+        64.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.firstJoinElytraPadCount",
       "shortName": "firstJoinElytraPadCount",
       "type": "int",
@@ -62918,6 +64158,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Elytra-Pads, die jeder Spieler beim ersten\nBetreten bekommt (0 bis 64, 0 = keine).\nStandard: 0."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.giveElytraOnSpawn",
       "shortName": "giveElytraOnSpawn",
       "type": "boolean",
@@ -62933,6 +64178,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Spieler bekommen im Spawnradius eine\nSpawn-Elytra. Standard: aus."
     },
     {
+      "range": [
+        1.0,
+        256.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.spawnElytraRadius",
       "shortName": "spawnElytraRadius",
       "type": "int",
@@ -62948,6 +64201,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Radius um die Mitte, in dem es die\nSpawn-Elytra gibt. Standard: 25. Bereich:\n1–256,"
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.useWorldSpawnAsCenter",
       "shortName": "useWorldSpawnAsCenter",
       "type": "boolean",
@@ -62963,6 +64221,11 @@ window.WIKI_DATA = {
       "tooltipDe": "An: Der Weltspawn ist die Mitte des\nSpawnbereichs; aus: die eigene Mitte unten.\nStandard: aus."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.customSpawnElytraX",
       "shortName": "customSpawnElytraX",
       "type": "int",
@@ -62978,6 +64241,11 @@ window.WIKI_DATA = {
       "tooltipDe": "X der Mitte des Spawnbereichs. Standard: 0."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.customSpawnElytraZ",
       "shortName": "customSpawnElytraZ",
       "type": "int",
@@ -62993,6 +64261,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Z der Mitte des Spawnbereichs. Standard: 0."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.flightTimeSeconds",
       "shortName": "flightTimeSeconds",
       "type": "int",
@@ -63008,6 +64281,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Gleitzeit mit der Spawn-Elytra außerhalb des\nSpawnbereichs (höchstens 24 h). Standard:\n300."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.maxBoosts",
       "shortName": "maxBoosts",
       "type": "int",
@@ -63023,6 +64301,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Boosts je Ladung der Spawn-Elytra (Leertaste\nim Gleitflug, 1 bis 100). Serverseitig, an\ndie Clients geschickt. Standard: 3."
     },
     {
+      "range": [
+        0.1,
+        1.2
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.boostStrength",
       "shortName": "boostStrength",
       "type": "float",
@@ -63038,6 +64324,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Stärke eines Boosts der Spawn-Elytra.\nStandard: 0,6. Bereich: 0,1–1,2,"
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.spawn1X",
       "shortName": "spawn1X",
       "type": "int",
@@ -63053,6 +64344,11 @@ window.WIKI_DATA = {
       "tooltipDe": "X des Ziels aller Spawn-Teleporter; gesetzt\nmit /simplebuilding tweaks worldspawn\nsetspawn1. Standard: 0."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.spawn1Y",
       "shortName": "spawn1Y",
       "type": "int",
@@ -63068,6 +64364,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Y des Ziels aller Spawn-Teleporter; gesetzt\nmit /simplebuilding tweaks worldspawn\nsetspawn1. -1000 = nicht gesetzt (Weltspawn).\nStandard: -1000."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.spawn.spawn1Z",
       "shortName": "spawn1Z",
       "type": "int",
@@ -63083,6 +64384,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Z des Ziels aller Spawn-Teleporter; gesetzt\nmit /simplebuilding tweaks worldspawn\nsetspawn1. Standard: 0."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.dimensions.allowNether",
       "shortName": "allowNether",
       "type": "boolean",
@@ -63098,6 +64404,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: Kein Spieler kann den Nether betreten.\nStandard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.dimensions.allowEnd",
       "shortName": "allowEnd",
       "type": "boolean",
@@ -63113,6 +64424,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: Kein Spieler kann das End betreten.\nStandard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.commands.enableKillBoatsCommand",
       "shortName": "enableKillBoatsCommand",
       "type": "boolean",
@@ -63128,6 +64444,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Operatoren können mit /killboats\n[standard|empty|all] unbenutzte Boote um sich\nentfernen. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.commands.enableKillCartsCommand",
       "shortName": "enableKillCartsCommand",
       "type": "boolean",
@@ -63143,6 +64464,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Operatoren können mit /killcarts\n[standard|empty|all] unbenutzte Loren um sich\nentfernen. Standard: aus."
     },
     {
+      "range": [
+        1.0,
+        256.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.commands.killCommandRadius",
       "shortName": "killCommandRadius",
       "type": "int",
@@ -63158,6 +64487,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie weit /killboats und /killcarts um den\nSpieler reichen, in Blöcken. Standard: 100.\nBereich: 1–256,"
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.optimization.enableXpClumps",
       "shortName": "enableXpClumps",
       "type": "boolean",
@@ -63173,6 +64507,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Legt nahe Erfahrungskugeln zu einer zusammen\n(nichts geht verloren) und erlaubt sofortiges\nAufheben. Standard: an."
     },
     {
+      "range": [
+        0.0,
+        8.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.optimization.xpClumpRadius",
       "shortName": "xpClumpRadius",
       "type": "double",
@@ -63188,6 +64530,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie weit eine Kugel ihre Nachbarn einsammelt,\nin Blöcken. Größer = weniger Kugeln.\nStandard: 2,0. Bereich: 0–8,0,"
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "tweaks.optimization.scaleXpOrbs",
       "shortName": "scaleXpOrbs",
       "type": "boolean",
@@ -63203,6 +64550,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Wertvollere Kugeln sehen größer aus (bis\ndreifach). Clientseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "worldGen.enableLootTableChanges",
       "shortName": "enableLootTableChanges",
       "type": "boolean",
@@ -63218,6 +64570,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Fügt Mod-Gegenstände und verzauberte Bücher\nzu Vanilla-Strukturtruhen,\nPrüfungskammer-Tresoren und dem Angelschatz\nhinzu. Gilt beim Laden der Datenpakete\n(Weltstart, /reload). Standard: an."
     },
     {
+      "range": [
+        0,
+        null
+      ],
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "worldGen.buildingCoreLootChanceMultiplier",
       "shortName": "buildingCoreLootChanceMultiplier",
       "type": "double",
@@ -63233,6 +64593,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die (sehr kleine) Chance auf\nBaukerne in Beutetruhen, höchstens einer je\nTruhe. 0 = keine Kerne in Truhen. Gilt beim\nWeltstart oder /reload. Standard: 1,0."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "worldGen.enableVillagerTrades",
       "shortName": "enableVillagerTrades",
       "type": "boolean",
@@ -63248,6 +64613,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Bibliothekare, Steinmetze und\nWerkzeugschmiede bieten auch Mod-Gegenstände\nund -Bücher an. Gilt beim Weltstart oder\n/reload. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "worldGen.enableWanderingTrades",
       "shortName": "enableWanderingTrades",
       "type": "boolean",
@@ -63263,6 +64633,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Der fahrende Händler kauft und verkauft auch\nMod-Gegenstände. Gilt beim Weltstart oder\n/reload. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "giveGuideBookOnFirstJoin",
       "shortName": "giveGuideBookOnFirstJoin",
       "type": "boolean",
@@ -63278,6 +64653,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Auf 26.3 ohne Wirkung: Handbuecher muessen\nhergestellt werden. Standard: aus."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "vanillaEnchantedBookTextures",
       "shortName": "vanillaEnchantedBookTextures",
       "type": "boolean",
@@ -63293,6 +64673,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Jede Vanilla-Verzauberung bekommt ihr eigenes\nBuch. Aus: wieder das Vanilla-Buch, etwa wenn\nein Ressourcenpaket oder eine andere Mod die\nBücher neu gestaltet. Wirkt sofort. Standard:\nan."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "modEnchantedBookTextures",
       "shortName": "modEnchantedBookTextures",
       "type": "boolean",
@@ -63308,6 +64693,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Jede Verzauberung dieser Mod hat ihr eigenes\nBuch. Aus: das schlichte Vanilla-Zauberbuch.\nWirkt sofort. Standard: an."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "visibleTrimIconsVanillaArmor",
       "shortName": "visibleTrimIconsVanillaArmor",
       "type": "boolean",
@@ -63323,6 +64713,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Die Icons besetzter Vanilla-Rüstung (auch des\nSchildkrötenpanzers) zeigen das Besatzmuster\nin den Farben des Materials. Aus: das\nVanilla-Icon mit nur einem Farbfleck. Wirkt\nsofort. Standard: an."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "visibleTrimIconsModArmor",
       "shortName": "visibleTrimIconsModArmor",
       "type": "boolean",
@@ -63338,6 +64733,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Die Icons besetzter Enderit-Rüstung zeigen\ndas Besatzmuster in den Farben des Materials.\nAus: das schlichte Icon mit nur einem\nFarbfleck. Wirkt sofort. Standard: an."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "showModHud",
       "shortName": "showModHud",
       "type": "boolean",
@@ -63353,6 +64753,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Zeigt die HUD-Kästen der Mod: Messuhr,\nOktant, Entfernungsanzeige des Stabs,\nLuftsprung-Abklingleiste und\nSpawn-Elytra-Leiste. Die Taste „Mod-HUD\nein/aus“ (anfangs nicht belegt, siehe\nSteuerung) schaltet das ebenfalls. Nur\nClient. Standard: an."
     },
     {
+      "range": [
+        0.0,
+        100.0
+      ],
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "hudPositionX",
       "shortName": "hudPositionX",
       "type": "int",
@@ -63368,6 +64776,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wo die HUD-Kästen (Messuhr, Oktant,\nEntfernung des Stabs) in der Breite stehen,\nin Prozent: 0 = linker Rand, 50 = Mitte, 100\n= rechter Rand. Nur Client. Standard: 0."
     },
     {
+      "range": [
+        0.0,
+        100.0
+      ],
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "hudPositionY",
       "shortName": "hudPositionY",
       "type": "int",
@@ -63383,6 +64799,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wo die HUD-Kästen (Messuhr, Oktant,\nEntfernung des Stabs) in der Höhe stehen, in\nProzent: 0 = oben, 50 = Mitte, 100 = unten.\nNur Client. Standard: 50."
     },
     {
+      "range": [
+        50.0,
+        200.0
+      ],
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "hudScale",
       "shortName": "hudScale",
       "type": "int",
@@ -63398,6 +64822,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Größe der HUD-Kästen (Messuhr, Oktant,\nEntfernung des Stabs) in Prozent (50 bis\n200). Nur Client. Standard: 100."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "pistonsFireBreakEvents",
       "shortName": "pistonsFireBreakEvents",
       "type": "boolean",
@@ -63413,6 +64842,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Bevor ein Netherit- oder Enderitkolben einen\nBlock zerstört, löst er das Abbau-Ereignis\ndes Loaders mit einem Fake-Spieler aus, damit\nClaim- und Schutz-Mods es verhindern können.\nAusschalten, wenn ein Schutz-Mod jeden\nFake-Spieler sperrt (die Kolben stünden\nüberall still) oder Quest- und Statistik-Mods\nKolbenabbau als Spielerabbau zählen.\nServerseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "client",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "showDevEnchantedTab",
       "shortName": "showDevEnchantedTab",
       "type": "boolean",
@@ -63428,6 +64862,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“\nauch außerhalb von Entwicklungsumgebungen:\ndie beste Stufe jedes verzauberbaren\nGegenstands, vorverzaubert auf Höchststufe.\nWirkt beim Neuaufbau der Kreativ-Tabs\n(spätestens nach erneutem Betreten).\nStandard: aus."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.endSignals",
       "shortName": "endSignals",
       "type": "boolean",
@@ -63443,6 +64882,11 @@ window.WIKI_DATA = {
       "tooltipDe": "End-Signalkanaele aktivieren. Rezepte nach\nDatenpaket-Neuladen. Standard: true."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.astralVault",
       "shortName": "astralVault",
       "type": "boolean",
@@ -63458,6 +64902,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Astralgewoelbe aktivieren. Abschalten bewahrt\nden Inhalt. Rezepte nach Datenpaket-Neuladen.\nStandard: true."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.airJump",
       "shortName": "airJump",
       "type": "boolean",
@@ -63473,6 +64922,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Verzauberung Luftsprung wirkt auf\ndiesem Server nicht, egal was der eigene\nSchalter eines Clients sagt. Serverseitig, an\ndie Clients geschickt. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.dynamicLight",
       "shortName": "dynamicLight",
       "type": "boolean",
@@ -63488,6 +64942,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Leuchtende Rüstung erhellt die Umgebung ihres\nTrägers mit unsichtbaren Lichtblöcken. Aus:\nkeine neuen Lichtblöcke, und die schon\ngesetzten verschwinden beim nächsten Takt des\nTrägers. Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.placeVanillaItems",
       "shortName": "placeVanillaItems",
       "type": "boolean",
@@ -63503,6 +64962,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Schleichen + Rechtsklick legt Stöcke, Barren,\nKlumpen, Edelsteine, Ziegel und Feuerstein\nflach auf einen Block. Aus: nur die eigenen\nKleinteile der Mod lassen sich ablegen.\nServerseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.placeDisabledItems",
       "shortName": "placeDisabledItems",
       "type": "String",
@@ -63518,6 +64982,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Item-IDs, die sich nicht mehr ablegen lassen,\ndurch Komma oder Leerzeichen getrennt (ohne\nNamensraum: minecraft). Schon abgelegte\nbleiben liegen. Serverseitig. Standard: leer."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.anvilRepairKeepsCost",
       "shortName": "anvilRepairKeepsCost",
       "type": "boolean",
@@ -63533,6 +65002,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Reparieren oder Umbenennen am Amboss ohne\nneue Verzauberung erhöht die Ambosskosten des\nGegenstands nicht. Nur Verzaubern tut das.\nServerseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.backpack",
       "shortName": "backpack",
       "type": "boolean",
@@ -63548,6 +65022,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: ein getragener Rucksack öffnet sich\nnicht mehr (ein abgestellter schon, damit\nniemand den Inhalt verliert). Die Rezepte\nverschwinden beim nächsten /reload oder\nWeltstart. Serverseitig, an die Clients\ngeschickt. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.attractor",
       "shortName": "attractor",
       "type": "boolean",
@@ -63563,6 +65042,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: der Attractor (früher Magnet) zieht\nkeine Gegenstände an. Die Rezepte\nverschwinden beim nächsten /reload oder\nWeltstart. Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.echoSounder",
       "shortName": "echoSounder",
       "type": "boolean",
@@ -63578,6 +65062,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: das Echolot teleportiert nicht mehr. Die\nRezepte verschwinden beim nächsten /reload\noder Weltstart. Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.blueprint",
       "shortName": "blueprint",
       "type": "boolean",
@@ -63593,6 +65082,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: Blaupausen öffnen weder den Editor noch\nbauen sie mit dem Baustab. Die Rezepte\nverschwinden beim nächsten /reload oder\nWeltstart. Serverseitig, an die Clients\ngeschickt. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.oreDetector",
       "shortName": "oreDetector",
       "type": "boolean",
@@ -63608,6 +65102,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: der Detektor sucht nicht mehr, seine\nNadel ruht. Die Rezepte verschwinden beim\nnächsten /reload oder Weltstart.\nServerseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.levitatingBlocks",
       "shortName": "levitatingBlocks",
       "type": "boolean",
@@ -63623,6 +65122,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: schwebender und hängender Sand und Kies\nlassen sich nicht mehr herstellen; gesetzte\nBlöcke bleiben, wie sie sind. Die Rezepte\nverschwinden beim nächsten /reload oder\nWeltstart. Serverseitig. Standard: an."
     },
     {
+      "range": [
+        0.0,
+        16.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.scarecrowRadius",
       "shortName": "scarecrowRadius",
       "type": "int",
@@ -63638,6 +65145,11 @@ window.WIKI_DATA = {
       "tooltipDe": "In so vielen Blöcken um einen Stroh-\nRüstungsständer oder eine Trainingspuppe\nzertrampeln Tiere und Monster kein\nAckerland (Spieler schon). 0 = aus,\nhöchstens 16. Serverseitig. Standard: 8."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.chunkLoaders.requireOwnerOnline",
       "shortName": "requireOwnerOnline",
       "type": "boolean",
@@ -63653,6 +65165,11 @@ window.WIKI_DATA = {
       "tooltipDe": "An: ein Chunk-Loader hält seine Chunks nur,\nsolange der Spieler, der ihn gesetzt hat,\nonline ist; kommt er zurück, läuft der Loader\nwieder. Loader ohne gespeicherten Besitzer\nlaufen immer. Operatoren listen alle Loader\nmit /simplebuilding chunkloaders list auf.\nServerseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.dimensionLocks.chunkLoaderBlockedDimensions",
       "shortName": "chunkLoaderBlockedDimensions",
       "type": "String",
@@ -63668,6 +65185,11 @@ window.WIKI_DATA = {
       "tooltipDe": "In diesen Dimensionen laden Chunk-Loader\nnichts (beim Setzen gibt es eine Meldung).\nDimension-IDs, durch Komma getrennt, z. B.\nminecraft:the_nether, minecraft:the_end (ohne\nNamensraum gilt minecraft:); leer = überall\nerlaubt. Per Befehl leert \"\" die Liste.\nServerseitig. Standard: leer."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.dimensionLocks.flypadBlockedDimensions",
       "shortName": "flypadBlockedDimensions",
       "type": "String",
@@ -63683,6 +65205,11 @@ window.WIKI_DATA = {
       "tooltipDe": "In diesen Dimensionen geben Flypads keinen\nFlug. Dimension-IDs, durch Komma getrennt, z.\nB. minecraft:the_nether, minecraft:the_end\n(ohne Namensraum gilt minecraft:); leer =\nüberall erlaubt. Per Befehl leert \"\" die\nListe. Serverseitig. Standard: leer."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.dimensionLocks.echoSounderBlockedDimensions",
       "shortName": "echoSounderBlockedDimensions",
       "type": "String",
@@ -63698,6 +65225,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Das Echolot springt weder aus diesen\nDimensionen heraus noch in sie hinein.\nDimension-IDs, durch Komma getrennt, z. B.\nminecraft:the_nether, minecraft:the_end (ohne\nNamensraum gilt minecraft:); leer = überall\nerlaubt. Per Befehl leert \"\" die Liste.\nServerseitig. Standard: leer."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.laser.igniteFlammables",
       "shortName": "igniteFlammables",
       "type": "boolean",
@@ -63713,6 +65245,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: der Strahl setzt keine brennbaren Blöcke\nmehr in Brand und zündet kein Seelenfeuer\n(Schmelzen, Trocknen und Kerzen gehen\nweiter). Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.laser.igniteTnt",
       "shortName": "igniteTnt",
       "type": "boolean",
@@ -63728,6 +65265,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: der Strahl zündet kein TNT mehr.\nServerseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.laser.igniteEntities",
       "shortName": "igniteEntities",
       "type": "boolean",
@@ -63743,6 +65285,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: der Strahl setzt keine Mobs und Spieler\nmehr in Brand. Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.laser.scanEntities",
       "shortName": "scanEntities",
       "type": "boolean",
@@ -63758,6 +65305,11 @@ window.WIKI_DATA = {
       "tooltipDe": "An: ein Lebewesen im Strahl leuchtet 5 s lang\nauf (nach der halben Zeit bis zum Anzünden)\nund wird aufgefrischt, solange der Strahl\nbleibt. Kostet Ladung wie jede Wirkung.\nServerseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.laser.scanPlayers",
       "shortName": "scanPlayers",
       "type": "boolean",
@@ -63773,6 +65325,11 @@ window.WIKI_DATA = {
       "tooltipDe": "An: auch andere Spieler leuchten, aber nur wo\nman ihnen schaden darf (PvP, Teams). Aus:\nSpieler werden nie gescannt. Serverseitig.\nStandard: aus."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.arrows.recoverFromMobs",
       "shortName": "recoverFromMobs",
       "type": "boolean",
@@ -63788,6 +65345,14 @@ window.WIKI_DATA = {
       "tooltipDe": "An: ein Pfeil, den ein Spieler in ein\nLebewesen geschossen hat (nicht in Spieler),\nfällt bei dessen Tod - mit allen Teilen und\nWirkungen. Unendlichkeit, Kreativ und\nMehrfachschuss-Kopien fallen nie.\nServerseitig. Standard: an."
     },
     {
+      "range": [
+        1.0,
+        64.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.arrows.maxPerMob",
       "shortName": "maxPerMob",
       "type": "int",
@@ -63803,6 +65368,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie viele Treffer-Pfeile sich ein Lebewesen\nfür seinen Tod merkt, 1 bis 64. Serverseitig.\nStandard: 16."
     },
     {
+      "range": [
+        20.0,
+        1200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.craftyShulker.cooldownTicks",
       "shortName": "cooldownTicks",
       "type": "int",
@@ -63818,6 +65391,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Ticks, bevor dasselbe Wesen wieder springen\nkann, 20 bis 1200. Serverseitig. Standard:\n60."
     },
     {
+      "range": [
+        2.0,
+        16.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.craftyShulker.radius",
       "shortName": "radius",
       "type": "int",
@@ -63833,6 +65414,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Größter Abstand des Sprungs, 2 bis 16 Blöcke.\nServerseitig. Standard: 8."
     },
     {
+      "range": [
+        1.0,
+        20.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.hammock.timeFactor",
       "shortName": "timeFactor",
       "type": "int",
@@ -63848,6 +65437,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Uhr-Ticks je Tick, solange genug Spieler\ntagsüber in Hängematten liegen, 1 bis 20\n(1 = aus). Serverseitig. Standard: 8."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.oreGeneration.endOres",
       "shortName": "endOres",
       "type": "boolean",
@@ -63863,6 +65457,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Hauptschalter für beide End-Erze. Aus: weder\nAstralit noch Nihilit entstehen. Wirkt beim\nnächsten Weltstart und nur in neu erzeugten\nChunks. Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.oreGeneration.astralitOre",
       "shortName": "astralitOre",
       "type": "boolean",
@@ -63878,6 +65477,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: kein Astraliterz auf der Oberfläche der\nEnd-Inseln. Wirkt beim nächsten Weltstart und\nnur in neu erzeugten Chunks. Serverseitig.\nStandard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.oreGeneration.nihilitOre",
       "shortName": "nihilitOre",
       "type": "boolean",
@@ -63893,6 +65497,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: kein Nihiliterz an der Unterseite der\nEnd-Inseln. Wirkt beim nächsten Weltstart und\nnur in neu erzeugten Chunks. Serverseitig.\nStandard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.oreGeneration.sageOre",
       "shortName": "sageOre",
       "type": "boolean",
@@ -63908,6 +65517,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: kein Weisheitserz in der Oberwelt. Wirkt\nbeim nächsten Weltstart in neu erzeugten\nChunks. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.oreGeneration.dimensionalScrap",
       "shortName": "dimensionalScrap",
       "type": "boolean",
@@ -63923,6 +65537,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: kein Dimensionsschrott in Oberwelt,\nNether und End. Wirkt beim nächsten Weltstart\nin neu erzeugten Chunks. Standard: an."
     },
     {
+      "range": [
+        1.0,
+        3600.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.pads.strangerPadBreakSeconds",
       "shortName": "strangerPadBreakSeconds",
       "type": "int",
@@ -63938,6 +65560,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie lange ein Spieler, der es nicht gesetzt\nhat, zum Abbauen eines Pads,\nSpawn-Teleporters oder einer Startrampe\nbraucht (der Besitzer 2 s, Kreativ sofort), 1\nbis 3600. Serverseitig, an die Clients\ngeschickt. Standard: 60."
     },
     {
+      "range": [
+        1.0,
+        3600.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.pads.strangerPlateBreakSeconds",
       "shortName": "strangerPlateBreakSeconds",
       "type": "int",
@@ -63953,6 +65583,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie lange ein Fremder zum Abbauen eines\nChunk-Loaders, einer Kupfer- oder\nFilterplatte braucht (der Besitzer 1,5 s), 1\nbis 3600. Serverseitig, an die Clients\ngeschickt. Standard: 10."
     },
     {
+      "range": [
+        64.0,
+        2560.0
+      ],
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.charges.lensMaxCharge",
       "shortName": "lensMaxCharge",
       "type": "int",
@@ -63968,6 +65606,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Volle Ladung des Resonanzstabs (eine\nAmethystscherbe = 1/16 davon), 64 bis 2560.\nDas ist die Haltbarkeit des Gegenstands, beim\nSpielstart festgelegt: wirkt nach einem\nNeustart, und Clients brauchen denselben Wert\nin ihrer Config-Datei (mit dem Modpack\nausliefern), sonst zeigen sie falsche\nLadebalken. Standard: 640."
     },
     {
+      "range": [
+        64.0,
+        4096.0
+      ],
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.charges.rotatorMaxCharge",
       "shortName": "rotatorMaxCharge",
       "type": "int",
@@ -63983,6 +65629,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Volle Ladung des Rotators in Drehungen (16\nEnderperlen füllen ihn), 64 bis 4096. Das ist\ndie Haltbarkeit des Gegenstands, beim\nSpielstart festgelegt: wirkt nach einem\nNeustart, und Clients brauchen denselben Wert\nin ihrer Config-Datei (mit dem Modpack\nausliefern), sonst zeigen sie falsche\nLadebalken. Standard: 1024."
     },
     {
+      "range": [
+        150.0,
+        6000.0
+      ],
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.charges.echoSounderMaxCharge",
       "shortName": "echoSounderMaxCharge",
       "type": "int",
@@ -63998,6 +65652,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Reparaturpunkte, die ein geleertes Echolot\nbis zur vollen Ladung braucht, 150 bis 6000.\nDas ist die Haltbarkeit des Gegenstands, beim\nSpielstart festgelegt: wirkt nach einem\nNeustart, und Clients brauchen denselben Wert\nin ihrer Config-Datei (mit dem Modpack\nausliefern), sonst zeigen sie falsche\nLadebalken. Standard: 1500."
     },
     {
+      "range": [
+        0.5,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.tools.attractorMinimumDistance",
       "shortName": "attractorMinimumDistance",
       "type": "double",
@@ -64013,6 +65675,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Ruhezone für gehaltene und platzierte\nAttraktoren, 0,5 bis 2 Blöcke. Darin werden\nItems ohne Zug oder Anheben abgebremst.\nServerseitig. Standard: 1,25."
     },
     {
+      "range": [
+        1.0,
+        30.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.tools.sledgehammerUpgradeSeconds",
       "shortName": "sledgehammerUpgradeSeconds",
       "type": "int",
@@ -64028,6 +65698,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie lange eine Aufwertung mit dem\nVorschlaghammer in der Welt dauert; ein\nSchlag je Sekunde, der letzte baut den Block\num. 1 bis 30. Serverseitig, an die Clients\ngeschickt. Standard: 5."
     },
     {
+      "range": [
+        0.0,
+        64.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.tools.reinforcedUpgradeDamagePerHit",
       "shortName": "reinforcedUpgradeDamagePerHit",
       "type": "int",
@@ -64043,6 +65721,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Haltbarkeit, die der Vorschlaghammer je\nSchlag verliert, wenn er eine Kupfertruhe zur\nverstärkten aufwertet, 0 bis 64.\nServerseitig. Standard: 2."
     },
     {
+      "range": [
+        0.0,
+        64.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.tools.netheriteUpgradeDamagePerHit",
       "shortName": "netheriteUpgradeDamagePerHit",
       "type": "int",
@@ -64058,6 +65744,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Haltbarkeit je Schlag bei der Aufwertung\neiner verstärkten Maschine oder Truhe zu\nNetherit, 0 bis 64. Serverseitig. Standard:\n4."
     },
     {
+      "range": [
+        0.0,
+        64.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.tools.enderiteUpgradeDamagePerHit",
       "shortName": "enderiteUpgradeDamagePerHit",
       "type": "int",
@@ -64073,6 +65767,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Haltbarkeit je Schlag bei der Aufwertung\neiner Netherit-Maschine oder -Truhe zu\nEnderit, 0 bis 64. Serverseitig. Standard:\n10."
     },
     {
+      "range": [
+        2.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.tools.stoneChiselCooldownTicks",
       "shortName": "stoneChiselCooldownTicks",
       "type": "int",
@@ -64088,6 +65790,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Abklingzeit nach jeder Benutzung von\nStein-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 30."
     },
     {
+      "range": [
+        2.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.tools.copperChiselCooldownTicks",
       "shortName": "copperChiselCooldownTicks",
       "type": "int",
@@ -64103,6 +65813,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Abklingzeit nach jeder Benutzung von\nKupfer-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 25."
     },
     {
+      "range": [
+        2.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.tools.ironChiselCooldownTicks",
       "shortName": "ironChiselCooldownTicks",
       "type": "int",
@@ -64118,6 +65836,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Abklingzeit nach jeder Benutzung von\nEisen-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 25."
     },
     {
+      "range": [
+        2.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.tools.goldChiselCooldownTicks",
       "shortName": "goldChiselCooldownTicks",
       "type": "int",
@@ -64133,6 +65859,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Abklingzeit nach jeder Benutzung von\nGold-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 20."
     },
     {
+      "range": [
+        2.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.tools.diamondChiselCooldownTicks",
       "shortName": "diamondChiselCooldownTicks",
       "type": "int",
@@ -64148,6 +65882,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Abklingzeit nach jeder Benutzung von\nDiamant-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 10."
     },
     {
+      "range": [
+        2.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.tools.netheriteChiselCooldownTicks",
       "shortName": "netheriteChiselCooldownTicks",
       "type": "int",
@@ -64163,6 +65905,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Abklingzeit nach jeder Benutzung von\nNetherit-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 5."
     },
     {
+      "range": [
+        2.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.tools.enderiteChiselCooldownTicks",
       "shortName": "enderiteChiselCooldownTicks",
       "type": "int",
@@ -64178,6 +65928,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Abklingzeit nach jeder Benutzung von\nEnderit-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 5."
     },
     {
+      "range": [
+        1.0,
+        15.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.machines.endSignalRange",
       "shortName": "endSignalRange",
       "type": "int",
@@ -64193,6 +65951,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Maximale Redstone-Segmente pro Kanal,\nbegrenzt auf 1-15. Standard: 15."
     },
     {
+      "range": [
+        1.0,
+        8.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.machines.reinforcedHopperSpeed",
       "shortName": "reinforcedHopperSpeed",
       "type": "int",
@@ -64208,6 +65974,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter\ner Gegenstände bewegt (8 = ein Gegenstand je\nTick, das Schnellste), 1 bis 8. Serverseitig.\nStandard: 2."
     },
     {
+      "range": [
+        1.0,
+        8.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.machines.netheriteHopperSpeed",
       "shortName": "netheriteHopperSpeed",
       "type": "int",
@@ -64223,6 +65997,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter\ner Gegenstände bewegt (8 = ein Gegenstand je\nTick, das Schnellste), 1 bis 8. Serverseitig.\nStandard: 4."
     },
     {
+      "range": [
+        1.0,
+        8.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.machines.enderiteHopperSpeed",
       "shortName": "enderiteHopperSpeed",
       "type": "int",
@@ -64238,6 +66020,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter\ner Gegenstände bewegt (8 = ein Gegenstand je\nTick, das Schnellste), 1 bis 8. Serverseitig.\nStandard: 8."
     },
     {
+      "range": [
+        1.0,
+        8.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.machines.reinforcedFurnaceSpeed",
       "shortName": "reinforcedFurnaceSpeed",
       "type": "int",
@@ -64253,6 +66043,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie viel schneller als Vanilla Ofen,\nRäucherofen und Schmelzofen dieser Stufe\ngaren, ohne zusätzlichen Brennstoff, 1 bis 8.\nServerseitig. Standard: 2."
     },
     {
+      "range": [
+        1.0,
+        8.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.machines.netheriteFurnaceSpeed",
       "shortName": "netheriteFurnaceSpeed",
       "type": "int",
@@ -64268,6 +66066,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie viel schneller als Vanilla Ofen,\nRäucherofen und Schmelzofen dieser Stufe\ngaren, ohne zusätzlichen Brennstoff, 1 bis 8.\nServerseitig. Standard: 4."
     },
     {
+      "range": [
+        1.0,
+        8.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.machines.enderiteFurnaceSpeed",
       "shortName": "enderiteFurnaceSpeed",
       "type": "int",
@@ -64283,6 +66089,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Wie viel schneller als Vanilla Ofen,\nRäucherofen und Schmelzofen dieser Stufe\ngaren, ohne zusätzlichen Brennstoff, 1 bis 8.\nServerseitig. Standard: 8."
     },
     {
+      "range": [
+        0.25,
+        1.5
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.oreDetector.rangeMultiplier",
       "shortName": "rangeMultiplier",
       "type": "double",
@@ -64298,6 +66112,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert Reichweite und Suchkugel jeder\nErzklasse (24/20/16/16 Blöcke, mehr mit\nRadius), 0,25 bis 1,5; der Tooltip zeigt den\nWert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        10.0,
+        200.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.oreDetector.scanIntervalTicks",
       "shortName": "scanIntervalTicks",
       "type": "int",
@@ -64313,6 +66135,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Ticks zwischen zwei Pings in der Haupthand\n(die Nebenhand pingt halb so oft), 10 bis\n200. Serverseitig. Standard: 20."
     },
     {
+      "range": [
+        0.0,
+        3.0
+      ],
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.globalLootMultiplier",
       "shortName": "globalLootMultiplier",
       "type": "double",
@@ -64328,6 +66158,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert alle Beute, die die Mod in\nTruhen, Tresore und beim Angeln hinzufügt: 0\n= keine, 2 = im Mittel doppelt so viel,\nhöchstens 3. Die Köpfe von geladenen Creepern\nbleiben. Wirkt beim Laden der Datenpakete\n(/reload oder Weltstart). Serverseitig.\nStandard: 1,0."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.strongholdLoot",
       "shortName": "strongholdLoot",
       "type": "boolean",
@@ -64343,6 +66178,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in Festungen\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.endCityLoot",
       "shortName": "endCityLoot",
       "type": "boolean",
@@ -64358,6 +66198,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in Endstädte\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.ancientCityLoot",
       "shortName": "ancientCityLoot",
       "type": "boolean",
@@ -64373,6 +66218,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in Antike Städte\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.bastionLoot",
       "shortName": "bastionLoot",
       "type": "boolean",
@@ -64388,6 +66238,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in Bastionen\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.netherFortressLoot",
       "shortName": "netherFortressLoot",
       "type": "boolean",
@@ -64403,6 +66258,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in\nNetherfestungen nichts hinzu; die\nVanilla-Beute bleibt. Wirkt beim Laden der\nDatenpakete (/reload oder Weltstart).\nServerseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.pillagerOutpostLoot",
       "shortName": "pillagerOutpostLoot",
       "type": "boolean",
@@ -64418,6 +66278,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in\nPlünderer-Außenposten nichts hinzu; die\nVanilla-Beute bleibt. Wirkt beim Laden der\nDatenpakete (/reload oder Weltstart).\nServerseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.woodlandMansionLoot",
       "shortName": "woodlandMansionLoot",
       "type": "boolean",
@@ -64433,6 +66298,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in Waldanwesen\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.buriedTreasureLoot",
       "shortName": "buriedTreasureLoot",
       "type": "boolean",
@@ -64448,6 +66318,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in Vergrabene\nSchätze nichts hinzu; die Vanilla-Beute\nbleibt. Wirkt beim Laden der Datenpakete\n(/reload oder Weltstart). Serverseitig.\nStandard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.dungeonLoot",
       "shortName": "dungeonLoot",
       "type": "boolean",
@@ -64463,6 +66338,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in Verliese\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.shipwreckLoot",
       "shortName": "shipwreckLoot",
       "type": "boolean",
@@ -64478,6 +66358,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in Schiffswracks\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.iglooLoot",
       "shortName": "iglooLoot",
       "type": "boolean",
@@ -64493,6 +66378,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in Iglus nichts\nhinzu; die Vanilla-Beute bleibt. Wirkt beim\nLaden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.mineshaftLoot",
       "shortName": "mineshaftLoot",
       "type": "boolean",
@@ -64508,6 +66398,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in Minen nichts\nhinzu; die Vanilla-Beute bleibt. Wirkt beim\nLaden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.trialChambersLoot",
       "shortName": "trialChambersLoot",
       "type": "boolean",
@@ -64523,6 +66418,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in\nPrüfungskammern nichts hinzu; die\nVanilla-Beute bleibt. Wirkt beim Laden der\nDatenpakete (/reload oder Weltstart).\nServerseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.ruinedPortalLoot",
       "shortName": "ruinedPortalLoot",
       "type": "boolean",
@@ -64538,6 +66438,11 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in Portalruinen\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
+      "range": null,
+      "side": "server",
+      "reload": "yes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.fishingLoot",
       "shortName": "fishingLoot",
       "type": "boolean",
@@ -64553,6 +66458,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Aus: die Mod fügt der Beute in Angelschätze\nnichts hinzu; die Vanilla-Beute bleibt. Wirkt\nbeim Laden der Datenpakete (/reload oder\nWeltstart). Serverseitig. Standard: an."
     },
     {
+      "range": [
+        0.25,
+        4.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.tradePriceMultiplier",
       "shortName": "tradePriceMultiplier",
       "type": "double",
@@ -64568,6 +66481,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert den ersten Preis jedes\nHandelsangebots der Mod bei Dorfbewohnern und\nfahrendem Händler (gerundet, mindestens 1,\nhöchstens ein Stapel), 0,25 bis 4. Gilt für\nneu erzeugte Angebote. Serverseitig.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        5.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.betterChestPercent",
       "shortName": "betterChestPercent",
       "type": "double",
@@ -64583,6 +66504,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Prozent-Chance, dass eine Loot-Truhe als\nbessere Truhe mit doppelter Beute entsteht:\nVerstärkte Truhe in der Festung,\nNetherit-Truhe in Bastion und Netherfestung,\nEnderit-Truhe in End-Stadt und End-Schiff.\nBei einer Doppeltruhe müssen beide Hälften\ntreffen. 0 bis 5. Gilt für neu erzeugte\nStrukturen. Serverseitig. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        10.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.reinforcedShulkerPercent",
       "shortName": "reinforcedShulkerPercent",
       "type": "double",
@@ -64598,6 +66527,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Prozent-Chance, dass ein Shulker einer\nEnd-Stadt verstärkt entsteht (1,5-faches\nLeben, lässt 0–2 Verstärkte Shulkerschalen\nfallen). 0 bis 10. Gilt für neu erzeugte\nEnd-Städte. Serverseitig. Standard: 2,0."
     },
     {
+      "range": [
+        0.0,
+        5.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.enderiteShulkerPercent",
       "shortName": "enderiteShulkerPercent",
       "type": "double",
@@ -64613,6 +66550,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Prozent-Chance, dass ein Shulker einer\nEnd-Stadt als Enderit-Shulker entsteht\n(3-faches Leben, lässt 0–2\nEnderit-Shulkerschalen fallen). 0 bis 5. Gilt\nfür neu erzeugte End-Städte. Serverseitig.\nStandard: 0,5."
     },
     {
+      "range": [
+        0.0,
+        5.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.netheriteShulkerPercent",
       "shortName": "netheriteShulkerPercent",
       "type": "double",
@@ -64628,6 +66573,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Prozent-Chance, dass ein Shulker einer End-Stadt als Netherit-Shulker entsteht (2-faches Leben, lässt 0–2 Netherit-Shulkerschalen fallen). 0 bis 5. Gilt für neu erzeugte End-Städte. Serverseitig. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        8.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.loot.endermitesPerRareShulker",
       "shortName": "endermitesPerRareShulker",
       "type": "int",
@@ -64643,6 +66596,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Endermiten, die einmalig um einen verstärkten\noder Enderit-Shulker erscheinen, sobald ein\nSpieler (nicht im Kreativ- oder\nZuschauermodus) erstmals näher als 24 Blöcke\nkommt – auf freien Plätzen mit festem Boden.\nSie sind nicht dauerhaft (Vanilla entfernt\nsie nach 2 Minuten). 0 bis 8. Serverseitig.\nStandard: 4."
     },
     {
+      "range": [
+        1.0,
+        32768.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.blueprint.maxBlocksPerTick",
       "shortName": "maxBlocksPerTick",
       "type": "int",
@@ -64658,6 +66619,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Höchstens so viele Stellen setzt ein\nBlaupausen-Bau je Tick; kleinere Werte lassen\ngroße Bauten länger dauern und schonen den\nServer. 1 bis 32768 (der Standard liegt über\nallem, was ein Bau heute nutzt).\nServerseitig. Standard: 32768."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.projectileProtection",
       "shortName": "projectileProtection",
       "type": "double",
@@ -64673,6 +66642,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Projektilschutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.magicProtection",
       "shortName": "magicProtection",
       "type": "double",
@@ -64688,6 +66665,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Magieschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.thornProtection",
       "shortName": "thornProtection",
       "type": "double",
@@ -64703,6 +66688,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Dornenschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.blastProtection",
       "shortName": "blastProtection",
       "type": "double",
@@ -64718,6 +66711,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Explosionsschutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.drowningProtection",
       "shortName": "drowningProtection",
       "type": "double",
@@ -64733,6 +66734,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Ertrinkungsschutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.breathSaving",
       "shortName": "breathSaving",
       "type": "double",
@@ -64748,6 +66757,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Atem sparen“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.allProtection",
       "shortName": "allProtection",
       "type": "double",
@@ -64763,6 +66780,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Rundumschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.sonicProtection",
       "shortName": "sonicProtection",
       "type": "double",
@@ -64778,6 +66803,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Schallschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.stealth",
       "shortName": "stealth",
       "type": "double",
@@ -64793,6 +66826,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Tarnung“ aus jedem Muster und Material, das\nsie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.fireProtection",
       "shortName": "fireProtection",
       "type": "double",
@@ -64808,6 +66849,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Feuerschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.witherProtection",
       "shortName": "witherProtection",
       "type": "double",
@@ -64823,6 +66872,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Wither-Schutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.witherShortening",
       "shortName": "witherShortening",
       "type": "double",
@@ -64838,6 +66895,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Kürzere Ausdörrung“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.dragonBreathProtection",
       "shortName": "dragonBreathProtection",
       "type": "double",
@@ -64853,6 +66918,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Drachenatem-Schutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.fallProtection",
       "shortName": "fallProtection",
       "type": "double",
@@ -64868,6 +66941,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Fallschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.windChargeProtection",
       "shortName": "windChargeProtection",
       "type": "double",
@@ -64883,6 +66964,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Windkugel-Schutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.lightningProtection",
       "shortName": "lightningProtection",
       "type": "double",
@@ -64898,6 +66987,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Blitzschutz“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.walkingSpeed",
       "shortName": "walkingSpeed",
       "type": "double",
@@ -64913,6 +67010,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Laufgeschwindigkeit“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.swimmingSpeed",
       "shortName": "swimmingSpeed",
       "type": "double",
@@ -64928,6 +67033,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Schwimmgeschwindigkeit“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.sprintHunger",
       "shortName": "sprintHunger",
       "type": "double",
@@ -64943,6 +67056,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Weniger Sprinthunger“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.experience",
       "shortName": "experience",
       "type": "double",
@@ -64958,6 +67079,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Erfahrung“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.luck",
       "shortName": "luck",
       "type": "double",
@@ -64973,6 +67102,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Glück“ aus jedem Muster und Material, das\nsie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.blockReach",
       "shortName": "blockReach",
       "type": "double",
@@ -64988,6 +67125,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Blockreichweite“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.physicalProtection",
       "shortName": "physicalProtection",
       "type": "double",
@@ -65003,6 +67148,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Körperlicher Schutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.illagerProtection",
       "shortName": "illagerProtection",
       "type": "double",
@@ -65018,6 +67171,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Illager-Schutz“ aus jedem Muster und\nMaterial, das sie gibt: 0 = aus, 2 = doppelt\nso stark, höchstens 2; die Deckel\n(Schadensboden, Höchstwerte) gelten weiter.\nTooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.witherPiercingProtection",
       "shortName": "witherPiercingProtection",
       "type": "double",
@@ -65033,6 +67194,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Schutz vor durchdringendem Schaden“ aus\njedem Muster und Material, das sie gibt: 0 =\naus, 2 = doppelt so stark, höchstens 2; die\nDeckel (Schadensboden, Höchstwerte) gelten\nweiter. Tooltips zeigen den Wert des Servers.\nServerseitig, an die Clients geschickt.\nStandard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.healingChance",
       "shortName": "healingChance",
       "type": "double",
@@ -65048,6 +67217,14 @@ window.WIKI_DATA = {
       "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung\n„Heilchance“ aus jedem Muster und Material,\ndas sie gibt: 0 = aus, 2 = doppelt so stark,\nhöchstens 2; die Deckel (Schadensboden,\nHöchstwerte) gelten weiter. Tooltips zeigen\nden Wert des Servers. Serverseitig, an die\nClients geschickt. Standard: 1,0."
     },
     {
+      "range": [
+        0.0,
+        2.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.trimStrengths.knockbackResistance",
       "shortName": "knockbackResistance",
       "type": "double",
@@ -70443,6 +72620,30 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "id": "chisel/simplebuilding:astralit_block/simplebuilding:veined_astralit",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:astralit_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:veined_astralit",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
         "id": "chisel/simplebuilding:astralit_bricks/simplebuilding:chiseled_astralit_bricks",
         "kind": "chisel",
         "inputs": [
@@ -70568,6 +72769,54 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "id": "chisel/simplebuilding:crystalline_astralit/simplebuilding:layered_astralit",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:crystalline_astralit",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:layered_astralit",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:crystalline_nihilith/simplebuilding:frosted_nihilith",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:crystalline_nihilith",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:frosted_nihilith",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
         "id": "chisel/simplebuilding:ender_quartz_brick_slab/simplebuilding:ender_quartz_slab",
         "kind": "chisel",
         "inputs": [
@@ -70663,6 +72912,30 @@ window.WIKI_DATA = {
         },
         "lines": [
           "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:nihilith_block/simplebuilding:veined_nihilith",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:nihilith_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:veined_nihilith",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
           "26.2",
           "26.3"
         ]
@@ -71013,6 +73286,54 @@ window.WIKI_DATA = {
         },
         "lines": [
           "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:veined_astralit/simplebuilding:crystalline_astralit",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:veined_astralit",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:crystalline_astralit",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:veined_nihilith/simplebuilding:crystalline_nihilith",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:veined_nihilith",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:crystalline_nihilith",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
           "26.2",
           "26.3"
         ]
@@ -76040,6 +78361,54 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "id": "chisel_reverse/simplebuilding:crystalline_astralit/simplebuilding:veined_astralit",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:crystalline_astralit",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:veined_astralit",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:crystalline_nihilith/simplebuilding:veined_nihilith",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:crystalline_nihilith",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:veined_nihilith",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
         "id": "chisel_reverse/simplebuilding:ender_quartz_block/simplebuilding:chiseled_ender_quartz_bricks",
         "kind": "chisel_reverse",
         "inputs": [
@@ -76240,6 +78609,54 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "id": "chisel_reverse/simplebuilding:frosted_nihilith/simplebuilding:crystalline_nihilith",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:frosted_nihilith",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:crystalline_nihilith",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:layered_astralit/simplebuilding:crystalline_astralit",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:layered_astralit",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:crystalline_astralit",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
         "id": "chisel_reverse/simplebuilding:nihilith_block/simplebuilding:chiseled_nihilith_bricks",
         "kind": "chisel_reverse",
         "inputs": [
@@ -76385,6 +78802,54 @@ window.WIKI_DATA = {
         },
         "lines": [
           "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:veined_astralit/simplebuilding:astralit_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:veined_astralit",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:astralit_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:veined_nihilith/simplebuilding:nihilith_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:veined_nihilith",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:nihilith_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
           "26.2",
           "26.3"
         ]
@@ -78476,6 +80941,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": null,
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "victim": "minecraft:blaze",
@@ -78502,6 +80968,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 1,
+        "sharedTables": [],
         "configFlag": null,
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "victim": "minecraft:enderman",
@@ -78528,6 +80995,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 2,
+        "sharedTables": [],
         "configFlag": null,
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "victim": "minecraft:husk",
@@ -78554,6 +81022,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 3,
+        "sharedTables": [],
         "configFlag": null,
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "victim": "minecraft:spider",
@@ -78580,6 +81049,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 4,
+        "sharedTables": [],
         "configFlag": null,
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "victim": "minecraft:cave_spider",
@@ -78606,6 +81076,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 5,
+        "sharedTables": [],
         "configFlag": null,
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "victim": "minecraft:stray",
@@ -78632,6 +81103,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 6,
+        "sharedTables": [],
         "configFlag": null,
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "victim": "minecraft:bogged",
@@ -78658,6 +81130,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 7,
+        "sharedTables": [],
         "configFlag": null,
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "victim": "minecraft:slime",
@@ -78684,6 +81157,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 8,
+        "sharedTables": [],
         "configFlag": null,
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "victim": "minecraft:silverfish",
@@ -78710,6 +81184,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 9,
+        "sharedTables": [],
         "configFlag": null,
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "victim": "minecraft:breeze",
@@ -78736,6 +81211,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 10,
+        "sharedTables": [],
         "configFlag": null,
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "victim": "minecraft:shulker",
@@ -78762,6 +81238,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 11,
+        "sharedTables": [],
         "configFlag": null,
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "victim": "minecraft:drowned",
@@ -78789,6 +81266,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:range",
@@ -78816,6 +81294,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:master_builder",
@@ -78843,6 +81322,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:versatility",
@@ -78870,6 +81350,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:versatility",
@@ -78897,8 +81378,13 @@ window.WIKI_DATA = {
           "p": 0.15
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 6.666666666666666,
+          "sixth": 39.99999999999999
+        }
       },
       {
         "type": "chest",
@@ -78922,8 +81408,13 @@ window.WIKI_DATA = {
           "p": 0.00175
         },
         "pool": 1,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 571.4285714285619,
+          "sixth": 3428.571428571371
+        }
       },
       {
         "type": "chest",
@@ -78947,8 +81438,13 @@ window.WIKI_DATA = {
           "p": 0.3
         },
         "pool": 2,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 3.333333333333333,
+          "sixth": 19.999999999999996
+        }
       },
       {
         "type": "chest",
@@ -78971,6 +81467,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 3,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -78995,6 +81492,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 3,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79019,6 +81517,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 3,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79043,6 +81542,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 3,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79068,6 +81568,7 @@ window.WIKI_DATA = {
           "max": 3
         },
         "pool": 4,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:range",
@@ -79095,6 +81596,7 @@ window.WIKI_DATA = {
           "max": 3
         },
         "pool": 4,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:master_builder",
@@ -79122,6 +81624,7 @@ window.WIKI_DATA = {
           "max": 3
         },
         "pool": 4,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:override",
@@ -79149,6 +81652,7 @@ window.WIKI_DATA = {
           "max": 3
         },
         "pool": 4,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:double_jump",
@@ -79176,6 +81680,7 @@ window.WIKI_DATA = {
           "max": 3
         },
         "pool": 4,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:versatility",
@@ -79203,6 +81708,7 @@ window.WIKI_DATA = {
           "max": 3
         },
         "pool": 4,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:versatility",
@@ -79230,6 +81736,7 @@ window.WIKI_DATA = {
           "max": 3
         },
         "pool": 4,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:bridge",
@@ -79257,6 +81764,7 @@ window.WIKI_DATA = {
           "max": 3
         },
         "pool": 4,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "randomEnchant": true
@@ -79283,6 +81791,7 @@ window.WIKI_DATA = {
           "max": 3
         },
         "pool": 4,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "randomEnchant": true
@@ -79309,6 +81818,7 @@ window.WIKI_DATA = {
           "max": 3
         },
         "pool": 4,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79334,6 +81844,7 @@ window.WIKI_DATA = {
           "max": 3
         },
         "pool": 4,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79359,6 +81870,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:deep_pockets",
@@ -79386,6 +81898,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:radius",
@@ -79413,6 +81926,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "randomEnchant": true
@@ -79439,6 +81953,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79464,6 +81979,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "randomEnchant": true
@@ -79490,6 +82006,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79515,6 +82032,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79540,6 +82058,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79565,6 +82084,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79590,6 +82110,10 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:funnel",
@@ -79617,6 +82141,10 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:break_through",
@@ -79644,6 +82172,10 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79669,6 +82201,10 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79694,6 +82230,10 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79719,8 +82259,16 @@ window.WIKI_DATA = {
           "p": 0.0125
         },
         "pool": 1,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
         "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 80.00000000000028,
+          "sixth": 480.0000000000017
+        }
       },
       {
         "type": "chest",
@@ -79744,6 +82292,10 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:funnel",
@@ -79771,6 +82323,10 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:break_through",
@@ -79798,6 +82354,10 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79823,6 +82383,10 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79848,6 +82412,10 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -79873,8 +82441,16 @@ window.WIKI_DATA = {
           "p": 0.0125
         },
         "pool": 1,
+        "sharedTables": [
+          "minecraft:chests/bastion_treasure",
+          "minecraft:chests/bastion_other"
+        ],
         "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 80.00000000000028,
+          "sixth": 480.0000000000017
+        }
       },
       {
         "type": "chest",
@@ -79897,8 +82473,13 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 4.0,
+          "sixth": 24.0
+        }
       },
       {
         "type": "chest",
@@ -79921,8 +82502,13 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 8.0,
+          "sixth": 48.0
+        }
       },
       {
         "type": "chest",
@@ -79945,6 +82531,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:break_through",
@@ -79972,8 +82559,13 @@ window.WIKI_DATA = {
           "p": 0.06
         },
         "pool": 1,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 16.666666666666654,
+          "sixth": 99.99999999999991
+        }
       },
       {
         "type": "chest",
@@ -79997,6 +82589,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:strip_miner",
@@ -80024,6 +82617,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:strip_miner",
@@ -80051,6 +82645,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:funnel",
@@ -80078,6 +82673,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:break_through",
@@ -80105,6 +82701,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "randomEnchant": true
@@ -80131,6 +82728,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80156,6 +82754,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80181,8 +82780,13 @@ window.WIKI_DATA = {
           "p": 0.0165
         },
         "pool": 1,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 60.60606060606076,
+          "sixth": 363.63636363636454
+        }
       },
       {
         "type": "chest",
@@ -80206,6 +82810,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:color_palette",
@@ -80233,6 +82838,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:cover",
@@ -80260,6 +82866,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:linear",
@@ -80287,6 +82894,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80312,6 +82920,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80337,6 +82946,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80362,6 +82972,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:color_palette",
@@ -80389,6 +83000,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:cover",
@@ -80416,6 +83028,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:linear",
@@ -80443,6 +83056,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:vein_miner",
@@ -80470,6 +83084,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:vein_miner",
@@ -80497,6 +83112,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:drawer",
@@ -80524,6 +83140,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80549,6 +83166,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80574,8 +83192,13 @@ window.WIKI_DATA = {
           "p": 0.015
         },
         "pool": 1,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 66.66666666666661,
+          "sixth": 399.99999999999966
+        }
       },
       {
         "type": "chest",
@@ -80599,6 +83222,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:constructors_touch",
@@ -80626,6 +83250,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:fast_chiseling",
@@ -80653,6 +83278,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80678,6 +83304,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80703,6 +83330,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80728,6 +83356,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:fast_chiseling",
@@ -80755,6 +83384,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:funnel",
@@ -80782,6 +83412,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:break_through",
@@ -80809,6 +83440,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:vein_miner",
@@ -80836,6 +83468,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:vein_miner",
@@ -80863,6 +83496,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:vein_miner",
@@ -80890,6 +83524,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80915,6 +83550,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80940,6 +83576,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -80965,6 +83602,7 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:fast_chiseling",
@@ -80992,6 +83630,7 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81017,6 +83656,7 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81042,6 +83682,7 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:constructors_touch",
@@ -81069,6 +83710,7 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:fast_chiseling",
@@ -81096,6 +83738,7 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81121,6 +83764,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:fast_chiseling",
@@ -81148,6 +83792,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:strip_miner",
@@ -81175,6 +83820,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:strip_miner",
@@ -81202,6 +83848,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:vein_miner",
@@ -81229,6 +83876,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:vein_miner",
@@ -81256,6 +83904,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "randomEnchant": true
@@ -81282,6 +83931,7 @@ window.WIKI_DATA = {
           "max": 2
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81307,8 +83957,13 @@ window.WIKI_DATA = {
           "p": 0.005
         },
         "pool": 1,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 199.99999999999983,
+          "sixth": 1199.9999999999989
+        }
       },
       {
         "type": "vault",
@@ -81332,6 +83987,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_common",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:constructors_touch",
@@ -81359,6 +84018,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_common",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:fast_chiseling",
@@ -81386,6 +84049,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_common",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81411,6 +84078,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_common",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:constructors_touch",
@@ -81438,6 +84109,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_common",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:fast_chiseling",
@@ -81465,6 +84140,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_common",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81490,6 +84169,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_ominous",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:master_builder",
@@ -81517,6 +84200,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_ominous",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:double_jump",
@@ -81544,6 +84231,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_ominous",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81569,6 +84260,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_ominous",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81594,6 +84289,10 @@ window.WIKI_DATA = {
           "p": 0.0105
         },
         "pool": 1,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_ominous",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81619,6 +84318,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_ominous",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:master_builder",
@@ -81646,6 +84349,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_ominous",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:double_jump",
@@ -81673,6 +84380,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_ominous",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81698,6 +84409,10 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_ominous",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81723,6 +84438,10 @@ window.WIKI_DATA = {
           "p": 0.0105
         },
         "pool": 1,
+        "sharedTables": [
+          "minecraft:chests/trial_chambers/reward_ominous",
+          "minecraft:chests/trial_chambers/reward_rare"
+        ],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81748,6 +84467,7 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81773,6 +84493,7 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81798,6 +84519,7 @@ window.WIKI_DATA = {
           "max": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -81822,6 +84544,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:fast_chiseling",
@@ -81848,6 +84571,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:constructors_touch",
@@ -81874,6 +84598,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:deep_pockets",
@@ -81900,6 +84625,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:linear",
@@ -81926,6 +84652,7 @@ window.WIKI_DATA = {
           "n": 1
         },
         "pool": 0,
+        "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
       },
@@ -82111,7 +84838,7 @@ window.WIKI_DATA = {
         }
       ],
       "needs": "any",
-      "source": "mc26_3/generated/data/simplebuilding/advancement/building/checkmate.json"
+      "source": "src/main/generated/data/simplebuilding/advancement/building/checkmate.json"
     },
     {
       "id": "simplebuilding:building/let_there_be_light",
@@ -87631,13 +90358,13 @@ window.WIKI_DATA = {
   "counts": {
     "items": 226,
     "blocks": 188,
-    "recipes": 587,
-    "lootTables": 186,
+    "recipes": 599,
+    "lootTables": 192,
     "trades": 20,
     "enchantments": 19,
     "tags": 47,
-    "config": 191,
-    "inWorld": 440,
+    "config": 192,
+    "inWorld": 452,
     "advancements": 123,
     "features": 44,
     "undocumented": 0,

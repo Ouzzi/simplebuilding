@@ -272,6 +272,7 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str) 
                         "totalWeight": total,
                         "rolls": pool["rolls"],
                         "pool": index,
+                        "sharedTables": [LOOT_TABLES[t][0] for t in tables] if len(tables) > 1 else [],
                         "configFlag": "enableLootTableChanges" if gated else None,
                         "source": None,
                     }
@@ -284,9 +285,20 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str) 
                         source.update(pool["condition"])
                     if kind == "mob":
                         source["how"] = "charged_creeper"
+                    # A one-roll, one-item chest pool is Bernoulli: exactly k/p openings
+                    # in expectation. Use full precision, not the rounded display chance.
+                    p = chance_at_least_one(pool["rolls"], share)
+                    rolls = pool["rolls"]
+                    if (kind == "chest" and entry["count"] == [1, 1]
+                            and rolls["type"] in ("exactly", "binomial") and rolls["n"] == 1
+                            and not pool.get("condition") and p > 0):
+                        source["expectedAttempts"] = {"first": 1 / p, "sixth": 6 / p}
                     sources.append(source)
     if not sources:
         problems.append(f"{path.name}: no loot pools found - the loot parser needs updating")
+    for source in sources:
+        if sum(s['table'] == source['table'] and s['item'] == source['item'] for s in sources) != 1:
+            source.pop('expectedAttempts', None)
     return sources, problems
 
 

@@ -632,6 +632,9 @@ a.chip:hover { text-decoration: none; }
   .allmods { margin-left: auto; }
   .topbar .search { order: 10; flex: 1 0 100%; width: 100%; }
 }
+.row-focused { outline: 3px solid var(--accent, #d6a34b); outline-offset: -3px; background: rgba(214, 163, 75, .18); scroll-margin: 5rem; }
+.ob-shared, .ob-attempts { display: block; margin-top: .4rem; }
+.ob-shared code { overflow-wrap: anywhere; }
 </style>
 </head>
 <body>
@@ -805,7 +808,19 @@ en: {
   kvTraderXp: 'Experience (trader)',
   kvDiscount: 'Discount factor',
   kvDiscountHint: '(price multiplier from reputation/demand)',
-  kvOfferChance: 'Offer chance',
+  kvAvailability: 'Offered per trader / villager',
+  tradeProfile: '26.3 default profile: Vanilla + SimpleBuilding, all mod trades enabled, no Trade Rebalance or other datapacks/mods. Villagers must reach the listed level. Failed candidates are replaced.',
+  tradePool: '{0} candidates; up to {1} successful offers',
+  tradeBounds: 'Bounds: some candidates may be rejected by context or item modifiers. No frequency is assumed for those rejections.',
+  factUnknown: 'Not determined',
+  thRange: 'Range', thSide: 'Client / server', thReload: 'Applies on /reload',
+  side_client: 'Client', side_server: 'Server',
+  reload_yes: 'Yes (data loading)', reload_no: 'No', reload_recipes: 'Recipes only', reload_restart: 'No; restart required',
+  obAverage: 'Ø {0} items per chest', obAverageTable: 'Ø {0} items per subtable call', obAverageCatch: 'Ø {0} items per treasure catch',
+  obShared: 'Shared pool — applies to each listed table:',
+  obAttempts: 'Expected chest openings: first item {0}; sixth item {1}. Independent, equivalent chests; default settings. No travel time estimate.',
+  focusMissing: 'Row not found: {0}', rowLink: 'Link to this row',
+  kvOfferChance: 'Chance when evaluated',
   kvOfferChanceHint: '(a drawn offer only appears this often)',
   kvConfig: 'Config',
   noCondition: 'no condition',
@@ -1159,7 +1174,7 @@ en: {
   obKilledTitle: 'Creeper killed by a skeleton',
   obKilledHow: 'A {0} killed by {1} drops one of {2} music discs.',
   obPerChest: '{0} % per chest',
-  obPerVault: '{0} % per vault opening',
+  obPerVault: '{0} % per reward subtable call (not per vault opening)',
   obPerCatch: '{0} % per treasure catch',
   obRandomEnchant: 'randomly enchanted',
   obOnlyWith: 'only with {0}',
@@ -1303,7 +1318,19 @@ de: {
   kvTraderXp: 'Erfahrung (Händler)',
   kvDiscount: 'Rabatt-Faktor',
   kvDiscountHint: '(Preis-Multiplikator bei Reputation/Nachfrage)',
-  kvOfferChance: 'Angebots-Chance',
+  kvAvailability: 'Im Angebot je Händler / Dorfbewohner',
+  tradeProfile: '26.3-Standardprofil: Vanilla + SimpleBuilding, alle Mod-Handelsangebote aktiv, kein Trade Rebalance und keine weiteren Datapacks/Mods. Dorfbewohner müssen die angegebene Stufe erreichen. Abgelehnte Kandidaten werden ersetzt.',
+  tradePool: '{0} Kandidaten; bis zu {1} erfolgreiche Angebote',
+  tradeBounds: 'Grenzen: Einige Kandidaten können durch Kontext oder Item-Modifikatoren entfallen. Für diese Ablehnungen wird keine Häufigkeit angenommen.',
+  factUnknown: 'Nicht ermittelt',
+  thRange: 'Wertebereich', thSide: 'Client / Server', thReload: 'Wirkt bei /reload',
+  side_client: 'Client', side_server: 'Server',
+  reload_yes: 'Ja (Datenladen)', reload_no: 'Nein', reload_recipes: 'Nur Rezepte', reload_restart: 'Nein; Neustart nötig',
+  obAverage: 'Ø {0} Stück je Kiste', obAverageTable: 'Ø {0} Stück je Untertabellen-Aufruf', obAverageCatch: 'Ø {0} Stück je Schatzfang',
+  obShared: 'Gemeinsamer Pool — gilt für jede genannte Tabelle:',
+  obAttempts: 'Erwartete Kistenöffnungen: erstes Stück {0}; sechstes Stück {1}. Unabhängige, gleichartige Kisten; Standardeinstellungen. Keine Schätzung der Reisezeit.',
+  focusMissing: 'Zeile nicht gefunden: {0}', rowLink: 'Link zu dieser Zeile',
+  kvOfferChance: 'Chance bei Auswertung',
   kvOfferChanceHint: '(so oft erscheint ein gezogenes Angebot)',
   kvConfig: 'Konfiguration',
   noCondition: 'keine Bedingung',
@@ -1659,7 +1686,7 @@ de: {
   obKilledTitle: 'Creeper, von einem Skelett getötet',
   obKilledHow: 'Ein {0}, getötet von {1}, lässt eine von {2} Schallplatten fallen.',
   obPerChest: '{0} % pro Truhe',
-  obPerVault: '{0} % pro Tresor-Öffnung',
+  obPerVault: '{0} % je Belohnungs-Untertabellen-Aufruf (nicht je Tresor-Öffnung)',
   obPerCatch: '{0} % pro Schatzfang',
   obRandomEnchant: 'zufällig verzaubert',
   obOnlyWith: 'nur mit {0}',
@@ -1732,6 +1759,7 @@ function tId(prefix, id, fallback) {
 function plural(n, oneKey, manyKey) { return n + ' ' + T(n === 1 ? oneKey : manyKey); }
 /* Dezimaltrennzeichen haengt an der Sprache. */
 function fmtNum(x) { var n = Number(x); if (!isFinite(n)) return String(x); var s = String(Math.round(n * 100) / 100); return LANG === 'de' ? s.replace('.', ',') : s; }
+function fmtStat(x) { return Number(x).toLocaleString(LANG === 'de' ? 'de-DE' : 'en-US', { maximumSignificantDigits: 4 }); }
 
 /* ------------------------------------------------------------------ */
 /* Daten und Indizes                                                  */
@@ -2243,7 +2271,7 @@ function tradeCard(tr, opts) {
   opts = opts || {};
   if (!isObj(tr)) return '';
   var wants = normStack(tr.wants), also = normStack(tr.alsoWants), gives = normStack(tr.gives);
-  var h = '<article class="card trade' + (opts.highlight ? ' highlight' : '') + '" id="trade-' + esc(tr.id) + '">';
+  var h = '<article class="card trade' + (opts.highlight ? ' highlight' : '') + '" data-focus="' + esc(tr.id) + '" id="trade-' + esc(tr.id) + '">';
   h += '<div class="recipe-head">' + badge(professionLabel(tr.profession) + ' · ' + levelLabel(tr.level)) + (opts.noLink ? '<code>' + esc(tr.id) + '</code>' : '<a href="#/trades/' + esc(tr.id) + '"><code>' + esc(tr.id) + '</code></a>') + '</div>';
   h += '<div class="recipe-body"><div class="slotrow">' + slotCol(wants ? wants.id : null, wants ? wants.count : 1, T('slotPrice') + (wants && wants.count > 1 ? ' ×' + wants.count : ''));
   if (also) h += '<span class="plus">+</span>' + slotCol(also.id, also.count, T('slotAlso') + (also.count > 1 ? ' ×' + also.count : ''));
@@ -2254,7 +2282,13 @@ function tradeCard(tr, opts) {
   h += '<dt>' + esc(T('kvMaxUses')) + '</dt><dd>' + esc(tr.maxUses != null ? tr.maxUses : '–') + '</dd>';
   h += '<dt>' + esc(T('kvTraderXp')) + '</dt><dd>' + esc(tr.xp != null ? tr.xp + ' XP' : '–') + '</dd>';
   h += '<dt>' + esc(T('kvDiscount')) + '</dt><dd>' + esc(tr.reputationDiscount != null ? fmtNum(tr.reputationDiscount) : '–') + ' <span class="muted tiny">' + esc(T('kvDiscountHint')) + '</span></dd>';
-  if (tr.offerChance != null) h += '<dt>' + esc(T('kvOfferChance')) + '</dt><dd>' + esc(fmtNum(tr.offerChance * 100) + ' %') + ' <span class="muted tiny">' + esc(T('kvOfferChanceHint')) + '</span></dd>';
+  var availability = tr.availability;
+  var probability = availability && availability.chance != null ? fmtStat(availability.chance * 100) + ' %' : availability && availability.bounds ? availability.bounds.map(function (p) { return fmtStat(p * 100); }).join(' … ') + ' %' : T('factUnknown');
+  h += '<dt>' + esc(T('kvAvailability')) + '</dt><dd>' + esc(probability);
+  if (availability && availability.chance == null && availability.bounds) h += '<p class="muted tiny">' + esc(T('tradeBounds')) + '</p>';
+  if (availability) h += arr(availability.pools).map(function (p) { return '<br><span class="tiny">' + esc(p.id + ' · ' + T('tradePool', p.poolSize, p.draws)) + '</span>'; }).join('') + '<p class="muted tiny">' + esc(T('tradeProfile')) + '</p>';
+  h += '</dd>';
+  if (tr.offerChance != null) h += '<dt>' + esc(T('kvOfferChance')) + '</dt><dd>' + esc(fmtStat(tr.offerChance * 100) + ' %') + '</dd>';
   var flags = strs(tr.configFlags);
   h += '<dt>' + esc(T('kvConfig')) + '</dt><dd>' + (flags.length ? flags.map(function (f) { return '<a href="#/config/' + esc(f) + '"><code>' + esc(f) + '</code></a>'; }).join(' ') : '<span class="muted">' + esc(T('noCondition')) + '</span>') + '</dd>';
   h += '</dl>';
@@ -3438,6 +3472,7 @@ function pageTag(id) {
 }
 
 function pageConfig(highlightName) {
+  if (highlightName && !IX.config.has(highlightName)) return notFound(T('navConfig'), highlightName);
   var rows = arr(D.config).filter(isObj);
   var hl = IX.config.has(highlightName) ? IX.config.get(highlightName).name : highlightName;
   var h = '<h1>' + esc(T('navConfig')) + ' <span class="muted tiny" style="font-weight:400">' + rows.length + '</span></h1>';
@@ -3445,18 +3480,18 @@ function pageConfig(highlightName) {
   if (!rows.length) return h + '<p class="hint">' + esc(T('noOptions')) + '</p>';
   var de = LANG === 'de';
   var lastCategory = null;
-  h += '<div class="table-wrap"><table class="table"><thead><tr><th>' + esc(T('thName')) + '</th><th>' + esc(T('thTypeCol')) + '</th><th>' + esc(T('thDefault')) + '</th><th>' + esc(T('thTooltip')) + '</th><th>' + esc(T('thNote')) + '</th><th>' + esc(T('thRelation')) + '</th></tr></thead><tbody>';
+  h += '<div class="table-wrap"><table class="table"><thead><tr><th>' + esc(T('thName')) + '</th><th>' + esc(T('thTypeCol')) + '</th><th>' + esc(T('thDefault')) + '</th><th>' + esc(T('thRange')) + '</th><th>' + esc(T('thSide')) + '</th><th>' + esc(T('thReload')) + '</th><th>' + esc(T('thTooltip')) + '</th><th>' + esc(T('thNote')) + '</th><th>' + esc(T('thRelation')) + '</th></tr></thead><tbody>';
   rows.forEach(function (c) {
     var category = (de && c.categoryDe) || c.category;
     if (category && category !== lastCategory) {
-      h += '<tr><th colspan="6">' + esc(category) + '</th></tr>';
+      h += '<tr><th colspan="9">' + esc(category) + '</th></tr>';
       lastCategory = category;
     }
     var label = (de && c.labelDe) || c.label;
     var tip = (de && c.tooltipDe) || c.tooltip;
     var group = (de && c.groupDe) || c.group;
     var tr = IX.tradesWithFlag.get(c.name) || IX.tradesWithFlag.get(c.shortName) || [];
-    h += '<tr id="cfg-' + esc(c.name) + '"' + (c.name === hl ? ' class="highlight"' : '') + '><td>' + (label ? '<strong>' + esc(label) + '</strong><br>' : '') + '<a href="#/config/' + esc(c.name) + '"><code>' + esc(c.name) + '</code></a>' + (group ? '<br><span class="muted tiny">' + esc(group) + '</span>' : '') + '</td><td>' + esc(c.type || '–') + '</td><td><code>' + esc(c.default != null ? c.default : '–') + '</code></td><td>' + (strs([tip]).length ? esc(tip) : '<span class="muted">–</span>') + '</td><td>' + (strs([c.note]).length ? esc(c.note) : '<span class="muted">–</span>') + '</td><td>' + (tr.length ? '<a href="#/trades">' + esc(plural(tr.length, 'tradeOne', 'tradeMany')) + '</a>' : '<span class="muted">–</span>') + '</td></tr>';
+    h += '<tr id="cfg-' + esc(c.name) + '" data-focus="' + esc(c.name) + '"' + (c.name === hl ? ' class="highlight"' : '') + '><td>' + (label ? '<strong>' + esc(label) + '</strong><br>' : '') + '<a href="#/config?f=' + encodeURIComponent(c.name) + '"><code>' + esc(c.name) + '</code></a>' + (group ? '<br><span class="muted tiny">' + esc(group) + '</span>' : '') + '</td><td>' + esc(c.type || '–') + '</td><td><code>' + esc(c.default != null ? c.default : '–') + '</code></td><td>' + esc(c.range ? c.range.map(function (v) { return v == null ? T('factUnknown') : fmtNum(v); }).join(' … ') : T('factUnknown')) + '</td><td>' + esc(T(c.side ? 'side_' + c.side : 'factUnknown')) + '</td><td>' + esc(T(c.reload ? 'reload_' + c.reload : 'factUnknown')) + '</td><td>' + (strs([tip]).length ? esc(tip) : '<span class="muted">–</span>') + '</td><td>' + (strs([c.note]).length ? esc(c.note) : '<span class="muted">–</span>') + '</td><td>' + (tr.length ? '<a href="#/trades">' + esc(plural(tr.length, 'tradeOne', 'tradeMany')) + '</a>' : '<span class="muted">–</span>') + '</td></tr>';
   });
   return h + '</tbody></table></div>';
 }
@@ -3648,7 +3683,8 @@ function enchLevelText(s) { return s.enchantment ? displayName(s.enchantment) + 
 function configNote(s) { return s.configFlag ? ' · <a href="#/config/' + esc(s.configFlag) + '">' + esc(T('obOnlyWith', s.configFlag)) + '</a>' : ''; }
 /* Eine Quelle als Karte wie ein Rezept: Behaelter/Opfer (+ Ausloeser) -> Ergebnis, darunter Chance und Bedingung. */
 function sourceCard(s) {
-  var h = '<div class="iw-entry row ob-card" data-s="' + esc(norm([displayName(s.item), srcLabel(s), enchLevelText(s), s.victim || ''].join(' '))) + '"><div class="iw-slots">';
+  var focusId = [s.table, s.pool == null ? '' : s.pool, s.item, s.enchantment || '', s.level || '', s.victim || '', s.how || ''].join('/');
+  var h = '<div class="iw-entry row ob-card" data-focus="' + esc(focusId) + '" data-s="' + esc(norm([displayName(s.item), srcLabel(s), enchLevelText(s), s.victim || ''].join(' '))) + '"><div class="iw-slots">';
   var meta = [];
   if (s.type === 'mob' && s.how === 'charged_creeper') {
     h += slotHtml(eggOf(s.victim), 1) + '<span class="plus">+</span>';
@@ -3665,12 +3701,16 @@ function sourceCard(s) {
     h += slotHtml(box, 1, { noLink: true });
     meta.push('<b>' + esc(srcLabel(s)) + '</b>');
     meta.push(esc(T(s.type === 'fishing' ? 'obPerCatch' : s.type === 'vault' ? 'obPerVault' : 'obPerChest', fmtNum(s.chance))));
+    if (s.perChest != null) meta.push(esc(T(s.type === 'vault' ? 'obAverageTable' : s.type === 'fishing' ? 'obAverageCatch' : 'obAverage', fmtStat(s.perChest))));
+    if (arr(s.sharedTables).length > 1) meta.push('<span class="ob-shared">' + esc(T('obShared')) + ' ' + s.sharedTables.map(function (t) { return '<code>' + esc(t) + '</code>'; }).join(', ') + '</span>');
+    if (s.expectedAttempts) meta.push('<span class="ob-attempts">' + esc(T('obAttempts', fmtStat(s.expectedAttempts.first), fmtStat(s.expectedAttempts.sixth))) + '</span>');
     if (srcCountText(s)) meta.push(esc(srcCountText(s)));
     if (s.randomEnchant) meta.push(esc(T('obRandomEnchant')));
   }
   var c = arr(s.count);
   h += '<span class="arrow">→</span>' + slotHtml(s.item, c.length ? c[1] : 1, { cls: 'slot-result' }) + '</div>';
   if (s.enchantment) meta.push('<a href="#/enchantments/' + esc(s.enchantment) + '">' + esc(enchLevelText(s)) + '</a>');
+  meta.push('<a href="#/loot?f=' + encodeURIComponent(focusId) + '">' + esc(T('rowLink')) + '</a>');
   h += '<div class="row-main iw-meta">' + meta.join(' · ') + configNote(s) + '</div></div>';
   return h;
 }
@@ -3984,7 +4024,7 @@ function notFound(what, id) {
   var q = String(id || '').split(':').pop().split('/').pop();
   /* Keine Sackgasse: gleich die besten Treffer fuer den letzten Teil der Id anbieten. */
   var hits = q ? search(q.replace(/[_-]+/g, ' ')).slice(0, 6) : [];
-  return '<div class="notfound"><h1>' + esc(T('notFoundTitle', what)) + '</h1><p>' + T('notFoundBody', esc(id)) + '</p>' +
+  return '<div class="notfound"><h1>' + esc(T('notFoundTitle', what)) + '</h1><p>' + T('notFoundBody', esc(id)) + '</p><p><code>' + esc(location.pathname + location.search + location.hash) + '</code></p>' +
     (hits.length ? '<p>' + esc(T('notFoundSuggest')) + '</p><div class="rows">' + hits.map(function (r) { return searchRow(r.e, []); }).join('') + '</div>' : '') +
     '<p><a href="#/search/' + encodeURIComponent(q) + '">' + esc(T('notFoundSearch', q)) + '</a> · <a href="#/">' + esc(T('notFoundOverview')) + '</a></p></div>';
 }
@@ -4149,12 +4189,18 @@ function hashToRoute(h) {
   var section = i < 0 ? h : h.slice(0, i);
   var rest = i < 0 ? '' : h.slice(i + 1);
   try { rest = decodeURIComponent(rest); } catch (e) { /* kaputte Kodierung: roh weiterreichen */ }
-  var tab = /(?:^|&)tab=([^&]*)/.exec(extra);
-  return { section: section || 'overview', id: rest, tab: tab ? decodeURIComponent(tab[1]) : '' };
+  var params = new URLSearchParams(extra);
+  return { section: section || 'overview', id: rest, tab: params.get('tab') || '', focus: params.get('f') || '' };
 }
-function routeToHash(r) { return '#/' + (r.section === 'overview' ? '' : r.section + (r.id ? '/' + encodeURIComponent(r.id) : '')); }
+function routeToHash(r) {
+  var sp = new URLSearchParams();
+  if (r.tab) sp.set('tab', r.tab);
+  if (r.focus) sp.set('f', r.focus);
+  return '#/' + (r.section === 'overview' ? '' : r.section + (r.id ? '/' + encodeURIComponent(r.id) : '')) + (sp.size ? '?' + sp.toString() : '');
+}
 function paramsToRoute(sp) {
   var tab = sp.get('tab') || '';
+  var focus = sp.get('f') || '';
   if (sp.has('q')) return { section: 'search', id: sp.get('q') || '', tab: '' };
   var keys = Object.keys(PARAM_ROUTE);
   for (var i = 0; i < keys.length; i++) {
@@ -4163,11 +4209,12 @@ function paramsToRoute(sp) {
     /* ?item= fuer einen reinen Block (Pads, Teleporter) fuehrt trotzdem zur Seite. */
     if (section === 'items' && id && !IX.items.has(id) && IX.blocks.has(id)) section = 'blocks';
     if (section === 'blocks' && id && !IX.blocks.has(id) && IX.items.has(id)) section = 'items';
-    return { section: section, id: id, tab: tab };
+    return { section: section, id: id, tab: tab, focus: focus };
   }
-  if (tab && TAB_SECTIONS.indexOf(tab) >= 0) return { section: tab, id: '', tab: '' };
-  if (tab && catDef(tab)) return { section: 'cat', id: tab, tab: '' };
-  return { section: 'overview', id: '', tab: tab };
+  if (tab && catDef(tab)) return { section: 'cat', id: tab, tab: '', focus: focus };
+  if (tab) return { section: tab, id: '', tab: '', focus: focus };
+  var inferred = focus && (IX.config.has(focus) ? 'config' : IX.trades.has(focus) ? 'trades' : IX.recipes.has(focus) ? 'recipes' : IX.items.has(focus) || IX.blocks.has(focus) ? 'items' : 'overview');
+  return { section: inferred || 'overview', id: '', tab: '', focus: focus };
 }
 function routeToSearch(r) {
   var sp = new URLSearchParams();
@@ -4177,6 +4224,7 @@ function routeToSearch(r) {
   else if (ROUTE_PARAM[s] && r.id) sp.set(ROUTE_PARAM[s], r.id);
   else if (s !== 'overview' && s !== '') sp.set('tab', s);
   if (r.tab && r.section !== 'search') sp.set('tab', r.tab);
+  if (r.focus) sp.set('f', r.focus);
   if (LANG !== 'en') sp.set('lang', LANG);
   var q = sp.toString();
   /* Doppelpunkte und Schraegstriche lesbar lassen: ?item=simplebuilding:enderite_chisel */
@@ -4189,7 +4237,7 @@ function currentRoute() {
 }
 /* Alter Name, von vielen Seitenfunktionen benutzt. */
 function parseHash() { return currentRoute(); }
-function sameRoute(a, b) { return a.section === b.section && (a.id || '') === (b.id || '') && (a.tab || '') === (b.tab || ''); }
+function sameRoute(a, b) { return a.section === b.section && (a.id || '') === (b.id || '') && (a.tab || '') === (b.tab || '') && (a.focus || '') === (b.focus || ''); }
 function go(r, opts) {
   opts = opts || {};
   if (HASHMODE) { var hh = routeToHash(r); if (opts.replace) location.replace(hh); else location.hash = hh; return; }
@@ -4379,6 +4427,7 @@ function render(opts) {
   if (r.section === 'allrecipes' || r.section === 'make' || r.section === 'use') { AR.shown = 60; refreshRecipeView(); }
   renderSidebar(active);
   document.title = (title ? title + ' – ' : '') + (MOD.name || 'SimpleBuilding') + ' Wiki';
+  if (r.focus && focusRow(r.focus)) return;
   if (typeof opts.restoreY === 'number') { window.scrollTo(0, opts.restoreY); return; }
   if (opts.keepScroll) return;
   var target = null;
@@ -4391,6 +4440,41 @@ function render(opts) {
   } else if (r.section !== 'search' || !opts.fromSearch) {
     window.scrollTo(0, 0);
   }
+}
+/* Match literal ids, never interpolate URL text into a selector. */
+function focusRow(id) {
+  $main.querySelectorAll('.row-rc > .row-head[href]').forEach(function (link) {
+    link.parentElement.setAttribute('data-focus', hrefToRoute(link.getAttribute('href')).id || '');
+  });
+  $main.querySelectorAll('.row[href]').forEach(function (row) {
+    if (!row.hasAttribute('data-focus')) row.setAttribute('data-focus', hrefToRoute(row.getAttribute('href')).id || '');
+  });
+  var target = Array.from($main.querySelectorAll('[data-focus]')).find(function (row) { return row.getAttribute('data-focus') === id; });
+  if (!target) {
+    var message = document.createElement('p'); message.className = 'hint'; message.setAttribute('role', 'status');
+    message.textContent = T('focusMissing', id); $main.prepend(message);
+    return false;
+  }
+  var input = $main.querySelector('[data-filter]');
+  if (input) {
+    input.value = ''; // Override this visit only; keep the user's stored filter.
+    var rows = $main.querySelector('[data-kind-filter]');
+    if (rows) {
+      rows.setAttribute('data-kind-filter', 'all');
+      $main.querySelectorAll('[data-iv="kind"]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-v') === 'all')); });
+    }
+    applyListFilter(input);
+  }
+  for (var parent = target; parent && parent !== $main; parent = parent.parentElement) {
+    parent.hidden = false; parent.classList.remove('hidden');
+    if (parent.tagName === 'DETAILS') parent.open = true;
+  }
+  target.tabIndex = -1;
+  target.focus({ preventScroll: true });
+  target.scrollIntoView({ block: 'center' });
+  target.classList.add('row-focused');
+  setTimeout(function () { target.classList.remove('row-focused'); }, 2400);
+  return true;
 }
 /* ?item=...&tab=recipes springt zum passenden Abschnitt der Item-Seite. */
 var TAB_ALIASES = { recipes: ['obtain'], recipe: ['obtain'], crafting: ['st.crafting', 'obtain'], obtain: ['obtain'], get: ['obtain'], description: ['secDescription'], notes: ['secDescription'], uses: ['secUsedIn'], usedin: ['secUsedIn'], drops: ['secDrops', 'secDropsFrom'], trades: ['secTrades'], inworld: ['secInWorld'], related: ['secRelated'], technical: ['secTechnical'], tech: ['secTechnical'], sources: ['secTechnical'] };
