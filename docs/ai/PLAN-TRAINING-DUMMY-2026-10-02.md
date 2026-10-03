@@ -79,3 +79,20 @@ Wiki-Check, Texturen-Vorschau. Nicht testbar ohne Client: Rendern der Puppe/Zahl
   Forge-26.3-Compile, Datagen, Wiki-Check, Texturen-Check.
 - Nicht getestet: Rendern (Puppe, Zahlen, Summe) im Client; echtes Schießen mit Bogen auf die Puppe nur indirekt
   (Schadensquelle + Verzauberungs-Mixin). Testzentrale in der Besitzerwelt nicht neu gebaut.
+
+## Runde 2 (Besitzer 2026-10-03)
+1. Kürbis auf den **Stroh**-Rüstungsständer: Kürbis wird verbraucht (nicht aufgesetzt), es entsteht die Puppe mit eigener
+   Optik (Sackkopf mit Gesicht und gestopfter Rumpf als Render-Ebene über dem Ständermodell). Normale Rüstungsständer
+   bleiben unverändert: Kürbis auf Rüstungsständern ist ein verbreitetes Vanilla-Deko-Mittel (Vogelscheuchen-Bauten,
+   Schneemann-Optik) und darf nicht plötzlich eine neue Entity erzeugen.
+2. Bug „nur der erste Treffer zählt“: `cooldownStart = Long.MIN_VALUE` → `now - cooldownStart` läuft über, ist negativ,
+   jeder Treffer landete in der Trefferpause und zählte nur, wenn er stärker als der bisher stärkste war. Fix: eigener
+   Merker „letzter angenommener Treffer“, Puppe wackelt + klingt bei jedem Treffer, abgewiesene Treffer zeigen graue 0.
+3. Schere (Rechtsklick) auf die Puppe: zurück zum Stroh-Rüstungsständer, Kürbis droppt, Ausrüstung bleibt, Schere −1.
+4. Neues Item `training_dummy` (stellt die Puppe direkt auf, wie das Ständer-Item); Schleich-Abbau droppt es.
+   Zusätzlich formloses Rezept Stroh-Rüstungsständer + geschnitzter Kürbis → Trainingspuppe (auffindbar in JEI).
+5. Vogelscheuche: Im Umkreis (Server `server.features.scarecrowRadius`, Standard 8, 0 = aus, max 16) eines
+   Stroh-Rüstungsständers oder einer Trainingspuppe zertrampeln Tiere und Monster kein Ackerland (Spieler weiterhin).
+   Begründung: echte Vanilla-Plage (Kühe, Schafe, Zombies auf Feldern), Haken existiert schon in allen Loadern
+   (`HeadAbilities.tramplesFarmland`), kein Ertrag/kein Item entsteht → kein Exploit; Suche je Trampel-Ereignis mit
+   begrenzter Box. Verworfen: Krähen (gibt es nicht), Kaninchen/Fuchs-Ziele (Goal-Klassen je Version anders, kleiner Nutzen).

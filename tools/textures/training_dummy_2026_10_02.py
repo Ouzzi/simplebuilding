@@ -7,6 +7,9 @@ Straw Armor Stand and Training Dummy (owner 2026-10-02, docs/ai/PLAN-TRAINING-DU
 - entity/training_dummy/training_dummy: the straw stand with twine bindings every few rows, in the red-brown of
   the hay bale's own binding.
 - item/straw_armor_stand: vanilla item/armor_stand with the same straw swap (stone slab unchanged).
+- entity/training_dummy/stuffing (2026-10-03, 64x32, player head/body UV): the dummy's sack head (vanilla
+  hay_block_top desaturated to burlap, stitched twine face) and straw torso (hay_block_side) with a red-white target.
+- item/training_dummy: the straw item with a burlap head and the red target on the chest.
 Writes into mc26_3/overlay/resources/assets/simplebuilding/textures/ and, if given, a labelled preview sheet
 (A vanilla, B straw stand, C training dummy, D/E items)."""
 from PIL import Image, ImageDraw
@@ -76,6 +79,77 @@ def bind(straw, src):
     return out
 
 
+BURLAP_TINT = (0.78, 0.66, 0.50)  # hay -> sacking: keep the straw's light/dark, drop the yellow
+TARGET = [(160, 32, 32), (226, 220, 206)]  # red, off-white rings
+
+
+def burlap(p):
+    l = lum(p)
+    return tuple(min(255, round(l * t * 1.25)) for t in BURLAP_TINT) + (255,)
+
+
+def stuffing():
+    """64x32 texture in the player head/body layout: head at (0,0) 8x8x8, body at (16,16) 8x12x4."""
+    top = load('block/hay_block_top')
+    side = load('block/hay_block_side')
+    out = Image.new('RGBA', (64, 32), (0, 0, 0, 0))
+    for y in range(16):          # head: 32x16 block of faces
+        for x in range(32):
+            out.putpixel((x, y), burlap(top.getpixel((x % 16, y % 16))))
+    for y in range(16, 32):      # body: 24x16 block of faces (16..40)
+        for x in range(16, 40):
+            p = side.getpixel(((x - 16) % 16, (y - 16) % 16))
+            if p[1] < 100:       # the hay bale's red binding -> twine
+                p = TWINE[1] + (255,)
+            out.putpixel((x, y), p[:3] + (255,))
+    stitch = (66, 42, 26, 255)  # dark twine, readable on the burlap
+    # face on the head front (8..16, 8..16): two cross-stitched eyes and a stitched mouth
+    for ex in (9, 13):
+        for dx, dy in ((0, 0), (1, 1), (1, 0), (0, 1)):
+            out.putpixel((ex + dx, 10 + dy), stitch if (dx + dy) % 2 == 0 else burlap((90, 80, 60)))
+    for x in range(10, 14):
+        out.putpixel((x, 13 + (x % 2)), stitch)
+    # twine round the neck: bottom row of the head side faces
+    for x in range(0, 32):
+        out.putpixel((x, 15), TWINE[1] + (255,))
+    # target on the torso front (20..28, 20..32), centred at (24, 25)
+    for y in range(20, 32):
+        for x in range(20, 28):
+            d = max(abs(x + 0.5 - 24), abs(y + 0.5 - 25.5))
+            if d <= 3.5:
+                out.putpixel((x, y), (TARGET[0] if d <= 1.0 or 2.0 < d <= 3.0 else TARGET[1]) + (255,))
+    return out
+
+
+def dummy_item(straw_item):
+    """The straw item: the top rows become the burlap head, a red dot marks the chest."""
+    out = straw_item.copy()
+    for y in range(0, 4):
+        for x in range(16):
+            p = out.getpixel((x, y))
+            if p[3]:
+                out.putpixel((x, y), burlap(p))
+    for (x, y) in ((7, 6), (8, 6), (7, 7), (8, 7)):
+        if out.getpixel((x, y))[3]:
+            out.putpixel((x, y), TARGET[0] + (255,))
+    return out
+
+
+def front_view(stand_tex, stuff):
+    """Rough front view for the preview: legs/plate from the stand sheet colours, torso and head from `stuff`."""
+    v = Image.new('RGBA', (16, 34), (0, 0, 0, 0))
+    v.alpha_composite(stuff.crop((8, 8, 16, 16)), (4, 0))      # head front
+    v.alpha_composite(stuff.crop((20, 20, 28, 32)), (4, 8))    # torso front
+    leg = stand_tex.getpixel((10, 10))
+    for y in range(20, 32):
+        for x in (5, 6, 9, 10):
+            v.putpixel((x, y), leg)
+    for x in range(1, 15):
+        for y in (32, 33):
+            v.putpixel((x, y), (150, 150, 150, 255))
+    return v
+
+
 def main():
     ramp = straw_ramp()
     stand = load('entity/armorstand/armorstand')
@@ -86,7 +160,25 @@ def main():
     straw.save(os.path.join(OUT, 'entity', 'training_dummy', 'straw_armor_stand.png'))
     dummy.save(os.path.join(OUT, 'entity', 'training_dummy', 'training_dummy.png'))
     item.save(os.path.join(OUT, 'item', 'straw_armor_stand.png'))
-    if PREVIEW:
+    stuff = stuffing()
+    stuff.save(os.path.join(OUT, 'entity', 'training_dummy', 'stuffing.png'))
+    ditem = dummy_item(item)
+    ditem.save(os.path.join(OUT, 'item', 'training_dummy.png'))
+    if PREVIEW and 'v2' in os.path.basename(PREVIEW):
+        scale = 8
+        sheet = Image.new('RGBA', (64 * scale + 3 * 16 * 12 + 120, 34 * 12 + 60), (198, 198, 198, 255))
+        draw = ImageDraw.Draw(sheet)
+        sheet.alpha_composite(stuff.resize((64 * scale, 32 * scale), Image.NEAREST), (20, 30))
+        draw.text((20, 8), 'A stuffing (head + torso)', fill=(0, 0, 0, 255))
+        x0 = 40 + 64 * scale
+        sheet.alpha_composite(front_view(dummy, stuff).resize((16 * 12, 34 * 12), Image.NEAREST), (x0, 30))
+        draw.text((x0, 8), 'B dummy front', fill=(0, 0, 0, 255))
+        for i, (label, im) in enumerate([('C straw item', item), ('D dummy item', ditem)]):
+            x = 20 + i * (16 * 12 + 30)
+            sheet.alpha_composite(im.resize((16 * 12, 16 * 12), Image.NEAREST), (x, 32 * scale + 60))
+            draw.text((x, 32 * scale + 44), label, fill=(0, 0, 0, 255))
+        sheet.save(PREVIEW)
+    elif PREVIEW:
         scale = 6
         sheets = [('A vanilla', stand), ('B straw stand', straw), ('C training dummy', dummy)]
         icons = [('D vanilla item', load('item/armor_stand')), ('E straw item', item)]

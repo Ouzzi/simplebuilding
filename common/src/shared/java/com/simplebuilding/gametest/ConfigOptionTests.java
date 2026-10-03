@@ -564,6 +564,7 @@ public final class ConfigOptionTests {
             "server.features.blueprint boolean=true",
             "server.features.oreDetector boolean=true",
             "server.features.levitatingBlocks boolean=true",
+            "server.features.scarecrowRadius int=8",
             "server.chunkLoaders.requireOwnerOnline boolean=true",
             "server.dimensionLocks.chunkLoaderBlockedDimensions String=",
             "server.dimensionLocks.flypadBlockedDimensions String=",

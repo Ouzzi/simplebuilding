@@ -66,7 +66,10 @@ public final class TrainingDummyTests {
         return stack;
     }
 
-    /** Rezept-Weg im Spiel: Kuerbis auf den Stroh-Ruestungsstaender macht ihn zur Puppe, Ausruestung bleibt. */
+    /**
+     * Kuerbis auf den Stroh-Ruestungsstaender: der Kuerbis wird verbraucht (sitzt nicht auf dem Kopf), es entsteht die
+     * Puppe mit der Ausruestung; die Schere macht es rueckgaengig (Kuerbis faellt, Ausruestung bleibt, Schere -1).
+     */
     public static void pumpkinTurnsTheStrawStandIntoTrainingDummy(GameTestHelper helper) {
         if (!McVersion.TRAINING_DUMMY) {
             helper.succeed();
@@ -76,16 +79,82 @@ public final class TrainingDummyTests {
         stand.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
         helper.assertFalse(stand.isTrainingDummy(), "a fresh straw stand is already a dummy");
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.CARVED_PUMPKIN));
         stand.interact(player, InteractionHand.MAIN_HAND, new Vec3(0.0, 1.8, 0.0));
         helper.assertTrue(stand.isRemoved(), "the straw stand stays after getting a pumpkin");
+        helper.assertTrue(player.getMainHandItem().isEmpty(), "the pumpkin was not used up");
         List<TrainingDummy> dummies = helper.getLevel().getEntities(ModEntities.TRAINING_DUMMY, stand.getBoundingBox().inflate(1.0), d -> true);
         helper.assertValueEqual(dummies.size(), 1, "training dummies after the pumpkin");
         TrainingDummy dummy = dummies.getFirst();
-        helper.assertTrue(dummy.getItemBySlot(EquipmentSlot.HEAD).is(Items.CARVED_PUMPKIN), "the dummy lost its pumpkin");
+        helper.assertTrue(dummy.getItemBySlot(EquipmentSlot.HEAD).isEmpty(), "the pumpkin sits on the dummy's head");
         helper.assertTrue(dummy.getItemBySlot(EquipmentSlot.CHEST).is(Items.IRON_CHESTPLATE), "the dummy lost the chestplate");
-        helper.assertTrue(ModItems.STRAW_ARMOR_STAND != null && helper.getLevel().recipeAccess().getRecipes().stream()
-                .anyMatch(r -> r.id().identifier().getPath().equals("straw_armor_stand")), "the straw armor stand recipe is missing");
+        helper.assertTrue(dummy.getPickResult().is(ModItems.TRAINING_DUMMY), "picking the dummy gives no Training Dummy item");
+
+        ItemStack shears = new ItemStack(Items.SHEARS);
+        player.setItemInHand(InteractionHand.MAIN_HAND, shears);
+        dummy.interact(player, InteractionHand.MAIN_HAND, new Vec3(0.0, 1.0, 0.0));
+        helper.assertTrue(dummy.isRemoved(), "shears do not turn the dummy back");
+        List<TrainingDummy> stands = helper.getLevel().getEntities(ModEntities.STRAW_ARMOR_STAND, dummy.getBoundingBox().inflate(1.0), d -> true);
+        helper.assertValueEqual(stands.size(), 1, "straw stands after the shears");
+        helper.assertTrue(stands.getFirst().getItemBySlot(EquipmentSlot.CHEST).is(Items.IRON_CHESTPLATE), "the shears took the chestplate");
+        helper.assertValueEqual(player.getMainHandItem().getDamageValue(), 1, "shears damage");
+        helper.assertTrue(helper.getLevel().getEntitiesOfClass(ItemEntity.class, dummy.getBoundingBox().inflate(2.0))
+                .stream().anyMatch(e -> e.getItem().is(Items.CARVED_PUMPKIN)), "the pumpkin did not drop");
+
+        java.util.Set<String> recipes = new java.util.HashSet<>();
+        helper.getLevel().recipeAccess().getRecipes().forEach(r -> recipes.add(r.id().identifier().getPath()));
+        helper.assertTrue(recipes.contains("straw_armor_stand") && recipes.contains("training_dummy"),
+                "the straw armor stand or training dummy recipe is missing");
+        helper.succeed();
+    }
+
+    /**
+     * Jeder Treffer zaehlt (Fehler bis 2026-10-03: die Trefferpause begann nie, jeder Treffer nach dem ersten musste
+     * staerker sein als der staerkste bisher). Treffer nach der Pause zaehlen voll, Treffer in der Pause zeigen 0.
+     */
+    public static void everyHitShowsItsNumberAfterTheCooldown(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        DamageSource source = level.damageSources().generic();
+        TrainingDummy dummy = dummy(helper, 1, 1, new ItemStack(Items.CARVED_PUMPKIN));
+        helper.assertTrue(dummy.hurtServer(level, source, 5.0F), "the first hit was refused");
+        helper.runAfterDelay(TrainingDummy.COOLDOWN_TICKS + 2, () -> {
+            helper.assertTrue(dummy.hurtServer(level, source, 3.0F), "a weaker hit after the cooldown was refused");
+            near(helper, dummy.lastShown(), 3.0F, "a weaker hit after the cooldown");
+            helper.assertTrue(dummy.hurtServer(level, source, 2.0F) == false, "a weaker hit inside the new cooldown counted");
+            near(helper, dummy.lastShown(), 0.0F, "a refused hit shows 0");
+            helper.assertValueEqual(dummy.visibleNumbers(), 3, "numbers after three hits");
+            helper.runAfterDelay(TrainingDummy.COOLDOWN_TICKS + 2, () -> {
+                helper.assertTrue(dummy.hurtServer(level, source, 1.0F), "a third hit after the cooldown was refused");
+                near(helper, dummy.lastShown(), 1.0F, "a small hit after the cooldown");
+                near(helper, dummy.sessionTotal(), 9.0F, "total of the counted hits");
+                helper.assertValueEqual(dummy.sessionHits(), 3, "counted hits");
+                helper.succeed();
+            });
+        });
+    }
+
+    /** Vogelscheuche: im Umkreis eines Stroh-Ruestungsstaenders zertrampelt ein Mob kein Ackerland, ohne schon. */
+    public static void scarecrowKeepsMobsFromTramplingFarmland(GameTestHelper helper) {
+        if (!McVersion.TRAINING_DUMMY) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        BlockPos farm = new BlockPos(2, 1, 2);
+        helper.setBlock(farm, net.minecraft.world.level.block.Blocks.FARMLAND);
+        BlockPos absolute = helper.absolutePos(farm);
+        net.minecraft.world.entity.Mob zombie = helper.spawnWithNoFreeWill(EntityTypes.ZOMBIE, farm.above());
+        net.minecraft.world.level.block.Blocks.FARMLAND.fallOn(level, level.getBlockState(absolute), absolute, zombie, 10.0);
+        helper.assertTrue(level.getBlockState(absolute).is(net.minecraft.world.level.block.Blocks.DIRT), "the zombie did not trample farmland without a scarecrow");
+        helper.setBlock(farm, net.minecraft.world.level.block.Blocks.FARMLAND);
+        spawn(helper, ModEntities.STRAW_ARMOR_STAND, 4, 2, ItemStack.EMPTY);
+        net.minecraft.world.level.block.Blocks.FARMLAND.fallOn(level, level.getBlockState(absolute), absolute, zombie, 10.0);
+        helper.assertTrue(level.getBlockState(absolute).is(net.minecraft.world.level.block.Blocks.FARMLAND), "the zombie trampled farmland next to a scarecrow");
         helper.succeed();
     }
 
@@ -109,7 +178,8 @@ public final class TrainingDummyTests {
         helper.assertTrue(dummy.hurtServer(level, hit, 1.0F), "the sneaking hit was refused");
         helper.assertTrue(dummy.isRemoved(), "a sneaking hit does not pick the dummy up");
         List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, dummy.getBoundingBox().inflate(2.0));
-        helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(ModItems.STRAW_ARMOR_STAND)), "no straw armor stand dropped");
+        helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(ModItems.TRAINING_DUMMY)), "no Training Dummy item dropped");
+        helper.assertFalse(drops.stream().anyMatch(e -> e.getItem().is(ModItems.STRAW_ARMOR_STAND)), "a straw armor stand dropped instead");
         helper.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(Items.ZOMBIE_HEAD)), "the head did not drop");
         helper.succeed();
     }
@@ -197,10 +267,10 @@ public final class TrainingDummyTests {
         helper.assertTrue(dummy.hurtServer(level, source, 6.0F), "a stronger hit inside the cooldown was refused");
         near(helper, dummy.lastShown(), 2.0F, "a stronger hit inside the cooldown shows the difference");
         near(helper, dummy.sessionTotal(), 6.0F, "running total");
-        helper.assertValueEqual(dummy.visibleNumbers(), 2, "floating numbers");
+        helper.assertValueEqual(dummy.visibleNumbers(), 3, "floating numbers (the refused hit shows 0)");
         List<Display.TextDisplay> numbers = level.getEntitiesOfClass(Display.TextDisplay.class, dummy.getBoundingBox().inflate(2.0, 3.0, 2.0),
                 d -> d.entityTags().contains(TrainingDummy.NUMBER_TAG));
-        helper.assertValueEqual(numbers.size(), 2, "number entities in the world");
+        helper.assertValueEqual(numbers.size(), 3, "number entities in the world");
 
         TrainingDummy critTarget = dummy(helper, 3, 1, new ItemStack(Items.CARVED_PUMPKIN));
         ServerPlayer player = helper.makeMockServerPlayerInLevel();

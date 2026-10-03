@@ -557,6 +557,11 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("training_dummy_game_test_only_sneaking_hits_pick_the_dummy_up", TrainingDummyTests::onlySneakingHitsPickTheDummyUp)
                     .build(),
+            GameTestSpec.named("training_dummy_game_test_every_hit_shows_its_number_after_the_cooldown", TrainingDummyTests::everyHitShowsItsNumberAfterTheCooldown)
+                    .maxTicks(120)
+                    .build(),
+            GameTestSpec.named("training_dummy_game_test_scarecrow_keeps_mobs_from_trampling_farmland", TrainingDummyTests::scarecrowKeepsMobsFromTramplingFarmland)
+                    .build(),
             GameTestSpec.named("training_dummy_game_test_heads_make_enchantments_see_their_mob", TrainingDummyTests::headsMakeEnchantmentsSeeTheirMob)
                     .build(),
             GameTestSpec.named("training_dummy_game_test_armour_and_immunities_shape_the_number", TrainingDummyTests::armourAndImmunitiesShapeTheNumber)

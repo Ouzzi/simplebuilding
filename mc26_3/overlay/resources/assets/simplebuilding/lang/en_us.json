@@ -2671,7 +2671,7 @@
   "entity.simplebuilding.training_dummy": "Training Dummy",
   "entity.simplebuilding.training_dummy.immune": "Immune",
   "entity.simplebuilding.training_dummy.summary": "Σ %s in %s s (%s DPS)",
-  "tooltip.simplebuilding.straw_armor_stand": "Carved pumpkin: becomes a Training Dummy.",
+  "tooltip.simplebuilding.straw_armor_stand": "Scarecrow: animals and monsters nearby do not trample farmland. A carved pumpkin turns it into a Training Dummy",
   "block.simplebuilding.white_hammock": "White Hammock",
   "item.simplebuilding.white_hammock": "White Hammock",
   "block.simplebuilding.orange_hammock": "Orange Hammock",
@@ -2709,7 +2709,7 @@
   "tooltip.simplebuilding.hammock.2": "Rest by day: time passes faster.",
   "simplebuilding.testcentre.section.archery": "Archery",
   "simplebuilding.testcentre.section.archery.sub": "every arrow, dummies",
-  "simplebuilding.testcentre.archery.plain": "Pumpkin",
+  "simplebuilding.testcentre.archery.plain": "Sack Head",
   "simplebuilding.testcentre.archery.plain.sub": "no mob type",
   "simplebuilding.testcentre.archery.zombie": "Zombie Head",
   "simplebuilding.testcentre.archery.zombie.sub": "undead, zombie",
@@ -2784,5 +2784,9 @@
   "book.simplebuilding.gadgets.13.text": "Use on a living mob: sound off or on. Wait 2 seconds before using again.\nCosts one flower per use, except in Creative. Silence is saved.",
   "book.simplebuilding.gadgets.14.title": "Flower Limits",
   "book.simplebuilding.gadgets.14.text": "Works on adult, baby and hostile mobs. Players, armor stands, Wither and Ender Dragon are excluded.\nPlanted or potted: decoration only, no area effect.",
-  "jei.simplebuilding.info.silent_dandelion": "Use on a living mob to toggle its sounds. Works on adults, babies and hostile mobs, but not players, armor stands, the Wither or the Ender Dragon. Each use consumes one flower except in Creative. Wait 2 seconds before using it again on the same mob. Silence survives saving. Uses the Golden Dandelion sounds and particles. Planted or potted flowers are decoration only."
+  "jei.simplebuilding.info.silent_dandelion": "Use on a living mob to toggle its sounds. Works on adults, babies and hostile mobs, but not players, armor stands, the Wither or the Ender Dragon. Each use consumes one flower except in Creative. Wait 2 seconds before using it again on the same mob. Silence survives saving. Uses the Golden Dandelion sounds and particles. Planted or potted flowers are decoration only.",
+  "item.simplebuilding.training_dummy": "Training Dummy",
+  "tooltip.simplebuilding.training_dummy": "Shows every hit as a number; sneak + hit picks it up, shears turn it back",
+  "text.autoconfig.simplebuilding.option.server.features.scarecrowRadius": "Scarecrow Radius",
+  "text.autoconfig.simplebuilding.option.server.features.scarecrowRadius.@Tooltip": "Within this many blocks of a Straw Armor\nStand or Training Dummy, animals and\nmonsters do not trample farmland\n(players still do). 0 = off, max 16.\nServer-side. Default: 8."
 }

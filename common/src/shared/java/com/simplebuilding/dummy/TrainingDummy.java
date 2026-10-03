@@ -77,7 +77,8 @@ public class TrainingDummy extends ArmorStand {
     private long notedTick = Long.MIN_VALUE;
     private int notedBy = -1;
     private float lastHurtAmount;
-    private long cooldownStart = Long.MIN_VALUE;
+    /** Spielzeit des letzten voll angenommenen Treffers; -1 = noch keiner (kein Long.MIN_VALUE: {@code now - x} liefe ueber). */
+    private long cooldownStart = -1L;
     private float total;
     private int hits;
     private long firstHit;
@@ -134,44 +135,60 @@ public class TrainingDummy extends ArmorStand {
 
     @Override
     public InteractionResult interact(Player player, InteractionHand hand, Vec3 location) {
-        InteractionResult result = super.interact(player, hand, location);
-        if (!this.isTrainingDummy() && this.level() instanceof ServerLevel server && !this.isRemoved()
-                && this.getItemBySlot(EquipmentSlot.HEAD).is(Items.CARVED_PUMPKIN) && ModEntities.TRAINING_DUMMY != null) {
-            convert(server);
+        ItemStack held = player.getItemInHand(hand);
+        boolean pumpkin = !this.isTrainingDummy() && held.is(Items.CARVED_PUMPKIN) && ModEntities.TRAINING_DUMMY != null;
+        boolean shears = this.isTrainingDummy() && held.is(Items.SHEARS) && ModEntities.STRAW_ARMOR_STAND != null;
+        if (!pumpkin && !shears || player.isSpectator()) {
+            return super.interact(player, hand, location);
         }
-        return result;
+        if (!(this.level() instanceof ServerLevel server)) {
+            return InteractionResult.SUCCESS;
+        }
+        if (pumpkin) {
+            // Der Kuerbis wird Teil der Puppe (Gesicht im Modell), er sitzt nicht als Ausruestung auf dem Kopf.
+            held.consume(1, player);
+            transform(server, ModEntities.TRAINING_DUMMY);
+            server.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.PUMPKIN_CARVE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+        } else {
+            // Schere: zurueck zum Stroh-Ruestungsstaender, der Kuerbis faellt heraus, die Ausruestung bleibt.
+            transform(server, ModEntities.STRAW_ARMOR_STAND);
+            Block.popResource(server, this.blockPosition().above(), new ItemStack(Items.CARVED_PUMPKIN));
+            held.hurtAndBreak(1, player, hand.asEquipmentSlot());
+            server.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+        }
+        return InteractionResult.SUCCESS_SERVER;
     }
 
-    /** Stroh-Ruestungsstaender mit Kuerbis wird zur Puppe: gleiche Stelle, Drehung, Ausruestung, Name. */
-    private void convert(ServerLevel server) {
-        TrainingDummy dummy = ModEntities.TRAINING_DUMMY.create(server, EntitySpawnReason.CONVERSION);
-        if (dummy == null) {
+    /** Wechselt die Art (Stroh-Staender <-> Puppe): gleiche Stelle, Drehung, Ausruestung, Name. */
+    private void transform(ServerLevel server, EntityType<TrainingDummy> type) {
+        TrainingDummy next = type.create(server, EntitySpawnReason.CONVERSION);
+        if (next == null) {
             return;
         }
-        dummy.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-        dummy.setYBodyRot(this.getYRot());
-        dummy.setYHeadRot(this.getYRot());
+        next.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+        next.setYBodyRot(this.getYRot());
+        next.setYHeadRot(this.getYRot());
         for (EquipmentSlot slot : EquipmentSlot.VALUES) {
-            dummy.setItemSlot(slot, this.getItemBySlot(slot).copy());
+            next.setItemSlot(slot, this.getItemBySlot(slot).copy());
             this.setItemSlot(slot, ItemStack.EMPTY);
         }
-        dummy.setCustomName(this.getCustomName());
-        dummy.setCustomNameVisible(this.isCustomNameVisible());
-        dummy.setShowArms(this.showArms());
-        dummy.setNoBasePlate(!this.showBasePlate());
-        dummy.setInvisible(this.isInvisible());
-        dummy.setNoGravity(this.isNoGravity());
+        next.setCustomName(this.getCustomName());
+        next.setCustomNameVisible(this.isCustomNameVisible());
+        next.setShowArms(this.showArms());
+        next.setNoBasePlate(!this.showBasePlate());
+        next.setInvisible(this.isInvisible());
+        next.setNoGravity(this.isNoGravity());
         this.discard();
-        server.addFreshEntity(dummy);
-        server.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.PUMPKIN_CARVE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+        server.addFreshEntity(next);
         server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.HAY_BLOCK.defaultBlockState()),
                 this.getX(), this.getY(1.0), this.getZ(), 12, 0.2, 0.4, 0.2, 0.05);
-        dummy.gameEvent(GameEvent.ENTITY_PLACE);
+        next.gameEvent(GameEvent.ENTITY_PLACE);
     }
 
     @Override
     public ItemStack getPickResult() {
-        return ModItems.STRAW_ARMOR_STAND == null ? super.getPickResult() : new ItemStack(ModItems.STRAW_ARMOR_STAND);
+        net.minecraft.world.item.Item item = this.isTrainingDummy() ? ModItems.TRAINING_DUMMY : ModItems.STRAW_ARMOR_STAND;
+        return item == null ? super.getPickResult() : new ItemStack(item);
     }
 
     // ------------------------------------------------------------------ Schaden
@@ -230,7 +247,7 @@ public class TrainingDummy extends ArmorStand {
                 this.getX(), this.getY(0.6666666666666666), this.getZ(), 10, this.getBbWidth() / 4.0F, this.getBbHeight() / 4.0F,
                 this.getBbWidth() / 4.0F, 0.05);
         if (drops) {
-            ItemStack item = new ItemStack(ModItems.STRAW_ARMOR_STAND);
+            ItemStack item = new ItemStack(this.isTrainingDummy() ? ModItems.TRAINING_DUMMY : ModItems.STRAW_ARMOR_STAND);
             item.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, this.getCustomName());
             Block.popResource(level, this.blockPosition(), item);
             for (EquipmentSlot slot : EquipmentSlot.VALUES) {
@@ -271,8 +288,13 @@ public class TrainingDummy extends ArmorStand {
         }
         long now = level.getGameTime();
         float dealt;
-        if (now - this.cooldownStart < COOLDOWN_TICKS && !source.is(DamageTypeTags.BYPASSES_COOLDOWN)) {
+        if (this.cooldownStart >= 0 && now - this.cooldownStart < COOLDOWN_TICKS && !source.is(DamageTypeTags.BYPASSES_COOLDOWN)) {
             if (damage <= this.lastHurtAmount) {
+                // Wie bei Mobs zaehlt der Treffer nicht; die Puppe reagiert trotzdem (graue 0, Wackeln).
+                this.lastShown = 0.0F;
+                this.lastCrit = false;
+                spawnNumber(level, Component.literal(format(0.0F)).withStyle(ChatFormatting.GRAY));
+                level.broadcastEntityEvent(this, (byte) 32);
                 return false;
             }
             dealt = damage - this.lastHurtAmount;

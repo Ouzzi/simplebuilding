@@ -189,6 +189,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .requires(Items.HAY_BLOCK)
                             .unlockedBy(getHasName(Items.ARMOR_STAND), has(Items.ARMOR_STAND))
                             .save(output);
+                    // Wie der Kuerbis auf dem Staender im Spiel (2026-10-03): Stroh-Ruestungsstaender + geschnitzter Kuerbis.
+                    shapeless(RecipeCategory.DECORATIONS, ModItems.TRAINING_DUMMY)
+                            .requires(ModItems.STRAW_ARMOR_STAND)
+                            .requires(Items.CARVED_PUMPKIN)
+                            .unlockedBy(getHasName(ModItems.STRAW_ARMOR_STAND), has(ModItems.STRAW_ARMOR_STAND))
+                            .save(output);
                 }
 
 

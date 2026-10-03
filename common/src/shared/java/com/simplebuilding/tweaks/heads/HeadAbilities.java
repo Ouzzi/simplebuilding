@@ -93,7 +93,7 @@ public final class HeadAbilities {
 
     /** Breezekopf: leicht wie der Wind - wer ihn traegt, zertrampelt kein Ackerland. */
     public static boolean tramplesFarmland(Entity entity) {
-        return !wears(entity, BlazeHeadType.BREEZE);
+        return !wears(entity, BlazeHeadType.BREEZE) && !com.simplebuilding.dummy.Scarecrow.guards(entity);
     }
 
     /** Shulkerkopf: eine Shulkerkiste geht auch auf, wenn ein Block den Deckel versperrt. */

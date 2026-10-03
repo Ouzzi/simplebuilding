@@ -2671,7 +2671,7 @@
   "entity.simplebuilding.training_dummy": "Trainingspuppe",
   "entity.simplebuilding.training_dummy.immune": "Immun",
   "entity.simplebuilding.training_dummy.summary": "Σ %s in %s s (%s Schaden/s)",
-  "tooltip.simplebuilding.straw_armor_stand": "Geschnitzter Kürbis: wird zur Trainingspuppe.",
+  "tooltip.simplebuilding.straw_armor_stand": "Vogelscheuche: Tiere und Monster in der Nähe zertrampeln kein Ackerland. Ein geschnitzter Kürbis macht daraus eine Trainingspuppe",
   "block.simplebuilding.white_hammock": "Weiße Hängematte",
   "item.simplebuilding.white_hammock": "Weiße Hängematte",
   "block.simplebuilding.orange_hammock": "Orange Hängematte",
@@ -2709,7 +2709,7 @@
   "tooltip.simplebuilding.hammock.2": "Tagsüber hinlegen: die Zeit läuft schneller.",
   "simplebuilding.testcentre.section.archery": "Schießstand",
   "simplebuilding.testcentre.section.archery.sub": "jeder Pfeil, Puppen",
-  "simplebuilding.testcentre.archery.plain": "Kürbis",
+  "simplebuilding.testcentre.archery.plain": "Sackkopf",
   "simplebuilding.testcentre.archery.plain.sub": "keine Mob-Art",
   "simplebuilding.testcentre.archery.zombie": "Zombiekopf",
   "simplebuilding.testcentre.archery.zombie.sub": "untot, Zombie",
@@ -2784,5 +2784,9 @@
   "book.simplebuilding.gadgets.13.text": "Am lebenden Mob benutzen: Ton aus oder an. Vor erneutem Nutzen 2 Sekunden warten.\nKostet eine Blume, außer in Kreativ. Stille wird gespeichert.",
   "book.simplebuilding.gadgets.14.title": "Blumengrenzen",
   "book.simplebuilding.gadgets.14.text": "Wirkt bei jungen, erwachsenen und feindlichen Mobs. Nicht bei Spielern, Rüstungsständern, Wither oder Enderdrache.\nGepflanzt oder im Topf nur Deko, keine Aura.",
-  "jei.simplebuilding.info.silent_dandelion": "An einem lebenden Mob benutzen, um seine Geräusche aus- oder einzuschalten. Wirkt bei erwachsenen, jungen und feindlichen Mobs, nicht bei Spielern, Rüstungsständern, Wither oder Enderdrache. Jede Benutzung verbraucht eine Blume, außer im Kreativmodus. Vor erneutem Benutzen am selben Mob 2 Sekunden warten. Stille bleibt beim Speichern erhalten. Sounds und Partikel wie beim goldenen Löwenzahn. Gepflanzte oder eingetopfte Blumen sind nur Dekoration."
+  "jei.simplebuilding.info.silent_dandelion": "An einem lebenden Mob benutzen, um seine Geräusche aus- oder einzuschalten. Wirkt bei erwachsenen, jungen und feindlichen Mobs, nicht bei Spielern, Rüstungsständern, Wither oder Enderdrache. Jede Benutzung verbraucht eine Blume, außer im Kreativmodus. Vor erneutem Benutzen am selben Mob 2 Sekunden warten. Stille bleibt beim Speichern erhalten. Sounds und Partikel wie beim goldenen Löwenzahn. Gepflanzte oder eingetopfte Blumen sind nur Dekoration.",
+  "item.simplebuilding.training_dummy": "Trainingspuppe",
+  "tooltip.simplebuilding.training_dummy": "Zeigt jeden Treffer als Zahl; Schleichen + Schlag baut sie ab, die Schere macht sie wieder zum Ständer",
+  "text.autoconfig.simplebuilding.option.server.features.scarecrowRadius": "Vogelscheuchen-Umkreis",
+  "text.autoconfig.simplebuilding.option.server.features.scarecrowRadius.@Tooltip": "In so vielen Blöcken um einen Stroh-\nRüstungsständer oder eine Trainingspuppe\nzertrampeln Tiere und Monster kein\nAckerland (Spieler schon). 0 = aus,\nhöchstens 16. Serverseitig. Standard: 8."
 }

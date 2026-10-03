@@ -2730,7 +2730,7 @@ public final class DataIntegrityTests {
                     ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP));
         }
         if (McVersion.TRAINING_DUMMY) {
-            expected.add(List.of(ModItems.STRAW_ARMOR_STAND));
+            expected.add(List.of(ModItems.STRAW_ARMOR_STAND, ModItems.TRAINING_DUMMY));
         }
         if (McVersion.HAMMOCK) {
             // Haengematten (2026-10-02): 16 Farben in Vanillas Bett-Reihenfolge, 9 + 7.

@@ -140,7 +140,7 @@ public final class SearchTabPlacement {
                     .map(parts -> com.simplebuilding.fletching.ArrowParts.stack(parts, 1)).toList()));
         }
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
-            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.ARMOR_STAND, ModItems.STRAW_ARMOR_STAND));
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.ARMOR_STAND, ModItems.STRAW_ARMOR_STAND, ModItems.TRAINING_DUMMY));
         }
         if (com.simplebuilding.version.McVersion.HAMMOCK) {
             // Haengematten direkt hinter den Vanilla-Betten (das rosa Bett ist das letzte der Farbreihe).

@@ -329,7 +329,12 @@ public class ModItems {
 
     /** Stroh-Ruestungsstaender (2026-10-02); mit geschnitztem Kuerbis wird er zur Trainingspuppe. */
     public static final Item STRAW_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY
-            ? registerItem("straw_armor_stand", s -> new com.simplebuilding.dummy.StrawArmorStandItem(s.stacksTo(16))) : null;
+            ? registerItem("straw_armor_stand", s -> new com.simplebuilding.dummy.StrawArmorStandItem(s.stacksTo(16),
+                    () -> com.simplebuilding.entity.ModEntities.STRAW_ARMOR_STAND, "tooltip.simplebuilding.straw_armor_stand")) : null;
+    /** Trainingspuppe als Item (2026-10-03): stellt die Puppe auf; faellt beim Schleich-Abbau. */
+    public static final Item TRAINING_DUMMY = com.simplebuilding.version.McVersion.TRAINING_DUMMY
+            ? registerItem("training_dummy", s -> new com.simplebuilding.dummy.StrawArmorStandItem(s.stacksTo(16),
+                    () -> com.simplebuilding.entity.ModEntities.TRAINING_DUMMY, "tooltip.simplebuilding.training_dummy")) : null;
 
     public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
 

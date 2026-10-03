@@ -317,6 +317,7 @@ public final class TestCentreLayout {
                     stand.gear().forEach(stack -> items.add(stack.getItem()));
                     if (stand.dummy()) {
                         items.add(ModItems.STRAW_ARMOR_STAND);
+                        items.add(ModItems.TRAINING_DUMMY);
                     }
                 }
                 case TcOp.Fill fill -> fill.contents().forEach(stack -> items.add(stack.getItem()));
