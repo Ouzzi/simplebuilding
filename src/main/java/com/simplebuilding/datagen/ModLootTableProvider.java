@@ -64,6 +64,8 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         if (ModBlocks.IRON_ROD != null) dropSelf(ModBlocks.IRON_ROD);
         if (ModBlocks.AUTO_SMITHER != null) dropSelf(ModBlocks.AUTO_SMITHER);
         if (ModBlocks.GOLD_ROD != null) dropSelf(ModBlocks.GOLD_ROD);
+        if (ModBlocks.NETHERITE_ROD != null) dropSelf(ModBlocks.NETHERITE_ROD);
+        if (ModBlocks.ENDERITE_ROD != null) dropSelf(ModBlocks.ENDERITE_ROD);
         dropSelf(ModBlocks.CRACKED_DIAMOND_BLOCK);
 
         dropSelf(ModBlocks.REINFORCED_HOPPER);

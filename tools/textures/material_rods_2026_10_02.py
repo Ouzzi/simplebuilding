@@ -1,13 +1,16 @@
 """Usage: python tools/textures/material_rods_2026_10_02.py <vanilla textures dir> [preview.png]
 
-Material rods (owner 2026-10-02, docs/ai/PLAN-RODS-2026-10-02.md), all vanilla retextures:
-- Gold Rod (block): vanilla block/lightning_rod pixel for pixel, each copper tone swapped by brightness rank for a tone
-  of the vanilla gold block ramp - the same method as the Iron Rod (proposals_v3_2026_10_02.iron_rod_textures).
-- Diamond / Netherite / Enderite Rod (items): vanilla item/blaze_rod pixel for pixel, each blaze tone swapped by
-  brightness rank for a tone of the material's ramp (vanilla item/diamond, item/netherite_ingot, the mod's
-  enderite_ingot), sampled like the fletching parts (arrow_part_textures.ramp).
+Material rods (owner 2026-10-02/03, docs/ai/PLAN-RODS-2026-10-02.md), all vanilla retextures:
+- Gold / Netherite / Enderite Rod (blocks): vanilla block/lightning_rod pixel for pixel, each copper tone swapped by
+  brightness rank for a tone of the material's ramp - the same method as the Iron Rod
+  (proposals_v3_2026_10_02.iron_rod_textures). Gold uses the vanilla gold block ramp, Netherite and Enderite (blocks
+  since 2026-10-03) the ramp of vanilla item/netherite_ingot and the mod's enderite_ingot. The powered state keeps the
+  vanilla block/lightning_rod_on, like the Iron and Gold Rod.
+- Diamond Rod (item): vanilla item/blaze_rod pixel for pixel, each blaze tone swapped by brightness rank for a tone of
+  vanilla item/diamond, sampled like the fletching parts (arrow_part_textures.ramp).
 Writes the textures into mc26_3/overlay/resources/assets/simplebuilding/textures/ and, if given, a preview sheet with
-the vanilla originals, the rods, and the arrows with the new shafts (arrow_part_textures must have run first)."""
+the vanilla originals, the rods (labelled A, B, C ...), and the arrows with the diamond shaft (arrow_part_textures must
+have run first)."""
 from PIL import Image, ImageDraw
 import os
 import sys
@@ -20,7 +23,8 @@ MOD = os.path.join(ROOT, 'src', 'main', 'resources', 'assets', 'simplebuilding',
 
 # gold block (vanilla block/gold_block) from light to dark, its top highlight and one mid tone left out
 GOLD = [(255, 253, 144), (255, 236, 79), (255, 216, 62), (245, 204, 39), (211, 150, 50), (204, 142, 39)]
-RODS = {'diamond_rod': 'item/diamond', 'netherite_rod': 'item/netherite_ingot', 'enderite_rod': 'mod:item/enderite_ingot'}
+BLOCK_RODS = {'netherite_rod': 'item/netherite_ingot', 'enderite_rod': 'mod:item/enderite_ingot'}
+RODS = {'diamond_rod': 'item/diamond'}
 
 
 def lum(p):
@@ -58,6 +62,12 @@ def gold_rod():
     return swap(load('block/lightning_rod'), list(reversed(GOLD)))
 
 
+def rod_block(material):
+    rod = load('block/lightning_rod')
+    tones = len({rod.getpixel((x, y))[:3] for y in range(16) for x in range(16) if rod.getpixel((x, y))[3]})
+    return swap(rod, ramp(material, tones))
+
+
 def rod_item(material):
     blaze = load('item/blaze_rod')
     tones = len({blaze.getpixel((x, y))[:3] for y in range(16) for x in range(16) if blaze.getpixel((x, y))[3]})
@@ -66,6 +76,8 @@ def rod_item(material):
 
 def main():
     made = {'block/gold_rod': gold_rod()}
+    for rod, material in BLOCK_RODS.items():
+        made['block/' + rod] = rod_block(material)
     for rod, material in RODS.items():
         made['item/' + rod] = rod_item(material)
     for name, im in made.items():
@@ -80,8 +92,10 @@ def preview(made):
     scale, cell = 8, 18
     iron = Image.open(os.path.join(OUT, 'block', 'iron_rod.png')).convert('RGBA')
     rows = [
-        ('Blitzableiter / Eisenstab / Goldstab', [load('block/lightning_rod'), iron, made['block/gold_rod']]),
-        ('Lohenrute / Diamant- / Netherit- / Enderitstab',
+        ('A Blitzableiter  B Eisen  C Gold  D Netherit  E Enderit (Bloecke)',
+         [load('block/lightning_rod'), iron, made['block/gold_rod']] + [made['block/' + rod] for rod in BLOCK_RODS]),
+        ('An-Zustand (alle wie Vanilla): lightning_rod_on', [load('block/lightning_rod_on')]),
+        ('F Lohenrute  G Diamantstab (Item, Pfeilschaft)',
          [load('item/blaze_rod')] + [made['item/' + rod] for rod in RODS]),
     ]
     arrows = os.path.join(OUT, 'item', 'arrow')
@@ -94,7 +108,7 @@ def preview(made):
                 for part in ('shaft_' + shaft, 'fletching_' + fletching, 'tip_flint'):
                     im.alpha_composite(layer(part))
                 cells.append(im)
-            rows.append(('Pfeile: Stock, Lohenrute, Diamant, Netherit, Enderit (' + fletching + ')', cells))
+            rows.append(('Pfeile: Stock, Lohenrute, Diamant (' + fletching + ')', cells))
     width = max(len(r[1]) for r in rows) * cell * scale
     sheet = Image.new('RGBA', (width, len(rows) * (cell * scale + 14)), (198, 198, 198, 255))
     draw = ImageDraw.Draw(sheet)

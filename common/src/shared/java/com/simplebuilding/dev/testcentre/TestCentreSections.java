@@ -793,9 +793,12 @@ public final class TestCentreSections {
                     .setValue(com.simplebuilding.blocks.custom.PlacedEggBlock.EGG, com.simplebuilding.blocks.custom.PlacedEggBlock.Egg.BLUE));
         }
         if (ModBlocks.IRON_ROD != null) {
-            // Eisen- und Goldstab aufgestellt (ziehen im Gewitter Blitze in 32 bzw. 64 Bloecken an).
-            c.place(5, 0, 0, ModBlocks.IRON_ROD);
-            c.place(6, 0, 0, ModBlocks.GOLD_ROD);
+            // Eisen-, Gold-, Netherit- und Enderitstab aufgestellt (ziehen im Gewitter Blitze in 32, 64, 96 bzw. 128
+            // Bloecken an), nach einer Luecke hinter dem einzelnen Ei (x = 6).
+            c.place(8, 0, 0, ModBlocks.IRON_ROD);
+            c.place(9, 0, 0, ModBlocks.GOLD_ROD);
+            c.place(10, 0, 0, ModBlocks.NETHERITE_ROD);
+            c.place(11, 0, 0, ModBlocks.ENDERITE_ROD);
         }
         int end = c.frameGrid(1, 0, wallZ, items, labels, 3);
         c.backWall(0, end, wallZ, 7);

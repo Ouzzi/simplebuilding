@@ -527,7 +527,9 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_shafts_and_fletchings_change_the_flight", FletchingTests::shaftsAndFletchingsChangeTheFlight)
                     .build(),
-            GameTestSpec.named("fletching_game_test_rod_shafts_pierce_hit_harder_and_resist_fire", FletchingTests::rodShaftsPierceHitHarderAndResistFire)
+            GameTestSpec.named("fletching_game_test_material_shafts_are_only_the_diamond_rod", FletchingTests::materialShaftsAreOnlyTheDiamondRod)
+                    .build(),
+            GameTestSpec.named("fletching_game_test_old_netherite_and_enderite_shafts_load_as_sticks", FletchingTests::oldNetheriteAndEnderiteShaftsLoadAsSticks)
                     .build(),
             GameTestSpec.named("fletching_game_test_the_table_makes_four_arrows_from_three_parts", FletchingTests::theTableMakesFourArrowsFromThreeParts)
                     .build(),

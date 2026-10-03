@@ -314,8 +314,9 @@ public final class ModItemGroupsContent {
             rows.add(CreativeTabLayout.Row.of("small_parts", ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            // Material-Staebe (2026-10-02): Eisen- und Goldstab stehen wie ein Blitzableiter, Diamant-, Netherit- und
-            // Enderitstab sind Items wie die Lohenrute - nach einer Luecke neben den Kleinteilen.
+            // Material-Staebe (2026-10-02): Eisen-, Gold-, Netherit- und Enderitstab stehen wie ein Blitzableiter
+            // (Netherit/Enderit seit 2026-10-03), der Diamantstab ist ein Item wie die Lohenrute - nach einer Luecke
+            // neben den Kleinteilen, in Material-Reihenfolge.
             rows.add(CreativeTabLayout.Row.besides("rods", ModItems.IRON_ROD, ModItems.GOLD_ROD, ModItems.DIAMOND_ROD,
                     ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));
         }
@@ -454,7 +455,7 @@ public final class ModItemGroupsContent {
      * einmal stehen, darum wiederholt die Zeile den Enderit-Baustab nicht, sondern teilt sich seine Zeile.
      */
     /**
-     * Zeilen des Tabs "SimpleArrows" (B14): je Spitze eine Zeile mit ihren acht Pfeilen (Schaft, dann Befiederung) in
+     * Zeilen des Tabs "SimpleArrows" (B14): je Spitze eine Zeile mit ihren Pfeilen (Schaft, dann Befiederung) in
      * der Reihenfolge von {@link com.simplebuilding.fletching.ArrowParts#allCombinations()}.
      */
     public static List<CreativeTabLayout.Row> arrowsRows() {

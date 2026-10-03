@@ -47,6 +47,9 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             // Goldstab wie der Goldblock: Spitzhacke ab Eisen.
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.GOLD_ROD));
             builder(BlockTags.NEEDS_IRON_TOOL).add(key(ModBlocks.GOLD_ROD));
+            // Netherit- und Enderitstab wie ihr Materialblock: Spitzhacke ab Diamant.
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.NETHERITE_ROD)).add(key(ModBlocks.ENDERITE_ROD));
+            builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(ModBlocks.NETHERITE_ROD)).add(key(ModBlocks.ENDERITE_ROD));
         }
         if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.AUTO_SMITHER));

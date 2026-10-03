@@ -564,7 +564,7 @@ public final class TestCentreTests {
             }
         }
 
-        // Eisenstab unter freiem Himmel.
+        // Metallstaebe (Eisen, Gold, Netherit, Enderit) unter freiem Himmel.
         Map<BlockPos, BlockState> blocks = new HashMap<>();
         for (TestCentreLayout.Section section : plan.sections()) {
             for (TcOp op : section.ops()) {
@@ -574,25 +574,32 @@ public final class TestCentreTests {
             }
         }
         int rods = 0;
+        Set<Object> metalRods = new HashSet<>();
         for (Map.Entry<BlockPos, BlockState> entry : blocks.entrySet()) {
             if (entry.getValue().getBlock() instanceof net.minecraft.world.level.block.LightningRodBlock
                     && !(entry.getValue().getBlock() instanceof com.simplebuilding.blocks.custom.MetalRodBlock)) {
                 problems.add("a copper lightning rod at " + entry.getKey().toShortString() + " would take the iron rods' lightning");
             }
-            if (ModBlocks.IRON_ROD == null || !entry.getValue().is(ModBlocks.IRON_ROD)) {
+            if (!(entry.getValue().getBlock() instanceof com.simplebuilding.blocks.custom.MetalRodBlock)) {
                 continue;
             }
-            rods++;
+            metalRods.add(entry.getValue().getBlock());
+            if (entry.getValue().is(ModBlocks.IRON_ROD)) {
+                rods++;
+            }
             for (Map.Entry<BlockPos, BlockState> other : blocks.entrySet()) {
                 BlockPos pos = other.getKey();
                 if (pos.getX() == entry.getKey().getX() && pos.getZ() == entry.getKey().getZ() && pos.getY() > entry.getKey().getY()
                         && !other.getValue().isAir()) {
-                    problems.add("the iron rod at " + entry.getKey().toShortString() + " has " + other.getValue() + " above it");
+                    problems.add("the metal rod " + entry.getValue().getBlock() + " at " + entry.getKey().toShortString() + " has " + other.getValue() + " above it");
                 }
             }
         }
         if (ModBlocks.IRON_ROD != null && rods == 0) {
             problems.add("no iron rod stands anywhere");
+        }
+        if (ModBlocks.IRON_ROD != null && !metalRods.containsAll(List.of(ModBlocks.GOLD_ROD, ModBlocks.NETHERITE_ROD, ModBlocks.ENDERITE_ROD))) {
+            problems.add("not every metal rod stands in the test centre: " + metalRods);
         }
         if (commands(plan).stream().noneMatch(command -> command.command().equals("weather thunder"))) {
             problems.add("the controls have no thunder button");

@@ -8,10 +8,12 @@ import net.minecraft.world.level.block.LightningRodBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 /**
- * Metallstab (Besitzer 2026-10-02): eine Kopie des Blitzableiters aus Eisen oder Gold - gleiche Form, gleiche
+ * Metallstab (Besitzer 2026-10-02, Netherit/Enderit 2026-10-03): eine Kopie des Blitzableiters aus Eisen, Gold,
+ * Netherit oder Enderit - gleiche Form, gleiche
  * Ausrichtung, gleiches Redstone-Signal beim Einschlag (Vanillas {@code LightningBolt} versorgt jeden
  * {@link LightningRodBlock}), oxidiert nicht. Er zieht Blitze schwaecher an als Kupfer: nur im Umkreis seiner eigenen
- * {@link #range()} (Eisen {@link #IRON_RANGE}, Gold {@link #GOLD_RANGE}, Kupfer 128), und nur wenn kein
+ * {@link #range()} (Eisen {@link #IRON_RANGE}, Gold {@link #GOLD_RANGE}, Netherit {@link #NETHERITE_RANGE}, Enderit
+ * {@link #ENDERITE_RANGE} = Kupfer 128), und nur wenn kein
  * Kupfer-Blitzableiter in Reichweite ist (der Kupferstab gewinnt). Unter den Metallstaeben gewinnt der naechste.
  */
 public class MetalRodBlock extends LightningRodBlock {
@@ -19,8 +21,12 @@ public class MetalRodBlock extends LightningRodBlock {
     public static final int IRON_RANGE = 32;
     /** Anziehungs-Radius des Goldstabs in Bloecken. */
     public static final int GOLD_RANGE = 64;
-    /** Groesster Radius aller Metallstaebe: so weit sucht {@link #find}. */
-    public static final int MAX_RANGE = GOLD_RANGE;
+    /** Anziehungs-Radius des Netheritstabs in Bloecken (Familie in 32er-Schritten, 2026-10-03). */
+    public static final int NETHERITE_RANGE = 96;
+    /** Anziehungs-Radius des Enderitstabs in Bloecken: so weit wie der Kupfer-Blitzableiter, nicht weiter. */
+    public static final int ENDERITE_RANGE = 128;
+    /** Groesster Radius aller Metallstaebe und harte Obergrenze: so weit sucht {@link #find}. */
+    public static final int MAX_RANGE = ENDERITE_RANGE;
     public static final MapCodec<MetalRodBlock> CODEC = com.simplebuilding.version.BlockCodecs.simple(p -> new MetalRodBlock(IRON_RANGE, p));
 
     private final int range;

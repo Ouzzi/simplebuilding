@@ -287,12 +287,12 @@ public class ModItems {
     /** Diamantstab (2026-10-02): Item wie die Lohenrute, Pfeilschaft; drei Diamanten hin, drei zurueck. */
     public static final Item DIAMOND_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
             ? registerItem("diamond_rod", settings -> new Item(settings)) : null;
-    /** Netheritstab (2026-10-02): geschmiedet aus dem Diamantstab, feuerfest, Pfeilschaft. */
+    /** Netheritstab (2026-10-03 Block): Blitzableiter (96 Bloecke), geschmiedet aus dem Diamantstab, feuerfest. */
     public static final Item NETHERITE_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("netherite_rod", settings -> new Item(settings.fireResistant().rarity(net.minecraft.world.item.Rarity.UNCOMMON))) : null;
-    /** Enderitstab (2026-10-02): geschmiedet aus dem Netheritstab, feuerfest, Pfeilschaft. */
+            ? registerItem("netherite_rod", settings -> new BlockItem(ModBlocks.NETHERITE_ROD, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.UNCOMMON))) : null;
+    /** Enderitstab (2026-10-03 Block): Blitzableiter (128 Bloecke), geschmiedet aus dem Netheritstab, feuerfest. */
     public static final Item ENDERITE_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK
-            ? registerItem("enderite_rod", settings -> new Item(settings.fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC))) : null;
+            ? registerItem("enderite_rod", settings -> new BlockItem(ModBlocks.ENDERITE_ROD, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC))) : null;
 
     /** Pfeil vom Befiederungstisch; die Teile stehen in der Komponente {@code arrow_parts}. */
     public static final Item CRAFTED_ARROW = com.simplebuilding.version.McVersion.FLETCHING

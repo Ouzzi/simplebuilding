@@ -5370,7 +5370,7 @@
           "details": [
             "Tips: flint (vanilla damage), copper nugget (+2 against drowned), iron nugget (+0.5, +2 against zombies), gold nugget (+2 against undead), diamond pebble (+1), netherite nugget (+1.5, pierces one more target), enderite nugget (+1.5, no gravity for the first second), amethyst shard (shatters: 1 damage within 1.5 blocks), prismarine shard (no water drag).",
             "The damage bonus adds to the arrow's base damage like Power and grows with the shot's speed.",
-            "Shafts: stick (vanilla), end rod (half gravity, glowing trail), blaze rod (the target burns 3 seconds longer), breeze rod (wind burst on impact); on 26.3 also diamond rod (pierces one more target), netherite rod (+1 damage, the arrows do not burn in lava or fire) and enderite rod (+1 damage, 30 % less gravity). Fletchings: feather (vanilla), phantom membrane (30 % less gravity).",
+            "Shafts: stick (vanilla), end rod (half gravity, glowing trail), blaze rod (the target burns 3 seconds longer), breeze rod (wind burst on impact); on 26.3 also the diamond rod (pierces one more target). The netherite and enderite rods are lightning rods (blocks) since 2026-10-03 and no shafts; arrows made with them earlier keep their tip and fletching and load with a stick shaft. Fletchings: feather (vanilla), phantom membrane (30 % less gravity).",
             "Bow and crossbow enchantments work as on vanilla arrows; Infinity only saves vanilla arrows.",
             "The Fletching Table works like the Crafting Table: the recipe book button at the same spot opens every arrow combination on the left (opening the table unlocks them all). A click moves the tip, shaft and fletching from your inventory into their slots, shift-click as many as possible; missing parts show as ghost items. Nothing is created. All numbers are fixed, nothing is configurable."
           ]
@@ -5380,7 +5380,7 @@
           "details": [
             "Spitzen: Feuerstein (Vanilla-Schaden), Kupfer-Nugget (+2 gegen Ertrunkene), Eisen-Nugget (+0,5, +2 gegen Zombies), Gold-Nugget (+2 gegen Untote), Diamantkiesel (+1), Netherit-Nugget (+1,5, durchbohrt ein Ziel mehr), Enderit-Nugget (+1,5, die erste Sekunde ohne Schwerkraft), Amethyst-Splitter (zersplittert: 1 Schaden im Umkreis von 1,5 Blöcken), Prismarin-Splitter (kein Wasserwiderstand).",
             "Der Schadensbonus zählt wie Stärke zum Grundschaden des Pfeils und wächst mit der Geschwindigkeit des Schusses.",
-            "Schäfte: Stock (Vanilla), Endstab (halbe Schwerkraft, Leuchtspur), Lohenrute (das Ziel brennt 3 Sekunden länger), Böenrute (Windstoß beim Aufprall); auf 26.3 außerdem Diamantstab (durchbohrt ein Ziel mehr), Netheritstab (+1 Schaden, die Pfeile verbrennen nicht in Lava oder Feuer) und Enderitstab (+1 Schaden, 30 % weniger Schwerkraft). Befiederungen: Feder (Vanilla), Phantomhaut (30 % weniger Schwerkraft).",
+            "Schäfte: Stock (Vanilla), Endstab (halbe Schwerkraft, Leuchtspur), Lohenrute (das Ziel brennt 3 Sekunden länger), Böenrute (Windstoß beim Aufprall); auf 26.3 außerdem der Diamantstab (durchbohrt ein Ziel mehr). Netherit- und Enderitstab sind seit 2026-10-03 Blitzableiter (Blöcke) und keine Schäfte; früher damit hergestellte Pfeile behalten Spitze und Befiederung und laden mit Stock-Schaft. Befiederungen: Feder (Vanilla), Phantomhaut (30 % weniger Schwerkraft).",
             "Bogen- und Armbrust-Verzauberungen wirken wie bei Vanilla-Pfeilen; Unendlichkeit spart nur Vanilla-Pfeile.",
             "Der Befiederungstisch funktioniert wie die Werkbank: das Rezeptbuch-Symbol an derselben Stelle öffnet links alle Pfeil-Kombinationen (das Öffnen des Tisches schaltet alle frei). Ein Klick legt Spitze, Schaft und Befiederung aus dem Inventar in ihre Slots, Shift-Klick so viele wie möglich; fehlende Teile erscheinen als Geister-Items. Es entsteht nichts. Alle Zahlen sind fest, nichts ist einstellbar."
           ]
@@ -8416,31 +8416,33 @@
         "en_us": "Enderite Rod",
         "de_de": "Enderitstab"
       },
-      "texture": "assets/textures/item/enderite_rod.png",
+      "texture": "assets/textures/block/enderite_rod.png",
       "craftedBy": [
         "simplebuilding:enderite_rod_smithing"
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_rod.png",
       "note": {
         "en": {
-          "summary": "Smithing table (MC 26.3): Enderite Upgrade + Netherite Rod + Enderite Ingot give the Enderite Rod.",
+          "summary": "A lightning rod made of enderite (MC 26.3): smithing table, Enderite Upgrade + Netherite Rod + Enderite Ingot give the Enderite Rod.",
           "details": [
-            "An item like the blaze rod; fire resistant and, like every enderite item, protected from the void. No way back.",
-            "At the Fletching Table it is an arrow shaft: the arrow flies flatter (30 % less gravity) and deals +1 damage."
+            "It works like the other metal rods and reaches as far as the copper lightning rod: it attracts lightning within 128 blocks, as the top block of its column, and only when no copper lightning rod is in range (copper still goes first). If several metal rods reach the strike, the nearest one wins.",
+            "The item is fire resistant and, like every enderite item, protected from the void. No way back, and no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the enderite block."
           ]
         },
         "de": {
-          "summary": "Schmiedetisch (MC 26.3): Enderit-Aufwertung + Netheritstab + Enderitbarren ergeben den Enderitstab.",
+          "summary": "Ein Blitzableiter aus Enderit (MC 26.3): Schmiedetisch, Enderit-Aufwertung + Netheritstab + Enderitbarren ergeben den Enderitstab.",
           "details": [
-            "Ein Item wie die Lohenrute; feuerfest und wie jedes Enderit-Item gegen den Void geschützt. Kein Rückweg.",
-            "Am Befiederungstisch ist er ein Pfeilschaft: der Pfeil fliegt flacher (30 % weniger Schwerkraft) und macht +1 Schaden."
+            "Er arbeitet wie die anderen Metallstäbe und reicht so weit wie der Kupfer-Blitzableiter: er zieht Blitze im Umkreis von 128 Blöcken an, als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist (Kupfer geht weiter vor). Erreichen mehrere Metallstäbe den Einschlag, gewinnt der nächste.",
+            "Das Item ist feuerfest und wie jedes Enderit-Item gegen den Void geschützt. Kein Rückweg und kein Pfeilschaft (seit 2026-10-03). Braucht wie der Enderitblock mindestens eine Diamantspitzhacke."
           ]
         },
         "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/fletching/ArrowParts.java"
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -9589,14 +9591,14 @@
         "en": {
           "summary": "A lightning rod made of gold (MC 26.3): three gold ingots stacked give one Gold Rod.",
           "details": [
-            "It works like the Iron Rod - placed on any face, a redstone signal when lightning strikes it, no oxidizing - but reaches further: it attracts lightning within 64 blocks (iron: 32, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several iron or gold rods reach the strike, the nearest one wins.",
+            "It works like the Iron Rod - placed on any face, a redstone signal when lightning strikes it, no oxidizing - but reaches further: it attracts lightning within 64 blocks (iron: 32, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal rods (iron, gold, netherite, enderite) reach the strike, the nearest one wins.",
             "One Gold Rod in the crafting grid gives the three gold ingots back. Needs an iron pickaxe or better, like the gold block."
           ]
         },
         "de": {
           "summary": "Ein Blitzableiter aus Gold (MC 26.3): drei Goldbarren übereinander ergeben einen Goldstab.",
           "details": [
-            "Er arbeitet wie der Eisenstab - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht -, reicht aber weiter: er zieht Blitze im Umkreis von 64 Blöcken an (Eisen: 32, Kupfer: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Eisen- oder Goldstäbe den Einschlag, gewinnt der nächste.",
+            "Er arbeitet wie der Eisenstab - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht -, reicht aber weiter: er zieht Blitze im Umkreis von 64 Blöcken an (Eisen: 32, Kupfer: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstäbe (Eisen, Gold, Netherit, Enderit) den Einschlag, gewinnt der nächste.",
             "Ein Goldstab im Handwerksfeld gibt die drei Goldbarren zurück. Braucht wie der Goldblock mindestens eine Eisenspitzhacke."
           ]
         },
@@ -10472,7 +10474,7 @@
         "en": {
           "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Rod.",
           "details": [
-            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range. If several iron or gold rods reach the strike, the nearest one wins.",
+            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal rods (iron, gold, netherite, enderite) reach the strike, the nearest one wins.",
             "One Iron Rod in the crafting grid gives the three iron ingots back.",
             "Ingredient of the Resonance Rod and the Rotator. Needs a stone pickaxe or better."
           ]
@@ -10480,7 +10482,7 @@
         "de": {
           "summary": "Ein Blitzableiter aus Eisen (MC 26.3): drei Eisenbarren übereinander ergeben einen Eisenstab.",
           "details": [
-            "Er sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Eisen- oder Goldstäbe den Einschlag, gewinnt der nächste.",
+            "Er sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstäbe (Eisen, Gold, Netherit, Enderit) den Einschlag, gewinnt der nächste.",
             "Ein Eisenstab im Handwerksfeld gibt die drei Eisenbarren zurück.",
             "Zutat für den Resonanzstab und den Rotator. Braucht mindestens eine Steinspitzhacke."
           ]
@@ -12483,7 +12485,7 @@
         "en_us": "Netherite Rod",
         "de_de": "Netheritstab"
       },
-      "texture": "assets/textures/item/netherite_rod.png",
+      "texture": "assets/textures/block/netherite_rod.png",
       "craftedBy": [
         "simplebuilding:netherite_rod_smithing"
       ],
@@ -12491,28 +12493,29 @@
         "simplebuilding:enderite_rod_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/netherite_rod.png",
       "note": {
         "en": {
-          "summary": "Smithing table (MC 26.3): Netherite Upgrade + Diamond Rod + Netherite Ingot give the Netherite Rod.",
+          "summary": "A lightning rod made of netherite (MC 26.3): smithing table, Netherite Upgrade + Diamond Rod + Netherite Ingot give the Netherite Rod.",
           "details": [
-            "An item like the blaze rod; it does not burn, like netherite items, and there is no way back to the Diamond Rod.",
-            "At the Fletching Table it is an arrow shaft: +1 damage, and the arrows do not burn in lava or fire as items.",
+            "It works like the Iron and Gold Rod - placed on any face (also in water), a redstone signal when lightning strikes it, no oxidizing - and reaches further: it attracts lightning within 96 blocks (iron: 32, gold: 64, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal rods reach the strike, the nearest one wins.",
+            "Like netherite items the item does not burn. There is no way back to the Diamond Rod, and it is no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the netherite block.",
             "At the smithing table it becomes the Enderite Rod."
           ]
         },
         "de": {
-          "summary": "Schmiedetisch (MC 26.3): Netherit-Aufwertung + Diamantstab + Netheritbarren ergeben den Netheritstab.",
+          "summary": "Ein Blitzableiter aus Netherit (MC 26.3): Schmiedetisch, Netherit-Aufwertung + Diamantstab + Netheritbarren ergeben den Netheritstab.",
           "details": [
-            "Ein Item wie die Lohenrute; er verbrennt nicht, wie Netherit-Items, und es gibt keinen Rückweg zum Diamantstab.",
-            "Am Befiederungstisch ist er ein Pfeilschaft: +1 Schaden, und die Pfeile verbrennen als Item nicht in Lava oder Feuer.",
+            "Er arbeitet wie Eisen- und Goldstab - an jede Seite setzbar (auch im Wasser), Redstone-Signal beim Einschlag, oxidiert nicht - und reicht weiter: er zieht Blitze im Umkreis von 96 Blöcken an (Eisen: 32, Gold: 64, Kupfer: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstäbe den Einschlag, gewinnt der nächste.",
+            "Wie Netherit-Items verbrennt das Item nicht. Es gibt keinen Rückweg zum Diamantstab, und er ist kein Pfeilschaft (seit 2026-10-03). Braucht wie der Netheritblock mindestens eine Diamantspitzhacke.",
             "Am Schmiedetisch wird er zum Enderitstab."
           ]
         },
         "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "common/src/shared/java/com/simplebuilding/fletching/ArrowParts.java",
-          "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java"
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -19354,6 +19357,47 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_rod",
+      "name": {
+        "en_us": "Enderite Rod",
+        "de_de": "Enderitstab"
+      },
+      "texture": "assets/textures/block/enderite_rod.png",
+      "craftedBy": [
+        "simplebuilding:enderite_rod_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_rod.png",
+      "lootTable": "simplebuilding:blocks/enderite_rod",
+      "drops": [
+        "simplebuilding:enderite_rod"
+      ],
+      "note": {
+        "en": {
+          "summary": "A lightning rod made of enderite (MC 26.3): smithing table, Enderite Upgrade + Netherite Rod + Enderite Ingot give the Enderite Rod.",
+          "details": [
+            "It works like the other metal rods and reaches as far as the copper lightning rod: it attracts lightning within 128 blocks, as the top block of its column, and only when no copper lightning rod is in range (copper still goes first). If several metal rods reach the strike, the nearest one wins.",
+            "The item is fire resistant and, like every enderite item, protected from the void. No way back, and no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the enderite block."
+          ]
+        },
+        "de": {
+          "summary": "Ein Blitzableiter aus Enderit (MC 26.3): Schmiedetisch, Enderit-Aufwertung + Netheritstab + Enderitbarren ergeben den Enderitstab.",
+          "details": [
+            "Er arbeitet wie die anderen Metallstäbe und reicht so weit wie der Kupfer-Blitzableiter: er zieht Blitze im Umkreis von 128 Blöcken an, als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist (Kupfer geht weiter vor). Erreichen mehrere Metallstäbe den Einschlag, gewinnt der nächste.",
+            "Das Item ist feuerfest und wie jedes Enderit-Item gegen den Void geschützt. Kein Rückweg und kein Pfeilschaft (seit 2026-10-03). Braucht wie der Enderitblock mindestens eine Diamantspitzhacke."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_shulker_box",
       "name": {
         "en_us": "Enderite Shulker Box",
@@ -19866,14 +19910,14 @@
         "en": {
           "summary": "A lightning rod made of gold (MC 26.3): three gold ingots stacked give one Gold Rod.",
           "details": [
-            "It works like the Iron Rod - placed on any face, a redstone signal when lightning strikes it, no oxidizing - but reaches further: it attracts lightning within 64 blocks (iron: 32, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several iron or gold rods reach the strike, the nearest one wins.",
+            "It works like the Iron Rod - placed on any face, a redstone signal when lightning strikes it, no oxidizing - but reaches further: it attracts lightning within 64 blocks (iron: 32, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal rods (iron, gold, netherite, enderite) reach the strike, the nearest one wins.",
             "One Gold Rod in the crafting grid gives the three gold ingots back. Needs an iron pickaxe or better, like the gold block."
           ]
         },
         "de": {
           "summary": "Ein Blitzableiter aus Gold (MC 26.3): drei Goldbarren übereinander ergeben einen Goldstab.",
           "details": [
-            "Er arbeitet wie der Eisenstab - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht -, reicht aber weiter: er zieht Blitze im Umkreis von 64 Blöcken an (Eisen: 32, Kupfer: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Eisen- oder Goldstäbe den Einschlag, gewinnt der nächste.",
+            "Er arbeitet wie der Eisenstab - an jede Seite setzbar, Redstone-Signal beim Einschlag, oxidiert nicht -, reicht aber weiter: er zieht Blitze im Umkreis von 64 Blöcken an (Eisen: 32, Kupfer: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstäbe (Eisen, Gold, Netherit, Enderit) den Einschlag, gewinnt der nächste.",
             "Ein Goldstab im Handwerksfeld gibt die drei Goldbarren zurück. Braucht wie der Goldblock mindestens eine Eisenspitzhacke."
           ]
         },
@@ -20005,7 +20049,7 @@
         "en": {
           "summary": "A lightning rod made of iron (MC 26.3): three iron ingots stacked give one Iron Rod.",
           "details": [
-            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range. If several iron or gold rods reach the strike, the nearest one wins.",
+            "It looks and works like the copper lightning rod - placed on any face, it gives a redstone signal when lightning strikes it and does not oxidize - but it attracts lightning more weakly: only within 32 blocks (the copper rod: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal rods (iron, gold, netherite, enderite) reach the strike, the nearest one wins.",
             "One Iron Rod in the crafting grid gives the three iron ingots back.",
             "Ingredient of the Resonance Rod and the Rotator. Needs a stone pickaxe or better."
           ]
@@ -20013,7 +20057,7 @@
         "de": {
           "summary": "Ein Blitzableiter aus Eisen (MC 26.3): drei Eisenbarren übereinander ergeben einen Eisenstab.",
           "details": [
-            "Er sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Eisen- oder Goldstäbe den Einschlag, gewinnt der nächste.",
+            "Er sieht aus und arbeitet wie der Kupfer-Blitzableiter - an jede Seite setzbar, gibt beim Einschlag ein Redstone-Signal und oxidiert nicht -, zieht Blitze aber schwächer an: nur im Umkreis von 32 Blöcken (der Kupferstab: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstäbe (Eisen, Gold, Netherit, Enderit) den Einschlag, gewinnt der nächste.",
             "Ein Eisenstab im Handwerksfeld gibt die drei Eisenbarren zurück.",
             "Zutat für den Resonanzstab und den Rotator. Braucht mindestens eine Steinspitzhacke."
           ]
@@ -21368,6 +21412,51 @@
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:netherite_rod",
+      "name": {
+        "en_us": "Netherite Rod",
+        "de_de": "Netheritstab"
+      },
+      "texture": "assets/textures/block/netherite_rod.png",
+      "craftedBy": [
+        "simplebuilding:netherite_rod_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_rod_smithing"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/netherite_rod.png",
+      "lootTable": "simplebuilding:blocks/netherite_rod",
+      "drops": [
+        "simplebuilding:netherite_rod"
+      ],
+      "note": {
+        "en": {
+          "summary": "A lightning rod made of netherite (MC 26.3): smithing table, Netherite Upgrade + Diamond Rod + Netherite Ingot give the Netherite Rod.",
+          "details": [
+            "It works like the Iron and Gold Rod - placed on any face (also in water), a redstone signal when lightning strikes it, no oxidizing - and reaches further: it attracts lightning within 96 blocks (iron: 32, gold: 64, copper: 128), as the top block of its column, and only when no copper lightning rod is in range. If several metal rods reach the strike, the nearest one wins.",
+            "Like netherite items the item does not burn. There is no way back to the Diamond Rod, and it is no arrow shaft (since 2026-10-03). Needs a diamond pickaxe or better, like the netherite block.",
+            "At the smithing table it becomes the Enderite Rod."
+          ]
+        },
+        "de": {
+          "summary": "Ein Blitzableiter aus Netherit (MC 26.3): Schmiedetisch, Netherit-Aufwertung + Diamantstab + Netheritbarren ergeben den Netheritstab.",
+          "details": [
+            "Er arbeitet wie Eisen- und Goldstab - an jede Seite setzbar (auch im Wasser), Redstone-Signal beim Einschlag, oxidiert nicht - und reicht weiter: er zieht Blitze im Umkreis von 96 Blöcken an (Eisen: 32, Gold: 64, Kupfer: 128), als oberster Block seiner Säule, und nur, wenn kein Kupfer-Blitzableiter in Reichweite ist. Erreichen mehrere Metallstäbe den Einschlag, gewinnt der nächste.",
+            "Wie Netherit-Items verbrennt das Item nicht. Es gibt keinen Rückweg zum Diamantstab, und er ist kein Pfeilschaft (seit 2026-10-03). Braucht wie der Netheritblock mindestens eine Diamantspitzhacke.",
+            "Am Schmiedetisch wird er zum Enderitstab."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/MetalRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/MetalRodLightningMixin.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -33205,66 +33294,6 @@
       ]
     },
     {
-      "id": "simplebuilding:fletching/amethyst_enderite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_enderite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/amethyst_enderite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_enderite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/amethyst_netherite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_netherite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/amethyst_netherite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/amethyst_netherite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:fletching/amethyst_stick_feather",
       "type": "simplebuilding:fletching",
       "category": null,
@@ -33409,66 +33438,6 @@
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/copper_enderite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_enderite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/copper_enderite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_enderite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/copper_netherite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_netherite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/copper_netherite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/copper_netherite_rod_phantom_membrane.json",
       "ingredients": [],
       "lines": [
         "26.3"
@@ -33625,66 +33594,6 @@
       ]
     },
     {
-      "id": "simplebuilding:fletching/diamond_enderite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_enderite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_enderite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_enderite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_netherite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_netherite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/diamond_netherite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/diamond_netherite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:fletching/diamond_stick_feather",
       "type": "simplebuilding:fletching",
       "category": null,
@@ -33829,66 +33738,6 @@
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_enderite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_enderite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_enderite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_enderite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_netherite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_netherite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/enderite_netherite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/enderite_netherite_rod_phantom_membrane.json",
       "ingredients": [],
       "lines": [
         "26.3"
@@ -34045,66 +33894,6 @@
       ]
     },
     {
-      "id": "simplebuilding:fletching/flint_enderite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_enderite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_enderite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_enderite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_netherite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_netherite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/flint_netherite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/flint_netherite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:fletching/flint_stick_feather",
       "type": "simplebuilding:fletching",
       "category": null,
@@ -34249,66 +34038,6 @@
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_enderite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_enderite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_enderite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_enderite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_netherite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_netherite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/gold_netherite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/gold_netherite_rod_phantom_membrane.json",
       "ingredients": [],
       "lines": [
         "26.3"
@@ -34465,66 +34194,6 @@
       ]
     },
     {
-      "id": "simplebuilding:fletching/iron_enderite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_enderite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_enderite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_enderite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_netherite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_netherite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/iron_netherite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/iron_netherite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:fletching/iron_stick_feather",
       "type": "simplebuilding:fletching",
       "category": null,
@@ -34675,66 +34344,6 @@
       ]
     },
     {
-      "id": "simplebuilding:fletching/netherite_enderite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_enderite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_enderite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_enderite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_netherite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_netherite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/netherite_netherite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/netherite_netherite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:fletching/netherite_stick_feather",
       "type": "simplebuilding:fletching",
       "category": null,
@@ -34879,66 +34488,6 @@
         "count": 1
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_end_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_enderite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_enderite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_enderite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_enderite_rod_phantom_membrane.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_netherite_rod_feather",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_netherite_rod_feather.json",
-      "ingredients": [],
-      "lines": [
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:fletching/prismarine_netherite_rod_phantom_membrane",
-      "type": "simplebuilding:fletching",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": null,
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/fletching/prismarine_netherite_rod_phantom_membrane.json",
       "ingredients": [],
       "lines": [
         "26.3"
@@ -50236,6 +49785,22 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_pressure_plate.json"
     },
     {
+      "id": "simplebuilding:blocks/enderite_rod",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:enderite_rod"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_rod.json"
+    },
+    {
       "id": "simplebuilding:blocks/enderite_shulker_box",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -50666,6 +50231,22 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/netherite_rod",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:netherite_rod"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_rod.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_shulker_box",
@@ -82912,9 +82493,9 @@
   },
   "counts": {
     "items": 207,
-    "blocks": 167,
-    "recipes": 587,
-    "lootTables": 166,
+    "blocks": 169,
+    "recipes": 551,
+    "lootTables": 168,
     "trades": 20,
     "enchantments": 19,
     "tags": 47,
