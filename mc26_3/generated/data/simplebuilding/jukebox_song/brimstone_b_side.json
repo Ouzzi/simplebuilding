@@ -3,6 +3,6 @@
   "description": {
     "translate": "jukebox_song.simplebuilding.brimstone_b_side"
   },
-  "length_in_seconds": 3.0,
+  "length_in_seconds": 150.0,
   "sound_event": "simplebuilding:music_disc.brimstone_b_side"
 }

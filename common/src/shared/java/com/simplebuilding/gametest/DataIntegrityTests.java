@@ -349,6 +349,11 @@ public final class DataIntegrityTests {
             }
         }
 
+        // Track 3/4 of the music discs (2026-10-04) are registered in a loop over MusicDiscs.SONGS.
+        for (Item track : ModItems.MUSIC_DISC_EXTRA_TRACKS.values()) {
+            declared.add(BuiltInRegistries.ITEM.getKey(track));
+        }
+
         // Reverse direction: nothing may hide in the registry that the mod does not know about.
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             if (MOD_ID.equals(id.getNamespace()) && !declared.contains(id)) {

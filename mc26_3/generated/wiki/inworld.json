@@ -8192,7 +8192,8 @@
     "cycles": [
       [
         "simplebuilding:music_disc_voidline",
-        "simplebuilding:music_disc_voidline_b_side"
+        "simplebuilding:music_disc_voidline_b_side",
+        "simplebuilding:music_disc_voidline_track_3"
       ],
       [
         "simplebuilding:music_disc_driftwood",

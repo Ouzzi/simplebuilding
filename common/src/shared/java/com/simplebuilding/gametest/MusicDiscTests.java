@@ -210,9 +210,15 @@ public final class MusicDiscTests {
         helper.assertTrue(pile.parts().get(1).is(ModItems.MUSIC_DISC_VOIDLINE_B_SIDE), "A -> B: " + pile.parts());
         helper.assertTrue(pile.parts().get(0).is(Items.FLINT), "the flint changed: " + pile.parts());
         helper.assertValueEqual(hammer.getDamageValue(), 1, "hammer damage after one flip");
+        // Weiter ueber alle vorhandenen Tracks der Platte (End: 3 seit der Musik des Besitzers) zurueck zu Track 1.
+        List<Item> tracks = MusicDiscs.discs().get(0).tracks();
+        for (int i = 2; i < tracks.size(); i++) {
+            click(helper, player, rel, hammer);
+            helper.assertTrue(pile.parts().get(1).is(tracks.get(i)), "track " + i + " -> " + (i + 1) + ": " + pile.parts());
+        }
         click(helper, player, rel, hammer);
-        helper.assertTrue(pile.parts().get(1).is(ModItems.MUSIC_DISC_VOIDLINE), "B -> A: " + pile.parts());
-        helper.assertValueEqual(hammer.getDamageValue(), 2, "hammer damage after two flips");
+        helper.assertTrue(pile.parts().get(1).is(ModItems.MUSIC_DISC_VOIDLINE), "last track -> track 1: " + pile.parts());
+        helper.assertValueEqual(hammer.getDamageValue(), tracks.size(), "one durability per switch");
 
         // Ohne Platte im Haeufchen tut der Hammer hier nichts.
         pile.setParts(List.of(new ItemStack(Items.FLINT)));

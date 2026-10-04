@@ -1,0 +1,20 @@
+{
+  "_readme": "Owner's music (2026-10-04, provided by the owner, made with an AI music tool): file in the music folder and the in-game title per disc track (1, 2, 3, 4). 'The version always stands at the end' of the file name; the assignment below is the owner's. Titles: short, vanilla-like (Pigstep, Otherside, Relic), inspired by the file names; the artist stays SimpleBuilding. Read by tools/audio/import_discs.py; a disc missing here falls back to <stem>.mp3, <stem>_alt.mp3, <stem>_3.mp3, <stem>_4.mp3.",
+  "voidline": [
+    {"file": "Echoes_of_the_Heavy_Heart_end.wav", "title": "Heavy Heart"},
+    {"file": "Shadows_of_the_Monolith_end_1.wav", "title": "Monolith"},
+    {"file": "Iron_Sonata_end_2.wav", "title": "Iron Sonata"}
+  ],
+  "driftwood": [
+    {"file": "Rain-Stained Storytime 2_overworld_lofi_1.wav", "title": "Rainfall"},
+    {"file": "Rain-Stained Storytime_overworld_lofi_2.wav", "title": "Storytime"}
+  ],
+  "daybreak": [
+    {"file": "Blocks_and_Soft_Breezes_overworld.wav", "title": "Soft Breeze"},
+    {"file": "Blockwood_Serenade_overworld_1.wav", "title": "Blockwood"}
+  ],
+  "brimstone": [
+    {"file": "Riffstorm Rally_nether.wav", "title": "Riffstorm"},
+    {"file": "Riffstorm Rally 2_nether_1.wav", "title": "Rally"}
+  ]
+}

@@ -1,6 +1,6 @@
 """Shared table of the music discs (mirror of com.simplebuilding.util.MusicDiscs#SONGS).
 
-song name -> (owner file stem in the musik folder, comparator level). Each disc has up to four tracks:
+song name -> (owner file stem in the music folder, comparator level). Each disc has up to four tracks:
 
     track 1  <song>          <stem>.mp3        (always)
     track 2  <song>_b_side   <stem>_alt.mp3    (always, B-side)
@@ -18,8 +18,10 @@ LANG_FILES = [os.path.join(REPO, base, "assets", "simplebuilding", "lang", name)
 #: Datagen output of the songs (from MusicDiscs.SONGS); import_discs.py patches both.
 SONG_DATA = os.path.join(REPO, "mc26_3", "generated", "data", "simplebuilding", "jukebox_song")
 MUSIC_DISCS_JAVA = os.path.join(REPO, "common", "src", "shared", "java", "com", "simplebuilding", "util", "MusicDiscs.java")
-#: Where the owner drops the real tracks (MP3 or WAV).
-DEFAULT_SOURCE = r"C:\Users\o_o\code\minecraft-mods\musik"
+#: Where the owner drops the real tracks (MP3 or WAV); --source overrides it.
+DEFAULT_SOURCE = r"C:\Users\o_o\code\minecraft-mods\music"
+#: The owner's file and in-game title per disc track (tools/audio/owner_tracks.json).
+OWNER_MAP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "owner_tracks.json")
 MAX_TRACKS = 4
 
 #: End, Overworld 1, Overworld 2, Nether - same order as MusicDiscs.SONGS.

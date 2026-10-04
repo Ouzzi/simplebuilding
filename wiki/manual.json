@@ -3564,9 +3564,9 @@
       ],
       "en": {
         "title": "Music discs and speakers",
-        "summary": "Four music discs, one per dimension, each with a B-side, and two speakers that make a jukebox or a note block louder.",
+        "summary": "Four music discs, one per dimension, each with several tracks (the owner's music, artist SimpleBuilding), and two speakers that make a jukebox or a note block louder and carry it through a building.",
         "details": [
-          "Voidline (End) lies in end city chests (4 %), Brimstone (Nether) in bastion chests (4 %), Driftwood (Overworld) in woodland mansion chests (5 %) and Daybreak (Overworld) in ancient city chests (2.5 %). Driftwood and Daybreak also drop when a skeleton kills a creeper, like vanilla discs.",
+          "End disc (tracks Heavy Heart, Monolith, Iron Sonata) in end city chests (4 %), Nether disc (Riffstorm, Rally) in bastion chests (4 %), Overworld disc Rainfall/Storytime in woodland mansion chests (5 %) and Overworld disc Soft Breeze/Blockwood in ancient city chests (2.5 %). Both Overworld discs also drop when a skeleton kills a creeper, like vanilla discs. The tooltip names the track a disc plays.",
           "Tracks: a placed disc (sneak + right-click on the ground) switches to its next track with a right-click of a sledgehammer - B-side, then tracks 3 and 4 where they exist, then the first again (1 durability each).",
           "Astralit Speaker (eight planks around Astralit Dust) makes a directly adjacent jukebox louder and heard farther; Nihilit Speaker (eight planks around a Nihilit Shard) does the same for a note block. Each speaker of the right kind adds 50 % volume (server.speakers.boostPercent, at most 50 %); at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off). Same sound at the same time - no echo, no delay.",
           "Chain: a speaker touching the source, or touching a speaker already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every speaker in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
@@ -3575,9 +3575,9 @@
       },
       "de": {
         "title": "Schallplatten und Lautsprecher",
-        "summary": "Vier Schallplatten, eine je Dimension, jede mit B-Seite, und zwei Lautsprecher, die einen Plattenspieler bzw. Notenblock lauter machen.",
+        "summary": "Vier Schallplatten, eine je Dimension, jede mit mehreren Tracks (Musik des Besitzers, Künstler SimpleBuilding), und zwei Lautsprecher, die einen Plattenspieler bzw. Notenblock lauter machen und durch ein Gebäude tragen.",
         "details": [
-          "Voidline (End) liegt in Endsiedlungs-Truhen (4 %), Brimstone (Nether) in Bastion-Truhen (4 %), Driftwood (Oberwelt) in Waldanwesen-Truhen (5 %) und Daybreak (Oberwelt) in Truhen der Antiken StÃ¤tte (2,5 %). Driftwood und Daybreak fallen auch, wenn ein Skelett einen Creeper tÃ¶tet, wie Vanilla-Platten.",
+          "End-Platte (Tracks Heavy Heart, Monolith, Iron Sonata) in Endsiedlungs-Truhen (4 %), Nether-Platte (Riffstorm, Rally) in Bastion-Truhen (4 %), Oberwelt-Platte Rainfall/Storytime in Waldanwesen-Truhen (5 %) und Oberwelt-Platte Soft Breeze/Blockwood in Truhen der Antiken Stätte (2,5 %). Beide Oberwelt-Platten fallen auch, wenn ein Skelett einen Creeper tötet, wie Vanilla-Platten. Der Tooltip nennt den Track der Platte.",
           "Tracks: eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wechselt mit einem Rechtsklick des Vorschlaghammers zum nächsten Track - B-Seite, dann Track 3 und 4, wo es sie gibt, dann wieder der erste (je 1 Haltbarkeit).",
           "Astralit-Lautsprecher (acht Bretter um Astralitstaub) macht einen direkt angrenzenden Plattenspieler lauter und weiter hÃ¶rbar; Nihilit-Lautsprecher (acht Bretter um einen Nihilitsplitter) dasselbe fÃ¼r einen Notenblock. Jeder passende Lautsprecher gibt 50 % LautstÃ¤rke dazu (server.speakers.boostPercent, hÃ¶chstens 50 %); hÃ¶chstens 2 zÃ¤hlen (server.speakers.maxSpeakers, hÃ¶chstens 3, 0 = aus). Derselbe Klang zur selben Zeit - kein Echo, keine VerzÃ¶gerung.",
           "Kette: ein Lautsprecher an der Quelle oder an einem Lautsprecher der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Lautsprecher der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",

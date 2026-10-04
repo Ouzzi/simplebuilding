@@ -267,5 +267,5 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 ## Besitzer 2026-10-04 (Nachtrag 7)
 
 - [ ] Lautsprecher-Texturen dezenter: vom Notenblock ausgehen und daraus eine neue Textur machen; die dunklen Spots des Notenblocks durch Pixel der jeweiligen Rohmaterial-Textur (Astralit/Nihilit) ersetzen. Je 5 Vorschläge, alle Blockseiten gleiche Textur.
-- [ ] Schallplatten: auch Track 3 und 4 erlauben, falls vorhanden (Vorschlaghammer-Zyklus 1 → 2 → 3 → 4 → 1, nur über vorhandene Tracks).
-- [ ] Lautsprecher verketten: Noten- bzw. Plattenspieler-Verstärker sollen sich gegenseitig weitergeben (nicht unbedingt lauter, aber der Sound erreicht den Spieler über mehrere Lautsprecher hinweg – eine große Villa beschallen).
+- [x] Schallplatten: auch Track 3 und 4 erlauben, falls vorhanden (Vorschlaghammer-Zyklus 1 → 2 → 3 → 4 → 1, nur über vorhandene Tracks). (claude-audio: Track 3/4 entstehen per Import-Skript; echte Musik importiert)
+- [x] Lautsprecher verketten: (claude-audio: BFS-Kette, server.speakers.maxChain 16/64, je Spieler nächster Abspielpunkt; Hör-Abnahme offen) Noten- bzw. Plattenspieler-Verstärker sollen sich gegenseitig weitergeben (nicht unbedingt lauter, aber der Sound erreicht den Spieler über mehrere Lautsprecher hinweg – eine große Villa beschallen).

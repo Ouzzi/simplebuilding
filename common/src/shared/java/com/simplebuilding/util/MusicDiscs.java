@@ -80,10 +80,10 @@ public final class MusicDiscs {
 
     /** End, Oberwelt 1, Oberwelt 2, Nether - in dieser Reihenfolge (Tabs, Testzentrale, Import-Skript). */
     public static final List<Song> SONGS = List.of(
-            new Song("voidline", "end", 14, 3.0F, 3.0F),
-            new Song("driftwood", "overworld1", 6, 3.0F, 3.0F),
-            new Song("daybreak", "overworld2", 12, 3.0F, 3.0F),
-            new Song("brimstone", "nether", 13, 3.0F, 3.0F));
+            new Song("voidline", "end", 14, 120.0F, 120.0F, 140.0F),
+            new Song("driftwood", "overworld1", 6, 180.0F, 180.0F),
+            new Song("daybreak", "overworld2", 12, 120.0F, 120.0F),
+            new Song("brimstone", "nether", 13, 150.0F, 150.0F));
 
     private MusicDiscs() {
     }
