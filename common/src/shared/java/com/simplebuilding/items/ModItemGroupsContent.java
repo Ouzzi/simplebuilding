@@ -404,7 +404,7 @@ public final class ModItemGroupsContent {
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             // Endertruhe und Astral-Lager nach einer Luecke neben den Truhen (Audit 2026-10-02).
             int chests = rows.indexOf(rows.stream().filter(row -> row.name().equals("chests")).findFirst().orElseThrow());
-            rows.add(chests + 1, CreativeTabLayout.Row.besides("astral_storage", Items.ENDER_CHEST, ModItems.ASTRAL_VAULT));
+            rows.add(chests + 1, CreativeTabLayout.Row.besides("astral_storage", Items.ENDER_CHEST, ModItems.ASTRAL_VAULT, ModItems.NIHIL_VAULT));
             rows.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, ModItems.NIHIL_PISTON, CreativeTabLayout.GAP, ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP, ModItems.ASTRAL_PISTON));
         }
         if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {

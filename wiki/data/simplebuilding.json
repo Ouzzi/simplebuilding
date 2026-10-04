@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 302,
+      "count": 303,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3514,6 +3514,37 @@
           "Die Zusatzplaetze werden in den persoenlichen Enderinventardaten unter Slot-Indizes 27–53 gespeichert. Beim Respawn bleibt dasselbe Enderinventar erhalten. Spieler und Dimensionen erzeugen kein oeffentlich geteiltes Lager.",
           "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewölbe, nicht den persoenlichen Inhalt; Trichter haben keinen Zugriff.",
           "server.features.astralVault sperrt das Oeffnen und bestehende Gewölbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    {
+      "id": "nihil_vault",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/NihilVaultBlock.java",
+        "common/src/shared/java/com/simplebuilding/util/NihilVaultStorage.java",
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+      ],
+      "related": [
+        "simplebuilding:nihil_vault"
+      ],
+      "en": {
+        "title": "Nihil Vault",
+        "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+        "details": [
+          "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+          "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
+          "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
+          "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Nihil-Gewölbe",
+        "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+        "details": [
+          "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+          "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
+          "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
+          "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
       }
     },
@@ -8681,7 +8712,8 @@
         "simplebuilding:echo_sounder",
         "simplebuilding:enderite_apple",
         "simplebuilding:enderite_carrot",
-        "simplebuilding:enderite_ingot_from_nugget"
+        "simplebuilding:enderite_ingot_from_nugget",
+        "simplebuilding:nihil_vault"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -14224,6 +14256,48 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_vault",
+      "name": {
+        "en_us": "Nihil Vault",
+        "de_de": "Nihil-Gewölbe"
+      },
+      "texture": "assets/textures/block/nihil_vault.png",
+      "craftedBy": [
+        "simplebuilding:nihil_vault"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_vault.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/NihilVaultBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/NihilVaultStorage.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Nihil Vault",
+          "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+          "details": [
+            "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+            "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
+            "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
+            "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Nihil-Gewölbe",
+          "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+          "details": [
+            "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+            "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
+            "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
+            "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:nihilith_block",
       "name": {
         "en_us": "Block of Nihilit",
@@ -14477,6 +14551,7 @@
         "simplebuilding:nihil_end_stone",
         "simplebuilding:nihil_purpur_block",
         "simplebuilding:nihil_redstone",
+        "simplebuilding:nihil_vault",
         "simplebuilding:nihilith_block",
         "simplebuilding:nihilith_block_from_end_stone",
         "simplebuilding:nihilith_brick_slab_from_end_stone_brick_slab",
@@ -24682,6 +24757,52 @@
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_vault",
+      "name": {
+        "en_us": "Nihil Vault",
+        "de_de": "Nihil-Gewölbe"
+      },
+      "texture": "assets/textures/block/nihil_vault.png",
+      "craftedBy": [
+        "simplebuilding:nihil_vault"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_vault.png",
+      "lootTable": "simplebuilding:blocks/nihil_vault",
+      "drops": [
+        "simplebuilding:nihil_vault"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/NihilVaultBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/NihilVaultStorage.java",
+          "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java"
+        ],
+        "en": {
+          "title": "Nihil Vault",
+          "summary": "One 27-slot inventory for the whole world: every Nihil Vault shows the same contents to every player.",
+          "details": [
+            "Craft an ender chest with six Enderite Nuggets and two Nihilith Shards. The vault opens a three-row chest menu, as large as an ender chest.",
+            "All Nihil Vaults in all dimensions share one container, saved with the Overworld. Every player who opens any vault sees and changes the same items; open menus on the same container stay synchronized like players at one vanilla chest, so nothing can be duplicated.",
+            "The vanilla ender chest block entity supplies lid animation, opening and closing sounds, particles, and waterlogging. A solid block above prevents opening. Breaking the vault drops the vault; the shared contents stay and appear in every other or newly placed vault. Hoppers cannot access them and comparators read nothing.",
+            "server.features.nihilVault prevents opening and invalidates open vault menus while preserving contents; recipes disappear on datapack reload."
+          ]
+        },
+        "de": {
+          "title": "Nihil-Gewölbe",
+          "summary": "Ein 27-Platz-Inventar fuer die ganze Welt: jedes Nihil-Gewoelbe zeigt jedem Spieler denselben Inhalt.",
+          "details": [
+            "Rezept: Endertruhe mit sechs Enderitklumpen und zwei Nihilitsplittern. Das Gewoelbe oeffnet ein Truhenmenue mit drei Reihen, so gross wie eine Endertruhe.",
+            "Alle Nihil-Gewoelbe aller Dimensionen teilen einen Container, gespeichert mit der Oberwelt. Jeder Spieler sieht und aendert an jedem Gewoelbe dieselben Gegenstaende; offene Menues bleiben synchron wie mehrere Spieler an einer Vanilla-Truhe, dupliziert wird nichts.",
+            "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darueber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
+            "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:nihilith_block",
@@ -43119,6 +43240,66 @@
       }
     },
     {
+      "id": "simplebuilding:nihil_vault",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_vault",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_vault.json",
+      "ingredients": [
+        "minecraft:ender_chest",
+        "simplebuilding:enderite_nugget",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        "NAN",
+        "NEN",
+        "NAN"
+      ],
+      "key": {
+        "A": [
+          "simplebuilding:nihilith_shard"
+        ],
+        "N": [
+          "simplebuilding:enderite_nugget"
+        ],
+        "E": [
+          "minecraft:ender_chest"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:obsidian",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 2
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 0.667
+          },
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nihilith_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -57112,6 +57293,24 @@
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihil_redstone.json"
     },
     {
+      "id": "simplebuilding:blocks/nihil_vault",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_vault"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/nihil_vault.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihilith_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -62058,6 +62257,10 @@
           "required": true
         },
         {
+          "id": "simplebuilding:nihil_vault",
+          "required": true
+        },
+        {
           "id": "#simplebuilding:piston_breachable_extra",
           "required": true
         }
@@ -66476,6 +66679,26 @@
       "labelDe": "Astralgewölbe",
       "tooltip": "Enable Astral Vault use. Disabling preserves\ncontents. Recipes update on datapack reload.\nDefault: true.",
       "tooltipDe": "Astralgewoelbe aktivieren. Abschalten bewahrt\nden Inhalt. Rezepte nach Datenpaket-Neuladen.\nStandard: true."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.features.nihilVault",
+      "shortName": "nihilVault",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Nihil Vault",
+      "labelDe": "Nihil-Gewölbe",
+      "tooltip": "Enable Nihil Vault use. Disabling preserves\ncontents. Recipes update on datapack reload.\nDefault: true.",
+      "tooltipDe": "Nihil-Gewoelbe aktivieren. Abschalten bewahrt\nden Inhalt. Rezepte nach Datenpaket-Neuladen.\nStandard: true."
     },
     {
       "range": null,
@@ -88813,6 +89036,29 @@
       "source": "src/main/generated/data/simplebuilding/advancement/nether/nugget_of_wisdom.json"
     },
     {
+      "id": "simplebuilding:nihil_vault",
+      "parent": "simplebuilding:guides/root",
+      "icon": "simplebuilding:nihil_vault",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Nihil Vault",
+        "de_de": "Nihil-Gewölbe"
+      },
+      "description": {
+        "en_us": "Craft a vault whose 27 slots every player in the world shares.",
+        "de_de": "Stelle ein Gewölbe her, dessen 27 Plaetze alle Spieler der Welt teilen."
+      },
+      "criteria": [
+        {
+          "name": "nihil_vault",
+          "trigger": "minecraft:recipe_crafted"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/overlay/resources/data/simplebuilding/advancement/nihil_vault.json"
+    },
+    {
       "id": "simplebuilding:octant/colour_coded",
       "parent": "simplebuilding:octant/measure_twice",
       "icon": "simplebuilding:octant_light_blue",
@@ -92498,17 +92744,17 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 248,
-    "blocks": 201,
-    "recipes": 605,
-    "lootTables": 199,
+    "items": 249,
+    "blocks": 202,
+    "recipes": 606,
+    "lootTables": 200,
     "trades": 20,
     "enchantments": 19,
     "tags": 48,
-    "config": 197,
+    "config": 198,
     "inWorld": 463,
-    "advancements": 123,
-    "features": 45,
+    "advancements": 124,
+    "features": 46,
     "undocumented": 0,
     "incompleteProse": 0
   },

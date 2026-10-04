@@ -5,6 +5,7 @@
     "minecraft:bedrock",
     "minecraft:ender_chest",
     "simplebuilding:astral_vault",
+    "simplebuilding:nihil_vault",
     "#simplebuilding:piston_breachable_extra"
   ]
 }

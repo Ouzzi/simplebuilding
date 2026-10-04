@@ -13,7 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class AstralBlockEntityTypeMixin {
     @Inject(method = "isValid", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$vault(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if ((Object) this == BlockEntityTypes.ENDER_CHEST && state.getBlock() instanceof AstralVaultBlock)
+        if ((Object) this == BlockEntityTypes.ENDER_CHEST && (state.getBlock() instanceof AstralVaultBlock
+                || state.getBlock() instanceof com.simplebuilding.blocks.custom.NihilVaultBlock))
             cir.setReturnValue(true);
     }
 }

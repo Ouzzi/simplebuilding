@@ -479,4 +479,130 @@ public final class EndSystemsTests {
                 + state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.SOUTH).getSerializedName() + " "
                 + state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.WEST).getSerializedName();
     }
+
+    // --- Nihil-Gewoelbe (2026-10-04): weltweit geteilter Inhalt. Alle Tests teilen den Weltspeicher und laufen
+    // parallel; jeder nutzt deshalb nur seinen eigenen Slot und raeumt ihn danach wieder.
+
+    private static ServerPlayer openNihil(GameTestHelper helper, BlockPos pos) {
+        var absolute = helper.absolutePos(pos);
+        var player = helper.makeMockServerPlayerInLevel();
+        player.setPos(Vec3.atCenterOf(absolute));
+        var hit = new BlockHitResult(Vec3.atCenterOf(absolute), Direction.UP, absolute, false);
+        helper.getLevel().getBlockState(absolute).useWithoutItem(helper.getLevel(), player, hit);
+        return player;
+    }
+
+    private static net.minecraft.world.SimpleContainer nihilShared(GameTestHelper helper) {
+        return com.simplebuilding.util.NihilVaultStorage.get(helper.getLevel().getServer()).items();
+    }
+
+    /** Two vaults, two players: both menus show the one shared container; the lid counts each opener. */
+    public static void nihilVaultSharesBetweenVaultsAndPlayers(GameTestHelper helper) {
+        if (!active(helper)) return;
+        int slot = 1;
+        helper.setBlock(new BlockPos(1, 1, 1), ModBlocks.NIHIL_VAULT);
+        helper.setBlock(new BlockPos(4, 1, 1), ModBlocks.NIHIL_VAULT);
+        var world = helper.getLevel();
+        helper.assertTrue(BlockEntityTypes.ENDER_CHEST.isValid(helper.getBlockState(new BlockPos(1, 1, 1))), "nihil vault does not fit ender chest block entity");
+        var first = openNihil(helper, new BlockPos(1, 1, 1));
+        var second = openNihil(helper, new BlockPos(4, 1, 1));
+        try {
+            helper.assertTrue(first.containerMenu instanceof ChestMenu a && a.getRowCount() == 3 && a.slots.size() == 63, "first vault did not open a three-row menu");
+            helper.assertTrue(second.containerMenu instanceof ChestMenu b && b.getRowCount() == 3, "second vault did not open a three-row menu");
+            var chestA = (EnderChestBlockEntity) world.getBlockEntity(helper.absolutePos(new BlockPos(1, 1, 1)));
+            helper.assertTrue(first.getEnderChestInventory().isActiveChest(chestA), "vanilla lid opener is not bound");
+            first.containerMenu.getSlot(slot).set(new ItemStack(Items.DIAMOND, 7));
+            helper.assertTrue(second.containerMenu.getSlot(slot).getItem().is(Items.DIAMOND)
+                    && second.containerMenu.getSlot(slot).getItem().getCount() == 7, "second player at another vault does not see the item");
+            helper.assertTrue(nihilShared(helper).getItem(slot).getCount() == 7, "item did not reach world storage");
+            helper.assertTrue(first.getEnderChestInventory().getItem(slot).isEmpty(), "nihil vault wrote into the personal ender inventory");
+            first.closeContainer();
+            helper.assertTrue(!first.getEnderChestInventory().isActiveChest(chestA), "lid binding survived closing");
+            second.closeContainer();
+        } finally { nihilShared(helper).setItem(slot, ItemStack.EMPTY); }
+        helper.succeed();
+    }
+
+    /** Two open menus on the same stack: only the first shift-click gets it, nothing is duplicated. */
+    public static void nihilVaultNoDupeWithConcurrentMenus(GameTestHelper helper) {
+        if (!active(helper)) return;
+        int slot = 2;
+        helper.setBlock(new BlockPos(1, 1, 1), ModBlocks.NIHIL_VAULT);
+        helper.setBlock(new BlockPos(4, 1, 1), ModBlocks.NIHIL_VAULT);
+        var first = openNihil(helper, new BlockPos(1, 1, 1));
+        var second = openNihil(helper, new BlockPos(4, 1, 1));
+        try {
+            nihilShared(helper).setItem(slot, new ItemStack(Items.EMERALD, 10));
+            first.containerMenu.broadcastChanges();
+            second.containerMenu.broadcastChanges();
+            first.containerMenu.quickMoveStack(first, slot);
+            second.containerMenu.quickMoveStack(second, slot);
+            second.containerMenu.clicked(slot, 0, net.minecraft.world.inventory.ContainerInput.PICKUP, second);
+            int total = first.getInventory().countItem(Items.EMERALD) + second.getInventory().countItem(Items.EMERALD)
+                    + nihilShared(helper).countItem(Items.EMERALD) + second.containerMenu.getCarried().getCount();
+            helper.assertTrue(first.getInventory().countItem(Items.EMERALD) == 10, "first player did not get the stack");
+            helper.assertTrue(total == 10, "emeralds duplicated or lost: " + total);
+            first.closeContainer();
+            second.closeContainer();
+        } finally { nihilShared(helper).setItem(slot, ItemStack.EMPTY); }
+        helper.succeed();
+    }
+
+    /** World storage round-trips through its codec; breaking a vault drops the vault and keeps the contents. */
+    public static void nihilVaultPersistsAndBreakKeepsContents(GameTestHelper helper) {
+        if (!active(helper)) return;
+        int slot = 3;
+        var server = helper.getLevel().getServer();
+        var storage = com.simplebuilding.util.NihilVaultStorage.get(server);
+        try {
+            storage.setDirty(false);
+            storage.items().setItem(slot, new ItemStack(Items.GOLD_INGOT, 5));
+            helper.assertTrue(storage.isDirty(), "change does not mark the world storage dirty");
+            var ops = helper.getLevel().registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE);
+            var tag = com.simplebuilding.util.NihilVaultStorage.CODEC.encodeStart(ops, storage).getOrThrow();
+            var loaded = com.simplebuilding.util.NihilVaultStorage.CODEC.parse(ops, tag).getOrThrow();
+            helper.assertTrue(loaded.items().getItem(slot).is(Items.GOLD_INGOT) && loaded.items().getItem(slot).getCount() == 5, "contents lost after save/load");
+            helper.assertTrue(server.overworld().getDataStorage().computeIfAbsent(com.simplebuilding.util.NihilVaultStorage.TYPE) == storage, "storage is not one per world");
+
+            var pos = new BlockPos(1, 1, 1);
+            helper.setBlock(pos, ModBlocks.NIHIL_VAULT);
+            helper.getLevel().destroyBlock(helper.absolutePos(pos), true);
+            helper.assertBlockNotPresent(ModBlocks.NIHIL_VAULT, pos);
+            helper.assertItemEntityPresent(com.simplebuilding.items.ModItems.NIHIL_VAULT, pos, 2.0);
+            helper.assertTrue(storage.items().getItem(slot).getCount() == 5, "breaking the vault touched the shared contents");
+            helper.setBlock(new BlockPos(4, 1, 1), ModBlocks.NIHIL_VAULT);
+            var player = openNihil(helper, new BlockPos(4, 1, 1));
+            helper.assertTrue(player.containerMenu.getSlot(slot).getItem().is(Items.GOLD_INGOT), "a new vault does not show the kept contents");
+            player.closeContainer();
+        } finally { storage.items().setItem(slot, ItemStack.EMPTY); }
+        helper.succeed();
+    }
+
+    /** Switch off: no opening, open menus become invalid, contents stay; a solid block above blocks the lid. */
+    public static void nihilVaultConfigAndBlockedLid(GameTestHelper helper) {
+        if (!active(helper)) return;
+        int slot = 4;
+        var pos = new BlockPos(1, 1, 1);
+        helper.setBlock(pos, ModBlocks.NIHIL_VAULT);
+        boolean before = ServerTuning.get().features.nihilVault;
+        try {
+            nihilShared(helper).setItem(slot, new ItemStack(Items.IRON_INGOT));
+            var open = openNihil(helper, pos);
+            helper.assertTrue(open.containerMenu instanceof ChestMenu, "vault did not open");
+            ServerTuning.get().features.nihilVault = false;
+            helper.assertTrue(!open.containerMenu.stillValid(open), "disabled vault keeps open menus valid");
+            open.closeContainer();
+            var player = openNihil(helper, pos);
+            helper.assertTrue(player.containerMenu == player.inventoryMenu, "disabled vault opened");
+            helper.assertTrue(nihilShared(helper).getItem(slot).is(Items.IRON_INGOT), "disabled vault erased contents");
+            ServerTuning.get().features.nihilVault = true;
+            helper.setBlock(pos.above(), Blocks.STONE);
+            player = openNihil(helper, pos);
+            helper.assertTrue(player.containerMenu == player.inventoryMenu, "blocked lid opened");
+        } finally {
+            ServerTuning.get().features.nihilVault = before;
+            nihilShared(helper).setItem(slot, ItemStack.EMPTY);
+        }
+        helper.succeed();
+    }
 }

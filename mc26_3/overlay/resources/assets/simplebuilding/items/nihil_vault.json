@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "simplebuilding:item/nihil_vault",
+    "model": {
+      "type": "minecraft:chest",
+      "texture": "simplebuilding:nihil_vault"
+    }
+  }
+}
