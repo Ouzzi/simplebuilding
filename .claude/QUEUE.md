@@ -140,7 +140,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   Erledigt auf claude-astral: Ursache war das Modell (eine 16x16-Ebene mit dem Kreuzbild statt Multipart). Jetzt `EndSignalPowderBlock` mit Seiten none/side/up, Punkt/Linie/Kreuz, Wand hoch, Signal über Stufen, nur eigener Kanal; Item = umgefärbter Redstone-Haufen. Plan/Details: docs/ai/PLAN-ASTRAL-NIHIL-REDSTONE-2026-10-02.md. Abnahme im Client offen.
 - [x] Texturen von Nihil-/Astral-Schalter und -Lampe sind kaputt → reparieren.
   Erledigt auf claude-astral: Schalter = flache Platte (statt schwebender Ebene), Lampe = voller Würfel wie die Redstone-Lampe, Items zeigen das Blockmodell. Abnahme im Client offen.
-- [ ] Neue Blöcke: Astral-Kolben (drückt) und Nihil-Kolben (zieht). Mit Signal wird jeder Block im Abstand 1 in alle 6 Richtungen gleichzeitig um genau 1 Block gedrückt bzw. gezogen. Nie 2 Blöcke hintereinander in derselben Richtung. Erst als Konzept/Plan.
+- [x] Neue Blöcke: Astral-Kolben (drückt) und Nihil-Kolben (zieht). Mit Signal wird jeder Block im Abstand 1 in alle 6 Richtungen gleichzeitig um genau 1 Block gedrückt bzw. gezogen. Nie 2 Blöcke hintereinander in derselben Richtung. Erst als Konzept/Plan. (claude-pistons, master 46329ec8; Textur A, B/C zur Wahl)
   Konzept fertig: docs/ai/PLAN-ASTRAL-KOLBEN-2026-10-02.md (offene Besitzerfragen am Ende). Umsetzung wartet auf Freigabe.
 - [x] Bessere Truhen statt normaler Loot-Truhen, je 1 % Chance:
   - Verstärkte Truhe in der Festung (Stronghold), Netherit-Truhe in der Bastion oder der Netherfestung, Enderit-Truhe in der End-Stadt oder auf dem End-Schiff.
@@ -229,7 +229,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Redstone-Truhen (trapped chests) für jede der drei Truhen-Varianten (verstärkt, Netherit, Enderit). (`claude-gpt-trapped`: Vanilla-Signal, gleiche Lager-/Upgrade-Eigenschaften, Rezepte/Tags/Loot, EN/DE, Wiki und Texturvorschau; Fabric/NeoForge 26.3 1784/1784 grün, 26.2-/Forge-26.3-Compile und volles check grün. Plan: `docs/ai/PLAN-REDSTONE-TRUHEN-2026-10-02.md`. Client-Sichtabnahme offen; zwei unveränderte Handbuch-Seitenüberläufe separat dokumentiert.)
 - [x] Resonanzstab-Rezept: Redstone und Nuggets tauschen und unten rechts jeweils einen davon entfernen. (claude-gpt-recipes: ` NA` / `RC ` / `I  `; Annahme: Felder rechts und unterhalb des Kerns entfernen, da die Ecke bereits leer war. Plan: `docs/ai/PLAN-REZEPTE-PAD-FADE-2026-10-02.md`.)
 - [x] Geschwindigkeitsmesser: neues Rezept, gegen den Uhrzeigersinn gedreht. (claude-gpt-recipes: `AN ` / `NCN` / ` NK`; Rezepte, JEI, Wiki und EN/DE in beiden Ressourcenbäumen angepasst.)
-- [ ] Trainingspuppe neu denken:
+- [x] Trainingspuppe neu denken: (claude-dummy Runde 2, master 46329ec8)
 - [x] Trainingspuppe neu denken: (claude-dummy Runde 2: Sackkopf, jeder Treffer, Schere, eigenes Item)
   - Ein (verbesserter/Stroh-)Rüstungsständer mit aufgesetztem geschnitzten Kürbis bekommt die Textur einer Trainingspuppe, trägt den Kürbis aber NICHT sichtbar – er wird dadurch zur neuen Entity.
   - Die Entity reagiert bei JEDEM Treffer (aktuell verbuggt: nur beim ersten Treffer eine Anzeige).
@@ -238,7 +238,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Stroh-Rüstungsständer: einen Nutzen im Vanilla-Spiel geben. (Vogelscheuche: kein Feld-Zertrampeln im Radius 8, Config 0–16)
 - [x] Blaupausen überarbeiten, damit sie besser in Vanilla passen. (Kartenblatt B/C/C-signiert eingebaut, Besitzer zufrieden)
 - [x] Pads: Steht man darauf, soll die Textur-Animation einblenden statt mit dem ersten Frame hart zu starten. (claude-gpt-recipes: 26.3, vier Vanilla-Modellstufen über sechs Ticks, keine zusätzlichen Dauerticks; Fabric/NeoForge 1776/1776 grün. Vorschau: `previews/pad-fade-vorschau.png`; Sichtabnahme im Client offen.)
-- [ ] Raw Enderite Scrap: neue Textur, 10 Vorschläge.
+- [x] Raw Enderite Scrap: neue Textur, 10 Vorschläge. (Besitzer-Textur, Variante D dunkler eingebaut)
 - [x] Raw Enderite Scrap: neue Textur, 10 Vorschläge. (Besitzer-Textur eingebaut; Farb-Feinschliff siehe Nachtrag 5)
 - [x] Astralit und Nihilit: je 3 neue Textur-Vorschläge plus 3 Kontrast-Anpassungen der jetzigen Textur (je 6 Vorschläge). (als Alternativblöcke A–C eingebaut; Material siehe eigener Punkt)
 - [x] Mehr Placeables, auch Kerzen und Seegurken; alle Placeables untereinander mischbar machen. (claude-placeables2: 15 neue Teile, Kerzen/Seegurken mischbar)
@@ -249,20 +249,20 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Besatzvorlagen Glowing/Pulsating/Emitting: zweite Besitzer-Leinwände 1:1 (eigener Hintergrund), animiert nur auf seinen Motivpixeln (`trim_template_animation_2026_10_03.py`, previews/besatz-besitzer-final-vorschau.png + besatz-animation-*.gif). Sichtabnahme im Client offen.
 - [x] Raw Enderite Scrap (layered_raw_enderite): Besitzer-Textur eingebaut, Farben auf die Enderit-Schrott-Rampe (`layered_raw_enderite_owner_2026_10_03.py`, previews/enderit-besitzer-vorschau.png).
 - [x] Astralit-/Nihilith-Alternativblöcke A–C eingebaut (veined/crystalline/layered Astralit, veined/crystalline/frosted Nihilith; Meißel-Kette ab Grundblock, Steinmetz, Quadrat-Kette). Grundblock unverändert.
-- [ ] Astralit-/Nihilith-MATERIAL: je 10 Vorschläge (previews/astralit-nihilit-material-vorschau.png) – Besitzer wählt.
+- [x] Astralit-/Nihilith-MATERIAL: je 10 Vorschläge (previews/astralit-nihilit-material-vorschau.png) – Besitzer wählt. (Besitzer-Texturen 1:1 eingebaut, master 46329ec8)
 - [x] Blaupause eingebaut (Kartenblatt: frisch B, bearbeitet C, signiert C dunkel + Siegel; previews/blaupausen-eingebaut.png). 1.21.11-Kopien im Port-Run.
 
 ## Besitzer 2026-10-03 (Nachtrag 5)
 
-- [ ] Wollknäuel: Rezept aus Faden entfernen (nur noch aus Wolle).
-- [ ] Raw Enderite Scrap (Besitzer-Textur): farblich weiter anpassen, 3 Vorschläge.
+- [x] Wollknäuel: Rezept aus Faden entfernen (nur noch aus Wolle). (master 46329ec8)
+- [x] Raw Enderite Scrap (Besitzer-Textur): farblich weiter anpassen, 3 Vorschläge. (überholt durch v3, Wahl D)
 - [x] Blaupausen B/C/C-signiert: Besitzer zufrieden.
 
 ## Besitzer 2026-10-03 (Nachtrag 6)
 
 - [x] Schallplatten: alternative Track-Variante. (claude-audio: B-Seiten per Vorschlaghammer, nur Mod-Platten; Client-Abnahme offen) Eine abgelegte (platzierte) Platte mit dem Vorschlaghammer schlagen → wird zur Alternativ-Platte (etwas angepasste Optik, sonst gleich, spielt Track 2); erneut schlagen → zurück zum Original (Endlosschleife).
 - [x] Lautsprecher-Blöcke: (claude-audio: Astralit/Nihilit-Lautsprecher, angrenzend, Config `server.speakers`; Hör-Abnahme im Client offen) Astralit bzw. Nihilit mit Holzbrettern außenrum (Rezept analog Notenblock/Plattenspieler). Astralit-Lautsprecher verstärkt nur Plattenspieler-Signale, Nihilit-Lautsprecher nur Notenblock-Signale: höhere Lautstärke/Reichweite beim Spieler, „unverzögerter Lautsprecher“.
-- [ ] Raw Enderite Scrap: Variante D leicht dunkler einbauen.
+- [x] Raw Enderite Scrap: Variante D leicht dunkler einbauen. (master 46329ec8)
 
 ## Besitzer 2026-10-04 (Nachtrag 7)
 
