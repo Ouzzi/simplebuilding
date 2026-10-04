@@ -118,6 +118,7 @@
     "simplebuilding:nihil_piston",
     "simplebuilding:nihil_purpur_block",
     "simplebuilding:nihil_redstone",
+    "simplebuilding:nihil_vault",
     "simplebuilding:nihilith_block",
     "simplebuilding:nihilith_brick_slab",
     "simplebuilding:nihilith_brick_stairs",
@@ -1011,6 +1012,9 @@
     },
     {
       "id": "simplebuilding:nihil_redstone"
+    },
+    {
+      "id": "simplebuilding:nihil_vault"
     },
     {
       "id": "simplebuilding:nihilith_block"

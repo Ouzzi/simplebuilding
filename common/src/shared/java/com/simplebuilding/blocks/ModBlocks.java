@@ -43,6 +43,8 @@ public class ModBlocks {
     public static final Block NIHIL_PISTON = McVersion.END_SYSTEMS ? registerBlock("nihil_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(false, s.strength(1.5F).sound(SoundType.AMETHYST).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
     public static final Block ASTRAL_PISTON = McVersion.END_SYSTEMS ? registerBlock("astral_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(true, s.strength(1.5F).sound(SoundType.AMETHYST).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
     public static final Block ASTRAL_VAULT = McVersion.END_SYSTEMS ? registerBlock("astral_vault", Blocks.ENDER_CHEST, s -> new AstralVaultBlock(s.strength(50.0F, 1200.0F))) : null;
+    // Nihil-Gewoelbe (2026-10-04, docs/ai/PLAN-NIHIL-GEWOELBE-2026-10-02.md): eine weltweit geteilte Endertruhe.
+    public static final Block NIHIL_VAULT = McVersion.END_SYSTEMS ? registerBlock("nihil_vault", Blocks.ENDER_CHEST, s -> new com.simplebuilding.blocks.custom.NihilVaultBlock(s.strength(50.0F, 1200.0F))) : null;
 
 
 

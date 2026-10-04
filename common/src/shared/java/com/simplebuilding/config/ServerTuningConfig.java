@@ -174,6 +174,9 @@ public class ServerTuningConfig {
         public boolean endPistons = true;
         @ConfigEntry.Gui.Tooltip
         public boolean astralVault = true;
+        /** Nihil-Gewoelbe (weltweit geteilter Inhalt); aus: Oeffnen gesperrt, Inhalt bleibt, Rezept faellt weg. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean nihilVault = true;
         /** Die Verzauberung Luftsprung wirkt (unabhaengig vom Client-Schalter enableDoubleJump). */
         @ConfigEntry.Gui.Tooltip
         public boolean airJump = true;

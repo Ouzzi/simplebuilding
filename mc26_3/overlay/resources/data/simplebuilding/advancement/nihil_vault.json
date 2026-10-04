@@ -1,0 +1,26 @@
+{
+  "parent": "simplebuilding:guides/root",
+  "display": {
+    "icon": {
+      "id": "simplebuilding:nihil_vault"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.nihil_vault.title"
+    },
+    "description": {
+      "translate": "advancements.simplebuilding.nihil_vault.description"
+    },
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "nihil_vault": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipes": [
+          "simplebuilding:nihil_vault"
+        ]
+      }
+    }
+  }
+}

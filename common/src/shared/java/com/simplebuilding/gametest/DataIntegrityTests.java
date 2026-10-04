@@ -2787,7 +2787,7 @@ public final class DataIntegrityTests {
                 McVersion.END_SYSTEMS
                         ? List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
                                 ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST, gap,
-                                Items.ENDER_CHEST, ModItems.ASTRAL_VAULT)
+                                Items.ENDER_CHEST, ModItems.ASTRAL_VAULT, ModItems.NIHIL_VAULT)
                         : List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
                                 ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST),
                 // 26.3: nach einer Luecke die drei Stufen-Shulkerschalen (seltene Strukturfunde, 2026-10-02).

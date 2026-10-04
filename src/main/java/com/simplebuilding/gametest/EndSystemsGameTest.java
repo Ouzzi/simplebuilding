@@ -16,4 +16,8 @@ public final class EndSystemsGameTest {
     @GameTest(maxTicks = 100) public void twoPistonsMoveOneBlockOnce(GameTestHelper helper) { EndSystemsTests.twoPistonsMoveOneBlockOnce(helper); }
     @GameTest(maxTicks = 100) public void pistonFiresOnRisingEdgeOnly(GameTestHelper helper) { EndSystemsTests.pistonFiresOnRisingEdgeOnly(helper); }
     @GameTest(maxTicks = 100) public void pistonIgnoresVanillaAndOtherChannel(GameTestHelper helper) { EndSystemsTests.pistonIgnoresVanillaAndOtherChannel(helper); }
+    @GameTest public void nihilVaultSharesBetweenVaultsAndPlayers(GameTestHelper helper) { EndSystemsTests.nihilVaultSharesBetweenVaultsAndPlayers(helper); }
+    @GameTest public void nihilVaultNoDupeWithConcurrentMenus(GameTestHelper helper) { EndSystemsTests.nihilVaultNoDupeWithConcurrentMenus(helper); }
+    @GameTest public void nihilVaultPersistsAndBreakKeepsContents(GameTestHelper helper) { EndSystemsTests.nihilVaultPersistsAndBreakKeepsContents(helper); }
+    @GameTest public void nihilVaultConfigAndBlockedLid(GameTestHelper helper) { EndSystemsTests.nihilVaultConfigAndBlockedLid(helper); }
 }

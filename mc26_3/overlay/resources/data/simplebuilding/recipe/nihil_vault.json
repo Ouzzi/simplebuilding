@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "NAN",
+    "NEN",
+    "NAN"
+  ],
+  "key": {
+    "A": "simplebuilding:nihilith_shard",
+    "N": "simplebuilding:enderite_nugget",
+    "E": "minecraft:ender_chest"
+  },
+  "result": {
+    "id": "simplebuilding:nihil_vault",
+    "count": 1
+  }
+}
