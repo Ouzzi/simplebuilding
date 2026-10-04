@@ -366,3 +366,32 @@ Stapelgröße Sandwich 16; Reihenfolge der Zutaten zählt (eigene Textur); Butte
 1 Brot = 1 Sandwich; Esszeit 1,6 s + 0,2 s/Zutat; Käsescheibe essbar 2/1,2, Butterscheibe nicht essbar; Melone mit
 Messer = 9 Scheiben; Spinnweben mit Messer droppen Faden; angeschnittene Blöcke droppen Restscheiben; kein Hopper am
 Brett; erste Schnittrichtung am Käse-/Butterblock wird festgehalten.
+
+## 19. Entscheidungen 2026-10-04 (Besitzer-Antworten, gehen allen Abschnitten oben vor)
+
+| Frage | Antwort | Umsetzung |
+|---|---|---|
+| F1 | A | ID `simplesandwiches`, „Simple Sandwiches“, Paket `com.simplesandwiches` (Loader-Einstiege/Test-Adapter im Template-Paket `com.simplebuilding.modules.simplesandwiches`). |
+| F2 | B | Tag `simplesandwiches:sandwich_ingredients` = jedes Vanilla-Item mit `FOOD` ohne `USE_REMAINDER` (Schüssel/Flasche) außer Brot (Basis), plus `cheese_slice`, `cake_slice`, SB-Äpfel/-Karotten als `required:false`. Code prüft zusätzlich `FOOD` vorhanden + kein `USE_REMAINDER` (Datapack-Fehler können nichts kaputt machen). GameTest prüft Vollständigkeit gegen die Registry. |
+| F3 | B | Zusammenführen: Stärke = Maximum, Dauer = Summe (Deckel min(2 × längste Einzeldauer, 12 000 Ticks)), p = 1 − Π(1 − pᵢ). |
+| F4 | C | Hunger/Sättigung = Brot + Σ Zutaten, **kein Deckel** (FoodData deckelt beim Essen ohnehin auf 20). Config-Schlüssel `nutritionCap/saturationCap` entfallen. |
+| F5 | C | Butter: Milcheimer in leeren Kessel → Milch reift **von selbst** zu Butter. Standard 3000 Ticks (2,5 min), Config `butterTicks` 200..24 000. |
+| F6 | (frei) | Käse: Milch + **fermentiertes Spinnenauge** (Lab-Ersatz, Plan-Empfehlung A) → reift deutlich länger (Standard 9000 Ticks = 7,5 min, Config `cheeseTicks` 600..72 000). Danach **Erntefenster** (Standard 1800 Ticks = 1,5 min, Config `cheeseHarvestWindowTicks` 200..12 000): wer den Käse nicht rechtzeitig mit leerer Hand entnimmt, findet **verdorbene Milch** (grünlich, Rauch-/Myzel-Partikel), die mit leerer Hand oder Eimer nur noch ausgeleert werden kann (gibt nichts). Butter verdirbt nicht. Begründung: „wie Butter nur länger, man muss es richtig timen“ – gleiche Mechanik, längere Zeit, Timing durch das Fenster; die Zutat beim Start trennt beide Wege eindeutig (ohne Zutat = Butter, kein Risiko, Butter niemals versehentlich verdorben). |
+| F7 | B | Butterblock-Reibung 0,9 (Konstante, Block-Eigenschaft). |
+| F8 | A* | Nur Eisenmesser; Reparatur im Amboss mit **Eisennuggets** (Tag `simplesandwiches:knife_repair_materials`). Rezept laut Besitzer: Stock unten links, Nuggets Mitte-Mitte und rechts oben (`..N/.N./S..`). Gesamtschaden 2 (≈ 1/3 Eisenschwert 6), Tempo 2,0, Haltbarkeit 250, verzauberbar: Effizienz (Tag `enchantable/mining`), Haltbarkeit + Reparatur (`enchantable/durability`). |
+| F9 | B | 12 Bretter: `oak, spruce, birch, jungle, acacia, dark_oak, mangrove, cherry, pale_oak, bamboo, crimson, warped` → `<holz>_cutting_board`, je Rezept 2 Holzstufen + Stock (`X##` – Stock links, Stufen rechts), Textur aus den Planken abgeleitet. Ein gemeinsamer Block-Entity-Typ. |
+| F10 | neu | **Kein Essenskorb.** Stattdessen Vanilla-Bündel (alle Bündelfarben, `BundleItem`) per Mixin: Ist das oberste Item (das, welches `removeOne` als nächstes liefert = Auswahl, sonst Index 0) essbar (`FOOD` + `CONSUMABLE`, **kein** `USE_REMAINDER` → Eintöpfe/Honig ausgeschlossen), dann isst Rechtsklick-Halten dieses Item: Esszeit/Animation/Sound/Partikel des Items, Hunger/Effekte über dessen `Consumable.onConsume`, 1 Stück wird aus dem Bündel entfernt. Satt → nichts passiert (wie Essen). Nicht-Essen oben → Vanilla-Verhalten (Ausschütten). Config `bundleEating` (an/aus, Standard an). |
+| F11 | (frei) | Kuchenstück: 2 Hunger / 0,4 Sättigung (Vanilla `CakeBlock.eat`: `eat(2, 0.1F)` → 2 × 0,1 × 2), **sofort** gegessen (`consumeSeconds` 0, wie ein Bissen), Stapel 7. Messer auf Kuchen: 1 Stück je Klick, ein voller Kuchen = 7 (Vanilla `BITES` 0..6, `MAX_BITES` 6), angeschnittener Kuchen = Restbissen, Kerzenkuchen → Kerze droppt, dann wie voller Kuchen. Bleibt Zutat. |
+| F12 | A | Nur normales Brot. Offener Punkt (nicht v1): schwerer zu farmende Weizen-/Brotvarianten. |
+
+Weitere Festlegungen beim Bau (eigene Entscheidungen):
+- Ressourcen-„Datagen“ für das Modul als Python-Generator `modules/simplesandwiches/tools/gen_resources.py` → `generated/resources`
+  (Module haben keine Fabric-Datagen-Kette; SimpleFun/SimpleRiding legen `generated/` ebenfalls fertig ab). `check_data.py`
+  prüft, dass der Generator nichts ändern würde.
+- Visual-Zuordnung Zutat → Schichtbild als Java-Konstante (`SandwichVisuals`), Unbekanntes → `generic` (statt Datenmap;
+  spart je Loader einen Reload-Listener).
+- Config als eigene JSON-Datei `config/simplesandwiches-server.json`, jeder Wert beim Laden auf harte Grenzen geklemmt
+  (kein Cloth-Config-Zwang).
+- Sandwich-Komponente trägt `formula` (Versionszahl); v1 = 1. Neuberechnung alter Stacks ist nicht v1 (offener Punkt).
+- Sandwich-Stapelgröße 16 fest (Item-Eigenschaft).
+- Bündel-Essen: beim Ende wird die oberste Position erneut geprüft; hat sich das Item geändert, passiert nichts.
