@@ -4141,7 +4141,9 @@ def mod_book_textures():
     out = {}
     for n, sym in MOD_BOOK_SYMBOLS.items():
         rel = f"item/enchanted_book_{n}.png"
-        out[rel] = styled_book(f"enchanted_book_{n}", MOD_BOOK_STYLE[n], sym)
+        # Besitzer 2026-10-04: nicht beauftragt - zurueck zu seinen alten Buechern (hand/q1/books/). Die
+        # Vanilla-Grundbuch-Fassung bleibt ueber MOD_BOOK_STYLE/styled_book erreichbar (Vorschau).
+        out[rel] = Image.open(os.path.join(HAND, "q1", "books", f"enchanted_book_{n}.png")).convert("RGBA")
         MAIN_TREE_ONLY.add(rel)
     return out
 

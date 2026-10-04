@@ -45,7 +45,23 @@ SPECTRAL = {
     "#353535": "#3e3c58", "#4b4b4b": "#56557a", "#696969": "#7c7ba2", "#737373": "#8b8ab0",
     "#8c8c8c": "#a9a9cc", "#706e8d": "#9997c0", "#7f7f98": "#b3b2d2", "#8f8fb3": "#cfcfec",
 }
+# Besitzer 2026-10-04: diese Restyles waren nicht beauftragt - zurueck zur Fassung vor dem Audit ("keep" = die
+# unveraenderte Vorlage aus hand/q1). Nur raw_enderite bleibt im Vanilla-Stil (Entscheidung offen, siehe
+# previews/texfix-revert-uebersicht.png).
 SPECS = {
+    f"{MONEY}/blank_note.png": ("keep", "blank_note.png", None),
+    f"{MONEY}/refined_blank_note.png": ("keep", "refined_blank_note.png", None),
+    f"{MONEY}/special_paper.png": ("keep", "special_paper.png", None),
+    f"{MONEY}/money_bill.png": ("keep", "money_bill.png", None),
+    f"{MONEY}/raw_bill.png": ("keep", "raw_bill.png", None),
+    f"{MONEY}/resin_fiber.png": ("keep", "resin_fiber.png", None),
+    f"{MONEY}/special_fiber.png": ("keep", "special_fiber.png", None),
+    f"{FUN}/brick_snowball.png": ("keep", "brick_snowball.png", None),
+    f"{SB}/raw_enderite.png": ("restyle", "raw_enderite.png", ([R["enderite"][:9]], 0, None)),
+    f"{SB}/spawn_elytra.png": ("keep", "spawn_elytra.png", None),
+}
+# Die Vanilla-Stil-Fassungen der Ruecksetzungen (Auswahl fuer eine spaetere farbreduzierte Variante):
+RESTYLED = {
     f"{MONEY}/blank_note.png": ("restyle", "blank_note.png", ([NOTE_EDGE, PAPER], 0, None)),
     f"{MONEY}/refined_blank_note.png": ("restyle", "refined_blank_note.png", ([NOTE_EDGE, MAP], 0, None)),
     f"{MONEY}/special_paper.png": ("restyle", "special_paper.png", ([NOTE_EDGE, MAP[3:], PAPER[2:]], 2, None)),
@@ -55,7 +71,6 @@ SPECS = {
     f"{MONEY}/special_fiber.png": ("restyle", "special_fiber.png",
                                    ([R["amethyst"][:5], R["lapis"], R["honeycomb"], MAP[:5]], 0, FIBER_EDGE)),
     f"{FUN}/brick_snowball.png": ("restyle", "brick_snowball.png", ([R["snowball"]], 0, None)),
-    f"{SB}/raw_enderite.png": ("restyle", "raw_enderite.png", ([R["enderite"][:9]], 0, None)),
     f"{SB}/spawn_elytra.png": ("recolor", "spawn_elytra.png", SPECTRAL),
 }
 # Handkorrekturen nach dem Quantisieren: Ziel -> {(x, y): Farbe | None}
@@ -66,7 +81,9 @@ def build():
     out = {}
     for rel, (kind, src, data) in SPECS.items():
         img = Image.open(os.path.join(HAND, src)).convert("RGBA")
-        if kind == "restyle":
+        if kind == "keep":
+            pass
+        elif kind == "restyle":
             ramps, extra, edge = data
             img = vs.restyle_item(img, ramps, extra=extra, outline_color=edge)
         elif kind == "recolor":
