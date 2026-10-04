@@ -8189,6 +8189,24 @@
     "strikes": 8
   },
   "discFlip": {
+    "cycles": [
+      [
+        "simplebuilding:music_disc_voidline",
+        "simplebuilding:music_disc_voidline_b_side"
+      ],
+      [
+        "simplebuilding:music_disc_driftwood",
+        "simplebuilding:music_disc_driftwood_b_side"
+      ],
+      [
+        "simplebuilding:music_disc_daybreak",
+        "simplebuilding:music_disc_daybreak_b_side"
+      ],
+      [
+        "simplebuilding:music_disc_brimstone",
+        "simplebuilding:music_disc_brimstone_b_side"
+      ]
+    ],
     "durabilityPerFlip": 1,
     "hammers": [
       "simplebuilding:copper_sledgehammer",
@@ -8198,24 +8216,6 @@
       "simplebuilding:iron_sledgehammer",
       "simplebuilding:netherite_sledgehammer",
       "simplebuilding:stone_sledgehammer"
-    ],
-    "pairs": [
-      {
-        "bSide": "simplebuilding:music_disc_voidline_b_side",
-        "disc": "simplebuilding:music_disc_voidline"
-      },
-      {
-        "bSide": "simplebuilding:music_disc_driftwood_b_side",
-        "disc": "simplebuilding:music_disc_driftwood"
-      },
-      {
-        "bSide": "simplebuilding:music_disc_daybreak_b_side",
-        "disc": "simplebuilding:music_disc_daybreak"
-      },
-      {
-        "bSide": "simplebuilding:music_disc_brimstone_b_side",
-        "disc": "simplebuilding:music_disc_brimstone"
-      }
     ]
   },
   "generator": "com.simplebuilding.datagen.WikiDataProvider",

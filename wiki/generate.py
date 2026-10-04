@@ -2066,8 +2066,9 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
         flip = exported.get("discFlip")
         if flip:
             facts["disc_flip"] = {"durabilityPerFlip": flip["durabilityPerFlip"]}
-            for pair in flip["pairs"]:
-                for src, dst in ((pair["disc"], pair["bSide"]), (pair["bSide"], pair["disc"])):
+            for cycle in flip["cycles"]:
+                for i, src in enumerate(cycle):
+                    dst = cycle[(i + 1) % len(cycle)]
                     entries.append({
                         "id": f"disc_flip/{dst}",
                         "kind": "disc_flip",

@@ -65,6 +65,9 @@ LABELS = {
 }
 HOLE = (20, 16, 16)
 SCRATCHES = [(2, 6), (3, 7), (4, 8), (11, 8), (12, 9)]
+#: Track 3 and 4 (owner 2026-10-04): their own scratch patterns, all on body pixels.
+SCRATCHES_3 = [(2, 8), (3, 9), (11, 7), (12, 6)]
+SCRATCHES_4 = [(5, 10), (6, 10), (8, 4), (9, 4)]
 SONGS = ["voidline", "driftwood", "daybreak", "brimstone"]
 
 ASTRALIT = [(126, 57, 101), (160, 106, 142), (198, 144, 179), (226, 196, 214)]
@@ -76,7 +79,8 @@ def jar_image(path):
         return Image.open(io.BytesIO(z.read(path))).convert("RGBA")
 
 
-def disc(base, song, b_side):
+def disc(base, song, track):
+    """Track 1 = A-side, 2 = B-side (label inverted), 3/4 = label colors rotated one/the other way."""
     body = dict(zip(["outline", "body", "groove", "rim", "bottom"], BODIES[song]))
     img = Image.new("RGBA", base.size, (0, 0, 0, 0))
     for y in range(base.height):
@@ -88,8 +92,12 @@ def disc(base, song, b_side):
             img.putpixel((x, y), (body["body"] if role == "label" else body[role]) + (255,))
     rows = LABELS[song]
     colors = dict(rows[3])
-    if b_side:
+    if track == 2:
         colors["1"], colors["2"] = colors["2"], colors["1"]
+    elif track == 3:
+        colors["1"], colors["2"], colors["3"] = colors["2"], colors["3"], colors["1"]
+    elif track == 4:
+        colors["1"], colors["2"], colors["3"] = colors["3"], colors["1"], colors["2"]
     for dy in range(3):
         for dx in range(5):
             cell = rows[dy][dx]
@@ -98,10 +106,10 @@ def disc(base, song, b_side):
                 img.putpixel(pos, HOLE + (255,))
             elif cell != ".":
                 img.putpixel(pos, colors[cell] + (255,))
-    if b_side:
-        light = tuple(min(255, c + 70) for c in body["groove"])
-        for pos in SCRATCHES:
-            img.putpixel(pos, light + (255,))
+    scratches = {2: SCRATCHES, 3: SCRATCHES_3, 4: SCRATCHES_4}.get(track, [])
+    light = tuple(min(255, c + 70) for c in body["groove"])
+    for pos in scratches:
+        img.putpixel(pos, light + (255,))
     return img
 
 
@@ -143,8 +151,12 @@ def outputs():
     top = jar_image("assets/minecraft/textures/block/jukebox_top.png")
     discs = {}
     for song in SONGS:
-        discs["music_disc_" + song] = disc(base, song, False)
-        discs["music_disc_" + song + "_b_side"] = disc(base, song, True)
+        discs["music_disc_" + song] = disc(base, song, 1)
+        discs["music_disc_" + song + "_b_side"] = disc(base, song, 2)
+        # Track 3/4 exist as items only once the owner imports music for them (tools/audio/import_discs.py);
+        # the textures are ready beforehand.
+        discs["music_disc_" + song + "_track_3"] = disc(base, song, 3)
+        discs["music_disc_" + song + "_track_4"] = disc(base, song, 4)
     blocks = {
         "astralit_speaker_side": speaker_side(note, ASTRALIT), "astralit_speaker_top": speaker_end(top, ASTRALIT),
         "nihilith_speaker_side": speaker_side(note, NIHILITH), "nihilith_speaker_top": speaker_end(top, NIHILITH),
@@ -205,10 +217,10 @@ def main():
     if "--preview" in sys.argv:
         vanilla = [("V1", "vanilla 13", jar_image("assets/minecraft/textures/item/music_disc_13.png")),
                    ("V2", "vanilla pigstep", jar_image("assets/minecraft/textures/item/music_disc_pigstep.png"))]
-        tags = "ABCDEFGH"
+        tags = "ABCDEFGHIJKLMNOP"
         cells = [(tags[i], name.replace("music_disc_", ""), tex) for i, (name, tex) in enumerate(discs.items())]
         sheet(vanilla + cells, os.path.join(PREVIEWS, "schallplatten-vorschau.png"),
-              "Schallplatten (A/B Voidline End, C/D Driftwood OW1, E/F Daybreak OW2, G/H Brimstone Nether; B-Seiten = 2. Spalte)")
+              "Schallplatten je 4 Tracks (A-D Voidline End, E-H Driftwood OW1, I-L Daybreak OW2, M-P Brimstone Nether; Track 1, B-Seite, Track 3, Track 4)")
         note = jar_image("assets/minecraft/textures/block/note_block.png")
         top = jar_image("assets/minecraft/textures/block/jukebox_top.png")
         cells = [("V1", "note_block", note), ("V2", "jukebox_top", top)]

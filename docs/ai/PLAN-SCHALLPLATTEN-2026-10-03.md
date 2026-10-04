@@ -124,3 +124,34 @@ GameTests `MusicDiscTests`: Registrierung/Komponente/Song/Sound, Tags, Loot in d
 spielt A- bzw. B-Song, Hammer wendet hin und zurück (Haltbarkeit, Hinweis, falsche Werkzeuge), Lautsprecher
 verstärken nur ihre Quelle, Config-Grenzen, Rezepte. Gates: Datagen, `fabric-263`, `neoforge-263`, 26.2-Compile,
 Forge-26.3-Compile, Texturen-/Wiki-Check.
+
+## Nachtrag 7 (Besitzer 2026-10-04): Track 3/4, Lautsprecher-Ketten
+
+### Track 3 und 4
+- Je Platte bis zu vier Tracks: 1 = A-Seite, 2 = B-Seite (`_b_side`), 3 = `music_disc_<name>_track_3`, 4 = `_track_4`.
+  Der Vorschlaghammer zyklisiert über die **vorhandenen** Tracks: 1 → 2 → (3) → (4) → 1.
+- Entscheidung: Track 3/4 entstehen **erst durch das Import-Skript**. `MusicDiscs.SONGS` trägt je Platte eine
+  Längenliste (`new Song("voidline", "end", 14, 3.0F, 3.0F)` = zwei Tracks). Findet `import_discs.py` eine
+  `<datei>_3.mp3`/`_4.mp3`, hängt es die Länge an diese Liste, trägt den Klang in die 26.3-`sounds.json` ein und schreibt
+  die Song-JSON; erst damit werden Item, Song und Sound-Event registriert (danach Datagen für das Item-Modell).
+  Ohne Audio gibt es also kein Item ohne Klang, keine leeren Kreativ-/JEI-Einträge. Fehlt `_3`, aber `_4` ist da,
+  steht in der Liste an Stelle 3 eine `0.0F` (= kein Track): Track 4 existiert, der Zyklus überspringt Track 3.
+- Optik vorab erzeugt (Generator): Track 3 Etikettfarben rotiert + Kratzer links, Track 4 rotiert andersherum +
+  Kratzer rechts; Sprachschlüssel für Track 3/4 liegen schon bereit.
+- In-World-Katalog: Abschnitt `discFlip` mit `cycles` (je Platte die Track-Liste), JEI/Wiki je Schritt ein Eintrag.
+
+### Lautsprecher-Ketten
+- Ein Lautsprecher, der an seiner Quelle (Plattenspieler bzw. Notenblock) oder an einem schon gespeisten Lautsprecher
+  derselben Sorte hängt, ist Teil der Kette (BFS über die 6 Nachbarn, nur geladene Chunks). Obergrenze
+  `server.speakers.maxChain` (Standard 16, hart 64, 0 = keine Kette). Falsche Sorte oder Lücke unterbricht.
+- Jeder Kettenlautsprecher ist ein zusätzlicher Abspielpunkt derselben Wiedergabe, nicht lauter: gleiche Lautstärke
+  wie die Quelle (inkl. deren +50 %-Verstärkung durch direkt angrenzende Lautsprecher, die bleibt).
+- Jeder Spieler hört die Quelle genau einmal, am **nächsten** Abspielpunkt (keine Überlagerung):
+  - Notenblock (Server): je Spieler ein Klang-Paket vom nächsten Punkt in Hörweite statt der Vanilla-Rundsendung.
+  - Plattenspieler (Client): eine mitlaufende Klanginstanz, deren Position jeden Tick auf den nächsten Punkt springt
+    (die Kette wird alle 10 Ticks neu ermittelt). Server: Start an alle Spieler in Hörweite irgendeines Punkts, Stopp an
+    alle bis zur größtmöglichen Reichweite (Quelle + Kettenlänge).
+- Cache (Server): Kette je Quelle, ungültig bei jeder Lautsprecher-Änderung (Setzen/Abbauen zählt eine Generation hoch)
+  und nach spätestens 100 Ticks; höchstens 256 Einträge.
+- Tests: Kette über mehrere Lautsprecher, Obergrenze, falsche Sorte unterbricht, Stopp erreicht alle, kein
+  Doppel-Abspielen (je Spieler höchstens ein Punkt), Track-Zyklus.

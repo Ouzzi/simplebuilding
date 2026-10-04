@@ -2849,10 +2849,10 @@
   "item.simplebuilding.astralit_speaker": "Astralit Speaker",
   "block.simplebuilding.nihilith_speaker": "Nihilit Speaker",
   "item.simplebuilding.nihilith_speaker": "Nihilit Speaker",
-  "jei.simplebuilding.info.music_discs": "Dimension music discs. Voidline: End city chests (4 %). Brimstone: bastion chests (4 %). Driftwood: woodland mansion chests (5 %). Daybreak: ancient city chests (2.5 %). Driftwood and Daybreak also drop when a skeleton kills a creeper. Place a disc on the ground (sneak + right-click) and right-click it with a sledgehammer to flip it to its B-side and back (1 durability).",
-  "jei.simplebuilding.info.speakers": "Astralit Speaker: makes a directly adjacent jukebox louder and heard farther. Nihilit Speaker: the same for a note block. Each speaker adds 50 % volume, at most 2 count (server config); same sound, no echo.",
+  "jei.simplebuilding.info.music_discs": "Dimension music discs. Voidline: End city chests (4 %). Brimstone: bastion chests (4 %). Driftwood: woodland mansion chests (5 %). Daybreak: ancient city chests (2.5 %). Driftwood and Daybreak also drop when a skeleton kills a creeper. Place a disc on the ground (sneak + right-click) and right-click it with a sledgehammer to switch to its next track - B-side, then tracks 3 and 4 where they exist, then back to the first (1 durability).",
+  "jei.simplebuilding.info.speakers": "Astralit Speaker: makes a directly adjacent jukebox louder and heard farther; Nihilit Speaker: the same for a note block (50 % per speaker, at most 2 count). Speakers of the same kind touching it pass the sound on as a chain (up to 16): every speaker in the chain is another playback point, and each player hears the music once, from the nearest one.",
   "jei.simplebuilding.category.disc_flip": "Music Disc B-Side",
-  "jei.simplebuilding.note.disc_flip.how": "Place the disc on the ground (sneak + right-click), then right-click it with a sledgehammer",
+  "jei.simplebuilding.note.disc_flip.how": "Place the disc on the ground (sneak + right-click), then right-click it with a sledgehammer: next track",
   "jei.simplebuilding.note.disc_flip.cost": "Uses %s durability per flip",
   "text.autoconfig.simplebuilding.option.server.speakers": "Speakers",
   "text.autoconfig.simplebuilding.option.server.speakers.maxSpeakers": "Max Speakers",
@@ -2869,5 +2869,7 @@
   "simplebuilding.testcentre.music.note.sub2": "right: vanilla",
   "simplebuilding.testcentre.music.flip": "B-Side",
   "simplebuilding.testcentre.music.flip.sub": "placed disc + hammer",
-  "simplebuilding.testcentre.music.flip.sub2": "right-click: flip"
+  "simplebuilding.testcentre.music.flip.sub2": "right-click: flip",
+  "text.autoconfig.simplebuilding.option.server.speakers.maxChain": "Max Chain Length",
+  "text.autoconfig.simplebuilding.option.server.speakers.maxChain.@Tooltip": "Speakers of the right kind that pass a\njukebox or note block on (chain), 0 to 64\n(0 = off). Server-side. Default: 16."
 }

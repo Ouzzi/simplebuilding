@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,6 +32,8 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Item;
@@ -75,10 +78,20 @@ public final class MusicDiscTests {
         ServerLevel level = helper.getLevel();
         var songs = level.registryAccess().lookupOrThrow(Registries.JUKEBOX_SONG);
         List<String> problems = new ArrayList<>();
-        helper.assertValueEqual(MusicDiscs.items().size(), 8, "disc count");
+        int tracks = 0;
+        for (MusicDiscs.Song song : MusicDiscs.SONGS) {
+            tracks += song.tracks().size();
+        }
+        helper.assertValueEqual(MusicDiscs.items().size(), tracks, "disc items = tracks in MusicDiscs.SONGS");
         for (MusicDiscs.Disc disc : MusicDiscs.discs()) {
-            for (Item item : List.of(disc.aSide(), disc.bSide())) {
-                String song = item == disc.aSide() ? disc.song().name() : disc.song().bSide();
+            List<Integer> trackNumbers = disc.song().tracks();
+            if (trackNumbers.size() != disc.tracks().size() || trackNumbers.size() < 2) {
+                problems.add(disc.song().name() + " has tracks " + trackNumbers + " but items " + disc.tracks());
+                continue;
+            }
+            for (int t = 0; t < disc.tracks().size(); t++) {
+                Item item = disc.tracks().get(t);
+                String song = disc.song().trackName(trackNumbers.get(t));
                 ItemStack stack = new ItemStack(item);
                 JukeboxPlayable playable = stack.get(DataComponents.JUKEBOX_PLAYABLE);
                 if (playable == null) {
@@ -98,7 +111,7 @@ public final class MusicDiscTests {
                 if (!value.soundEvent().is(MusicDiscs.soundId(song)) || !BuiltInRegistries.SOUND_EVENT.containsKey(MusicDiscs.soundId(song))) {
                     problems.add(song + " sound " + value.soundEvent() + " is not the registered " + MusicDiscs.soundId(song));
                 }
-                if (value.comparatorOutput() != disc.song().comparator() || value.lengthInSeconds() <= 0.0F) {
+                if (value.comparatorOutput() != disc.song().comparator() || value.lengthInSeconds() != disc.song().length(trackNumbers.get(t))) {
                     problems.add(song + " comparator " + value.comparatorOutput() + " length " + value.lengthInSeconds());
                 }
                 if (stack.getMaxStackSize() != 1 || stack.get(DataComponents.RARITY) != net.minecraft.world.item.Rarity.RARE) {
@@ -304,6 +317,130 @@ public final class MusicDiscTests {
             live.maxSpeakers = oldMax;
             live.boostPercent = oldBoost;
         }
+        helper.succeed();
+    }
+
+    /** Track-Zyklus 1 -> 2 -> 3 -> 4 -> 1 nur ueber vorhandene Tracks; Dateinamen des Besitzers je Track. */
+    public static void trackCycleSkipsMissingTracks(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        MusicDiscs.Song gap = new MusicDiscs.Song("test", "end", 1, 3.0F, 4.0F, 0.0F, 5.0F);
+        helper.assertTrue(gap.tracks().equals(List.of(1, 2, 4)), "tracks with a missing third: " + gap.tracks());
+        helper.assertTrue(gap.trackName(3).equals("test_track_3") && gap.trackName(2).equals("test_b_side"), "track names");
+        helper.assertTrue(gap.trackFile(2).equals("end_alt") && gap.trackFile(3).equals("end_3") && gap.trackFile(4).equals("end_4"), "owner files");
+        List<String> cycle = List.of("one", "two", "four");
+        helper.assertTrue("two".equals(MusicDiscs.next(cycle, "one")) && "four".equals(MusicDiscs.next(cycle, "two"))
+                && "one".equals(MusicDiscs.next(cycle, "four")), "cycle 1 -> 2 -> 4 -> 1");
+        helper.assertTrue(MusicDiscs.next(cycle, "three") == null && MusicDiscs.next(List.of("solo"), "solo") == null, "no cycle");
+        for (MusicDiscs.Disc disc : MusicDiscs.discs()) {
+            Item item = disc.aSide();
+            for (int i = 0; i < disc.tracks().size(); i++) {
+                item = MusicDiscs.nextTrack(item);
+            }
+            helper.assertTrue(item == disc.aSide(), disc.song().name() + " does not come back to track 1 after a full cycle");
+            helper.assertTrue(MusicDiscs.nextTrack(disc.aSide()) == disc.bSide(), disc.song().name() + ": track 1 -> 2");
+        }
+        helper.assertTrue(MusicDiscs.nextTrack(Items.MUSIC_DISC_PIGSTEP) == null, "a vanilla disc has a next track");
+        helper.succeed();
+    }
+
+    /** Kette: ueber mehrere Lautsprecher derselben Sorte, falsche Sorte oder Luecke unterbricht, Obergrenze aus der Config. */
+    public static void speakerChainsFollowTheirKindUpToTheLimit(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        ServerLevel level = helper.getLevel();
+        BlockPos jukebox = new BlockPos(1, 2, 1);
+        helper.setBlock(jukebox, Blocks.JUKEBOX);
+        for (int x = 2; x <= 6; x++) {
+            helper.setBlock(new BlockPos(x, 2, 1), ModBlocks.ASTRALIT_SPEAKER);
+        }
+        // Abzweig nach oben am dritten Lautsprecher; hinter dem letzten ein Nihilit-Lautsprecher und dahinter Astralit.
+        helper.setBlock(new BlockPos(4, 3, 1), ModBlocks.ASTRALIT_SPEAKER);
+        helper.setBlock(new BlockPos(7, 2, 1), ModBlocks.NIHILITH_SPEAKER);
+        helper.setBlock(new BlockPos(8, 2, 1), ModBlocks.ASTRALIT_SPEAKER);
+        BlockPos j = helper.absolutePos(jukebox);
+        List<BlockPos> chain = SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX);
+        helper.assertValueEqual(chain.size(), 6, "chain over five speakers and the branch: " + chain);
+        helper.assertTrue(!chain.contains(helper.absolutePos(new BlockPos(8, 2, 1))), "the chain crossed a nihilit speaker");
+        helper.assertTrue(SpeakerBoost.chain(level, j, SpeakerBoost.Source.NOTE_BLOCK).isEmpty(), "astralit speakers chain a note block");
+        // Die Verstaerkung an der Quelle bleibt: ein Nachbar = +50 %.
+        helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 1.5F, "boost at the source");
+
+        ServerTuningConfig.Speakers live = ServerTuning.local().speakers;
+        int oldChain = live.maxChain;
+        try {
+            live.maxChain = 3;
+            helper.assertValueEqual(SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX).size(), 3, "chain limit 3");
+            live.maxChain = 0;
+            helper.assertTrue(SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX).isEmpty(), "maxChain 0 switches chains off");
+            live.maxChain = 1000;
+            helper.assertValueEqual(ServerTuning.maxSpeakerChain(), ServerTuning.MAX_SPEAKER_CHAIN, "hard cap of the chain");
+        } finally {
+            live.maxChain = oldChain;
+        }
+        ServerTuningConfig config = new ServerTuningConfig();
+        config.speakers.maxChain = 500;
+        config.validate();
+        helper.assertValueEqual(config.speakers.maxChain, ServerTuning.MAX_SPEAKER_CHAIN, "maxChain cap");
+
+        // Cache: dieselbe Kette bis zur naechsten Lautsprecher-Aenderung, dann neu gesucht.
+        List<BlockPos> cached = SpeakerBoost.cachedChain(level, j, SpeakerBoost.Source.JUKEBOX);
+        helper.assertTrue(cached == SpeakerBoost.cachedChain(level, j, SpeakerBoost.Source.JUKEBOX), "the chain was not cached");
+        helper.setBlock(new BlockPos(6, 2, 1), Blocks.AIR);
+        List<BlockPos> after = SpeakerBoost.cachedChain(level, j, SpeakerBoost.Source.JUKEBOX);
+        helper.assertValueEqual(after.size(), 5, "removing a speaker did not invalidate the cached chain: " + after);
+        helper.succeed();
+    }
+
+    /** Notenblock-Kette: jeder Spieler hoert genau einmal, vom naechsten Punkt; der Plattenspieler-Stopp erreicht alle. */
+    public static void chainedSoundReachesEachPlayerOnceAndStopReachesAll(GameTestHelper helper) {
+        if (!enabled(helper)) return;
+        ServerLevel level = helper.getLevel();
+        BlockPos note = new BlockPos(1, 2, 1);
+        helper.setBlock(note, Blocks.NOTE_BLOCK);
+        for (int x = 2; x <= 9; x++) {
+            helper.setBlock(new BlockPos(x, 2, 1), ModBlocks.NIHILITH_SPEAKER);
+        }
+        BlockPos n = helper.absolutePos(note);
+        List<BlockPos> chain = SpeakerBoost.chain(level, n, SpeakerBoost.Source.NOTE_BLOCK);
+        helper.assertValueEqual(chain.size(), 8, "note block chain");
+        ServerPlayer atSource = helper.makeMockServerPlayerInLevel();
+        ServerPlayer atEnd = helper.makeMockServerPlayerInLevel();
+        ServerPlayer farAway = helper.makeMockServerPlayerInLevel();
+        helper.runBeforeTestEnd(() -> {
+            level.getServer().getPlayerList().remove(atSource);
+            level.getServer().getPlayerList().remove(atEnd);
+            level.getServer().getPlayerList().remove(farAway);
+        });
+        BlockPos end = helper.absolutePos(new BlockPos(9, 2, 1));
+        atSource.snapTo(n.getX() + 0.5, n.getY(), n.getZ() - 3.5, 0.0F, 0.0F);
+        atEnd.snapTo(end.getX() + 0.5, end.getY(), end.getZ() + 40.5, 0.0F, 0.0F);
+        farAway.snapTo(n.getX() + 0.5, n.getY(), n.getZ() + 5000.5, 0.0F, 0.0F);
+        Map<ServerPlayer, Vec3> heard = SpeakerBoost.playChained(level, null, n, chain, SoundEvents.NOTE_BLOCK_HARP, SoundSource.RECORDS,
+                SpeakerBoost.NOTE_BLOCK_VOLUME, 1.0F, 7L);
+        // Je Spieler genau ein Eintrag = genau ein Klang-Paket (kein Doppel-Abspielen).
+        helper.assertTrue(Vec3.atCenterOf(n).equals(heard.get(atSource)), "the player at the note block hears " + heard.get(atSource));
+        helper.assertTrue(Vec3.atCenterOf(end).equals(heard.get(atEnd)), "the player at the chain end hears " + heard.get(atEnd));
+        helper.assertTrue(!heard.containsKey(farAway), "a player 5000 blocks away heard the note");
+
+        // Plattenspieler mit Kette: Start und Stopp erreichen einen Spieler 92 Bloecke hinter dem Kettenende.
+        BlockPos box = new BlockPos(1, 4, 1);
+        helper.setBlock(box, Blocks.JUKEBOX);
+        for (int x = 2; x <= 9; x++) {
+            helper.setBlock(new BlockPos(x, 4, 1), ModBlocks.ASTRALIT_SPEAKER);
+        }
+        BlockPos b = helper.absolutePos(box);
+        List<BlockPos> jchain = SpeakerBoost.chain(level, b, SpeakerBoost.Source.JUKEBOX);
+        ServerPlayer behind = helper.makeMockServerPlayerInLevel();
+        helper.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(behind));
+        BlockPos jend = helper.absolutePos(new BlockPos(9, 4, 1));
+        behind.snapTo(jend.getX() + 0.5 + 92.0, jend.getY(), jend.getZ() + 0.5, 0.0F, 0.0F);
+        float mult = SpeakerBoost.multiplier(level, b, SpeakerBoost.Source.JUKEBOX);
+        List<ServerPlayer> started = SpeakerBoost.sendBeyondVanilla(level, b, jchain,
+                new ClientboundLevelEventPacket(LevelEvent.SOUND_PLAY_JUKEBOX_SONG, b, 0, false), SpeakerBoost.jukeboxEventRange(mult));
+        helper.assertTrue(started.contains(behind), "the start did not reach the player behind the chain end");
+        helper.assertTrue(started.stream().distinct().count() == started.size(), "a player got the start twice");
+        List<ServerPlayer> stopped = SpeakerBoost.sendBeyondVanilla(level, b, List.of(),
+                new ClientboundLevelEventPacket(LevelEvent.SOUND_STOP_JUKEBOX_SONG, b, 0, false), SpeakerBoost.jukeboxStopRange());
+        helper.assertTrue(stopped.contains(behind), "the stop did not reach the player behind the chain end");
         helper.succeed();
     }
 

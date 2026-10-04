@@ -28,4 +28,16 @@ public final class MusicDiscGameTest {
     public void speakerRecipesUseAnyPlanks(GameTestHelper helper) {
         MusicDiscTests.speakerRecipesUseAnyPlanks(helper);
     }
+    @GameTest
+    public void trackCycleSkipsMissingTracks(GameTestHelper helper) {
+        MusicDiscTests.trackCycleSkipsMissingTracks(helper);
+    }
+    @GameTest
+    public void speakerChainsFollowTheirKindUpToTheLimit(GameTestHelper helper) {
+        MusicDiscTests.speakerChainsFollowTheirKindUpToTheLimit(helper);
+    }
+    @GameTest
+    public void chainedSoundReachesEachPlayerOnceAndStopReachesAll(GameTestHelper helper) {
+        MusicDiscTests.chainedSoundReachesEachPlayerOnceAndStopReachesAll(helper);
+    }
 }

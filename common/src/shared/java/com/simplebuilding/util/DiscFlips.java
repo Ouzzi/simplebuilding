@@ -19,9 +19,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 /**
- * B-Seiten der Schallplatten (Besitzer 2026-10-03, Easter Egg): eine abgelegte Platte der Mod (Schleichen + Rechtsklick,
+ * Tracks der Schallplatten (Besitzer 2026-10-03/04, Easter Egg): eine abgelegte Platte der Mod (Schleichen + Rechtsklick,
  * sie steht im Tag {@code simplebuilding:placeable_small}, {@link PlacedSmallParts}) wird mit einem Rechtsklick des
- * Vorschlaghammers zu ihrer anderen Seite - A-Seite zur B-Seite und zurueck, endlos. Liegen mehrere Platten, trifft
+ * Vorschlaghammers zu ihrem naechsten vorhandenen Track - 1 -&gt; 2 (B-Seite) -&gt; 3 -&gt; 4 -&gt; 1, fehlende Tracks werden
+ * uebersprungen ({@link MusicDiscs#nextTrack}), endlos. Liegen mehrere Platten, trifft
  * es die zuletzt gelegte. Jeder Wechsel kostet den Hammer einen Punkt Haltbarkeit (wie eine Umformung,
  * {@link SledgehammerItem#RESHAPE_DAMAGE}) und braucht dieselben Rechte wie jede Umwandlung
  * ({@link TransformTargets#mayTransform}). Der Handhinweis fragt {@link #canFlip}, die Aktion fragt dasselbe.
@@ -35,7 +36,7 @@ public final class DiscFlips {
     /** Index der zuletzt gelegten wendbaren Platte im Haeufchen, oder -1. */
     public static int targetIndex(List<ItemStack> parts) {
         for (int i = parts.size() - 1; i >= 0; i--) {
-            if (MusicDiscs.otherSide(parts.get(i).getItem()) != null) {
+            if (MusicDiscs.nextTrack(parts.get(i).getItem()) != null) {
                 return i;
             }
         }
@@ -66,7 +67,7 @@ public final class DiscFlips {
         PlacedSmallPartsBlockEntity pile = (PlacedSmallPartsBlockEntity) level.getBlockEntity(pos);
         List<ItemStack> parts = new ArrayList<>(pile.parts());
         int index = targetIndex(parts);
-        Item other = MusicDiscs.otherSide(parts.get(index).getItem());
+        Item other = MusicDiscs.nextTrack(parts.get(index).getItem());
         parts.set(index, parts.get(index).transmuteCopy(other, 1));
         pile.setParts(parts);
         tool.hurtAndBreak(SledgehammerItem.RESHAPE_DAMAGE, player, hand);

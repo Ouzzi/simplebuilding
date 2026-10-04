@@ -491,7 +491,7 @@ public final class InWorldRecipeCatalog {
         }
     }
 
-    /** A placed music disc + a sledgehammer -> its other side, both ways (one durability per flip). */
+    /** A placed music disc + a sledgehammer -> its next track, around the cycle (one durability per flip). */
     private static void discFlip(JsonObject flip, Resolver resolver, List<Entry> out) {
         List<String> ids = new ArrayList<>();
         for (JsonElement element : flip.getAsJsonArray("hammers")) {
@@ -499,19 +499,20 @@ public final class InWorldRecipeCatalog {
         }
         List<Item> hammers = resolver.items(ids);
         int durability = flip.get("durabilityPerFlip").getAsInt();
-        for (JsonElement element : flip.getAsJsonArray("pairs")) {
-            JsonObject pair = element.getAsJsonObject();
-            Item disc = resolver.item(pair.get("disc").getAsString());
-            Item bSide = resolver.item(pair.get("bSide").getAsString());
-            if (disc == null || bSide == null) {
-                continue;
+        List<Component> notes = List.of(Component.translatable("jei.simplebuilding.note.disc_flip.how"),
+                Component.translatable("jei.simplebuilding.note.disc_flip.cost", durability));
+        for (JsonElement element : flip.getAsJsonArray("cycles")) {
+            JsonArray cycle = element.getAsJsonArray();
+            for (int i = 0; i < cycle.size(); i++) {
+                String fromId = cycle.get(i).getAsString();
+                String toId = cycle.get((i + 1) % cycle.size()).getAsString();
+                Item from = resolver.item(fromId);
+                Item to = resolver.item(toId);
+                if (from == null || to == null || cycle.size() < 2) {
+                    continue;
+                }
+                out.add(new Entry(Kind.DISC_FLIP, "disc_flip/" + toId, List.of(Stack.of(from, 1)), hammers, Stack.of(to, 1), 0, notes));
             }
-            List<Component> notes = List.of(Component.translatable("jei.simplebuilding.note.disc_flip.how"),
-                    Component.translatable("jei.simplebuilding.note.disc_flip.cost", durability));
-            out.add(new Entry(Kind.DISC_FLIP, "disc_flip/" + pair.get("bSide").getAsString(), List.of(Stack.of(disc, 1)), hammers,
-                    Stack.of(bSide, 1), 0, notes));
-            out.add(new Entry(Kind.DISC_FLIP, "disc_flip/" + pair.get("disc").getAsString(), List.of(Stack.of(bSide, 1)), hammers,
-                    Stack.of(disc, 1), 0, notes));
         }
     }
 

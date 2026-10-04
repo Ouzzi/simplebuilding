@@ -439,23 +439,24 @@ public final class InWorldTransformations {
     }
 
     /**
-     * Abgelegte Schallplatte mit dem Vorschlaghammer wenden ({@link DiscFlips}): je Platte A-Seite und B-Seite (der
-     * Wechsel geht in beide Richtungen), alle Haemmer, Haltbarkeit je Wechsel.
+     * Abgelegte Schallplatte mit dem Vorschlaghammer zum naechsten Track schalten ({@link DiscFlips}): je Platte die
+     * vorhandenen Tracks als Kreis (1 -&gt; 2 -&gt; ... -&gt; 1), alle Haemmer, Haltbarkeit je Wechsel.
      */
     public static JsonObject discFlip() {
-        JsonArray pairs = new JsonArray();
+        JsonArray cycles = new JsonArray();
         for (MusicDiscs.Disc disc : MusicDiscs.discs()) {
-            JsonObject entry = new JsonObject();
-            entry.addProperty("disc", id(disc.aSide()));
-            entry.addProperty("bSide", id(disc.bSide()));
-            pairs.add(entry);
+            JsonArray tracks = new JsonArray();
+            for (Item track : disc.tracks()) {
+                tracks.add(id(track));
+            }
+            cycles.add(tracks);
         }
         JsonArray hammers = new JsonArray();
         for (Item hammer : modItems(SledgehammerItem.class)) {
             hammers.add(id(hammer));
         }
         JsonObject o = new JsonObject();
-        o.add("pairs", pairs);
+        o.add("cycles", cycles);
         o.add("hammers", hammers);
         o.addProperty("durabilityPerFlip", SledgehammerItem.RESHAPE_DAMAGE);
         return o;

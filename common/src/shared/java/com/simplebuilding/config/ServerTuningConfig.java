@@ -145,6 +145,7 @@ public class ServerTuningConfig {
         hammock.timeFactor = clamp(hammock.timeFactor, 1, ServerTuning.MAX_HAMMOCK_FACTOR);
         speakers.maxSpeakers = clamp(speakers.maxSpeakers, 0, ServerTuning.MAX_SPEAKERS);
         speakers.boostPercent = clamp(speakers.boostPercent, 0, ServerTuning.MAX_SPEAKER_BOOST_PERCENT);
+        speakers.maxChain = clamp(speakers.maxChain, 0, ServerTuning.MAX_SPEAKER_CHAIN);
 
         blueprint.maxBlocksPerTick = clamp(blueprint.maxBlocksPerTick, 1, ServerTuning.MAX_BLUEPRINT_BLOCKS_PER_TICK);
 
@@ -285,6 +286,12 @@ public class ServerTuningConfig {
         /** Verstaerkung je Lautsprecher in Prozent der Vanilla-Lautstaerke (0 bis 50). */
         @ConfigEntry.Gui.Tooltip
         public int boostPercent = 50;
+        /**
+         * Hoechstens so viele Lautsprecher bilden eine Kette ab der Quelle (0 bis 64; 0 = keine Kette): jeder ist ein
+         * weiterer Abspielpunkt derselben Wiedergabe (2026-10-04).
+         */
+        @ConfigEntry.Gui.Tooltip
+        public int maxChain = 16;
     }
 
     /** Erzvorkommen im End; wirken beim naechsten Weltstart und nur fuer neu erzeugte Chunks. */

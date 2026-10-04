@@ -3568,6 +3568,54 @@ window.WIKI_DATA = {
           "Auch ein lebender Shulker nimmt den Klumpen seiner nächsten Stufe an (Eisen-, Netherit-, Enderitklumpen; einer je Stufe). Ein so aufgewerteter Shulker lässt keine Stufen-Schalen fallen und ruft keine Endermiten."
         ]
       }
+    },
+    {
+      "id": "music_discs",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/MusicDiscs.java",
+        "common/src/shared/java/com/simplebuilding/util/DiscFlips.java",
+        "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
+        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/NoteBlockSpeakerMixin.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/JukeboxSongPlayerSpeakerMixin.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/client/LevelEventHandlerSpeakerMixin.java",
+        "mc26_3/overlay/java/com/simplebuilding/client/ChainedJukeboxSound.java"
+      ],
+      "related": [
+        "simplebuilding:music_disc_voidline",
+        "simplebuilding:music_disc_voidline_b_side",
+        "simplebuilding:music_disc_driftwood",
+        "simplebuilding:music_disc_driftwood_b_side",
+        "simplebuilding:music_disc_daybreak",
+        "simplebuilding:music_disc_daybreak_b_side",
+        "simplebuilding:music_disc_brimstone",
+        "simplebuilding:music_disc_brimstone_b_side",
+        "simplebuilding:astralit_speaker",
+        "simplebuilding:nihilith_speaker"
+      ],
+      "en": {
+        "title": "Music discs and speakers",
+        "summary": "Four music discs, one per dimension, each with a B-side, and two speakers that make a jukebox or a note block louder.",
+        "details": [
+          "Voidline (End) lies in end city chests (4 %), Brimstone (Nether) in bastion chests (4 %), Driftwood (Overworld) in woodland mansion chests (5 %) and Daybreak (Overworld) in ancient city chests (2.5 %). Driftwood and Daybreak also drop when a skeleton kills a creeper, like vanilla discs.",
+          "Tracks: a placed disc (sneak + right-click on the ground) switches to its next track with a right-click of a sledgehammer - B-side, then tracks 3 and 4 where they exist, then the first again (1 durability each).",
+          "Astralit Speaker (eight planks around Astralit Dust) makes a directly adjacent jukebox louder and heard farther; Nihilit Speaker (eight planks around a Nihilit Shard) does the same for a note block. Each speaker of the right kind adds 50 % volume (server.speakers.boostPercent, at most 50 %); at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off). Same sound at the same time - no echo, no delay.",
+          "Chain: a speaker touching the source, or touching a speaker already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every speaker in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+          "A jukebox counts its speakers when a song starts, a note block on every note."
+        ]
+      },
+      "de": {
+        "title": "Schallplatten und Lautsprecher",
+        "summary": "Vier Schallplatten, eine je Dimension, jede mit B-Seite, und zwei Lautsprecher, die einen Plattenspieler bzw. Notenblock lauter machen.",
+        "details": [
+          "Voidline (End) liegt in Endsiedlungs-Truhen (4 %), Brimstone (Nether) in Bastion-Truhen (4 %), Driftwood (Oberwelt) in Waldanwesen-Truhen (5 %) und Daybreak (Oberwelt) in Truhen der Antiken StÃ¤tte (2,5 %). Driftwood und Daybreak fallen auch, wenn ein Skelett einen Creeper tÃ¶tet, wie Vanilla-Platten.",
+          "Tracks: eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wechselt mit einem Rechtsklick des Vorschlaghammers zum nächsten Track - B-Seite, dann Track 3 und 4, wo es sie gibt, dann wieder der erste (je 1 Haltbarkeit).",
+          "Astralit-Lautsprecher (acht Bretter um Astralitstaub) macht einen direkt angrenzenden Plattenspieler lauter und weiter hÃ¶rbar; Nihilit-Lautsprecher (acht Bretter um einen Nihilitsplitter) dasselbe fÃ¼r einen Notenblock. Jeder passende Lautsprecher gibt 50 % LautstÃ¤rke dazu (server.speakers.boostPercent, hÃ¶chstens 50 %); hÃ¶chstens 2 zÃ¤hlen (server.speakers.maxSpeakers, hÃ¶chstens 3, 0 = aus). Derselbe Klang zur selben Zeit - kein Echo, keine VerzÃ¶gerung.",
+          "Kette: ein Lautsprecher an der Quelle oder an einem Lautsprecher der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Lautsprecher der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+          "Ein Plattenspieler zÃ¤hlt seine Lautsprecher beim Start eines StÃ¼cks, ein Notenblock bei jeder Note."
+        ]
+      }
     }
   ],
   "items": [
@@ -4070,7 +4118,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/SpeakerBlock.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/ChainedJukeboxSound.java"
         ],
         "en": {
           "title": "Astralit Speaker",
@@ -4078,6 +4127,7 @@ window.WIKI_DATA = {
           "details": [
             "Recipe: eight planks of any wood around Astralit Dust.",
             "Only the jukebox counts it; the other speaker does nothing there. Each counted speaker adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
+            "Chain: a speaker touching the source, or touching a speaker already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every speaker in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
             "A jukebox counts its speakers when a song starts, a note block on every note."
           ]
         },
@@ -4087,6 +4137,7 @@ window.WIKI_DATA = {
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
             "Nur der Plattenspieler zählt ihn; der andere Lautsprecher wirkt dort nicht. Jeder gezählte Lautsprecher gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
+            "Kette: ein Lautsprecher an der Quelle oder an einem Lautsprecher der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Lautsprecher der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
             "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -14450,7 +14501,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/SpeakerBlock.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/ChainedJukeboxSound.java"
         ],
         "en": {
           "title": "Nihilit Speaker",
@@ -14458,6 +14510,7 @@ window.WIKI_DATA = {
           "details": [
             "Recipe: eight planks of any wood around a Nihilit Shard.",
             "Only the note block counts it; the other speaker does nothing there. Each counted speaker adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
+            "Chain: a speaker touching the source, or touching a speaker already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every speaker in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
             "A jukebox counts its speakers when a song starts, a note block on every note."
           ]
         },
@@ -14467,6 +14520,7 @@ window.WIKI_DATA = {
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
             "Nur der Notenblock zählt ihn; der andere Lautsprecher wirkt dort nicht. Jeder gezählte Lautsprecher gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
+            "Kette: ein Lautsprecher an der Quelle oder an einem Lautsprecher der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Lautsprecher der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
             "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -18921,7 +18975,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/SpeakerBlock.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/ChainedJukeboxSound.java"
         ],
         "en": {
           "title": "Astralit Speaker",
@@ -18929,6 +18984,7 @@ window.WIKI_DATA = {
           "details": [
             "Recipe: eight planks of any wood around Astralit Dust.",
             "Only the jukebox counts it; the other speaker does nothing there. Each counted speaker adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
+            "Chain: a speaker touching the source, or touching a speaker already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every speaker in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
             "A jukebox counts its speakers when a song starts, a note block on every note."
           ]
         },
@@ -18938,6 +18994,7 @@ window.WIKI_DATA = {
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
             "Nur der Plattenspieler zählt ihn; der andere Lautsprecher wirkt dort nicht. Jeder gezählte Lautsprecher gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
+            "Kette: ein Lautsprecher an der Quelle oder an einem Lautsprecher der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Lautsprecher der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
             "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -24914,7 +24971,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/SpeakerBlock.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "mc26_3/overlay/java/com/simplebuilding/client/ChainedJukeboxSound.java"
         ],
         "en": {
           "title": "Nihilit Speaker",
@@ -24922,6 +24980,7 @@ window.WIKI_DATA = {
           "details": [
             "Recipe: eight planks of any wood around a Nihilit Shard.",
             "Only the note block counts it; the other speaker does nothing there. Each counted speaker adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
+            "Chain: a speaker touching the source, or touching a speaker already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every speaker in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
             "A jukebox counts its speakers when a song starts, a note block on every note."
           ]
         },
@@ -24931,6 +24990,7 @@ window.WIKI_DATA = {
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
             "Nur der Notenblock zählt ihn; der andere Lautsprecher wirkt dort nicht. Jeder gezählte Lautsprecher gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
+            "Kette: ein Lautsprecher an der Quelle oder an einem Lautsprecher der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Lautsprecher der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
             "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -66983,6 +67043,29 @@ window.WIKI_DATA = {
       "tooltipDe": "Lautstärke und Reichweite je Lautsprecher,\n0 bis 50 % von Vanilla.\nServerseitig. Standard: 50."
     },
     {
+      "range": [
+        0.0,
+        64.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.speakers.maxChain",
+      "shortName": "maxChain",
+      "type": "int",
+      "default": "16",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Speakers",
+      "groupDe": "Lautsprecher",
+      "label": "Max Chain Length",
+      "labelDe": "Höchste Kettenlänge",
+      "tooltip": "Speakers of the right kind that pass a\njukebox or note block on (chain), 0 to 64\n(0 = off). Server-side. Default: 16.",
+      "tooltipDe": "Lautsprecher der passenden Sorte, die einen\nPlattenspieler oder Notenblock weitergeben\n(Kette), 0 bis 64 (0 = aus). Serverseitig.\nStandard: 16."
+    },
+    {
       "range": null,
       "side": "server",
       "reload": "restart",
@@ -69425,21 +69508,23 @@ window.WIKI_DATA = {
             "common/src/shared/java/com/simplebuilding/util/TransformTargets.java"
           ],
           "en": {
-            "title": "Flipping a music disc to its B-side",
-            "summary": "Place one of the mod's music discs on the ground (sneak + right-click) and right-click it with any sledgehammer: it turns into its B-side, which plays a second track. Right-click again and it is the A-side again - endlessly.",
+            "title": "Switching a music disc's track",
+            "summary": "Place one of the mod's music discs on the ground (sneak + right-click) and right-click it with any sledgehammer: it turns into its next track - the B-side, then tracks 3 and 4 where the disc has them, then the first track again.",
             "details": [
-              "Each flip costs the hammer 1 durability. With several discs in one pile the last placed disc flips.",
-              "Needs the same rights as placing a block there. The held hammer tilts while it would flip a disc.",
-              "Vanilla discs have no B-side."
+              "Each switch costs the hammer 1 durability. With several discs in one pile the last placed disc switches.",
+              "Tracks 3 and 4 exist only for discs that got music for them; a missing track is skipped.",
+              "Needs the same rights as placing a block there. The held hammer tilts while it would switch a disc.",
+              "Vanilla discs have no further tracks."
             ]
           },
           "de": {
-            "title": "Schallplatte zur B-Seite wenden",
-            "summary": "Eine Schallplatte der Mod auf den Boden legen (Schleichen + Rechtsklick) und mit einem beliebigen Vorschlaghammer rechtsklicken: sie wird zu ihrer B-Seite, die ein zweites Stück spielt. Noch ein Rechtsklick, und es ist wieder die A-Seite - endlos.",
+            "title": "Track einer Schallplatte wechseln",
+            "summary": "Eine Schallplatte der Mod auf den Boden legen (Schleichen + Rechtsklick) und mit einem beliebigen Vorschlaghammer rechtsklicken: sie wird zu ihrem nächsten Track - B-Seite, dann Track 3 und 4, wo die Platte sie hat, dann wieder der erste.",
             "details": [
-              "Jeder Wechsel kostet den Hammer 1 Haltbarkeit. Liegen mehrere Platten auf einem Häufchen, wendet sich die zuletzt gelegte.",
-              "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Hammer neigt sich, solange er eine Platte wenden würde.",
-              "Vanilla-Platten haben keine B-Seite."
+              "Jeder Wechsel kostet den Hammer 1 Haltbarkeit. Liegen mehrere Platten auf einem Häufchen, wechselt die zuletzt gelegte.",
+              "Track 3 und 4 gibt es nur bei Platten, für die Musik da ist; ein fehlender Track wird übersprungen.",
+              "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Hammer neigt sich, solange er eine Platte wechseln würde.",
+              "Vanilla-Platten haben keine weiteren Tracks."
             ]
           }
         }
@@ -92375,10 +92460,10 @@ window.WIKI_DATA = {
     "trades": 20,
     "enchantments": 19,
     "tags": 48,
-    "config": 196,
+    "config": 197,
     "inWorld": 462,
     "advancements": 123,
-    "features": 44,
+    "features": 45,
     "undocumented": 0,
     "incompleteProse": 0
   },

@@ -18,8 +18,9 @@ import org.spongepowered.asm.mixin.injection.At;
 
 /**
  * Astralit-Lautsprecher (2026-10-03): das Plattenspieler-Stueck startet mit Vanillas Lautstaerke 4,0 mal dem Faktor der
- * angrenzenden Lautsprecher ({@link SpeakerBoost}, Config vom Server). Sonst genau Vanillas Klang (Kategorie Platten,
- * lineare Abschwaechung, nicht wiederholt) - kein zweiter Klang, keine Verzoegerung.
+ * angrenzenden Lautsprecher ({@link SpeakerBoost}, Config vom Server). Mit einer Kette (2026-10-04) wandert der Klang
+ * mit dem Spieler zum naechsten Abspielpunkt ({@link com.simplebuilding.client.ChainedJukeboxSound}). Sonst genau
+ * Vanillas Klang (Kategorie Platten, lineare Abschwaechung, nicht wiederholt) - kein zweiter Klang, keine Verzoegerung.
  */
 @Mixin(LevelEventHandler.class)
 public abstract class LevelEventHandlerSpeakerMixin {
@@ -30,7 +31,11 @@ public abstract class LevelEventHandlerSpeakerMixin {
     @WrapOperation(method = "playJukeboxSong", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/client/resources/sounds/SimpleSoundInstance;forJukeboxSong(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/client/resources/sounds/SimpleSoundInstance;"))
     private SimpleSoundInstance simplebuilding$speakerVolume(SoundEvent sound, Vec3 at, Operation<SimpleSoundInstance> original) {
-        float multiplier = SpeakerBoost.multiplier(level, BlockPos.containing(at), SpeakerBoost.Source.JUKEBOX);
+        BlockPos pos = BlockPos.containing(at);
+        float multiplier = SpeakerBoost.multiplier(level, pos, SpeakerBoost.Source.JUKEBOX);
+        if (!SpeakerBoost.chain(level, pos, SpeakerBoost.Source.JUKEBOX).isEmpty()) {
+            return new com.simplebuilding.client.ChainedJukeboxSound(sound, level, pos, SpeakerBoost.JUKEBOX_VOLUME * multiplier);
+        }
         if (multiplier <= 1.0F) {
             return original.call(sound, at);
         }
