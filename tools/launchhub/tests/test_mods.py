@@ -89,10 +89,13 @@ class ModTests(unittest.TestCase):
         with self.assertRaises(HubError): self.hub.launch_integration({'action':'server;whoami'})
 
     def test_dry_run_fixed_argv_and_selection_step(self):
-        with patch.dict(os.environ, {'SB_HUB_DRY_RUN':'1'}), patch.object(self.hub,'require_disk'):
+        with patch.dict(os.environ, {'SB_HUB_DRY_RUN':'1'}), patch.object(self.hub,'require_disk'), \
+                patch.object(targets, 'gradle_offline', return_value=True):
             result = self.hub.launch_integration({'action':'server'})
             job = self.hub.manager.get(result['job']['id'])
             self.assertEqual(job.steps[-1]['argv'][-1], ':integration:runIntegrationServer')
+            self.assertIn('-PskipForge262=true', job.steps[-1]['argv'])
+            self.assertIn('--offline', job.steps[-1]['argv'])
             self.assertTrue(job.dry)
             self.assertEqual(job.steps[-1]['cwd'], str(self.root))
             self.assertFalse((self.root / 'integration/run-fabric-263').exists())
@@ -106,6 +109,13 @@ class ModTests(unittest.TestCase):
         self.assertNotIn('integration-263', {t.id for t in runner.DEFAULT_TARGETS})
         self.assertEqual(len(runner.read_catalogue()['integration-26.3']), 1)
         self.assertEqual(runner.read_catalogue()['26.3'], runner.read_catalogue()['26.2'])
+
+    def test_offline_forge262_is_rejected_before_job_start(self):
+        with patch.object(targets, 'gradle_offline', return_value=True), \
+                patch.object(self.hub, 'require_disk'), patch.object(self.hub.manager, 'start') as start:
+            with self.assertRaisesRegex(targets.TargetError, r'Forge 26.2 braucht Netz \(Mavenizer\)'):
+                self.hub.launch({'target':'forge-262', 'action':'client', 'workspace':'repo'})
+            start.assert_not_called()
 
     def test_selected_riding_suite_is_queued_after_wiring(self):
         with patch.dict(os.environ, {'SB_HUB_DRY_RUN':'1'}), patch.object(self.hub, 'require_disk'):

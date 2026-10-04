@@ -363,10 +363,13 @@ def gradlew() -> list[str]:
     warmed Gradle cache instead of failing on a download (tools/testrunner/offline_gate.ps1). It also
     leaves the 26.2 :forge project out (-PskipForge262, see settings.gradle): configuring it always
     runs ForgeGradle's Mavenizer, which downloads the launcher manifest and has no offline switch in
-    ForgeGradle 7. Forge targets themselves therefore still need the network.
+    ForgeGradle 7. Forge 26.2 targets themselves therefore still need the network.
+    The hub also sets SIMPLEBUILDING_SKIP_FORGE262=1 for unrelated targets while online.
     """
     offline = (["--offline", "-PskipForge262=true"]
                if os.environ.get("SIMPLEBUILDING_GRADLE_OFFLINE") == "1" else [])
+    if os.environ.get("SIMPLEBUILDING_SKIP_FORGE262") == "1" and "-PskipForge262=true" not in offline:
+        offline.append("-PskipForge262=true")
     if os.name == "nt":
         return [str(REPO / "gradlew.bat"), *offline]
     return ["./gradlew", *offline]

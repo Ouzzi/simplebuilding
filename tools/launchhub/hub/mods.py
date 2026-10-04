@@ -89,9 +89,11 @@ class ModsMixin:
                           'call':lambda log: self._prepare_world(world, 'recreate', log, 'Integration')})
         if action == 'tests':
             argv = targets.test_argv(ws, ['integration-263'], None)
+            env = targets.test_env(['integration-263'])
         else:
-            argv = [targets.gradlew_path(ws), ':integration:' + tasks[action]]
-        steps.append({'label':'integration ' + action, 'argv':argv, 'cwd':str(ws)})
+            argv = [targets.gradlew_path(ws), *targets.gradle_args(), ':integration:' + tasks[action]]
+            env = {}
+        steps.append({'label':'integration ' + action, 'argv':argv, 'cwd':str(ws), 'env':env})
         if action == 'tests':
             modules, _ = multimod.registries(self.repo)
             module_targets = [target for module in modules
@@ -101,7 +103,8 @@ class ModsMixin:
                 # Keep the harness and module runs sequential: they can share a run
                 # directory, and each suite needs its own namespace filter.
                 steps.append({'label':'selected module integration tests',
-                              'argv':targets.test_argv(ws, module_targets, None), 'cwd':str(ws)})
+                              'argv':targets.test_argv(ws, module_targets, None), 'cwd':str(ws),
+                              'env':targets.test_env(module_targets)})
         job = self.manager.start('test' if action == 'tests' else 'launch', 'Integration ' + action, steps,
                                  meta={'target':'integration-263', 'workspace':workspace, 'action':action,
                                        'kind_of':'server' if action == 'server' else 'client',
