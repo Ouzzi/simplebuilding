@@ -309,7 +309,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 - [ ] Crucible / Schmelztiegel (Konzept + Fragebogen zuerst: `docs/ai/PLAN-CRUCIBLE-2026-10-04.md`, Branch `claude-crucible`):
   - [ ] Neue Ofen-Station, so schnell wie ein normaler Ofen, gart mehrere verschiedene Dinge parallel; Ergebnisse in den nächsten freien Slot.
-  - [ ] Stufen: Eisen 9 Slots (wie Crafting-Grid), Verstärkt 18, „Enderite 27“ (vermutlich Netherit 27), Enderit 27 mit doppelter Stackgröße; Tempo wie die SB-Ofen-Stufen (2×/4×/8×).
+  - [ ] Stufen (Runde 1): Eisen 6, Verstärkt 9, Netherit 18, Enderit 27 (nur SB, doppelte Stackgröße); Tempo wie die SB-Ofen-Stufen (1×/2×/4×/8×), Hitzefaktor niedrig 0,5× … extrem 1×.
   - [ ] Herstellung in der Welt: Vorschlaghammer auf Eisenblock, Eisenbarren in der Nebenhand; 4 Schläge = 4 Wände (Eisen-Druckplatten), 2 Schläge = 2 Griffe (Eisenstäbe). Höhere Stufen wie die Ofen-Aufwertungen.
   - [ ] Slot-Indikator im Slot-Hintergrund: gart = heller + Fortschritt; kein Platz = rot (gestoppt); zu wenig Hitze = blau.
   - [ ] Kein Brennstoff, sondern Hitzequelle: Lagerfeuer/Magma = mittel, Lava = hoch, Seelen-Lava = extrem; niedrige Stufe (Fackel/Kerze/Seelenfeuer) vorgeschlagen.
@@ -317,4 +317,5 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
   - [ ] Kupfer-Eimer: nimmt keine Seelen-Lava, nur normale Lava, zerbricht beim Ausgießen von Lava. Eisen-Eimer zerbricht beim Ausgießen von Seelen-Lava. Enderit-Eimer (Schmiedetisch, direkt vom Eisen-Eimer) zerbricht nicht.
   - [ ] Warmes Essen: Tiegel wärmt Sandwiches und andere warme Speisen auf; warm 15 % schneller essbar; bleibt ca. einen halben Tag-Nacht-Zyklus warm, im Bündel ca. 2 Zyklen; beim Stapeln Mittelwert der Wärme; Glow um die Items (Stärke ~ Restwärme).
   - [ ] Auch im Modul Simple Sandwiches (eigenständig spielbar): Tiegel + Warm-Food; ohne SB mit der Axt statt dem Vorschlaghammer. Aufteilung SB/Modul siehe Plan Frage 1 und `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`.
-  - [ ] Besitzer beantwortet den Fragebogen (112 Fragen, ★ = Empfehlung), danach Umsetzung.
+  - [x] Fragebogen Runde 1 (F1–F37) beantwortet, eingearbeitet (Plan §2; gemeinsamer Kern als Bibliothek `simplecrucibles`, Dorf-Feldküche neu).
+  - [ ] Besitzer beantwortet Fragebogen Runde 2 (49 Fragen, ★ = Empfehlung), danach Umsetzung.
