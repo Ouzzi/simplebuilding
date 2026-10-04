@@ -185,7 +185,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "2da1acc5a9ce"
+    "dataHash": "bd50daed0002"
   },
   {
     "id": "simpletweaks",

@@ -525,6 +525,62 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       }
     },
     {
+      "id": "config_qOL_enableLinkedContainers",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.enableLinkedContainers",
+        "summary": "Server switch for linked containers. Default: true."
+      },
+      "de": {
+        "title": "qOL.enableLinkedContainers",
+        "summary": "Serverschalter fuer verknuepfte Behaelter. Standard: true."
+      }
+    },
+    {
+      "id": "config_qOL_linkedContainerRange",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.linkedContainerRange",
+        "summary": "Server setting, range 8–128 blocks between player and marked container. Default: 64."
+      },
+      "de": {
+        "title": "qOL.linkedContainerRange",
+        "summary": "Servereinstellung, 8–128 Bloecke zwischen Spieler und vorgemerktem Behaelter. Standard: 64."
+      }
+    },
+    {
+      "id": "config_qOL_enableEasyShulkers",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.enableEasyShulkers",
+        "summary": "Server switch for opening shulker boxes from the inventory. Default: true."
+      },
+      "de": {
+        "title": "qOL.enableEasyShulkers",
+        "summary": "Serverschalter fuer Shulkerkisten aus dem Inventar. Standard: true."
+      }
+    },
+    {
+      "id": "config_qOL_enableEasyEnderChests",
+      "sources": [
+        "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\config\\SimplequalityoflifeConfig.java"
+      ],
+      "en": {
+        "title": "qOL.enableEasyEnderChests",
+        "summary": "Server switch for opening ender chests from the inventory. Default: true."
+      },
+      "de": {
+        "title": "qOL.enableEasyEnderChests",
+        "summary": "Serverschalter fuer Endertruhen aus dem Inventar. Standard: true."
+      }
+    },
+    {
       "id": "commands",
       "sources": [
         "modules\\simplequalityoflife\\shared\\java\\com\\simplequalityoflife\\command\\ModCommands.java"
@@ -618,6 +674,36 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
         "title": "Reparieren hält die Ambosskosten",
         "summary": "Reparieren mit Material, Zusammenlegen zweier Gegenstände ohne neue Verzauberung oder Umbenennen behält die höhere Ambosskosten der Zutaten, statt sie zu erhöhen. Nur eine Änderung der Verzauberungen erhöht sie wie in Vanilla. Server-Option qOL.anvilRepairKeepsCost (Standard true)."
       }
+    },
+    {
+      "id": "linked_containers",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/container/LinkedContainers.java",
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/client/LinkedPanel.java"
+      ],
+      "en": {
+        "title": "Linked containers",
+        "summary": "Sneak + right-click a container with an empty main hand to mark it (a double chest counts as one); dust particles at your hand show the mark. The next chest or GUI you open (crafting table, furnace, anvil …) shows the marked container above it, sharing your inventory. Shift-click moves marked → second GUI, else inventory; inventory → second GUI, else the marked container. The mark ends beyond qOL.linkedContainerRange (default 64, range 8–128), in another dimension, in an unloaded chunk, when the block is gone, on logout or death, or with another sneak + right-click on it. Claims and locks are checked. The recipe book still only counts your inventory."
+      },
+      "de": {
+        "title": "Verknuepfte Behaelter",
+        "summary": "Schleichen + Rechtsklick mit leerer Haupthand merkt einen Behaelter vor (Doppeltruhe zaehlt als einer); Staubpartikel an der Hand zeigen die Vormerkung. Die naechste geoeffnete Truhe oder GUI (Werkbank, Ofen, Amboss …) zeigt den Behaelter darueber, mit gemeinsamem Inventar. Shift-Klick: vorgemerkt → zweites GUI, sonst Inventar; Inventar → zweites GUI, sonst vorgemerkter Behaelter. Die Vormerkung endet jenseits von qOL.linkedContainerRange (Standard 64, Bereich 8–128), in anderer Dimension, in ungeladenem Chunk, wenn der Block weg ist, bei Logout oder Tod oder mit erneutem Schleich-Rechtsklick darauf. Claims und Schloesser werden geprueft. Das Rezeptbuch zaehlt weiter nur das Inventar."
+      }
+    },
+    {
+      "id": "easy_shulkers",
+      "sources": [
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/container/PortableContainers.java",
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/container/PortableMenu.java"
+      ],
+      "en": {
+        "title": "Easy shulker boxes and ender chests",
+        "summary": "Right-click a shulker box (any color, also SimpleBuilding tier boxes) or an ender chest in the air, or right-click it on its own inventory slot, to open it without placing it. The item stays locked in its slot while open; every change is written into the box at once. Shulker boxes do not fit inside. Not from the creative inventory tab. Switches: qOL.enableEasyShulkers and qOL.enableEasyEnderChests (default true)."
+      },
+      "de": {
+        "title": "Einfache Shulkerkisten und Endertruhen",
+        "summary": "Rechtsklick mit einer Shulkerkiste (jede Farbe, auch SimpleBuilding-Stufenkisten) oder Endertruhe in die Luft oder auf ihren eigenen Inventarplatz oeffnet sie, ohne sie zu platzieren. Das Item bleibt waehrenddessen in seinem Platz gesperrt; jede Aenderung wird sofort in die Kiste geschrieben. Shulkerkisten passen nicht hinein. Nicht aus dem Kreativ-Inventarreiter. Schalter: qOL.enableEasyShulkers und qOL.enableEasyEnderChests (Standard true)."
+      }
     }
   ],
   "recipes": [],
@@ -675,7 +761,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 42,
+    "features": 48,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

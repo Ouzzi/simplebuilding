@@ -280,8 +280,8 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
   - Essenskorb (Picknickkorb-Optik): trägt 5 Stacks Essen wie ein Bündel, oberstes Item sichtbar, essbar oder wechselbar, Tooltip wie Bündel.
 - [ ] Hängematte: bei 3 Blöcken Abstand nicht zentriert → zentrieren; Abstand auf 2–4 erweitern; auch diagonal (erst einen Anker, dann den anderen anklicken); Rezept mit 2. Faden; ersetzt keinen Schlaf, lässt aber auch nachts die Zeit schneller laufen.
 - [ ] Nihil-Gewölbe („Nihil Vault“): wie das Astralgewölbe, aber eine weltweit geteilte Enderkiste (Größe wie Enderkiste), jeder hat Zugriff.
-- [ ] Simple QoL: Mit leerer Hand Schleich-Rechtsklick auf eine Truhe merkt sie vor (Partikel an der Hand); öffnet man danach eine 2. Truhe oder GUI (Werkbank usw.), werden beide GUIs untereinander angezeigt (Umräumen, aus Truhe craften). Reichweite ~64 Blöcke.
-- [ ] Simple QoL: „Easy Shulkers“ und „Easy Ender Chests“ übernehmen (aus dem Inventar öffnen).
+- [x] Simple QoL: Mit leerer Hand Schleich-Rechtsklick auf eine Truhe merkt sie vor (Partikel an der Hand); öffnet man danach eine 2. Truhe oder GUI (Werkbank usw.), werden beide GUIs untereinander angezeigt (Umräumen, aus Truhe craften). Reichweite ~64 Blöcke. (claude-qolgui: Panel oben/seitlich mit Scrollen, Server-Config 64 (8–128); Rezeptbuch aus Truhe bewusst nicht; Client-Sicht offen)
+- [x] Simple QoL: „Easy Shulkers“ und „Easy Ender Chests“ übernehmen (aus dem Inventar öffnen). (claude-qolgui: Luft + Inventar-Rechtsklick, Slot gesperrt, inkl. Stufen-Shulker; Kreativreiter ausgenommen)
 - [ ] Geschwindigkeitsmesser-Rezept: freie Felder mit Kupfer-Nuggets füllen, dann das Muster um einen Slot im Uhrzeigersinn rotieren.
 - [ ] Astral-/Nihil-Schienen: bremsen bzw. beschleunigen; Höchstgeschwindigkeit anheben mit realistischer Reibung (je schneller, desto mehr Boost nötig, asymptotische Annäherung); Astral-Schienen boosten stärker als Antriebsschienen.
 - [ ] Harz-Schachbrett: Rezept nutzt noch den Platzhalter rote Netherziegel → auf Harzziegel (resin_bricks) umstellen.
