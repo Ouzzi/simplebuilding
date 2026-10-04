@@ -304,3 +304,17 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Optionale Partner in Loader-Metadaten nachziehen (`suggests` / `type="optional"`) und `tools/multimod.py` prüft Gleichstand mit `modules.json optional` (Befund 5).
 - [ ] Simple Riding: Enderit-Hufeisen über `#c:ingots/enderite` statt fester SB-ID (Condition bleibt; Befund 6).
 - [ ] Simple Sandwiches (Branch `claude-sandwiches`): Crucible-Grundrezept mit Axt, SB-Variante mit `#simplebuilding:sledgehammer_tools` nur hinter `mod_loaded` (Regel 5).
+
+## Besitzer 2026-10-04 (Nachtrag 9)
+
+- [ ] Crucible / Schmelztiegel (Konzept + Fragebogen zuerst: `docs/ai/PLAN-CRUCIBLE-2026-10-04.md`, Branch `claude-crucible`):
+  - [ ] Neue Ofen-Station, so schnell wie ein normaler Ofen, gart mehrere verschiedene Dinge parallel; Ergebnisse in den nächsten freien Slot.
+  - [ ] Stufen: Eisen 9 Slots (wie Crafting-Grid), Verstärkt 18, „Enderite 27“ (vermutlich Netherit 27), Enderit 27 mit doppelter Stackgröße; Tempo wie die SB-Ofen-Stufen (2×/4×/8×).
+  - [ ] Herstellung in der Welt: Vorschlaghammer auf Eisenblock, Eisenbarren in der Nebenhand; 4 Schläge = 4 Wände (Eisen-Druckplatten), 2 Schläge = 2 Griffe (Eisenstäbe). Höhere Stufen wie die Ofen-Aufwertungen.
+  - [ ] Slot-Indikator im Slot-Hintergrund: gart = heller + Fortschritt; kein Platz = rot (gestoppt); zu wenig Hitze = blau.
+  - [ ] Kein Brennstoff, sondern Hitzequelle: Lagerfeuer/Magma = mittel, Lava = hoch, Seelen-Lava = extrem; niedrige Stufe (Fackel/Kerze/Seelenfeuer) vorgeschlagen.
+  - [ ] Seelen-Lava (neue Flüssigkeit): Quell- und Fließblock nicht ersetz-/überbaubar, entfernen nur durch Aufnehmen der Quelle mit Eimer. Weltgenerierung nur im Nether: ca. 0,5 % statt einer Lava-Tasche, in Netherfestungen 10 % Chance je Lavaquellen-Raum; sonst nirgends.
+  - [ ] Kupfer-Eimer: nimmt keine Seelen-Lava, nur normale Lava, zerbricht beim Ausgießen von Lava. Eisen-Eimer zerbricht beim Ausgießen von Seelen-Lava. Enderit-Eimer (Schmiedetisch, direkt vom Eisen-Eimer) zerbricht nicht.
+  - [ ] Warmes Essen: Tiegel wärmt Sandwiches und andere warme Speisen auf; warm 15 % schneller essbar; bleibt ca. einen halben Tag-Nacht-Zyklus warm, im Bündel ca. 2 Zyklen; beim Stapeln Mittelwert der Wärme; Glow um die Items (Stärke ~ Restwärme).
+  - [ ] Auch im Modul Simple Sandwiches (eigenständig spielbar): Tiegel + Warm-Food; ohne SB mit der Axt statt dem Vorschlaghammer. Aufteilung SB/Modul siehe Plan Frage 1 und `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`.
+  - [ ] Besitzer beantwortet den Fragebogen (112 Fragen, ★ = Empfehlung), danach Umsetzung.
