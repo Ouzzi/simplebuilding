@@ -1,4 +1,10 @@
 {
+  "item.simplebuilding.basic_upgrade_template.base_slot_description": "Add upgradeable equipment",
+  "item.simplebuilding.basic_upgrade_template.additions_slot_description": "Add the upgrade material or core",
+  "item.simplebuilding.enderite_upgrade_template.applies_to": "Netherite Equipment and Upgradeable Blocks",
+  "item.simplebuilding.enderite_upgrade_template.ingredients": "Enderite Ingots, Cores or Recipe-Specific Materials",
+  "item.simplebuilding.enderite_upgrade_template.base_slot_description": "Add equipment or a block to upgrade",
+  "item.simplebuilding.enderite_upgrade_template.additions_slot_description": "Add the material required by the recipe",
   "simplebuilding.testcentre.armour.both": "Glowing + Emitting",
   "simplebuilding.testcentre.armour.emitting": "Emitting trim (Radiance)",
   "simplebuilding.testcentre.armour.glowing": "Glowing trim",

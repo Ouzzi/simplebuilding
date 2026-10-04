@@ -260,9 +260,22 @@ public class ModItems {
 
     // Upgrade Templates
 
-    public static final Item BASIC_UPGRADE_TEMPLATE = registerItem("basic_upgrade_template", settings -> new Item(settings.stacksTo(64).rarity(UNCOMMON)));
+    public static final Item BASIC_UPGRADE_TEMPLATE = registerItem("basic_upgrade_template", settings -> upgradeTemplate("basic_upgrade_template", settings));
 
-    public static final Item ENDERITE_UPGRADE_TEMPLATE = registerItem("enderite_upgrade_template", s -> new Item(s.rarity(UNCOMMON)));
+    public static final Item ENDERITE_UPGRADE_TEMPLATE = registerItem("enderite_upgrade_template", settings -> upgradeTemplate("enderite_upgrade_template", settings));
+
+    private static SmithingTemplateItem upgradeTemplate(String id, Item.Properties settings) {
+        String key = "item.simplebuilding." + id;
+        return new SmithingTemplateItem(
+                Component.translatable(key + ".applies_to").withStyle(ChatFormatting.BLUE),
+                Component.translatable(key + ".ingredients").withStyle(ChatFormatting.BLUE),
+                Component.translatable(key + ".base_slot_description"),
+                Component.translatable(key + ".additions_slot_description"),
+                List.of(Identifier.withDefaultNamespace("container/slot/pickaxe"),
+                        Identifier.withDefaultNamespace("container/slot/chestplate")),
+                List.of(Identifier.withDefaultNamespace("container/slot/ingot")),
+                settings.stacksTo(64).rarity(UNCOMMON));
+    }
 
     // Unsichtbarer Platzhalter fuer das Zeilen-Layout der Kreativ-Tabs (CreativeTabLayout); nicht erhaeltlich.
     public static final Item CREATIVE_SPACER = registerItem("creative_spacer", s -> new CreativeSpacerItem(s

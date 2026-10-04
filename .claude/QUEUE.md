@@ -304,3 +304,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Optionale Partner in Loader-Metadaten nachziehen (`suggests` / `type="optional"`) und `tools/multimod.py` prüft Gleichstand mit `modules.json optional` (Befund 5).
 - [ ] Simple Riding: Enderit-Hufeisen über `#c:ingots/enderite` statt fester SB-ID (Condition bleibt; Befund 6).
 - [ ] Simple Sandwiches (Branch `claude-sandwiches`): Crucible-Grundrezept mit Axt, SB-Variante mit `#simplebuilding:sledgehammer_tools` nur hinter `mod_loaded` (Regel 5).
+
+## Besitzerauftrag small9 (2026-10-04)
+- [ ] Basic-/Enderite-Tooltips wie Vanilla, EN/DE, Strukturtest.
+- [ ] Verstärker innerhalb der Hörweite immer voller Pegel.
+- [ ] Ofen-Ausbeutebonus entfernen; doppelte XP behalten, Altwelten prüfen.

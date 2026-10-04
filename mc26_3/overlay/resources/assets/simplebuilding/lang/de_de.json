@@ -1,4 +1,10 @@
 {
+  "item.simplebuilding.basic_upgrade_template.base_slot_description": "Aufwertbare Ausrüstung hinzufügen",
+  "item.simplebuilding.basic_upgrade_template.additions_slot_description": "Aufwertungsmaterial oder Kern hinzufügen",
+  "item.simplebuilding.enderite_upgrade_template.applies_to": "Netherit-Ausrüstung und aufwertbare Blöcke",
+  "item.simplebuilding.enderite_upgrade_template.ingredients": "Enderitbarren, Kerne oder rezeptabhängige Materialien",
+  "item.simplebuilding.enderite_upgrade_template.base_slot_description": "Ausrüstung oder Block zum Aufwerten hinzufügen",
+  "item.simplebuilding.enderite_upgrade_template.additions_slot_description": "Das im Rezept benötigte Material hinzufügen",
   "simplebuilding.testcentre.armour.both": "Leuchtend + strahlend",
   "simplebuilding.testcentre.armour.emitting": "Strahlender Besatz",
   "simplebuilding.testcentre.armour.glowing": "Leuchtender Besatz",
