@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_glowing_trim_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:glowing_trim_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:glowing_trim_template_duplication"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_glowing_trim_template"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:glowing_trim_template_duplication"
+    ]
+  }
+}

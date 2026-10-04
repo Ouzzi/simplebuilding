@@ -6,6 +6,8 @@ import java.util.Map;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.entity.player.Player;
+import com.simplebuilding.version.McVersion;
 
 /**
  * Die Besatz-Aufwertung mit dem Vorschlaghammer: Leuchttintenbeutel in der Nebenhand ergibt die leuchtende,
@@ -17,8 +19,8 @@ import net.minecraft.world.item.Items;
 public final class SledgehammerEntityInteraction {
     /** Haltbarkeit, die ein Schlag den Hammer kostet (ausserhalb des Kreativmodus). */
     public static final int HAMMER_DAMAGE = 1;
-    /** Wie viele Stueck des Nebenhand-Materials ein Schlag verbraucht (ausserhalb des Kreativmodus). */
-    public static final int CATALYST_COST = 1;
+    /** Nebenhand-Material pro fertiger Aufwertung (ausserhalb des Kreativmodus). */
+    public static final int CATALYST_COST = McVersion.EXPENSIVE_TEMPLATES ? 2 : 1;
 
     private SledgehammerEntityInteraction() {
     }
@@ -29,6 +31,43 @@ public final class SledgehammerEntityInteraction {
         upgrades.put(Items.GLOW_INK_SAC, ModItems.GLOWING_TRIM_TEMPLATE);
         upgrades.put(Items.GLOWSTONE_DUST, ModItems.EMITTING_TRIM_TEMPLATE);
         return upgrades;
+    }
+
+    /** Additional inventory materials; the catalyst remains in the off hand. */
+    public static Map<Item, Integer> extraMaterials(Item catalyst) {
+        Map<Item, Integer> materials = new LinkedHashMap<>();
+        if (McVersion.EXPENSIVE_TEMPLATES && trimUpgrades().containsKey(catalyst)) {
+            materials.put(Items.DIAMOND, 4);
+            materials.put(catalyst == Items.GLOW_INK_SAC ? Items.GLOWSTONE : Items.BLAZE_POWDER, 2);
+        }
+        return materials;
+    }
+
+    public static boolean hasMaterials(Player player) {
+        if (player.isCreative()) return true;
+        if (player.getOffhandItem().getCount() < CATALYST_COST) return false;
+        for (var material : extraMaterials(player.getOffhandItem().getItem()).entrySet()) {
+            if (player.getInventory().countItem(material.getKey()) < material.getValue()) return false;
+        }
+        return true;
+    }
+
+    /** Called only after checking all materials on the server's final hit. */
+    public static void consumeMaterials(Player player) {
+        if (player.isCreative()) return;
+        for (var material : extraMaterials(player.getOffhandItem().getItem()).entrySet()) {
+            int remaining = material.getValue();
+            for (int slot = 0; slot < player.getInventory().getContainerSize() && remaining > 0; slot++) {
+                var stack = player.getInventory().getItem(slot);
+                if (stack.is(material.getKey())) {
+                    int count = Math.min(remaining, stack.getCount());
+                    stack.shrink(count);
+                    remaining -= count;
+                }
+            }
+        }
+        player.getOffhandItem().shrink(CATALYST_COST);
+        player.getInventory().setChanged();
     }
 
     /**

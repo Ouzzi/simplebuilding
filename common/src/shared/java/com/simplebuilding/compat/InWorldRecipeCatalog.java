@@ -448,8 +448,18 @@ public final class InWorldRecipeCatalog {
             if (catalyst == null || result == null) {
                 continue;
             }
+            List<Stack> inputs = new ArrayList<>();
+            inputs.add(new Stack(List.copyOf(templates), 1));
+            inputs.add(Stack.of(catalyst, upgrade.get("catalystCount").getAsInt()));
+            if (upgrade.has("extraMaterials")) {
+                for (JsonElement cost : upgrade.getAsJsonArray("extraMaterials")) {
+                    JsonObject material = cost.getAsJsonObject();
+                    Item item = resolver.item(material.get("id").getAsString());
+                    if (item != null) inputs.add(Stack.of(item, material.get("count").getAsInt()));
+                }
+            }
             out.add(new Entry(Kind.TRIM_TEMPLATE, "trim_template/" + resultId,
-                    List.of(new Stack(List.copyOf(templates), 1), Stack.of(catalyst, upgrade.get("catalystCount").getAsInt())),
+                    List.copyOf(inputs),
                     hammers, Stack.of(result, 1), 0, notes));
         }
     }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": "minecraft:diamond",
+    "B": "simplebuilding:basic_upgrade_template",
+    "C": "minecraft:iron_block"
+  },
+  "pattern": [
+    "ABA",
+    "ACA",
+    "AAA"
+  ],
+  "result": {
+    "count": 2,
+    "id": "simplebuilding:basic_upgrade_template"
+  }
+}

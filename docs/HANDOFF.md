@@ -16,6 +16,21 @@ Testzentralen-Neubau/Item-Abdeckung bestanden. Kein Clientstart, Port, Merge ode
 Plan, Ursachen, Diagnoselaeufe und Beleg-IDs: `docs/ai/PLAN-FLAKY-GAMETESTS-2026-10-02.md`.
 Separater Handbuchcheck meldet zwei bestehende deutsche Themenlisten-Ueberlaengen; unveraendert.
 
+## Vorlagenkosten 26.3 (2026-10-04, Worker claude-gpt-templates)
+
+- `EXPENSIVE_TEMPLATES`: 26.3 true, 26.2 false. Glowing/Emitting kosten zusätzlich
+  vier Diamanten und zwei thematische Materialien; Nebenhand-Katalysator je zweimal.
+  Pulsating: zwei Echoscherben, zwei Sculk, vier Diamanten und ein zurückbleibender Hammer.
+- Kopien der drei Effektvorlagen: sieben Diamanten, Basisblock, Vorlage ergeben zwei.
+  Basic-Kopie jetzt sieben Diamanten statt Gold; Enderite und Rüstungsanwendung unverändert.
+- Datagen nur 26.3, EN/DE, JEI/REI-Export, Wiki und Rezept-/Verbrauchstests aktualisiert.
+  Vollständige Fabric-/NeoForge-Suiten: **1834/1834, alles gruen**; Testzentrale aufgebaut,
+  alle Mod-Items/-Blöcke abgedeckt. Gesamt-Gate inklusive checkBalance, 26.2-Compile und
+  Forge-26.3-Compile: **GRADLE_EXIT=0**. Wiki --all/--all --check und 50 Wiki-Tests grün.
+- Details, Balance, Testläufe und Grenzen: `docs/ai/PLAN-VORLAGEN-TEURER-2026-10-04.md`.
+  Besitzer-/Sichtabnahme und Port-Run offen; zwei bestehende deutsche Handbuchüberläufe.
+  Nur Worker-Branch, kein Push.
+
 ## Stand Abend 2026-09-30 (Orchestrator)
 
 Aktueller Nachtrag 2026-10-01: Folgewelle auf `09567ce3` mit GREEN gepusht;

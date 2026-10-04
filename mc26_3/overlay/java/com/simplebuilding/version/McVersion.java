@@ -55,6 +55,7 @@ public final class McVersion {
     public static final boolean VANILLA_DYEING = true;
     /** Iron Rod and the reworked gadget recipes (clock in the gauge, recovery compass in the detector, iron rods) (2026-10-02). */
     public static final boolean GADGET_REWORK = true;
+    public static final boolean EXPENSIVE_TEMPLATES = true;
     /** Rare structure finds: better loot chests and tiered end city shulkers with their shells (2026-10-02). */
     public static final boolean RARE_STRUCTURE_FINDS = true;
 

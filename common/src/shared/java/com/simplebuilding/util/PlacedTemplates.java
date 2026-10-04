@@ -44,7 +44,8 @@ import org.jetbrains.annotations.Nullable;
  * <p>Die Besatz-Aufwertung ({@link SledgehammerEntityInteraction}) geht auch an der abgelegten Vorlage:
  * Vorschlaghammer in der Haupthand, Leuchttinte oder Glowstonestaub in der Nebenhand, dann
  * {@link #PLACED_HITS} Schlaege statt einem - jeder Schlag mit Funken und einem hoeher werdenden Ton,
- * der letzte kostet das Nebenhand-Material. Wer das Material in der Hand haelt, sieht an jeder
+ * der letzte kostet das Nebenhand-Material und auf 26.3 die Zusatzmaterialien aus dem Inventar.
+ * Wer das Material in der Hand haelt, sieht an jeder
  * aufwertbaren abgelegten Vorlage in seiner Naehe ab und zu kreisende Funken ({@link #tryHint}).
  */
 public final class PlacedTemplates {
@@ -251,6 +252,9 @@ public final class PlacedTemplates {
         }
         ItemStack hammer = player.getMainHandItem();
         ItemStack catalyst = player.getOffhandItem();
+        if (!SledgehammerEntityInteraction.hasMaterials(player)) {
+            return false;
+        }
         Item result = SledgehammerEntityInteraction.trimUpgrades().get(catalyst.getItem());
         long now = level.getGameTime();
         int hits = be.registerHit(catalyst.getItem(), now);
@@ -271,9 +275,7 @@ public final class PlacedTemplates {
         be.setTemplate(new ItemStack(result));
         // Fortschritt hammer/glow_up (frueher nur ueber den entfallenen Rahmen-Weg ausgeloest).
         com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.TRIM_TEMPLATE_FORGED);
-        if (!player.isCreative()) {
-            catalyst.shrink(SledgehammerEntityInteraction.CATALYST_COST);
-        }
+        SledgehammerEntityInteraction.consumeMaterials(player);
         level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 1.5F);
         level.playSound(null, pos, glowing ? SoundEvents.GLOW_INK_SAC_USE : SoundEvents.BLAZE_SHOOT, SoundSource.BLOCKS, 1.0F, 1.0F);
         if (level instanceof ServerLevel server) {

@@ -1963,7 +1963,8 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                     "id": f"trim_template/{upgrade['result']}",
                     "kind": "trim_template",
                     "inputs": [{"id": templates, "count": 1},
-                               {"id": upgrade["catalyst"], "count": upgrade["catalystCount"]}],
+                               {"id": upgrade["catalyst"], "count": upgrade["catalystCount"]}]
+                              + upgrade.get("extraMaterials", []),
                     "tools": trim_hammers,
                     "output": {"id": upgrade["result"], "count": 1},
                     "stats": {"damage": trim["damage"], "placedHits": trim.get("placedHits")},

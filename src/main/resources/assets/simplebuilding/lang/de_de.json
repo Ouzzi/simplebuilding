@@ -797,7 +797,7 @@
   "jei.simplebuilding.note.chisel.forward": "Rechtsklick auf den Block",
   "jei.simplebuilding.note.chisel.reverse": "Schleichen + Rechtsklick auf den Block",
   "jei.simplebuilding.note.shear_wool.how": "Rechtsklick auf platzierte Wolle",
-  "jei.simplebuilding.note.trim_template.placed": "Die Vorlage ablegen (Schleichen + Benutzen), das Material in die Nebenhand nehmen und %s-mal mit dem Vorschlaghammer daraufschlagen",
+  "jei.simplebuilding.note.trim_template.placed": "Vorlage ablegen; %s-mal schlagen. 26.3: 2 Katalysatoren Nebenhand; Zusatzmaterial im Inventar.",
   "jei.simplebuilding.note.cauldron_wash.how": "Auf einen Wasserkessel anwenden",
   "jei.simplebuilding.note.cauldron_wash.water": "Kostet %s Stufe Wasser",
   "jei.simplebuilding.note.cauldron_wash.keeps": "Gespeicherte Messungen bleiben erhalten",
