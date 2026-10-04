@@ -1614,13 +1614,12 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
         "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
         "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
-        "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
         "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
         "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
       ],
       "en": {
         "title": "Faster Furnaces: Reinforced, Netherite and Enderite",
-        "summary": "SimpleBuilding adds three upgraded tiers to the furnace, the blast furnace and the smoker: Reinforced, Netherite and Enderite. They use the same recipe types and menus as their vanilla counterparts but run 2, 4 and 8 times as fast, and the mod's blast furnaces and smokers burn fuel twice as long as the vanilla ones. The Reinforced tier is crafted from the vanilla machine plus Cracked Diamonds; the Netherite and Enderite tiers have no crafting recipe and are hammered in the world with a sledgehammer and a nugget. Netherite and Enderite machines give double experience, and their blast furnaces extra output from raw metals.",
+        "summary": "SimpleBuilding adds three upgraded tiers to the furnace, the blast furnace and the smoker: Reinforced, Netherite and Enderite. They use the same recipe types and menus as their vanilla counterparts but run 2, 4 and 8 times as fast, and the mod's blast furnaces and smokers burn fuel twice as long as the vanilla ones. The Reinforced tier is crafted from the vanilla machine plus Cracked Diamonds; the Netherite and Enderite tiers have no crafting recipe and are hammered in the world with a sledgehammer and a nugget. Netherite and Enderite machines give double experience; output counts stay unchanged.",
         "details": [
           "Nine blocks: Reinforced, Netherite and Enderite Furnace, Blast Furnace and Smoker.",
           "Every tier runs the vanilla furnace logic (AbstractFurnaceBlockEntity.serverTick) and uses the same menu as the matching vanilla machine (FurnaceMenu, BlastFurnaceMenu, SmokerMenu).",
@@ -1637,10 +1636,10 @@ window.WIKI_DATA = {
           "Fuel: the speed-up costs no fuel, so every tier gets more smelts out of one piece of fuel. The mod's blast furnaces and smokers also burn fuel for the full furnace duration (coal 1600 ticks), while vanilla's blast furnace and smoker halve it (their getBurnDuration returns half; the mod's block entities do not override it). Per item the Reinforced tier therefore needs about a quarter of a vanilla blast furnace's or smoker's fuel, the Netherite tier about an eighth and the Enderite tier about a fourteenth on a 100 tick recipe (a sixteenth on long ones, since the last step is always vanilla's single tick); the mod furnaces need about half, a quarter and an eighth of a vanilla furnace's fuel.",
           "While burning, all nine give off light level 13, like the vanilla furnace.",
           "Each tier carries its own menu title: the shared block entity reads the block state, so a Netherite Furnace opens a screen titled \"Netherite Furnace\" the Enderite tier one titled \"Enderite Furnace\" and the Reinforced tier one titled \"Reinforced Furnace\"; all nine container keys are defined in en_us and de_de.",
-          "The furnace code (block classes, block entities, registration in ModBlocks and ModItems) is identical in both supported Minecraft versions (26.2 under common/src/shared and 1.21.11 under mc1_21_11/shared).",
+          "26.3 and 26.2 share the furnace implementation; the separate 1.21.11 port is unchanged.",
           "Rewards of the upper tiers (FurnaceTierPerks, called from setRecipeUsed): every item a Netherite or Enderite furnace, smoker or blast furnace finishes counts its recipe twice, so taking the result out pays double experience.",
-          "The Netherite Blast Furnace gives one extra item on every 4th finished smelt (+25 %), the Enderite Blast Furnace on every 2nd (+50 %) - but only for recipes whose ingredient consists only of items in simplebuilding:blast_furnace_bonus: Raw Iron, Raw Gold and Raw Copper. If the result slot is full the bonus waits for the next such smelt; the count is saved with the block (simplebuilding:bonus_progress).",
-          "Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded) get neither double experience nor extra output: a diamond block crushed into 81 pebbles makes 9 Cracked Diamonds and those make 9 diamonds again, so any bonus would be an endless source. Raw Enderite Fragments and Raw Enderite Scrap are not in the bonus tag either.",
+          "All furnace tiers produce exactly the recipe output, without bonus ingots. Netherite and Enderite keep double experience, except for excluded ingredients. Old bonus counters are ignored when loading and omitted when saving.",
+          "Cracked diamonds (simplebuilding:furnace_bonus_excluded) do not give double experience: their lossless diamond crafting cycle must not create an XP farm.",
           "Enderite Scrap: a Raw Enderite Fragment no longer smelts on its own (since 2026-09-29). Three Raw Enderite Fragments stacked in a crafting column make one Raw Enderite Scrap (item id layered_raw_enderite), and blasting that takes 144000 ticks for one Enderite Scrap and 10 experience - twice the 72000 ticks per scrap of the old direct route, and three Raw Enderite Fragments per scrap instead of one (cooking recipes can only give a single item on 1.21.11, so all lines give one). That is two hours in a vanilla blast furnace, one in the Reinforced, 30 minutes in the Netherite and about 15 minutes in the Enderite Blast Furnace, the last two with double experience. It is a blasting recipe only, so furnaces and smokers cannot process it.",
           "Cook times above 32767 ticks: vanilla saves the four furnace timers as shorts and sends the menu data as shorts, which would cut 72000 down to 6464. AbstractFurnaceBlockEntityMixin saves them as ints under the same keys (NeoForge and Forge already do that themselves), and AbstractFurnaceMenuMixin divides long times before they are sent, keeping the ratio the progress arrow and the flame are drawn from; both apply to every furnace, vanilla ones included.",
           "Changing between the tiers of one family - by hammering or by /setblock in replace mode - keeps the block entity with its contents (shouldChangedStateKeepBlockEntity); the block entity types accept all three tiers on every loader.",
@@ -1650,7 +1649,7 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Schnellere Öfen: Verstärkt, Netherit und Enderit",
-        "summary": "SimpleBuilding fügt zu Ofen, Schmelzofen und Räucherofen je drei aufgewertete Stufen hinzu: Verstärkt, Netherit und Enderit. Sie nutzen dieselben Rezepttypen und Menüs wie ihre Vorbilder, arbeiten aber doppelt, viermal und achtmal so schnell, und Schmelz- und Räucheröfen der Mod lassen Brennstoff doppelt so lange brennen wie die Vanilla-Geräte. Die Verstärkt-Stufe entsteht aus dem normalen Gerät und Rissigen Diamanten; Netherit- und Enderit-Stufe haben kein Werkbankrezept und werden in der Welt mit Vorschlaghammer und Klumpen geschmiedet. Netherit- und Enderit-Geräte geben doppelte Erfahrung, ihre Schmelzöfen zusätzliche Ausbeute aus Rohmetallen.",
+        "summary": "SimpleBuilding fügt zu Ofen, Schmelzofen und Räucherofen je drei aufgewertete Stufen hinzu: Verstärkt, Netherit und Enderit. Sie nutzen dieselben Rezepttypen und Menüs wie ihre Vorbilder, arbeiten aber doppelt, viermal und achtmal so schnell, und Schmelz- und Räucheröfen der Mod lassen Brennstoff doppelt so lange brennen wie die Vanilla-Geräte. Die Verstärkt-Stufe entsteht aus dem normalen Gerät und Rissigen Diamanten; Netherit- und Enderit-Stufe haben kein Werkbankrezept und werden in der Welt mit Vorschlaghammer und Klumpen geschmiedet. Netherit- und Enderit-Geräte geben doppelte Erfahrung; die Ausgabemengen bleiben unverändert.",
         "details": [
           "Neun Blöcke: Verstärkter Ofen, Netheritofen, Enderitofen, Verstärkter Schmelzofen, Netherit-Schmelzofen, Enderit-Schmelzofen, Verstärkter Räucherofen, Netherit-Räucherofen, Enderit-Räucherofen.",
           "Jede Stufe nutzt die normale Ofenlogik (AbstractFurnaceBlockEntity.serverTick) und dasselbe Menü wie das jeweilige Vanilla-Gerät (FurnaceMenu, BlastFurnaceMenu, SmokerMenu).",
@@ -1667,10 +1666,10 @@ window.WIKI_DATA = {
           "Brennstoff: Die Beschleunigung kostet keinen Brennstoff, jede Stufe holt also mehr Vorgänge aus einem Stück Brennstoff. Schmelz- und Räucheröfen der Mod lassen Brennstoff außerdem die volle Ofendauer brennen (Kohle 1600 Ticks), während Vanillas Schmelzofen und Räucherofen sie halbieren (ihr getBurnDuration liefert die Hälfte; die Block-Entities der Mod überschreiben es nicht). Pro Gegenstand braucht die Verstärkt-Stufe deshalb etwa ein Viertel des Brennstoffs eines Vanilla-Schmelz- oder -Räucherofens, die Netherit-Stufe etwa ein Achtel und die Enderit-Stufe bei einem 100-Tick-Rezept etwa ein Vierzehntel (bei langen Rezepten ein Sechzehntel, weil den letzten Schritt immer Vanillas einzelner Tick macht); die Mod-Öfen brauchen etwa die Hälfte, ein Viertel und ein Achtel des Brennstoffs eines Vanilla-Ofens.",
           "Im Betrieb leuchten alle neun mit Stärke 13, wie der Vanilla-Ofen.",
           "Jede Stufe hat ihre eigene Menü-Überschrift: die gemeinsame Block-Entity liest den Blockzustand, ein Netheritofen öffnet also ein Fenster mit dem Titel „Netheritofen“, die Enderit-Stufe eines mit „Enderitofen“, die Verstärkt-Stufe eines mit „Verstärkter Ofen“; alle neun Container-Schlüssel sind in en_us und de_de vorhanden.",
-          "Der Code für die Öfen (Block-Klassen, Block-Entities, Registrierung in ModBlocks und ModItems) ist in beiden unterstützten Minecraft-Linien (26.2 unter common/src/shared und 1.21.11 unter mc1_21_11/shared) identisch.",
+          "26.3 und 26.2 teilen sich die Ofenimplementierung; der separate 1.21.11-Port bleibt unverändert.",
           "Belohnungen der oberen Stufen (FurnaceTierPerks, aufgerufen aus setRecipeUsed): Jeder Gegenstand, den ein Netherit- oder Enderit-Ofen, -Räucherofen oder -Schmelzofen fertigstellt, zählt sein Rezept doppelt, beim Herausnehmen gibt es also doppelte Erfahrung.",
-          "Der Netherit-Schmelzofen gibt bei jedem 4. fertigen Schmelzvorgang einen Gegenstand mehr (+25 %), der Enderit-Schmelzofen bei jedem 2. (+50 %) - aber nur für Rezepte, deren Zutat ausschließlich aus Gegenständen im Tag simplebuilding:blast_furnace_bonus besteht: Roheisen, Rohgold und Rohkupfer. Ist der Ausgabeslot voll, wartet der Bonus auf den nächsten solchen Vorgang; der Zähler wird mit dem Block gespeichert (simplebuilding:bonus_progress).",
-          "Rissige Diamanten (Tag simplebuilding:furnace_bonus_excluded) bekommen weder doppelte Erfahrung noch mehr Ausbeute: Ein zu 81 Kieseln zerschlagener Diamantblock ergibt 9 Rissige Diamanten und die wieder 9 Diamanten, jeder Bonus wäre also eine Endlosquelle. Rohe Enderitfragmente und Rohe Enderitplatten stehen ebenfalls nicht im Bonus-Tag.",
+          "Alle Ofenstufen liefern genau die Rezeptausbeute ohne Bonusbarren. Netherit und Enderit behalten doppelte Erfahrung, außer bei ausgeschlossenen Zutaten. Alte Bonuszähler werden beim Laden ignoriert und beim Speichern weggelassen.",
+          "Rissige Diamanten (simplebuilding:furnace_bonus_excluded) geben keine doppelte Erfahrung: Ihr verlustfreier Diamant-Kreislauf darf keine Erfahrungsfarm erzeugen.",
           "Enderitplatten: Ein Rohes Enderitfragment schmilzt seit 2026-09-29 nicht mehr allein. Drei Rohe Enderitfragmente übereinander in der Werkbank ergeben Rohe Enderitplatten (Item-Kennung layered_raw_enderite), und die brauchen im Schmelzofen 144000 Ticks für eine Enderitplatte und 10 Erfahrung - doppelt so lange je Platte wie die 72000 Ticks des alten Direktwegs, und drei Rohe Enderitfragmente je Platte statt einem (Kochrezepte können auf 1.21.11 nur ein einzelnes Item liefern, darum liefern alle Linien eines). Das sind zwei Stunden im Vanilla-Schmelzofen, eine im verstärkten, 30 Minuten im Netherit- und rund 15 Minuten im Enderit-Schmelzofen, die letzten beiden mit doppelter Erfahrung. Es ist nur ein Schmelzofen-Rezept, Öfen und Räucheröfen können es nicht verarbeiten.",
           "Kochzeiten über 32767 Ticks: Vanilla speichert die vier Ofen-Zeiten als short und schickt die Menüdaten als short, aus 72000 würde so 6464. AbstractFurnaceBlockEntityMixin speichert sie als int unter denselben Schlüsseln (NeoForge und Forge tun das bereits selbst), und AbstractFurnaceMenuMixin teilt lange Zeiten vor dem Senden herunter und erhält das Verhältnis, aus dem Pfeil und Flamme gezeichnet werden; beide gelten für jeden Ofen, auch für die Vanilla-Öfen.",
           "Ein Wechsel zwischen den Stufen einer Familie - durch Hämmern oder per /setblock im Modus replace - behält die Block-Entity samt Inhalt (shouldChangedStateKeepBlockEntity); die Block-Entity-Typen nehmen auf jedem Loader alle drei Stufen an.",
@@ -3678,8 +3677,8 @@ window.WIKI_DATA = {
         "details": [
           "End disc (tracks Heavy Heart, Monolith, Iron Sonata) in end city chests (4 %), Nether disc (Riffstorm, Rally) in bastion chests (4 %), Overworld disc Rainfall/Storytime in woodland mansion chests (5 %) and Overworld disc Soft Breeze/Blockwood in ancient city chests (2.5 %). Both Overworld discs also drop when a skeleton kills a creeper, like vanilla discs. The tooltip names the track a disc plays.",
           "Tracks: a placed disc (sneak + right-click on the ground) switches to its next track with a right-click of a sledgehammer - B-side, then tracks 3 and 4 where they exist, then the first again (1 durability each).",
-          "Jukebox Amplifier (eight planks around Astralit Dust) makes a directly adjacent jukebox louder and heard farther; Note Amplifier (eight planks around a Nihilit Shard) does the same for a note block. Each amplifier of the right kind adds 50 % volume (server.speakers.boostPercent, at most 50 %); at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off). Same sound at the same time - no echo, no delay.",
-          "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+          "Jukebox Amplifiers (eight planks around Astralit Dust) extend jukebox reach; Note Amplifiers (eight planks around a Nihilit Shard) extend note block reach. Each matching neighbor adds 50% reach, at most 2 count by default (server limits: 50%, 3 neighbors). Playback stays at full volume within range.",
+          "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
           "A jukebox counts its amplifiers when a song starts, a note block on every note."
         ]
       },
@@ -3689,8 +3688,8 @@ window.WIKI_DATA = {
         "details": [
           "End-Platte (Tracks Heavy Heart, Monolith, Iron Sonata) in Endsiedlungs-Truhen (4 %), Nether-Platte (Riffstorm, Rally) in Bastion-Truhen (4 %), Oberwelt-Platte Rainfall/Storytime in Waldanwesen-Truhen (5 %) und Oberwelt-Platte Soft Breeze/Blockwood in Truhen der Antiken Stätte (2,5 %). Beide Oberwelt-Platten fallen auch, wenn ein Skelett einen Creeper tötet, wie Vanilla-Platten. Der Tooltip nennt den Track der Platte.",
           "Tracks: eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wechselt mit einem Rechtsklick des Vorschlaghammers zum nächsten Track - B-Seite, dann Track 3 und 4, wo es sie gibt, dann wieder der erste (je 1 Haltbarkeit).",
-          "Musik-Verstärker (acht Bretter um Astralitstaub) macht einen direkt angrenzenden Plattenspieler lauter und weiter hÃ¶rbar; Noten-Verstärker (acht Bretter um einen Nihilitsplitter) dasselbe fÃ¼r einen Notenblock. Jeder passende Verstärker gibt 50 % LautstÃ¤rke dazu (server.speakers.boostPercent, hÃ¶chstens 50 %); hÃ¶chstens 2 zÃ¤hlen (server.speakers.maxSpeakers, hÃ¶chstens 3, 0 = aus). Derselbe Klang zur selben Zeit - kein Echo, keine VerzÃ¶gerung.",
-          "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+          "Musik-Verstärker (acht Bretter um Astralitstaub) erweitern die Hörweite von Plattenspielern; Noten-Verstärker (acht Bretter um einen Nihilitsplitter) die von Notenblöcken. Jeder passende Nachbar erhöht die Hörweite um 50 %, standardmäßig zählen höchstens 2 (Servergrenzen: 50 %, 3 Nachbarn). Die Wiedergabe bleibt innerhalb der Hörweite bei vollem Pegel.",
+          "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
           "Ein Plattenspieler zÃ¤hlt seine Verstärker beim Start eines StÃ¼cks, ein Notenblock bei jeder Note."
         ]
       }
@@ -7606,19 +7605,18 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
           "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
-          "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
           "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
         ],
         "en": {
-          "summary": "The Enderite Blast Furnace is the fastest blast furnace tier: 8 times the vanilla speed, double experience, extra output from raw metals. It is hammered out of a Netherite Blast Furnace.",
+          "summary": "The Enderite Blast Furnace is the fastest blast furnace tier: 8 times the vanilla speed, double experience and unchanged recipe output. It is hammered out of a Netherite Blast Furnace.",
           "details": [
             "Behaves like a vanilla blast furnace: same recipe type (RecipeType.BLASTING) and the same menu (BlastFurnaceMenu); same block class (ModBlastFurnaceBlock) and block entity (ModBlastFurnaceBlockEntity) as the Reinforced and Netherite tiers, which read the block state to tell the tiers apart.",
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 7 extra progress ticks per server tick (extraTicks = 7), capped at total time minus 1 - 8 times the vanilla speed; a 200 tick recipe finishes in 26 ticks, a 100 tick recipe in 14.",
             "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
-            "Extra output: every 2nd finished smelt of a recipe whose ingredient is only Raw Iron, Raw Gold or Raw Copper (tag simplebuilding:blast_furnace_bonus) yields one item more (+50 %); with a full result slot the bonus waits for the next one, and the count is saved with the block.",
-            "Enderite Scrap (72000 ticks in a vanilla blast furnace) takes 9001 ticks here, about 7.5 minutes, and pays 20 experience instead of 10.",
+            "All furnace tiers produce exactly the recipe output, without bonus ingots. Netherite and Enderite keep double experience, except for excluded ingredients. Old bonus counters are ignored when loading and omitted when saving.",
+            "Layered Raw Enderite has a blasting recipe time of 144000 ticks and produces one Enderite Scrap. This tier speeds up cooking and pays 20 experience instead of 10.",
             "Menu title: \"Enderite Blast Furnace\" (translation key container.simplebuilding.enderite_blast_furnace).",
             "Made only in the world: hold right-click for 5 seconds on a placed Netherite Blast Furnace with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items, cooking progress and stored experience stay in the block.",
             "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla blast furnace (ofFullCopy(Blocks.BLAST_FURNACE)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. It gives off light level 13 while it burns.",
@@ -7636,13 +7634,13 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Enderit-Schmelzofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung, zusätzliche Ausbeute aus Rohmetallen. Er wird aus einem Netherit-Schmelzofen geschmiedet.",
+          "summary": "Der Enderit-Schmelzofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung und unveränderte Rezeptausbeute. Er wird aus einem Netherit-Schmelzofen geschmiedet.",
           "details": [
             "Verhält sich wie ein Vanilla-Schmelzofen: gleicher Rezepttyp (RecipeType.BLASTING) und dasselbe Menü (BlastFurnaceMenu); dieselbe Blockklasse (ModBlastFurnaceBlock) und Block-Entity (ModBlastFurnaceBlockEntity) wie Verstärkt- und Netherit-Stufe, die Stufe wird am Blockzustand unterschieden.",
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 7 zusätzliche Fortschritts-Ticks (extraTicks = 7), gedeckelt auf Gesamtzeit minus 1 - achtfache Vanilla-Geschwindigkeit; ein 200-Tick-Rezept ist nach 26 Ticks fertig, ein 100-Tick-Rezept nach 14.",
             "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
-            "Mehr Ausbeute: Jeder 2. fertige Schmelzvorgang eines Rezepts, dessen Zutat nur Roheisen, Rohgold oder Rohkupfer ist (Tag simplebuilding:blast_furnace_bonus), gibt einen Gegenstand mehr (+50 %); bei vollem Ausgabeslot wartet der Bonus auf den nächsten, der Zähler wird mit dem Block gespeichert.",
-            "Enderitplatten (72000 Ticks im Vanilla-Schmelzofen) braucht hier 9001 Ticks, rund 7,5 Minuten, und bringt 20 statt 10 Erfahrung.",
+            "Alle Ofenstufen liefern genau die Rezeptausbeute ohne Bonusbarren. Netherit und Enderit behalten doppelte Erfahrung, außer bei ausgeschlossenen Zutaten. Alte Bonuszähler werden beim Laden ignoriert und beim Speichern weggelassen.",
+            "Rohe Enderitplatten haben eine Schmelzofen-Rezeptzeit von 144000 Ticks und ergeben eine Enderitplatte. Diese Stufe beschleunigt das Schmelzen und gibt 20 statt 10 Erfahrung.",
             "Menü-Titel: „Enderit-Schmelzofen“ (Übersetzungsschlüssel container.simplebuilding.enderite_blast_furnace).",
             "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderitklumpen in der Nebenhand auf einen gesetzten Netherit-Schmelzofen halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Klumpen wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Inhalt, Kochfortschritt und gespeicherte Erfahrung bleiben im Block.",
             "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Schmelzofen kopiert (ofFullCopy(Blocks.BLAST_FURNACE)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. Beim Brennen leuchtet er mit Stärke 13.",
@@ -11492,8 +11490,8 @@ window.WIKI_DATA = {
           "summary": "A directly adjacent jukebox plays louder and is heard farther - the same sound at the same time, no echo.",
           "details": [
             "Recipe: eight planks of any wood around Astralit Dust.",
-            "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
-            "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+            "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
+            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
             "A jukebox counts its amplifiers when a song starts, a note block on every note."
           ]
         },
@@ -11502,8 +11500,8 @@ window.WIKI_DATA = {
           "summary": "Ein direkt angrenzender Plattenspieler spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
-            "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
-            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+            "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
+            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -12582,7 +12580,7 @@ window.WIKI_DATA = {
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the creative tab \"SimpleMachines\", next to the hoppers and pistons.",
             "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
-            "Extra output: every 4th finished smelt of a recipe whose ingredient is only Raw Iron, Raw Gold or Raw Copper (tag simplebuilding:blast_furnace_bonus) yields one item more (+25 %); with a full result slot the bonus waits for the next one. Enderite Scrap takes 18001 ticks (15 minutes) here instead of an hour in a vanilla blast furnace."
+            "All furnace tiers produce exactly the recipe output, without bonus ingots. Netherite and Enderite keep double experience, except for excluded ingredients. Old bonus counters are ignored when loading and omitted when saving."
           ],
           "controls": [
             "Right-click the block to open the blast furnace menu (useWithoutItem; the menu is only opened on the server side)."
@@ -12609,7 +12607,7 @@ window.WIKI_DATA = {
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab „SimpleMachines“ zusammen mit Trichtern und Kolben.",
             "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
-            "Mehr Ausbeute: Jeder 4. fertige Schmelzvorgang eines Rezepts, dessen Zutat nur Roheisen, Rohgold oder Rohkupfer ist (Tag simplebuilding:blast_furnace_bonus), gibt einen Gegenstand mehr (+25 %); bei vollem Ausgabeslot wartet der Bonus auf den nächsten. Enderitplatten braucht hier 18001 Ticks (15 Minuten) statt einer Stunde im Vanilla-Schmelzofen."
+            "Alle Ofenstufen liefern genau die Rezeptausbeute ohne Bonusbarren. Netherit und Enderit behalten doppelte Erfahrung, außer bei ausgeschlossenen Zutaten. Alte Bonuszähler werden beim Laden ignoriert und beim Speichern weggelassen."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Schmelzofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
@@ -12640,7 +12638,6 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
-          "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
           "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
           "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json"
@@ -14765,8 +14762,8 @@ window.WIKI_DATA = {
           "summary": "A directly adjacent note block plays louder and is heard farther - the same sound at the same time, no echo.",
           "details": [
             "Recipe: eight planks of any wood around a Nihilit Shard.",
-            "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
-            "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+            "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
+            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
             "A jukebox counts its amplifiers when a song starts, a note block on every note."
           ]
         },
@@ -14775,8 +14772,8 @@ window.WIKI_DATA = {
           "summary": "Ein direkt angrenzender Notenblock spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
-            "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
-            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+            "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
+            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -21090,19 +21087,18 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
           "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
-          "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
           "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
         ],
         "en": {
-          "summary": "The Enderite Blast Furnace is the fastest blast furnace tier: 8 times the vanilla speed, double experience, extra output from raw metals. It is hammered out of a Netherite Blast Furnace.",
+          "summary": "The Enderite Blast Furnace is the fastest blast furnace tier: 8 times the vanilla speed, double experience and unchanged recipe output. It is hammered out of a Netherite Blast Furnace.",
           "details": [
             "Behaves like a vanilla blast furnace: same recipe type (RecipeType.BLASTING) and the same menu (BlastFurnaceMenu); same block class (ModBlastFurnaceBlock) and block entity (ModBlastFurnaceBlockEntity) as the Reinforced and Netherite tiers, which read the block state to tell the tiers apart.",
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 7 extra progress ticks per server tick (extraTicks = 7), capped at total time minus 1 - 8 times the vanilla speed; a 200 tick recipe finishes in 26 ticks, a 100 tick recipe in 14.",
             "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
-            "Extra output: every 2nd finished smelt of a recipe whose ingredient is only Raw Iron, Raw Gold or Raw Copper (tag simplebuilding:blast_furnace_bonus) yields one item more (+50 %); with a full result slot the bonus waits for the next one, and the count is saved with the block.",
-            "Enderite Scrap (72000 ticks in a vanilla blast furnace) takes 9001 ticks here, about 7.5 minutes, and pays 20 experience instead of 10.",
+            "All furnace tiers produce exactly the recipe output, without bonus ingots. Netherite and Enderite keep double experience, except for excluded ingredients. Old bonus counters are ignored when loading and omitted when saving.",
+            "Layered Raw Enderite has a blasting recipe time of 144000 ticks and produces one Enderite Scrap. This tier speeds up cooking and pays 20 experience instead of 10.",
             "Menu title: \"Enderite Blast Furnace\" (translation key container.simplebuilding.enderite_blast_furnace).",
             "Made only in the world: hold right-click for 5 seconds on a placed Netherite Blast Furnace with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items, cooking progress and stored experience stay in the block.",
             "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla blast furnace (ofFullCopy(Blocks.BLAST_FURNACE)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. It gives off light level 13 while it burns.",
@@ -21120,13 +21116,13 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Enderit-Schmelzofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung, zusätzliche Ausbeute aus Rohmetallen. Er wird aus einem Netherit-Schmelzofen geschmiedet.",
+          "summary": "Der Enderit-Schmelzofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung und unveränderte Rezeptausbeute. Er wird aus einem Netherit-Schmelzofen geschmiedet.",
           "details": [
             "Verhält sich wie ein Vanilla-Schmelzofen: gleicher Rezepttyp (RecipeType.BLASTING) und dasselbe Menü (BlastFurnaceMenu); dieselbe Blockklasse (ModBlastFurnaceBlock) und Block-Entity (ModBlastFurnaceBlockEntity) wie Verstärkt- und Netherit-Stufe, die Stufe wird am Blockzustand unterschieden.",
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 7 zusätzliche Fortschritts-Ticks (extraTicks = 7), gedeckelt auf Gesamtzeit minus 1 - achtfache Vanilla-Geschwindigkeit; ein 200-Tick-Rezept ist nach 26 Ticks fertig, ein 100-Tick-Rezept nach 14.",
             "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
-            "Mehr Ausbeute: Jeder 2. fertige Schmelzvorgang eines Rezepts, dessen Zutat nur Roheisen, Rohgold oder Rohkupfer ist (Tag simplebuilding:blast_furnace_bonus), gibt einen Gegenstand mehr (+50 %); bei vollem Ausgabeslot wartet der Bonus auf den nächsten, der Zähler wird mit dem Block gespeichert.",
-            "Enderitplatten (72000 Ticks im Vanilla-Schmelzofen) braucht hier 9001 Ticks, rund 7,5 Minuten, und bringt 20 statt 10 Erfahrung.",
+            "Alle Ofenstufen liefern genau die Rezeptausbeute ohne Bonusbarren. Netherit und Enderit behalten doppelte Erfahrung, außer bei ausgeschlossenen Zutaten. Alte Bonuszähler werden beim Laden ignoriert und beim Speichern weggelassen.",
+            "Rohe Enderitplatten haben eine Schmelzofen-Rezeptzeit von 144000 Ticks und ergeben eine Enderitplatte. Diese Stufe beschleunigt das Schmelzen und gibt 20 statt 10 Erfahrung.",
             "Menü-Titel: „Enderit-Schmelzofen“ (Übersetzungsschlüssel container.simplebuilding.enderite_blast_furnace).",
             "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderitklumpen in der Nebenhand auf einen gesetzten Netherit-Schmelzofen halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Klumpen wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Inhalt, Kochfortschritt und gespeicherte Erfahrung bleiben im Block.",
             "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Schmelzofen kopiert (ofFullCopy(Blocks.BLAST_FURNACE)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. Beim Brennen leuchtet er mit Stärke 13.",
@@ -21147,7 +21143,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:blast_furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:116",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:86",
         "extraTicks": 7,
         "cookingTicksPerTick": 8
       },
@@ -22845,8 +22841,8 @@ window.WIKI_DATA = {
           "summary": "A directly adjacent jukebox plays louder and is heard farther - the same sound at the same time, no echo.",
           "details": [
             "Recipe: eight planks of any wood around Astralit Dust.",
-            "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
-            "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+            "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
+            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
             "A jukebox counts its amplifiers when a song starts, a note block on every note."
           ]
         },
@@ -22855,8 +22851,8 @@ window.WIKI_DATA = {
           "summary": "Ein direkt angrenzender Plattenspieler spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
-            "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
-            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+            "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
+            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -23738,7 +23734,7 @@ window.WIKI_DATA = {
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the creative tab \"SimpleMachines\", next to the hoppers and pistons.",
             "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
-            "Extra output: every 4th finished smelt of a recipe whose ingredient is only Raw Iron, Raw Gold or Raw Copper (tag simplebuilding:blast_furnace_bonus) yields one item more (+25 %); with a full result slot the bonus waits for the next one. Enderite Scrap takes 18001 ticks (15 minutes) here instead of an hour in a vanilla blast furnace."
+            "All furnace tiers produce exactly the recipe output, without bonus ingots. Netherite and Enderite keep double experience, except for excluded ingredients. Old bonus counters are ignored when loading and omitted when saving."
           ],
           "controls": [
             "Right-click the block to open the blast furnace menu (useWithoutItem; the menu is only opened on the server side)."
@@ -23765,7 +23761,7 @@ window.WIKI_DATA = {
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab „SimpleMachines“ zusammen mit Trichtern und Kolben.",
             "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
-            "Mehr Ausbeute: Jeder 4. fertige Schmelzvorgang eines Rezepts, dessen Zutat nur Roheisen, Rohgold oder Rohkupfer ist (Tag simplebuilding:blast_furnace_bonus), gibt einen Gegenstand mehr (+25 %); bei vollem Ausgabeslot wartet der Bonus auf den nächsten. Enderitplatten braucht hier 18001 Ticks (15 Minuten) statt einer Stunde im Vanilla-Schmelzofen."
+            "Alle Ofenstufen liefern genau die Rezeptausbeute ohne Bonusbarren. Netherit und Enderit behalten doppelte Erfahrung, außer bei ausgeschlossenen Zutaten. Alte Bonuszähler werden beim Laden ignoriert und beim Speichern weggelassen."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Schmelzofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
@@ -23796,7 +23792,6 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
-          "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
           "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
           "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json"
@@ -23805,7 +23800,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:blast_furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:111",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:81",
         "extraTicks": 3,
         "cookingTicksPerTick": 4
       },
@@ -25393,8 +25388,8 @@ window.WIKI_DATA = {
           "summary": "A directly adjacent note block plays louder and is heard farther - the same sound at the same time, no echo.",
           "details": [
             "Recipe: eight planks of any wood around a Nihilit Shard.",
-            "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
-            "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+            "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla reach (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x reach.",
+            "Chain: an amplifier touching the source, or touching an amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier is another playback point. Each player hears the sound once at full volume inside the existing range of the nearest point, without distance or chain loss; outside that range it is silent. Player sound settings still apply.",
             "A jukebox counts its amplifiers when a song starts, a note block on every note."
           ]
         },
@@ -25403,8 +25398,8 @@ window.WIKI_DATA = {
           "summary": "Ein direkt angrenzender Notenblock spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
           "details": [
             "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
-            "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
-            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+            "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Hörweite dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Hörweite.",
+            "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker ist ein weiterer Abspielpunkt. Jeder Spieler hört den Klang einmal mit voller Lautstärke innerhalb der bestehenden Hörweite des nächsten Punkts, ohne Entfernungs- oder Kettenverlust; außerhalb bleibt er stumm. Die Klangeinstellungen des Spielers gelten weiterhin.",
             "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
           ]
         }
@@ -26798,7 +26793,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:blast_furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:113",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:83",
         "extraTicks": 1,
         "cookingTicksPerTick": 2
       },
@@ -63210,25 +63205,6 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/tags/item/backpacks.json"
     },
     {
-      "id": "simplebuilding:item/blast_furnace_bonus",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:raw_iron",
-          "required": true
-        },
-        {
-          "id": "minecraft:raw_gold",
-          "required": true
-        },
-        {
-          "id": "minecraft:raw_copper",
-          "required": true
-        }
-      ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json"
-    },
-    {
       "id": "simplebuilding:item/building_wand_enchantable",
       "replace": false,
       "values": [
@@ -68071,10 +68047,10 @@ window.WIKI_DATA = {
       "categoryDe": "Server & Modpack-Tuning",
       "group": "Amplifiers",
       "groupDe": "Musik- und Noten-Verstärker",
-      "label": "Boost per Amplifier (%)",
-      "labelDe": "Lautstärke-Plus je Verstärker (%)",
-      "tooltip": "Volume and reach added per amplifier,\n0 to 50 % of vanilla.\nServer-side. Default: 50.",
-      "tooltipDe": "Lautstärke und Reichweite je Verstärker,\n0 bis 50 % von Vanilla.\nServerseitig. Standard: 50."
+      "label": "Added reach per amplifier (%)",
+      "labelDe": "Hörweiten-Plus je Verstärker (%)",
+      "tooltip": "Reach added per amplifier,\n0 to 50% of vanilla. Full volume within range.\nServer-side. Default: 50.",
+      "tooltipDe": "Zusätzliche Hörweite je Verstärker,\n0 bis 50 % von Vanilla. Voller Pegel in Hörweite.\nServerseitig. Standard: 50."
     },
     {
       "range": [
@@ -93630,7 +93606,7 @@ window.WIKI_DATA = {
     "lootTables": 202,
     "trades": 20,
     "enchantments": 19,
-    "tags": 48,
+    "tags": 47,
     "config": 202,
     "inWorld": 463,
     "advancements": 124,

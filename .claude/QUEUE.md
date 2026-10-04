@@ -315,3 +315,9 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [~] Crucible (Plan docs/ai/PLAN-CRUCIBLE-2026-10-04.md, Fragebogen komplett beantwortet) – Umsetzung läuft auf claude-crucible.
 - [ ] Guide-Buch je Modul + FTB-Quest „Buch gratis“ je Modul + gemeinsame Bibliothek (Guide-Plan Schritt 3/4) – Agent claude-guides2.
 - [ ] Messer-Rezept wie Besitzer-Diktat (`  N / NN / SN `), Schmiedetisch-Rezeptbuch ohne `*_armor_upgrade_dummy`, Nihil-Gewölbe-Preis/Handel in Simple Money – GPT gpt-gaps.
+## Besitzerauftrag small9 (2026-10-04)
+- [x] Basic-/Enderite-Tooltips wie Vanilla, EN/DE, Strukturtest.
+- [x] Verstärker innerhalb der Hörweite immer voller Pegel.
+- [x] Ofen-Ausbeutebonus entfernen; doppelte XP behalten, Altwelten-Fixtures geprüft.
+  Belege: `docs/ai/PLAN-SMALL9-2026-10-02.md`; 1870/1870 Server grün, Gesamt-Gate grün.
+  Sicht-/Hörabnahme und Testzentrale in der Besitzerwelt bleiben offen; kein Client/Push.

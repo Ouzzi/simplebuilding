@@ -27,14 +27,21 @@ public final class ChainedJukeboxSound extends SimpleSoundInstance implements Ti
     private final BlockPos source;
     private List<Vec3> points;
     private int age;
+    private final double range;
 
     public ChainedJukeboxSound(SoundEvent sound, ClientLevel level, BlockPos source, float volume) {
         super(sound.location(), SoundSource.RECORDS, volume, 1.0F, SoundInstance.createUnseededRandom(), false, 0,
-                SoundInstance.Attenuation.LINEAR, source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5, false);
+                SoundInstance.Attenuation.NONE, source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5, false);
+        this.range = sound.getRange(volume);
         this.level = level;
         this.source = source.immutable();
         this.points = SpeakerBoost.points(this.source, SpeakerBoost.chain(level, this.source, SpeakerBoost.Source.JUKEBOX));
         moveToListener();
+    }
+
+    @Override
+    public boolean canStartSilent() {
+        return true;
     }
 
     @Override
@@ -55,7 +62,9 @@ public final class ChainedJukeboxSound extends SimpleSoundInstance implements Ti
         if (minecraft.player == null) {
             return;
         }
-        Vec3 at = SpeakerBoost.nearest(points, minecraft.player.getEyePosition());
+        Vec3 listener = minecraft.player.getEyePosition();
+        Vec3 at = SpeakerBoost.nearest(points, listener);
+        volume = SpeakerBoost.amplifiedGain(at, listener, range);
         x = at.x;
         y = at.y;
         z = at.z;

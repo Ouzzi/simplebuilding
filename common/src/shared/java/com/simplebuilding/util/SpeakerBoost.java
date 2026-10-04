@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
  * Plattenspieler, Noten-Verstärker zum Notenblock.
  *
  * <p><b>Verstaerkung:</b> direkt angrenzende Lautsprecher der passenden Art (die sechs Nachbarn, hoechstens
- * {@code server.speakers.maxSpeakers}, Standard 2, hart 3) machen die Quelle lauter und weiter hoerbar: Faktor =
+ * {@code server.speakers.maxSpeakers}, Standard 2, hart 3) erhoehen die Hoerweite der Quelle: Faktor =
  * 1 + Anzahl x {@code boostPercent} (Standard 50 %, hart 50 %), also hoechstens 2,5-fach. Lautstaerken ueber 1 heben in
  * Minecraft nicht den Pegel, sondern die Reichweite der linearen Abschwaechung (16 Bloecke je Lautstaerke-Einheit).
  *
@@ -228,7 +228,7 @@ public final class SpeakerBoost {
 
     /**
      * Notenblock mit Kette (Server): statt Vanillas Rundsendung bekommt jeder Spieler in Hoerweite genau ein Klang-Paket,
-     * vom naechsten Abspielpunkt aus, mit derselben Lautstaerke, Tonhoehe und demselben Seed. Liefert Spieler -&gt; Punkt.
+     * nach Reichweitenpruefung am naechsten Abspielpunkt, ohne Entfernungsdaempfung beim Empfaenger. Liefert Spieler -&gt; Punkt.
      */
     public static Map<ServerPlayer, Vec3> playChained(ServerLevel level, @Nullable Entity except, BlockPos source, List<BlockPos> chain,
                                                      Holder<SoundEvent> sound, SoundSource category, float volume, float pitch, long seed) {
@@ -240,12 +240,24 @@ public final class SpeakerBoost {
                 continue;
             }
             Vec3 at = nearest(points, player.position());
-            if (at.distanceToSqr(player.position()) < range * range) {
-                player.connection.send(new ClientboundSoundPacket(sound, category, at.x, at.y, at.z, volume, pitch, seed));
+            if (amplifiedGain(at, player.position(), range) > 0.0F) {
+                var note = new ClientboundSoundPacket(sound, category, at.x, at.y, at.z, volume, pitch, seed);
+                if (com.simplebuilding.platform.PlatformServices.canSendToPlayer(player,
+                        com.simplebuilding.networking.AmplifiedNotePayload.ID)) {
+                    com.simplebuilding.platform.PlatformServices.sendToPlayer(player,
+                            new com.simplebuilding.networking.AmplifiedNotePayload(note));
+                } else {
+                    player.connection.send(note);
+                }
                 heard.put(player, at);
             }
         }
         return heard;
+    }
+
+    /** Full gain inside the existing radius, silence outside; no distance or chain falloff. */
+    public static float amplifiedGain(Vec3 playback, Vec3 listener, double range) {
+        return playback.distanceToSqr(listener) < range * range ? 1.0F : 0.0F;
     }
 
     /**

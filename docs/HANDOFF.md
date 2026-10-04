@@ -24,6 +24,20 @@ Kein Clientstart, Port, Merge oder Push. Sichtabnahme/Besitzerwelt bleiben offen
 Der gemeldete Einlegefehler war im Ausgangscode bereits gesperrt und dort nicht
 reproduzierbar; der neue entnehmbare Ausgabe-Vertrag ist jetzt explizit getestet.
 
+
+## Worker-Nachtrag 2026-10-04: small9
+
+Branch `gpt-small9`: Basic-/Enderite-Aufwertungen nutzen echte Vanilla-Schmiedevorlagen
+mit EN/DE-Tooltips. Verstärker spielen innerhalb bestehender Hörweite ohne Pegelverlust;
+Noten nutzen ein S2C-Payload für alle drei Loader, Musik eine explizite Hörweitengrenze.
+Der Ofen-Ausbeutebonus entfällt; alte Bonuszähler werden ignoriert, doppelte XP bleibt.
+JEI, Handbuch, beide Sprachorte und belegte Wiki-Prosa aktualisiert.
+Server Fabric/NeoForge 26.3: **1870/1870, alles gruen**; Testzentrale und Itemabdeckung grün.
+26.3-Datagen, 26.2-Compiles, Forge-26.3-Compile, `check -q` und checkBalance grün;
+Wiki --all/--all --check und 55 Wiki-Tests grün. Je Aufgabe ein Commit, kein Push/Merge.
+Sicht-/Hörabnahme und Besitzerwelt offen; zwei bekannte deutsche Handbuch-Themenlisten
+laufen weiterhin über. Details: `docs/ai/PLAN-SMALL9-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-04: wackelige GameTests
 
 Branch `claude-gpt-flaky`: Knopf-Ausfuehrung bedingt abwarten, eigene Scoreboard-Zaehler und

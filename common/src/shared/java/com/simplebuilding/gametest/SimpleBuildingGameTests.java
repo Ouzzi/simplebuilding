@@ -1501,8 +1501,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("smelting_game_test_upper_tier_furnaces_pay_double_experience", SmeltingTests::upperTierFurnacesPayDoubleExperience)
                     .maxTicks(SmeltingTests.EXPERIENCE_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("smelting_game_test_blast_furnace_bonus_pays_raw_metals_every_fourth_or_second_smelt", SmeltingTests::blastFurnaceBonusPaysRawMetalsEveryFourthOrSecondSmelt)
-                    .maxTicks(SmeltingTests.BONUS_MAX_TICKS)
+            GameTestSpec.named("smelting_game_test_blast_furnaces_keep_recipe_output_and_discard_legacy_bonus", SmeltingTests::blastFurnacesKeepRecipeOutputAndDiscardLegacyBonus)
+                    .maxTicks(SmeltingTests.OUTPUT_MAX_TICKS)
                     .build(),
             GameTestSpec.named("trade_offer_game_test_master_book_trade_draws_every_enchantment_in_its_pool", TradeOfferTests::masterBookTradeDrawsEveryEnchantmentInItsPool)
                     .build(),
@@ -1800,6 +1800,8 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(PlacedTemplateTests.ATTRACTOR_MAX_TICKS)
                     .build(),
             GameTestSpec.named("placed_template_game_test_locked_octants_are_placed_and_right_click_toggles_the_outline_per_player", PlacedTemplateTests::lockedOctantsArePlacedAndRightClickTogglesTheOutlinePerPlayer)
+                    .build(),
+            GameTestSpec.named("pulsating_trim_game_test_upgrade_templates_use_vanilla_tooltip_structure", PulsatingTrimTests::upgradeTemplatesUseVanillaTooltipStructure)
                     .build(),
             GameTestSpec.named("pulsating_trim_game_test_template_recipes_require_every_material_and_copy_exactly_one", PulsatingTrimTests::templateRecipesRequireEveryMaterialAndCopyExactlyOne)
                     .build(),

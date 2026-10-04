@@ -40,6 +40,38 @@ public final class PulsatingTrimTests {
     private PulsatingTrimTests() {
     }
 
+    public static void upgradeTemplatesUseVanillaTooltipStructure(GameTestHelper helper) {
+        List<net.minecraft.network.chat.Component> vanilla = new ArrayList<>();
+        Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE.appendHoverText(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                Item.TooltipContext.of(helper.getLevel()), net.minecraft.world.item.component.TooltipDisplay.DEFAULT,
+                vanilla::add, net.minecraft.world.item.TooltipFlag.NORMAL);
+        for (Item item : List.of(ModItems.BASIC_UPGRADE_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE)) {
+            helper.assertTrue(item instanceof net.minecraft.world.item.SmithingTemplateItem, "upgrade must be a smithing template");
+            List<net.minecraft.network.chat.Component> lines = new ArrayList<>();
+            item.appendHoverText(new ItemStack(item), Item.TooltipContext.of(helper.getLevel()),
+                    net.minecraft.world.item.component.TooltipDisplay.DEFAULT, lines::add, net.minecraft.world.item.TooltipFlag.NORMAL);
+            helper.assertValueEqual(lines.size(), 6, "Vanilla template tooltip line count");
+            for (int index : List.of(0, 1, 2, 4)) {
+                helper.assertTrue(lines.get(index).equals(vanilla.get(index)), "Vanilla heading/spacing at " + index);
+            }
+            for (int index : List.of(3, 5)) {
+                String suffix = index == 3 ? ".applies_to" : ".ingredients";
+                var expected = net.minecraft.network.chat.CommonComponents.space().append(
+                        net.minecraft.network.chat.Component.translatable(item.getDescriptionId() + suffix)
+                                .withStyle(net.minecraft.ChatFormatting.BLUE));
+                helper.assertTrue(lines.get(index).equals(expected), "blue indented description " + suffix);
+            }
+            for (String language : List.of("en_us", "de_de")) {
+                JsonObject translations = lang(helper, language);
+                for (String suffix : List.of(".applies_to", ".ingredients", ".base_slot_description", ".additions_slot_description")) {
+                    String key = item.getDescriptionId() + suffix;
+                    helper.assertTrue(translations.has(key) && !translations.get(key).getAsString().isBlank(), language + " missing " + key);
+                }
+            }
+        }
+        helper.succeed();
+    }
+
     /**
      * Echoscherbe + Vorschlaghammer (jede Stufe, beide Reihenfolgen) ergibt die Vorlage. Der Hammer
      * bleibt als Rest im Raster und verliert {@link SledgehammerCrafting#CRAFT_DAMAGE} Haltbarkeit; ein

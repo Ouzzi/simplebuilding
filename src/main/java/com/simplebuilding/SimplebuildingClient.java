@@ -303,6 +303,8 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Datapack tables of the server (chisel transformations, sledgehammer upgrades).
         ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.networking.DataTablesSyncPayload.ID, (payload, context) ->
                 context.client().execute(() -> com.simplebuilding.data.ModDataTables.receive(payload)));
+        ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.networking.AmplifiedNotePayload.ID,
+                (payload, context) -> context.client().execute(() -> com.simplebuilding.client.AmplifiedNoteSound.play(payload)));
         ClientPlayNetworking.registerGlobalReceiver(SurvivalSyncPayload.ID, (payload, context) -> {
             context.client().execute(() -> {
                 if (context.player() instanceof SurvivalTracerAccessor accessor) {

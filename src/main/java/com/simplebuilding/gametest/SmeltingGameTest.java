@@ -36,8 +36,8 @@ public final class SmeltingGameTest {
         SmeltingTests.upperTierFurnacesPayDoubleExperience(helper);
     }
 
-    @GameTest(maxTicks = SmeltingTests.BONUS_MAX_TICKS)
-    public void blastFurnaceBonusPaysRawMetalsEveryFourthOrSecondSmelt(GameTestHelper helper) {
-        SmeltingTests.blastFurnaceBonusPaysRawMetalsEveryFourthOrSecondSmelt(helper);
+    @GameTest(maxTicks = SmeltingTests.OUTPUT_MAX_TICKS)
+    public void blastFurnacesKeepRecipeOutputAndDiscardLegacyBonus(GameTestHelper helper) {
+        SmeltingTests.blastFurnacesKeepRecipeOutputAndDiscardLegacyBonus(helper);
     }
 }

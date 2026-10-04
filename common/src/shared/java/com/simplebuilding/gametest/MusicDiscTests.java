@@ -420,12 +420,46 @@ public final class MusicDiscTests {
         atSource.snapTo(n.getX() + 0.5, n.getY(), n.getZ() - 3.5, 0.0F, 0.0F);
         atEnd.snapTo(end.getX() + 0.5, end.getY(), end.getZ() + 40.5, 0.0F, 0.0F);
         farAway.snapTo(n.getX() + 0.5, n.getY(), n.getZ() + 5000.5, 0.0F, 0.0F);
-        Map<ServerPlayer, Vec3> heard = SpeakerBoost.playChained(level, null, n, chain, SoundEvents.NOTE_BLOCK_HARP, SoundSource.RECORDS,
-                SpeakerBoost.NOTE_BLOCK_VOLUME, 1.0F, 7L);
+        var previousSender = com.simplebuilding.platform.PlatformServices.playerPacketSender();
+        Map<ServerPlayer, List<com.simplebuilding.networking.AmplifiedNotePayload>> packets = new java.util.LinkedHashMap<>();
+        Map<ServerPlayer, Vec3> heard;
+        try {
+            com.simplebuilding.platform.PlatformServices.setPlayerPacketSender(new com.simplebuilding.platform.PlayerPacketSender() {
+                public boolean canSend(ServerPlayer player, net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<?> type) {
+                    return type == com.simplebuilding.networking.AmplifiedNotePayload.ID;
+                }
+                public void send(ServerPlayer player, net.minecraft.network.protocol.common.custom.CustomPacketPayload payload) {
+                    packets.computeIfAbsent(player, ignored -> new ArrayList<>())
+                            .add((com.simplebuilding.networking.AmplifiedNotePayload) payload);
+                }
+            });
+            heard = SpeakerBoost.playChained(level, null, n, chain, SoundEvents.NOTE_BLOCK_HARP, SoundSource.RECORDS,
+                    SpeakerBoost.NOTE_BLOCK_VOLUME, 0.75F, 7L);
+        } finally {
+            com.simplebuilding.platform.PlatformServices.setPlayerPacketSender(previousSender);
+        }
+        for (ServerPlayer listener : List.of(atSource, atEnd)) {
+            helper.assertValueEqual(packets.getOrDefault(listener, List.of()).size(), 1, "one unattenuated note per listener");
+            var received = packets.get(listener).getFirst().sound();
+            helper.assertValueEqual(received.getVolume(), SpeakerBoost.NOTE_BLOCK_VOLUME, "same source volume at both ends");
+            helper.assertValueEqual(received.getPitch(), 0.75F, "unchanged pitch");
+            helper.assertValueEqual(received.getSeed(), 7L, "unchanged sound seed");
+        }
+        helper.assertTrue(!packets.containsKey(farAway), "no unattenuated sound beyond range");
         // Je Spieler genau ein Eintrag = genau ein Klang-Paket (kein Doppel-Abspielen).
         helper.assertTrue(Vec3.atCenterOf(n).equals(heard.get(atSource)), "the player at the note block hears " + heard.get(atSource));
         helper.assertTrue(Vec3.atCenterOf(end).equals(heard.get(atEnd)), "the player at the chain end hears " + heard.get(atEnd));
         helper.assertTrue(!heard.containsKey(farAway), "a player 5000 blocks away heard the note");
+
+        Vec3 point = Vec3.atCenterOf(end);
+        for (double distance : List.of(0.0, 1.0, 24.0, 47.999)) {
+            helper.assertValueEqual(SpeakerBoost.amplifiedGain(point, point.add(distance, 0, 0), 48), 1.0F,
+                    "full gain anywhere inside the range");
+        }
+        for (double distance : List.of(48.0, 48.001, 5000.0)) {
+            helper.assertValueEqual(SpeakerBoost.amplifiedGain(point, point.add(distance, 0, 0), 48), 0.0F,
+                    "no sound outside the range");
+        }
 
         // Plattenspieler mit Kette: Start und Stopp erreichen einen Spieler 92 Bloecke hinter dem Kettenende.
         BlockPos box = new BlockPos(1, 4, 1);

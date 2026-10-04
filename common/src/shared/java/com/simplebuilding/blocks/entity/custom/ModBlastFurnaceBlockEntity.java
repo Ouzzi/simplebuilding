@@ -13,15 +13,10 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import com.simplebuilding.blocks.ModBlocks;
 
 public class ModBlastFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
-
-    /** Passende Schmelzvorgaenge seit dem letzten Bonus-Gegenstand, siehe {@link FurnaceTierPerks}. */
-    private int bonusProgress;
 
     public ModBlastFurnaceBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.MOD_BLAST_FURNACE_BE, pos, state, RecipeType.BLASTING);
@@ -44,11 +39,7 @@ public class ModBlastFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         return new BlastFurnaceMenu(syncId, playerInventory, this, this.dataAccess);
     }
 
-    /**
-     * Ein fertig geschmolzener Gegenstand: doppelte Erfahrung ab Netherit, und im Netherit- bzw.
-     * Enderit-Schmelzofen jeder vierte bzw. zweite Schmelzvorgang eines Rohmetalls einen Gegenstand
-     * mehr. Ist der Ausgabeslot voll, wartet der Bonus auf den naechsten passenden Vorgang.
-     */
+    /** Finished smelts pay double experience at upper tiers, without extra output. */
     @Override
     public void setRecipeUsed(@Nullable RecipeHolder<?> recipe) {
         super.setRecipeUsed(recipe);
@@ -56,31 +47,10 @@ public class ModBlastFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         if (FurnaceTierPerks.doublesExperience(state, recipe)) {
             super.setRecipeUsed(recipe);
         }
-        int period = FurnaceTierPerks.bonusPeriod(state);
-        if (period > 0 && FurnaceTierPerks.earnsOutputBonus(recipe)) {
-            this.bonusProgress = Math.min(this.bonusProgress + 1, period);
-            ItemStack result = this.items.get(2);
-            if (this.bonusProgress >= period && !result.isEmpty()
-                    && result.getCount() < Math.min(result.getMaxStackSize(), this.getMaxStackSize())) {
-                result.grow(1);
-                this.bonusProgress = 0;
-            }
-        }
     }
 
-    @Override
-    protected void loadAdditional(ValueInput input) {
-        super.loadAdditional(input);
-        this.bonusProgress = input.getIntOr(FurnaceTierPerks.BONUS_PROGRESS_KEY, 0);
-    }
-
-    @Override
-    protected void saveAdditional(ValueOutput output) {
-        super.saveAdditional(output);
-        if (this.bonusProgress > 0) {
-            output.putInt(FurnaceTierPerks.BONUS_PROGRESS_KEY, this.bonusProgress);
-        }
-    }
+    // Legacy simplebuilding:bonus_progress is intentionally ignored on load and omitted on save.
+    // Vanilla keeps the inventory, recipe counts and cooking timers unchanged.
 
     /**
      * MC 26.3 only (no @Override: 26.2 has no such hook, and there this method is simply unused).

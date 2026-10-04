@@ -143,10 +143,6 @@ public final class InfoTooltips {
                 if (t >= 2) {
                     out.add(gray("tooltip.simplebuilding.machine.experience"));
                 }
-                if (block instanceof ModBlastFurnaceBlock && t >= 2) {
-                    int period = t == 3 ? FurnaceTierPerks.ENDERITE_BONUS_PERIOD : FurnaceTierPerks.NETHERITE_BONUS_PERIOD;
-                    out.add(gray("tooltip.simplebuilding.machine.ore_bonus", 100 / period));
-                }
             }
         } else if (block instanceof ModHopperBlock) {
             int t = machineTier(block);

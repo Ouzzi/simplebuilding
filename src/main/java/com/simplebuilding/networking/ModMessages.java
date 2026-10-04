@@ -41,6 +41,7 @@ public class ModMessages {
 
 
         // Server -> Client (S2C)
+        PayloadTypeRegistry.clientboundPlay().register(AmplifiedNotePayload.ID, AmplifiedNotePayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(TrimDataPayload.ID, TrimDataPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(PistonConfigPayload.ID, PistonConfigPayload.CODEC);

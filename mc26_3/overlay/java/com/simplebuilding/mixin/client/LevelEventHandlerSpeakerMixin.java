@@ -6,10 +6,8 @@ import com.simplebuilding.util.SpeakerBoost;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelEventHandler;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,10 +15,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
- * Musik-Verstärker (2026-10-03): das Plattenspieler-Stueck startet mit Vanillas Lautstaerke 4,0 mal dem Faktor der
- * angrenzenden Lautsprecher ({@link SpeakerBoost}, Config vom Server). Mit einer Kette (2026-10-04) wandert der Klang
- * mit dem Spieler zum naechsten Abspielpunkt ({@link com.simplebuilding.client.ChainedJukeboxSound}). Sonst genau
- * Vanillas Klang (Kategorie Platten, lineare Abschwaechung, nicht wiederholt) - kein zweiter Klang, keine Verzoegerung.
+ * Amplified jukebox playback uses full gain inside the existing range, with one sound instance
+ * following the nearest playback point. This also covers direct amplification with chains disabled.
+ * Jukeboxes without active amplifiers keep vanilla playback.
  */
 @Mixin(LevelEventHandler.class)
 public abstract class LevelEventHandlerSpeakerMixin {
@@ -33,13 +30,9 @@ public abstract class LevelEventHandlerSpeakerMixin {
     private SimpleSoundInstance simplebuilding$speakerVolume(SoundEvent sound, Vec3 at, Operation<SimpleSoundInstance> original) {
         BlockPos pos = BlockPos.containing(at);
         float multiplier = SpeakerBoost.multiplier(level, pos, SpeakerBoost.Source.JUKEBOX);
-        if (!SpeakerBoost.chain(level, pos, SpeakerBoost.Source.JUKEBOX).isEmpty()) {
+        if (multiplier > 1.0F || !SpeakerBoost.chain(level, pos, SpeakerBoost.Source.JUKEBOX).isEmpty()) {
             return new com.simplebuilding.client.ChainedJukeboxSound(sound, level, pos, SpeakerBoost.JUKEBOX_VOLUME * multiplier);
         }
-        if (multiplier <= 1.0F) {
-            return original.call(sound, at);
-        }
-        return new SimpleSoundInstance(sound.location(), SoundSource.RECORDS, SpeakerBoost.JUKEBOX_VOLUME * multiplier, 1.0F,
-                SoundInstance.createUnseededRandom(), false, 0, SoundInstance.Attenuation.LINEAR, at.x, at.y, at.z, false);
+        return original.call(sound, at);
     }
 }
