@@ -17,3 +17,17 @@ mandatory=true
 versionRange="[26.3,26.4)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.simplemodels]]
+modId="simplebuilding"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simplemodels]]
+modId="modmenu"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"

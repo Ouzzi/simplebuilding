@@ -199,7 +199,8 @@
         "cloth_config"
       ],
       "optional": [
-        "simplebuilding"
+        "simplebuilding",
+        "modmenu"
       ],
       "paths": {
         "root": "modules/simpleriding",
@@ -610,7 +611,8 @@
         "cloth_config"
       ],
       "optional": [
-        "simplebuilding"
+        "simplebuilding",
+        "modmenu"
       ],
       "checks": [
         "modules/simplequalityoflife/tools/check_data.py"
@@ -691,7 +693,9 @@
       "requires": [
         "simplebuilding"
       ],
-      "optional": [],
+      "optional": [
+        "simpledimensions"
+      ],
       "checks": [
         "modules/simpletweaks/tools/check_data.py"
       ],
@@ -776,7 +780,12 @@
       ],
       "optional": [
         "simplebuilding",
-        "modmenu"
+        "modmenu",
+        "flan",
+        "ftbchunks",
+        "openpartiesandclaims",
+        "griefdefender",
+        "claimchunk"
       ],
       "checks": [
         "modules/simpledimensions/tools/check_data.py"

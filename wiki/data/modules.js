@@ -83,9 +83,10 @@ window.WIKI_MODULES = [
       "cloth_config"
     ],
     "optional": [
-      "simplebuilding"
+      "simplebuilding",
+      "modmenu"
     ],
-    "dataHash": "1d3a6ea48df3"
+    "dataHash": "bd6f46be3dfb"
   },
   {
     "id": "simplemodels",
@@ -183,7 +184,8 @@ window.WIKI_MODULES = [
       "cloth_config"
     ],
     "optional": [
-      "simplebuilding"
+      "simplebuilding",
+      "modmenu"
     ],
     "dataHash": "bd50daed0002"
   },
@@ -201,7 +203,9 @@ window.WIKI_MODULES = [
     "requires": [
       "simplebuilding"
     ],
-    "optional": [],
+    "optional": [
+      "simpledimensions"
+    ],
     "dataHash": "947979185638"
   },
   {
@@ -220,7 +224,12 @@ window.WIKI_MODULES = [
     ],
     "optional": [
       "simplebuilding",
-      "modmenu"
+      "modmenu",
+      "flan",
+      "ftbchunks",
+      "openpartiesandclaims",
+      "griefdefender",
+      "claimchunk"
     ],
     "dataHash": "ab7cf583e62b"
   },

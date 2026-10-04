@@ -25742,7 +25742,8 @@ window.WIKI_DATA = {
             "More small parts: bones, feathers, arrows and spectral arrows, blaze and breeze rods, glowstone dust, glow ink sacs, prismarine crystals, nether stars, rabbit's feet, turtle and armadillo scutes, disc fragments, ghast tears and the mod's Nihilith Shards, Astralit Dust, Ender Quartz, Raw Enderite, Enderite Scrap, Cracked Diamonds and Sage Orbs.",
             "Candles and sea pickles mix in: alone they stay the vanilla blocks. Sneak + right-click with another part on a vanilla candle or sea pickle block (or the block below it) turns it into a spot with each candle or pickle as one part, keeping lit candles lit and water; a candle of the same color on candles, or a sea pickle on sea pickles, stays vanilla. On a spot, candles and pickles are added like any part. They stand as the vanilla models.",
             "Light like vanilla: lit candles give 3 per candle, sea pickles under water 3 + 3 per pickle, dry pickles none. Flint and steel, a fire charge or a burning projectile light the candles (not under water); an empty hand puts them out, and so does water flowing in. Lit candles show the vanilla flame and smoke.",
-            "Glowing parts (glowstone dust, glow ink sac, prismarine crystals, nether star, blaze rod, echo shard, Astralit Dust, Sage Orb) now and then show a subtle vanilla particle; the client option \"Glow Particles on Placed Parts\" (tools.placedPartParticles, on by default) turns that off."
+            "Glowing parts (glowstone dust, glow ink sac, prismarine crystals, nether star, blaze rod, echo shard, Astralit Dust, Sage Orb) now and then show a subtle vanilla particle; the client option \"Glow Particles on Placed Parts\" (tools.placedPartParticles, on by default) turns that off.",
+            "Since 2026-10-04 a stick, bone, blaze rod or breeze rod clicked on a free top stands upright instead (see Standing Rod); on a pile, a wall or a ceiling it still lies down."
           ]
         },
         "de": {
@@ -25755,7 +25756,8 @@ window.WIKI_DATA = {
             "Weitere Kleinteile: Knochen, Federn, Pfeile und Spektralpfeile, Lohen- und Böenruten, Glowstonestaub, Leuchttintenbeutel, Prismarinkristalle, Nethersterne, Hasenpfoten, Schildkröten- und Gürteltier-Hornschilde, Plattenbruchstücke, Ghast-Tränen sowie die Nihilithsplitter, Astralitstaub, Enderquarz, Rohenderit, Enderitschrott, Rissige Diamanten und Weisheitskugeln der Mod.",
             "Kerzen und Seegurken mischen mit: allein bleiben sie die Vanilla-Blöcke. Schleichen + Rechtsklick mit einem anderen Teil auf einen Vanilla-Kerzen- oder -Seegurkenblock (oder den Block darunter) macht daraus einen Fleck, jede Kerze bzw. Gurke ein Teil; brennende Kerzen brennen weiter, Wasser bleibt. Eine gleichfarbige Kerze auf Kerzen oder eine Seegurke auf Seegurken bleibt Vanilla. Auf einen Fleck legen sich Kerzen und Gurken wie jedes Teil. Sie stehen als die Vanilla-Modelle.",
             "Licht wie bei Vanilla: brennende Kerzen geben 3 je Kerze, Seegurken unter Wasser 3 + 3 je Gurke, trockene Gurken nichts. Feuerzeug, Feuerkugel oder ein brennendes Geschoss zünden die Kerzen an (nicht unter Wasser); die leere Hand löscht sie, ebenso hineinlaufendes Wasser. Brennende Kerzen zeigen die Vanilla-Flamme und Rauch.",
-            "Leuchtende Teile (Glowstonestaub, Leuchttintenbeutel, Prismarinkristalle, Netherstern, Lohenrute, Echoscherbe, Astralitstaub, Weisheitskugel) zeigen ab und zu einen dezenten Vanilla-Partikel; die Client-Option „Glanz-Partikel an abgelegten Teilen“ (tools.placedPartParticles, standardmäßig an) schaltet das ab."
+            "Leuchtende Teile (Glowstonestaub, Leuchttintenbeutel, Prismarinkristalle, Netherstern, Lohenrute, Echoscherbe, Astralitstaub, Weisheitskugel) zeigen ab und zu einen dezenten Vanilla-Partikel; die Client-Option „Glanz-Partikel an abgelegten Teilen“ (tools.placedPartParticles, standardmäßig an) schaltet das ab.",
+            "Seit 2026-10-04 stellt sich ein Stock, Knochen, eine Lohen- oder Böenrute auf einer freien Oberseite senkrecht auf (siehe Aufgestellter Stab); auf einem Häufchen, an Wand oder Decke legt er sich weiter hin."
           ]
         },
         "sources": [
@@ -28282,6 +28284,45 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/spider_head.png",
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:standing_rod",
+      "name": {
+        "en_us": "Standing Rod",
+        "de_de": "Aufgestellter Stab"
+      },
+      "texture": "assets/textures/block/standing_blaze_rod.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/standing_rod.png",
+      "note": {
+        "en": {
+          "summary": "A stick, bone, blaze rod, breeze rod or diamond rod standing upright: sneak + right-click on the top of a block. A thin column made from the item's own pixels (the lightning rod's stem without its head); it drops the rod itself.",
+          "details": [
+            "It needs a floor that holds its middle (like a candle) or another standing rod below: stacked rods make posts. Breaking it - or losing the floor - drops the rod; no tool needed, pistons pop it, it can stand in water.",
+            "Only the blaze rod glows, a little (light 5). The thin shape collides, so a standing rod holds a hammock like any other anchor - two stacked sticks are a post on rope height.",
+            "Without sneaking the item behaves as usual. Stick, bone, blaze and breeze rod still lie down when clicked on a pile of small parts (they are added to it), a wall or a ceiling; the server options server.features.placeVanillaItems and placeDisabledItems apply to standing rods too.",
+            "The end rod, lightning rod, the metal rods and bamboo already are blocks; arrows do not stand."
+          ]
+        },
+        "de": {
+          "summary": "Ein Stock, Knochen, eine Lohenrute, Böenrute oder ein Diamantstab senkrecht aufgestellt: Schleichen + Rechtsklick auf die Oberseite eines Blocks. Eine dünne Säule aus den Pixeln des Items (der Stiel des Blitzableiters ohne Kopf); sie droppt den Stab selbst.",
+          "details": [
+            "Braucht einen Boden, der seine Mitte trägt (wie eine Kerze), oder einen aufgestellten Stab darunter: gestapelt ergeben sie Pfosten. Abbauen - oder ein fehlender Boden - droppt den Stab; kein Werkzeug nötig, Kolben stoßen ihn ab, er kann im Wasser stehen.",
+            "Nur die Lohenrute leuchtet, leicht (Licht 5). Die dünne Form hat Kollision, daher trägt ein aufgestellter Stab eine Hängematte wie jeder andere Anker - zwei gestapelte Stöcke sind ein Pfosten auf Seilhöhe.",
+            "Ohne Schleichen verhält sich das Item wie gewohnt. Stock, Knochen, Lohen- und Böenrute legen sich weiter hin, wenn man auf ein Häufchen Kleinteile (sie kommen dazu), eine Wand oder Decke klickt; die Server-Optionen server.features.placeVanillaItems und placeDisabledItems gelten auch für aufgestellte Stäbe.",
+            "Endstab, Blitzableiter, die Metallstäbe und Bambus sind schon Blöcke; Pfeile stehen nicht."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/StandingRodBlock.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/HammockLayout.java",
+          "tools/textures/standing_rods_2026_10_04.py"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:stellar_flypad",
@@ -93601,7 +93642,7 @@ window.WIKI_DATA = {
   },
   "counts": {
     "items": 251,
-    "blocks": 204,
+    "blocks": 205,
     "recipes": 611,
     "lootTables": 202,
     "trades": 20,

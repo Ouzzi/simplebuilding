@@ -16,3 +16,17 @@ config="simplequalityoflife-common.mixins.json"
 modId="cloth_config"
 type="required"
 versionRange="[26.3,)"
+
+[[dependencies.simplequalityoflife]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simplequalityoflife]]
+modId="modmenu"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"

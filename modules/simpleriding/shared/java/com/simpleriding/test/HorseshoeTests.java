@@ -92,7 +92,9 @@ public final class HorseshoeTests {
   var diamond=new ItemStack(shoe(Tier.DIAMOND));diamond.enchant(ench(h,Enchantments.UNBREAKING),3);diamond.setDamageValue(7);
   var netherite=smith(h,"netherite_horseshoe_smithing",diamond,new ItemStack(Items.NETHERITE_INGOT));
   h.assertTrue(netherite.is(shoe(Tier.NETHERITE))&&EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.UNBREAKING),netherite)==3&&netherite.getDamageValue()==7,"Netherite upgrade keeps enchantments and wear");
-  var enderite=smith(h,"enderite_horseshoe_smithing",netherite,new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_ingot"))));
+  var enderiteIngot=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_ingot")));
+  h.assertTrue(enderiteIngot.is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,Identifier.parse("c:ingots/enderite"))),"SimpleBuilding publishes the common Enderite ingot tag");
+  var enderite=smith(h,"enderite_horseshoe_smithing",netherite,enderiteIngot);
   h.assertTrue(enderite.is(shoe(Tier.ENDERITE))&&EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.UNBREAKING),enderite)==3,"Enderite upgrade with SimpleBuilding");
   var wrong=new SmithingRecipeInput(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),new ItemStack(Items.IRON_INGOT),new ItemStack(Items.IRON_NUGGET));
   h.assertTrue(h.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.SMITHING,wrong,h.getLevel()).isEmpty(),"Other templates do not make horseshoes");

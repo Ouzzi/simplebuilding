@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "simplebuilding:enderite_ingot",
+      "id": "#c:ingots/enderite",
       "required": false
     }
   ]

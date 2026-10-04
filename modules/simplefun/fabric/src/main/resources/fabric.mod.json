@@ -31,5 +31,10 @@
   "mixins": [
     "simplefun.mixins.json",
     "simplefun.fabric.mixins.json"
-  ]
+  ],
+  "suggests": {
+    "modmenu": "*",
+    "jei": "*",
+    "jade": "*"
+  }
 }

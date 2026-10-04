@@ -26,5 +26,9 @@
   ],
   "provides": [
     "renamed"
-  ]
+  ],
+  "suggests": {
+    "simplebuilding": "*",
+    "modmenu": "*"
+  }
 }
