@@ -78,6 +78,11 @@ public class ServerTuningConfig {
         if (features == null) features = new Features();
         if (machines != null) machines.endSignalRange = clamp(machines.endSignalRange, 1, 15);
         if (machines != null) machines.endPistonCooldownTicks = clamp(machines.endPistonCooldownTicks, 4, 100);
+        if (machines != null) {
+            machines.astralRailMaxSpeed = clamp(machines.astralRailMaxSpeed, 8, 20);
+            machines.astralRailBoost = clamp(machines.astralRailBoost, 0.07, 0.25, 0.12);
+            machines.nihilRailBrake = clamp(machines.nihilRailBrake, 0.02, 0.4, 0.08);
+        }
         if (chunkLoaders == null) chunkLoaders = new ChunkLoaders();
         if (dimensionLocks == null) dimensionLocks = new DimensionLocks();
         if (laser == null) laser = new Laser();
@@ -172,6 +177,9 @@ public class ServerTuningConfig {
         /** Astral-/Nihil-Kolben bewegen Bloecke (nur mit endSignals); aus: sie bleiben stehen, Rezepte fallen weg. */
         @ConfigEntry.Gui.Tooltip
         public boolean endPistons = true;
+        /** Astral-/Nihil-Schienen beschleunigen bzw. bremsen (nur mit endSignals); aus: normale Schienen, Rezepte fallen weg. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean endRails = true;
         @ConfigEntry.Gui.Tooltip
         public boolean astralVault = true;
         /** Die Verzauberung Luftsprung wirkt (unabhaengig vom Client-Schalter enableDoubleJump). */
@@ -372,6 +380,15 @@ public class ServerTuningConfig {
         /** Wartezeit nach dem Ausloesen eines Astral-/Nihil-Kolbens, 4..100 Ticks. */
         @ConfigEntry.Gui.Tooltip
         public int endPistonCooldownTicks = 8;
+        /** Hoechstgeschwindigkeit auf flachen Astral-Schienen in Bloecken pro Sekunde, 8..20 (Vanilla 8). */
+        @ConfigEntry.Gui.Tooltip
+        public int astralRailMaxSpeed = 16;
+        /** Schub einer gespeisten Astral-Schiene je Tick, 0,07..0,25 (Antriebsschiene 0,06); sinkt mit (v/vmax)^2. */
+        @ConfigEntry.Gui.Tooltip
+        public double astralRailBoost = 0.12;
+        /** Fester Bremsanteil einer gespeisten Nihil-Schiene je Tick, 0,02..0,4 (dazu 20 % Reibung). */
+        @ConfigEntry.Gui.Tooltip
+        public double nihilRailBrake = 0.08;
         @ConfigEntry.Gui.Tooltip
         public int reinforcedHopperSpeed = 2;
         @ConfigEntry.Gui.Tooltip

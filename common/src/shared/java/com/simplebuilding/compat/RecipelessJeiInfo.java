@@ -62,6 +62,9 @@ public final class RecipelessJeiInfo {
             map.put("astral_vault", List.of(ModItems.ASTRAL_VAULT));
             map.put("end_pistons", List.of(ModItems.ASTRAL_PISTON, ModItems.NIHIL_PISTON));
         }
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            map.put("end_rails", List.of(ModItems.ASTRAL_RAIL, ModItems.NIHIL_RAIL));
+        }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Fundorte und B-Seite der Platten (2026-10-03), Wirkung der Lautsprecher.
             map.put("music_discs", List.<ItemLike>copyOf(com.simplebuilding.util.MusicDiscs.items()));

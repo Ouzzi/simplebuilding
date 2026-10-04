@@ -111,6 +111,22 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                                 .save(output);
                     }
                 }
+                // Astral-/Nihil-Schienen (2026-10-04) wie die Antriebsschiene: 6 Gold, Stock, und statt Redstone der
+                // Redstone des Kanals (Astralitstaub bzw. Nihilitsplitter steckt darin) - 6 Stueck.
+                if (com.simplebuilding.version.McVersion.END_RAILS) {
+                    for (boolean astral : new boolean[]{true, false}) {
+                        Item redstone = astral ? ModItems.ASTRAL_REDSTONE : ModItems.NIHIL_REDSTONE;
+                        shaped(RecipeCategory.TRANSPORTATION, astral ? ModItems.ASTRAL_RAIL : ModItems.NIHIL_RAIL, 6)
+                                .pattern("G G")
+                                .pattern("GSG")
+                                .pattern("GRG")
+                                .define('G', Items.GOLD_INGOT)
+                                .define('S', Items.STICK)
+                                .define('R', redstone)
+                                .unlockedBy(getHasName(redstone), has(redstone))
+                                .save(output);
+                    }
+                }
                 // Auto-Schmied wie der Crafter: Eisen ringsum, Schmiedetisch in der Mitte, Redstone und Spender unten.
                 if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
                     shaped(RecipeCategory.REDSTONE, ModItems.AUTO_SMITHER)

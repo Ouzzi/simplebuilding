@@ -95,6 +95,11 @@ public final class SearchTabPlacement {
             // End-Kolben vor dem Schleimblock, also hinter den Kolbenstufen der Mod (die stehen hinter dem Klebekolben).
             out.add(Placement.before(REDSTONE_BLOCKS, Items.SLIME_BLOCK, ModItems.NIHIL_PISTON, ModItems.ASTRAL_PISTON));
         }
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            // Schienen wie Vanilla in beiden Tabs hinter der Antriebsschiene; Redstone kommt im Suchtab zuerst.
+            out.add(Placement.after(REDSTONE_BLOCKS, Items.POWERED_RAIL, ModItems.ASTRAL_RAIL, ModItems.NIHIL_RAIL));
+            out.add(Placement.after(TOOLS_AND_UTILITIES, Items.POWERED_RAIL, ModItems.ASTRAL_RAIL, ModItems.NIHIL_RAIL).asSecondary());
+        }
 
         // --- Bausteine: End-Paletten hinter Purpur, Enderquarz und Schachbretter hinter Glattquarz,
         // Platten und Speicherbloecke in Erz-Reihenfolge bei Vanillas Platten und Bloecken.

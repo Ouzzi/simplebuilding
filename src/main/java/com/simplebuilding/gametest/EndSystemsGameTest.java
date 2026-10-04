@@ -16,4 +16,11 @@ public final class EndSystemsGameTest {
     @GameTest(maxTicks = 100) public void twoPistonsMoveOneBlockOnce(GameTestHelper helper) { EndSystemsTests.twoPistonsMoveOneBlockOnce(helper); }
     @GameTest(maxTicks = 100) public void pistonFiresOnRisingEdgeOnly(GameTestHelper helper) { EndSystemsTests.pistonFiresOnRisingEdgeOnly(helper); }
     @GameTest(maxTicks = 100) public void pistonIgnoresVanillaAndOtherChannel(GameTestHelper helper) { EndSystemsTests.pistonIgnoresVanillaAndOtherChannel(helper); }
+    @GameTest public void astralBoostApproachesTopSpeedWithoutPassingIt(GameTestHelper helper) { EndSystemsTests.astralBoostApproachesTopSpeedWithoutPassingIt(helper); }
+    @GameTest public void astralBoostsMoreThanAPoweredRail(GameTestHelper helper) { EndSystemsTests.astralBoostsMoreThanAPoweredRail(helper); }
+    @GameTest public void nihilBrakeStopsSmoothly(GameTestHelper helper) { EndSystemsTests.nihilBrakeStopsSmoothly(helper); }
+    @GameTest public void endRailConfigIsClamped(GameTestHelper helper) { EndSystemsTests.endRailConfigIsClamped(helper); }
+    @GameTest(maxTicks = 100) public void endRailIsFedOnlyByItsOwnChannel(GameTestHelper helper) { EndSystemsTests.endRailIsFedOnlyByItsOwnChannel(helper); }
+    @GameTest(maxTicks = 140) public void astralRailLaunchesACartPastVanillaSpeed(GameTestHelper helper) { EndSystemsTests.astralRailLaunchesACartPastVanillaSpeed(helper); }
+    @GameTest(maxTicks = 120) public void nihilRailStopsAndFastCartTakesACurve(GameTestHelper helper) { EndSystemsTests.nihilRailStopsAndFastCartTakesACurve(helper); }
 }

@@ -109,6 +109,8 @@ public class ModItems {
     public static final Item ASTRALIT_LAMP = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astralit_lamp", s -> new BlockItem(ModBlocks.ASTRALIT_LAMP, s)) : null;
     public static final Item NIHIL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("nihil_piston", s -> new BlockItem(ModBlocks.NIHIL_PISTON, s)) : null;
     public static final Item ASTRAL_PISTON = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_piston", s -> new BlockItem(ModBlocks.ASTRAL_PISTON, s)) : null;
+    public static final Item NIHIL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? registerItem("nihil_rail", s -> new BlockItem(ModBlocks.NIHIL_RAIL, s)) : null;
+    public static final Item ASTRAL_RAIL = com.simplebuilding.version.McVersion.END_RAILS ? registerItem("astral_rail", s -> new BlockItem(ModBlocks.ASTRAL_RAIL, s)) : null;
     public static final Item ASTRAL_VAULT = com.simplebuilding.version.McVersion.END_SYSTEMS ? registerItem("astral_vault", s -> new BlockItem(ModBlocks.ASTRAL_VAULT, s)) : null;
 
 

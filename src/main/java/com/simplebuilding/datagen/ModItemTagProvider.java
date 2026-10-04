@@ -54,6 +54,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             }
             builder(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(key(ModItems.MUSIC_DISC_DRIFTWOOD)).add(key(ModItems.MUSIC_DISC_DAYBREAK));
         }
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            builder(ItemTags.RAILS).add(key(ModItems.ASTRAL_RAIL)).add(key(ModItems.NIHIL_RAIL));
+        }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             builder(ModTags.Items.PLACEABLE_SMALL).add(key(ModItems.YARN_BALL));
             builder(BlockItemTags.SMALL_FLOWERS.item()).add(key(ModItems.SILENT_DANDELION));

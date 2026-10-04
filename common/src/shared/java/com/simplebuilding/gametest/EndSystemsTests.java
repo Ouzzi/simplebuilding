@@ -1,6 +1,8 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.blocks.custom.EndRailBlock;
+import com.simplebuilding.blocks.custom.EndRailPhysics;
 import com.simplebuilding.blocks.custom.EndSignalBlock;
 import com.simplebuilding.config.ServerTuning;
 import com.simplebuilding.util.AstralStorage;
@@ -17,6 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.block.entity.EnderChestBlockEntity;
+import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
@@ -478,5 +481,235 @@ public final class EndSystemsTests {
                 + state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.EAST).getSerializedName() + " "
                 + state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.SOUTH).getSerializedName() + " "
                 + state.getValue(com.simplebuilding.blocks.custom.EndSignalPowderBlock.WEST).getSerializedName();
+    }
+
+    // ------------------------------------------------------------------------------------------------
+    // Astral-/Nihil-Schienen (2026-10-04, docs/ai/PLAN-ASTRAL-NIHIL-SCHIENEN-2026-10-02.md)
+    // ------------------------------------------------------------------------------------------------
+
+    private static boolean railsActive(GameTestHelper helper) {
+        if (com.simplebuilding.version.McVersion.END_RAILS) return true;
+        helper.succeed();
+        return false;
+    }
+
+    private static net.minecraft.world.level.block.state.BlockState eastWest(net.minecraft.world.level.block.Block rail) {
+        return rail.defaultBlockState().setValue(EndRailBlock.SHAPE, RailShape.EAST_WEST);
+    }
+
+    private static boolean powered(GameTestHelper helper, BlockPos pos) {
+        return helper.getBlockState(pos).getValue(EndRailBlock.POWERED);
+    }
+
+    /**
+     * The boost formula: speed rises every tick, stays strictly below the cap and gets within 2 % of it; every tick adds
+     * less the faster the cart already is ("the faster, the more boost you need"); a stronger boost is faster after
+     * the same number of ticks; momentum above the cap is cut to the cap.
+     */
+    public static void astralBoostApproachesTopSpeedWithoutPassingIt(GameTestHelper helper) {
+        if (!railsActive(helper)) return;
+        double[] caps = {0.4, 0.8, 1.0, 1.0 / 0.75};
+        double[] boosts = {EndRailPhysics.MIN_BOOST, 0.12, EndRailPhysics.MAX_BOOST};
+        for (double cap : caps) {
+            double previousAfterTen = -1;
+            for (double boost : boosts) {
+                double v = 0, gain = Double.MAX_VALUE, afterTen = 0;
+                for (int tick = 1; tick <= 2000; tick++) {
+                    double next = EndRailPhysics.boosted(v, cap, boost);
+                    helper.assertTrue(next < cap, "speed reached the cap " + cap + " (boost " + boost + ", tick " + tick + ")");
+                    helper.assertTrue(next > v || v > cap * 0.999, "speed did not rise at " + v + " (cap " + cap + ")");
+                    helper.assertTrue(next - v <= gain + 1e-12, "gain grew with speed at " + v + " (cap " + cap + ")");
+                    gain = next - v;
+                    v = next;
+                    if (tick == 10) afterTen = v;
+                }
+                helper.assertTrue(v > cap * 0.98, "speed stalled at " + v + " below the cap " + cap);
+                helper.assertTrue(afterTen >= previousAfterTen, "a stronger boost was not faster (cap " + cap + ", boost " + boost + ")");
+                previousAfterTen = afterTen;
+            }
+        }
+        helper.assertTrue(EndRailPhysics.boosted(2.0, 0.8, 0.12) == 0.8, "momentum above the cap was not cut");
+        helper.succeed();
+    }
+
+    /** Astral pushes harder than vanilla's powered rail (0.06 per tick) at every vanilla speed, even at the lowest config. */
+    public static void astralBoostsMoreThanAPoweredRail(GameTestHelper helper) {
+        if (!railsActive(helper)) return;
+        double cap = EndRailPhysics.maxSpeedPerTick();
+        double boost = EndRailPhysics.boost();
+        for (double v = 0; v <= EndRailPhysics.VANILLA_MAX_SPEED + 1e-9; v += 0.05) {
+            helper.assertTrue(EndRailPhysics.boosted(v, cap, boost) - v > EndRailPhysics.VANILLA_POWERED_RAIL_BOOST,
+                    "default Astral boost at " + v + " is not above the powered rail");
+        }
+        double minCap = EndRailPhysics.MIN_MAX_SPEED / 20.0;
+        helper.assertTrue(EndRailPhysics.boosted(0, minCap, EndRailPhysics.MIN_BOOST) > EndRailPhysics.VANILLA_POWERED_RAIL_BOOST,
+                "lowest config Astral boost from standstill is not above the powered rail");
+        helper.assertTrue(cap > EndRailPhysics.VANILLA_MAX_SPEED, "default top speed is not above vanilla");
+        helper.succeed();
+    }
+
+    /** Powered Nihil: the speed only falls, never below zero, not in one tick, and 16 blocks/s stop within 10 ticks. */
+    public static void nihilBrakeStopsSmoothly(GameTestHelper helper) {
+        if (!railsActive(helper)) return;
+        double v = 0.8;
+        int ticks = 0;
+        while (v > 0 && ticks < 50) {
+            double next = EndRailPhysics.braked(v, EndRailPhysics.brake());
+            helper.assertTrue(next < v && next >= 0, "Nihil brake did not slow down at " + v);
+            helper.assertTrue(ticks > 0 || next > 0, "Nihil brake stopped a full-speed cart in one tick (not smooth)");
+            v = next;
+            ticks++;
+        }
+        helper.assertTrue(v == 0 && ticks <= 10, "Nihil brake needed " + ticks + " ticks");
+        helper.assertTrue(EndRailPhysics.braked(0.02, EndRailPhysics.MIN_BRAKE) == 0, "slow cart not held");
+        helper.succeed();
+    }
+
+    /** Hand-edited or commanded values are clamped at the runtime access and by validate(). */
+    public static void endRailConfigIsClamped(GameTestHelper helper) {
+        if (!railsActive(helper)) return;
+        var machines = ServerTuning.get().machines;
+        int speed = machines.astralRailMaxSpeed;
+        double boost = machines.astralRailBoost, brake = machines.nihilRailBrake;
+        try {
+            machines.astralRailMaxSpeed = 999;
+            machines.astralRailBoost = 50;
+            machines.nihilRailBrake = 50;
+            helper.assertTrue(EndRailPhysics.maxSpeedPerTick() == 1.0, "top speed cap bypassed");
+            helper.assertTrue(EndRailPhysics.boost() == EndRailPhysics.MAX_BOOST, "boost cap bypassed");
+            helper.assertTrue(EndRailPhysics.brake() == EndRailPhysics.MAX_BRAKE, "brake cap bypassed");
+            machines.astralRailMaxSpeed = -1;
+            machines.astralRailBoost = -1;
+            machines.nihilRailBrake = Double.NaN;
+            helper.assertTrue(EndRailPhysics.maxSpeedPerTick() == 0.4, "top speed floor bypassed");
+            helper.assertTrue(EndRailPhysics.boost() == EndRailPhysics.MIN_BOOST, "boost floor bypassed");
+            helper.assertTrue(EndRailPhysics.brake() == 0.08, "NaN brake not replaced");
+            var copy = new com.simplebuilding.config.ServerTuningConfig();
+            copy.machines.astralRailMaxSpeed = 999;
+            copy.machines.astralRailBoost = 9;
+            copy.machines.nihilRailBrake = -9;
+            copy.validate();
+            helper.assertTrue(copy.machines.astralRailMaxSpeed == 20 && copy.machines.astralRailBoost == 0.25
+                    && copy.machines.nihilRailBrake == 0.02, "validate() kept out-of-range rail values");
+        } finally {
+            machines.astralRailMaxSpeed = speed;
+            machines.astralRailBoost = boost;
+            machines.nihilRailBrake = brake;
+        }
+        helper.succeed();
+    }
+
+    /** Only a powder or switch of the rail's own channel powers it; vanilla redstone and the other channel never do. */
+    public static void endRailIsFedOnlyByItsOwnChannel(GameTestHelper helper) {
+        if (!railsActive(helper)) return;
+        for (int x = 0; x <= 7; x++) for (int z = 0; z <= 6; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
+        BlockPos astral = new BlockPos(1, 1, 1), nihil = new BlockPos(4, 1, 1), vanilla = new BlockPos(1, 1, 4), viaPowder = new BlockPos(5, 1, 4);
+        helper.setBlock(astral, eastWest(ModBlocks.ASTRAL_RAIL));
+        helper.setBlock(astral.north(), ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(nihil, eastWest(ModBlocks.NIHIL_RAIL));
+        helper.setBlock(nihil.north(), ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.setBlock(vanilla, eastWest(ModBlocks.ASTRAL_RAIL));
+        helper.setBlock(vanilla.north(), Blocks.REDSTONE_BLOCK);
+        helper.setBlock(viaPowder, eastWest(ModBlocks.NIHIL_RAIL));
+        helper.setBlock(new BlockPos(5, 1, 5), ModBlocks.NIHIL_REDSTONE);
+        helper.setBlock(new BlockPos(6, 1, 5), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        helper.runAfterDelay(20, () -> {
+            helper.assertTrue(powered(helper, astral), "astral switch did not power the astral rail");
+            helper.assertFalse(powered(helper, nihil), "astral switch powered a nihil rail");
+            helper.assertFalse(powered(helper, vanilla), "vanilla redstone powered an astral rail");
+            helper.assertTrue(powered(helper, viaPowder), "nihil powder did not power the nihil rail");
+            helper.setBlock(astral.north(), Blocks.AIR);
+            helper.runAfterDelay(6, () -> {
+                helper.assertFalse(powered(helper, astral), "astral rail stayed powered without its switch");
+                helper.succeed();
+            });
+        });
+    }
+
+    /**
+     * In the real game (default minecart behaviour): a cart standing on powered Astral rails next to a stone is pushed
+     * off and moves faster than vanilla's 0.4 blocks per tick within seven rails - the raised top speed and the boost
+     * reach the cart through both mixins - without ever exceeding the configured top speed.
+     */
+    public static void astralRailLaunchesACartPastVanillaSpeed(GameTestHelper helper) {
+        if (!railsActive(helper)) return;
+        for (int x = 0; x <= 7; x++) for (int z = 1; z <= 2; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
+        helper.setBlock(new BlockPos(0, 1, 1), Blocks.STONE);
+        helper.setBlock(new BlockPos(0, 1, 2), ModBlocks.ASTRALIT_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        for (int x = 1; x <= 7; x++) {
+            helper.setBlock(new BlockPos(x, 1, 1), eastWest(ModBlocks.ASTRAL_RAIL));
+            helper.setBlock(new BlockPos(x, 1, 2), ModBlocks.ASTRAL_REDSTONE);
+        }
+        double cap = EndRailPhysics.maxSpeedPerTick();
+        helper.runAfterDelay(24, () -> {
+            for (int x = 1; x <= 7; x++) helper.assertTrue(powered(helper, new BlockPos(x, 1, 1)), "rail " + x + " not powered");
+            var cart = helper.spawn(net.minecraft.world.entity.EntityTypes.MINECART, new BlockPos(1, 1, 1));
+            double startX = cart.getX();
+            double[] last = {startX}, fastest = {0};
+            helper.onEachTick(() -> {
+                if (cart.isRemoved()) return;
+                fastest[0] = Math.max(fastest[0], Math.abs(cart.getX() - last[0]));
+                last[0] = cart.getX();
+            });
+            helper.succeedWhen(() -> {
+                helper.assertTrue(fastest[0] <= cap + 1e-6, "cart moved " + fastest[0] + " in a tick, above the top speed " + cap);
+                helper.assertTrue(cart.getX() - startX > 4 && fastest[0] > EndRailPhysics.VANILLA_MAX_SPEED + 0.05,
+                        "cart not past vanilla speed yet: fastest step " + fastest[0] + ", travelled " + (cart.getX() - startX));
+                cart.discard();
+            });
+        });
+    }
+
+    /**
+     * Powered Nihil rails stop a fast cart and hold it; unpowered ones let it roll through. A cart sent at the Astral
+     * top speed onto a plain curve stays on the rails (the raised limit ends with the Astral rail).
+     */
+    public static void nihilRailStopsAndFastCartTakesACurve(GameTestHelper helper) {
+        if (!railsActive(helper)) return;
+        for (int x = 0; x <= 7; x++) for (int z = 0; z <= 7; z++) helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
+        java.util.Map<BlockPos, net.minecraft.world.level.block.state.BlockState> rails = new java.util.LinkedHashMap<>();
+        // Lane z=1: powered Nihil rails x=1..6 (powder north of them, switch at x=0). Lane z=3: unpowered Nihil rails.
+        helper.setBlock(new BlockPos(0, 1, 0), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        for (int x = 1; x <= 6; x++) {
+            rails.put(new BlockPos(x, 1, 1), eastWest(ModBlocks.NIHIL_RAIL));
+            helper.setBlock(new BlockPos(x, 1, 0), ModBlocks.NIHIL_REDSTONE);
+            rails.put(new BlockPos(x, 1, 3), eastWest(ModBlocks.NIHIL_RAIL));
+        }
+        // Lane z=5: Astral rails x=1..4, a plain curve at x=5 turning south onto powered Nihil rails z=6..7 (the stop).
+        for (int x = 1; x <= 4; x++) rails.put(new BlockPos(x, 1, 5), eastWest(ModBlocks.ASTRAL_RAIL));
+        rails.put(new BlockPos(5, 1, 5), Blocks.RAIL.defaultBlockState().setValue(net.minecraft.world.level.block.RailBlock.SHAPE, RailShape.SOUTH_WEST));
+        for (int z = 6; z <= 7; z++) {
+            rails.put(new BlockPos(5, 1, z), ModBlocks.NIHIL_RAIL.defaultBlockState().setValue(EndRailBlock.SHAPE, RailShape.NORTH_SOUTH));
+            helper.setBlock(new BlockPos(6, 1, z), ModBlocks.NIHIL_REDSTONE);
+        }
+        helper.setBlock(new BlockPos(7, 1, 6), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
+        // Placing a rail lets it reconnect to its neighbours; setting the same block again keeps the given shape.
+        for (int pass = 0; pass < 2; pass++) rails.forEach(helper::setBlock);
+        double cap = EndRailPhysics.maxSpeedPerTick();
+        helper.runAfterDelay(20, () -> {
+            helper.assertTrue(powered(helper, new BlockPos(6, 1, 1)) && !powered(helper, new BlockPos(1, 1, 3))
+                    && powered(helper, new BlockPos(5, 1, 7)), "nihil lanes not set up");
+            var stopped = helper.spawn(net.minecraft.world.entity.EntityTypes.MINECART, new BlockPos(1, 1, 1));
+            var rolling = helper.spawn(net.minecraft.world.entity.EntityTypes.MINECART, new BlockPos(1, 1, 3));
+            var curving = helper.spawn(net.minecraft.world.entity.EntityTypes.MINECART, new BlockPos(1, 1, 5));
+            stopped.setDeltaMovement(cap, 0, 0);
+            rolling.setDeltaMovement(0.3, 0, 0);
+            curving.setDeltaMovement(cap, 0, 0);
+            double stoppedX = stopped.getX(), rollingX = rolling.getX();
+            helper.runAfterDelay(30, () -> {
+                helper.assertTrue(stopped.getDeltaMovement().horizontalDistance() == 0, "powered Nihil rail did not stop the cart: " + stopped.getDeltaMovement());
+                helper.assertTrue(stopped.getX() - stoppedX < 4, "cart braked too late: " + (stopped.getX() - stoppedX));
+                helper.assertTrue(rolling.getX() - rollingX > 2, "unpowered Nihil rail braked the cart");
+                BlockPos curve = helper.absolutePos(new BlockPos(5, 1, 5));
+                helper.assertTrue(net.minecraft.world.level.block.BaseRailBlock.isRail(helper.getLevel().getBlockState(curving.getCurrentBlockPosOrRailBelow()))
+                        && curving.getZ() > curve.getZ() + 1 && Math.abs(curving.getX() - (curve.getX() + 0.5)) < 0.1
+                        && curving.getDeltaMovement().horizontalDistance() == 0,
+                        "fast cart did not follow the curve onto the stop: at " + curving.position() + " moving " + curving.getDeltaMovement());
+                stopped.discard();
+                rolling.discard();
+                curving.discard();
+                helper.succeed();
+            });
+        });
     }
 }
