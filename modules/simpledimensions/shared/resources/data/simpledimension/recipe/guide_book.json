@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:flint_and_steel"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpledimension:guide_book"
+  }
+}

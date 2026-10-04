@@ -1,0 +1,10 @@
+{
+	"chapter.574CBF753F74FB4C.title": "{\"translate\": \"quests.simpledimension.start.title\"}",
+	"chapter.574CBF753F74FB4C.chapter_subtitle": [
+		"{\"translate\": \"quests.simpledimension.start.subtitle\"}"
+	],
+	"quest.3E7A12ACFCB16B4B.title": "{\"translate\": \"quests.simpledimension.start.welcome.title\"}",
+	"quest.3E7A12ACFCB16B4B.quest_desc": [
+		"{\"translate\": \"quests.simpledimension.start.welcome.description\"}"
+	]
+}

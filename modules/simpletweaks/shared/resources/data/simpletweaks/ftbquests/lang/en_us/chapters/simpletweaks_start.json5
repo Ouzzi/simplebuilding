@@ -1,0 +1,10 @@
+{
+	"chapter.204E4F73F2953935.title": "{\"translate\": \"quests.simpletweaks.start.title\"}",
+	"chapter.204E4F73F2953935.chapter_subtitle": [
+		"{\"translate\": \"quests.simpletweaks.start.subtitle\"}"
+	],
+	"quest.482D57218C3FD38F.title": "{\"translate\": \"quests.simpletweaks.start.welcome.title\"}",
+	"quest.482D57218C3FD38F.quest_desc": [
+		"{\"translate\": \"quests.simpletweaks.start.welcome.description\"}"
+	]
+}

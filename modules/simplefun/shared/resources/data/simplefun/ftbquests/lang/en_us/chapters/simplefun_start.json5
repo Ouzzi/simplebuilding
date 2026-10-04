@@ -1,0 +1,10 @@
+{
+	"chapter.38BD40D240C41DAC.title": "{\"translate\": \"quests.simplefun.start.title\"}",
+	"chapter.38BD40D240C41DAC.chapter_subtitle": [
+		"{\"translate\": \"quests.simplefun.start.subtitle\"}"
+	],
+	"quest.0D2676928C958BBC.title": "{\"translate\": \"quests.simplefun.start.welcome.title\"}",
+	"quest.0D2676928C958BBC.quest_desc": [
+		"{\"translate\": \"quests.simplefun.start.welcome.description\"}"
+	]
+}

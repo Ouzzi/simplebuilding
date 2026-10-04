@@ -28,5 +28,22 @@
   "tooltip.simplesandwiches.buttered": "Gebuttert",
   "tooltip.simplesandwiches.effect": "%s (%s) %s%%",
   "tooltip.simplesandwiches.food": "Hunger %s, Sättigung %s",
-  "tooltip.simplesandwiches.layer": "- %s"
+  "tooltip.simplesandwiches.layer": "- %s",
+  "item.simplesandwiches.guide_book": "Simple-Sandwiches-Handbuch",
+  "simplesandwiches.guide.page.1.title": "Simple Sandwiches",
+  "simplesandwiches.guide.page.1": "Sandwiches auf dem Schneidebrett, ein Küchenmesser, Käse und Butter aus dem Kessel und Essen direkt aus Bündeln.",
+  "simplesandwiches.guide.page.2.title": "Sandwiches",
+  "simplesandwiches.guide.page.2": "Ein Brot plus bis zu fünf Zutaten, optional zuerst Butter; bei gleichen Komponenten bis 16 stapelbar.",
+  "simplesandwiches.guide.page.3.title": "Schneidebrett",
+  "simplesandwiches.guide.page.3": "Brot auflegen, mit dem Messer öffnen, belegen und mit leerer Hand schließen und entnehmen.",
+  "simplesandwiches.guide.page.4.title": "Messer",
+  "simplesandwiches.guide.page.4": "250 Haltbarkeit, Gesamtschaden 2, Angriffstempo 2,0 und Ambossreparatur mit Eisennuggets.",
+  "simplesandwiches.guide.page.5.title": "Käse und Butter",
+  "simplesandwiches.guide.page.5": "Milch reift automatisch zu Butter; ein fermentiertes Spinnenauge startet die Käsereifung mit begrenztem Erntefenster.",
+  "simplesandwiches.guide.page.6.title": "Aus Bündeln essen",
+  "simplesandwiches.guide.page.6": "Benutzen gedrückt halten, um das ausgewählte Essen im Bündel zu verzehren; ohne Auswahl wird das erste Item verwendet.",
+  "quests.simplesandwiches.start.title": "Willkommen bei Simple Sandwiches",
+  "quests.simplesandwiches.start.subtitle": "Dein Handbuch gratis",
+  "quests.simplesandwiches.start.welcome.title": "Ein Handbuch gratis",
+  "quests.simplesandwiches.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Sandwiches-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Brot herstellen."
 }

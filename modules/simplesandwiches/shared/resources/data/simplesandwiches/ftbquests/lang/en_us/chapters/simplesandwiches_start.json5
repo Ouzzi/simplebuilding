@@ -1,0 +1,10 @@
+{
+	"chapter.3871A4AD196D188E.title": "{\"translate\": \"quests.simplesandwiches.start.title\"}",
+	"chapter.3871A4AD196D188E.chapter_subtitle": [
+		"{\"translate\": \"quests.simplesandwiches.start.subtitle\"}"
+	],
+	"quest.569D8D2824E749BA.title": "{\"translate\": \"quests.simplesandwiches.start.welcome.title\"}",
+	"quest.569D8D2824E749BA.quest_desc": [
+		"{\"translate\": \"quests.simplesandwiches.start.welcome.description\"}"
+	]
+}
