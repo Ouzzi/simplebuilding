@@ -25,6 +25,8 @@
     "simplesounds.mixins.json"
   ],
   "suggests": {
-    "simplevisuals": "*"
+    "simplevisuals": "*",
+    "simplebuilding": "*",
+    "modmenu": "*"
   }
 }

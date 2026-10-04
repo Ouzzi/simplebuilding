@@ -938,7 +938,7 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
       },
       "source": "modules/simpleriding/generated/resources/data/simpleriding/recipe/enderite_horseshoe_smithing.json",
       "ingredients": [
-        "simplebuilding:enderite_ingot",
+        "#c:ingots/enderite",
         "simpleriding:horseshoe_smithing_template",
         "simpleriding:netherite_horseshoe"
       ],
@@ -950,32 +950,7 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
           "simpleriding:netherite_horseshoe"
         ],
         "addition": [
-          "simplebuilding:enderite_ingot"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleriding:horseshoe_smithing_template",
-            "count": 3
-          },
-          {
-            "id": "minecraft:diamond",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simplebuilding:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 0.111
-          }
+          "#c:ingots/enderite"
         ]
       }
     },
@@ -1290,7 +1265,7 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
       "replace": false,
       "values": [
         {
-          "id": "simplebuilding:enderite_ingot",
+          "id": "#c:ingots/enderite",
           "required": false
         }
       ],

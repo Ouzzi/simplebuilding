@@ -32,6 +32,14 @@ class ModTests(unittest.TestCase):
                 path = self.root.joinpath(*project.strip(':').split(':')) / 'build.gradle'
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text('// fixture')
+            if entry['paths']['root'].startswith('modules/'):
+                for loader in entry['loaders']:
+                    relative = Path(entry['paths'][loader]) / 'src/main/resources'
+                    relative /= ('fabric.mod.json' if loader == 'fabric' else
+                                 'META-INF/' + ('neoforge.mods.toml' if loader == 'neoforge' else 'mods.toml'))
+                    target = self.root / relative
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(ROOT / relative, target)
         shutil.copytree(ROOT / 'tools/templates', self.root / 'tools/templates')
         self.hub = Hub(self.root, self.root / 'logs', self.root / 'data')
 
@@ -39,6 +47,52 @@ class ModTests(unittest.TestCase):
         for bad in (['../../bad'], ['simplebuilding;whoami'], ['simplebuilding','simplebuilding'], [1], 'simplebuilding'):
             with self.subTest(bad=bad), self.assertRaises(ValueError):
                 multimod.validate_selection({'schemaVersion':1,'modules':bad,'devMods':[]}, self.root)
+
+    def test_optional_metadata_rejects_missing_extra_and_required_partners(self):
+        modules, _ = multimod.registries(self.root)
+        entry = next(m for m in modules if m['id'] == 'simpleriding')
+        for loader in entry['loaders']:
+            relative = ('fabric.mod.json' if loader == 'fabric' else
+                        'META-INF/' + ('neoforge.mods.toml' if loader == 'neoforge' else 'mods.toml'))
+            path = self.root / entry['paths'][loader] / 'src/main/resources' / relative
+            original = path.read_text()
+            for case in ('missing', 'extra', 'required', 'absent'):
+                with self.subTest(loader=loader, case=case):
+                    if loader == 'fabric':
+                        data = json.loads(original)
+                        if case == 'missing': del data['suggests']['simplebuilding']
+                        elif case == 'extra': data['suggests']['unexpected'] = '*'
+                        elif case == 'required': data['depends']['simplebuilding'] = '*'
+                        elif case == 'absent': del data['suggests']
+                        path.write_text(json.dumps(data))
+                    else:
+                        kind = 'type="optional"' if loader == 'neoforge' else 'mandatory=false'
+                        required = 'type="required"' if loader == 'neoforge' else 'mandatory=true'
+                        changed = original.replace('modId="simplebuilding"', 'modId="unexpected"')
+                        if case == 'extra':
+                            changed = original + f'\n[[dependencies.simpleriding]]\nmodId="unexpected"\n{kind}\n'
+                        elif case == 'required': changed = original.replace(kind, required)
+                        elif case == 'absent': changed = original.replace(kind, '')
+                        path.write_text(changed)
+                    with self.assertRaisesRegex(ValueError, 'Optional dependencies differ'):
+                        multimod.registries(self.root)
+                path.write_text(original)
+            path.unlink()
+            with self.assertRaises(FileNotFoundError):
+                multimod.registries(self.root)
+            path.write_text(original)
+
+    def test_optional_metadata_uses_loader_id_aliases(self):
+        modules, _ = multimod.registries(self.root)
+        entry = next(m for m in modules if m['id'] == 'simpletweaks')
+        self.assertIn('simpledimensions', entry['optional'])
+        path = self.root / entry['paths']['fabric'] / 'src/main/resources/fabric.mod.json'
+        data = multimod.read(path)
+        self.assertIn('simpledimension', data['suggests'])
+        data['suggests']['simpledimensions'] = data['suggests'].pop('simpledimension')
+        multimod.write(path, data)
+        with self.assertRaisesRegex(ValueError, 'Optional dependencies differ'):
+            multimod.registries(self.root)
 
     def test_manifest_rejects_duplicate_and_missing_project(self):
         path = self.root / 'modules/modules.json'

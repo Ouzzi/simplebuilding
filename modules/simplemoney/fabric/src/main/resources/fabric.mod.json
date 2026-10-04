@@ -29,7 +29,17 @@
   "license": "CC0-1.0",
   "icon": "assets/simplemoney/icon.png",
   "suggests": {
-    "modmenu": "*"
+    "jei": "*",
+    "modmenu": "*",
+    "simplebuilding": "*",
+    "simplefun": "*",
+    "simplemodels": "*",
+    "simplequalityoflife": "*",
+    "simpleriding": "*",
+    "simplesounds": "*",
+    "simpletweaks": "*",
+    "simplevisuals": "*",
+    "wiringexample": "*"
   },
   "mixins": [
     "simplemoney.links.mixins.json"

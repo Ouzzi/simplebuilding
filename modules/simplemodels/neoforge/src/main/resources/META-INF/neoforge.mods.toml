@@ -12,3 +12,17 @@ versionRange="[26.3,26.4)"
 
 [[mixins]]
 config="simplemodels.mixins.json"
+
+[[dependencies.simplemodels]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simplemodels]]
+modId="modmenu"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"

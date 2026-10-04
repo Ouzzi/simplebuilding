@@ -27,5 +27,10 @@
   "mixins": [
     "simplevisuals.mixins.json"
   ],
-  "icon": "assets/simplevisuals/icon.png"
+  "icon": "assets/simplevisuals/icon.png",
+  "suggests": {
+    "simplebuilding": "*",
+    "simplemodels": "*",
+    "modmenu": "*"
+  }
 }

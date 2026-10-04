@@ -13,3 +13,10 @@ versionRange="[26.3,26.4)"
 
 [[mixins]]
 config="simplesandwiches.mixins.json"
+
+[[dependencies.simplesandwiches]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

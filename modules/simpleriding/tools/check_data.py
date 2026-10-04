@@ -100,12 +100,16 @@ def check():
     for tier, base, addition in [('copper', 'minecraft:copper_ingot', 'minecraft:iron_nugget'), ('iron', 'minecraft:iron_ingot', 'minecraft:iron_nugget'),
                                  ('golden', 'minecraft:gold_ingot', 'minecraft:iron_nugget'), ('diamond', 'minecraft:diamond', 'minecraft:iron_nugget'),
                                  ('netherite', 'simpleriding:diamond_horseshoe', 'minecraft:netherite_ingot'),
-                                 ('enderite', 'simpleriding:netherite_horseshoe', 'simplebuilding:enderite_ingot')]:
+                                 ('enderite', 'simpleriding:netherite_horseshoe', '#c:ingots/enderite')]:
         recipe = read(recipes / f'{tier}_horseshoe_smithing.json')
         assert recipe['type'] == 'minecraft:smithing_transform' and recipe['template'] == template
         assert recipe['base'] == base and recipe['addition'] == addition and recipe['result']['id'] == f'simpleriding:{tier}_horseshoe'
     enderite = read(recipes / 'enderite_horseshoe_smithing.json')
     assert enderite['fabric:load_conditions'][0]['values'] == ['simplebuilding'] and enderite['neoforge:conditions'][0]['modid'] == 'simplebuilding'
+    assert enderite['forge:conditions'] == [{'type': 'forge:mod_loaded', 'modid': 'simplebuilding'}]
+    assert read(resources / 'simpleriding/tags/item/repairs_enderite_horseshoe.json')['values'] == [
+        {'id': '#c:ingots/enderite', 'required': False}]
+    assert 'simplebuilding:enderite_ingot' in read(ROOT / 'src/main/resources/data/c/tags/item/ingots/enderite.json')['values']
     duplicate = read(recipes / 'horseshoe_smithing_template.json')
     assert duplicate['pattern'] == ['#S#', '#C#', '###'] and duplicate['key'] == {'#': 'minecraft:copper_ingot', 'C': 'minecraft:iron_ingot', 'S': template}
     assert duplicate['result'] == {'count': 2, 'id': template}

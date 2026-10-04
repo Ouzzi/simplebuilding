@@ -2,6 +2,7 @@
 import json
 import re
 import subprocess
+import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -66,6 +67,37 @@ def validate_tests(entry, tests, root):
             validate_relative_path(client.get(field), root, f'{mid}: client {field}')
         if client.get('task') != ':integration:runClientGameTest':
             raise ValueError(f'Invalid client smoke task: {mid}')
+
+
+def validate_optional_metadata(entry, modules, root):
+    """Keep add-on metadata aligned with manifest partners, using actual loader IDs."""
+    if not entry['paths']['root'].startswith('modules/'):
+        return
+    aliases = {module['id']: module.get('modId', module['id']) for module in modules}
+    expected = {aliases.get(mid, mid) for mid in entry['optional']}
+    owner = entry.get('modId', entry['id'])
+    for loader in entry['loaders']:
+        resources = root / entry['paths'][loader] / 'src/main/resources'
+        if loader == 'fabric':
+            path = resources / 'fabric.mod.json'
+            data = read(path)
+            actual = set(data.get('suggests', {}))
+            required = set(data.get('depends', {}))
+        else:
+            path = resources / 'META-INF' / ('neoforge.mods.toml' if loader == 'neoforge' else 'mods.toml')
+            data = tomllib.loads(path.read_text(encoding='utf-8'))
+            dependencies = data.get('dependencies', {}).get(owner, [])
+            optional = [dep['modId'] for dep in dependencies if
+                        (dep.get('type') == 'optional' if loader == 'neoforge' else dep.get('mandatory') is False)]
+            actual = set(optional)
+            required = {dep['modId'] for dep in dependencies if
+                        (dep.get('type', 'required') == 'required' if loader == 'neoforge' else dep.get('mandatory') is True)}
+            if len(optional) != len(actual):
+                raise ValueError(f'Duplicate optional dependencies: {path}')
+        if actual != expected or expected & required:
+            raise ValueError(f'Optional dependencies differ: {entry["id"]}/{loader}: '
+                             f'missing={sorted(expected - actual)}, extra={sorted(actual - expected)}, '
+                             f'required={sorted(expected & required)}')
 
 
 def registries(root=ROOT):
@@ -142,6 +174,8 @@ def registries(root=ROOT):
                         value = source['local']
                         if not isinstance(value, str) or not value.endswith('.jar') or '\\' in value or ':' in value or value.startswith('/') or '..' in value.split('/'):
                             raise ValueError(f'local JAR path must remain inside the repository: {mid}')
+    for entry in modules:
+        validate_optional_metadata(entry, modules, root)
     return modules, dev
 
 def validate_selection(value, root=ROOT):

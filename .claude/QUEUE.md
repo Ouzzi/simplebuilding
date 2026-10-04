@@ -301,8 +301,8 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `claude-modprinciples` gefixt).
 - [ ] Standalone-Testziel je Modul: `modules.json` `tests.standalone` (nur Modul + harte Libs), Testrunner `module_targets` erzeugt `module-<id>-standalone-fabric-263` (+ NeoForge mit `loadedMods=[nur Modul]`); Integrations-Targets bleiben.
 - [ ] Modul-Tests ohne SB lauffähig machen: SB-Asserts hinter `isModLoaded("simplebuilding")` oder in Integrations-Katalog (QoL, Money, Models, Dimensions, Fun, Riding – Zeilen in der Prinzipien-Datei, Befund 3).
-- [ ] Optionale Partner in Loader-Metadaten nachziehen (`suggests` / `type="optional"`) und `tools/multimod.py` prüft Gleichstand mit `modules.json optional` (Befund 5).
-- [ ] Simple Riding: Enderit-Hufeisen über `#c:ingots/enderite` statt fester SB-ID (Condition bleibt; Befund 6).
+- [x] Optionale Partner in Loader-Metadaten nachziehen (`suggests` / `type="optional"`, Forge `mandatory=false`) und `tools/multimod.py` prüft Gleichstand mit `modules.json optional` (Befund 5). `gpt-modmeta`: einschließlich ModMenu, Claim-Mod-Erkennung und `simpledimensions`/`simpledimension`-Zuordnung; Prüfstand in `docs/ai/PLAN-MODMETA-2026-10-02.md`.
+- [x] Simple Riding: Enderit-Hufeisen-Rezept und optionaler Reparaturtag über `#c:ingots/enderite` statt fester SB-ID (Conditions bleiben; Befund 6). SB liefert den Tag bereits; Forge-Konverter und alle drei Riding-Serverziele geprüft.
 - [ ] Simple Sandwiches (Branch `claude-sandwiches`): Crucible-Grundrezept mit Axt, SB-Variante mit `#simplebuilding:sledgehammer_tools` nur hinter `mod_loaded` (Regel 5).
 
 ## Nachtrag 10 (Besitzer 2026-10-04 nachts)
