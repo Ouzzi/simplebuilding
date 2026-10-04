@@ -796,18 +796,22 @@ public final class ToolBehaviourTests {
         double parkedX = outOfRange.getX();
         double parkedZ = outOfRange.getZ();
 
-        helper.succeedWhen(() -> {
-            // See the javadoc: the mock player's connection is never pumped by the gametest
-            // server, so the vanilla player tick has to be driven from here.
+        // Advance player and item physics together, independently of chunk tick ordering.
+        // The same 200-step budget still bounds the real inventory tick and vanilla pickup.
+        for (int tick = 0; tick < MAGNET_MAX_TICKS
+                && !player.getInventory().contains(stack -> stack.is(Items.DIAMOND)); tick++) {
             player.connection.tick();
+            if (nearby.isAlive()) nearby.tick();
+            outOfRange.tick();
 
             helper.assertTrue(outOfRange.isAlive(), "the out of range item vanished");
             double drift = Math.max(Math.abs(outOfRange.getX() - parkedX), Math.abs(outOfRange.getZ() - parkedZ));
             helper.assertTrue(drift < 0.5, "the magnet moved an item that is out of range");
-            helper.assertTrue(player.getInventory().contains(stack -> stack.is(Items.DIAMOND)),
+        }
+        helper.assertTrue(player.getInventory().contains(stack -> stack.is(Items.DIAMOND)),
                     "the magnet did not pull the nearby item into the player; the item is still at "
                             + nearby.position() + " with motion " + nearby.getDeltaMovement());
-        });
+        helper.succeed();
     }
 
     // =====================================================================================

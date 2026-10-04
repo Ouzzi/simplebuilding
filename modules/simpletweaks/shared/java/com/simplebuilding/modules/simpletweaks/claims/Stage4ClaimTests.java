@@ -250,7 +250,35 @@ final class Stage4ClaimTests {
         var source=(Container)f.l.getBlockEntity(p);source.setItem(0,new ItemStack(Items.WATER_BUCKET));dispenser.tick(f.l,p,RandomSource.create(0));
         yes(h,enabled?source.getItem(0).is(Items.WATER_BUCKET)&&f.l.getFluidState(p.east()).isEmpty():source.getItem(0).is(Items.BUCKET)&&!f.l.getFluidState(p.east()).isEmpty(),"Dispenser denial preserves its item; disabled and absent providers retain bucket behavior");
     });}
-    static void attractor(GameTestHelper h){modes(h,(f,enabled)->{
+    static void attractor(GameTestHelper h){
+        // getChunk alone does not make new entities visible to the attractor's query.
+        // Await actual query visibility on both sides before creating any claim fixture.
+        var edge=ToolClaimTests.boundary(h).above(90);
+        var chunks=List.of(ChunkPos.containing(edge),ChunkPos.containing(edge.west(16)));
+        var forced=new ArrayList<ChunkPos>();
+        for(var chunk:chunks){
+            if(h.getLevel().setChunkForced(chunk.x(),chunk.z(),true))forced.add(chunk);
+            h.getLevel().getChunk(chunk.x(),chunk.z());
+        }
+        var probes=new ArrayList<ItemEntity>();
+        for(var pos:List.of(edge.west(5),edge.east())){
+            var probe=new ItemEntity(h.getLevel(),pos.getX()+.5,pos.getY(),pos.getZ()+.5,
+                    new ItemStack(Items.APPLE),0,0,0);
+            probe.setNoGravity(true);
+            h.getLevel().addFreshEntity(probe);
+            probes.add(probe);
+        }
+        Runnable release=()->{
+            probes.forEach(Entity::discard);
+            for(var chunk:forced)h.getLevel().setChunkForced(chunk.x(),chunk.z(),false);
+        };
+        h.runBeforeTestEnd(release);
+        h.startSequence().thenWaitUntil(()->{
+            yes(h,h.getLevel().getEntitiesOfClass(ItemEntity.class,new AABB(edge).inflate(8)).containsAll(probes),
+                    "Attractor boundary probes are not queryable yet");
+        }).thenExecute(()->{try {
+        probes.forEach(Entity::discard);
+        modes(h,(f,enabled)->{
         var p=f.edge.west(2);
         if(Math.floorMod(f.l.getGameTime()+p.asLong(),2)!=0)p=p.above();
         f.set(p.below(),Blocks.STONE);f.owner.setShiftKeyDown(true);f.owner.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(ToolClaimTests.item("magnet")));
@@ -258,11 +286,14 @@ final class Stage4ClaimTests {
         yes(h,f.owner.getMainHandItem().getItem().useOn(new UseOnContext(f.owner,InteractionHand.MAIN_HAND,hit)).consumesAction(),"Place attractor through real item use");
         var foreign=f.add(new ItemEntity(f.l,0,0,0,new ItemStack(Items.APPLE),0,0,0),new BlockPos(f.edge.getX()+1,p.getY(),p.getZ()));
         var local=f.add(new ItemEntity(f.l,0,0,0,new ItemStack(Items.APPLE),0,0,0),p.west(3));
+        yes(h,f.l.getEntitiesOfClass(ItemEntity.class,new AABB(p).inflate(6)).containsAll(List.of(local,foreign)),
+                "Both attractor probes must be visible before testing claim denial");
         tick(f.l,p);
         yes(h,foreign.getDeltaMovement().equals(Vec3.ZERO)==enabled&&!local.getDeltaMovement().equals(Vec3.ZERO),"Actual placed-attractor ticker preserves foreign items and pulls local items");
         if(enabled){
             yes(h,f.claims.create(new ClaimStore.Key(f.l.dimension().identifier().toString(),ChunkPos.pack(p)),f.owner.getUUID(),120),"Adjacent same-owner chunk fixture");
             tick(f.l,p);yes(h,!foreign.getDeltaMovement().equals(Vec3.ZERO),"Attractor works across adjacent same-owner chunks");
         }
-    });}
+        });}finally{release.run();}});
+    }
 }
