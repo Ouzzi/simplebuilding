@@ -710,9 +710,7 @@
           "items": [
             "simplesandwiches:acacia_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -728,9 +726,7 @@
           "items": [
             "simplesandwiches:bamboo_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -746,9 +742,7 @@
           "items": [
             "simplesandwiches:birch_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -779,9 +773,7 @@
             "simplesandwiches:butter_slice",
             "simplesandwiches:butter_slice"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -812,9 +804,7 @@
             "simplesandwiches:cheese_slice",
             "simplesandwiches:cheese_slice"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -830,9 +820,7 @@
           "items": [
             "simplesandwiches:cherry_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -848,9 +836,7 @@
           "items": [
             "simplesandwiches:crimson_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -866,9 +852,7 @@
           "items": [
             "simplesandwiches:dark_oak_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -884,9 +868,7 @@
           "items": [
             "simplesandwiches:jungle_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -902,9 +884,7 @@
           "items": [
             "simplesandwiches:mangrove_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -920,9 +900,7 @@
           "items": [
             "minecraft:cauldron"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -938,9 +916,7 @@
           "items": [
             "simplesandwiches:oak_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -956,9 +932,7 @@
           "items": [
             "simplesandwiches:pale_oak_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -974,9 +948,7 @@
           "items": [
             "simplesandwiches:poplar_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -992,9 +964,7 @@
           "items": [
             "simplesandwiches:spruce_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -1010,9 +980,7 @@
           "items": [
             "simplesandwiches:warped_cutting_board"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
