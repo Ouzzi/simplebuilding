@@ -26,10 +26,12 @@ public final class RidingTests {
  private static ItemStack enchanted(GameTestHelper h,Item item,ResourceKey<Enchantment> key,int n){var s=new ItemStack(item);s.enchant(ench(h,key),n);return s;}
  private static net.minecraft.world.entity.player.Player rider(GameTestHelper h,LivingEntity e){var p=h.makeMockPlayer(net.minecraft.world.level.GameType.CREATIVE);if(e instanceof net.minecraft.world.entity.animal.equine.AbstractHorse horse)horse.setTamed(true);if(e instanceof net.minecraft.world.entity.TamableAnimal tame)tame.tame(p);if(e.getType()==EntityTypes.PIG)p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.CARROT_ON_A_STICK));if(e.getType()==EntityTypes.STRIDER)p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.WARPED_FUNGUS_ON_A_STICK));p.startRiding(e,true,false);return p;}
  private static void close(double a,double b,GameTestHelper h,String msg){h.assertTrue(Math.abs(a-b)<1e-5,msg+": "+a+" != "+b);}
+ /** Principle 5: the Enderite tier exists only with SimpleBuilding. */
+ static Set<String> withoutPartnerTiers(Set<String> ids){if(Riding.SIMPLEBUILDING)return ids;var copy=new HashSet<>(ids);copy.remove("enderite_horseshoe");return copy;}
  public static void launch(GameTestHelper h){
   h.assertTrue(BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(Riding.id("coordinates"))==Riding.COORDINATES,"Legacy coordinates component is registered");
   h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.getValue(Riding.id("riding_items"))==Riding.TAB,"Creative tab registered");
-  h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().filter(i->i.getNamespace().equals("simpleriding")).map(Identifier::getPath).collect(java.util.stream.Collectors.toSet()).equals(Set.of("horseshoe_smithing_template","copper_horseshoe","iron_horseshoe","golden_horseshoe","diamond_horseshoe","netherite_horseshoe","enderite_horseshoe")),"Only the R1 horseshoe items");
+  h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().filter(i->i.getNamespace().equals("simpleriding")).map(Identifier::getPath).collect(java.util.stream.Collectors.toSet()).equals(withoutPartnerTiers(Set.of("horseshoe_smithing_template","copper_horseshoe","iron_horseshoe","golden_horseshoe","diamond_horseshoe","netherite_horseshoe","enderite_horseshoe"))),"Only the R1 horseshoe items");
   for(var k:List.of(Riding.TAILWIND,Riding.LEAPING)){h.assertTrue(ench(h,k).value().getMaxLevel()==3,"Enchantment levels preserved");}
   var lookup=h.getLevel().registryAccess();Riding.TAB.buildContents(new CreativeModeTab.ItemDisplayParameters(net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS,true,lookup));
   h.assertTrue(Riding.TAB.getDisplayItems().size()==2+1+Horseshoes.ITEMS.size(),"Two riding books, the template and every horseshoe");
@@ -169,6 +171,7 @@ public final class RidingTests {
   }catch(Exception e){throw new IllegalStateException(e);}finally{Riding.CONFIG=original;}h.succeed();
  }
  public static void crossModStorageAndArmor(GameTestHelper h){
+  if(!Riding.SIMPLEBUILDING){com.mojang.logging.LogUtils.getLogger().info("[standalone] simplebuilding not loaded - skipping Enderite armor and storage checks");h.succeed();return;}
   var armor=BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_horse_armor"));h.assertTrue(armor!=Items.AIR&&new ItemStack(armor).is(Riding.ARMOR),"Enderite armor is supported through public ID");
   h.assertTrue(ench(h,Riding.LEAPING).value().canEnchant(new ItemStack(armor)),"Enderite armor accepts Leaping");
   var block=BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplebuilding:reinforced_hopper"));var pos=new BlockPos(2,2,2);h.setBlock(pos,block);var container=(net.minecraft.world.Container)h.getLevel().getBlockEntity(h.absolutePos(pos));
@@ -195,8 +198,9 @@ public final class RidingTests {
   for(var type:List.of(EntityTypes.NAUTILUS,EntityTypes.ZOMBIE_NAUTILUS)){
    var e=h.spawn(type,2,2,2);e.setItemSlot(EquipmentSlot.SADDLE,enchanted(h,Items.SADDLE,Riding.TAILWIND,3));var p=rider(h,e);RidingEffects.tick(e);
    close(e.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(RidingEffects.SPEED).amount(),.6,h,"Nautilus Tailwind III");
-   var armor=BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_nautilus_armor"));e.setItemSlot(EquipmentSlot.BODY,enchanted(h,armor,Riding.LEAPING,3));
-   h.assertTrue(ench(h,Riding.LEAPING).value().canEnchant(e.getItemBySlot(EquipmentSlot.BODY)),"Enderite nautilus Leaping");
+   // Enderite armor (SimpleBuilding) when present, otherwise the Vanilla top tier: same tag, same rules.
+   var armor=Riding.SIMPLEBUILDING?BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_nautilus_armor")):Items.NETHERITE_NAUTILUS_ARMOR;e.setItemSlot(EquipmentSlot.BODY,enchanted(h,armor,Riding.LEAPING,3));
+   h.assertTrue(ench(h,Riding.LEAPING).value().canEnchant(e.getItemBySlot(EquipmentSlot.BODY)),"Top-tier nautilus armor accepts Leaping");
    close(RidingEffects.dashScale(e,1),1.6,h,"Nautilus Leaping III dash");
    e.setItemSlot(EquipmentSlot.BODY,enchanted(h,armor,Enchantments.PROTECTION,4));close(EnchantmentHelper.getDamageProtection(h.getLevel(),e,e.damageSources().generic()),4,h,"Nautilus protection exactly once");
    p.stopRiding();RidingEffects.tick(e);h.assertTrue(e.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(RidingEffects.SPEED)==null,"Nautilus dismount removes speed");close(RidingEffects.dashScale(e,1),1,h,"Dismount removes dash bonus");

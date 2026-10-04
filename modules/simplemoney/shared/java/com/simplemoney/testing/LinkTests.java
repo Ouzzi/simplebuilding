@@ -27,7 +27,7 @@ public final class LinkTests {
         var old = MoneyLinks.loaded;
         try { MoneyLinks.loaded = id -> false; h.assertTrue(!SimpleMoney.enabled("links:simplebuilding"), "unloaded real mod denied"); }
         finally { MoneyLinks.loaded = old; }
-        h.assertTrue(registry.containsKey(Identifier.parse("simplebuilding:librarian/3/emerald_building_book")), "old non-money trades remain");
+        if (MoneyTests.isModLoaded("simplebuilding")) h.assertTrue(registry.containsKey(Identifier.parse("simplebuilding:librarian/3/emerald_building_book")), "old non-money trades remain");
         h.succeed();
     }
     public static void offers(GameTestHelper h) {
@@ -97,6 +97,7 @@ public final class LinkTests {
         h.succeed();
     }
     public static void menu(GameTestHelper h) {
+        if (MoneyTests.partnerMissing(h, "simplebuilding", "linked trade menu with a SimpleBuilding item")) return;
         var player = h.makeMockServerPlayerInLevel(); player.setUUID(UUID.randomUUID());
         var merchant = EntityTypes.VILLAGER.create(h.getLevel(),EntitySpawnReason.COMMAND); merchant.setTradingPlayer(player);
         var price = MoneyLinks.PRICES.get("simplebuilding:iron_chisel");

@@ -208,6 +208,22 @@ An optional `tests` object in each manifest entry declares:
   `:integration`; their run configurations are created from the declared task names.
   NeoForge adapters and runs live in the module. Forge remains explicitly opt-in.
 - `requires` and `devMods`: ids required in the integration selection for the suite.
+- `standalone` (principle 8, `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`): the same catalogue with only
+  this module loaded. `requires` may name only the module's own hard `requires` (Simple Tweaks:
+  `simplebuilding`, a declared add-on; optional partners such as Simple Dimensions stay out), `devMods`
+  the hard libraries (usually `cloth_config`), optional `reason`. `loaders` declares exactly
+  `fabric: :integration:run<Id>StandaloneGameTest` and `neoforge: <project>:runModuleStandaloneGameTest`
+  plus reports; `{"exempt": "<reason>"}` opts out with a stated reason. Target ids are
+  `module-<id>-standalone-<loader>-263` (`run.py --targets standalone`, Hub preset "standalone").
+  Fabric syncs only those jars into `integration/run-standalone-fabric-263/<id>/mods` and runs from
+  the `standalone` source set, whose classpath drops `:framework`, `:common` and the harness, so a
+  module that does not bundle `framework` fails here. NeoForge (`gradle/module-neoforge.gradle`) sets
+  `loadedMods` to the module plus `standalone.requires`, game directory
+  `integration/run-standalone-neoforge-263/<id>`; there `framework` stays on the dev classpath, and a
+  partner must never be a classpath dependency (`runtimeOnly project(...)`), or it loads anyway.
+  Tests that need a partner check it first (shared tests: registry namespace present, e.g.
+  `isModLoaded("simplebuilding")`; loader switches like `Riding.SIMPLEBUILDING` where they exist) and
+  pass with a `[standalone] ... skipping` log line, or use a Vanilla stand-in.
 - Optional `client`: `entrypoints`, `sources`, `screenshots`, and
   `task: ":integration:runClientGameTest"`. Sources live in `modules/<id>/clienttest/java`.
   Target `module-<id>-client-263` sets `-PmoduleClientTest=<id>`; only that module's

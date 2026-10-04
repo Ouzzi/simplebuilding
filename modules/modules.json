@@ -159,6 +159,22 @@
             ]
           }
         },
+        "standalone": {
+          "requires": [],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplemoneyStandaloneGameTest",
+              "report": "integration/build/standalone/simplemoney-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplemoney:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplemoney/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
         "client": {
           "entrypoints": [
             "com.simplemoney.clienttest.MoneyClientSmoke"
@@ -247,6 +263,22 @@
             ]
           }
         },
+        "standalone": {
+          "requires": [],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleridingStandaloneGameTest",
+              "report": "integration/build/standalone/simpleriding-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simpleriding:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simpleriding/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
         "client": {
           "entrypoints": [
             "com.simplebuilding.integration.RidingClientGameTest"
@@ -313,6 +345,20 @@
             "testMods": [
               "simplebuilding"
             ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplemodelsStandaloneGameTest",
+              "report": "integration/build/standalone/simplemodels-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplemodels:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplemodels/neoforge/build/standalone-junit.xml"
+            }
           }
         },
         "client": {
@@ -399,6 +445,22 @@
             ]
           }
         },
+        "standalone": {
+          "requires": [],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplefunStandaloneGameTest",
+              "report": "integration/build/standalone/simplefun-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplefun:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplefun/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
         "client": {
           "entrypoints": [
             "com.simplebuilding.modules.simplefun.ModuleClientSmoke"
@@ -481,6 +543,22 @@
             "testMods": [
               "simplebuilding"
             ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplevisualsStandaloneGameTest",
+              "report": "integration/build/standalone/simplevisuals-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplevisuals:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplevisuals/neoforge/build/standalone-junit.xml"
+            }
           }
         },
         "client": {
@@ -567,6 +645,22 @@
             ]
           }
         },
+        "standalone": {
+          "requires": [],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplesoundsStandaloneGameTest",
+              "report": "integration/build/standalone/simplesounds-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplesounds:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplesounds/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
         "client": {
           "entrypoints": [
             "com.simplebuilding.modules.simplesounds.ModuleClientSmoke"
@@ -647,6 +741,22 @@
             "testMods": [
               "simplebuilding"
             ]
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplequalityoflifeStandaloneGameTest",
+              "report": "integration/build/standalone/simplequalityoflife-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplequalityoflife:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplequalityoflife/neoforge/build/standalone-junit.xml"
+            }
           }
         },
         "client": {
@@ -732,6 +842,25 @@
             ]
           }
         },
+        "standalone": {
+          "requires": [
+            "simplebuilding"
+          ],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpletweaksStandaloneGameTest",
+              "report": "integration/build/standalone/simpletweaks-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simpletweaks:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simpletweaks/neoforge/build/standalone-junit.xml"
+            }
+          },
+          "reason": "Declared SimpleBuilding add-on (alias/claim layer): standalone = Simple Tweaks + SimpleBuilding, without Simple Dimensions."
+        },
         "client": {
           "entrypoints": [
             "com.simplebuilding.modules.simpletweaks.ModuleClientSmoke"
@@ -814,6 +943,22 @@
             ]
           }
         },
+        "standalone": {
+          "requires": [],
+          "devMods": [
+            "cloth_config"
+          ],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpledimensionsStandaloneGameTest",
+              "report": "integration/build/standalone/simpledimensions-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simpledimensions:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simpledimensions/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
         "client": {
           "entrypoints": [
             "com.simplebuilding.modules.simpledimensions.ModuleClientSmoke"
@@ -879,6 +1024,20 @@
           "neoforge": {
             "task": ":modules:simplesandwiches:neoforge:runModuleIntegrationGameTest",
             "report": "modules/simplesandwiches/neoforge/build/module-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplesandwichesStandaloneGameTest",
+              "report": "integration/build/standalone/simplesandwiches-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simplesandwiches:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simplesandwiches/neoforge/build/standalone-junit.xml"
+            }
           }
         },
         "client": {

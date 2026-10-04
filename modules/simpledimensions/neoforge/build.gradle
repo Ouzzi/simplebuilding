@@ -14,7 +14,8 @@ neoForge.runs {
     }
 }
 
-dependencies { runtimeOnly project(':mc26_3:neoforge') }
+// SimpleBuilding joins integration runs through the mods container only; a classpath dependency would
+// also load it into the standalone run (principle 8).
 evaluationDependsOn(':mc26_3:neoforge')
 neoForge { mods { simplebuildingIntegration { sourceSet project(':mc26_3:neoforge').sourceSets.main } } }
 

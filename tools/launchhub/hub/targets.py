@@ -162,6 +162,8 @@ def test_presets() -> dict[str, dict]:
         "all-server": {"label": "All server lines", "targets": server},
         "main-client": {"label": "Client suites 26.3", "targets": ["client-fabric-263", "client-neoforge-263"]},
         "all-client": {"label": "All client suites", "targets": client},
+        "standalone": {"label": "Every module alone (standalone)",
+                       "targets": [t.id for t in getattr(run, "STANDALONE_TARGETS", ())]},
     }
 
 

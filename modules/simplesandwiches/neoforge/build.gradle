@@ -11,3 +11,4 @@ neoForge.runs {
         programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simplesandwiches:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
     }
 }
+dependencies { jarJar project(':framework') }

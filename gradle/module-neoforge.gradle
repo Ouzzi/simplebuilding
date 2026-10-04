@@ -12,3 +12,25 @@ neoForge {
 processResources { filesMatching('META-INF/neoforge.mods.toml') { expand version: project.version } }
 
 sourceSets.main.resources.srcDir '../generated/resources'
+
+// Principle 8 (docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md): standalone GameTest run with only this
+// module plus its declared hard module requirements, in its own game directory. The mod list is
+// fixed after the module script added its integration partners to the mods container.
+def standaloneEntry = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json'))
+        .modules.find { it.projects?.neoforge == project.path }
+def standaloneSpec = standaloneEntry?.tests?.standalone?.loaders?.neoforge
+if (standaloneSpec) {
+    def namespace = standaloneEntry.tests.namespace ?: standaloneEntry.id
+    neoForge.runs {
+        moduleStandaloneGameTest {
+            type = 'gameTestServer'
+            gameDirectory = rootProject.layout.projectDirectory.dir("integration/run-standalone-neoforge-263/${standaloneEntry.id}")
+            programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: "${namespace}:*").toString(),
+                    '--report', rootProject.file(standaloneSpec.report).absolutePath
+        }
+    }
+    afterEvaluate {
+        def allowed = [project.parent.name] + (standaloneEntry.tests.standalone.requires ?: [])
+        neoForge.runs.moduleStandaloneGameTest.loadedMods = neoForge.mods.matching { it.name in allowed }.toList()
+    }
+}

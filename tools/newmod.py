@@ -32,6 +32,10 @@ def create(mid, name, root=ROOT):
                                    requires=[mid], devMods=[], loaders={
                                        'fabric': dict(task=f':integration:run{mid.capitalize()}GameTest', report=f'integration/build/{mid}-junit.xml'),
                                        'neoforge': dict(task=f':modules:{mid}:neoforge:runModuleIntegrationGameTest', report=f'modules/{mid}/neoforge/build/module-junit.xml')},
+                                   # Principle 8: the same suite with only this module (+ hard requirements) loaded.
+                                   standalone=dict(requires=[], devMods=[], loaders={
+                                       'fabric': dict(task=f':integration:run{mid.capitalize()}StandaloneGameTest', report=f'integration/build/standalone/{mid}-junit.xml'),
+                                       'neoforge': dict(task=f':modules:{mid}:neoforge:runModuleStandaloneGameTest', report=f'modules/{mid}/neoforge/build/standalone-junit.xml')}),
                                    client=dict(entrypoints=[f'com.simplebuilding.modules.{mid}.ModuleClientSmoke'], sources=f'modules/{mid}/clienttest/java',
                                                screenshots='integration/run-fabric-263/screenshots', task=':integration:runClientGameTest')),
                         paths=dict(root=f'modules/{mid}', shared=f'modules/{mid}/shared',

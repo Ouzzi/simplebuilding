@@ -35,6 +35,8 @@ public final class ClaimPortalTests {
         };
     }
     public static void flow(GameTestHelper h){
+        // Principle 8: Simple Dimensions is an optional partner; the standalone run (Tweaks + SimpleBuilding) passes with a note.
+        if(!BuiltInRegistries.BLOCK.containsKey(Identifier.parse("simpledimension:sky_portal"))){com.mojang.logging.LogUtils.getLogger().info("[standalone] simpledimension not loaded - skipping claim portal flow");h.succeed();return;}
         var source=h.getLevel();var server=source.getServer();var original=Claims.get(server);
         var base=h.absolutePos(new BlockPos(2,80,2));var cell=new BlockPos((base.getX()>>4)*16+6,base.getY(),(base.getZ()>>4)*16+6);
         source.getChunkAt(cell);
