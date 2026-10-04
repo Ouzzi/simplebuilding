@@ -1740,6 +1740,11 @@ public final class DataIntegrityTests {
 
         ItemStack quartz = new ItemStack(Items.QUARTZ_BLOCK);
         Map<Item, String> checkerOf = new LinkedHashMap<>();
+        checkerOf.put(Items.RESIN_BRICKS, "simplebuilding:resin_quartz_checker");
+        ItemStack placeholder = new ItemStack(Items.RED_NETHER_BRICKS);
+        CraftingInput oldResin = CraftingInput.of(2, 2, List.of(placeholder, quartz, quartz, placeholder));
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, oldResin, level).isEmpty(),
+                "red nether bricks still craft the resin checker");
         checkerOf.put(ModItems.NIHILITH_SHARD, "simplebuilding:nihilith_quartz_checker");
         checkerOf.put(ModItems.ASTRALIT_DUST, "simplebuilding:astralit_quartz_checker");
         checkerOf.put(ModItems.ENDER_QUARTZ, "simplebuilding:ender_quartz_checker");

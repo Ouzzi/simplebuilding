@@ -15,10 +15,32 @@ class RecipeProseTests(unittest.TestCase):
         self.assertEqual(rod['key']['N'], 'minecraft:iron_nugget')
         self.assertEqual(rod['key']['R'], 'minecraft:redstone')
         gauge = json.loads((directory / 'velocity_gauge.json').read_text(encoding='utf-8'))
-        before = [' NA', 'NCN', 'KN ']
-        rotated = [''.join(row[col] for row in before) for col in (2, 1, 0)]
+        before = list('AN ' + 'NCN' + ' NK')
+        filled = ['N' if cell == ' ' else cell for cell in before]
+        rotated = filled.copy()
+        ring = [0, 1, 2, 5, 8, 7, 6, 3]
+        for source, target in zip(ring, ring[1:] + ring[:1]):
+            rotated[target] = filled[source]
+        rotated = [''.join(rotated[start:start + 3]) for start in (0, 3, 6)]
         self.assertEqual(gauge['pattern'], rotated)
         self.assertEqual(gauge['key']['C'], 'minecraft:clock')
+        self.assertEqual(gauge['key']['N'], 'minecraft:copper_nugget')
+
+    def test_resin_checker_uses_resin_bricks_on_both_lines(self):
+        for directory in ('src/main/generated', 'mc26_3/generated'):
+            data = ROOT / directory / 'data/simplebuilding'
+            base = ROOT / 'src/main/generated/data/simplebuilding'
+            def effective(path):
+                return data / path if (data / path).exists() else base / path
+            recipe = json.loads(effective('recipe/resin_quartz_checker.json').read_text(encoding='utf-8'))
+            self.assertEqual(recipe['key']['B'], 'minecraft:resin_bricks')
+            self.assertEqual(recipe['pattern'], ['BQ', 'QB'])
+            self.assertEqual(recipe['result']['count'], 4)
+            advancement = json.loads(effective('advancement/recipes/building_blocks/resin_quartz_checker.json')
+                                     .read_text(encoding='utf-8'))
+            self.assertEqual(advancement['criteria']['has_resin_bricks']['conditions']['items'][0]['items'],
+                             'minecraft:resin_bricks')
+            self.assertIn('has_resin_bricks', advancement['requirements'][0])
 
     def test_quoted_gadget_recipes_match_generated_patterns(self):
         for item in ('echo_sounder', 'amethyst_lens', 'velocity_gauge'):

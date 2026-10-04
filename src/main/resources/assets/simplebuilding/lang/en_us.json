@@ -1393,7 +1393,7 @@
   "book.simplebuilding.building.12.title": "Construction Light",
   "book.simplebuilding.building.12.text": "Shines at full brightness while you build at night.\nIts light does not stop monsters from spawning, so it is no replacement for torches.",
   "book.simplebuilding.building.13.title": "Quartz Checkers",
-  "book.simplebuilding.building.13.text": "Two quartz blocks crossed with two of another material make four checker blocks.\nPartners: purpur, lapis block, blackstone, red nether bricks, Astralit Dust, Nihilit Shard or Ender Quartz.",
+  "book.simplebuilding.building.13.text": "Two quartz blocks crossed with two of another material make four checker blocks.\nPartners: purpur, lapis block, blackstone, resin bricks, Astralit Dust, Nihilit Shard or Ender Quartz.",
   "book.simplebuilding.building.14.title": "Small Tricks",
   "book.simplebuilding.building.14.text": "Right-click placed wool with shears: it turns back into 4 string.\nA water cauldron washes the dye off Octants, backpacks and the mod's bundles and quivers.",
   "item.simplebuilding.guide_book_storage": "Guide: Storage",

@@ -104,4 +104,4 @@ class ItemNoteTests(unittest.TestCase):
         vault = recipe('astral_vault')
         self.assertEqual(vault['key']['N'], 'simplebuilding:enderite_nugget')
         self.assertEqual(''.join(vault['pattern']).count('N'), 6)
-        self.assertEqual(recipe('resin_quartz_checker')['key']['B'], 'minecraft:red_nether_bricks')
+        self.assertEqual(recipe('resin_quartz_checker')['key']['B'], 'minecraft:resin_bricks')

@@ -62,8 +62,8 @@ Die detaillierten früheren Laufberichte bleiben in der Git-Historie dieser Date
   `laser_pointer` Legacy-Alias. Rezept IIR/ICA/IIR: Eisenbarren, Redstone, Eisenkern,
   Amethystscherbe. 640 Ladung standardmäßig, 4 je Sekunde; 16 Scherben laden voll.
   Der alte Configschlüssel `beamCostPerSecond` wird nicht gelesen; `chargePerSecond` gilt.
-- Velocity Gauge: „ NA“/„NCN“/„KN “, vier Kupfernuggets, Amethystscherbe oben rechts,
-  Kompass Mitte, Kupferkern unten links. Oktant: „ NR“/„NCN“/„GNL“, vier Goldnuggets,
+- Velocity Gauge 26.3 (Nachtrag 8): „NAN“/„NCN“/„NKN“, sechs Kupfernuggets, Amethystscherbe oben mittig,
+  Uhr Mitte, Kupferkern unten mittig. 26.2 behält „ NA“/„NCN“/„KN “ und Kompass. Oktant: „ NR“/„NCN“/„GNL“, vier Goldnuggets,
   Blitzableiter oben rechts, Goldkern unten links, Leine unten rechts, Kompass Mitte.
 - Echo Sounder: NNN/NRN/ENN, sieben Enderitklumpen, Bergungskompass, Enderitkern.
   **Aktueller Code verlangt 3 Sekunden Halten** (`EchoCompassItem.use`, `releaseUsing`,
