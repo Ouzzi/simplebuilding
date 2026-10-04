@@ -83,4 +83,74 @@ Historische Vorschläge sind keine Erlaubnis für zusätzliche Verhaltensänderu
 
 ## Ergebnisse
 
-Noch nicht ausgeführt.
+### Umsetzung und Plan-Abgleich
+
+- Plan: `246cf357`; Umsetzung und drei Regressionstests: `66e68200`.
+- `BlueprintBuilder.ItemLayout` beschreibt einen bisherigen Bauschritt mit der echten
+  Klickseite. `Planner.run` übernimmt Besuchsreihenfolge, Grenzen, Baurechte,
+  Ersetzbarkeit, Blacklist und Loader-Schutzprüfung. Der Adapter löst Material und
+  `WandPlacement.stateFor` beim jeweiligen Besuch auf. Kosten und Callbacks bleiben
+  in `placeWandBlock`, das auch der unveränderte 26.2-Algorithmus nutzt.
+- Umschaltung ausschließlich über `McVersion.GADGET_REWORK`. Die verbleibende
+  direkte Schleife ist der notwendige 26.2-Legacy-Pfad bis zum gesonderten Port-Run.
+- Blueprint-Layouts behalten ihre bisherige Klassifikation `already/occupied`,
+  Normalisierung, Kosten, Erstattung und Vorschau. Direkte Items erhalten weder
+  Blueprint-Normalisierung noch Blueprint-Materialsuche.
+- Kein Bestands-Testkörper verändert. Neue Tests prüfen den echten Loader-Schutz
+  beim Wechsel zwischen Ringen, nachträglich belegte Zellen, erlaubte Nachbarn,
+  exakte vier Pausenticks, echte Klickseite, entzogene Baurechte, Verbrauch,
+  Wasserzustand und Name/Inhalt einer platzierten Shulkerkiste.
+- Keine beabsichtigte sichtbare Verhaltensänderung und keine neu entdeckte,
+  gezielt behobene Schutzlücke. Die bereits reparierte historische D2 wird hier
+  vereinheitlicht, nicht erneut als neuer Fix beansprucht. D4 (Rest des Bruch-Rings)
+  und D13 (Dimensionswechsel) bleiben ausdrücklich außerhalb dieser Änderung.
+
+### Prüfbelege
+
+- Gefilterter Fabric-26.3-Lauf `2026-10-04T15-24-49Z-0709`: **14/14 bestanden,
+  0 rot**, einschließlich aller drei neuen Tests. Gradle: **`BUILD SUCCESSFUL in
+  21m 2s`**. Der Runner meldet dennoch **`NICHT gruen: 14/14 bestanden, 0 rot`**:
+  kalte Vorbereitung/Source-Remapping überschritten die 1200-s-Grenze. Dieser
+  Lauf ist ausdrücklich kein grünes Gesamtgate. Die vollständige Suite wurde mit
+  3600 s Zeitlimit wiederholt.
+- Vollständiger Lauf `2026-10-04T15-47-30Z-4fa1`, Code-Commit `66e68200`:
+  **`alles gruen: 1838/1838 bestanden, 0 rot`**. Fabric 26.3 und NeoForge 26.3
+  jeweils **919/919**, Gradle-Exit 0. Beide aktuellen XML-Berichte bestätigen
+  die drei neuen Regressionen ohne Fehler oder Skip. Alle bestehenden Tests
+  liefen unverändert, einschließlich Blaupausen, Modi, Material und Schutzereignissen.
+- Testzentrale: auf beiden Loadern alle sieben `test_centre_game_test_*`-Fälle
+  ohne Fehler oder Skip, insbesondere `the_whole_centre_builds_and_matches_its_plan`
+  und `every_mod_item_and_block_has_its_place_in_the_test_centre`.
+  Das belegt Neubau und vollständige Item-/Blockabdeckung in den separaten Testwelten.
+- `wiki/generate.py --all` und `--all --check`: Exit 0,
+  **`wiki: up to date, everything documented.`** Keine inhaltlichen Änderungen
+  an generierten Wiki-Dateien; nur Zeilenenden, keine Wiki-Daten committet.
+- Buchprüfung zunächst mit ungeeignetem Python ohne Pillow fehlgeschlagen;
+  Wiederholung mit dem vorhandenen Pillow-venv erfolgreich ausgeführt, aber
+  **`problems: 2`**, Exit 1: `de_de guide topics 1` = 14 Zeilen,
+  `de_de guide topics 3` = 15 Zeilen (Grenze 13). Die Eingaben
+  `tools/guide_book_pages.py`, `GuideBooks.java`, `GuideContent.java` und beide
+  Sprachverzeichnisse sind gegenüber dem Ausgangscommit unverändert. Diese
+  vorbestehenden Buchlayouts werden nicht im Baustab-Refactoring geändert.
+
+- Abschließendes Compile-/Check-Gate im eigenen Worktree: **`GATE_AND_COMPILE_EXIT=0`**.
+  Ausgeführt mit Java 25, vorhandenem Java 8 für Forge und dem Pillow-venv auf `PATH`:
+
+  ```powershell
+  .\gradlew.bat --max-workers=2 :compileJava :neoforge:compileJava -Pforge263=true :mc26_3:forge:compileJava check -q
+  ```
+
+  Damit sind 26.2 Fabric/NeoForge, 26.3 Forge und das vollständige `check` bestätigt.
+  Gelesene Prüflogzeilen: `checkBalance: ok` (223 erzeugte Stellen, 0 Fehler,
+  0 Hinweise) und `wiki: up to date, everything documented.`
+  Compilerwarnungen zu veralteten APIs und `EnvType.CLIENT`, keine Buildfehler.
+  Das projektweite Gate baut auch bestehende Module und die 1.21.11-Linie;
+  deren Quelldateien wurden nicht geändert. Lokales Protokoll:
+  `scratchpad/wand-gate.log`. Die separate Buchprüfung bleibt wie oben beschrieben rot.
+
+### Grenzen der Verifikation
+
+Keine Minecraft-Clients gestartet. Sicht-/Audioabnahme, Forge-GameTests,
+echte Drittanbieter-Claim-Mods und `/sbtestcentre build` in der Besitzerwelt
+bleiben außerhalb dieses Runs. Schutzereignisse wurden durch die echten
+Loader-Hooks mit `ProtectionProbe` geprüft; die Besitzerwelt blieb unberührt.
