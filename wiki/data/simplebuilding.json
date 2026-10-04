@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 302,
+      "count": 304,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3486,6 +3486,50 @@
       }
     },
     {
+      "id": "end_rails",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndRailBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndRailPhysics.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/mixin/MinecartBehaviorEndRailMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AbstractMinecartEndRailMixin.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
+        "mc26_3/generated/data/simplebuilding/recipe/astral_rail.json",
+        "mc26_3/generated/data/simplebuilding/recipe/nihil_rail.json"
+      ],
+      "related": [
+        "simplebuilding:astral_rail",
+        "simplebuilding:nihil_rail",
+        "simplebuilding:astral_redstone",
+        "simplebuilding:nihil_redstone"
+      ],
+      "en": {
+        "title": "Astral and Nihil Rails",
+        "summary": "Straight rails of the two End channels: the Astral Rail raises the minecart top speed and boosts towards it, the Nihil Rail brakes to a stop.",
+        "details": [
+          "Recipe like the powered rail: six gold ingots, a stick and Astral Redstone (Astral Rail) or Nihil Redstone (Nihil Rail) make 6 rails. They are straight only (no curves) and minecarts treat them as rails.",
+          "Power comes from the rail's own channel like a lamp: Astral or Nihil Redstone or a switch of the same channel on a horizontal neighbor. Vanilla redstone, the other channel and neighboring rails do not power it. The rail checks its neighbors every two game ticks while a source of its channel lies next to it.",
+          "Astral Rail: on a flat Astral Rail the top speed is server.machines.astralRailMaxSpeed blocks per second (default 16, clamped to 8–20; vanilla 8), or the experimental max_minecart_speed game rule if that is higher. On slopes, in water and on every other rail the vanilla limit applies, so a fast cart meets the normal limit again before a curve. Unpowered it is a plain rail that keeps the cart's momentum; momentum above the limit is cut to the limit.",
+          "Powered Astral Rail: every game tick the cart gains boost × (1 − (speed / top speed)²), boost = server.machines.astralRailBoost (default 0.12 blocks per tick, clamped to 0.07–0.25, at most half the top speed). That is more than a powered rail's 0.06 when slow and less the faster the cart goes; the speed approaches the top speed and never reaches it. Vanilla friction still applies. A cart standing still is pushed away from a solid block at one end of the rail, like on a powered rail.",
+          "Powered Nihil Rail: every game tick the cart keeps 80 % of its speed minus server.machines.nihilRailBrake (default 0.08 blocks per tick, clamped to 0.02–0.4); below 0.03 it stops and is held while the power stays on. Unpowered, carts roll through.",
+          "server.features.endRails (default true) needs server.features.endSignals as well; switched off, both rails act as plain rails and their recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astral- und Nihil-Schienen",
+        "summary": "Gerade Schienen der beiden End-Kanäle: die Astral-Schiene hebt das Höchsttempo der Lore an und beschleunigt darauf zu, die Nihil-Schiene bremst bis zum Halt.",
+        "details": [
+          "Rezept wie die Antriebsschiene: sechs Goldbarren, ein Stock und Astral-Redstone (Astral-Schiene) bzw. Nihil-Redstone (Nihil-Schiene) ergeben 6 Schienen. Sie sind nur gerade (keine Kurven), Loren behandeln sie als Schienen.",
+          "Strom kommt wie bei einer Lampe aus dem eigenen Kanal: Astral- bzw. Nihil-Redstone oder ein Schalter desselben Kanals auf einem waagerechten Nachbarfeld. Vanilla-Redstone, der andere Kanal und benachbarte Schienen speisen sie nicht. Die Schiene prüft ihre Nachbarn alle zwei Spielticks, solange eine Quelle ihres Kanals daneben liegt.",
+          "Astral-Schiene: auf einer flachen Astral-Schiene beträgt das Höchsttempo server.machines.astralRailMaxSpeed Blöcke pro Sekunde (Standard 16, begrenzt auf 8–20; Vanilla 8) oder die experimentelle Spielregel max_minecart_speed, wenn sie höher ist. Auf Steigungen, im Wasser und auf allen anderen Schienen gilt die Vanilla-Grenze, eine schnelle Lore trifft vor einer Kurve also wieder auf die normale Grenze. Ungespeist ist sie eine normale Schiene, die den Schwung erhält; Schwung über der Grenze wird auf die Grenze gekappt.",
+          "Gespeiste Astral-Schiene: jeden Spieltick gewinnt die Lore Schub × (1 − (Tempo / Höchsttempo)²), Schub = server.machines.astralRailBoost (Standard 0,12 Blöcke pro Tick, begrenzt auf 0,07–0,25, höchstens das halbe Höchsttempo). Langsam ist das mehr als die 0,06 einer Antriebsschiene, je schneller die Lore, desto weniger; das Tempo nähert sich dem Höchsttempo und erreicht es nie. Die Vanilla-Reibung wirkt weiter. Eine stehende Lore wird wie auf einer Antriebsschiene von einem festen Block am Schienenende weggeschoben.",
+          "Gespeiste Nihil-Schiene: jeden Spieltick behält die Lore 80 % ihres Tempos abzüglich server.machines.nihilRailBrake (Standard 0,08 Blöcke pro Tick, begrenzt auf 0,02–0,4); unter 0,03 hält sie an und bleibt stehen, solange der Strom anliegt. Ungespeist rollen Loren durch.",
+          "server.features.endRails (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet sind beide Schienen normale Schienen und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    {
       "id": "astral_vault",
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/AstralVaultBlock.java",
@@ -3736,6 +3780,20 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_rail",
+      "name": {
+        "en_us": "Astral Rail",
+        "de_de": "Astral-Schiene"
+      },
+      "texture": "assets/textures/block/astral_rail.png",
+      "craftedBy": [
+        "simplebuilding:astral_rail"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_redstone",
       "name": {
         "en_us": "Astral Redstone",
@@ -3747,6 +3805,7 @@
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
+        "simplebuilding:astral_rail",
         "simplebuilding:astralit_lamp",
         "simplebuilding:astralit_switch"
       ],
@@ -14178,6 +14237,20 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_rail",
+      "name": {
+        "en_us": "Nihil Rail",
+        "de_de": "Nihil-Schiene"
+      },
+      "texture": "assets/textures/block/nihil_rail.png",
+      "craftedBy": [
+        "simplebuilding:nihil_rail"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihil_redstone",
       "name": {
         "en_us": "Nihil Redstone",
@@ -14189,6 +14262,7 @@
       ],
       "usedIn": [
         "simplebuilding:nihil_piston",
+        "simplebuilding:nihil_rail",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:nihilith_switch"
       ],
@@ -18591,6 +18665,25 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_rail",
+      "name": {
+        "en_us": "Astral Rail",
+        "de_de": "Astral-Schiene"
+      },
+      "texture": "assets/textures/block/astral_rail.png",
+      "craftedBy": [
+        "simplebuilding:astral_rail"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/astral_rail.png",
+      "lootTable": "simplebuilding:blocks/astral_rail",
+      "drops": [
+        "simplebuilding:astral_rail"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_redstone",
       "name": {
         "en_us": "Astral Redstone",
@@ -18602,6 +18695,7 @@
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
+        "simplebuilding:astral_rail",
         "simplebuilding:astralit_lamp",
         "simplebuilding:astralit_switch"
       ],
@@ -24634,6 +24728,25 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_rail",
+      "name": {
+        "en_us": "Nihil Rail",
+        "de_de": "Nihil-Schiene"
+      },
+      "texture": "assets/textures/block/nihil_rail.png",
+      "craftedBy": [
+        "simplebuilding:nihil_rail"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/nihil_rail.png",
+      "lootTable": "simplebuilding:blocks/nihil_rail",
+      "drops": [
+        "simplebuilding:nihil_rail"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihil_redstone",
       "name": {
         "en_us": "Nihil Redstone",
@@ -24645,6 +24758,7 @@
       ],
       "usedIn": [
         "simplebuilding:nihil_piston",
+        "simplebuilding:nihil_rail",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:nihilith_switch"
       ],
@@ -28956,6 +29070,62 @@
           {
             "id": "simplebuilding:astralit_dust",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astral_rail",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_rail",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_rail.json",
+      "ingredients": [
+        "minecraft:gold_ingot",
+        "minecraft:stick",
+        "simplebuilding:astral_redstone"
+      ],
+      "pattern": [
+        "G G",
+        "GSG",
+        "GRG"
+      ],
+      "key": {
+        "G": [
+          "minecraft:gold_ingot"
+        ],
+        "R": [
+          "simplebuilding:astral_redstone"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
           }
         ]
       }
@@ -43080,6 +43250,62 @@
       }
     },
     {
+      "id": "simplebuilding:nihil_rail",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_rail",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_rail.json",
+      "ingredients": [
+        "minecraft:gold_ingot",
+        "minecraft:stick",
+        "simplebuilding:nihil_redstone"
+      ],
+      "pattern": [
+        "G G",
+        "GSG",
+        "GRG"
+      ],
+      "key": {
+        "G": [
+          "minecraft:gold_ingot"
+        ],
+        "R": [
+          "simplebuilding:nihil_redstone"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nihil_redstone",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -55420,6 +55646,22 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_block.json"
     },
     {
+      "id": "simplebuilding:blocks/astral_rail",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_rail"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_rail.json"
+    },
+    {
       "id": "simplebuilding:blocks/astral_redstone",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -57092,6 +57334,22 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_purpur_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_rail",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_rail"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_rail.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_redstone",
@@ -66463,6 +66721,26 @@
       "reload": "recipes",
       "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.features.endRails",
+      "shortName": "endRails",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "End Rails",
+      "labelDe": "End-Schienen",
+      "tooltip": "Astral rails boost and Nihil rails brake.\nOff: they act as plain rails. Recipes\nupdate on datapack reload. Default: true.",
+      "tooltipDe": "Astral-Schienen beschleunigen, Nihil-Schienen\nbremsen. Aus: normale Schienen. Rezepte nach\nDatenpaket-Neuladen. Standard: true."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.astralVault",
       "shortName": "astralVault",
       "type": "boolean",
@@ -67617,6 +67895,75 @@
       "labelDe": "End-Kolben-Abklingzeit (4–100)",
       "tooltip": "Ticks a piston waits after firing,\nlimited to 4-100. Default: 8.",
       "tooltipDe": "Ticks Wartezeit nach dem Ausloesen,\nbegrenzt auf 4-100. Standard: 8."
+    },
+    {
+      "range": [
+        8.0,
+        20.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.machines.astralRailMaxSpeed",
+      "shortName": "astralRailMaxSpeed",
+      "type": "int",
+      "default": "16",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "Astral Rail Top Speed (8–20)",
+      "labelDe": "Astral-Schiene Höchsttempo (8–20)",
+      "tooltip": "Blocks per second on flat Astral rails,\nlimited to 8-20 (vanilla 8). Default: 16.",
+      "tooltipDe": "Blöcke pro Sekunde auf flachen Astral-Schienen,\nbegrenzt auf 8-20 (Vanilla 8). Standard: 16."
+    },
+    {
+      "range": [
+        0.07,
+        0.25
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.machines.astralRailBoost",
+      "shortName": "astralRailBoost",
+      "type": "double",
+      "default": "0.12",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "Astral Rail Boost (0.07–0.25)",
+      "labelDe": "Astral-Schiene Schub (0,07–0,25)",
+      "tooltip": "Push per tick at standstill, shrinking\nwith (speed/top speed)². Powered rail: 0.06.\nDefault: 0.12.",
+      "tooltipDe": "Schub je Tick aus dem Stand, sinkt mit\n(Tempo/Höchsttempo)². Antriebsschiene: 0,06.\nStandard: 0,12."
+    },
+    {
+      "range": [
+        0.02,
+        0.4
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.machines.nihilRailBrake",
+      "shortName": "nihilRailBrake",
+      "type": "double",
+      "default": "0.08",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "Nihil Rail Brake (0.02–0.4)",
+      "labelDe": "Nihil-Schiene Bremse (0,02–0,4)",
+      "tooltip": "Fixed braking per tick on top of 20%\nfriction, limited to 0.02-0.4. Default: 0.08.",
+      "tooltipDe": "Feste Bremsung je Tick zusätzlich zu 20 %\nReibung, begrenzt auf 0,02-0,4. Standard: 0,08."
     },
     {
       "range": [
@@ -92498,17 +92845,17 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 248,
-    "blocks": 201,
-    "recipes": 605,
-    "lootTables": 199,
+    "items": 250,
+    "blocks": 203,
+    "recipes": 607,
+    "lootTables": 201,
     "trades": 20,
     "enchantments": 19,
     "tags": 48,
-    "config": 197,
+    "config": 201,
     "inWorld": 463,
     "advancements": 123,
-    "features": 45,
+    "features": 46,
     "undocumented": 0,
     "incompleteProse": 0
   },

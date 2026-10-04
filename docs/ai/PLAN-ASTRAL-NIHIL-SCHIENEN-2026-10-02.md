@@ -29,8 +29,8 @@ desto mehr Boost braucht man. Die Astral-Schienen sollen mehr Boost geben als Re
    End-System; „immer aktiv“ wäre der Antriebsschiene in allem überlegen.
 2. **Astral-Schiene**: ohne Signal eine normale Schiene mit **angehobener Höchstgeschwindigkeit** (Schwung bleibt erhalten,
    bremst nicht wie die ungespeiste Antriebsschiene); mit Signal Beschleunigung
-   `a = boost · (1 − (v / vmax)²)` je Tick. Der Boost wird intern auf höchstens `vmax / 2` begrenzt; damit ist
-   `v ↦ v + a` auf [0, vmax] streng steigend und `v` erreicht vmax nie (asymptotisch). Je schneller, desto weniger
+   `a = boost · (1 − (v / vmax)²)` je Tick. Der Boost wird intern auf höchstens `vmax / 4` begrenzt (Umsetzung: erst `/2`, im Test fiel
+   die Gleitkomma-Rundung an der Grenze auf vmax – Abweichung bewusst); damit ist `v ↦ v + a` auf [0, vmax] streng steigend und `v` erreicht vmax nie (asymptotisch). Je schneller, desto weniger
    bringt jedes Stück – „man braucht mehr Boost“. Vanilla-Reibung wirkt weiter (leere Wagen halten ein Gleichgewicht
    unter vmax). Schwung über vmax (etwa aus Vanilla-Antriebsschienen) wird auf der Astral-Schiene auf vmax gedeckelt.
    Stillstand + Signal: Anstoß weg von einem festen Block am Gleisende (wie die Antriebsschiene).

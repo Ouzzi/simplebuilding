@@ -3,6 +3,7 @@
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_piston",
     "simplebuilding:astral_purpur_block",
+    "simplebuilding:astral_rail",
     "simplebuilding:astral_redstone",
     "simplebuilding:astral_vault",
     "simplebuilding:astralit_block",
@@ -117,6 +118,7 @@
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_piston",
     "simplebuilding:nihil_purpur_block",
+    "simplebuilding:nihil_rail",
     "simplebuilding:nihil_redstone",
     "simplebuilding:nihilith_block",
     "simplebuilding:nihilith_brick_slab",
@@ -217,6 +219,9 @@
     },
     {
       "id": "simplebuilding:astral_purpur_block"
+    },
+    {
+      "id": "simplebuilding:astral_rail"
     },
     {
       "id": "simplebuilding:astral_redstone"
@@ -1008,6 +1013,9 @@
     },
     {
       "id": "simplebuilding:nihil_purpur_block"
+    },
+    {
+      "id": "simplebuilding:nihil_rail"
     },
     {
       "id": "simplebuilding:nihil_redstone"

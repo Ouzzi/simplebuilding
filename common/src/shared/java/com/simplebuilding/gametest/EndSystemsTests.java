@@ -502,7 +502,8 @@ public final class EndSystemsTests {
     }
 
     /**
-     * The boost formula: speed rises every tick, stays strictly below the cap and gets within 2 % of it; every tick adds
+     * The boost formula: speed rises every tick, never passes the cap (stays strictly below it until the gap is below
+     * double precision) and gets within 2 % of it; every tick adds
      * less the faster the cart already is ("the faster, the more boost you need"); a stronger boost is faster after
      * the same number of ticks; momentum above the cap is cut to the cap.
      */
@@ -516,7 +517,9 @@ public final class EndSystemsTests {
                 double v = 0, gain = Double.MAX_VALUE, afterTen = 0;
                 for (int tick = 1; tick <= 2000; tick++) {
                     double next = EndRailPhysics.boosted(v, cap, boost);
-                    helper.assertTrue(next < cap, "speed reached the cap " + cap + " (boost " + boost + ", tick " + tick + ")");
+                    // Never above the cap; strictly below it until the remaining gap is beyond double precision.
+                    helper.assertTrue(next <= cap && (next < cap || cap - v < 1e-9),
+                            "speed reached or passed the cap " + cap + " (boost " + boost + ", tick " + tick + ")");
                     helper.assertTrue(next > v || v > cap * 0.999, "speed did not rise at " + v + " (cap " + cap + ")");
                     helper.assertTrue(next - v <= gain + 1e-12, "gain grew with speed at " + v + " (cap " + cap + ")");
                     gain = next - v;
@@ -613,17 +616,15 @@ public final class EndSystemsTests {
         helper.setBlock(viaPowder, eastWest(ModBlocks.NIHIL_RAIL));
         helper.setBlock(new BlockPos(5, 1, 5), ModBlocks.NIHIL_REDSTONE);
         helper.setBlock(new BlockPos(6, 1, 5), ModBlocks.NIHILITH_SWITCH.defaultBlockState().setValue(EndSignalBlock.ENABLED, true));
-        helper.runAfterDelay(20, () -> {
+        // One sequence: scheduling new delays from inside a delayed callback breaks the test ticker.
+        helper.startSequence().thenIdle(20).thenExecute(() -> {
             helper.assertTrue(powered(helper, astral), "astral switch did not power the astral rail");
             helper.assertFalse(powered(helper, nihil), "astral switch powered a nihil rail");
             helper.assertFalse(powered(helper, vanilla), "vanilla redstone powered an astral rail");
             helper.assertTrue(powered(helper, viaPowder), "nihil powder did not power the nihil rail");
             helper.setBlock(astral.north(), Blocks.AIR);
-            helper.runAfterDelay(6, () -> {
-                helper.assertFalse(powered(helper, astral), "astral rail stayed powered without its switch");
-                helper.succeed();
-            });
-        });
+        }).thenIdle(6).thenExecute(() ->
+                helper.assertFalse(powered(helper, astral), "astral rail stayed powered without its switch")).thenSucceed();
     }
 
     /**
@@ -641,23 +642,22 @@ public final class EndSystemsTests {
             helper.setBlock(new BlockPos(x, 1, 2), ModBlocks.ASTRAL_REDSTONE);
         }
         double cap = EndRailPhysics.maxSpeedPerTick();
-        helper.runAfterDelay(24, () -> {
-            for (int x = 1; x <= 7; x++) helper.assertTrue(powered(helper, new BlockPos(x, 1, 1)), "rail " + x + " not powered");
-            var cart = helper.spawn(net.minecraft.world.entity.EntityTypes.MINECART, new BlockPos(1, 1, 1));
-            double startX = cart.getX();
-            double[] last = {startX}, fastest = {0};
-            helper.onEachTick(() -> {
-                if (cart.isRemoved()) return;
-                fastest[0] = Math.max(fastest[0], Math.abs(cart.getX() - last[0]));
-                last[0] = cart.getX();
-            });
-            helper.succeedWhen(() -> {
-                helper.assertTrue(fastest[0] <= cap + 1e-6, "cart moved " + fastest[0] + " in a tick, above the top speed " + cap);
-                helper.assertTrue(cart.getX() - startX > 4 && fastest[0] > EndRailPhysics.VANILLA_MAX_SPEED + 0.05,
-                        "cart not past vanilla speed yet: fastest step " + fastest[0] + ", travelled " + (cart.getX() - startX));
-                cart.discard();
-            });
+        net.minecraft.world.entity.vehicle.minecart.AbstractMinecart[] cart = {null};
+        double[] startX = {0}, last = {0}, fastest = {0};
+        helper.onEachTick(() -> {
+            if (cart[0] == null || cart[0].isRemoved()) return;
+            fastest[0] = Math.max(fastest[0], Math.abs(cart[0].getX() - last[0]));
+            last[0] = cart[0].getX();
         });
+        helper.startSequence().thenIdle(24).thenExecute(() -> {
+            for (int x = 1; x <= 7; x++) helper.assertTrue(powered(helper, new BlockPos(x, 1, 1)), "rail " + x + " not powered");
+            cart[0] = helper.spawn(net.minecraft.world.entity.EntityTypes.MINECART, new BlockPos(1, 1, 1));
+            startX[0] = last[0] = cart[0].getX();
+        }).thenWaitUntil(() -> {
+            helper.assertTrue(fastest[0] <= cap + 1e-6, "cart moved " + fastest[0] + " in a tick, above the top speed " + cap);
+            helper.assertTrue(cart[0].getX() - startX[0] > 4 && fastest[0] > EndRailPhysics.VANILLA_MAX_SPEED + 0.05,
+                    "cart not past vanilla speed yet: fastest step " + fastest[0] + ", travelled " + (cart[0].getX() - startX[0]));
+        }).thenExecute(() -> cart[0].discard()).thenSucceed();
     }
 
     /**
@@ -686,17 +686,24 @@ public final class EndSystemsTests {
         // Placing a rail lets it reconnect to its neighbours; setting the same block again keeps the given shape.
         for (int pass = 0; pass < 2; pass++) rails.forEach(helper::setBlock);
         double cap = EndRailPhysics.maxSpeedPerTick();
-        helper.runAfterDelay(20, () -> {
+        net.minecraft.world.entity.vehicle.minecart.AbstractMinecart[] carts = new net.minecraft.world.entity.vehicle.minecart.AbstractMinecart[3];
+        double[] starts = new double[2];
+        helper.startSequence().thenIdle(20).thenExecute(() -> {
             helper.assertTrue(powered(helper, new BlockPos(6, 1, 1)) && !powered(helper, new BlockPos(1, 1, 3))
                     && powered(helper, new BlockPos(5, 1, 7)), "nihil lanes not set up");
-            var stopped = helper.spawn(net.minecraft.world.entity.EntityTypes.MINECART, new BlockPos(1, 1, 1));
-            var rolling = helper.spawn(net.minecraft.world.entity.EntityTypes.MINECART, new BlockPos(1, 1, 3));
-            var curving = helper.spawn(net.minecraft.world.entity.EntityTypes.MINECART, new BlockPos(1, 1, 5));
+            var stopped = carts[0] = helper.spawn(net.minecraft.world.entity.EntityTypes.MINECART, new BlockPos(1, 1, 1));
+            var rolling = carts[1] = helper.spawn(net.minecraft.world.entity.EntityTypes.MINECART, new BlockPos(1, 1, 3));
+            var curving = carts[2] = helper.spawn(net.minecraft.world.entity.EntityTypes.MINECART, new BlockPos(1, 1, 5));
             stopped.setDeltaMovement(cap, 0, 0);
             rolling.setDeltaMovement(0.3, 0, 0);
             curving.setDeltaMovement(cap, 0, 0);
-            double stoppedX = stopped.getX(), rollingX = rolling.getX();
-            helper.runAfterDelay(30, () -> {
+            starts[0] = stopped.getX();
+            starts[1] = rolling.getX();
+        }).thenIdle(30).thenExecute(() -> {
+                var stopped = carts[0];
+                var rolling = carts[1];
+                var curving = carts[2];
+                double stoppedX = starts[0], rollingX = starts[1];
                 helper.assertTrue(stopped.getDeltaMovement().horizontalDistance() == 0, "powered Nihil rail did not stop the cart: " + stopped.getDeltaMovement());
                 helper.assertTrue(stopped.getX() - stoppedX < 4, "cart braked too late: " + (stopped.getX() - stoppedX));
                 helper.assertTrue(rolling.getX() - rollingX > 2, "unpowered Nihil rail braked the cart");
@@ -708,8 +715,6 @@ public final class EndSystemsTests {
                 stopped.discard();
                 rolling.discard();
                 curving.discard();
-                helper.succeed();
-            });
-        });
+        }).thenSucceed();
     }
 }

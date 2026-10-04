@@ -2483,7 +2483,7 @@
   "book.simplebuilding.end.9.title": "Getrennte Signalkanaele",
   "book.simplebuilding.end.9.text": "Passendes Redstone, Schalter und Lampen bilden einen isolierten Kanal. Waagerecht auf festem Boden legen. Bis zu 15 Segmente; Updates alle 2 Ticks. Keine Vanilla-Verbindung.",
   "book.simplebuilding.end.10.title": "Astral- und Nihil-Schienen",
-  "book.simplebuilding.end.10.text": "Gespeist von passendem Redstone neben dem Gleis. Astral: bis 16 Blöcke/s, schiebt stärker als eine Antriebsschiene, je schneller, desto weniger. Nihil: bremst bis zum Halt, solange an.",
+  "book.simplebuilding.end.10.text": "Passender Redstone neben dem Gleis speist sie. Astral: bis 16 Blöcke/s, schiebt stärker an als Antriebsschienen. Nihil: bremst bis zum Halt.",
   "advancements.simplebuilding.end_signals.title": "Eigene Signale",
   "advancements.simplebuilding.end_signals.description": "Stelle Astral-Redstone und Nihil-Redstone her; baue getrennte Schalter-Lampen-Kanaele.",
   "advancements.simplebuilding.astral_vault.title": "Astralgewölbe",

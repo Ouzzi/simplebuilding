@@ -15,8 +15,8 @@ import net.minecraft.world.phys.Vec3;
  *
  * <ul>
  *   <li>Flat Astral rail: the top speed is {@code max(vanilla, astralRailMaxSpeed)}; everywhere else vanilla's stays.</li>
- *   <li>Powered Astral rail: {@code v -> v + boost * (1 - (v / cap)^2)}. The boost is held at or below {@code cap / 2},
- *       which keeps the step strictly increasing on [0, cap], so the speed approaches the cap and never reaches it;
+ *   <li>Powered Astral rail: {@code v -> v + boost * (1 - (v / cap)^2)}. The boost is held at or below {@code cap / 4},
+ *       which keeps the step strictly increasing on [0, cap] (slope at the cap at least 1/2, so also in floating point), so the speed approaches the cap and never reaches it;
  *       the faster the cart, the less every rail adds. Vanilla friction still applies afterwards.</li>
  *   <li>Powered Nihil rail: {@code v -> 0.8 v - brake}, below vanilla's 0.03 the cart stops and is held.</li>
  * </ul>
@@ -65,7 +65,7 @@ public final class EndRailPhysics {
     public static double boosted(double speed, double cap, double boost) {
         if (cap <= 0) return speed;
         if (speed >= cap) return cap;
-        double step = Math.min(boost, cap / 2);
+        double step = Math.min(boost, cap / 4);
         double ratio = Math.max(0, speed) / cap;
         return Math.max(0, speed) + step * (1 - ratio * ratio);
     }

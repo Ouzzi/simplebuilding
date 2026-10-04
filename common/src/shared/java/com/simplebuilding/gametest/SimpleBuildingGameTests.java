@@ -69,12 +69,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("end_systems_game_test_piston_fires_on_rising_edge_only", EndSystemsTests::pistonFiresOnRisingEdgeOnly).maxTicks(100).build(),
             GameTestSpec.named("end_systems_game_test_piston_ignores_vanilla_and_other_channel", EndSystemsTests::pistonIgnoresVanillaAndOtherChannel).maxTicks(100).build(),
             GameTestSpec.named("end_systems_game_test_astral_boost_approaches_top_speed_without_passing_it", EndSystemsTests::astralBoostApproachesTopSpeedWithoutPassingIt).build(),
-            GameTestSpec.named("end_systems_game_test_astral_boosts_more_than_a_powered_rail", EndSystemsTests::astralBoostsMoreThanAPoweredRail).build(),
+            GameTestSpec.named("end_systems_game_test_astral_boosts_more_than_apowered_rail", EndSystemsTests::astralBoostsMoreThanAPoweredRail).build(),
             GameTestSpec.named("end_systems_game_test_nihil_brake_stops_smoothly", EndSystemsTests::nihilBrakeStopsSmoothly).build(),
             GameTestSpec.named("end_systems_game_test_end_rail_config_is_clamped", EndSystemsTests::endRailConfigIsClamped).build(),
             GameTestSpec.named("end_systems_game_test_end_rail_is_fed_only_by_its_own_channel", EndSystemsTests::endRailIsFedOnlyByItsOwnChannel).maxTicks(100).build(),
-            GameTestSpec.named("end_systems_game_test_astral_rail_launches_a_cart_past_vanilla_speed", EndSystemsTests::astralRailLaunchesACartPastVanillaSpeed).maxTicks(140).build(),
-            GameTestSpec.named("end_systems_game_test_nihil_rail_stops_and_fast_cart_takes_a_curve", EndSystemsTests::nihilRailStopsAndFastCartTakesACurve).maxTicks(120).build(),
+            GameTestSpec.named("end_systems_game_test_astral_rail_launches_acart_past_vanilla_speed", EndSystemsTests::astralRailLaunchesACartPastVanillaSpeed).maxTicks(140).build(),
+            GameTestSpec.named("end_systems_game_test_nihil_rail_stops_and_fast_cart_takes_acurve", EndSystemsTests::nihilRailStopsAndFastCartTakesACurve).maxTicks(120).build(),
             GameTestSpec.named("smoke_game_test_mod_items_are_registered", SmokeTests::modItemsAreRegistered)
                     .build(),
             GameTestSpec.named("test_centre_game_test_every_mod_item_and_block_has_its_place_in_the_test_centre", TestCentreTests::everyModItemAndBlockHasItsPlaceInTheTestCentre)

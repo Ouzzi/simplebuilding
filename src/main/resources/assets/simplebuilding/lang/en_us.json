@@ -2483,7 +2483,7 @@
   "book.simplebuilding.end.9.title": "Isolated Signal Channels",
   "book.simplebuilding.end.9.text": "Matching redstone, switches and lamps form an isolated channel. Lay it horizontally on solid ground. Up to 15 segments; updates every 2 ticks. No vanilla connection.",
   "book.simplebuilding.end.10.title": "Astral and Nihil Rails",
-  "book.simplebuilding.end.10.text": "Fed by matching redstone beside the track. Astral: up to 16 blocks/s, boosts harder than a powered rail, less the faster you go. Nihil: brakes to a stop while on.",
+  "book.simplebuilding.end.10.text": "Fed by matching redstone beside the track. Astral: up to 16 blocks/s, pushes harder than powered rails. Nihil: brakes to a stop.",
   "advancements.simplebuilding.end_signals.title": "Private Signals",
   "advancements.simplebuilding.end_signals.description": "Craft Astral Redstone and Nihil Redstone; build separate switch-to-lamp channels.",
   "advancements.simplebuilding.astral_vault.title": "Astral Vault",
