@@ -96,3 +96,11 @@ Wiki-Check, Texturen-Vorschau. Nicht testbar ohne Client: Rendern der Puppe/Zahl
    Begründung: echte Vanilla-Plage (Kühe, Schafe, Zombies auf Feldern), Haken existiert schon in allen Loadern
    (`HeadAbilities.tramplesFarmland`), kein Ertrag/kein Item entsteht → kein Exploit; Suche je Trampel-Ereignis mit
    begrenzter Box. Verworfen: Krähen (gibt es nicht), Kaninchen/Fuchs-Ziele (Goal-Klassen je Version anders, kleiner Nutzen).
+
+## Runde 3 (Besitzer 2026-10-04): Kürbiskopf
+Kopf als geschnitzter Kürbis, Rumpf vanilla-näher. Vorschau A–C `previews/trainingspuppe-v3-vorschau.png`, Generator
+`tools/textures/training_dummy_v3_2026_10_04.py` (dritter Parameter wählt die eingebaute Variante). Eingebaut: A =
+Vanilla-carved_pumpkin-Kopf (Seiten pumpkin_side, oben/unten pumpkin_top), Rumpf aus hay_block_side (rote Bänder =
+Schulter-/Hüftschnur) mit den Ringen des Vanilla-Zielblocks. Textur in doppelter Dichte (128x64, Ebene erklärt 64x32),
+damit jede Kopfseite die 16er-Blocktextur 1:1 zeigt. B: zusätzlich Schnur um den Kürbis + Kreuzgurte; C: Jack-o'-Lantern-
+Gesicht, Rumpf vorn/hinten aus hay_block_top. Mob-Kopf ersetzt weiter den Kürbiskopf.

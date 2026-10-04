@@ -7,7 +7,7 @@ Straw Armor Stand and Training Dummy (owner 2026-10-02, docs/ai/PLAN-TRAINING-DU
 - entity/training_dummy/training_dummy: the straw stand with twine bindings every few rows, in the red-brown of
   the hay bale's own binding.
 - item/straw_armor_stand: vanilla item/armor_stand with the same straw swap (stone slab unchanged).
-- entity/training_dummy/stuffing (2026-10-03, 64x32, player head/body UV): the dummy's sack head (vanilla
+- (superseded 2026-10-04 by training_dummy_v3_2026_10_04.py, preview only) entity/training_dummy/stuffing (2026-10-03, 64x32, player head/body UV): the dummy's sack head (vanilla
   hay_block_top desaturated to burlap, stitched twine face) and straw torso (hay_block_side) with a red-white target.
 - item/training_dummy: the straw item with a burlap head and the red target on the chest.
 Writes into mc26_3/overlay/resources/assets/simplebuilding/textures/ and, if given, a labelled preview sheet
@@ -161,9 +161,9 @@ def main():
     dummy.save(os.path.join(OUT, 'entity', 'training_dummy', 'training_dummy.png'))
     item.save(os.path.join(OUT, 'item', 'straw_armor_stand.png'))
     stuff = stuffing()
-    stuff.save(os.path.join(OUT, 'entity', 'training_dummy', 'stuffing.png'))
     ditem = dummy_item(item)
-    ditem.save(os.path.join(OUT, 'item', 'training_dummy.png'))
+    # stuffing.png and item/training_dummy.png come from training_dummy_v3_2026_10_04.py since 2026-10-04 (pumpkin head);
+    # this script only previews the round-2 sack head.
     if PREVIEW and 'v2' in os.path.basename(PREVIEW):
         scale = 8
         sheet = Image.new('RGBA', (64 * scale + 3 * 16 * 12 + 120, 34 * 12 + 60), (198, 198, 198, 255))

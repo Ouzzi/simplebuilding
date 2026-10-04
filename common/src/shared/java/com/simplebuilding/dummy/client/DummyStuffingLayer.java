@@ -19,9 +19,11 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 
 /**
- * Das Aussehen der Trainingspuppe (Besitzer 2026-10-03): auf dem Stroh-Staender sitzen ein gestopfter Strohrumpf mit
- * Zielscheibe und ein Sackkopf mit aufgenaehtem Gesicht (Masse wie Spielerkopf und -rumpf, damit Ruestung passt). Der
- * Kuerbis aus der Umwandlung ist verbraucht, er sitzt nicht als Ausruestung auf dem Kopf. Ein Mob-Kopf ersetzt den Sackkopf.
+ * Das Aussehen der Trainingspuppe (Besitzer 2026-10-03/04): auf dem Stroh-Staender sitzen ein gestopfter Strohrumpf mit
+ * der Zielscheibe des Vanilla-Zielblocks und ein geschnitzter Kuerbis als Kopf (Masse wie Spielerkopf und -rumpf, damit
+ * Ruestung passt). Der Kuerbis aus der Umwandlung steckt im Modell, er ist kein Ausruestungsteil; ein Mob-Kopf ersetzt
+ * ihn. Die Textur hat doppelte Dichte (128x64 bei erklaerten 64x32): jede Kopfseite traegt eine Vanilla-Blocktextur 1:1
+ * (Generator tools/textures/training_dummy_v3_2026_10_04.py).
  * Gebacken aus einer eigenen {@link LayerDefinition} ({@code bakeRoot}), also ohne Modell-Ebenen-Registrierung je Loader.
  */
 public class DummyStuffingLayer extends RenderLayer<ArmorStandRenderState, ArmorStandArmorModel> {
