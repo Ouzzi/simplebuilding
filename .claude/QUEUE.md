@@ -306,6 +306,8 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Simple Sandwiches (Branch `claude-sandwiches`): Crucible-Grundrezept mit Axt, SB-Variante mit `#simplebuilding:sledgehammer_tools` nur hinter `mod_loaded` (Regel 5).
 
 ## Besitzerauftrag small9 (2026-10-04)
-- [ ] Basic-/Enderite-Tooltips wie Vanilla, EN/DE, Strukturtest.
-- [ ] Verstärker innerhalb der Hörweite immer voller Pegel.
-- [ ] Ofen-Ausbeutebonus entfernen; doppelte XP behalten, Altwelten prüfen.
+- [x] Basic-/Enderite-Tooltips wie Vanilla, EN/DE, Strukturtest.
+- [x] Verstärker innerhalb der Hörweite immer voller Pegel.
+- [x] Ofen-Ausbeutebonus entfernen; doppelte XP behalten, Altwelten-Fixtures geprüft.
+  Belege: `docs/ai/PLAN-SMALL9-2026-10-02.md`; 1870/1870 Server grün, Gesamt-Gate grün.
+  Sicht-/Hörabnahme und Testzentrale in der Besitzerwelt bleiben offen; kein Client/Push.

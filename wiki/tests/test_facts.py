@@ -9,6 +9,24 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class RecipeProseTests(unittest.TestCase):
+    def test_furnace_output_bonus_is_retired_in_docs_and_languages(self):
+        manual = (ROOT / 'wiki/manual.json').read_text(encoding='utf-8')
+        for obsolete in ('blast_furnace_bonus', 'every 4th', 'every 2nd finished smelt',
+                         'zusätzliche Ausbeute aus Rohmetallen', 'extra output from raw metals'):
+            self.assertNotIn(obsolete, manual)
+        for directory in ('src/main/resources', 'mc26_3/overlay/resources'):
+            for language in ('en_us', 'de_de'):
+                lang = json.loads((ROOT / directory / 'assets/simplebuilding/lang' / (language + '.json')).read_text(encoding='utf-8'))
+                self.assertNotIn('tooltip.simplebuilding.machine.ore_bonus', lang)
+                page = lang['book.simplebuilding.machines.4.text']
+                jei = lang['jei.simplebuilding.info.furnace_tiers']
+                for text in (page, jei):
+                    self.assertIn('recipe output' if language == 'en_us' else 'Rezeptausbeute', text)
+                    self.assertIn('double experience' if language == 'en_us' else 'doppelte Erfahrung', text)
+                    self.assertNotRegex(text, r'(?:4th|2nd|jedes [24]\. Mal)')
+        self.assertFalse((ROOT / 'src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json').exists())
+        self.assertFalse((ROOT / 'mc26_3/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json').exists())
+
     def test_template_costs_and_legacy_recipes(self):
         directory = ROOT / 'mc26_3/generated/data/simplebuilding/recipe'
         costs = Counter(json.loads((directory / 'pulsating_trim_template.json').read_text(encoding='utf-8'))['ingredients'])

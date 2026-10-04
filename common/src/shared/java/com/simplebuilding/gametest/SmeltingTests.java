@@ -70,8 +70,8 @@ public final class SmeltingTests {
     /** Tick budget for {@link #upperTierFurnacesPayDoubleExperience}. */
     public static final int EXPERIENCE_MAX_TICKS = 200;
 
-    /** Tick budget for {@link #blastFurnaceBonusPaysRawMetalsEveryFourthOrSecondSmelt}. */
-    public static final int BONUS_MAX_TICKS = 340;
+    /** Tick budget for {@link #blastFurnacesKeepRecipeOutputAndDiscardLegacyBonus}. */
+    public static final int OUTPUT_MAX_TICKS = 340;
 
     /**
      * The layered raw enderite blast (owner 2026-09-29): 144000 ticks per enderite scrap - twice the 72000
@@ -341,27 +341,8 @@ public final class SmeltingTests {
                 .thenSucceed();
     }
 
-    /**
-     * Nine raw iron go through a netherite and an enderite blast furnace. The netherite one pays one
-     * ingot extra on every fourth smelt and hands out 11, the enderite one on every second and hands
-     * out 13 - nine smelts, so a period of three or five would show (12 / 10 and 12 / 18). The
-     * controls: four raw iron give four ingots in a reinforced blast furnace (no bonus below netherite)
-     * and in an enderite <em>furnace</em> (the bonus is the blast furnace's), and four cracked
-     * diamonds give four diamonds in an enderite blast furnace.
-     *
-     * <p>Raw enderite is excluded too, but its blast is an hour long, so it is shown with an injected
-     * cook: an enderite blast furnace one smelt short of its bonus (bonus progress 1 of 2) and two
-     * ticks from the end of the blast finishes exactly one scrap, and still owes its bonus afterwards.
-     * The same injection with raw iron finishes two ingots - the bonus progress is saved and loaded
-     * under {@code simplebuilding:bonus_progress}.
-     *
-     * <p>All seven devices are compared in one line.
-     *
-     * <p>What breaks this test: another bonus period for either tier, the bonus reaching the reinforced
-     * blast furnace or any furnace, the {@code blast_furnace_bonus} tag gaining (layered) raw enderite or cracked
-     * diamond or losing raw iron, and the bonus progress not loaded or not saved.
-     */
-    public static void blastFurnaceBonusPaysRawMetalsEveryFourthOrSecondSmelt(GameTestHelper helper) {
+    /** Raw metals never gain extra output, including after loading an old pending bonus. */
+    public static void blastFurnacesKeepRecipeOutputAndDiscardLegacyBonus(GameTestHelper helper) {
         BlockPos netherite = new BlockPos(1, 1, 1);
         BlockPos enderite = new BlockPos(3, 1, 1);
         BlockPos reinforced = new BlockPos(5, 1, 1);
@@ -369,6 +350,15 @@ public final class SmeltingTests {
         BlockPos crackedDiamond = new BlockPos(3, 1, 4);
         BlockPos rawEnderite = new BlockPos(5, 1, 4);
         BlockPos injectedIron = new BlockPos(3, 1, 7);
+        record MetalCase(BlockPos pos, Block block, Item input, Item output) {}
+        List<MetalCase> metals = List.of(
+                new MetalCase(new BlockPos(5, 1, 7), ModBlocks.NETHERITE_BLAST_FURNACE, Items.RAW_GOLD, Items.GOLD_INGOT),
+                new MetalCase(new BlockPos(7, 1, 7), ModBlocks.ENDERITE_BLAST_FURNACE, Items.RAW_GOLD, Items.GOLD_INGOT),
+                new MetalCase(new BlockPos(7, 1, 1), ModBlocks.NETHERITE_BLAST_FURNACE, Items.RAW_COPPER, Items.COPPER_INGOT),
+                new MetalCase(new BlockPos(7, 1, 4), ModBlocks.ENDERITE_BLAST_FURNACE, Items.RAW_COPPER, Items.COPPER_INGOT));
+        for (MetalCase metal : metals) {
+            loadSmelt(helper, metal.pos(), metal.block(), metal.input(), 9);
+        }
 
         loadSmelt(helper, netherite, ModBlocks.NETHERITE_BLAST_FURNACE, Items.RAW_IRON, 9);
         loadSmelt(helper, enderite, ModBlocks.ENDERITE_BLAST_FURNACE, Items.RAW_IRON, 9);
@@ -387,8 +377,16 @@ public final class SmeltingTests {
         inject(helper, furnace(helper, injectedIron), 800, 1600, ironBlast - 2, ironBlast, 1);
 
         List<BlockPos> all = List.of(netherite, enderite, reinforced, enderiteFurnace, crackedDiamond, rawEnderite, injectedIron);
+        for (BlockPos pos : List.of(netherite, enderite, injectedIron, rawEnderite)) {
+            bonusProgress(helper, furnace(helper, pos));
+        }
         helper.startSequence()
                 .thenWaitUntil(() -> {
+                    for (MetalCase metal : metals) {
+                        helper.assertTrue(furnace(helper, metal.pos()).getItem(0).isEmpty(), "raw metal not finished");
+                        ItemStack output = furnace(helper, metal.pos()).getItem(2);
+                        helper.assertTrue(output.is(metal.output()) && output.getCount() == 9, "nine raw metals must give nine ingots");
+                    }
                     for (BlockPos pos : all) {
                         helper.assertTrue(furnace(helper, pos).getItem(0).isEmpty(),
                                 "the device at " + pos + " has not smelted all its input yet");
@@ -403,13 +401,13 @@ public final class SmeltingTests {
                                 + "; layered raw enderite " + output(helper, rawEnderite) + " owing "
                                 + bonusProgress(helper, furnace(helper, rawEnderite))
                                 + "; injected raw iron " + output(helper, injectedIron),
-                        "netherite blast furnace 11 minecraft:iron_ingot"
-                                + "; enderite blast furnace 13 minecraft:iron_ingot"
+                        "netherite blast furnace 9 minecraft:iron_ingot"
+                                + "; enderite blast furnace 9 minecraft:iron_ingot"
                                 + "; reinforced blast furnace 4 minecraft:iron_ingot"
                                 + "; enderite furnace 4 minecraft:iron_ingot"
                                 + "; cracked diamonds 4 minecraft:diamond"
-                                + "; layered raw enderite 1 simplebuilding:enderite_scrap owing 1"
-                                + "; injected raw iron 2 minecraft:iron_ingot",
+                                + "; layered raw enderite 1 simplebuilding:enderite_scrap owing 0"
+                                + "; injected raw iron 1 minecraft:iron_ingot",
                         "what each device put out"))
                 .thenSucceed();
     }
@@ -456,9 +454,11 @@ public final class SmeltingTests {
         return value;
     }
 
-    /** The saved bonus progress of a blast furnace; the block entity leaves the key out when it is 0. */
+    /** Legacy counters must disappear after loading and saving. */
     private static int bonusProgress(GameTestHelper helper, AbstractFurnaceBlockEntity entity) {
-        return entity.saveWithoutMetadata(helper.getLevel().registryAccess()).getIntOr(BONUS_PROGRESS_KEY, 0);
+        CompoundTag saved = entity.saveWithoutMetadata(helper.getLevel().registryAccess());
+        helper.assertTrue(!saved.contains(BONUS_PROGRESS_KEY), "legacy bonus counter was saved again");
+        return 0;
     }
 
     /** The four saved timers as one line. */

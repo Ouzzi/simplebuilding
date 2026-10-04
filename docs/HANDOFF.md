@@ -4,6 +4,20 @@ Zuerst `AGENTS.md` vollständig lesen, dann diese Datei und `docs/ai/WORKFLOW.md
 Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alten Run-Berichten.
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
+
+## Worker-Nachtrag 2026-10-04: small9
+
+Branch `gpt-small9`: Basic-/Enderite-Aufwertungen nutzen echte Vanilla-Schmiedevorlagen
+mit EN/DE-Tooltips. Verstärker spielen innerhalb bestehender Hörweite ohne Pegelverlust;
+Noten nutzen ein S2C-Payload für alle drei Loader, Musik eine explizite Hörweitengrenze.
+Der Ofen-Ausbeutebonus entfällt; alte Bonuszähler werden ignoriert, doppelte XP bleibt.
+JEI, Handbuch, beide Sprachorte und belegte Wiki-Prosa aktualisiert.
+Server Fabric/NeoForge 26.3: **1870/1870, alles gruen**; Testzentrale und Itemabdeckung grün.
+26.3-Datagen, 26.2-Compiles, Forge-26.3-Compile, `check -q` und checkBalance grün;
+Wiki --all/--all --check und 55 Wiki-Tests grün. Je Aufgabe ein Commit, kein Push/Merge.
+Sicht-/Hörabnahme und Besitzerwelt offen; zwei bekannte deutsche Handbuch-Themenlisten
+laufen weiterhin über. Details: `docs/ai/PLAN-SMALL9-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-04: wackelige GameTests
 
 Branch `claude-gpt-flaky`: Knopf-Ausfuehrung bedingt abwarten, eigene Scoreboard-Zaehler und

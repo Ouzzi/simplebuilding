@@ -11,29 +11,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Was die oberen Ofenstufen ueber die Geschwindigkeit hinaus belohnt. Wird aus
- * {@code setRecipeUsed} der drei Block-Entities gerufen - einmal je fertig geschmolzenem Gegenstand,
- * direkt nachdem Vanillas {@code serverTick} das Ergebnis in den Ausgabeslot gelegt hat.
- *
- * <ul>
- *   <li><b>Doppelte Erfahrung</b> in jedem Netherit- und Enderit-Ofen, -Raeucherofen und
- *       -Schmelzofen: das Rezept wird zweimal gezaehlt, die Erfahrung beim Herausnehmen verdoppelt
- *       sich damit genau.</li>
- *   <li><b>Mehr Ausbeute</b> im Netherit-Schmelzofen (jeder {@value #NETHERITE_BONUS_PERIOD}. Schmelzvorgang
- *       +1, also +25 %) und im Enderit-Schmelzofen (jeder {@value #ENDERITE_BONUS_PERIOD}., +50 %),
- *       aber nur fuer Rezepte, deren Zutat ausschliesslich aus {@code simplebuilding:blast_furnace_bonus}
- *       besteht - den Rohmetallen.</li>
- * </ul>
- * Beides entfaellt fuer Zutaten in {@code simplebuilding:furnace_bonus_excluded}: der rissige Diamant
- * liesse sich sonst verlustfrei im Kreis fuehren (Diamantblock -&gt; 81 Diamantsplitter -&gt; 9 rissige
- * Diamanten -&gt; 9 Diamanten), und jeder Bonus darauf waere eine Endlosquelle.
+ * Upper-tier furnaces count eligible recipes twice to pay double experience.
+ * Output counts always come from the recipe. Cracked diamonds are excluded from
+ * extra experience because their lossless crafting cycle would create an XP farm.
  */
 public final class FurnaceTierPerks {
-
-    public static final int NETHERITE_BONUS_PERIOD = 4;
-    public static final int ENDERITE_BONUS_PERIOD = 2;
-    /** Wo der Schmelzofen mitzaehlt, wie weit er bis zum naechsten Bonus ist. */
-    public static final String BONUS_PROGRESS_KEY = "simplebuilding:bonus_progress";
 
     private FurnaceTierPerks() {
     }
@@ -48,17 +30,6 @@ public final class FurnaceTierPerks {
     /** Ob dieser Schmelzvorgang doppelt zaehlt. */
     public static boolean doublesExperience(BlockState state, @Nullable RecipeHolder<?> recipe) {
         return recipe != null && isUpperTier(state) && !inputTouches(recipe, ModTags.Items.FURNACE_BONUS_EXCLUDED);
-    }
-
-    /** Jeder wievielte passende Schmelzvorgang einen Gegenstand mehr bringt; 0 = gar keiner. */
-    public static int bonusPeriod(BlockState state) {
-        if (state.is(ModBlocks.ENDERITE_BLAST_FURNACE)) {
-            return ENDERITE_BONUS_PERIOD;
-        }
-        if (state.is(ModBlocks.NETHERITE_BLAST_FURNACE)) {
-            return NETHERITE_BONUS_PERIOD;
-        }
-        return 0;
     }
 
     /**
@@ -87,18 +58,6 @@ public final class FurnaceTierPerks {
     /** Geschwindigkeit gegenueber der Vanilla-Maschine (2, 4, 8); 1 fuer jeden anderen Block. */
     public static int speedFactor(BlockState state) {
         return 1 + extraCookTicks(state);
-    }
-
-    /** Ob die Zutat des Rezepts nur aus Bonus-Gegenstaenden besteht (und keiner ausgeschlossen ist). */
-    @SuppressWarnings("deprecation") // Ingredient#items(): der einzige Blick auf die Zutaten
-    public static boolean earnsOutputBonus(@Nullable RecipeHolder<?> recipe) {
-        if (recipe == null || !(recipe.value() instanceof AbstractCookingRecipe cooking)) {
-            return false;
-        }
-        var items = cooking.input().items().toList();
-        return !items.isEmpty()
-                && items.stream().allMatch(holder -> holder.is(ModTags.Items.BLAST_FURNACE_BONUS))
-                && !inputTouches(recipe, ModTags.Items.FURNACE_BONUS_EXCLUDED);
     }
 
     @SuppressWarnings("deprecation")

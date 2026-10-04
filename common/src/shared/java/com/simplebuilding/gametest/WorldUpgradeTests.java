@@ -4,7 +4,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.datafixers.DataFixer;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.custom.BackpackBlockEntity;
-import com.simplebuilding.blocks.entity.custom.FurnaceTierPerks;
 import com.simplebuilding.blocks.entity.custom.ModBlastFurnaceBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.blueprint.BlueprintContent;
@@ -226,7 +225,7 @@ public final class WorldUpgradeTests {
         ModBlastFurnaceBlockEntity furnace = new ModBlastFurnaceBlockEntity(FURNACE_POS,
                 ModBlocks.ENDERITE_BLAST_FURNACE.defaultBlockState());
         CompoundTag furnaceState = new CompoundTag();
-        furnaceState.putInt(FurnaceTierPerks.BONUS_PROGRESS_KEY, 5);
+        furnaceState.putInt("simplebuilding:bonus_progress", 5);
         furnaceState.putInt("cooking_time_spent", 40000);
         furnaceState.putInt("cooking_total_time", 50000);
         furnaceState.putInt("lit_time_remaining", 40001);
@@ -437,7 +436,7 @@ public final class WorldUpgradeTests {
         assertSameStack(helper, ((Container) furnace).getItem(0), oracle.get(MAP), "blast furnace input");
         assertSameStack(helper, ((Container) furnace).getItem(2), oracle.get(POT), "blast furnace output");
         CompoundTag furnaceResaved = furnace.saveCustomOnly(helper.getLevel().registryAccess());
-        helper.assertValueEqual(furnaceResaved.getIntOr(FurnaceTierPerks.BONUS_PROGRESS_KEY, -1), 5, "blast furnace bonus progress");
+        helper.assertTrue(!furnaceResaved.contains("simplebuilding:bonus_progress"), "obsolete blast furnace bonus progress must be discarded");
         helper.assertValueEqual(furnaceResaved.getIntOr("cooking_time_spent", -1), 40000, "blast furnace cooking timer (int, > short)");
         helper.assertValueEqual(furnaceResaved.getIntOr("lit_time_remaining", -1), 40001, "blast furnace fuel left (int, > short)");
 
