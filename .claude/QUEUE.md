@@ -263,3 +263,9 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Schallplatten: alternative Track-Variante. (claude-audio: B-Seiten per Vorschlaghammer, nur Mod-Platten; Client-Abnahme offen) Eine abgelegte (platzierte) Platte mit dem Vorschlaghammer schlagen → wird zur Alternativ-Platte (etwas angepasste Optik, sonst gleich, spielt Track 2); erneut schlagen → zurück zum Original (Endlosschleife).
 - [x] Lautsprecher-Blöcke: (claude-audio: Astralit/Nihilit-Lautsprecher, angrenzend, Config `server.speakers`; Hör-Abnahme im Client offen) Astralit bzw. Nihilit mit Holzbrettern außenrum (Rezept analog Notenblock/Plattenspieler). Astralit-Lautsprecher verstärkt nur Plattenspieler-Signale, Nihilit-Lautsprecher nur Notenblock-Signale: höhere Lautstärke/Reichweite beim Spieler, „unverzögerter Lautsprecher“.
 - [ ] Raw Enderite Scrap: Variante D leicht dunkler einbauen.
+
+## Besitzer 2026-10-04 (Nachtrag 7)
+
+- [ ] Lautsprecher-Texturen dezenter: vom Notenblock ausgehen und daraus eine neue Textur machen; die dunklen Spots des Notenblocks durch Pixel der jeweiligen Rohmaterial-Textur (Astralit/Nihilit) ersetzen. Je 5 Vorschläge, alle Blockseiten gleiche Textur.
+- [ ] Schallplatten: auch Track 3 und 4 erlauben, falls vorhanden (Vorschlaghammer-Zyklus 1 → 2 → 3 → 4 → 1, nur über vorhandene Tracks).
+- [ ] Lautsprecher verketten: Noten- bzw. Plattenspieler-Verstärker sollen sich gegenseitig weitergeben (nicht unbedingt lauter, aber der Sound erreicht den Spieler über mehrere Lautsprecher hinweg – eine große Villa beschallen).
