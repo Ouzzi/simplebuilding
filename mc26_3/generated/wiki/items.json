@@ -13,6 +13,7 @@
     "simplebuilding:astralit_ore",
     "simplebuilding:astralit_pillar",
     "simplebuilding:astralit_quartz_checker",
+    "simplebuilding:astralit_speaker",
     "simplebuilding:astralit_switch",
     "simplebuilding:auto_smither",
     "simplebuilding:backpack",
@@ -122,6 +123,7 @@
     "simplebuilding:nihilith_ore",
     "simplebuilding:nihilith_pillar",
     "simplebuilding:nihilith_quartz_checker",
+    "simplebuilding:nihilith_speaker",
     "simplebuilding:nihilith_switch",
     "simplebuilding:orange_hammock",
     "simplebuilding:oxidized_copper_pressure_plate",
@@ -243,6 +245,9 @@
     },
     {
       "id": "simplebuilding:astralit_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:astralit_speaker"
     },
     {
       "id": "simplebuilding:astralit_switch"
@@ -838,6 +843,38 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:music_disc_brimstone",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:music_disc_brimstone_b_side",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:music_disc_daybreak",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:music_disc_daybreak_b_side",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:music_disc_driftwood",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:music_disc_driftwood_b_side",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:music_disc_voidline",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:music_disc_voidline_b_side",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:nether_dimensional_scrap"
     },
     {
@@ -983,6 +1020,9 @@
     },
     {
       "id": "simplebuilding:nihilith_shard"
+    },
+    {
+      "id": "simplebuilding:nihilith_speaker"
     },
     {
       "id": "simplebuilding:nihilith_switch"

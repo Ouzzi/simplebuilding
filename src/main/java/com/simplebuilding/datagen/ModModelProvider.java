@@ -116,6 +116,13 @@ public class ModModelProvider extends FabricModelProvider {
 
 
         // --- 1. Basic Blocks ---
+        // Lautsprecher (2026-10-03): Seiten mit Membran (_side), oben/unten Holz (_top).
+        if (ModBlocks.ASTRALIT_SPEAKER != null) {
+            for (net.minecraft.world.level.block.Block speaker : java.util.List.of(ModBlocks.ASTRALIT_SPEAKER, ModBlocks.NIHILITH_SPEAKER)) {
+                blockStateModelGenerator.createTrivialBlock(speaker, TexturedModel.COLUMN);
+                blockStateModelGenerator.registerSimpleItemModel(speaker, ModelLocationUtils.getModelLocation(speaker));
+            }
+        }
         blockStateModelGenerator.createTrivialCube(ModBlocks.CONSTRUCTION_LIGHT);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.CONSTRUCTION_LIGHT, ModelLocationUtils.getModelLocation(ModBlocks.CONSTRUCTION_LIGHT));
 
@@ -751,6 +758,9 @@ public class ModModelProvider extends FabricModelProvider {
             itemModelGenerator.generateFlatItem(ModItems.REINFORCED_SHULKER_SHELL, ModelTemplates.FLAT_ITEM);
             itemModelGenerator.generateFlatItem(ModItems.NETHERITE_SHULKER_SHELL, ModelTemplates.FLAT_ITEM);
             itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SHULKER_SHELL, ModelTemplates.FLAT_ITEM);
+        }
+        for (Item disc : com.simplebuilding.util.MusicDiscs.items()) {
+            itemModelGenerator.generateFlatItem(disc, ModelTemplates.FLAT_ITEM);
         }
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_APPLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CARROT, ModelTemplates.FLAT_ITEM);

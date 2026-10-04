@@ -3516,6 +3516,51 @@
           "Auch ein lebender Shulker nimmt den Klumpen seiner nächsten Stufe an (Eisen-, Netherit-, Enderitklumpen; einer je Stufe). Ein so aufgewerteter Shulker lässt keine Stufen-Schalen fallen und ruft keine Endermiten."
         ]
       }
+    },
+    {
+      "id": "music_discs",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/MusicDiscs.java",
+        "common/src/shared/java/com/simplebuilding/util/DiscFlips.java",
+        "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
+        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/NoteBlockSpeakerMixin.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/JukeboxSongPlayerSpeakerMixin.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/client/LevelEventHandlerSpeakerMixin.java"
+      ],
+      "related": [
+        "simplebuilding:music_disc_voidline",
+        "simplebuilding:music_disc_voidline_b_side",
+        "simplebuilding:music_disc_driftwood",
+        "simplebuilding:music_disc_driftwood_b_side",
+        "simplebuilding:music_disc_daybreak",
+        "simplebuilding:music_disc_daybreak_b_side",
+        "simplebuilding:music_disc_brimstone",
+        "simplebuilding:music_disc_brimstone_b_side",
+        "simplebuilding:astralit_speaker",
+        "simplebuilding:nihilith_speaker"
+      ],
+      "en": {
+        "title": "Music discs and speakers",
+        "summary": "Four music discs, one per dimension, each with a B-side, and two speakers that make a jukebox or a note block louder.",
+        "details": [
+          "Voidline (End) lies in end city chests (4 %), Brimstone (Nether) in bastion chests (4 %), Driftwood (Overworld) in woodland mansion chests (5 %) and Daybreak (Overworld) in ancient city chests (2.5 %). Driftwood and Daybreak also drop when a skeleton kills a creeper, like vanilla discs.",
+          "B-side: a placed disc (sneak + right-click on the ground) flips to its B-side with a right-click of a sledgehammer, and back again (1 durability per flip). The B-side plays its own track.",
+          "Astralit Speaker (eight planks around Astralit Dust) makes a directly adjacent jukebox louder and heard farther; Nihilit Speaker (eight planks around a Nihilit Shard) does the same for a note block. Each speaker of the right kind adds 50 % volume (server.speakers.boostPercent, at most 50 %); at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off). Same sound at the same time - no echo, no delay.",
+          "A jukebox counts its speakers when a song starts, a note block on every note."
+        ]
+      },
+      "de": {
+        "title": "Schallplatten und Lautsprecher",
+        "summary": "Vier Schallplatten, eine je Dimension, jede mit B-Seite, und zwei Lautsprecher, die einen Plattenspieler bzw. Notenblock lauter machen.",
+        "details": [
+          "Voidline (End) liegt in Endsiedlungs-Truhen (4 %), Brimstone (Nether) in Bastion-Truhen (4 %), Driftwood (Oberwelt) in Waldanwesen-Truhen (5 %) und Daybreak (Oberwelt) in Truhen der Antiken Stätte (2,5 %). Driftwood und Daybreak fallen auch, wenn ein Skelett einen Creeper tötet, wie Vanilla-Platten.",
+          "B-Seite: eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wird mit einem Rechtsklick des Vorschlaghammers zur B-Seite und wieder zurück (1 Haltbarkeit je Wechsel). Die B-Seite spielt ein eigenes Stück.",
+          "Astralit-Lautsprecher (acht Bretter um Astralitstaub) macht einen direkt angrenzenden Plattenspieler lauter und weiter hörbar; Nihilit-Lautsprecher (acht Bretter um einen Nihilitsplitter) dasselbe für einen Notenblock. Jeder passende Lautsprecher gibt 50 % Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %); höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus). Derselbe Klang zur selben Zeit - kein Echo, keine Verzögerung.",
+          "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
+        ]
+      }
     }
   ],
   "notes": {
@@ -11297,6 +11342,58 @@
         "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
         "tools/textures/silent_dandelion_2026_10_03.py"
       ]
+    },
+    "astralit_speaker": {
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/SpeakerBlock.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+      ],
+      "en": {
+        "title": "Astralit Speaker",
+        "summary": "A directly adjacent jukebox plays louder and is heard farther - the same sound at the same time, no echo.",
+        "details": [
+          "Recipe: eight planks of any wood around Astralit Dust.",
+          "Only the jukebox counts it; the other speaker does nothing there. Each counted speaker adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
+          "A jukebox counts its speakers when a song starts, a note block on every note."
+        ]
+      },
+      "de": {
+        "title": "Astralit-Lautsprecher",
+        "summary": "Ein direkt angrenzender Plattenspieler spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
+        "details": [
+          "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
+          "Nur der Plattenspieler zählt ihn; der andere Lautsprecher wirkt dort nicht. Jeder gezählte Lautsprecher gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
+          "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
+        ]
+      }
+    },
+    "nihilith_speaker": {
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/SpeakerBlock.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+      ],
+      "en": {
+        "title": "Nihilit Speaker",
+        "summary": "A directly adjacent note block plays louder and is heard farther - the same sound at the same time, no echo.",
+        "details": [
+          "Recipe: eight planks of any wood around a Nihilit Shard.",
+          "Only the note block counts it; the other speaker does nothing there. Each counted speaker adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
+          "A jukebox counts its speakers when a song starts, a note block on every note."
+        ]
+      },
+      "de": {
+        "title": "Nihilit-Lautsprecher",
+        "summary": "Ein direkt angrenzender Notenblock spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
+        "details": [
+          "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
+          "Nur der Notenblock zählt ihn; der andere Lautsprecher wirkt dort nicht. Jeder gezählte Lautsprecher gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
+          "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
+        ]
+      }
     }
   },
   "inWorld": {
@@ -11686,6 +11783,33 @@
           "details": [
             "Der Klumpen wirkt nur auf die Schale direkt unter seiner Stufe; andere Klumpen oder Schalen tun nichts.",
             "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Im Kreativmodus wird kein Klumpen verbraucht. Der gehaltene Klumpen neigt sich leicht, solange er eine Schale aufwerten würde."
+          ]
+        }
+      },
+      "disc_flip": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/DiscFlips.java",
+          "common/src/shared/java/com/simplebuilding/util/MusicDiscs.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+          "common/src/shared/java/com/simplebuilding/util/TransformTargets.java"
+        ],
+        "en": {
+          "title": "Flipping a music disc to its B-side",
+          "summary": "Place one of the mod's music discs on the ground (sneak + right-click) and right-click it with any sledgehammer: it turns into its B-side, which plays a second track. Right-click again and it is the A-side again - endlessly.",
+          "details": [
+            "Each flip costs the hammer 1 durability. With several discs in one pile the last placed disc flips.",
+            "Needs the same rights as placing a block there. The held hammer tilts while it would flip a disc.",
+            "Vanilla discs have no B-side."
+          ]
+        },
+        "de": {
+          "title": "Schallplatte zur B-Seite wenden",
+          "summary": "Eine Schallplatte der Mod auf den Boden legen (Schleichen + Rechtsklick) und mit einem beliebigen Vorschlaghammer rechtsklicken: sie wird zu ihrer B-Seite, die ein zweites Stück spielt. Noch ein Rechtsklick, und es ist wieder die A-Seite - endlos.",
+          "details": [
+            "Jeder Wechsel kostet den Hammer 1 Haltbarkeit. Liegen mehrere Platten auf einem Häufchen, wendet sich die zuletzt gelegte.",
+            "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Hammer neigt sich, solange er eine Platte wenden würde.",
+            "Vanilla-Platten haben keine B-Seite."
           ]
         }
       }

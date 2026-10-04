@@ -341,7 +341,8 @@ public final class InWorldExportTests {
                 + "charged_creeper/minecraft:stray=simplebuilding:stray_skull, "
                 + "charged_creeper/minecraft:wither_skeleton=minecraft:wither_skeleton_skull, "
                 + "charged_creeper/minecraft:zombie=minecraft:zombie_head, "
-                + "killed_by_skeleton/minecraft:creeper=12 discs}";
+                // 12 Vanilla-Platten, auf 26.3 dazu Driftwood und Daybreak (MusicDiscs, 2026-10-03).
+                + "killed_by_skeleton/minecraft:creeper=" + (com.simplebuilding.version.McVersion.MUSIC_DISCS ? 14 : 12) + " discs}";
         helper.assertTrue(seen.toString().equals(expected), "mob drop entries: expected " + expected + " but were " + seen);
         for (Item disc : discs) {
             helper.assertTrue(new ItemStack(disc).is(net.minecraft.tags.ItemTags.CREEPER_DROP_MUSIC_DISCS),

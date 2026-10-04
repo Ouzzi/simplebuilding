@@ -5,6 +5,20 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "simplebuilding:music_disc_brimstone",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 96
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
           "modifier": {
             "type": "minecraft:set_components",
             "components": {

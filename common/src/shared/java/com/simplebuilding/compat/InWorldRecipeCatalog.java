@@ -53,7 +53,8 @@ public final class InWorldRecipeCatalog {
         ROTATE("rotator", "rotate"),
         CONSTRUCTORS_TOUCH("constructorsTouch", "constructors_touch"),
         CORE_ORE("coreOre", "core_ore"),
-        SHELL_UPGRADE("shellUpgrade", "shell_upgrade");
+        SHELL_UPGRADE("shellUpgrade", "shell_upgrade"),
+        DISC_FLIP("discFlip", "disc_flip");
 
         private final String section;
         private final String id;
@@ -146,6 +147,9 @@ public final class InWorldRecipeCatalog {
             if (element == null && kind == Kind.SHELL_UPGRADE && !com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
                 continue;
             }
+            if (element == null && kind == Kind.DISC_FLIP && !com.simplebuilding.version.McVersion.MUSIC_DISCS) {
+                continue;
+            }
             if (element == null || !element.isJsonObject()) {
                 problems.add("in-world section '" + kind.section() + "' is missing from the export");
             } else {
@@ -191,6 +195,9 @@ public final class InWorldRecipeCatalog {
         }
         if (sections.containsKey(Kind.SHELL_UPGRADE)) {
             shellUpgrade(sections.get(Kind.SHELL_UPGRADE), resolver, entries);
+        }
+        if (sections.containsKey(Kind.DISC_FLIP)) {
+            discFlip(sections.get(Kind.DISC_FLIP), resolver, entries);
         }
         return new Catalog(Collections.unmodifiableList(entries), Collections.unmodifiableList(problems));
     }
@@ -481,6 +488,30 @@ public final class InWorldRecipeCatalog {
                     Stack.of(result, 1), 0,
                     List.of(Component.translatable("jei.simplebuilding.note.shell_upgrade.how"),
                             Component.translatable("jei.simplebuilding.note.shell_upgrade.cost", step.get("nuggetCount").getAsInt()))));
+        }
+    }
+
+    /** A placed music disc + a sledgehammer -> its other side, both ways (one durability per flip). */
+    private static void discFlip(JsonObject flip, Resolver resolver, List<Entry> out) {
+        List<String> ids = new ArrayList<>();
+        for (JsonElement element : flip.getAsJsonArray("hammers")) {
+            ids.add(element.getAsString());
+        }
+        List<Item> hammers = resolver.items(ids);
+        int durability = flip.get("durabilityPerFlip").getAsInt();
+        for (JsonElement element : flip.getAsJsonArray("pairs")) {
+            JsonObject pair = element.getAsJsonObject();
+            Item disc = resolver.item(pair.get("disc").getAsString());
+            Item bSide = resolver.item(pair.get("bSide").getAsString());
+            if (disc == null || bSide == null) {
+                continue;
+            }
+            List<Component> notes = List.of(Component.translatable("jei.simplebuilding.note.disc_flip.how"),
+                    Component.translatable("jei.simplebuilding.note.disc_flip.cost", durability));
+            out.add(new Entry(Kind.DISC_FLIP, "disc_flip/" + pair.get("bSide").getAsString(), List.of(Stack.of(disc, 1)), hammers,
+                    Stack.of(bSide, 1), 0, notes));
+            out.add(new Entry(Kind.DISC_FLIP, "disc_flip/" + pair.get("disc").getAsString(), List.of(Stack.of(bSide, 1)), hammers,
+                    Stack.of(disc, 1), 0, notes));
         }
     }
 

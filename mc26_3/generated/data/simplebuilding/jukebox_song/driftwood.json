@@ -1,0 +1,8 @@
+{
+  "comparator_output": 6,
+  "description": {
+    "translate": "jukebox_song.simplebuilding.driftwood"
+  },
+  "length_in_seconds": 3.0,
+  "sound_event": "simplebuilding:music_disc.driftwood"
+}

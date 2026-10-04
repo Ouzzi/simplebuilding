@@ -1,0 +1,8 @@
+{
+  "comparator_output": 14,
+  "description": {
+    "translate": "jukebox_song.simplebuilding.voidline_b_side"
+  },
+  "length_in_seconds": 3.0,
+  "sound_event": "simplebuilding:music_disc.voidline_b_side"
+}

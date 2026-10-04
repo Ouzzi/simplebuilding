@@ -58,6 +58,11 @@ public final class RecipelessJeiInfo {
             map.put("end_signals", List.of(ModItems.NIHIL_REDSTONE, ModItems.ASTRAL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.ASTRALIT_SWITCH, ModItems.NIHILITH_LAMP, ModItems.ASTRALIT_LAMP));
             map.put("astral_vault", List.of(ModItems.ASTRAL_VAULT));
         }
+        if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
+            // Fundorte und B-Seite der Platten (2026-10-03), Wirkung der Lautsprecher.
+            map.put("music_discs", List.<ItemLike>copyOf(com.simplebuilding.util.MusicDiscs.items()));
+            map.put("speakers", List.of(ModItems.ASTRALIT_SPEAKER, ModItems.NIHILITH_SPEAKER));
+        }
         return map;
     }
 }

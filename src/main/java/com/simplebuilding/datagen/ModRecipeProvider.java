@@ -109,6 +109,27 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .save(output);
                 }
 
+                // Lautsprecher (2026-10-03) wie Notenblock (Redstone in der Mitte) und Plattenspieler (Diamant):
+                // acht Bretter um Astralitstaub bzw. Nihilitsplitter.
+                if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
+                    shaped(RecipeCategory.REDSTONE, ModItems.ASTRALIT_SPEAKER)
+                            .pattern("###")
+                            .pattern("#X#")
+                            .pattern("###")
+                            .define('#', tag(ItemTags.PLANKS))
+                            .define('X', ModItems.ASTRALIT_DUST)
+                            .unlockedBy(getHasName(ModItems.ASTRALIT_DUST), has(ModItems.ASTRALIT_DUST))
+                            .save(output);
+                    shaped(RecipeCategory.REDSTONE, ModItems.NIHILITH_SPEAKER)
+                            .pattern("###")
+                            .pattern("#X#")
+                            .pattern("###")
+                            .define('#', tag(ItemTags.PLANKS))
+                            .define('X', ModItems.NIHILITH_SHARD)
+                            .unlockedBy(getHasName(ModItems.NIHILITH_SHARD), has(ModItems.NIHILITH_SHARD))
+                            .save(output);
+                }
+
                 // =================================================================
                 // FIX: DUMMY REZEPT FÜR SCHMIEDETISCH (Glowing Ink)
                 // =================================================================

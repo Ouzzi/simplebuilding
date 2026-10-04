@@ -75,6 +75,7 @@ final class InWorldCategory implements IRecipeCategory<InWorldRecipeCatalog.Entr
             case CONSTRUCTORS_TOUCH -> Items.STICK;
             case CORE_ORE -> ModItems.DIAMOND_CORE;
             case SHELL_UPGRADE -> Items.SHULKER_SHELL;
+            case DISC_FLIP -> com.simplebuilding.version.McVersion.MUSIC_DISCS ? ModItems.MUSIC_DISC_VOIDLINE : Items.MUSIC_DISC_PIGSTEP;
         };
     }
 

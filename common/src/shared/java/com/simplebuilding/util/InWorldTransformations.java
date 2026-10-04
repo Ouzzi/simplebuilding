@@ -60,6 +60,9 @@ public final class InWorldTransformations {
         if (com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
             root.add("shellUpgrade", shellUpgrade());
         }
+        if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
+            root.add("discFlip", discFlip());
+        }
         return root;
     }
 
@@ -432,6 +435,29 @@ public final class InWorldTransformations {
         }
         JsonObject o = new JsonObject();
         o.add("steps", steps);
+        return o;
+    }
+
+    /**
+     * Abgelegte Schallplatte mit dem Vorschlaghammer wenden ({@link DiscFlips}): je Platte A-Seite und B-Seite (der
+     * Wechsel geht in beide Richtungen), alle Haemmer, Haltbarkeit je Wechsel.
+     */
+    public static JsonObject discFlip() {
+        JsonArray pairs = new JsonArray();
+        for (MusicDiscs.Disc disc : MusicDiscs.discs()) {
+            JsonObject entry = new JsonObject();
+            entry.addProperty("disc", id(disc.aSide()));
+            entry.addProperty("bSide", id(disc.bSide()));
+            pairs.add(entry);
+        }
+        JsonArray hammers = new JsonArray();
+        for (Item hammer : modItems(SledgehammerItem.class)) {
+            hammers.add(id(hammer));
+        }
+        JsonObject o = new JsonObject();
+        o.add("pairs", pairs);
+        o.add("hammers", hammers);
+        o.addProperty("durabilityPerFlip", SledgehammerItem.RESHAPE_DAMAGE);
         return o;
     }
 

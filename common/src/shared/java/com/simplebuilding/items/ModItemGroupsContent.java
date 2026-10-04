@@ -141,6 +141,11 @@ public final class ModItemGroupsContent {
             }
         }
         rows.add(new CreativeTabLayout.Row("colored_octants", coloredOctants));
+        if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
+            // Schallplatten der Dimensionen (2026-10-03) wie Vanillas Platten bei den Werkzeugen: je A-Seite, dann B-Seite.
+            rows.add(CreativeTabLayout.Row.of("music_discs",
+                    com.simplebuilding.util.MusicDiscs.items().toArray(net.minecraft.world.level.ItemLike[]::new)));
+        }
 
         // --- Handbuecher je Regal (GuideBooks.Shelf, Lesezeichen-Reihenfolge), dann die verzauberten Buecher:
         // jede Kategorie fliesst nach einer Luecke hinter der vorigen weiter (Row#flowing), damit keine
@@ -409,6 +414,10 @@ public final class ModItemGroupsContent {
         if (com.simplebuilding.version.McVersion.HAMMOCK) {
             // Haengematten (2026-10-02): 16 Farben in Vanillas Bett-Reihenfolge, laufen in die naechste Zeile weiter.
             rows.add(CreativeTabLayout.Row.of("hammocks", ModItems.HAMMOCKS.toArray(net.minecraft.world.level.ItemLike[]::new)));
+        }
+        if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
+            // Lautsprecher (2026-10-03): Astralit (Plattenspieler), Nihilit (Notenblock).
+            rows.add(CreativeTabLayout.Row.of("speakers", ModItems.ASTRALIT_SPEAKER, ModItems.NIHILITH_SPEAKER));
         }
         return rows;
     }

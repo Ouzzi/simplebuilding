@@ -21,6 +21,9 @@ public class ModRegistryDataGenerator extends FabricDynamicRegistryProvider {
         entries.addAll(registries.lookupOrThrow(Registries.TRIM_PATTERN));
         entries.addAll(registries.lookupOrThrow(ModWorldGen.FEATURE_REGISTRY));
         entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
+        if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
+            entries.addAll(registries.lookupOrThrow(Registries.JUKEBOX_SONG));
+        }
     }
 
     @Override

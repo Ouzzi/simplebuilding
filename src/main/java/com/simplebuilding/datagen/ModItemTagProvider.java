@@ -38,6 +38,14 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
+        if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
+            // Schallplatten (2026-10-03): ablegbar (B-Seite per Vorschlaghammer); die Oberwelt-Platten fallen wie die
+            // Vanilla-Oberwelt-Platten, wenn ein Skelett einen Creeper toetet.
+            for (Item disc : com.simplebuilding.util.MusicDiscs.items()) {
+                builder(ModTags.Items.PLACEABLE_SMALL).add(key(disc));
+            }
+            builder(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(key(ModItems.MUSIC_DISC_DRIFTWOOD)).add(key(ModItems.MUSIC_DISC_DAYBREAK));
+        }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             builder(ModTags.Items.PLACEABLE_SMALL).add(key(ModItems.YARN_BALL));
             builder(BlockItemTags.SMALL_FLOWERS.item()).add(key(ModItems.SILENT_DANDELION));

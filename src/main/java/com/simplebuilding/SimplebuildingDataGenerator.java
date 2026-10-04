@@ -47,5 +47,9 @@ public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
 
         // NEU: Trim Materials registrieren!
         registryBuilder.add(Registries.TRIM_MATERIAL, ModTrimMaterials::bootstrap);
+        // Schallplatten-Songs (2026-10-03, nur 26.3).
+        if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
+            registryBuilder.add(Registries.JUKEBOX_SONG, com.simplebuilding.util.MusicDiscs::bootstrap);
+        }
     }
 }

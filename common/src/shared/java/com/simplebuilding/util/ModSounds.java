@@ -20,11 +20,28 @@ public final class ModSounds {
     public static final Identifier PISTON_BORE_ID = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block.piston.bore");
     public static final SoundEvent PISTON_BORE = register(PISTON_BORE_ID);
 
+    /**
+     * Die Stuecke der Schallplatten ({@link MusicDiscs}): {@code music_disc.<song>} fuer A- und B-Seiten, nur mit
+     * {@code McVersion.MUSIC_DISCS}. Die Songs ({@code jukebox_song}) verweisen darauf.
+     */
+    public static final java.util.List<SoundEvent> MUSIC_DISCS = registerMusicDiscs();
+
     private ModSounds() {
     }
 
     private static SoundEvent register(Identifier id) {
         return Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
+    }
+
+    private static java.util.List<SoundEvent> registerMusicDiscs() {
+        if (!com.simplebuilding.version.McVersion.MUSIC_DISCS) {
+            return java.util.List.of();
+        }
+        java.util.List<SoundEvent> out = new java.util.ArrayList<>();
+        for (String song : MusicDiscs.songNames()) {
+            out.add(register(MusicDiscs.soundId(song)));
+        }
+        return java.util.List.copyOf(out);
     }
 
     /** Laedt die Klasse und damit ihre Registrierungen. */
