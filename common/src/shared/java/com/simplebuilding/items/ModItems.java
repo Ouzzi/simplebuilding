@@ -364,6 +364,26 @@ public class ModItems {
     public static final Item ENDERITE_SHULKER_SHELL = com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS
             ? registerItem("enderite_shulker_shell", settings -> new Item(settings.fireResistant().rarity(Rarity.EPIC))) : null;
 
+    /**
+     * Schallplatten der Dimensionen (Besitzer 2026-10-03, {@link com.simplebuilding.util.MusicDiscs}): End, Oberwelt 1,
+     * Oberwelt 2, Nether, je mit B-Seite (Vorschlaghammer an der abgelegten Platte, {@link com.simplebuilding.util.DiscFlips}).
+     * Selten wie Pigstep, stapeln wie jede Platte nicht.
+     */
+    public static final Item MUSIC_DISC_VOIDLINE = musicDisc("voidline");
+    public static final Item MUSIC_DISC_VOIDLINE_B_SIDE = musicDisc("voidline_b_side");
+    public static final Item MUSIC_DISC_DRIFTWOOD = musicDisc("driftwood");
+    public static final Item MUSIC_DISC_DRIFTWOOD_B_SIDE = musicDisc("driftwood_b_side");
+    public static final Item MUSIC_DISC_DAYBREAK = musicDisc("daybreak");
+    public static final Item MUSIC_DISC_DAYBREAK_B_SIDE = musicDisc("daybreak_b_side");
+    public static final Item MUSIC_DISC_BRIMSTONE = musicDisc("brimstone");
+    public static final Item MUSIC_DISC_BRIMSTONE_B_SIDE = musicDisc("brimstone_b_side");
+
+    /** Lautsprecher (2026-10-03): Astralit verstaerkt Plattenspieler, Nihilit Notenbloecke ({@link com.simplebuilding.util.SpeakerBoost}). */
+    public static final Item ASTRALIT_SPEAKER = com.simplebuilding.version.McVersion.MUSIC_DISCS
+            ? registerItem("astralit_speaker", s -> new BlockItem(ModBlocks.ASTRALIT_SPEAKER, s)) : null;
+    public static final Item NIHILITH_SPEAKER = com.simplebuilding.version.McVersion.MUSIC_DISCS
+            ? registerItem("nihilith_speaker", s -> new BlockItem(ModBlocks.NIHILITH_SPEAKER, s)) : null;
+
 
 
         public static final Item NIHILITH_SHARD = registerItem("nihilith_shard", s -> new Item(s
@@ -1119,6 +1139,13 @@ public class ModItems {
     private static Item.Properties shulkerBox(Item.Properties settings) {
         return settings.stacksTo(1).component(net.minecraft.core.component.DataComponents.CONTAINER,
                 net.minecraft.world.item.component.ItemContainerContents.EMPTY);
+    }
+
+    /** Eine Schallplatte mit dem Song {@code simplebuilding:<song>} (null ohne {@code McVersion.MUSIC_DISCS}). */
+    private static Item musicDisc(String song) {
+        return com.simplebuilding.version.McVersion.MUSIC_DISCS
+                ? registerItem("music_disc_" + song, s -> new Item(s.stacksTo(1).rarity(Rarity.RARE)
+                        .jukeboxPlayable(com.simplebuilding.util.MusicDiscs.songKey(song)))) : null;
     }
 
     private static Item registerItem(String name, Function<Item.Properties, Item> function) {

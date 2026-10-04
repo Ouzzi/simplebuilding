@@ -1,0 +1,74 @@
+{
+  "block.piston.bore": {
+    "subtitle": "subtitles.simplebuilding.block.piston.bore",
+    "sounds": [
+      "simplebuilding:block/piston/bore1",
+      "simplebuilding:block/piston/bore2",
+      "simplebuilding:block/piston/bore3"
+    ]
+  },
+  "music_disc.voidline": {
+    "sounds": [
+      {
+        "name": "simplebuilding:records/voidline",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.voidline_b_side": {
+    "sounds": [
+      {
+        "name": "simplebuilding:records/voidline_b_side",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.driftwood": {
+    "sounds": [
+      {
+        "name": "simplebuilding:records/driftwood",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.driftwood_b_side": {
+    "sounds": [
+      {
+        "name": "simplebuilding:records/driftwood_b_side",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.daybreak": {
+    "sounds": [
+      {
+        "name": "simplebuilding:records/daybreak",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.daybreak_b_side": {
+    "sounds": [
+      {
+        "name": "simplebuilding:records/daybreak_b_side",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.brimstone": {
+    "sounds": [
+      {
+        "name": "simplebuilding:records/brimstone",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.brimstone_b_side": {
+    "sounds": [
+      {
+        "name": "simplebuilding:records/brimstone_b_side",
+        "stream": true
+      }
+    ]
+  }
+}

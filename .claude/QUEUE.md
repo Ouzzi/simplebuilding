@@ -192,7 +192,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 - [x] Erzdetektor: Die Auswahl-Animation (läuft heute am Slot-Rand, wenn ein Block gewählt ist) soll stattdessen auf der Nadel laufen. (claude-texprop, master 8d443a67)
 - [x] Erzdetektor: Nadel vorher breiter machen wie beim Bergungskompass (falls noch nicht geschehen). (claude-texprop, 12/6 Uhr mittig, master 8d443a67)
-- [ ] Eigene Schallplatte je Dimension, „gehen ab“ wie Pigstep/Otherside:
+- [x] Eigene Schallplatte je Dimension, „gehen ab“ wie Pigstep/Otherside: (claude-audio: Voidline/Driftwood/Daybreak/Brimstone mit Platzhalter-Audio, Fundorte, Texturen; echte Musik per `tools/audio/import_discs.py`, Plan `docs/ai/PLAN-SCHALLPLATTEN-2026-10-03.md`; Musik + Client-Abnahme offen)
   - End: Stil wie das Instrumental von „What I've Done“ (Linkin Park).
   - Oberwelt: zwei Platten, eine wie „Stan“ (Eminem), eine im NCS-/Alan-Walker-Stil.
   - Nether: wie „Thunderstruck“.
@@ -260,6 +260,6 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 ## Besitzer 2026-10-03 (Nachtrag 6)
 
-- [ ] Schallplatten: alternative Track-Variante. Eine abgelegte (platzierte) Platte mit dem Vorschlaghammer schlagen → wird zur Alternativ-Platte (etwas angepasste Optik, sonst gleich, spielt Track 2); erneut schlagen → zurück zum Original (Endlosschleife).
-- [ ] Lautsprecher-Blöcke: Astralit bzw. Nihilit mit Holzbrettern außenrum (Rezept analog Notenblock/Plattenspieler). Astralit-Lautsprecher verstärkt nur Plattenspieler-Signale, Nihilit-Lautsprecher nur Notenblock-Signale: höhere Lautstärke/Reichweite beim Spieler, „unverzögerter Lautsprecher“.
+- [x] Schallplatten: alternative Track-Variante. (claude-audio: B-Seiten per Vorschlaghammer, nur Mod-Platten; Client-Abnahme offen) Eine abgelegte (platzierte) Platte mit dem Vorschlaghammer schlagen → wird zur Alternativ-Platte (etwas angepasste Optik, sonst gleich, spielt Track 2); erneut schlagen → zurück zum Original (Endlosschleife).
+- [x] Lautsprecher-Blöcke: (claude-audio: Astralit/Nihilit-Lautsprecher, angrenzend, Config `server.speakers`; Hör-Abnahme im Client offen) Astralit bzw. Nihilit mit Holzbrettern außenrum (Rezept analog Notenblock/Plattenspieler). Astralit-Lautsprecher verstärkt nur Plattenspieler-Signale, Nihilit-Lautsprecher nur Notenblock-Signale: höhere Lautstärke/Reichweite beim Spieler, „unverzögerter Lautsprecher“.
 - [ ] Raw Enderite Scrap: Variante D leicht dunkler einbauen.

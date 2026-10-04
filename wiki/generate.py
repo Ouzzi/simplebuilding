@@ -1864,7 +1864,8 @@ def sync_vanilla_recipes(check: bool) -> list[str]:
 
 INWORLD_KINDS = ("sledgehammer_upgrade", "sledgehammer_reshape", "diamond_crush",
                  "chisel", "chisel_reverse", "trim_template", "cauldron_wash", "shear_wool",
-                 "piston_repair", "copper_plate", "rotate", "constructors_touch", "core_ore", "shell_upgrade")
+                 "piston_repair", "copper_plate", "rotate", "constructors_touch", "core_ore", "shell_upgrade",
+                 "disc_flip")
 
 
 def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dict, list[str]]:
@@ -2061,6 +2062,20 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                     "output": {"id": step["result"], "count": 1},
                     "stats": {},
                 })
+
+        flip = exported.get("discFlip")
+        if flip:
+            facts["disc_flip"] = {"durabilityPerFlip": flip["durabilityPerFlip"]}
+            for pair in flip["pairs"]:
+                for src, dst in ((pair["disc"], pair["bSide"]), (pair["bSide"], pair["disc"])):
+                    entries.append({
+                        "id": f"disc_flip/{dst}",
+                        "kind": "disc_flip",
+                        "inputs": [{"id": src, "count": 1}],
+                        "tools": list(flip["hammers"]),
+                        "output": {"id": dst, "count": 1},
+                        "stats": {"damage": flip["durabilityPerFlip"]},
+                    })
 
         chisel = exported.get("chisel", {})
         tables = chisel.get("tables", [])

@@ -1,5 +1,13 @@
 {
   "values": [
+    "simplebuilding:music_disc_voidline",
+    "simplebuilding:music_disc_voidline_b_side",
+    "simplebuilding:music_disc_driftwood",
+    "simplebuilding:music_disc_driftwood_b_side",
+    "simplebuilding:music_disc_daybreak",
+    "simplebuilding:music_disc_daybreak_b_side",
+    "simplebuilding:music_disc_brimstone",
+    "simplebuilding:music_disc_brimstone_b_side",
     "simplebuilding:yarn_ball",
     "minecraft:stick",
     "minecraft:flint",

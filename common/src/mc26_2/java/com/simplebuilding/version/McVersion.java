@@ -79,6 +79,8 @@ public final class McVersion {
     public static final boolean TRAINING_DUMMY = false;
     /** Hammock (2026-10-02): needs vanilla's AbstractBedBlock (26.3); resting by day speeds the clock up. */
     public static final boolean HAMMOCK = false;
+    /** Dimension music discs with B-sides (sledgehammer flip) and the Astralit/Nihilit speakers (2026-10-03). */
+    public static final boolean MUSIC_DISCS = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = false;
 

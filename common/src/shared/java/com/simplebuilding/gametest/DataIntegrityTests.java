@@ -2806,6 +2806,9 @@ public final class DataIntegrityTests {
             // Haengematten (2026-10-02): 16 Farben in Vanillas Bett-Reihenfolge, 9 + 7.
             expected.add(ModItems.HAMMOCKS);
         }
+        if (McVersion.MUSIC_DISCS) {
+            expected.add(List.of(ModItems.ASTRALIT_SPEAKER, ModItems.NIHILITH_SPEAKER));
+        }
 
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.FUNCTIONAL, problems), expectedSlots(expected), "SimpleMachines", problems);
         helper.assertTrue(problems.isEmpty(), "machines and storage layout: " + problems);
@@ -3350,6 +3353,10 @@ public final class DataIntegrityTests {
             colored.add(ModItems.COLORED_OCTANT_ITEMS.get(color));
         }
         expected.add(colored);
+        if (McVersion.MUSIC_DISCS) {
+            // Schallplatten (2026-10-03): je A-Seite, dann B-Seite.
+            expected.add(com.simplebuilding.util.MusicDiscs.items());
+        }
         // Buecher (Audit 2026-10-02): je Regal (GuideBooks.Shelf, Lesezeichen-Reihenfolge) die Handbuecher, dann
         // die verzauberten Buecher; jede Kategorie fliesst nach genau einer Luecke weiter (keine, wenn die
         // vorige eine Zeile genau fuellt) und bricht bei Bedarf um - in den Slots also eine lange Kategorie.
@@ -4699,6 +4706,10 @@ public final class DataIntegrityTests {
         net.minecraft.world.item.Rarity exception = RARITY_EXCEPTIONS.get(path);
         if (exception != null) {
             return exception;
+        }
+        // Schallplatten der Dimensionen (2026-10-03, nur 26.3): selten wie Pigstep und Otherside.
+        if (path.startsWith("music_disc_")) {
+            return net.minecraft.world.item.Rarity.RARE;
         }
         if (MATERIALS.contains(path) || GEAR_SUFFIXES.stream().anyMatch(path::endsWith)) {
             return net.minecraft.world.item.Rarity.COMMON;

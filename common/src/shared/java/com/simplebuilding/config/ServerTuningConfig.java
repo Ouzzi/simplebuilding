@@ -44,6 +44,9 @@ public class ServerTuningConfig {
     public Hammock hammock = new Hammock();
 
     @ConfigEntry.Gui.CollapsibleObject
+    public Speakers speakers = new Speakers();
+
+    @ConfigEntry.Gui.CollapsibleObject
     public OreGeneration oreGeneration = new OreGeneration();
 
     @ConfigEntry.Gui.CollapsibleObject
@@ -81,6 +84,7 @@ public class ServerTuningConfig {
         if (arrows == null) arrows = new Arrows();
         if (craftyShulker == null) craftyShulker = new CraftyShulker();
         if (hammock == null) hammock = new Hammock();
+        if (speakers == null) speakers = new Speakers();
         if (oreGeneration == null) oreGeneration = new OreGeneration();
         if (pads == null) pads = new Pads();
         if (charges == null) charges = new Charges();
@@ -139,6 +143,8 @@ public class ServerTuningConfig {
         craftyShulker.cooldownTicks = clamp(craftyShulker.cooldownTicks, ServerTuning.MIN_CRAFTY_COOLDOWN, ServerTuning.MAX_CRAFTY_COOLDOWN);
         craftyShulker.radius = clamp(craftyShulker.radius, ServerTuning.MIN_CRAFTY_RADIUS, ServerTuning.MAX_CRAFTY_RADIUS);
         hammock.timeFactor = clamp(hammock.timeFactor, 1, ServerTuning.MAX_HAMMOCK_FACTOR);
+        speakers.maxSpeakers = clamp(speakers.maxSpeakers, 0, ServerTuning.MAX_SPEAKERS);
+        speakers.boostPercent = clamp(speakers.boostPercent, 0, ServerTuning.MAX_SPEAKER_BOOST_PERCENT);
 
         blueprint.maxBlocksPerTick = clamp(blueprint.maxBlocksPerTick, 1, ServerTuning.MAX_BLUEPRINT_BLOCKS_PER_TICK);
 
@@ -266,6 +272,19 @@ public class ServerTuningConfig {
         /** Uhr-Ticks je Tick (1 bis 20; 1 = kein Zeitraffer). */
         @ConfigEntry.Gui.Tooltip
         public int timeFactor = 8;
+    }
+
+    /**
+     * Lautsprecher (2026-10-03): Astralit-Lautsprecher verstaerken angrenzende Plattenspieler, Nihilit-Lautsprecher
+     * angrenzende Notenbloecke (Lautstaerke und Hoerweite, ohne Echo). Hoechstens 2,5-fach.
+     */
+    public static class Speakers {
+        /** Hoechstens so viele angrenzende Lautsprecher zaehlen je Quelle (0 bis 3; 0 = aus). */
+        @ConfigEntry.Gui.Tooltip
+        public int maxSpeakers = 2;
+        /** Verstaerkung je Lautsprecher in Prozent der Vanilla-Lautstaerke (0 bis 50). */
+        @ConfigEntry.Gui.Tooltip
+        public int boostPercent = 50;
     }
 
     /** Erzvorkommen im End; wirken beim naechsten Weltstart und nur fuer neu erzeugte Chunks. */

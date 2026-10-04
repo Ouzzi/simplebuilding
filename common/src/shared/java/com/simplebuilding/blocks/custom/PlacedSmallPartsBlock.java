@@ -241,6 +241,10 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
         if (com.simplebuilding.util.ShulkerShells.upgrade(level, pos, player, stack)) {
             return net.minecraft.world.InteractionResult.SUCCESS;
         }
+        // Vorschlaghammer wendet eine abgelegte Schallplatte (A-Seite <-> B-Seite, 2026-10-03).
+        if (com.simplebuilding.util.DiscFlips.flip(level, pos, player, stack, hand)) {
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        }
         // Leere Hand loescht brennende Kerzen (wie CandleBlock#useItemOn).
         if (stack.isEmpty() && state.getValue(LIT) && player.getAbilities().mayBuild) {
             extinguish(player, state, level, pos);

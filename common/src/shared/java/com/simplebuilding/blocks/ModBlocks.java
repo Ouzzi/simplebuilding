@@ -181,6 +181,15 @@ public class ModBlocks {
 
     // Kleinteile auf einem Fleck (2026-10-02, wie Seegurken): bis zu 4 Kiesel, Splitter, Vanilla-Kleinteile und Eier
     // gemischt (PlacedSmallParts). Kein Item, keine Loot-Tabelle - die Teile liegen in der Block-Entity.
+    /**
+     * Lautsprecher (2026-10-03, McVersion.MUSIC_DISCS): Holz wie der Notenblock; Astralit verstaerkt angrenzende
+     * Plattenspieler, Nihilit angrenzende Notenbloecke ({@link com.simplebuilding.util.SpeakerBoost}).
+     */
+    public static final Block ASTRALIT_SPEAKER = McVersion.MUSIC_DISCS ? registerBlock("astralit_speaker", Blocks.NOTE_BLOCK,
+            s -> new com.simplebuilding.blocks.custom.SpeakerBlock(com.simplebuilding.util.SpeakerBoost.Source.JUKEBOX, s)) : null;
+    public static final Block NIHILITH_SPEAKER = McVersion.MUSIC_DISCS ? registerBlock("nihilith_speaker", Blocks.NOTE_BLOCK,
+            s -> new com.simplebuilding.blocks.custom.SpeakerBlock(com.simplebuilding.util.SpeakerBoost.Source.NOTE_BLOCK, s)) : null;
+
     /** Auto-Schmied: der Crafter des Schmiedetischs (2026-10-02, McVersion.AUTO_SMITHER). Eigenschaften wie der Crafter. */
     public static final Block AUTO_SMITHER = McVersion.AUTO_SMITHER
             ? registerBlock("auto_smither", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutoSmitherBlock::new) : null;

@@ -123,6 +123,36 @@ public final class ModLootTableModifications {
 
         var enchantments = registry.lookupOrThrow(Registries.ENCHANTMENT);
 
+        // 0b. Schallplatten der Dimensionen (Besitzer 2026-10-03, McVersion.MUSIC_DISCS): feste kleine Chancen wie
+        // Vanilla-Platten, je ein eigener Pool ohne eigene Config; wie jeder Mod-Pool unter den Loot-Schaltern.
+        // End: End-Stadt-Truhe; Nether: Bastion (uebrige Truhen, wo auch Pigstep liegt); Oberwelt 1: Waldanwesen;
+        // Oberwelt 2: Antike Staette (wie Otherside). Oberwelt 1/2 zusaetzlich im Creeper-Tag (ModItemTagProvider).
+        if (com.simplebuilding.version.McVersion.MUSIC_DISCS && BuiltInLootTables.END_CITY_TREASURE.equals(key)) {
+            editor.addPool(LootPool.lootPool()
+                    .setRolls(LootNumbers.exactly(1))
+                    .add(item(ModItems.MUSIC_DISC_VOIDLINE, 4))
+                    .add(EmptyLootItem.emptyItem().setWeight(96)));
+        }
+        if (com.simplebuilding.version.McVersion.MUSIC_DISCS && BuiltInLootTables.BASTION_OTHER.equals(key)) {
+            editor.addPool(LootPool.lootPool()
+                    .setRolls(LootNumbers.exactly(1))
+                    .add(item(ModItems.MUSIC_DISC_BRIMSTONE, 4))
+                    .add(EmptyLootItem.emptyItem().setWeight(96)));
+        }
+        if (com.simplebuilding.version.McVersion.MUSIC_DISCS && BuiltInLootTables.WOODLAND_MANSION.equals(key)) {
+            editor.addPool(LootPool.lootPool()
+                    .setRolls(LootNumbers.exactly(1))
+                    .add(item(ModItems.MUSIC_DISC_DRIFTWOOD, 5))
+                    .add(EmptyLootItem.emptyItem().setWeight(95)));
+        }
+        if (com.simplebuilding.version.McVersion.MUSIC_DISCS && BuiltInLootTables.ANCIENT_CITY.equals(key)) {
+            editor.addPool(LootPool.lootPool()
+                    .setRolls(LootNumbers.exactly(1))
+                    .add(item(ModItems.MUSIC_DISC_DAYBREAK, 5))
+                    .add(EmptyLootItem.emptyItem().setWeight(195)));
+        }
+
+
         // 1. STRONGHOLD LIBRARY - Bau-Buecher (eine bis zwei Kisten pro Stronghold)
         if (BuiltInLootTables.STRONGHOLD_LIBRARY.equals(key)) {
             editor.addPool(LootPool.lootPool()

@@ -68,6 +68,10 @@ public final class ServerTuning {
     public static final int MAX_CRAFTY_RADIUS = 16;
     /** Hammock: at most this many clock ticks per tick while players rest (1 = off). */
     public static final int MAX_HAMMOCK_FACTOR = 20;
+    /** Speakers: at most three adjacent speakers count per jukebox or note block (server.speakers). */
+    public static final int MAX_SPEAKERS = 3;
+    /** Speakers: at most +50 % of the vanilla volume each, so 2.5x (jukebox 160, note block 120 blocks) at most. */
+    public static final int MAX_SPEAKER_BOOST_PERCENT = 50;
     public static final int MIN_LENS = 64;
     public static final int MAX_LENS = 2560;
     public static final int MIN_ROTATOR = 64;
@@ -315,6 +319,18 @@ public final class ServerTuning {
     /** Clock ticks per tick while enough players rest in hammocks (1..20, see HammockTime); nur Server. */
     public static int hammockTimeFactor() {
         return ServerTuningConfig.clamp(get().hammock.timeFactor, 1, MAX_HAMMOCK_FACTOR);
+    }
+
+    /** Adjacent speakers that count per jukebox or note block (0..3; 0 = off); on a client the server's value. */
+    public static int maxSpeakers() {
+        ServerTuningConfig.Speakers speakers = get().speakers;
+        return speakers == null ? 2 : ServerTuningConfig.clamp(speakers.maxSpeakers, 0, MAX_SPEAKERS);
+    }
+
+    /** Volume added per counted speaker, as a share of the vanilla volume (0..0.5); on a client the server's value. */
+    public static float speakerBoost() {
+        ServerTuningConfig.Speakers speakers = get().speakers;
+        return (speakers == null ? 50 : ServerTuningConfig.clamp(speakers.boostPercent, 0, MAX_SPEAKER_BOOST_PERCENT)) / 100.0F;
     }
 
     public static int blueprintBlocksPerTick() {

@@ -281,15 +281,18 @@ public final class WorldAndPlayerTests {
      * chamber rare vault is a two because it is the single key that both vault branches match.
      * Everything else gets exactly one pool.
      */
+    /** The music disc pool of the four disc tables (MusicDiscs, 26.3 only). */
+    private static final int DISC_POOL = com.simplebuilding.version.McVersion.MUSIC_DISCS ? 1 : 0;
+
     private static final Map<ResourceKey<LootTable>, Integer> POOLS_PER_TABLE = Map.ofEntries(
             Map.entry(BuiltInLootTables.STRONGHOLD_LIBRARY, 1),
-            Map.entry(BuiltInLootTables.END_CITY_TREASURE, 5),
-            Map.entry(BuiltInLootTables.ANCIENT_CITY, 1),
+            Map.entry(BuiltInLootTables.END_CITY_TREASURE, 5 + DISC_POOL),
+            Map.entry(BuiltInLootTables.ANCIENT_CITY, 1 + DISC_POOL),
             Map.entry(BuiltInLootTables.BASTION_TREASURE, 4),
-            Map.entry(BuiltInLootTables.BASTION_OTHER, 2),
+            Map.entry(BuiltInLootTables.BASTION_OTHER, 2 + DISC_POOL),
             Map.entry(BuiltInLootTables.NETHER_BRIDGE, 2),
             Map.entry(BuiltInLootTables.PILLAGER_OUTPOST, 1),
-            Map.entry(BuiltInLootTables.WOODLAND_MANSION, 2),
+            Map.entry(BuiltInLootTables.WOODLAND_MANSION, 2 + DISC_POOL),
             Map.entry(BuiltInLootTables.BURIED_TREASURE, 1),
             Map.entry(BuiltInLootTables.SIMPLE_DUNGEON, 1),
             Map.entry(BuiltInLootTables.SHIPWRECK_TREASURE, 1),
