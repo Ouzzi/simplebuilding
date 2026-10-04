@@ -145,10 +145,15 @@ def outputs():
     for song in SONGS:
         discs["music_disc_" + song] = disc(base, song, False)
         discs["music_disc_" + song + "_b_side"] = disc(base, song, True)
-    blocks = {
-        "astralit_speaker_side": speaker_side(note, ASTRALIT), "astralit_speaker_top": speaker_end(top, ASTRALIT),
-        "nihilith_speaker_side": speaker_side(note, NIHILITH), "nihilith_speaker_top": speaker_end(top, NIHILITH),
-    }
+    # Speakers settled 2026-10-04 (owner): note block with the material radially in its holes, one texture for all
+    # six faces - drawn by speaker_settled_2026_10_04.py (speaker_side/speaker_end above are the earlier design).
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    saved_argv = sys.argv[:]          # the settled module reads/rewrites sys.argv on import
+    try:
+        import speaker_settled_2026_10_04 as settled
+    finally:
+        sys.argv = saved_argv
+    blocks = settled.textures(note.convert("RGBA").crop((0, 0, 16, 16)))
     return discs, blocks
 
 
