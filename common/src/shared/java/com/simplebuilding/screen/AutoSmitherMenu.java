@@ -9,8 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerListener;
-import net.minecraft.world.inventory.NonInteractiveResultSlot;
-import net.minecraft.world.inventory.ResultContainer;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -18,11 +17,11 @@ import net.minecraft.world.item.crafting.RecipePropertySet;
 import net.minecraft.world.level.Level;
 
 /**
- * Menue des Auto-Schmieds im Layout des Schmiedetischs: Vorlage, Basis, Material, rechts die Vorschau des Ergebnisses
- * (nicht nehmbar, wie beim Crafter) und darunter das Inventar. Die Vorschau rechnet nur der Server.
+ * Smithing-table layout with three inputs and a take-only slot for finished results.
+ * Recipe errors are computed by the server, independently of stored output.
  */
 public class AutoSmitherMenu extends AbstractContainerMenu implements ContainerListener {
-    public static final int RESULT_SLOT = AutoSmitherBlockEntity.SIZE;
+    public static final int RESULT_SLOT = AutoSmitherBlockEntity.RESULT_SLOT;
     private static final int INV_START = RESULT_SLOT + 1;
     private static final int INV_END = INV_START + 27;
     private static final int HOTBAR_END = INV_END + 9;
@@ -30,7 +29,7 @@ public class AutoSmitherMenu extends AbstractContainerMenu implements ContainerL
     private final Container container;
     private final ContainerData data;
     private final Player player;
-    private final ResultContainer result = new ResultContainer();
+    private final DataSlot recipeError = DataSlot.standalone();
 
     public AutoSmitherMenu(int containerId, Inventory inventory) {
         this(containerId, inventory, new SimpleContainer(AutoSmitherBlockEntity.SIZE), new SimpleContainerData(1));
@@ -47,9 +46,15 @@ public class AutoSmitherMenu extends AbstractContainerMenu implements ContainerL
         this.addSlot(new InputSlot(container, AutoSmitherBlockEntity.TEMPLATE_SLOT, 8, 48, level, RecipePropertySet.SMITHING_TEMPLATE));
         this.addSlot(new InputSlot(container, AutoSmitherBlockEntity.BASE_SLOT, 26, 48, level, RecipePropertySet.SMITHING_BASE));
         this.addSlot(new InputSlot(container, AutoSmitherBlockEntity.ADDITION_SLOT, 44, 48, level, RecipePropertySet.SMITHING_ADDITION));
-        this.addSlot(new NonInteractiveResultSlot(this.result, 0, 98, 48));
+        this.addSlot(new Slot(container, RESULT_SLOT, 98, 48) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return false;
+            }
+        });
         this.addStandardInventorySlots(inventory, 8, 84);
         this.addDataSlots(data);
+        this.addDataSlot(this.recipeError);
         this.addSlotListener(this);
         refreshResult();
     }
@@ -63,13 +68,18 @@ public class AutoSmitherMenu extends AbstractContainerMenu implements ContainerL
         if (this.player instanceof ServerPlayer serverPlayer) {
             AutoSmitherBlockEntity.Outcome outcome = AutoSmitherBlockEntity.outcome(serverPlayer.level(),
                     this.container.getItem(0), this.container.getItem(1), this.container.getItem(2));
-            this.result.setItem(0, outcome == null ? ItemStack.EMPTY : outcome.result());
+            this.recipeError.set(outcome == null && !this.container.getItem(0).isEmpty()
+                    && !this.container.getItem(1).isEmpty() && !this.container.getItem(2).isEmpty() ? 1 : 0);
         }
+    }
+
+    public boolean hasRecipeError() {
+        return this.recipeError.get() != 0;
     }
 
     @Override
     public void slotChanged(AbstractContainerMenu menu, int slotIndex, ItemStack stack) {
-        if (slotIndex < AutoSmitherBlockEntity.SIZE) {
+        if (slotIndex < RESULT_SLOT) {
             refreshResult();
         }
     }
@@ -92,12 +102,12 @@ public class AutoSmitherMenu extends AbstractContainerMenu implements ContainerL
     @Override
     public ItemStack quickMoveStack(Player player, int slotIndex) {
         Slot slot = this.slots.get(slotIndex);
-        if (slot == null || !slot.hasItem() || slotIndex == RESULT_SLOT) {
+        if (slot == null || !slot.hasItem()) {
             return ItemStack.EMPTY;
         }
         ItemStack stack = slot.getItem();
         ItemStack moved = stack.copy();
-        if (slotIndex < RESULT_SLOT) {
+        if (slotIndex <= RESULT_SLOT) {
             if (!this.moveItemStackTo(stack, INV_START, HOTBAR_END, true)) {
                 return ItemStack.EMPTY;
             }

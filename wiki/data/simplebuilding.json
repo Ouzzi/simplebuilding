@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 303,
+      "count": 305,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -470,7 +470,7 @@
           "Water does not wash it away: a template can be placed into water (it becomes waterlogged), and flowing water runs around it. Breaking it - by hand, explosion, piston or by taking away the block it lies on - drops exactly the stored template with all its data (name, enchantments). Middle-click picks the template itself.",
           "A placed template carries the name of the template it holds (for example \"Glowing Armor Trim\", or its anvil name) wherever the game or a mod like Jade names the block.",
           "Blueprints can be placed the same way: sneak + right-click lays one flat on the floor, on a wall or under the ceiling as a thin plate showing the blueprint's current look. It keeps all its data (code, title, author) and drops itself when broken; its hitbox is the plate, and it is named like the blueprint.",
-          "Placed armor trim templates can be upgraded with the sledgehammer (the only way to do it) with 5 hits: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the fifth turns it into the Glowing or Emitting Armor Trim and uses up the off-hand item (not in creative). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target.",
+          "Placed armor trim templates can be upgraded with the sledgehammer (initial creation) with 5 hits: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the fifth turns it into the Glowing or Emitting Armor Trim and consumes 2 off-hand catalysts plus 4 diamonds and 2 glowstone blocks (Glowing) or 2 blaze powder (Emitting) from the inventory on 26.3 (not in creative; 26.2 still uses 1 catalyst). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target. All materials must be available before each hit; only the final hit consumes them.",
           "Hint: while a player holding Glow Ink Sac or Glowstone Dust (either hand) is within 6 blocks, an upgradable placed template shows a few sparks circling over it every half second and chimes quietly at most every 3 seconds.",
           "The Attractor can be placed the same way (sneak + right-click) and then pulls loose items toward itself, see the Attractor chapter.",
           "A locked Octant can be put down the same way (sneak + right-click; an unlocked one still sets Pos 2 with that click) and keeps its corners, shape and color. Right-click the placed octant to show its selection for yourself - corners and the full figure, as at the cartography table - and right-click again to hide it. While it is shown for you, the placed octant also glows in its color through walls, so you can find it again to switch it off. The switch is per player: others only see what they switched on themselves. It is saved with the block and also works while the mod's highlights are hidden with the toggle key."
@@ -485,7 +485,7 @@
           "Wasser spült sie nicht weg: Eine Vorlage lässt sich ins Wasser legen (sie wird wassergefüllt), und fließendes Wasser läuft um sie herum. Abbauen – von Hand, durch Explosion, Kolben oder indem man den Block darunter wegnimmt – gibt genau die gespeicherte Vorlage mit allen Daten (Name, Verzauberungen) zurück. Die mittlere Maustaste nimmt die Vorlage selbst.",
           "Eine abgelegte Vorlage trägt den Namen der Vorlage, die sie hält (etwa „Leuchtender Rüstungsbesatz“ oder ihren Amboss-Namen), überall dort, wo das Spiel oder eine Mod wie Jade den Block benennt.",
           "Blaupausen lassen sich genauso ablegen: Schleichen + Rechtsklick legt eine flach auf den Boden, an die Wand oder unter die Decke, als dünne Platte in ihrem aktuellen Aussehen. Sie behält alle Daten (Code, Titel, Autor) und fällt beim Abbauen als sie selbst heraus; ihre Trefferform ist die Platte, und sie heißt wie die Blaupause.",
-          "Abgelegte Rüstungsbesatz-Vorlagen lassen sich mit dem Vorschlaghammer aufwerten (der einzige Weg dafür), mit 5 Schlägen: Vorschlaghammer in der Haupthand, Leuchttintenbeutel oder Glowstonestaub in der Nebenhand, Linksklick auf die Vorlage. Jeder Schlag gibt Funken und einen höher werdenden Klang; der fünfte macht daraus die leuchtende bzw. strahlende Besatzvorlage und verbraucht das Item aus der Nebenhand (nicht im Kreativmodus). Nach 5 Sekunden ohne Schlag oder bei einem anderen Material beginnt die Zählung von vorn. Mit Hammer und Material in den Händen lässt sich die Vorlage nicht abbauen; der Hammer neigt sich zu ihr wie zu jedem anderen gültigen Ziel.",
+          "Abgelegte Rüstungsbesatz-Vorlagen lassen sich mit dem Vorschlaghammer aufwerten (Erstherstellung), mit 5 Schlägen: Vorschlaghammer in der Haupthand, Leuchttintenbeutel oder Glowstonestaub in der Nebenhand, Linksklick auf die Vorlage. Jeder Schlag gibt Funken und einen höher werdenden Klang; der fünfte macht daraus die leuchtende bzw. strahlende Besatzvorlage und verbraucht auf 26.3 2 Nebenhand-Katalysatoren sowie 4 Diamanten und 2 Glowstone-Blöcke (Leuchtend) bzw. 2 Lohenpulver (Strahlend) aus dem Inventar (nicht im Kreativmodus; 26.2 weiterhin 1 Katalysator). Nach 5 Sekunden ohne Schlag oder bei einem anderen Material beginnt die Zählung von vorn. Mit Hammer und Material in den Händen lässt sich die Vorlage nicht abbauen; der Hammer neigt sich zu ihr wie zu jedem anderen gültigen Ziel. Alle Materialien müssen vor jedem Schlag vorhanden sein; erst der letzte verbraucht sie.",
           "Hinweis: Solange ein Spieler mit Leuchttintenbeutel oder Glowstonestaub (in einer der beiden Hände) höchstens 6 Blöcke entfernt ist, kreisen über einer aufwertbaren abgelegten Vorlage alle halbe Sekunde ein paar Funken, und höchstens alle 3 Sekunden klingt sie leise.",
           "Der Attraktor lässt sich genauso ablegen (Schleichen + Rechtsklick) und zieht dann lose Items zu sich, siehe das Kapitel zum Attraktor.",
           "Ein gesperrter Oktant lässt sich genauso ablegen (Schleichen + Rechtsklick; ein ungesperrter setzt mit diesem Klick weiter Pos 2) und behält Ecken, Form und Farbe. Rechtsklick auf den abgelegten Oktanten blendet seine Auswahl für dich ein – Ecken und die ganze Figur, wie am Kartentisch –, ein zweiter Rechtsklick blendet sie wieder aus. Solange sie für dich eingeblendet ist, leuchtet der abgelegte Oktant außerdem in seiner Farbe durch Wände, damit du ihn zum Ausschalten wiederfindest. Der Schalter gilt je Spieler: andere sehen nur, was sie selbst eingeschaltet haben. Er wird mit dem Block gespeichert und wirkt auch, wenn die Hervorhebungen der Mod per Taste ausgeblendet sind."
@@ -2811,6 +2811,7 @@
         "simplebuilding:pulsating_trim_template"
       ],
       "sources": [
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
         "common/src/shared/java/com/simplebuilding/util/GlowingTrimUtils.java",
         "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
@@ -2844,6 +2845,7 @@
         "title": "Glowing Armor and a Wearable Light Source",
         "summary": "With the Emitting Armor Trim and Glowstone Dust, an armor piece becomes a wearable light source at the smithing table: the server continuously places an invisible light block at the wearer's head height - and on a mob, an armor stand or in an item frame the piece shines as well, with faint glints marking it as radiant. The Glowing Armor Trim with a Glow Ink Sac, by contrast, only makes the trim glow visually, without giving off any light.",
         "details": [
+          "26.3 duplication: one template + 7 diamonds + one base block yields 2 templates. Base blocks: Glowing = glowstone; Emitting = magma block; Pulsating = sculk; Basic Upgrade = iron block; Enderite Upgrade = end stone. Basic used 7 gold ingots before; Enderite is unchanged. Armor application at the smithing table still consumes one template and one matching material.",
           "Raising radiance: in the smithing table, Emitting Armor Trim + armor piece + Glowstone Dust raises the piece's radiance (NBT key \"SimpleBuildingEmissionLevel\") by 1, up to a maximum of 5; at level 5 no result is produced any more.",
           "The mod's check accepts every item in the #minecraft:trimmable_armor tag as well as any item that carries an equippable component.",
           "The four quivers carry an equippable component as well, so the check accepts them: at the smithing table the Reinforced Quiver and the Netherite Quiver take radiance and glow just like an armor piece. The plain Quiver and the Enderite Quiver do not - the smithing table's base slot only accepts items that are the base ingredient of some smithing recipe; the Enderite Quiver only ever appears as a result, and the plain Quiver is the base of none, because the Netherite Quiver is smithed from the Reinforced Quiver.",
@@ -2863,7 +2865,7 @@
           "When a player changes dimension, their light block in the old dimension is removed at once (it used to stay behind).",
           "Radiant pieces are recognisable, but only just: worn armor (on players, mobs and armor stands) and item frames holding a radiant piece now and then give off a faint warm glint (the wax-on particle). The chance per tick is 0.005 per radiance level of the whole wearer, capped at 0.025 - one glint about every 10 seconds at level 1 and at most one about every 2 seconds, which a single piece at level 5 already reaches. More radiant pieces therefore do not add up: a full set at level 5 glints no more often than one piece at level 5. Invisible wearers show none.",
           "Mobs wearing radiant armor light their way as well: the block above a mob's head is lit like a player's (checked every 4 server ticks so the light follows it), saved with the mob and removed when it despawns or dies. Only players use the per-tick table; every other wearer stores its light block itself.",
-          "Pulsating Armor Trim (owner 2026-09-28): crafted at a crafting table from an Echo Shard and any sledgehammer - the hammer stays in the grid and loses 1 durability (a hammer on its last point breaks). At the smithing table, Pulsating Armor Trim + armor piece + Echo Shard makes the trim pulse (component simplebuilding:pulsating, once per piece): without Glowing only the saturation pulses - every 2.4 seconds the trim fades smoothly from full color to gray and back, each pixel keeping its brightness; light and brightness stay exactly as without the upgrade. Only together with Glowing (either level) does the brightness swing: the trim's light rises and falls between 1 and 15 in the same 2.4 second rhythm. Tooltip \"Pulsating\" (dark aqua) plus a gray line naming the effect (\"Its colors fade to gray and back\" or, with Glowing, \"Its glow swells and fades\"). The template shows a warden face with glowing antennae in the deep dark colors of sculk and deepslate, in the same frame as the Glowing and Emitting templates.",
+          "Pulsating Armor Trim (owner 2026-09-28): crafted at a crafting table from 2 Echo Shards, 2 sculk, 4 diamonds and any sledgehammer on 26.3 (26.2: 1 Echo Shard and a hammer) - the hammer stays in the grid and loses 1 durability (a hammer on its last point breaks). At the smithing table, Pulsating Armor Trim + armor piece + Echo Shard makes the trim pulse (component simplebuilding:pulsating, once per piece): without Glowing only the saturation pulses - every 2.4 seconds the trim fades smoothly from full color to gray and back, each pixel keeping its brightness; light and brightness stay exactly as without the upgrade. Only together with Glowing (either level) does the brightness swing: the trim's light rises and falls between 1 and 15 in the same 2.4 second rhythm. Tooltip \"Pulsating\" (dark aqua) plus a gray line naming the effect (\"Its colors fade to gray and back\" or, with Glowing, \"Its glow swells and fades\"). The template shows a warden face with glowing antennae in the deep dark colors of sculk and deepslate, in the same frame as the Glowing and Emitting templates.",
           "JEI shows the three upgrades at the smithing table with the upgraded armor piece as the result (template + armor + material -> the same armor with the effect); the placeholder recipes, whose result is the template itself, are hidden there."
         ]
       },
@@ -2871,6 +2873,7 @@
         "title": "Leuchtende Rüstung und Lichtquelle am Körper",
         "summary": "Mit dem „Strahlenden Rüstungsbesatz“ und Glowstone-Staub wird ein Rüstungsteil am Schmiedetisch zur tragbaren Lichtquelle: Der Server setzt laufend einen unsichtbaren Lichtblock auf Kopfhöhe des Trägers – auch an einem Mob, auf einem Rüstungsständer oder in einem Rahmen leuchtet das Teil, und feine Funken weisen es als strahlend aus. Der „Leuchtende Rüstungsbesatz“ mit Leuchttintenbeutel lässt dagegen nur den Besatz optisch leuchten, ohne Licht abzugeben.",
         "details": [
+          "Vervielfältigung auf 26.3: eine Vorlage + 7 Diamanten + ein Basisblock ergibt 2 Vorlagen. Basisblöcke: Leuchtend = Glowstone; Strahlend = Magmablock; Pulsierend = Sculk; Basis-Aufwertung = Eisenblock; Enderit-Aufwertung = Endstein. Basis brauchte vorher 7 Goldbarren; Enderit bleibt unverändert. Die Anwendung auf Rüstung am Schmiedetisch verbraucht weiterhin eine Vorlage und ein passendes Material.",
           "Strahlkraft aufwerten: Im Schmiedetisch „Strahlender Rüstungsbesatz“ + Rüstungsteil + Glowstone-Staub erhöht die Strahlkraft des Teils (NBT-Schlüssel „SimpleBuildingEmissionLevel“) um 1, bis höchstens 5; bei Stufe 5 entsteht kein Ergebnis mehr.",
           "Gültig sind alle Teile im Tag #minecraft:trimmable_armor sowie jedes Item mit Ausrüstungs-Komponente (equippable).",
           "Auch die vier Köcher tragen eine Ausrüstungs-Komponente, die Prüfung nimmt sie also an: Am Schmiedetisch bekommen Verstärkter Köcher und Netheritköcher Strahlkraft und Leuchten wie ein Rüstungsteil. Köcher und Enderitköcher nicht - der Basis-Slot des Schmiedetischs nimmt nur Gegenstände an, die in irgendeinem Schmiederezept als Basis stehen; der Enderitköcher kommt dort nur als Ergebnis vor, und der einfache Köcher ist Basis keines Rezepts, weil der Netheritköcher aus dem Verstärkten Köcher geschmiedet wird.",
@@ -2890,7 +2893,7 @@
           "Wechselt ein Spieler die Dimension, wird sein Lichtblock in der alten Dimension sofort entfernt (früher blieb er stehen).",
           "Strahlende Teile sind erkennbar, aber nur dezent: getragene Rüstung (an Spielern, Mobs und Rüstungsständern) und Rahmen mit einem strahlenden Teil geben ab und zu einen feinen, warmen Funken ab (Partikel „Wachs“). Die Chance je Tick ist 0,005 je Strahlkraft-Stufe des ganzen Trägers, höchstens 0,025 – auf Stufe 1 etwa alle 10 Sekunden ein Funke, höchstens etwa einer alle 2 Sekunden, was schon ein einzelnes Teil auf Stufe 5 erreicht. Mehr strahlende Teile addieren sich also nicht: eine volle Ausrüstung auf Stufe 5 funkelt nicht öfter als ein Teil auf Stufe 5. Unsichtbare Träger zeigen keine.",
           "Auch Mobs mit strahlender Rüstung leuchten: Der Block über dem Kopf eines Mobs wird wie beim Spieler erhellt (alle 4 Server-Ticks geprüft, damit das Licht folgt), mit dem Mob gespeichert und entfernt, wenn er verschwindet oder stirbt. Nur Spieler laufen über die Tick-Tabelle; jeder andere Träger speichert seinen Lichtblock selbst.",
-          "Pulsierender Rüstungsbesatz (Besitzer 2026-09-28): an der Werkbank aus einer Echoscherbe und einem beliebigen Vorschlaghammer - der Hammer bleibt im Raster und verliert 1 Haltbarkeit (ein Hammer auf dem letzten Punkt bricht). Am Schmiedetisch macht Pulsierender Rüstungsbesatz + Rüstungsteil + Echoscherbe den Besatz pulsierend (Komponente simplebuilding:pulsating, einmal je Teil): ohne Leuchten pulsiert nur die Sättigung - alle 2,4 Sekunden verblasst der Besatz weich von voller Farbe zu Grau und zurück, jeder Pixel behält dabei seine Helligkeit; Licht und Helligkeit bleiben genau wie ohne die Aufwertung. Nur zusammen mit dem Leuchtenden Rüstungsbesatz (jede Stufe) schwankt die Helligkeit: das Licht des Besatzes steigt und fällt im selben 2,4-Sekunden-Takt zwischen 1 und 15. Tooltip „Pulsierend“ (dunkeltürkis) und eine graue Zeile mit der Wirkung („Seine Farben verblassen zu Grau und kehren zurück“ bzw. mit Leuchten „Sein Leuchten schwillt an und ab“). Die Vorlage zeigt ein Wärter-Gesicht mit leuchtenden Fühlern in den Farben der Tiefen Dunkelheit (Sculk, Tiefenschiefer), im selben Rahmen wie die leuchtende und die strahlende Vorlage.",
+          "Pulsierender Rüstungsbesatz (Besitzer 2026-09-28): an der Werkbank auf 26.3 aus 2 Echoscherben, 2 Sculk, 4 Diamanten und einem beliebigen Vorschlaghammer (26.2: 1 Echoscherbe und Hammer) - der Hammer bleibt im Raster und verliert 1 Haltbarkeit (ein Hammer auf dem letzten Punkt bricht). Am Schmiedetisch macht Pulsierender Rüstungsbesatz + Rüstungsteil + Echoscherbe den Besatz pulsierend (Komponente simplebuilding:pulsating, einmal je Teil): ohne Leuchten pulsiert nur die Sättigung - alle 2,4 Sekunden verblasst der Besatz weich von voller Farbe zu Grau und zurück, jeder Pixel behält dabei seine Helligkeit; Licht und Helligkeit bleiben genau wie ohne die Aufwertung. Nur zusammen mit dem Leuchtenden Rüstungsbesatz (jede Stufe) schwankt die Helligkeit: das Licht des Besatzes steigt und fällt im selben 2,4-Sekunden-Takt zwischen 1 und 15. Tooltip „Pulsierend“ (dunkeltürkis) und eine graue Zeile mit der Wirkung („Seine Farben verblassen zu Grau und kehren zurück“ bzw. mit Leuchten „Sein Leuchten schwillt an und ab“). Die Vorlage zeigt ein Wärter-Gesicht mit leuchtenden Fühlern in den Farben der Tiefen Dunkelheit (Sculk, Tiefenschiefer), im selben Rahmen wie die leuchtende und die strahlende Vorlage.",
           "JEI zeigt die drei Aufwertungen am Schmiedetisch mit dem aufgewerteten Rüstungsteil als Ergebnis (Vorlage + Rüstung + Material -> dieselbe Rüstung mit Wirkung); die Platzhalter-Rezepte, deren Ergebnis die Vorlage selbst ist, sind dort ausgeblendet."
         ]
       }
@@ -3486,6 +3489,50 @@
       }
     },
     {
+      "id": "end_rails",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndRailBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndRailPhysics.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/mixin/MinecartBehaviorEndRailMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AbstractMinecartEndRailMixin.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
+        "mc26_3/generated/data/simplebuilding/recipe/astral_rail.json",
+        "mc26_3/generated/data/simplebuilding/recipe/nihil_rail.json"
+      ],
+      "related": [
+        "simplebuilding:astral_rail",
+        "simplebuilding:nihil_rail",
+        "simplebuilding:astral_redstone",
+        "simplebuilding:nihil_redstone"
+      ],
+      "en": {
+        "title": "Astral and Nihil Rails",
+        "summary": "Straight rails of the two End channels: the Astral Rail raises the minecart top speed and boosts towards it, the Nihil Rail brakes to a stop.",
+        "details": [
+          "Recipe like the powered rail: six gold ingots, a stick and Astral Redstone (Astral Rail) or Nihil Redstone (Nihil Rail) make 6 rails. They are straight only (no curves) and minecarts treat them as rails.",
+          "Power comes from the rail's own channel like a lamp: Astral or Nihil Redstone or a switch of the same channel on a horizontal neighbor. Vanilla redstone, the other channel and neighboring rails do not power it. The rail checks its neighbors every two game ticks while a source of its channel lies next to it.",
+          "Astral Rail: on a flat Astral Rail the top speed is server.machines.astralRailMaxSpeed blocks per second (default 16, clamped to 8–20; vanilla 8), or the experimental max_minecart_speed game rule if that is higher. On slopes, in water and on every other rail the vanilla limit applies, so a fast cart meets the normal limit again before a curve. Unpowered it is a plain rail that keeps the cart's momentum; momentum above the limit is cut to the limit.",
+          "Powered Astral Rail: every game tick the cart gains boost × (1 − (speed / top speed)²), boost = server.machines.astralRailBoost (default 0.12 blocks per tick, clamped to 0.07–0.25, at most a quarter of the top speed). That is more than a powered rail's 0.06 when slow and less the faster the cart goes; the speed approaches the top speed and never reaches it. Vanilla friction still applies. A cart standing still is pushed away from a solid block at one end of the rail, like on a powered rail.",
+          "Powered Nihil Rail: every game tick the cart keeps 80 % of its speed minus server.machines.nihilRailBrake (default 0.08 blocks per tick, clamped to 0.02–0.4); below 0.03 it stops and is held while the power stays on. Unpowered, carts roll through.",
+          "server.features.endRails (default true) needs server.features.endSignals as well; switched off, both rails act as plain rails and their recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astral- und Nihil-Schienen",
+        "summary": "Gerade Schienen der beiden End-Kanäle: die Astral-Schiene hebt das Höchsttempo der Lore an und beschleunigt darauf zu, die Nihil-Schiene bremst bis zum Halt.",
+        "details": [
+          "Rezept wie die Antriebsschiene: sechs Goldbarren, ein Stock und Astral-Redstone (Astral-Schiene) bzw. Nihil-Redstone (Nihil-Schiene) ergeben 6 Schienen. Sie sind nur gerade (keine Kurven), Loren behandeln sie als Schienen.",
+          "Strom kommt wie bei einer Lampe aus dem eigenen Kanal: Astral- bzw. Nihil-Redstone oder ein Schalter desselben Kanals auf einem waagerechten Nachbarfeld. Vanilla-Redstone, der andere Kanal und benachbarte Schienen speisen sie nicht. Die Schiene prüft ihre Nachbarn alle zwei Spielticks, solange eine Quelle ihres Kanals daneben liegt.",
+          "Astral-Schiene: auf einer flachen Astral-Schiene beträgt das Höchsttempo server.machines.astralRailMaxSpeed Blöcke pro Sekunde (Standard 16, begrenzt auf 8–20; Vanilla 8) oder die experimentelle Spielregel max_minecart_speed, wenn sie höher ist. Auf Steigungen, im Wasser und auf allen anderen Schienen gilt die Vanilla-Grenze, eine schnelle Lore trifft vor einer Kurve also wieder auf die normale Grenze. Ungespeist ist sie eine normale Schiene, die den Schwung erhält; Schwung über der Grenze wird auf die Grenze gekappt.",
+          "Gespeiste Astral-Schiene: jeden Spieltick gewinnt die Lore Schub × (1 − (Tempo / Höchsttempo)²), Schub = server.machines.astralRailBoost (Standard 0,12 Blöcke pro Tick, begrenzt auf 0,07–0,25, höchstens ein Viertel des Höchsttempos). Langsam ist das mehr als die 0,06 einer Antriebsschiene, je schneller die Lore, desto weniger; das Tempo nähert sich dem Höchsttempo und erreicht es nie. Die Vanilla-Reibung wirkt weiter. Eine stehende Lore wird wie auf einer Antriebsschiene von einem festen Block am Schienenende weggeschoben.",
+          "Gespeiste Nihil-Schiene: jeden Spieltick behält die Lore 80 % ihres Tempos abzüglich server.machines.nihilRailBrake (Standard 0,08 Blöcke pro Tick, begrenzt auf 0,02–0,4); unter 0,03 hält sie an und bleibt stehen, solange der Strom anliegt. Ungespeist rollen Loren durch.",
+          "server.features.endRails (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet sind beide Schienen normale Schienen und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    {
       "id": "astral_vault",
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/AstralVaultBlock.java",
@@ -3767,6 +3814,20 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_rail",
+      "name": {
+        "en_us": "Astral Rail",
+        "de_de": "Astral-Schiene"
+      },
+      "texture": "assets/textures/block/astral_rail.png",
+      "craftedBy": [
+        "simplebuilding:astral_rail"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_redstone",
       "name": {
         "en_us": "Astral Redstone",
@@ -3778,6 +3839,7 @@
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
+        "simplebuilding:astral_rail",
         "simplebuilding:astralit_lamp",
         "simplebuilding:astralit_switch"
       ],
@@ -4186,26 +4248,28 @@
       "icon": "assets/textures/render/auto_smither.png",
       "note": {
         "en": {
-          "summary": "The Auto Smither is the Crafter of the smithing table: a redstone pulse smiths once from the template, base and addition inside it and pushes the result out of its front.",
+          "summary": "The Auto Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
           "details": [
-            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. The result goes into a container in front of it, otherwise it flies out as an item. Without a matching recipe it only clicks.",
-            "Hoppers and droppers fill it from any side: templates go into the template slot, gear into the base slot and materials into the addition slot, using the same checks as the smithing table. Nothing can be pulled out again.",
-            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled slot (0 to 15).",
+            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. Results go into a container in front, with any remainder kept in the output slot. Without a matching recipe or enough output space it only clicks and consumes nothing.",
+            "Hoppers and droppers fill the three input slots from any side, using the smithing table's item checks. Only finished results can be pulled out. Players can take results but cannot place anything in the output slot.",
+            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled input slot (0 to 15). The error arrow appears only when all three inputs are present but their recipe is invalid.",
             "Recipe: iron ingots around a smithing table, redstone, a dropper and redstone in the bottom row - like the Crafter."
           ]
         },
         "de": {
-          "summary": "Der Auto-Schmied ist der Crafter des Schmiedetischs: ein Redstone-Impuls schmiedet einmal aus der Vorlage, der Basis und dem Material darin und schiebt das Ergebnis vorn heraus.",
+          "summary": "Der Auto-Schmied schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Material. Fertige Ergebnisse gehen in einen Behälter vor ihm oder bleiben im Ausgabeslot.",
           "details": [
-            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Das Ergebnis geht in einen Behälter vor ihm, sonst fliegt es als Item heraus. Ohne passendes Rezept klickt er nur.",
-            "Trichter und Spender befüllen ihn von jeder Seite: Vorlagen kommen in den Vorlagen-Slot, Ausrüstung in den Basis-Slot und Materialien in den Material-Slot, mit denselben Prüfungen wie am Schmiedetisch. Herausziehen lässt sich nichts.",
-            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Slot (0 bis 15).",
+            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Ergebnisse gehen in einen Behälter vor ihm, der Rest bleibt im Ausgabeslot. Ohne passendes Rezept oder genügend Ausgabeplatz klickt er nur und verbraucht nichts.",
+            "Trichter und Spender befüllen die drei Eingabeslots von jeder Seite mit denselben Item-Prüfungen wie am Schmiedetisch. Nur fertige Ergebnisse lassen sich herausziehen. Spieler können Ergebnisse entnehmen, aber nichts in den Ausgabeslot legen.",
+            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Eingabeslot (0 bis 15). Der Fehlerpfeil erscheint nur bei drei belegten Eingaben ohne gültiges Rezept.",
             "Rezept: Eisenbarren um einen Schmiedetisch, unten Redstone, ein Spender und Redstone - wie beim Crafter."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/AutoSmitherBlock.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutoSmitherBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/AutoSmitherScreen.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
@@ -6956,10 +7020,12 @@
       },
       "texture": "assets/textures/item/emitting_trim_template.png",
       "craftedBy": [
-        "simplebuilding:emitting_armor_upgrade_dummy"
+        "simplebuilding:emitting_armor_upgrade_dummy",
+        "simplebuilding:emitting_trim_template_duplication"
       ],
       "usedIn": [
-        "simplebuilding:emitting_armor_upgrade_dummy"
+        "simplebuilding:emitting_armor_upgrade_dummy",
+        "simplebuilding:emitting_trim_template_duplication"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -9577,10 +9643,12 @@
       },
       "texture": "assets/textures/item/glowing_trim_template.png",
       "craftedBy": [
-        "simplebuilding:glowing_armor_upgrade_dummy"
+        "simplebuilding:glowing_armor_upgrade_dummy",
+        "simplebuilding:glowing_trim_template_duplication"
       ],
       "usedIn": [
-        "simplebuilding:glowing_armor_upgrade_dummy"
+        "simplebuilding:glowing_armor_upgrade_dummy",
+        "simplebuilding:glowing_trim_template_duplication"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -14250,6 +14318,20 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_rail",
+      "name": {
+        "en_us": "Nihil Rail",
+        "de_de": "Nihil-Schiene"
+      },
+      "texture": "assets/textures/block/nihil_rail.png",
+      "craftedBy": [
+        "simplebuilding:nihil_rail"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihil_redstone",
       "name": {
         "en_us": "Nihil Redstone",
@@ -14261,6 +14343,7 @@
       ],
       "usedIn": [
         "simplebuilding:nihil_piston",
+        "simplebuilding:nihil_rail",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:nihilith_switch"
       ],
@@ -15733,10 +15816,12 @@
       "texture": "assets/textures/item/pulsating_trim_template.png",
       "craftedBy": [
         "simplebuilding:pulsating_armor_upgrade_dummy",
-        "simplebuilding:pulsating_trim_template"
+        "simplebuilding:pulsating_trim_template",
+        "simplebuilding:pulsating_trim_template_duplication"
       ],
       "usedIn": [
-        "simplebuilding:pulsating_armor_upgrade_dummy"
+        "simplebuilding:pulsating_armor_upgrade_dummy",
+        "simplebuilding:pulsating_trim_template_duplication"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -18730,6 +18815,25 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_rail",
+      "name": {
+        "en_us": "Astral Rail",
+        "de_de": "Astral-Schiene"
+      },
+      "texture": "assets/textures/block/astral_rail.png",
+      "craftedBy": [
+        "simplebuilding:astral_rail"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/astral_rail.png",
+      "lootTable": "simplebuilding:blocks/astral_rail",
+      "drops": [
+        "simplebuilding:astral_rail"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_redstone",
       "name": {
         "en_us": "Astral Redstone",
@@ -18741,6 +18845,7 @@
       ],
       "usedIn": [
         "simplebuilding:astral_piston",
+        "simplebuilding:astral_rail",
         "simplebuilding:astralit_lamp",
         "simplebuilding:astralit_switch"
       ],
@@ -19170,26 +19275,28 @@
       ],
       "note": {
         "en": {
-          "summary": "The Auto Smither is the Crafter of the smithing table: a redstone pulse smiths once from the template, base and addition inside it and pushes the result out of its front.",
+          "summary": "The Auto Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
           "details": [
-            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. The result goes into a container in front of it, otherwise it flies out as an item. Without a matching recipe it only clicks.",
-            "Hoppers and droppers fill it from any side: templates go into the template slot, gear into the base slot and materials into the addition slot, using the same checks as the smithing table. Nothing can be pulled out again.",
-            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled slot (0 to 15).",
+            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. Results go into a container in front, with any remainder kept in the output slot. Without a matching recipe or enough output space it only clicks and consumes nothing.",
+            "Hoppers and droppers fill the three input slots from any side, using the smithing table's item checks. Only finished results can be pulled out. Players can take results but cannot place anything in the output slot.",
+            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled input slot (0 to 15). The error arrow appears only when all three inputs are present but their recipe is invalid.",
             "Recipe: iron ingots around a smithing table, redstone, a dropper and redstone in the bottom row - like the Crafter."
           ]
         },
         "de": {
-          "summary": "Der Auto-Schmied ist der Crafter des Schmiedetischs: ein Redstone-Impuls schmiedet einmal aus der Vorlage, der Basis und dem Material darin und schiebt das Ergebnis vorn heraus.",
+          "summary": "Der Auto-Schmied schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Material. Fertige Ergebnisse gehen in einen Behälter vor ihm oder bleiben im Ausgabeslot.",
           "details": [
-            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Das Ergebnis geht in einen Behälter vor ihm, sonst fliegt es als Item heraus. Ohne passendes Rezept klickt er nur.",
-            "Trichter und Spender befüllen ihn von jeder Seite: Vorlagen kommen in den Vorlagen-Slot, Ausrüstung in den Basis-Slot und Materialien in den Material-Slot, mit denselben Prüfungen wie am Schmiedetisch. Herausziehen lässt sich nichts.",
-            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Slot (0 bis 15).",
+            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Ergebnisse gehen in einen Behälter vor ihm, der Rest bleibt im Ausgabeslot. Ohne passendes Rezept oder genügend Ausgabeplatz klickt er nur und verbraucht nichts.",
+            "Trichter und Spender befüllen die drei Eingabeslots von jeder Seite mit denselben Item-Prüfungen wie am Schmiedetisch. Nur fertige Ergebnisse lassen sich herausziehen. Spieler können Ergebnisse entnehmen, aber nichts in den Ausgabeslot legen.",
+            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Eingabeslot (0 bis 15). Der Fehlerpfeil erscheint nur bei drei belegten Eingaben ohne gültiges Rezept.",
             "Rezept: Eisenbarren um einen Schmiedetisch, unten Redstone, ein Spender und Redstone - wie beim Crafter."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/AutoSmitherBlock.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutoSmitherBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/AutoSmitherScreen.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
@@ -24813,6 +24920,25 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihil_rail",
+      "name": {
+        "en_us": "Nihil Rail",
+        "de_de": "Nihil-Schiene"
+      },
+      "texture": "assets/textures/block/nihil_rail.png",
+      "craftedBy": [
+        "simplebuilding:nihil_rail"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/nihil_rail.png",
+      "lootTable": "simplebuilding:blocks/nihil_rail",
+      "drops": [
+        "simplebuilding:nihil_rail"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihil_redstone",
       "name": {
         "en_us": "Nihil Redstone",
@@ -24824,6 +24950,7 @@
       ],
       "usedIn": [
         "simplebuilding:nihil_piston",
+        "simplebuilding:nihil_rail",
         "simplebuilding:nihilith_lamp",
         "simplebuilding:nihilith_switch"
       ],
@@ -29210,6 +29337,62 @@
       }
     },
     {
+      "id": "simplebuilding:astral_rail",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astral_rail",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astral_rail.json",
+      "ingredients": [
+        "minecraft:gold_ingot",
+        "minecraft:stick",
+        "simplebuilding:astral_redstone"
+      ],
+      "pattern": [
+        "G G",
+        "GSG",
+        "GRG"
+      ],
+      "key": {
+        "G": [
+          "minecraft:gold_ingot"
+        ],
+        "R": [
+          "simplebuilding:astral_redstone"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:astral_redstone",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -30759,9 +30942,9 @@
         "id": "simplebuilding:basic_upgrade_template",
         "count": 2
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/basic_upgrade_template.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/basic_upgrade_template.json",
       "ingredients": [
-        "minecraft:gold_ingot",
+        "minecraft:diamond",
         "minecraft:iron_block",
         "simplebuilding:basic_upgrade_template"
       ],
@@ -30772,7 +30955,7 @@
       ],
       "key": {
         "A": [
-          "minecraft:gold_ingot"
+          "minecraft:diamond"
         ],
         "B": [
           "simplebuilding:basic_upgrade_template"
@@ -30781,9 +30964,56 @@
           "minecraft:iron_block"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:diamond",
+                "minecraft:iron_block",
+                "simplebuilding:basic_upgrade_template"
+              ],
+              "other": [
+                "minecraft:gold_ingot",
+                "minecraft:iron_block",
+                "simplebuilding:basic_upgrade_template"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "A": [
+                  "minecraft:diamond"
+                ],
+                "B": [
+                  "simplebuilding:basic_upgrade_template"
+                ],
+                "C": [
+                  "minecraft:iron_block"
+                ]
+              },
+              "other": {
+                "A": [
+                  "minecraft:gold_ingot"
+                ],
+                "B": [
+                  "simplebuilding:basic_upgrade_template"
+                ],
+                "C": [
+                  "minecraft:iron_block"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/basic_upgrade_template.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ]
     },
@@ -34046,6 +34276,41 @@
       "lines": [
         "1.21.11",
         "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:emitting_trim_template_duplication",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:emitting_trim_template",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/emitting_trim_template_duplication.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:magma_block",
+        "simplebuilding:emitting_trim_template"
+      ],
+      "pattern": [
+        "DTD",
+        "DBD",
+        "DDD"
+      ],
+      "key": {
+        "B": [
+          "minecraft:magma_block"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "T": [
+          "simplebuilding:emitting_trim_template"
+        ]
+      },
+      "lines": [
         "26.3"
       ]
     },
@@ -39444,6 +39709,41 @@
       ]
     },
     {
+      "id": "simplebuilding:glowing_trim_template_duplication",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:glowing_trim_template",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/glowing_trim_template_duplication.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:glowstone",
+        "simplebuilding:glowing_trim_template"
+      ],
+      "pattern": [
+        "DTD",
+        "DBD",
+        "DDD"
+      ],
+      "key": {
+        "B": [
+          "minecraft:glowstone"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "T": [
+          "simplebuilding:glowing_trim_template"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:gold_building_wand",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -43324,6 +43624,62 @@
           {
             "id": "simplebuilding:nihilith_shard",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_rail",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_rail",
+        "count": 6
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_rail.json",
+      "ingredients": [
+        "minecraft:gold_ingot",
+        "minecraft:stick",
+        "simplebuilding:nihil_redstone"
+      ],
+      "pattern": [
+        "G G",
+        "GSG",
+        "GRG"
+      ],
+      "key": {
+        "G": [
+          "minecraft:gold_ingot"
+        ],
+        "R": [
+          "simplebuilding:nihil_redstone"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 6
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 0.5
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 0.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
           }
         ]
       }
@@ -48515,10 +48871,12 @@
         "id": "simplebuilding:pulsating_trim_template",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/pulsating_trim_template.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pulsating_trim_template.json",
       "ingredients": [
         "#simplebuilding:sledgehammer_tools",
-        "minecraft:echo_shard"
+        "minecraft:diamond",
+        "minecraft:echo_shard",
+        "minecraft:sculk"
       ],
       "ingredientGroups": [
         [
@@ -48526,23 +48884,114 @@
         ],
         [
           "minecraft:echo_shard"
+        ],
+        [
+          "minecraft:echo_shard"
+        ],
+        [
+          "minecraft:sculk"
+        ],
+        [
+          "minecraft:sculk"
+        ],
+        [
+          "minecraft:diamond"
+        ],
+        [
+          "minecraft:diamond"
+        ],
+        [
+          "minecraft:diamond"
+        ],
+        [
+          "minecraft:diamond"
         ]
       ],
+      "variants": [
+        {
+          "lines": [
+            "1.21.11",
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "#simplebuilding:sledgehammer_tools"
+                ],
+                [
+                  "minecraft:echo_shard"
+                ],
+                [
+                  "minecraft:echo_shard"
+                ],
+                [
+                  "minecraft:sculk"
+                ],
+                [
+                  "minecraft:sculk"
+                ],
+                [
+                  "minecraft:diamond"
+                ],
+                [
+                  "minecraft:diamond"
+                ],
+                [
+                  "minecraft:diamond"
+                ],
+                [
+                  "minecraft:diamond"
+                ]
+              ],
+              "other": [
+                [
+                  "#simplebuilding:sledgehammer_tools"
+                ],
+                [
+                  "minecraft:echo_shard"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "#simplebuilding:sledgehammer_tools",
+                "minecraft:diamond",
+                "minecraft:echo_shard",
+                "minecraft:sculk"
+              ],
+              "other": [
+                "#simplebuilding:sledgehammer_tools",
+                "minecraft:echo_shard"
+              ]
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/pulsating_trim_template.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
-        "26.2",
         "26.3"
       ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
             "id": "minecraft:cobblestone",
             "count": 2
           },
           {
             "id": "minecraft:echo_shard",
-            "count": 1
+            "count": 2
+          },
+          {
+            "id": "minecraft:sculk",
+            "count": 2
           },
           {
             "id": "minecraft:iron_ingot",
@@ -48557,6 +49006,41 @@
           "#simplebuilding:sledgehammer_tools"
         ]
       }
+    },
+    {
+      "id": "simplebuilding:pulsating_trim_template_duplication",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:pulsating_trim_template",
+        "count": 2
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/pulsating_trim_template_duplication.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:sculk",
+        "simplebuilding:pulsating_trim_template"
+      ],
+      "pattern": [
+        "DTD",
+        "DBD",
+        "DDD"
+      ],
+      "key": {
+        "B": [
+          "minecraft:sculk"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "T": [
+          "simplebuilding:pulsating_trim_template"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ]
     },
     {
       "id": "simplebuilding:purple_dyed_storage",
@@ -54288,6 +54772,42 @@
       ]
     },
     {
+      "id": "simplebuilding:basic_upgrade_template",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:basic_upgrade_template",
+        "count": 2
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/basic_upgrade_template.json",
+      "ingredients": [
+        "minecraft:gold_ingot",
+        "minecraft:iron_block",
+        "simplebuilding:basic_upgrade_template"
+      ],
+      "pattern": [
+        "ABA",
+        "ACA",
+        "AAA"
+      ],
+      "key": {
+        "A": [
+          "minecraft:gold_ingot"
+        ],
+        "B": [
+          "simplebuilding:basic_upgrade_template"
+        ],
+        "C": [
+          "minecraft:iron_block"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:blueprint",
       "type": "minecraft:crafting_shapeless",
       "category": "equipment",
@@ -55440,6 +55960,33 @@
       ]
     },
     {
+      "id": "simplebuilding:pulsating_trim_template",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:pulsating_trim_template",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/pulsating_trim_template.json",
+      "ingredients": [
+        "#simplebuilding:sledgehammer_tools",
+        "minecraft:echo_shard"
+      ],
+      "ingredientGroups": [
+        [
+          "#simplebuilding:sledgehammer_tools"
+        ],
+        [
+          "minecraft:echo_shard"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:quiver_dyed",
       "type": "minecraft:crafting_dye",
       "category": null,
@@ -55792,6 +56339,22 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_purpur_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/astral_rail",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astral_rail"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_rail.json"
     },
     {
       "id": "simplebuilding:blocks/astral_redstone",
@@ -57466,6 +58029,22 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_purpur_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_rail",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_rail"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_rail.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_redstone",
@@ -66859,6 +67438,26 @@
       "reload": "recipes",
       "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.features.endRails",
+      "shortName": "endRails",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "End Rails",
+      "labelDe": "End-Schienen",
+      "tooltip": "Astral rails boost and Nihil rails brake.\nOff: they act as plain rails. Recipes\nupdate on datapack reload. Default: true.",
+      "tooltipDe": "Astral-Schienen beschleunigen, Nihil-Schienen\nbremsen. Aus: normale Schienen. Rezepte nach\nDatenpaket-Neuladen. Standard: true."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "server.features.astralVault",
       "shortName": "astralVault",
       "type": "boolean",
@@ -68033,6 +68632,75 @@
       "labelDe": "End-Kolben-Abklingzeit (4–100)",
       "tooltip": "Ticks a piston waits after firing,\nlimited to 4-100. Default: 8.",
       "tooltipDe": "Ticks Wartezeit nach dem Ausloesen,\nbegrenzt auf 4-100. Standard: 8."
+    },
+    {
+      "range": [
+        8.0,
+        20.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.machines.astralRailMaxSpeed",
+      "shortName": "astralRailMaxSpeed",
+      "type": "int",
+      "default": "16",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "Astral Rail Top Speed (8–20)",
+      "labelDe": "Astral-Schiene Höchsttempo (8–20)",
+      "tooltip": "Blocks per second on flat Astral rails,\nlimited to 8-20 (vanilla 8). Default: 16.",
+      "tooltipDe": "Blöcke pro Sekunde auf flachen Astral-Schienen,\nbegrenzt auf 8-20 (Vanilla 8). Standard: 16."
+    },
+    {
+      "range": [
+        0.07,
+        0.25
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.machines.astralRailBoost",
+      "shortName": "astralRailBoost",
+      "type": "double",
+      "default": "0.12",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "Astral Rail Boost (0.07–0.25)",
+      "labelDe": "Astral-Schiene Schub (0,07–0,25)",
+      "tooltip": "Push per tick at standstill, shrinking\nwith (speed/top speed)². Powered rail: 0.06.\nDefault: 0.12.",
+      "tooltipDe": "Schub je Tick aus dem Stand, sinkt mit\n(Tempo/Höchsttempo)². Antriebsschiene: 0,06.\nStandard: 0,12."
+    },
+    {
+      "range": [
+        0.02,
+        0.4
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.machines.nihilRailBrake",
+      "shortName": "nihilRailBrake",
+      "type": "double",
+      "default": "0.08",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "Nihil Rail Brake (0.02–0.4)",
+      "labelDe": "Nihil-Schiene Bremse (0,02–0,4)",
+      "tooltip": "Fixed braking per tick on top of 20%\nfriction, limited to 0.02-0.4. Default: 0.08.",
+      "tooltipDe": "Feste Bremsung je Tick zusätzlich zu 20 %\nReibung, begrenzt auf 0,02-0,4. Standard: 0,08."
     },
     {
       "range": [
@@ -69639,7 +70307,7 @@
             "details": [
               "Glow Ink Sac gives the Glowing Trim Template, Glowstone Dust the Emitting Trim Template.",
               "Every item whose id contains trim_smithing_template counts as a template - all vanilla armor trim templates.",
-              "Each hit costs 1 hammer durability (five in total), the fifth hit uses up one off-hand item; nothing in creative mode.",
+              "Each hit costs 1 hammer durability (five in total). On 26.3, the fifth hit consumes 2 off-hand catalysts, 4 diamonds and 2 glowstone blocks (Glowing) or 2 blaze powder (Emitting) from the inventory. All materials must be present before each hit. Creative consumes nothing; 26.2 still uses 1 catalyst.",
               "Without a hit for 5 seconds, or with another material, the count starts over. Templates already hanging in item frames stay as they are."
             ]
           },
@@ -69649,7 +70317,7 @@
             "details": [
               "Leuchttintenbeutel ergibt die leuchtende Besatzvorlage, Glowstonestaub die strahlende.",
               "Als Vorlage zählt jedes Item, dessen Id trim_smithing_template enthält - alle Rüstungsbesatz-Vorlagen aus Vanilla.",
-              "Jeder Schlag kostet 1 Hammerhaltbarkeit (insgesamt fünf), der fünfte verbraucht ein Item aus der Nebenhand; im Kreativmodus nichts.",
+              "Jeder Schlag kostet 1 Hammerhaltbarkeit (insgesamt fünf). Auf 26.3 verbraucht der fünfte Schlag 2 Nebenhand-Katalysatoren, 4 Diamanten und 2 Glowstone-Blöcke (Leuchtend) bzw. 2 Lohenpulver (Strahlend) aus dem Inventar. Alle Materialien müssen vor jedem Schlag vorhanden sein. Kreativ verbraucht nichts; 26.2 braucht weiterhin 1 Katalysator.",
               "Ohne Schlag für 5 Sekunden oder mit einem anderen Material beginnt die Zählung von vorn. Vorlagen, die schon in Rahmen hängen, bleiben unverändert."
             ]
           }
@@ -70689,7 +71357,15 @@
           },
           {
             "id": "minecraft:glow_ink_sac",
-            "count": 1
+            "count": 2
+          },
+          {
+            "count": 4,
+            "id": "minecraft:diamond"
+          },
+          {
+            "count": 2,
+            "id": "minecraft:glowstone"
           }
         ],
         "tools": [
@@ -70725,7 +71401,15 @@
           },
           {
             "id": "minecraft:glowstone_dust",
-            "count": 1
+            "count": 2
+          },
+          {
+            "count": 4,
+            "id": "minecraft:diamond"
+          },
+          {
+            "count": 2,
+            "id": "minecraft:blaze_powder"
           }
         ],
         "tools": [
@@ -92937,17 +93621,17 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 249,
-    "blocks": 202,
-    "recipes": 606,
-    "lootTables": 200,
+    "items": 251,
+    "blocks": 204,
+    "recipes": 611,
+    "lootTables": 202,
     "trades": 20,
     "enchantments": 19,
     "tags": 48,
-    "config": 198,
+    "config": 202,
     "inWorld": 463,
     "advancements": 124,
-    "features": 46,
+    "features": 47,
     "undocumented": 0,
     "incompleteProse": 0
   },
