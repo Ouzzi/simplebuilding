@@ -13,7 +13,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Plattenspieler-Stueck mit einer Kette von Astralit-Lautsprechern (2026-10-04, {@link SpeakerBoost}): ein einziger
+ * Plattenspieler-Stueck mit einer Kette von Musik-Verstärkern (2026-10-04, {@link SpeakerBoost}): ein einziger
  * Klang (keine Ueberlagerung, kein Phasenchaos), der jeden Tick an den Abspielpunkt springt, der dem Spieler am
  * naechsten ist - Quelle oder ein Lautsprecher der Kette. So hoert man das Stueck durch eine ganze Villa, unverzoegert,
  * immer gleich laut wie an der Quelle (deren Verstaerkung bleibt). Die Kette wird alle {@link #RESCAN_TICKS} Ticks neu

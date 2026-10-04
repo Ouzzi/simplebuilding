@@ -94,7 +94,7 @@ def main():
     note = vblock('note_block')
     refs = [('Vanilla-Notenblock', note), ('Plattenspieler Seite', vblock('jukebox_side')),
             ('Plattenspieler oben', vblock('jukebox_top'))]
-    mats = [('Astralit', 'astralit_dust', 'astralit_speaker'), ('Nihilith', 'nihilith_shard', 'nihilith_speaker')]
+    mats = [('Astralit', 'astralit_dust', 'jukebox_amplifier'), ('Nihilith', 'nihilith_shard', 'note_amplifier')]
     s, cell = 8, 16 * 8 + 16
     cube_w = 2 * 16 * 3
     rows_h = 16 * s + 30

@@ -253,21 +253,21 @@ public final class MusicDiscTests {
         helper.assertValueEqual(SpeakerBoost.noteBlockVolume(level, n), 3.0F, "vanilla note block volume");
 
         // Falsche Lautsprecher: Nihilit am Plattenspieler, Astralit am Notenblock wirken nicht.
-        helper.setBlock(jukebox.east(), ModBlocks.NIHILITH_SPEAKER);
-        helper.setBlock(note.east(), ModBlocks.ASTRALIT_SPEAKER);
+        helper.setBlock(jukebox.east(), ModBlocks.NOTE_AMPLIFIER);
+        helper.setBlock(note.east(), ModBlocks.JUKEBOX_AMPLIFIER);
         helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 1.0F, "nihilit speaker boosted a jukebox");
         helper.assertValueEqual(SpeakerBoost.noteBlockVolume(level, n), 3.0F, "astralit speaker boosted a note block");
 
         // Richtige Lautsprecher: einer gibt +50 %.
-        helper.setBlock(jukebox.west(), ModBlocks.ASTRALIT_SPEAKER);
-        helper.setBlock(note.west(), ModBlocks.NIHILITH_SPEAKER);
+        helper.setBlock(jukebox.west(), ModBlocks.JUKEBOX_AMPLIFIER);
+        helper.setBlock(note.west(), ModBlocks.NOTE_AMPLIFIER);
         helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 1.5F, "one astralit speaker");
         helper.assertValueEqual(SpeakerBoost.noteBlockVolume(level, n), 4.5F, "one nihilit speaker");
 
         // Vier ringsum: es zaehlen nur zwei (Standard), also hoechstens doppelt.
-        helper.setBlock(jukebox.east(), ModBlocks.ASTRALIT_SPEAKER);
-        helper.setBlock(jukebox.north(), ModBlocks.ASTRALIT_SPEAKER);
-        helper.setBlock(jukebox.above(), ModBlocks.ASTRALIT_SPEAKER);
+        helper.setBlock(jukebox.east(), ModBlocks.JUKEBOX_AMPLIFIER);
+        helper.setBlock(jukebox.north(), ModBlocks.JUKEBOX_AMPLIFIER);
+        helper.setBlock(jukebox.above(), ModBlocks.JUKEBOX_AMPLIFIER);
         helper.assertValueEqual(SpeakerBoost.adjacentSpeakers(level, j, SpeakerBoost.Source.JUKEBOX), 4, "adjacent astralit speakers");
         helper.assertValueEqual(SpeakerBoost.multiplier(level, j, SpeakerBoost.Source.JUKEBOX), 2.0F, "capped at two speakers");
         helper.assertValueEqual(SpeakerBoost.jukeboxEventRange(2.0F), 128.0, "jukebox reach with two speakers");
@@ -356,12 +356,12 @@ public final class MusicDiscTests {
         BlockPos jukebox = new BlockPos(1, 2, 1);
         helper.setBlock(jukebox, Blocks.JUKEBOX);
         for (int x = 2; x <= 6; x++) {
-            helper.setBlock(new BlockPos(x, 2, 1), ModBlocks.ASTRALIT_SPEAKER);
+            helper.setBlock(new BlockPos(x, 2, 1), ModBlocks.JUKEBOX_AMPLIFIER);
         }
-        // Abzweig nach oben am dritten Lautsprecher; hinter dem letzten ein Nihilit-Lautsprecher und dahinter Astralit.
-        helper.setBlock(new BlockPos(4, 3, 1), ModBlocks.ASTRALIT_SPEAKER);
-        helper.setBlock(new BlockPos(7, 2, 1), ModBlocks.NIHILITH_SPEAKER);
-        helper.setBlock(new BlockPos(8, 2, 1), ModBlocks.ASTRALIT_SPEAKER);
+        // Abzweig nach oben am dritten Lautsprecher; hinter dem letzten ein Noten-Verstärker und dahinter Astralit.
+        helper.setBlock(new BlockPos(4, 3, 1), ModBlocks.JUKEBOX_AMPLIFIER);
+        helper.setBlock(new BlockPos(7, 2, 1), ModBlocks.NOTE_AMPLIFIER);
+        helper.setBlock(new BlockPos(8, 2, 1), ModBlocks.JUKEBOX_AMPLIFIER);
         BlockPos j = helper.absolutePos(jukebox);
         List<BlockPos> chain = SpeakerBoost.chain(level, j, SpeakerBoost.Source.JUKEBOX);
         helper.assertValueEqual(chain.size(), 6, "chain over five speakers and the branch: " + chain);
@@ -403,7 +403,7 @@ public final class MusicDiscTests {
         BlockPos note = new BlockPos(1, 2, 1);
         helper.setBlock(note, Blocks.NOTE_BLOCK);
         for (int x = 2; x <= 9; x++) {
-            helper.setBlock(new BlockPos(x, 2, 1), ModBlocks.NIHILITH_SPEAKER);
+            helper.setBlock(new BlockPos(x, 2, 1), ModBlocks.NOTE_AMPLIFIER);
         }
         BlockPos n = helper.absolutePos(note);
         List<BlockPos> chain = SpeakerBoost.chain(level, n, SpeakerBoost.Source.NOTE_BLOCK);
@@ -431,7 +431,7 @@ public final class MusicDiscTests {
         BlockPos box = new BlockPos(1, 4, 1);
         helper.setBlock(box, Blocks.JUKEBOX);
         for (int x = 2; x <= 9; x++) {
-            helper.setBlock(new BlockPos(x, 4, 1), ModBlocks.ASTRALIT_SPEAKER);
+            helper.setBlock(new BlockPos(x, 4, 1), ModBlocks.JUKEBOX_AMPLIFIER);
         }
         BlockPos b = helper.absolutePos(box);
         List<BlockPos> jchain = SpeakerBoost.chain(level, b, SpeakerBoost.Source.JUKEBOX);
@@ -454,8 +454,8 @@ public final class MusicDiscTests {
     public static void speakerRecipesUseAnyPlanks(GameTestHelper helper) {
         if (!enabled(helper)) return;
         ServerLevel level = helper.getLevel();
-        Object[][] cases = {{ModItems.ASTRALIT_DUST, ModItems.ASTRALIT_SPEAKER, Items.OAK_PLANKS},
-                {ModItems.NIHILITH_SHARD, ModItems.NIHILITH_SPEAKER, Items.CRIMSON_PLANKS}};
+        Object[][] cases = {{ModItems.ASTRALIT_DUST, ModItems.JUKEBOX_AMPLIFIER, Items.OAK_PLANKS},
+                {ModItems.NIHILITH_SHARD, ModItems.NOTE_AMPLIFIER, Items.CRIMSON_PLANKS}};
         for (Object[] c : cases) {
             List<ItemStack> grid = new ArrayList<>();
             for (int i = 0; i < 9; i++) {

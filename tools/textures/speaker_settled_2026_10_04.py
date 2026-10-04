@@ -1,11 +1,12 @@
 """Usage: python tools/textures/speaker_settled_2026_10_04.py <vanilla textures dir> [preview png]
 
-Owner 2026-10-04 settled the Astralit and Nihilith Speaker textures: variant D of
+Owner 2026-10-04 settled the speaker textures (renamed the same day: Astralit -> Jukebox Amplifier, Nihilit -> Note
+Amplifier; the material stays Astralit resp. Nihilith): variant D of
 speaker_radial_proposals_2026_10_04.py (the vanilla note block, its hole dots radially from a wide dark centre to the
 light material at the edge, continuous) - a little more subtle: the material range narrowed by a third (quantile
 0.25 -> 0.65 instead of 0.2 -> 0.8, so the outermost dots are less bright) and every hole dot mixed 20 % back towards
 the note block's own hole colour, so the wood dominates even more. One texture on all six faces: it is written as
-both <material>_speaker_side and <material>_speaker_top (the block model, a cube column, stays as it is).
+both <block>_side and <block>_top (jukebox_amplifier, note_amplifier; the block model, a cube column, stays as it is).
 music_disc_textures.py takes the speaker textures from here."""
 import os
 import sys
@@ -27,6 +28,8 @@ D = dict(lo=0.2, hi=0.8, steps=0, gamma=1.8)
 SUBTLE = dict(lo=0.25, hi=0.65, steps=0, gamma=1.8)
 WOOD_BACK = 0.2
 ITEMS = {'astralit': 'astralit_dust', 'nihilith': 'nihilith_shard'}
+#: Block id per material (owner 2026-10-04: Jukebox Amplifier = Astralit, Note Amplifier = Nihilit).
+BLOCKS = {'astralit': 'jukebox_amplifier', 'nihilith': 'note_amplifier'}
 
 
 def settled(note, item, subtle=True):
@@ -45,8 +48,8 @@ def textures(note):
     out = {}
     for material, item in ITEMS.items():
         tex = settled(note, item)
-        out[f'{material}_speaker_side'] = tex
-        out[f'{material}_speaker_top'] = tex
+        out[f'{BLOCKS[material]}_side'] = tex
+        out[f'{BLOCKS[material]}_top'] = tex
     return out
 
 

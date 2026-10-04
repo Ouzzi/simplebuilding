@@ -422,7 +422,7 @@ public final class ModItemGroupsContent {
         }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Lautsprecher (2026-10-03): Astralit (Plattenspieler), Nihilit (Notenblock).
-            rows.add(CreativeTabLayout.Row.of("speakers", ModItems.ASTRALIT_SPEAKER, ModItems.NIHILITH_SPEAKER));
+            rows.add(CreativeTabLayout.Row.of("amplifiers", ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));
         }
         return rows;
     }

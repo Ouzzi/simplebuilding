@@ -2812,7 +2812,7 @@ public final class DataIntegrityTests {
             expected.add(ModItems.HAMMOCKS);
         }
         if (McVersion.MUSIC_DISCS) {
-            expected.add(List.of(ModItems.ASTRALIT_SPEAKER, ModItems.NIHILITH_SPEAKER));
+            expected.add(List.of(ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));
         }
 
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.FUNCTIONAL, problems), expectedSlots(expected), "SimpleMachines", problems);

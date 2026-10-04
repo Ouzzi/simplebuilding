@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
- * Astralit-Lautsprecher (2026-10-03): das Plattenspieler-Stueck startet mit Vanillas Lautstaerke 4,0 mal dem Faktor der
+ * Musik-Verstärker (2026-10-03): das Plattenspieler-Stueck startet mit Vanillas Lautstaerke 4,0 mal dem Faktor der
  * angrenzenden Lautsprecher ({@link SpeakerBoost}, Config vom Server). Mit einer Kette (2026-10-04) wandert der Klang
  * mit dem Spieler zum naechsten Abspielpunkt ({@link com.simplebuilding.client.ChainedJukeboxSound}). Sonst genau
  * Vanillas Klang (Kategorie Platten, lineare Abschwaechung, nicht wiederholt) - kein zweiter Klang, keine Verzoegerung.

@@ -128,7 +128,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Lautsprecher (2026-10-03) wie Notenblock (Redstone in der Mitte) und Plattenspieler (Diamant):
                 // acht Bretter um Astralitstaub bzw. Nihilitsplitter.
                 if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
-                    shaped(RecipeCategory.REDSTONE, ModItems.ASTRALIT_SPEAKER)
+                    shaped(RecipeCategory.REDSTONE, ModItems.JUKEBOX_AMPLIFIER)
                             .pattern("###")
                             .pattern("#X#")
                             .pattern("###")
@@ -136,7 +136,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .define('X', ModItems.ASTRALIT_DUST)
                             .unlockedBy(getHasName(ModItems.ASTRALIT_DUST), has(ModItems.ASTRALIT_DUST))
                             .save(output);
-                    shaped(RecipeCategory.REDSTONE, ModItems.NIHILITH_SPEAKER)
+                    shaped(RecipeCategory.REDSTONE, ModItems.NOTE_AMPLIFIER)
                             .pattern("###")
                             .pattern("#X#")
                             .pattern("###")

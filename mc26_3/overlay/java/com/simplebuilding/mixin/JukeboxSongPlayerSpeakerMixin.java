@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * Astralit-Lautsprecher (2026-10-03): Vanilla schickt Start und Stopp eines Plattenspielers nur an Spieler im
+ * Musik-Verstärker (2026-10-03): Vanilla schickt Start und Stopp eines Plattenspielers nur an Spieler im
  * Umkreis von 64 Bloecken. Spielt er verstaerkt oder mit einer Kette ({@link SpeakerBoost}), bekommen auch die Spieler
  * in Hoerweite irgendeines Abspielpunkts den Start; den Stopp bekommen alle bis zur groessten Reichweite, die die Config
  * zulaesst ({@link SpeakerBoost#jukeboxStopRange}; ein inzwischen abgebauter Lautsprecher darf kein Stueck weiterlaufen

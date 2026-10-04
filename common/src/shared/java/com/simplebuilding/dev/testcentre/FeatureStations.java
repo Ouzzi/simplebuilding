@@ -548,7 +548,7 @@ public final class FeatureStations {
     }
     /**
      * Musik-Station (2026-10-03, nur mit {@code McVersion.MUSIC_DISCS}): links ein Plattenspieler mit einem
-     * Astralit-Lautsprecher daneben und einer ohne, rechts ein Notenblock mit Nihilit-Lautsprecher und einer ohne -
+     * Musik-Verstärker daneben und einer ohne, rechts ein Notenblock mit Noten-Verstärker und einer ohne -
      * zum Vergleichen der Hoerweite. Davor eine Truhe mit allen Platten und einem Vorschlaghammer und eine abgelegte
      * Platte zum Wenden (Rechtsklick mit dem Hammer: A-Seite &lt;-&gt; B-Seite).
      */
@@ -560,7 +560,7 @@ public final class FeatureStations {
         int z = 2;
         int wallZ = 5;
         c.place(1, 0, z, Blocks.JUKEBOX);
-        c.place(2, 0, z, ModBlocks.ASTRALIT_SPEAKER);
+        c.place(2, 0, z, ModBlocks.JUKEBOX_AMPLIFIER);
         c.place(4, 0, z, Blocks.JUKEBOX);
         // Notenbloecke auf Eichenbrettern mit passendem Instrument (Bass): sonst stellt der erste Nachbar-Update den
         // Zustand nach dem Boden um (Tiefenschiefer/Seelaterne), und die Zentrale weicht von ihrer Planung ab.
@@ -570,7 +570,7 @@ public final class FeatureStations {
             c.place(x, 0, z, Blocks.OAK_PLANKS);
         }
         c.place(6, 1, z, note);
-        c.place(7, 1, z, ModBlocks.NIHILITH_SPEAKER);
+        c.place(7, 1, z, ModBlocks.NOTE_AMPLIFIER);
         c.place(9, 1, z, note);
         c.place(1, 0, 1, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
         List<ItemStack> chest = new ArrayList<>();
@@ -578,8 +578,8 @@ public final class FeatureStations {
             chest.add(new ItemStack(disc));
         }
         chest.add(new ItemStack(ModItems.IRON_SLEDGEHAMMER));
-        chest.add(new ItemStack(ModItems.ASTRALIT_SPEAKER, 3));
-        chest.add(new ItemStack(ModItems.NIHILITH_SPEAKER, 3));
+        chest.add(new ItemStack(ModItems.JUKEBOX_AMPLIFIER, 3));
+        chest.add(new ItemStack(ModItems.NOTE_AMPLIFIER, 3));
         c.contents(1, 0, 1, chest);
         if (ModBlocks.PLACED_SMALL_PARTS != null) {
             c.place(3, 0, 1, ModBlocks.PLACED_SMALL_PARTS.defaultBlockState()
@@ -587,9 +587,9 @@ public final class FeatureStations {
             c.contents(3, 0, 1, List.of(new ItemStack(ModItems.MUSIC_DISC_VOIDLINE)));
         }
         c.title(0, 3, wallZ, TcText.t("section.music", "Music"), TcText.t("section.music.sub", "discs, B-sides, speakers"));
-        c.wallSign(2, 2, wallZ, TcText.bold(TcText.t("music.jukebox", "Astralit Speaker")),
+        c.wallSign(2, 2, wallZ, TcText.bold(TcText.t("music.jukebox", "Jukebox Amplifier")),
                 TcText.t("music.jukebox.sub", "left: louder jukebox"), TcText.t("music.jukebox.sub2", "right: vanilla"));
-        c.wallSign(7, 2, wallZ, TcText.bold(TcText.t("music.note", "Nihilit Speaker")),
+        c.wallSign(7, 2, wallZ, TcText.bold(TcText.t("music.note", "Note Amplifier")),
                 TcText.t("music.note.sub", "left: louder note block"), TcText.t("music.note.sub2", "right: vanilla"));
         c.wallSign(4, 1, wallZ, TcText.bold(TcText.t("music.flip", "B-Side")),
                 TcText.t("music.flip.sub", "placed disc + hammer"), TcText.t("music.flip.sub2", "right-click: flip"));

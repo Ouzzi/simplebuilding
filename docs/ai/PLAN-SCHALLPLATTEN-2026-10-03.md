@@ -184,3 +184,15 @@ liest sie (Standardordner jetzt `music`, `--source` für einen anderen).
 - Längen in `MusicDiscs.SONGS` aufgerundet (120/120/140, 180/180, 120/120, 150/150 s).
 - Windows-Falle: libsndfiles Vorbis-Encoder läuft bei einem Schreibaufruf mit Minuten Audio in einen Stack-Überlauf;
   das Skript schreibt in Blöcken. `make_placeholder_discs.py` überschreibt vorhandene Dateien nur mit `--force`.
+
+## Umbenennung (Besitzer 2026-10-04): Lautsprecher → Verstärker
+- Nihilit-Lautsprecher → **Note Amplifier / Noten-Verstärker**, Astralit-Lautsprecher → **Jukebox Amplifier /
+  Musik-Verstärker** (beide Lang-Orte, JEI-Info, Wiki-Prosa, Testzentrale-Schilder, Config-Beschriftung).
+- Registry-Ids umgestellt: `astralit_speaker` → `jukebox_amplifier`, `nihilith_speaker` → `note_amplifier`
+  (Konstanten `ModItems/ModBlocks.JUKEBOX_AMPLIFIER`, `NOTE_AMPLIFIER`). Begründung: die Blöcke gibt es nur auf den
+  Arbeitszweigen (claude-audio/claude-wave1), nie auf master oder in einem Release – keine Spielstände mit den alten
+  Ids, darum kein Alias. Texturen heißen jetzt `jukebox_amplifier_side/_top`, `note_amplifier_side/_top`
+  (`tools/textures/speaker_settled_2026_10_04.py`, Pixel unverändert).
+- Unverändert (intern bzw. Datenformat): Config-Abschnitt `server.speakers.*` (bestehende Server-Configs bleiben
+  gültig), Klassen `SpeakerBlock`/`SpeakerBoost`, Mixin-Namen. Im Deutschen heißt es in der Config bewusst
+  „Musik- und Noten-Verstärker“, weil „Verstärker“ allein der Redstone-Verstärker ist.

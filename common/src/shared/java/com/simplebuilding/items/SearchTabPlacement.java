@@ -169,7 +169,7 @@ public final class SearchTabPlacement {
             // Platten hinter der letzten Vanilla-Platte, Lautsprecher hinter Notenblock und Plattenspieler (Redstone).
             out.add(Placement.after(TOOLS_AND_UTILITIES, Items.MUSIC_DISC_BOUNCE,
                     com.simplebuilding.util.MusicDiscs.items().toArray(ItemLike[]::new)));
-            out.add(Placement.after(REDSTONE_BLOCKS, Items.JUKEBOX, ModItems.ASTRALIT_SPEAKER, ModItems.NIHILITH_SPEAKER));
+            out.add(Placement.after(REDSTONE_BLOCKS, Items.JUKEBOX, ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             out.add(Placement.after(NATURAL_BLOCKS, Items.DEEPSLATE_DIAMOND_ORE, ModItems.SAGE_ORE_ITEM, ModItems.DEEPSLATE_SAGE_ORE_ITEM));

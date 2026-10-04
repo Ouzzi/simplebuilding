@@ -14,7 +14,6 @@
     "simplebuilding:astralit_ore",
     "simplebuilding:astralit_pillar",
     "simplebuilding:astralit_quartz_checker",
-    "simplebuilding:astralit_speaker",
     "simplebuilding:astralit_switch",
     "simplebuilding:auto_smither",
     "simplebuilding:backpack",
@@ -88,6 +87,7 @@
     "simplebuilding:husk_wall_head",
     "simplebuilding:infused_potion_pad",
     "simplebuilding:iron_rod",
+    "simplebuilding:jukebox_amplifier",
     "simplebuilding:lapis_quartz_checker",
     "simplebuilding:launchpad",
     "simplebuilding:layered_astralit",
@@ -127,8 +127,8 @@
     "simplebuilding:nihilith_ore",
     "simplebuilding:nihilith_pillar",
     "simplebuilding:nihilith_quartz_checker",
-    "simplebuilding:nihilith_speaker",
     "simplebuilding:nihilith_switch",
+    "simplebuilding:note_amplifier",
     "simplebuilding:orange_hammock",
     "simplebuilding:oxidized_copper_pressure_plate",
     "simplebuilding:pink_hammock",
@@ -253,9 +253,6 @@
     },
     {
       "id": "simplebuilding:astralit_quartz_checker"
-    },
-    {
-      "id": "simplebuilding:astralit_speaker"
     },
     {
       "id": "simplebuilding:astralit_switch"
@@ -812,6 +809,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:jukebox_amplifier"
+    },
+    {
       "id": "simplebuilding:lapis_quartz_checker"
     },
     {
@@ -1043,10 +1043,10 @@
       "id": "simplebuilding:nihilith_shard"
     },
     {
-      "id": "simplebuilding:nihilith_speaker"
+      "id": "simplebuilding:nihilith_switch"
     },
     {
-      "id": "simplebuilding:nihilith_switch"
+      "id": "simplebuilding:note_amplifier"
     },
     {
       "durability": 128,

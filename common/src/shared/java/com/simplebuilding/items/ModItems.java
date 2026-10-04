@@ -384,10 +384,10 @@ public class ModItems {
     public static final java.util.Map<String, Item> MUSIC_DISC_EXTRA_TRACKS = registerExtraTracks();
 
     /** Lautsprecher (2026-10-03): Astralit verstaerkt Plattenspieler, Nihilit Notenbloecke ({@link com.simplebuilding.util.SpeakerBoost}). */
-    public static final Item ASTRALIT_SPEAKER = com.simplebuilding.version.McVersion.MUSIC_DISCS
-            ? registerItem("astralit_speaker", s -> new BlockItem(ModBlocks.ASTRALIT_SPEAKER, s)) : null;
-    public static final Item NIHILITH_SPEAKER = com.simplebuilding.version.McVersion.MUSIC_DISCS
-            ? registerItem("nihilith_speaker", s -> new BlockItem(ModBlocks.NIHILITH_SPEAKER, s)) : null;
+    public static final Item JUKEBOX_AMPLIFIER = com.simplebuilding.version.McVersion.MUSIC_DISCS
+            ? registerItem("jukebox_amplifier", s -> new BlockItem(ModBlocks.JUKEBOX_AMPLIFIER, s)) : null;
+    public static final Item NOTE_AMPLIFIER = com.simplebuilding.version.McVersion.MUSIC_DISCS
+            ? registerItem("note_amplifier", s -> new BlockItem(ModBlocks.NOTE_AMPLIFIER, s)) : null;
 
 
 

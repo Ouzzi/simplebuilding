@@ -19,7 +19,7 @@ sides get a round speaker membrane - a dark wooden rim, a ring and a dome in the
 highlight pixel; the top keeps the jukebox frame and its disc slot is inlaid with the material.
 
 Output (26.3-only): mc26_3/overlay/resources/assets/simplebuilding/textures/item/music_disc_<song>.png and
-.../textures/block/<material>_speaker_side.png, <material>_speaker_top.png.
+.../textures/block/jukebox_amplifier_side/_top.png and note_amplifier_side/_top.png (the amplifiers, formerly speakers).
 --preview writes C:/Users/o_o/code/minecraft-mods/previews/schallplatten-vorschau.png and
 lautsprecher-vorschau.png (16x, labeled).
 """
@@ -233,8 +233,8 @@ def main():
         path = os.path.join(PREVIEWS, "lautsprecher-vorschau.png")
         sheet(cells, path, "Lautsprecher (A/B Astralit: Seite/oben, C/D Nihilit: Seite/oben) + Wuerfel E (Astralit), F (Nihilit)")
         img = Image.open(path)
-        cubes = [cube(blocks["astralit_speaker_side"], blocks["astralit_speaker_top"]),
-                 cube(blocks["nihilith_speaker_side"], blocks["nihilith_speaker_top"])]
+        cubes = [cube(blocks["jukebox_amplifier_side"], blocks["jukebox_amplifier_top"]),
+                 cube(blocks["note_amplifier_side"], blocks["note_amplifier_top"])]
         out = Image.new("RGBA", (max(img.width, 2 * cubes[0].width + 72), img.height + cubes[0].height + 40), (198, 198, 198, 255))
         out.alpha_composite(img.convert("RGBA"), (0, 0))
         draw = ImageDraw.Draw(out)

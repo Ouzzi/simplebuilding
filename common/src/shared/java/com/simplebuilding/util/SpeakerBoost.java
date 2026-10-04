@@ -28,8 +28,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Lautsprecher (Besitzer 2026-10-03/04, {@code McVersion.MUSIC_DISCS}): Astralit-Lautsprecher gehoeren zum
- * Plattenspieler, Nihilit-Lautsprecher zum Notenblock.
+ * Lautsprecher (Besitzer 2026-10-03/04, {@code McVersion.MUSIC_DISCS}): Musik-Verstärker gehoeren zum
+ * Plattenspieler, Noten-Verstärker zum Notenblock.
  *
  * <p><b>Verstaerkung:</b> direkt angrenzende Lautsprecher der passenden Art (die sechs Nachbarn, hoechstens
  * {@code server.speakers.maxSpeakers}, Standard 2, hart 3) machen die Quelle lauter und weiter hoerbar: Faktor =
@@ -48,9 +48,9 @@ import org.jetbrains.annotations.Nullable;
 public final class SpeakerBoost {
     /** Welche Klangquelle ein Lautsprecher verstaerkt. */
     public enum Source {
-        /** Plattenspieler (Astralit-Lautsprecher). */
+        /** Plattenspieler (Musik-Verstärker). */
         JUKEBOX,
-        /** Notenblock (Nihilit-Lautsprecher). */
+        /** Notenblock (Noten-Verstärker). */
         NOTE_BLOCK
     }
 
