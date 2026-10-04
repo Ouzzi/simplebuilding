@@ -20,6 +20,18 @@
     {
       "id": "simplemoney:farmer/22",
       "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/cheese_slice",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/butter_slice",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/cake_slice",
+      "required": false
     }
   ]
 }

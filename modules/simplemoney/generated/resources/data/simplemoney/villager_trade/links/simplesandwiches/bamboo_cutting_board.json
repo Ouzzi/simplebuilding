@@ -1,0 +1,33 @@
+{
+  "wants": {
+    "id": "simplemoney:money_bill",
+    "count": 8
+  },
+  "gives": {
+    "id": "simplesandwiches:bamboo_cutting_board",
+    "count": 1
+  },
+  "max_uses": 2,
+  "xp": 0,
+  "reputation_discount": 0,
+  "fabric:load_conditions": [
+    {
+      "condition": "simplemoney:config",
+      "flag": "links:simplesandwiches"
+    },
+    {
+      "condition": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "simplemoney:config",
+      "flag": "links:simplesandwiches"
+    },
+    {
+      "type": "simplemoney:config",
+      "flag": "enableVillagerTrades"
+    }
+  ]
+}
