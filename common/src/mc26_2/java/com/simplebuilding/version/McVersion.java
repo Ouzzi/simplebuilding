@@ -81,6 +81,8 @@ public final class McVersion {
     public static final boolean HAMMOCK = false;
     /** Dimension music discs with B-sides (sledgehammer flip) and the Astralit/Nihilit speakers (2026-10-03). */
     public static final boolean MUSIC_DISCS = false;
+    /** Astral rail (boosts towards a raised top speed) and Nihil rail (brakes to a stop), fed by their End channel (2026-10-04). */
+    public static final boolean END_RAILS = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = false;
 

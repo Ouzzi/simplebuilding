@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_astral_redstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:astral_redstone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:astral_rail"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_astral_redstone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:astral_rail"
+    ]
+  }
+}

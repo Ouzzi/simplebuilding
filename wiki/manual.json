@@ -3457,6 +3457,50 @@
       }
     },
     {
+      "id": "end_rails",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndRailBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndRailPhysics.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EndSignalBlock.java",
+        "common/src/shared/java/com/simplebuilding/mixin/MinecartBehaviorEndRailMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AbstractMinecartEndRailMixin.java",
+        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
+        "mc26_3/generated/data/simplebuilding/recipe/astral_rail.json",
+        "mc26_3/generated/data/simplebuilding/recipe/nihil_rail.json"
+      ],
+      "related": [
+        "simplebuilding:astral_rail",
+        "simplebuilding:nihil_rail",
+        "simplebuilding:astral_redstone",
+        "simplebuilding:nihil_redstone"
+      ],
+      "en": {
+        "title": "Astral and Nihil Rails",
+        "summary": "Straight rails of the two End channels: the Astral Rail raises the minecart top speed and boosts towards it, the Nihil Rail brakes to a stop.",
+        "details": [
+          "Recipe like the powered rail: six gold ingots, a stick and Astral Redstone (Astral Rail) or Nihil Redstone (Nihil Rail) make 6 rails. They are straight only (no curves) and minecarts treat them as rails.",
+          "Power comes from the rail's own channel like a lamp: Astral or Nihil Redstone or a switch of the same channel on a horizontal neighbor. Vanilla redstone, the other channel and neighboring rails do not power it. The rail checks its neighbors every two game ticks while a source of its channel lies next to it.",
+          "Astral Rail: on a flat Astral Rail the top speed is server.machines.astralRailMaxSpeed blocks per second (default 16, clamped to 8–20; vanilla 8), or the experimental max_minecart_speed game rule if that is higher. On slopes, in water and on every other rail the vanilla limit applies, so a fast cart meets the normal limit again before a curve. Unpowered it is a plain rail that keeps the cart's momentum; momentum above the limit is cut to the limit.",
+          "Powered Astral Rail: every game tick the cart gains boost × (1 − (speed / top speed)²), boost = server.machines.astralRailBoost (default 0.12 blocks per tick, clamped to 0.07–0.25, at most a quarter of the top speed). That is more than a powered rail's 0.06 when slow and less the faster the cart goes; the speed approaches the top speed and never reaches it. Vanilla friction still applies. A cart standing still is pushed away from a solid block at one end of the rail, like on a powered rail.",
+          "Powered Nihil Rail: every game tick the cart keeps 80 % of its speed minus server.machines.nihilRailBrake (default 0.08 blocks per tick, clamped to 0.02–0.4); below 0.03 it stops and is held while the power stays on. Unpowered, carts roll through.",
+          "server.features.endRails (default true) needs server.features.endSignals as well; switched off, both rails act as plain rails and their recipes disappear on datapack reload."
+        ]
+      },
+      "de": {
+        "title": "Astral- und Nihil-Schienen",
+        "summary": "Gerade Schienen der beiden End-Kanäle: die Astral-Schiene hebt das Höchsttempo der Lore an und beschleunigt darauf zu, die Nihil-Schiene bremst bis zum Halt.",
+        "details": [
+          "Rezept wie die Antriebsschiene: sechs Goldbarren, ein Stock und Astral-Redstone (Astral-Schiene) bzw. Nihil-Redstone (Nihil-Schiene) ergeben 6 Schienen. Sie sind nur gerade (keine Kurven), Loren behandeln sie als Schienen.",
+          "Strom kommt wie bei einer Lampe aus dem eigenen Kanal: Astral- bzw. Nihil-Redstone oder ein Schalter desselben Kanals auf einem waagerechten Nachbarfeld. Vanilla-Redstone, der andere Kanal und benachbarte Schienen speisen sie nicht. Die Schiene prüft ihre Nachbarn alle zwei Spielticks, solange eine Quelle ihres Kanals daneben liegt.",
+          "Astral-Schiene: auf einer flachen Astral-Schiene beträgt das Höchsttempo server.machines.astralRailMaxSpeed Blöcke pro Sekunde (Standard 16, begrenzt auf 8–20; Vanilla 8) oder die experimentelle Spielregel max_minecart_speed, wenn sie höher ist. Auf Steigungen, im Wasser und auf allen anderen Schienen gilt die Vanilla-Grenze, eine schnelle Lore trifft vor einer Kurve also wieder auf die normale Grenze. Ungespeist ist sie eine normale Schiene, die den Schwung erhält; Schwung über der Grenze wird auf die Grenze gekappt.",
+          "Gespeiste Astral-Schiene: jeden Spieltick gewinnt die Lore Schub × (1 − (Tempo / Höchsttempo)²), Schub = server.machines.astralRailBoost (Standard 0,12 Blöcke pro Tick, begrenzt auf 0,07–0,25, höchstens ein Viertel des Höchsttempos). Langsam ist das mehr als die 0,06 einer Antriebsschiene, je schneller die Lore, desto weniger; das Tempo nähert sich dem Höchsttempo und erreicht es nie. Die Vanilla-Reibung wirkt weiter. Eine stehende Lore wird wie auf einer Antriebsschiene von einem festen Block am Schienenende weggeschoben.",
+          "Gespeiste Nihil-Schiene: jeden Spieltick behält die Lore 80 % ihres Tempos abzüglich server.machines.nihilRailBrake (Standard 0,08 Blöcke pro Tick, begrenzt auf 0,02–0,4); unter 0,03 hält sie an und bleibt stehen, solange der Strom anliegt. Ungespeist rollen Loren durch.",
+          "server.features.endRails (Standard an) braucht zusätzlich server.features.endSignals; abgeschaltet sind beide Schienen normale Schienen und ihre Rezepte verschwinden beim Datenpaket-Neuladen."
+        ]
+      }
+    },
+    {
       "id": "astral_vault",
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/AstralVaultBlock.java",

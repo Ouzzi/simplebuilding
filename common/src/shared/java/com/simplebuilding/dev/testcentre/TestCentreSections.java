@@ -1323,6 +1323,33 @@ public final class TestCentreSections {
                 c.place(3, 0, z - gap, Blocks.SANDSTONE);
             }
         }
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            // Astral-/Nihil-Schienen (2026-10-04): Teststrecke Ost-West. Stein als Anschlag, 14 Astral-Schienen mit
+            // Astral-Pulver daneben (Schalter aus), 12 ungespeiste Astral-Schienen zum Ausrollen mit hoher Grenze,
+            // 4 Nihil-Schienen mit Nihil-Pulver (Schalter aus), 4 normale Schienen, Stein als Ende.
+            int z = 19;
+            BlockState astralRail = ModBlocks.ASTRAL_RAIL.defaultBlockState()
+                    .setValue(com.simplebuilding.blocks.custom.EndRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+            BlockState nihilRail = ModBlocks.NIHIL_RAIL.defaultBlockState()
+                    .setValue(com.simplebuilding.blocks.custom.EndRailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+            BlockState rail = Blocks.RAIL.defaultBlockState()
+                    .setValue(net.minecraft.world.level.block.RailBlock.SHAPE, net.minecraft.world.level.block.state.properties.RailShape.EAST_WEST);
+            for (int x = 0; x <= 35; x++) for (int dz = 0; dz <= 1; dz++) c.place(x, -1, z + dz, Blocks.STONE);
+            c.place(0, 0, z, Blocks.STONE);
+            c.place(0, 0, z + 1, ModBlocks.ASTRALIT_SWITCH);
+            for (int x = 1; x <= 14; x++) {
+                c.place(x, 0, z, astralRail);
+                c.place(x, 0, z + 1, ModBlocks.ASTRAL_REDSTONE);
+            }
+            for (int x = 15; x <= 26; x++) c.place(x, 0, z, astralRail);
+            for (int x = 27; x <= 30; x++) {
+                c.place(x, 0, z, nihilRail);
+                c.place(x, 0, z + 1, ModBlocks.NIHIL_REDSTONE);
+            }
+            c.place(31, 0, z + 1, ModBlocks.NIHILITH_SWITCH);
+            for (int x = 31; x <= 34; x++) c.place(x, 0, z, rail);
+            c.place(35, 0, z, Blocks.STONE);
+        }
         int wallZ = 3;
         List<TcCanvas.Line> lines = new ArrayList<>();
         int bx = 1;

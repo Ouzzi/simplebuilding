@@ -2809,6 +2809,10 @@ public final class DataIntegrityTests {
             expected.add(List.of(ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_SWITCH, ModItems.NIHILITH_LAMP, ModItems.NIHIL_PISTON, gap,
                     ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_SWITCH, ModItems.ASTRALIT_LAMP, ModItems.ASTRAL_PISTON));
         }
+        if (McVersion.END_RAILS) {
+            // Astral-/Nihil-Schienen (2026-10-04) als eigene Zeile direkt unter den End-Signalen.
+            expected.add(List.of(ModItems.NIHIL_RAIL, ModItems.ASTRAL_RAIL));
+        }
         if (McVersion.TRAINING_DUMMY) {
             expected.add(List.of(ModItems.STRAW_ARMOR_STAND, ModItems.TRAINING_DUMMY));
         }

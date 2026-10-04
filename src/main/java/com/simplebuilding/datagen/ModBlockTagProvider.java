@@ -43,6 +43,11 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             builder(BlockTags.SMALL_FLOWERS).add(key(ModBlocks.SILENT_DANDELION));
             builder(BlockTags.FLOWER_POTS).add(key(ModBlocks.POTTED_SILENT_DANDELION));
         }
+        if (com.simplebuilding.version.McVersion.END_RAILS) {
+            // Astral-/Nihil-Schienen: Minecarts fahren nur auf minecraft:rails; abbauen wie die Vanilla-Schienen.
+            builder(BlockTags.RAILS).add(key(ModBlocks.ASTRAL_RAIL)).add(key(ModBlocks.NIHIL_RAIL));
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_RAIL)).add(key(ModBlocks.NIHIL_RAIL));
+        }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_VAULT)).add(key(ModBlocks.NIHIL_VAULT))
                     .add(key(ModBlocks.ASTRAL_PISTON)).add(key(ModBlocks.NIHIL_PISTON));

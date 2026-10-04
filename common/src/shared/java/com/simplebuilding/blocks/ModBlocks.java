@@ -42,6 +42,10 @@ public class ModBlocks {
     // die Lampe, bewegen beim Einschalten je einen Block in alle 6 Richtungen; selbst unverschiebbar.
     public static final Block NIHIL_PISTON = McVersion.END_SYSTEMS ? registerBlock("nihil_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(false, s.strength(1.5F).sound(SoundType.AMETHYST).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
     public static final Block ASTRAL_PISTON = McVersion.END_SYSTEMS ? registerBlock("astral_piston", s -> new com.simplebuilding.blocks.custom.EndPistonBlock(true, s.strength(1.5F).sound(SoundType.AMETHYST).isRedstoneConductor((state, world, pos) -> false).pushReaction(McVersion.PUSH_BLOCKED))) : null;
+    // Astral-/Nihil-Schienen (2026-10-04, docs/ai/PLAN-ASTRAL-NIHIL-SCHIENEN-2026-10-02.md): gerade Schienen mit den
+    // Eigenschaften der Antriebsschiene, gespeist ueber den eigenen End-Kanal; Physik in EndRailPhysics.
+    public static final Block NIHIL_RAIL = McVersion.END_RAILS ? registerBlock("nihil_rail", Blocks.POWERED_RAIL, s -> new com.simplebuilding.blocks.custom.EndRailBlock(false, s)) : null;
+    public static final Block ASTRAL_RAIL = McVersion.END_RAILS ? registerBlock("astral_rail", Blocks.POWERED_RAIL, s -> new com.simplebuilding.blocks.custom.EndRailBlock(true, s)) : null;
     public static final Block ASTRAL_VAULT = McVersion.END_SYSTEMS ? registerBlock("astral_vault", Blocks.ENDER_CHEST, s -> new AstralVaultBlock(s.strength(50.0F, 1200.0F))) : null;
     // Nihil-Gewoelbe (2026-10-04, docs/ai/PLAN-NIHIL-GEWOELBE-2026-10-02.md): eine weltweit geteilte Endertruhe.
     public static final Block NIHIL_VAULT = McVersion.END_SYSTEMS ? registerBlock("nihil_vault", Blocks.ENDER_CHEST, s -> new com.simplebuilding.blocks.custom.NihilVaultBlock(s.strength(50.0F, 1200.0F))) : null;
