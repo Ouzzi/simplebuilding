@@ -4,6 +4,18 @@ Zuerst `AGENTS.md` vollständig lesen, dann diese Datei und `docs/ai/WORKFLOW.md
 Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alten Run-Berichten.
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
+## Worker-Nachtrag 2026-10-04: wackelige GameTests
+
+Branch `claude-gpt-flaky`: Knopf-Ausfuehrung bedingt abwarten, eigene Scoreboard-Zaehler und
+entfernten Testbereich samt Tickwarteschlangen bereinigen; Claims-Attractor erst bei sichtbaren
+Grenz-Probes pruefen; Shulker-Seed/freie Spawnzellen, gemeinsame Magnet-Taktung und gemischte
+Palette-Testflaechen. Keine Gameplay-Aenderungen oder abgeschwaechten Assertions.
+Alle fuenf Gruppen dreimal je Fabric/NeoForge gruen; volle Basis 1814/1814 und SimpleTweaks
+104/104 gruen. `check -q`, 26.2 Fabric/NeoForge-Compile und Forge-26.3-Compile gruen.
+Testzentralen-Neubau/Item-Abdeckung bestanden. Kein Clientstart, Port, Merge oder Push.
+Plan, Ursachen, Diagnoselaeufe und Beleg-IDs: `docs/ai/PLAN-FLAKY-GAMETESTS-2026-10-02.md`.
+Separater Handbuchcheck meldet zwei bestehende deutsche Themenlisten-Ueberlaengen; unveraendert.
+
 ## Stand Abend 2026-09-30 (Orchestrator)
 
 Aktueller Nachtrag 2026-10-01: Folgewelle auf `09567ce3` mit GREEN gepusht;

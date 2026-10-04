@@ -32,7 +32,11 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Marker;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.scores.Objective;
+import net.minecraft.world.scores.Scoreboard;
+import net.minecraft.world.scores.ScoreHolder;
+import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -629,18 +633,17 @@ public final class TestCentreTests {
         helper.succeed();
     }
 
-    /** Ticks zwischen zwei Knopfdruecken; geprueft wird {@link #CHECK_AFTER} Ticks nach dem Druck. */
-    static final int PRESS_STEP = 4;
+    /** Nach der ersten Ausfuehrung noch weitere Ticks auf doppelte/fremde Ausfuehrungen pruefen. */
     static final int CHECK_AFTER = 3;
-    /** Bau und erster Druck: die erzwungenen Chunks brauchen ein paar Ticks, bis ihre Tickets wirken. */
-    static final int BUILD_AT = 3;
-    static final int FIRST_PRESS = 8;
-    public static final int BUTTON_RUN_MAX_TICKS = 600;
+    // Serial execution needs a command tick, three observation ticks and a release tick
+    // per button, plus asynchronous loading of the remote centre. The old 600 covered
+    // only the fixed four-tick schedule and could expire before the final buttons.
+    public static final int BUTTON_RUN_MAX_TICKS = 1200;
 
     /**
      * Die Zentrale steht wirklich (fern aller Tests, Chunks erzwungen), jeder Befehlsblock bekommt statt
-     * seines Befehls einen Zaehler: {@code summon marker} an einer eigenen Stelle ueber ihm. Dann wird jeder
-     * Knopf der Reihe nach gedrueckt wie von Hand ({@link ButtonBlock#press}); drei Ticks spaeter muss
+     * seines Befehls einen eigenen Scoreboard-Zaehler. Dann wird jeder
+     * Knopf der Reihe nach gedrueckt wie von Hand ({@link ButtonBlock#press}); nach seiner Ausfuehrung muss
      * genau der eigene Zaehler um eins gestiegen sein und kein anderer. So faellt jeder Knopf auf, der
      * einen zweiten Befehlsblock ausloest (auch ueber Umwege, die der statische Test nicht kennt), einen
      * doppelt oder gar keinen.
@@ -650,51 +653,91 @@ public final class TestCentreTests {
         BlockPos origin = new BlockPos(26000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 26000);
         TestCentreLayout.Plan plan = TestCentreLayout.plan(level.registryAccess(), origin);
         BoundingBox bounds = plan.bounds();
+        Scoreboard scoreboard = level.getScoreboard();
+        String objectiveName = "sb_tc_" + java.util.UUID.randomUUID().toString().substring(0, 8);
+        Objective objective = scoreboard.addObjective(objectiveName, ObjectiveCriteria.DUMMY,
+                Component.literal(objectiveName), ObjectiveCriteria.RenderType.INTEGER, false, null);
         List<int[]> forced = new ArrayList<>();
         for (int cx = bounds.minX() >> 4; cx <= bounds.maxX() >> 4; cx++) {
             for (int cz = bounds.minZ() >> 4; cz <= bounds.maxZ() >> 4; cz++) {
                 if (level.setChunkForced(cx, cz, true)) {
                     forced.add(new int[]{cx, cz});
                 }
+                level.getChunk(cx, cz);
             }
         }
         Runnable cleanup = () -> {
             TestCentreBuilder.clear(level, bounds);
+            level.getBlockTicks().clearArea(bounds);
+            level.getFluidTicks().clearArea(bounds);
             for (int[] chunk : forced) {
                 level.setChunkForced(chunk[0], chunk[1], false);
             }
+            scoreboard.removeObjective(objective);
         };
+        helper.runBeforeTestEnd(cleanup);
         List<TcOp.Command> commands = commands(plan);
-        java.util.concurrent.atomic.AtomicBoolean failed = new java.util.concurrent.atomic.AtomicBoolean();
-        // Erst bauen, wenn die Tickets der erzwungenen Chunks wirken: ein vorher per getChunk geladener,
-        // noch nicht erzwungener Chunk kann sonst verworfen und frisch erzeugt werden (die Zentrale war
-        // dann nach ein paar Ticks weg).
-        helper.runAfterDelay(BUILD_AT, guarded(failed, cleanup, () -> {
+        // Wait until forced tickets take effect before writing the structure. Each command
+        // then waits for its actual execution, including any pending chunk/entity loading.
+        var sequence = helper.startSequence().thenWaitUntil(() -> {
+            for (int cx = bounds.minX() >> 4; cx <= bounds.maxX() >> 4; cx++) {
+                for (int cz = bounds.minZ() >> 4; cz <= bounds.maxZ() >> 4; cz++) {
+                    helper.assertTrue(level.shouldTickBlocksAt(
+                                    new net.minecraft.world.level.ChunkPos(cx, cz).pack()),
+                            "test centre forced ticket is not active: " + cx + ", " + cz);
+                }
+            }
+        }).thenExecute(cleanupOnFailure(cleanup, () -> {
+            // This fixed remote area is outside the GameTest structure's automatic reset.
+            // Pending ticks from a previous run can suppress a newly scheduled tick at the
+            // same position, even after its block and block entity have been replaced.
+            level.getBlockTicks().clearArea(bounds);
+            level.getFluidTicks().clearArea(bounds);
             TestCentreBuilder.build(level, plan);
             helper.assertTrue(commands.size() > 20, "suspiciously few command blocks: " + commands.size());
-            for (TcOp.Command command : commands) {
+            for (int i = 0; i < commands.size(); i++) {
+                TcOp.Command command = commands.get(i);
                 helper.assertTrue(level.getBlockEntity(command.pos()) instanceof CommandBlockEntity,
                         "no command block at " + command.pos().toShortString());
-                BlockPos counter = counter(command);
                 ((CommandBlockEntity) level.getBlockEntity(command.pos())).getCommandBlock().setCommand(
-                        // Mitte des Blocks als Zahl, nicht als Text "y.5": bei negativem y laege "-52.5" unter dem Block.
-                        "summon minecraft:marker " + (counter.getX() + 0.5) + " " + (counter.getY() + 0.5) + " " + (counter.getZ() + 0.5));
+                        // A marker count also depends on entity-section visibility. Scoreboard
+                        // increments measure every command execution without that extra clock.
+                        "scoreboard players add button_" + i + " " + objectiveName + " 1");
             }
         }));
         for (int i = 0; i < commands.size(); i++) {
             int index = i;
             TcOp.Command pressed = commands.get(i);
             BlockPos buttonPos = pressed.pos().relative(pressed.facing());
-            helper.runAfterDelay(FIRST_PRESS + (long) PRESS_STEP * i, guarded(failed, cleanup, () -> {
+            String[] waitingState = {"not pressed"};
+            sequence.thenExecute(cleanupOnFailure(cleanup, () -> {
                 BlockState button = level.getBlockState(buttonPos);
                 helper.assertTrue(button.getBlock() instanceof ButtonBlock,
                         "no button in front of '" + pressed.command() + "' at " + pressed.pos().toShortString() + " but " + button);
+                helper.assertTrue(!button.getValue(ButtonBlock.POWERED), "button was already powered: " + pressed.command());
+                CommandBlockEntity entity = (CommandBlockEntity) level.getBlockEntity(pressed.pos());
+                helper.assertValueEqual(entity.getCommandBlock().getCommand(),
+                        "scoreboard players add button_" + index + " " + objectiveName + " 1",
+                        "counter command changed before pressing " + pressed.command());
+                helper.assertTrue(!entity.isPowered(), "command block was already powered: " + pressed.command());
                 ((ButtonBlock) button.getBlock()).press(button, level, buttonPos, null);
-            }));
-            helper.runAfterDelay(FIRST_PRESS + (long) PRESS_STEP * i + CHECK_AFTER, guarded(failed, cleanup, () -> {
+                helper.assertTrue(entity.isPowered(), "button did not power its command block: " + pressed.command());
+                helper.assertTrue(entity.wasConditionMet(), "command block condition was not met: " + pressed.command());
+            })).thenWaitUntil(() -> {
+                if (level.getBlockEntity(pressed.pos()) instanceof CommandBlockEntity entity) {
+                    waitingState[0] = entity.getCommandBlock().getCommand() + "; powered=" + entity.isPowered()
+                            + "; scheduled=" + level.getBlockTicks().hasScheduledTick(pressed.pos(), Blocks.COMMAND_BLOCK)
+                            + "; ready=" + level.isPositionTickingWithEntitiesLoaded(
+                                    net.minecraft.world.level.ChunkPos.pack(pressed.pos()));
+                }
+                helper.assertTrue(commandRuns(scoreboard, objective, index) > 0,
+                        "waiting for command block " + (index + 1) + "/" + commands.size()
+                                + " after pressing '" + pressed.command() + "': " + waitingState[0]);
+            })
+                    .thenExecuteAfter(CHECK_AFTER, cleanupOnFailure(cleanup, () -> {
                 List<String> wrong = new ArrayList<>();
                 for (int j = 0; j < commands.size(); j++) {
-                    int runs = level.getEntitiesOfClass(Marker.class, new AABB(counter(commands.get(j)))).size();
+                    int runs = commandRuns(scoreboard, objective, j);
                     int expected = j <= index ? 1 : 0;
                     if (runs != expected) {
                         wrong.add("'" + commands.get(j).command() + "' ran " + runs + "x");
@@ -705,36 +748,23 @@ public final class TestCentreTests {
                 BlockState button = level.getBlockState(buttonPos);
                 level.setBlock(buttonPos, button.setValue(ButtonBlock.POWERED, false), Block.UPDATE_ALL);
                 level.updateNeighborsAt(pressed.pos(), button.getBlock());
-            }));
+            })).thenExecuteAfter(1, () -> {});
         }
-        helper.runAfterDelay(FIRST_PRESS + (long) PRESS_STEP * commands.size() + 1, () -> {
-            if (failed.get()) {
-                return;
-            }
-            cleanup.run();
-            helper.succeed();
-        });
+        sequence.thenExecute(cleanup).thenSucceed();
     }
 
-    /** Wo der Zaehler eines Befehlsblocks landet: drei Bloecke ueber ihm (Luft; jede Stelle nur einmal). */
-    private static BlockPos counter(TcOp.Command command) {
-        return command.pos().above(3);
+    private static int commandRuns(Scoreboard scoreboard, Objective objective, int index) {
+        var score = scoreboard.getPlayerScoreInfo(ScoreHolder.forNameOnly("button_" + index), objective);
+        return score == null ? 0 : score.value();
     }
 
-    /** Fuehrt einen Schritt aus und raeumt die Zentrale ab, wenn er scheitert. */
-    private static Runnable guarded(java.util.concurrent.atomic.AtomicBoolean failed, Runnable cleanup, Runnable step) {
+    private static Runnable cleanupOnFailure(Runnable cleanup, Runnable action) {
         return () -> {
-            // Nach dem ersten roten Schritt nichts mehr tun: der Harness tickt weiter, und ein spaeterer
-            // Schritt ueberschriebe die eigentliche Meldung mit "kein Knopf" (die Zentrale ist dann schon weg).
-            if (failed.get()) {
-                return;
-            }
             try {
-                step.run();
-            } catch (RuntimeException e) {
-                failed.set(true);
+                action.run();
+            } catch (RuntimeException failure) {
                 cleanup.run();
-                throw e;
+                throw failure;
             }
         };
     }

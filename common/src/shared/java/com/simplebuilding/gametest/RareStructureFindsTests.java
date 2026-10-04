@@ -319,6 +319,9 @@ public final class RareStructureFindsTests {
         Shulker shulker = helper.spawn(EntityTypes.SHULKER, new BlockPos(4, 1, 4));
         RareShulkers.apply(shulker, ChestTier.ENDERITE);
         shulker.addTag(RareShulkers.ESCORT_TAG);
+        // The escort samples only twelve positions per mite, including two unsupported Y
+        // layers. An unlucky random stream can exhaust those attempts on an empty floor.
+        shulker.getRandom().setSeed(0L);
         AABB area = new AABB(helper.absolutePos(BlockPos.ZERO)).expandTowards(8.0, 8.0, 8.0).inflate(4.0);
 
         // No player near: the escort waits (the tick only looks once a second). Skipped if a survival player of a
@@ -336,7 +339,8 @@ public final class RareStructureFindsTests {
         // A creative player (the mock player is one) right next to it does not call the escort either.
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
-        Vec3 near = helper.absoluteVec(new Vec3(1.5, 1.0, 1.5));
+        // Outside the seeded spawn cells, but still inside the escort's trigger range.
+        Vec3 near = helper.absoluteVec(new Vec3(0.5, 1.0, 0.5));
         player.snapTo(near.x, near.y, near.z, 0.0F, 0.0F);
         if (player.isCreative()) {
             shulker.tickCount = 40;
@@ -353,6 +357,12 @@ public final class RareStructureFindsTests {
         }
         int spawned;
         int again;
+        // Seed 0 selects these four distinct floor cells before exhausting its attempt budget.
+        for (BlockPos spot : List.of(new BlockPos(6, 1, 5), new BlockPos(1, 1, 5),
+                new BlockPos(1, 1, 1), new BlockPos(3, 1, 7))) {
+            helper.assertTrue(RareShulkers.isSafeSpot(level, helper.absolutePos(spot)),
+                    "escort fixture is obstructed at " + spot);
+        }
         level.getServer().setDifficulty(net.minecraft.world.Difficulty.NORMAL, true);
         try {
             spawned = RareShulkers.triggerEscort(level, shulker);
