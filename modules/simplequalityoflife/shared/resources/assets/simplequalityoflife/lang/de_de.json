@@ -69,5 +69,15 @@
   "command.simplequalityoflife.added": "Suffix hinzugefügt: %s",
   "command.simplequalityoflife.removed": "Suffix entfernt: %s",
   "command.simplequalityoflife.missing": "Suffix nicht gefunden.",
-  "command.simplequalityoflife.cleared": "Suffixliste geleert."
+  "command.simplequalityoflife.cleared": "Suffixliste geleert.",
+  "text.autoconfig.simplequalityoflife.option.qOL.enableLinkedContainers": "Verknüpfte Behälter",
+  "text.autoconfig.simplequalityoflife.option.qOL.enableLinkedContainers.@Tooltip": "Schleichen + Rechtsklick mit leerer Hand merkt\neinen Behälter vor. Die nächste geöffnete Truhe\noder GUI zeigt ihn darüber an, mit gemeinsamem\nInventar. Erneut Schleichen + Rechtsklick hebt\ndie Vormerkung auf. Standard: true.",
+  "text.autoconfig.simplequalityoflife.option.qOL.linkedContainerRange": "Reichweite verknüpfter Behälter",
+  "text.autoconfig.simplequalityoflife.option.qOL.linkedContainerRange.@Tooltip": "Blöcke zwischen Spieler und vorgemerktem\nBehälter. Weiter weg, andere Dimension oder\nungeladener Chunk beenden die Vormerkung.\nStandard: 64. Erlaubter Bereich: 8–128.",
+  "text.autoconfig.simplequalityoflife.option.qOL.enableEasyShulkers": "Einfache Shulkerkisten",
+  "text.autoconfig.simplequalityoflife.option.qOL.enableEasyShulkers.@Tooltip": "Rechtsklick mit einer Shulkerkiste in die Luft\noder auf ihren Inventarplatz öffnet sie, ohne\nsie zu platzieren. Solange sie offen ist, bleibt\nsie in ihrem Platz gesperrt. Standard: true.",
+  "text.autoconfig.simplequalityoflife.option.qOL.enableEasyEnderChests": "Einfache Endertruhen",
+  "text.autoconfig.simplequalityoflife.option.qOL.enableEasyEnderChests.@Tooltip": "Rechtsklick mit einer Endertruhe in die Luft\noder auf ihren Inventarplatz öffnet deine\nEndertruhe, ohne sie zu platzieren.\nStandard: true.",
+  "simplequalityoflife.config.tab.containers": "Behälter",
+  "container.simplequalityoflife.linked": "Vorgemerkt: %s"
 }

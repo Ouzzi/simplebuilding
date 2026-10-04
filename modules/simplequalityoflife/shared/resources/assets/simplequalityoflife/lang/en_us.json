@@ -69,5 +69,15 @@
   "command.simplequalityoflife.added": "Added suffix: %s",
   "command.simplequalityoflife.removed": "Removed suffix: %s",
   "command.simplequalityoflife.missing": "Suffix not found.",
-  "command.simplequalityoflife.cleared": "Suffix list cleared."
+  "command.simplequalityoflife.cleared": "Suffix list cleared.",
+  "text.autoconfig.simplequalityoflife.option.qOL.enableLinkedContainers": "Linked Containers",
+  "text.autoconfig.simplequalityoflife.option.qOL.enableLinkedContainers.@Tooltip": "Sneak + right-click a container with an empty\nhand to mark it. The next chest or GUI you open\nshows the marked container above it with a\nshared inventory. Sneak + right-click it again\nto unmark. Default: true.",
+  "text.autoconfig.simplequalityoflife.option.qOL.linkedContainerRange": "Linked Container Range",
+  "text.autoconfig.simplequalityoflife.option.qOL.linkedContainerRange.@Tooltip": "Blocks between player and marked container.\nFarther away, another dimension or an\nunloaded chunk ends the mark. Default: 64.\nAllowed range: 8–128.",
+  "text.autoconfig.simplequalityoflife.option.qOL.enableEasyShulkers": "Easy Shulker Boxes",
+  "text.autoconfig.simplequalityoflife.option.qOL.enableEasyShulkers.@Tooltip": "Right-click a shulker box in the air or on its\ninventory slot to open it without placing it.\nThe box stays locked in its slot while open.\nDefault: true.",
+  "text.autoconfig.simplequalityoflife.option.qOL.enableEasyEnderChests": "Easy Ender Chests",
+  "text.autoconfig.simplequalityoflife.option.qOL.enableEasyEnderChests.@Tooltip": "Right-click an ender chest in the air or on its\ninventory slot to open your ender chest\nwithout placing it. Default: true.",
+  "simplequalityoflife.config.tab.containers": "Containers",
+  "container.simplequalityoflife.linked": "Marked: %s"
 }

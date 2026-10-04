@@ -32,6 +32,7 @@ public final class QolTests {
   ALL.put("vault",QolTests::vault);ALL.put("vegetation",QolTests::vegetation);ALL.put("cross_mod",QolTests::crossMod);
   ALL.put("real_movement_packets",QolTests::realMovementPackets);ALL.put("vault_persistence",QolTests::vaultPersistence);
   ALL.put("gold_trim",QolTests::goldTrim);ALL.put("anvil_repair_cost",QolTests::anvilRepairCost);ALL.put("thrift",QolTests::thrift);ALL.put("feature_switches",QolTests::featureSwitches);ALL.put("sharpness_action",QolTests::sharpnessAction);
+  ALL.put("linked_mark",ContainerTests::linkedMark);ALL.put("linked_range",ContainerTests::linkedRange);ALL.put("linked_transfer",ContainerTests::linkedTransfer);ALL.put("portable_shulker",ContainerTests::portableShulker);ALL.put("portable_ender_chest",ContainerTests::portableEnderChest);
  }
  public static Identifier id(String s){return Identifier.fromNamespaceAndPath("simplequalityoflife",s);}
  private static void close(GameTestHelper h,double a,double b,String msg){h.assertTrue(Math.abs(a-b)<0.00001,msg+": "+a+" / "+b);}
@@ -56,7 +57,7 @@ public final class QolTests {
     String p=(object==c?"":"qOL.")+field.getName();String key="text.autoconfig.simplequalityoflife.option."+p;
     for(var lang:List.of(en,de)){h.assertTrue(lang.has(key)&&lang.has(key+".@Tooltip"),"Name/tooltip "+p);h.assertTrue(lang.get(key+".@Tooltip").getAsString().replace(" ", "").contains(gson.toJson(field.get(object)).replace(" ", "")),"Default in tooltip "+p);}
    }
-   for(String tab:List.of("movement","interaction","mobs","weather","vaults"))h.assertTrue(en.has("simplequalityoflife.config.tab."+tab)&&de.has("simplequalityoflife.config.tab."+tab),"Tab "+tab);
+   for(String tab:List.of("movement","interaction","mobs","weather","vaults","containers"))h.assertTrue(en.has("simplequalityoflife.config.tab."+tab)&&de.has("simplequalityoflife.config.tab."+tab),"Tab "+tab);
    var loaded=gson.fromJson("{\"frostWalkerWalkOnPowderSnow\":false,\"qOL\":{\"ladderClimbingSpeed\":0.3}}",SimplequalityoflifeConfig.class);loaded.normalize();h.assertTrue(!loaded.frostWalkerWalkOnPowderSnow&&loaded.qOL.enableHoeHarvest,"Legacy keys and missing defaults");close(h,loaded.qOL.ladderClimbingSpeed,.3,"Legacy value");
   }catch(Exception e){throw new IllegalStateException(e);}h.succeed();
  }

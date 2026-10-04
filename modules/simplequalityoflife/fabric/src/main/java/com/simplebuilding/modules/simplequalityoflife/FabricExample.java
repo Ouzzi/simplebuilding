@@ -8,6 +8,8 @@ public final class FabricExample implements ModInitializer {
   Simplequalityoflife.init();
   InteractionGuard.permission=(p,pos)->net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.invoker().beforeBlockBreak(p.level(),p,pos,p.level().getBlockState(pos),p.level().getBlockEntity(pos));
   net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(ConfigSyncPayload.TYPE,ConfigSyncPayload.STREAM_CODEC);
+  net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(com.simplequalityoflife.network.LinkedOpenPayload.TYPE,com.simplequalityoflife.network.LinkedOpenPayload.CODEC);
+  com.simplequalityoflife.container.LinkedContainers.openSync=(p,payload)->{if(!net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.canSend(p,com.simplequalityoflife.network.LinkedOpenPayload.TYPE))return false;net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(p,payload);return true;};
   net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(com.simplequalityoflife.network.CrawlStatePayload.TYPE,com.simplequalityoflife.network.CrawlStatePayload.CODEC);
   Simplequalityoflife.crawlSync=(player,state)->{
    if(!(player instanceof net.minecraft.server.level.ServerPlayer p))return;
@@ -24,7 +26,8 @@ public final class FabricExample implements ModInitializer {
   });
   net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((p,w,hand,hit)->{
    var a=HoeHarvestHandler.onRightClickBlock(p,hand,hit.getBlockPos(),hit.getDirection());if(a!=net.minecraft.world.InteractionResult.PASS)return a;
-   return FurnaceLavaFillHandler.onRightClickBlock(p,hand,hit.getBlockPos(),hit.getDirection());
+   a=FurnaceLavaFillHandler.onRightClickBlock(p,hand,hit.getBlockPos(),hit.getDirection());if(a!=net.minecraft.world.InteractionResult.PASS)return a;
+   return com.simplequalityoflife.container.LinkedContainers.onRightClickBlock(p,hand,hit.getBlockPos());
   });
  }
 }
