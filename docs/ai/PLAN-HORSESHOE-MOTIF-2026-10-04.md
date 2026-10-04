@@ -18,3 +18,10 @@ lassen, nur das Hufeisenmotiv schoener, wieder 10 Vorschlaege. Nur Vorschau + Ge
 - Generator prueft je Variante: alle Pixel ausserhalb Motiv und altem Rahmen identisch zur eingebauten Textur, Alpha
   identisch, Motiv nur im Feld, nur Palettenfarben, Mindestanteil Eisen. Sichtpruefung 16x und 1x gegen Vanilla.
 - Kein Gameplay-/Asset-Change, daher keine GameTests/Gates.
+
+## Runde 3 (Besitzer: "alle etwas zu gross")
+- Generator `tools/textures/horseshoe_template_motif_round3_2026_10_04.py` (nutzt render/check aus Runde 2), Vorschau
+  `previews\hufeisen-vorlage-runde3-vorschau.png` (jetzt | R2 | R3 je Buchstabe, 16x + 1x im Slot).
+- Vanilla gemessen (Cyan-Motivpixel aus dem 26.3-Client-Jar): Netherit 5x6 (7x7 mit Umriss), Besatz meist 5-8 x 5-8.
+- Jede Variante pixelgenau neu, Eisen-Box je Buchstabe kleiner als R2 und hoechstens 8x6 (Generator prueft das);
+  Details reduziert (ein Nagelloch je Arm, keine Zehenloecher).
