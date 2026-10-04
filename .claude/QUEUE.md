@@ -93,7 +93,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] 4. QUALITY OF LIFE Haltbarkeitsbonus: gilt auch fuer Mod-Werkzeuge (SimpleBuilding und andere), aber der Standard ist 1 (kein Bonus); per Config erhoehbar (serverseitig, harte Obergrenze). Brief: docs/ai/briefs/next-small.md.
 - [x] 5. SOUNDS: Intensitaet an die Stufe von Simple Visuals koppeln (Off/Subtle/Normal/Strong/Maximum); ohne Visuals gilt eine eigene Einstellung. Brief: docs/ai/briefs/next-small.md.
 - [x] 6. FORGE spaeter: Forge 26.3 auch fuer Dimensions, Cloth-Dialog auf Forge und die Frage der Standardaktivierung kommen nach 1 bis 5.
-- [ ] Noch offen: Echolot 3 Sekunden halten oder Ein-Klick? Morgenbericht der Sprach-Bridge ja oder nein?
+- [x] Noch offen: Echolot 3 Sekunden halten oder Ein-Klick? Morgenbericht der Sprach-Bridge ja oder nein? → Besitzer: „ja und ja“ (3 s halten bleibt), Morgenbericht vorerst nicht relevant.
 
 ## Orchestrator-Abschluss 2026-10-01
 
@@ -312,3 +312,5 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [ ] Tooltips Basic/Enderite Upgrade Template; Amplifier immer volle Lautstärke; Erz-Ausbeutebonus der Öfen entfernen (GPT gpt-small9).
 - [x] Senkrechte Stäbe (Stock, Knochen, Lohen-, Böen-, Diamantstab) inkl. Hängematten-Anker (claude-rods3 f01726cb, gemergt).
 - [~] Crucible (Plan docs/ai/PLAN-CRUCIBLE-2026-10-04.md, Fragebogen komplett beantwortet) – Umsetzung läuft auf claude-crucible.
+- [ ] Guide-Buch je Modul + FTB-Quest „Buch gratis“ je Modul + gemeinsame Bibliothek (Guide-Plan Schritt 3/4) – Agent claude-guides2.
+- [ ] Messer-Rezept wie Besitzer-Diktat (`  N / NN / SN `), Schmiedetisch-Rezeptbuch ohne `*_armor_upgrade_dummy`, Nihil-Gewölbe-Preis/Handel in Simple Money – GPT gpt-gaps.
