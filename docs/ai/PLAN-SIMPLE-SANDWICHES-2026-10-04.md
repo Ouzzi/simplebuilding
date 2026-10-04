@@ -395,3 +395,22 @@ Weitere Festlegungen beim Bau (eigene Entscheidungen):
 - Sandwich-Komponente trägt `formula` (Versionszahl); v1 = 1. Neuberechnung alter Stacks ist nicht v1 (offener Punkt).
 - Sandwich-Stapelgröße 16 fest (Item-Eigenschaft).
 - Bündel-Essen: beim Ende wird die oberste Position erneut geprüft; hat sich das Item geändert, passiert nichts.
+
+## 20. Umsetzungsstand 2026-10-04 (Branch `claude-sandwiches`)
+
+Umgesetzt (Code `modules/simplesandwiches/shared/java/com/simplesandwiches/`): Komponente + Formel + Effekt-Merge
+(`sandwich/`), 13 Bretter mit Block-Entity, Zustandsmaschine und Renderer, Eisenmesser (Kuchen per Mixin
+`CakeKnifeMixin`/`CandleCakeKnifeMixin`, Melone per `useOn`, Spinnweben/Bambus per `Tool`-Regeln des Schwerts),
+Käse-/Butterblock (16 Scheiben), Milchkessel (Dispatcher-Invoker für Milcheimer → leerer Kessel), Bündel-Essen
+(`BundleEatMixin` + `BundleEating`), Kuchenstück, Server-Config mit Klemmung, Kreativ-Tab `kitchen`, Hand-Hinweis
+`simplesandwiches:knife` über `TransformHints`. Loader: Fabric, NeoForge (GameTests), Forge (nur kompiliert).
+Ressourcen: `tools/gen_resources.py` (Datagen-Ersatz, `--check`), Texturen `tools/textures/sandwiches.py`
+(Vorschau `previews/sandwiches-vorschau.png`).
+
+Abweichungen gegenüber den Abschnitten oben (bewusst):
+- Kein Essenskorb (F10), keine Holz-unabhängige Brettvariante (F9 = B), kein Rühren (F5 = C), kein Deckel (F4 = C).
+- Pappel (`poplar`) als 13. Holzart, weil 26.3 sie als normale Holzart hat („alle Vanilla-Holzarten“).
+- Messerrezept mit 2 Nuggets laut Besitzerantwort 8 (`..N/.N./S..`), nicht die 5-Nugget-Form aus der Queue.
+- Ressourcen-Datagen als Python statt Fabric-Datagen; Visual-Zuordnung als Java-Konstante.
+- Bündel-Essen: Eimer-Items mit FOOD (26.3: Kugelfisch-Eimer) sind weder Zutat noch aus dem Bündel essbar.
+- Forge-GameTests nicht verdrahtet (Manifest hat kein Forge-Testziel); nur Compile.
