@@ -290,6 +290,6 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Nihil-Gewölbe („Nihil Vault“): wie das Astralgewölbe, aber eine weltweit geteilte Enderkiste (Größe wie Enderkiste), jeder hat Zugriff.
 - [ ] Simple QoL: Mit leerer Hand Schleich-Rechtsklick auf eine Truhe merkt sie vor (Partikel an der Hand); öffnet man danach eine 2. Truhe oder GUI (Werkbank usw.), werden beide GUIs untereinander angezeigt (Umräumen, aus Truhe craften). Reichweite ~64 Blöcke.
 - [ ] Simple QoL: „Easy Shulkers“ und „Easy Ender Chests“ übernehmen (aus dem Inventar öffnen).
-- [ ] Geschwindigkeitsmesser-Rezept: freie Felder mit Kupfer-Nuggets füllen, dann das Muster um einen Slot im Uhrzeigersinn rotieren.
+- [x] Geschwindigkeitsmesser-Rezept: freie Felder mit Kupfer-Nuggets füllen, dann das Muster um einen Slot im Uhrzeigersinn rotieren. (`claude-gpt-gauge`: 26.3 `NAN / NCN / NKN`, sechs Kupfernuggets; 26.2 unverändert. Prüfstand: `docs/ai/PLAN-GAUGE-RESIN-2026-10-02.md`.)
 - [ ] Astral-/Nihil-Schienen: bremsen bzw. beschleunigen; Höchstgeschwindigkeit anheben mit realistischer Reibung (je schneller, desto mehr Boost nötig, asymptotische Annäherung); Astral-Schienen boosten stärker als Antriebsschienen.
-- [ ] Harz-Schachbrett: Rezept nutzt noch den Platzhalter rote Netherziegel → auf Harzziegel (resin_bricks) umstellen.
+- [x] Harz-Schachbrett: Rezept nutzt noch den Platzhalter rote Netherziegel → auf Harzziegel (resin_bricks) umstellen. (`claude-gpt-gauge`: 26.2/26.3 inklusive Freischaltung und EN/DE-Prosa; 1.21.11 bleibt Port-Run. Prüfstand wie oben.)

@@ -206,8 +206,8 @@ public final class TweaksTests {
     }
 
     /**
-     * Gauge: four copper nuggets around its center. 26.3 uses a clock and rotates the displayed
-     * pattern counterclockwise ("AN " / "NCN" / " NK"); 26.2 keeps the compass and old layout.
+     * Gauge: 26.3 fills the gaps, then shifts the outer ring one slot clockwise
+     * ("NAN" / "NCN" / "NKN"); 26.2 keeps four nuggets, the compass and old layout.
      */
     public static void theVelocityGaugeIsCraftedFromAmethystCopperNuggetsAndTheCopperCore(GameTestHelper helper) {
         Item q = Items.QUARTZ;
@@ -217,7 +217,7 @@ public final class TweaksTests {
         Item centre = com.simplebuilding.version.McVersion.GADGET_REWORK ? Items.CLOCK : Items.COMPASS;
         boolean rotated = com.simplebuilding.version.McVersion.GADGET_REWORK;
         CraftingInput grid = rotated
-                ? grid(Items.AMETHYST_SHARD, n, null, n, centre, n, null, n, ModItems.COPPER_CORE)
+                ? grid(n, Items.AMETHYST_SHARD, n, n, centre, n, n, ModItems.COPPER_CORE, n)
                 : grid(null, n, Items.AMETHYST_SHARD, n, centre, n, ModItems.COPPER_CORE, n, null);
         expectCrafting(helper, grid, ModItems.VELOCITY_GAUGE, "simplebuilding:velocity_gauge");
         CraftingInput quartzRecipe = grid(q, Items.AMETHYST_SHARD, q, n, Items.COMPASS, n, n, ModItems.COPPER_CORE, n);
@@ -227,18 +227,24 @@ public final class TweaksTests {
         CraftingInput oldRecipe = grid(null, Items.AMETHYST_SHARD, null, o, Items.COMPASS, o, q, q, q);
         helper.assertTrue(craftingResult(helper, oldRecipe).isEmpty(), "the old quartz row recipe still crafts a velocity gauge");
         CraftingInput bottomEmpty = rotated
-                ? grid(Items.AMETHYST_SHARD, n, null, n, centre, n, null, null, ModItems.COPPER_CORE)
+                ? grid(n, Items.AMETHYST_SHARD, n, n, centre, n, n, ModItems.COPPER_CORE, null)
                 : grid(null, n, Items.AMETHYST_SHARD, n, centre, n, ModItems.COPPER_CORE, null, null);
         helper.assertTrue(craftingResult(helper, bottomEmpty).isEmpty(), "the gauge crafts without the bottom copper nugget");
         CraftingInput ironCore = rotated
-                ? grid(Items.AMETHYST_SHARD, n, null, n, centre, n, null, n, ModItems.IRON_CORE)
+                ? grid(n, Items.AMETHYST_SHARD, n, n, centre, n, n, ModItems.IRON_CORE, n)
                 : grid(null, n, Items.AMETHYST_SHARD, n, centre, n, ModItems.IRON_CORE, n, null);
         helper.assertTrue(craftingResult(helper, ironCore).isEmpty(), "an iron core is accepted instead of the copper core");
         if (rotated) {
-            // A shaped recipe accepts horizontal mirroring, including the previous diagonal layout.
-            expectCrafting(helper, grid(null, n, Items.AMETHYST_SHARD, n, centre, n, ModItems.COPPER_CORE, n, null),
-                    ModItems.VELOCITY_GAUGE, "simplebuilding:velocity_gauge");
-            helper.assertTrue(craftingResult(helper, grid(Items.AMETHYST_SHARD, n, null, n, Items.COMPASS, n, null, n, ModItems.COPPER_CORE)).isEmpty(),
+            helper.assertTrue(craftingResult(helper, grid(Items.AMETHYST_SHARD, n, null, n, centre, n, null, n, ModItems.COPPER_CORE)).isEmpty(),
+                    "the old diagonal gauge recipe still works");
+            helper.assertTrue(craftingResult(helper, grid(Items.AMETHYST_SHARD, n, n, n, centre, n, n, n, ModItems.COPPER_CORE)).isEmpty(),
+                    "the filled but unrotated gauge recipe still works");
+            for (int slot : new int[]{0, 2, 3, 5, 6, 8}) {
+                Item[] ingredients = {n, Items.AMETHYST_SHARD, n, n, centre, n, n, ModItems.COPPER_CORE, n};
+                ingredients[slot] = null;
+                helper.assertTrue(craftingResult(helper, grid(ingredients)).isEmpty(), "gauge crafts without nugget in slot " + slot);
+            }
+            helper.assertTrue(craftingResult(helper, grid(n, Items.AMETHYST_SHARD, n, n, Items.COMPASS, n, n, ModItems.COPPER_CORE, n)).isEmpty(),
                     "the 26.3 gauge accepts a compass instead of a clock");
         }
         helper.succeed();

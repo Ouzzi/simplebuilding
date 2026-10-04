@@ -343,13 +343,13 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // VELOCITY_GAUGE
                 // =================================================================
-                // 26.3 Nachtrag 4: 90 Grad gegen den Uhrzeigersinn, Amethyst oben links, Kupferkern unten rechts.
-                // Die vier Kupfernuggets bleiben um die Uhr; 26.2 behaelt Ausrichtung und Kompass.
+                // 26.3 Nachtrag 8: Leerstellen fuellen, Rand einen Slot im Uhrzeigersinn drehen.
+                // Sechs Kupfernuggets; Amethyst oben mittig, Kupferkern unten mittig. 26.2 bleibt unveraendert.
                 Item gaugeCentre = com.simplebuilding.version.McVersion.GADGET_REWORK ? Items.CLOCK : Items.COMPASS;
                 shaped(RecipeCategory.TOOLS, ModItems.VELOCITY_GAUGE)
-                        .pattern(com.simplebuilding.version.McVersion.GADGET_REWORK ? "AN " : " NA")
+                        .pattern(com.simplebuilding.version.McVersion.GADGET_REWORK ? "NAN" : " NA")
                         .pattern("NCN")
-                        .pattern(com.simplebuilding.version.McVersion.GADGET_REWORK ? " NK" : "KN ")
+                        .pattern(com.simplebuilding.version.McVersion.GADGET_REWORK ? "NKN" : "KN ")
                         .define('C', gaugeCentre)
                         .define('A', Items.AMETHYST_SHARD)
                         .define('N', Items.COPPER_NUGGET)
@@ -944,8 +944,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 createCheckerRecipe(output, ModBlocks.PURPUR_QUARTZ_CHECKER, Items.PURPUR_BLOCK);
                 createCheckerRecipe(output, ModBlocks.LAPIS_QUARTZ_CHECKER, Items.LAPIS_BLOCK);
                 createCheckerRecipe(output, ModBlocks.BLACKSTONE_QUARTZ_CHECKER, Items.BLACKSTONE);
-                // Resin Placeholder (z.B. Red Nether Bricks)
-                createCheckerRecipe(output, ModBlocks.RESIN_QUARTZ_CHECKER, Items.RED_NETHER_BRICKS);
+                createCheckerRecipe(output, ModBlocks.RESIN_QUARTZ_CHECKER, Items.RESIN_BRICKS);
                 // End-Schachbretter: Splitter bzw. Staub stehen direkt fuer den farbigen Block
                 createCheckerRecipe(output, ModBlocks.NIHILITH_QUARTZ_CHECKER, ModItems.NIHILITH_SHARD);
                 createCheckerRecipe(output, ModBlocks.ASTRALIT_QUARTZ_CHECKER, ModItems.ASTRALIT_DUST);
