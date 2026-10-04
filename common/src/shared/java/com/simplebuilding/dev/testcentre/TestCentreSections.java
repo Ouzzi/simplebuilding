@@ -1007,6 +1007,28 @@ public final class TestCentreSections {
                 com.simplebuilding.blocks.custom.HammockLayout.states(ModBlocks.HAMMOCKS.get(i), ModBlocks.HAMMOCK_ROPE, spot)
                         .forEach((pos, state) -> c.place(pos.getX(), pos.getY(), pos.getZ(), state));
             }
+            // Aufgestellte Staebe (2026-10-04) gleich hinter der diagonalen Haengematte (reicht bis hx + 19): die fuenf
+            // Staebe einzeln, dahinter eine weisse Haengematte zwischen Pfosten aus je zwei aufgestellten Stoecken.
+            if (ModBlocks.STANDING_ROD != null) {
+                int sx = hx + 21;
+                c.sign(sx, 0, pz - 1, Direction.NORTH, TcText.bold(TcText.t("machines.standing_rods", "Standing rods")),
+                        TcText.t("machines.standing_rods.sub", "sneak + right-click on a top"),
+                        TcText.t("machines.standing_rods.sub2", "they hold hammocks"));
+                var rods = com.simplebuilding.blocks.custom.StandingRodBlock.Rod.values();
+                for (int i = 0; i < rods.length; i++) {
+                    c.place(sx + 1 + i, 0, pz, ModBlocks.STANDING_ROD.defaultBlockState()
+                            .setValue(com.simplebuilding.blocks.custom.StandingRodBlock.ROD, rods[i]));
+                }
+                int hcol = sx + 1 + rods.length + 1;
+                var rodSpot = new com.simplebuilding.blocks.custom.HammockLayout.Spot(new net.minecraft.core.BlockPos(hcol, 1, pz),
+                        Direction.SOUTH, false, 2);
+                for (net.minecraft.core.BlockPos anchor : List.of(rodSpot.anchor(), rodSpot.otherAnchor())) {
+                    c.place(anchor.getX(), 0, anchor.getZ(), ModBlocks.STANDING_ROD.defaultBlockState());
+                    c.place(anchor.getX(), 1, anchor.getZ(), ModBlocks.STANDING_ROD.defaultBlockState());
+                }
+                com.simplebuilding.blocks.custom.HammockLayout.states(ModBlocks.HAMMOCKS.get(0), ModBlocks.HAMMOCK_ROPE, rodSpot)
+                        .forEach((pos, state) -> c.place(pos.getX(), pos.getY(), pos.getZ(), state));
+            }
         }
         return c;
     }

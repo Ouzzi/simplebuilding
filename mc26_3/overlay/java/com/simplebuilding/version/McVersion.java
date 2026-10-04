@@ -75,6 +75,8 @@ public final class McVersion {
     public static final boolean TRAINING_DUMMY = true;
     /** Hammock (2026-10-02): needs vanilla's AbstractBedBlock (26.3); resting by day speeds the clock up. */
     public static final boolean HAMMOCK = true;
+    /** Standing rods (2026-10-04): stick, bone, blaze/breeze/diamond rod stand upright (sneak + right-click on a top). */
+    public static final boolean STANDING_RODS = true;
     /** Dimension music discs with B-sides (sledgehammer flip) and the Astralit/Nihilit speakers (2026-10-03). */
     public static final boolean MUSIC_DISCS = true;
     /** Astral rail (boosts towards a raised top speed) and Nihil rail (brakes to a stop), fed by their End channel (2026-10-04). */

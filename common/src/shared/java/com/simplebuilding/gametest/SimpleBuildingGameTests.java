@@ -579,6 +579,18 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("hammock_game_test_time_factor_is_capped_on_the_server", HammockTests::timeFactorIsCappedOnTheServer)
                     .build(),
+            GameTestSpec.named("hammock_game_test_cloth_middle_sits_between_the_anchors_in_every_direction", HammockTests::clothMiddleSitsBetweenTheAnchorsInEveryDirection)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_hangs_between_standing_rod_posts", HammockTests::hangsBetweenStandingRodPosts)
+                    .build(),
+            GameTestSpec.named("standing_rod_game_test_every_rod_stands_up_on_top_when_sneaking", StandingRodTests::everyRodStandsUpOnTopWhenSneaking)
+                    .build(),
+            GameTestSpec.named("standing_rod_game_test_rods_drop_themselves_and_stack_into_posts", StandingRodTests::rodsDropThemselvesAndStackIntoPosts)
+                    .build(),
+            GameTestSpec.named("standing_rod_game_test_blaze_rod_glows_and_rods_hold_water", StandingRodTests::blazeRodGlowsAndRodsHoldWater)
+                    .build(),
+            GameTestSpec.named("standing_rod_game_test_piles_take_rods_and_the_server_options_gate_them", StandingRodTests::pilesTakeRodsAndTheServerOptionsGateThem)
+                    .build(),
             GameTestSpec.named("training_dummy_game_test_pumpkin_turns_the_straw_stand_into_training_dummy", TrainingDummyTests::pumpkinTurnsTheStrawStandIntoTrainingDummy)
                     .build(),
             GameTestSpec.named("training_dummy_game_test_only_sneaking_hits_pick_the_dummy_up", TrainingDummyTests::onlySneakingHitsPickTheDummyUp)

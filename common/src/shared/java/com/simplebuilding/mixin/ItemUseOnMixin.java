@@ -25,7 +25,11 @@ public abstract class ItemUseOnMixin {
     private void simplebuilding$placeTemplate(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         // Kleinteile und Eier auf den Boden (bis zu 4 auf einem Fleck) vor den Vorlagen; an Wand und Decke legen sich
         // Kleinteile weiter wie eine Vorlage ab.
-        InteractionResult result = com.simplebuilding.util.PlacedSmallParts.tryPlace(context);
+        // Staebe (Stock, Knochen, Lohen-/Boeen-/Diamantstab) stellen sich auf einer Oberseite auf (2026-10-04).
+        InteractionResult result = com.simplebuilding.blocks.custom.StandingRodBlock.tryPlace(context);
+        if (result == null) {
+            result = com.simplebuilding.util.PlacedSmallParts.tryPlace(context);
+        }
         if (result == null) {
             result = PlacedTemplates.tryPlace(context);
         }

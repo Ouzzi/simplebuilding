@@ -225,6 +225,13 @@ public class ModBlocks {
             .mapColor(MapColor.COLOR_BLACK).forceSolidOn().requiresCorrectToolForDrops().strength(50.0F, 1200.0F)
             .sound(SoundType.NETHERITE_BLOCK).noOcclusion())) : null;
 
+    // Aufgestellte Staebe (2026-10-04, McVersion.STANDING_RODS): Stock, Knochen, Lohen-/Boeen-/Diamantstab senkrecht;
+    // ein Block, der Zustand rod waehlt Modell, Licht, Klang und Drop (StandingRodBlock). Kein Block-Item.
+    public static final Block STANDING_ROD = McVersion.STANDING_RODS ? registerBlock("standing_rod", s -> new com.simplebuilding.blocks.custom.StandingRodBlock(s
+            .strength(0.3F).noLootTable().noOcclusion().mapColor(MapColor.NONE)
+            .lightLevel(com.simplebuilding.blocks.custom.StandingRodBlock::light)
+            .pushReaction(McVersion.PUSH_DESTROYS))) : null;
+
     // Haengematten (2026-10-02, McVersion.HAMMOCK): 16 Farben wie Betten, haengen zwischen zwei Ankern (HammockLayout).
     // Untere Lage = Tuch, obere = Seile; nur das untere Kopfteil hat Beute (das Item). Bei 3 Bloecken Abstand
     // ueberbrueckt das Seilstueck (ohne Item/Beute) den Rest bis zum Kopf-Anker.

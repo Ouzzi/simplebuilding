@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "rod=stick": {
+      "model": "simplebuilding:block/standing_stick"
+    },
+    "rod=bone": {
+      "model": "simplebuilding:block/standing_bone"
+    },
+    "rod=blaze_rod": {
+      "model": "simplebuilding:block/standing_blaze_rod"
+    },
+    "rod=breeze_rod": {
+      "model": "simplebuilding:block/standing_breeze_rod"
+    },
+    "rod=diamond_rod": {
+      "model": "simplebuilding:block/standing_diamond_rod"
+    }
+  }
+}

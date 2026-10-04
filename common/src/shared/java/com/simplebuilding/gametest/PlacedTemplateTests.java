@@ -810,7 +810,7 @@ public final class PlacedTemplateTests {
     }
 
     /**
-     * Small parts (owner 2026-10-02): sneak + right-click lays a stick or a Stone Pebble on the floor (a small-parts pile)
+     * Small parts (owner 2026-10-02): sneak + right-click lays an iron ingot or a Stone Pebble on the floor (a small-parts pile)
      * and uses one; server.features.placeVanillaItems off keeps vanilla items in hand, server.features.placeDisabledItems
      * blocks single IDs.
      */
@@ -835,16 +835,16 @@ public final class PlacedTemplateTests {
             helper.setBlock(floor, Blocks.STONE);
             helper.setBlock(floor.above(), Blocks.AIR);
             player.setShiftKeyDown(true);
-            ItemStack sticks = new ItemStack(Items.STICK, 3);
+            ItemStack sticks = new ItemStack(Items.IRON_INGOT, 3);
             InteractionResult result = use(helper, player, sticks, floor, Direction.UP);
-            helper.assertTrue(result.consumesAction(), "sneak + right-click with a stick answered " + result);
-            helper.assertValueEqual(parts(helper, floor.above()), List.of(Items.STICK), "parts lying on the stone");
-            helper.assertValueEqual(sticks.getCount(), 2, "sticks left in hand");
+            helper.assertTrue(result.consumesAction(), "sneak + right-click with an iron ingot answered " + result);
+            helper.assertValueEqual(parts(helper, floor.above()), List.of(Items.IRON_INGOT), "parts lying on the stone");
+            helper.assertValueEqual(sticks.getCount(), 2, "iron ingots left in hand (sticks stand up on a top since 2026-10-04)");
             // on a wall a small part still lies alone like a template
             helper.setBlock(floor.north(), Blocks.AIR);
             InteractionResult wall = use(helper, player, sticks, floor, Direction.NORTH);
-            helper.assertTrue(wall.consumesAction() && template(helper, floor.north()).is(Items.STICK)
-                    && helper.getBlockState(floor.north()).getValue(PlacedTemplateBlock.FACE) == AttachFace.WALL, "no stick lies on the wall: " + wall);
+            helper.assertTrue(wall.consumesAction() && template(helper, floor.north()).is(Items.IRON_INGOT)
+                    && helper.getBlockState(floor.north()).getValue(PlacedTemplateBlock.FACE) == AttachFace.WALL, "no ingot lies on the wall: " + wall);
             features.placeVanillaItems = false;
             helper.assertFalse(PlacedTemplates.isPlaceableSmall(new ItemStack(Items.STICK)), "vanilla parts off: stick");
             helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(ModItems.STONE_PEBBLE)), "vanilla parts off: the pebble stays placeable");
@@ -1121,10 +1121,10 @@ public final class PlacedTemplateTests {
         BlockPos floor = new BlockPos(1, 1, 1);
         helper.setBlock(floor, Blocks.STONE);
         helper.setBlock(floor.above(), Blocks.AIR);
-        for (Item item : List.of(Items.BONE, Items.FEATHER, Items.GLOWSTONE_DUST, Items.NETHER_STAR)) {
+        for (Item item : List.of(Items.FEATHER, Items.BONE, Items.GLOWSTONE_DUST, Items.NETHER_STAR)) {
             helper.assertTrue(use(helper, player, new ItemStack(item, 2), floor, Direction.UP).consumesAction(), item + " was not laid down");
         }
-        helper.assertValueEqual(parts(helper, floor.above()), List.of(Items.BONE, Items.FEATHER, Items.GLOWSTONE_DUST, Items.NETHER_STAR),
+        helper.assertValueEqual(parts(helper, floor.above()), List.of(Items.FEATHER, Items.BONE, Items.GLOWSTONE_DUST, Items.NETHER_STAR),
                 "the mixed new parts");
         helper.assertTrue(com.simplebuilding.util.PlacedPartParticles.glowOf(new ItemStack(Items.GLOWSTONE_DUST)) != null, "glowstone dust has no particle");
         helper.assertTrue(com.simplebuilding.util.PlacedPartParticles.glowOf(new ItemStack(Items.NETHER_STAR)) != null, "the nether star has no particle");

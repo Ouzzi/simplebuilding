@@ -5,6 +5,7 @@ import com.simplebuilding.blocks.custom.HammockBlock;
 import com.simplebuilding.blocks.custom.HammockLayout;
 import com.simplebuilding.blocks.custom.HammockRopeBlock;
 import com.simplebuilding.blocks.custom.HammockTime;
+import com.simplebuilding.blocks.custom.StandingRodBlock;
 import com.simplebuilding.config.ServerTuning;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.HammockItem;
@@ -189,6 +190,81 @@ public final class HammockTests {
                 helper.assertTrue(HammockLayout.clothCells(gap).contains(gap - 1 - i), "cloth cells not symmetric for gap " + gap);
             }
         }
+        helper.succeed();
+    }
+
+    /**
+     * Symmetry in the world (owner 2026-10-04: "still not centred"): for every facing, straight and diagonal, 2 to 4 free
+     * cells, the middle between the two anchor centres plus half a block towards the second anchor (the head point) is
+     * exactly where the lying player is drawn - the centre of the cloth head cell moved by {@code headShift} along the
+     * line - and the cloth cells lie symmetrically around that middle.
+     */
+    public static void clothMiddleSitsBetweenTheAnchorsInEveryDirection(GameTestHelper helper) {
+        for (Direction facing : Direction.Plane.HORIZONTAL) {
+            for (boolean diagonal : new boolean[] {false, true}) {
+                for (int gap = HammockLayout.MIN_GAP; gap <= HammockLayout.MAX_GAP; gap++) {
+                    HammockLayout.Spot spot = new HammockLayout.Spot(new BlockPos(10, 64, -7), facing, diagonal, gap);
+                    BlockPos step = spot.step();
+                    double len = Math.sqrt(step.getX() * step.getX() + step.getZ() * step.getZ());
+                    double ux = step.getX() / len;
+                    double uz = step.getZ() / len;
+                    double midX = (spot.anchor().getX() + spot.otherAnchor().getX()) / 2.0 + 0.5;
+                    double midZ = (spot.anchor().getZ() + spot.otherAnchor().getZ()) / 2.0 + 0.5;
+                    double shift = HammockLayout.headShift(gap, diagonal);
+                    double drawnX = spot.clothHead().getX() + 0.5 + shift * ux;
+                    double drawnZ = spot.clothHead().getZ() + 0.5 + shift * uz;
+                    String what = facing + (diagonal ? " diagonal " : " straight ") + gap;
+                    helper.assertTrue(Math.abs(drawnX - (midX + 0.5 * ux)) < 1.0E-9 && Math.abs(drawnZ - (midZ + 0.5 * uz)) < 1.0E-9,
+                            what + ": head point " + drawnX + "," + drawnZ + " is not the middle + half a block " + midX + "," + midZ);
+                    // cloth cells mirror around the middle: their centres average to it
+                    double sx = 0;
+                    double sz = 0;
+                    for (int i : HammockLayout.clothCells(gap)) {
+                        sx += spot.rope(i).getX() + 0.5;
+                        sz += spot.rope(i).getZ() + 0.5;
+                    }
+                    int n = HammockLayout.clothCells(gap).size();
+                    helper.assertTrue(Math.abs(sx / n - midX) < 1.0E-9 && Math.abs(sz / n - midZ) < 1.0E-9, what + ": cloth cells off the middle");
+                    helper.assertValueEqual(spot.otherAnchor(), spot.rope(gap), what + ": second anchor");
+                }
+            }
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Standing rods hold a hammock (owner 2026-10-04): posts of two stacked standing rods at 2, 3 and 4 free blocks with
+     * sticks, and a blaze, breeze, diamond rod and bone on top as anchors; losing a rod brings the hammock down, one item.
+     */
+    public static void hangsBetweenStandingRodPosts(GameTestHelper helper) {
+        if (!McVersion.HAMMOCK || !McVersion.STANDING_RODS) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = player(helper, GameType.SURVIVAL);
+        List<StandingRodBlock.Rod> rods = List.of(StandingRodBlock.Rod.STICK, StandingRodBlock.Rod.STICK, StandingRodBlock.Rod.STICK,
+                StandingRodBlock.Rod.BLAZE_ROD, StandingRodBlock.Rod.BREEZE_ROD, StandingRodBlock.Rod.DIAMOND_ROD, StandingRodBlock.Rod.BONE);
+        for (int x = 0; x < rods.size(); x++) {
+            int gap = x < 3 ? x + 2 : 2;
+            HammockLayout.Spot spot = straight(x, gap);
+            for (BlockPos anchor : List.of(spot.anchor(), spot.otherAnchor())) {
+                helper.setBlock(anchor.below(2), Blocks.STONE);
+                helper.setBlock(anchor.below(), ModBlocks.STANDING_ROD.defaultBlockState());
+                helper.setBlock(anchor, ModBlocks.STANDING_ROD.defaultBlockState().setValue(StandingRodBlock.ROD, rods.get(x)));
+            }
+            helper.assertTrue(HammockLayout.isAnchor(helper.getLevel(), helper.absolutePos(spot.anchor())), rods.get(x) + " is no anchor");
+            InteractionResult result = click(helper, player, spot.anchor());
+            helper.assertTrue(result.consumesAction(), rods.get(x) + " posts, gap " + gap + ": refused (" + result + ")");
+            assertHangs(helper, spot, rods.get(x) + " posts, gap " + gap);
+        }
+        // the far stick of the gap-3 hammock goes: the hammock falls, one item
+        HammockLayout.Spot three = straight(1, 3);
+        helper.setBlock(three.otherAnchor(), Blocks.AIR);
+        for (int i = 0; i < 3; i++) {
+            helper.assertFalse(isHammock(at(helper, three.rope(i))) || isHammock(at(helper, three.rope(i).below())),
+                    "the hammock still hangs at cell " + i);
+        }
+        helper.assertValueEqual(dropped(helper, ModItems.WHITE_HAMMOCK), 1, "hammocks dropped");
         helper.succeed();
     }
 

@@ -150,7 +150,9 @@ public final class DataIntegrityTests {
         Set<String> blocks = new java.util.HashSet<>(Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
                 "placed_smithing_template", "placed_blueprint", "placed_bundle", "placed_egg", "placed_small_parts",
                 // the ropes of a hammock (end and span), placed and dropped with their hammock
-                "hammock_rope"));
+                "hammock_rope",
+                // a stick/bone/blaze/breeze/diamond rod standing upright: placed and dropped as the rod item itself
+                "standing_rod"));
         blocks.addAll(wallVariants().keySet());
         blocks.add("potted_silent_dandelion");
         return Set.copyOf(blocks);
@@ -175,7 +177,9 @@ public final class DataIntegrityTests {
             // drops the parts stored in its block entity, eggs only with silk touch (PlacedSmallPartsBlock#getDrops)
             "placed_small_parts",
             // hammock ropes: the hammock drops from its cloth head only (HammockLayout)
-            "hammock_rope");
+            "hammock_rope",
+            // drops the rod item of its state (StandingRodBlock#getDrops)
+            "standing_rod");
 
     /**
      * The blocks that do <em>not</em> drop themselves, and what they drop instead without Silk
