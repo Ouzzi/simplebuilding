@@ -342,8 +342,9 @@ Rückfrage des Besitzers zu Frage 13: „Warum mittel und niedrig? Mittel reicht
 | **hoch** (Ofen-Niveau) | Lava-Quelle, Lavakessel, fließende Seelen-Lava (SB) | Eimer (3 Eisen) + Lava (Oberflächen-Seen, Höhlen unter Y 0, Nether); Lavakessel: Kessel 7 Eisen + Lavaeimer | 0,75× | + `smelting`, `blasting` (alles, was Ofen und Schmelzofen können) |
 | **extrem** (nur SB) | Seelen-Lava-Quelle, Seelen-Lava im verstärkten Kessel | Seelen-Lava: Nether-Lavaquellen 0,5 %, Festungsbrunnen 10 %; Eisen-Eimer bricht beim Ausgießen, sonst Enderit-Eimer; verstärkter Kessel (Frage 56) | 1× | + Sonderliste `simplelib:needs_extreme_heat`: ★ Geschichtetes Rohenderit → Enderit-Schrott, Antiker Schrott → Netheritschrott, Rissiger Diamant → Diamant |
 
-- Zeit = Rezeptzeit des schnellsten erlaubten Typs ÷ Tempo-Faktor ÷ Stufentempo. Beispiel Roheisen im Eisen-Tiegel auf
-  Lava (hoch): Schmelzofen-Rezept 100 Ticks ÷ 0,75 ≈ 133 Ticks (6,7 s); Enderit-Tiegel 8× → ≈ 17 Ticks.
+- Zeit = Rezeptzeit des schnellsten erlaubten Typs ÷ Tempo-Faktor ÷ Stufentempo. **Befund beim Bau:** In 26.3 tragen
+  Ofen-, Räucherofen- und Schmelzofen-Rezepte alle 200 Ticks (der Tempovorteil liegt im Block, nicht im Rezept).
+  Beispiel Roheisen im Eisen-Tiegel auf Lava (hoch): 200 Ticks ÷ 0,75 ≈ 267 Ticks (13,3 s); Enderit-Tiegel 8× → ≈ 34 Ticks.
 - Mit SB ohne Seelen-Lava ist alles außer der Sonderliste erreichbar; ohne SB endet `simplelib` bei „hoch“.
 
 **Alternative B – vier Stufen mit „niedrig“** (wie Runde 1): niedrig = Kerze, Fackel, Laterne, Feuer, Seelenfackel/

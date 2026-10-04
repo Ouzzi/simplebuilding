@@ -1,0 +1,18 @@
+{
+  "block.simplelib.iron_crucible": "Iron Crucible",
+  "block.simplelib.reinforced_crucible": "Reinforced Crucible",
+  "block.simplelib.netherite_crucible": "Netherite Crucible",
+  "block.simplelib.crucible_blank": "Crucible Blank",
+  "container.simplelib.iron_crucible": "Iron Crucible",
+  "container.simplelib.reinforced_crucible": "Reinforced Crucible",
+  "container.simplelib.netherite_crucible": "Netherite Crucible",
+  "container.simplelib.enderite_crucible": "Enderite Crucible",
+  "itemgroup.simplelib.main": "SimpleLib",
+  "gui.simplelib.crucible.cooking": "Crucing – %s%%",
+  "gui.simplelib.crucible.blocked": "No room for the result",
+  "gui.simplelib.crucible.cold": "Needs more heat",
+  "gui.simplelib.crucible.result": "Finished",
+  "gui.simplelib.crucible.no_recipe": "Nothing to cook",
+  "gui.simplelib.crucible.reserved": "Reserved for this result",
+  "gui.simplelib.crucible.stack_bonus": "×%s stacks"
+}

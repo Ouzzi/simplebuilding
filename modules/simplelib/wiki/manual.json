@@ -1,0 +1,68 @@
+{
+  "features": [
+    {
+      "id": "crucible",
+      "en": {
+        "title": "Crucibles",
+        "summary": "A cooking station without fuel that cooks every slot at once, heated by the block below.",
+        "details": [
+          "Iron 6 slots, Reinforced 9, Netherite 18 (Enderite 27 with SimpleBuilding). Speed 1x/2x/4x/8x; Netherite and Enderite count experience twice.",
+          "Heat comes from the block directly below, or two blocks below at 10% less speed (air, a hopper or a non-full block in between). Medium: campfire, soul campfire, magma block, flowing lava (0.5x, campfire and smoker recipes). High: lava, lava cauldron, flowing soul lava (0.75x, also furnace and blast furnace recipes). Extreme: soul lava (1x, also ancient debris). Torches, candles and plain fire give no heat. In the Nether every source is one level hotter, at most high.",
+          "Before a slot starts, it reserves the place for its result: the slot directly below first, then any other free or matching slot. A reserved slot shows the result faintly; anything else put there stops that slot until it is taken out. Finished results are never cooked again until taken out.",
+          "After the heat source is gone the crucible keeps its heat for 2/4/8/16 seconds. Hoppers insert from above and the sides and take finished results from below.",
+          "Build an iron crucible in the world: hold an axe, put a heavy weighted pressure plate in the off hand and use it on an iron block four times (walls), then twice with an iron ingot (handles).",
+          "Upgrade in place without SimpleBuilding: axe in the main hand, ten strikes on the crucible: Iron to Reinforced with 2 diamonds in the off hand, Reinforced to Netherite with 1 netherite ingot. Contents, progress and experience stay. With SimpleBuilding the sledgehammer replaces the axe."
+        ]
+      },
+      "de": {
+        "title": "Schmelztiegel",
+        "summary": "Garstation ohne Brennstoff, die alle Plätze zugleich gart, beheizt vom Block darunter.",
+        "details": [
+          "Eisen 6 Plätze, Verstärkt 9, Netherit 18 (Enderit 27 mit SimpleBuilding). Tempo 1×/2×/4×/8×; Netherit und Enderit zählen die Erfahrung doppelt.",
+          "Hitze kommt vom Block direkt darunter oder zwei Blöcke darunter mit 10 % weniger Tempo (dazwischen Luft, ein Trichter oder ein nicht voller Block). Mittel: Lagerfeuer, Seelen-Lagerfeuer, Magmablock, fließende Lava (0,5×, Lagerfeuer- und Räucherofen-Rezepte). Hoch: Lava, Lavakessel, fließende Seelen-Lava (0,75×, auch Ofen- und Schmelzofen-Rezepte). Extrem: Seelen-Lava (1×, auch antiker Schrott). Fackeln, Kerzen und normales Feuer geben keine Hitze. Im Nether ist jede Quelle eine Stufe heißer, höchstens hoch.",
+          "Bevor ein Platz anfängt, reserviert er den Platz für sein Ergebnis: zuerst den Platz direkt darunter, sonst einen anderen freien oder passenden. Ein reservierter Platz zeigt das Ergebnis blass; legt man etwas anderes hinein, stoppt dieser Platz, bis es wieder herausgenommen wird. Fertige Ergebnisse werden nie erneut gegart, bis man sie entnimmt.",
+          "Nach dem Entfernen der Hitzequelle hält der Tiegel die Hitze 2/4/8/16 Sekunden. Trichter füllen von oben und von der Seite ein und nehmen fertige Ergebnisse unten heraus.",
+          "Eisen-Tiegel in der Welt bauen: Axt in der Hand, schwere Wägeplatte in der Nebenhand und viermal auf einen Eisenblock anwenden (Wände), dann zweimal mit einem Eisenbarren (Griffe).",
+          "Aufwerten ohne SimpleBuilding: Axt in der Haupthand, zehn Schläge auf den Tiegel: Eisen zu Verstärkt mit 2 Diamanten in der Nebenhand, Verstärkt zu Netherit mit 1 Netheritbarren. Inhalt, Fortschritt und Erfahrung bleiben. Mit SimpleBuilding ersetzt der Vorschlaghammer die Axt."
+        ]
+      }
+    },
+    {
+      "id": "warm_food",
+      "en": {
+        "title": "Warm food",
+        "summary": "Cooked food comes out of a crucible warm and is eaten 15% faster while warm.",
+        "details": [
+          "Warmable food (tag simplelib:warmable_food: cooked meat and fish, baked potato, bread, pumpkin pie, stews and soups) put into a heated crucible is warmed as a whole stack and stays in its slot.",
+          "Food stays warm for half a day-night cycle (12,000 ticks) and cools everywhere except inside a crucible. Server bounds: warmDurationTicks 1,200–48,000, eatSpeedBonus 0–0.30."
+        ]
+      },
+      "de": {
+        "title": "Warmes Essen",
+        "summary": "Gegartes Essen kommt warm aus dem Schmelztiegel und wird warm 15 % schneller gegessen.",
+        "details": [
+          "Aufwärmbares Essen (Tag simplelib:warmable_food: gegartes Fleisch und Fisch, Ofenkartoffel, Brot, Kürbiskuchen, Eintöpfe und Suppen) wird in einem beheizten Tiegel als ganzer Stapel aufgewärmt und bleibt in seinem Platz.",
+          "Essen bleibt einen halben Tag-Nacht-Zyklus warm (12.000 Ticks) und kühlt überall ab außer im Tiegel. Server-Grenzen: warmDurationTicks 1.200–48.000, eatSpeedBonus 0–0,30."
+        ]
+      }
+    }
+  ],
+  "notes": {
+    "simplelib:iron_crucible": {
+      "en": {"summary": "Crucible with 6 slots at furnace speed; built in the world from an iron block (see Crucibles)."},
+      "de": {"summary": "Schmelztiegel mit 6 Plätzen in Ofen-Tempo; wird in der Welt aus einem Eisenblock gebaut (siehe Schmelztiegel)."}
+    },
+    "simplelib:reinforced_crucible": {
+      "en": {"summary": "Crucible with 9 slots at double speed."},
+      "de": {"summary": "Schmelztiegel mit 9 Plätzen in doppeltem Tempo."}
+    },
+    "simplelib:netherite_crucible": {
+      "en": {"summary": "Crucible with 18 slots at four times the speed; counts experience twice."},
+      "de": {"summary": "Schmelztiegel mit 18 Plätzen in vierfachem Tempo; zählt die Erfahrung doppelt."}
+    },
+    "simplelib:crucible_blank": {
+      "en": {"summary": "A half-built iron crucible; breaking it returns the iron block and every part used so far."},
+      "de": {"summary": "Ein halb gebauter Eisen-Schmelztiegel; abgebaut gibt er den Eisenblock und alle bisher verbrauchten Teile zurück."}
+    }
+  }
+}

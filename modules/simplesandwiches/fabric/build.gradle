@@ -1,2 +1,4 @@
 plugins { id 'net.fabricmc.fabric-loom' }
 apply from: rootProject.file('gradle/module-fabric.gradle')
+// SimpleLib (crucibles, warm food) nested per principle 6a.
+dependencies { include project(':modules:simplelib:fabric') }

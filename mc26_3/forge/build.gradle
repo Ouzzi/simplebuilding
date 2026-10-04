@@ -162,6 +162,10 @@ tasks.register('checkForgeOverlay') {
 }
 tasks.named('check') { dependsOn 'checkForgeOverlay' }
 
+// SimpleLib nested next to framework (principle 6a).
+ext.forgeBundleSimplelib = true
+// SimpleLib nested next to framework (principle 6a).
+ext.forgeBundleSimplelib = true
 apply from: rootProject.file('gradle/forge-framework.gradle')
 sourceSets.main.java.srcDir rootProject.file('mc26_3/framework/java')
 sourceSets.main.resources.srcDir rootProject.file('mc26_3/framework/resources')

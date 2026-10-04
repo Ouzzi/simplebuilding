@@ -3,6 +3,8 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.147'
 }
 apply from: rootProject.file('gradle/module-neoforge.gradle')
+// SimpleLib (crucibles, warm food) nested per principle 6a.
+dependencies { jarJar project(':modules:simplelib:neoforge') }
 
 neoForge.runs {
     moduleIntegrationGameTest {

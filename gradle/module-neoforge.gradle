@@ -1,4 +1,6 @@
-group = 'com.simplebuilding.modules'
+// Unique group per module: all loader projects are named 'neoforge', and a shared group would let Gradle
+// resolve one module in place of another (e.g. a module that nests SimpleLib, principle 6a).
+group = 'com.simplebuilding.modules.' + project.parent.name
 base { archivesName = project.parent.name + '-26.3-' + project.name }
 version = project.findProperty('moduleVersion') ?: '0.1.0'
 java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }

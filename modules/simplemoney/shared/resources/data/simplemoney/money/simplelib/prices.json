@@ -1,0 +1,8 @@
+{
+  "module": "simplelib",
+  "derivation": "Crucibles are built in the world (iron) or upgraded in place; no trades until the owner sets prices.",
+  "excluded": {
+    "simplelib:crucible_blank": "Exists only half-built in the world; no item."
+  },
+  "prices": []
+}

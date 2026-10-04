@@ -1,0 +1,172 @@
+"""Generate SimpleLib's Minecraft 26.3 resources; --check compares content without writing.
+
+Crucible models are built from elements: a floor, four walls (two pixels thick) and two handles. The
+half-built blank shows the iron block's floor plus the walls/handles struck so far (stage 1-5).
+"""
+
+import argparse
+import json
+from pathlib import Path
+
+MODULE = Path(__file__).resolve().parents[1]
+OUTPUT = MODULE / "generated/resources"
+NS = "simplelib"
+CRLF, LF = b"\r\n", b"\n"
+TIERS = ("iron", "reinforced", "netherite")
+FACINGS = {"north": 0, "east": 90, "south": 180, "west": 270}
+
+# Owner 37: everything that is eaten or served warm.
+WARMABLE = (
+    "cooked_beef", "cooked_porkchop", "cooked_chicken", "cooked_mutton", "cooked_rabbit",
+    "cooked_cod", "cooked_salmon", "baked_potato", "bread", "pumpkin_pie",
+    "mushroom_stew", "rabbit_stew", "beetroot_soup", "suspicious_stew",
+)
+
+
+def face(tex, uv, cull=None):
+    out = {"texture": tex, "uv": uv}
+    if cull:
+        out["cullface"] = cull
+    return out
+
+
+def cuboid(frm, to, textures):
+    """textures: dict face -> texture variable; UVs follow Vanilla's element projection."""
+    x0, y0, z0 = frm
+    x1, y1, z1 = to
+    uv = {
+        "down": [x0, 16 - z1, x1, 16 - z0], "up": [x0, z0, x1, z1],
+        "north": [16 - x1, 16 - y1, 16 - x0, 16 - y0], "south": [x0, 16 - y1, x1, 16 - y0],
+        "west": [z0, 16 - y1, z1, 16 - y0], "east": [16 - z1, 16 - y1, 16 - z0, 16 - y0],
+    }
+    cull = dict(down=y0 == 0, up=y1 == 16, north=z0 == 0, south=z1 == 16, west=x0 == 0, east=x1 == 16)
+    faces = {f: face(t, uv[f], f if cull[f] else None) for f, t in textures.items()}
+    return {"from": list(frm), "to": list(to), "faces": faces}
+
+
+def all_faces(side="#side", top="#top", bottom="#bottom", inner="#inner"):
+    return {"down": bottom, "up": top, "north": side, "south": side, "west": side, "east": side}
+
+
+FLOOR = cuboid((1, 0, 1), (15, 3, 15), {"down": "#bottom", "up": "#inner", "north": "#side", "south": "#side", "west": "#side", "east": "#side"})
+WALLS = [
+    cuboid((1, 3, 1), (15, 14, 3), {"north": "#side", "south": "#inner", "up": "#top", "west": "#side", "east": "#side"}),
+    cuboid((13, 3, 3), (15, 14, 13), {"east": "#side", "west": "#inner", "up": "#top"}),
+    cuboid((1, 3, 13), (15, 14, 15), {"south": "#side", "north": "#inner", "up": "#top", "west": "#side", "east": "#side"}),
+    cuboid((1, 3, 3), (3, 14, 13), {"west": "#side", "east": "#inner", "up": "#top"}),
+]
+HANDLES = [
+    cuboid((15, 9, 6), (16, 11, 10), {"east": "#handle", "up": "#handle", "down": "#handle", "north": "#handle", "south": "#handle"}),
+    cuboid((0, 9, 6), (1, 11, 10), {"west": "#handle", "up": "#handle", "down": "#handle", "north": "#handle", "south": "#handle"}),
+]
+
+
+def crucible_model(tier):
+    tex = {k: f"{NS}:block/{tier}_crucible_{k}" for k in ("side", "top", "bottom", "inner", "handle")}
+    tex["particle"] = tex["side"]
+    return {"parent": "minecraft:block/block", "textures": tex, "elements": [FLOOR, *WALLS, *HANDLES]}
+
+
+def blank_model(stage):
+    tex = {k: f"{NS}:block/iron_crucible_{k}" for k in ("side", "top", "bottom", "inner", "handle")}
+    tex["particle"] = "minecraft:block/iron_block"
+    base = cuboid((0, 0, 0), (16, 3, 16), {"down": "#iron", "up": "#iron", "north": "#iron", "south": "#iron", "west": "#iron", "east": "#iron"})
+    tex["iron"] = "minecraft:block/iron_block"
+    elements = [base] + WALLS[:min(stage, 4)] + HANDLES[:max(0, stage - 4)]
+    return {"parent": "minecraft:block/block", "textures": tex, "elements": elements}
+
+
+def facing_variants(model, extra=""):
+    out = {}
+    for name, rot in FACINGS.items():
+        variant = {"model": model}
+        if rot:
+            variant["y"] = rot
+        out[f"facing={name}{extra}"] = variant
+    return out
+
+
+def files():
+    out = {}
+    a = f"assets/{NS}"
+    d = f"data/{NS}"
+    for tier in TIERS:
+        name = f"{tier}_crucible"
+        out[f"{a}/models/block/{name}.json"] = crucible_model(tier)
+        variants = {}
+        for lit in ("false", "true"):
+            variants.update(facing_variants(f"{NS}:block/{name}", f",lit={lit}"))
+        out[f"{a}/blockstates/{name}.json"] = {"variants": variants}
+        out[f"{a}/items/{name}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:block/{name}"}}
+        out[f"{d}/loot_table/blocks/{name}.json"] = {
+            "type": "minecraft:block",
+            "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": f"{NS}:{name}"}],
+                       "conditions": [{"condition": "minecraft:survives_explosion"}]}],
+            "random_sequence": f"{NS}:blocks/{name}",
+        }
+    blank_variants = {}
+    for stage in range(1, 6):
+        out[f"{a}/models/block/crucible_blank_{stage}.json"] = blank_model(stage)
+        for name, rot in FACINGS.items():
+            variant = {"model": f"{NS}:block/crucible_blank_{stage}"}
+            if rot:
+                variant["y"] = rot
+            blank_variants[f"facing={name},stage={stage}"] = variant
+    out[f"{a}/blockstates/crucible_blank.json"] = {"variants": blank_variants}
+    # Blank: the iron block plus every part struck so far (walls = strikes 1-4, handles = 5).
+    entries = [{"type": "minecraft:item", "name": "minecraft:iron_block"}]
+    pools = [{"rolls": 1, "bonus_rolls": 0, "entries": entries}]
+    for stage in range(1, 6):
+        walls, handles = min(stage, 4), max(0, stage - 4)
+        items = [("minecraft:heavy_weighted_pressure_plate", walls)] + ([("minecraft:iron_ingot", handles)] if handles else [])
+        for item, count in items:
+            pools.append({"rolls": 1, "bonus_rolls": 0,
+                          "conditions": [{"condition": "minecraft:block_state_property", "block": f"{NS}:crucible_blank",
+                                          "properties": {"stage": str(stage)}}],
+                          "entries": [{"type": "minecraft:item", "name": item,
+                                       "functions": [{"function": "minecraft:set_count", "count": count}]}]})
+    out[f"{d}/loot_table/blocks/crucible_blank.json"] = {"type": "minecraft:block", "pools": pools,
+                                                         "random_sequence": f"{NS}:blocks/crucible_blank"}
+    # Tags.
+    out[f"{d}/tags/block/heat_source/medium.json"] = {"values": ["minecraft:campfire", "minecraft:soul_campfire", "minecraft:magma_block"]}
+    out[f"{d}/tags/block/heat_source/high.json"] = {"values": ["minecraft:lava_cauldron"]}
+    out[f"{d}/tags/block/heat_source/extreme.json"] = {"values": []}
+    out[f"{d}/tags/fluid/extreme_heat.json"] = {"values": []}
+    out[f"{d}/tags/item/warmable_food.json"] = {"values": [f"minecraft:{i}" for i in WARMABLE]}
+    out[f"{d}/tags/item/needs_extreme_heat.json"] = {"values": ["minecraft:ancient_debris"]}
+    out[f"{d}/tags/item/crucible_walls.json"] = {"values": ["minecraft:heavy_weighted_pressure_plate"]}
+    out[f"{d}/tags/item/crucible_handles.json"] = {"values": ["minecraft:iron_ingot"]}
+    out[f"{d}/tags/item/upgrade_reinforced.json"] = {"values": ["minecraft:diamond"]}
+    out[f"{d}/tags/item/upgrade_netherite.json"] = {"values": ["minecraft:netherite_ingot"]}
+    pickaxe = [f"{NS}:{t}_crucible" for t in TIERS] + [f"{NS}:crucible_blank"]
+    out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": pickaxe}
+    out["data/minecraft/tags/block/needs_stone_tool.json"] = {"values": pickaxe}
+    return out
+
+
+def render(data):
+    return (json.dumps(data, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args()
+    wanted = {OUTPUT / path: render(data) for path, data in files().items()}
+    stale = [p for p in OUTPUT.rglob("*.json") if p not in wanted] if OUTPUT.exists() else []
+    if args.check:
+        bad = [p for p, b in wanted.items() if not p.exists() or p.read_bytes().replace(CRLF, LF) != b] + stale
+        for p in bad:
+            print(f"out of date: {p.relative_to(MODULE)}")
+        return 1 if bad else 0
+    for p in stale:
+        p.unlink()
+    for p, b in wanted.items():
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_bytes(b)
+    print(f"wrote {len(wanted)} files")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
