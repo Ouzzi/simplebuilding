@@ -18,7 +18,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
-CHOSEN = "A"
+CHOSEN = "B"
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "mc26_3/overlay/resources/assets/simplebuilding"
 SRC_BLOCK = ROOT / "src/main/resources/assets/simplebuilding/textures/block"
