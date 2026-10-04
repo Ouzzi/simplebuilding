@@ -316,6 +316,10 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
   - [ ] Seelen-Lava (neue Flüssigkeit): Quell- und Fließblock nicht ersetz-/überbaubar, entfernen nur durch Aufnehmen der Quelle mit Eimer. Weltgenerierung nur im Nether: ca. 0,5 % statt einer Lava-Tasche, in Netherfestungen 10 % Chance je Lavaquellen-Raum; sonst nirgends.
   - [ ] Kupfer-Eimer: nimmt keine Seelen-Lava, nur normale Lava, zerbricht beim Ausgießen von Lava. Eisen-Eimer zerbricht beim Ausgießen von Seelen-Lava. Enderit-Eimer (Schmiedetisch, direkt vom Eisen-Eimer) zerbricht nicht.
   - [ ] Warmes Essen: Tiegel wärmt Sandwiches und andere warme Speisen auf; warm 15 % schneller essbar; bleibt ca. einen halben Tag-Nacht-Zyklus warm, im Bündel ca. 2 Zyklen; beim Stapeln Mittelwert der Wärme; Glow um die Items (Stärke ~ Restwärme).
-  - [ ] Auch im Modul Simple Sandwiches (eigenständig spielbar): Tiegel + Warm-Food; ohne SB mit der Axt statt dem Vorschlaghammer. Aufteilung SB/Modul/Bibliothek siehe Plan §3 und `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`.
-  - [x] Fragebogen Runde 1 (F1–F37) beantwortet, eingearbeitet (Plan §2; gemeinsamer Kern als Bibliothek `simplecrucibles`, Dorf-Feldküche neu).
-  - [ ] Besitzer beantwortet Fragebogen Runde 2 (49 Fragen, ★ = Empfehlung), danach Umsetzung.
+  - [ ] Auch im Modul Simple Sandwiches (eigenständig spielbar): Tiegel + Warm-Food; ohne SB mit der Axt statt dem Vorschlaghammer. Aufteilung SB/Modul/Bibliothek `simplelib` siehe Plan §3 und `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`.
+  - [x] Fragebogen Runde 1 (F1–F37) beantwortet, eingearbeitet (Plan §2; gemeinsamer Kern als Bibliothek, seit Runde 2 `simplelib`, Dorf-Feldküche neu).
+  - [x] Fragebogen Runde 2, Fragen 1–31 beantwortet und eingearbeitet (Plan §2b: Bibliothek `simplelib`, Axt als Vanilla-Ersatz für den Vorschlaghammer, Hitzestufen neu als Frage 51, BER-Inhalt sichtbar, Seelen-Lava 2/5, Seelenbrand, verstärkter Kessel).
+  - [ ] Ofen-Ausbeutebonus (Netherit-/Enderit-Schmelzofen, `FurnaceTierPerks`) aus SB entfernen – macht ein anderer Helfer im Code (Runde 2 Frage 1).
+  - [ ] Kupfer-Fass (Kupfer/Verstärkt/Enderit, 9 Slots) per Vorschlaghammer (ohne SB Axt) in 6 Schlägen an den Tiegel anbringen, sichtbar verbunden; Tiegel-GUI zeigt die 9 Fass-Felder; Ergebnisse zuerst ins Fass; Trichter unter dem Fass (Plan §8a).
+  - [ ] Seelen-Lava: 4× entflammbarer als Lava, doppelte Zündreichweite; „schmilzt 10× mehr“ (★ Brennstoff 10× Lava, Plan §9/§10).
+  - [ ] Besitzer beantwortet die offenen Fragen 32–61, danach Umsetzung.

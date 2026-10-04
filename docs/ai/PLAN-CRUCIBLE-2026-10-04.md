@@ -2,7 +2,7 @@
 
 Status: **nur Konzept + Fragebogen**, kein Code. Quelle: Besitzer-Sprachdiktat 2026-10-04, eingetragen in
 `.claude/QUEUE.md` → „Besitzer 2026-10-04 (Nachtrag 9)“.
-Runde 1 (F1–F37) ist beantwortet (§2); offen ist der kompakte Fragebogen Runde 2 (§17). Bis zur Antwort gilt jeweils die ★-Empfehlung als Arbeitsannahme.
+Runde 1 (F1–F37, §2) und Runde 2 Fragen 1–31 (§2b) sind beantwortet; offen sind Fragen 32–61 (§17). Bis zur Antwort gilt jeweils die ★-Empfehlung als Arbeitsannahme.
 
 Kern des Wunschs (Diktat, sinngemäß):
 1. **Crucible** = weitere Ofen-Station, so schnell wie ein normaler Ofen, aber **mehrere verschiedene Dinge parallel**;
@@ -127,7 +127,7 @@ anhängen (Mixin/Accessor auf `templates`/`rawTemplates`, auf allen Loadern glei
 
 | F | Antwort | Folgerung im Plan |
 |---|---|---|
-| 1 | Warm-Food in SB **und** Sandwiches, Tiegel in beiden; **Enderit-Stufe und In-World-Umwandlung per Vorschlaghammer nur in SB**; gemeinsamer Kern evtl. als Bibliothek | §3 Bibliothek `simplecrucibles` (mit Prinzipien-Konflikt + Lösung) |
+| 1 | Warm-Food in SB **und** Sandwiches, Tiegel in beiden; **Enderit-Stufe und In-World-Umwandlung per Vorschlaghammer nur in SB**; gemeinsamer Kern evtl. als Bibliothek | §3 Bibliothek `simplelib` (mit Prinzipien-Konflikt + Lösung) |
 | 2 | A | EN „Crucible“ / DE „Schmelztiegel“ |
 | 3 | A | Zustand EN „Crucing“ / DE „Im Tiegel“ |
 | 4 | **Eisen 6, Verstärkt 9, Netherit 18, Enderit 27** | §4 Stufen, §7 GUI |
@@ -165,72 +165,127 @@ anhängen (Mixin/Accessor auf `templates`/`rawTemplates`, auf allen Loadern glei
 | 37 | siehe neue Slotzahlen | §7 Layout 6/9/18/27 |
 | neu | **Tiegel spawnen in Dörfern**, auf einem **ausgemachten Lagerfeuer** | §11 |
 
-## 3. Modulrahmen: Bibliothek `simplecrucibles` (F1) und Prinzipien-Konflikt
+## 2b. Entscheidungen Runde 2 (Besitzer-Antworten Fragen 1–31, 2026-10-04 – gehen vor)
 
-**Konflikt.** F1 will einen gemeinsamen Tiegel-Kern für SB und Simple Sandwiches. Ein Tiegel ist Block + Block-Entity
-+ Menü + Item + Komponente, also **Registry-Inhalt**. Das darf weder in `framework/` (Regel 3: reine Java-Verträge)
-noch als „Core-Jar mit Items“ (Regel 6) liegen; zwei Kopien (SB- und Modul-Namensraum) wären „Doppel-Items“ (Regel 6).
+| Frage | Antwort | Folgerung im Plan |
+|---|---|---|
+| 1 Erz-Bonus | **nicht übernehmen und aus den anderen SB-Öfen entfernen** | Tiegel ohne Ausbeutebonus. Entfernen aus `FurnaceTierPerks` (Netherit-/Enderit-Schmelzofen) macht **ein anderer Helfer im Code** – hier nur vermerkt; Wiki/Jade/Tests dort mitziehen |
+| 2 Prinzipien-Lösung | A | gebündelte Inhalts-Bibliothek |
+| 3 Name | B, aber Bibliotheken enden immer auf **„lib“**; besser eine **allgemeine `simplelib`** | §3 auf `simplelib` umgestellt (Namensraum, Inhalt, Bündelung, Prinzipien-Ausnahme als Textvorschlag) |
+| 4 eigener Mod sichtbar | A | `simplelib` erscheint in Modlisten + eigener Wiki-Seite |
+| 5 Axt-Bau | siehe 3 / 6 | Axt-Bau liegt in `simplelib` |
+| 6 Weg ohne SB | **Prinzip: Gibt es keinen funktionierenden Mod-Weg, gibt es einen Vanilla-Weg, bei dem die Axt den Vorschlaghammer ersetzt** | §4: auch die Aufwertungen Eisen → Verstärkt → Netherit gehen ohne SB per Axt mit Vanilla-Material (Material Frage 50) |
+| 7 Bau-Material | **B** + in **JEI** und im **Guide** | Schläge 1–4 je eine schwere Wägeplatte, 5–6 je ein Eisenstab (ohne SB/26.2: Eisenbarren) |
+| 8 Haltbarkeit | A | Axt 1, Vorschlaghammer 2 je Schlag |
+| 9 Abbruch | A | Rohling bleibt, abgebaut Rückgabe aller Teile |
+| 10 Stapel Enderit | A | ×2 |
+| 11 Abbau | A | Inhalt droppt + Erfahrung, Aufwertung behält alles |
+| 12 Rezept-Gate | A, aber durch 13 überholt | siehe neue Hitzetabelle §6 |
+| 13 Faktor mittel | Rückfrage: **„Warum mittel und niedrig? Mittel reicht, hoch ist erst Ofen-Niveau. Genau auflisten mit Materialien.“** | §6 neu: ★ drei Stufen mittel/hoch/extrem, Alternative mit niedrig → Frage 51 |
+| 14 Sonderliste | mit 13 klären | in Frage 51 enthalten |
+| 15 Nether-Deckel | A | Nether +1 höchstens bis hoch |
+| 16 zwischen Tiegel und Quelle | A | Trichter, Luft oder nicht voller Block |
+| 17 Ergebnis-Item ins reservierte Feld | A | gilt als Ergebnisstapel, läuft weiter |
+| 18 gemeinsame Reservierung | A | mehrere Vorgänge teilen einen Ergebnisstapel, solange die Summe passt |
+| 19 Indikator | A | Hintergrund getönt, Füllung von unten |
+| 20 Farben | A | orange/rot/blau/grüner Rand/grau + Ecksymbole, Tooltip, Farbenblind-Option |
+| 21 Anzeigen | A, **Items im Tiegel sichtbar, 3D gestapelt** | kein Rezeptbuch, JEI-Kategorie, Jade; Block-Entity-Renderer |
+| 22 Items sichtbar | B | BER zeigt den Inhalt (§7) |
+| 23 Trichter | A | oben + Seiten einfügen, Regeln §8 |
+| 24 Komparator | A | Füllstand, keine Redstone-Steuerung |
+| 25 Fließweite | **2 / 5**, aber **langsamer**; Berühren lässt **doppelt so lange brennen** wie Lava | Overworld 2, Nether 5; Brenndauer ×2 |
+| 26 Unersetzbar | A, aber **Kreativ kann ersetzen**; bei Wasserkontakt wird die **Wasserseite umgewandelt**, die Seelen-Lava nicht | §9 |
+| 27 Kontakt | siehe 26 | Wasserblock → Schwarzstein (Annahme, Frage 54) |
+| 28 Gefahr | siehe 25, danach Effekt **„Seelenbrand“ 1 min**: alle paar Sekunden 50 % Brandschaden; **Feuerschutz verhindert den Schaden, nicht den Effekt** | §9; Begriff „Feuerschutz“ → Frage 55 |
+| 29 Optik | A | Türkis-Lava, Licht 15, türkiser Nebel |
+| 30 Kessel | A, aber **verstärkter Kessel** als Seelen-Lava-Lager | neuer Block `reinforced_cauldron` (Frage 56) |
+| 31 Worldgen | **A und B** | verborgene **und** offene Nether-Lavaquellen, ganzer Festungsbrunnen, nur neue Chunks, keine Erneuerung |
 
-**Lösungen:**
-- ★ **A – eigenes kleines Bibliotheks-Modul `simplecrucibles` mit Inhalt, einem Namensraum, gebündelt.**
-  `modules/simplecrucibles` (Mod-ID und Namensraum `simplecrucibles`, Paket `com.simplecrucibles`), 26.3-only.
-  SB **und** Simple Sandwiches betten es ein (Fabric `include`, NeoForge `jarJar`, Forge über ein Gegenstück zu
-  `gradle/forge-framework.gradle`). Der Loader lädt es genau einmal (höchste Version gewinnt) → **ein** Satz Items,
-  keine Doppel-Items. Es ist selbst ein Mod (eigene `fabric.mod.json`/`mods.toml`) und auch allein startbar.
-  Es exportiert eine kleine öffentliche API (`com.simplecrucibles.api`: Stufe registrieren, Hitzequelle melden,
-  Warm-Komponente lesen/schreiben). **Prinzipien-Änderung nötig** (Vorschlag an den Prinzipien-Helfer, nicht hier
-  geschrieben): Regel 3 um „gebündelte Inhalts-Bibliotheken mit eigener `api`“ ergänzen, Regel 6 um die Ausnahme
-  „eine Inhalts-Bibliothek mit genau einem Namensraum, die mehrere Mods bündeln; Versionsauswahl über Jar-in-Jar“.
-- B – **`framework` erweitern** auf Registry-Inhalte: bricht das Grundprinzip „framework ohne Minecraft-Klassen“
-  und zwingt alle fünf framework-Nutzer, Minecraft-abhängig zu werden. Nicht empfohlen.
-- C – **ein Besitzer, kein Bündeln**: Tiegel gehört Simple Sandwiches; SB bringt nur Enderit-Stufe/Seelen-Lava, wenn
-  Sandwiches geladen ist. Prinzipientreu, aber SB allein hat keinen Tiegel (widerspricht F1).
-- D – **zwei Kopien** (erste Fassung dieses Plans): verletzt Regel 6, doppelter Pflegeaufwand.
+**Neue Besitzer-Wünsche (Runde 2):**
+- **Kupfer-Fass** (copper barrel, auch Stufen **Verstärkt** und **Enderit**) umgeht den Trichter-Abzug: per Vorschlaghammer
+  (ohne SB Axt) in **6 Schlägen** an den Tiegel angebracht und **sichtbar verbunden**. In der Tiegel-GUI erscheinen
+  zusätzlich **9 Fass-Felder**; der Tiegel legt/reserviert Ergebnisse **zuerst im Fass**, dann in eigenen Slots. Unter
+  das Fass passt ein Trichter. Fass fest 9 Slots, Anzeige gemeinsam mit der Tiegel-GUI → §8a.
+- **Seelen-Lava**: Entflammbarkeit ca. **4× höher** als Lava, **doppelte Reichweite** beim Feuer-Entzünden; „schmilzt
+  ca. 10× mehr als Lava“ → ★ Deutung: als **Brennstoff 10× Lava** (§10). Alternative Deutungen Frage 57.
 
-**Aufteilung bei A:**
+## 3. Modulrahmen: allgemeine Bibliothek `simplelib` (F1, Runde 2 Fragen 2–6)
 
-| Teil | `simplecrucibles` (gebündelt, allein spielbar) | SimpleBuilding | Simple Sandwiches |
+**Konflikt.** Der gemeinsame Kern (Tiegel, Fass, Warm-Komponente, Axt-Ersatzwege) ist **Registry-Inhalt**. Er darf
+nach Regel 3 nicht in `framework/` (reine Java-Verträge) und nach Regel 6 nicht in eine „Core-Jar mit Items“; zwei
+Kopien wären Doppel-Items.
+
+**Lösung (Besitzer Runde 2: A + Name mit „lib“, allgemein):** Modul **`simplelib`** (Mod-ID und Namensraum
+`simplelib`, Paket `com.simplelib`, öffentliche API `com.simplelib.api`), 26.3-only, selbst ein Mod (eigene Metadaten,
+eigene Wiki-Seite, in Modlisten sichtbar). SB und Simple Sandwiches **bündeln** es (Fabric `include`, NeoForge `jarJar`,
+Forge analog `gradle/forge-framework.gradle` mit Versions-Range) → der Loader lädt genau eine Fassung (höchste Version),
+es gibt jeden Block genau einmal. `simplelib` enthält **nur, was mehrere Mods tatsächlich teilen**; jedes Teil wird erst
+aktiv, wenn ein bündelnder Mod es braucht bzw. wenn der bessere Mod-Weg fehlt (z. B. Axt-Aufwertungen nur ohne SB).
+
+| Teil | `simplelib` | SimpleBuilding | Simple Sandwiches |
 |---|---|---|---|
-| Eisen-Tiegel (6) | ✔ Block/BE/Menü, In-World-Bau mit der **Axt** | zusätzlich Bau per Vorschlaghammer (bedingt, `#simplebuilding:sledgehammer_tools`) | bündelt nur |
-| Verstärkt (9) / Netherit (18) | ✔ registriert; Weg ohne SB: Runde-2-Frage 6 | Aufwertung per Vorschlaghammer (×2 Material) | – |
-| Enderit (27, ×2-Stapel) | – | ✔ `simplebuilding:enderite_crucible` über die Bibliotheks-API; ohne SB nicht registriert | – |
-| Hitze niedrig/mittel/hoch | ✔ Tags `simplecrucibles:heat_source/*` | – | – |
-| Hitze extrem (Seelen-Lava) | Tag-Eintrag `required:false` | ✔ Seelen-Lava, Kupfer-/Enderit-Eimer | – |
-| Warm-Komponente, Esszeit, Bündel, Glow | ✔ `simplecrucibles:warm` | nutzt sie | Sandwiches per Tag `simplecrucibles:warmable_food` |
-| Dorf-Tiegel | ✔ | – | – |
+| Eisen-Tiegel (6) | ✔ Block/BE/Menü/BER; Bau per Axt (Vanilla-Weg) | Bau per Vorschlaghammer (bedingt) | bündelt |
+| Verstärkt (9) / Netherit (18) | ✔ registriert; Aufwertung per **Axt** + Vanilla-Material, nur ohne SB (Prinzip Frage 6) | Aufwertung per Vorschlaghammer (×2 Material) | – |
+| Enderit (27, ×2) | – | ✔ `simplebuilding:enderite_crucible` über `simplelib`-API | – |
+| Kupfer-Fass + Verstärkt | ✔ (Anbringen per Axt ohne SB) | Anbringen per Vorschlaghammer | – |
+| Enderit-Fass | – | ✔ `simplebuilding:enderite_barrel` | – |
+| Hitze mittel/hoch | ✔ Tags `simplelib:heat_source/*` | – | – |
+| Hitze extrem | Tag-Eintrag `required:false` | ✔ Seelen-Lava, verstärkter Kessel, Kupfer-/Enderit-Eimer | – |
+| Warm-Komponente, Esszeit, Bündel, Glow | ✔ `simplelib:warm` | nutzt sie | Sandwiches per Tag `simplelib:warmable_food` |
+| Dorf-Feldküche | ✔ | – | – |
 
-- Versionen: 26.3 zuerst (Fabric → NeoForge → Forge). SB-Kern kompiliert auf 26.2: dort wird die Bibliothek nicht
-  gebündelt, alle SB-Teile (Enderit-Tiegel, Seelen-Lava, Eimer) hinter `McVersion.CRUCIBLE` (26.3 true, 26.2 false).
-- Server-Config `simplecrucibles-server.json` (Tiegel, Hitze, Warm) + SB `server.soulLava`, harte Grenzen (§13).
+**Textvorschlag für die Prinzipien** (zur Übernahme in `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`; hier nicht dort
+eingetragen):
+
+> **Ausnahme zu Regel 3 und 6 – gebündelte Bibliotheken (`*lib`).** Teilen mehrere Mods Inhalte (Blöcke, Items,
+> Komponenten), die jeder von ihnen allein braucht, liegen diese in **einer** Bibliothek, deren Mod-ID auf `lib` endet
+> (Standard: `simplelib`). Sie hat genau einen Namensraum, ist selbst ein Mod und wird von jedem nutzenden Mod per
+> Jar-in-Jar gebündelt (Fabric `include`, NeoForge `jarJar`, Forge Jar-in-Jar mit Versions-Range); der Loader wählt
+> eine Fassung. Mods dürfen dafür Klassen aus `com.<lib>.api` importieren – sonst nichts aus der Bibliothek. Die
+> Bibliothek kennt keinen ihrer Nutzer (kein Import, keine fremde ID ohne `required:false`/Condition). Sie liefert den
+> **Vanilla-Weg** (Axt statt Vorschlaghammer, Vanilla-Material); ein bündelnder Mod mit besserem Weg schaltet den
+> Vanilla-Weg über eine Condition ab. Inhalte, die nur einem Mod gehören (Enderit, Hammer), bleiben in diesem Mod.
+> `framework/` bleibt inhaltsfrei.
+
+- Versionen: 26.3 zuerst (Fabric → NeoForge → Forge). SB-Kern kompiliert auf 26.2: dort wird `simplelib` nicht
+  gebündelt, alle SB-Teile hinter `McVersion.CRUCIBLE` (26.3 true, 26.2 false).
+- Server-Config `simplelib-server.json` (Tiegel, Fass, Hitze, Warm, Dorf) + SB `server.soulLava`, harte Grenzen (§13).
 - Keine Bildschirmtexte; Rückmeldung über Slot-Indikator, Sound, Partikel, Tooltip, Jade.
 
-## 4. Stufen (F4–F11)
+## 4. Stufen (F4–F11, Runde 2 Fragen 6–11)
 
 | Stufe | ID | Slots | Layout | Tempo | Stapel | Nachglühen | Besitzer |
 |---|---|---|---|---|---|---|---|
-| Eisen | `simplecrucibles:iron_crucible` | 6 | 3×2 | 1× | 1× | 2 s | Bibliothek |
-| Verstärkt | `simplecrucibles:reinforced_crucible` | 9 | 3×3 | 2× | 1× | 4 s | Bibliothek |
-| Netherit | `simplecrucibles:netherite_crucible` | 18 | 2 × 3×3 | 4× | 1× | 8 s | Bibliothek |
-| Enderit | `simplebuilding:enderite_crucible` | 27 | 3 × 3×3 | 8× | ×2 (Runde 2) | 16 s | SB |
+| Eisen | `simplelib:iron_crucible` | 6 | 3×2 | 1× | 1× | 2 s | simplelib |
+| Verstärkt | `simplelib:reinforced_crucible` | 9 | 3×3 | 2× | 1× | 4 s | simplelib |
+| Netherit | `simplelib:netherite_crucible` | 18 | 2 × 3×3 | 4× | 1× | 8 s | simplelib |
+| Enderit | `simplebuilding:enderite_crucible` | 27 | 3 × 3×3 | 8× | ×2 | 16 s | SB |
 
-- Härte/Explosionsfestigkeit/Sound je Stufe wie die gleichnamigen Öfen; Netherit/Enderit doppelte Erfahrung.
-- Bau Eisen-Tiegel in der Welt (Besitzer-Ergänzung 8): Rechtsklick halten auf **Eisenblock**, **Eisenbarren in der
-  Nebenhand**, 1 Schlag/s; Schläge 1–4 = 4 Wände (Optik Eisen-Druckplatte), 5–6 = 2 Griffe (Optik Eisenstab),
-  Zwischenstände als Rohling `simplecrucibles:crucible_blank` mit Blockzustand `stage`. Werkzeug: Axt (Bibliothek)
-  bzw. zusätzlich Vorschlaghammer (SB, bedingt). Materialdetails Runde 2.
-- Aufwertung (nur SB): Vorschlaghammer + Material in der Nebenhand wie die Öfen, **doppelt** (2 Stück Material,
-  10 Schläge): Eisen → Verstärkt 2 Rissige Diamanten (jeder Hammer), Verstärkt → Netherit 2 Netherit-Nuggets
-  (ab Diamant-Hammer), Netherit → Enderit 2 Enderit-Nuggets (ab Netherit-Hammer). Inhalt bleibt; 6→9→18→27 hängt
-  Slots hinten an. SB registriert dafür in `SledgehammerUpgrades` die Bibliotheks-Blöcke per Registry-ID.
+- Härte/Explosionsfestigkeit/Sound je Stufe wie die gleichnamigen Öfen; Netherit/Enderit doppelte Erfahrung; **kein**
+  Ausbeutebonus.
+- **Bau Eisen-Tiegel in der Welt** (Ergänzung 8 + Frage 7 B): Rechtsklick halten auf **Eisenblock**, 1 Schlag/s;
+  Schläge 1–4 verbrauchen je eine **schwere Wägeplatte** aus der Nebenhand (Wände), 5–6 je einen **Eisenstab** (Griffe;
+  ohne SB bzw. auf 26.2 ersatzweise **Eisenbarren**). Rohling `simplelib:crucible_blank` mit `stage` 0–6 zeigt den
+  Stand; abgebaut gibt er Eisenblock + alle verbrauchten Teile zurück (Frage 9). Werkzeug: **Axt** (Vanilla-Weg, 1
+  Haltbarkeit je Schlag) bzw. mit SB **Vorschlaghammer** (2 je Schlag), dann ist der Axt-Weg per Condition aus.
+  Beschrieben in **JEI** (In-World-Kategorie) und im **Guide** (Frage 7).
+- **Aufwertung, doppelt (F9)**: 2 Stück Material, 10 Schläge, Inhalt/Fortschritt bleiben, Slots hinten angehängt.
+  - mit SB (Vorschlaghammer): Eisen → Verstärkt 2 Rissige Diamanten, Verstärkt → Netherit 2 Netherit-Nuggets
+    (ab Diamant-Hammer), Netherit → Enderit 2 Enderit-Nuggets (ab Netherit-Hammer).
+  - ohne SB (Axt, Prinzip Frage 6): Eisen → Verstärkt ★ 2 Diamanten, Verstärkt → Netherit ★ 1 Netheritbarren
+    (Vanilla hat kein Netherit-Nugget) – Frage 50. Enderit gibt es ohne SB nicht.
 
 ## 5. Verarbeitung (F12–F21)
 
 - Je Slot ein Garvorgang, aus einem Stapel ein Item nach dem anderen; **alle Slots parallel, keine Deckelung**, auch
   gleiche Items in mehreren Stapeln gleichzeitig (F18).
-- **Reservierung**: Beim Start eines Vorgangs reserviert der Slot seinen Ergebnisplatz – bevorzugt der Slot **direkt
+- **Reservierung**: Beim Start eines Vorgangs reserviert der Slot seinen Ergebnisplatz – ist ein Fass angebracht,
+  **zuerst im Fass** (§8a); sonst bevorzugt der Slot **direkt
   darunter** (gleiche Spalte, nächste Zeile im selben 3er-Gitter), sonst der nächste freie/passende Slot in einer
   anderen Zeile (Lesereihenfolge, umlaufend); ein vorhandener passender Ergebnisstapel geht vor, wenn er Platz hat.
-  Ein eigener Slot, der durch das letzte Item frei wird, darf selbst Ergebnisplatz sein.
+  Ein eigener Slot, der durch das letzte Item frei wird, darf selbst Ergebnisplatz sein. Mehrere Vorgänge dürfen
+  denselben Ergebnisstapel reservieren, solange die Summe passt (Frage 18); legt ein Spieler genau das Ergebnis-Item
+  ins reservierte Feld, gilt es als Ergebnisstapel (Frage 17).
 - Reservierte Slots zeigen das kommende Ergebnis **halbdurchsichtig**. Legt ein Spieler dort etwas hinein, **stoppt**
   der zugehörige Vorgang (rot), Fortschritt bleibt gespeichert, bis das Item wieder entnommen ist. Trichter füllen nie
   in reservierte Slots.
@@ -241,66 +296,120 @@ noch als „Core-Jar mit Items“ (Regel 6) liegen; zwei Kopien (SB- und Modul-N
 - Rezepttypen (F15 C): `smelting`, `blasting`, `smoking`, `campfire_cooking`. Passen mehrere, nimmt der Tiegel den
   **schnellsten, den die aktuelle Hitze erlaubt** (Gate §6). Zeit = Rezeptzeit ÷ Hitzefaktor ÷ Stufentempo.
 - Enderit-Schrott (2-h-Schmelzofen-Rezept) erlaubt, ohne Slot-Grenze, aber nur bei **extremer** Hitze (F17).
+- **Kein Ausbeutebonus** (Runde 2 Frage 1); der Bonus der SB-Schmelzöfen wird von einem anderen Helfer entfernt.
 - Rezept-Cache je Slot (letzter Treffer je Item) gegen 27 Lookups pro Tick.
 
-## 6. Hitze (F22–F36)
+## 6. Hitze (F22–F36, Runde 2 Fragen 13–16; Tabelle neu nach Besitzer-Rückfrage zu 13)
 
-| Stufe | Quellen (nur entzündet/aktiv) | Faktor (F16) | Erlaubte Rezepte / Vorgänge |
-|---|---|---|---|
-| kalt | – | – | nichts |
-| niedrig | Kerze(n), Kerzenkuchen, Fackel, Laterne, Seelenfackel, Seelenlaterne, Feuer, Seelenfeuer | 0,5× | Aufwärmen, `campfire_cooking` (Annahme, Runde 2) |
-| mittel | Lagerfeuer, Seelen-Lagerfeuer, Magmablock, **fließende Lava** | **0,625×** (Annahme: Mitte zwischen 0,5 und 0,75) | + `smelting`, `smoking` |
-| hoch | Lava-Quelle, Lavakessel, **fließende Seelen-Lava** | 0,75× | + `blasting` (F22) |
-| extrem | Seelen-Lava-Quelle, Seelen-Lava-Kessel (SB) | 1× | + Sonderliste `simplecrucibles:needs_extreme_heat` (Geschichtetes Rohenderit → Enderit-Schrott; weitere Runde 2) |
+Rückfrage des Besitzers zu Frage 13: „Warum mittel und niedrig? Mittel reicht, hoch ist erst Ofen-Niveau.“ Daher:
 
-- **Position (F26)**: nur Block **direkt darunter** (100 %) oder **zwei Blöcke darunter** (Tempo −10 %, damit ein
-  Trichter dazwischen passt). Mehrere → Maximum (F27). Kerzenzahl egal (F28), ausgeschaltet = keine Hitze (F29).
+**★ Vorschlag A – drei Stufen (ohne „niedrig“), hoch = Ofen-Niveau**
+
+| Stufe | Quellen (Blöcke, nur entzündet/aktiv) | Beschaffung / Material | Tempo-Faktor | erlaubte Rezepttypen |
+|---|---|---|---|---|
+| kalt | Fackel, Kerze, Laterne, Feuer, Seelenfackel/-laterne/-feuer – **geben keine Hitze** | – | – | nichts |
+| **mittel** | Lagerfeuer, Seelen-Lagerfeuer, Magmablock, fließende Lava | Lagerfeuer: 3 Stöcke + 1 Kohle/Holzkohle + 3 Stämme (erster Tag); Seelen-Lagerfeuer: Seelensand/-erde statt Kohle (Nether); Magmablock: 4 Magmacreme oder im Nether/Unterwasser-Schluchten abbauen; fließende Lava: Lavaquelle daneben | 0,5× | Aufwärmen, `campfire_cooking`, `smoking` (Essen, wie Lagerfeuer/Räucherofen) |
+| **hoch** (Ofen-Niveau) | Lava-Quelle, Lavakessel, fließende Seelen-Lava (SB) | Eimer (3 Eisen) + Lava (Oberflächen-Seen, Höhlen unter Y 0, Nether); Lavakessel: Kessel 7 Eisen + Lavaeimer | 0,75× | + `smelting`, `blasting` (alles, was Ofen und Schmelzofen können) |
+| **extrem** (nur SB) | Seelen-Lava-Quelle, Seelen-Lava im verstärkten Kessel | Seelen-Lava: Nether-Lavaquellen 0,5 %, Festungsbrunnen 10 %; Eisen-Eimer bricht beim Ausgießen, sonst Enderit-Eimer; verstärkter Kessel (Frage 56) | 1× | + Sonderliste `simplelib:needs_extreme_heat`: ★ Geschichtetes Rohenderit → Enderit-Schrott, Antiker Schrott → Netheritschrott, Rissiger Diamant → Diamant |
+
+- Zeit = Rezeptzeit des schnellsten erlaubten Typs ÷ Tempo-Faktor ÷ Stufentempo. Beispiel Roheisen im Eisen-Tiegel auf
+  Lava (hoch): Schmelzofen-Rezept 100 Ticks ÷ 0,75 ≈ 133 Ticks (6,7 s); Enderit-Tiegel 8× → ≈ 17 Ticks.
+- Mit SB ohne Seelen-Lava ist alles außer der Sonderliste erreichbar; ohne SB endet `simplelib` bei „hoch“.
+
+**Alternative B – vier Stufen mit „niedrig“** (wie Runde 1): niedrig = Kerze, Fackel, Laterne, Feuer, Seelenfackel/
+-laterne/-feuer, Tempo 0,5×, nur Aufwärmen + `campfire_cooking`; mittel 0,625× (+ `smoking`); hoch 0,75× (+ `smelting`,
+`blasting`); extrem 1× (+ Sonderliste). Entscheidung → Frage 51.
+
+- **Position (F26, Frage 16)**: Block **direkt darunter** (100 %) oder **zwei Blöcke darunter** (−10 %), dazwischen nur
+  Trichter, Luft oder ein nicht voller Block. Mehrere → Maximum. Kerzenzahl egal, ausgeschaltet = keine Hitze.
 - **Fließend eine Stufe niedriger, Kessel wie Quelle (F30).**
-- **Nachglühen (F29)**: Nach Wegfall der Quelle hält der Tiegel die letzte Stufe 2/4/8/16 s (Eisen/Verstärkt/
-  Netherit/Enderit), danach pausieren die Vorgänge (blau), Fortschritt bleibt (F31).
-- **Nether +1 Stufe (F35)**; Deckel Runde 2.
-- Fremde/Datapack-Quellen über Tags `simplecrucibles:heat_source/<stufe>`; ohne ausdrückliche Stufe höchstens
-  **hoch** (F36); extrem nur über den expliziten Tag.
-- Prüfung bei Nachbaränderung + alle 20 Ticks (F33). Kein Überschuss-Bonus (F32). Der Tiegel entzündet nichts; Lava
-  als Quelle verhält sich normal (F34).
+- **Nachglühen (F29)**: letzte Stufe hält 2/4/8/16 s (Eisen … Enderit), danach Pause (blau), Fortschritt bleibt.
+- **Nether +1 Stufe**, höchstens bis **hoch** (F35, Frage 15).
+- Fremde/Datapack-Quellen über Tags `simplelib:heat_source/<stufe>`; ohne Angabe höchstens **hoch** (F36).
+- Prüfung bei Nachbaränderung + alle 20 Ticks. Kein Überschuss-Bonus. Der Tiegel entzündet nichts; Lava normal.
 
-## 7. GUI und Slot-Indikator (F37 + Runde 2)
+## 7. GUI, Slot-Indikator, Darstellung (F37, Runde 2 Fragen 19–22)
 
-- Layout: Eisen 3×2 mittig; Verstärkt 3×3; Netherit zwei 3×3 nebeneinander; Enderit drei 3×3 (9 Spalten, Lücken
-  zwischen den Gittern, passt in die Vanilla-Breite 176). Links Thermometer (kalt … extrem) mit Symbol der wirksamen
-  Quelle und Nachglüh-Anzeige; kein Brennstoffslot.
-- Zustände je Slot (Hintergrund): **gart** = aufgehellt + Fortschrittsfüllung; **rot** = kein Platz/Reservierung
-  blockiert; **blau** = Hitze zu niedrig; **reserviert** = Ergebnis halbdurchsichtig; **Ergebnis** = gesperrt;
-  **grau** = kein Rezept. Darstellung/Farben/Barrierefreiheit Runde 2.
-- Synchronisation über `ContainerData` (Fortschritt in Prozent + Zustandscode je Slot, 27 × 2 Werte).
+- Layout: Eisen 3×2; Verstärkt 3×3; Netherit zwei 3×3; Enderit drei 3×3 (9 Spalten, Lücken, Breite 176). Links
+  Thermometer (kalt … extrem) mit Symbol der wirksamen Quelle und Nachglüh-Anzeige; kein Brennstoffslot. Ist ein Fass
+  angebracht, erscheinen dessen **9 Felder** als zusätzliches 3×3 rechts (bzw. unter dem Tiegel-Raster beim Enderit-
+  Tiegel; Fensterbreite prüfen, notfalls 3×3 rechts außen wie die Doppeltruhen-Breite) – §8a.
+- Zustände je Slot (Frage 19/20 A): Hintergrund getönt, Füllung von unten = Fortschritt; **orange** gart, **rot** kein
+  Platz/blockiert, **blau** zu kalt, **grüner Rand** Ergebnis, **grau** kein Rezept, **reserviert** = Ergebnis
+  halbdurchsichtig; dazu Ecksymbol (Flamme/Kreuz/Schneeflocke/Haken), Tooltip-Zeile, Client-Option Farbenblind-Palette.
+- Außerhalb (Frage 21 A): kein Rezeptbuch; JEI/REI-Kategorie „Schmelztiegel“ mit Mindesthitze, Aufwärmen, Bau und
+  Aufwertung; Jade: Stufe, Hitze, Nachglühen, aktive/blockierte Slots, Fass.
+- **Block-Entity-Renderer (Frage 21/22)**: Der Inhalt ist im offenen Tiegel **3D gestapelt** sichtbar – je belegtem
+  Slot ein kleines Item-Modell (¼-Größe) in Raster-Ordnung, Stapel als 1–3 versetzte Kopien je nach Füllung, garende
+  Items leicht glühend, Ergebnisse obenauf. Ab 18/27 Slots zwei/drei Lagen übereinander. Sichtweite und Anzahl
+  begrenzt (Client-Option, Standard 16 Blöcke) – Performance.
+- Synchronisation über `ContainerData` (Prozent + Zustandscode je Slot); Inhalt für den BER über das Block-Entity-
+  Update-Paket (nur bei Änderung).
 - Block-Zustand `lit` (Licht, Partikel, Knistern), sobald ein Slot gart.
 
-## 8. Automatisierung, Stapel, Abbau
+## 8. Automatisierung, Stapel, Abbau (Runde 2 Fragen 10, 11, 23, 24)
 
-- ★ oben und seitlich einfügen, **unten entnehmen** (nur Ergebnis-Slots) – F26 sieht dafür ausdrücklich den Trichter
-  zwischen Tiegel und Hitzequelle vor. Nie in reservierte/Ergebnis-Slots einfügen. Details Runde 2.
-- Enderit ×2: `BackpackItem.maxStackSizeIn`-Muster, `codecSafeCopy` (Grenze 99), vorhandene Trichter-/Komparator-
-  Logik der Stufentruhen.
-- Abbau: Inhalt droppt in normalen Stapeln + Erfahrung als Kugeln (Runde 2).
+- Trichter (Frage 23 A): oben + Seiten einfügen, zuerst auf gleiche Eingabestapel, sonst freier Slot; nur garbare/
+  aufwärmbare Items; nie in reservierte/Ergebnis-Slots; lässt genug frei, dass jeder Vorgang einen Ergebnisplatz findet.
+  Unten entnimmt ein Trichter (zwischen Tiegel und Quelle 2 darunter) nur Ergebnis-Slots.
+- Komparator: Füllstand wie Truhe, keine Redstone-Steuerung (Frage 24 A).
+- Enderit ×2: `BackpackItem.maxStackSizeIn`-Muster, `codecSafeCopy` (Grenze 99), Trichter-/Komparator-Logik der
+  Stufentruhen.
+- Abbau: Inhalt droppt in normalen Stapeln + Erfahrung; Aufwertung behält alles (Frage 11 A).
 
-## 9. Seelen-Lava (nur SB)
+### 8a. Kupfer-Fass am Tiegel (neuer Wunsch Runde 2)
 
-- `FlowingFluid`-Paar + `LiquidBlock` ohne `replaceable()`: kein Überbauen, andere Flüssigkeiten fließen nicht hinein,
-  Kolben blockiert, Explosionen/Wither/Drache entfernen sie nicht; nur Eimer an der **Quelle** (Eisen- oder
-  Enderit-Eimer) entfernt sie, Fließblöcke verschwinden danach.
-- Weltgenerierung (Besitzer-Ergänzung 11): Nether-Lava-Taschen 0,5 %, Netherfestungs-Lavaraum 10 %, sonst nirgends.
-  Spring-Feature-Zwilling bzw. Mixin; Festung über `NetherFortressPieces$CastleEntrance`.
+- Blöcke: ★ `simplelib:copper_barrel`, `simplelib:reinforced_barrel`, `simplebuilding:enderite_barrel`; je **9 Slots**,
+  auch allein als normales Fass nutzbar (Frage 58). Unterschied der Stufen ★ Stapelfaktor 1/1/×2 (wie Tiegel) und
+  Explosionsfestigkeit (Frage 59). Rezept Kupfer-Fass ★ Fass in der Mitte, 4 Kupferbarren im Kreuz (Vanilla-Material).
+- **Anbringen**: Fass direkt neben (seitlich) den Tiegel stellen, mit Vorschlaghammer (ohne SB: Axt) **6 Schläge** auf das
+  Fass → Blockzustand `attached` + Ausrichtung; Modell zeigt einen **Kupfer-Stutzen/Flansch** zum Tiegel und am Tiegel
+  einen passenden Anschluss (beidseitiger Blockzustand). Lösen ★ durch Abbauen des Fasses oder erneute 6 Schläge mit
+  Schleichen (Frage 60). Höchstens **ein Fass je Tiegel** (★, Frage 60).
+- **Logik**: Der Tiegel reserviert und legt Ergebnisse **zuerst ins Fass** (gleiche Stapel zuerst, dann freier Fass-Slot),
+  erst danach in die eigenen Slots (dann wie §5, Slot darunter bevorzugt). Das Fass nimmt **nur Ergebnisse** des Tiegels
+  an; Spieler/Trichter können dort nichts einfüllen (★, Frage 61). Ein **Trichter unter dem Fass** zieht Ergebnisse ab →
+  Hitzequelle bleibt direkt unter dem Tiegel (100 % Tempo statt −10 %).
+- **GUI**: Tiegel-GUI zeigt die 9 Fass-Felder mit an (gleiche Indikatoren für reservierte Felder); das Fass allein
+  geöffnet zeigt nur seine 9 Felder. Jade nennt das verbundene Fass.
+- Aufwertung des Fasses ★ wie die Tiegel (Verstärkt: 2 Rissige Diamanten bzw. ohne SB 2 Diamanten; Enderit: SB,
+  2 Enderit-Nuggets; ab Netherit-Hammer) – Frage 59.
+
+## 9. Seelen-Lava (nur SB; Runde 2 Fragen 25–31 + neue Wünsche)
+
+- `FlowingFluid`-Paar + `LiquidBlock` ohne `replaceable()`: Überlebens-Spieler, Bauzauberstab, Blaupausen, Endermen,
+  Kolben (blockiert), Explosionen, Wither/Drache entfernen oder überbauen sie nicht; **Kreativ-Spieler dürfen ersetzen**
+  (Frage 26). Fließblöcke zerstören Gras/Blumen wie Lava. Entfernen sonst nur per Eimer an der **Quelle**.
+- **Fließweite Overworld 2, Nether 5, langsamer als Lava** (★ Takt 45/20 Ticks statt 30/10) (Frage 25).
+- **Wasserkontakt (Frage 26/27)**: Die Seelen-Lava bleibt; der **Wasserblock** wird umgewandelt – ★ zu **Schwarzstein**
+  (Frage 54). Normale Lava fließt nicht hinein.
+- **Gefahr (Frage 25/28)**: Kontakt wie Lava, aber man **brennt doppelt so lange** (Lava 15 s → 30 s). Danach Effekt
+  **„Seelenbrand“** (eigener `MobEffect`, 1 min): ★ alle 3 s 50 % Chance auf 1 Brandschaden (`soul_burn`-Schadensart,
+  Tag `is_fire`). **Feuerschutz verhindert den Schaden, nicht den Effekt** (Begriff → Frage 55). Items verbrennen
+  außer Netherit/Enderit; Strider laufen darauf.
+- **Entflammbarkeit (neu)**: ca. **4× höher als Lava** und **doppelte Reichweite**. ★ Umsetzung: Vanilla-Lava versucht
+  je Zufallstick 0–2 Zündungen in bis zu 2 Schritten Entfernung bzw. prüft 3 Nachbarn; Seelen-Lava macht **4× so viele
+  Versuche** mit **bis zu 4 Schritten** (bzw. 6 Nachbarn); auf Seelensand/-erde entsteht Seelenfeuer. Config-Grenzen.
+- **Optik (Frage 29 A)**: Lava-Animation in Seelenfeuer-Türkis, Licht 15, türkiser Nebel.
+- **Lagerung (Frage 30)**: normaler Kessel nimmt **keine** Seelen-Lava; neuer **verstärkter Kessel**
+  `simplebuilding:reinforced_cauldron` (★ Kessel + 4 Rissige Diamanten, Frage 56) nimmt Lava, Wasser, Pulverschnee und
+  **Seelen-Lava** (dann Hitze extrem). Dispenser wie Spieler; Schwamm saugt nicht.
+- **Weltgenerierung (Frage 31 A + B, Ergänzung 11)**: 0,5 % der Nether-Lavaquellen – **verborgene** (`spring_closed`,
+  `_double`) **und offene** (`spring_open`) – werden Seelen-Lava; in Netherfestungen 10 % je Brunnenraum, dann die
+  **ganze** Brunnen-Lava; nur neu generierte Chunks; keine Erneuerung.
 - Nicht in `minecraft:lava` taggen; Schaden/Feuer/Schwimmen selbst (NeoForge/Forge `FluidType`, Fabric Render-Handler).
-- Claims/Spawnschutz: fließt nicht in fremde Claims, Eimer dort gesperrt (simpletweaks-Muster) – Pflicht.
-- Als Hitzequelle: Quelle/Kessel extrem, fließend hoch (F30).
-- Offene Punkte (Fließweite, Kontakte, Gefahr, Optik, Kessel/Dispenser) → Runde 2.
+- Claims/Spawnschutz respektiert (Pflicht). Als Hitzequelle: Quelle/Kessel extrem, fließend hoch.
 
 ## 10. Eimer (nur SB)
 
-- Kupfer-Eimer: nimmt Lava, aber **keine Seelen-Lava**; **zerbricht beim Ausgießen von Lava** (Lava wird platziert).
+- Kupfer-Eimer: nimmt Lava, aber **keine Seelen-Lava**; **zerbricht beim Ausgießen von Lava**.
 - Eisen-Eimer: nimmt Seelen-Lava, **zerbricht beim Ausgießen** von Seelen-Lava.
 - Enderit-Eimer: Schmiedetisch direkt vom Eisen-Eimer, zerbricht nie.
-- Details (Rezept, Inhalte, Brennstoff, Extras) → Runde 2.
+- **Brennstoff (neu, „schmilzt 10× mehr als Lava“)**: ★ Seelen-Lava-Eimer brennt im Ofen **10× so lange** wie ein
+  Lavaeimer (200 000 statt 20 000 Ticks = 1000 statt 100 Items). Rest: Enderit-Eimer kommt leer zurück, Eisen-Eimer
+  zerbricht (wie beim Ausgießen). Brennzeiten > 32 767 brauchen die vorhandenen `AbstractFurnace*Mixin`-Pfade. Andere
+  Deutungen → Frage 57; Frage 36 dadurch angepasst.
+- Details (Rezept, Inhalte, Extras) → Fragen 32–35.
 
 ## 11. Dorf-Tiegel (neu, Bibliothek)
 
@@ -314,10 +423,10 @@ noch als „Core-Jar mit Items“ (Regel 6) liegen; zwei Kopien (SB- und Modul-N
 
 ## 12. Warmes Essen (Bibliothek)
 
-- Aufwärmbar: Tag `simplecrucibles:warmable_food` (Sandwiches als `required:false`). Ab Hitze niedrig, ganzer Stapel,
+- Aufwärmbar: Tag `simplelib:warmable_food` (Sandwiches als `required:false`). Ab Hitze mittel (★A, §6), ganzer Stapel,
   Grundzeit 100 Ticks × Hitzefaktor/Stufentempo. Im Tiegel gegarte Speisen kommen warm heraus.
 - Esszeit −15 %; warm 12 000 Ticks (halber Tag-Nacht-Zyklus), im **Bündel 48 000** (zwei Zyklen).
-- Komponente `simplecrucibles:warm` = (`warmUntil` Weltzeit, Bündel-Restzeit); kühlt auch in entladenen Chunks ab.
+- Komponente `simplelib:warm` = (`warmUntil` Weltzeit, Bündel-Restzeit); kühlt auch in entladenen Chunks ab.
 - **Stapeln = Mittelwert** aller Items (Warm-Komponente aus der Stapelgleichheit ausgeblendet, Merge-Hook).
 - **Glow** um das Item, Stärke ~ Restwärme (Item-Modell `range_dispatch` für eigene Items, Render-Mixin für fremde).
 
@@ -326,17 +435,22 @@ noch als „Core-Jar mit Items“ (Regel 6) liegen; zwei Kopien (SB- und Modul-N
 | Schlüssel | Standard | Grenzen |
 |---|---|---|
 | `crucible.reinforcedSpeed` / `netheriteSpeed` / `enderiteSpeed` | 2 / 4 / 8 | 1..`MAX_MACHINE_SPEED` |
-| `heat.factorLow` / `Medium` / `High` / `Extreme` | 0,5 / 0,625 / 0,75 / 1,0 | 0,1..1,0 |
+| `heat.factorMedium` / `High` / `Extreme` (★A) | 0,5 / 0,75 / 1,0 | 0,1..1,0 |
 | `heat.twoBelowPenalty` | 0,10 | 0..0,5 |
 | `heat.afterglowSeconds` (je Stufe) | 2 / 4 / 8 / 16 | 0..60 |
-| `heat.netherBonus` | 1 | 0..1 |
+| `heat.netherBonus` (Deckel hoch) | 1 | 0..1 |
 | `heat.recheckTicks` | 20 | 5..200 |
 | `warm.baseTicks` | 100 | 20..1200 |
 | `warm.durationTicks` / `bundleDurationTicks` | 12 000 / 48 000 | 1200..48 000 / 1200..96 000 |
 | `warm.eatSpeedBonus` | 0,15 | 0..0,30 |
 | `village.enabled` / `village.weight` | an / 2 | an/aus / 0..10 |
 | SB `soulLava.springChance` / `fortressChance` | 0,005 / 0,10 | 0..0,05 / 0..0,5 |
-| SB `soulLava.damage` | 6 | 1..20 |
+| `barrel.enabled` | an | an/aus |
+| SB `soulLava.flowOverworld` / `flowNether` | 2 / 5 | 1..4 / 1..7 (Neustart) |
+| SB `soulLava.burnSecondsMultiplier` | 2,0 | 1..4 |
+| SB `soulLava.soulBurnSeconds` / `soulBurnChance` / `soulBurnIntervalTicks` | 60 / 0,5 / 60 | 5..300 / 0..1 / 20..200 |
+| SB `soulLava.igniteAttemptsMultiplier` / `igniteRangeMultiplier` | 4 / 2 | 1..8 / 1..3 |
+| SB `soulLava.fuelMultiplier` | 10 | 1..10 |
 
 ## 14. Tests
 
@@ -345,9 +459,13 @@ noch als „Core-Jar mit Items“ (Regel 6) liegen; zwei Kopien (SB- und Modul-N
   `crucible_recipe_type_gate_by_heat`, `crucible_heat_factor_times`, `crucible_heat_two_below_ten_percent_slower`,
   `crucible_flowing_lava_one_level_lower_cauldron_equal`, `crucible_afterglow_per_tier`, `crucible_nether_plus_one`,
   `crucible_foreign_heat_capped_high`, `crucible_hopper_bottom_results_only`, `crucible_axe_build_six_strikes`,
+  `crucible_axe_upgrade_without_sb`, `crucible_ber_contents_sync`, `barrel_attach_six_strikes`,
+  `barrel_results_first_then_own_slots`, `barrel_rejects_insertion`, `barrel_hopper_below_extracts`,
   `warm_*` (Bonus, Ablauf, Bündel, Mittelwert, Glow-Stufe), `village_field_kitchen_in_pool`.
 - SB: `enderite_crucible_27_double_stack`, `crucible_sledgehammer_upgrade_double_cost`,
-  `crucible_sledgehammer_build_conditional`, `enderite_scrap_needs_extreme_heat`, `soul_lava_*`, `*_bucket_*`.
+  `crucible_sledgehammer_build_conditional`, `enderite_scrap_needs_extreme_heat`, `soul_lava_*` (Fließweite 2/5,
+  Kreativ ersetzt, Wasser → Schwarzstein, Brand ×2, Seelenbrand, Zündung, Worldgen offen+verborgen), `*_bucket_*`,
+  `soul_lava_bucket_fuel_ten_times`, `reinforced_cauldron_holds_soul_lava`, `enderite_barrel_double_stack`.
 - Sandwiches: `sandwich_warmable_via_library_tag`, Start ohne SB.
 - Gates: `fabric-263`, `neoforge-263`, Modul-Targets, Standalone-Target, 26.2-/Forge-Compile, Wiki, `checkBalance`.
 
@@ -355,15 +473,16 @@ noch als „Core-Jar mit Items“ (Regel 6) liegen; zwei Kopien (SB- und Modul-N
 
 | Phase | Inhalt | Aufwand |
 |---|---|---|
-| P0 | Prinzipien-Ergänzung abstimmen, Modul `simplecrucibles` anlegen, Bündeln in SB/Sandwiches (3 Loader) | 1 |
+| P0 | Prinzipien-Ergänzung abstimmen, Modul `simplelib` anlegen, Bündeln in SB/Sandwiches (3 Loader) | 1 |
 | P1 | Eisen-Tiegel, Axt-Bau, BE/Menü/Screen, Reservierung, Indikatoren, Rezept-Gate, Hitze | 2 |
-| P2 | Verstärkt/Netherit, Trichter/Komparator, Jade/JEI | 1 |
+| P2 | Verstärkt/Netherit (Axt-Weg), Trichter/Komparator, Jade/JEI, BER | 1,5 |
+| P2b | Kupfer-/Verstärkt-Fass, Anbringen, gemeinsame GUI | 1 |
 | P3 | Warm-Food (Komponente, Esszeit, Bündel, Mittelwert, Glow) | 1,5 |
 | P4 | Dorf-Feldküche (5 Varianten, Pool-Einhängen) | 0,75 |
-| P5 | SB: Enderit-Tiegel, Vorschlaghammer-Bau/-Aufwertung, Seelen-Lava inkl. Worldgen, Eimer | 2,5 |
+| P5 | SB: Enderit-Tiegel/-Fass, Vorschlaghammer-Wege, Seelen-Lava (Worldgen, Seelenbrand, Zündung), verstärkter Kessel, Eimer | 3 |
 | P6 | Texturen/Strukturen (Vorschau A/B/C), NeoForge/Forge, Wiki/Handbuch, Gates | 1,5 |
 
-Summe ≈ 10–10,5 Sitzungen. GPT-geeignet: P0-Gerüst, Lang/Wiki, Tag-Listen, Eimer-Varianten, Struktur-NBT-Varianten.
+Summe ≈ 12–12,5 Sitzungen. GPT-geeignet: P0-Gerüst, Lang/Wiki, Tag-Listen, Eimer-Varianten, Struktur-NBT-Varianten.
 
 ## 16. Risiken
 
@@ -378,94 +497,15 @@ Summe ≈ 10–10,5 Sitzungen. GPT-geeignet: P0-Gerüst, Lang/Wiki, Tag-Listen, 
 - Reservierung + halbdurchsichtige Ghost-Items brauchen eigene Slot-Darstellung (Client-Code je Loader gleich halten).
 - Dorf-Pools: Accessor-Mixin auf `StructureTemplatePool` ist versionsempfindlich; andere Mods, die Pools ersetzen.
 - Texturen: „eigene Formen statt Recolors“.
+- BER mit bis zu 27 (+9) Item-Modellen je Tiegel: Render-Last in Basen mit vielen Tiegeln → Sichtweite/Anzahl begrenzen.
+- Fass-GUI neben dem 27er-Raster sprengt evtl. die Fensterbreite bei GUI-Skala 4 (Truhen-Lösung wiederverwenden).
+- `simplelib` als allgemeine Bibliothek wächst leicht zur „Core-Jar“ → nur wirklich geteilte Inhalte aufnehmen.
+- Seelenbrand + 4× Zündung: Waldbrände im Nether-Rand/Overworld; Fließblöcke unersetzbar → Grief-Potenzial, Claims Pflicht.
 
-## 17. Fragebogen Runde 2 (offen, kompakt; Empfehlung ★)
+## 17. Fragebogen (Runde 2 Rest + neue Fragen; Empfehlung ★)
 
-Die Fragen 38–112 der ersten Fassung sind hier gesichtet: Duplikate gestrichen, Nahes zusammengefasst; Fragen, die
-durch Runde 1 bzw. die Besitzer-Ergänzungen schon entschieden sind, stehen unten unter „✔ erledigt“.
-
-### A. Rahmen, Stufen, Bau
-1. **Erz-Ausbeutebonus (F7, präzisiert).** Heute (`FurnaceTierPerks`, `bonusPeriod`/`earnsOutputBonus`): Nur der
-   Netherit- und Enderit-**Schmelzofen** gibt bei jedem 4. bzw. 2. passenden Schmelzvorgang **einen Gegenstand mehr**
-   (+25 % / +50 % Ausbeute), und nur für Rezepte, deren Zutat ausschließlich **Roheisen, Rohgold oder Rohkupfer** ist
-   (Tag `simplebuilding:blast_furnace_bonus`); der Rissige Diamant ist ausgeschlossen (`furnace_bonus_excluded`).
-   Soll der Tiegel das auch? A ja, Netherit +25 %, Enderit +50 % bei Blasting-Rezepten · ★B nein (Parallelität ist der
-   Vorteil) · C nur Enderit-Tiegel bei extremer Hitze.
-2. **Prinzipien-Lösung für den gemeinsamen Kern?** ★A Bibliotheks-Modul `simplecrucibles` mit Inhalt, gebündelt von
-   SB und Sandwiches, Prinzipien-Ausnahme für Inhalts-Bibliotheken · B `framework` um Inhalte erweitern · C Tiegel
-   gehört Sandwiches, SB ergänzt nur mit Sandwiches · D zwei Kopien.
-3. **Bibliotheks-Name?** ★A `simplecrucibles` „Simple Crucibles“ · B `simplekitchen` (Platz für Küchen-Kram) ·
-   C `simplecore` (allgemeine Inhalts-Bibliothek für künftige geteilte Blöcke).
-4. **Taucht die Bibliothek als eigener Mod in Modlisten/Wiki auf?** ★A ja, als „Simple Crucibles (gebündelt)“ mit
-   eigener Wiki-Seite · B versteckt, Inhalte erscheinen unter SB bzw. Sandwiches.
-5. **Axt-Bau „In-World-Transformation nur in SB“?** F1 sagt „In-World-Umwandlung (Vorschlaghammer) nur in SB“, Ergänzung
-   9 wollte ohne SB die Axt. ★A Axt-Bau bleibt in der Bibliothek (Bau ist kein Vorschlaghammer-Vorgang), Vorschlag-
-   hammer-Bau und alle Aufwertungen nur mit SB · B ohne SB Werkbank-Rezept statt Axt-Bau · C Axt nur, wenn SB fehlt.
-6. **Verstärkt/Netherit ohne SB (Prinzip 1: jedes Item braucht einen Vanilla-Weg)?** ★A Werkbank: Eisen-Tiegel +
-   4 Diamanten → Verstärkt; Schmiedetisch: Netherit-Vorlage + Verstärkt-Tiegel + Netherit-Barren → Netherit
-   (mit SB zusätzlich Vorschlaghammer) · B ohne SB nur der Eisen-Tiegel (Verstärkt/Netherit dann nicht registriert)
-   · C ohne SB Aufwertung per Axt-Schlägen mit Diamant/Netherit-Barren in der Nebenhand.
-7. **Material beim Eisen-Tiegel-Bau?** ★A 1 Eisenbarren je Schlag (6), Wände/Griffe nur Optik · B Schläge 1–4 je eine
-   schwere Wägeplatte, 5–6 je ein Eisenstab aus der Nebenhand (Eisenstab nur 26.3/SB → ohne SB Eisenbarren) ·
-   C 1 Eisenbarren für alles.
-8. **Werkzeug-Haltbarkeit beim Bau?** ★A jede Axt bzw. jeder Vorschlaghammer, 1 bzw. 2 je Schlag · B ab Eisen, 2 je
-   Schlag · C Axt 5 je Schlag.
-9. **Abbruch mitten im Bau?** ★A Rohling bleibt stehen, später fortsetzen; abgebaut gibt er Eisenblock + verbrauchte
-   Barren zurück · B nur Eisenblock zurück · C kein Rohling, Stand verfällt.
-10. **Stapelfaktor Enderit?** ★A ×2 (wie gewünscht) · B ×4 wie die Enderit-Truhe · C ×2 nur für Ergebnisse.
-11. **Abbau mit Inhalt / Fortschritt bei Aufwertung?** ★A droppt Inhalt (normale Stapel) + Erfahrung, Fortschritt
-    weg; bei Aufwertung bleibt alles · B Inhalt bleibt im Block-Item (wie Shulker) · C droppt, Erfahrung verloren.
-
-### B. Garen, Hitze
-12. **Rezept-Gate bestätigen:** ★A niedrig = Aufwärmen + Lagerfeuer-Rezepte (600 Ticks ÷ 0,5), mittel = + Ofen/
-    Räucherofen, hoch = + Schmelzofen, extrem = + Sonderliste · B Lagerfeuer-Rezepte erst ab mittel (niedrig nur
-    Aufwärmen) · C Räucherofen-Rezepte schon ab niedrig.
-13. **Hitzefaktor „mittel“?** ★A 0,625× (Mitte) · B 0,5× wie niedrig · C 0,75× wie hoch.
-14. **Sonderliste „extrem“ außer Enderit-Schrott?** ★A + Antiker Schrott, Rissiger Diamant → Diamant · B nur
-    Enderit-Schrott · C + alle Netherit-/Enderit-Rezepte.
-15. **Nether +1 – Deckel?** ★A höchstens bis hoch (extrem nur durch Seelen-Lava) · B bis extrem (Lava im Nether =
-    extrem) · C nur niedrig → mittel.
-16. **Was darf zwischen Tiegel und Quelle 2 Blöcke darunter stehen?** ★A Trichter, Luft oder ein nicht voller Block
-    (Stufe, Gitter) · B nur Trichter · C jeder Block.
-17. **Reserviertes Feld: Spieler legt genau das kommende Ergebnis-Item hinein?** ★A wird wie ein Ergebnisstapel
-    behandelt, Vorgang läuft weiter · B stoppt trotzdem (immer stoppen, einfache Regel).
-18. **Reservierung bei gleichem Item in vielen Slots** – Ergebnisse zusammenlegen? ★A ja, mehrere Vorgänge dürfen
-    denselben Ergebnisstapel reservieren, solange die Summe hineinpasst · B jeder Vorgang eigener Ergebnisplatz.
-
-### C. GUI, Anzeige
-19. **Indikator-Darstellung + Richtung?** ★A ganzer Slot-Hintergrund getönt, Fortschritt füllt von unten nach oben ·
-    B Rand + 2-px-Balken unten · C Tönung + Kreis.
-20. **Farben + Barrierefreiheit?** ★A gart orange, rot kein Platz, blau zu kalt, grüner Rand Ergebnis, grau kein
-    Rezept; dazu Ecksymbol (Flamme/Kreuz/Schneeflocke/Haken), Tooltip-Zeile, Client-Option Farbenblind-Palette ·
-    B nur die drei genannten Farben · C Farben + Tooltip.
-21. **Anzeigen außerhalb der GUI?** ★A kein Rezeptbuch; JEI/REI-Kategorie „Schmelztiegel“ mit Mindesthitze; Jade:
-    Stufe, Hitze, Nachglühen, aktive/blockierte Slots · B Vanilla-Rezeptbuch dazu · C nur Jade.
-22. **Items im Block sichtbar?** ★A nein, nur Glut/Leuchten wenn aktiv · B bis zu 9 Items oben sichtbar.
-
-### D. Automatisierung
-23. **Trichter einfügen?** ★A oben + Seiten, erst gleiche Eingabestapel, sonst freier Slot; nur garbare/aufwärmbare
-    Items; nie reservierte/Ergebnis-Slots; lässt so viel frei, dass jeder Vorgang einen Ergebnisplatz findet ·
-    B nur oben, keine Reserve · C feste Aufteilung (oberes Gitter Eingabe, unteres Ausgabe).
-24. **Komparator/Redstone?** ★A Füllstand wie Truhe, keine Redstone-Steuerung · B Anzahl garender Slots · C Signal
-    pausiert den Tiegel.
-
-### E. Seelen-Lava (SB)
-25. **Fließweite/Dimensionen?** ★A Overworld 2, Nether 4, zäher als Lava, überall platzierbar · B wie Lava (3/7) ·
-    C immer 1.
-26. **„Nicht ersetzbar“ – Umfang?** ★A alles inkl. Kreativ-Spieler, Kolben, Explosionen; nur `/setblock`/`/fill`;
-    Fließblöcke zerstören Gras/Blumen wie Lava · B Kreativ darf überbauen · C zusätzlich Schwamm entfernt Fließblöcke.
-27. **Kontakt mit Wasser/Lava?** ★A keine Umwandlung, Wasser verdampft, Lava fließt nicht hinein · B Quelle →
-    Weinender Obsidian, fließend → Basalt · C Seelen-Lava bleibt, Wasser wird Schwarzstein.
-28. **Gefahr (Schaden, Items, Feuer, Strider)?** ★A Schaden 6 + Seelenbrand 15 s, Feuerresistenz halbiert; Items
-    verbrennen außer Netherit/Enderit; entzündet wie Lava (auf Seelensand Seelenfeuer); Strider laufen darauf ·
-    B wie Lava · C doppelt, Feuerresistenz nutzlos.
-29. **Optik?** ★A Lava-Animation in Seelenfeuer-Türkis, Licht 15, türkiser Nebel · B dunkelblau mit Seelen-Gesichtern ·
-    C hellblau-weiß, Licht 10.
-30. **Kessel/Dispenser/Schwamm?** ★A Seelen-Lava-Kessel als Lager + Hitze (extrem), Dispenser wie Spieler, Schwamm
-    saugt nicht · B kein Kessel · C Dispenser kann Seelen-Lava nicht.
-31. **Weltgenerierung im Detail?** ★A nur verborgene Taschen (`spring_closed`/`_double`); im Festungsraum die ganze
-    Brunnen-Lava; nur neu generierte Chunks; keine Erneuerung (endlich) · B auch offene Lavafälle · C Festung nur
-    zentrale Quelle · D alte Chunks nachträglich.
+Fragen **1–31 sind beantwortet** (Tabelle §2b, eingearbeitet). Offen sind **32–49** (Nummern unverändert, damit die
+Antworten zuordenbar bleiben) und die neuen Fragen **50–61** aus den Runde-2-Antworten und -Wünschen.
 
 ### F. Eimer (SB)
 32. **Kupfer-Eimer: Rezept, Inhalte, Oxidation?** ★A 3 Kupferbarren V-Form; alles wie Eisen-Eimer außer Seelen-Lava;
@@ -476,8 +516,8 @@ durch Runde 1 bzw. die Besitzer-Ergänzungen schon entschieden sind, stehen unte
     C 50 % beim Ausgießen.
 35. **Enderit-Eimer?** ★A Schmiedetisch Enderit-Vorlage + Eisen-Eimer + Enderit-Barren; unzerbrechlich, als Item
     feuerfest · B über Netherit-Eimer · C zusätzlich 4 Ladungen.
-36. **Brennstoff?** ★A Kupfer-Lava-Eimer brennt, Eimer wird verbraucht; Seelen-Lava-Eimer ist kein Brennstoff ·
-    B beide kein Brennstoff · C Seelen-Lava 2× Lava.
+36. **Brennstoff Kupfer-Lava-Eimer?** (Seelen-Lava-Eimer = 10× Lava, siehe neuer Wunsch / Frage 57) ★A brennt wie
+    Lava, Eimer wird verbraucht · B kein Brennstoff · C brennt, Kupfer-Eimer kommt zurück.
 
 ### G. Warmes Essen
 37. **Was ist aufwärmbar?** ★A gegartes Fleisch/Fisch, Ofenkartoffel, Brot, Suppen/Eintöpfe, Kürbiskuchen,
@@ -509,6 +549,38 @@ durch Runde 1 bzw. die Besitzer-Ergänzungen schon entschieden sind, stehen unte
     Recolor; Eimer Kupfer-/Enderit-Palette mit sichtbarem Inhalt; Vorschau A/B/C vor Einbau · B schwarzer Gusstopf ·
     C Ofenfront mit Gitterfenster.
 
+### J. Neu aus Runde 2
+50. **Axt-Aufwertung ohne SB – Material (Prinzip Frage 6)?** ★A Eisen → Verstärkt 2 Diamanten, Verstärkt → Netherit
+    1 Netheritbarren (je Nebenhand, 10 Axt-Schläge) · B Verstärkt 4 Diamanten, Netherit 2 Netheritbarren ·
+    C Verstärkt 1 Diamantblock, Netherit 1 Netheritbarren + Netherit-Vorlage.
+51. **Hitzestufen (Rückfrage zu 13/14, Tabelle §6)?** ★A drei Stufen: mittel (Lagerfeuer, Seelen-Lagerfeuer, Magma,
+    fließende Lava; 0,5×; Aufwärmen, Lagerfeuer-, Räucherofen-Rezepte) · hoch = Ofen-Niveau (Lava, Lavakessel,
+    fließende Seelen-Lava; 0,75×; + Ofen, Schmelzofen) · extrem (Seelen-Lava; 1×; + Enderit-Schrott, Antiker Schrott,
+    Rissiger Diamant); Fackel/Kerze geben keine Hitze · B vier Stufen mit „niedrig“ (Kerze/Fackel/Feuer, 0,5×, nur
+    Aufwärmen + Lagerfeuer-Rezepte; mittel 0,625×) · C wie A, aber Räucherofen-Rezepte erst ab hoch.
+52. **Sonderliste „extrem“ (ehem. 14)?** ★A Enderit-Schrott, Antiker Schrott, Rissiger Diamant · B nur Enderit-Schrott ·
+    C zusätzlich alle Rezepte mit Netherit-/Enderit-Ergebnis.
+53. **BER: wie viele Items sichtbar?** ★A je belegtem Slot ein Modell, bis 27 (+ Fass nicht), Sichtweite 16 Blöcke
+    (Client-Option) · B höchstens 9 (oberste Lage) · C alle inkl. Fass-Inhalt am Fass.
+54. **Wasser an Seelen-Lava – Wasserseite wird zu?** ★A Schwarzstein · B Basalt · C Weinender Obsidian (Quelle) /
+    Schwarzstein (fließend).
+55. **„Feuerschutz“ beim Seelenbrand = ?** ★A Verzauberung Feuerschutz (je Stufe −25 % Chance, IV = kein Schaden) und
+    Trank der Feuerresistenz (ganz) · B nur der Trank · C nur die Verzauberung (Summe über Rüstung).
+56. **Verstärkter Kessel – Rezept/Besitz?** ★A SB: Kessel + 4 Rissige Diamanten (Werkbank, Kreuz) · B Vorschlaghammer-
+    Aufwertung des Kessels mit 2 Rissigen Diamanten · C in `simplelib` mit 4 Diamanten (auch ohne SB, dann ohne
+    Seelen-Lava sinnlos).
+57. **„Schmilzt 10× mehr als Lava“ – Deutung?** ★A Brennstoff: Seelen-Lava-Eimer brennt 10× Lava (200 000 Ticks);
+    Eisen-Eimer zerbricht dabei, Enderit-Eimer kommt zurück · B im Tiegel: extreme Hitze gart zusätzlich 10× schneller
+    (Faktor 10 statt 1) · C Items/Blöcke verbrennen darin 10× schneller (Kontakt-Zerstörung) · D A und C.
+58. **Fass auch allein nutzbar?** ★A ja, normales 9er-Fass (öffnen, Trichter) · B nur am Tiegel (allein ohne GUI).
+59. **Unterschied der Fass-Stufen (immer 9 Slots)?** ★A Stapelfaktor Kupfer 1×, Verstärkt 1×, Enderit 2× + Härte
+    wie Tiegel; Aufwertung wie Tiegel (2 Material) · B Verstärkt 2×, Enderit 4× · C Stufen nur optisch/explosionsfest.
+60. **Anbringen/Lösen und Anzahl?** ★A Fass seitlich neben den Tiegel, 6 Schläge aufs Fass; Lösen durch Abbauen;
+    höchstens ein Fass je Tiegel · B bis zu vier Fässer (je Seite eins, nacheinander gefüllt) · C Fass oben auf dem
+    Tiegel statt seitlich.
+61. **Wer darf ins Fass legen?** ★A nur der Tiegel (Spieler/Trichter nur entnehmen) · B auch Spieler, aber nicht
+    Trichter · C alle (dann blockieren Fremditems Ergebnisse).
+
 **✔ erledigt (aus der ersten Fassung, keine Frage mehr):**
 - alt 37 Layout → neue Slotzahlen (F4, F37): 3×2 / 3×3 / 2×3×3 / 3×3×3.
 - alt 47 Seiten/unten → unten entnehmen folgt aus F26 (Trichter zwischen Tiegel und Quelle); Rest in Frage 23.
@@ -524,10 +596,11 @@ durch Runde 1 bzw. die Besitzer-Ergänzungen schon entschieden sind, stehen unte
 - alt 98 Licht/Sound → Annahme wie Ofen (§7), keine Frage.
 - alt 101–105 → Fragen 7–9; alt 103 → Frage 5; alt 106–108 → Frage 31; alt 110 → Frage 40.
 - Ersetzt durch Runde-1-Antworten: alt 22–36 (Hitze), 12–21 (Garen), 4–11 (Stufen), 1–3 (Rahmen).
+- Runde-2-Fragen 1–31 beantwortet (§2b); 13/14 als Frage 51/52 neu gestellt.
 
 ## 18. Arbeitsannahmen (ohne eigene Frage)
 
 Tiegel-Slots teilen Eingabe und Ausgabe; Reservierungen und Ergebnis-Markierungen als BE-Bitmasken; Lesereihenfolge
-Gitter für Gitter; Hitzefaktor „mittel“ 0,625×; Tiegel-Licht 13 + Ofen-Partikel wenn aktiv; Seelen-Lava nicht im
+Gitter für Gitter; Hitzefaktor „mittel“ 0,5× (★A ohne „niedrig“, sonst 0,625×); Tiegel-Licht 13 + Ofen-Partikel wenn aktiv; Seelen-Lava nicht im
 Tag `minecraft:lava`; Eimer-Varianten als eigene Items; Warm-Komponente nur serverseitig gesetzt; kein Tiegel im
 1.21.11-Zweig; Simple-Money-Preise nach der Besitzerwahl.
