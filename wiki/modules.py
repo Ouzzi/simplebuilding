@@ -106,6 +106,9 @@ def extract(entry, g, check=False):
                 values[value['id']] = value
         collections[name] = sorted(values.values(), key=lambda value: value['id'])
     inventory = {'items': set(), 'blocks': set()}
+    model_only = manual.get('modelOnly', {})
+    model_only_ids = set(model_only) if isinstance(model_only, dict) else set()
+    item_models = set()
     for table in lang.values():
         for key in table:
             for kind, prefix in [('items', 'item'), ('blocks', 'block')]:
@@ -114,7 +117,11 @@ def extract(entry, g, check=False):
     for resource in [*resources, generated]:
         for kind, directory in [('items', 'items'), ('blocks', 'blockstates')]:
             base = resource / 'assets' / ns / directory
-            inventory[kind].update(ns + ':' + p.relative_to(base).with_suffix('').as_posix() for p in base.rglob('*.json'))
+            identifiers = {ns + ':' + p.relative_to(base).with_suffix('').as_posix() for p in base.rglob('*.json')}
+            if kind == 'items':
+                item_models.update(identifiers)
+                identifiers -= model_only_ids
+            inventory[kind].update(identifiers)
     props_path = generated / 'wiki/items.json'
     props = g.read_json(props_path) if props_path.exists() else {}
     if isinstance(props, dict) and 'items' in props:
@@ -144,6 +151,17 @@ def extract(entry, g, check=False):
     # block page; their item model/export must not demand a phantom item key.
     inventory['items'].difference_update(inventory['blocks'])
     notes, undocumented, incomplete, problems = manual.get('notes', {}), [], {}, []
+    # Render aliases are not registry entries. Other evidence must never be hidden.
+    if not isinstance(model_only, dict):
+        problems.append(f'{paths["wikiManual"]}: modelOnly must map model ids to reasons')
+    else:
+        for identifier, reason in model_only.items():
+            if not isinstance(reason, str) or not reason.strip():
+                problems.append(f'{identifier}: modelOnly needs a nonempty reason')
+            if identifier not in item_models:
+                problems.append(f'{identifier}: modelOnly has no item model definition')
+            if identifier in inventory['items'] or identifier in inventory['blocks']:
+                problems.append(f'{identifier}: modelOnly conflicts with registry or language evidence')
     if not isinstance(notes, dict):
         problems.append(f'{paths["wikiManual"]}: notes must be an object keyed by item/block id or glob')
         notes = {}

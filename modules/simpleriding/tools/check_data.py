@@ -77,7 +77,15 @@ def check():
     assets = MODULE / 'shared/resources/assets/simpleriding'
     tiers = ['copper', 'iron', 'golden', 'diamond', 'netherite', 'enderite']
     items = [t + '_horseshoe' for t in tiers] + ['horseshoe_smithing_template']
-    assert sorted(p.stem for p in assets.glob('items/*.json')) == sorted(items), 'exactly the R1 horseshoe item models'
+    books = ['enchanted_book_leaping', 'enchanted_book_tailwind']
+    assert sorted(p.stem for p in assets.glob('items/*.json')) == sorted(items + books), 'horseshoes and Riding book models'
+    for book in books:
+        assert read(assets / f'items/{book}.json')['model'] == {'type': 'minecraft:model', 'model': f'simpleriding:item/{book}'}
+        assert read(assets / f'models/item/{book}.json') == {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'simpleriding:item/{book}'}}
+        png = (assets / f'textures/item/{book}.png').read_bytes()
+        assert png[:8] == b'\x89PNG\r\n\x1a\n' and int.from_bytes(png[16:20], 'big') == int.from_bytes(png[20:24], 'big') == 16
+    assert not (assets.parent / 'minecraft/items/enchanted_book.json').exists(), 'do not replace other mods book selection'
+    assert 'client.RidingBookModelMixin' in read(MODULE / 'shared/resources/simpleriding.mixins.json')['client']
     for item in items:
         assert read(assets / f'items/{item}.json')['model']['model'] == f'simpleriding:item/{item}'
         assert (assets / f'textures/item/{item}.png').is_file()

@@ -124,6 +124,12 @@ config, enchantments, advancements, quests, inWorld and obtain sections may be e
 must be produced from actual registries/data, never a second hand-maintained balance source.
 Absent sections are empty. Module textures are isolated under `assets/textures/<id>/`.
 
+Client item-model aliases without a registered item belong in the module manual's
+`modelOnly` object (`"mod:model_id": "code-backed reason"`). Each alias must have an
+item definition. This excludes only model-file inventory evidence; matching language
+keys, registry exports or literal registrations still count and report a conflict.
+Do not use this field to hide a registered item from documentation.
+
 Pure Python verification: `python -m unittest discover -s wiki/tests -v` (also in `check`).
 The wiki switcher persists `?mod=<id>` and guarded localStorage. Existing SimpleBuilding
 query/hash links remain valid. Cross-module chapter references use full registry ids in

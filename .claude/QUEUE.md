@@ -27,6 +27,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Claims-Folgeschutz für Crafter, Kupfergolem-Transfers und Blitz-Blockänderungen; 100/100 Modultests. Claims bleiben wegen weiterer offener Pfade AUS.
 
 ## Offen (inklusive Besitzerpunkte)
+- [x] Simple Riding: Leaping-/Tailwind-Buecher aus Vorschlag B mit weiteren 25 % Kontrast; Generator, Modulmodelle, Vorschau, Wiki-Modellalias-Vertrag, 78/78 Modultests und volles Gate gruen (2026-10-04, gpt-books). Client-Sichtabnahme und 26.2-Port bleiben offen.
 - [x] B8: Item-spezifische EN/DE-Zusätze für die 17 Wiki-Familien, einschließlich Alt-IDs; Rezept- und Zahlenkorrekturen gegen 26.3-Quellen. Wiki-Generator und Python-Tests im Worker-Worktree geprüft, kein Port/Push.
 - [x] Strahlschalter-Rezeptfilter berücksichtigt amethyst_lens und die alte laser_pointer-ID (RecipeFilter.java).
 - [x] Serielle Fabric-/NeoForge-26.3-Clientprüfung und gezielte Nachprüfung der belegten Testfehler; Dimensions/QoL/Sounds/Visuals-Smokes: `docs/ai/CLIENT-ACCEPTANCE-2026-10-01.md`.

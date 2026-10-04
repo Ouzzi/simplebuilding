@@ -54,6 +54,42 @@ class ModuleWikiTests(unittest.TestCase):
         self.assertEqual(data['items'], [])
         self.assertEqual(problems, [])
 
+    def test_model_only_alias_is_not_an_item(self):
+        self.token()
+        base = self.entry['paths']['generated']
+        self.write(base + '/assets/wiringexample/items/book.json', {'model': {}})
+        self.write(self.entry['paths']['wikiManual'], {
+            'notes': {'token': self.prose()},
+            'modelOnly': {'wiringexample:book': 'Render alias for a vanilla book.'}})
+        data, problems = module_wiki.extract(self.entry, g)
+        self.assertEqual(problems, [])
+        self.assertEqual([item['id'] for item in data['items']], ['wiringexample:token'])
+
+    def test_model_only_cannot_hide_registry_or_language_evidence(self):
+        base = self.entry['paths']['generated']
+        ids = {'wiringexample:' + kind for kind in ('language', 'exported', 'literal')}
+        for identifier in ids:
+            self.write(base + '/assets/wiringexample/items/' + identifier.split(':')[1] + '.json', {'model': {}})
+        self.write(self.entry['paths']['wikiManual'], {'modelOnly': dict.fromkeys(ids, 'Must not hide real items.')})
+        for locale in ('en_us', 'de_de'):
+            self.write(self.entry['paths']['lang'] + '/' + locale + '.json', {'item.wiringexample.language': 'Item'})
+        self.write(base + '/wiki/items.json', {'items': [{'id': 'wiringexample:exported'}]})
+        source = self.root / self.entry['paths']['shared'] / 'java/Items.java'
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_text('Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath("wiringexample", "literal"), item);')
+        data, problems = module_wiki.extract(self.entry, g)
+        self.assertEqual({item['id'] for item in data['items']}, ids)
+        self.assertEqual(len([p for p in problems if 'modelOnly conflicts' in p]), 3)
+
+    def test_model_only_requires_definition_and_reason(self):
+        self.write(self.entry['paths']['wikiManual'], {'modelOnly': {'wiringexample:missing': ''}})
+        _, problems = module_wiki.extract(self.entry, g)
+        self.assertTrue(any('nonempty reason' in p for p in problems))
+        self.assertTrue(any('no item model definition' in p for p in problems))
+        self.write(self.entry['paths']['wikiManual'], {'modelOnly': []})
+        _, problems = module_wiki.extract(self.entry, g)
+        self.assertTrue(any('must map model ids to reasons' in p for p in problems))
+
     def test_discovery_preserves_contract(self):
         self.assertEqual(module_wiki.discover(self.root), [self.entry])
 

@@ -1,5 +1,9 @@
 {
   "_readme": "Bilingual, code-backed module chapters. Items: the R1 horseshoes and their smithing template only.",
+  "modelOnly": {
+    "simpleriding:enchanted_book_leaping": "RidingBookModels selects this render model for minecraft:enchanted_book with stored Leaping; no separate item is registered.",
+    "simpleriding:enchanted_book_tailwind": "RidingBookModels selects this render model for minecraft:enchanted_book with stored Tailwind; no separate item is registered."
+  },
   "features": [
     {
       "id": "tailwind",
