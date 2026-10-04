@@ -261,7 +261,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 ## Besitzer 2026-10-03 (Nachtrag 6)
 
 - [x] Schallplatten: alternative Track-Variante. (claude-audio: B-Seiten per Vorschlaghammer, nur Mod-Platten; Client-Abnahme offen) Eine abgelegte (platzierte) Platte mit dem Vorschlaghammer schlagen → wird zur Alternativ-Platte (etwas angepasste Optik, sonst gleich, spielt Track 2); erneut schlagen → zurück zum Original (Endlosschleife).
-- [x] Lautsprecher-Blöcke: (claude-audio: Astralit/Nihilit-Lautsprecher, angrenzend, Config `server.speakers`; Hör-Abnahme im Client offen) Astralit bzw. Nihilit mit Holzbrettern außenrum (Rezept analog Notenblock/Plattenspieler). Astralit-Lautsprecher verstärkt nur Plattenspieler-Signale, Nihilit-Lautsprecher nur Notenblock-Signale: höhere Lautstärke/Reichweite beim Spieler, „unverzögerter Lautsprecher“.
+- [x] Lautsprecher-Blöcke: (claude-audio: seit 2026-10-04 Jukebox Amplifier/Musik-Verstärker und Note Amplifier/Noten-Verstärker, Ids jukebox_amplifier/note_amplifier; früher Astralit/Nihilit-Lautsprecher, angrenzend, Config `server.speakers`; Hör-Abnahme im Client offen) Astralit bzw. Nihilit mit Holzbrettern außenrum (Rezept analog Notenblock/Plattenspieler). Astralit-Lautsprecher verstärkt nur Plattenspieler-Signale, Nihilit-Lautsprecher nur Notenblock-Signale: höhere Lautstärke/Reichweite beim Spieler, „unverzögerter Lautsprecher“.
 - [x] Raw Enderite Scrap: Variante D leicht dunkler einbauen. (master 46329ec8)
 
 ## Besitzer 2026-10-04 (Nachtrag 7)

@@ -71,8 +71,8 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(ModBlocks.CONSTRUCTION_LIGHT);
         if (ModBlocks.IRON_ROD != null) dropSelf(ModBlocks.IRON_ROD);
         if (ModBlocks.AUTO_SMITHER != null) dropSelf(ModBlocks.AUTO_SMITHER);
-        if (ModBlocks.ASTRALIT_SPEAKER != null) dropSelf(ModBlocks.ASTRALIT_SPEAKER);
-        if (ModBlocks.NIHILITH_SPEAKER != null) dropSelf(ModBlocks.NIHILITH_SPEAKER);
+        if (ModBlocks.JUKEBOX_AMPLIFIER != null) dropSelf(ModBlocks.JUKEBOX_AMPLIFIER);
+        if (ModBlocks.NOTE_AMPLIFIER != null) dropSelf(ModBlocks.NOTE_AMPLIFIER);
         if (ModBlocks.GOLD_ROD != null) dropSelf(ModBlocks.GOLD_ROD);
         if (ModBlocks.NETHERITE_ROD != null) dropSelf(ModBlocks.NETHERITE_ROD);
         if (ModBlocks.ENDERITE_ROD != null) dropSelf(ModBlocks.ENDERITE_ROD);

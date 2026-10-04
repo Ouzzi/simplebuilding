@@ -117,8 +117,8 @@ public class ModModelProvider extends FabricModelProvider {
 
         // --- 1. Basic Blocks ---
         // Lautsprecher (2026-10-03): Seiten mit Membran (_side), oben/unten Holz (_top).
-        if (ModBlocks.ASTRALIT_SPEAKER != null) {
-            for (net.minecraft.world.level.block.Block speaker : java.util.List.of(ModBlocks.ASTRALIT_SPEAKER, ModBlocks.NIHILITH_SPEAKER)) {
+        if (ModBlocks.JUKEBOX_AMPLIFIER != null) {
+            for (net.minecraft.world.level.block.Block speaker : java.util.List.of(ModBlocks.JUKEBOX_AMPLIFIER, ModBlocks.NOTE_AMPLIFIER)) {
                 blockStateModelGenerator.createTrivialBlock(speaker, TexturedModel.COLUMN);
                 blockStateModelGenerator.registerSimpleItemModel(speaker, ModelLocationUtils.getModelLocation(speaker));
             }

@@ -3559,29 +3559,29 @@
         "simplebuilding:music_disc_daybreak_b_side",
         "simplebuilding:music_disc_brimstone",
         "simplebuilding:music_disc_brimstone_b_side",
-        "simplebuilding:astralit_speaker",
-        "simplebuilding:nihilith_speaker"
+        "simplebuilding:jukebox_amplifier",
+        "simplebuilding:note_amplifier"
       ],
       "en": {
-        "title": "Music discs and speakers",
-        "summary": "Four music discs, one per dimension, each with several tracks (the owner's music, artist SimpleBuilding), and two speakers that make a jukebox or a note block louder and carry it through a building.",
+        "title": "Music discs and amplifiers",
+        "summary": "Four music discs, one per dimension, each with several tracks (the owner's music, artist SimpleBuilding), and two amplifiers that make a jukebox or a note block louder and carry it through a building.",
         "details": [
           "End disc (tracks Heavy Heart, Monolith, Iron Sonata) in end city chests (4 %), Nether disc (Riffstorm, Rally) in bastion chests (4 %), Overworld disc Rainfall/Storytime in woodland mansion chests (5 %) and Overworld disc Soft Breeze/Blockwood in ancient city chests (2.5 %). Both Overworld discs also drop when a skeleton kills a creeper, like vanilla discs. The tooltip names the track a disc plays.",
           "Tracks: a placed disc (sneak + right-click on the ground) switches to its next track with a right-click of a sledgehammer - B-side, then tracks 3 and 4 where they exist, then the first again (1 durability each).",
-          "Astralit Speaker (eight planks around Astralit Dust) makes a directly adjacent jukebox louder and heard farther; Nihilit Speaker (eight planks around a Nihilit Shard) does the same for a note block. Each speaker of the right kind adds 50 % volume (server.speakers.boostPercent, at most 50 %); at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off). Same sound at the same time - no echo, no delay.",
-          "Chain: a speaker touching the source, or touching a speaker already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every speaker in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
-          "A jukebox counts its speakers when a song starts, a note block on every note."
+          "Jukebox Amplifier (eight planks around Astralit Dust) makes a directly adjacent jukebox louder and heard farther; Note Amplifier (eight planks around a Nihilit Shard) does the same for a note block. Each amplifier of the right kind adds 50 % volume (server.speakers.boostPercent, at most 50 %); at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off). Same sound at the same time - no echo, no delay.",
+          "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+          "A jukebox counts its amplifiers when a song starts, a note block on every note."
         ]
       },
       "de": {
-        "title": "Schallplatten und Lautsprecher",
-        "summary": "Vier Schallplatten, eine je Dimension, jede mit mehreren Tracks (Musik des Besitzers, Künstler SimpleBuilding), und zwei Lautsprecher, die einen Plattenspieler bzw. Notenblock lauter machen und durch ein Gebäude tragen.",
+        "title": "Schallplatten und Verstärker",
+        "summary": "Vier Schallplatten, eine je Dimension, jede mit mehreren Tracks (Musik des Besitzers, Künstler SimpleBuilding), und zwei Verstärker, die einen Plattenspieler bzw. Notenblock lauter machen und durch ein Gebäude tragen.",
         "details": [
           "End-Platte (Tracks Heavy Heart, Monolith, Iron Sonata) in Endsiedlungs-Truhen (4 %), Nether-Platte (Riffstorm, Rally) in Bastion-Truhen (4 %), Oberwelt-Platte Rainfall/Storytime in Waldanwesen-Truhen (5 %) und Oberwelt-Platte Soft Breeze/Blockwood in Truhen der Antiken Stätte (2,5 %). Beide Oberwelt-Platten fallen auch, wenn ein Skelett einen Creeper tötet, wie Vanilla-Platten. Der Tooltip nennt den Track der Platte.",
           "Tracks: eine abgelegte Platte (Schleichen + Rechtsklick auf den Boden) wechselt mit einem Rechtsklick des Vorschlaghammers zum nächsten Track - B-Seite, dann Track 3 und 4, wo es sie gibt, dann wieder der erste (je 1 Haltbarkeit).",
-          "Astralit-Lautsprecher (acht Bretter um Astralitstaub) macht einen direkt angrenzenden Plattenspieler lauter und weiter hÃ¶rbar; Nihilit-Lautsprecher (acht Bretter um einen Nihilitsplitter) dasselbe fÃ¼r einen Notenblock. Jeder passende Lautsprecher gibt 50 % LautstÃ¤rke dazu (server.speakers.boostPercent, hÃ¶chstens 50 %); hÃ¶chstens 2 zÃ¤hlen (server.speakers.maxSpeakers, hÃ¶chstens 3, 0 = aus). Derselbe Klang zur selben Zeit - kein Echo, keine VerzÃ¶gerung.",
-          "Kette: ein Lautsprecher an der Quelle oder an einem Lautsprecher der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Lautsprecher der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
-          "Ein Plattenspieler zÃ¤hlt seine Lautsprecher beim Start eines StÃ¼cks, ein Notenblock bei jeder Note."
+          "Musik-Verstärker (acht Bretter um Astralitstaub) macht einen direkt angrenzenden Plattenspieler lauter und weiter hÃ¶rbar; Noten-Verstärker (acht Bretter um einen Nihilitsplitter) dasselbe fÃ¼r einen Notenblock. Jeder passende Verstärker gibt 50 % LautstÃ¤rke dazu (server.speakers.boostPercent, hÃ¶chstens 50 %); hÃ¶chstens 2 zÃ¤hlen (server.speakers.maxSpeakers, hÃ¶chstens 3, 0 = aus). Derselbe Klang zur selben Zeit - kein Echo, keine VerzÃ¶gerung.",
+          "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+          "Ein Plattenspieler zÃ¤hlt seine Verstärker beim Start eines StÃ¼cks, ein Notenblock bei jeder Note."
         ]
       }
     }
@@ -11465,7 +11465,7 @@
         ]
       }
     },
-    "astralit_speaker": {
+    "jukebox_amplifier": {
       "sources": [
         "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/SpeakerBlock.java",
@@ -11474,27 +11474,27 @@
         "mc26_3/overlay/java/com/simplebuilding/client/ChainedJukeboxSound.java"
       ],
       "en": {
-        "title": "Astralit Speaker",
+        "title": "Jukebox Amplifier",
         "summary": "A directly adjacent jukebox plays louder and is heard farther - the same sound at the same time, no echo.",
         "details": [
           "Recipe: eight planks of any wood around Astralit Dust.",
-          "Only the jukebox counts it; the other speaker does nothing there. Each counted speaker adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
-          "Chain: a speaker touching the source, or touching a speaker already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every speaker in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
-          "A jukebox counts its speakers when a song starts, a note block on every note."
+          "Only the jukebox counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
+          "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+          "A jukebox counts its amplifiers when a song starts, a note block on every note."
         ]
       },
       "de": {
-        "title": "Astralit-Lautsprecher",
+        "title": "Musik-Verstärker",
         "summary": "Ein direkt angrenzender Plattenspieler spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
         "details": [
           "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
-          "Nur der Plattenspieler zählt ihn; der andere Lautsprecher wirkt dort nicht. Jeder gezählte Lautsprecher gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
-          "Kette: ein Lautsprecher an der Quelle oder an einem Lautsprecher der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Lautsprecher der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
-          "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
+          "Nur der Plattenspieler zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
+          "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+          "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
         ]
       }
     },
-    "nihilith_speaker": {
+    "note_amplifier": {
       "sources": [
         "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/SpeakerBlock.java",
@@ -11503,23 +11503,23 @@
         "mc26_3/overlay/java/com/simplebuilding/client/ChainedJukeboxSound.java"
       ],
       "en": {
-        "title": "Nihilit Speaker",
+        "title": "Note Amplifier",
         "summary": "A directly adjacent note block plays louder and is heard farther - the same sound at the same time, no echo.",
         "details": [
           "Recipe: eight planks of any wood around a Nihilit Shard.",
-          "Only the note block counts it; the other speaker does nothing there. Each counted speaker adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
-          "Chain: a speaker touching the source, or touching a speaker already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every speaker in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
-          "A jukebox counts its speakers when a song starts, a note block on every note."
+          "Only the note block counts it; the other amplifier does nothing there. Each counted amplifier adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
+          "Chain: a amplifier touching the source, or touching a amplifier already in the chain, passes the sound on (up to 16, server.speakers.maxChain, at most 64, 0 = off; only the same kind, a gap or the other kind ends it). Every amplifier in the chain is another playback point with the source's volume, and each player hears the source once - from the nearest point, without echo or delay.",
+          "A jukebox counts its amplifiers when a song starts, a note block on every note."
         ]
       },
       "de": {
-        "title": "Nihilit-Lautsprecher",
+        "title": "Noten-Verstärker",
         "summary": "Ein direkt angrenzender Notenblock spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
         "details": [
           "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
-          "Nur der Notenblock zählt ihn; der andere Lautsprecher wirkt dort nicht. Jeder gezählte Lautsprecher gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
-          "Kette: ein Lautsprecher an der Quelle oder an einem Lautsprecher der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Lautsprecher der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
-          "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
+          "Nur der Notenblock zählt ihn; der andere Verstärker wirkt dort nicht. Jeder gezählte Verstärker gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
+          "Kette: ein Verstärker an der Quelle oder an einem Verstärker der Kette gibt den Ton weiter (bis 16, server.speakers.maxChain, höchstens 64, 0 = aus; nur dieselbe Sorte, eine Lücke oder die andere Sorte beendet sie). Jeder Verstärker der Kette ist ein weiterer Abspielpunkt mit der Lautstärke der Quelle, und jeder Spieler hört die Quelle einmal - vom nächsten Punkt, ohne Echo und Verzögerung.",
+          "Ein Plattenspieler zählt seine Verstärker beim Start eines Stücks, ein Notenblock bei jeder Note."
         ]
       }
     }

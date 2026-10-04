@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_nihilith_shard": {
+    "has_astralit_dust": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:nihilith_shard"
+            "items": "simplebuilding:astralit_dust"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplebuilding:nihilith_speaker"
+        "recipes": "simplebuilding:jukebox_amplifier"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_nihilith_shard"
+      "has_astralit_dust"
     ]
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:nihilith_speaker"
+      "simplebuilding:jukebox_amplifier"
     ]
   }
 }

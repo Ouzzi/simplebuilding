@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplebuilding:block/jukebox_amplifier_top",
+    "side": "simplebuilding:block/jukebox_amplifier_side"
+  }
+}

@@ -276,7 +276,7 @@ public class ServerTuningConfig {
     }
 
     /**
-     * Lautsprecher (2026-10-03): Astralit-Lautsprecher verstaerken angrenzende Plattenspieler, Nihilit-Lautsprecher
+     * Lautsprecher (2026-10-03): Musik-Verstärker verstaerken angrenzende Plattenspieler, Noten-Verstärker
      * angrenzende Notenbloecke (Lautstaerke und Hoerweite, ohne Echo). Hoechstens 2,5-fach.
      */
     public static class Speakers {

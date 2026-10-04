@@ -81,7 +81,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Lautsprecher wie Notenblock und Plattenspieler: Axt.
-            builder(BlockTags.MINEABLE_WITH_AXE).add(key(ModBlocks.ASTRALIT_SPEAKER)).add(key(ModBlocks.NIHILITH_SPEAKER));
+            builder(BlockTags.MINEABLE_WITH_AXE).add(key(ModBlocks.JUKEBOX_AMPLIFIER)).add(key(ModBlocks.NOTE_AMPLIFIER));
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));

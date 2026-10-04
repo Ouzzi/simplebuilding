@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplebuilding:block/note_amplifier_top",
+    "side": "simplebuilding:block/note_amplifier_side"
+  }
+}

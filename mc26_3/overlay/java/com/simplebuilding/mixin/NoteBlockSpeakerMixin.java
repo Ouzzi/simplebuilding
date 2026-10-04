@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
- * Nihilit-Lautsprecher (2026-10-03): der Notenblock spielt seinen Ton mit der verstaerkten Lautstaerke
+ * Noten-Verstärker (2026-10-03): der Notenblock spielt seinen Ton mit der verstaerkten Lautstaerke
  * ({@link SpeakerBoost#noteBlockVolume}) - derselbe Ton zur selben Zeit, nur weiter hoerbar. Haengt eine Kette von
- * Nihilit-Lautsprechern am Notenblock (2026-10-04), bekommt jeder Spieler den Ton genau einmal vom naechsten
+ * Noten-Verstärkern am Notenblock (2026-10-04), bekommt jeder Spieler den Ton genau einmal vom naechsten
  * Abspielpunkt ({@link SpeakerBoost#playChained}); sonst bleibt es bei Vanillas Rundsendung. Der Server entscheidet.
  */
 @Mixin(NoteBlock.class)
