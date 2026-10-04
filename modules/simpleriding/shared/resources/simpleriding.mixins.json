@@ -20,6 +20,7 @@
     "HorseshoeBrushMixin"
   ],
   "client": [
+    "client.RidingBookModelMixin",
     "client.HorseshoeRenderStateMixin",
     "client.HorseshoeExtractMixin",
     "client.LivingRendererAccess",
