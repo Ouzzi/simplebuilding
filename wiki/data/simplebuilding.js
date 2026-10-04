@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 291,
+      "count": 301,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3922,6 +3922,7 @@ window.WIKI_DATA = {
         "simplebuilding:astralit_bricks_from_end_stone_bricks",
         "simplebuilding:astralit_pillar_from_purpur_pillar",
         "simplebuilding:astralit_quartz_checker",
+        "simplebuilding:astralit_speaker",
         "simplebuilding:ender_quartz",
         "simplebuilding:levitating_gravel",
         "simplebuilding:levitating_sand",
@@ -4050,6 +4051,47 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_speaker",
+      "name": {
+        "en_us": "Astralit Speaker",
+        "de_de": "Astralit-Lautsprecher"
+      },
+      "texture": "assets/textures/block/astralit_speaker_side.png",
+      "craftedBy": [
+        "simplebuilding:astralit_speaker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astralit_speaker.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SpeakerBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "title": "Astralit Speaker",
+          "summary": "A directly adjacent jukebox plays louder and is heard farther - the same sound at the same time, no echo.",
+          "details": [
+            "Recipe: eight planks of any wood around Astralit Dust.",
+            "Only the jukebox counts it; the other speaker does nothing there. Each counted speaker adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
+            "A jukebox counts its speakers when a song starts, a note block on every note."
+          ]
+        },
+        "de": {
+          "title": "Astralit-Lautsprecher",
+          "summary": "Ein direkt angrenzender Plattenspieler spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
+          "details": [
+            "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
+            "Nur der Plattenspieler zählt ihn; der andere Lautsprecher wirkt dort nicht. Jeder gezählte Lautsprecher gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
+            "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astralit_switch",
@@ -11963,6 +12005,126 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:music_disc_brimstone",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "texture": "assets/textures/item/music_disc_brimstone.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:music_disc_brimstone_b_side",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "texture": "assets/textures/item/music_disc_brimstone_b_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:music_disc_daybreak",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "texture": "assets/textures/item/music_disc_daybreak.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:music_disc_daybreak_b_side",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "texture": "assets/textures/item/music_disc_daybreak_b_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:music_disc_driftwood",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "texture": "assets/textures/item/music_disc_driftwood.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:music_disc_driftwood_b_side",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "texture": "assets/textures/item/music_disc_driftwood_b_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:music_disc_voidline",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "texture": "assets/textures/item/music_disc_voidline.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:music_disc_voidline_b_side",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "texture": "assets/textures/item/music_disc_voidline_b_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nether_dimensional_scrap",
       "name": {
         "en_us": "Nether Dimensional Scrap",
@@ -14260,6 +14422,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_bricks_from_end_stone_bricks",
         "simplebuilding:nihilith_pillar_from_purpur_pillar",
         "simplebuilding:nihilith_quartz_checker",
+        "simplebuilding:nihilith_speaker",
         "simplebuilding:polished_nihilith_slab_from_purpur_slab",
         "simplebuilding:polished_nihilith_stairs_from_purpur_stairs",
         "simplebuilding:raw_enderite_synthesis",
@@ -14268,6 +14431,47 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_speaker",
+      "name": {
+        "en_us": "Nihilit Speaker",
+        "de_de": "Nihilit-Lautsprecher"
+      },
+      "texture": "assets/textures/block/nihilith_speaker_side.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_speaker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_speaker.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SpeakerBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "title": "Nihilit Speaker",
+          "summary": "A directly adjacent note block plays louder and is heard farther - the same sound at the same time, no echo.",
+          "details": [
+            "Recipe: eight planks of any wood around a Nihilit Shard.",
+            "Only the note block counts it; the other speaker does nothing there. Each counted speaker adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
+            "A jukebox counts its speakers when a song starts, a note block on every note."
+          ]
+        },
+        "de": {
+          "title": "Nihilit-Lautsprecher",
+          "summary": "Ein direkt angrenzender Notenblock spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
+          "details": [
+            "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
+            "Nur der Notenblock zählt ihn; der andere Lautsprecher wirkt dort nicht. Jeder gezählte Lautsprecher gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
+            "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:nihilith_switch",
@@ -18694,6 +18898,51 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_speaker",
+      "name": {
+        "en_us": "Astralit Speaker",
+        "de_de": "Astralit-Lautsprecher"
+      },
+      "texture": "assets/textures/block/astralit_speaker_side.png",
+      "craftedBy": [
+        "simplebuilding:astralit_speaker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astralit_speaker.png",
+      "lootTable": "simplebuilding:blocks/astralit_speaker",
+      "drops": [
+        "simplebuilding:astralit_speaker"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SpeakerBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "title": "Astralit Speaker",
+          "summary": "A directly adjacent jukebox plays louder and is heard farther - the same sound at the same time, no echo.",
+          "details": [
+            "Recipe: eight planks of any wood around Astralit Dust.",
+            "Only the jukebox counts it; the other speaker does nothing there. Each counted speaker adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
+            "A jukebox counts its speakers when a song starts, a note block on every note."
+          ]
+        },
+        "de": {
+          "title": "Astralit-Lautsprecher",
+          "summary": "Ein direkt angrenzender Plattenspieler spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
+          "details": [
+            "Rezept: acht Bretter beliebigen Holzes um Astralitstaub.",
+            "Nur der Plattenspieler zählt ihn; der andere Lautsprecher wirkt dort nicht. Jeder gezählte Lautsprecher gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
+            "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:astralit_switch",
@@ -24644,6 +24893,51 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihilith_speaker",
+      "name": {
+        "en_us": "Nihilit Speaker",
+        "de_de": "Nihilit-Lautsprecher"
+      },
+      "texture": "assets/textures/block/nihilith_speaker_side.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_speaker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_speaker.png",
+      "lootTable": "simplebuilding:blocks/nihilith_speaker",
+      "drops": [
+        "simplebuilding:nihilith_speaker"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/SpeakerBoost.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/SpeakerBlock.java",
+          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+        ],
+        "en": {
+          "title": "Nihilit Speaker",
+          "summary": "A directly adjacent note block plays louder and is heard farther - the same sound at the same time, no echo.",
+          "details": [
+            "Recipe: eight planks of any wood around a Nihilit Shard.",
+            "Only the note block counts it; the other speaker does nothing there. Each counted speaker adds 50 % of the vanilla volume (server.speakers.boostPercent, at most 50 %), at most 2 count (server.speakers.maxSpeakers, at most 3, 0 = off): at most 2.5x volume and reach.",
+            "A jukebox counts its speakers when a song starts, a note block on every note."
+          ]
+        },
+        "de": {
+          "title": "Nihilit-Lautsprecher",
+          "summary": "Ein direkt angrenzender Notenblock spielt lauter und ist weiter hörbar - derselbe Klang zur selben Zeit, kein Echo.",
+          "details": [
+            "Rezept: acht Bretter beliebigen Holzes um einen Nihilitsplitter.",
+            "Nur der Notenblock zählt ihn; der andere Lautsprecher wirkt dort nicht. Jeder gezählte Lautsprecher gibt 50 % der Vanilla-Lautstärke dazu (server.speakers.boostPercent, höchstens 50 %), höchstens 2 zählen (server.speakers.maxSpeakers, höchstens 3, 0 = aus): höchstens 2,5-fache Lautstärke und Reichweite.",
+            "Ein Plattenspieler zählt seine Lautsprecher beim Start eines Stücks, ein Notenblock bei jeder Note."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:nihilith_switch",
       "name": {
         "en_us": "Nihilit Signal Switch",
@@ -29963,6 +30257,53 @@ window.WIKI_DATA = {
             "id": "simplebuilding:astralit_dust",
             "count": 2
           }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_speaker",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_speaker",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/astralit_speaker.json",
+      "ingredients": [
+        "#minecraft:planks",
+        "simplebuilding:astralit_dust"
+      ],
+      "pattern": [
+        "###",
+        "#X#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "#minecraft:planks"
+        ],
+        "X": [
+          "simplebuilding:astralit_dust"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:astralit_dust",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:planks"
         ]
       }
     },
@@ -43979,6 +44320,53 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:nihilith_speaker",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_speaker",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihilith_speaker.json",
+      "ingredients": [
+        "#minecraft:planks",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        "###",
+        "#X#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "#minecraft:planks"
+        ],
+        "X": [
+          "simplebuilding:nihilith_shard"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:nihilith_shard",
+            "count": 1
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:planks"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nihilith_switch",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -55143,6 +55531,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_quartz_checker.json"
     },
     {
+      "id": "simplebuilding:blocks/astralit_speaker",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_speaker"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_speaker.json"
+    },
+    {
       "id": "simplebuilding:blocks/astralit_switch",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -56783,6 +57187,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_quartz_checker.json"
     },
     {
+      "id": "simplebuilding:blocks/nihilith_speaker",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_speaker"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_speaker.json"
+    },
+    {
       "id": "simplebuilding:blocks/nihilith_switch",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -57929,6 +58349,14 @@ window.WIKI_DATA = {
       "type": "minecraft:chest",
       "pools": [
         {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:music_disc_daybreak"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
           "rolls": {
             "type": "minecraft:uniform",
             "max": 2,
@@ -57956,6 +58384,14 @@ window.WIKI_DATA = {
       "kind": "inject",
       "type": "minecraft:chest",
       "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:music_disc_brimstone"
+          ],
+          "conditions": [],
+          "functions": []
+        },
         {
           "rolls": {
             "type": "minecraft:uniform",
@@ -58062,6 +58498,14 @@ window.WIKI_DATA = {
       "kind": "inject",
       "type": "minecraft:chest",
       "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:music_disc_voidline"
+          ],
+          "conditions": [],
+          "functions": []
+        },
         {
           "rolls": {
             "type": "minecraft:binomial",
@@ -58409,6 +58853,14 @@ window.WIKI_DATA = {
       "kind": "inject",
       "type": "minecraft:chest",
       "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:music_disc_driftwood"
+          ],
+          "conditions": [],
+          "functions": []
+        },
         {
           "rolls": {
             "type": "minecraft:uniform",
@@ -63345,6 +63797,38 @@ window.WIKI_DATA = {
       "replace": false,
       "values": [
         {
+          "id": "simplebuilding:music_disc_voidline",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:music_disc_voidline_b_side",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:music_disc_driftwood",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:music_disc_driftwood_b_side",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:music_disc_daybreak",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:music_disc_daybreak_b_side",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:music_disc_brimstone",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:music_disc_brimstone_b_side",
+          "required": true
+        },
+        {
           "id": "simplebuilding:yarn_ball",
           "required": true
         },
@@ -66453,6 +66937,52 @@ window.WIKI_DATA = {
       "tooltipDe": "Uhr-Ticks je Tick, solange genug Spieler\ntagsüber in Hängematten liegen, 1 bis 20\n(1 = aus). Serverseitig. Standard: 8."
     },
     {
+      "range": [
+        0.0,
+        3.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.speakers.maxSpeakers",
+      "shortName": "maxSpeakers",
+      "type": "int",
+      "default": "2",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Speakers",
+      "groupDe": "Lautsprecher",
+      "label": "Max Speakers",
+      "labelDe": "Höchstzahl Lautsprecher",
+      "tooltip": "Adjacent speakers that count per jukebox\nor note block, 0 to 3 (0 = off).\nServer-side. Default: 2.",
+      "tooltipDe": "Angrenzende Lautsprecher, die je Plattenspieler\noder Notenblock zählen, 0 bis 3 (0 = aus).\nServerseitig. Standard: 2."
+    },
+    {
+      "range": [
+        0.0,
+        50.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.speakers.boostPercent",
+      "shortName": "boostPercent",
+      "type": "int",
+      "default": "50",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Speakers",
+      "groupDe": "Lautsprecher",
+      "label": "Boost per Speaker (%)",
+      "labelDe": "Verstärkung je Lautsprecher (%)",
+      "tooltip": "Volume and reach added per speaker,\n0 to 50 % of vanilla.\nServer-side. Default: 50.",
+      "tooltipDe": "Lautstärke und Reichweite je Lautsprecher,\n0 bis 50 % von Vanilla.\nServerseitig. Standard: 50."
+    },
+    {
       "range": null,
       "side": "server",
       "reload": "restart",
@@ -68880,6 +69410,39 @@ window.WIKI_DATA = {
             ]
           }
         }
+      },
+      {
+        "id": "disc_flip",
+        "facts": {
+          "durabilityPerFlip": 1
+        },
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/util/DiscFlips.java",
+            "common/src/shared/java/com/simplebuilding/util/MusicDiscs.java",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+            "common/src/shared/java/com/simplebuilding/util/TransformTargets.java"
+          ],
+          "en": {
+            "title": "Flipping a music disc to its B-side",
+            "summary": "Place one of the mod's music discs on the ground (sneak + right-click) and right-click it with any sledgehammer: it turns into its B-side, which plays a second track. Right-click again and it is the A-side again - endlessly.",
+            "details": [
+              "Each flip costs the hammer 1 durability. With several discs in one pile the last placed disc flips.",
+              "Needs the same rights as placing a block there. The held hammer tilts while it would flip a disc.",
+              "Vanilla discs have no B-side."
+            ]
+          },
+          "de": {
+            "title": "Schallplatte zur B-Seite wenden",
+            "summary": "Eine Schallplatte der Mod auf den Boden legen (Schleichen + Rechtsklick) und mit einem beliebigen Vorschlaghammer rechtsklicken: sie wird zu ihrer B-Seite, die ein zweites Stück spielt. Noch ein Rechtsklick, und es ist wieder die A-Seite - endlos.",
+            "details": [
+              "Jeder Wechsel kostet den Hammer 1 Haltbarkeit. Liegen mehrere Platten auf einem Häufchen, wendet sich die zuletzt gelegte.",
+              "Braucht dieselben Rechte wie das Setzen eines Blocks dort. Der gehaltene Hammer neigt sich, solange er eine Platte wenden würde.",
+              "Vanilla-Platten haben keine B-Seite."
+            ]
+          }
+        }
       }
     ],
     "entries": [
@@ -70981,6 +71544,238 @@ window.WIKI_DATA = {
           "count": 1
         },
         "stats": {},
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "disc_flip/simplebuilding:music_disc_voidline_b_side",
+        "kind": "disc_flip",
+        "inputs": [
+          {
+            "id": "simplebuilding:music_disc_voidline",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:music_disc_voidline_b_side",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "disc_flip/simplebuilding:music_disc_voidline",
+        "kind": "disc_flip",
+        "inputs": [
+          {
+            "id": "simplebuilding:music_disc_voidline_b_side",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:music_disc_voidline",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "disc_flip/simplebuilding:music_disc_driftwood_b_side",
+        "kind": "disc_flip",
+        "inputs": [
+          {
+            "id": "simplebuilding:music_disc_driftwood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:music_disc_driftwood_b_side",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "disc_flip/simplebuilding:music_disc_driftwood",
+        "kind": "disc_flip",
+        "inputs": [
+          {
+            "id": "simplebuilding:music_disc_driftwood_b_side",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:music_disc_driftwood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "disc_flip/simplebuilding:music_disc_daybreak_b_side",
+        "kind": "disc_flip",
+        "inputs": [
+          {
+            "id": "simplebuilding:music_disc_daybreak",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:music_disc_daybreak_b_side",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "disc_flip/simplebuilding:music_disc_daybreak",
+        "kind": "disc_flip",
+        "inputs": [
+          {
+            "id": "simplebuilding:music_disc_daybreak_b_side",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:music_disc_daybreak",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "disc_flip/simplebuilding:music_disc_brimstone_b_side",
+        "kind": "disc_flip",
+        "inputs": [
+          {
+            "id": "simplebuilding:music_disc_brimstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:music_disc_brimstone_b_side",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "disc_flip/simplebuilding:music_disc_brimstone",
+        "kind": "disc_flip",
+        "inputs": [
+          {
+            "id": "simplebuilding:music_disc_brimstone_b_side",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:music_disc_brimstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
         "lines": [
           "26.3"
         ]
@@ -82347,6 +83142,122 @@ window.WIKI_DATA = {
       },
       {
         "type": "chest",
+        "item": "simplebuilding:music_disc_voidline",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 4.0,
+        "perChest": 0.04,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 24.99999999999998,
+          "sixth": 149.99999999999986
+        }
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:music_disc_brimstone",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 4.0,
+        "perChest": 0.04,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 24.99999999999998,
+          "sixth": 149.99999999999986
+        }
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:music_disc_driftwood",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 5.0,
+        "perChest": 0.05,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 19.999999999999982,
+          "sixth": 119.9999999999999
+        }
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:music_disc_daybreak",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 2.5,
+        "perChest": 0.025,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 200,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "sharedTables": [],
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "expectedAttempts": {
+          "first": 39.999999999999964,
+          "sixth": 239.9999999999998
+        }
+      },
+      {
+        "type": "chest",
         "item": "minecraft:enchanted_book",
         "table": "minecraft:chests/stronghold_library",
         "label": {
@@ -91457,15 +92368,15 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 237,
-    "blocks": 199,
-    "recipes": 603,
-    "lootTables": 197,
+    "items": 247,
+    "blocks": 201,
+    "recipes": 605,
+    "lootTables": 199,
     "trades": 20,
     "enchantments": 19,
     "tags": 48,
-    "config": 194,
-    "inWorld": 454,
+    "config": 196,
+    "inWorld": 462,
     "advancements": 123,
     "features": 44,
     "undocumented": 0,
