@@ -1181,6 +1181,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("world_and_player_game_test_mod_loot_pools_keep_their_exact_count_and_the_air_jump_book_weights", WorldAndPlayerTests::modLootPoolsKeepTheirExactCountAndTheAirJumpBookWeights)
                     .build(),
+            GameTestSpec.named("building_wand_game_test_planner_keeps_the_click_face_and_rechecks_build_rights", BuildingWandTests::plannerKeepsTheClickFaceAndRechecksBuildRights)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_planner_preserves_waterlogging_and_named_containers", BuildingWandTests::plannerPreservesWaterloggingAndNamedContainers)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_planner_rechecks_protection_and_replacement_between_rings", BuildingWandTests::plannerRechecksProtectionAndReplacementBetweenRings)
+                    .build(),
             GameTestSpec.named("building_wand_game_test_off_hand_click_is_passed_on_and_the_wand_stops_outside_both_hands", BuildingWandTests::offHandClickIsPassedOnAndTheWandStopsOutsideBothHands)
                     .build(),
             GameTestSpec.named("building_wand_game_test_clicked_face_sets_the_plane_until_an_axis_mode_overrides_it", BuildingWandTests::clickedFaceSetsThePlaneUntilAnAxisModeOverridesIt)

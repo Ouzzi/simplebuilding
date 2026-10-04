@@ -17,6 +17,21 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class BuildingWandGameTest {
 
     @GameTest
+    public void plannerKeepsTheClickFaceAndRechecksBuildRights(GameTestHelper helper) {
+        BuildingWandTests.plannerKeepsTheClickFaceAndRechecksBuildRights(helper);
+    }
+
+    @GameTest
+    public void plannerPreservesWaterloggingAndNamedContainers(GameTestHelper helper) {
+        BuildingWandTests.plannerPreservesWaterloggingAndNamedContainers(helper);
+    }
+
+    @GameTest
+    public void plannerRechecksProtectionAndReplacementBetweenRings(GameTestHelper helper) {
+        BuildingWandTests.plannerRechecksProtectionAndReplacementBetweenRings(helper);
+    }
+
+    @GameTest
     public void offHandClickIsPassedOnAndTheWandStopsOutsideBothHands(GameTestHelper helper) {
         BuildingWandTests.offHandClickIsPassedOnAndTheWandStopsOutsideBothHands(helper);
     }
