@@ -41,6 +41,11 @@ class ExtractTests(unittest.TestCase):
         sys.path.insert(0, str(helpers.REPO / "wiki"))
         import obtain_sources
         item_ids = {i["id"] for i in self.snap["items"]}
+        # Items nur der Hauptlinie 26.3 (Feature-Flags, z. B. die Schallplatten): das Wiki liest den 26.3-Export.
+        export_263 = helpers.REPO / "mc26_3/generated/wiki/items.json"
+        if export_263.is_file():
+            import json
+            item_ids |= {i["id"] for i in json.loads(export_263.read_text(encoding="utf-8"))["items"]}
         ench_ids = {e["id"] for e in self.snap["enchantments"]}
         theirs, problems = obtain_sources.parse_mod_loot(helpers.REPO / ex_loot.LOOT_FILE, item_ids, ench_ids, "simplebuilding")
         self.assertEqual(problems, [])

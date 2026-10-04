@@ -20,6 +20,7 @@ sich seit dem Speichern bewegt hat, ohne dass sie angewendet waren.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from . import jsonedit
@@ -27,6 +28,25 @@ from .values import same
 
 INJECT = "data/simplebuilding/loot_table/inject/"
 GENERATED_ROOTS = [("26.2", "src/main/generated/"), ("1.21.11", "mc1_21_11/fabric/src/main/generated/"), ("26.3", "mc26_3/generated/")]
+#: McVersion je Linie (Feature-Flags fuer geschaltete Beute-Pools); 1.21.11 hat eine eigene Beute-Datei ohne Flags.
+MC_VERSION_FILES = {"26.2": "common/src/mc26_2/java/com/simplebuilding/version/McVersion.java",
+                    "26.3": "mc26_3/overlay/java/com/simplebuilding/version/McVersion.java"}
+
+
+def _line_flags(repo: Path | None, mc: str) -> dict[str, bool]:
+    """Die booleschen Konstanten von McVersion der Linie {Name: Wert}; leer, wo es keine gibt."""
+    rel = MC_VERSION_FILES.get(mc)
+    if repo is None or rel is None or not (repo / rel).is_file():
+        return {}
+    text = (repo / rel).read_text(encoding="utf-8")
+    return {m.group(1): m.group(2) == "true"
+            for m in re.finditer(r"public static final boolean (\w+) = (true|false);", text)}
+
+
+def _for_line(table: dict, flags: dict[str, bool]) -> dict:
+    """Die Tabelle ohne die Pools, deren Feature-Flag auf dieser Linie aus ist."""
+    pools = [p for p in table["pools"] if not p.get("flag") or flags.get(p["flag"], False)]
+    return table if len(pools) == len(table["pools"]) else dict(table, pools=pools)
 
 
 class _Json:
@@ -229,7 +249,8 @@ def _loot_generated(snapshot: dict, js: _Json, stats: dict, repo: Path | None = 
             # Die eigene Tabelle der Linie nur, wo sie anders gebaut ist (andere Pool-Zahl); sonst gilt die Hauptdatei
             # mit ihren aufgeloesten Konstanten.
             line_table = line_tables.get(mc, {}).get(main_table["id"])
-            table = line_table if line_table is not None and len(line_table["pools"]) != len(main_table["pools"]) else main_table
+            main_for_line = _for_line(main_table, _line_flags(repo, mc))
+            table = line_table if line_table is not None and len(line_table["pools"]) != len(main_for_line["pools"]) else main_for_line
             stats["generatedChecked"] += 1
             problems = []
             pools = data.get("pools") or []

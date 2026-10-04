@@ -166,6 +166,13 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict,
                                         why="In wiki/obtain_sources.py LOOT_TABLES eintragen (Name für Wiki und Zentrale)."))
                 known.append(const)
         block_key = "+".join(c.lower() for c in known)
+        # Pools hinter einem Feature-Flag (if (McVersion.X && ...)): eigene Id (kein Zusammenstoss mit dem Pool
+        # gleichen Index im ungeschalteten Block derselben Tabelle) und das Flag, damit der Check sie nur fuer die
+        # Linien erwartet, auf denen es an ist (check.py, Schallplatten 2026-10-03).
+        flag_match = re.search(r"McVersion\.([A-Z0-9_]+)", cond)
+        flag = flag_match.group(1) if flag_match else None
+        if flag:
+            block_key += ":" + flag.lower()
         pools = []
         for call in re.finditer(r"editor\.add(?:Built)?Pool\(|rareCore\(", text[block_start:block_end]):
             call_start = block_start + call.start()
@@ -271,7 +278,7 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict,
                 entry["label"] = label_item
                 entries.append(entry)
             pools.append({"index": pool_index, "line": lines.line(chain_start), "rolls": rolls, "entries": entries,
-                          "condition": condition, "built": call.group(0).startswith("editor.addBuilt")})
+                          "condition": condition, "built": call.group(0).startswith("editor.addBuilt"), "flag": flag})
         for const in known:
             table_id, kind, label = names.get(const, (f"minecraft:{const.lower()}", "chest", const))
             table = tables.setdefault(table_id, {"id": table_id, "const": const, "kind": kind, "label": label,
