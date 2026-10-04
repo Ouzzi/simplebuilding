@@ -1,6 +1,6 @@
 """Launch targets, test target catalogue, command templating and filter patterns.
 
-Everything here is pure logic: argv lists are built, nothing is started. Every id that reaches a
+Argv lists are built without launching Gradle; network availability is probed briefly. Every id that reaches a
 command line is checked against an allow-list first.
 """
 
@@ -12,6 +12,10 @@ import json
 import os
 import re
 import sys
+import socket
+import threading
+import time
+from concurrent.futures import Future, TimeoutError
 from pathlib import Path
 
 from . import paths
@@ -24,6 +28,42 @@ FILTER_RE = re.compile(r"^[A-Za-z0-9_:*.\-]{1,300}$")
 CLIENT_ENTRY_RE = re.compile(r"^[a-z0-9][a-z0-9\-]{0,80}$")
 
 _runner = None
+_dns_lock = threading.Lock()
+_dns_result = None
+_dns_expires = 0.0
+
+
+def gradle_offline() -> bool:
+    """Bound DNS waits to 0.5 s, cache for 15 s, keep at most one resolver alive."""
+    global _dns_result, _dns_expires
+    if os.environ.get("SIMPLEBUILDING_GRADLE_OFFLINE") == "1":
+        return True
+    with _dns_lock:
+        if _dns_result is None or (_dns_result.done() and time.monotonic() >= _dns_expires):
+            result = Future()
+            _dns_result = result
+            _dns_expires = time.monotonic() + 15
+
+            def resolve():
+                try:
+                    socket.getaddrinfo("piston-meta.mojang.com", 443)
+                    result.set_result(False)
+                except OSError:
+                    result.set_result(True)
+
+            threading.Thread(target=resolve, daemon=True).start()
+        result = _dns_result
+    try:
+        return result.result(timeout=0.5)
+    except TimeoutError:
+        return True
+
+
+def gradle_args(needs_forge262: bool = False) -> list[str]:
+    offline = gradle_offline()
+    if offline and needs_forge262:
+        raise TargetError("Forge 26.2 braucht Netz (Mavenizer)")
+    return ([] if needs_forge262 else ["-PskipForge262=true"]) + (["--offline"] if offline else [])
 
 
 class TargetError(ValueError):
@@ -87,7 +127,8 @@ def launch_command(entry: dict, kind: str, workspace: Path, data: dict | None = 
     data = data or load_launch()
     if kind not in data["tasks"]:
         raise TargetError(f"unknown launch kind: {kind!r}")
-    argv = [gradlew_path(workspace), *expand_gradle_args(entry["gradleArgs"]), entry["prefix"] + data["tasks"][kind]]
+    argv = [gradlew_path(workspace), *gradle_args(entry["prefix"] == ":forge:"),
+            *expand_gradle_args(entry["gradleArgs"]), entry["prefix"] + data["tasks"][kind]]
     if program_args:
         argv.append("--args=" + program_args)
     return argv
@@ -172,8 +213,17 @@ def test_argv(workspace: Path, target_ids: list[str], pattern: str | None, pytho
     return argv
 
 
+def test_env(target_ids: list[str]) -> dict[str, str]:
+    """Pass the same policy through the Python test runner, without changing hub globals."""
+    ids = validate_targets(target_ids)
+    args = gradle_args(any(runner().BY_ID[tid].gradle_task.startswith(":forge:") for tid in ids))
+    return {"SIMPLEBUILDING_GRADLE_OFFLINE": "1" if "--offline" in args else "0",
+            "SIMPLEBUILDING_SKIP_FORGE262": "1" if "-PskipForge262=true" in args else "0"}
+
+
 def check_argv(workspace: Path, mc264: bool = False) -> list[str]:
-    argv = [gradlew_path(workspace)]
+    # The full gate includes Forge 26.2; never silently reduce its coverage.
+    argv = [gradlew_path(workspace), *gradle_args(needs_forge262=True)]
     if mc264:
         argv.append("-Pmc264=true")
     argv += ["check", "-q"]

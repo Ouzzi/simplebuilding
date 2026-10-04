@@ -329,7 +329,8 @@ class Hub(ModsMixin, OfflineMixin):
         for ids, pattern in groups:
             argv = targets.test_argv(ws, ids, pattern)
             label = f"tests {','.join(ids)}" + (f" filter {pattern}" if pattern else "")
-            steps.append({"label": label, "argv": argv, "cwd": str(ws), "env": env or {}, "continue": True})
+            steps.append({"label": label, "argv": argv, "cwd": str(ws),
+                          "env": (env or {}) | targets.test_env(ids), "continue": True})
         return steps
 
     def run_tests(self, body: dict) -> dict:

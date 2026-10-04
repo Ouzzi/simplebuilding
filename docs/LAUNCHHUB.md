@@ -5,6 +5,20 @@ bindet an 127.0.0.1, lehnt fremde Host-Header ab. Neben Wiki (8765) und Balancin
 Eintrag in `launch.json`; die einzelnen Client-/Server-Einträge sind dort entfernt, ihre Gradle-Befehle stehen als Daten in
 `tools/launchhub/launch_targets.json`.
 
+## Starts ohne Netz
+
+Client-, Server- und Integrationsstarts sowie ausgewaehlte Tests lassen das unbenoetigte
+Forge-26.2-Projekt mit `-PskipForge262=true` aus. Ein DNS-Check auf `piston-meta.mojang.com`
+wartet maximal 0,5 Sekunden und cached das Ergebnis 15 Sekunden. Bei DNS-Fehler/Timeout
+oder `SIMPLEBUILDING_GRADLE_OFFLINE=1` wird Gradle mit `--offline` gestartet.
+DNS-Erfolg garantiert keine Internetverbindung; die Umgebungsvariable erzwingt den Modus.
+Gradle-Abhaengigkeiten, Minecraft-Manifeste und Assets muessen bereits lokal vorhanden sein.
+Loom 1.17.20 uebernimmt Gradles Offline-Modus; eine weitere Loom-Option ist nicht erforderlich.
+Forge-26.2-Starts/Tests und das vollstaendige `check` werden offline vor dem Prozessstart mit
+`Forge 26.2 braucht Netz (Mavenizer)` abgelehnt. Das vollstaendige Gate verliert dadurch
+keine Forge-Abdeckung. Der Hub setzt beim Testrunner zusaetzlich
+`SIMPLEBUILDING_SKIP_FORGE262=1`, wenn kein Forge-26.2-Target ausgewaehlt ist.
+
 ## Bereiche
 
 Auf der Startseite enthält „Mods für den Start“ die einklappbare Auswahl der
