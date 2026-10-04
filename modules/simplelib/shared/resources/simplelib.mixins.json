@@ -5,9 +5,15 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "AxeBuildMixin",
+    "TemplatePoolAccessor",
+    "WarmBundleMixin",
+    "WarmClockMixin",
+    "WarmStackingMixin",
     "WarmUseDurationMixin"
   ],
-  "client": [],
+  "client": [
+    "client.WarmGlowSlotMixin"
+  ],
   "server": [],
   "injectors": {
     "defaultRequire": 1

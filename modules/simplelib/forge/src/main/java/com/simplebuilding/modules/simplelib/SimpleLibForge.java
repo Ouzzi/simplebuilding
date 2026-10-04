@@ -28,10 +28,13 @@ public final class SimpleLibForge {
             if (key.equals(Registries.ITEM)) LibItems.register();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
                 LibBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(LibBlocks.crucibles())));
+                LibBlockEntities.registerBarrel(new BlockEntityType<>(com.simplelib.crucible.CrucibleBarrelBlockEntity::new, Set.of(LibBlocks.barrels())));
             }
             if (key.equals(Registries.MENU)) LibMenus.register();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) LibRegistry.tab();
         });
+        net.minecraftforge.event.server.ServerAboutToStartEvent.BUS.addListener(event ->
+                com.simplelib.village.VillageKitchen.inject(event.getServer().registryAccess()));
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) {
             SimpleLibForgeClient.init(context);
         }

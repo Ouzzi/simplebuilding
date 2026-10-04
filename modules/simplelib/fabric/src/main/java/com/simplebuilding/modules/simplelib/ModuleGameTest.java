@@ -75,4 +75,24 @@ public final class ModuleGameTest {
     public void axeUpgradeKeepsContents(GameTestHelper h) {
         LibTests.ALL.get("axe_upgrade_keeps_contents").accept(h);
     }
+
+    @GameTest
+    public void warmStacksByMean(GameTestHelper h) {
+        LibTests.ALL.get("warm_stacks_by_mean").accept(h);
+    }
+
+    @GameTest
+    public void warmBundleInsulates(GameTestHelper h) {
+        LibTests.ALL.get("warm_bundle_insulates").accept(h);
+    }
+
+    @GameTest
+    public void villageKitchenInPools(GameTestHelper h) {
+        LibTests.ALL.get("village_kitchen_in_pools").accept(h);
+    }
+
+    @GameTest
+    public void barrelAttachAndResultsFirst(GameTestHelper h) {
+        LibTests.ALL.get("barrel_attach_and_results_first").accept(h);
+    }
 }

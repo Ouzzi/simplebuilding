@@ -14,6 +14,11 @@ def main():
     if generated.returncode:
         print(generated.stdout + generated.stderr, end="")
         return 1
+    structures = subprocess.run([sys.executable, str(MODULE / "tools/gen_structures.py"), "--check"],
+                                capture_output=True, text=True, encoding="utf-8")
+    if structures.returncode:
+        print(structures.stdout + structures.stderr, end="")
+        return 1
     errors = []
     lang = {l: json.loads((MODULE / f"shared/resources/assets/{NS}/lang/{l}.json").read_text(encoding="utf-8"))
             for l in ("en_us", "de_de")}

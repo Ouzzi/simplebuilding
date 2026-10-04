@@ -11,12 +11,14 @@ import net.minecraft.world.level.block.Block;
 
 /** Block items. The crucible blank has none (it only exists in the world while being built). */
 public final class LibItems {
-    public static Item IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE;
+    public static Item IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE, COPPER_BARREL, REINFORCED_BARREL;
 
     public static void register() {
         IRON_CRUCIBLE = blockItem("iron_crucible", LibBlocks.IRON_CRUCIBLE, new Item.Properties());
         REINFORCED_CRUCIBLE = blockItem("reinforced_crucible", LibBlocks.REINFORCED_CRUCIBLE, new Item.Properties());
         NETHERITE_CRUCIBLE = blockItem("netherite_crucible", LibBlocks.NETHERITE_CRUCIBLE, new Item.Properties().fireResistant());
+        COPPER_BARREL = blockItem("copper_barrel", LibBlocks.COPPER_BARREL, new Item.Properties());
+        REINFORCED_BARREL = blockItem("reinforced_barrel", LibBlocks.REINFORCED_BARREL, new Item.Properties());
     }
 
     private static Item blockItem(String name, Block block, Item.Properties properties) {

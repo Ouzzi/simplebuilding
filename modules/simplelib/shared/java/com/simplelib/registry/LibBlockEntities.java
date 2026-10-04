@@ -9,9 +9,14 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 /** The block entity type is built per loader (constructors differ) and handed to {@link #register}. */
 public final class LibBlockEntities {
     public static BlockEntityType<CrucibleBlockEntity> CRUCIBLE;
+    public static BlockEntityType<com.simplelib.crucible.CrucibleBarrelBlockEntity> BARREL;
 
     public static void register(BlockEntityType<CrucibleBlockEntity> type) {
         CRUCIBLE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleLib.id("crucible"), type);
+    }
+
+    public static void registerBarrel(BlockEntityType<com.simplelib.crucible.CrucibleBarrelBlockEntity> type) {
+        BARREL = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleLib.id("barrel"), type);
     }
 
     private LibBlockEntities() {}

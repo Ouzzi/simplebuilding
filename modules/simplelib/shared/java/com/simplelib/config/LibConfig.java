@@ -41,6 +41,9 @@ public final class LibConfig {
     public static int warmDurationTicks = WARM_DURATION_DEFAULT;
     public static int warmBundleDurationTicks = WARM_BUNDLE_DEFAULT;
     public static double eatSpeedBonus = EAT_BONUS_DEFAULT;
+    public static final int VILLAGE_WEIGHT_DEFAULT = 3, VILLAGE_WEIGHT_MAX = 10;
+    /** Weight of the field kitchen in each village houses pool (0 = off; owner 45: about every third village). */
+    public static int villageKitchenWeight = VILLAGE_WEIGHT_DEFAULT;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final String FILE = "simplelib-server.json";
@@ -87,6 +90,7 @@ public final class LibConfig {
         warmDurationTicks = clamp(getInt(json, "warmDurationTicks", WARM_DURATION_DEFAULT), WARM_DURATION_MIN, WARM_DURATION_MAX);
         warmBundleDurationTicks = clamp(getInt(json, "warmBundleDurationTicks", WARM_BUNDLE_DEFAULT), WARM_BUNDLE_MIN, WARM_BUNDLE_MAX);
         eatSpeedBonus = clamp(getDouble(json, "eatSpeedBonus", EAT_BONUS_DEFAULT), 0.0, EAT_BONUS_MAX);
+        villageKitchenWeight = clamp(getInt(json, "villageKitchenWeight", VILLAGE_WEIGHT_DEFAULT), 0, VILLAGE_WEIGHT_MAX);
     }
 
     public static JsonObject toJson() {
@@ -108,6 +112,7 @@ public final class LibConfig {
         o.addProperty("warmDurationTicks", warmDurationTicks);
         o.addProperty("warmBundleDurationTicks", warmBundleDurationTicks);
         o.addProperty("eatSpeedBonus", eatSpeedBonus);
+        o.addProperty("villageKitchenWeight", villageKitchenWeight);
         return o;
     }
 

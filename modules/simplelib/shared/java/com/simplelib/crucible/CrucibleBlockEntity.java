@@ -69,6 +69,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
                 case 0 -> heat.ordinal();
                 case 1 -> heatSourceGone ? Math.min(afterglow, Short.MAX_VALUE) : 0;
                 case 2 -> heatMultiplier < 1.0 ? 1 : 0;
+                case 3 -> barrel() != null ? 1 : 0;
                 default -> 0;
             };
         }
@@ -78,7 +79,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
 
         @Override
         public int getCount() {
-            return tier.slots() + 3;
+            return tier.slots() + 4;
         }
     };
     private boolean heatSourceGone;
@@ -189,6 +190,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         for (int i : active) {
             CrucibleJob job = jobs[i];
             if (job.warming()) target[i] = i;
+            if (target[i] >= BARREL && barrel() == null) target[i] = -1;
             if (target[i] < 0) target[i] = reserve(i, job);
             if (target[i] < 0 || !targetUsable(i, target[i], job)) {
                 state[i] = BLOCKED;
@@ -221,6 +223,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
     private void updateHeat(ServerLevel level, BlockPos pos) {
         if (heatDirty || age % com.simplelib.config.LibConfig.heatRecheckTicks == 0) {
             heatDirty = false;
+            barrelPos = attachedBarrelPos(level, pos);
             Heat.Reading reading = Heat.at(level, pos);
             if (reading.level() != HeatLevel.NONE) {
                 heat = reading.level();
@@ -250,8 +253,53 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         return changed;
     }
 
-    /** Picks and returns the result place for slot {@code i}, or -1 (owner F13: below first, then other rows, own slot last). */
+    /** Targets at or above this index are slots of the attached barrel (target - BARREL). */
+    public static final int BARREL = 1000;
+    private @Nullable BlockPos barrelPos;
+    private final ItemStack[] barrelGhost = new ItemStack[BarrelTier.CRUCIBLE_SLOTS];
+
+    /** The barrel attached to the crucible at {@code pos} (facing it, attached), if any. */
+    public static @Nullable BlockPos attachedBarrelPos(Level level, BlockPos pos) {
+        for (Direction d : Direction.Plane.HORIZONTAL) {
+            BlockPos p = pos.relative(d);
+            BlockState s = level.getBlockState(p);
+            if (s.getBlock() instanceof CrucibleBarrelBlock && s.getValue(CrucibleBarrelBlock.ATTACHED)
+                    && s.getValue(CrucibleBarrelBlock.FACING) == d.getOpposite()) return p;
+        }
+        return null;
+    }
+
+    public @Nullable CrucibleBarrelBlockEntity barrel() {
+        if (level == null || barrelPos == null) return null;
+        return level.getBlockEntity(barrelPos) instanceof CrucibleBarrelBlockEntity b
+                && b.getBlockState().getValue(CrucibleBarrelBlock.ATTACHED) ? b : null;
+    }
+
+    public ItemStack barrelGhost(int slot) {
+        ItemStack g = barrelGhost[slot];
+        return g == null ? ItemStack.EMPTY : g;
+    }
+
+    private ItemStack stackAt(int t) {
+        if (t < BARREL) return items.get(t);
+        CrucibleBarrelBlockEntity b = barrel();
+        return b == null ? ItemStack.EMPTY : b.getItem(t - BARREL);
+    }
+
+    private int maxAt(int t, ItemStack stack) {
+        if (t < BARREL) return getMaxStackSize(stack);
+        CrucibleBarrelBlockEntity b = barrel();
+        return b == null ? 0 : b.getMaxStackSize(stack);
+    }
+
+    /**
+     * Picks and returns the result place for slot {@code i}, or -1: the attached barrel first (owner
+     * wish round 2), then the slot directly below (F13), other rows, the same row, own slot last.
+     */
     int reserve(int i, CrucibleJob job) {
+        if (barrel() != null) {
+            for (int k = 0; k < BarrelTier.CRUCIBLE_SLOTS; k++) if (canReserve(i, BARREL + k, job)) return BARREL + k;
+        }
         int n = tier.slots();
         int below = tier.below(i);
         if (below >= 0 && canReserve(i, below, job)) return below;
@@ -269,17 +317,18 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
 
     private boolean canReserve(int i, int t, CrucibleJob job) {
         ItemStack out = job.result();
-        ItemStack there = items.get(t);
+        ItemStack there = stackAt(t);
         if (t == i) return there.getCount() == 1 && reservedBy(t, i) == 0;
-        if (!there.isEmpty() && (!result[t] || !ItemStack.isSameItemSameComponents(there, out))) return false;
+        boolean barrelSlot = t >= BARREL;
+        if (!there.isEmpty() && (!(barrelSlot || result[t]) || !ItemStack.isSameItemSameComponents(there, out))) return false;
         for (int k = 0; k < tier.slots(); k++) {
             if (k != i && target[k] == t && jobs[k] != null && !ItemStack.isSameItemSameComponents(jobs[k].result(), out)) return false;
         }
-        int room = getMaxStackSize(out) - there.getCount() - reservedBy(t, i);
+        int room = maxAt(t, out) - there.getCount() - reservedBy(t, i);
         return room >= out.getCount();
     }
 
-    /** Result items other jobs have already reserved in slot {@code t}. */
+    /** Result items other jobs have already reserved in place {@code t}. */
     private int reservedBy(int t, int except) {
         int sum = 0;
         for (int k = 0; k < tier.slots(); k++) {
@@ -291,12 +340,13 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
     /** A reserved place is still usable unless something foreign was put into it (owner F18/17). */
     private boolean targetUsable(int i, int t, CrucibleJob job) {
         if (job.warming()) return true;
-        ItemStack there = items.get(t);
+        if (t >= BARREL && barrel() == null) return false;
+        ItemStack there = stackAt(t);
         if (t == i) return there.getCount() == 1;
         if (there.isEmpty()) return true;
         if (!ItemStack.isSameItemSameComponents(there, job.result())) return false;
-        result[t] = true; // owner 17: the exact result item counts as the result stack
-        return there.getCount() + job.result().getCount() <= getMaxStackSize(there);
+        if (t < BARREL) result[t] = true; // owner 17: the exact result item counts as the result stack
+        return there.getCount() + job.result().getCount() <= maxAt(t, there);
     }
 
     private void finish(ServerLevel level, int i, CrucibleJob job) {
@@ -309,17 +359,26 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
             lastInput[i] = warm.copyWithCount(1);
         } else {
             ItemStack out = job.result().copy();
-            if (t == i) {
-                items.set(i, out);
-            } else {
-                ItemStack there = items.get(t);
-                if (there.isEmpty()) items.set(t, out);
-                else there.grow(out.getCount());
+            if (Warm.warmable(out)) Warm.warm(out, level.getGameTime());
+            if (t >= BARREL) {
+                CrucibleBarrelBlockEntity b = barrel();
+                if (b == null) return;
+                ItemStack there = b.getItem(t - BARREL);
+                if (there.isEmpty()) b.setItem(t - BARREL, out);
+                else { there.grow(out.getCount()); b.setChanged(); }
                 items.get(i).shrink(1);
+            } else {
+                if (t == i) {
+                    items.set(i, out);
+                } else {
+                    ItemStack there = items.get(t);
+                    if (there.isEmpty()) items.set(t, out);
+                    else there.grow(out.getCount());
+                    items.get(i).shrink(1);
+                }
+                result[t] = true;
+                lastInput[t] = items.get(t).copyWithCount(1);
             }
-            if (Warm.warmable(items.get(t))) Warm.warm(items.get(t), level.getGameTime());
-            result[t] = true;
-            lastInput[t] = items.get(t).copyWithCount(1);
             experience += job.experience() * (tier.doubleExperience() ? 2 : 1);
         }
         progress[i] = 0;
@@ -329,9 +388,12 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
 
     private void updateGhosts() {
         Arrays.fill(ghost, ItemStack.EMPTY);
+        Arrays.fill(barrelGhost, ItemStack.EMPTY);
         for (int k = 0; k < tier.slots(); k++) {
             int t = target[k];
-            if (t >= 0 && t != k && jobs[k] != null && items.get(t).isEmpty()) ghost[t] = jobs[k].result();
+            if (t < 0 || t == k || jobs[k] == null || !stackAt(t).isEmpty()) continue;
+            if (t >= BARREL) barrelGhost[t - BARREL] = jobs[k].result();
+            else ghost[t] = jobs[k].result();
         }
         for (int t = 0; t < tier.slots(); t++) {
             if (!ghost[t].isEmpty() && items.get(t).isEmpty()) state[t] = RESERVED;
@@ -501,7 +563,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         int[] r = input.getIntArray("Results").orElse(new int[0]);
         for (int i = 0; i < tier.slots(); i++) {
             progress[i] = i < p.length ? Math.max(0, p[i]) : 0;
-            target[i] = i < t.length && t[i] >= -1 && t[i] < tier.slots() ? t[i] : -1;
+            target[i] = i < t.length && (t[i] >= -1 && t[i] < tier.slots() || t[i] >= BARREL && t[i] < BARREL + BarrelTier.CRUCIBLE_SLOTS) ? t[i] : -1;
             result[i] = i < r.length && r[i] != 0;
             lastInput[i] = items.get(i).copyWithCount(Math.min(1, items.get(i).getCount()));
         }

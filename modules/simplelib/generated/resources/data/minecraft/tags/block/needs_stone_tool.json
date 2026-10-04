@@ -3,6 +3,8 @@
     "simplelib:iron_crucible",
     "simplelib:reinforced_crucible",
     "simplelib:netherite_crucible",
-    "simplelib:crucible_blank"
+    "simplelib:crucible_blank",
+    "simplelib:copper_barrel",
+    "simplelib:reinforced_barrel"
   ]
 }

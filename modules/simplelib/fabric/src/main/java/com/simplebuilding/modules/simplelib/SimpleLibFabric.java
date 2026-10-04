@@ -21,7 +21,10 @@ public final class SimpleLibFabric implements ModInitializer {
         LibBlocks.register();
         LibItems.register();
         LibBlockEntities.register(FabricBlockEntityTypeBuilder.create(CrucibleBlockEntity::new, LibBlocks.crucibles()).build());
+        LibBlockEntities.registerBarrel(FabricBlockEntityTypeBuilder.create(com.simplelib.crucible.CrucibleBarrelBlockEntity::new, LibBlocks.barrels()).build());
         LibMenus.register();
         LibRegistry.tab();
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTING.register(server ->
+                com.simplelib.village.VillageKitchen.inject(server.registryAccess()));
     }
 }

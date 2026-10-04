@@ -54,7 +54,20 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
             slotFrame(g, x, y);
             if (slot.index < tier.slots()) slotState(g, slot.index, x, y);
         }
+        if (menu.barrelAttached()) {
+            int bx = x0 + CrucibleMenu.barrelX(tier, 0) - 3, by = y0 + CrucibleMenu.barrelY(0) - 3;
+            g.fill(bx, by, bx + 60, by + 60, 0xFFB4684D);
+            g.fill(bx + 1, by + 1, bx + 59, by + 59, 0xFFD88A6A);
+            for (int i = 0; i < 9; i++) slotFrame(g, x0 + CrucibleMenu.barrelX(tier, i), y0 + CrucibleMenu.barrelY(i));
+        }
         g.nextStratum();
+        if (menu.barrelAttached()) {
+            for (int i = 0; i < 9; i++) {
+                ItemStack ghost = menu.barrelGhost(i);
+                if (ghost.isEmpty() || menu.slots.get(menu.barrelStart() + i).hasItem()) continue;
+                g.fakeItem(ghost, x0 + CrucibleMenu.barrelX(tier, i), y0 + CrucibleMenu.barrelY(i));
+            }
+        }
         for (int i = 0; i < tier.slots(); i++) {
             ItemStack ghost = menu.ghost(i);
             if (ghost.isEmpty() || menu.slots.get(i).hasItem()) continue;
@@ -62,6 +75,13 @@ public class CrucibleScreen extends AbstractContainerScreen<CrucibleMenu> {
             g.fakeItem(ghost, x, y);
         }
         g.nextStratum();
+        if (menu.barrelAttached()) {
+            for (int i = 0; i < 9; i++) {
+                if (menu.barrelGhost(i).isEmpty() || menu.slots.get(menu.barrelStart() + i).hasItem()) continue;
+                int x = x0 + CrucibleMenu.barrelX(tier, i), y = y0 + CrucibleMenu.barrelY(i);
+                g.fill(x, y, x + 16, y + 16, GHOST_VEIL);
+            }
+        }
         for (int i = 0; i < tier.slots(); i++) {
             if (menu.ghost(i).isEmpty() || menu.slots.get(i).hasItem()) continue;
             int x = x0 + CrucibleMenu.slotX(tier, i), y = y0 + CrucibleMenu.slotY(tier, i);

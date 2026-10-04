@@ -34,15 +34,17 @@ public class CrucibleMenu extends AbstractContainerMenu {
     /** Client constructor (one menu type per tier). */
     public static CrucibleMenu client(CrucibleTier tier, int id, Inventory inventory) {
         return new CrucibleMenu(tier, id, inventory, new SimpleContainer(tier.slots()), new SimpleContainer(tier.slots()),
-                new SimpleContainerData(tier.slots() + 3), null);
+                new SimpleContainer(BarrelTier.CRUCIBLE_SLOTS), new SimpleContainer(BarrelTier.CRUCIBLE_SLOTS),
+                new SimpleContainerData(tier.slots() + 4), null);
     }
 
     public CrucibleMenu(int id, Inventory inventory, CrucibleBlockEntity crucible) {
-        this(crucible.tier(), id, inventory, crucible, new GhostView(crucible), crucible.data(), crucible);
+        this(crucible.tier(), id, inventory, crucible, new GhostView(crucible, false), new BarrelView(crucible),
+                new GhostView(crucible, true), crucible.data(), crucible);
     }
 
     private CrucibleMenu(CrucibleTier tier, int id, Inventory inventory, Container container, Container ghosts,
-                         ContainerData data, @Nullable CrucibleBlockEntity crucible) {
+                         Container barrel, Container barrelGhosts, ContainerData data, @Nullable CrucibleBlockEntity crucible) {
         super(LibMenus.forTier(tier), id);
         this.tier = tier;
         this.container = container;
@@ -52,6 +54,8 @@ public class CrucibleMenu extends AbstractContainerMenu {
         container.startOpen(inventory.player);
         for (int i = 0; i < tier.slots(); i++) addSlot(new CrucibleSlot(container, i, slotX(tier, i), slotY(tier, i)));
         for (int i = 0; i < tier.slots(); i++) addSlot(new GhostSlot(ghosts, i, slotX(tier, i), slotY(tier, i)));
+        for (int i = 0; i < BarrelTier.CRUCIBLE_SLOTS; i++) addSlot(new BarrelSlot(barrel, i, barrelX(tier, i), barrelY(i)));
+        for (int i = 0; i < BarrelTier.CRUCIBLE_SLOTS; i++) addSlot(new GhostSlot(barrelGhosts, i, barrelX(tier, i), barrelY(i)));
         addStandardInventorySlots(inventory, inventoryLeft(tier), inventoryTop(tier));
         addDataSlots(data);
     }
@@ -62,8 +66,19 @@ public class CrucibleMenu extends AbstractContainerMenu {
         return tier.grids() * 54 + (tier.grids() - 1) * GRID_GAP;
     }
 
+    /** Room on the right for the 9 fields of an attached barrel (shown only while one is attached). */
+    public static final int BARREL_GAP = 10;
+
     public static int imageWidth(CrucibleTier tier) {
-        return Math.max(176, GRID_LEFT + gridsWidth(tier) + 8);
+        return Math.max(176, GRID_LEFT + gridsWidth(tier) + BARREL_GAP + 54 + 8);
+    }
+
+    public static int barrelX(CrucibleTier tier, int slot) {
+        return GRID_LEFT + gridsWidth(tier) + BARREL_GAP + 1 + slot % 3 * 18;
+    }
+
+    public static int barrelY(int slot) {
+        return GRID_TOP + 1 + slot / 3 * 18;
     }
 
     public static int imageHeight(CrucibleTier tier) {
@@ -92,6 +107,9 @@ public class CrucibleMenu extends AbstractContainerMenu {
     public int afterglow() { return data.get(tier.slots() + 1); }
     public boolean twoBelow() { return data.get(tier.slots() + 2) != 0; }
     public ItemStack ghost(int slot) { return slots.get(tier.slots() + slot).getItem(); }
+    public boolean barrelAttached() { return data.get(tier.slots() + 3) != 0; }
+    public int barrelStart() { return 2 * tier.slots(); }
+    public ItemStack barrelGhost(int slot) { return slots.get(2 * tier.slots() + BarrelTier.CRUCIBLE_SLOTS + slot).getItem(); }
 
     @Override
     public boolean stillValid(Player player) {
@@ -111,8 +129,9 @@ public class CrucibleMenu extends AbstractContainerMenu {
         if (slot instanceof GhostSlot || !slot.hasItem()) return ItemStack.EMPTY;
         ItemStack stack = slot.getItem();
         ItemStack copy = stack.copy();
-        int inventoryStart = 2 * n;
-        if (index < n) {
+        int barrelStart = 2 * n;
+        int inventoryStart = barrelStart + 2 * BarrelTier.CRUCIBLE_SLOTS;
+        if (index < n || index >= barrelStart && index < barrelStart + BarrelTier.CRUCIBLE_SLOTS) {
             if (!moveItemStackTo(stack, inventoryStart, slots.size(), true)) return ItemStack.EMPTY;
             slot.onTake(player, copy);
         } else if (!moveItemStackTo(stack, 0, n, false)) {
@@ -143,6 +162,22 @@ public class CrucibleMenu extends AbstractContainerMenu {
         }
     }
 
+    /** One of the 9 fields of an attached barrel; hidden while no barrel is attached. */
+    private final class BarrelSlot extends Slot {
+        BarrelSlot(Container container, int index, int x, int y) {
+            super(container, index, x, y);
+        }
+
+        @Override public boolean isActive() { return barrelAttached(); }
+        @Override public boolean mayPlace(ItemStack stack) { return barrelAttached(); }
+        @Override public boolean mayPickup(Player player) { return barrelAttached(); }
+
+        @Override
+        public int getMaxStackSize(ItemStack stack) {
+            return container.getMaxStackSize(stack);
+        }
+    }
+
     /** Hidden slot that only syncs the reserved result to the client screen. */
     private static final class GhostSlot extends Slot {
         GhostSlot(Container container, int index, int x, int y) {
@@ -154,18 +189,20 @@ public class CrucibleMenu extends AbstractContainerMenu {
         @Override public boolean mayPickup(Player player) { return false; }
     }
 
-    /** Read-only view of the crucible's reserved results. */
+    /** Read-only view of the crucible's reserved results (its own slots or the barrel's). */
     private static final class GhostView extends SimpleContainer {
         private final CrucibleBlockEntity crucible;
+        private final boolean barrel;
 
-        GhostView(CrucibleBlockEntity crucible) {
-            super(crucible.tier().slots());
+        GhostView(CrucibleBlockEntity crucible, boolean barrel) {
+            super(barrel ? BarrelTier.CRUCIBLE_SLOTS : crucible.tier().slots());
             this.crucible = crucible;
+            this.barrel = barrel;
         }
 
         @Override
         public ItemStack getItem(int slot) {
-            return crucible.ghost(slot);
+            return barrel ? crucible.barrelGhost(slot) : crucible.ghost(slot);
         }
 
         @Override
@@ -174,5 +211,66 @@ public class CrucibleMenu extends AbstractContainerMenu {
         public ItemStack removeItemNoUpdate(int slot) { return ItemStack.EMPTY; }
         @Override
         public void setItem(int slot, ItemStack stack) {}
+    }
+
+    /** The first 9 slots of the attached barrel, or nothing while none is attached. */
+    private static final class BarrelView implements Container {
+        private final CrucibleBlockEntity crucible;
+
+        BarrelView(CrucibleBlockEntity crucible) {
+            this.crucible = crucible;
+        }
+
+        private @Nullable CrucibleBarrelBlockEntity barrel() {
+            return crucible.barrel();
+        }
+
+        @Override public int getContainerSize() { return BarrelTier.CRUCIBLE_SLOTS; }
+
+        @Override
+        public boolean isEmpty() {
+            for (int i = 0; i < getContainerSize(); i++) if (!getItem(i).isEmpty()) return false;
+            return true;
+        }
+
+        @Override
+        public ItemStack getItem(int slot) {
+            var b = barrel();
+            return b == null ? ItemStack.EMPTY : b.getItem(slot);
+        }
+
+        @Override
+        public ItemStack removeItem(int slot, int count) {
+            var b = barrel();
+            return b == null ? ItemStack.EMPTY : b.removeItem(slot, count);
+        }
+
+        @Override
+        public ItemStack removeItemNoUpdate(int slot) {
+            var b = barrel();
+            return b == null ? ItemStack.EMPTY : b.removeItemNoUpdate(slot);
+        }
+
+        @Override
+        public void setItem(int slot, ItemStack stack) {
+            var b = barrel();
+            if (b != null) b.setItem(slot, stack);
+        }
+
+        @Override
+        public int getMaxStackSize(ItemStack stack) {
+            var b = barrel();
+            return b == null ? stack.getMaxStackSize() : b.getMaxStackSize(stack);
+        }
+
+        @Override
+        public void setChanged() {
+            var b = barrel();
+            if (b != null) b.setChanged();
+        }
+
+        @Override public boolean stillValid(Player player) { return true; }
+
+        @Override public void clearContent() {}
     }
 }

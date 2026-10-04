@@ -25,6 +25,8 @@ public final class LibRegistry {
         out.add(new ItemStack(LibItems.IRON_CRUCIBLE));
         out.add(new ItemStack(LibItems.REINFORCED_CRUCIBLE));
         out.add(new ItemStack(LibItems.NETHERITE_CRUCIBLE));
+        out.add(new ItemStack(LibItems.COPPER_BARREL));
+        out.add(new ItemStack(LibItems.REINFORCED_BARREL));
         return out;
     }
 

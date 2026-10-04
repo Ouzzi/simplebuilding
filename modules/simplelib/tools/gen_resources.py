@@ -127,6 +127,48 @@ def files():
                                        "functions": [{"function": "minecraft:set_count", "count": count}]}]})
     out[f"{d}/loot_table/blocks/crucible_blank.json"] = {"type": "minecraft:block", "pools": pools,
                                                          "random_sequence": f"{NS}:blocks/crucible_blank"}
+    # Copper barrels (plan section 8a): plain barrel cube, plus a copper flange towards the crucible when attached.
+    for tier in ("copper", "reinforced"):
+        name = f"{tier}_barrel"
+        tex = {"side": f"{NS}:block/{name}_side", "top": f"{NS}:block/{name}_top", "bottom": f"{NS}:block/{name}_bottom",
+               "flange": f"{NS}:block/{name}_flange", "particle": f"{NS}:block/{name}_side"}
+        body = cuboid((0, 0, 0), (16, 16, 16), {"down": "#bottom", "up": "#top", "north": "#side", "south": "#side", "west": "#side", "east": "#side"})
+        flange = cuboid((4, 4, -1), (12, 12, 0), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange"})
+        out[f"{a}/models/block/{name}.json"] = {"parent": "minecraft:block/block", "textures": tex, "elements": [body]}
+        out[f"{a}/models/block/{name}_attached.json"] = {"parent": "minecraft:block/block", "textures": tex, "elements": [body, flange]}
+        variants = {}
+        for facing, rot in FACINGS.items():
+            for attached in ("false", "true"):
+                for open_ in ("false", "true"):
+                    v = {"model": f"{NS}:block/{name}" + ("_attached" if attached == "true" else "")}
+                    if rot:
+                        v["y"] = rot
+                    variants[f"attached={attached},facing={facing},open={open_}"] = v
+        out[f"{a}/blockstates/{name}.json"] = {"variants": variants}
+        out[f"{a}/items/{name}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:block/{name}"}}
+        out[f"{d}/loot_table/blocks/{name}.json"] = {
+            "type": "minecraft:block",
+            "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": f"{NS}:{name}"}],
+                       "conditions": [{"condition": "minecraft:survives_explosion"}]}],
+            "random_sequence": f"{NS}:blocks/{name}",
+        }
+    out[f"{d}/recipe/copper_barrel.json"] = {
+        "type": "minecraft:crafting_shaped", "category": "misc",
+        "key": {"C": "minecraft:copper_ingot", "B": "minecraft:barrel"},
+        "pattern": [" C ", "CBC", " C "],
+        "result": {"id": f"{NS}:copper_barrel", "count": 1},
+    }
+    # Village field kitchen barrel (owner 46: raw meat beside the crucible).
+    def meat(item, lo, hi, weight):
+        return {"type": "minecraft:item", "name": item, "weight": weight,
+                "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": lo, "max": hi}}]}
+    out[f"{d}/loot_table/chests/village_field_kitchen.json"] = {
+        "type": "minecraft:chest",
+        "pools": [{"rolls": {"type": "minecraft:uniform", "min": 2, "max": 4}, "bonus_rolls": 0, "entries": [
+            meat("minecraft:beef", 1, 3, 3), meat("minecraft:porkchop", 1, 3, 3), meat("minecraft:mutton", 1, 3, 3),
+            meat("minecraft:chicken", 1, 2, 2), meat("minecraft:rabbit", 1, 2, 1), meat("minecraft:potato", 2, 5, 2)]}],
+        "random_sequence": f"{NS}:chests/village_field_kitchen",
+    }
     # Tags.
     out[f"{d}/tags/block/heat_source/medium.json"] = {"values": ["minecraft:campfire", "minecraft:soul_campfire", "minecraft:magma_block"]}
     out[f"{d}/tags/block/heat_source/high.json"] = {"values": ["minecraft:lava_cauldron"]}
@@ -138,7 +180,7 @@ def files():
     out[f"{d}/tags/item/crucible_handles.json"] = {"values": ["minecraft:iron_ingot"]}
     out[f"{d}/tags/item/upgrade_reinforced.json"] = {"values": ["minecraft:diamond"]}
     out[f"{d}/tags/item/upgrade_netherite.json"] = {"values": ["minecraft:netherite_ingot"]}
-    pickaxe = [f"{NS}:{t}_crucible" for t in TIERS] + [f"{NS}:crucible_blank"]
+    pickaxe = [f"{NS}:{t}_crucible" for t in TIERS] + [f"{NS}:crucible_blank", f"{NS}:copper_barrel", f"{NS}:reinforced_barrel"]
     out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": pickaxe}
     out["data/minecraft/tags/block/needs_stone_tool.json"] = {"values": pickaxe}
     return out

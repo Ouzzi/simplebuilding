@@ -19,6 +19,9 @@ import net.minecraft.world.level.material.MapColor;
 public final class LibBlocks {
     public static CrucibleBlock IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE;
     public static CrucibleBlankBlock CRUCIBLE_BLANK;
+    public static com.simplelib.crucible.CrucibleBarrelBlock COPPER_BARREL, REINFORCED_BARREL;
+    /** Every barrel block, including partner tiers (Enderite in SimpleBuilding). */
+    public static final List<com.simplelib.crucible.CrucibleBarrelBlock> BARRELS = new ArrayList<>();
     /** Every crucible block, including those partners register through the API (Enderite in SimpleBuilding). */
     public static final List<CrucibleBlock> CRUCIBLES = new ArrayList<>();
 
@@ -28,6 +31,20 @@ public final class LibBlocks {
         NETHERITE_CRUCIBLE = crucible("netherite_crucible", CrucibleTier.NETHERITE, props(MapColor.COLOR_BLACK, 5.0F, 1200.0F, SoundType.NETHERITE_BLOCK));
         CRUCIBLE_BLANK = Registry.register(BuiltInRegistries.BLOCK, key("crucible_blank"),
                 new CrucibleBlankBlock(props(MapColor.METAL, 5.0F, 6.0F, SoundType.METAL).setId(key("crucible_blank"))));
+        COPPER_BARREL = barrel("copper_barrel", com.simplelib.crucible.BarrelTier.COPPER, MapColor.COLOR_ORANGE, 3.0F);
+        REINFORCED_BARREL = barrel("reinforced_barrel", com.simplelib.crucible.BarrelTier.REINFORCED, MapColor.DIAMOND, 4.0F);
+    }
+
+    private static com.simplelib.crucible.CrucibleBarrelBlock barrel(String name, com.simplelib.crucible.BarrelTier tier, MapColor color, float hardness) {
+        var block = Registry.register(BuiltInRegistries.BLOCK, key(name), new com.simplelib.crucible.CrucibleBarrelBlock(
+                BlockBehaviour.Properties.of().mapColor(color).strength(hardness, 6.0F).sound(SoundType.COPPER).requiresCorrectToolForDrops()
+                        .setId(key(name)), tier));
+        BARRELS.add(block);
+        return block;
+    }
+
+    public static Block[] barrels() {
+        return BARRELS.toArray(new Block[0]);
     }
 
     /** Properties shared by all crucibles: needs a pickaxe, lit crucibles glow like a furnace. */

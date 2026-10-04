@@ -36,6 +36,8 @@ public final class CrucibleUpgrades {
             return new Step(LibBlocks.IRON_CRUCIBLE, LibBlocks.REINFORCED_CRUCIBLE, LibTags.UPGRADE_REINFORCED, 2);
         if (state.is(LibBlocks.REINFORCED_CRUCIBLE) && material.is(LibTags.UPGRADE_NETHERITE))
             return new Step(LibBlocks.REINFORCED_CRUCIBLE, LibBlocks.NETHERITE_CRUCIBLE, LibTags.UPGRADE_NETHERITE, 1);
+        if (state.is(LibBlocks.COPPER_BARREL) && material.is(LibTags.UPGRADE_REINFORCED))
+            return new Step(LibBlocks.COPPER_BARREL, LibBlocks.REINFORCED_BARREL, LibTags.UPGRADE_REINFORCED, 2);
         return null;
     }
 
@@ -45,8 +47,11 @@ public final class CrucibleUpgrades {
         ItemStack material = player.getOffhandItem();
         Step step = stepFor(state, material);
         if (step == null || material.getCount() < step.count() || player.getCooldowns().isOnCooldown(tool)) return false;
-        if (!(level instanceof ServerLevel server) || !(level.getBlockEntity(pos) instanceof CrucibleBlockEntity be)) return true;
-        int done = be.addUpgradeStrike();
+        if (!(level instanceof ServerLevel server)) return true;
+        int done;
+        if (level.getBlockEntity(pos) instanceof CrucibleBlockEntity be) done = be.addUpgradeStrike();
+        else if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity barrel) done = barrel.addAttachStrike();
+        else return true;
         server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5,
                 6, 0.25, 0.1, 0.25, 0.05);
         if (done >= STRIKES) {
@@ -63,6 +68,21 @@ public final class CrucibleUpgrades {
 
     /** Replaces the crucible by {@code to}, keeping facing, contents, progress and experience (owner 11). */
     public static void upgradeInPlace(ServerLevel level, BlockPos pos, Block to) {
+        if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity barrel) {
+            java.util.List<ItemStack> kept = new java.util.ArrayList<>();
+            for (int i = 0; i < barrel.getContainerSize(); i++) kept.add(barrel.removeItemNoUpdate(i));
+            BlockState from = level.getBlockState(pos);
+            BlockState next = to.defaultBlockState();
+            if (from.hasProperty(CrucibleBarrelBlock.FACING)) {
+                next = next.setValue(CrucibleBarrelBlock.FACING, from.getValue(CrucibleBarrelBlock.FACING))
+                        .setValue(CrucibleBarrelBlock.ATTACHED, from.getValue(CrucibleBarrelBlock.ATTACHED));
+            }
+            level.setBlock(pos, next, Block.UPDATE_ALL);
+            if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity fresh) {
+                for (int i = 0; i < kept.size() && i < fresh.getContainerSize(); i++) fresh.setItem(i, kept.get(i));
+            }
+            return;
+        }
         if (!(level.getBlockEntity(pos) instanceof CrucibleBlockEntity old)) return;
         CrucibleBlockEntity.Snapshot snapshot = old.snapshot();
         old.clearForUpgrade();

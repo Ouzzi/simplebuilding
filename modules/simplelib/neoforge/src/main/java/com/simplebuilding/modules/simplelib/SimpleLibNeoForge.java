@@ -30,10 +30,13 @@ public final class SimpleLibNeoForge {
             if (key.equals(Registries.ITEM)) LibItems.register();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
                 LibBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(LibBlocks.crucibles()), false));
+                LibBlockEntities.registerBarrel(new BlockEntityType<>(com.simplelib.crucible.CrucibleBarrelBlockEntity::new, Set.of(LibBlocks.barrels()), false));
             }
             if (key.equals(Registries.MENU)) LibMenus.register();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) LibRegistry.tab();
         });
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.server.ServerAboutToStartEvent event) ->
+                com.simplelib.village.VillageKitchen.inject(event.getServer().registryAccess()));
         if (dist == Dist.CLIENT) SimpleLibNeoForgeClient.init(bus);
     }
 }

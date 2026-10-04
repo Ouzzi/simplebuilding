@@ -49,6 +49,10 @@ public final class LibTests {
         ALL.put("axe_builds_iron_crucible", LibTests::axeBuild);
         ALL.put("break_drops_contents", LibTests::breakDrops);
         ALL.put("axe_upgrade_keeps_contents", LibTests::axeUpgrade);
+        ALL.put("warm_stacks_by_mean", LibTests::warmStacksByMean);
+        ALL.put("warm_bundle_insulates", LibTests::warmBundleInsulates);
+        ALL.put("village_kitchen_in_pools", LibTests::villageKitchen);
+        ALL.put("barrel_attach_and_results_first", LibTests::barrelAttach);
     }
 
     // ------------------------------------------------------------ helpers
@@ -280,6 +284,79 @@ public final class LibTests {
         check(h, fresh != null && fresh.getContainerSize() == 9 && fresh.getItem(4).is(Items.RAW_COPPER) && fresh.getItem(4).getCount() == 3,
                 "contents kept in the same slot");
         check(h, player.getOffhandItem().isEmpty(), "two diamonds used");
+        h.succeed();
+    }
+
+    private static void warmStacksByMean(GameTestHelper h) {
+        long now = h.getLevel().getGameTime();
+        com.simplelib.warm.WarmMerge.tick(now);
+        ItemStack warm = new ItemStack(Items.COOKED_BEEF, 2);
+        warm.set(LibComponents.WARM, new Warm(now + 1000));
+        ItemStack cold = new ItemStack(Items.COOKED_BEEF, 2);
+        check(h, ItemStack.isSameItemSameComponents(warm, cold), "warm and cold food stack (owner: mean warmth)");
+        warm.grow(cold.getCount());
+        check(h, Warm.remaining(warm, now) == 500, "mean of 2 x 1000 and 2 x 0 ticks is 500 (owner 40: cold counts 0), got " + Warm.remaining(warm, now));
+        ItemStack other = new ItemStack(Items.COOKED_PORKCHOP);
+        check(h, !ItemStack.isSameItemSameComponents(warm, other), "different food never stacks");
+        h.succeed();
+    }
+
+    private static void warmBundleInsulates(GameTestHelper h) {
+        long now = h.getLevel().getGameTime();
+        com.simplelib.warm.WarmMerge.tick(now);
+        ItemStack warm = new ItemStack(Items.BAKED_POTATO, 3);
+        warm.set(LibComponents.WARM, new Warm(now + 1000));
+        net.minecraft.world.item.component.BundleContents.Mutable bundle =
+                new net.minecraft.world.item.component.BundleContents.Mutable();
+        check(h, bundle.tryInsert(warm) == 3 && warm.isEmpty(), "inserted");
+        ItemStack out = bundle.removeOne();
+        check(h, out.getCount() == 3 && Warm.remaining(out, now) == 1000 && !out.get(LibComponents.WARM).insulated(),
+                "back out with its remaining time and normal cooling");
+        ItemStack probe = new ItemStack(Items.BAKED_POTATO);
+        probe.set(LibComponents.WARM, new Warm(now + 1000));
+        Warm.insulate(probe, now);
+        check(h, Warm.remaining(probe, now) == 4000, "inside a bundle it cools four times slower (12 000 -> 48 000 ticks)");
+        h.succeed();
+    }
+
+    private static void villageKitchen(GameTestHelper h) {
+        var access = h.getLevel().registryAccess();
+        com.simplelib.village.VillageKitchen.inject(access);
+        var pools = access.lookupOrThrow(net.minecraft.core.registries.Registries.TEMPLATE_POOL);
+        for (String type : com.simplelib.village.VillageKitchen.TYPES) {
+            var pool = pools.getValue(net.minecraft.resources.Identifier.withDefaultNamespace("village/" + type + "/houses"));
+            check(h, pool != null, "pool " + type);
+            long copies = ((com.simplelib.mixin.TemplatePoolAccessor) pool).simplelib$templates().stream()
+                    .filter(e -> e.toString().contains("simplelib:village/" + type + "/field_kitchen")).count();
+            check(h, copies == LibConfig.villageKitchenWeight, type + ": kitchen added once with weight " + LibConfig.villageKitchenWeight + ", found " + copies);
+            check(h, h.getLevel().getStructureTemplateManager().get(com.simplelib.SimpleLib.id("village/" + type + "/field_kitchen")).isPresent(),
+                    type + ": structure file loads");
+        }
+        h.succeed();
+    }
+
+    private static void barrelAttach(GameTestHelper h) {
+        BlockPos rel = new BlockPos(2, 2, 2);
+        CrucibleBlockEntity be = crucible(h, rel, Blocks.LAVA_CAULDRON.defaultBlockState(), LibBlocks.IRON_CRUCIBLE);
+        BlockPos barrelRel = rel.east();
+        h.setBlock(barrelRel, LibBlocks.COPPER_BARREL);
+        BlockPos barrelAbs = h.absolutePos(barrelRel);
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        ItemStack axe = new ItemStack(Items.IRON_AXE);
+        for (int i = 0; i < com.simplelib.crucible.CrucibleBarrelBlock.ATTACH_STRIKES; i++) {
+            check(h, com.simplelib.crucible.CrucibleBarrelBlock.attachStrike(h.getLevel(), barrelAbs, player, axe, 1), "attach strike " + (i + 1));
+            player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
+        }
+        var state = h.getLevel().getBlockState(barrelAbs);
+        check(h, state.getValue(com.simplelib.crucible.CrucibleBarrelBlock.ATTACHED)
+                && state.getValue(com.simplelib.crucible.CrucibleBarrelBlock.FACING) == Direction.WEST, "attached, facing the crucible");
+        var barrel = (com.simplelib.crucible.CrucibleBarrelBlockEntity) h.getLevel().getBlockEntity(barrelAbs);
+        check(h, barrel.getContainerSize() == 27, "on its own a copper barrel has 27 slots (owner 58)");
+        be.markHeatDirty();
+        be.setItem(0, new ItemStack(Items.RAW_GOLD));
+        run(h, be, 270);
+        check(h, barrel.getItem(0).is(Items.GOLD_INGOT), "result went into the barrel first (owner wish)");
+        check(h, be.getItem(3).isEmpty(), "not into the slot below");
         h.succeed();
     }
 
