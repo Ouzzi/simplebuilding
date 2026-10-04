@@ -13,17 +13,18 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gamerules.GameRules;
 
 /**
- * Resting in a hammock speeds the day up (docs/ai/PLAN-HAENGEMATTE-2026-10-02.md), the daytime counterpart of the bed.
+ * Resting in a hammock speeds the clock up (docs/ai/PLAN-HAENGEMATTE-2026-10-02.md, v2) - day and night, but it is no
+ * sleep: no skip to the morning, no respawn point, the phantom statistic is kept.
  *
  * <ul>
- *   <li>A hammock may be used while {@link Level#isBrightOutside()} in a dimension with a default clock - exactly when
- *       the vanilla bed rule {@code when_dark} says no. When it gets dark, vanilla wakes the resting players itself
- *       ({@code Player#tick} asks the hammock's bed rule every tick).</li>
+ *   <li>A hammock may be used in a dimension with a default clock and moving time (the overworld), at any time of
+ *       day.</li>
  *   <li>Like vanilla sleeping, enough players must rest: at least {@code max(1, ceil(active * players_sleeping_percentage
  *       / 100))} of the non-spectators in that level; a percentage above 100 turns it off, as it does for beds.</li>
  *   <li>Then the level's clock gets {@code factor - 1} extra ticks per tick (server option {@code server.hammock.timeFactor},
  *       1 to {@link com.simplebuilding.config.ServerTuning#MAX_HAMMOCK_FACTOR}), once per clock and server tick, and only
- *       with the game rule {@code advance_time}. {@code addTicks} keeps nothing in the save, unlike a clock rate.</li>
+ *       with the game rule {@code advance_time}. {@code addTicks} keeps nothing in the save, unlike a clock rate. Only the
+ *       clock (time of day) runs faster; the game tick - weather timer, crops, furnaces, redstone - does not.</li>
  * </ul>
  */
 public final class HammockTime {
@@ -37,7 +38,7 @@ public final class HammockTime {
 
     /** Whether a hammock may be (and stay) used in this level right now. */
     public static boolean restAllowed(Level level) {
-        return level.dimensionType().defaultClock().isPresent() && level.isBrightOutside();
+        return level.dimensionType().defaultClock().isPresent() && !level.dimensionType().hasFixedTime();
     }
 
     /** Whether this player lies in a hammock. */
@@ -107,18 +108,22 @@ public final class HammockTime {
 
     /**
      * Vanilla's "x/y players sleeping" action bar is on-screen text; hammocks stay silent (owner rule). It is skipped while
-     * nobody sleeps in a real bed and either the hammock may be used or a hammock was just left.
+     * nobody sleeps in a real bed and somebody rests in a hammock or a hammock was just left.
      */
     public static boolean silenceSleepAnnouncement(ServerLevel level) {
         if (!com.simplebuilding.version.McVersion.HAMMOCK) {
             return false;
         }
+        boolean resting = false;
         for (Player player : level.players()) {
-            if (player.isSleeping() && !inHammock(player)) {
-                return false;
+            if (player.isSleeping()) {
+                if (!inHammock(player)) {
+                    return false;
+                }
+                resting = true;
             }
         }
         Long wake = LAST_WAKE.get(level);
-        return restAllowed(level) || wake != null && wake == level.getGameTime();
+        return resting || wake != null && wake == level.getGameTime();
     }
 }

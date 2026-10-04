@@ -192,14 +192,14 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD))
                         .save(output);
 
-                // Haengematten (2026-10-02): Stock, Faden, Stock ueber drei Wolle einer Farbe; Faerben wie Betten
+                // Haengematten (2026-10-02, v2 2026-10-04): Faden, Stock, Faden ueber drei Wolle einer Farbe; Faerben wie Betten
                 // (jede andere Haengematte + Farbstoff).
                 if (com.simplebuilding.version.McVersion.HAMMOCK) {
                     for (Item hammock : ModItems.HAMMOCKS) {
                         DyeColor color = ((com.simplebuilding.blocks.custom.HammockBlock) ((net.minecraft.world.item.BlockItem) hammock).getBlock()).getColor();
                         Item wool = Items.WOOL.pick(color);
                         shaped(RecipeCategory.DECORATIONS, hammock)
-                                .pattern("/F/")
+                                .pattern("F/F")
                                 .pattern("WWW")
                                 .define('/', Items.STICK)
                                 .define('F', Items.STRING)

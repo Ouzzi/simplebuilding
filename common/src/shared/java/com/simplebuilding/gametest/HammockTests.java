@@ -7,8 +7,10 @@ import com.simplebuilding.blocks.custom.HammockRopeBlock;
 import com.simplebuilding.blocks.custom.HammockTime;
 import com.simplebuilding.config.ServerTuning;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.items.custom.HammockItem;
 import com.simplebuilding.version.McVersion;
 import java.util.List;
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -22,9 +24,13 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
@@ -34,15 +40,16 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Hammock (docs/ai/PLAN-HAENGEMATTE-2026-10-02.md): placement between two anchors 2 or 3 apart, falling and dropping
- * once, resting by day, the clock speed-up and its share of players, the capped server option. Loader-neutral; on lines
- * without {@link McVersion#HAMMOCK} the tests pass at once.
+ * Hammock (docs/ai/PLAN-HAENGEMATTE-2026-10-02.md, v2): placement between two anchors 2 to 4 apart, straight in one click
+ * or diagonal in two, the cloth in the middle, falling and dropping once, resting day and night, the clock speed-up and
+ * its share of players, the recipe, the capped server option. Loader-neutral; on lines without {@link McVersion#HAMMOCK}
+ * the tests pass at once.
  */
 public final class HammockTests {
     private HammockTests() {
     }
 
-    /** Anchors on rope height y=3, the cloth hangs at y=2; columns run south. */
+    /** Anchors on rope height y=3, the cloth hangs at y=2; straight hammocks run south from z=1. */
     private static final int ROPE_Y = 3;
 
     private static ServerPlayer player(GameTestHelper helper, GameType mode) {
@@ -54,56 +61,62 @@ public final class HammockTests {
         return player;
     }
 
-    /** Clicks the south face of the block at {@code anchor} (relative) with a white hammock. */
-    private static InteractionResult hangFrom(GameTestHelper helper, ServerPlayer player, BlockPos anchor) {
-        ItemStack stack = new ItemStack(ModItems.WHITE_HAMMOCK);
-        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+    private static ItemStack hold(ServerPlayer player) {
+        ItemStack held = player.getMainHandItem();
+        if (!held.is(ModItems.WHITE_HAMMOCK)) {
+            held = new ItemStack(ModItems.WHITE_HAMMOCK);
+            player.setItemInHand(InteractionHand.MAIN_HAND, held);
+        }
+        return held;
+    }
+
+    /** Clicks the south face of the block at {@code anchor} (relative) with a white hammock (the one in hand, if any). */
+    private static InteractionResult click(GameTestHelper helper, ServerPlayer player, BlockPos anchor) {
+        ItemStack stack = hold(player);
         BlockPos abs = helper.absolutePos(anchor);
         BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs).add(0.0, 0.0, 0.5), Direction.SOUTH, abs, false);
         return stack.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit));
     }
 
-    private static BlockState at(GameTestHelper helper, int x, int y, int z) {
-        return helper.getBlockState(new BlockPos(x, y, z));
+    private static BlockState at(GameTestHelper helper, BlockPos pos) {
+        return helper.getBlockState(pos);
     }
 
     private static boolean isHammock(BlockState state) {
         return state.getBlock() instanceof HammockBlock || state.getBlock() instanceof HammockRopeBlock;
     }
 
-    /** Asserts the white hammock that hangs from (x, ROPE_Y, z0) southwards across {@code gap} blocks. */
-    private static void assertHangs(GameTestHelper helper, int x, int z0, int gap) {
-        BlockState foot = at(helper, x, ROPE_Y - 1, z0 + 1);
-        BlockState head = at(helper, x, ROPE_Y - 1, z0 + 2);
-        helper.assertTrue(foot.is(ModBlocks.WHITE_HAMMOCK) && foot.getValue(HammockBlock.PART) == BedPart.FOOT
-                && foot.getValue(HammockBlock.FACING) == Direction.SOUTH, "gap " + gap + ": no cloth foot, got " + foot);
-        helper.assertTrue(head.is(ModBlocks.WHITE_HAMMOCK) && head.getValue(HammockBlock.PART) == BedPart.HEAD,
-                "gap " + gap + ": no cloth head, got " + head);
-        BlockState footRope = at(helper, x, ROPE_Y, z0 + 1);
-        BlockState headRope = at(helper, x, ROPE_Y, z0 + 2);
-        helper.assertTrue(footRope.is(ModBlocks.HAMMOCK_ROPE) && footRope.getValue(HammockRopeBlock.FACING) == Direction.NORTH
-                && footRope.getValue(HammockRopeBlock.KIND) == HammockRopeBlock.Kind.END, "gap " + gap + ": foot rope " + footRope);
-        helper.assertTrue(headRope.is(ModBlocks.HAMMOCK_ROPE) && headRope.getValue(HammockRopeBlock.FACING) == Direction.SOUTH
-                && headRope.getValue(HammockRopeBlock.KIND) == HammockRopeBlock.Kind.END, "gap " + gap + ": head rope " + headRope);
-        BlockState span = at(helper, x, ROPE_Y, z0 + 3);
-        if (gap == 3) {
-            helper.assertTrue(span.is(ModBlocks.HAMMOCK_ROPE) && span.getValue(HammockRopeBlock.KIND) == HammockRopeBlock.Kind.SPAN,
-                    "gap 3: no rope span in front of the head anchor, got " + span);
-        } else {
-            helper.assertTrue(span.is(Blocks.STONE), "gap 2: the head anchor was replaced: " + span);
+    /** Asserts the white hammock {@code spot} (relative): rope cells everywhere, cloth only under the cloth, head in place. */
+    private static void assertHangs(GameTestHelper helper, HammockLayout.Spot spot, String what) {
+        for (int i = 0; i < spot.gap(); i++) {
+            BlockState rope = at(helper, spot.rope(i));
+            helper.assertTrue(rope.is(ModBlocks.HAMMOCK_ROPE) && rope.getValue(HammockRopeBlock.FACING) == spot.facing()
+                    && rope.getValue(HammockLayout.DIAGONAL) == spot.diagonal() && rope.getValue(HammockLayout.GAP) == spot.gap()
+                    && rope.getValue(HammockLayout.INDEX) == i, what + ": rope cell " + i + " is " + rope);
+            BlockState below = at(helper, spot.rope(i).below());
+            boolean cloth = HammockLayout.clothCells(spot.gap()).contains(i);
+            if (cloth) {
+                boolean head = i == HammockLayout.headCell(spot.gap());
+                helper.assertTrue(below.is(ModBlocks.WHITE_HAMMOCK) && below.getValue(HammockLayout.INDEX) == i
+                        && (below.getValue(HammockBlock.PART) == BedPart.HEAD) == head, what + ": cloth cell " + i + " is " + below);
+            } else {
+                helper.assertTrue(below.isAir(), what + ": cell " + i + " under the ropes is not free: " + below);
+            }
         }
+        helper.assertTrue(HammockLayout.intact(helper.getLevel(), helper.absolutePos(spot.clothHead()),
+                helper.getLevel().getBlockState(helper.absolutePos(spot.clothHead()))), what + ": not intact");
     }
 
     private static void assertNoHammockIn(GameTestHelper helper, int x, String what) {
         for (int y = 1; y <= ROPE_Y + 1; y++) {
             for (int z = 0; z < 8; z++) {
-                helper.assertFalse(isHammock(at(helper, x, y, z)), what + ": hammock block left at " + x + "," + y + "," + z);
+                helper.assertFalse(isHammock(at(helper, new BlockPos(x, y, z))), what + ": hammock block left at " + x + "," + y + "," + z);
             }
         }
     }
 
     private static int dropped(GameTestHelper helper, Item item) {
-        AABB box = new AABB(helper.absolutePos(BlockPos.ZERO)).inflate(0.0).expandTowards(8.0, 6.0, 8.0);
+        AABB box = new AABB(helper.absolutePos(BlockPos.ZERO)).expandTowards(8.0, 6.0, 8.0);
         int count = 0;
         for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, box, e -> e.getItem().is(item))) {
             count += entity.getItem().getCount();
@@ -111,80 +124,144 @@ public final class HammockTests {
         return count;
     }
 
-    /** Builds a hammock between stone anchors at (x, ROPE_Y, 1) and (x, ROPE_Y, 2 + gap) through the item. */
-    private static void hang(GameTestHelper helper, ServerPlayer player, int x, int gap) {
-        helper.setBlock(new BlockPos(x, ROPE_Y, 1), Blocks.STONE);
-        helper.setBlock(new BlockPos(x, ROPE_Y, 2 + gap), Blocks.STONE);
-        InteractionResult result = hangFrom(helper, player, new BlockPos(x, ROPE_Y, 1));
-        helper.assertTrue(result.consumesAction(), "gap " + gap + ": the hammock was refused (" + result + ")");
+    private static HammockLayout.Spot straight(int x, int gap) {
+        return new HammockLayout.Spot(new BlockPos(x, ROPE_Y, 1), Direction.SOUTH, false, gap);
     }
 
-    /** Gap 1 and 4 fail, 2 and 3 hang (3 with a rope span); one anchor alone fails; a fence holds like a block. */
-    public static void hangsOnlyBetweenTwoAnchorsTwoOrThreeApart(GameTestHelper helper) {
+    /** Builds a straight hammock between stone anchors at (x, ROPE_Y, 1) and (x, ROPE_Y, 2 + gap) with one click. */
+    private static HammockLayout.Spot hang(GameTestHelper helper, ServerPlayer player, int x, int gap) {
+        HammockLayout.Spot spot = straight(x, gap);
+        helper.setBlock(spot.anchor(), Blocks.STONE);
+        helper.setBlock(spot.otherAnchor(), Blocks.STONE);
+        InteractionResult result = click(helper, player, spot.anchor());
+        helper.assertTrue(result.consumesAction(), "gap " + gap + ": the hammock was refused (" + result + ")");
+        return spot;
+    }
+
+    /** One click: gaps 1 and 5 fail, 2, 3 and 4 hang with the cloth in the middle; a fence holds like a block. */
+    public static void hangsOnlyBetweenTwoAnchorsTwoToFourApart(GameTestHelper helper) {
         if (!McVersion.HAMMOCK) {
             helper.succeed();
             return;
         }
         ServerPlayer player = player(helper, GameType.SURVIVAL);
-        for (int gap = 1; gap <= 4; gap++) {
-            int x = gap;
-            helper.setBlock(new BlockPos(x, ROPE_Y, 1), Blocks.STONE);
-            helper.setBlock(new BlockPos(x, ROPE_Y, 2 + gap), Blocks.STONE);
-            InteractionResult result = hangFrom(helper, player, new BlockPos(x, ROPE_Y, 1));
-            if (gap == 2 || gap == 3) {
+        for (int gap = 1; gap <= 5; gap++) {
+            HammockLayout.Spot spot = straight(gap, gap);
+            helper.setBlock(spot.anchor(), Blocks.STONE);
+            helper.setBlock(spot.otherAnchor(), Blocks.STONE);
+            InteractionResult result = click(helper, player, spot.anchor());
+            if (gap >= 2 && gap <= 4) {
                 helper.assertTrue(result.consumesAction(), "gap " + gap + " was refused: " + result);
-                assertHangs(helper, x, 1, gap);
+                assertHangs(helper, spot, "gap " + gap);
             } else {
-                helper.assertTrue(result == InteractionResult.FAIL, "gap " + gap + " was not refused: " + result);
-                assertNoHammockIn(helper, x, "gap " + gap);
+                assertNoHammockIn(helper, gap, "gap " + gap);
+                // no hammock, but the clicked anchor waits for a second click (two-click placing)
+                helper.assertValueEqual(HammockItem.storedAnchor(player.getMainHandItem(), helper.getLevel()),
+                        Optional.of(helper.absolutePos(spot.anchor())), "gap " + gap + ": remembered anchor");
+                HammockItem.clearAnchor(player.getMainHandItem());
             }
         }
-        // One anchor alone: nothing to tie the head to.
-        helper.setBlock(new BlockPos(5, ROPE_Y, 1), Blocks.STONE);
-        helper.assertTrue(hangFrom(helper, player, new BlockPos(5, ROPE_Y, 1)) == InteractionResult.FAIL, "one anchor was enough");
-        assertNoHammockIn(helper, 5, "one anchor");
-        // Fences hold a hammock like full blocks (rods and walls the same: any collision shape).
         helper.setBlock(new BlockPos(6, ROPE_Y, 1), Blocks.OAK_FENCE);
         helper.setBlock(new BlockPos(6, ROPE_Y, 4), Blocks.OAK_FENCE);
-        helper.assertTrue(hangFrom(helper, player, new BlockPos(6, ROPE_Y, 1)).consumesAction(), "fences did not hold the hammock");
-        helper.assertTrue(at(helper, 6, ROPE_Y - 1, 3).is(ModBlocks.WHITE_HAMMOCK), "no cloth head between the fences");
-        helper.assertTrue(HammockLayout.isAnchor(helper.getLevel(), helper.absolutePos(new BlockPos(6, ROPE_Y, 1))), "a fence is no anchor");
+        helper.assertTrue(click(helper, player, new BlockPos(6, ROPE_Y, 1)).consumesAction(), "fences did not hold the hammock");
+        assertHangs(helper, straight(6, 2), "between fences");
         helper.assertFalse(HammockLayout.isAnchor(helper.getLevel(), helper.absolutePos(new BlockPos(7, ROPE_Y, 1))), "air is an anchor");
         helper.succeed();
     }
 
-    /** Removing either anchor (with and without rope span) or breaking a part brings the whole hammock down, one item. */
+    /** The cloth hangs in the middle at every gap: cloth cells, head cell and the lying player's shift along the line. */
+    public static void clothHangsInTheMiddleAtEveryGap(GameTestHelper helper) {
+        helper.assertValueEqual(HammockLayout.clothCells(2), List.of(0, 1), "cloth cells, gap 2");
+        helper.assertValueEqual(HammockLayout.clothCells(3), List.of(0, 1, 2), "cloth cells, gap 3");
+        helper.assertValueEqual(HammockLayout.clothCells(4), List.of(1, 2), "cloth cells, gap 4");
+        helper.assertValueEqual(HammockLayout.headCell(2), 1, "head, gap 2");
+        helper.assertValueEqual(HammockLayout.headCell(3), 1, "head, gap 3");
+        helper.assertValueEqual(HammockLayout.headCell(4), 2, "head, gap 4");
+        // the head point is the cloth middle + half a block: on the head cell's centre for 2 and 4, half a block on for 3
+        helper.assertTrue(Math.abs(HammockLayout.headShift(2, false)) < 1.0E-9, "shift, gap 2");
+        helper.assertTrue(Math.abs(HammockLayout.headShift(3, false) - 0.5) < 1.0E-9, "shift, gap 3");
+        helper.assertTrue(Math.abs(HammockLayout.headShift(4, false)) < 1.0E-9, "shift, gap 4");
+        helper.assertTrue(Math.abs(HammockLayout.headShift(3, true) - 0.5) < 1.0E-9, "shift, diagonal gap 3");
+        helper.assertTrue(Math.abs(HammockLayout.headShift(2, true) - (0.5 - 0.5 * Math.sqrt(2.0))) < 1.0E-9, "shift, diagonal gap 2");
+        // symmetry: the cells under the cloth mirror around the middle of the gap
+        for (int gap = HammockLayout.MIN_GAP; gap <= HammockLayout.MAX_GAP; gap++) {
+            for (int i : HammockLayout.clothCells(gap)) {
+                helper.assertTrue(HammockLayout.clothCells(gap).contains(gap - 1 - i), "cloth cells not symmetric for gap " + gap);
+            }
+        }
+        helper.succeed();
+    }
+
+    /** Two clicks: first anchor remembered, second anchor hangs a 45-degree hammock; knight moves and gap 5 do not. */
+    public static void diagonalHammockNeedsTwoClicks(GameTestHelper helper) {
+        if (!McVersion.HAMMOCK) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = player(helper, GameType.SURVIVAL);
+        BlockPos a = new BlockPos(1, ROPE_Y, 1);
+        BlockPos b = new BlockPos(4, ROPE_Y, 4);
+        helper.setBlock(a, Blocks.STONE);
+        helper.setBlock(b, Blocks.STONE);
+        helper.assertTrue(click(helper, player, a).consumesAction(), "the first click on an anchor was refused");
+        helper.assertValueEqual(HammockItem.storedAnchor(player.getMainHandItem(), helper.getLevel()), Optional.of(helper.absolutePos(a)),
+                "remembered first anchor");
+        helper.assertTrue(click(helper, player, b).consumesAction(), "the second click did not hang the diagonal hammock");
+        helper.assertTrue(HammockItem.storedAnchor(player.getMainHandItem(), helper.getLevel()).isEmpty(), "the first anchor stayed remembered");
+        HammockLayout.Spot spot = new HammockLayout.Spot(a, Direction.EAST, true, 2);
+        helper.assertValueEqual(spot.otherAnchor(), b, "diagonal line");
+        assertHangs(helper, spot, "diagonal gap 2");
+        BlockPos o = new BlockPos(0, 0, 0);
+        helper.assertTrue(HammockLayout.between(o, new BlockPos(2, 0, 3)).isEmpty(), "a knight move is a hammock line");
+        helper.assertTrue(HammockLayout.between(o, new BlockPos(6, 0, 6)).isEmpty(), "diagonal gap 5 is allowed");
+        helper.assertTrue(HammockLayout.between(o, new BlockPos(0, 1, 3)).isEmpty(), "anchors at different heights");
+        helper.assertValueEqual(HammockLayout.between(o, new BlockPos(-5, 0, 5)).map(HammockLayout.Spot::gap), Optional.of(4), "diagonal gap 4");
+        helper.assertValueEqual(HammockLayout.between(o, new BlockPos(0, 0, -5)).map(HammockLayout.Spot::facing), Optional.of(Direction.NORTH),
+                "straight gap 4 to the north");
+        // the diagonal anchor touches its rope cell only at an edge: the cloth head's own check brings it down
+        helper.setBlock(b, Blocks.AIR);
+        helper.runAfterDelay(HammockBlock.CHECK_TICKS + 5, () -> {
+            for (int i = 0; i < 2; i++) {
+                helper.assertFalse(isHammock(at(helper, spot.rope(i))) || isHammock(at(helper, spot.rope(i).below())),
+                        "diagonal hammock still hangs at cell " + i);
+            }
+            helper.assertValueEqual(dropped(helper, ModItems.WHITE_HAMMOCK), 1, "hammocks dropped by the fallen diagonal one");
+            helper.succeed();
+        });
+    }
+
+    /** Removing either anchor (gap 2 and gap 4) brings the whole hammock down, one item each. */
     public static void losingAnAnchorDropsTheHammockOnce(GameTestHelper helper) {
         if (!McVersion.HAMMOCK) {
             helper.succeed();
             return;
         }
         ServerPlayer player = player(helper, GameType.SURVIVAL);
-        hang(helper, player, 1, 2);
-        hang(helper, player, 3, 3);
-        helper.setBlock(new BlockPos(1, ROPE_Y, 1), Blocks.AIR); // foot anchor of the short one
-        helper.setBlock(new BlockPos(3, ROPE_Y, 5), Blocks.AIR); // head anchor of the long one (behind the rope span)
-        helper.runAfterDelay(2, () -> {
-            assertNoHammockIn(helper, 1, "foot anchor removed");
-            assertNoHammockIn(helper, 3, "head anchor removed");
+        HammockLayout.Spot shorter = hang(helper, player, 1, 2);
+        HammockLayout.Spot longer = hang(helper, player, 3, 4);
+        helper.setBlock(shorter.anchor(), Blocks.AIR);
+        helper.setBlock(longer.otherAnchor(), Blocks.AIR);
+        helper.runAfterDelay(3, () -> {
+            assertNoHammockIn(helper, 1, "first anchor removed");
+            assertNoHammockIn(helper, 3, "second anchor removed");
             helper.assertValueEqual(dropped(helper, ModItems.WHITE_HAMMOCK), 2, "hammocks dropped for two lost anchors");
             helper.succeed();
         });
     }
 
-    /** Survival: breaking a rope drops the hammock once; creative: breaking the cloth foot drops nothing. */
+    /** Survival: breaking a rope drops the hammock once; creative: breaking a cloth cell drops nothing. */
     public static void breakingOnePartDropsOnceExceptInCreative(GameTestHelper helper) {
         if (!McVersion.HAMMOCK) {
             helper.succeed();
             return;
         }
         ServerPlayer survival = player(helper, GameType.SURVIVAL);
-        hang(helper, survival, 1, 2);
-        survival.gameMode.destroyBlock(helper.absolutePos(new BlockPos(1, ROPE_Y, 2)));
+        HammockLayout.Spot first = hang(helper, survival, 1, 2);
+        survival.gameMode.destroyBlock(helper.absolutePos(first.rope(0)));
         ServerPlayer creative = player(helper, GameType.CREATIVE);
-        hang(helper, creative, 4, 2);
-        creative.gameMode.destroyBlock(helper.absolutePos(new BlockPos(4, ROPE_Y - 1, 2)));
-        helper.runAfterDelay(2, () -> {
+        HammockLayout.Spot second = hang(helper, creative, 4, 2);
+        creative.gameMode.destroyBlock(helper.absolutePos(second.rope(0).below()));
+        helper.runAfterDelay(3, () -> {
             assertNoHammockIn(helper, 1, "survival break");
             assertNoHammockIn(helper, 4, "creative break");
             helper.assertValueEqual(dropped(helper, ModItems.WHITE_HAMMOCK), 1, "hammocks dropped (survival one, creative none)");
@@ -193,32 +270,25 @@ public final class HammockTests {
     }
 
     /**
-     * Resting: by day the player lies down in vanilla's sleeping pose along the hammock, the phantom statistic stays,
-     * the sleep counter never reaches "long enough", and the clock gets factor - 1 extra ticks while all active players
-     * rest (a standing player counts; mock players cannot be spectators, so that part is vanilla's SleepStatus rule). At night (the test server's fixed time decides which
-     * branch runs) lying down is refused.
+     * Resting, day or night: the player lies down in vanilla's sleeping pose along the hammock, the phantom statistic
+     * stays, the sleep counter never reaches "long enough" (no skip to the morning, no respawn point), and the clock gets
+     * factor - 1 extra ticks while all active players rest (a standing player counts; mock players cannot be spectators,
+     * so that part is vanilla's SleepStatus rule).
      */
-    public static void restingByDayKeepsThePhantomTimerAndSpeedsTheClock(GameTestHelper helper) {
+    public static void restingKeepsThePhantomTimerAndSpeedsTheClock(GameTestHelper helper) {
         if (!McVersion.HAMMOCK) {
             helper.succeed();
             return;
         }
         ServerLevel level = helper.getLevel();
         ServerPlayer player = player(helper, GameType.SURVIVAL);
-        hang(helper, player, 1, 2);
-        BlockPos head = helper.absolutePos(new BlockPos(1, ROPE_Y - 1, 3));
+        HammockLayout.Spot spot = hang(helper, player, 1, 2);
+        BlockPos head = helper.absolutePos(spot.clothHead());
         Stat<?> sinceRest = Stats.CUSTOM.get(Stats.TIME_SINCE_REST);
         player.getStats().setValue(player, sinceRest, 5000);
-        boolean day = HammockTime.restAllowed(level);
-        helper.assertValueEqual(day, level.isBrightOutside() && level.dimensionType().defaultClock().isPresent(), "rest rule");
-        boolean rested = HammockBlock.rest(player, head);
-        if (!day) {
-            helper.assertFalse(rested || player.isSleeping(), "a hammock was usable at night");
-            helper.assertValueEqual(HammockTime.extraTicks(level, List.of(player)), 0, "extra ticks at night");
-            helper.succeed();
-            return;
-        }
-        helper.assertTrue(rested && player.isSleeping() && HammockTime.inHammock(player), "the player did not lie down by day");
+        helper.assertTrue(HammockTime.restAllowed(level), "a hammock is not usable in the overworld at this time of day");
+        helper.assertTrue(HammockBlock.rest(player, head) && player.isSleeping() && HammockTime.inHammock(player),
+                "the player did not lie down");
         helper.assertValueEqual(player.getPose(), Pose.SLEEPING, "pose");
         helper.assertValueEqual(player.getBedOrientation(), Direction.SOUTH, "lying direction");
         helper.assertTrue(Math.abs(player.getY() - (head.getY() + HammockBlock.SLEEP_HEIGHT + 0.125)) < 1.0E-3, "lying height " + player.getY());
@@ -228,17 +298,18 @@ public final class HammockTests {
         for (int i = 0; i < 120; i++) {
             player.doTick();
         }
-        helper.assertTrue(player.isSleeping(), "the player woke up by day");
+        helper.assertTrue(player.isSleeping(), "the player woke up");
         helper.assertValueEqual(player.getSleepTimer(), HammockTime.DOZE_TICKS, "sleep counter");
-        helper.assertFalse(player.isSleepingLongEnough(), "a hammock sleeper counts as sleeping long enough (would skip the day)");
+        helper.assertFalse(player.isSleepingLongEnough(), "a hammock sleeper counts as sleeping long enough (would skip the night)");
+        helper.assertTrue(player.getRespawnConfig() == null || !head.equals(player.getRespawnConfig().respawnData().pos()),
+                "the hammock set the respawn point");
 
         GameRules rules = level.getGameRules();
         boolean advance = rules.get(GameRules.ADVANCE_TIME);
         try {
             rules.set(GameRules.ADVANCE_TIME, true, level.getServer());
             int factor = ServerTuning.hammockTimeFactor();
-
-            helper.assertValueEqual(HammockTime.extraTicks(level, List.of(player)), factor - 1, "extra ticks by day");
+            helper.assertValueEqual(HammockTime.extraTicks(level, List.of(player)), factor - 1, "extra ticks while resting");
             ServerPlayer standing = player(helper, GameType.SURVIVAL);
             int percentage = rules.get(GameRules.PLAYERS_SLEEPING_PERCENTAGE);
             int expected = HammockTime.restersNeeded(2, percentage) <= 1 ? factor - 1 : 0;
@@ -255,10 +326,10 @@ public final class HammockTests {
         helper.succeed();
     }
 
-    /** The share of players like vanilla sleeping: day only, game rules respected, at least one, rounded up. */
-    public static void clockSpeedsUpOnlyByDayWithEnoughResters(GameTestHelper helper) {
-        helper.assertValueEqual(HammockTime.extraTicks(1, 1, 100, true, true, 8), 7, "one player resting alone by day");
-        helper.assertValueEqual(HammockTime.extraTicks(1, 1, 100, false, true, 8), 0, "at night");
+    /** The share of players like vanilla sleeping, day and night alike; game rules respected, at least one, rounded up. */
+    public static void clockSpeedsUpWithEnoughRestersDayAndNight(GameTestHelper helper) {
+        helper.assertValueEqual(HammockTime.extraTicks(1, 1, 100, true, true, 8), 7, "one player resting alone");
+        helper.assertValueEqual(HammockTime.extraTicks(1, 1, 100, false, true, 8), 0, "a dimension without a day clock");
         helper.assertValueEqual(HammockTime.extraTicks(1, 1, 100, true, false, 8), 0, "advance_time off");
         helper.assertValueEqual(HammockTime.extraTicks(1, 1, 101, true, true, 8), 0, "players_sleeping_percentage above 100");
         helper.assertValueEqual(HammockTime.extraTicks(3, 1, 50, true, true, 8), 0, "1 of 3 at 50 %");
@@ -270,6 +341,32 @@ public final class HammockTests {
         helper.assertValueEqual(HammockTime.extraTicks(2, 2, 100, true, true, 1), 0, "factor 1 is off");
         helper.assertValueEqual(HammockTime.restersNeeded(5, 30), 2, "30 % of 5 rounds up");
         helper.assertValueEqual(HammockTime.restersNeeded(0, 100), 1, "never fewer than one");
+        // day and night: the overworld allows resting whatever its time of day; the nether and the end never
+        helper.assertTrue(HammockTime.restAllowed(helper.getLevel()), "the overworld does not allow resting now");
+        ServerLevel nether = helper.getLevel().getServer().getLevel(net.minecraft.world.level.Level.NETHER);
+        if (nether != null) {
+            helper.assertFalse(HammockTime.restAllowed(nether), "the nether allows resting");
+        }
+        helper.succeed();
+    }
+
+    /** Recipe: String, Stick, String over three wool of one colour; the old Stick, String, Stick no longer makes one. */
+    public static void recipeTakesTwoStringsOneStickAndThreeWool(GameTestHelper helper) {
+        if (!McVersion.HAMMOCK) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        ItemStack s = new ItemStack(Items.STRING);
+        ItemStack k = new ItemStack(Items.STICK);
+        ItemStack w = new ItemStack(Items.WOOL.pick(net.minecraft.world.item.DyeColor.RED));
+        CraftingInput grid = CraftingInput.of(3, 2, List.of(s, k, s, w, w, w));
+        Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, grid, level);
+        helper.assertTrue(match.isPresent(), "String, Stick, String over red wool crafts nothing");
+        helper.assertTrue(match.get().value().assemble(grid).is(ModItems.RED_HAMMOCK), "the recipe does not make a red hammock");
+        CraftingInput old = CraftingInput.of(3, 2, List.of(k, s, k, w, w, w));
+        Optional<RecipeHolder<CraftingRecipe>> oldMatch = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, old, level);
+        helper.assertFalse(oldMatch.isPresent() && oldMatch.get().value().assemble(old).is(ModItems.RED_HAMMOCK), "the old recipe still works");
         helper.succeed();
     }
 

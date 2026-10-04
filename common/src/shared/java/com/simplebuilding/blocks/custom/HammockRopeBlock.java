@@ -1,12 +1,10 @@
 package com.simplebuilding.blocks.custom;
 
 import com.mojang.serialization.MapCodec;
-import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
-import net.minecraft.util.Util;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -19,43 +17,25 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * The ropes of a hammock ({@link HammockLayout}): {@code end} above each cloth block, fanning up to the anchor, and
- * {@code span} across the third block of a gap of 3. {@code facing} points towards the anchor. Uncoloured and shared by
- * all hammocks; no item, no drops, no collision. A click on the ropes rests in the hammock like a click on the cloth.
+ * The upper layer of a hammock ({@link HammockLayout}): one block in every cell between the anchors. The two end cells
+ * draw the ropes from the anchor down to the cloth's spreader, the cells between are invisible links. Uncoloured and
+ * shared by all hammocks; no item, no drops, no collision. A click on it rests in the hammock like a click on the cloth.
  */
 public class HammockRopeBlock extends HorizontalDirectionalBlock {
-    public enum Kind implements StringRepresentable {
-        END("end"),
-        SPAN("span");
-
-        private final String name;
-
-        Kind(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String getSerializedName() {
-            return name;
-        }
-    }
-
-    public static final EnumProperty<Kind> KIND = EnumProperty.create("kind", Kind.class);
     public static final MapCodec<HammockRopeBlock> CODEC = com.simplebuilding.version.BlockCodecs.simple(HammockRopeBlock::new);
-    /** Shapes with the anchor to the north, turned like the block. */
-    private static final Map<Direction, VoxelShape> ENDS = Util.make(() -> Shapes.rotateHorizontal(Block.box(1.0, 0.0, 0.0, 15.0, 10.0, 4.0)));
-    private static final Map<Direction, VoxelShape> SPANS = Util.make(() -> Shapes.rotateHorizontal(Block.box(7.0, 6.0, 0.0, 9.0, 9.0, 16.0)));
+    private static final VoxelShape END = Block.box(3.0, 0.0, 3.0, 13.0, 10.0, 13.0);
+    private static final VoxelShape LINK = Block.box(6.0, 5.0, 6.0, 10.0, 9.0, 10.0);
 
     public HammockRopeBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(KIND, Kind.END));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HammockLayout.DIAGONAL, false)
+                .setValue(HammockLayout.GAP, HammockLayout.MIN_GAP).setValue(HammockLayout.INDEX, 0));
     }
 
     // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.
@@ -65,12 +45,18 @@ public class HammockRopeBlock extends HorizontalDirectionalBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, KIND);
+        builder.add(FACING, HammockLayout.DIAGONAL, HammockLayout.GAP, HammockLayout.INDEX);
+    }
+
+    /** End cells draw a rope; the others are links. */
+    public static boolean isEnd(BlockState state) {
+        int index = state.getValue(HammockLayout.INDEX);
+        return index == 0 || index == state.getValue(HammockLayout.GAP) - 1;
     }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return (state.getValue(KIND) == Kind.END ? ENDS : SPANS).get(state.getValue(FACING));
+        return isEnd(state) ? END : LINK;
     }
 
     @Override
@@ -81,7 +67,18 @@ public class HammockRopeBlock extends HorizontalDirectionalBlock {
     @Override
     protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos,
             Direction directionToNeighbour, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
-        return HammockLayout.ropeHangs(level, pos, state) ? state : Blocks.AIR.defaultBlockState();
+        return HammockLayout.intact(level, pos, state) ? state : Blocks.AIR.defaultBlockState();
+    }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        HammockLayout.check(level, pos, state);
+    }
+
+    @Override
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
+        HammockLayout.scheduleChecks(level, pos, state);
     }
 
     @Override
@@ -95,8 +92,8 @@ public class HammockRopeBlock extends HorizontalDirectionalBlock {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS_SERVER;
         }
-        BlockPos head = HammockLayout.clothHead(level, pos);
-        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer && (head == null || !HammockBlock.rest(serverPlayer, head))) {
+        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer
+                && !HammockBlock.rest(serverPlayer, HammockLayout.clothHead(level, pos))) {
             HammockLayout.refuse(serverPlayer, null);
         }
         return InteractionResult.SUCCESS_SERVER;

@@ -7,7 +7,7 @@
     "W": "minecraft:cyan_wool"
   },
   "pattern": [
-    "/F/",
+    "F/F",
     "WWW"
   ],
   "result": {

@@ -45,10 +45,12 @@ import org.jspecify.annotations.Nullable;
  * A hammock (26.3, docs/ai/PLAN-HAENGEMATTE-2026-10-02.md). A bed in vanilla's sense ({@link AbstractBedBlock}), so the
  * sleeping pose, its orientation, "leave bed" and the wake-up check are vanilla's; what differs:
  * <ul>
- *   <li>the two cloth blocks hang under two {@link HammockRopeBlock rope ends} ({@link HammockLayout}); every block
- *       falls as soon as a partner or an anchor is gone, and only the cloth head drops the item (loot table);</li>
- *   <li>usable by day ({@link HammockTime#restAllowed}), never sets the respawn point, and lying down keeps the
- *       phantom statistic ({@code time_since_rest}) instead of resetting it;</li>
+ *   <li>the cloth cells hang under the rope cells ({@link HammockLayout}, straight or diagonal, 2 to 4 cells between
+ *       the anchors); the whole hammock falls as soon as any part or an anchor is gone, and only the cloth head drops
+ *       the item (loot table); the cloth head also checks itself every 10 ticks (a diagonal anchor is no face
+ *       neighbour);</li>
+ *   <li>usable day and night ({@link HammockTime#restAllowed}) but no sleep: never sets the respawn point, never skips
+ *       the night, and lying down keeps the phantom statistic ({@code time_since_rest}) instead of resetting it;</li>
  *   <li>refusals are a sound only for the player, no text.</li>
  * </ul>
  * The 26.2 twin in {@code common/src/mc26_2} is never registered ({@code McVersion.HAMMOCK} is false there).
@@ -56,10 +58,14 @@ import org.jspecify.annotations.Nullable;
 public class HammockBlock extends AbstractBedBlock {
     /** The player lies this high above the lower head block (the cloth sags to 4/16). */
     public static final double SLEEP_HEIGHT = 0.25;
-    private static final BedRule BY_DAY = new BedRule(BedRule.Rule.ALWAYS, BedRule.Rule.NEVER, false, false, Optional.empty());
+    private static final BedRule USABLE = new BedRule(BedRule.Rule.ALWAYS, BedRule.Rule.NEVER, false, false, Optional.empty());
     private static final BedRule NOT_NOW = new BedRule(BedRule.Rule.NEVER, BedRule.Rule.NEVER, false, false, Optional.empty());
     private static final Map<Direction, VoxelShape> CLOTH = Util.make(() -> Shapes.rotateHorizontal(Block.box(1.0, 2.0, 0.0, 15.0, 10.0, 16.0)));
     private static final Map<Direction, VoxelShape> CLOTH_COLLISION = Util.make(() -> Shapes.rotateHorizontal(Block.box(1.0, 2.0, 0.0, 15.0, 5.0, 16.0)));
+    private static final VoxelShape DIAGONAL_CLOTH = Block.box(2.0, 2.0, 2.0, 14.0, 10.0, 14.0);
+    private static final VoxelShape DIAGONAL_COLLISION = Block.box(2.0, 2.0, 2.0, 14.0, 5.0, 14.0);
+    /** The cloth head checks its hammock (anchors included) this often. */
+    public static final int CHECK_TICKS = 10;
 
     private final DyeColor color;
 
@@ -68,7 +74,14 @@ public class HammockBlock extends AbstractBedBlock {
         this.color = color;
         // The default state is the loot owner, so a loot roll on the default state hands over the hammock.
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PART, BedPart.HEAD)
-                .setValue(OCCUPIED, false));
+                .setValue(OCCUPIED, false).setValue(HammockLayout.DIAGONAL, false).setValue(HammockLayout.GAP, HammockLayout.MIN_GAP)
+                .setValue(HammockLayout.INDEX, HammockLayout.headCell(HammockLayout.MIN_GAP)));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(net.minecraft.world.level.block.state.StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(HammockLayout.DIAGONAL, HammockLayout.GAP, HammockLayout.INDEX);
     }
 
     public DyeColor getColor() {
@@ -79,12 +92,12 @@ public class HammockBlock extends AbstractBedBlock {
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return CLOTH.get(state.getValue(FACING));
+        return state.getValue(HammockLayout.DIAGONAL) ? DIAGONAL_CLOTH : CLOTH.get(state.getValue(FACING));
     }
 
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return CLOTH_COLLISION.get(state.getValue(FACING));
+        return state.getValue(HammockLayout.DIAGONAL) ? DIAGONAL_COLLISION : CLOTH_COLLISION.get(state.getValue(FACING));
     }
 
     /**
@@ -106,7 +119,30 @@ public class HammockBlock extends AbstractBedBlock {
     @Override
     protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos,
             Direction directionToNeighbour, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
-        return HammockLayout.clothHangs(level, pos, state) ? state : Blocks.AIR.defaultBlockState();
+        return HammockLayout.intact(level, pos, state) ? state : Blocks.AIR.defaultBlockState();
+    }
+
+    @Override
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
+        if (!level.isClientSide() && state.getValue(PART) == BedPart.HEAD) {
+            level.scheduleTick(pos, this, CHECK_TICKS);
+        }
+    }
+
+    /** Scheduled: after a part went (every cell), and every {@link #CHECK_TICKS} ticks for the cloth head. */
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        HammockLayout.check(level, pos, state);
+        if (state.getValue(PART) == BedPart.HEAD && level.getBlockState(pos).is(this)) {
+            level.scheduleTick(pos, this, CHECK_TICKS);
+        }
+    }
+
+    @Override
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
+        HammockLayout.scheduleChecks(level, pos, state);
     }
 
     /** The hammock item places every block itself ({@code HammockItem}); a plain block placement never happens. */
@@ -133,10 +169,10 @@ public class HammockBlock extends AbstractBedBlock {
         return EnvironmentAttributes.BED_RULE; // unused: getBedRule is overridden
     }
 
-    /** By day "may sleep, never sets spawn"; otherwise "may not" - vanilla wakes a resting player with that. */
+    /** "May rest, never sets spawn" in a dimension with a day clock; otherwise "may not" - vanilla wakes with that. */
     @Override
     public BedRule getBedRule(Level level, BlockPos pos) {
-        return HammockTime.restAllowed(level) ? BY_DAY : NOT_NOW;
+        return HammockTime.restAllowed(level) ? USABLE : NOT_NOW;
     }
 
     @Override
@@ -167,8 +203,8 @@ public class HammockBlock extends AbstractBedBlock {
     }
 
     /**
-     * Lies the player down in the hammock whose lower head is at {@code head}: by day, if it is free, no monster is
-     * near (as for beds, not in creative) and the player is not lying already. The phantom statistic stays.
+     * Lies the player down in the hammock whose cloth head is at {@code head}: day or night, if it is free, no monster
+     * is near (as for beds, not in creative) and the player is not lying already. The phantom statistic stays.
      */
     public static boolean rest(ServerPlayer player, @Nullable BlockPos head) {
         if (head == null) {
