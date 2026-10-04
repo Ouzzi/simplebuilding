@@ -54,7 +54,7 @@ public final class PulsatingTrimTests {
                 hammer.setDamageValue(3);
                 List<ItemStack> grid = hammerFirst ? List.of(hammer, new ItemStack(Items.ECHO_SHARD))
                         : List.of(new ItemStack(Items.ECHO_SHARD), hammer);
-                CraftingInput input = CraftingInput.of(2, 1, grid);
+                CraftingInput input = pulsatingInput(grid);
                 Optional<RecipeHolder<CraftingRecipe>> match = find(helper, input);
                 if (match.isEmpty()) {
                     problems.add(grid + " crafts nothing");
@@ -79,7 +79,7 @@ public final class PulsatingTrimTests {
         // Ein Hammer kurz vor dem Bruch bricht beim Herstellen.
         ItemStack worn = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
         worn.setDamageValue(worn.getMaxDamage() - SledgehammerCrafting.CRAFT_DAMAGE);
-        CraftingInput wornInput = CraftingInput.of(2, 1, List.of(worn, new ItemStack(Items.ECHO_SHARD)));
+        CraftingInput wornInput = pulsatingInput(List.of(worn, new ItemStack(Items.ECHO_SHARD)));
         Optional<RecipeHolder<CraftingRecipe>> wornMatch = find(helper, wornInput);
         if (wornMatch.isEmpty()) {
             problems.add("a worn hammer + echo shard crafts nothing");
@@ -104,6 +104,54 @@ public final class PulsatingTrimTests {
             }
         }
         helper.assertTrue(problems.isEmpty(), problems.size() + " crafting problems: " + problems);
+        helper.succeed();
+    }
+
+    private static CraftingInput pulsatingInput(List<ItemStack> tools) {
+        if (!com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) return CraftingInput.of(2, 1, tools);
+        List<ItemStack> grid = new ArrayList<>(tools);
+        grid.add(new ItemStack(Items.ECHO_SHARD));
+        grid.add(new ItemStack(Items.SCULK));
+        grid.add(new ItemStack(Items.SCULK));
+        for (int i = 0; i < 4; i++) grid.add(new ItemStack(Items.DIAMOND));
+        return CraftingInput.of(3, 3, grid);
+    }
+
+    public static void templateRecipesRequireEveryMaterialAndCopyExactlyOne(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+            helper.succeed();
+            return;
+        }
+        CraftingInput complete = pulsatingInput(List.of(new ItemStack(ModItems.IRON_SLEDGEHAMMER), new ItemStack(Items.ECHO_SHARD)));
+        for (int slot = 0; slot < 9; slot++) {
+            List<ItemStack> grid = new ArrayList<>();
+            for (int i = 0; i < 9; i++) grid.add(i == slot ? ItemStack.EMPTY : complete.getItem(i).copy());
+            helper.assertTrue(find(helper, CraftingInput.of(3, 3, grid)).isEmpty(), "missing Pulsating ingredient " + slot + " accepted");
+        }
+        helper.assertTrue(find(helper, CraftingInput.of(2, 1,
+                List.of(new ItemStack(ModItems.IRON_SLEDGEHAMMER), new ItemStack(Items.ECHO_SHARD)))).isEmpty(), "old cheap Pulsating recipe accepted");
+        for (Item[] pair : new Item[][]{
+                {ModItems.GLOWING_TRIM_TEMPLATE, Items.GLOWSTONE},
+                {ModItems.EMITTING_TRIM_TEMPLATE, Items.MAGMA_BLOCK},
+                {ModItems.PULSATING_TRIM_TEMPLATE, Items.SCULK},
+                {ModItems.BASIC_UPGRADE_TEMPLATE, Items.IRON_BLOCK},
+                {ModItems.ENDERITE_UPGRADE_TEMPLATE, Items.END_STONE}}) {
+            List<ItemStack> grid = new ArrayList<>();
+            for (int slot = 0; slot < 9; slot++) grid.add(new ItemStack(slot == 1 ? pair[0] : slot == 4 ? pair[1] : Items.DIAMOND));
+            CraftingInput input = CraftingInput.of(3, 3, grid);
+            var recipe = find(helper, input);
+            helper.assertTrue(recipe.isPresent(), "no duplication recipe for " + pair[0]);
+            ItemStack result = recipe.get().value().assemble(input);
+            helper.assertTrue(result.is(pair[0]) && result.getCount() == 2, "copy must produce exactly two templates: " + result);
+            helper.assertTrue(recipe.get().value().getRemainingItems(input).stream().allMatch(ItemStack::isEmpty), "copy returned extra ingredients");
+            for (int slot = 0; slot < 9; slot++) {
+                List<ItemStack> missing = new ArrayList<>(grid);
+                missing.set(slot, ItemStack.EMPTY);
+                helper.assertTrue(find(helper, CraftingInput.of(3, 3, missing)).isEmpty(), "copy accepted missing ingredient " + slot);
+            }
+            helper.assertTrue(find(helper, CraftingInput.of(2, 1,
+                    List.of(new ItemStack(pair[0]), new ItemStack(pair[1])))).isEmpty(), "cheap template + material copy accepted");
+        }
         helper.succeed();
     }
 

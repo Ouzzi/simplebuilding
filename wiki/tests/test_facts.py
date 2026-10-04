@@ -2,12 +2,68 @@
 import json
 import re
 import unittest
+from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 
 
 class RecipeProseTests(unittest.TestCase):
+    def test_template_costs_and_legacy_recipes(self):
+        directory = ROOT / 'mc26_3/generated/data/simplebuilding/recipe'
+        costs = Counter(json.loads((directory / 'pulsating_trim_template.json').read_text(encoding='utf-8'))['ingredients'])
+        self.assertEqual(costs, Counter({'#simplebuilding:sledgehammer_tools': 1,
+                                        'minecraft:echo_shard': 2, 'minecraft:sculk': 2, 'minecraft:diamond': 4}))
+        legacy = ROOT / 'src/main/generated/data/simplebuilding/recipe'
+        old = json.loads((legacy / 'pulsating_trim_template.json').read_text(encoding='utf-8'))
+        self.assertEqual(len(old['ingredients']), 2)
+        bases = {'glowing_trim_template': 'glowstone', 'emitting_trim_template': 'magma_block',
+                 'pulsating_trim_template': 'sculk', 'basic_upgrade_template': 'iron_block',
+                 'enderite_upgrade_template': 'end_stone'}
+        for template, block in bases.items():
+            filename = template + ('_duplication' if template.endswith('_trim_template') else '') + '.json'
+            with self.subTest(template=template):
+                path = directory / filename
+                if not path.exists():
+                    path = legacy / filename
+                recipe = json.loads(path.read_text(encoding='utf-8'))
+                counts = Counter(recipe['key'][symbol] for row in recipe['pattern'] for symbol in row)
+                self.assertEqual(counts, Counter({'minecraft:diamond': 7, 'minecraft:' + block: 1,
+                                                 'simplebuilding:' + template: 1}))
+                self.assertEqual(recipe['result']['count'], 2)
+                self.assertEqual(recipe['result']['id'], 'simplebuilding:' + template)
+        old_basic = json.loads((legacy / 'basic_upgrade_template.json').read_text(encoding='utf-8'))
+        self.assertEqual(old_basic['key']['A'], 'minecraft:gold_ingot')
+        manual = json.loads((ROOT / 'wiki/manual.json').read_text(encoding='utf-8'))
+        feature = next(f for f in manual['features'] if f['id'] == 'dynamic_light')
+        self.assertIn('7 diamonds', feature['en']['details'][0])
+        self.assertIn('7 Diamanten', feature['de']['details'][0])
+        self.assertIn('2 Echo Shards, 2 sculk, 4 diamonds', ' '.join(feature['en']['details']))
+        self.assertIn('2 Echoscherben, 2 Sculk, 4 Diamanten', ' '.join(feature['de']['details']))
+
+    def test_in_world_template_costs_reach_wiki_and_both_languages(self):
+        from wiki.generate import collect_in_world, LINES
+        manual = json.loads((ROOT / 'wiki/manual.json').read_text(encoding='utf-8'))
+        exported = json.loads((ROOT / 'mc26_3/generated/wiki/inworld.json').read_text(encoding='utf-8'))
+        trim = exported['trimTemplate']
+        ids = set(trim['templates'] + trim['hammers'])
+        # The generator uses this set only to filter template and hammer alternatives here.
+        data, _ = collect_in_world(LINES['26.3'], manual, ids)
+        for upgrade in trim['upgrades']:
+            glowing = upgrade['result'] == 'simplebuilding:glowing_trim_template'
+            self.assertEqual(upgrade['catalystCount'], 2)
+            expected = [{'id': 'minecraft:diamond', 'count': 4},
+                        {'id': 'minecraft:glowstone' if glowing else 'minecraft:blaze_powder', 'count': 2}]
+            self.assertEqual(upgrade['extraMaterials'], expected)
+            entry = next(e for e in data['entries'] if e['id'] == 'trim_template/' + upgrade['result'])
+            self.assertEqual(entry['inputs'][2:], expected)
+        for directory in ('src/main/resources', 'mc26_3/overlay/resources'):
+            for language in ('en_us', 'de_de'):
+                lang = json.loads((ROOT / directory / 'assets/simplebuilding/lang' / (language + '.json')).read_text(encoding='utf-8'))
+                note = lang['jei.simplebuilding.note.trim_template.placed']
+                self.assertIn('26.3: 2', note)
+                self.assertIn('%s', note)
+
     def test_followup_four_recipe_layouts(self):
         directory = ROOT / 'mc26_3/generated/data/simplebuilding/recipe'
         rod = json.loads((directory / 'amethyst_lens.json').read_text(encoding='utf-8'))

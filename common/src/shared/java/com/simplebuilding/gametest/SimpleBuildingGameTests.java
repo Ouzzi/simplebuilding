@@ -1762,6 +1762,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_template_game_test_locked_octants_are_placed_and_right_click_toggles_the_outline_per_player", PlacedTemplateTests::lockedOctantsArePlacedAndRightClickTogglesTheOutlinePerPlayer)
                     .build(),
+            GameTestSpec.named("pulsating_trim_game_test_template_recipes_require_every_material_and_copy_exactly_one", PulsatingTrimTests::templateRecipesRequireEveryMaterialAndCopyExactlyOne)
+                    .build(),
             GameTestSpec.named("pulsating_trim_game_test_the_pulsating_template_is_crafted_from_an_echo_shard_and_any_sledgehammer_that_stays", PulsatingTrimTests::thePulsatingTemplateIsCraftedFromAnEchoShardAndAnySledgehammerThatStays)
                     .build(),
             GameTestSpec.named("pulsating_trim_game_test_the_pulsating_upgrade_makes_the_trim_pulse_once_and_combines_with_glowing", PulsatingTrimTests::thePulsatingUpgradeMakesTheTrimPulseOnceAndCombinesWithGlowing)

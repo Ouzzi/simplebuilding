@@ -184,13 +184,17 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 .unlocks("has_pulsating_template", has(ModItems.PULSATING_TRIM_TEMPLATE))
                 .save(output, "pulsating_armor_upgrade_dummy");
 
-                // Die Vorlage selbst: Echoscherbe + beliebiger Vorschlaghammer an der Werkbank. Der Hammer
-                // bleibt im Raster und verliert Haltbarkeit (ShapelessRecipeMixin / SledgehammerCrafting).
-                shapeless(RecipeCategory.MISC, ModItems.PULSATING_TRIM_TEMPLATE)
+                // Der Hammer bleibt beschaedigt im Raster; 26.2 behaelt das alte Rezept.
+                var pulsating = shapeless(RecipeCategory.MISC, ModItems.PULSATING_TRIM_TEMPLATE)
                         .requires(Ingredient.of(itemRegistry.getOrThrow(com.simplebuilding.util.ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)))
-                        .requires(Items.ECHO_SHARD)
-                        .unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD))
-                        .save(output);
+                        .requires(Items.ECHO_SHARD);
+                if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+                    pulsating.requires(Items.ECHO_SHARD).requires(Items.SCULK, 2).requires(Items.DIAMOND, 4);
+                    copyTrimTemplate(ModItems.GLOWING_TRIM_TEMPLATE, Items.GLOWSTONE);
+                    copyTrimTemplate(ModItems.EMITTING_TRIM_TEMPLATE, Items.MAGMA_BLOCK);
+                    copyTrimTemplate(ModItems.PULSATING_TRIM_TEMPLATE, Items.SCULK);
+                }
+                pulsating.unlockedBy(getHasName(Items.ECHO_SHARD), has(Items.ECHO_SHARD)).save(output);
 
                 // Haengematten (2026-10-02): Stock, Faden, Stock ueber drei Wolle einer Farbe; Faerben wie Betten
                 // (jede andere Haengematte + Farbstoff).
@@ -720,7 +724,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .pattern("ABA")
                         .pattern("ACA")
                         .pattern("AAA")
-                        .define('A', Items.GOLD_INGOT) // 7 Gold
+                        .define('A', com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES ? Items.DIAMOND : Items.GOLD_INGOT)
                         .define('B', ModItems.BASIC_UPGRADE_TEMPLATE) // Das Original
                         .define('C', Items.IRON_BLOCK) // Iron Block Core
                         .unlockedBy(getHasName(ModItems.BASIC_UPGRADE_TEMPLATE), has(ModItems.BASIC_UPGRADE_TEMPLATE)).save(output);
@@ -1414,6 +1418,14 @@ public class ModRecipeProvider extends RecipeProviderCompat {
             }
 
             // --- Helpers ---
+            private void copyTrimTemplate(Item template, Item block) {
+                shaped(RecipeCategory.MISC, template, 2)
+                        .pattern("DTD").pattern("DBD").pattern("DDD")
+                        .define('D', Items.DIAMOND).define('T', template).define('B', block)
+                        .unlockedBy(getHasName(template), has(template))
+                        .save(output, getItemName(template) + "_duplication");
+            }
+
             private void createSmithingTransform(RecipeOutput exporter, Item template, Item base, Item addition, RecipeCategory category, Item result) {
                 SmithingTransformRecipeBuilder.smithing(
                                 Ingredient.of(template),

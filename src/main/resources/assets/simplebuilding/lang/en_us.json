@@ -797,7 +797,7 @@
   "jei.simplebuilding.note.chisel.forward": "Right-click the block",
   "jei.simplebuilding.note.chisel.reverse": "Sneak + right-click the block",
   "jei.simplebuilding.note.shear_wool.how": "Right-click placed wool",
-  "jei.simplebuilding.note.trim_template.placed": "Place the template (sneak + use), hold the material in the off hand and hit it %s times with a sledgehammer",
+  "jei.simplebuilding.note.trim_template.placed": "Place template; hit %s times. 26.3: 2 catalysts off-hand; extra materials in inventory.",
   "jei.simplebuilding.note.cauldron_wash.how": "Use it on a water cauldron",
   "jei.simplebuilding.note.cauldron_wash.water": "Uses %s water level",
   "jei.simplebuilding.note.cauldron_wash.keeps": "Saved measurements are kept",

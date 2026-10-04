@@ -198,7 +198,18 @@ public final class PlacedTemplateTests {
      * gilt nur fuer aufwertbare Vorlagen.
      */
     public static void placedTrimTemplatesNeedThreeHammerHits(GameTestHelper helper) {
-        ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
+        // makeMockServerPlayerInLevel hard-codes gameMode() to CREATIVE even after setGameMode.
+        var cookie = net.minecraft.server.network.CommonListenerCookie.createInitial(
+                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "template-costs"), false);
+        ServerLevel testLevel = helper.getLevel();
+        ServerPlayer player = new ServerPlayer(testLevel.getServer(), testLevel, cookie.gameProfile(), cookie.clientInformation());
+        var connection = new net.minecraft.network.Connection(net.minecraft.network.protocol.PacketFlow.SERVERBOUND);
+        new io.netty.channel.embedded.EmbeddedChannel(connection);
+        testLevel.getServer().getPlayerList().placeNewPlayer(connection, player, cookie);
+        Vec3 spawn = helper.absoluteVec(new Vec3(3.5, 2.0, 3.5));
+        player.snapTo(spawn.x, spawn.y, spawn.z, 0.0F, 0.0F);
+        helper.runBeforeTestEnd(() -> testLevel.getServer().getPlayerList().remove(player));
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
         player.setShiftKeyDown(true);
         helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
         helper.setBlock(new BlockPos(3, 1, 1), Blocks.STONE);
@@ -216,6 +227,15 @@ public final class PlacedTemplateTests {
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GLOWSTONE_DUST, 8));
 
+        if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+            helper.assertTrue(!PlacedTemplates.hit(level, first, player) && hammer.getDamageValue() == 0,
+                    "missing extra materials must not count a hit or damage the hammer");
+            player.getInventory().setItem(9, new ItemStack(Items.DIAMOND, 3));
+            player.getInventory().setItem(10, new ItemStack(Items.BLAZE_POWDER, 2));
+            helper.assertTrue(!PlacedTemplates.hit(level, first, player), "three diamonds accepted instead of four");
+            player.getInventory().setItem(11, new ItemStack(Items.DIAMOND));
+        }
+
         helper.assertTrue(PlacedTemplates.isHammerTarget(level, first, player), "a placed trim template is no hammer target");
         helper.assertTrue(!PlacedTemplates.isHammerTarget(level, upgrade, player), "a placed upgrade template counts as hammer target");
         BlockState state = level.getBlockState(first);
@@ -224,6 +244,15 @@ public final class PlacedTemplateTests {
 
         // Der echte Linksklick, dreimal.
         for (int hit = 1; hit <= PlacedTemplates.PLACED_HITS; hit++) {
+            if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES && hit == PlacedTemplates.PLACED_HITS) {
+                ItemStack material = player.getInventory().getItem(10);
+                player.getInventory().setItem(10, ItemStack.EMPTY);
+                int damage = hammer.getDamageValue();
+                helper.assertTrue(!PlacedTemplates.hit(level, first, player) && hammer.getDamageValue() == damage
+                                && player.getOffhandItem().getCount() == 8,
+                        "removing materials before the final hit must prevent upgrading and any charge");
+                player.getInventory().setItem(10, material);
+            }
             player.gameMode.handleBlockBreakAction(first, ServerboundPlayerActionPacket.Action.START_DESTROY_BLOCK, Direction.UP,
                     level.getMaxY(), hit);
             BlockState now = level.getBlockState(first);
@@ -233,6 +262,15 @@ public final class PlacedTemplateTests {
             helper.assertTrue(held.is(expected), "after hit " + hit + " the template is " + held + " instead of " + expected);
         }
         // Seit der Rahmen-Weg entfallen ist (Q3, 2026-10-02), loest die abgelegte Vorlage den Fortschritt aus.
+        if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+            helper.assertTrue(player.getOffhandItem().getCount() == 6
+                            && player.getInventory().countItem(Items.DIAMOND) == 0
+                            && player.getInventory().countItem(Items.BLAZE_POWDER) == 0,
+                    "Emitting must consume two dust, four split-stack diamonds and two blaze powder");
+            player.getInventory().setItem(9, new ItemStack(Items.DIAMOND, 4));
+            player.getInventory().setItem(10, new ItemStack(Items.BLAZE_POWDER, 2));
+            player.getInventory().setItem(11, new ItemStack(Items.GLOWSTONE, 2));
+        }
         var glowUp = level.getServer().getAdvancements().get(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "hammer/glow_up"));
         helper.assertTrue(glowUp != null && player.getAdvancements().getOrStartProgress(glowUp).isDone(),
                 "upgrading a placed template did not grant the Glow Up advancement");
@@ -251,6 +289,13 @@ public final class PlacedTemplateTests {
             level.getBlockState(second).attack(level, second, player);
         }
         helper.assertTrue(be.getTemplate().is(ModItems.GLOWING_TRIM_TEMPLATE), "glow ink made " + be.getTemplate());
+        if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+            helper.assertTrue(player.getOffhandItem().getCount() == 6
+                            && player.getInventory().countItem(Items.DIAMOND) == 0
+                            && player.getInventory().countItem(Items.GLOWSTONE) == 0
+                            && player.getInventory().countItem(Items.BLAZE_POWDER) == 2,
+                    "Glowing must consume only its materials, once on the final hit");
+        }
 
         // Aufwertungsvorlage: kein Schlag, nichts aendert sich.
         level.getBlockState(upgrade).attack(level, upgrade, player);
@@ -259,6 +304,17 @@ public final class PlacedTemplateTests {
                 "a hammer hit counted on an upgrade template: " + upgradeBe.hits() + ", " + upgradeBe.getTemplate());
 
         // Ohne Material in der Nebenhand ist es ein gewoehnlicher Block.
+        if (com.simplebuilding.version.McVersion.EXPENSIVE_TEMPLATES) {
+            be.setTemplate(new ItemStack(Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE));
+            player.setGameMode(net.minecraft.world.level.GameType.CREATIVE);
+            player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GLOW_INK_SAC));
+            int damage = hammer.getDamageValue();
+            for (int i = 0; i < PlacedTemplates.PLACED_HITS; i++) PlacedTemplates.hit(level, second, player);
+            helper.assertTrue(be.getTemplate().is(ModItems.GLOWING_TRIM_TEMPLATE)
+                            && player.getOffhandItem().getCount() == 1 && hammer.getDamageValue() == damage,
+                    "creative upgrade must require no extra materials and consume nothing");
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        }
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
         helper.assertTrue(!PlacedTemplates.isHammerStance(player) && level.getBlockState(upgrade).getDestroyProgress(player, level, upgrade) > 0.0F,
                 "without a catalyst the placed template cannot be mined");

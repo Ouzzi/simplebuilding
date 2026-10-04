@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "#simplebuilding:sledgehammer_tools",
+    "minecraft:echo_shard",
+    "minecraft:echo_shard",
+    "minecraft:sculk",
+    "minecraft:sculk",
+    "minecraft:diamond",
+    "minecraft:diamond",
+    "minecraft:diamond",
+    "minecraft:diamond"
+  ],
+  "result": {
+    "id": "simplebuilding:pulsating_trim_template"
+  }
+}
