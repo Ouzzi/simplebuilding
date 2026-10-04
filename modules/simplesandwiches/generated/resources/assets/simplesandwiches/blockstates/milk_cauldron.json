@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "content=butter,stage=0": {
+      "model": "simplesandwiches:block/milk_cauldron/butter"
+    },
+    "content=butter,stage=1": {
+      "model": "simplesandwiches:block/milk_cauldron/butter"
+    },
+    "content=butter,stage=2": {
+      "model": "simplesandwiches:block/milk_cauldron/butter"
+    },
+    "content=butter,stage=3": {
+      "model": "simplesandwiches:block/milk_cauldron/butter"
+    },
+    "content=cheese,stage=0": {
+      "model": "simplesandwiches:block/milk_cauldron/cheese"
+    },
+    "content=cheese,stage=1": {
+      "model": "simplesandwiches:block/milk_cauldron/cheese"
+    },
+    "content=cheese,stage=2": {
+      "model": "simplesandwiches:block/milk_cauldron/cheese"
+    },
+    "content=cheese,stage=3": {
+      "model": "simplesandwiches:block/milk_cauldron/cheese"
+    },
+    "content=curdling,stage=0": {
+      "model": "simplesandwiches:block/milk_cauldron/curd_0"
+    },
+    "content=curdling,stage=1": {
+      "model": "simplesandwiches:block/milk_cauldron/curd_1"
+    },
+    "content=curdling,stage=2": {
+      "model": "simplesandwiches:block/milk_cauldron/curd_2"
+    },
+    "content=curdling,stage=3": {
+      "model": "simplesandwiches:block/milk_cauldron/curd_3"
+    },
+    "content=milk,stage=0": {
+      "model": "simplesandwiches:block/milk_cauldron/milk_0"
+    },
+    "content=milk,stage=1": {
+      "model": "simplesandwiches:block/milk_cauldron/milk_1"
+    },
+    "content=milk,stage=2": {
+      "model": "simplesandwiches:block/milk_cauldron/milk_2"
+    },
+    "content=milk,stage=3": {
+      "model": "simplesandwiches:block/milk_cauldron/milk_3"
+    },
+    "content=spoiled,stage=0": {
+      "model": "simplesandwiches:block/milk_cauldron/spoiled"
+    },
+    "content=spoiled,stage=1": {
+      "model": "simplesandwiches:block/milk_cauldron/spoiled"
+    },
+    "content=spoiled,stage=2": {
+      "model": "simplesandwiches:block/milk_cauldron/spoiled"
+    },
+    "content=spoiled,stage=3": {
+      "model": "simplesandwiches:block/milk_cauldron/spoiled"
+    }
+  }
+}
