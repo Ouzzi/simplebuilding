@@ -2,7 +2,7 @@
 
 Status: **nur Konzept + Fragebogen**, kein Code. Quelle: Besitzer-Sprachdiktat 2026-10-04, eingetragen in
 `.claude/QUEUE.md` → „Besitzer 2026-10-04 (Nachtrag 9)“.
-Runde 1 (F1–F37, §2) und Runde 2 Fragen 1–31 (§2b) sind beantwortet; offen sind Fragen 32–61 (§17). Bis zur Antwort gilt jeweils die ★-Empfehlung als Arbeitsannahme.
+Fragebogen **abgeschlossen** (Runde 1 §2, Runde 2 §2b, Runde 3 §2c); diese Tabellen gehen dem übrigen Text vor. Status: **Umsetzung läuft** (Phasen §15).
 
 Kern des Wunschs (Diktat, sinngemäß):
 1. **Crucible** = weitere Ofen-Station, so schnell wie ein normaler Ofen, aber **mehrere verschiedene Dinge parallel**;
@@ -208,6 +208,36 @@ anhängen (Mixin/Accessor auf `templates`/`rawTemplates`, auf allen Loadern glei
   das Fass passt ein Trichter. Fass fest 9 Slots, Anzeige gemeinsam mit der Tiegel-GUI → §8a.
 - **Seelen-Lava**: Entflammbarkeit ca. **4× höher** als Lava, **doppelte Reichweite** beim Feuer-Entzünden; „schmilzt
   ca. 10× mehr als Lava“ → ★ Deutung: als **Brennstoff 10× Lava** (§10). Alternative Deutungen Frage 57.
+
+## 2c. Entscheidungen Runde 3 (Besitzer-Antworten Fragen 32–61, 2026-10-04 – Fragebogen abgeschlossen, gehen vor)
+
+| Frage | Antwort | Folgerung im Plan / Umsetzung |
+|---|---|---|
+| 32 Kupfer-Eimer | **oxidiert beim Platzieren einer Flüssigkeit**; Axt entfernt Oxidation, **Wachsen** möglich; **kann keine Wasserquelle platzieren/geben** | Kupfer-Eimer mit Oxidationsstufe als Komponente (0–3, Optik), Axt schabt eine Stufe ab, Honigwabe wachst (keine Oxidation mehr); Wasser aufnehmen geht, Ausgießen von Wasser setzt **keine Quelle** (Annahme: nur fließendes Wasser, das abläuft) |
+| 33 | A | Kupfer-Eimer zerbricht beim Lava-Ausgießen immer, kein Rest |
+| 34 | A | Eisen-Eimer nimmt Seelen-Lava, zerbricht beim Ausgießen |
+| 35 | **Werkbank: Eisen-Eimer, umringt von 8 Enderit-Nuggets** → Enderit-Eimer | statt Schmiedetisch |
+| 36 | A, aber **Enderit-Eimer bricht nicht** | Kupfer-Lava-Eimer als Brennstoff verbraucht; Seelen-Lava-Eimer 10× Lava, Eisen-Eimer bricht, Enderit-Eimer kommt zurück |
+| 37 | A – alles, was warm gegessen/serviert wird | Tag `simplelib:warmable_food` |
+| 38 | A – alle Bündel inkl. Mod-Bündel | jedes `BundleItem` (Klasse) zählt |
+| 39 | **kühlt überall ab, nur nicht im Tiegel** | Warm-Stempel läuft weiter, im Tiegel wird er laufend erneuert/eingefroren |
+| 40–45 | A | kalte zählen 0 im Mittelwert; Glow-Saum 4 Stufen überall + Tooltip; nur der Tiegel wärmt; Aufwärmen frischt auf; Feldküche im Häuser-Pool; alle fünf Dorftypen, ca. jedes dritte Dorf |
+| 46 | **A, B und C kombiniert** | Feldküche: Tiegel mit 1–3 Sandwiches/gegartem Essen (Loot), Fass daneben mit rohem Fleisch, ausgemachtes Lagerfeuer darunter |
+| 47 | **später auch 1.21.11** | offener Port-Run-Punkt (Memory) |
+| 48–50 | A | Erfolge/Handbuch/Wiki/Testzentrale; Texturen Eisenkessel-Form; Axt-Aufwertung ohne SB: 2 Diamanten bzw. 1 Netheritbarren |
+| 51 | **A (mittel/hoch/extrem)** + **GUI-Hintergrund animiert, „cozy“**: mittel niedrige orange Flammen, hoch hohes Feuer, extrem blaues Feuer | §6 Tabelle A gilt; GUI-Animation §7 |
+| 52 | A bzw. für später vorgemerkt | Sonderliste: Enderit-Schrott, Antiker Schrott, Rissiger Diamant |
+| 53 | A, **Culling** nicht vergessen | BER nur nahe/sichtbare Items, Distanz-Culling |
+| 54 | A, aber **Wasserquelle wird zu Quarzblock** (fließendes Wasser → Schwarzstein); dazu Hammer-Umwandlung **Quarzblock → 4 Quarz** (ohne SB Axt prüfen) | Vorschlaghammer-Umwandlung in SB; Axt-Weg nur, wenn er keinen Vanilla-Exploit schafft (Quarzblock → 4 Quarz ist verlustfrei wie Vanilla-Umkehr, also Axt ok) |
+| 55 | **Feuerschutz schützt nur gegen Brennen und Brandschaden**; dauert der Seelenbrand länger als der Feuerschutz, kommt danach wieder Schaden | Seelenbrand-Effekt läuft immer; Schaden wird nur unterdrückt, solange Feuerresistenz bzw. Feuerschutz-Verzauberung wirkt |
+| 56 | **B**: verstärkter Kessel per Aufwertung aus **4 Rissigen Diamanten**; ohne SB **4 Diamanten mit der Axt** | In-World-Aufwertung Kessel → verstärkter Kessel; Block in `simplelib` (Vanilla-Weg), SB fügt Hammer-Weg hinzu |
+| 57 | A | Brennstoff 10× Lava |
+| 58/59 | A, aber **ein nicht verbundenes Fass hat die normale Größe der Truhen-Stufen** | Fass allein: Kupfer 27, Verstärkt 36, Enderit 54 (wie Truhen-Stufen); am Tiegel nur 9 Felder sichtbar/genutzt |
+| 60 | A | ein Fass je Tiegel, seitlich, 6 Schläge, Lösen durch Abbauen |
+| 61 | **C** | alle dürfen ins Fass legen (Fremditems können Ergebnisplätze belegen) |
+
+**Prinzipien:** Die Ausnahme für gebündelte `*lib`-Bibliotheken (§3) und das Axt-Prinzip (kein funktionierender Mod-Weg →
+Vanilla-Weg mit Axt) sind vom Besitzer bestätigt und in `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` eingetragen.
 
 ## 3. Modulrahmen: allgemeine Bibliothek `simplelib` (F1, Runde 2 Fragen 2–6)
 
@@ -502,7 +532,7 @@ Summe ≈ 12–12,5 Sitzungen. GPT-geeignet: P0-Gerüst, Lang/Wiki, Tag-Listen, 
 - `simplelib` als allgemeine Bibliothek wächst leicht zur „Core-Jar“ → nur wirklich geteilte Inhalte aufnehmen.
 - Seelenbrand + 4× Zündung: Waldbrände im Nether-Rand/Overworld; Fließblöcke unersetzbar → Grief-Potenzial, Claims Pflicht.
 
-## 17. Fragebogen (Runde 2 Rest + neue Fragen; Empfehlung ★)
+## 17. Fragebogen (abgeschlossen – Antworten in §2, §2b, §2c; Text bleibt zur Nachvollziehbarkeit)
 
 Fragen **1–31 sind beantwortet** (Tabelle §2b, eingearbeitet). Offen sind **32–49** (Nummern unverändert, damit die
 Antworten zuordenbar bleiben) und die neuen Fragen **50–61** aus den Runde-2-Antworten und -Wünschen.
