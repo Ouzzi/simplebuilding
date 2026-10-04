@@ -65,6 +65,8 @@ public final class ForgeNetworkRegistration {
                     .add(com.simplebuilding.networking.GuideUnlockPayload.ID, com.simplebuilding.networking.GuideUnlockPayload.CODEC,
                             (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleGuideUnlock(payload, player)))
                 .clientbound()
+                    .add(AmplifiedNotePayload.ID, AmplifiedNotePayload.CODEC,
+                            (payload, ctx) -> handled(ctx).enqueueWork(() -> com.simplebuilding.client.AmplifiedNoteSound.play(payload)))
                     .add(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC, (payload, ctx) -> handled(ctx).enqueueWork(() -> {
                         Minecraft client = Minecraft.getInstance();
                         if (client.level != null && client.level.getBlockEntity(payload.pos()) instanceof ModHopperBlockEntity blockEntity) {
