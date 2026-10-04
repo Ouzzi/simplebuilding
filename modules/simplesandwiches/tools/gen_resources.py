@@ -7,6 +7,8 @@ from pathlib import Path
 MODULE = Path(__file__).resolve().parents[1]
 OUTPUT = MODULE / "generated/resources"
 NS = "simplesandwiches"
+# A Windows checkout turns LF into CRLF; --check compares content, not line endings.
+CRLF, LF = b"\r\n", b"\n"
 # Keep in registry/ModBlocks.WOODS order (26.3 also registers poplar).
 WOODS = (
     "oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove",
@@ -205,7 +207,7 @@ def generate(check=False):
         path = OUTPUT / name
         if name not in existing:
             changes.append(f"missing: {name}")
-        elif path.read_bytes() != content:
+        elif path.read_bytes().replace(CRLF, LF) != content.replace(CRLF, LF):
             changes.append(f"different: {name}")
     extra = sorted(existing.keys() - expected.keys())
     changes.extend(f"extra: {name}" for name in extra)
