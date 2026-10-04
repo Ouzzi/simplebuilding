@@ -299,8 +299,8 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 ## Besitzer 2026-10-04 (Nachtrag Modul-Unabhängigkeit)
 Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `claude-modprinciples` gefixt).
-- [ ] Standalone-Testziel je Modul: `modules.json` `tests.standalone` (nur Modul + harte Libs), Testrunner `module_targets` erzeugt `module-<id>-standalone-fabric-263` (+ NeoForge mit `loadedMods=[nur Modul]`); Integrations-Targets bleiben.
-- [ ] Modul-Tests ohne SB lauffähig machen: SB-Asserts hinter `isModLoaded("simplebuilding")` oder in Integrations-Katalog (QoL, Money, Models, Dimensions, Fun, Riding – Zeilen in der Prinzipien-Datei, Befund 3).
+- [x] Standalone-Testziel je Modul: `modules.json` `tests.standalone` (nur Modul + harte Libs), Testrunner `module_targets` erzeugt `module-<id>-standalone-fabric-263` (+ NeoForge mit `loadedMods=[nur Modul]`); Integrations-Targets bleiben. (claude-standalone, 20 Targets grün)
+- [x] Modul-Tests ohne SB lauffähig machen: SB-Asserts hinter `isModLoaded("simplebuilding")` oder in Integrations-Katalog (QoL, Money, Models, Dimensions, Fun, Riding – Zeilen in der Prinzipien-Datei, Befund 3). (claude-standalone; dabei Befunde 9/10 gefixt)
 - [ ] Optionale Partner in Loader-Metadaten nachziehen (`suggests` / `type="optional"`) und `tools/multimod.py` prüft Gleichstand mit `modules.json optional` (Befund 5).
 - [ ] Simple Riding: Enderit-Hufeisen über `#c:ingots/enderite` statt fester SB-ID (Condition bleibt; Befund 6).
 - [ ] Simple Sandwiches (Branch `claude-sandwiches`): Crucible-Grundrezept mit Axt, SB-Variante mit `#simplebuilding:sledgehammer_tools` nur hinter `mod_loaded` (Regel 5).
