@@ -7,7 +7,7 @@
     "W": "minecraft:light_gray_wool"
   },
   "pattern": [
-    "/F/",
+    "F/F",
     "WWW"
   ],
   "result": {

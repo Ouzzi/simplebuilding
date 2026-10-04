@@ -7,7 +7,7 @@
     "W": "minecraft:brown_wool"
   },
   "pattern": [
-    "/F/",
+    "F/F",
     "WWW"
   ],
   "result": {

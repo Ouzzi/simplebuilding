@@ -7,7 +7,7 @@
     "W": "minecraft:lime_wool"
   },
   "pattern": [
-    "/F/",
+    "F/F",
     "WWW"
   ],
   "result": {

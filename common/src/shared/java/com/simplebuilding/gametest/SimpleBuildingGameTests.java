@@ -550,15 +550,21 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
                     .build(),
-            GameTestSpec.named("hammock_game_test_hangs_only_between_two_anchors_two_or_three_apart", HammockTests::hangsOnlyBetweenTwoAnchorsTwoOrThreeApart)
+            GameTestSpec.named("hammock_game_test_hangs_only_between_two_anchors_two_to_four_apart", HammockTests::hangsOnlyBetweenTwoAnchorsTwoToFourApart)
                     .build(),
+            GameTestSpec.named("hammock_game_test_cloth_hangs_in_the_middle_at_every_gap", HammockTests::clothHangsInTheMiddleAtEveryGap)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_diagonal_hammock_needs_two_clicks", HammockTests::diagonalHammockNeedsTwoClicks)
+                    .maxTicks(60).build(),
             GameTestSpec.named("hammock_game_test_losing_an_anchor_drops_the_hammock_once", HammockTests::losingAnAnchorDropsTheHammockOnce)
                     .build(),
             GameTestSpec.named("hammock_game_test_breaking_one_part_drops_once_except_in_creative", HammockTests::breakingOnePartDropsOnceExceptInCreative)
                     .build(),
-            GameTestSpec.named("hammock_game_test_resting_by_day_keeps_the_phantom_timer_and_speeds_the_clock", HammockTests::restingByDayKeepsThePhantomTimerAndSpeedsTheClock)
+            GameTestSpec.named("hammock_game_test_resting_keeps_the_phantom_timer_and_speeds_the_clock", HammockTests::restingKeepsThePhantomTimerAndSpeedsTheClock)
                     .build(),
-            GameTestSpec.named("hammock_game_test_clock_speeds_up_only_by_day_with_enough_resters", HammockTests::clockSpeedsUpOnlyByDayWithEnoughResters)
+            GameTestSpec.named("hammock_game_test_clock_speeds_up_with_enough_resters_day_and_night", HammockTests::clockSpeedsUpWithEnoughRestersDayAndNight)
+                    .build(),
+            GameTestSpec.named("hammock_game_test_recipe_takes_two_strings_one_stick_and_three_wool", HammockTests::recipeTakesTwoStringsOneStickAndThreeWool)
                     .build(),
             GameTestSpec.named("hammock_game_test_time_factor_is_capped_on_the_server", HammockTests::timeFactorIsCappedOnTheServer)
                     .build(),

@@ -9,6 +9,8 @@
   "client": [
     "LevelEventHandlerSpeakerMixin",
     "AvatarRendererMixin",
+    "HammockLivingRendererMixin",
+    "HammockRenderStateMixin",
     "AstralVaultScreenMixin",
     "BundleTooltipComponentMixin",
     "CartographyTableScreenMixin",

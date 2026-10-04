@@ -7,7 +7,7 @@
     "W": "minecraft:green_wool"
   },
   "pattern": [
-    "/F/",
+    "F/F",
     "WWW"
   ],
   "result": {

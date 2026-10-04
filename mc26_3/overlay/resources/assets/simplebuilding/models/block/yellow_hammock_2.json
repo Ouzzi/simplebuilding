@@ -1,0 +1,6 @@
+{
+  "parent": "simplebuilding:block/hammock_cloth_2",
+  "textures": {
+    "wool": "minecraft:block/yellow_wool"
+  }
+}

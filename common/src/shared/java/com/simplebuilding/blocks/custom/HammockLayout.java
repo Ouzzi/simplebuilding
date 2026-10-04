@@ -12,52 +12,123 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Where a hammock may hang (docs/ai/PLAN-HAENGEMATTE-2026-10-02.md). A hammock is one block wide and two long and takes
- * two layers: the lower layer is the sagging cloth ({@link HammockBlock}, foot and head like a bed), the upper layer the
- * two rope ends ({@link HammockRopeBlock} {@code end}). It hangs between two anchors on rope height with 2 or 3 free
- * blocks between them; with 3, a rope span ({@code span}) fills the gap at the head end. {@code facing} of the cloth
- * points from the foot to the head, like a bed's; a rope's {@code facing} points towards its anchor.
+ * Where and how a hammock hangs (docs/ai/PLAN-HAENGEMATTE-2026-10-02.md, v2). Two anchors on rope height, between them
+ * {@code gap} free cells (2 to 4) in a straight line or at 45 degrees. The cloth is always two blocks long and hangs in
+ * the middle; ropes run symmetrically from its spreaders to both anchors.
  *
- * <p>Loader- and version-neutral: only the block-state properties of the two blocks are used here.
+ * <p>Every block of a hammock carries {@code facing}, {@code diagonal}, {@code gap} and {@code index} (its cell along
+ * the line, 0 next to the first anchor), so each block can work out the whole hammock: the upper layer is a
+ * {@link HammockRopeBlock} in every cell, the lower layer a {@link HammockBlock} in the cells under the cloth; the
+ * cloth head (the sleeping spot, the loot owner, the block that draws the cloth) is the cell of the head point.
+ * The line runs along {@code facing}, diagonally along {@code facing} + {@code facing.getClockWise()}.
  */
 public final class HammockLayout {
     public static final int MIN_GAP = 2;
-    public static final int MAX_GAP = 3;
+    public static final int MAX_GAP = 4;
+    public static final BooleanProperty DIAGONAL = BooleanProperty.create("diagonal");
+    public static final IntegerProperty GAP = IntegerProperty.create("gap", MIN_GAP, MAX_GAP);
+    public static final IntegerProperty INDEX = IntegerProperty.create("index", 0, MAX_GAP - 1);
 
     private HammockLayout() {
     }
 
-    /** One possible hammock: upper foot block, direction to the head and the number of free blocks between anchors. */
-    public record Spot(BlockPos upperFoot, Direction facing, int gap) {
-        public BlockPos upperHead() {
-            return upperFoot.relative(facing);
+    // --- geometry ------------------------------------------------------------------------------------------------
+
+    /** Cells under the cloth: gap 2 -> 0,1; gap 3 -> 0,1,2 (half cells at both ends); gap 4 -> 1,2. */
+    public static List<Integer> clothCells(int gap) {
+        return switch (gap) {
+            case 2 -> List.of(0, 1);
+            case 3 -> List.of(0, 1, 2);
+            default -> List.of(1, 2);
+        };
+    }
+
+    /** The cloth head: the cell holding the head point (cloth middle + half a block towards the second anchor). */
+    public static int headCell(int gap) {
+        return gap == 4 ? 2 : 1;
+    }
+
+    /** One step along the line. */
+    public static BlockPos step(Direction facing, boolean diagonal) {
+        BlockPos s = BlockPos.ZERO.relative(facing);
+        return diagonal ? s.relative(facing.getClockWise()) : s;
+    }
+
+    /**
+     * How far (in blocks, along the line) the head point lies from the centre of the cloth head cell - the lying
+     * player is drawn there (client mixin); 0 means vanilla's bed position is already right.
+     */
+    public static double headShift(int gap, boolean diagonal) {
+        double cell = diagonal ? Math.sqrt(2.0) : 1.0;
+        // line length from the first anchor's face (corner) to the head point, minus the head cell's centre
+        return (gap * cell / 2.0 + 0.5) - (headCell(gap) + 0.5) * cell;
+    }
+
+    /** One possible hammock: first anchor, direction, straight or diagonal, number of free cells. */
+    public record Spot(BlockPos anchor, Direction facing, boolean diagonal, int gap) {
+        public BlockPos step() {
+            return HammockLayout.step(facing, diagonal);
         }
 
-        public BlockPos lowerFoot() {
-            return upperFoot.below();
+        /** Upper (rope) cell {@code index}. */
+        public BlockPos rope(int index) {
+            BlockPos s = step();
+            return anchor.offset(s.getX() * (index + 1), 0, s.getZ() * (index + 1));
         }
 
-        public BlockPos lowerHead() {
-            return upperHead().below();
+        public BlockPos otherAnchor() {
+            return rope(gap);
         }
 
-        /** The rope span between the head and its anchor, only for a gap of 3. */
-        public @Nullable BlockPos span() {
-            return gap == MAX_GAP ? upperFoot.relative(facing, 2) : null;
-        }
-
-        public BlockPos footAnchor() {
-            return upperFoot.relative(facing.getOpposite());
-        }
-
-        public BlockPos headAnchor() {
-            return upperFoot.relative(facing, gap);
+        public BlockPos clothHead() {
+            return rope(headCell(gap)).below();
         }
     }
+
+    /** The hammock the block {@code state} at {@code pos} belongs to. */
+    public static Spot spotOf(BlockPos pos, BlockState state) {
+        Direction facing = state.getValue(HammockBlock.FACING);
+        boolean diagonal = state.getValue(DIAGONAL);
+        int gap = state.getValue(GAP);
+        int index = state.getValue(INDEX);
+        BlockPos upper = state.getBlock() instanceof HammockRopeBlock ? pos : pos.above();
+        BlockPos s = step(facing, diagonal);
+        return new Spot(upper.offset(-s.getX() * (index + 1), 0, -s.getZ() * (index + 1)), facing, diagonal, gap);
+    }
+
+    /** The two anchors may hold a hammock (same height, straight or 45 degrees, 2 to 4 free cells): its spot, else empty. */
+    public static Optional<Spot> between(BlockPos a, BlockPos b) {
+        int dx = b.getX() - a.getX();
+        int dz = b.getZ() - a.getZ();
+        if (a.getY() != b.getY() || dx == 0 && dz == 0) {
+            return Optional.empty();
+        }
+        boolean diagonal = dx != 0 && dz != 0;
+        if (diagonal && Math.abs(dx) != Math.abs(dz)) {
+            return Optional.empty();
+        }
+        int gap = Math.max(Math.abs(dx), Math.abs(dz)) - 1;
+        if (gap < MIN_GAP || gap > MAX_GAP) {
+            return Optional.empty();
+        }
+        int sx = Integer.signum(dx);
+        int sz = Integer.signum(dz);
+        for (Direction facing : Direction.Plane.HORIZONTAL) {
+            BlockPos s = step(facing, diagonal);
+            if (s.getX() == sx && s.getZ() == sz) {
+                return Optional.of(new Spot(a, facing, diagonal, gap));
+            }
+        }
+        return Optional.empty();
+    }
+
+    // --- anchors and placing -----------------------------------------------------------------------------------
 
     /**
      * Anchors: any block with a collision shape that is not replaceable and not part of a hammock - full blocks,
@@ -73,25 +144,21 @@ public final class HammockLayout {
     }
 
     /**
-     * Finds the hammock a click places. A click on the side of a block uses that block (or the one above it) as the
-     * foot anchor and the hammock spans away from it; otherwise the player's facing (or its opposite) is the direction
-     * and the click position is the lower foot block. The first fitting spot wins, gap 2 before gap 3.
-     *
-     * @param placeAt  where a normal block would go ({@code BlockPlaceContext#getClickedPos})
-     * @param face     the clicked face
-     * @param looking  the player's horizontal facing
+     * The straight hammock a single click hangs. A click on the side of a block uses that block (or the one above it)
+     * as the first anchor and the hammock spans away from it; otherwise the player's facing (or its opposite) is the
+     * direction and the clicked spot is under the first rope cell. The shortest fitting gap wins.
      */
     public static Optional<Spot> find(Level level, BlockPos placeAt, Direction face, Direction looking) {
         List<Spot> tries = new ArrayList<>();
         if (face.getAxis().isHorizontal()) {
-            tries.add(new Spot(placeAt, face, 0));
-            tries.add(new Spot(placeAt.above(), face, 0));
+            tries.add(new Spot(placeAt.relative(face.getOpposite()), face, false, 0));
+            tries.add(new Spot(placeAt.relative(face.getOpposite()).above(), face, false, 0));
         }
-        tries.add(new Spot(placeAt.above(), looking, 0));
-        tries.add(new Spot(placeAt.above(), looking.getOpposite(), 0));
+        tries.add(new Spot(placeAt.above().relative(looking.getOpposite()), looking, false, 0));
+        tries.add(new Spot(placeAt.above().relative(looking), looking.getOpposite(), false, 0));
         for (Spot base : tries) {
             for (int gap = MIN_GAP; gap <= MAX_GAP; gap++) {
-                Spot spot = new Spot(base.upperFoot(), base.facing(), gap);
+                Spot spot = new Spot(base.anchor(), base.facing(), false, gap);
                 if (fits(level, spot)) {
                     return Optional.of(spot);
                 }
@@ -100,18 +167,22 @@ public final class HammockLayout {
         return Optional.empty();
     }
 
-    /** Both anchors in place, every block of the hammock free, nothing between the anchors but the hammock. */
+    /** Both anchors in place and every cell between them free (upper layer) as well as the cells under the cloth. */
     public static boolean fits(Level level, Spot spot) {
-        if (!isAnchor(level, spot.footAnchor()) || !isAnchor(level, spot.headAnchor())) {
+        if (!isAnchor(level, spot.anchor()) || !isAnchor(level, spot.otherAnchor())) {
             return false;
         }
-        for (BlockPos pos : List.of(spot.upperFoot(), spot.upperHead(), spot.lowerFoot(), spot.lowerHead())) {
-            if (!free(level, pos)) {
+        for (int i = 0; i < spot.gap(); i++) {
+            if (!free(level, spot.rope(i))) {
                 return false;
             }
         }
-        BlockPos span = spot.span();
-        return span == null || free(level, span);
+        for (int i : clothCells(spot.gap())) {
+            if (!free(level, spot.rope(i).below())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static boolean free(Level level, BlockPos pos) {
@@ -129,85 +200,103 @@ public final class HammockLayout {
         return true;
     }
 
-    /** The block states of a hammock at {@code spot}, in placing order (cloth, rope ends, rope span). */
+    /** The block states of a hammock at {@code spot}: the cloth cells, then the rope cells. */
     public static Map<BlockPos, BlockState> states(Block hammock, Block rope, Spot spot) {
         Map<BlockPos, BlockState> out = new LinkedHashMap<>();
-        BlockState cloth = hammock.defaultBlockState().setValue(HammockBlock.FACING, spot.facing()).setValue(HammockBlock.OCCUPIED, false);
-        out.put(spot.lowerFoot(), cloth.setValue(HammockBlock.PART, BedPart.FOOT));
-        out.put(spot.lowerHead(), cloth.setValue(HammockBlock.PART, BedPart.HEAD));
-        BlockState end = rope.defaultBlockState().setValue(HammockRopeBlock.KIND, HammockRopeBlock.Kind.END);
-        out.put(spot.upperFoot(), end.setValue(HammockRopeBlock.FACING, spot.facing().getOpposite()));
-        out.put(spot.upperHead(), end.setValue(HammockRopeBlock.FACING, spot.facing()));
-        BlockPos span = spot.span();
-        if (span != null) {
-            out.put(span, rope.defaultBlockState().setValue(HammockRopeBlock.KIND, HammockRopeBlock.Kind.SPAN)
-                    .setValue(HammockRopeBlock.FACING, spot.facing()));
+        for (int i : clothCells(spot.gap())) {
+            out.put(spot.rope(i).below(), clothState(hammock, spot, i));
+        }
+        for (int i = 0; i < spot.gap(); i++) {
+            out.put(spot.rope(i), ropeState(rope, spot, i));
         }
         return out;
     }
 
-    /** The side of a cloth block that faces its anchor: behind the foot, in front of the head. */
-    public static Direction outward(BlockState cloth) {
-        Direction facing = cloth.getValue(HammockBlock.FACING);
-        return cloth.getValue(HammockBlock.PART) == BedPart.FOOT ? facing.getOpposite() : facing;
+    private static BlockState clothState(Block hammock, Spot spot, int index) {
+        return hammock.defaultBlockState().setValue(HammockBlock.FACING, spot.facing()).setValue(DIAGONAL, spot.diagonal())
+                .setValue(GAP, spot.gap()).setValue(INDEX, index).setValue(HammockBlock.OCCUPIED, false)
+                .setValue(HammockBlock.PART, index == headCell(spot.gap()) ? BedPart.HEAD : BedPart.FOOT);
     }
 
+    private static BlockState ropeState(Block rope, Spot spot, int index) {
+        return rope.defaultBlockState().setValue(HammockRopeBlock.FACING, spot.facing()).setValue(DIAGONAL, spot.diagonal())
+                .setValue(GAP, spot.gap()).setValue(INDEX, index);
+    }
+
+    // --- hanging -----------------------------------------------------------------------------------------------
+
     /**
-     * The cloth head block (the sleeping spot and the only block that drops the item) of the hammock that the block at
-     * {@code pos} belongs to, or {@code null} when that hammock is already incomplete.
+     * Whether the hammock of the block {@code state} at {@code pos} is whole: both anchors, every rope cell and every
+     * cloth cell (one colour, the head where it belongs) in place on the same line.
      */
+    public static boolean intact(BlockGetter level, BlockPos pos, BlockState state) {
+        Spot spot = spotOf(pos, state);
+        if (!isAnchor(level, spot.anchor()) || !isAnchor(level, spot.otherAnchor())) {
+            return false;
+        }
+        for (int i = 0; i < spot.gap(); i++) {
+            BlockState rope = level.getBlockState(spot.rope(i));
+            if (!(rope.getBlock() instanceof HammockRopeBlock) || !sameLine(rope, spot, i)) {
+                return false;
+            }
+        }
+        Block cloth = null;
+        for (int i : clothCells(spot.gap())) {
+            BlockState part = level.getBlockState(spot.rope(i).below());
+            if (!(part.getBlock() instanceof HammockBlock) || cloth != null && !part.is(cloth) || !sameLine(part, spot, i)
+                    || (part.getValue(HammockBlock.PART) == BedPart.HEAD) != (i == headCell(spot.gap()))) {
+                return false;
+            }
+            cloth = part.getBlock();
+        }
+        return true;
+    }
+
+    private static boolean sameLine(BlockState state, Spot spot, int index) {
+        return state.getValue(HammockBlock.FACING) == spot.facing() && state.getValue(DIAGONAL) == spot.diagonal()
+                && state.getValue(GAP) == spot.gap() && state.getValue(INDEX) == index;
+    }
+
+    /** Every other block position of the hammock of {@code state} at {@code pos} (rope cells and cloth cells). */
+    public static List<BlockPos> otherCells(BlockPos pos, BlockState state) {
+        Spot spot = spotOf(pos, state);
+        List<BlockPos> out = new ArrayList<>();
+        for (int i = 0; i < spot.gap(); i++) {
+            out.add(spot.rope(i));
+        }
+        for (int i : clothCells(spot.gap())) {
+            out.add(spot.rope(i).below());
+        }
+        out.remove(pos);
+        return out;
+    }
+
+    /** The cloth head (sleeping spot, loot owner) of the hammock that the block at {@code pos} belongs to. */
     public static @Nullable BlockPos clothHead(BlockGetter level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
-        if (state.getBlock() instanceof HammockRopeBlock) {
-            if (state.getValue(HammockRopeBlock.KIND) == HammockRopeBlock.Kind.SPAN) {
-                pos = pos.relative(state.getValue(HammockRopeBlock.FACING).getOpposite());
-                state = level.getBlockState(pos);
-                if (!(state.getBlock() instanceof HammockRopeBlock)) {
-                    return null;
-                }
-            }
-            pos = pos.below();
-            state = level.getBlockState(pos);
-        }
-        if (!(state.getBlock() instanceof HammockBlock)) {
+        if (!(state.getBlock() instanceof HammockBlock) && !(state.getBlock() instanceof HammockRopeBlock)) {
             return null;
         }
-        return state.getValue(HammockBlock.PART) == BedPart.HEAD ? pos : pos.relative(state.getValue(HammockBlock.FACING));
+        BlockPos head = spotOf(pos, state).clothHead();
+        BlockState headState = level.getBlockState(head);
+        return headState.getBlock() instanceof HammockBlock && headState.getValue(HammockBlock.PART) == BedPart.HEAD ? head : null;
     }
 
-    /** A cloth block hangs while its partner along the hammock and the rope end above it (towards its anchor) are there. */
-    public static boolean clothHangs(BlockGetter level, BlockPos pos, BlockState state) {
-        Direction facing = state.getValue(HammockBlock.FACING);
-        BedPart part = state.getValue(HammockBlock.PART);
-        BlockState partner = level.getBlockState(pos.relative(part == BedPart.FOOT ? facing : facing.getOpposite()));
-        if (!partner.is(state.getBlock()) || partner.getValue(HammockBlock.FACING) != facing || partner.getValue(HammockBlock.PART) == part) {
-            return false;
+    /** After a part went: every other cell checks itself next tick (diagonal cells only touch at edges). */
+    public static void scheduleChecks(net.minecraft.server.level.ServerLevel level, BlockPos pos, BlockState state) {
+        for (BlockPos other : otherCells(pos, state)) {
+            BlockState otherState = level.getBlockState(other);
+            if (otherState.getBlock() instanceof HammockBlock || otherState.getBlock() instanceof HammockRopeBlock) {
+                level.scheduleTick(other, otherState.getBlock(), 1);
+            }
         }
-        BlockState above = level.getBlockState(pos.above());
-        return above.getBlock() instanceof HammockRopeBlock && above.getValue(HammockRopeBlock.KIND) == HammockRopeBlock.Kind.END
-                && above.getValue(HammockRopeBlock.FACING) == outward(state);
     }
 
-    /**
-     * A rope end hangs over its cloth block and reaches its anchor directly or through a rope span; a span hangs between
-     * a rope end behind it and the anchor in front.
-     */
-    public static boolean ropeHangs(BlockGetter level, BlockPos pos, BlockState state) {
-        Direction facing = state.getValue(HammockRopeBlock.FACING);
-        if (state.getValue(HammockRopeBlock.KIND) == HammockRopeBlock.Kind.SPAN) {
-            BlockState behind = level.getBlockState(pos.relative(facing.getOpposite()));
-            return isAnchor(level, pos.relative(facing)) && behind.getBlock() instanceof HammockRopeBlock
-                    && behind.getValue(HammockRopeBlock.KIND) == HammockRopeBlock.Kind.END && behind.getValue(HammockRopeBlock.FACING) == facing;
+    /** Scheduled check of one cell: a broken hammock falls (the cloth head drops the item through its loot table). */
+    public static void check(net.minecraft.server.level.ServerLevel level, BlockPos pos, BlockState state) {
+        if (!intact(level, pos, state)) {
+            level.destroyBlock(pos, true);
         }
-        BlockState below = level.getBlockState(pos.below());
-        if (!(below.getBlock() instanceof HammockBlock) || outward(below) != facing) {
-            return false;
-        }
-        BlockState front = level.getBlockState(pos.relative(facing));
-        if (front.getBlock() instanceof HammockRopeBlock) {
-            return front.getValue(HammockRopeBlock.KIND) == HammockRopeBlock.Kind.SPAN && front.getValue(HammockRopeBlock.FACING) == facing;
-        }
-        return isAnchor(level, pos.relative(facing));
     }
 
     /**

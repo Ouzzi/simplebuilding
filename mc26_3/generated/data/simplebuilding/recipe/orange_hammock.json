@@ -7,7 +7,7 @@
     "W": "minecraft:orange_wool"
   },
   "pattern": [
-    "/F/",
+    "F/F",
     "WWW"
   ],
   "result": {

@@ -4438,25 +4438,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -4468,9 +4470,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -4553,25 +4557,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -4583,9 +4589,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -4675,25 +4683,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -4705,9 +4715,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -5824,25 +5836,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -5854,9 +5868,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -10347,25 +10363,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -10377,9 +10395,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -10418,25 +10438,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -10448,9 +10470,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -11712,25 +11736,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -11742,9 +11768,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -11783,25 +11811,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -11813,9 +11843,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -11854,25 +11886,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -11884,9 +11918,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -11925,25 +11961,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -11955,9 +11993,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -15141,25 +15181,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -15171,9 +15213,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -15212,25 +15256,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -15242,9 +15288,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -15655,25 +15703,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -15685,9 +15735,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -15942,25 +15994,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -15972,9 +16026,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -18380,25 +18436,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -18410,9 +18468,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -18487,25 +18547,27 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -18517,9 +18579,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -19274,25 +19338,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -19304,9 +19370,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -19459,25 +19527,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -19489,9 +19559,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -19595,25 +19667,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -19625,9 +19699,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -20060,25 +20136,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -20090,9 +20168,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -22266,25 +22346,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -22296,9 +22378,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -22342,25 +22426,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -22372,9 +22458,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -22392,10 +22480,10 @@ window.WIKI_DATA = {
       "icon": "assets/textures/render/block/hammock_rope.png",
       "note": {
         "en": {
-          "summary": "The ropes of a hammock: one above each cloth block up to its anchor, and a rope span when the anchors are 3 blocks apart. No item and no drops; it falls with its hammock, and a click on it lies you down like a click on the cloth."
+          "summary": "The upper layer of a hammock: a rope block in every cell between the anchors; the two end cells draw the ropes from the anchor down to the cloth, the others are invisible links. No item and no drops; it falls with its hammock, and a click on it lies you down like a click on the cloth."
         },
         "de": {
-          "summary": "Die Seile einer Hängematte: je eines über jedem Tuchblock bis zu seinem Anker und ein Seilstück, wenn die Anker 3 Blöcke auseinander liegen. Kein Item und keine Drops; es fällt mit seiner Hängematte, ein Klick darauf legt dich hin wie ein Klick aufs Tuch."
+          "summary": "Die obere Lage einer Hängematte: ein Seilblock in jeder Zelle zwischen den Ankern; die beiden Endzellen zeichnen die Seile vom Anker zum Tuch, die übrigen sind unsichtbare Glieder. Kein Item und keine Drops; er fällt mit seiner Hängematte, ein Klick darauf legt dich hin wie ein Klick aufs Tuch."
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/HammockRopeBlock.java",
@@ -22936,25 +23024,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -22966,9 +23056,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -23012,25 +23104,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -23042,9 +23136,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -23088,25 +23184,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -23118,9 +23216,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -23164,25 +23264,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -23194,9 +23296,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -25098,25 +25202,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -25128,9 +25234,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -25225,25 +25333,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -25255,9 +25365,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -25996,25 +26108,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -26026,9 +26140,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -26120,25 +26236,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -26150,9 +26268,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -28488,25 +28608,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -28518,9 +28640,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -28564,25 +28688,27 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "A hammock in the 16 bed colors: Stick, String, Stick over three wool of one color. Resting in it by day makes the time pass faster - the daytime counterpart of the bed.",
+          "summary": "A hammock in the 16 bed colors: String, Stick, String over three wool of one color. Resting in it makes the time of day pass faster, by day and by night - but it is no sleep.",
           "details": [
-            "Hangs only between two anchors on rope height with 2 or 3 free blocks between them (1 or 4 and more: nothing happens but a fail sound, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass. Click the side of one anchor and the hammock spans away from it; otherwise it follows your facing with the clicked spot as the lower foot block.",
-            "It takes 1 x 2 x 2 blocks: the cloth sags in the lower layer, the ropes run up to the anchors in the upper layer; with 3 free blocks a rope span bridges the rest at the head end.",
-            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); in creative mode nothing drops.",
-            "Right-click by day (bright sky, in a dimension with a day clock) lies you down in the vanilla sleeping pose; not if it is occupied, at night, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point and does not reset the phantom timer (time since rest).",
-            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). At dusk vanilla wakes you as the hammock may no longer be used.",
+            "Hangs only between two anchors on the same height with 2, 3 or 4 free blocks between them, straight or at 45 degrees (1 or 5 and more: nothing is hung, no text). An anchor is any block with a collision shape that is not replaceable: full blocks, fences, walls, rods, glass.",
+            "Straight in one click: click the side of an anchor and the hammock spans away from it to the next anchor 2 to 4 blocks away (or follows your facing when you click the floor). Diagonal (or straight on purpose) in two clicks: click the first anchor (it is remembered, with green sparks only you see; sneaking always remembers), then the second. Clicking the first anchor again, taking the hammock out of your main hand, another dimension, 30 seconds or a lost anchor forget it. A refusal is a fail sound only.",
+            "The cloth is always two blocks long and hangs in the middle between the anchors; the ropes run from both spreaders to the anchors. It takes a rope block in every cell between the anchors and cloth blocks under the cloth.",
+            "If an anchor or any part goes, the whole hammock falls and drops once (only the cloth head carries the loot, like a bed); a diagonal hammock notices a lost anchor within half a second. In creative mode nothing drops.",
+            "Right-click lies you down in the vanilla sleeping pose along the hammock (turned along a diagonal hammock and centered on the cloth when drawn); not if it is occupied, in the nether or the end, or with a monster within 8 blocks (as for beds, not in creative). It never sets your respawn point, never skips the night and does not reset the phantom timer (time since rest).",
+            "While at least max(1, players_sleeping_percentage of the non-spectator players, rounded up) rest in hammocks in that dimension (percentage at most 100, game rule advance_time on), its clock runs server.hammock.timeFactor times as fast (default 8, limits 1 to 20; 1 = off). Only the time of day speeds up - crops, furnaces, weather and redstone keep the normal game speed.",
             "Resting players never count as sleeping long enough, so hammocks cannot skip to the next morning; the screen only dims slightly. The 'players sleeping' action bar stays quiet for hammocks.",
             "Dye it like a bed: any other hammock + a dye gives that color."
           ]
         },
         "de": {
-          "summary": "Eine Hängematte in den 16 Bettfarben: Stock, Faden, Stock über drei Wolle einer Farbe. Tagsüber darin liegen lässt die Zeit schneller laufen - das Gegenstück zum Bett.",
+          "summary": "Eine Hängematte in den 16 Bettfarben: Faden, Stock, Faden über drei Wolle einer Farbe. Darin liegen lässt die Tageszeit schneller laufen, tagsüber wie nachts - Schlaf ersetzt sie aber nicht.",
           "details": [
-            "Hängt nur zwischen zwei Ankern auf Seilhöhe mit 2 oder 3 freien Blöcken dazwischen (1 oder ab 4: es passiert nichts außer einem Fehlschlag-Sound, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas. Ein Klick auf die Seite eines Ankers spannt die Hängematte von dort weg; sonst folgt sie der Blickrichtung, die Klickstelle ist das untere Fußteil.",
-            "Sie belegt 1 x 2 x 2 Blöcke: das Tuch hängt in der unteren Lage durch, die Seile laufen in der oberen Lage zu den Ankern; bei 3 freien Blöcken überbrückt ein Seilstück den Rest am Kopfende.",
-            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); im Kreativmodus fällt nichts.",
-            "Rechtsklick tagsüber (heller Himmel, in einer Dimension mit Tagesuhr) legt dich in der Vanilla-Schlafpose hin; nicht, wenn sie belegt ist, nachts oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
-            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). In der Dämmerung weckt dich Vanilla, weil die Hängematte dann nicht mehr nutzbar ist.",
+            "Hängt nur zwischen zwei Ankern auf gleicher Höhe mit 2, 3 oder 4 freien Blöcken dazwischen, gerade oder im 45-Grad-Winkel (1 oder ab 5: nichts wird aufgehängt, kein Text). Anker ist jeder nicht ersetzbare Block mit Kollisionsform: volle Blöcke, Zäune, Mauern, Stäbe, Glas.",
+            "Gerade mit einem Klick: ein Klick auf die Seite eines Ankers spannt die Hängematte von dort zum nächsten Anker in 2 bis 4 Blöcken (beim Klick auf den Boden in Blickrichtung). Diagonal (oder gezielt gerade) mit zwei Klicks: erst den ersten Anker anklicken (er wird gemerkt, mit grünen Funken nur für dich; beim Schleichen immer), dann den zweiten. Erneuter Klick auf den ersten Anker, Hängematte nicht mehr in der Haupthand, andere Dimension, 30 Sekunden oder ein fehlender Anker vergessen ihn. Eine Ablehnung ist nur ein Fehlschlag-Sound.",
+            "Das Tuch ist immer zwei Blöcke lang und hängt mittig zwischen den Ankern; die Seile laufen von beiden Spreizhölzern zu den Ankern. Sie belegt in jeder Zelle zwischen den Ankern einen Seilblock und unter dem Tuch Tuchblöcke.",
+            "Fehlt ein Anker oder ein Teil, fällt die ganze Hängematte und droppt einmal (nur das Kopfteil des Tuchs trägt die Beute, wie beim Bett); eine diagonale bemerkt einen fehlenden Anker innerhalb einer halben Sekunde. Im Kreativmodus fällt nichts.",
+            "Rechtsklick legt dich in der Vanilla-Schlafpose entlang der Hängematte hin (bei diagonalen gedreht und mittig auf dem Tuch gezeichnet); nicht, wenn sie belegt ist, im Nether oder End oder mit einem Monster in 8 Blöcken (wie beim Bett, nicht im Kreativmodus). Sie setzt nie den Wiedereinstiegspunkt, überspringt nie die Nacht und setzt den Phantom-Zähler (Zeit seit Ruhe) nicht zurück.",
+            "Solange mindestens max(1, players_sleeping_percentage der Nicht-Zuschauer, aufgerundet) in dieser Dimension in Hängematten liegen (Prozent höchstens 100, Spielregel advance_time an), läuft ihre Uhr server.hammock.timeFactor-mal so schnell (Standard 8, Grenzen 1 bis 20; 1 = aus). Nur die Tageszeit läuft schneller - Pflanzen, Öfen, Wetter und Redstone behalten das normale Spieltempo.",
             "Liegende zählen nie als lange genug schlafend, Hängematten können also nicht zum nächsten Morgen springen; der Bildschirm dunkelt nur leicht ab. Die Aktionsleiste 'Spieler schlafen' bleibt bei Hängematten still.",
             "Färben wie ein Bett: jede andere Hängematte + Farbstoff ergibt diese Farbe."
           ]
@@ -28594,9 +28720,11 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/HammockItem.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockPlayerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/HammockServerLevelMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/HammockLivingRendererMixin.java",
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "tools/textures/hammock.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -30617,7 +30745,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -30639,7 +30767,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:ink_sac",
@@ -30647,7 +30775,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -30710,7 +30838,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:ink_sac",
@@ -30718,7 +30846,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -30904,7 +31032,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -30926,7 +31054,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:lapis_lazuli",
@@ -30934,7 +31062,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -30997,7 +31125,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:lapis_lazuli",
@@ -31005,7 +31133,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -31470,7 +31598,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -31492,7 +31620,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cocoa_beans",
@@ -31500,7 +31628,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -31563,7 +31691,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cocoa_beans",
@@ -31571,7 +31699,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -32982,7 +33110,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -33004,7 +33132,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus",
@@ -33016,7 +33144,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -33079,7 +33207,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus",
@@ -33091,7 +33219,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -39540,7 +39668,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -39562,7 +39690,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:ink_sac",
@@ -39574,7 +39702,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -39637,19 +39765,19 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:ink_sac",
             "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          },
-          {
             "id": "minecraft:bone",
             "count": 0.167
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
           }
         ]
       }
@@ -39790,7 +39918,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -39812,7 +39940,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus",
@@ -39820,7 +39948,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -39883,7 +40011,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus",
@@ -39891,7 +40019,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -40971,7 +41099,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -40993,7 +41121,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:blue_orchid",
@@ -41001,7 +41129,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41064,7 +41192,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:blue_orchid",
@@ -41072,7 +41200,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41213,7 +41341,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -41235,7 +41363,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:azure_bluet",
@@ -41243,7 +41371,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41306,7 +41434,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:azure_bluet",
@@ -41314,7 +41442,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41455,7 +41583,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -41477,7 +41605,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus",
@@ -41489,7 +41617,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41552,19 +41680,19 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus",
             "count": 0.5
           },
           {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          },
-          {
             "id": "minecraft:bone",
             "count": 0.167
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
           }
         ]
       }
@@ -41705,7 +41833,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -41727,7 +41855,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:allium",
@@ -41735,7 +41863,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -41798,7 +41926,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:allium",
@@ -41806,7 +41934,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -45652,7 +45780,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -45674,7 +45802,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:open_eyeblossom",
@@ -45682,7 +45810,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -45745,7 +45873,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:open_eyeblossom",
@@ -45753,7 +45881,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -45894,7 +46022,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -45916,7 +46044,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus_flower",
@@ -45924,7 +46052,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -45987,7 +46115,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:cactus_flower",
@@ -45995,7 +46123,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -48328,7 +48456,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -48350,7 +48478,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:beetroot",
@@ -48362,7 +48490,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -48425,7 +48553,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:beetroot",
@@ -48437,7 +48565,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -48748,7 +48876,7 @@ window.WIKI_DATA = {
         "minecraft:string"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -48770,7 +48898,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:beetroot",
@@ -48778,7 +48906,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -48841,7 +48969,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:beetroot",
@@ -48849,7 +48977,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -53444,7 +53572,7 @@ window.WIKI_DATA = {
         "minecraft:white_wool"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -53466,11 +53594,11 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -53533,7 +53661,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:azure_bluet",
@@ -53545,7 +53673,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -53720,7 +53848,7 @@ window.WIKI_DATA = {
         "minecraft:yellow_wool"
       ],
       "pattern": [
-        "/F/",
+        "F/F",
         "WWW"
       ],
       "key": {
@@ -53742,7 +53870,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:dandelion",
@@ -53750,7 +53878,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }
@@ -53813,7 +53941,7 @@ window.WIKI_DATA = {
         "materials": [
           {
             "id": "minecraft:string",
-            "count": 13
+            "count": 14
           },
           {
             "id": "minecraft:dandelion",
@@ -53821,7 +53949,7 @@ window.WIKI_DATA = {
           },
           {
             "id": "minecraft:oak_log",
-            "count": 0.25
+            "count": 0.125
           }
         ]
       }

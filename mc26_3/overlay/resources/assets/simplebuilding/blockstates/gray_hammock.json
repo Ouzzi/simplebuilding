@@ -1,34 +1,97 @@
 {
   "variants": {
-    "facing=north,part=foot": {
-      "model": "simplebuilding:block/gray_hammock",
+    "part=foot": {
+      "model": "simplebuilding:block/hammock_empty"
+    },
+    "diagonal=false,facing=north,gap=2,part=head": {
+      "model": "simplebuilding:block/gray_hammock_2",
       "y": 180
     },
-    "facing=north,part=head": {
-      "model": "simplebuilding:block/gray_hammock"
-    },
-    "facing=east,part=foot": {
-      "model": "simplebuilding:block/gray_hammock",
-      "y": 270
-    },
-    "facing=east,part=head": {
-      "model": "simplebuilding:block/gray_hammock",
-      "y": 90
-    },
-    "facing=south,part=foot": {
-      "model": "simplebuilding:block/gray_hammock"
-    },
-    "facing=south,part=head": {
-      "model": "simplebuilding:block/gray_hammock",
+    "diagonal=false,facing=north,gap=3,part=head": {
+      "model": "simplebuilding:block/gray_hammock_3",
       "y": 180
     },
-    "facing=west,part=foot": {
-      "model": "simplebuilding:block/gray_hammock",
+    "diagonal=false,facing=north,gap=4,part=head": {
+      "model": "simplebuilding:block/gray_hammock_4",
+      "y": 180
+    },
+    "diagonal=true,facing=north,gap=2,part=head": {
+      "model": "simplebuilding:block/gray_hammock_diagonal_2",
+      "y": 180
+    },
+    "diagonal=true,facing=north,gap=3,part=head": {
+      "model": "simplebuilding:block/gray_hammock_diagonal_3",
+      "y": 180
+    },
+    "diagonal=true,facing=north,gap=4,part=head": {
+      "model": "simplebuilding:block/gray_hammock_diagonal_4",
+      "y": 180
+    },
+    "diagonal=false,facing=east,gap=2,part=head": {
+      "model": "simplebuilding:block/gray_hammock_2",
+      "y": 270
+    },
+    "diagonal=false,facing=east,gap=3,part=head": {
+      "model": "simplebuilding:block/gray_hammock_3",
+      "y": 270
+    },
+    "diagonal=false,facing=east,gap=4,part=head": {
+      "model": "simplebuilding:block/gray_hammock_4",
+      "y": 270
+    },
+    "diagonal=true,facing=east,gap=2,part=head": {
+      "model": "simplebuilding:block/gray_hammock_diagonal_2",
+      "y": 270
+    },
+    "diagonal=true,facing=east,gap=3,part=head": {
+      "model": "simplebuilding:block/gray_hammock_diagonal_3",
+      "y": 270
+    },
+    "diagonal=true,facing=east,gap=4,part=head": {
+      "model": "simplebuilding:block/gray_hammock_diagonal_4",
+      "y": 270
+    },
+    "diagonal=false,facing=south,gap=2,part=head": {
+      "model": "simplebuilding:block/gray_hammock_2"
+    },
+    "diagonal=false,facing=south,gap=3,part=head": {
+      "model": "simplebuilding:block/gray_hammock_3"
+    },
+    "diagonal=false,facing=south,gap=4,part=head": {
+      "model": "simplebuilding:block/gray_hammock_4"
+    },
+    "diagonal=true,facing=south,gap=2,part=head": {
+      "model": "simplebuilding:block/gray_hammock_diagonal_2"
+    },
+    "diagonal=true,facing=south,gap=3,part=head": {
+      "model": "simplebuilding:block/gray_hammock_diagonal_3"
+    },
+    "diagonal=true,facing=south,gap=4,part=head": {
+      "model": "simplebuilding:block/gray_hammock_diagonal_4"
+    },
+    "diagonal=false,facing=west,gap=2,part=head": {
+      "model": "simplebuilding:block/gray_hammock_2",
       "y": 90
     },
-    "facing=west,part=head": {
-      "model": "simplebuilding:block/gray_hammock",
-      "y": 270
+    "diagonal=false,facing=west,gap=3,part=head": {
+      "model": "simplebuilding:block/gray_hammock_3",
+      "y": 90
+    },
+    "diagonal=false,facing=west,gap=4,part=head": {
+      "model": "simplebuilding:block/gray_hammock_4",
+      "y": 90
+    },
+    "diagonal=true,facing=west,gap=2,part=head": {
+      "model": "simplebuilding:block/gray_hammock_diagonal_2",
+      "y": 90
+    },
+    "diagonal=true,facing=west,gap=3,part=head": {
+      "model": "simplebuilding:block/gray_hammock_diagonal_3",
+      "y": 90
+    },
+    "diagonal=true,facing=west,gap=4,part=head": {
+      "model": "simplebuilding:block/gray_hammock_diagonal_4",
+      "y": 90
     }
   }
 }
