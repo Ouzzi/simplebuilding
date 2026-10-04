@@ -4248,26 +4248,28 @@
       "icon": "assets/textures/render/auto_smither.png",
       "note": {
         "en": {
-          "summary": "The Auto Smither is the Crafter of the smithing table: a redstone pulse smiths once from the template, base and addition inside it and pushes the result out of its front.",
+          "summary": "The Auto Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
           "details": [
-            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. The result goes into a container in front of it, otherwise it flies out as an item. Without a matching recipe it only clicks.",
-            "Hoppers and droppers fill it from any side: templates go into the template slot, gear into the base slot and materials into the addition slot, using the same checks as the smithing table. Nothing can be pulled out again.",
-            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled slot (0 to 15).",
+            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. Results go into a container in front, with any remainder kept in the output slot. Without a matching recipe or enough output space it only clicks and consumes nothing.",
+            "Hoppers and droppers fill the three input slots from any side, using the smithing table's item checks. Only finished results can be pulled out. Players can take results but cannot place anything in the output slot.",
+            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled input slot (0 to 15). The error arrow appears only when all three inputs are present but their recipe is invalid.",
             "Recipe: iron ingots around a smithing table, redstone, a dropper and redstone in the bottom row - like the Crafter."
           ]
         },
         "de": {
-          "summary": "Der Auto-Schmied ist der Crafter des Schmiedetischs: ein Redstone-Impuls schmiedet einmal aus der Vorlage, der Basis und dem Material darin und schiebt das Ergebnis vorn heraus.",
+          "summary": "Der Auto-Schmied schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Material. Fertige Ergebnisse gehen in einen Behälter vor ihm oder bleiben im Ausgabeslot.",
           "details": [
-            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Das Ergebnis geht in einen Behälter vor ihm, sonst fliegt es als Item heraus. Ohne passendes Rezept klickt er nur.",
-            "Trichter und Spender befüllen ihn von jeder Seite: Vorlagen kommen in den Vorlagen-Slot, Ausrüstung in den Basis-Slot und Materialien in den Material-Slot, mit denselben Prüfungen wie am Schmiedetisch. Herausziehen lässt sich nichts.",
-            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Slot (0 bis 15).",
+            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Ergebnisse gehen in einen Behälter vor ihm, der Rest bleibt im Ausgabeslot. Ohne passendes Rezept oder genügend Ausgabeplatz klickt er nur und verbraucht nichts.",
+            "Trichter und Spender befüllen die drei Eingabeslots von jeder Seite mit denselben Item-Prüfungen wie am Schmiedetisch. Nur fertige Ergebnisse lassen sich herausziehen. Spieler können Ergebnisse entnehmen, aber nichts in den Ausgabeslot legen.",
+            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Eingabeslot (0 bis 15). Der Fehlerpfeil erscheint nur bei drei belegten Eingaben ohne gültiges Rezept.",
             "Rezept: Eisenbarren um einen Schmiedetisch, unten Redstone, ein Spender und Redstone - wie beim Crafter."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/AutoSmitherBlock.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutoSmitherBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/AutoSmitherScreen.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },
@@ -19273,26 +19275,28 @@
       ],
       "note": {
         "en": {
-          "summary": "The Auto Smither is the Crafter of the smithing table: a redstone pulse smiths once from the template, base and addition inside it and pushes the result out of its front.",
+          "summary": "The Auto Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
           "details": [
-            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. The result goes into a container in front of it, otherwise it flies out as an item. Without a matching recipe it only clicks.",
-            "Hoppers and droppers fill it from any side: templates go into the template slot, gear into the base slot and materials into the addition slot, using the same checks as the smithing table. Nothing can be pulled out again.",
-            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled slot (0 to 15).",
+            "Like the Crafter it smiths 4 ticks after a rising redstone edge; a steady signal does not repeat. Results go into a container in front, with any remainder kept in the output slot. Without a matching recipe or enough output space it only clicks and consumes nothing.",
+            "Hoppers and droppers fill the three input slots from any side, using the smithing table's item checks. Only finished results can be pulled out. Players can take results but cannot place anything in the output slot.",
+            "It uses the smithing table's recipes, including the Glowing, Emitting and Pulsating upgrades. A comparator reads 5 per filled input slot (0 to 15). The error arrow appears only when all three inputs are present but their recipe is invalid.",
             "Recipe: iron ingots around a smithing table, redstone, a dropper and redstone in the bottom row - like the Crafter."
           ]
         },
         "de": {
-          "summary": "Der Auto-Schmied ist der Crafter des Schmiedetischs: ein Redstone-Impuls schmiedet einmal aus der Vorlage, der Basis und dem Material darin und schiebt das Ergebnis vorn heraus.",
+          "summary": "Der Auto-Schmied schmiedet einmal pro Redstone-Impuls aus Vorlage, Basis und Material. Fertige Ergebnisse gehen in einen Behälter vor ihm oder bleiben im Ausgabeslot.",
           "details": [
-            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Das Ergebnis geht in einen Behälter vor ihm, sonst fliegt es als Item heraus. Ohne passendes Rezept klickt er nur.",
-            "Trichter und Spender befüllen ihn von jeder Seite: Vorlagen kommen in den Vorlagen-Slot, Ausrüstung in den Basis-Slot und Materialien in den Material-Slot, mit denselben Prüfungen wie am Schmiedetisch. Herausziehen lässt sich nichts.",
-            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Slot (0 bis 15).",
+            "Wie der Crafter schmiedet er 4 Ticks nach einer steigenden Redstone-Flanke; ein Dauersignal wiederholt nicht. Ergebnisse gehen in einen Behälter vor ihm, der Rest bleibt im Ausgabeslot. Ohne passendes Rezept oder genügend Ausgabeplatz klickt er nur und verbraucht nichts.",
+            "Trichter und Spender befüllen die drei Eingabeslots von jeder Seite mit denselben Item-Prüfungen wie am Schmiedetisch. Nur fertige Ergebnisse lassen sich herausziehen. Spieler können Ergebnisse entnehmen, aber nichts in den Ausgabeslot legen.",
+            "Er nutzt die Rezepte des Schmiedetischs, auch die Aufwertungen Leuchtend, Strahlend und Pulsierend. Ein Komparator liest 5 je belegtem Eingabeslot (0 bis 15). Der Fehlerpfeil erscheint nur bei drei belegten Eingaben ohne gültiges Rezept.",
             "Rezept: Eisenbarren um einen Schmiedetisch, unten Redstone, ein Spender und Redstone - wie beim Crafter."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/AutoSmitherBlock.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/AutoSmitherBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/AutoSmitherMenu.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/AutoSmitherScreen.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
         ]
       },

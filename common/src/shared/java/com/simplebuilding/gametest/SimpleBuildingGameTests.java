@@ -611,6 +611,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("workstation_game_test_smithing_recipe_book_places_damaged_gear", WorkstationTests::smithingRecipeBookPlacesDamagedGear)
                     .build(),
+            GameTestSpec.named("workstation_game_test_auto_smither_output_capacity_and_recipe_error", WorkstationTests::autoSmitherOutputCapacityAndRecipeError)
+                    .build(),
+            GameTestSpec.named("workstation_game_test_auto_smither_output_rejects_insertion", WorkstationTests::autoSmitherOutputRejectsInsertion)
+                    .build(),
             GameTestSpec.named("workstation_game_test_auto_smither_smiths_once_per_pulse", WorkstationTests::autoSmitherSmithsOncePerPulse)
                     .maxTicks(200).build(),
             GameTestSpec.named("workstation_game_test_auto_smither_sorts_hopper_input", WorkstationTests::autoSmitherSortsHopperInput)

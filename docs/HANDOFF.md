@@ -4,6 +4,26 @@ Zuerst `AGENTS.md` vollständig lesen, dann diese Datei und `docs/ai/WORKFLOW.md
 Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alten Run-Berichten.
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
+## Worker-Nachtrag 2026-10-04: Auto Smither
+
+Branch `gpt-smither`: gespeicherte, nur entnehmbare Ausgabe statt gesperrter
+Rezeptvorschau. Fronttransfer bleibt; Rest bleibt im Ausgang. Volle/inkompatible
+Ausgabe stoppt ohne Verbrauch. Spieler-Klickwege und Trichterseiten abgesichert.
+Vanilla-Slot-/Labelpositionen und Geisterbilder bestaetigt; Hammer-Dekoration und
+Crafter-Redstone-Symbol entfernt, Fehlerpfeil nur bei ungueltigem vollstaendigem Rezept.
+Generator und 16-fache A/B-Vorschau: `tools/textures/auto_smither_gui.py`,
+`C:/Users/o_o/code/minecraft-mods/previews/auto-smither-gui-vorschau.png`.
+
+Filter 8/8, volle Fabric-/NeoForge-Suiten **1872/1872, alles gruen**; Testzentrale
+gebaut und alle Items/Bloecke abgedeckt. 26.2 Fabric/NeoForge-Compile,
+Forge-26.3-Compile und `check -q`: **GRADLE_EXIT=0**, einschliesslich 54 Wiki-Tests.
+Wiki/GUI/allgemeine Texturpruefung gruen. Der erste Gateversuch scheiterte an
+373 reinen CRLF-Abweichungen des Sandwich-Bytechecks; lokal normalisiert, kein
+inhaltlicher Modul-Diff. Belege/Abweichungen: `docs/ai/PLAN-AUTO-SMITHER-2026-10-02.md`.
+Kein Clientstart, Port, Merge oder Push. Sichtabnahme/Besitzerwelt bleiben offen.
+Der gemeldete Einlegefehler war im Ausgangscode bereits gesperrt und dort nicht
+reproduzierbar; der neue entnehmbare Ausgabe-Vertrag ist jetzt explizit getestet.
+
 ## Worker-Nachtrag 2026-10-04: wackelige GameTests
 
 Branch `claude-gpt-flaky`: Knopf-Ausfuehrung bedingt abwarten, eigene Scoreboard-Zaehler und

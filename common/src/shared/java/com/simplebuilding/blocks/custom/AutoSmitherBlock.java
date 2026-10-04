@@ -6,7 +6,6 @@ import com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity;
 import com.simplebuilding.version.BlockCodecs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
@@ -31,13 +30,12 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 /**
  * Auto-Schmied: der Crafter des Schmiedetischs (Besitzer 2026-10-02). Verhalten wie Vanillas {@code CrafterBlock}: eine
  * steigende Redstone-Flanke schmiedet nach {@link #DELAY_TICKS} Ticks genau einmal aus Vorlage, Basis und Material; das
- * Ergebnis geht in den Container vor der Front oder fliegt als Item heraus. Ohne passendes Rezept klickt es wie der Crafter
+ * Ergebnis geht in den Container vor der Front oder bleibt im Ausgabeslot. Ohne passendes Rezept klickt es wie der Crafter
  * (Ereignis 1050). Dauersignal loest nicht erneut aus. Komparator: belegte Eingaenge (0, 5, 10, 15).
  */
 public class AutoSmitherBlock extends BaseEntityBlock {
@@ -113,7 +111,7 @@ public class AutoSmitherBlock extends BaseEntityBlock {
             return false;
         }
         AutoSmitherBlockEntity.Outcome outcome = smither.outcome(level);
-        if (outcome == null) {
+        if (outcome == null || !smither.canStoreResult(outcome.result())) {
             level.levelEvent(1050, pos, 0);
             return false;
         }
@@ -126,7 +124,7 @@ public class AutoSmitherBlock extends BaseEntityBlock {
         return true;
     }
 
-    /** Wie {@code CrafterBlock#dispenseItem}: erst in den Container vor der Front, der Rest fliegt heraus. */
+    /** Transfer to the front container; retain any remainder for players and hoppers. */
     private static void dispense(ServerLevel level, BlockPos pos, AutoSmitherBlockEntity smither, ItemStack result, Direction facing) {
         Container into = HopperBlockEntity.getContainerAt(level, pos.relative(facing));
         ItemStack remaining = result;
@@ -140,10 +138,7 @@ public class AutoSmitherBlock extends BaseEntityBlock {
             }
         }
         if (!remaining.isEmpty()) {
-            Vec3 from = Vec3.atCenterOf(pos).relative(facing, 0.7);
-            DefaultDispenseItemBehavior.spawnItem(level, remaining, 6, facing, from);
-            level.levelEvent(1049, pos, 0);
-            level.levelEvent(2010, pos, facing.get3DDataValue());
+            smither.storeResult(remaining);
         }
     }
 

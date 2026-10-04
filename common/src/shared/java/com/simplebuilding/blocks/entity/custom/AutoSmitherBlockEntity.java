@@ -33,7 +33,7 @@ import org.jspecify.annotations.Nullable;
 /**
  * Inhalt des Auto-Schmieds: Vorlage (0), Basis (1), Material (2). Trichter und Seiten legen nach Vanillas Schmiede-Mengen
  * ein ({@link RecipePropertySet#SMITHING_TEMPLATE}, {@code _BASE}, {@code _ADDITION} - dieselben Pruefungen wie die Slots
- * des Schmiedetischs); herausziehen laesst sich nichts, Ergebnisse kommen nur vorn heraus.
+ * des Schmiedetischs); nur fertige Ergebnisse im vierten Slot lassen sich herausziehen.
  *
  * <p>Ergebnis wie am Schmiedetisch: erst die Mod-Aufwertungen ({@link TrimUpgrades}, sonst rechnet Vanilla), dann
  * {@link RecipeType#SMITHING}; verbraucht wird je ein Teil, beim {@link CountBasedSmithingRecipe} dessen Material-Anzahl.
@@ -42,7 +42,8 @@ public class AutoSmitherBlockEntity extends BaseContainerBlockEntity implements 
     public static final int TEMPLATE_SLOT = 0;
     public static final int BASE_SLOT = 1;
     public static final int ADDITION_SLOT = 2;
-    public static final int SIZE = 3;
+    public static final int RESULT_SLOT = 3;
+    public static final int SIZE = 4;
     private static final int[] SLOTS = IntStream.range(0, SIZE).toArray();
     private static final Component DEFAULT_NAME = Component.translatable("container.simplebuilding.auto_smither");
 
@@ -118,8 +119,8 @@ public class AutoSmitherBlockEntity extends BaseContainerBlockEntity implements 
     /** Komparator: belegte Eingaenge, 5 je Slot (0, 5, 10, 15). */
     public int redstoneSignal() {
         int filled = 0;
-        for (ItemStack stack : this.items) {
-            if (!stack.isEmpty()) {
+        for (int slot = 0; slot < RESULT_SLOT; slot++) {
+            if (!getItem(slot).isEmpty()) {
                 filled++;
             }
         }
@@ -128,7 +129,7 @@ public class AutoSmitherBlockEntity extends BaseContainerBlockEntity implements 
 
     /** Welcher Slot dieses Item annimmt, nach Vanillas Schmiede-Mengen; -1, wenn keiner. */
     public int slotFor(ItemStack stack) {
-        for (int slot = 0; slot < SIZE; slot++) {
+        for (int slot = 0; slot < RESULT_SLOT; slot++) {
             if (fitsSlot(slot, stack)) {
                 return slot;
             }
@@ -137,7 +138,7 @@ public class AutoSmitherBlockEntity extends BaseContainerBlockEntity implements 
     }
 
     private boolean fitsSlot(int slot, ItemStack stack) {
-        if (this.level == null || stack.isEmpty()) {
+        if (this.level == null || stack.isEmpty() || slot < 0 || slot >= RESULT_SLOT) {
             return false;
         }
         var key = switch (slot) {
@@ -165,7 +166,27 @@ public class AutoSmitherBlockEntity extends BaseContainerBlockEntity implements 
 
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) {
-        return false;
+        return slot == RESULT_SLOT;
+    }
+
+    /** Reserve space before consuming inputs, even if the front container is full. */
+    public boolean canStoreResult(ItemStack result) {
+        ItemStack stored = getItem(RESULT_SLOT);
+        return (stored.isEmpty() || ItemStack.isSameItemSameComponents(stored, result))
+                && stored.getCount() + result.getCount() <= getMaxStackSize(result);
+    }
+
+    public void storeResult(ItemStack result) {
+        if (result.isEmpty()) {
+            return;
+        }
+        ItemStack stored = getItem(RESULT_SLOT);
+        if (stored.isEmpty()) {
+            setItem(RESULT_SLOT, result);
+        } else {
+            stored.grow(result.getCount());
+            setChanged();
+        }
     }
 
     @Override
