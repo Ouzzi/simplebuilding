@@ -98,4 +98,5 @@ Balancing-Multimod: Manifest-Pfade/Mod-Auswahl nutzen; Ablage `balance/<id>/`, S
 
 ## 11. AI workflow and continuity (added 2026-09-30)
 Voicebridge: `python tools/voicebridge/server.py` (8772), phone setup and safety: `docs/ai/VOICE-HANDS-FREE.md`; default read-only, file proposals require one spoken confirmation, never push/delete/free shell.
+Modul-Unabhängigkeit (jedes Modul allein spielbar, fremde Inhalte nur bedingt): `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`.
 Read `docs/ai/WORKFLOW.md` (roles, loop, traps), `docs/ai/LAPTOP-SETUP.md` (new machine) and `docs/ai/VOICE-HANDS-FREE.md` (voice plan). Helper: `python tools/ai/aitool.py` (`codex` = start a worker run in its own worktree, `status`, `gate [--integration] [--push]`, `sync-memory`, `merge-help`). Task briefs and the module-brief generator live in `docs/ai/briefs/`; the assistant's memory notes are mirrored in `docs/ai/memory/` (background facts, the code wins). Multi-mod rules: `docs/MULTIMOD.md`; modules are plugin-style (a new module touches only `modules/<id>/` and its manifest entry).

@@ -1,6 +1,7 @@
 plugins { id 'net.fabricmc.fabric-loom' }
 ext.moduleVersion = '1.0.6'
 apply from: rootProject.file('gradle/module-fabric.gradle')
+dependencies { include project(':framework') }
 
 repositories { maven { url="https://maven.shedaniel.me/" }; maven { url="https://maven.terraformersmc.com/releases/" } }
 dependencies { implementation "me.shedaniel.cloth:cloth-config-fabric:${rootProject.mc263_cloth_version}" }

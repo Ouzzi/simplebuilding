@@ -14,7 +14,7 @@ public final class ModuleForgeTests {
  }
  public static void instances(Registry<TestEnvironmentDefinition<?>> environments,Registry<GameTestInstance> instances){
   Holder<TestEnvironmentDefinition<?>> env=environments.getOrThrow(GameTestEnvironments.DEFAULT_KEY);
-  var data=new TestData<>(env,net.minecraft.world.level.Level.OVERWORLD,Identifier.parse("simplebuilding:empty"),100,0,true,net.minecraft.world.level.block.Rotation.NONE,false,1,1,false,1);
+  var data=new TestData<>(env,net.minecraft.world.level.Level.OVERWORLD,Identifier.parse("simplemoney:empty"),100,0,true,net.minecraft.world.level.block.Rotation.NONE,false,1,1,false,1);
   cases().forEach((name,body)->Registry.register(instances,id(name),new FunctionGameTestInstance(ResourceKey.create(Registries.TEST_FUNCTION,id(name)),data)));
  }
 }
