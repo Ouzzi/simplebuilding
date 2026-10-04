@@ -223,5 +223,22 @@ window.WIKI_MODULES = [
       "modmenu"
     ],
     "dataHash": "ab7cf583e62b"
+  },
+  {
+    "id": "simplesandwiches",
+    "displayName": "Simple Sandwiches",
+    "description": "Sandwiches on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding"
+    ],
+    "dataHash": "1dd444ec14d4"
   }
 ];

@@ -32,6 +32,7 @@ public final class BundleEating {
     public static boolean edible(ItemStack food) {
         return !food.isEmpty() && food.has(DataComponents.FOOD) && food.has(DataComponents.CONSUMABLE)
                 && !food.has(DataComponents.USE_REMAINDER) && !(food.getItem() instanceof BundleItem)
+                && !(food.getItem() instanceof net.minecraft.world.item.BucketItem)
                 && !food.has(DataComponents.BUNDLE_CONTENTS);
     }
 

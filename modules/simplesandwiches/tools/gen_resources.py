@@ -84,9 +84,8 @@ def resources():
     def loot(name, entry):
         data(f"loot_table/blocks/{name}", {
             "type": "minecraft:block",
-            "pools": [{"rolls": 1, "bonus_rolls": 0,
-                       "conditions": [{"condition": "minecraft:survives_explosion"}],
-                       "entries": [entry]}],
+            "pools": [{"rolls": 1, "condition": {"type": "minecraft:survives_explosion"}, "entries": [entry]}],
+            "random_sequence": f"{NS}:blocks/{name}",
         })
 
     def tag(kind, name, values, namespace=NS):
@@ -130,11 +129,11 @@ def resources():
         for slices in (16, *range(1, 16)):
             entry = {
                 "type": "minecraft:item", "name": f"{NS}:{name if slices == 16 else food + '_slice'}",
-                "conditions": [{"condition": "minecraft:block_state_property", "block": f"{NS}:{name}",
-                                "properties": {"slices": str(slices)}}],
+                # 26.3 loot format: single "condition"/"modifier" objects with "type" (see vanilla sea_pickle.json).
+                "condition": {"type": "minecraft:match_block", "blocks": f"{NS}:{name}", "state": {"slices": str(slices)}},
             }
             if slices < 16:
-                entry["functions"] = [{"function": "minecraft:set_count", "count": slices}]
+                entry["modifier"] = {"type": "minecraft:set_count", "count": slices}
             children.append(entry)
         loot(name, {"type": "minecraft:alternatives", "children": children})
 

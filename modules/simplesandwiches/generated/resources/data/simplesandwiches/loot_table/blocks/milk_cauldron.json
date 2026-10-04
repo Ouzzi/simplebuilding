@@ -1,12 +1,9 @@
 {
   "pools": [
     {
-      "bonus_rolls": 0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
       "entries": [
         {
           "name": "minecraft:cauldron",
@@ -16,5 +13,6 @@
       "rolls": 1
     }
   ],
+  "random_sequence": "simplesandwiches:blocks/milk_cauldron",
   "type": "minecraft:block"
 }

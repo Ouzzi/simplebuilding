@@ -154,6 +154,8 @@ public final class SandwichTests {
     // --- tests -------------------------------------------------------------------------------------
 
     static void configBounds(GameTestHelper h) {
+        // Tests share one server: restore the previous values instead of the defaults.
+        JsonObject saved = SandwichConfig.toJson();
         try {
             JsonObject j = new JsonObject();
             j.addProperty("maxIngredients", 99);
@@ -178,7 +180,7 @@ public final class SandwichTests {
             SandwichConfig.apply(j);
             near(h, SandwichConfig.butterBonus, SandwichConfig.BUTTER_BONUS_DEFAULT, "NaN falls back to the default");
         } finally {
-            SandwichConfig.reset();
+            SandwichConfig.apply(saved);
         }
         h.succeed();
     }
@@ -188,7 +190,8 @@ public final class SandwichTests {
             ItemStack s = new ItemStack(item);
             var key = BuiltInRegistries.ITEM.getKey(item);
             boolean vanillaFood = key.getNamespace().equals("minecraft") && s.has(DataComponents.FOOD)
-                    && !s.has(DataComponents.USE_REMAINDER) && item != Items.BREAD;
+                    && !s.has(DataComponents.USE_REMAINDER) && item != Items.BREAD
+                    && !(item instanceof net.minecraft.world.item.BucketItem);
             if (vanillaFood) h.assertTrue(s.is(ModTags.SANDWICH_INGREDIENTS), "Vanilla food missing from the ingredient tag: " + key);
             if (s.is(ModTags.SANDWICH_INGREDIENTS)) h.assertTrue(SandwichFormula.isIngredient(s), "Tag member is no valid ingredient: " + key);
         }
@@ -343,6 +346,7 @@ public final class SandwichTests {
         h.getLevel().destroyBlock(h.absolutePos(pos), true);
         h.assertItemEntityPresent(Items.BREAD, pos, 2.0);
         h.assertItemEntityPresent(Items.APPLE, pos, 2.0);
+        h.assertItemEntityPresent(ModItems.CUTTING_BOARDS.get("oak"), pos, 2.0);
         h.succeed();
     }
 
@@ -397,7 +401,9 @@ public final class SandwichTests {
         for (int i = 0; i < 3; i++) click(h, p, pos, Direction.UP);
         BlockState s = h.getLevel().getBlockState(h.absolutePos(pos));
         h.assertTrue(s.getValue(SliceBlock.SLICES) == 13 && s.getValue(SliceBlock.CUT) == SliceBlock.Cut.UP, "three slices from the top");
-        h.assertTrue(click(h, p, pos, Direction.NORTH) == InteractionResult.FAIL, "side cut refused once cut from the top");
+        click(h, p, pos, Direction.NORTH);
+        s = h.getLevel().getBlockState(h.absolutePos(pos));
+        h.assertTrue(s.getValue(SliceBlock.SLICES) == 13 && s.getValue(SliceBlock.CUT) == SliceBlock.Cut.UP, "side cut refused once cut from the top");
         h.assertTrue(count(p, ModItems.CHEESE_SLICE) == 3, "three cheese slices");
         var drops = net.minecraft.world.level.block.Block.getDrops(h.getLevel().getBlockState(h.absolutePos(pos)), h.getLevel(), h.absolutePos(pos), null);
         h.assertTrue(drops.size() == 1 && drops.get(0).is(ModItems.CHEESE_SLICE) && drops.get(0).getCount() == 13, "partial block drops its 13 slices: " + drops);
@@ -486,12 +492,16 @@ public final class SandwichTests {
     static void cauldronRipensInWorld(GameTestHelper h) {
         BlockPos pos = cauldron(h);
         ServerPlayer p = player(h, pos);
+        JsonObject saved = SandwichConfig.toJson();
         SandwichConfig.butterTicks = SandwichConfig.BUTTER_TICKS_MIN;
         p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.MILK_BUCKET));
         click(h, p, pos);
-        SandwichConfig.reset();
         h.runAfterDelay(SandwichConfig.BUTTER_TICKS_MIN + 20, () -> {
-            h.assertTrue(at(h, pos).getValue(MilkCauldronBlock.CONTENT) == Content.BUTTER, "scheduled ticks ripen the milk");
+            try {
+                h.assertTrue(at(h, pos).getValue(MilkCauldronBlock.CONTENT) == Content.BUTTER, "scheduled ticks ripen the milk");
+            } finally {
+                SandwichConfig.apply(saved);
+            }
             h.succeed();
         });
     }
@@ -527,11 +537,12 @@ public final class SandwichTests {
         full.set(DataComponents.BUNDLE_CONTENTS, fm.toImmutable());
         p.setItemInHand(InteractionHand.MAIN_HAND, full);
         h.assertTrue(full.use(h.getLevel(), p, InteractionHand.MAIN_HAND) == InteractionResult.FAIL, "not hungry: nothing happens");
+        boolean before = SandwichConfig.bundleEating;
         try {
             SandwichConfig.bundleEating = false;
             h.assertTrue(BundleEating.eating(full) == null, "config switch off");
         } finally {
-            SandwichConfig.reset();
+            SandwichConfig.bundleEating = before;
         }
         h.succeed();
     }

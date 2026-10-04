@@ -1,12 +1,9 @@
 {
   "pools": [
     {
-      "bonus_rolls": 0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
       "entries": [
         {
           "name": "simplesandwiches:crimson_cutting_board",
@@ -16,5 +13,6 @@
       "rolls": 1
     }
   ],
+  "random_sequence": "simplesandwiches:blocks/crimson_cutting_board",
   "type": "minecraft:block"
 }

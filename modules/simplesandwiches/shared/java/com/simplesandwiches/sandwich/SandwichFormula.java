@@ -105,7 +105,8 @@ public final class SandwichFormula {
         if (stack.isEmpty() || !stack.is(ModTags.SANDWICH_INGREDIENTS)) return false;
         DataComponentMap c = stack.getItem().components();
         return c.has(DataComponents.FOOD) && !c.has(DataComponents.USE_REMAINDER)
-                && !stack.is(ModItems.SANDWICH) && !stack.is(Items.BREAD);
+                && !stack.is(ModItems.SANDWICH) && !stack.is(Items.BREAD)
+                && !(stack.getItem() instanceof net.minecraft.world.item.BucketItem);
     }
 
     private SandwichFormula() {}
