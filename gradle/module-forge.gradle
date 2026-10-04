@@ -49,7 +49,10 @@ processResources {
         fileTree(destinationDir).matching { include 'data/**/*.json' }.each { f ->
             def data = new groovy.json.JsonSlurper().parse(f)
             if (data instanceof Map && data['neoforge:conditions']) {
-                def conditions = data['neoforge:conditions']
+                // Prefer explicit Forge conditions; NeoForge's built-in mod_loaded has a Forge twin.
+                def conditions = data['forge:conditions'] ?: data['neoforge:conditions'].collect {
+                    it instanceof Map && it.type == 'neoforge:mod_loaded' ? it + [type: 'forge:mod_loaded'] : it
+                }
                 data['forge:condition'] = conditions.size() == 1 ? conditions[0] : [type:'forge:and', values:conditions]
                 f.setText(groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(data)) + '\n', 'UTF-8')
             }

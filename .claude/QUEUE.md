@@ -294,3 +294,11 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Geschwindigkeitsmesser-Rezept: freie Felder mit Kupfer-Nuggets füllen, dann das Muster um einen Slot im Uhrzeigersinn rotieren. (`claude-gpt-gauge`: 26.3 `NAN / NCN / NKN`, sechs Kupfernuggets; 26.2 unverändert. Prüfstand: `docs/ai/PLAN-GAUGE-RESIN-2026-10-02.md`.)
 - [ ] Astral-/Nihil-Schienen: bremsen bzw. beschleunigen; Höchstgeschwindigkeit anheben mit realistischer Reibung (je schneller, desto mehr Boost nötig, asymptotische Annäherung); Astral-Schienen boosten stärker als Antriebsschienen.
 - [x] Harz-Schachbrett: Rezept nutzt noch den Platzhalter rote Netherziegel → auf Harzziegel (resin_bricks) umstellen. (`claude-gpt-gauge`: 26.2/26.3 inklusive Freischaltung und EN/DE-Prosa; 1.21.11 bleibt Port-Run. Prüfstand wie oben.)
+
+## Besitzer 2026-10-04 (Nachtrag Modul-Unabhängigkeit)
+Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `claude-modprinciples` gefixt).
+- [ ] Standalone-Testziel je Modul: `modules.json` `tests.standalone` (nur Modul + harte Libs), Testrunner `module_targets` erzeugt `module-<id>-standalone-fabric-263` (+ NeoForge mit `loadedMods=[nur Modul]`); Integrations-Targets bleiben.
+- [ ] Modul-Tests ohne SB lauffähig machen: SB-Asserts hinter `isModLoaded("simplebuilding")` oder in Integrations-Katalog (QoL, Money, Models, Dimensions, Fun, Riding – Zeilen in der Prinzipien-Datei, Befund 3).
+- [ ] Optionale Partner in Loader-Metadaten nachziehen (`suggests` / `type="optional"`) und `tools/multimod.py` prüft Gleichstand mit `modules.json optional` (Befund 5).
+- [ ] Simple Riding: Enderit-Hufeisen über `#c:ingots/enderite` statt fester SB-ID (Condition bleibt; Befund 6).
+- [ ] Simple Sandwiches (Branch `claude-sandwiches`): Crucible-Grundrezept mit Axt, SB-Variante mit `#simplebuilding:sledgehammer_tools` nur hinter `mod_loaded` (Regel 5).

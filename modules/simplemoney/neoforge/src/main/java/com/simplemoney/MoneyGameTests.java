@@ -13,6 +13,6 @@ public final class MoneyGameTests {
  private static Identifier id(String name){return Identifier.fromNamespaceAndPath("simplemoney",name);}
  public static void register(IEventBus bus) {
   bus.addListener((RegisterEvent event)->event.register(Registries.TEST_FUNCTION,r->MoneyTests.ALL.forEach((name,body)->r.register(id(name),body))));
-  bus.addListener((RegisterGameTestsEvent event)-> {var env=event.registerEnvironment(id("default"),new TestEnvironmentDefinition.AllOf(List.of()));MoneyTests.ALL.forEach((name,body)->event.registerTest(id(name),new FunctionGameTestInstance(ResourceKey.create(Registries.TEST_FUNCTION,id(name)),new TestData<>(env,Level.OVERWORLD,Identifier.parse("simplebuilding:empty"),100,0,true,Rotation.NONE,false,1,1,false,1))));});
+  bus.addListener((RegisterGameTestsEvent event)-> {var env=event.registerEnvironment(id("default"),new TestEnvironmentDefinition.AllOf(List.of()));MoneyTests.ALL.forEach((name,body)->event.registerTest(id(name),new FunctionGameTestInstance(ResourceKey.create(Registries.TEST_FUNCTION,id(name)),new TestData<>(env,Level.OVERWORLD,Identifier.parse("simplemoney:empty"),100,0,true,Rotation.NONE,false,1,1,false,1))));});
  }
 }
