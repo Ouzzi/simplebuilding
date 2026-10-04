@@ -1,0 +1,244 @@
+{
+  "variants": {
+    "cut=east,slices=1": {
+      "model": "simplesandwiches:block/butter_block/east_1"
+    },
+    "cut=east,slices=10": {
+      "model": "simplesandwiches:block/butter_block/east_10"
+    },
+    "cut=east,slices=11": {
+      "model": "simplesandwiches:block/butter_block/east_11"
+    },
+    "cut=east,slices=12": {
+      "model": "simplesandwiches:block/butter_block/east_12"
+    },
+    "cut=east,slices=13": {
+      "model": "simplesandwiches:block/butter_block/east_13"
+    },
+    "cut=east,slices=14": {
+      "model": "simplesandwiches:block/butter_block/east_14"
+    },
+    "cut=east,slices=15": {
+      "model": "simplesandwiches:block/butter_block/east_15"
+    },
+    "cut=east,slices=16": {
+      "model": "simplesandwiches:block/butter_block/full"
+    },
+    "cut=east,slices=2": {
+      "model": "simplesandwiches:block/butter_block/east_2"
+    },
+    "cut=east,slices=3": {
+      "model": "simplesandwiches:block/butter_block/east_3"
+    },
+    "cut=east,slices=4": {
+      "model": "simplesandwiches:block/butter_block/east_4"
+    },
+    "cut=east,slices=5": {
+      "model": "simplesandwiches:block/butter_block/east_5"
+    },
+    "cut=east,slices=6": {
+      "model": "simplesandwiches:block/butter_block/east_6"
+    },
+    "cut=east,slices=7": {
+      "model": "simplesandwiches:block/butter_block/east_7"
+    },
+    "cut=east,slices=8": {
+      "model": "simplesandwiches:block/butter_block/east_8"
+    },
+    "cut=east,slices=9": {
+      "model": "simplesandwiches:block/butter_block/east_9"
+    },
+    "cut=north,slices=1": {
+      "model": "simplesandwiches:block/butter_block/north_1"
+    },
+    "cut=north,slices=10": {
+      "model": "simplesandwiches:block/butter_block/north_10"
+    },
+    "cut=north,slices=11": {
+      "model": "simplesandwiches:block/butter_block/north_11"
+    },
+    "cut=north,slices=12": {
+      "model": "simplesandwiches:block/butter_block/north_12"
+    },
+    "cut=north,slices=13": {
+      "model": "simplesandwiches:block/butter_block/north_13"
+    },
+    "cut=north,slices=14": {
+      "model": "simplesandwiches:block/butter_block/north_14"
+    },
+    "cut=north,slices=15": {
+      "model": "simplesandwiches:block/butter_block/north_15"
+    },
+    "cut=north,slices=16": {
+      "model": "simplesandwiches:block/butter_block/full"
+    },
+    "cut=north,slices=2": {
+      "model": "simplesandwiches:block/butter_block/north_2"
+    },
+    "cut=north,slices=3": {
+      "model": "simplesandwiches:block/butter_block/north_3"
+    },
+    "cut=north,slices=4": {
+      "model": "simplesandwiches:block/butter_block/north_4"
+    },
+    "cut=north,slices=5": {
+      "model": "simplesandwiches:block/butter_block/north_5"
+    },
+    "cut=north,slices=6": {
+      "model": "simplesandwiches:block/butter_block/north_6"
+    },
+    "cut=north,slices=7": {
+      "model": "simplesandwiches:block/butter_block/north_7"
+    },
+    "cut=north,slices=8": {
+      "model": "simplesandwiches:block/butter_block/north_8"
+    },
+    "cut=north,slices=9": {
+      "model": "simplesandwiches:block/butter_block/north_9"
+    },
+    "cut=south,slices=1": {
+      "model": "simplesandwiches:block/butter_block/south_1"
+    },
+    "cut=south,slices=10": {
+      "model": "simplesandwiches:block/butter_block/south_10"
+    },
+    "cut=south,slices=11": {
+      "model": "simplesandwiches:block/butter_block/south_11"
+    },
+    "cut=south,slices=12": {
+      "model": "simplesandwiches:block/butter_block/south_12"
+    },
+    "cut=south,slices=13": {
+      "model": "simplesandwiches:block/butter_block/south_13"
+    },
+    "cut=south,slices=14": {
+      "model": "simplesandwiches:block/butter_block/south_14"
+    },
+    "cut=south,slices=15": {
+      "model": "simplesandwiches:block/butter_block/south_15"
+    },
+    "cut=south,slices=16": {
+      "model": "simplesandwiches:block/butter_block/full"
+    },
+    "cut=south,slices=2": {
+      "model": "simplesandwiches:block/butter_block/south_2"
+    },
+    "cut=south,slices=3": {
+      "model": "simplesandwiches:block/butter_block/south_3"
+    },
+    "cut=south,slices=4": {
+      "model": "simplesandwiches:block/butter_block/south_4"
+    },
+    "cut=south,slices=5": {
+      "model": "simplesandwiches:block/butter_block/south_5"
+    },
+    "cut=south,slices=6": {
+      "model": "simplesandwiches:block/butter_block/south_6"
+    },
+    "cut=south,slices=7": {
+      "model": "simplesandwiches:block/butter_block/south_7"
+    },
+    "cut=south,slices=8": {
+      "model": "simplesandwiches:block/butter_block/south_8"
+    },
+    "cut=south,slices=9": {
+      "model": "simplesandwiches:block/butter_block/south_9"
+    },
+    "cut=up,slices=1": {
+      "model": "simplesandwiches:block/butter_block/up_1"
+    },
+    "cut=up,slices=10": {
+      "model": "simplesandwiches:block/butter_block/up_10"
+    },
+    "cut=up,slices=11": {
+      "model": "simplesandwiches:block/butter_block/up_11"
+    },
+    "cut=up,slices=12": {
+      "model": "simplesandwiches:block/butter_block/up_12"
+    },
+    "cut=up,slices=13": {
+      "model": "simplesandwiches:block/butter_block/up_13"
+    },
+    "cut=up,slices=14": {
+      "model": "simplesandwiches:block/butter_block/up_14"
+    },
+    "cut=up,slices=15": {
+      "model": "simplesandwiches:block/butter_block/up_15"
+    },
+    "cut=up,slices=16": {
+      "model": "simplesandwiches:block/butter_block/full"
+    },
+    "cut=up,slices=2": {
+      "model": "simplesandwiches:block/butter_block/up_2"
+    },
+    "cut=up,slices=3": {
+      "model": "simplesandwiches:block/butter_block/up_3"
+    },
+    "cut=up,slices=4": {
+      "model": "simplesandwiches:block/butter_block/up_4"
+    },
+    "cut=up,slices=5": {
+      "model": "simplesandwiches:block/butter_block/up_5"
+    },
+    "cut=up,slices=6": {
+      "model": "simplesandwiches:block/butter_block/up_6"
+    },
+    "cut=up,slices=7": {
+      "model": "simplesandwiches:block/butter_block/up_7"
+    },
+    "cut=up,slices=8": {
+      "model": "simplesandwiches:block/butter_block/up_8"
+    },
+    "cut=up,slices=9": {
+      "model": "simplesandwiches:block/butter_block/up_9"
+    },
+    "cut=west,slices=1": {
+      "model": "simplesandwiches:block/butter_block/west_1"
+    },
+    "cut=west,slices=10": {
+      "model": "simplesandwiches:block/butter_block/west_10"
+    },
+    "cut=west,slices=11": {
+      "model": "simplesandwiches:block/butter_block/west_11"
+    },
+    "cut=west,slices=12": {
+      "model": "simplesandwiches:block/butter_block/west_12"
+    },
+    "cut=west,slices=13": {
+      "model": "simplesandwiches:block/butter_block/west_13"
+    },
+    "cut=west,slices=14": {
+      "model": "simplesandwiches:block/butter_block/west_14"
+    },
+    "cut=west,slices=15": {
+      "model": "simplesandwiches:block/butter_block/west_15"
+    },
+    "cut=west,slices=16": {
+      "model": "simplesandwiches:block/butter_block/full"
+    },
+    "cut=west,slices=2": {
+      "model": "simplesandwiches:block/butter_block/west_2"
+    },
+    "cut=west,slices=3": {
+      "model": "simplesandwiches:block/butter_block/west_3"
+    },
+    "cut=west,slices=4": {
+      "model": "simplesandwiches:block/butter_block/west_4"
+    },
+    "cut=west,slices=5": {
+      "model": "simplesandwiches:block/butter_block/west_5"
+    },
+    "cut=west,slices=6": {
+      "model": "simplesandwiches:block/butter_block/west_6"
+    },
+    "cut=west,slices=7": {
+      "model": "simplesandwiches:block/butter_block/west_7"
+    },
+    "cut=west,slices=8": {
+      "model": "simplesandwiches:block/butter_block/west_8"
+    },
+    "cut=west,slices=9": {
+      "model": "simplesandwiches:block/butter_block/west_9"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "cullface": "down",
+          "texture": "#top",
+          "uv": [
+            0,
+            4,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "cullface": "east",
+          "texture": "#side",
+          "uv": [
+            4,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "cullface": "north",
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#inner",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "cullface": "up",
+          "texture": "#top",
+          "uv": [
+            0,
+            0,
+            16,
+            12
+          ]
+        },
+        "west": {
+          "cullface": "west",
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            12,
+            16
+          ]
+        }
+      },
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        12
+      ]
+    }
+  ],
+  "parent": "minecraft:block/block",
+  "textures": {
+    "inner": "simplesandwiches:block/cheese_block_inner",
+    "particle": "#top",
+    "side": "simplesandwiches:block/cheese_block_side",
+    "top": "simplesandwiches:block/cheese_block_top"
+  }
+}

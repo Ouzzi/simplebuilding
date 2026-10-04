@@ -1,0 +1,17 @@
+{
+  "category": "equipment",
+  "key": {
+    "N": "minecraft:iron_nugget",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "  N",
+    " N ",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplesandwiches:knife"
+  },
+  "type": "minecraft:crafting_shaped"
+}

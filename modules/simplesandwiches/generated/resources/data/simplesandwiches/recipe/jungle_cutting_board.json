@@ -1,0 +1,16 @@
+{
+  "category": "misc",
+  "group": "simplesandwiches:cutting_board",
+  "key": {
+    "S": "minecraft:stick",
+    "X": "minecraft:jungle_slab"
+  },
+  "pattern": [
+    "SXX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplesandwiches:jungle_cutting_board"
+  },
+  "type": "minecraft:crafting_shaped"
+}

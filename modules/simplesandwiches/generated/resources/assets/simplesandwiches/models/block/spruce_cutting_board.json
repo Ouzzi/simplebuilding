@@ -1,0 +1,79 @@
+{
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "cullface": "down",
+          "texture": "#top",
+          "uv": [
+            1,
+            2,
+            15,
+            14
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            2,
+            14,
+            14,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#side",
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            1,
+            2,
+            15,
+            14
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            2,
+            14,
+            14,
+            16
+          ]
+        }
+      },
+      "from": [
+        1,
+        0,
+        2
+      ],
+      "to": [
+        15,
+        2,
+        14
+      ]
+    }
+  ],
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "#top",
+    "side": "simplesandwiches:block/spruce_cutting_board_side",
+    "top": "simplesandwiches:block/spruce_cutting_board"
+  }
+}

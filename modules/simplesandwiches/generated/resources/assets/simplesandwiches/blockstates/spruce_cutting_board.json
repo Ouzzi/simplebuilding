@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "simplesandwiches:block/spruce_cutting_board",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "simplesandwiches:block/spruce_cutting_board",
+      "y": 0
+    },
+    "facing=south": {
+      "model": "simplesandwiches:block/spruce_cutting_board",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "simplesandwiches:block/spruce_cutting_board",
+      "y": 270
+    }
+  }
+}

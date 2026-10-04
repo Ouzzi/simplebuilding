@@ -1,0 +1,18 @@
+{
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "name": "simplesandwiches:dark_oak_cutting_board",
+          "type": "minecraft:item"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simplesandwiches:blocks/dark_oak_cutting_board",
+  "type": "minecraft:block"
+}

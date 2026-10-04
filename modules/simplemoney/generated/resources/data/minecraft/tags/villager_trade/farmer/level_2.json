@@ -8,6 +8,14 @@
     {
       "id": "simplemoney:farmer/24",
       "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/cheese_block",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/butter_block",
+      "required": false
     }
   ]
 }

@@ -1,0 +1,1734 @@
+{
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simplesandwiches",
+    "name": "Simple Sandwiches",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ]
+  },
+  "features": [
+    {
+      "id": "sandwiches",
+      "en": {
+        "title": "Sandwiches",
+        "summary": "One bread plus up to five ingredients, with optional butter first; matching components stack to 16.",
+        "details": [
+          "Hunger and saturation are bread (5 / 6.0) plus all ingredients, without a formula cap. Vanilla limits restoration when eating. Ingredients use their item's default components, not custom stack components.",
+          "Butter adds 10% to hunger (rounded), saturation and summed effect durations by default. Server bounds: butterBonus 0–0.25; maxIngredients 1–5 (default 5). Eating takes 1.6 seconds plus 0.2 seconds per ingredient.",
+          "Matching effects merge: maximum strength, summed duration, chance 1 - product(1 - chance). After butter, default duration caps are twice the longest individual duration and 12,000 ticks. Server bounds: effectDurationCapTicks 20–12,000 and effectDurationMultiplierCap 1–3 (default 2). Instant effects last one tick. Removal effects are kept once; teleport and sound consumption effects are not copied.",
+          "Ingredients need the sandwich_ingredients tag and FOOD without USE_REMAINDER; bread and sandwiches are excluded. Cheese and cake slices are included; SimpleBuilding's netherite and enderite apples and carrots are optional. Ingredient order affects stacking. Highest rarity, glint override, longest cooldown and the ability to eat when full are inherited from ingredients."
+        ]
+      },
+      "de": {
+        "title": "Sandwiches",
+        "summary": "Ein Brot plus bis zu fünf Zutaten, optional zuerst Butter; bei gleichen Komponenten bis 16 stapelbar.",
+        "details": [
+          "Hunger und Sättigung sind Brot (5 / 6,0) plus alle Zutaten, ohne Formeldeckel. Vanilla begrenzt die Wiederherstellung beim Essen. Zutaten verwenden ihre Standard-Itemkomponenten, keine angepassten Stapelkomponenten.",
+          "Butter erhöht standardmäßig Hunger (gerundet), Sättigung und summierte Effektdauern um 10 %. Servergrenzen: butterBonus 0–0,25; maxIngredients 1–5 (Standard 5). Esszeit: 1,6 Sekunden plus 0,2 Sekunden je Zutat.",
+          "Gleiche Effekte werden zusammengeführt: höchste Stärke, summierte Dauer, Chance 1 - Produkt(1 - Chance). Nach Butter gelten standardmäßig die Dauergrenzen doppelte längste Einzeldauer und 12.000 Ticks. Servergrenzen: effectDurationCapTicks 20–12.000 und effectDurationMultiplierCap 1–3 (Standard 2). Soforteffekte dauern einen Tick. Effektentfernungen bleiben einmal erhalten; Teleport- und Sound-Konsumeffekte werden nicht übernommen.",
+          "Zutaten benötigen den Tag sandwich_ingredients und FOOD ohne USE_REMAINDER; Brot und Sandwiches sind ausgeschlossen. Käse- und Kuchenstücke sind enthalten; SimpleBuildings Netherit- und Enderit-Äpfel und -Karotten sind optional. Die Zutatenreihenfolge beeinflusst das Stapeln. Höchste Seltenheit, Glitzervorgabe, längste Benutzungssperre und Essbarkeit bei vollem Hunger werden von Zutaten übernommen."
+        ]
+      },
+      "sources": [
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/sandwich/SandwichFormula.java",
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/sandwich/EffectMerger.java",
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/config/SandwichConfig.java",
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModItems.java"
+      ]
+    },
+    {
+      "id": "cutting_board",
+      "en": {
+        "title": "Cutting board",
+        "summary": "Place bread, open with the knife, add toppings, then close and collect with an empty hand.",
+        "details": [
+          "All wood variants face horizontally and require support below. Use a knife on the loaf to open it. Before adding ingredients, hold a knife and butter slice in opposite hands to butter the bread, consuming one slice.",
+          "Add ingredients with the main hand; the knife retrieves the top ingredient. An empty main hand closes the sandwich; another use collects it. A knife reopens it. Finished sandwiches can be placed back onto empty boards; unopened bread can be retrieved with an empty hand.",
+          "Opening, buttering, removing a topping and reopening each cost one knife durability. Feedback uses sounds and particles."
+        ]
+      },
+      "de": {
+        "title": "Schneidebrett",
+        "summary": "Brot auflegen, mit dem Messer öffnen, belegen und mit leerer Hand schließen und entnehmen.",
+        "details": [
+          "Alle Holzvarianten richten sich horizontal aus und benötigen einen tragenden Block darunter. Das Brot mit dem Messer öffnen. Vor dem Belegen Messer und Butterscheibe in entgegengesetzten Händen halten, um das Brot unter Verbrauch einer Scheibe zu bestreichen.",
+          "Zutaten mit der Haupthand auflegen; das Messer nimmt die oberste Zutat zurück. Eine leere Haupthand schließt das Sandwich; eine weitere Benutzung entnimmt es. Das Messer öffnet es wieder. Fertige Sandwiches lassen sich auf leere Bretter zurücklegen; ungeöffnetes Brot mit leerer Hand zurücknehmen.",
+          "Öffnen, Bestreichen, Entfernen einer Zutat und erneutes Öffnen kosten jeweils einen Haltbarkeitspunkt. Rückmeldung erfolgt durch Sounds und Partikel."
+        ]
+      },
+      "sources": [
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/block/CuttingBoardBlock.java",
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModBlocks.java"
+      ]
+    },
+    {
+      "id": "knife",
+      "en": {
+        "title": "Knife",
+        "summary": "250 durability, total attack damage 2, attack speed 2.0 and anvil repair with iron nuggets.",
+        "details": [
+          "The iron tool material uses knife_repair_materials for repairs and sword tool properties for cobwebs and bamboo.",
+          "Use on a melon block for nine slices, costing one durability. Each cake cut consumes one bite and one durability and gives one cake slice: seven from a full cake, remaining bites from a partly eaten cake. Candle cakes first drop their candle.",
+          "Cake slices restore 2 hunger and 0.4 saturation instantly, stack to seven and work as sandwich ingredients."
+        ]
+      },
+      "de": {
+        "title": "Messer",
+        "summary": "250 Haltbarkeit, Gesamtschaden 2, Angriffstempo 2,0 und Ambossreparatur mit Eisennuggets.",
+        "details": [
+          "Das Eisen-Werkzeugmaterial nutzt knife_repair_materials zur Reparatur und Schwert-Werkzeugeigenschaften für Spinnweben und Bambus.",
+          "An einem Melonenblock gibt eine Benutzung neun Scheiben für einen Haltbarkeitspunkt. Jeder Kuchenschnitt verbraucht einen Bissen und einen Haltbarkeitspunkt und gibt ein Kuchenstück: sieben aus einem vollen Kuchen, die Restbissen aus einem angebissenen Kuchen. Kerzenkuchen lassen zuerst ihre Kerze fallen.",
+          "Kuchenstücke geben sofort 2 Hunger und 0,4 Sättigung, sind bis sieben stapelbar und dienen als Sandwichzutat."
+        ]
+      },
+      "sources": [
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/item/KnifeItem.java",
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModItems.java"
+      ]
+    },
+    {
+      "id": "cheese_and_butter",
+      "en": {
+        "title": "Cheese and butter",
+        "summary": "Milk ripens into butter automatically; a fermented spider eye starts cheese ripening with a limited harvest window.",
+        "details": [
+          "Fill an empty cauldron with a milk bucket. Milk becomes butter after four stages: 3,000 ticks by default (2.5 minutes at 20 ticks per second), butterTicks 200–24,000. Butter never spoils. An empty bucket recovers milk before it becomes butter or starts curdling.",
+          "Add one fermented spider eye to milk to start cheese ripening: 9,000 ticks by default (7.5 minutes), cheeseTicks 600–72,000. Harvest butter or cheese with an empty main hand. Cheese spoils after another 1,800 ticks by default (1.5 minutes), cheeseHarvestWindowTicks 200–12,000. An empty hand or bucket empties spoiled milk without a reward. Ripening uses scheduled block ticks, with configured ripening times divided into four whole-tick intervals.",
+          "Cheese and butter blocks contain 16 slices. A knife cuts one slice from the top or a side for one durability; the first cut fixes the direction until full again. A matching slice restores one layer. Butter block friction is 0.9.",
+          "Cheese slices restore 2 hunger and 1.2 saturation. Butter slices are not edible; use with a knife to butter opened bread before toppings."
+        ]
+      },
+      "de": {
+        "title": "Käse und Butter",
+        "summary": "Milch reift automatisch zu Butter; ein fermentiertes Spinnenauge startet die Käsereifung mit begrenztem Erntefenster.",
+        "details": [
+          "Einen leeren Kessel mit einem Milcheimer füllen. Milch wird nach vier Stufen zu Butter: standardmäßig 3.000 Ticks (2,5 Minuten bei 20 Ticks pro Sekunde), butterTicks 200–24.000. Butter verdirbt nie. Ein leerer Eimer holt Milch zurück, bevor sie Butter wird oder zu gerinnen beginnt.",
+          "Ein fermentiertes Spinnenauge zur Milch geben, um Käse zu erzeugen: standardmäßig 9.000 Ticks (7,5 Minuten), cheeseTicks 600–72.000. Butter oder Käse mit leerer Haupthand ernten. Käse verdirbt standardmäßig nach weiteren 1.800 Ticks (1,5 Minuten), cheeseHarvestWindowTicks 200–12.000. Eine leere Hand oder ein Eimer leert verdorbene Milch ohne Ertrag. Reifung nutzt geplante Blockticks; eingestellte Reifezeiten werden in vier ganzzahlige Tickintervalle geteilt.",
+          "Käse- und Butterblöcke enthalten 16 Scheiben. Das Messer schneidet von oben oder seitlich eine Scheibe für einen Haltbarkeitspunkt ab; der erste Schnitt legt die Richtung fest, bis der Block wieder voll ist. Eine passende Scheibe ergänzt eine Schicht. Butterblock-Reibung: 0,9.",
+          "Käsescheiben geben 2 Hunger und 1,2 Sättigung. Butterscheiben sind nicht essbar; mit dem Messer vor den Zutaten auf geöffnetes Brot streichen."
+        ]
+      },
+      "sources": [
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/block/MilkCauldronBlock.java",
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/block/SliceBlock.java",
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/config/SandwichConfig.java",
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModBlocks.java",
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModItems.java"
+      ]
+    },
+    {
+      "id": "eating_from_bundles",
+      "en": {
+        "title": "Eating from bundles",
+        "summary": "Hold use to eat the selected food in a bundle, or its first item when none is selected.",
+        "details": [
+          "The server setting bundleEating defaults to true. The top item needs FOOD and CONSUMABLE without USE_REMAINDER; stews, honey bottles and nested bundles are excluded. Non-food on top keeps Vanilla bundle behavior.",
+          "Eating uses the item's time, animation, sound, particles, hunger and effects. Food that cannot normally be eaten when full remains blocked when full. Instant food is consumed immediately.",
+          "Eating removes one item, except in creative mode. The remaining selected stack stays on top."
+        ]
+      },
+      "de": {
+        "title": "Aus Bündeln essen",
+        "summary": "Benutzen gedrückt halten, um das ausgewählte Essen im Bündel zu verzehren; ohne Auswahl wird das erste Item verwendet.",
+        "details": [
+          "Die Servereinstellung bundleEating ist standardmäßig aktiv. Das oberste Item benötigt FOOD und CONSUMABLE ohne USE_REMAINDER; Eintöpfe, Honigflaschen und verschachtelte Bündel sind ausgeschlossen. Bei Nicht-Essen oben bleibt das Vanilla-Bündelverhalten erhalten.",
+          "Esszeit, Animation, Sound, Partikel, Hunger und Effekte stammen vom Item. Essen, das normalerweise bei vollem Hunger nicht essbar ist, bleibt dann gesperrt. Sofortiges Essen wird unmittelbar verzehrt.",
+          "Essen entfernt ein Stück, außer im Kreativmodus. Der Rest des ausgewählten Stapels bleibt oben."
+        ]
+      },
+      "sources": [
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/item/BundleEating.java",
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/mixin/BundleEatMixin.java"
+      ]
+    }
+  ],
+  "recipes": [
+    {
+      "id": "simplesandwiches:acacia_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:acacia_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/acacia_cutting_board.json",
+      "ingredients": [
+        "minecraft:acacia_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:acacia_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:acacia_log",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:bamboo_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:bamboo_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/bamboo_cutting_board.json",
+      "ingredients": [
+        "minecraft:bamboo_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:bamboo_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 4.5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:birch_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:birch_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/birch_cutting_board.json",
+      "ingredients": [
+        "minecraft:birch_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:birch_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:birch_log",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:cherry_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:cherry_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/cherry_cutting_board.json",
+      "ingredients": [
+        "minecraft:cherry_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:cherry_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cherry_log",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:crimson_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:crimson_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/crimson_cutting_board.json",
+      "ingredients": [
+        "minecraft:crimson_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:crimson_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:crimson_stem",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:dark_oak_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:dark_oak_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/dark_oak_cutting_board.json",
+      "ingredients": [
+        "minecraft:dark_oak_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:dark_oak_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:jungle_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:jungle_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/jungle_cutting_board.json",
+      "ingredients": [
+        "minecraft:jungle_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:jungle_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:jungle_log",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:knife",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplesandwiches:knife",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/knife.json",
+      "ingredients": [
+        "minecraft:iron_nugget",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "  N",
+        " N ",
+        "S  "
+      ],
+      "key": {
+        "N": [
+          "minecraft:iron_nugget"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.222
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:mangrove_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:mangrove_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/mangrove_cutting_board.json",
+      "ingredients": [
+        "minecraft:mangrove_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:mangrove_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:oak_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:oak_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/oak_cutting_board.json",
+      "ingredients": [
+        "minecraft:oak_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:oak_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:pale_oak_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:pale_oak_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/pale_oak_cutting_board.json",
+      "ingredients": [
+        "minecraft:pale_oak_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:pale_oak_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:poplar_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:poplar_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/poplar_cutting_board.json",
+      "ingredients": [
+        "minecraft:poplar_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:poplar_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:poplar_log",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:spruce_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:spruce_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/spruce_cutting_board.json",
+      "ingredients": [
+        "minecraft:spruce_slab",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:spruce_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:spruce_log",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplesandwiches:warped_cutting_board",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": "simplesandwiches:cutting_board",
+      "result": {
+        "id": "simplesandwiches:warped_cutting_board",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/recipe/warped_cutting_board.json",
+      "ingredients": [
+        "minecraft:stick",
+        "minecraft:warped_slab"
+      ],
+      "pattern": [
+        "SXX"
+      ],
+      "key": {
+        "S": [
+          "minecraft:stick"
+        ],
+        "X": [
+          "minecraft:warped_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:warped_stem",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    }
+  ],
+  "lootTables": [
+    {
+      "id": "simplesandwiches:blocks/acacia_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:acacia_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/acacia_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/bamboo_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:bamboo_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/bamboo_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/birch_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:birch_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/birch_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/butter_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:butter_block",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/butter_block.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/cheese_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:cheese_block",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/cheese_block.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/cherry_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:cherry_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/cherry_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/crimson_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:crimson_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/crimson_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/dark_oak_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:dark_oak_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/dark_oak_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/jungle_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:jungle_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/jungle_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/mangrove_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:mangrove_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/mangrove_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/milk_cauldron",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:cauldron"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/milk_cauldron.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/oak_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:oak_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/oak_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/pale_oak_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:pale_oak_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/pale_oak_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/poplar_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:poplar_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/poplar_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/spruce_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:spruce_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/spruce_cutting_board.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/warped_cutting_board",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:warped_cutting_board"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/warped_cutting_board.json"
+    }
+  ],
+  "tags": [
+    {
+      "id": "simplesandwiches:block/cutting_boards",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplesandwiches:oak_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:spruce_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:birch_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:jungle_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:acacia_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:dark_oak_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:mangrove_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:cherry_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:pale_oak_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:poplar_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:bamboo_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:crimson_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:warped_cutting_board",
+          "required": true
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/tags/block/cutting_boards.json"
+    },
+    {
+      "id": "simplesandwiches:item/cutting_boards",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplesandwiches:oak_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:spruce_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:birch_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:jungle_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:acacia_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:dark_oak_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:mangrove_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:cherry_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:pale_oak_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:poplar_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:bamboo_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:crimson_cutting_board",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:warped_cutting_board",
+          "required": true
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/tags/item/cutting_boards.json"
+    },
+    {
+      "id": "simplesandwiches:item/knife_repair_materials",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:iron_nugget",
+          "required": true
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/tags/item/knife_repair_materials.json"
+    },
+    {
+      "id": "simplesandwiches:item/sandwich_ingredients",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:apple",
+          "required": true
+        },
+        {
+          "id": "minecraft:golden_apple",
+          "required": true
+        },
+        {
+          "id": "minecraft:enchanted_golden_apple",
+          "required": true
+        },
+        {
+          "id": "minecraft:melon_slice",
+          "required": true
+        },
+        {
+          "id": "minecraft:sweet_berries",
+          "required": true
+        },
+        {
+          "id": "minecraft:glow_berries",
+          "required": true
+        },
+        {
+          "id": "minecraft:chorus_fruit",
+          "required": true
+        },
+        {
+          "id": "minecraft:carrot",
+          "required": true
+        },
+        {
+          "id": "minecraft:golden_carrot",
+          "required": true
+        },
+        {
+          "id": "minecraft:potato",
+          "required": true
+        },
+        {
+          "id": "minecraft:baked_potato",
+          "required": true
+        },
+        {
+          "id": "minecraft:poisonous_potato",
+          "required": true
+        },
+        {
+          "id": "minecraft:beetroot",
+          "required": true
+        },
+        {
+          "id": "minecraft:dried_kelp",
+          "required": true
+        },
+        {
+          "id": "minecraft:beef",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_beef",
+          "required": true
+        },
+        {
+          "id": "minecraft:porkchop",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_porkchop",
+          "required": true
+        },
+        {
+          "id": "minecraft:mutton",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_mutton",
+          "required": true
+        },
+        {
+          "id": "minecraft:chicken",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_chicken",
+          "required": true
+        },
+        {
+          "id": "minecraft:rabbit",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_rabbit",
+          "required": true
+        },
+        {
+          "id": "minecraft:cod",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_cod",
+          "required": true
+        },
+        {
+          "id": "minecraft:salmon",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_salmon",
+          "required": true
+        },
+        {
+          "id": "minecraft:tropical_fish",
+          "required": true
+        },
+        {
+          "id": "minecraft:pufferfish",
+          "required": true
+        },
+        {
+          "id": "minecraft:cookie",
+          "required": true
+        },
+        {
+          "id": "minecraft:pumpkin_pie",
+          "required": true
+        },
+        {
+          "id": "minecraft:rotten_flesh",
+          "required": true
+        },
+        {
+          "id": "minecraft:spider_eye",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:cheese_slice",
+          "required": true
+        },
+        {
+          "id": "simplesandwiches:cake_slice",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_apple",
+          "required": false
+        },
+        {
+          "id": "simplebuilding:enchanted_netherite_apple",
+          "required": false
+        },
+        {
+          "id": "simplebuilding:netherite_carrot",
+          "required": false
+        },
+        {
+          "id": "simplebuilding:enderite_apple",
+          "required": false
+        },
+        {
+          "id": "simplebuilding:enchanted_enderite_apple",
+          "required": false
+        },
+        {
+          "id": "simplebuilding:enderite_carrot",
+          "required": false
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/tags/item/sandwich_ingredients.json"
+    }
+  ],
+  "advancements": [],
+  "enchantments": [],
+  "items": [
+    {
+      "id": "simplesandwiches:butter_slice",
+      "name": {
+        "en_us": "Butter Slice",
+        "de_de": "Butterscheibe"
+      },
+      "note": {
+        "en": {
+          "summary": "Not edible. Hold a knife in the other hand to butter opened bread before toppings. Default bonus: 10% hunger, saturation and summed effect duration, subject to effect caps."
+        },
+        "de": {
+          "summary": "Nicht essbar. Mit dem Messer in der anderen Hand geöffnetes Brot vor dem Belegen bestreichen. Standardbonus: 10 % Hunger, Sättigung und summierte Effektdauer unter Beachtung der Effektgrenzen."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/item/butter_slice.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:cake_slice",
+      "name": {
+        "en_us": "Slice of Cake",
+        "de_de": "Kuchenstück"
+      },
+      "note": {
+        "en": {
+          "summary": "One piece per knife use, seven from a full cake. Restores 2 hunger and 0.4 saturation instantly, stacks to seven and works as a sandwich ingredient."
+        },
+        "de": {
+          "summary": "Ein Stück je Messerbenutzung, sieben aus einem vollen Kuchen. Gibt sofort 2 Hunger und 0,4 Sättigung, ist bis sieben stapelbar und dient als Sandwichzutat."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/item/cake_slice.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:cheese_slice",
+      "name": {
+        "en_us": "Cheese Slice",
+        "de_de": "Käsescheibe"
+      },
+      "note": {
+        "en": {
+          "summary": "Cut from cheese with a knife. Restores 2 hunger and 1.2 saturation. Use as a sandwich ingredient or restore a partly sliced cheese block."
+        },
+        "de": {
+          "summary": "Mit dem Messer vom Käse schneiden. Gibt 2 Hunger und 1,2 Sättigung. Als Sandwichzutat nutzen oder einen angeschnittenen Käselaib ergänzen."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/item/cheese_slice.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:knife",
+      "name": {
+        "en_us": "Kitchen Knife",
+        "de_de": "Küchenmesser"
+      },
+      "note": {
+        "en": {
+          "summary": "Iron kitchen tool: 250 durability, total damage 2, attack speed 2.0 and iron-nugget repair. Prepares bread and cuts cheese, butter, melons and cakes."
+        },
+        "de": {
+          "summary": "Eisen-Küchenwerkzeug: 250 Haltbarkeit, Gesamtschaden 2, Angriffstempo 2,0 und Reparatur mit Eisennuggets. Bereitet Brot zu und schneidet Käse, Butter, Melonen und Kuchen."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/item/knife.png",
+      "craftedBy": [
+        "simplesandwiches:knife"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:sandwich",
+      "name": {
+        "en_us": "Sandwich",
+        "de_de": "Sandwich"
+      },
+      "note": {
+        "en": {
+          "summary": "Bread plus up to five ingredients, optional butter first. Hunger and saturation add without a formula cap; matching effects merge. Matching components stack to 16."
+        },
+        "de": {
+          "summary": "Brot plus bis zu fünf Zutaten, optional zuerst Butter. Hunger und Sättigung werden ohne Formeldeckel addiert; gleiche Effekte zusammengeführt. Bei gleichen Komponenten bis 16 stapelbar."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    }
+  ],
+  "blocks": [
+    {
+      "id": "simplesandwiches:acacia_cutting_board",
+      "name": {
+        "en_us": "Acacia Cutting Board",
+        "de_de": "Akazien-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/acacia_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:acacia_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:bamboo_cutting_board",
+      "name": {
+        "en_us": "Bamboo Cutting Board",
+        "de_de": "Bambus-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/bamboo_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:bamboo_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:birch_cutting_board",
+      "name": {
+        "en_us": "Birch Cutting Board",
+        "de_de": "Birken-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/birch_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:birch_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:butter_block",
+      "name": {
+        "en_us": "Block of Butter",
+        "de_de": "Butterblock"
+      },
+      "note": {
+        "en": {
+          "summary": "Harvest ripened butter from a milk cauldron with an empty hand. Contains 16 slices; cut with a knife and restore with slices. Friction: 0.9."
+        },
+        "de": {
+          "summary": "Gereifte Butter mit leerer Hand aus dem Milchkessel ernten. Enthält 16 Scheiben; mit dem Messer schneiden und mit Scheiben ergänzen. Reibung: 0,9."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:cheese_block",
+      "name": {
+        "en_us": "Block of Cheese",
+        "de_de": "Käselaib"
+      },
+      "note": {
+        "en": {
+          "summary": "Milk plus fermented spider eye ripens into cheese. Harvest with an empty hand before it spoils. Contains 16 slices; the first knife cut fixes direction until full again."
+        },
+        "de": {
+          "summary": "Milch mit fermentiertem Spinnenauge reift zu Käse. Vor dem Verderben mit leerer Hand ernten. Enthält 16 Scheiben; der erste Messerschnitt legt die Richtung fest, bis der Block wieder voll ist."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:cherry_cutting_board",
+      "name": {
+        "en_us": "Cherry Cutting Board",
+        "de_de": "Kirsch-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/cherry_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:cherry_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:crimson_cutting_board",
+      "name": {
+        "en_us": "Crimson Cutting Board",
+        "de_de": "Karmesin-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/crimson_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:crimson_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:dark_oak_cutting_board",
+      "name": {
+        "en_us": "Dark Oak Cutting Board",
+        "de_de": "Schwarzeichen-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/dark_oak_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:dark_oak_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:jungle_cutting_board",
+      "name": {
+        "en_us": "Jungle Cutting Board",
+        "de_de": "Tropenbaum-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/jungle_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:jungle_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:mangrove_cutting_board",
+      "name": {
+        "en_us": "Mangrove Cutting Board",
+        "de_de": "Mangroven-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/mangrove_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:mangrove_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:milk_cauldron",
+      "name": {
+        "en_us": "Milk Cauldron",
+        "de_de": "Milchkessel"
+      },
+      "note": {
+        "en": {
+          "summary": "Fill an empty cauldron with milk. Default times: butter 3,000 ticks; cheese after fermented spider eye 9,000 ticks, then 1,800 ticks to harvest. Butter never spoils; spoiled milk can only be emptied."
+        },
+        "de": {
+          "summary": "Leeren Kessel mit Milch füllen. Standardzeiten: Butter 3.000 Ticks; Käse nach fermentiertem Spinnenauge 9.000 Ticks, danach 1.800 Ticks zum Ernten. Butter verdirbt nie; verdorbene Milch nur ausleeren."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:oak_cutting_board",
+      "name": {
+        "en_us": "Oak Cutting Board",
+        "de_de": "Eichen-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/oak_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:oak_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:pale_oak_cutting_board",
+      "name": {
+        "en_us": "Pale Oak Cutting Board",
+        "de_de": "Blasseichen-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/pale_oak_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:pale_oak_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:poplar_cutting_board",
+      "name": {
+        "en_us": "Poplar Cutting Board",
+        "de_de": "Pappel-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/poplar_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:poplar_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:spruce_cutting_board",
+      "name": {
+        "en_us": "Spruce Cutting Board",
+        "de_de": "Fichten-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/spruce_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:spruce_cutting_board"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:warped_cutting_board",
+      "name": {
+        "en_us": "Warped Cutting Board",
+        "de_de": "Wirr-Schneidebrett"
+      },
+      "note": {
+        "en": {
+          "summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."
+        },
+        "de": {
+          "summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."
+        }
+      },
+      "texture": "assets/textures/simplesandwiches/block/warped_cutting_board.png",
+      "craftedBy": [
+        "simplesandwiches:warped_cutting_board"
+      ],
+      "usedIn": []
+    }
+  ],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 5,
+    "recipes": 14,
+    "lootTables": 16,
+    "tags": 4,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 5,
+    "blocks": 16,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+}

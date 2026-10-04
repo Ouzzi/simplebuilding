@@ -24,6 +24,10 @@
     {
       "id": "simplemoney:links/simplebuilding/velocity_gauge",
       "required": false
+    },
+    {
+      "id": "simplemoney:links/simplesandwiches/knife",
+      "required": false
     }
   ]
 }
