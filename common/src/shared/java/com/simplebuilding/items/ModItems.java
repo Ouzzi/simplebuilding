@@ -377,6 +377,11 @@ public class ModItems {
     public static final Item MUSIC_DISC_DAYBREAK_B_SIDE = musicDisc("daybreak_b_side");
     public static final Item MUSIC_DISC_BRIMSTONE = musicDisc("brimstone");
     public static final Item MUSIC_DISC_BRIMSTONE_B_SIDE = musicDisc("brimstone_b_side");
+    /**
+     * Track 3/4 der Platten (Besitzer 2026-10-04): nur fuer Tracks, die {@code MusicDiscs.SONGS} kennt - die traegt erst
+     * {@code tools/audio/import_discs.py} ein, wenn der Besitzer Musik dafuer liefert. Song-Name -&gt; Item.
+     */
+    public static final java.util.Map<String, Item> MUSIC_DISC_EXTRA_TRACKS = registerExtraTracks();
 
     /** Lautsprecher (2026-10-03): Astralit verstaerkt Plattenspieler, Nihilit Notenbloecke ({@link com.simplebuilding.util.SpeakerBoost}). */
     public static final Item ASTRALIT_SPEAKER = com.simplebuilding.version.McVersion.MUSIC_DISCS
@@ -1139,6 +1144,21 @@ public class ModItems {
     private static Item.Properties shulkerBox(Item.Properties settings) {
         return settings.stacksTo(1).component(net.minecraft.core.component.DataComponents.CONTAINER,
                 net.minecraft.world.item.component.ItemContainerContents.EMPTY);
+    }
+
+    private static java.util.Map<String, Item> registerExtraTracks() {
+        java.util.Map<String, Item> out = new java.util.LinkedHashMap<>();
+        if (!com.simplebuilding.version.McVersion.MUSIC_DISCS) {
+            return out;
+        }
+        for (com.simplebuilding.util.MusicDiscs.Song song : com.simplebuilding.util.MusicDiscs.SONGS) {
+            for (int track = 3; track <= com.simplebuilding.util.MusicDiscs.MAX_TRACKS; track++) {
+                if (song.hasTrack(track)) {
+                    out.put(song.trackName(track), musicDisc(song.trackName(track)));
+                }
+            }
+        }
+        return java.util.Collections.unmodifiableMap(out);
     }
 
     /** Eine Schallplatte mit dem Song {@code simplebuilding:<song>} (null ohne {@code McVersion.MUSIC_DISCS}). */

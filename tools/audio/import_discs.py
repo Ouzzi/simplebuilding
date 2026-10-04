@@ -1,28 +1,38 @@
 """Usage: python tools/audio/import_discs.py [--source <folder>] [--ffmpeg <path>] [--dry-run]
 
-Imports the owner's music for the eight music discs (docs/ai/PLAN-SCHALLPLATTEN-2026-10-03.md).
+Imports the owner's music for the music discs (docs/ai/PLAN-SCHALLPLATTEN-2026-10-03.md).
 
-The owner drops MP3 or WAV files into the musik folder (default
-C:\\Users\\o_o\\code\\minecraft-mods\\musik):
+The owner drops MP3 or WAV files into the music folder (default
+C:\\Users\\o_o\\code\\minecraft-mods\\music, or --source), up to four tracks per disc. Which file is which
+track, and the track's in-game title, stand in tools/audio/owner_tracks.json (the owner's own file names,
+"the version always stands at the end"). A disc not listed there falls back to fixed names:
 
-    end.mp3         -> Voidline              end_alt.mp3         -> Voidline (B-Side)
-    overworld1.mp3  -> Driftwood             overworld1_alt.mp3  -> Driftwood (B-Side)
-    overworld2.mp3  -> Daybreak              overworld2_alt.mp3  -> Daybreak (B-Side)
-    nether.mp3      -> Brimstone             nether_alt.mp3      -> Brimstone (B-Side)
+    end.mp3         Voidline   track 1     end_alt.mp3         track 2 (B-side)
+    end_3.mp3       Voidline   track 3     end_4.mp3           track 4
+    overworld1*.mp3 Driftwood  (same scheme)
+    overworld2*.mp3 Daybreak   (same scheme)
+    nether*.mp3     Brimstone  (same scheme)
 
-(.wav, .flac and .ogg work as well.) Every file found is converted to mono Ogg Vorbis (~quality 5,
+(.wav, .flac and .ogg work as well.) Each track's title goes into both language folders as
+"SimpleBuilding - <title>" (English and German alike, like vanilla disc titles). Every file found is converted to mono Ogg Vorbis (~quality 5,
 44.1 kHz - mono, so the jukebox plays it positionally), written to
 mc26_3/overlay/resources/assets/simplebuilding/sounds/records/<song>.ogg, and its length (rounded up
 to whole seconds, so the jukebox never stops before the end) goes into the song table
 MusicDiscs.SONGS (common/src/shared/java/com/simplebuilding/util/MusicDiscs.java, the datagen source)
-and into the generated mc26_3/generated/data/simplebuilding/jukebox_song/<song>.json, so it works
-before the next datagen run as well. Missing files are skipped: that disc keeps its placeholder.
+and into the generated mc26_3/generated/data/simplebuilding/jukebox_song/<song>.json.
+
+Tracks 1 and 2 always exist (with a placeholder until the real file comes). Tracks 3 and 4 come into
+being only through this script: it appends the length to the disc's line in MusicDiscs.SONGS (a 0.0F
+keeps a missing track 3 free when only track 4 exists - the sledgehammer then skips it), adds the sound
+to the 26.3 sounds.json, the English and German names to both language folders and the song JSON. The
+item, its model and the sound event follow from that; textures are already there
+(tools/textures/music_disc_textures.py). Missing files are skipped.
 
 Encoder: ffmpeg (--ffmpeg, the FFMPEG environment variable, or ffmpeg on PATH); without ffmpeg the
 Python package soundfile (libsndfile 1.1+ reads MP3/WAV and writes Vorbis). Without either the
 script says how to install one and changes nothing. After importing: run the datagen once
-(gradlew :mc26_3:fabric:runDatagen :mc26_3:fabric:syncGenerated263), the game tests, and commit the
-.ogg files, MusicDiscs.java and the .json files.
+(gradlew :mc26_3:fabric:runDatagen :mc26_3:fabric:syncGenerated263 - needed for the item models of
+new tracks 3/4), the game tests, and commit everything the script and the datagen changed.
 """
 import argparse
 import json
@@ -35,10 +45,15 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from discs import DEFAULT_SOURCE, MUSIC_DISCS_JAVA, all_tracks, ogg_path, song_json  # noqa: E402
+from discs import (DEFAULT_SOURCE, LANG_FILES, MUSIC_DISCS_JAVA, OWNER_MAP, SOUNDS_JSON, TITLES, all_tracks,  # noqa: E402
+                   comparator, ogg_path, song_json)
 
 EXTENSIONS = (".mp3", ".wav", ".flac", ".ogg")
 SAMPLE_RATE = 44100
+#: libsndfile: Vorbis quality = 1 - compression level, 0.5 ~ ffmpeg -q:a 5.
+COMPRESSION_LEVEL = 0.5
+#: new Song("<name>", "<stem>", <comparator>, <length>F, <length>F[, ...])
+SONG_LINE = r'(new Song\("{name}", "[^"]+", \d+)((?:, [0-9.]+F)+)\)'
 
 
 def find_ffmpeg(explicit):
@@ -71,10 +86,14 @@ def convert_ffmpeg(ffmpeg, src, dst):
 
 
 def convert_soundfile(sf, src, dst):
-    import numpy as np
     data, rate = sf.read(src, always_2d=True, dtype="float32")
     mono = data.mean(axis=1)
-    sf.write(dst, mono, rate, format="OGG", subtype="VORBIS", compression_level=0.5)
+    # In Bloecken schreiben: libsndfile's Vorbis-Encoder laeuft auf Windows bei einem Aufruf mit Minuten an Audio in
+    # einen Stack-Ueberlauf (0xC00000FD).
+    with sf.SoundFile(dst, "w", samplerate=rate, channels=1, format="OGG", subtype="VORBIS",
+                      compression_level=COMPRESSION_LEVEL) as out:
+        for start in range(0, len(mono), 4096):
+            out.write(mono[start:start + 4096])
 
 
 def duration(sf, ffmpeg, path):
@@ -87,59 +106,125 @@ def duration(sf, ffmpeg, path):
     return float(out)
 
 
-SONG_LINE = r'(new Song\("{name}", "[^"]+", \d+, )([0-9.]+)F, ([0-9.]+)F\)'
-
-
-def set_java_length(song, seconds, dry_run):
-    """Rewrites the A- or B-side length in the line new Song("<name>", "<stem>", <cmp>, <a>F, <b>F)."""
-    b_side = song.endswith("_b_side")
-    name = song[:-len("_b_side")] if b_side else song
+def set_java_length(disc, track, seconds, dry_run):
+    """Sets the length of {track} in the disc's line of MusicDiscs.SONGS (extending it with 0.0F gaps)."""
     with open(MUSIC_DISCS_JAVA, encoding="utf-8", newline="") as f:
         text = f.read()
-    match = re.search(SONG_LINE.format(name=re.escape(name)), text)
+    match = re.search(SONG_LINE.format(name=re.escape(disc)), text)
     if not match:
-        raise SystemExit(f"MusicDiscs.java: no Song line for {name} - update SONG_LINE in import_discs.py")
-    old = match.group(3) if b_side else match.group(2)
-    a, b = (match.group(2), str(float(seconds))) if b_side else (str(float(seconds)), match.group(3))
-    text = text[:match.start()] + f"{match.group(1)}{a}F, {b}F)" + text[match.end():]
+        raise SystemExit(f"MusicDiscs.java: no Song line for {disc} - update SONG_LINE in import_discs.py")
+    lengths = [float(v) for v in re.findall(r"([0-9.]+)F", match.group(2))]
+    while len(lengths) < track:
+        lengths.append(0.0)
+    old = lengths[track - 1]
+    lengths[track - 1] = float(seconds)
+    text = text[:match.start()] + match.group(1) + "".join(f", {v}F" for v in lengths) + ")" + text[match.end():]
     if not dry_run:
         with open(MUSIC_DISCS_JAVA, "w", encoding="utf-8", newline="") as f:
             f.write(text)
-    return float(old)
+    return old
 
 
-def set_length(song, seconds, dry_run):
-    old = set_java_length(song, seconds, dry_run)
+def write_json(path, data):
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+
+def set_song_json(disc, song, seconds, dry_run):
     path = song_json(song)
     if os.path.isfile(path):
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
-        data["length_in_seconds"] = float(seconds)
-        if not dry_run:
-            with open(path, "w", encoding="utf-8", newline="\n") as f:
-                json.dump(data, f, indent=2)
-                f.write("\n")
     else:
-        print(f"  ({os.path.relpath(path)} not generated yet - run the datagen)")
-    return old
+        data = {"comparator_output": comparator(disc), "description": {"translate": "jukebox_song.simplebuilding." + song},
+                "length_in_seconds": 0.0, "sound_event": "simplebuilding:music_disc." + song}
+    data["length_in_seconds"] = float(seconds)
+    if not dry_run:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        write_json(path, data)
+
+
+def add_sound(song, dry_run):
+    """Adds music_disc.<song> to the 26.3 sounds.json (tracks 3/4; 1/2 are always there)."""
+    with open(SOUNDS_JSON, encoding="utf-8") as f:
+        data = json.load(f)
+    key = "music_disc." + song
+    if key in data:
+        return False
+    data[key] = {"sounds": [{"name": "simplebuilding:records/" + song, "stream": True}]}
+    if not dry_run:
+        write_json(SOUNDS_JSON, data)
+    return True
+
+
+def owner_map():
+    """{disc: [{"file", "title"}, ...]} from tools/audio/owner_tracks.json (empty when missing)."""
+    if not os.path.isfile(OWNER_MAP):
+        return {}
+    with open(OWNER_MAP, encoding="utf-8") as f:
+        return {k: v for k, v in json.load(f).items() if not k.startswith("_")}
+
+
+def set_lang(disc, song, track, title, dry_run):
+    """Song title "SimpleBuilding - <title>" (English and German alike, like vanilla disc titles) in both
+    language folders; for a new track 3/4 also the item name."""
+    title = title or (TITLES[disc] if track == 1 else f"{TITLES[disc]} (Track {track})")
+    for path in LANG_FILES:
+        german = path.endswith("de_de.json")
+        entries = {f"jukebox_song.simplebuilding.{song}": f"SimpleBuilding - {title}"}
+        if track > 2:
+            entries[f"item.simplebuilding.music_disc_{song}"] = "Schallplatte" if german else "Music Disc"
+        with open(path, encoding="utf-8", newline="") as f:
+            text = f.read()
+        data = json.loads(text)
+        nl = "\r\n" if "\r\n" in text else "\n"
+        changed = False
+        for key, value in entries.items():
+            if key in data and data[key] != value:
+                old = f"  {json.dumps(key, ensure_ascii=False)}: {json.dumps(data[key], ensure_ascii=False)}"
+                text = text.replace(old, f"  {json.dumps(key, ensure_ascii=False)}: {json.dumps(value, ensure_ascii=False)}", 1)
+                changed = True
+        missing = {k: v for k, v in entries.items() if k not in data}
+        if missing:
+            body = text.rstrip()[:-1].rstrip()
+            body += "".join(f",{nl}  {json.dumps(k, ensure_ascii=False)}: {json.dumps(v, ensure_ascii=False)}" for k, v in missing.items())
+            text = body + nl + "}" + nl
+            changed = True
+        if changed and not dry_run:
+            json.loads(text)
+            with open(path, "w", encoding="utf-8", newline="") as f:
+                f.write(text)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--source", default=DEFAULT_SOURCE, help="folder with end.mp3, overworld1.mp3, ...")
+    parser.add_argument("--source", default=DEFAULT_SOURCE, help="folder with the owner's music (default: the music folder next to the repos)")
     parser.add_argument("--ffmpeg", help="path to ffmpeg(.exe)")
     parser.add_argument("--dry-run", action="store_true", help="only show what would happen")
     args = parser.parse_args()
 
     if not os.path.isdir(args.source):
         print(f"Source folder not found: {args.source}\nCreate it and put end.mp3, overworld1.mp3, overworld2.mp3, nether.mp3 "
-              "(and optional *_alt.mp3) into it.")
+              "(optional *_alt.mp3, *_3.mp3, *_4.mp3) into it.")
         return 1
-    jobs = [(song, find_source(args.source, stem), stem) for song, stem in all_tracks()]
-    found = [(song, src) for song, src, _ in jobs if src]
-    for song, src, stem in jobs:
-        if not src:
-            print(f"skip {song:18} ({stem}.mp3/.wav not found - placeholder stays)")
+    found = []
+    mapping = owner_map()
+    for disc, track, song, stem in all_tracks():
+        title = None
+        if disc in mapping:
+            entries = mapping[disc]
+            entry = entries[track - 1] if track <= len(entries) else None
+            src = os.path.join(args.source, entry["file"]) if entry else None
+            src = src if src and os.path.isfile(src) else None
+            title = entry.get("title") if entry else None
+            stem = entry["file"] if entry else f"(track {track} not in owner_tracks.json)"
+        else:
+            src = find_source(args.source, stem)
+        if src:
+            found.append((disc, track, song, src, title))
+        elif track <= 2:
+            print(f"skip {song:20} ({stem} not found - placeholder stays)")
     if not found:
         print("Nothing to import.")
         return 0
@@ -154,10 +239,11 @@ def main():
         return 2
     print(f"encoder: {'ffmpeg ' + ffmpeg if ffmpeg else 'soundfile ' + sf.__version__}")
 
-    for song, src in found:
+    new_tracks = False
+    for disc, track, song, src, title in found:
         dst = ogg_path(song)
         if args.dry_run:
-            print(f"would convert {src} -> {dst}")
+            print(f"would convert {src} -> {dst}" + (f" (new track {track})" if track > 2 else ""))
             continue
         with tempfile.TemporaryDirectory() as tmp:
             out = os.path.join(tmp, song + ".ogg")
@@ -168,8 +254,15 @@ def main():
             seconds = math.ceil(duration(sf, ffmpeg, out))
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             shutil.copyfile(out, dst)
-        old = set_length(song, seconds, args.dry_run)
-        print(f"{song:18} {os.path.basename(src)} -> {os.path.relpath(dst)}  length {old} -> {float(seconds)} s")
+        old = set_java_length(disc, track, seconds, args.dry_run)
+        set_song_json(disc, song, seconds, args.dry_run)
+        if track > 2:
+            new_tracks |= add_sound(song, args.dry_run)
+        set_lang(disc, song, track, title, args.dry_run)
+        print(f"{song:20} {os.path.basename(src)} -> {os.path.relpath(dst)}  {title or ''}  length {old} -> {float(seconds)} s  "
+              f"{os.path.getsize(dst) // 1024} KiB")
+    if new_tracks:
+        print("New tracks 3/4: run the datagen now (item models), then the game tests.")
     return 0
 
 

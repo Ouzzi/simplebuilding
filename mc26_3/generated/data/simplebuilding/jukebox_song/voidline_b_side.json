@@ -3,6 +3,6 @@
   "description": {
     "translate": "jukebox_song.simplebuilding.voidline_b_side"
   },
-  "length_in_seconds": 3.0,
+  "length_in_seconds": 120.0,
   "sound_event": "simplebuilding:music_disc.voidline_b_side"
 }

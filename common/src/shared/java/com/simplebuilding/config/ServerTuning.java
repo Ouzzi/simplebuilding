@@ -72,6 +72,8 @@ public final class ServerTuning {
     public static final int MAX_SPEAKERS = 3;
     /** Speakers: at most +50 % of the vanilla volume each, so 2.5x (jukebox 160, note block 120 blocks) at most. */
     public static final int MAX_SPEAKER_BOOST_PERCENT = 50;
+    /** Speaker chains: at most 64 speakers per source (server.speakers.maxChain, default 16). */
+    public static final int MAX_SPEAKER_CHAIN = 64;
     public static final int MIN_LENS = 64;
     public static final int MAX_LENS = 2560;
     public static final int MIN_ROTATOR = 64;
@@ -325,6 +327,12 @@ public final class ServerTuning {
     public static int maxSpeakers() {
         ServerTuningConfig.Speakers speakers = get().speakers;
         return speakers == null ? 2 : ServerTuningConfig.clamp(speakers.maxSpeakers, 0, MAX_SPEAKERS);
+    }
+
+    /** Speakers in one chain from a source (0..64; 0 = no chain); on a client the server's value. */
+    public static int maxSpeakerChain() {
+        ServerTuningConfig.Speakers speakers = get().speakers;
+        return speakers == null ? 16 : ServerTuningConfig.clamp(speakers.maxChain, 0, MAX_SPEAKER_CHAIN);
     }
 
     /** Volume added per counted speaker, as a share of the vanilla volume (0..0.5); on a client the server's value. */

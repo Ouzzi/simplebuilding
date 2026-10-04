@@ -20,9 +20,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * Astralit-Lautsprecher (2026-10-03): Vanilla schickt Start und Stopp eines Plattenspielers nur an Spieler im
- * Umkreis von 64 Bloecken. Spielt er verstaerkt ({@link SpeakerBoost}), bekommen auch die Spieler bis zur verstaerkten
- * Hoerweite den Start; den Stopp bekommen alle bis zur hoechsten Hoerweite, die die Config zulaesst (ein inzwischen
- * abgebauter Lautsprecher darf kein Stueck weiterlaufen lassen). Je Start bzw. Stopp ein Paket je Spieler.
+ * Umkreis von 64 Bloecken. Spielt er verstaerkt oder mit einer Kette ({@link SpeakerBoost}), bekommen auch die Spieler
+ * in Hoerweite irgendeines Abspielpunkts den Start; den Stopp bekommen alle bis zur groessten Reichweite, die die Config
+ * zulaesst ({@link SpeakerBoost#jukeboxStopRange}; ein inzwischen abgebauter Lautsprecher darf kein Stueck weiterlaufen
+ * lassen). Je Start bzw. Stopp ein Paket je Spieler.
  */
 @Mixin(JukeboxSongPlayer.class)
 public abstract class JukeboxSongPlayerSpeakerMixin {
@@ -36,11 +37,12 @@ public abstract class JukeboxSongPlayerSpeakerMixin {
             return;
         }
         float multiplier = SpeakerBoost.multiplier(server, blockPos, SpeakerBoost.Source.JUKEBOX);
-        if (multiplier <= 1.0F) {
+        java.util.List<BlockPos> chain = SpeakerBoost.cachedChain(server, blockPos, SpeakerBoost.Source.JUKEBOX);
+        if (multiplier <= 1.0F && chain.isEmpty()) {
             return;
         }
         int id = server.registryAccess().lookupOrThrow(Registries.JUKEBOX_SONG).getId(song.value());
-        SpeakerBoost.sendBeyondVanilla(server, blockPos, new ClientboundLevelEventPacket(LevelEvent.SOUND_PLAY_JUKEBOX_SONG, blockPos, id, false),
+        SpeakerBoost.sendBeyondVanilla(server, blockPos, chain, new ClientboundLevelEventPacket(LevelEvent.SOUND_PLAY_JUKEBOX_SONG, blockPos, id, false),
                 SpeakerBoost.jukeboxEventRange(multiplier));
     }
 
@@ -48,7 +50,7 @@ public abstract class JukeboxSongPlayerSpeakerMixin {
     private void simplebuilding$stopFarther(LevelAccessor level, BlockState state, CallbackInfo ci) {
         if (level instanceof ServerLevel server) {
             SpeakerBoost.sendBeyondVanilla(server, blockPos, new ClientboundLevelEventPacket(LevelEvent.SOUND_STOP_JUKEBOX_SONG, blockPos, 0, false),
-                    SpeakerBoost.jukeboxEventRange(SpeakerBoost.maxMultiplier()));
+                    SpeakerBoost.jukeboxStopRange());
         }
     }
 }

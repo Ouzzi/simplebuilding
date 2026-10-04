@@ -1,4 +1,6 @@
-"""Usage: python tools/audio/make_placeholder_discs.py
+"""Usage: python tools/audio/make_placeholder_discs.py [--force]
+
+Since 2026-10-04 the discs carry the owner's real music; existing files are kept unless --force.
 
 Writes the placeholder tracks of the eight music discs (owner 2026-10-03) until the owner's real
 music arrives (tools/audio/import_discs.py replaces them): 3 s, mono, 44.1 kHz Ogg Vorbis, quiet
@@ -49,9 +51,15 @@ def track(base, b_side):
 
 def main():
     os.makedirs(RECORDS, exist_ok=True)
+    force = "--force" in sys.argv
     for song, _, _ in SONGS:
         for name, b_side in ((song, False), (song + "_b_side", True)):
-            sf.write(ogg_path(name), track(PITCH[song], b_side), SR, format="OGG", subtype="VORBIS", compression_level=0.5)
+            path = ogg_path(name)
+            # Echte Musik (seit 2026-10-04 importiert) nie ueberschreiben, nur fehlende Dateien oder mit --force.
+            if os.path.exists(path) and not force:
+                print(f"{name}: kept ({os.path.getsize(path) // 1024} KiB) - use --force to replace it with a placeholder")
+                continue
+            sf.write(path, track(PITCH[song], b_side), SR, format="OGG", subtype="VORBIS", compression_level=0.5)
             print(f"{name}: placeholder written")
 
 

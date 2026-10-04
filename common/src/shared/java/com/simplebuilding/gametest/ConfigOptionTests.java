@@ -584,6 +584,7 @@ public final class ConfigOptionTests {
             "server.hammock.timeFactor int=8",
             "server.speakers.maxSpeakers int=2",
             "server.speakers.boostPercent int=50",
+            "server.speakers.maxChain int=16",
             "server.oreGeneration.endOres boolean=true",
             "server.oreGeneration.astralitOre boolean=true",
             "server.oreGeneration.nihilitOre boolean=true",

@@ -70,5 +70,13 @@
         "stream": true
       }
     ]
+  },
+  "music_disc.voidline_track_3": {
+    "sounds": [
+      {
+        "name": "simplebuilding:records/voidline_track_3",
+        "stream": true
+      }
+    ]
   }
 }
