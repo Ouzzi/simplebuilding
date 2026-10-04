@@ -268,10 +268,17 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
 - [ ] Lautsprecher-Texturen dezenter: vom Notenblock ausgehen und daraus eine neue Textur machen; die dunklen Spots des Notenblocks durch Pixel der jeweiligen Rohmaterial-Textur (Astralit/Nihilit) ersetzen. Je 5 Vorschläge, alle Blockseiten gleiche Textur.
 - [x] Schallplatten: auch Track 3 und 4 erlauben, falls vorhanden (Vorschlaghammer-Zyklus 1 → 2 → 3 → 4 → 1, nur über vorhandene Tracks). (claude-audio: Track 3/4 entstehen per Import-Skript; echte Musik importiert)
+- [ ] Lautsprecher verketten: Noten- bzw. Plattenspieler-Verstärker sollen sich gegenseitig weitergeben (nicht unbedingt lauter, aber der Sound erreicht den Spieler über mehrere Lautsprecher hinweg – eine große Villa beschallen).
 - [x] Lautsprecher verketten: (claude-audio: BFS-Kette, server.speakers.maxChain 16/64, je Spieler nächster Abspielpunkt; Hör-Abnahme offen) Noten- bzw. Plattenspieler-Verstärker sollen sich gegenseitig weitergeben (nicht unbedingt lauter, aber der Sound erreicht den Spieler über mehrere Lautsprecher hinweg – eine große Villa beschallen).
 
 ## Besitzer 2026-10-04 (Nachtrag 8)
 
+## Besitzer 2026-10-04 (claude-texprop)
+- [x] Astral-/Nihil-Kolben: Variante C eingebaut (previews/kolben-C-eingebaut.png).
+- [x] Texfix-Rücksetzung: spawn_elytra, brick_snowball, alle 7 Simple-Money-Items und die 19 Mod-Verzauberungsbücher wieder auf die Fassung vor dem Textur-Audit (vanilla_style_2026_10_02.py „keep“, generate_textures.py liest hand/q1/books); Vorschau previews/texfix-ruecksetzung.png (inkl. farbreduzierter Vorschläge).
+- [ ] Texfix-Entscheidung Besitzer: 52 noch aktive Texfix-Texturen (raw_enderite, Pads, Teleporter, Chunk-Loader, Launchpads, Kupferplatten) – previews/texfix-revert-uebersicht.png, Nummern nennen; Liste: tools/textures/texfix_audit_2026_10_04.py.
+- [ ] Hufeisen-Vorlage: 10 Vorschläge (previews/hufeisen-vorlage-10-vorschau.png) – Besitzer wählt.
+- [ ] Simple-Riding-Bücher (Leaping, Tailwind): Vorschläge aus den alten SB-Büchern (previews/simpleriding-buecher-vorschau.png) – Besitzer wählt; Einbau braucht ein eigenes Buchmodell-Mapping im Modul.
 - [ ] NEUES MODUL „Simple Sandwiches“ (Konzept + Fragebogen zuerst):
   - Sandwiches aus Brot + bis zu 5 Zutaten (Kabeljau, Lachs, Kaninchen, Huhn, Hammel, Schwein, Steak, Kartoffel, Karotte, Apfel, Melone, Spinnenauge, verrottetes Fleisch …, auch goldene/verzauberte Früchte; mit SimpleBuilding auch Netherit-/Enderit-Äpfel usw.). Effekte der Zutaten werden kombiniert (Wahrscheinlichkeiten übernommen), Sättigung/Hunger addiert – mehr auf einmal gegen Zubereitungszeit. Nur gleiche Sandwiches stapelbar. Item-Textur zeigt, was drin ist.
   - Schneidebrett (Block) + Messer (Eisenstufe, wie Schere): Rezept Stock unten links, Nuggets Mitte, rechts oben, unten Mitte, rechts Mitte. ~1/3 Angriffsschaden des Eisenschwerts, wirkt nur auf ausgewählte Dinge: Brot aufschneiden, Butter schmieren, Käse/Melonen/Kuchen schneiden (Kuchenstücke in der Hand essbar), Spinnweben zerstören, Bambus schneller abbauen.
