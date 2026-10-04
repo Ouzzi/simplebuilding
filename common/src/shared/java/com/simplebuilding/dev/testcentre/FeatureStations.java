@@ -447,13 +447,13 @@ public final class FeatureStations {
     /** Abstand der Schusslinie (Truhen, z = 1) zu den Puppen. */
     public static final int ARCHERY_RANGE = 10;
 
-    /** Ziel einer Puppe der Pfeil-Station: Kopf (leer = ihr Sackkopf), Schild-Schluessel, englischer Rueckfall. */
+    /** Ziel einer Puppe der Pfeil-Station: Kopf (leer = ihr Kuerbiskopf), Schild-Schluessel, englischer Rueckfall. */
     record Target(ItemStack head, String key, String label, String sub) {
     }
 
     static List<Target> archeryTargets() {
         return List.of(
-                new Target(ItemStack.EMPTY, "archery.plain", "Sack Head", "no mob type"),
+                new Target(ItemStack.EMPTY, "archery.plain", "Pumpkin Head", "no mob type"),
                 new Target(new ItemStack(Items.ZOMBIE_HEAD), "archery.zombie", "Zombie Head", "undead, zombie"),
                 new Target(new ItemStack(TweaksItems.DROWNED_HEAD), "archery.drowned", "Drowned Head", "copper tip"),
                 new Target(new ItemStack(Items.SKELETON_SKULL), "archery.skeleton", "Skeleton Skull", "undead: smite"),

@@ -18164,7 +18164,7 @@
       },
       "note": {
         "en": {
-          "summary": "A straw dummy with a sack head and a target on its chest: Straw Armor Stand + carved pumpkin (shapeless), or a carved pumpkin right-clicked onto a placed Straw Armor Stand. It shows every hit as a floating number.",
+          "summary": "A straw dummy with a carved pumpkin for a head and the target block's rings on its chest: Straw Armor Stand + carved pumpkin (shapeless), or a carved pumpkin right-clicked onto a placed Straw Armor Stand. It shows every hit as a floating number.",
           "details": [
             "Never takes damage and never dies (no XP, no loot), is not knocked back, and its armor does not wear out. Only a sneaking hit by a player who may build there picks it up: the Training Dummy item and its equipment drop (in creative nothing drops). Right-click with shears turns it back into a Straw Armor Stand: the carved pumpkin drops, the equipment stays, the shears lose 1 durability.",
             "Every hit makes it wobble and shows a floating number (a text display, 1 s): red bold = critical hit (full-strength falling melee hit, critical arrow), gold = fire, yellow = explosion, purple = magic, white = other, gray 0 = a hit inside the cooldown that would not count on a mob; at most 12 numbers per dummy. After 3 s without a hit and at least 2 hits it shows the total, the time from the first to the last hit (at least 1 s) and the damage per second, then starts counting anew.",
@@ -18173,7 +18173,7 @@
           ]
         },
         "de": {
-          "summary": "Eine Strohpuppe mit Sackkopf und Zielscheibe auf der Brust: Stroh-Rüstungsständer + geschnitzter Kürbis (formlos) oder ein Kürbis per Rechtsklick auf einen aufgestellten Stroh-Rüstungsständer. Sie zeigt jeden Treffer als schwebende Zahl.",
+          "summary": "Eine Strohpuppe mit geschnitztem Kürbis als Kopf und den Ringen des Zielblocks auf der Brust: Stroh-Rüstungsständer + geschnitzter Kürbis (formlos) oder ein Kürbis per Rechtsklick auf einen aufgestellten Stroh-Rüstungsständer. Sie zeigt jeden Treffer als schwebende Zahl.",
           "details": [
             "Nimmt nie Schaden und stirbt nie (kein XP, keine Beute), wird nicht zurückgestoßen, ihre Rüstung nutzt sich nicht ab. Nur ein Schleich-Schlag eines Spielers, der dort bauen darf, baut sie ab: das Item Trainingspuppe und die Ausrüstung fallen (im Kreativmodus nichts). Rechtsklick mit der Schere macht sie wieder zum Stroh-Rüstungsständer: der geschnitzte Kürbis fällt heraus, die Ausrüstung bleibt, die Schere verliert 1 Haltbarkeit.",
             "Jeder Treffer lässt sie wackeln und zeigt eine schwebende Zahl (Textanzeige, 1 s): rot fett = kritischer Treffer (voller Schlag im Fallen, kritischer Pfeil), gold = Feuer, gelb = Explosion, lila = Magie, weiß = sonst, graue 0 = ein Treffer in der Trefferpause, der bei einem Mob nicht zählen würde; höchstens 12 Zahlen je Puppe. Nach 3 s ohne Treffer und mindestens 2 Treffern zeigt sie die Summe, die Zeit vom ersten bis zum letzten Treffer (mindestens 1 s) und den Schaden je Sekunde und zählt dann neu.",
