@@ -269,3 +269,19 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Lautsprecher-Texturen dezenter: vom Notenblock ausgehen und daraus eine neue Textur machen; die dunklen Spots des Notenblocks durch Pixel der jeweiligen Rohmaterial-Textur (Astralit/Nihilit) ersetzen. Je 5 Vorschläge, alle Blockseiten gleiche Textur.
 - [x] Schallplatten: auch Track 3 und 4 erlauben, falls vorhanden (Vorschlaghammer-Zyklus 1 → 2 → 3 → 4 → 1, nur über vorhandene Tracks). (claude-audio: Track 3/4 entstehen per Import-Skript; echte Musik importiert)
 - [x] Lautsprecher verketten: (claude-audio: BFS-Kette, server.speakers.maxChain 16/64, je Spieler nächster Abspielpunkt; Hör-Abnahme offen) Noten- bzw. Plattenspieler-Verstärker sollen sich gegenseitig weitergeben (nicht unbedingt lauter, aber der Sound erreicht den Spieler über mehrere Lautsprecher hinweg – eine große Villa beschallen).
+
+## Besitzer 2026-10-04 (Nachtrag 8)
+
+- [ ] NEUES MODUL „Simple Sandwiches“ (Konzept + Fragebogen zuerst):
+  - Sandwiches aus Brot + bis zu 5 Zutaten (Kabeljau, Lachs, Kaninchen, Huhn, Hammel, Schwein, Steak, Kartoffel, Karotte, Apfel, Melone, Spinnenauge, verrottetes Fleisch …, auch goldene/verzauberte Früchte; mit SimpleBuilding auch Netherit-/Enderit-Äpfel usw.). Effekte der Zutaten werden kombiniert (Wahrscheinlichkeiten übernommen), Sättigung/Hunger addiert – mehr auf einmal gegen Zubereitungszeit. Nur gleiche Sandwiches stapelbar. Item-Textur zeigt, was drin ist.
+  - Schneidebrett (Block) + Messer (Eisenstufe, wie Schere): Rezept Stock unten links, Nuggets Mitte, rechts oben, unten Mitte, rechts Mitte. ~1/3 Angriffsschaden des Eisenschwerts, wirkt nur auf ausgewählte Dinge: Brot aufschneiden, Butter schmieren, Käse/Melonen/Kuchen schneiden (Kuchenstücke in der Hand essbar), Spinnweben zerstören, Bambus schneller abbauen.
+  - Ablauf: Brot aufs Brett, mit Messer aufschneiden, Zutaten stapeln sich im Inneren (voll = keine mehr), mit Messer rückwärts wieder herausnehmen, Butter muss zuerst geschmiert werden; mit leerer Hand zuklappen und herausnehmen, mit Messer wieder öffnen.
+  - Butter und Käse im Kessel herstellen (Konzept nötig). Käse = platzierbarer ganzer Block, von oben/seitlich in 16 Scheiben schneidbar, Scheiben stapeln zu 64; Butter ebenso, etwas weniger rutschig als Eis. Butter in Haupt-/Nebenhand + Messer = Brot beschmieren; Butter verstärkt Sandwich-Effekte um 10 % (Dauer, Sättigung, Hunger). Käse = Zutat.
+  - Essenskorb (Picknickkorb-Optik): trägt 5 Stacks Essen wie ein Bündel, oberstes Item sichtbar, essbar oder wechselbar, Tooltip wie Bündel.
+- [ ] Hängematte: bei 3 Blöcken Abstand nicht zentriert → zentrieren; Abstand auf 2–4 erweitern; auch diagonal (erst einen Anker, dann den anderen anklicken); Rezept mit 2. Faden; ersetzt keinen Schlaf, lässt aber auch nachts die Zeit schneller laufen.
+- [ ] Nihil-Gewölbe („Nihil Vault“): wie das Astralgewölbe, aber eine weltweit geteilte Enderkiste (Größe wie Enderkiste), jeder hat Zugriff.
+- [ ] Simple QoL: Mit leerer Hand Schleich-Rechtsklick auf eine Truhe merkt sie vor (Partikel an der Hand); öffnet man danach eine 2. Truhe oder GUI (Werkbank usw.), werden beide GUIs untereinander angezeigt (Umräumen, aus Truhe craften). Reichweite ~64 Blöcke.
+- [ ] Simple QoL: „Easy Shulkers“ und „Easy Ender Chests“ übernehmen (aus dem Inventar öffnen).
+- [ ] Geschwindigkeitsmesser-Rezept: freie Felder mit Kupfer-Nuggets füllen, dann das Muster um einen Slot im Uhrzeigersinn rotieren.
+- [ ] Astral-/Nihil-Schienen: bremsen bzw. beschleunigen; Höchstgeschwindigkeit anheben mit realistischer Reibung (je schneller, desto mehr Boost nötig, asymptotische Annäherung); Astral-Schienen boosten stärker als Antriebsschienen.
+- [ ] Harz-Schachbrett: Rezept nutzt noch den Platzhalter rote Netherziegel → auf Harzziegel (resin_bricks) umstellen.
