@@ -53,4 +53,14 @@ public final class HammockGameTest {
     public void timeFactorIsCappedOnTheServer(GameTestHelper helper) {
         HammockTests.timeFactorIsCappedOnTheServer(helper);
     }
+
+    @GameTest
+    public void clothMiddleSitsBetweenTheAnchorsInEveryDirection(GameTestHelper helper) {
+        HammockTests.clothMiddleSitsBetweenTheAnchorsInEveryDirection(helper);
+    }
+
+    @GameTest
+    public void hangsBetweenStandingRodPosts(GameTestHelper helper) {
+        HammockTests.hangsBetweenStandingRodPosts(helper);
+    }
 }

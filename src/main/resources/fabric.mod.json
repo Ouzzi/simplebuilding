@@ -68,6 +68,7 @@
       "com.simplebuilding.gametest.CombatGameTest",
       "com.simplebuilding.gametest.TrainingDummyGameTest",
       "com.simplebuilding.gametest.HammockGameTest",
+      "com.simplebuilding.gametest.StandingRodGameTest",
       "com.simplebuilding.gametest.WorkstationGameTest",
       "com.simplebuilding.gametest.ConfigOptionGameTest",
       "com.simplebuilding.gametest.ServerTuningGameTest",

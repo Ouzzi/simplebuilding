@@ -66,6 +66,11 @@ public final class RecipelessJeiInfo {
         if (com.simplebuilding.version.McVersion.END_RAILS) {
             map.put("end_rails", List.of(ModItems.ASTRAL_RAIL, ModItems.NIHIL_RAIL));
         }
+        if (com.simplebuilding.version.McVersion.STANDING_RODS) {
+            // Aufgestellte Staebe (2026-10-04): Schleichen + Rechtsklick auf eine Oberseite stellt sie senkrecht auf.
+            map.put("standing_rods", List.of(net.minecraft.world.item.Items.STICK, net.minecraft.world.item.Items.BONE,
+                    net.minecraft.world.item.Items.BLAZE_ROD, net.minecraft.world.item.Items.BREEZE_ROD, ModItems.DIAMOND_ROD));
+        }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Fundorte und B-Seite der Platten (2026-10-03), Wirkung der Lautsprecher.
             map.put("music_discs", List.<ItemLike>copyOf(com.simplebuilding.util.MusicDiscs.items()));

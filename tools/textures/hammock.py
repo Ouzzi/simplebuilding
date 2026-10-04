@@ -39,6 +39,7 @@ SAG = 22.5                                    # cloth angle
 HALF = 16 * math.cos(math.radians(SAG))       # horizontal half length of the cloth (14.78 px)
 SPREADER_Y = 9.5                              # middle of the spreader bar, lower layer
 KNOT_Y = 8                                    # rope height in the anchor's (upper) layer
+TIE = 7                                       # rope length into the anchor's block (straight; diagonal x sqrt 2)
 GAPS = (2, 3, 4)
 
 
@@ -197,16 +198,17 @@ def rope_end(diagonal, gap):
         ex, ez = at(o, u, p, start, w)
         elements.append(strand(name, (ex, y, ez), knot))
     yaw = -45 if diagonal else 0
-    tie = 6 * math.sqrt(2) if diagonal else 6
+    # 7 px: reaches a 2 px thin rod (7..9) - standing rods, lightning-rod stems, iron bars; 1 px vanishes in a fence post
+    tie = TIE * math.sqrt(2) if diagonal else TIE
     elements.append({'name': 'knot', 'from': [r1(knot[0] - 1), 6.75, r1(knot[2] - 1)],
                      'to': [r1(knot[0] + 1), 9.25, r1(knot[2] + 1.5)],
                      'rotation': {'origin': [r1(knot[0]), KNOT_Y, r1(knot[2])], 'x': 0, 'y': yaw, 'z': 0},
                      'faces': faces('#rope', [4, 4, 6, 6])})
-    # into the anchor's block up to a fence post or rod; hidden inside full blocks
+    # into the anchor's block up to a fence post or thin rod; hidden inside full blocks
     elements.append({'name': 'tie', 'from': [r1(knot[0] - 0.5), 7.5, r1(knot[2] - tie)], 'to': [r1(knot[0] + 0.5), 8.5, r1(knot[2])],
                      'rotation': {'origin': [r1(knot[0]), KNOT_Y, r1(knot[2])], 'x': 0, 'y': yaw, 'z': 0},
-                     'faces': faces('#rope', {'north': [7, 7, 8, 8], 'south': [8, 7, 9, 8], 'east': [0, 7, 6, 8],
-                                              'west': [0, 8, 6, 9], 'up': [7, 0, 8, 6], 'down': [8, 0, 9, 6]}, skip=('south',))})
+                     'faces': faces('#rope', {'north': [7, 7, 8, 8], 'south': [8, 7, 9, 8], 'east': [0, 7, TIE, 8],
+                                              'west': [0, 8, TIE, 9], 'up': [7, 0, 8, TIE], 'down': [8, 0, 9, TIE]}, skip=('south',))})
     return {'ambientocclusion': False, 'textures': {'particle': '#rope', 'rope': 'simplebuilding:block/hammock_rope'},
             'elements': elements}
 
@@ -355,6 +357,32 @@ def scene(models, facing, diagonal, gap):
     return pieces, anchors, cells
 
 
+def symmetry(models, diagonal, gap):
+    """Mirror check of the baked hammock (owner 2026-10-04: "still not centred"): every corner of every element of the
+    cloth and both rope ends, in world pixels with the game's rotations, as (t, w) - t along the line from the middle
+    between the two anchor centres, w across it. A centred hammock has the same multiset of t as of -t (and of w as of
+    -w). Returns the largest mismatch in pixels and the cloth's and ropes' extents along the line."""
+    pieces, anchors, _ = scene(models, 'south', diagonal, gap)
+    a, b = anchors
+    mx, mz = (a[0] + b[0]) * 8 + 8, (a[2] + b[2]) * 8 + 8
+    r = 1 / math.sqrt(2)
+    u, p = ((-r, r), (r, r)) if diagonal else ((0, 1), (1, 0))
+    ts, ws, cloth = [], [], []
+    for cell, model, y in pieces:
+        for el in model['elements']:
+            for pt in element_corners(el):
+                q = blockstate_turn(pt, y)
+                dx, dz = cell[0] * 16 + q[0] - mx, cell[2] * 16 + q[2] - mz
+                t, w = dx * u[0] + dz * u[1], dx * p[0] + dz * p[1]
+                ts.append(t)
+                ws.append(w)
+                if el['name'].startswith(('cloth', 'side', 'spreader')):
+                    cloth.append(t)
+    worst = max(max(abs(x + y) for x, y in zip(sorted(ts), sorted(ts, reverse=True))),
+                max(abs(x + y) for x, y in zip(sorted(ws), sorted(ws, reverse=True))))
+    return worst, (min(cloth), max(cloth)), (min(ts), max(ts))
+
+
 def colour_of(el, wool, wood, string):
     n = el['name']
     if n.startswith('cloth'):
@@ -441,6 +469,12 @@ def main():
             models['rope_' + name] = rope
             write_json('models/block/hammock_cloth_%s.json' % name, cloth)
             write_json('models/block/hammock_rope_%s.json' % name, rope)
+    for diagonal in (False, True):
+        for gap in GAPS:
+            worst, cloth, ends = symmetry(models, diagonal, gap)
+            assert worst < 0.01, ('hammock not centred', layout_name(diagonal, gap), worst)
+            print('centred %-10s cloth %+.3f..%+.3f px, ropes %+.3f..%+.3f px, mismatch %.4f px'
+                  % (layout_name(diagonal, gap), cloth[0], cloth[1], ends[0], ends[1], worst))
     write_json('models/block/hammock_empty.json', {'textures': {'particle': 'minecraft:block/white_wool'}})
     write_json('models/block/hammock_rope_link.json', {'textures': {'particle': 'simplebuilding:block/hammock_rope'}})
     write_json('blockstates/hammock_rope.json', blockstate_rope())
