@@ -276,6 +276,42 @@ public final class BlueprintBuilder {
         }
     }
 
+    /**
+     * One direct wand step. States are resolved from live item stacks at each visit; the placer
+     * owns item components, multipart callbacks and charging after a successful placement.
+     * Blueprint state normalization and state-based material costs do not apply to these items.
+     */
+    public abstract static class ItemLayout extends Layout {
+        private final List<BlockPos> positions;
+        private final Direction face;
+        private boolean stopped;
+
+        protected ItemLayout(List<BlockPos> positions, Direction face) {
+            this.positions = positions;
+            this.face = face;
+        }
+
+        @Override
+        public final int size() {
+            return positions.size();
+        }
+
+        @Override
+        public final BlockPos pos(int i) {
+            return positions.get(i);
+        }
+
+        @Override
+        final BlockState rawState(int i) {
+            return state(i);
+        }
+
+        /** No material remains: stop this step without visiting or charging later positions. */
+        protected final void stop() {
+            stopped = true;
+        }
+    }
+
     public static final class ModelLayout extends Layout {
         private final BlueprintModel model;
         private final int[] order;
@@ -378,12 +414,24 @@ public final class BlueprintBuilder {
     // PLANUNG (Vorschau und Bau teilen sie)
     // =====================================================================================
 
+    /** Shared position gate for layouts and direct item placement, before resolving material. */
+    public static boolean mayBuildAt(Level level, Player player, BlockPos pos, Direction face, ItemStack wand) {
+        return mayVisit(level, player, pos, face, wand)
+                && com.simplebuilding.api.WorldPermissions.mayChange(level, player, pos);
+    }
+
+    private static boolean mayVisit(Level level, Player player, BlockPos pos, Direction face, ItemStack wand) {
+        return level.isInWorldBounds(pos) && level.getWorldBorder().isWithinBounds(pos) && level.isLoaded(pos)
+                && level.mayInteract(player, pos) && player.mayUseItemAt(pos, face, wand);
+    }
+
     /** Geht die Stellen in Bau-Reihenfolge durch, Scheibe fuer Scheibe, und zaehlt mit. */
     public static final class Planner {
         private final Level level;
         private final Player player;
         private final ItemStack wand;
         final Layout layout;
+        private final ItemLayout itemLayout;
         private final Supply supply;
         private final boolean creative;
         private final LongOpenHashSet simulated;
@@ -407,14 +455,20 @@ public final class BlueprintBuilder {
             this.player = player;
             this.wand = wand;
             this.layout = layout;
+            this.itemLayout = layout instanceof ItemLayout items ? items : null;
             this.supply = supply;
             this.creative = creative;
             this.simulated = simulate ? new LongOpenHashSet() : null;
             this.simulatedAt = simulate ? simulated::contains : null;
         }
 
+        /** Direct items are charged by the placer only after their callbacks have succeeded. */
+        public Planner(Level level, Player player, ItemStack wand, ItemLayout layout) {
+            this(level, player, wand, layout, null, player.getAbilities().instabuild, false);
+        }
+
         public boolean finished() {
-            return broke || index >= layout.size();
+            return broke || index >= layout.size() || (itemLayout != null && itemLayout.stopped);
         }
 
         public int index() {
@@ -435,16 +489,24 @@ public final class BlueprintBuilder {
         public void run(int maxVisits, int maxPlaced, Placer placer) {
             int visits = 0;
             int placedHere = 0;
-            while (index < layout.size() && visits < maxVisits && placedHere < maxPlaced && !broke) {
+            while (!finished() && visits < maxVisits && placedHere < maxPlaced) {
                 int i = index++;
                 visits++;
                 if (!layout.included(i)) {
                     continue;
                 }
                 BlockPos pos = layout.pos(i);
-                if (!level.isInWorldBounds(pos) || !level.getWorldBorder().isWithinBounds(pos) || !level.isLoaded(pos)
-                        || !level.mayInteract(player, pos) || !player.mayUseItemAt(pos, Direction.UP, wand)) {
+                // Blueprints retain their already/occupied classification before the claim event.
+                // Direct items also reject claimed cells before looking for their live material.
+                if (!(itemLayout == null ? mayVisit(level, player, pos, Direction.UP, wand)
+                        : mayBuildAt(level, player, pos, itemLayout.face, wand))) {
                     blocked++;
+                    continue;
+                }
+                // Direct wands skip occupied cells before looking for material. In particular,
+                // an occupied cell must not stop a build whose material has just run out.
+                if (itemLayout != null && !level.getBlockState(pos).canBeReplaced()) {
+                    occupied++;
                     continue;
                 }
                 BlockState state = layout.state(i, simulatedAt);
@@ -458,13 +520,13 @@ public final class BlueprintBuilder {
                     blocked++;
                     continue;
                 }
-                if (!creative) {
+                if (!creative && itemLayout == null) {
                     // Nur Ausrichtung, Form und bezahlte Mengen: keine gewachsenen oder gefuellten Zustaende
                     // (und kein Wasser) fuer ein Item (Audit 2026-09-26 #2).
                     state = BlueprintMaterials.survivalState(state);
                 }
                 BlockState current = level.getBlockState(pos);
-                if (current.getBlock() == state.getBlock()) {
+                if (itemLayout == null && current.getBlock() == state.getBlock()) {
                     already++;
                     continue;
                 }
@@ -479,15 +541,15 @@ public final class BlueprintBuilder {
                     blocked++;
                     continue;
                 }
-                BlueprintMaterials.Cost cost = BlueprintMaterials.cost(layout.rawState(i));
-                if (cost.count() == 0) {
+                BlueprintMaterials.Cost cost = itemLayout == null ? BlueprintMaterials.cost(layout.rawState(i)) : null;
+                if (cost != null && cost.count() == 0) {
                     BlockPos partner = partnerOf(pos, state);
                     if (partner != null && !level.getBlockState(partner).is(state.getBlock())
                             && (simulated == null || !simulated.contains(partner.asLong()))) {
                         missing++;
                         continue;
                     }
-                } else if (!creative) {
+                } else if (cost != null && !creative) {
                     if (cost.creativeOnly() || !supply.take(cost.item(), cost.count())) {
                         missing++;
                         missingItems.merge(cost.item(), cost.count(), Integer::sum);
@@ -496,7 +558,7 @@ public final class BlueprintBuilder {
                     }
                 }
                 if (!placer.place(pos, state)) {
-                    if (!creative && cost.count() > 0) {
+                    if (cost != null && !creative && cost.count() > 0) {
                         // Das Material ist schon abgebucht: zurueck damit, die Stelle bleibt frei.
                         supply.refund(cost.item(), cost.count());
                     }

@@ -179,6 +179,109 @@ public final class BuildingWandTests {
 
     private static final int LARGE_SITE = 3;
 
+    /** Permissions and occupied cells are read when each ring runs, not cached at the click. */
+    public static void plannerRechecksProtectionAndReplacementBetweenRings(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        resetSite(helper, SMALL_SITE);
+        ItemStack wand = tunedWand(ModItems.DIAMOND_BUILDING_WAND, 1, 0);
+        stock(player, wand, new ItemStack(Items.GLASS, 64));
+        BlockPos center = ANCHOR.above();
+        BlockPos guarded = center.east();
+        BlockPos occupied = center.north();
+        Runnable release = com.simplebuilding.platform.ProtectionProbe.refuseAt(helper.absolutePos(center.west()));
+        try {
+            useOn(helper, player, wand, Direction.UP, InteractionHand.MAIN_HAND);
+            tickWand(helper, player, wand, EquipmentSlot.MAINHAND);
+            helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS), Set.of(center), "first ring");
+            release.run();
+            release = com.simplebuilding.platform.ProtectionProbe.refuseAt(helper.absolutePos(guarded));
+            helper.setBlock(occupied, Blocks.OBSIDIAN);
+            for (int pause = 0; pause < 4; pause++) tickWand(helper, player, wand, EquipmentSlot.MAINHAND);
+            helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS), Set.of(center), "four paused ticks between rings");
+            helper.assertValueEqual(driveUntilIdle(helper, player, wand, EquipmentSlot.MAINHAND), 1, "the outer ring is one step");
+            Set<BlockPos> expected = new LinkedHashSet<>(square(center, Direction.Axis.Y, 1));
+            expected.remove(guarded);
+            expected.remove(occupied);
+            helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS), expected,
+                    "the later ring ignored changed protection or replacement");
+            helper.assertBlockPresent(Blocks.OBSIDIAN, occupied);
+            helper.assertTrue(helper.getBlockState(guarded).isAir(), "the protected cell was filled");
+            helper.assertValueEqual(countCarried(player, Items.GLASS), 57, "only seven successful placements cost material");
+            helper.assertValueEqual(wand.getDamageValue(), 7, "only seven successful placements cost wear");
+        } finally {
+            release.run();
+        }
+        helper.succeed();
+    }
+
+    /** A side-face permission must receive that face; revoked build rights stop later rings. */
+    @SuppressWarnings("removal")
+    public static void plannerKeepsTheClickFaceAndRechecksBuildRights(GameTestHelper helper) {
+        ServerPlayer player = new ServerPlayer(helper.getLevel().getServer(), helper.getLevel(),
+                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "wand-face-test"),
+                net.minecraft.server.level.ClientInformation.createDefault()) {
+            @Override
+            public boolean mayUseItemAt(BlockPos pos, Direction face, ItemStack stack) {
+                return face == Direction.EAST && super.mayUseItemAt(pos, face, stack);
+            }
+        };
+        Vec3 away = helper.absoluteVec(new Vec3(0.5, 6, 0.5));
+        player.snapTo(away.x, away.y, away.z, 0, 0);
+        player.getAbilities().instabuild = false;
+        player.getAbilities().mayBuild = true;
+        for (boolean revoke : new boolean[]{false, true}) {
+            resetSite(helper, SMALL_SITE);
+            ItemStack wand = tunedWand(ModItems.DIAMOND_BUILDING_WAND, 1, 0);
+            stock(player, wand, new ItemStack(Items.GLASS, 64));
+            useOn(helper, player, wand, Direction.EAST, InteractionHand.MAIN_HAND);
+            tickWand(helper, player, wand, EquipmentSlot.MAINHAND);
+            helper.assertBlockPresent(Blocks.GLASS, ANCHOR.east());
+            player.getAbilities().mayBuild = !revoke;
+            driveUntilIdle(helper, player, wand, EquipmentSlot.MAINHAND);
+            Set<BlockPos> expected = revoke ? Set.of(ANCHOR.east()) : square(ANCHOR.east(), Direction.Axis.X, 1);
+            helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS), expected, "side-face build after rights change");
+            helper.assertValueEqual(countCarried(player, Items.GLASS), 64 - expected.size(), "material after rights change");
+            helper.assertValueEqual(wand.getDamageValue(), expected.size(), "wear after rights change");
+        }
+        helper.succeed();
+    }
+
+    /** Direct item states and block entity components must not become plain blueprint supply. */
+    public static void plannerPreservesWaterloggingAndNamedContainers(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        resetSite(helper, SMALL_SITE);
+        helper.setBlock(ANCHOR.above(), Blocks.WATER);
+        ItemStack wand = tunedWand(ModItems.DIAMOND_BUILDING_WAND, 0, 0);
+        stock(player, wand, new ItemStack(Items.OAK_SLAB, 2));
+        useOn(helper, player, wand, Direction.UP, InteractionHand.MAIN_HAND);
+        driveUntilIdle(helper, player, wand, EquipmentSlot.MAINHAND);
+        helper.assertBlockPresent(Blocks.OAK_SLAB, ANCHOR.above());
+        helper.assertTrue(helper.getBlockState(ANCHOR.above()).getValue(
+                net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED),
+                "the planner normalized away the water from direct slab placement");
+        helper.assertValueEqual(countCarried(player, Items.OAK_SLAB), 1, "one slab item was charged");
+
+        resetSite(helper, SMALL_SITE);
+        ItemStack box = new ItemStack(Items.SHULKER_BOX);
+        box.set(DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Wand cargo"));
+        box.set(DataComponents.CONTAINER, net.minecraft.world.item.component.ItemContainerContents.fromItems(
+                List.of(new ItemStack(Items.DIAMOND, 3))));
+        wand = tunedWand(ModItems.DIAMOND_BUILDING_WAND, 0, 0);
+        stock(player, wand, box);
+        useOn(helper, player, wand, Direction.UP, InteractionHand.MAIN_HAND);
+        driveUntilIdle(helper, player, wand, EquipmentSlot.MAINHAND);
+        var entity = helper.getLevel().getBlockEntity(helper.absolutePos(ANCHOR.above()));
+        helper.assertTrue(entity instanceof net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity,
+                "the planner refused the non-plain direct building item");
+        var placed = (net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity) entity;
+        helper.assertValueEqual(placed.getName().getString(), "Wand cargo", "placed container name");
+        helper.assertTrue(placed.getItem(0).is(Items.DIAMOND) && placed.getItem(0).getCount() == 3,
+                "the direct placement lost the container contents");
+        helper.assertValueEqual(countCarried(player, Items.SHULKER_BOX), 0, "one container was charged");
+        helper.assertValueEqual(wand.getDamageValue(), 1, "one container placement costs one wear");
+        helper.succeed();
+    }
+
     // =====================================================================================
     // HANDS
     // =====================================================================================
