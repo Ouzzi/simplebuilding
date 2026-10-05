@@ -20,6 +20,7 @@ import net.minecraftforge.registries.RegisterEvent;
 public final class SandwichesForge {
     public SandwichesForge(FMLJavaModLoadingContext context) {
         Sandwiches.init(FMLPaths.CONFIGDIR.get());
+        if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplesandwiches.guide.SandwichGuide.installQuests(FMLPaths.CONFIGDIR.get());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             var key = event.getRegistryKey();
             if (key.equals(Registries.DATA_COMPONENT_TYPE)) ModComponents.register();

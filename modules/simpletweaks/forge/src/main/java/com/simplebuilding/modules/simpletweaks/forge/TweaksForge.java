@@ -6,6 +6,8 @@ import net.minecraft.resources.Identifier;
 public final class TweaksForge {
  public TweaksForge(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext context){
   ModuleForgeTests.register(context.getModBusGroup());
+  if(net.minecraftforge.fml.ModList.isLoaded("ftbquests"))com.simplebuilding.modules.simpletweaks.guide.TweaksGuide.installQuests(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
+  net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e->{if(e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES))e.accept(com.simplebuilding.modules.simpletweaks.guide.TweaksGuide.book());});
   net.minecraftforge.event.server.ServerStartedEvent.BUS.addListener(e->com.simplebuilding.modules.simpletweaks.claims.Claims.start(e.getServer()));
   net.minecraftforge.event.server.ServerStoppedEvent.BUS.addListener(e->com.simplebuilding.modules.simpletweaks.claims.Claims.stop(e.getServer()));
   net.minecraftforge.event.RegisterCommandsEvent.BUS.addListener(e->com.simplebuilding.modules.simpletweaks.claims.ClaimCommands.register(e.getDispatcher()));

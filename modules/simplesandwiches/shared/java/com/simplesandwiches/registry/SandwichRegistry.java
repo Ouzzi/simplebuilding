@@ -42,6 +42,7 @@ public final class SandwichRegistry {
 
     public static List<ItemStack> tabStacks() {
         List<ItemStack> out = new ArrayList<>();
+        if (com.simplesandwiches.guide.SandwichGuide.book() != null) out.add(com.simplesandwiches.guide.SandwichGuide.stack());
         out.add(new ItemStack(ModItems.KNIFE));
         ModItems.CUTTING_BOARDS.values().forEach(i -> out.add(new ItemStack(i)));
         out.add(new ItemStack(ModItems.CHEESE_BLOCK));

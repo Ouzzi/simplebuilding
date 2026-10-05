@@ -6,6 +6,7 @@ import net.minecraft.core.registries.*;
 public final class FunForge {
  public FunForge(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext context){
   var bus=context.getModBusGroup();SimplefunCommon.init();SimplefunCommon.registerConfig();ModuleForgeTests.register(bus);
+  if(net.minecraftforge.fml.ModList.isLoaded("ftbquests"))com.simplefun.guide.FunGuide.installQuests(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
   net.minecraftforge.registries.RegisterEvent.getBus(bus).addListener(e->{
    if(e.getRegistryKey().equals(Registries.BLOCK))com.simplefun.heads.AnimalHeads.blocks();
    if(e.getRegistryKey().equals(Registries.ITEM)){e.register(Registries.ITEM,r->r.register(ModItems.BRICK_SNOWBALL_KEY,ModItems.BRICK_SNOWBALL));com.simplefun.heads.AnimalHeads.items();}

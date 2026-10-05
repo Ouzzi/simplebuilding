@@ -22,6 +22,7 @@ public final class SandwichesNeoForge {
     public SandwichesNeoForge(IEventBus bus, Dist dist) {
         Sandwiches.init(FMLPaths.CONFIGDIR.get());
         ModuleNeoTests.register(bus);
+        if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplesandwiches.guide.SandwichGuide.installQuests(FMLPaths.CONFIGDIR.get());
         bus.addListener((RegisterEvent event) -> {
             var key = event.getRegistryKey();
             if (key.equals(Registries.DATA_COMPONENT_TYPE)) ModComponents.register();

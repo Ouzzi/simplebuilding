@@ -271,12 +271,82 @@ window.WIKI_MODULE_DATA["simpledimensions"] = {
       }
     }
   ],
-  "recipes": [],
+  "recipes": [
+    {
+      "id": "simpledimension:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpledimension:guide_book",
+        "count": 1
+      },
+      "source": "modules/simpledimensions/shared/resources/data/simpledimension/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:flint_and_steel"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:flint_and_steel"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:flint",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          }
+        ]
+      }
+    }
+  ],
   "lootTables": [],
   "tags": [],
   "advancements": [],
   "enchantments": [],
-  "items": [],
+  "items": [
+    {
+      "id": "simpledimension:guide_book",
+      "name": {
+        "en_us": "Simple Dimensions Guide",
+        "de_de": "Simple-Dimensions-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simpledimensions/shared/java/com/simplebuilding/modules/simpledimensions/guide/DimensionsGuide.java",
+          "modules/simpledimensions/shared/resources/data/simpledimension/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 26 pages taken from this wiki, shown in your language. Shapeless recipe: book + flint and steel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Dimensions\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 26 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Feuerzeug. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Dimensions\" eins."
+        }
+      },
+      "texture": "assets/textures/simpledimensions/item/guide_book.png",
+      "craftedBy": [
+        "simpledimension:guide_book"
+      ],
+      "usedIn": []
+    }
+  ],
   "blocks": [
     {
       "id": "simpledimension:light_blue_portal",
@@ -330,12 +400,12 @@ window.WIKI_MODULE_DATA["simpledimensions"] = {
   "incompleteProse": {},
   "counts": {
     "features": 7,
-    "recipes": 0,
+    "recipes": 1,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
-    "items": 0,
+    "items": 1,
     "blocks": 2,
     "trades": 0,
     "config": 0,

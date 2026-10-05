@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simplemodels;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
+ @GameTest(maxTicks=100) public void guideBook(GameTestHelper h) { com.simplebuilding.modules.simplemodels.guide.ModelsGuide.gameTest(h); }
  @GameTest(maxTicks=100) public void launch(GameTestHelper h) { ModelTests.launch(h); }
  @GameTest(maxTicks=100) public void assignment(GameTestHelper h) { ModelTests.assignment(h); }
  @GameTest(maxTicks=100) public void permissions(GameTestHelper h) { ModelTests.permissions(h); }

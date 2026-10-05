@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:hay_block"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpleriding:guide_book"
+  }
+}

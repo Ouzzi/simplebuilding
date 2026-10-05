@@ -322,3 +322,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 - [x] Ofen-Ausbeutebonus entfernen; doppelte XP behalten, Altwelten-Fixtures geprüft.
   Belege: `docs/ai/PLAN-SMALL9-2026-10-02.md`; 1870/1870 Server grün, Gesamt-Gate grün.
   Sicht-/Hörabnahme und Testzentrale in der Besitzerwelt bleiben offen; kein Client/Push.
+
+## Guides Schritt 3/4 (Besitzer 2026-10-01: „Zu jeder Mod ein herstellbarer Guide, mit FTB Quests am Anfang gratis“)
+- [x] Guide-Buch je Modul (Branch `claude-guides2`, Plan `docs/ai/PLAN-MODUL-GUIDES-2026-10-05.md`): Vanilla-Buchansicht mit EN/DE-Seiten aus `wiki/manual.json`, Rezept Buch + Vanilla-Item, FTB-Startquest schenkt das Buch (nur mit FTB Quests), Texturen A–H (`previews/modul-buecher-vorschau.png`); Visuals/Sounds als Client-Mods ohne Item über `/simplevisuals guide` bzw. `/simplesounds guide`. Generator `tools/guides/module_guides.py` (`checkModuleGuides`). Offen: Merge, Client-Sichtabnahme (Seitenumbruch, Befehle), FTB-Quests im echten Spiel, Umzug der Vorlage nach `simplelib`.

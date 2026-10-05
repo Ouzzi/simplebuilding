@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:item_frame"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplemodels:guide_book"
+  }
+}

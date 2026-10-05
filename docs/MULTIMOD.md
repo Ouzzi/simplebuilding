@@ -190,6 +190,22 @@ frame is a valid sky portal depends on the server's portal configs (`DimensionRu
 server from its config directory and never sent to clients), so a client-side predicate would be
 wrong on every dedicated server.
 
+## Module guide books (framework 0.1.3)
+
+Every module carries its own guide, no SimpleBuilding needed (plan:
+`docs/ai/PLAN-MODUL-GUIDES-2026-10-05.md`). `python tools/guides/module_guides.py` is the single source
+(`--check` runs in `gradlew check` as `checkModuleGuides`): per module it writes
+`<package>/guide/<Name>Guide.java` from `tools/guides/ModuleGuide.java.in`, the EN/DE pages
+(`<ns>.guide.page.<n>` and `.title`, from the module's `wiki/manual.json` features), a shapeless recipe
+"book + one typical Vanilla item" with its recipe unlock, the item model, the wiki note and an FTB Quests
+start chapter (`data/<ns>/ftbquests/`). The item is a Vanilla `WrittenBookItem` with a resolved default
+`written_book_content`, so Vanilla opens it on every loader and old books show updated pages. Loaders call
+`<Name>Guide.register()` in item registration and, only when `ftbquests` is loaded,
+`<Name>Guide.installQuests(configDir)` (`framework` `ModuleQuestDefaults`: copy missing files once, marker
+`<ns>.installed`). Client-only mods (Simple Visuals, Simple Sounds) register no item; their pages open with
+the local command `/<ns> guide`. Textures: `tools/textures/module_guide_books_2026_10_05.py`.
+Change texts in `manual.json`, then rerun the generator. When `simplelib` lands, the template moves there.
+
 ## Plugin-style test registration
 
 Adding a module touches only `modules/<id>/` and the manifest. `tools/newmod.py`

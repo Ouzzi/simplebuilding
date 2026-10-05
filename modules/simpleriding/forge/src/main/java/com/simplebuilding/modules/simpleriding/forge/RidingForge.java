@@ -7,6 +7,7 @@ public final class RidingForge {
   var bus=context.getModBusGroup(); ModuleForgeTests.register(bus);
   Riding.CONFIG=RidingConfig.load(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
   Riding.SIMPLEBUILDING=net.minecraftforge.fml.ModList.isLoaded("simplebuilding");
+  if(net.minecraftforge.fml.ModList.isLoaded("ftbquests"))com.simpleriding.guide.RidingGuide.installQuests(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
   net.minecraftforge.registries.RegisterEvent.getBus(bus).addListener(e->{
    if(e.getRegistryKey().equals(Registries.LOOT_FUNCTION_TYPE))net.minecraft.core.Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE,Riding.id("weighted_enchant"),WeightedEnchantFunction.MAP_CODEC);
    e.register(net.minecraftforge.registries.ForgeRegistries.Keys.CONDITION_SERIALIZERS,Riding.id("trades_enabled"),()->RidingCondition.CODEC);

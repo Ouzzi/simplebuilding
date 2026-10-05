@@ -78,7 +78,8 @@ def check():
     tiers = ['copper', 'iron', 'golden', 'diamond', 'netherite', 'enderite']
     items = [t + '_horseshoe' for t in tiers] + ['horseshoe_smithing_template']
     books = ['enchanted_book_leaping', 'enchanted_book_tailwind']
-    assert sorted(p.stem for p in assets.glob('items/*.json')) == sorted(items + books), 'horseshoes and Riding book models'
+    # guide_book: the generated module guide (tools/guides/module_guides.py).
+    assert sorted(p.stem for p in assets.glob('items/*.json')) == sorted(items + books + ['guide_book']), 'horseshoes, Riding book models and the guide'
     for book in books:
         assert read(assets / f'items/{book}.json')['model'] == {'type': 'minecraft:model', 'model': f'simpleriding:item/{book}'}
         assert read(assets / f'models/item/{book}.json') == {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'simpleriding:item/{book}'}}

@@ -1,0 +1,10 @@
+{
+	"chapter.475C136E8A768A65.title": "{\"translate\": \"quests.simplemodels.start.title\"}",
+	"chapter.475C136E8A768A65.chapter_subtitle": [
+		"{\"translate\": \"quests.simplemodels.start.subtitle\"}"
+	],
+	"quest.6150E1DDF896F07A.title": "{\"translate\": \"quests.simplemodels.start.welcome.title\"}",
+	"quest.6150E1DDF896F07A.quest_desc": [
+		"{\"translate\": \"quests.simplemodels.start.welcome.description\"}"
+	]
+}

@@ -49,6 +49,8 @@ public class SimplefunFabric implements ModInitializer {
                     visibility);
             });
     ServerLivingEntityEvents.AFTER_DEATH.register(PlayerHeadDrop::onDeath);
+    if (net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("ftbquests"))
+      com.simplefun.guide.FunGuide.installQuests(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());
     CommandRegistrationCallback.EVENT.register(
         (dispatcher, access, environment) -> SimplefunCommands.register(dispatcher));
   }

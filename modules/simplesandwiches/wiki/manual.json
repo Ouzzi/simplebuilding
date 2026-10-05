@@ -136,6 +136,11 @@
     }
   ],
   "notes": {
+    "simplesandwiches:guide_book": {
+      "sources": ["modules/simplesandwiches/shared/java/com/simplesandwiches/guide/SandwichGuide.java", "modules/simplesandwiches/shared/resources/data/simplesandwiches/recipe/guide_book.json"],
+      "en": {"summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + bread. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Sandwiches\" gives one for free."},
+      "de": {"summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Brot. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Sandwiches\" eins."}
+    },
     "simplesandwiches:*_cutting_board": {
       "en": {"summary": "Place bread, open with a knife, optionally butter first, add toppings, then close and collect with an empty hand. Requires support below."},
       "de": {"summary": "Brot auflegen, mit dem Messer öffnen, optional zuerst bestreichen, belegen und mit leerer Hand schließen und entnehmen. Benötigt einen tragenden Block darunter."}

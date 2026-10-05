@@ -28,5 +28,22 @@
   "tooltip.simplesandwiches.buttered": "Buttered",
   "tooltip.simplesandwiches.effect": "%s (%s) %s%%",
   "tooltip.simplesandwiches.food": "Hunger %s, saturation %s",
-  "tooltip.simplesandwiches.layer": "- %s"
+  "tooltip.simplesandwiches.layer": "- %s",
+  "item.simplesandwiches.guide_book": "Simple Sandwiches Guide",
+  "simplesandwiches.guide.page.1.title": "Simple Sandwiches",
+  "simplesandwiches.guide.page.1": "Sandwiches on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.",
+  "simplesandwiches.guide.page.2.title": "Sandwiches",
+  "simplesandwiches.guide.page.2": "One bread plus up to five ingredients, with optional butter first; matching components stack to 16.",
+  "simplesandwiches.guide.page.3.title": "Cutting board",
+  "simplesandwiches.guide.page.3": "Place bread, open with the knife, add toppings, then close and collect with an empty hand.",
+  "simplesandwiches.guide.page.4.title": "Knife",
+  "simplesandwiches.guide.page.4": "250 durability, total attack damage 2, attack speed 2.0 and anvil repair with iron nuggets.",
+  "simplesandwiches.guide.page.5.title": "Cheese and butter",
+  "simplesandwiches.guide.page.5": "Milk ripens into butter automatically; a fermented spider eye starts cheese ripening with a limited harvest window.",
+  "simplesandwiches.guide.page.6.title": "Eating from bundles",
+  "simplesandwiches.guide.page.6": "Hold use to eat the selected food in a bundle, or its first item when none is selected.",
+  "quests.simplesandwiches.start.title": "Welcome to Simple Sandwiches",
+  "quests.simplesandwiches.start.subtitle": "Your free guide",
+  "quests.simplesandwiches.start.welcome.title": "A free guide",
+  "quests.simplesandwiches.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Sandwiches Guide as a reward. You can also craft it from a book and bread."
 }

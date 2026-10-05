@@ -76,7 +76,7 @@ public final class HorseshoeTests {
   menu.getSlot(0).set(new ItemStack(shoe(Tier.DIAMOND)));menu.getSlot(1).set(EnchantmentHelper.createBook(new EnchantmentInstance(ench(h,Enchantments.MENDING),1)));menu.createResult();
   h.assertTrue(EnchantmentHelper.getItemEnchantmentLevel(ench(h,Enchantments.MENDING),menu.getSlot(2).getItem())==1,"Real anvil applies Mending");
   h.assertTrue(!EnchantmentHelper.selectEnchantment(net.minecraft.util.RandomSource.create(3),new ItemStack(shoe(Tier.IRON)),30,java.util.stream.Stream.of(ench(h,Enchantments.UNBREAKING))).isEmpty(),"Enchanting table offers Unbreaking");
-  h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().filter(i->i.getNamespace().equals("simpleriding")).count()==(Riding.SIMPLEBUILDING?7:6),"Exactly the R1 items (Enderite only with SimpleBuilding)");
+  h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().filter(i->i.getNamespace().equals("simpleriding")&&!i.getPath().equals("guide_book")).count()==(Riding.SIMPLEBUILDING?7:6),"Exactly the R1 items (Enderite only with SimpleBuilding; plus the guide)");
   h.succeed();
  }
 

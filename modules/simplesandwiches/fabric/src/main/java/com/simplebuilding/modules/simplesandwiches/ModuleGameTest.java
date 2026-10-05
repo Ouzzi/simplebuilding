@@ -7,6 +7,11 @@ import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link SandwichTests}. */
 public final class ModuleGameTest {
     @GameTest
+    public void guideBook(GameTestHelper h) {
+        SandwichTests.ALL.get("guide_book").accept(h);
+    }
+
+    @GameTest
     public void configBounds(GameTestHelper h) {
         SandwichTests.ALL.get("config_bounds").accept(h);
     }

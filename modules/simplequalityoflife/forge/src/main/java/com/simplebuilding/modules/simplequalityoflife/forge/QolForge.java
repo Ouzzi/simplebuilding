@@ -11,6 +11,9 @@ public final class QolForge {
  private static Channel<net.minecraft.network.protocol.common.custom.CustomPacketPayload> channel;
  public QolForge(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext context){
   Simplequalityoflife.init();ModuleForgeTests.register(context.getModBusGroup());
+  net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(e->{if(e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM))com.simplequalityoflife.guide.QolGuide.register();});
+  if(net.minecraftforge.fml.ModList.isLoaded("ftbquests"))com.simplequalityoflife.guide.QolGuide.installQuests(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
+  net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e->{if(e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES))e.accept(com.simplequalityoflife.guide.QolGuide.book());});
   if(ModuleForgeTests.enabled())QolForgeChecks.register();
   channel=ChannelBuilder.named(net.minecraft.resources.Identifier.parse("simplequalityoflife:main")).payloadChannel().protocol(NetworkProtocol.PLAY).clientbound()
    .add(ConfigSyncPayload.TYPE,ConfigSyncPayload.STREAM_CODEC.cast(),(p,c)->{c.setPacketHandled(true);c.enqueueWork(()->QolForgeClient.receive(p));})

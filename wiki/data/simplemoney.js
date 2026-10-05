@@ -2617,6 +2617,46 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       }
     },
     {
+      "id": "simplemoney:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplemoney:guide_book",
+        "count": 1
+      },
+      "source": "modules/simplemoney/shared/resources/data/simplemoney/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:gold_nugget"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:gold_nugget"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 0.111
+          }
+        ]
+      }
+    },
+    {
       "id": "simplemoney:money_bill_from_blasting",
       "type": "minecraft:blasting",
       "category": null,
@@ -3074,6 +3114,30 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
       ]
     },
     {
+      "id": "simplemoney:guide_book",
+      "name": {
+        "en_us": "Simple Money Guide",
+        "de_de": "Simple-Money-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemoney/shared/java/com/simplemoney/guide/MoneyGuide.java",
+          "modules/simplemoney/shared/resources/data/simplemoney/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + gold nugget. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Money\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Goldklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Money\" eins."
+        }
+      },
+      "texture": "assets/textures/simplemoney/item/guide_book.png",
+      "craftedBy": [
+        "simplemoney:guide_book"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplemoney:money_bill",
       "name": {
         "en_us": "Money Bill",
@@ -3331,12 +3395,12 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
   "incompleteProse": {},
   "counts": {
     "features": 68,
-    "recipes": 8,
+    "recipes": 9,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
-    "items": 7,
+    "items": 8,
     "blocks": 0,
     "trades": 0,
     "config": 0,

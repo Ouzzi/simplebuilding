@@ -1,0 +1,10 @@
+{
+	"chapter.1A2B10FE11295A8E.title": "{\"translate\": \"quests.simplequalityoflife.start.title\"}",
+	"chapter.1A2B10FE11295A8E.chapter_subtitle": [
+		"{\"translate\": \"quests.simplequalityoflife.start.subtitle\"}"
+	],
+	"quest.7D91D8172A557051.title": "{\"translate\": \"quests.simplequalityoflife.start.welcome.title\"}",
+	"quest.7D91D8172A557051.quest_desc": [
+		"{\"translate\": \"quests.simplequalityoflife.start.welcome.description\"}"
+	]
+}

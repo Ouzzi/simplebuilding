@@ -17,6 +17,7 @@ public final class ModelTests {
  public static boolean partnerMissing(net.minecraft.gametest.framework.GameTestHelper h,String mod,String what){if(isModLoaded(mod))return false;com.mojang.logging.LogUtils.getLogger().info("[standalone] {} not loaded - skipping {}",mod,what);h.succeed();return true;}
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     static {
+        ALL.put("guide_book", com.simplebuilding.modules.simplemodels.guide.ModelsGuide::gameTest);
         ALL.put("launch", ModelTests::launch); ALL.put("assignment", ModelTests::assignment);
         ALL.put("permissions", ModelTests::permissions); ALL.put("request_bounds", ModelTests::requestBounds);
         ALL.put("config_bounds", ModelTests::configBounds); ALL.put("definition_bounds", ModelTests::definitionBounds);
@@ -41,7 +42,7 @@ public final class ModelTests {
         throw new AssertionError("Unsafe file was accepted");
     }
     public static void launch(GameTestHelper h) {
-        h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().noneMatch(id -> id.getNamespace().equals("simplemodels")), "No scaffold token or invented registry items");
+        h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().noneMatch(id -> id.getNamespace().equals("simplemodels") && !id.getPath().equals("guide_book")), "No scaffold token or invented registry items (only the guide)");
         if (isModLoaded("simplebuilding")) h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplebuilding:diamond_building_wand")), "SimpleBuilding content visible when loaded");
         h.assertTrue(h.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild("simplemodels") != null, "Admin reload command registered");
         h.assertTrue(CataloguePayload.current().json().length() <= ModelCatalogue.MAX_SNAPSHOT_CHARS, "Bounded snapshot");

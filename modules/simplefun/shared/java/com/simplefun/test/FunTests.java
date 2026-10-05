@@ -31,6 +31,7 @@ public final class FunTests {
 
   static {
     ALL.put("launch", FunTests::launch);
+    ALL.put("guide_book", com.simplefun.guide.FunGuide::gameTest);
     ALL.put("recipe", FunTests::recipe);
     ALL.put("config_bounds", FunTests::configBounds);
     ALL.put("yeet", FunTests::yeet);

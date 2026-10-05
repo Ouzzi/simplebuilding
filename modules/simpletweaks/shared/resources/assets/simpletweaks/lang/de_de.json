@@ -44,5 +44,22 @@
   "command.simpletweaks.claim.identity": "Online-Spielername oder vollständige UUID eines Offline-Spielers verwenden. Null-UUID, unbekannte Namen und Selektoren sind nicht erlaubt.",
   "command.simpletweaks.claim.updated": "Claim-Rechte gespeichert.",
   "command.simpletweaks.claim.denied": "Änderung verweigert: Besitz, Vertrauenslimit, Abklingzeit oder unveränderte Rechte. Nur ausdrückliches OP4-Admin-Löschen umgeht den Besitz.",
-  "command.simpletweaks.claim.list": "%s Claims angezeigt (höchstens %s)."
+  "command.simpletweaks.claim.list": "%s Claims angezeigt (höchstens %s).",
+  "item.simpletweaks.guide_book": "Simple-Tweaks-Handbuch",
+  "simpletweaks.guide.page.1.title": "Simple Tweaks",
+  "simpletweaks.guide.page.1": "Kompatibilität mit alten Ständen und stufenweise, serverseitige Claims, standardmäßig aus.",
+  "simpletweaks.guide.page.2.title": "Kompatibilitaet alter Welten",
+  "simpletweaks.guide.page.2": "Eine exakte Liste verbindet alte Item-, Block-, Blockentitaets- und Komponentennamen mit vorhandenen SimpleBuilding-Registries. Gespeichert werden aktuelle Namen;",
+  "simpletweaks.guide.page.3.title": "Kompatibilitaet alter Welten",
+  "simpletweaks.guide.page.3": "Spielinhalte werden nicht doppelt registriert.",
+  "simpletweaks.guide.page.4.title": "Claims: standardmäßig aus",
+  "simpletweaks.guide.page.4": "Stufen 1–3, 5 und 6 sowie Teile des Stage-4-Schutzes sind umgesetzt: atomare Claims, Vanilla-/Werkzeugprüfungen, Besitzer-Vertrauen, OP4-Verwaltung und Dimensions-Adapter.",
+  "simpletweaks.guide.page.5.title": "Claims: standardmäßig aus",
+  "simpletweaks.guide.page.5": "Automation hat weiterhin ungeschützte Pfade, darunter Blitz-Sekundaerfolgen und unbekannte Mod-Behaviors. Nicht einschaltbereit. Standard aus;",
+  "simpletweaks.guide.page.6.title": "Claims: standardmäßig aus",
+  "simpletweaks.guide.page.6": "ausgeschaltete Hooks lesen keine Claim-Daten. Nur Entwicklungstests. Standardwert: false.",
+  "quests.simpletweaks.start.title": "Willkommen bei Simple Tweaks",
+  "quests.simpletweaks.start.subtitle": "Dein Handbuch gratis",
+  "quests.simpletweaks.start.welcome.title": "Ein Handbuch gratis",
+  "quests.simpletweaks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tweaks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Papier herstellen."
 }
