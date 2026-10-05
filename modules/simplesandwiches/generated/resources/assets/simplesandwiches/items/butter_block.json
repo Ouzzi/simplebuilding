@@ -1,6 +1,118 @@
 {
   "model": {
-    "model": "simplesandwiches:block/butter_block/full",
-    "type": "minecraft:model"
+    "block_state_property": "slices",
+    "cases": [
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_1",
+          "type": "minecraft:model"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_2",
+          "type": "minecraft:model"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_3",
+          "type": "minecraft:model"
+        },
+        "when": "3"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_4",
+          "type": "minecraft:model"
+        },
+        "when": "4"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_5",
+          "type": "minecraft:model"
+        },
+        "when": "5"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_6",
+          "type": "minecraft:model"
+        },
+        "when": "6"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_7",
+          "type": "minecraft:model"
+        },
+        "when": "7"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_8",
+          "type": "minecraft:model"
+        },
+        "when": "8"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_9",
+          "type": "minecraft:model"
+        },
+        "when": "9"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_10",
+          "type": "minecraft:model"
+        },
+        "when": "10"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_11",
+          "type": "minecraft:model"
+        },
+        "when": "11"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_12",
+          "type": "minecraft:model"
+        },
+        "when": "12"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_13",
+          "type": "minecraft:model"
+        },
+        "when": "13"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_14",
+          "type": "minecraft:model"
+        },
+        "when": "14"
+      },
+      {
+        "model": {
+          "model": "simplesandwiches:block/butter_block/up_15",
+          "type": "minecraft:model"
+        },
+        "when": "15"
+      }
+    ],
+    "fallback": {
+      "model": "simplesandwiches:block/butter_block/full",
+      "type": "minecraft:model"
+    },
+    "property": "minecraft:block_state",
+    "type": "minecraft:select"
   }
 }

@@ -26,6 +26,8 @@ public final class ModBlocks {
             "cherry", "pale_oak", "poplar", "bamboo", "crimson", "warped");
     /** Butter block friction (owner decision F7 = B; normal 0.6, ice 0.98). */
     public static final float BUTTER_FRICTION = 0.9F;
+    /** Cheese is springy like a bed (owner 2026-10-05): Vanilla bed bounce restitution and fall distance reduction. */
+    public static final float CHEESE_BOUNCE = 0.75F, CHEESE_FALL_REDUCTION = 0.5F;
 
     public static final Map<String, CuttingBoardBlock> CUTTING_BOARDS = new LinkedHashMap<>();
     public static SliceBlock CHEESE_BLOCK, BUTTER_BLOCK;
@@ -47,9 +49,10 @@ public final class ModBlocks {
             CUTTING_BOARDS.put(wood, register(name, new CuttingBoardBlock(p.setId(key(name)))));
         }
         CHEESE_BLOCK = register("cheese_block", new SliceBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW)
-                .strength(0.5F).sound(SoundType.WOOL).setId(key("cheese_block")), () -> ModItems.CHEESE_SLICE));
+                .strength(0.5F).sound(SoundType.WOOL).bounceRestitution(CHEESE_BOUNCE).fallDistanceReduction(CHEESE_FALL_REDUCTION)
+                .setId(key("cheese_block")), () -> ModItems.CHEESE_SLICE, () -> ModSounds.CHEESE_CUT));
         BUTTER_BLOCK = register("butter_block", new SliceBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND)
-                .strength(0.5F).sound(SoundType.HONEY_BLOCK).friction(BUTTER_FRICTION).setId(key("butter_block")), () -> ModItems.BUTTER_SLICE));
+                .strength(0.5F).sound(SoundType.HONEY_BLOCK).friction(BUTTER_FRICTION).setId(key("butter_block")), () -> ModItems.BUTTER_SLICE, () -> ModSounds.BUTTER_CUT));
         MILK_CAULDRON = register("milk_cauldron", new MilkCauldronBlock(BlockBehaviour.Properties.ofLegacyCopy(Blocks.CAULDRON)
                 .setId(key("milk_cauldron"))));
     }

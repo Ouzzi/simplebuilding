@@ -102,7 +102,8 @@ def resources():
         asset(f"models/block/{name}", {
             "parent": "minecraft:block/block",
             "textures": {"top": f"{NS}:block/{name}", "side": f"{NS}:block/{name}_side", "particle": "#top"},
-            "elements": [cuboid([1, 0, 2, 15, 2, 14])],
+            # Base plate plus a 1 px inset top plate: a visible stepped edge (owner 2026-10-05: less flat).
+            "elements": [cuboid([1, 0, 2, 15, 1, 14]), cuboid([2, 1, 3, 14, 2, 13])],
         })
         item(name, f"block/{name}")
         data(f"recipe/{name}", {
@@ -126,18 +127,20 @@ def resources():
                     "elements": [cuboid(box(cut, slices), cut if slices < 16 else None)],
                 })
         asset(f"blockstates/{name}", {"variants": variants})
-        item(name, f"block/{name}/full")
-        children = []
-        for slices in (16, *range(1, 16)):
-            entry = {
-                "type": "minecraft:item", "name": f"{NS}:{name if slices == 16 else food + '_slice'}",
-                # 26.3 loot format: single "condition"/"modifier" objects with "type" (see vanilla sea_pickle.json).
-                "condition": {"type": "minecraft:match_block", "blocks": f"{NS}:{name}", "state": {"slices": str(slices)}},
-            }
-            if slices < 16:
-                entry["modifier"] = {"type": "minecraft:set_count", "count": slices}
-            children.append(entry)
-        loot(name, {"type": "minecraft:alternatives", "children": children})
+        # The item shows how much is left (block_state component written by copy_state, see loot below).
+        asset(f"items/{name}", {"model": {
+            "type": "minecraft:select", "property": "minecraft:block_state", "block_state_property": "slices",
+            "cases": [{"when": str(slices), "model": model_ref(f"block/{name}/up_{slices}")} for slices in range(1, 16)],
+            "fallback": model_ref(f"block/{name}/full"),
+        }})
+        # Owner 2026-10-05: breaking keeps the block's state; a cut block drops itself with slices + cut
+        # (Vanilla BlockItem restores them on placement), a whole block drops a plain block item.
+        loot(name, {"type": "minecraft:alternatives", "children": [
+            {"type": "minecraft:item", "name": f"{NS}:{name}",
+             "condition": {"type": "minecraft:match_block", "blocks": f"{NS}:{name}", "state": {"slices": "16"}}},
+            {"type": "minecraft:item", "name": f"{NS}:{name}",
+             "modifier": {"type": "minecraft:copy_state", "block": f"{NS}:{name}", "properties": ["slices", "cut"]}},
+        ]})
 
     variants = {}
     for content in ("milk", "butter", "curdling", "cheese", "spoiled"):
@@ -154,6 +157,17 @@ def resources():
     asset("blockstates/milk_cauldron", {"variants": variants})
     loot("milk_cauldron", {"type": "minecraft:item", "name": "minecraft:cauldron"})
 
+    # Opened bread on the cutting board: two halves, drawn by the renderer through an ITEM_MODEL override
+    # (subfolder: a render-only model, not a registered item).
+    flat("board/bread_half")
+    item("board/bread_half", "item/board/bread_half")
+    sounds = {}
+    for food in ("butter", "cheese"):
+        sounds[f"block.{food}_block.cut"] = {
+            "subtitle": f"subtitles.{NS}.block.{food}_block.cut",
+            "sounds": [f"{NS}:block/{food}_cut{n}" for n in (1, 2, 3)],
+        }
+    files[f"assets/{NS}/sounds.json"] = sounds
     for name in ("knife", "cheese_slice", "butter_slice", "cake_slice"):
         flat(name, "handheld" if name == "knife" else "generated")
         item(name, f"item/{name}")

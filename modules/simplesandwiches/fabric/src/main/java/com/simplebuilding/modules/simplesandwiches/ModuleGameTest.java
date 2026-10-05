@@ -101,4 +101,23 @@ public final class ModuleGameTest {
         SandwichTests.ALL.get("cake_slice").accept(h);
     }
 
+    @GameTest
+    public void boardPriorityOverEating(GameTestHelper h) {
+        SandwichTests.ALL.get("board_priority_over_eating").accept(h);
+    }
+
+    @GameTest
+    public void sliceBlockKeepsState(GameTestHelper h) {
+        SandwichTests.ALL.get("slice_block_keeps_state").accept(h);
+    }
+
+    @GameTest
+    public void cheeseBouncesLikeBed(GameTestHelper h) {
+        SandwichTests.ALL.get("cheese_bounces_like_bed").accept(h);
+    }
+
+    @GameTest
+    public void cutSoundsRegistered(GameTestHelper h) {
+        SandwichTests.ALL.get("cut_sounds_registered").accept(h);
+    }
 }
