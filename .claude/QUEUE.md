@@ -4,6 +4,9 @@ Regeln: AGENTS.md; aktueller Bestand/Belege in docs/HANDOFF.md. Worker committen
 ihrem Branch ohne Push/Merge. Alte Wellen und Run-Details sind in der Git-Historie erhalten.
 Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 
+## Worker Befunde 11/12 (2026-10-05)
+- [x] Visuals/Sounds auf GameTest-Assertions umgestellt; Riding-Handling prüft alle Vanilla-Stufen standalone, Enderit nur mit SB. Branch `gpt-befunde`: Module 296/296, Kern 1890/1890 grün, Gate mit `-PskipWiki` grün; kein Push.
+
 ## Integriert / implementiert
 - [x] Wellen 1–23: Werkzeuge, Lager/Maschinen, Config/Modpack, Erfolge/Quests, Immersion,
   Balancing-Zentrale und frühere Ports (historische Gate-Zahlen nicht als aktuelles Gate verwenden).

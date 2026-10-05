@@ -151,29 +151,37 @@ public final class HorseshoeTests {
  }
 
  public static void handling(GameTestHelper h){
-  // The expected shares are calibrated on the full Enderite set, which exists only with SimpleBuilding.
-  if(!Riding.SIMPLEBUILDING){com.mojang.logging.LogUtils.getLogger().info("[standalone] simplebuilding not loaded - skipping Enderite handling calibration");h.succeed();return;}
+  handling(h,Tier.COPPER,.099);
+  handling(h,Tier.IRON,.136);
+  handling(h,Tier.GOLDEN,.175);
+  handling(h,Tier.DIAMOND,.216);
+  handling(h,Tier.NETHERITE,.258);
+  if(Riding.SIMPLEBUILDING)handling(h,Tier.ENDERITE,.3);
+  h.succeed();
+ }
+
+ /** Fixed full-set shares include the server's rounding to permille. */
+ private static void handling(GameTestHelper h,Tier tier,double share){
   var original=Riding.CONFIG;
   try{
    var c=new RidingConfig();Riding.CONFIG=c;
    var bare=h.spawn(EntityTypes.HORSE,2,2,2);var in=new Vec3(1,0,-1);
    h.assertTrue(Horseshoes.handling(bare,in).equals(in),"No shoes, Vanilla steering");
-   var horse=shod(h,Tier.ENDERITE,Tier.ENDERITE,Tier.ENDERITE,Tier.ENDERITE);var p=rider(h,horse);RidingEffects.tick(horse);
-   close(Horseshoes.handlingShare(Horseshoes.code(horse)),.3,h,"Server publishes the handling share");
+   var horse=shod(h,tier,tier,tier,tier);var p=rider(h,horse);RidingEffects.tick(horse);
+   close(Horseshoes.handlingShare(Horseshoes.code(horse)),share,h,"Server publishes the handling share for "+tier);
    var out=Horseshoes.handling(horse,new Vec3(.5,0,-.25));
-   close(out.x,.8,h,"Sideways share 0.5 -> 0.8");close(out.z,-.4,h,"Backward share 0.25 -> 0.4");
+   close(out.x,.5+share,h,"Sideways share for "+tier);close(out.z,-.25-share/2,h,"Backward share for "+tier);
    close(Horseshoes.handling(horse,new Vec3(0,0,.98)).z,.98,h,"Forward input unchanged");
    c.horseshoes.handlingBonus=0;
-   close(Horseshoes.handling(horse,new Vec3(.5,0,0)).x,.8,h,"Only the synced server value counts");
+   close(Horseshoes.handling(horse,new Vec3(.5,0,0)).x,.5+share,h,"Only the synced server value counts");
    RidingEffects.tick(horse);close(Horseshoes.handling(horse,new Vec3(.5,0,0)).x,.5,h,"Server config change reaches the synced value");
    c.horseshoes.handlingBonus=.3f;RidingEffects.tick(horse);
    p.xxa=1;p.zza=-1;
    var method=AbstractHorse.class.getDeclaredMethod("getRiddenInput",Player.class,Vec3.class);method.setAccessible(true);
    var real=(Vec3)method.invoke(horse,p,Vec3.ZERO);
-   close(real.x,.8,h,"Real ridden input uses the mixin");close(real.z,-.4,h,"Real backward input");
+   close(real.x,.5+share,h,"Real ridden input uses the mixin for "+tier);close(real.z,-.25-share/2,h,"Real backward input for "+tier);
    h.assertTrue(Double.isNaN(Horseshoes.handling(horse,new Vec3(Double.NaN,0,0)).x),"Nonfinite input is not amplified");
   }catch(ReflectiveOperationException e){throw new IllegalStateException(e);}finally{Riding.CONFIG=original;}
-  h.succeed();
  }
 
  public static void menu(GameTestHelper h){

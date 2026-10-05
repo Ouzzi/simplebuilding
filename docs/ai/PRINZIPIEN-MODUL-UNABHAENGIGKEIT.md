@@ -73,10 +73,14 @@ Kern → Modul: keine Referenz (sauber). Modul → Modul per Java-Import: keine 
 | 8 | P1 | Forge-Konverter schrieb `neoforge:mod_loaded` in `forge:condition` → Forge-Registry-Ladefehler beim optionalen Enderit-Hufeisen-Rezept (Riding-Forge-Lauf brach ab, auch **mit** SB) | `gradle/module-forge.gradle` (processResources), `modules/simpleriding/generated/.../recipe/enderite_horseshoe_smithing.json` | **gefixt**: vorhandene `forge:conditions` bevorzugen, sonst `neoforge:mod_loaded` → `forge:mod_loaded` |
 | 9 | P1 | Simple Sandwiches nutzt `framework` (`TransformHints`), bündelte es nicht → allein `ClassNotFoundException` beim Start (vom Standalone-Target gefunden) | `modules/simplesandwiches/{fabric,neoforge}/build.gradle` | **gefixt**: `include`/`jarJar project(':framework')` (Forge bündelt generisch) |
 | 10 | P2 | Money/Dimensions NeoForge hatten SB als `runtimeOnly project(':mc26_3:neoforge')` → SB lud immer mit, auch ohne Auswahl (Integrationsläufe bewiesen nichts über „optional“) | `modules/{simplemoney,simpledimensions}/neoforge/build.gradle` | **gefixt**: SB nur über den Mods-Container |
-| 11 | P3 | Visuals-/Sounds-Tests werfen `AssertionError` statt `GameTestAssertException` → NeoForge-Testserver stürzt bei Rot ab statt Test rot zu melden | `VisualsTests.require`, `SoundTests.require` | offen (Standalone-Läufe treffen es nicht mehr) |
-| 12 | P3 | Riding `horseshoe_handling` ist auf das volle Enderit-Set geeicht → läuft standalone nur als „übersprungen“ | `HorseshoeTests.handling` | offen: Erwartungswerte für Netherit-Set ergänzen |
+| 11 | P3 | Visuals-/Sounds-Tests werfen `AssertionError` statt `GameTestAssertException` → NeoForge-Testserver stürzt bei Rot ab statt Test rot zu melden | `VisualsTests`, `SoundTests` | **gefixt** (`gpt-befunde`): alle Bedingungen über `GameTestHelper.assertTrue`, direkte Fehlerpfade über `fail`; keine `AssertionError` mehr |
+| 12 | P3 | Riding `horseshoe_handling` ist auf das volle Enderit-Set geeicht → läuft standalone nur als „übersprungen“ | `HorseshoeTests.handling` | **gefixt** (`gpt-befunde`): dieselben Handling-/Sync-/Mixin-Prüfungen für Kupfer, Eisen, Gold, Diamant und Netherit; Enderit zusätzlich nur mit `Riding.SIMPLEBUILDING` |
 
 Standalone-Stand 2026-10-05: alle 20 Targets (10 Module × Fabric/NeoForge) „alles gruen“ 566/566.
+Befunde 11/12 verifiziert 2026-10-05 (`gpt-befunde`): Visuals, Sounds und Riding jeweils
+mit SB und standalone auf Fabric/NeoForge 26.3: **alles gruen: 296/296 bestanden, 0 rot**
+(12 Targets, Lauf `2026-10-05T00-54-26Z-0f77`).
+
 NeoForge-Grenze: `framework` liegt dort im Dev-Klassenpfad (`implementation`), fehlendes Bündeln fällt nur
 auf Fabric auf.
 
