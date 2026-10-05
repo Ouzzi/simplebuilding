@@ -153,6 +153,8 @@ public final class DataIntegrityTests {
                 "hammock_rope"));
         blocks.addAll(wallVariants().keySet());
         blocks.add("potted_silent_dandelion");
+        // Crucible P5: the soul lava fluid block (like vanilla lava, only a bucket form).
+        blocks.add("soul_lava");
         return Set.copyOf(blocks);
     }
 
@@ -175,7 +177,9 @@ public final class DataIntegrityTests {
             // drops the parts stored in its block entity, eggs only with silk touch (PlacedSmallPartsBlock#getDrops)
             "placed_small_parts",
             // hammock ropes: the hammock drops from its cloth head only (HammockLayout)
-            "hammock_rope");
+            "hammock_rope",
+            // soul lava (Crucible P5): a fluid block like vanilla lava, removed only by scooping
+            "soul_lava");
 
     /**
      * The blocks that do <em>not</em> drop themselves, and what they drop instead without Silk
@@ -1550,6 +1554,12 @@ public final class DataIntegrityTests {
         }
         // Aus Simple Tweaks uebernommen, eigene Registrierung (com.simplebuilding.tweaks).
         items.addAll(com.simplebuilding.tweaks.item.TweaksItems.all());
+        // Crucible P5 (26.3): Eimer (ModFluids) und Enderit-Tiegel/-Fass (CrucibleCompat), zur Laufzeit registriert.
+        if (McVersion.CRUCIBLE) {
+            items.addAll(com.simplebuilding.fluid.ModFluids.buckets());
+            items.add(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible().asItem());
+            items.add(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel().asItem());
+        }
         // Ende der versteckten Easter-Kette (com.simplebuilding.tweaks.easter), eigene Registrierung.
         items.add(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick());
         return items;
@@ -1578,6 +1588,11 @@ public final class DataIntegrityTests {
         }
         blocks.addAll(com.simplebuilding.tweaks.block.TweaksBlocks.all());
         blocks.addAll(com.simplebuilding.tweaks.block.TweaksBlocks.heads());
+        if (McVersion.CRUCIBLE) {
+            blocks.add(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible());
+            blocks.add(com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel());
+            blocks.add(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BLOCK);
+        }
         return blocks;
     }
 
@@ -2819,6 +2834,15 @@ public final class DataIntegrityTests {
         if (McVersion.HAMMOCK) {
             // Haengematten (2026-10-02): 16 Farben in Vanillas Bett-Reihenfolge, 9 + 7.
             expected.add(ModItems.HAMMOCKS);
+        }
+        if (McVersion.CRUCIBLE) {
+            // Crucible P5: Enderit-Tiegel und -Fass, dann die Eimer (Kupfer, Seelen-Lava, Luecke, Enderit).
+            expected.add(List.of(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible().asItem(),
+                    com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel().asItem()));
+            expected.add(List.of(com.simplebuilding.fluid.ModFluids.COPPER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, gap,
+                    com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET));
         }
         if (McVersion.MUSIC_DISCS) {
             expected.add(List.of(ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));

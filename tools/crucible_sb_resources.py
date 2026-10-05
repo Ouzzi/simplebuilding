@@ -17,6 +17,16 @@ FACINGS = {"north": 0, "east": 90, "south": 180, "west": 270}
 CRLF, LF = b"\r\n", b"\n"
 
 
+LIB_MODELS = ROOT / "modules/simplelib/generated/resources/assets/simplelib/models/block"
+
+
+def lib_model(name, textures):
+    """A copy of SimpleLib's model with SB textures (no cross-namespace parent: the wiki renderer resolves only SB)."""
+    model = json.loads((LIB_MODELS / f"{name}.json").read_text(encoding="utf-8"))
+    model["textures"] = textures
+    return model
+
+
 def item_model(texture):
     return {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{texture}"}}
 
@@ -30,7 +40,7 @@ def files():
     # Enderite crucible: SimpleLib's crucible model with Enderite textures.
     tex = {k: f"{NS}:block/enderite_crucible_{k}" for k in ("side", "top", "bottom", "inner", "handle")}
     tex["particle"] = tex["side"]
-    out[f"{a}/models/block/enderite_crucible.json"] = {"parent": "simplelib:block/iron_crucible", "textures": tex}
+    out[f"{a}/models/block/enderite_crucible.json"] = lib_model("iron_crucible", tex)
     variants = {}
     for lit in ("false", "true"):
         for facing, rot in FACINGS.items():
@@ -44,8 +54,8 @@ def files():
     btex = {"side": f"{NS}:block/enderite_barrel_side", "top": f"{NS}:block/enderite_barrel_top",
             "bottom": f"{NS}:block/enderite_barrel_bottom", "flange": f"{NS}:block/enderite_barrel_flange",
             "particle": f"{NS}:block/enderite_barrel_side"}
-    out[f"{a}/models/block/enderite_barrel.json"] = {"parent": "simplelib:block/copper_barrel", "textures": btex}
-    out[f"{a}/models/block/enderite_barrel_attached.json"] = {"parent": "simplelib:block/copper_barrel_attached", "textures": btex}
+    out[f"{a}/models/block/enderite_barrel.json"] = lib_model("copper_barrel", btex)
+    out[f"{a}/models/block/enderite_barrel_attached.json"] = lib_model("copper_barrel_attached", btex)
     variants = {}
     for facing, rot in FACINGS.items():
         for attached in ("false", "true"):

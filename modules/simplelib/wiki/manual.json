@@ -135,6 +135,14 @@
       "de": {
         "summary": "Ein in der Welt aufgewertetes Kupfer-Fass (Axt, 2 Diamanten, zehn Schläge): allein 36 Plätze, am Tiegel 9."
       }
+    },
+    "simplelib:reinforced_cauldron": {
+      "en": {
+        "summary": "Holds one full bucket of water, lava, powder snow or (with SimpleBuilding) soul lava; heats a crucible like its content (see Reinforced cauldron)."
+      },
+      "de": {
+        "summary": "Fasst einen vollen Eimer Wasser, Lava, Pulverschnee oder (mit SimpleBuilding) Seelen-Lava; heizt einen Schmelztiegel wie sein Inhalt (siehe Verstärkter Kessel)."
+      }
     }
   }
 }

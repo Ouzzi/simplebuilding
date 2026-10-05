@@ -79,13 +79,13 @@ public final class ModFluids {
         COPPER_LAVA_BUCKET = item("copper_lava_bucket", p -> new ModBucketItem(ModBucketItem.Kind.COPPER, Fluids.LAVA,
                 McVersion.cookingFuel(p.stacksTo(1), lava)));
         ENDERITE_BUCKET = item("enderite_bucket", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, Fluids.EMPTY,
-                p.stacksTo(16).fireResistant().rarity(Rarity.UNCOMMON)));
+                p.stacksTo(16).fireResistant().rarity(Rarity.EPIC)));
         ENDERITE_WATER_BUCKET = item("enderite_water_bucket", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, Fluids.WATER,
-                p.stacksTo(1).fireResistant().rarity(Rarity.UNCOMMON).craftRemainder(ENDERITE_BUCKET)));
+                p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET)));
         ENDERITE_LAVA_BUCKET = item("enderite_lava_bucket", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, Fluids.LAVA,
-                McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.UNCOMMON).craftRemainder(ENDERITE_BUCKET), lava)));
+                McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET), lava)));
         ENDERITE_SOUL_LAVA_BUCKET = item("enderite_soul_lava_bucket", p -> new ModBucketItem(ModBucketItem.Kind.ENDERITE, SOUL_LAVA,
-                McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.UNCOMMON).craftRemainder(ENDERITE_BUCKET), SoulLava.FUEL_TICKS)));
+                McVersion.cookingFuel(p.stacksTo(1).fireResistant().rarity(Rarity.EPIC).craftRemainder(ENDERITE_BUCKET), SoulLava.FUEL_TICKS)));
     }
 
     /** All bucket items of this file in creative-tab order (empty on 26.2). */

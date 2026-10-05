@@ -61,3 +61,13 @@ Grundlage: `docs/ai/PLAN-CRUCIBLE-2026-10-04.md` (§2/§2b/§2c = Besitzer-Vorga
 GameTests (SB `crucible_*`, `soul_lava_*`, `*_bucket_*`; simplelib bestehende + Werkzeug-Weg), Gates: module-simplelib-*,
 module-simplesandwiches-*, fabric-263 + neoforge-263 („alles gruen“), Compile 26.2 + Forge 26.3, `gradlew check -q`,
 Datagen 26.3, Wiki `--all` + `--all --check`. Kein Client (Optik/Glow/Fluid-Rendering ungetestet → offen).
+
+## Stand der Umsetzung (2026-10-05)
+- P5a–P5d umgesetzt (Commit 5155aee5 + Folgecommit): siehe Entscheidungen oben.
+- P6 teilweise: JEI-Infoseiten (Eimer, Seelen-Lava, Enderit-Tiegel), Handbuch-Kapitel Maschinen 9/10, drei Erfolge
+  (`machines/hot_pot`, `soul_scooper`, `bottomless_bucket`), Testzentrale-Station `crucible`, Simple-Money-Preise
+  (Enderit-Tiegel/-Fass/-Eimer wie Enderit-Ofen, Kupfer-Eimer 8 Scheine; gefüllte Eimer/Seelen-Lava ausgeschlossen),
+  Wiki (SB-Feature `crucible_parts`, simplelib `reinforced_cauldron`, Glow), Platzhalter-Texturen + Vorschläge A–C.
+- Abweichungen: Axt-Weg Quarzblock→Quarz nicht gebaut (Quarzblock entsteht nur aus Seelen-Lava, die es nur mit SB gibt);
+  Kupfer-/Enderit-Eimer wirken nicht mit Vanilla-Kesseln/Werfern (nur verstärkter Kessel); Seelen-Lava-Konfig noch
+  fest (Konstanten in `SoulLava`, innerhalb der Plangrenzen); Nebel bleibt Lava-Orange; Jade nicht erweitert.

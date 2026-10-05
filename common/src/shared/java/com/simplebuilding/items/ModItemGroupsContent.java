@@ -394,11 +394,6 @@ public final class ModItemGroupsContent {
      * eine Zeile mit mehr als neun Eintraegen laeuft in die naechste weiter. Druckplatten und Pads stehen
      * seit 2026-09-29 in SimplePads ({@link #padsRows()}), die Bauplanung in SimpleTools.
      */
-    /** A SimpleLib item by its public id (principle 6a: no imports of SimpleLib internals). */
-    private static net.minecraft.world.item.Item libItem(String path) {
-        return net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", path));
-    }
-
     public static List<CreativeTabLayout.Row> functionalRows() {
         var rows = new java.util.ArrayList<>(baseFunctionalRows());
         if (com.simplebuilding.version.McVersion.AUTO_SMITHER) {
@@ -432,10 +427,9 @@ public final class ModItemGroupsContent {
         }
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
             // Crucible P5 (2026-10-05): Tiegel-Stufen (Eisen bis Netherit aus SimpleLib), Faesser, verstaerkter Kessel; Eimer.
-            rows.add(CreativeTabLayout.Row.of("crucibles", libItem("iron_crucible"), libItem("reinforced_crucible"),
-                    libItem("netherite_crucible"), com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible().asItem(), CreativeTabLayout.GAP,
-                    libItem("copper_barrel"), libItem("reinforced_barrel"), com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel().asItem(),
-                    libItem("reinforced_cauldron")));
+            // Nur SB-Items in SB-Tabs: die SimpleLib-Stufen stehen in deren eigenem Tab.
+            rows.add(CreativeTabLayout.Row.of("crucibles", com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible().asItem(),
+                    com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel().asItem()));
             rows.add(CreativeTabLayout.Row.of("buckets", com.simplebuilding.fluid.ModFluids.COPPER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET,
                     com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, CreativeTabLayout.GAP,
                     com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET,

@@ -354,6 +354,17 @@ public final class GuideContent {
             chapters.add(ch("simplebuilding:silent_dandelion", List.of(), List.of("minecraft:flower_pot")));
             STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
         }
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P6 (Besitzer 48 A): Handbuch-Kapitel Enderit-Tiegel/Seelen-Lava und Eimer.
+            GuideBooks.Book book = GuideBooks.Book.MACHINES;
+            BookStyle old = STYLES.get(book);
+            var chapters = new ArrayList<>(old.chapters());
+            chapters.add(ch("simplebuilding:enderite_crucible", List.of(), List.of("simplebuilding:enderite_crucible", "simplebuilding:enderite_barrel",
+                    "simplebuilding:soul_lava_bucket", "minecraft:iron_block", "minecraft:heavy_weighted_pressure_plate")));
+            chapters.add(ch("simplebuilding:enderite_bucket", List.of("simplebuilding:copper_bucket", "simplebuilding:enderite_bucket"),
+                    List.of("simplebuilding:soul_lava_bucket")));
+            STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
+        }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             for (GuideBooks.Book book : List.of(GuideBooks.Book.STORAGE, GuideBooks.Book.END)) {
                 BookStyle old = STYLES.get(book);

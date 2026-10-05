@@ -199,7 +199,7 @@ public final class CrucibleCompat {
     private static void item(String name, @Nullable Block block) {
         if (block == null) return;
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name));
-        Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(block, new Item.Properties().fireResistant().setId(key).useBlockDescriptionPrefix()));
+        Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(block, new Item.Properties().fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC).setId(key).useBlockDescriptionPrefix()));
     }
 
     private static ResourceKey<Block> key(String name) {
