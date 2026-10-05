@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Block;
 public class ModTags {
 
     public static class Items {
+        public static final TagKey<Item> REPAIRS_RESONANCE_ROD = createTag("repairs_resonance_rod");
         public static final TagKey<Item> CHISEL_TOOLS = createTag("chisel_tools");
         public static final TagKey<Item> CHISEL_AND_MINING_TOOLS = createTag("chisel_and_mining_tools");
         /**

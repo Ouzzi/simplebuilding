@@ -1002,6 +1002,7 @@
   "tooltip.simplebuilding.amethyst_lens.last_measured": "Zuletzt gemessen: %s m",
   "tooltip.simplebuilding.amethyst_lens.last_target": "%s, Höhe %s",
   "tooltip.simplebuilding.amethyst_lens.touch_hint": "Berührung des Konstrukteurs: Distanzmessung",
+  "tooltip.simplebuilding.amethyst_lens.repair": "Am Amboss mit Amethystscherben reparieren",
   "hud.simplebuilding.amethyst_lens.distance": "%s m",
   "hud.simplebuilding.amethyst_lens.height": "Y %s (%s)",
   "hud.simplebuilding.amethyst_lens.health": "%s / %s Leben",

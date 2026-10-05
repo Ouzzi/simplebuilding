@@ -1002,6 +1002,7 @@
   "tooltip.simplebuilding.amethyst_lens.last_measured": "Last measured: %s m",
   "tooltip.simplebuilding.amethyst_lens.last_target": "%s, height %s",
   "tooltip.simplebuilding.amethyst_lens.touch_hint": "Constructor's Touch: measures distances",
+  "tooltip.simplebuilding.amethyst_lens.repair": "Repair at an anvil with amethyst shards",
   "hud.simplebuilding.amethyst_lens.distance": "%s m",
   "hud.simplebuilding.amethyst_lens.height": "Y %s (%s)",
   "hud.simplebuilding.amethyst_lens.health": "%s / %s HP",

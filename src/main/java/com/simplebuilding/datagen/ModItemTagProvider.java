@@ -38,6 +38,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            builder(ModTags.Items.REPAIRS_RESONANCE_ROD).add(key(Items.AMETHYST_SHARD));
+        }
         if (com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS) {
             for (var chest : java.util.List.of(ModBlocks.REINFORCED_TRAPPED_CHEST, ModBlocks.NETHERITE_TRAPPED_CHEST, ModBlocks.ENDERITE_TRAPPED_CHEST)) {
                 builder(net.minecraft.tags.TagKey.<Item>create(net.minecraft.core.registries.Registries.ITEM,

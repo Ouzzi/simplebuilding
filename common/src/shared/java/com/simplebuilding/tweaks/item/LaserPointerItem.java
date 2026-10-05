@@ -74,12 +74,16 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
     }
 
     public LaserPointerItem(Item.Properties properties) {
-        super(properties);
+        super(com.simplebuilding.version.McVersion.GADGET_REWORK
+                ? properties.repairable(com.simplebuilding.util.ModTags.Items.REPAIRS_RESONANCE_ROD)
+                : properties);
     }
 
     @Override
     public boolean isRechargeMaterial(ItemStack material) {
-        return material.is(net.minecraft.world.item.Items.AMETHYST_SHARD);
+        return com.simplebuilding.version.McVersion.GADGET_REWORK
+                ? material.is(com.simplebuilding.util.ModTags.Items.REPAIRS_RESONANCE_ROD)
+                : material.is(net.minecraft.world.item.Items.AMETHYST_SHARD);
     }
 
     @Override
@@ -283,6 +287,9 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            lines.accept(Component.translatable("tooltip.simplebuilding.amethyst_lens.repair").withStyle(ChatFormatting.GRAY));
+        }
         LensMeasurement last = stack.get(ModDataComponentTypes.LENS_MEASUREMENT);
         if (last != null) {
             lines.accept(Component.translatable("tooltip.simplebuilding.amethyst_lens.last_measured",
