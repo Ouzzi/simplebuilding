@@ -263,7 +263,18 @@ window.WIKI_MODULE_DATA["simplemodels"] = {
         "en_us": "Simple Models Guide",
         "de_de": "Simple-Models-Handbuch"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/guide/ModelsGuide.java",
+          "modules/simplemodels/shared/resources/data/simplemodels/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + item frame. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Models\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rahmen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Models\" eins."
+        }
+      },
       "texture": "assets/textures/simplemodels/item/guide_book.png",
       "craftedBy": [
         "simplemodels:guide_book"
@@ -283,9 +294,7 @@ window.WIKI_MODULE_DATA["simplemodels"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplemodels:guide_book"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 14,
@@ -300,7 +309,7 @@ window.WIKI_MODULE_DATA["simplemodels"] = {
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 1,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }

@@ -169,7 +169,18 @@
         "en_us": "Simple Tweaks Guide",
         "de_de": "Simple-Tweaks-Handbuch"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/guide/TweaksGuide.java",
+          "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+        }
+      },
       "texture": "assets/textures/simpletweaks/item/guide_book.png",
       "craftedBy": [
         "simpletweaks:guide_book"
@@ -189,9 +200,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpletweaks:guide_book"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 3,
@@ -206,7 +215,7 @@
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 1,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }

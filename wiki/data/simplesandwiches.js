@@ -1397,7 +1397,18 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "en_us": "Simple Sandwiches Guide",
         "de_de": "Simple-Sandwiches-Handbuch"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplesandwiches/shared/java/com/simplesandwiches/guide/SandwichGuide.java",
+          "modules/simplesandwiches/shared/resources/data/simplesandwiches/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + bread. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Sandwiches\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Brot. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Sandwiches\" eins."
+        }
+      },
       "texture": "assets/textures/simplesandwiches/item/guide_book.png",
       "craftedBy": [
         "simplesandwiches:guide_book"
@@ -1766,9 +1777,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplesandwiches:guide_book"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 5,
@@ -1783,7 +1792,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 1,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }

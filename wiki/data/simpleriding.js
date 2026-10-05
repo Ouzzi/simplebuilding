@@ -1637,7 +1637,18 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
         "en_us": "Simple Riding Guide",
         "de_de": "Simple-Riding-Handbuch"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleriding/shared/java/com/simpleriding/guide/RidingGuide.java",
+          "modules/simpleriding/shared/resources/data/simpleriding/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + hay bale. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Riding\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Heuballen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Riding\" eins."
+        }
+      },
       "texture": "assets/textures/simpleriding/item/guide_book.png",
       "craftedBy": [
         "simpleriding:guide_book"
@@ -1737,9 +1748,7 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleriding:guide_book"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 34,
@@ -1754,7 +1763,7 @@ window.WIKI_MODULE_DATA["simpleriding"] = {
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 1,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }

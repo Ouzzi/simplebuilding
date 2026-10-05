@@ -38,7 +38,7 @@ public final class ModelTests {
         throw new AssertionError("Unsafe file was accepted");
     }
     public static void launch(GameTestHelper h) {
-        h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().noneMatch(id -> id.getNamespace().equals("simplemodels")), "No scaffold token or invented registry items");
+        h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().noneMatch(id -> id.getNamespace().equals("simplemodels") && !id.getPath().equals("guide_book")), "No scaffold token or invented registry items (only the guide)");
         h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplebuilding:diamond_building_wand")), "SimpleBuilding loaded in integration");
         h.assertTrue(h.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild("simplemodels") != null, "Admin reload command registered");
         h.assertTrue(CataloguePayload.current().json().length() <= ModelCatalogue.MAX_SNAPSHOT_CHARS, "Bounded snapshot");

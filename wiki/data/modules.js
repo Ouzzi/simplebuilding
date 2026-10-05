@@ -66,7 +66,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "55b0001b34ba"
+    "dataHash": "7e93b9b5b288"
   },
   {
     "id": "simpleriding",
@@ -85,7 +85,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "fdc00a486250"
+    "dataHash": "48dac8cd684b"
   },
   {
     "id": "simplemodels",
@@ -103,7 +103,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "0044966006a2"
+    "dataHash": "076d6b404111"
   },
   {
     "id": "simplefun",
@@ -124,7 +124,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "dataHash": "a00d2d6a5658"
+    "dataHash": "824399af1451"
   },
   {
     "id": "simplevisuals",
@@ -185,7 +185,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "799b2b7b7df1"
+    "dataHash": "b982189d3a90"
   },
   {
     "id": "simpletweaks",
@@ -202,7 +202,7 @@ window.WIKI_MODULES = [
       "simplebuilding"
     ],
     "optional": [],
-    "dataHash": "efc0c270ac1f"
+    "dataHash": "20ecb63a9a29"
   },
   {
     "id": "simpledimensions",
@@ -222,7 +222,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
-    "dataHash": "065f673a6605"
+    "dataHash": "336c09c2aa9f"
   },
   {
     "id": "simplesandwiches",
@@ -239,6 +239,6 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
-    "dataHash": "2c1fef80f753"
+    "dataHash": "6dfe37839550"
   }
 ];

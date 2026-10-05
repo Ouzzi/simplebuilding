@@ -41,7 +41,7 @@ public final class QolTests {
  private static ItemStack enchanted(GameTestHelper h,Item item,ResourceKey<Enchantment> key){var s=new ItemStack(item);s.enchant(h.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key),3);return s;}
  private static void configured(Runnable body){var c=Simplequalityoflife.getConfig();var old=c.qOL;boolean snow=c.frostWalkerWalkOnPowderSnow;try{c.qOL=new SimplequalityoflifeConfig.QOL();body.run();}finally{c.qOL=old;c.frostWalkerWalkOnPowderSnow=snow;}}
  public static void launch(GameTestHelper h){
-  for(var registry:List.of(BuiltInRegistries.ITEM,BuiltInRegistries.BLOCK,BuiltInRegistries.ENTITY_TYPE))h.assertTrue(registry.keySet().stream().noneMatch(i->i.getNamespace().equals("simplequalityoflife")),"No invented registry content");
+  for(var registry:List.<net.minecraft.core.Registry<?>>of(BuiltInRegistries.ITEM,BuiltInRegistries.BLOCK,BuiltInRegistries.ENTITY_TYPE))h.assertTrue(registry.keySet().stream().noneMatch(i->i.getNamespace().equals("simplequalityoflife")&&!(registry==BuiltInRegistries.ITEM&&i.getPath().equals("guide_book"))),"No invented registry content (only the guide item)");
   var root=h.getLevel().getServer().getCommands().getDispatcher().getRoot();h.assertTrue(root.getChild("crawl")!=null&&root.getChild("simplequalityoflife")!=null,"Both commands registered");
   h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplebuilding:reinforced_hopper")),"SimpleBuilding is loaded in module instance");
   h.assertTrue(h.getLevel().getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE,Identifier.parse("minecraft:blocks/wheat")))!=net.minecraft.world.level.storage.loot.LootTable.EMPTY,"Crop loot loads");h.succeed();

@@ -3119,7 +3119,18 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "en_us": "Simple Money Guide",
         "de_de": "Simple-Money-Handbuch"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplemoney/shared/java/com/simplemoney/guide/MoneyGuide.java",
+          "modules/simplemoney/shared/resources/data/simplemoney/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + gold nugget. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Money\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Goldklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Money\" eins."
+        }
+      },
       "texture": "assets/textures/simplemoney/item/guide_book.png",
       "craftedBy": [
         "simplemoney:guide_book"
@@ -3380,9 +3391,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplemoney:guide_book"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 68,
@@ -3397,7 +3406,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 1,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }

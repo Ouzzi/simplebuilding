@@ -30,7 +30,7 @@ public final class RidingTests {
  public static void launch(GameTestHelper h){
   h.assertTrue(BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(Riding.id("coordinates"))==Riding.COORDINATES,"Legacy coordinates component is registered");
   h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.getValue(Riding.id("riding_items"))==Riding.TAB,"Creative tab registered");
-  h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().filter(i->i.getNamespace().equals("simpleriding")).map(Identifier::getPath).collect(java.util.stream.Collectors.toSet()).equals(Set.of("horseshoe_smithing_template","copper_horseshoe","iron_horseshoe","golden_horseshoe","diamond_horseshoe","netherite_horseshoe","enderite_horseshoe")),"Only the R1 horseshoe items");
+  h.assertTrue(BuiltInRegistries.ITEM.keySet().stream().filter(i->i.getNamespace().equals("simpleriding")).map(Identifier::getPath).collect(java.util.stream.Collectors.toSet()).equals(Set.of("horseshoe_smithing_template","copper_horseshoe","iron_horseshoe","golden_horseshoe","diamond_horseshoe","netherite_horseshoe","enderite_horseshoe","guide_book")),"Only the R1 horseshoe items and the guide");
   for(var k:List.of(Riding.TAILWIND,Riding.LEAPING)){h.assertTrue(ench(h,k).value().getMaxLevel()==3,"Enchantment levels preserved");}
   var lookup=h.getLevel().registryAccess();Riding.TAB.buildContents(new CreativeModeTab.ItemDisplayParameters(net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS,true,lookup));
   h.assertTrue(Riding.TAB.getDisplayItems().size()==1+2+1+Horseshoes.ITEMS.size(),"The guide, two riding books, the template and every horseshoe");

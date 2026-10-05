@@ -1523,7 +1523,18 @@ window.WIKI_MODULE_DATA["simplefun"] = {
         "en_us": "Simple Fun Guide",
         "de_de": "Simple-Fun-Handbuch"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplefun/shared/java/com/simplefun/guide/FunGuide.java",
+          "modules/simplefun/shared/resources/data/simplefun/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 28 pages taken from this wiki, shown in your language. Shapeless recipe: book + brick. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Fun\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 28 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Ziegel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Fun\" eins."
+        }
+      },
       "texture": "assets/textures/simplefun/item/guide_book.png",
       "craftedBy": [
         "simplefun:guide_book"
@@ -1696,9 +1707,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplefun:guide_book"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 53,
@@ -1713,7 +1722,7 @@ window.WIKI_MODULE_DATA["simplefun"] = {
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 1,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }

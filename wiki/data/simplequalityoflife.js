@@ -793,7 +793,18 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
         "en_us": "Simple Quality of Life Guide",
         "de_de": "Simple-Quality-of-Life-Handbuch"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplequalityoflife/shared/java/com/simplequalityoflife/guide/QolGuide.java",
+          "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 40 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 40 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
+        }
+      },
       "texture": "assets/textures/simplequalityoflife/item/guide_book.png",
       "craftedBy": [
         "simplequalityoflife:guide_book"
@@ -813,9 +824,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplequalityoflife:guide_book"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 48,
@@ -830,7 +839,7 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 1,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
