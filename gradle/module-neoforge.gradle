@@ -42,12 +42,13 @@ if (standaloneSpec) {
 afterEvaluate {
     if (project.path == ':modules:simplelib:neoforge') return
     boolean nestsLib = configurations.jarJar.dependencies.any { it instanceof org.gradle.api.artifacts.ProjectDependency && it.path == ':modules:simplelib:neoforge' }
-    if (!nestsLib && neoForge.mods.findByName('simplebuilding') == null) return
+    boolean hasSb = neoForge.mods.any { it.name.startsWith('simplebuilding') }
+    if (!nestsLib && !hasSb) return
     if (neoForge.mods.findByName('simplelib') == null) {
         neoForge.mods.create('simplelib') { sourceSet rootProject.project(':modules:simplelib:neoforge').sourceSets.main }
     }
     neoForge.runs.configureEach { run ->
-        if (run.loadedMods.get().any { it.name == 'simplebuilding' } || (nestsLib && run.name == 'moduleStandaloneGameTest')) {
+        if (run.loadedMods.get().any { it.name.startsWith('simplebuilding') } || (nestsLib && run.name == 'moduleStandaloneGameTest')) {
             run.loadedMods.add(neoForge.mods.simplelib)
         }
     }
