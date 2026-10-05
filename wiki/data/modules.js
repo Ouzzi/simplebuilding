@@ -66,7 +66,7 @@ window.WIKI_MODULES = [
       "simplevisuals",
       "wiringexample"
     ],
-    "dataHash": "7e93b9b5b288"
+    "dataHash": "59bdf64a0ffe"
   },
   {
     "id": "simpleriding",

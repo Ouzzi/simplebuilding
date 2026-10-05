@@ -9002,18 +9002,18 @@
         "src/main/java/com/simplebuilding/datagen/ModModelProvider.java"
       ],
       "en": {
-        "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit, ender quartz and polished ender quartz.",
+        "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nether bricks, red nether bricks, nihilith, astralit, ender quartz and polished ender quartz.",
         "details": [
-          "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+          "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, resin bricks, nether bricks, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
           "Placed like a log (the pattern follows the axis); no mob spawns on them. They are mined with a pickaxe and drop themselves.",
           "The Astralit Quartz Checker glows with light level 5.",
           "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
         ]
       },
       "de": {
-        "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
+        "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Netherziegel, rote Netherziegel, Nihilit, Astralit, Enderquarz und polierter Enderquarz.",
         "details": [
-          "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+          "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, Harzziegel, Netherziegel, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
           "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Sie werden mit der Spitzhacke abgebaut und droppen sich selbst.",
           "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
           "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -9046,6 +9046,20 @@
           "de": "Harz-Quarz-Schachbrett: 2 Harzziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
           "sources": [
             "src/main/generated/data/simplebuilding/recipe/resin_quartz_checker.json"
+          ]
+        },
+        "simplebuilding:nether_brick_quartz_checker": {
+          "en": "Nether Brick Quartz Checker: craft 4 from 2 Nether Bricks and 2 Quartz Blocks in a diagonal checker pattern.",
+          "de": "Netherziegel-Quarz-Schachbrett: 2 Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
+          "sources": [
+            "src/main/generated/data/simplebuilding/recipe/nether_brick_quartz_checker.json"
+          ]
+        },
+        "simplebuilding:red_nether_brick_quartz_checker": {
+          "en": "Red Nether Brick Quartz Checker: craft 4 from 2 Red Nether Bricks and 2 Quartz Blocks in a diagonal checker pattern.",
+          "de": "Rotes Netherziegel-Quarz-Schachbrett: 2 rote Netherziegelblöcke und 2 Quarzblöcke diagonal im Schachbrettmuster ergeben 4 Stück.",
+          "sources": [
+            "src/main/generated/data/simplebuilding/recipe/red_nether_brick_quartz_checker.json"
           ]
         },
         "simplebuilding:nihilith_quartz_checker": {

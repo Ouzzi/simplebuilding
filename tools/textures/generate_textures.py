@@ -76,7 +76,7 @@ TREES = [
 ]
 # Texturen nur fuer den Hauptbaum (26.2/26.3, Hauptlinie 26.3 zuerst): die 1.21.11-Kopie zieht der
 # Port-Run nach, bis dahin behaelt sie ihre alten Bilder.
-MAIN_TREE_PREFIXES = ("item/velocity_gauge", "item/detector", "item/layered_raw_enderite.png")
+MAIN_TREE_PREFIXES = ("item/velocity_gauge", "item/detector", "item/layered_raw_enderite.png", "block/nether_brick_quartz_checker", "block/red_nether_brick_quartz_checker")
 PREVIEW = os.path.join(HERE, "preview.png")
 GEAR_PREVIEW = os.path.join(HERE, "gear_preview.png")
 HAND = os.path.join(HERE, "hand")  # unveraenderte Vorlagen handgemalter Texturen, die der Generator nachbearbeitet
@@ -1371,11 +1371,29 @@ def checker_rows(field):
     return [q + m for q, m in zip(CHECKER_QUARTZ, field)] + [m + q for q, m in zip(CHECKER_QUARTZ, field)]
 
 
+# Upper-left 8x8 tile of Vanilla's nether_bricks/red_nether_bricks (26.3).
+# Both brick textures share their pattern; keep the family's existing quartz field.
+NETHER_BRICK_CHECKER_FIELD = [
+    "01020111", "34565444", "54324433", "66222666",
+    "01110552", "05444446", "54444332", "26666622",
+]
+NETHER_BRICK_CHECKER_PAL = {
+    "0": "#3e1e24", "1": "#44242a", "2": "#211114", "3": "#291519",
+    "4": "#30181c", "5": "#38181e", "6": "#190d10",
+}
+RED_NETHER_BRICK_CHECKER_PAL = {
+    "0": "#6b1317", "1": "#73171a", "2": "#340103", "3": "#390405",
+    "4": "#440507", "5": "#560e10", "6": "#2e0001",
+}
+
+
 def checker_textures():
     tex = {}
     for name, field, pal in (("nihilith_quartz_checker", NIHILITH_CHECKER_FIELD, NIHILITH_CHECKER_PAL),
                              ("astralit_quartz_checker", ASTRALIT_CHECKER_FIELD, ASTRALIT_CHECKER_PAL),
-                             ("ender_quartz_checker", ENDER_QUARTZ_CHECKER_FIELD, ENDER_QUARTZ_CHECKER_PAL)):
+                             ("ender_quartz_checker", ENDER_QUARTZ_CHECKER_FIELD, ENDER_QUARTZ_CHECKER_PAL),
+                             ("nether_brick_quartz_checker", NETHER_BRICK_CHECKER_FIELD, NETHER_BRICK_CHECKER_PAL),
+                             ("red_nether_brick_quartz_checker", NETHER_BRICK_CHECKER_FIELD, RED_NETHER_BRICK_CHECKER_PAL)):
         palette = dict(CHECKER_QUARTZ_PAL)
         palette.update(pal)
         img = render(name, checker_rows(field), palette, True)
@@ -4392,13 +4410,35 @@ def apply_netherite_handles(tex):
 
 
 
+def nether_checker_preview(path):
+    """Existing resin beside the two new checkers, labeled A/B/C at 16x."""
+    tex = checker_textures()
+    old = Image.open(os.path.join(TREES[0], "block/resin_quartz_checker.png"))
+    sheet = Image.new("RGB", (864, 320), "#20242b")
+    draw = ImageDraw.Draw(sheet)
+    panels = [("A: Harz (Bestand)", old),
+              ("B: Netherziegel", tex["block/nether_brick_quartz_checker.png"]),
+              ("C: Rote Netherziegel", tex["block/red_nether_brick_quartz_checker.png"])]
+    for i, (label, img) in enumerate(panels):
+        draw.text((i * 288 + 16, 12), label, fill="white", font_size=20)
+        sheet.paste(img.resize((256, 256), Image.Resampling.NEAREST), (i * 288 + 16, 48))
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    sheet.save(path)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--check", action="store_true", help="nur pruefen, ob die PNGs in beiden Baeumen aktuell sind")
     ap.add_argument("--no-preview", action="store_true", help="preview.png nicht neu zeichnen")
+    ap.add_argument("--checker-preview", metavar="PNG", help="nur 16x Netherziegel-Checker-Vergleich schreiben")
     ap.add_argument("--gear-preview", action="store_true",
                     help="nur tools/textures/gear_preview.png (alternative Enderit-Ausruestung A/B) zeichnen")
     args = ap.parse_args()
+
+    if args.checker_preview:
+        nether_checker_preview(args.checker_preview)
+        print(f"Vorschau: {args.checker_preview}")
+        return 0
 
     if args.gear_preview:
         build_gear_preview().save(GEAR_PREVIEW)

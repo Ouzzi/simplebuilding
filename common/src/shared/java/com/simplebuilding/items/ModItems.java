@@ -183,6 +183,8 @@ public class ModItems {
     public static final Item BLACKSTONE_QUARTZ_CHECKER = registerItem("blackstone_quartz_checker", s -> new BlockItem(ModBlocks.BLACKSTONE_QUARTZ_CHECKER, s));
 
     public static final Item RESIN_QUARTZ_CHECKER = registerItem("resin_quartz_checker", s -> new BlockItem(ModBlocks.RESIN_QUARTZ_CHECKER, s));
+    public static final Item NETHER_BRICK_QUARTZ_CHECKER = registerItem("nether_brick_quartz_checker", s -> new BlockItem(ModBlocks.NETHER_BRICK_QUARTZ_CHECKER, s));
+    public static final Item RED_NETHER_BRICK_QUARTZ_CHECKER = registerItem("red_nether_brick_quartz_checker", s -> new BlockItem(ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER, s));
 
     public static final Item NIHILITH_QUARTZ_CHECKER = registerItem("nihilith_quartz_checker", s -> new BlockItem(ModBlocks.NIHILITH_QUARTZ_CHECKER, s));
 

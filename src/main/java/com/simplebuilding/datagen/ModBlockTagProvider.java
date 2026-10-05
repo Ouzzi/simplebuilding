@@ -153,6 +153,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(key(ModBlocks.LAPIS_QUARTZ_CHECKER))
                 .add(key(ModBlocks.BLACKSTONE_QUARTZ_CHECKER))
                 .add(key(ModBlocks.RESIN_QUARTZ_CHECKER))
+                .add(key(ModBlocks.NETHER_BRICK_QUARTZ_CHECKER))
+                .add(key(ModBlocks.RED_NETHER_BRICK_QUARTZ_CHECKER))
                 .add(key(ModBlocks.NIHILITH_QUARTZ_CHECKER))
                 .add(key(ModBlocks.ASTRALIT_QUARTZ_CHECKER))
                 .add(key(ModBlocks.ENDER_QUARTZ_CHECKER))

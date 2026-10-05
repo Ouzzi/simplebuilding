@@ -357,3 +357,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Forge Crucible (Besitzer 2026-10-05)
 - [x] Forge 26.3: fehlende SimpleLib-Pack-Metadaten ergaenzt; Vorschlaghammer baut Crucible wieder. Bautest prueft Tags, echten Item-Aufruf und jeden Schlag. Forge-Filter 14/14, volle drei Serverziele 2881/2881, Gate und Pflicht-Compiles gruen. Branch gpt-forgecrucible; Plan docs/ai/PLAN-FORGE-CRUCIBLE-2026-10-02.md; kein Push/Client.
+
+## Checker und Crafter-UI (2026-10-05, gpt-checkui)
+- [x] Netherziegel-/rote-Netherziegel-Quarz-Checker vollständig integriert; EN/DE, Wiki, Money und Testzentralen-Abdeckung. 2881/2881 Server grün, check -q und 26.2-Compile grün. Plan PLAN-CHECKER-2026-10-02.md.

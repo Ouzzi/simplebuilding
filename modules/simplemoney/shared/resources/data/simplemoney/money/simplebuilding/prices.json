@@ -2395,6 +2395,28 @@
       "chance": 1
     },
     {
+      "item": "simplebuilding:nether_brick_quartz_checker",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplebuilding:red_nether_brick_quartz_checker",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 4,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
       "item": "simplebuilding:resin_quartz_checker",
       "tier": 0,
       "hours": 0.5,
