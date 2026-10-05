@@ -692,7 +692,13 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("config_option_game_test_bundle_click_inversion_follows_the_configured_option", ConfigOptionTests::bundleClickInversionFollowsTheConfiguredOption)
                     .build(),
+            GameTestSpec.named("config_option_game_test_configured_diamond_yield_changes_actual_drops", ConfigOptionTests::configuredDiamondYieldChangesActualDrops)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_configured_smither_delay_changes_scheduled_work", ConfigOptionTests::configuredSmitherDelayChangesScheduledWork)
+                    .maxTicks(80).build(),
             GameTestSpec.named("config_option_game_test_core_loot_chance_follows_its_multiplier", ConfigOptionTests::coreLootChanceFollowsItsMultiplier)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_cover_has_no_survival_source_on263", ConfigOptionTests::coverHasNoSurvivalSourceOn263)
                     .build(),
             GameTestSpec.named("config_option_game_test_every_config_option_keeps_its_persisted_name_and_default", ConfigOptionTests::everyConfigOptionKeepsItsPersistedNameAndDefault)
                     .build(),
@@ -717,6 +723,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("config_option_game_test_the_config_command_reaches_every_option", ConfigOptionTests::theConfigCommandReachesEveryOption)
                     .build(),
             GameTestSpec.named("config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders", ConfigOptionTests::tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_wave_two_options_have_hard_bounds", ConfigOptionTests::waveTwoOptionsHaveHardBounds)
                     .build(),
             GameTestSpec.named("air_jump_game_test_the_cooldown_is_twenty_seconds_at_level_one_and_ten_at_level_two", AirJumpTests::theCooldownIsTwentySecondsAtLevelOneAndTenAtLevelTwo)
                     .build(),

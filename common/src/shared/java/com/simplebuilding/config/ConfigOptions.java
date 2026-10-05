@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * <p>The in-game command {@code /simplebuilding config get|set|reset|list} reads this list, so a new
  * field is reachable by command the moment it exists - the command cannot fall behind the config
- * file or the config screen. The same walk feeds {@code ConfigOptionTests} (defaults, lang keys,
+ * file or the config screen. This includes the bounded 26.3 machine, pebble, arrow and scan options. The same walk feeds {@code ConfigOptionTests} (defaults, lang keys,
  * categories). Fields marked {@link ConfigEntry.Gui.Excluded} and static fields are not options:
  * legacy keys that are only read for a migration, and the fixed {@code maxMultiplierLimit}.
  */

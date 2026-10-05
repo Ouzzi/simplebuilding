@@ -47,7 +47,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [ ] Weitere Sichtabnahme für Buch-Screen, Truhen, Kern-Animation und neue Gadgets; Octant-Manager-Kontrast verbessern. Bestehende Screenshots sind keine pauschale Abnahme.
 - [ ] Testzentrale in der Besitzerwelt neu bauen; automatische GameTest-Welten ersetzen keine Abnahme.
 - [x] Resonanzstab auf 26.3: Amethystscherben als Amboss-Reparaturmaterial-Tag, Tooltip EN/DE und Wiki; Rotator bleibt ohne Mending. Worker `gpt-answers`, Plan `docs/ai/PLAN-BESITZER-ANTWORTEN-2026-10-02.md`.
-- [x] Rueckfragen Besitzer: alte Excavator/Diamond-Ingots-Texte waren bereits korrigiert; Cover bleibt laut Besitzerentscheidung im Loot. Belege und Optionen: `docs/ai/RUECKFRAGEN-ERKLAERT-2026-10-05.md`.
+- [x] Rueckfragen Besitzer: alte Excavator/Diamond-Ingots-Texte waren bereits korrigiert; Cover blieb nach der damaligen Besitzerentscheidung im Loot; die neue Option B vom 2026-10-05 ist unten umgesetzt. Belege und Optionen: `docs/ai/RUECKFRAGEN-ERKLAERT-2026-10-05.md`.
 - [ ] Liste G (58 Punkte): Run G der Welle 22 belegt, Original der nummerierten Liste in den recherchierten Quellen nicht auffindbar; keine erfundene Rekonstruktion. Siehe Erklaerungsdokument.
 - [ ] 12 zusaetzliche Config-Ideen (Run D): Originalliste fehlt weiterhin. Sechs belegte bestehende Run-D-Zahlenoptionen auf 26.3 hart begrenzt, EN/DE, ConfigOptionTests und Wiki-Metadaten ergaenzt; der vollstaendige Zwoelfer-Abgleich bleibt offen.
 - [x] Kern-Vorschlaege abgeglichen: neuere Besitzerentscheidung verbietet Steinmetz-Kerne; zweite Eisenquelle Mine (0,5 %) besteht bereits. Enderit auf 26.3 jetzt 0,5 %, alte Linien unveraendert; Details `docs/KERNE-SELTENHEIT.md`.
@@ -372,3 +372,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Riding-Bücher und Hammer-Splitter (2026-10-05, gpt-chips2)
 - [x] Leaping C / Tailwind A; Hammer: Eis 4, Packeis 9, Obsidian 9, abgelegte Feuerkugel 4 Splitter. Plan: `docs/ai/PLAN-CHIPS2-2026-10-02.md`. Nur Branch-Commits, kein Push/Client.
   Belege: 1986/1986 alles gruen (Fabric/NeoForge 973 je Loader, Riding 40), Gesamt-Gate und Pflicht-Compiles Exit 0, Wiki/Texturen gruen. Sieben neue GameTests je Hauptloader; Testzentralen-Aufbau und Abdeckung gruen.
+
+## Worker Cover/Config 2026-10-05
+- [x] Cover Option B auf 26.3: beide Bucheinträge entfernt, keine Survival-Ersatzquelle. Zwölf neue Config-Ideen bewertet, vier begrenzt umgesetzt (Auto-Schmied, Diamantkiesel, Pfeilchance, Scan). Fabric/NeoForge 1954/1954, alles gruen; check/checkBalance/Pflicht-Compiles/Wiki grün. Branch `gpt-coverconf`, kein Push/Client. Plan: `docs/ai/PLAN-COVER-CONFIG-2026-10-02.md`.

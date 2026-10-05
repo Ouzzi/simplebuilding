@@ -7722,7 +7722,7 @@
           "Rucksack (getragen): Verbraucht das Platzieren eines Blocks aus der Hand den Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem getragenen Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place).",
           "Oktant: Die gefüllte Flächen-/Figur-Vorschau wird angezeigt, wenn der Oktant die Verzauberung trägt (mit aktiver Option „Oktant-Flächenvorschau umkehren“ genau umgekehrt: showFill = invert XOR Verzauberung); zusätzlich müssen beide Positionen gesetzt und die Hervorhebungen (ClientState.showHighlights) eingeschaltet sein.",
           "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („constructors_touch“).",
-          "Nicht in der Verzauberungstabelle ; kein Händlerangebot in den Handelsdateien.",
+          "Nicht am Zaubertisch erhältlich: Abdeckung fehlt in minecraft:in_enchanting_table. Kein Händlerangebot in den Handelsdateien.",
           "Fundorte als Buch (Option enableLootTableChanges): vergrabener Schatz (Gewicht 3), Iglu (Gewicht 3), Prüfungskammer normal/selten (Gewicht 3), Angel-Schatz (Gewicht 2); Kreativ-Reiter der Mod.",
           "Geschwindigkeitsmesser: mit Berührung des Konstrukteurs zeigt sein HUD zusätzlich Höchst- und Durchschnittstempo seit dem Anlegen, am Boden die X/Z-Anteile und im Gleitflug ab 15 Blöcken/s ein Warnzeichen. Resonanzstab: mit Berührung des Konstrukteurs wird sie zum Entfernungsmesser - Entfernung, Zielblock und Höhe neben dem Fadenkreuz, die letzte Messung wird in der Linse gespeichert und im Tooltip gezeigt. Beide bekommen sie nur am Amboss mit einem Buch."
         ],
@@ -7853,8 +7853,8 @@
           "Combinable with neither Bridge nor Linear: Cover's exclusive set (cover_group) contains both, and their exclusive set (wand_modifier_group) contains Cover. A data integrity test checks the incompatibility with Bridge.",
           "Cover enchantment: the area only grows in front of blocks of the same kind as the clicked block, and only as far as those positions hang together with the center edge to edge - thicken a wall by one layer or extend a floor without square overhangs. The axis setting does not apply in this mode. Read in BuildingWandItem (Plan.forClick, Plan.coverRegion); cover.json itself carries no effects entry.",
           "An enchanted book gets its own book model ('cover').",
-          "Not available at the enchanting table (minecraft:in_enchanting_table holds only Fast Chiseling from the mod); no trade offer in the trade files.",
-          "Found as a book (option enableLootTableChanges): pillager outposts (weight 8), woodland mansions (weight 5); the mod's creative tab."
+          "Not available at the enchanting table; Cover is absent from minecraft:in_enchanting_table. No trade offer in the trade files.",
+          "On MC 26.3, Cover has no shipped Survival acquisition source after option B (2026-10-05): neither chest loot, trading, nor enchanting. Creative mode and commands remain available. MC 26.2 retains the pillager outpost (weight 8) and woodland mansion (weight 5) entries until the separate port."
         ],
         "caveats": [
           "The surface is followed only within the area of the set radius, and only edge to edge (no diagonal steps).",
@@ -7869,8 +7869,8 @@
           "Nicht kombinierbar mit Brücke und nicht mit Linear: Das Ausschluss-Set von Abdeckung (cover_group) enthält beide, und deren Ausschluss-Set (wand_modifier_group) enthält Abdeckung. Ein Datenintegritäts-Test prüft die Unverträglichkeit mit Brücke.",
           "Verzauberung Abdeckung: Die Fläche wächst nur vor Blöcken derselben Sorte wie der angeklickte Block, und nur so weit, wie diese Stellen Kante an Kante mit der Mitte zusammenhängen - eine Mauer um eine Schicht verdicken oder einen Boden erweitern, ohne quadratische Überstände. Die Achsen-Einstellung gilt in diesem Modus nicht. Ausgewertet in BuildingWandItem (Plan.forClick, Plan.coverRegion); cover.json selbst trägt keinen effects-Eintrag.",
           "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („cover“).",
-          "Nicht in der Verzauberungstabelle ; kein Händlerangebot in den Handelsdateien.",
-          "Fundorte als Buch (Option enableLootTableChanges): Plünderer-Außenposten (Gewicht 8), Waldanwesen (Gewicht 5); Kreativ-Reiter der Mod."
+          "Nicht am Zaubertisch erhältlich: Abdeckung fehlt in minecraft:in_enchanting_table. Kein Händlerangebot in den Handelsdateien.",
+          "Auf MC 26.3 hat Abdeckung nach Option B (2026-10-05) keine mitgelieferte Survival-Quelle: weder Kistenbeute noch Handel oder Zaubertisch. Kreativmodus und Befehle bleiben möglich. MC 26.2 behält bis zum separaten Port Plünderer-Außenposten (Gewicht 8) und Waldanwesen (Gewicht 5)."
         ],
         "caveats": [
           "Der Oberfläche wird nur innerhalb der Fläche des eingestellten Radius gefolgt, und nur Kante an Kante (keine Diagonalschritte).",

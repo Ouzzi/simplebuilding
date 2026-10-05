@@ -183,6 +183,18 @@ public final class CombatTests {
         }
 
         // Obergrenze je Lebewesen.
+        if (McVersion.GADGET_REWORK) {
+            double chance = arrows.recoveryChance;
+            try {
+                stuck(cow).clear();
+                arrows.recoveryChance = 0;
+                ArrowRecovery.onHit(normal, cow);
+                helper.assertTrue(stuck(cow).isEmpty(), "zero recovery chance still saves arrows");
+                arrows.recoveryChance = 1;
+                ArrowRecovery.onHit(normal, cow);
+                helper.assertValueEqual(stuck(cow).size(), 1, "full recovery chance loses an eligible arrow");
+            } finally { arrows.recoveryChance = chance; stuck(cow).clear(); }
+        }
         int max = ServerTuning.arrowsPerMob();
         cow.setHealth(cow.getMaxHealth());
         stuck(cow).clear();
@@ -235,7 +247,9 @@ public final class CombatTests {
         Mob blaze = helper.spawnWithNoFreeWill(EntityTypes.BLAZE, new BlockPos(2, 2, 2));
         var switches = ServerTuning.get().laser;
         boolean scan = switches.scanEntities;
+        int scanInterval = switches.scanIntervalTicks;
         try {
+            switches.scanIntervalTicks = 40;
             EntityHitResult hit = new EntityHitResult(blaze, blaze.position().add(0.0, 0.8, 0.0));
             int scanAt = LaserBeam.dwellTicks(LaserBeam.IGNITE_TICKS, player.getEyePosition().distanceTo(hit.getLocation()));
             for (int i = 0; i < scanAt - 1; i++) {
@@ -244,6 +258,8 @@ public final class CombatTests {
             helper.assertFalse(blaze.hasEffect(MobEffects.GLOWING), "the blaze glows before the scan dwell time");
             LaserBeam.beamAtEntity(player, lens, hit);
             helper.assertTrue(blaze.hasEffect(MobEffects.GLOWING), "the blaze does not glow after the scan dwell time");
+            helper.assertValueEqual(blaze.getEffect(MobEffects.GLOWING).getDuration(), McVersion.GADGET_REWORK ? 50 : 110,
+                    "configured scan glow duration");
             helper.assertFalse(blaze.getRemainingFireTicks() > 0, "a fire-immune blaze caught fire");
 
             ServerPlayer other = shooter(helper);
@@ -254,6 +270,7 @@ public final class CombatTests {
             helper.assertFalse(LaserBeam.canScan(player, blaze), "creatures are scanned with server.laser.scanEntities off");
         } finally {
             switches.scanEntities = scan;
+            switches.scanIntervalTicks = scanInterval;
             blaze.discard();
         }
         helper.succeed();

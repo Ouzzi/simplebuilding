@@ -329,6 +329,9 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict,
         problems.append(problem("loot", "keine Pools gefunden", file=LOOT_FILE, why="Parser passt nicht mehr zur Datei"))
     if rel == LOOT_FILE_MAIN:
         sites.attach_twins(repo, {r["id"]: r for r in values}, LOOT_FILE, read_twin)
+        for record in values:
+            if ":removed_cover:" in record["id"]:
+                _restrict_branch(repo, record, "GADGET_REWORK", True)
     return {"tables": list(tables.values())}, values, problems
 
 
@@ -349,6 +352,11 @@ def read_twin(repo: Path, twin_rel: str) -> dict[str, dict]:
 
 def _entry(text: str, start: int, end: int, item_id, ench_id) -> dict | None:
     """Ein .add(...)-Argument -> Eintrag mit Token-Positionen für Gewicht und Anzahl."""
+    choice = re.match(r"\s*McVersion\.GADGET_REWORK\s*\?\s*(EmptyLootItem\.emptyItem\(\)\.setWeight\(\d+\))\s*:\s*enchantedBook\(ModEnchantments\.COVER,", text[start:end])
+    if choice:
+        entry = _entry(text, start + choice.start(1), start + choice.end(1), item_id, ench_id)
+        entry["key"] = "removed_cover"
+        return entry
     expr = text[start:end]
     stripped = expr.strip()
     offset = start + (len(expr) - len(expr.lstrip()))

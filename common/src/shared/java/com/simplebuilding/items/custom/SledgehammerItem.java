@@ -663,7 +663,7 @@ public class SledgehammerItem extends Item {
         world.destroyBlock(pos, false, player);
         com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.DIAMOND_CRUSH);
 
-        int totalPebbles = DIAMOND_BLOCK_PEBBLES;
+        int totalPebbles = com.simplebuilding.config.ServerTuning.diamondBlockPebbles();
         while (totalPebbles > 0) {
             int batch = Math.min(totalPebbles, 64);
             ItemEntity itemEntity = new ItemEntity(

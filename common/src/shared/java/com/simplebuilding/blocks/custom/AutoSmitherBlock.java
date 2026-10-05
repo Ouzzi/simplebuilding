@@ -34,7 +34,7 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Auto-Schmied: der Crafter des Schmiedetischs (Besitzer 2026-10-02). Verhalten wie Vanillas {@code CrafterBlock}: eine
- * steigende Redstone-Flanke schmiedet nach {@link #DELAY_TICKS} Ticks genau einmal aus Vorlage, Basis und Material; das
+ * steigende Redstone-Flanke schmiedet nach der Server-Verzögerung (Standard {@link #DELAY_TICKS} Ticks) genau einmal; das
  * Ergebnis geht in den Container vor der Front oder bleibt im Ausgabeslot. Ohne passendes Rezept klickt es wie der Crafter
  * (Ereignis 1050). Dauersignal loest nicht erneut aus. Komparator: belegte Eingaenge (0, 5, 10, 15).
  */
@@ -93,7 +93,7 @@ public class AutoSmitherBlock extends BaseEntityBlock {
         boolean powered = level.hasNeighborSignal(pos);
         boolean triggered = state.getValue(TRIGGERED);
         if (powered && !triggered) {
-            level.scheduleTick(pos, this, DELAY_TICKS);
+            level.scheduleTick(pos, this, com.simplebuilding.config.ServerTuning.autoSmitherDelayTicks());
             level.setBlock(pos, state.setValue(TRIGGERED, true), Block.UPDATE_CLIENTS);
         } else if (!powered && triggered) {
             level.setBlock(pos, state.setValue(TRIGGERED, false).setValue(CRAFTING, false), Block.UPDATE_CLIENTS);

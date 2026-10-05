@@ -2994,5 +2994,13 @@
   "jei.simplebuilding.crucible.warming": "Aufwärmen",
   "jei.simplebuilding.info.hammer_fire_chips": "Feuerkugel mit Schleichen + Rechtsklick ablegen, dann mit einem beliebigen Vorschlaghammer rechtsklicken: 4 Feuerkugelsplitter. Im gemischten Haufen wird nur die zuletzt abgelegte Feuerkugel verbraucht; andere Teile bleiben. Funktioniert auf Boden, Wand und Decke. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
   "jei.simplebuilding.info.hammer_ice_chips": "Mit einem beliebigen Vorschlaghammer auf einen Eisblock rechtsklicken: 4 Eissplitter; auf Packeis: 9 Eissplitter. Der Block wird verbraucht. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
-  "jei.simplebuilding.info.hammer_obsidian_chips": "Mit einem beliebigen Vorschlaghammer auf einen Obsidianblock rechtsklicken: 9 Obsidiansplitter. Der Block wird verbraucht. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten."
+  "jei.simplebuilding.info.hammer_obsidian_chips": "Mit einem beliebigen Vorschlaghammer auf einen Obsidianblock rechtsklicken: 9 Obsidiansplitter. Der Block wird verbraucht. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
+  "text.autoconfig.simplebuilding.option.server.machines.autoSmitherDelayTicks": "Auto-Schmied: Verzögerung",
+  "text.autoconfig.simplebuilding.option.server.machines.autoSmitherDelayTicks.@Tooltip": "Verzögerung nach Redstone-Flanke: 4–100 Ticks.\nServerseitig, MC 26.3. Standard: 4. Wirkt für\nneue Impulse; bereits geplante Arbeit behält\nihre Frist. Kein Neustart erforderlich.",
+  "text.autoconfig.simplebuilding.option.server.tools.diamondBlockPebbles": "Diamantblock: Kiesel-Ausbeute",
+  "text.autoconfig.simplebuilding.option.server.tools.diamondBlockPebbles.@Tooltip": "Diamantkiesel je mit dem Vorschlaghammer\nzerschlagenem Block: 1–81. Serverseitig,\nMC 26.3. Standard: 81 (neun Diamanten).\nAmboss-Zerkleinern unverändert. Kein Neustart.",
+  "text.autoconfig.simplebuilding.option.server.arrows.recoveryChance": "Pfeil-Rückgewinnungschance",
+  "text.autoconfig.simplebuilding.option.server.arrows.recoveryChance.@Tooltip": "Chance je geeignetem Treffer: 0,0–1,0.\nStandard: 1,0 (100 %). Serverseitig, MC 26.3.\nBereits gespeicherte Pfeile bleiben. Unendlich-,\nKreativ-, Durchschlag- und Amethystschutz gilt.",
+  "text.autoconfig.simplebuilding.option.server.laser.scanIntervalTicks": "Scan-Leuchtintervall",
+  "text.autoconfig.simplebuilding.option.server.laser.scanIntervalTicks.@Tooltip": "Scan-Auffrischung alle 20–100 Ticks. Leuchten\nhält 10 Ticks länger. Standard: 100 (110 Ticks\nLeuchten). Serverseitig, MC 26.3. Kürzere\nIntervalle verbrauchen häufiger Linsenladung."
 }

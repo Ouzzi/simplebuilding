@@ -13,6 +13,22 @@ class ExtractTests(unittest.TestCase):
         cls.snap = helpers.shared_service().snapshot
         cls.values = cls.snap["values"]
 
+    def test_removed_cover_keeps_literal_offsets_and_old_line_read_only(self):
+        raw = (helpers.REPO / ex_loot.LOOT_FILE).read_text(encoding="utf-8")
+        removed = [v for v in self.values.values() if ":removed_cover:" in v["id"]]
+        self.assertEqual(2, len(removed))
+        self.assertEqual([5, 8], sorted(v["value"] for v in removed))
+        for value in removed:
+            source = value["source"]
+            start, end = source["span"]
+            self.assertEqual(str(value["value"]), raw[start:end])
+            self.assertIn("26.3", source["lines"])
+            self.assertNotIn("26.2", source["lines"])
+            self.assertFalse(source.get("twins"))
+        for table in self.snap["loot"]["tables"]:
+            for pool in table["pools"]:
+                self.assertFalse(any(e.get("enchantment") == "simplebuilding:cover" for e in pool["entries"]))
+
     def test_core_chances_come_from_the_constants(self):
         v = self.values["const:ModLootTableModifications.ENDERITE_CORE_CHANCE"]
         self.assertEqual(v["category"], "loot")
@@ -133,7 +149,7 @@ class ExtractTests(unittest.TestCase):
             recs = [v for v in self.values.values() if v["category"] == cat and v["apply"] == "mod"]
             self.assertGreater(len(recs), 50, cat)
             for v in recs:
-                if v["id"] == "const:ModLootTableModifications.ENDERITE_CORE_CHANCE":
+                if v["id"] == "const:ModLootTableModifications.ENDERITE_CORE_CHANCE" or ":removed_cover:" in v["id"]:
                     self.assertEqual(v["lines"], ["26.3", "26.4"])
                 else:
                     self.assertIn("26.2", v["lines"], v["id"])

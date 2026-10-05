@@ -165,6 +165,122 @@ public final class ConfigOptionTests {
         helper.succeed();
     }
 
+    /** Loaded acquisition tags and trade data must not silently introduce a replacement source. */
+    public static void coverHasNoSurvivalSourceOn263(GameTestHelper helper) {
+        if (!McVersion.GADGET_REWORK) { helper.succeed(); return; }
+        var registry = helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT);
+        var cover = registry.getOrThrow(ModEnchantments.COVER);
+        for (String tag : List.of("in_enchanting_table", "tradeable", "on_random_loot", "on_traded_equipment", "on_mob_spawn_equipment")) {
+            helper.assertFalse(cover.is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ENCHANTMENT,
+                    Identifier.withDefaultNamespace(tag))), "Cover has an acquisition tag: " + tag);
+        }
+        for (var resource : helper.getLevel().getServer().getResourceManager()
+                .listResources("villager_trade", id -> id.getPath().endsWith(".json")).entrySet()) {
+            try (var reader = resource.getValue().openAsReader()) {
+                helper.assertFalse(reader.lines().anyMatch(line -> line.contains("simplebuilding:cover")),
+                        "Cover trade in " + resource.getKey());
+            } catch (IOException e) { throw new AssertionError(e); }
+        }
+        // The all-pools loot test separately rejects Cover on 26.3, including unexpected tables.
+        helper.succeed();
+    }
+
+    /** File validation and runtime getters independently clamp every new number. */
+    public static void waveTwoOptionsHaveHardBounds(GameTestHelper helper) {
+        var detached = new SimplebuildingConfig();
+        var live = Simplebuilding.getConfig();
+        var previous = live.server;
+        String[] paths = {"server.machines.autoSmitherDelayTicks", "server.tools.diamondBlockPebbles",
+                "server.laser.scanIntervalTicks", "server.arrows.recoveryChance"};
+        double[] low = {4, 1, 20, 0}, high = {100, 81, 100, 1}, defaults = {4, 81, 100, 1};
+        try {
+            live.server = detached.server;
+            for (int i = 0; i < paths.length; i++) {
+                var option = com.simplebuilding.config.ConfigOptions.byPath(paths[i]);
+                helper.assertTrue(option != null && !option.clientSide() && !option.restartRequired()
+                        && !option.appliesOnReload(), "live server metadata " + paths[i]);
+                helper.assertTrue(((Number) option.defaultValue()).doubleValue() == defaults[i], "default " + paths[i]);
+                for (double bad : new double[] {-1000, Integer.MAX_VALUE}) {
+                    Object value = i == 3 ? (Object) Double.valueOf(bad) : Integer.valueOf((int) bad);
+                    helper.assertTrue(option.set(detached, value), "write " + paths[i]);
+                    double expected = bad < 0 ? low[i] : high[i];
+                    double actual = switch (i) {
+                        case 0 -> com.simplebuilding.config.ServerTuning.autoSmitherDelayTicks();
+                        case 1 -> com.simplebuilding.config.ServerTuning.diamondBlockPebbles();
+                        case 2 -> com.simplebuilding.config.ServerTuning.scanIntervalTicks();
+                        default -> com.simplebuilding.config.ServerTuning.recoveryChance();
+                    };
+                    helper.assertTrue(actual == (McVersion.GADGET_REWORK ? expected : defaults[i]), "runtime clamp " + paths[i]);
+                    detached.validatePostLoad();
+                    helper.assertTrue(((Number) option.get(detached)).doubleValue() == expected, "file clamp " + paths[i]);
+                }
+            }
+            for (double bad : new double[] {Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY}) {
+                detached.server.arrows.recoveryChance = bad;
+                helper.assertTrue(com.simplebuilding.config.ServerTuning.recoveryChance() == 1, "finite runtime recovery fallback");
+                detached.validatePostLoad();
+                helper.assertTrue(detached.server.arrows.recoveryChance == 1, "finite file recovery fallback");
+            }
+            detached.server.laser = null;
+            detached.server.arrows = null;
+            detached.server.tools = null;
+            detached.server.machines = null;
+            detached.validatePostLoad();
+            helper.assertTrue(detached.server.laser.scanIntervalTicks == 100 && detached.server.arrows.recoveryChance == 1
+                    && detached.server.tools.diamondBlockPebbles == 81 && detached.server.machines.autoSmitherDelayTicks == 4,
+                    "missing groups restored");
+        } finally { live.server = previous; }
+        helper.succeed();
+    }
+
+    public static void configuredDiamondYieldChangesActualDrops(GameTestHelper helper) {
+        if (!McVersion.GADGET_REWORK) { helper.succeed(); return; }
+        var tools = com.simplebuilding.config.ServerTuning.local().tools;
+        int old = tools.diamondBlockPebbles;
+        var player = helper.makeMockServerPlayerInLevel();
+        helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
+        var hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        BlockPos pos = new BlockPos(1, 2, 1);
+        helper.setBlock(pos, net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK);
+        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, hammer);
+        try {
+            tools.diamondBlockPebbles = 27;
+            helper.assertValueEqual(com.simplebuilding.util.InWorldTransformations.diamondCrush().get("count").getAsInt(),
+                    27, "runtime recipe catalog follows server yield");
+            for (int i = 0; i < com.simplebuilding.items.custom.SledgehammerItem.DIAMOND_BLOCK_STRIKES; i++) {
+                com.simplebuilding.items.custom.SledgehammerItem.strikeDiamondBlock(helper.getLevel(), helper.absolutePos(pos),
+                        player, hammer, helper.getLevel().getGameTime() + i * 21L);
+            }
+            helper.assertBlockPresent(net.minecraft.world.level.block.Blocks.AIR, pos);
+            helper.assertItemEntityCountIs(ModItems.DIAMOND_PEBBLE, pos, 2, 27);
+        } finally { tools.diamondBlockPebbles = old; }
+        helper.succeed();
+    }
+
+    /** Restore the global value before yielding; the queued pulse retains its captured delay. */
+    public static void configuredSmitherDelayChangesScheduledWork(GameTestHelper helper) {
+        if (!McVersion.GADGET_REWORK) { helper.succeed(); return; }
+        BlockPos pos = new BlockPos(1, 2, 1);
+        helper.setBlock(pos, com.simplebuilding.blocks.ModBlocks.AUTO_SMITHER);
+        var smither = helper.getBlockEntity(pos, com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity.class);
+        smither.setItem(0, new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE));
+        smither.setItem(1, new ItemStack(Items.DIAMOND_SWORD));
+        smither.setItem(2, new ItemStack(Items.NETHERITE_INGOT));
+        var machines = com.simplebuilding.config.ServerTuning.local().machines;
+        int old = machines.autoSmitherDelayTicks;
+        try {
+            machines.autoSmitherDelayTicks = 40;
+            helper.setBlock(pos.west(), net.minecraft.world.level.block.Blocks.REDSTONE_BLOCK);
+        } finally { machines.autoSmitherDelayTicks = old; }
+        helper.startSequence().thenExecuteAfter(10, () -> {
+            helper.assertTrue(smither.getItem(1).is(Items.DIAMOND_SWORD), "smither ran before configured delay");
+            helper.assertTrue(smither.getItem(3).isEmpty(), "early result");
+        }).thenExecuteAfter(35, () -> {
+            helper.assertTrue(smither.getItem(1).isEmpty(), "input not consumed");
+            helper.assertTrue(smither.getItem(3).is(Items.NETHERITE_SWORD), "configured pulse did not finish");
+        }).thenSucceed();
+    }
+
     private ConfigOptionTests() {
     }
 
@@ -428,6 +544,12 @@ public final class ConfigOptionTests {
      * the weights in {@code ModLootTableModifications}, so a balance change that makes an entry
      * much rarer has to be reflected here.
      */
+    private static Set<String> expectedLoot(ResourceKey<LootTable> key) {
+        Set<String> entries = new java.util.HashSet<>(EXPECTED_LOOT.get(key));
+        if (McVersion.GADGET_REWORK) entries.remove(book(ModEnchantments.COVER, 1));
+        return entries;
+    }
+
     private static final int POOL_ROLLS = 2048;
 
     /**
@@ -665,11 +787,13 @@ public final class ConfigOptionTests {
             "server.dimensionLocks.chunkLoaderBlockedDimensions String=",
             "server.dimensionLocks.flypadBlockedDimensions String=",
             "server.dimensionLocks.echoSounderBlockedDimensions String=",
+            "server.laser.scanIntervalTicks int=100",
             "server.laser.igniteFlammables boolean=true",
             "server.laser.igniteTnt boolean=true",
             "server.laser.igniteEntities boolean=true",
             "server.laser.scanEntities boolean=true",
             "server.laser.scanPlayers boolean=false",
+            "server.arrows.recoveryChance double=1.0",
             "server.arrows.recoverFromMobs boolean=true",
             "server.arrows.maxPerMob int=16",
             "server.craftyShulker.cooldownTicks int=60",
@@ -688,6 +812,7 @@ public final class ConfigOptionTests {
             "server.charges.lensMaxCharge int=640",
             "server.charges.rotatorMaxCharge int=1024",
             "server.charges.echoSounderMaxCharge int=1500",
+            "server.tools.diamondBlockPebbles int=81",
             "server.tools.attractorMinimumDistance double=1.25",
             "server.tools.sledgehammerUpgradeSeconds int=5",
             "server.tools.reinforcedUpgradeDamagePerHit int=2",
@@ -700,6 +825,7 @@ public final class ConfigOptionTests {
             "server.tools.diamondChiselCooldownTicks int=10",
             "server.tools.netheriteChiselCooldownTicks int=5",
             "server.tools.enderiteChiselCooldownTicks int=5",
+            "server.machines.autoSmitherDelayTicks int=4",
             "server.machines.reinforcedHopperSpeed int=2",
             "server.machines.netheriteHopperSpeed int=4",
             "server.machines.enderiteHopperSpeed int=8",
@@ -908,7 +1034,7 @@ public final class ConfigOptionTests {
             List<String> missing = new ArrayList<>();
             List<String> stray = new ArrayList<>();
             for (ResourceKey<LootTable> key : MODIFIED_TABLES) {
-                Set<String> wanted = EXPECTED_LOOT.get(key);
+                Set<String> wanted = expectedLoot(key);
                 helper.assertTrue(wanted != null,
                         tableName(key) + " is driven for its pool count but nothing is expected out of "
                                 + "it; add its entries to EXPECTED_LOOT or the pool could be emptied");
@@ -935,7 +1061,7 @@ public final class ConfigOptionTests {
             // into EXPECTED_LOOT would make its book "expected" and silence the check.
             List<String> bannedButListed = new ArrayList<>();
             for (Map.Entry<ResourceKey<LootTable>, Set<String>> expected : EXPECTED_LOOT.entrySet()) {
-                for (String entry : expected.getValue()) {
+                for (String entry : expectedLoot(expected.getKey())) {
                     if (bannedEnchantment(entry) != null) {
                         bannedButListed.add(tableName(expected.getKey()) + " lists " + entry);
                     }
@@ -2395,7 +2521,8 @@ public final class ConfigOptionTests {
             return null;
         }
         String enchantment = entry.substring(0, marker);
-        return ENCHANTMENTS_WITHOUT_A_CHEST.contains(enchantment) ? enchantment : null;
+        return ENCHANTMENTS_WITHOUT_A_CHEST.contains(enchantment)
+                || McVersion.GADGET_REWORK && enchantment.equals(ModEnchantments.COVER.identifier().toString()) ? enchantment : null;
     }
 
     /** The two vault pools the rare vault receives together. */

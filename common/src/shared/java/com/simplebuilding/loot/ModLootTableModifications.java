@@ -272,7 +272,9 @@ public final class ModLootTableModifications {
             editor.addPool(LootPool.lootPool()
                     .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.COLOR_PALETTE, 1, enchantments, 6))
-                    .add(enchantedBook(ModEnchantments.COVER, 1, enchantments, 8))
+                    // 26.3: Cover removed; retain all other entry probabilities. Older lines await the port.
+                    .add(McVersion.GADGET_REWORK ? EmptyLootItem.emptyItem().setWeight(8)
+                            : enchantedBook(ModEnchantments.COVER, 1, enchantments, 8))
                     .add(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 8))
                     // Oktant seltener (Besitzer 2026-09-29): Gewicht 5 -> 2, die 3 gehen an Leer (20 -> 23).
                     .add(item(ModItems.OCTANT, 2))
@@ -286,7 +288,9 @@ public final class ModLootTableModifications {
             editor.addPool(LootPool.lootPool()
                     .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.COLOR_PALETTE, 1, enchantments, 3))
-                    .add(enchantedBook(ModEnchantments.COVER, 1, enchantments, 5))
+                    // 26.3: Cover removed; retain all other entry probabilities. Older lines await the port.
+                    .add(McVersion.GADGET_REWORK ? EmptyLootItem.emptyItem().setWeight(5)
+                            : enchantedBook(ModEnchantments.COVER, 1, enchantments, 5))
                     .add(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 5))
                     .add(enchantedBook(ModEnchantments.VEIN_MINER, 5, enchantments, 1))
                     .add(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 3))
