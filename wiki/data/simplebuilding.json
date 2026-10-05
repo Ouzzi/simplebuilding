@@ -60797,7 +60797,6 @@
           "items": [
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
-            "minecraft:enchanted_book",
             "simplebuilding:octant",
             "simplebuilding:quiver",
             "simplebuilding:copper_chisel"
@@ -61021,7 +61020,6 @@
             "min": 0
           },
           "items": [
-            "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
             "minecraft:enchanted_book",
@@ -62507,7 +62505,7 @@
             "Rucksack (getragen): Verbraucht das Platzieren eines Blocks aus der Hand den Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem getragenen Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place).",
             "Oktant: Die gefüllte Flächen-/Figur-Vorschau wird angezeigt, wenn der Oktant die Verzauberung trägt (mit aktiver Option „Oktant-Flächenvorschau umkehren“ genau umgekehrt: showFill = invert XOR Verzauberung); zusätzlich müssen beide Positionen gesetzt und die Hervorhebungen (ClientState.showHighlights) eingeschaltet sein.",
             "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („constructors_touch“).",
-            "Nicht in der Verzauberungstabelle ; kein Händlerangebot in den Handelsdateien.",
+            "Nicht am Zaubertisch erhältlich: Abdeckung fehlt in minecraft:in_enchanting_table. Kein Händlerangebot in den Handelsdateien.",
             "Fundorte als Buch (Option enableLootTableChanges): vergrabener Schatz (Gewicht 3), Iglu (Gewicht 3), Prüfungskammer normal/selten (Gewicht 3), Angel-Schatz (Gewicht 2); Kreativ-Reiter der Mod.",
             "Geschwindigkeitsmesser: mit Berührung des Konstrukteurs zeigt sein HUD zusätzlich Höchst- und Durchschnittstempo seit dem Anlegen, am Boden die X/Z-Anteile und im Gleitflug ab 15 Blöcken/s ein Warnzeichen. Resonanzstab: mit Berührung des Konstrukteurs wird sie zum Entfernungsmesser - Entfernung, Zielblock und Höhe neben dem Fadenkreuz, die letzte Messung wird in der Linse gespeichert und im Tooltip gezeigt. Beide bekommen sie nur am Amboss mit einem Buch."
           ],
@@ -62597,8 +62595,8 @@
             "Combinable with neither Bridge nor Linear: Cover's exclusive set (cover_group) contains both, and their exclusive set (wand_modifier_group) contains Cover. A data integrity test checks the incompatibility with Bridge.",
             "Cover enchantment: the area only grows in front of blocks of the same kind as the clicked block, and only as far as those positions hang together with the center edge to edge - thicken a wall by one layer or extend a floor without square overhangs. The axis setting does not apply in this mode. Read in BuildingWandItem (Plan.forClick, Plan.coverRegion); cover.json itself carries no effects entry.",
             "An enchanted book gets its own book model ('cover').",
-            "Not available at the enchanting table (minecraft:in_enchanting_table holds only Fast Chiseling from the mod); no trade offer in the trade files.",
-            "Found as a book (option enableLootTableChanges): pillager outposts (weight 8), woodland mansions (weight 5); the mod's creative tab."
+            "Not available at the enchanting table; Cover is absent from minecraft:in_enchanting_table. No trade offer in the trade files.",
+            "On MC 26.3, Cover has no shipped Survival acquisition source after option B (2026-10-05): neither chest loot, trading, nor enchanting. Creative mode and commands remain available. MC 26.2 retains the pillager outpost (weight 8) and woodland mansion (weight 5) entries until the separate port."
           ],
           "caveats": [
             "The surface is followed only within the area of the set radius, and only edge to edge (no diagonal steps).",
@@ -62613,8 +62611,8 @@
             "Nicht kombinierbar mit Brücke und nicht mit Linear: Das Ausschluss-Set von Abdeckung (cover_group) enthält beide, und deren Ausschluss-Set (wand_modifier_group) enthält Abdeckung. Ein Datenintegritäts-Test prüft die Unverträglichkeit mit Brücke.",
             "Verzauberung Abdeckung: Die Fläche wächst nur vor Blöcken derselben Sorte wie der angeklickte Block, und nur so weit, wie diese Stellen Kante an Kante mit der Mitte zusammenhängen - eine Mauer um eine Schicht verdicken oder einen Boden erweitern, ohne quadratische Überstände. Die Achsen-Einstellung gilt in diesem Modus nicht. Ausgewertet in BuildingWandItem (Plan.forClick, Plan.coverRegion); cover.json selbst trägt keinen effects-Eintrag.",
             "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („cover“).",
-            "Nicht in der Verzauberungstabelle ; kein Händlerangebot in den Handelsdateien.",
-            "Fundorte als Buch (Option enableLootTableChanges): Plünderer-Außenposten (Gewicht 8), Waldanwesen (Gewicht 5); Kreativ-Reiter der Mod."
+            "Nicht am Zaubertisch erhältlich: Abdeckung fehlt in minecraft:in_enchanting_table. Kein Händlerangebot in den Handelsdateien.",
+            "Auf MC 26.3 hat Abdeckung nach Option B (2026-10-05) keine mitgelieferte Survival-Quelle: weder Kistenbeute noch Handel oder Zaubertisch. Kreativmodus und Befehle bleiben möglich. MC 26.2 behält bis zum separaten Port Plünderer-Außenposten (Gewicht 8) und Waldanwesen (Gewicht 5)."
           ],
           "caveats": [
             "Der Oberfläche wird nur innerhalb der Fläche des eingestellten Radius gefolgt, und nur Kante an Kante (keine Diagonalschritte).",
@@ -69243,6 +69241,29 @@
       "tooltipDe": "Das Echolot springt weder aus diesen\nDimensionen heraus noch in sie hinein.\nDimension-IDs, durch Komma getrennt, z. B.\nminecraft:the_nether, minecraft:the_end (ohne\nNamensraum gilt minecraft:); leer = überall\nerlaubt. Per Befehl leert \"\" die Liste.\nServerseitig. Standard: leer."
     },
     {
+      "range": [
+        20.0,
+        100.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.laser.scanIntervalTicks",
+      "shortName": "scanIntervalTicks",
+      "type": "int",
+      "default": "100",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Resonance Rod: What the Beam Ignites",
+      "groupDe": "Resonanzstab: was der Strahl entzündet",
+      "label": "Scan Glow Interval",
+      "labelDe": "Scan-Leuchtintervall",
+      "tooltip": "Scan refresh interval: 20–100 ticks. Glow\nlasts 10 ticks longer. Default: 100 (110 ticks\nof glow). Server-side, MC 26.3. Shorter\nintervals also consume lens charge more often.",
+      "tooltipDe": "Scan-Auffrischung alle 20–100 Ticks. Leuchten\nhält 10 Ticks länger. Standard: 100 (110 Ticks\nLeuchten). Serverseitig, MC 26.3. Kürzere\nIntervalle verbrauchen häufiger Linsenladung."
+    },
+    {
       "range": null,
       "side": "server",
       "reload": "no",
@@ -69341,6 +69362,29 @@
       "labelDe": "Spieler scannen",
       "tooltip": "On: other players glow too, but only where\nyou may hurt them (PvP, teams). Off: players\nare never scanned. Server-side. Default: off.",
       "tooltipDe": "An: auch andere Spieler leuchten, aber nur wo\nman ihnen schaden darf (PvP, Teams). Aus:\nSpieler werden nie gescannt. Serverseitig.\nStandard: aus."
+    },
+    {
+      "range": [
+        0.0,
+        1.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.arrows.recoveryChance",
+      "shortName": "recoveryChance",
+      "type": "double",
+      "default": "1.0",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Arrows: Recovery From Mobs",
+      "groupDe": "Pfeile: von Mobs zurück",
+      "label": "Arrow Recovery Chance",
+      "labelDe": "Pfeil-Rückgewinnungschance",
+      "tooltip": "Chance per eligible hit: 0.0–1.0. Default:\n1.0 (100%). Server-side, MC 26.3. Existing\nsaved arrows remain. Infinity, Creative,\npiercing and amethyst exclusions still apply.",
+      "tooltipDe": "Chance je geeignetem Treffer: 0,0–1,0.\nStandard: 1,0 (100 %). Serverseitig, MC 26.3.\nBereits gespeicherte Pfeile bleiben. Unendlich-,\nKreativ-, Durchschlag- und Amethystschutz gilt."
     },
     {
       "range": null,
@@ -69740,6 +69784,29 @@
     },
     {
       "range": [
+        1.0,
+        81.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.tools.diamondBlockPebbles",
+      "shortName": "diamondBlockPebbles",
+      "type": "int",
+      "default": "81",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Sledgehammer & Chisels",
+      "groupDe": "Vorschlaghammer & Meißel",
+      "label": "Diamond Block Pebble Yield",
+      "labelDe": "Diamantblock: Kiesel-Ausbeute",
+      "tooltip": "Diamond pebbles per block crushed with a\nsledgehammer: 1–81. Server-side, MC 26.3.\nDefault: 81 (nine diamonds). Does not change\nanvil crushing. No restart required.",
+      "tooltipDe": "Diamantkiesel je mit dem Vorschlaghammer\nzerschlagenem Block: 1–81. Serverseitig,\nMC 26.3. Standard: 81 (neun Diamanten).\nAmboss-Zerkleinern unverändert. Kein Neustart."
+    },
+    {
+      "range": [
         0.5,
         2.0
       ],
@@ -70013,6 +70080,29 @@
       "labelDe": "Enderit-Meißel: Abklingzeit (Ticks)",
       "tooltip": "Cooldown after each use of the enderite\nchisel and spatula, before Fast Chiseling (20\nticks = 1 s), 2 to 200. Server-side, sent to\nclients. Default: 5.",
       "tooltipDe": "Abklingzeit nach jeder Benutzung von\nEnderit-Meißel und -Spachtel, vor Schnelles\nMeißeln (20 Ticks = 1 s), 2 bis 200.\nServerseitig, an die Clients geschickt.\nStandard: 5."
+    },
+    {
+      "range": [
+        4.0,
+        100.0
+      ],
+      "side": "server",
+      "reload": "no",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.machines.autoSmitherDelayTicks",
+      "shortName": "autoSmitherDelayTicks",
+      "type": "int",
+      "default": "4",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Machine Speeds",
+      "groupDe": "Maschinentempo",
+      "label": "Auto Smither Delay",
+      "labelDe": "Auto-Schmied: Verzögerung",
+      "tooltip": "Delay after a redstone edge: 4–100 ticks.\nServer-side, MC 26.3. Default: 4. Applies to\nnew pulses; existing scheduled work keeps\nits delay. No restart required.",
+      "tooltipDe": "Verzögerung nach Redstone-Flanke: 4–100 Ticks.\nServerseitig, MC 26.3. Standard: 4. Wirkt für\nneue Impulse; bereits geplante Arbeit behält\nihre Frist. Kein Neustart erforderlich."
     },
     {
       "range": [
@@ -87510,34 +87600,6 @@
         "sharedTables": [],
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:cover",
-        "level": 1
-      },
-      {
-        "type": "chest",
-        "item": "minecraft:enchanted_book",
-        "table": "minecraft:chests/pillager_outpost",
-        "label": {
-          "en": "Pillager outpost",
-          "de": "Plünderer-Außenposten"
-        },
-        "chance": 13.61,
-        "perChest": 0.1429,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 8,
-        "totalWeight": 56,
-        "rolls": {
-          "type": "uniform",
-          "min": 0,
-          "max": 2
-        },
-        "pool": 0,
-        "sharedTables": [],
-        "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:linear",
         "level": 1
       },
@@ -87645,34 +87707,6 @@
         "configFlag": "enableLootTableChanges",
         "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "enchantment": "simplebuilding:color_palette",
-        "level": 1
-      },
-      {
-        "type": "chest",
-        "item": "minecraft:enchanted_book",
-        "table": "minecraft:chests/woodland_mansion",
-        "label": {
-          "en": "Woodland mansion",
-          "de": "Waldanwesen"
-        },
-        "chance": 8.52,
-        "perChest": 0.0877,
-        "count": [
-          1,
-          1
-        ],
-        "weight": 5,
-        "totalWeight": 57,
-        "rolls": {
-          "type": "uniform",
-          "min": 0,
-          "max": 2
-        },
-        "pool": 0,
-        "sharedTables": [],
-        "configFlag": "enableLootTableChanges",
-        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "enchantment": "simplebuilding:cover",
         "level": 1
       },
       {
@@ -95131,7 +95165,7 @@
     "trades": 20,
     "enchantments": 19,
     "tags": 48,
-    "config": 213,
+    "config": 217,
     "inWorld": 463,
     "advancements": 127,
     "features": 48,

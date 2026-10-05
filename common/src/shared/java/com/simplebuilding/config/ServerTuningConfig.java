@@ -170,6 +170,14 @@ public class ServerTuningConfig {
 
         blueprint.maxBlocksPerTick = clamp(blueprint.maxBlocksPerTick, 1, ServerTuning.MAX_BLUEPRINT_BLOCKS_PER_TICK);
 
+        laser.scanIntervalTicks = clamp(laser.scanIntervalTicks, 20, 100);
+
+        arrows.recoveryChance = clamp(arrows.recoveryChance, 0.0, 1.0, 1.0);
+
+        tools.diamondBlockPebbles = clamp(tools.diamondBlockPebbles, 1, 81);
+
+        machines.autoSmitherDelayTicks = clamp(machines.autoSmitherDelayTicks, 4, 100);
+
         trimStrengths.validate();
     }
 
@@ -262,6 +270,11 @@ public class ServerTuningConfig {
 
     /** Was der Strahl der Amethystlinse entzuenden darf (Schmelzen, Trocknen, Kerzen bleiben). */
     public static class Laser {
+        /** Server-authoritative 26.3 tuning; older lines keep their original behavior. */
+        @ConfigEntry.Gui.Tooltip
+        @ConfigEntry.BoundedDiscrete(min = 20, max = 100)
+        public int scanIntervalTicks = 100;
+
         @ConfigEntry.Gui.Tooltip
         public boolean igniteFlammables = true;
         @ConfigEntry.Gui.Tooltip
@@ -278,6 +291,10 @@ public class ServerTuningConfig {
 
     /** Pfeile von Spielern, die in einem Lebewesen stecken, fallen bei dessen Tod (2026-10-02). */
     public static class Arrows {
+        /** Server-authoritative 26.3 tuning; older lines keep their original behavior. */
+        @ConfigEntry.Gui.Tooltip
+        public double recoveryChance = 1.0;
+
         @ConfigEntry.Gui.Tooltip
         public boolean recoverFromMobs = true;
         /** Hoechstens so viele Pfeile merkt sich ein Lebewesen (1 bis 64). */
@@ -389,6 +406,11 @@ public class ServerTuningConfig {
     }
 
     public static class Tools {
+        /** Server-authoritative 26.3 tuning; older lines keep their original behavior. */
+        @ConfigEntry.Gui.Tooltip
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 81)
+        public int diamondBlockPebbles = 81;
+
         /** Shared held/placed attractor dead zone, in blocks (0.5 to 2). */
         @ConfigEntry.Gui.Tooltip
         public double attractorMinimumDistance = 1.25;
@@ -420,6 +442,11 @@ public class ServerTuningConfig {
 
     /** Tempo der Maschinenstufen als Vielfaches von Vanilla (1..8). */
     public static class Machines {
+        /** Server-authoritative 26.3 tuning; older lines keep their original behavior. */
+        @ConfigEntry.Gui.Tooltip
+        @ConfigEntry.BoundedDiscrete(min = 4, max = 100)
+        public int autoSmitherDelayTicks = 4;
+
         @ConfigEntry.Gui.Tooltip
         public int endSignalRange = 15;
         /** Wartezeit nach dem Ausloesen eines Astral-/Nihil-Kolbens, 4..100 Ticks. */

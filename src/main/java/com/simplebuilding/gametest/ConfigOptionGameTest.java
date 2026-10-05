@@ -16,6 +16,26 @@ import net.minecraft.gametest.framework.GameTestHelper;
  */
 public final class ConfigOptionGameTest {
 
+    @GameTest(maxTicks = 80)
+    public void configuredSmitherDelayChangesScheduledWork(GameTestHelper helper) {
+        ConfigOptionTests.configuredSmitherDelayChangesScheduledWork(helper);
+    }
+
+    @GameTest
+    public void configuredDiamondYieldChangesActualDrops(GameTestHelper helper) {
+        ConfigOptionTests.configuredDiamondYieldChangesActualDrops(helper);
+    }
+
+    @GameTest
+    public void waveTwoOptionsHaveHardBounds(GameTestHelper helper) {
+        ConfigOptionTests.waveTwoOptionsHaveHardBounds(helper);
+    }
+
+    @GameTest
+    public void coverHasNoSurvivalSourceOn263(GameTestHelper helper) {
+        ConfigOptionTests.coverHasNoSurvivalSourceOn263(helper);
+    }
+
     @GameTest
     public void soulLavaBoundsAreClamped(GameTestHelper helper) {
         ConfigOptionTests.soulLavaBoundsAreClamped(helper);

@@ -31,16 +31,7 @@
           "weight": 3
         },
         {
-          "type": "minecraft:item",
-          "modifier": {
-            "type": "minecraft:set_components",
-            "components": {
-              "minecraft:stored_enchantments": {
-                "simplebuilding:cover": 1
-              }
-            }
-          },
-          "name": "minecraft:enchanted_book",
+          "type": "minecraft:empty",
           "weight": 5
         },
         {

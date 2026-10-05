@@ -190,7 +190,7 @@ public final class InWorldTransformations {
         JsonObject o = new JsonObject();
         o.addProperty("block", id(Blocks.DIAMOND_BLOCK));
         o.addProperty("result", id(ModItems.DIAMOND_PEBBLE));
-        o.addProperty("count", SledgehammerItem.DIAMOND_BLOCK_PEBBLES);
+        o.addProperty("count", com.simplebuilding.config.ServerTuning.diamondBlockPebbles());
         o.addProperty("damage", SledgehammerItem.DIAMOND_CRUSH_DAMAGE);
         o.addProperty("strikes", SledgehammerItem.DIAMOND_BLOCK_STRIKES);
         o.addProperty("strikeResetTicks", SledgehammerItem.DIAMOND_STRIKE_RESET_TICKS);

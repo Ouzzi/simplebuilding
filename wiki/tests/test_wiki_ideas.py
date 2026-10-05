@@ -121,6 +121,28 @@ class ConfigMetadataTests(unittest.TestCase):
 
 
 class LootMetricsTests(unittest.TestCase):
+    def test_cover_removal_preserves_other_weights_only_on_main_line(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'Loot.java'
+            path.write_text("""class Loot {
+                public static void apply(Object key) {
+                    if (BuiltInLootTables.PILLAGER_OUTPOST.equals(key)) {
+                        editor.addPool(LootPool.lootPool().setRolls(LootNumbers.exactly(1))
+                            .add(McVersion.GADGET_REWORK ? EmptyLootItem.emptyItem().setWeight(8)
+                                : enchantedBook(ModEnchantments.COVER, 1, enchantments, 8))
+                            .add(item(ModItems.TOKEN, 2)).add(EmptyLootItem.emptyItem().setWeight(10)));
+                    }
+                }
+            }""")
+            for main_line in (True, False):
+                sources, problems = obtain_sources.parse_mod_loot(path, {'test:token'}, {'test:cover'},
+                                                                 'test', {'GADGET_REWORK': main_line})
+                self.assertEqual([], problems)
+                token = next(s for s in sources if s['item'] == 'test:token')
+                self.assertEqual(20, token['totalWeight'])
+                self.assertEqual(10, token['chance'])
+                self.assertEqual(not main_line, any(s.get('enchantment') == 'test:cover' for s in sources))
+
     def test_pool_expectation_shared_tables_and_bernoulli_subset(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'Loot.java'

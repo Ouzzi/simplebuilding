@@ -5,6 +5,21 @@ Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alte
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
 
+## Worker-Nachtrag 2026-10-05: Cover Option B und Configs
+
+Branch `gpt-coverconf`: 26.3 entfernt Cover aus Außenposten/Waldanwesen, Gewichte
+gehen an Leer. Keine verbleibende Survival-Quelle; Kreativmodus/Befehle bleiben.
+26.2 bleibt bis zum Port unverändert. Vier neue begrenzte Serveroptionen für
+Auto-Schmied-Verzögerung, Diamantkiesel-Ausbeute, Pfeil-Rückgewinnung und Scan-Intervall;
+Defaults unverändert, EN/DE an beiden Orten. Zwölf Bewertungen mit Gründen:
+`docs/ai/CONFIG-IDEEN-2026-10-05.md`. Fabric/NeoForge **1954/1954, alles gruen**
+(je 977), einschließlich je acht Testzentralen-Prüfungen mit Neubau und Item-/Block-Abdeckung.
+`check -q` einschließlich checkBalance sowie 26.2-Fabric/NeoForge- und Forge-26.3-Compiles:
+**GRADLE_EXIT=0**. Datagen nur 26.3, Wiki venv --all und uv --all --check grün;
+56 Wiki-Unit-Tests, 13 Balance-Auslesetests, keine doppelten EN/DE-Schlüssel.
+Keine Module geändert, kein Client/Push; Besitzerwelt-Neubau bleibt offen.
+Plan: `docs/ai/PLAN-COVER-CONFIG-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-05: Hängematten-Testcenter
 
 Branch `gpt-hammocktc`: 22 beschriftete, getrennte Beispiele rechts der Maschinen:

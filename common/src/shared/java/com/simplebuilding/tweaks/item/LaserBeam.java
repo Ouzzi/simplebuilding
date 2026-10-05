@@ -277,10 +277,11 @@ public final class LaserBeam {
         long now = level.getGameTime();
         EntityDwell dwell = ENTITY_DWELLS.get(player);
         int ticks = dwell != null && dwell.entityId() == target.getId() && now - dwell.lastTick() <= 2 ? dwell.ticks() + 1 : 1;
+        int scanInterval = com.simplebuilding.config.ServerTuning.scanIntervalTicks();
         int scanAt = dwellTicks(IGNITE_TICKS, distance(player, at));
         int igniteAt = ENTITY_DWELL_FACTOR * scanAt;
-        if (scan && ticks >= scanAt && (ticks - scanAt) % SCAN_GLOW_TICKS == 0) {
-            target.addEffect(new MobEffectInstance(MobEffects.GLOWING, SCAN_GLOW_TICKS + 10, 0, false, false), player);
+        if (scan && ticks >= scanAt && (ticks - scanAt) % scanInterval == 0) {
+            target.addEffect(new MobEffectInstance(MobEffects.GLOWING, scanInterval + 10, 0, false, false), player);
             level.playSound(null, at.x, at.y, at.z, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 0.8f, 1.6f);
             level.sendParticles(LaserPointerItem.SPARK, at.x, at.y, at.z, 6, 0.2, 0.3, 0.2, 0.0);
             LaserPointerItem.drain(player, stack, LaserPointerItem.effectCost());
@@ -291,7 +292,7 @@ public final class LaserBeam {
         }
         if (!ignite || ticks < igniteAt) {
             // Nur Scannen: der Zaehler laeuft weiter (Auffrischen), aber nie ueber einen Glow-Takt hinaus ins Unendliche.
-            int kept = !ignite && ticks > scanAt + SCAN_GLOW_TICKS ? ticks - SCAN_GLOW_TICKS : ticks;
+            int kept = !ignite && ticks > scanAt + scanInterval ? ticks - scanInterval : ticks;
             ENTITY_DWELLS.put(player, new EntityDwell(target.getId(), kept, now));
             if (ignite) {
                 if (ticks % 4 == 0) {
@@ -311,7 +312,7 @@ public final class LaserBeam {
         return true;
     }
 
-    /** So lange leuchtet ein gescanntes Lebewesen; so oft frischt der ruhende Strahl das Leuchten auf. */
+    /** Default scan interval; 26.3 reads the bounded server option, with 10 extra ticks of glow. */
     public static final int SCAN_GLOW_TICKS = 100;
 
     /**

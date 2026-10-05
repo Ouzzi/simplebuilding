@@ -252,6 +252,10 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
                 continue
             entries = []
             for add in _calls(chain, "add"):
+                choice = re.fullmatch(r"\s*McVersion\.(\w+)\s*\?\s*(.*?)\s*:\s*(.*?)\s*", add, re.S)
+                if choice:
+                    enabled = True if version_flags is None else version_flags[choice[1]]
+                    add = choice[2] if enabled else choice[3]
                 entry = _entry(add, constants, ids)
                 if entry is None:
                     problems.append(f"{path.name}: pool entry not understood: {' '.join(add.split())[:120]}")

@@ -1,4 +1,20 @@
-# Loot-Balance (Stand 2026-09-29)
+# Loot-Balance (26.3-Nachtrag 2026-10-05)
+
+## Cover: neue Besitzerentscheidung B, nur 26.3
+
+Beide Cover-Bucheinträge aus Außenposten und Waldanwesen entfernt. Ihre Gewichte
+8 bzw. 5 sind Leer-Einträge; alle anderen Chancen bleiben unverändert. Die alten
+Linien behalten Cover bis zum Port-Run (`McVersion.GADGET_REWORK`).
+**Cover hat auf 26.3 keine mitgelieferte Survival-Quelle mehr.** Kein Handelsangebot,
+kein Eintrag in `in_enchanting_table`, `tradeable`, `on_random_loot`,
+`on_traded_equipment` oder `on_mob_spawn_equipment`. Kreativmodus/Befehle bleiben.
+Belege: ModLootTableModifications, ausgelieferte Tags/Handelsdaten und
+ConfigOptionTests.coverHasNoSurvivalSourceOn263. Die folgende historische Übersicht
+gilt bezüglich Cover nur noch für die alten Linien. Der 26.3-Hauptpool liefert
+im Außenposten 25/56 statt 33/56 Mod-Stapel je Kiste; im Waldanwesen 22/57 statt
+27/57, jeweils ohne separate Kern-/Schallplatten-Pools.
+
+## Historischer Bestand (2026-09-29)
 
 Gilt für beide MC-Linien (26.2 und 1.21.11) und alle Loader; Quelle ist
 `loot/ModLootTableModifications.java` (auf beiden Linien identisch), Handel in

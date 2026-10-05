@@ -801,11 +801,13 @@ public final class WandEnchantmentTests {
                             + "pool serialisation changed shape and this test has to be rewritten - it is "
                             + "not a mod regression");
 
-            // --- the wand modifiers: the two raid structures, the same three books each ---
-            Map<ResourceKey<Enchantment>, Set<Integer>> wandModifiers = Map.of(
+            // Cover was removed from both raid structures on 26.3; older lines await the port.
+            Map<ResourceKey<Enchantment>, Set<Integer>> wandModifiers = new HashMap<>(Map.of(
                     ModEnchantments.COLOR_PALETTE, Set.of(1),
-                    ModEnchantments.COVER, Set.of(1),
-                    ModEnchantments.LINEAR, Set.of(1));
+                    ModEnchantments.LINEAR, Set.of(1)));
+            if (!com.simplebuilding.version.McVersion.GADGET_REWORK) {
+                wandModifiers.put(ModEnchantments.COVER, Set.of(1));
+            }
             expectBuildingBooks(outpost, "pillager_outpost", wandModifiers, problems);
             expectBuildingBooks(storedEnchantments(helper, registries, BuiltInLootTables.WOODLAND_MANSION),
                     "woodland_mansion", wandModifiers, problems);

@@ -51,6 +51,10 @@ public final class ArrowRecovery {
         if (!recoverable(arrow, target)) {
             return;
         }
+        double chance = ServerTuning.recoveryChance();
+        if (chance <= 0 || chance < 1 && arrow.level().getRandom().nextDouble() >= chance) {
+            return;
+        }
         ItemStack stack = arrow.getPickupItemStackOrigin().copyWithCount(1);
         ServerLevel level = (ServerLevel) arrow.level();
         if (!target.isAlive()) {

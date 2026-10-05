@@ -47,7 +47,7 @@ Alles am Code oder Bytecode nachgeprüft, alle vier In-Game-Suiten danach grün
    damit alte Welten laden. Das Wanderhändler-Buch gibt jetzt nur noch Radius.
    *Überholt (Stand 2026-09-28):* Cover und Bridge wirken inzwischen (Baustab-Modi).
    **Cover-Bücher liegen im Plünderer-Außenposten und im Waldanwesen** und bleiben
-   dort (Besitzer 2026-09-28); **Bridge** kommt seit 2026-09-28 als End-Verzauberung
+   dort auf den alten Linien (Besitzer 2026-09-28). **26.3 ab 2026-10-05: Option B entfernt beide Cover-Einträge; keine Survival-Ersatzquelle vorhanden.** Kreativmodus/Befehle bleiben möglich. **Bridge** kommt seit 2026-09-28 als End-Verzauberung
    aus der End-City-Truhe. Quelle: `ModLootTableModifications`, `docs/LOOT-BALANCE.md`.
 6. **Befehlsausgaben waren fest deutsch.** `/simplebuilding config
    setTrimMultiplier` und `getTrimMultiplier` nutzen jetzt Übersetzungsschlüssel

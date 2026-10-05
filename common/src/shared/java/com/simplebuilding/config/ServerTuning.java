@@ -306,6 +306,26 @@ public final class ServerTuning {
         return ServerTuningConfig.clamp(local().loot.endermitesPerRareShulker, 0, MAX_ENDERMITES_PER_RARE_SHULKER);
     }
 
+    public static int scanIntervalTicks() {
+        return com.simplebuilding.version.McVersion.GADGET_REWORK
+                ? ServerTuningConfig.clamp(get().laser.scanIntervalTicks, 20, 100) : 100;
+    }
+
+    public static double recoveryChance() {
+        return com.simplebuilding.version.McVersion.GADGET_REWORK
+                ? ServerTuningConfig.clamp(get().arrows.recoveryChance, 0.0, 1.0, 1.0) : 1.0;
+    }
+
+    public static int diamondBlockPebbles() {
+        return com.simplebuilding.version.McVersion.GADGET_REWORK
+                ? ServerTuningConfig.clamp(get().tools.diamondBlockPebbles, 1, 81) : 81;
+    }
+
+    public static int autoSmitherDelayTicks() {
+        return com.simplebuilding.version.McVersion.GADGET_REWORK
+                ? ServerTuningConfig.clamp(get().machines.autoSmitherDelayTicks, 4, 100) : 4;
+    }
+
     public static int arrowsPerMob() {
         return ServerTuningConfig.clamp(get().arrows.maxPerMob, 1, MAX_ARROWS_PER_MOB);
     }
