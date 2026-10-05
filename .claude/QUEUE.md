@@ -360,3 +360,4 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Checker und Crafter-UI (2026-10-05, gpt-checkui)
 - [x] Netherziegel-/rote-Netherziegel-Quarz-Checker vollständig integriert; EN/DE, Wiki, Money und Testzentralen-Abdeckung. 2881/2881 Server grün, check -q und 26.2-Compile grün. Plan PLAN-CHECKER-2026-10-02.md.
+- [x] Auto Smither im Crafter-Stil: zentrierter Titel, drei Geisterbild-Eingaben, großer Ergebnisrahmen, exakte Slotpositionen. Alle Auto-Smither-Tests auf drei Loadern und volles Gate grün. Plan PLAN-SMITHER-CRAFTER-UI-2026-10-02.md. Keine Clienttests, kein Push; Sichtabnahme offen.

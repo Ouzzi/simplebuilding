@@ -319,7 +319,7 @@ public final class WorkstationTests {
         smither.setItem(2, ItemStack.EMPTY);
         menu.broadcastChanges();
         helper.assertFalse(menu.hasRecipeError(), "incomplete inputs hide error");
-        int[][] positions = {{8, 48}, {26, 48}, {44, 48}, {98, 48}, {8, 84}, {8, 142}};
+        int[][] positions = {{26, 35}, {44, 35}, {62, 35}, {134, 35}, {8, 84}, {8, 142}};
         int[] indices = {0, 1, 2, 3, 4, 31};
         for (int i = 0; i < indices.length; i++) {
             helper.assertValueEqual(menu.getSlot(indices[i]).x, positions[i][0], "vanilla slot x");

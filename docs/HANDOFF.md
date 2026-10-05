@@ -5,6 +5,19 @@ Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alte
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
 
+## Worker-Nachtrag 2026-10-05: Auto Smither im Crafter-Stil
+
+Branch `gpt-checkui`: Crafter-Hintergrund, drei Eingaben links (26/44/62,35),
+großer Ergebnisrahmen rechts (Item bei 134,35), dynamisch zentrierter Titel.
+Geisterbilder und bedingter Fehlerpfeil erhalten; Generator prüft alle 40 Slots.
+Bestehende Ausgabe-/Trichterregeln einschließlich Forge-SidedInvWrapper unverändert.
+Alle vier Auto-Smither-Tests auf jedem Loader bestanden; volle Serversuiten
+**2881/2881, alles gruen**, Testzentralen-Neubau und Item-/Blockabdeckung grün.
+`check -q`: **GATE_EXIT=0**, 26.2-Compiles und Wiki --all/--all --check grün.
+Kein Client/Push; Ingame-Sichtabnahme beim Besitzer offen.
+Vorschau: `C:/Users/o_o/code/minecraft-mods/previews/auto-smither-crafter-ui-vorschau.png`.
+Belege: `docs/ai/PLAN-SMITHER-CRAFTER-UI-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-05: Netherziegel-Checker
 
 Branch `gpt-checkui`: Netherziegel- und rote-Netherziegel-Quarz-Schachbretter

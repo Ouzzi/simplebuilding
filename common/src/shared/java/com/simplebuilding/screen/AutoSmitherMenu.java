@@ -17,7 +17,7 @@ import net.minecraft.world.item.crafting.RecipePropertySet;
 import net.minecraft.world.level.Level;
 
 /**
- * Smithing-table layout with three inputs and a take-only slot for finished results.
+ * Crafter-style layout with three inputs and a take-only slot for finished results.
  * Recipe errors are computed by the server, independently of stored output.
  */
 public class AutoSmitherMenu extends AbstractContainerMenu implements ContainerListener {
@@ -43,10 +43,10 @@ public class AutoSmitherMenu extends AbstractContainerMenu implements ContainerL
         this.player = inventory.player;
         container.startOpen(inventory.player);
         Level level = inventory.player.level();
-        this.addSlot(new InputSlot(container, AutoSmitherBlockEntity.TEMPLATE_SLOT, 8, 48, level, RecipePropertySet.SMITHING_TEMPLATE));
-        this.addSlot(new InputSlot(container, AutoSmitherBlockEntity.BASE_SLOT, 26, 48, level, RecipePropertySet.SMITHING_BASE));
-        this.addSlot(new InputSlot(container, AutoSmitherBlockEntity.ADDITION_SLOT, 44, 48, level, RecipePropertySet.SMITHING_ADDITION));
-        this.addSlot(new Slot(container, RESULT_SLOT, 98, 48) {
+        this.addSlot(new InputSlot(container, AutoSmitherBlockEntity.TEMPLATE_SLOT, 26, 35, level, RecipePropertySet.SMITHING_TEMPLATE));
+        this.addSlot(new InputSlot(container, AutoSmitherBlockEntity.BASE_SLOT, 44, 35, level, RecipePropertySet.SMITHING_BASE));
+        this.addSlot(new InputSlot(container, AutoSmitherBlockEntity.ADDITION_SLOT, 62, 35, level, RecipePropertySet.SMITHING_ADDITION));
+        this.addSlot(new Slot(container, RESULT_SLOT, 134, 35) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;

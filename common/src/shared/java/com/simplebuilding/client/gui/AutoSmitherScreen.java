@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SmithingTemplateItem;
 
 /**
- * Vanilla smithing layout and cycling silhouettes on a plain background.
+ * Crafter layout with three smithing inputs and cycling silhouettes.
  * Only invalid recipes show the smithing error arrow; redstone controls crafting.
  */
 public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> {
@@ -29,10 +29,15 @@ public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> 
 
     public AutoSmitherScreen(AutoSmitherMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, 176, 166);
-        this.titleLabelX = 44;
-        this.titleLabelY = 15;
+        this.titleLabelY = 6;
         this.inventoryLabelX = 8;
         this.inventoryLabelY = 72;
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        this.titleLabelX = (this.imageWidth - this.font.width(this.title)) / 2;
     }
 
     @Override
@@ -54,7 +59,7 @@ public class AutoSmitherScreen extends AbstractContainerScreen<AutoSmitherMenu> 
         this.additionIcon.extractRenderState(this.menu, graphics, a, this.leftPos, this.topPos);
         if (this.menu.hasRecipeError()) {
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, ERROR,
-                    this.leftPos + 65, this.topPos + 46, 28, 21);
+                    this.leftPos + 91, this.topPos + 33, 28, 21);
         }
     }
 }
