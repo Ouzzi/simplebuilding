@@ -25,3 +25,8 @@ lassen, nur das Hufeisenmotiv schoener, wieder 10 Vorschlaege. Nur Vorschau + Ge
 - Vanilla gemessen (Cyan-Motivpixel aus dem 26.3-Client-Jar): Netherit 5x6 (7x7 mit Umriss), Besatz meist 5-8 x 5-8.
 - Jede Variante pixelgenau neu, Eisen-Box je Buchstabe kleiner als R2 und hoechstens 8x6 (Generator prueft das);
   Details reduziert (ein Nagelloch je Arm, keine Zehenloecher).
+
+## Runde 4 (2026-10-05, Besitzer: "die meisten dennoch zu gross")
+- Generator `tools/textures/horseshoe_template_motif_round4_2026_10_05.py`, Vorschau
+  `previews\hufeisen-vorlage-runde4-vorschau.png` (Runde 3 | Runde 4, 16x + 1x).
+- Eisen-Box hoechstens 5x5 (Generator prueft), mittig x 6..10 / y 5..9, 1-px-Baender wo moeglich, keine Nagelloecher.
