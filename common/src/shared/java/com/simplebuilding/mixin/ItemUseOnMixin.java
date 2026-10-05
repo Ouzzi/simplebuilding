@@ -16,9 +16,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * mit einem Vanilla-Buendel auf eine Oberseite stellt es ab ({@link PlacedBundles}). Am
  * Basis-{@code Item#useOn}, weil weder {@code SmithingTemplateItem} noch die schlichten
  * Aufwertungsvorlagen der Mod es ueberschreiben; Items mit eigenem {@code useOn} erreicht der Haken
- * nie, und fuer alle anderen Items liefert {@code tryPlace} sofort null.
+ * nie, und fuer alle anderen Items liefert {@code tryPlace} sofort null. Feuerkugeln erhalten denselben
+ * Haken an ihrem eigenen useOn, damit Schleichen ablegt und normales Benutzen weiterhin zuendet.
  */
-@Mixin(Item.class)
+@Mixin({Item.class, net.minecraft.world.item.FireChargeItem.class})
 public abstract class ItemUseOnMixin {
 
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)

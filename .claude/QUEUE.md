@@ -368,3 +368,7 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 ## Checker und Crafter-UI (2026-10-05, gpt-checkui)
 - [x] Netherziegel-/rote-Netherziegel-Quarz-Checker vollständig integriert; EN/DE, Wiki, Money und Testzentralen-Abdeckung. 2881/2881 Server grün, check -q und 26.2-Compile grün. Plan PLAN-CHECKER-2026-10-02.md.
 - [x] Auto Smither im Crafter-Stil: zentrierter Titel, drei Geisterbild-Eingaben, großer Ergebnisrahmen, exakte Slotpositionen. Alle Auto-Smither-Tests auf drei Loadern und volles Gate grün. Plan PLAN-SMITHER-CRAFTER-UI-2026-10-02.md. Keine Clienttests, kein Push; Sichtabnahme offen.
+
+## Riding-Bücher und Hammer-Splitter (2026-10-05, gpt-chips2)
+- [x] Leaping C / Tailwind A; Hammer: Eis 4, Packeis 9, Obsidian 9, abgelegte Feuerkugel 4 Splitter. Plan: `docs/ai/PLAN-CHIPS2-2026-10-02.md`. Nur Branch-Commits, kein Push/Client.
+  Belege: 1986/1986 alles gruen (Fabric/NeoForge 973 je Loader, Riding 40), Gesamt-Gate und Pflicht-Compiles Exit 0, Wiki/Texturen gruen. Sieben neue GameTests je Hauptloader; Testzentralen-Aufbau und Abdeckung gruen.

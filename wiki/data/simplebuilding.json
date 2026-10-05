@@ -9761,6 +9761,7 @@
         "en": {
           "summary": "A piece of a fire charge: one fire charge gives 4 Fire Chips, 4 chips in a 2x2 give the fire charge back.",
           "details": [
+            "Sneak + right-click to place a Fire Charge, then right-click it with any sledgehammer to get 4 Fire Chips. In a mixed pile, only the most recently placed Fire Charge is consumed; other parts stay. Works on floors, walls, and ceilings. Each strike costs 1 durability in Survival and has a 0.5-second cooldown. Crafting recipes remain available.",
             "Right-click on a lying small-parts pile with unlit candles lights them like a fire charge and uses up one chip.",
             "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
           ]
@@ -9768,6 +9769,7 @@
         "de": {
           "summary": "Ein Stück Feuerkugel: eine Feuerkugel ergibt 4 Feuerkugelsplitter, 4 Splitter im 2x2-Feld wieder die Feuerkugel.",
           "details": [
+            "Feuerkugel mit Schleichen + Rechtsklick ablegen, dann mit einem beliebigen Vorschlaghammer rechtsklicken: 4 Feuerkugelsplitter. Im gemischten Haufen wird nur die zuletzt abgelegte Feuerkugel verbraucht; andere Teile bleiben. Funktioniert auf Boden, Wand und Decke. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
             "Rechtsklick auf einen liegenden Kleinteil-Haufen mit erloschenen Kerzen zündet sie wie eine Feuerkugel an und verbraucht einen Splitter.",
             "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
           ]
@@ -9777,7 +9779,8 @@
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -10909,6 +10912,7 @@
         "en": {
           "summary": "A splinter of ice: one ice gives 4 Ice Chips, one packed ice 9; 4 chips in a 2x2 give one ice back.",
           "details": [
+            "Right-click an Ice block with any sledgehammer to get 4 Ice Chips, or Packed Ice to get 9. The block is consumed. Each strike costs 1 durability in Survival and has a 0.5-second cooldown. Crafting recipes remain available.",
             "Right-click on a lying small-parts pile with burning candles puts them out and uses up one chip.",
             "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
           ]
@@ -10916,6 +10920,7 @@
         "de": {
           "summary": "Ein Splitter Eis: ein Eis ergibt 4 Eissplitter, ein Packeis 9; 4 Splitter im 2x2-Feld wieder ein Eis.",
           "details": [
+            "Mit einem beliebigen Vorschlaghammer auf einen Eisblock rechtsklicken: 4 Eissplitter; auf Packeis: 9 Eissplitter. Der Block wird verbraucht. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
             "Rechtsklick auf einen liegenden Kleinteil-Haufen mit brennenden Kerzen löscht sie und verbraucht einen Splitter.",
             "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
           ]
@@ -10925,7 +10930,8 @@
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -15101,12 +15107,14 @@
         "en": {
           "summary": "A shard of volcanic glass: one obsidian gives 9 Obsidian Chips, 9 chips in the crafting grid give the obsidian back.",
           "details": [
+            "Right-click an Obsidian block with any sledgehammer to get 9 Obsidian Chips. The block is consumed. Each strike costs 1 durability in Survival and has a 0.5-second cooldown. Crafting recipes remain available.",
             "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
           ]
         },
         "de": {
           "summary": "Ein Splitter Vulkanglas: ein Obsidian ergibt 9 Obsidiansplitter, 9 Splitter im Handwerksfeld wieder den Obsidian.",
           "details": [
+            "Mit einem beliebigen Vorschlaghammer auf einen Obsidianblock rechtsklicken: 9 Obsidiansplitter. Der Block wird verbraucht. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
             "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
           ]
         },
@@ -15114,7 +15122,8 @@
           "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerChips.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -66095,6 +66104,10 @@
         },
         {
           "id": "minecraft:echo_shard",
+          "required": true
+        },
+        {
+          "id": "minecraft:fire_charge",
           "required": true
         },
         {

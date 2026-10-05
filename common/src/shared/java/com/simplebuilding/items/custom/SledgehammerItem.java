@@ -256,6 +256,9 @@ public class SledgehammerItem extends Item {
             return InteractionResult.PASS;
         }
 
+        InteractionResult chips = com.simplebuilding.util.SledgehammerChips.tryCrush(context);
+        if (chips.consumesAction()) return chips;
+
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
             // Crucible P5: build the iron crucible on an iron block, attach a barrel (SimpleLib through CrucibleCompat).
             InteractionResult crucible = com.simplebuilding.crucible.CrucibleCompat.hammerUse(context);

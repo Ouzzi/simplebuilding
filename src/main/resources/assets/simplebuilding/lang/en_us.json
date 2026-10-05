@@ -2991,5 +2991,8 @@
   "jade.simplebuilding.crucible.remaining": "Next result in %s s",
   "jei.simplebuilding.category.crucible": "Crucible",
   "jei.simplebuilding.crucible.time": "%s s (iron tier, minimum heat)",
-  "jei.simplebuilding.crucible.warming": "Warming"
+  "jei.simplebuilding.crucible.warming": "Warming",
+  "jei.simplebuilding.info.hammer_fire_chips": "Sneak + right-click to place a Fire Charge, then right-click it with any sledgehammer to get 4 Fire Chips. In a mixed pile, only the most recently placed Fire Charge is consumed; other parts stay. Works on floors, walls, and ceilings. Each strike costs 1 durability in Survival and has a 0.5-second cooldown. Crafting recipes remain available.",
+  "jei.simplebuilding.info.hammer_ice_chips": "Right-click an Ice block with any sledgehammer to get 4 Ice Chips, or Packed Ice to get 9. The block is consumed. Each strike costs 1 durability in Survival and has a 0.5-second cooldown. Crafting recipes remain available.",
+  "jei.simplebuilding.info.hammer_obsidian_chips": "Right-click an Obsidian block with any sledgehammer to get 9 Obsidian Chips. The block is consumed. Each strike costs 1 durability in Survival and has a 0.5-second cooldown. Crafting recipes remain available."
 }

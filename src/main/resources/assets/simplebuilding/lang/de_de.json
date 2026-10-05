@@ -2991,5 +2991,8 @@
   "jade.simplebuilding.crucible.remaining": "Nächstes Ergebnis in %s s",
   "jei.simplebuilding.category.crucible": "Schmelztiegel",
   "jei.simplebuilding.crucible.time": "%s s (Eisenstufe, Mindesthitze)",
-  "jei.simplebuilding.crucible.warming": "Aufwärmen"
+  "jei.simplebuilding.crucible.warming": "Aufwärmen",
+  "jei.simplebuilding.info.hammer_fire_chips": "Feuerkugel mit Schleichen + Rechtsklick ablegen, dann mit einem beliebigen Vorschlaghammer rechtsklicken: 4 Feuerkugelsplitter. Im gemischten Haufen wird nur die zuletzt abgelegte Feuerkugel verbraucht; andere Teile bleiben. Funktioniert auf Boden, Wand und Decke. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
+  "jei.simplebuilding.info.hammer_ice_chips": "Mit einem beliebigen Vorschlaghammer auf einen Eisblock rechtsklicken: 4 Eissplitter; auf Packeis: 9 Eissplitter. Der Block wird verbraucht. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten.",
+  "jei.simplebuilding.info.hammer_obsidian_chips": "Mit einem beliebigen Vorschlaghammer auf einen Obsidianblock rechtsklicken: 9 Obsidiansplitter. Der Block wird verbraucht. Jeder Schlag kostet im Überlebensmodus 1 Haltbarkeit und hat 0,5 Sekunden Abklingzeit. Werkbankrezepte bleiben erhalten."
 }
