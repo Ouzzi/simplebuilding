@@ -68,7 +68,8 @@ DATA_DIR = TESTING / "data"
 RUNS_IN_UI = 20
 
 #: Per target. A hung Minecraft server would otherwise hold the whole run.
-DEFAULT_TIMEOUT_SECONDS = 20 * 60
+#: A cold first client run (fresh compile + asset download) took 25 min on 2026-10-05.
+DEFAULT_TIMEOUT_SECONDS = 40 * 60
 
 MOD_ID = "simplebuilding"
 
