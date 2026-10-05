@@ -46,3 +46,5 @@ lassen, nur das Hufeisenmotiv schoener, wieder 10 Vorschlaege. Nur Vorschau + Ge
   die Datei - sonst waere der Hintergrundvergleich nach dem Einbau zirkulaer. `horseshoe_textures.py` (Vorlage D) und
   `horseshoe_template_2026_10_02.py --check` pruefen gegen die Runde-5-Wahl; 10_02 schreibt die Datei nicht mehr.
 - Einzige Textur-Orte: Modul simpleriding + Wiki-Asset (per `wiki/generate.py --all`). Keine SB-Kopie.
+- 2026-10-05 Nachtrag Besitzer "oben ein Pixel hoeher": H76 (Eisen 7x6, Arme 1 px nach oben verlaengert, Zehe gleich),
+  `INSTALLED = 'H76'`, Vorschau `previews\hufeisen-vorlage-H-hoeher-vorschau.png` (`--tall-preview`).
