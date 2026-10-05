@@ -4,6 +4,26 @@ Zuerst `AGENTS.md` vollständig lesen, dann diese Datei und `docs/ai/WORKFLOW.md
 Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alten Run-Berichten.
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
+
+## Worker-Nachtrag 2026-10-05: Besitzer-Abgleich (`gpt-gaps`)
+
+- Küchenmesser: ein Stock und vier Eisennuggets (`"  N"/" NN"/"SN "`),
+  Rezeptgenerator, EN/DE-Tooltip, Wiki, Plan F8 und neuer Rezept-GameTest abgeglichen.
+- Schmiedebuch: drei Upgrade-Dummies erzeugen auf 26.3 keine Displays mehr;
+  Slot-Rezepte bleiben erhalten. JEI nutzt dieselbe ID-Liste. Handbuch-Reiter
+  werden auch bei gelernten Rezepten ohne Display weiterhin freigeschaltet.
+- Money: Nihil-Gewölbe wie Astralgewölbe, Standardpreis 37 Scheine, Bestand 1,
+  Angebotschance 10 %, bedingt durch Mod und Handelskonfiguration.
+- Serverlauf `2026-10-04T23-16-05Z-953c`: **1954/1954, alles gruen**.
+  Hauptmod je 941/941, Sandwiches und Money je Loader 18/18. Testzentralen-Neubau
+  und vollständige Item-/Blockabdeckung auf beiden Hauptloadern bestanden.
+- Datagen nur 26.3 sowie Wiki venv `--all` und uv `--all --check` grün.
+  `check -q`, 26.2 Fabric/NeoForge-Compile und Forge-26.3-Compile: `GATE_EXIT=0`.
+  `checkBalance`: 223 erzeugte Stellen, 0 Fehler; 54 Wiki-Unittests: `OK`.
+- Kein Push/Merge, keine Client-Tests, keine Besitzerwelt verändert. Sichtabnahme,
+  Testzentrale in der Besitzerwelt und Forge-Laufzeit bleiben offen.
+  Details und Fehlersuche: `docs/ai/PLAN-BESITZER-LUECKEN-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-04: wackelige GameTests
 
 Branch `claude-gpt-flaky`: Knopf-Ausfuehrung bedingt abwarten, eigene Scoreboard-Zaehler und

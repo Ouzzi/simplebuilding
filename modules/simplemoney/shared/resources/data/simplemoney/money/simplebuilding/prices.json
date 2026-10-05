@@ -1696,6 +1696,17 @@
       "chance": 0.1
     },
     {
+      "item": "simplebuilding:nihil_vault",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplebuilding:nihilith_block",
       "tier": 4,
       "hours": 25.0,
