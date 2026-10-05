@@ -1,4 +1,4 @@
-"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4|--v5|--v6|--v7] [--shapes]
+"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4|--v5|--v6|--v7|--v8] [--shapes]
 
 v2 (2026-10-05): sandwich/bread, bread half, knife, board and cake slice come from the v2 section with
 variants A/B/C (STYLE picks the built-in one); --old=<copy of the previous textures> writes the comparison
@@ -299,7 +299,7 @@ def cauldron_textures():
 # Each group has variants A/B/C; STYLE picks the built-in one (the owner may switch a letter and rerun).
 # Screenshots of other mods were inspiration only (rounded golden bread, visible filling edge, clear
 # shading); every sprite here is drawn from scratch with vanilla palettes.
-STYLE = {'sandwich': 'v7', 'bread_half': 'C2W', 'knife': 'S', 'board': 'v4', 'cake': 'A'}  # v7 choice (2026-10-05)
+STYLE = {'sandwich': 'v8', 'bread_half': 'C2W8', 'knife': 'S', 'board': 'v4', 'cake': 'A'}  # v8 choice (2026-10-05)
 
 # vanilla bread ramp (item/bread.png) + crumb tones
 BR = {'K': '3f2e0e', 'E': '574114', 'F': '654b17', 'D': '8c661e', 'd': 'a27924', 'g': 'bc8927', 'h': 'd6a640',
@@ -411,6 +411,8 @@ BR_WARM = dict(BR, K='3a1d08', F='3a1d08', E='6a3410', D='9a5418', d='c2741f', g
 
 def bread_half(style=None):
     style = style or STYLE['bread_half']
+    if style == 'C2W8':
+        return sprite(BREAD_HALF['C2'], BR_HALF8)
     if style.endswith('W'):
         return sprite(BREAD_HALF[style[:-1]], BR_WARM)
     return sprite(BREAD_HALF[style], BR)
@@ -1059,7 +1061,7 @@ KEY_ITEMS = {
 }
 X0, X1 = 1, 14
 BASE_TILT = 0.0   # v6: level, the dome gives the shape (v5 used 0.2)
-BASE_RUN = 5      # v7: tilted to the left in clean runs of 5 columns (0 = use BASE_TILT)
+BASE_RUN = 7      # v8: light lean (owner); v7: tilted to the left in clean runs of 5 columns (0 = use BASE_TILT)
 FWD = 1           # v7: forward lean - more of the top crust visible (0 = v5)
 
 
@@ -1579,6 +1581,96 @@ def preview_v5_snippets(path, combos):
     sheet.save(path)
 
 
+# === v8 (owner 2026-10-05): v7 light lean, bread clearly recognisable as bread ===============================
+# Vanilla-bread traits on the v5 bun (same colours and gloss, not darker): clear dark outline, light crumb /
+# flour line where the crust meets the filling, three diagonal baker's cuts in a lighter tone on the crust,
+# flatter and lighter underside.
+CUT_LIGHT, CUT_MID, CRUMB = 'fbe2a0', 'f0c26a', 'f2dcae'
+
+
+def bun_top_v8(n):
+    im = bun_top_v5(n)
+    cells = {(x, y) for y in range(16) for x in range(16) if im.getpixel((x, y))[3]}
+    lowest = {}
+    for (x, y) in cells:
+        lowest[x] = max(lowest.get(x, -1), y)
+    for (x, y) in cells:
+        if any((x + dx, y + dy) not in cells for dx, dy in ((1, 0), (-1, 0), (0, -1))):
+            put(im, x, y, hx(BUN_WARM[0]))
+    xs = sorted(lowest)
+    for x in xs[1:-1]:
+        put(im, x, lowest[x], hx(CRUMB))                         # crumb / flour line under the crust
+    for x in (xs[0], xs[-1]):
+        put(im, x, lowest[x], hx(BUN_WARM[0]))
+    # three diagonal baker's cuts (rising to the right, like the Vanilla bread)
+    for cx in (4, 7, 10):
+        col = [y for (x, y) in cells if x == cx]
+        if not col:
+            continue
+        y0 = min(col) + 3
+        outline = hx(BUN_WARM[0])[:3]
+        for i, (dx, dy) in enumerate(((0, 0), (1, -1), (2, -2))):
+            p, q = (cx + dx, y0 + dy), (cx + dx, y0 + dy + 1)
+            if p in cells and p[1] < lowest.get(p[0], 0) - 1 and im.getpixel(p)[:3] != outline:
+                put(im, *p, hx(CUT_LIGHT if i else CUT_MID))
+                if q in cells and q[1] < lowest.get(q[0], 0) - 1:
+                    put(im, *q, hx(BUN_WARM[2]))
+    return im
+
+
+def bun_bottom_v8(buttered=False):
+    """Flatter, lighter underside: crumb (or butter) face, golden crust, thin dark outline."""
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    for x in range(16):
+        b = _base(x)
+        if _span(x, 1):
+            put(im, x, b, hx('f6d84a' if buttered else CRUMB))
+            put(im, x, b + 1, hx(BUN_WARM[4] if x % 4 else BUN_WARM[3]))
+        if _span(x, 2):
+            put(im, x, b + 2, hx(BUN_WARM[1]))
+        if x in (X0 + 1, X1 - 1):
+            put(im, x, b + 1, hx(BUN_WARM[1]))
+        if x in (X0, X1):
+            put(im, x, b, hx(BUN_WARM[0]))
+    return im
+
+
+def sandwich_v8(keys, buttered=False):
+    im = bun_bottom_v8(buttered)
+    for i, k in enumerate(keys):
+        im.alpha_composite(filling_v5(k, i))
+    im.alpha_composite(bun_top_v8(len(keys)))
+    return im
+
+
+# bread half: darker outer contour + flour ring, so it reads as a cut loaf
+BR_HALF8 = dict(BR_WARM, E='3a1d08', F='3a1d08', d='dc9030', g='c2741f')
+
+
+def preview_v8(path):
+    s = 10
+    cell = 16 * s + 16
+    combos = [['beef_cooked'], ['pork_cooked', 'cheese'], ['salmon_cooked', 'kelp', 'cheese'],
+              ['chicken_cooked', 'cheese', 'beetroot', 'potato'], ['beef_cooked', 'cheese', 'carrot', 'kelp', 'golden']]
+    bread = Image.open(os.path.join(V, 'item', 'bread.png')).convert('RGBA')
+    rows = [('v7 leicht (bisher)', [sandwich_v7([], True, 7)] + [sandwich_v7(c, False, 7) for c in combos] + [bread_half('C2W')]),
+            ('v8 * eingebaut: Kontur, Krumenrand, 3 Baeckerschnitte, hellere flache Unterseite',
+             [sandwich_v8([], True)] + [sandwich_v8(c) for c in combos] + [sprite(BREAD_HALF['C2'], BR_HALF8)]),
+            ('Vanilla-Brot zum Vergleich', [bread])]
+    sheet = Image.new('RGBA', (20 + 7 * cell, 30 + len(rows) * (cell + 40)), (139, 139, 139, 255))
+    dr = ImageDraw.Draw(sheet)
+    dr.text((10, 8), 'Simple Sandwiches v8 - Butterbrot, 1-5 Zutaten, Brothaelfte; 10x, darunter 1x', fill=(0, 0, 0, 255))
+    for r, (title, ims) in enumerate(rows):
+        y = 30 + r * (cell + 40)
+        dr.text((10, y), title, fill=(0, 0, 0, 255))
+        for c, im in enumerate(ims):
+            x = 10 + c * cell
+            sheet.alpha_composite(im.resize((16 * s, 16 * s), Image.NEAREST), (x, y + 14))
+            sheet.alpha_composite(im, (x, y + 18 + 16 * s))
+    sheet.save(path)
+    print('preview v8:', path)
+
+
 # --- write -----------------------------------------------------------------------------------------
 def all_textures():
     files = {}
@@ -1589,10 +1681,10 @@ def all_textures():
     files[item('butter_slice')] = BUTTER_SLICE
     files[item('cake_slice')] = cake_slice()
     files[item('board/bread_half')] = bread_half()
-    files[item('sandwich/bottom')] = bun_bottom_v5(False)
-    files[item('sandwich/bottom_buttered')] = bun_bottom_v5(True)
+    files[item('sandwich/bottom')] = bun_bottom_v8(False)
+    files[item('sandwich/bottom_buttered')] = bun_bottom_v8(True)
     for n in range(6):
-        files[item(f'sandwich/top_{n}')] = bun_top_v5(n)
+        files[item(f'sandwich/top_{n}')] = bun_top_v8(n)
     for key in KEYS:
         for pos in range(5):
             files[item(f'sandwich/layer_{pos}_{key}')] = filling_v5(key, pos)
@@ -1670,6 +1762,8 @@ def main():
     old = next((a.split('=', 1)[1] for a in sys.argv if a.startswith('--old=')), None)
     if '--shapes' in sys.argv:
         preview_shapes(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'brot-formen-vorschau.png'))
+    if '--v8' in sys.argv:
+        preview_v8(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'sandwiches-v8-vorschau.png'))
     if '--v7' in sys.argv:
         preview_v7(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'sandwiches-v7-vorschau.png'))
     if '--v6' in sys.argv:
