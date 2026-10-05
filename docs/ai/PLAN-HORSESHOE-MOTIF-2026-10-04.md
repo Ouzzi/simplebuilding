@@ -30,3 +30,10 @@ lassen, nur das Hufeisenmotiv schoener, wieder 10 Vorschlaege. Nur Vorschau + Ge
 - Generator `tools/textures/horseshoe_template_motif_round4_2026_10_05.py`, Vorschau
   `previews\hufeisen-vorlage-runde4-vorschau.png` (Runde 3 | Runde 4, 16x + 1x).
 - Eisen-Box hoechstens 5x5 (Generator prueft), mittig x 6..10 / y 5..9, 1-px-Baender wo moeglich, keine Nagelloecher.
+
+## Runde 5 (2026-10-05, Besitzer: "R4, aber 1 px tiefer und eingekerbt wie der Pfeil")
+- Generator `tools/textures/horseshoe_template_motif_round5_2026_10_05.py`, Vorschau
+  `previews\hufeisen-vorlage-runde5-vorschau.png` (Vanilla-Netherit + eingebaut, dann R4 | R5 je Buchstabe).
+- Pixelanalyse Netherit-Vorlage: Plattenpixel ueber dem Pfeil dunkelster Plattenton, darunter heller Plattenton;
+  im Motiv obere/linke/untere Kanten dunkel, rechts mittel, innen hell. Uebertragen mit Kupfer-Rand (138,65,41 /
+  231,124,86) und Eisen 168/216/255; R4-Formen 1 px tiefer (Eisen y 6..10), Groesse unveraendert.
