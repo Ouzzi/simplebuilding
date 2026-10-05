@@ -609,6 +609,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("training_dummy_game_test_the_archery_station_has_every_arrow_and_its_dummies", TrainingDummyTests::theArcheryStationHasEveryArrowAndItsDummies)
                     .build(),
+            GameTestSpec.named("workstation_game_test_smithing_recipe_book_hides_dummy_displays", WorkstationTests::smithingRecipeBookHidesDummyDisplays)
+                    .build(),
             GameTestSpec.named("workstation_game_test_smithing_recipe_book_places_damaged_gear", WorkstationTests::smithingRecipeBookPlacesDamagedGear)
                     .build(),
             GameTestSpec.named("workstation_game_test_auto_smither_smiths_once_per_pulse", WorkstationTests::autoSmitherSmithsOncePerPulse)
