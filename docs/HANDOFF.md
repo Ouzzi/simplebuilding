@@ -4,6 +4,16 @@ Zuerst `AGENTS.md` vollständig lesen, dann diese Datei und `docs/ai/WORKFLOW.md
 Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alten Run-Berichten.
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
+## Worker-Nachtrag 2026-10-05: Befunde 11/12
+
+Branch `gpt-befunde`: Visuals/Sounds melden Fehler über GameTestHelper.assertTrue/fail.
+Riding-Handling prüft alle fünf Vanilla-Stufen auch standalone, Enderit zusätzlich nur mit SB.
+Zwölf Modulziele Fabric/NeoForge 26.3 **296/296, alles gruen**; Kernserver **1890/1890, alles gruen**
+einschließlich Testzentralen-Neubau und Item-/Block-Abdeckung. `check -q -PskipWiki` sowie
+26.2 Fabric/NeoForge- und Forge-26.3-Compile **GRADLE_EXIT=0**. Befundliste/externe Memory aktualisiert.
+Kein Client, Push oder Port; Wiki wird zentral regeneriert. Belege und initiale Dateisperre:
+`docs/ai/PLAN-BEFUNDE-11-12-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-04: Auto Smither
 
 Branch `gpt-smither`: gespeicherte, nur entnehmbare Ausgabe statt gesperrter
