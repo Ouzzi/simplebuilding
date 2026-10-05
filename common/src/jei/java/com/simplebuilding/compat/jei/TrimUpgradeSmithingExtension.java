@@ -28,10 +28,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 final class TrimUpgradeSmithingExtension implements ISmithingCategoryExtension<UpgradeSmithingRecipe> {
 
     /** Die Platzhalter-Rezepte, die das Plugin in JEI ausblendet. */
-    static final List<Identifier> DUMMIES = List.of(
-            Identifier.fromNamespaceAndPath("simplebuilding", "glowing_armor_upgrade_dummy"),
-            Identifier.fromNamespaceAndPath("simplebuilding", "emitting_armor_upgrade_dummy"),
-            Identifier.fromNamespaceAndPath("simplebuilding", "pulsating_armor_upgrade_dummy"));
+    static final List<Identifier> DUMMIES = TrimUpgrades.DUMMY_RECIPES;
 
     /** Je Aufwertung ein Anzeige-Rezept: Vorlage, alle Besatz-faehigen Ruestungen, Material. */
     static List<UpgradeSmithingRecipe> displayRecipes() {

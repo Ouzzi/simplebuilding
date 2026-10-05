@@ -6,8 +6,8 @@
   },
   "pattern": [
     "  N",
-    " N ",
-    "S  "
+    " NN",
+    "SN "
   ],
   "result": {
     "count": 1,

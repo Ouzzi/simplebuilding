@@ -79,7 +79,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "title": "Knife",
         "summary": "250 durability, total attack damage 2, attack speed 2.0 and anvil repair with iron nuggets.",
         "details": [
-          "The iron tool material uses knife_repair_materials for repairs and sword tool properties for cobwebs and bamboo.",
+          "Craft with a stick at bottom left and four iron nuggets at top right, center, middle right and bottom center. The iron tool material uses knife_repair_materials for repairs and sword tool properties for cobwebs and bamboo.",
           "Use on a melon block for nine slices, costing one durability. Each cake cut consumes one bite and one durability and gives one cake slice: seven from a full cake, remaining bites from a partly eaten cake. Candle cakes first drop their candle.",
           "Cake slices restore 2 hunger and 0.4 saturation instantly, stack to seven and work as sandwich ingredients."
         ]
@@ -88,14 +88,15 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "title": "Messer",
         "summary": "250 Haltbarkeit, Gesamtschaden 2, Angriffstempo 2,0 und Ambossreparatur mit Eisennuggets.",
         "details": [
-          "Das Eisen-Werkzeugmaterial nutzt knife_repair_materials zur Reparatur und Schwert-Werkzeugeigenschaften für Spinnweben und Bambus.",
+          "Herstellung: Stock unten links; vier Eisennuggets oben rechts, in der Mitte, rechts mittig und unten mittig. Das Eisen-Werkzeugmaterial nutzt knife_repair_materials zur Reparatur und Schwert-Werkzeugeigenschaften für Spinnweben und Bambus.",
           "An einem Melonenblock gibt eine Benutzung neun Scheiben für einen Haltbarkeitspunkt. Jeder Kuchenschnitt verbraucht einen Bissen und einen Haltbarkeitspunkt und gibt ein Kuchenstück: sieben aus einem vollen Kuchen, die Restbissen aus einem angebissenen Kuchen. Kerzenkuchen lassen zuerst ihre Kerze fallen.",
           "Kuchenstücke geben sofort 2 Hunger und 0,4 Sättigung, sind bis sieben stapelbar und dienen als Sandwichzutat."
         ]
       },
       "sources": [
         "modules/simplesandwiches/shared/java/com/simplesandwiches/item/KnifeItem.java",
-        "modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModItems.java"
+        "modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModItems.java",
+        "modules/simplesandwiches/tools/gen_resources.py"
       ]
     },
     {
@@ -484,8 +485,8 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
       ],
       "pattern": [
         "  N",
-        " N ",
-        "S  "
+        " NN",
+        "SN "
       ],
       "key": {
         "N": [
@@ -500,7 +501,7 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
         "materials": [
           {
             "id": "minecraft:iron_ingot",
-            "count": 0.222
+            "count": 0.444
           },
           {
             "id": "minecraft:oak_log",
@@ -1423,10 +1424,10 @@ window.WIKI_MODULE_DATA["simplesandwiches"] = {
       },
       "note": {
         "en": {
-          "summary": "Iron kitchen tool: 250 durability, total damage 2, attack speed 2.0 and iron-nugget repair. Prepares bread and cuts cheese, butter, melons and cakes."
+          "summary": "Iron kitchen tool: 250 durability, total damage 2, attack speed 2.0 and iron-nugget repair. Crafted from one stick and four iron nuggets. Prepares bread and cuts cheese, butter, melons and cakes."
         },
         "de": {
-          "summary": "Eisen-Küchenwerkzeug: 250 Haltbarkeit, Gesamtschaden 2, Angriffstempo 2,0 und Reparatur mit Eisennuggets. Bereitet Brot zu und schneidet Käse, Butter, Melonen und Kuchen."
+          "summary": "Eisen-Küchenwerkzeug: 250 Haltbarkeit, Gesamtschaden 2, Angriffstempo 2,0 und Reparatur mit Eisennuggets. Aus einem Stock und vier Eisennuggets hergestellt. Bereitet Brot zu und schneidet Käse, Butter, Melonen und Kuchen."
         }
       },
       "texture": "assets/textures/simplesandwiches/item/knife.png",

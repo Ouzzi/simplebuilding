@@ -48,6 +48,16 @@ public class KnifeItem extends Item {
     }
 
     @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context,
+                                net.minecraft.world.item.component.TooltipDisplay display,
+                                java.util.function.Consumer<net.minecraft.network.chat.Component> out,
+                                net.minecraft.world.item.TooltipFlag flag) {
+        super.appendHoverText(stack, context, display, out, flag);
+        out.accept(net.minecraft.network.chat.Component.translatable("tooltip.simplesandwiches.knife.recipe")
+                .withStyle(net.minecraft.ChatFormatting.GRAY));
+    }
+
+    @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();

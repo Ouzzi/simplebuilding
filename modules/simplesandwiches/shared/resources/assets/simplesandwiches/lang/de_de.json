@@ -45,5 +45,6 @@
   "quests.simplesandwiches.start.title": "Willkommen bei Simple Sandwiches",
   "quests.simplesandwiches.start.subtitle": "Dein Handbuch gratis",
   "quests.simplesandwiches.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplesandwiches.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Sandwiches-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Brot herstellen."
+  "quests.simplesandwiches.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Sandwiches-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Brot herstellen.",
+  "tooltip.simplesandwiches.knife.recipe": "Herstellung: Stock unten links; vier Eisennuggets oben rechts, in der Mitte, rechts mittig und unten mittig."
 }

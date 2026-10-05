@@ -96,6 +96,10 @@ for path, content in outputs().items():
     assert read(path) == content, f"Linked data drift: {path}"
 linked = read(data / "money/prices.json")["prices"]
 assert len({p["item"] for p in linked}) == len(linked)
+# Both personal vaults use the same bounded, conditional buy-only trade.
+vaults = {p["item"]: {k: v for k, v in p.items() if k != "item"} for p in linked
+          if p["item"] in ("simplebuilding:astral_vault", "simplebuilding:nihil_vault")}
+assert len(vaults) == 2 and vaults["simplebuilding:astral_vault"] == vaults["simplebuilding:nihil_vault"]
 for p in linked:
     offer = read(data / f"villager_trade/links/{p['item'].replace(':', '/')}.json")
     assert offer["wants"]["id"] == "simplemoney:money_bill" and offer["gives"]["count"] == 1

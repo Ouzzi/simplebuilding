@@ -47,6 +47,32 @@ public final class WorkstationTests {
                 .orElseThrow(() -> helper.assertionException("missing vanilla recipe " + path));
     }
 
+    public static void smithingRecipeBookHidesDummyDisplays(GameTestHelper helper) {
+        if (!McVersion.SMITHING_RECIPE_BOOK) {
+            helper.succeed();
+            return;
+        }
+        var recipes = helper.getLevel().getServer().getRecipeManager();
+        var player = helper.makeMockServerPlayerInLevel();
+        for (var id : com.simplebuilding.util.TrimUpgrades.DUMMY_RECIPES) {
+            var key = ResourceKey.create(Registries.RECIPE, id);
+            var recipe = recipes.byKey(key).orElseThrow();
+            helper.assertTrue(recipe.value() instanceof SmithingRecipe, "slot-enabling recipe still exists: " + id);
+            player.getRecipeBook().add(key); // Models an already unlocked recipe in an existing save.
+            helper.assertTrue(player.getRecipeBook().contains(key), "existing unlock retained");
+            List<RecipeDisplayEntry> displays = new ArrayList<>();
+            recipes.listDisplaysForRecipe(key, displays::add);
+            helper.assertTrue(displays.isEmpty(), "dummy has no display, even when already unlocked: " + id);
+        }
+        var upgrade = vanillaRecipe(helper, "netherite_chestplate_smithing");
+        List<RecipeDisplayEntry> displays = new ArrayList<>();
+        recipes.listDisplaysForRecipe(upgrade.id(), displays::add);
+        helper.assertFalse(displays.isEmpty(), "real smithing recipes remain visible");
+        helper.assertTrue(recipes.getRecipeFromDisplay(displays.getFirst().id()).parent().id().equals(upgrade.id()),
+                "display IDs still resolve to the correct recipe");
+        helper.succeed();
+    }
+
     /**
      * Klick im Rezeptbuch des Schmiedetischs (echtes Platzier-Paket, also auch der Server-Mixin): Vorlage, die
      * beschaedigte Diamantruestung und der Barren wandern in die Felder, das Ergebnis steht bereit. Fehlt die Basis,

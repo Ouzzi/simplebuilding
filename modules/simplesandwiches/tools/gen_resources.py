@@ -158,7 +158,7 @@ def resources():
         flat(name, "handheld" if name == "knife" else "generated")
         item(name, f"item/{name}")
     data("recipe/knife", {"type": "minecraft:crafting_shaped", "category": "equipment",
-                          "pattern": ["  N", " N ", "S  "],
+                          "pattern": ["  N", " NN", "SN "],
                           "key": {"N": "minecraft:iron_nugget", "S": "minecraft:stick"},
                           "result": {"id": f"{NS}:knife", "count": 1}})
 

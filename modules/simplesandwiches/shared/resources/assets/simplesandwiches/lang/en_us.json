@@ -45,5 +45,6 @@
   "quests.simplesandwiches.start.title": "Welcome to Simple Sandwiches",
   "quests.simplesandwiches.start.subtitle": "Your free guide",
   "quests.simplesandwiches.start.welcome.title": "A free guide",
-  "quests.simplesandwiches.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Sandwiches Guide as a reward. You can also craft it from a book and bread."
+  "quests.simplesandwiches.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Sandwiches Guide as a reward. You can also craft it from a book and bread.",
+  "tooltip.simplesandwiches.knife.recipe": "Craft with a stick at bottom left and four iron nuggets at top right, center, middle right and bottom center."
 }

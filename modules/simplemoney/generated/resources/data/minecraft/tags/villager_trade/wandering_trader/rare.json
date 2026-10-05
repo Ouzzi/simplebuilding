@@ -450,6 +450,10 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuilding/nihil_vault",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplebuilding/nihilith_block",
       "required": false
     },

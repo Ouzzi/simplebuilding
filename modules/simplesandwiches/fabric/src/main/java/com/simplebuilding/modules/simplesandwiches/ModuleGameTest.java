@@ -62,6 +62,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void knifeRecipeShape(GameTestHelper h) {
+        SandwichTests.ALL.get("knife_recipe_shape").accept(h);
+    }
+
+    @GameTest
     public void knifeMelonAndTools(GameTestHelper h) {
         SandwichTests.ALL.get("knife_melon_and_tools").accept(h);
     }

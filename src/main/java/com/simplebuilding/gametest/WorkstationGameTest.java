@@ -20,6 +20,11 @@ public final class WorkstationGameTest {
     }
 
     @GameTest
+    public void smithingRecipeBookHidesDummyDisplays(GameTestHelper helper) {
+        WorkstationTests.smithingRecipeBookHidesDummyDisplays(helper);
+    }
+
+    @GameTest
     public void smithingRecipeBookPlacesDamagedGear(GameTestHelper helper) {
         WorkstationTests.smithingRecipeBookPlacesDamagedGear(helper);
     }
