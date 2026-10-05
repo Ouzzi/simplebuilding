@@ -66,6 +66,7 @@ from potion_pad_textures import POTION_PAD_ANIMATIONS, POTION_PAD_MAIN_ONLY, pot
 from guide_book_textures import guide_book_textures, mega_guide_textures, MAIN_LINE_ONLY  # Handbuecher beider Regale
 from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse, 32 Nadeln, Ruhebild
 import vanilla_style  # Vanilla-Stil fuer verrauschte Pads (Textur-Audit Q1)
+from texture_round6_2026_10_05 import more_contrast  # Besitzer-Buecher kontrastreicher (Runde 6)
 from gauge_textures import gauge_textures  # Messuhr: Zifferblatt, 17 Nadeln, Ruhebild (nur Hauptbaum)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -4137,13 +4138,18 @@ MOD_BOOK_STYLE = {
 }
 
 
+MOD_BOOK_CONTRAST = 1.25
+
+
 def mod_book_textures():
     out = {}
     for n, sym in MOD_BOOK_SYMBOLS.items():
         rel = f"item/enchanted_book_{n}.png"
         # Besitzer 2026-10-04: nicht beauftragt - zurueck zu seinen alten Buechern (hand/q1/books/). Die
         # Vanilla-Grundbuch-Fassung bleibt ueber MOD_BOOK_STYLE/styled_book erreichbar (Vorschau).
-        out[rel] = Image.open(os.path.join(HAND, "q1", "books", f"enchanted_book_{n}.png")).convert("RGBA")
+        # Besitzer 2026-10-05: "kontrastreicher" - Einband/Motiv +25 % um den Mittelwert, graue Seiten bleiben.
+        out[rel] = more_contrast(Image.open(os.path.join(HAND, "q1", "books", f"enchanted_book_{n}.png")).convert("RGBA"),
+                                 MOD_BOOK_CONTRAST, keep=lambda p: p[0] == p[1] == p[2])
         MAIN_TREE_ONLY.add(rel)
     return out
 

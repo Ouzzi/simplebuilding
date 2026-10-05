@@ -16,6 +16,12 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 sys.path.insert(0, str(HERE))
 import guide_book_textures as gbt  # noqa: E402
+import texture_round6_2026_10_05 as round6  # noqa: E402
+
+# Besitzer 2026-10-05: "etwas kontrastreicher" - die Deckeltoene S, L, C, D je Modul um ihren Mittelwert gespreizt
+# (Kontur O bleibt; bei 1.25 war der Unterschied kaum sichtbar, weil C und D fast gleich sind).
+COVER_CONTRAST = 1.6
+ICON_CONTRAST = 1.2  # dazu das ganze Icon (Deckel gegen Gold/Kontur) +20 % um den Mittelwert
 
 # Modul -> (Namespace, Deckel O, S, L, C, D, Edelstein, Beschreibung)
 BOOKS = {
@@ -33,9 +39,9 @@ BOOKS = {
 def book(module):
     _, cover, gem, _ = BOOKS[module]
     key = "module_" + module
-    gbt.COVERS[key] = cover
+    gbt.COVERS[key] = (cover[0],) + round6.spread(cover[1:], COVER_CONTRAST)
     gbt.MEGA_GEM[key] = gem
-    return gbt.mega_guide_book(key)
+    return round6.more_contrast(gbt.mega_guide_book(key), ICON_CONTRAST)
 
 
 def target(module):
