@@ -5,6 +5,19 @@ Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alte
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
 
+## Worker-Nachtrag 2026-10-05: Forge Crucible
+
+Branch `gpt-forgecrucible`: SimpleLib war als Jar-in-Jar geladen, aber Forge
+verwarf den Datenpack wegen fehlender `pack.mcmeta`. Dadurch fehlte
+`simplelib:crucible_walls` und der erste Vorschlaghammer-Bauschlag wurde ignoriert.
+Forge-Pack-Metadaten ergaenzt; Bautest prueft beide Material-Tags, den echten
+Item-Aufruf und den Haltbarkeitsverbrauch jedes Schlags.
+Forge-Crucible **14/14**, volle Fabric-/NeoForge-/Forge-26.3-Suiten
+**2881/2881, alles gruen**, inklusive Testzentralen-Neubau und Item-/Block-Abdeckung.
+`check -q -PskipWiki` und Pflicht-Compiles: **GRADLE_EXIT=0**.
+Wiki --all/--all --check gruen, kein inhaltlicher Wiki-Diff.
+Kein Client/Push/Port; Belege: `docs/ai/PLAN-FORGE-CRUCIBLE-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-05: Forge Auto Smither
 
 Branch `gpt-forgesmither`: Forge erbte einen unsided `InvWrapper`, der zuerst

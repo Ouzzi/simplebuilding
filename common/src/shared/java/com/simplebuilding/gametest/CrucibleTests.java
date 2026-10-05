@@ -91,10 +91,16 @@ public final class CrucibleTests {
         helper.setBlock(pos, Blocks.IRON_BLOCK);
         ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
         ServerPlayer player = player(helper, hammer, new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 4));
+        helper.assertTrue(player.getOffhandItem().is(TagKey.create(Registries.ITEM,
+                Identifier.fromNamespaceAndPath("simplelib", "crucible_walls"))), "SimpleLib wall materials loaded");
+        helper.assertTrue(new ItemStack(ModItems.IRON_ROD).is(TagKey.create(Registries.ITEM,
+                Identifier.fromNamespaceAndPath("simplelib", "crucible_handles"))), "SimpleBuilding handle materials loaded");
         for (int strike = 0; strike < 6; strike++) {
             if (strike == 4) player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.IRON_ROD, 2));
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(hammer));
-            helper.assertTrue(CrucibleCompat.hammerUse(click(helper, player, pos)) != null, "strike " + (strike + 1) + " not taken");
+            helper.assertTrue(hammer.getItem().useOn(click(helper, player, pos)).consumesAction(), "strike " + (strike + 1) + " not taken");
+            helper.assertTrue(hammer.getDamageValue() == (strike + 1) * CrucibleCompat.HAMMER_DAMAGE_PER_STRIKE,
+                    "strike " + (strike + 1) + " must build and damage the hammer");
         }
         helper.assertBlockPresent(lib("iron_crucible"), pos);
         helper.assertTrue(hammer.getDamageValue() == 6 * CrucibleCompat.HAMMER_DAMAGE_PER_STRIKE, "hammer damage " + hammer.getDamageValue());
