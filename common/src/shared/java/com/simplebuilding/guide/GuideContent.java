@@ -247,7 +247,7 @@ public final class GuideContent {
                 ch("minecraft:stone_pickaxe", List.of("minecraft:wooden_pickaxe", "minecraft:stone_pickaxe"), List.of("minecraft:cobblestone", "minecraft:stone_axe", "minecraft:stone_shovel")),
                 ch("minecraft:torch", List.of("minecraft:torch", "minecraft:charcoal"), List.of("minecraft:coal")),
                 ch("minecraft:cooked_beef", List.of("minecraft:cooked_beef", "minecraft:bread"), List.of("minecraft:cooked_porkchop", "minecraft:baked_potato")),
-                ch("minecraft:white_bed", List.of("minecraft:white_bed", "minecraft:straw_bed"), List.of("minecraft:white_wool", "minecraft:hay_block")),
+                ch("minecraft:white_bed", com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT ? List.of("minecraft:white_bed", "minecraft:straw_bed") : List.of("minecraft:white_bed"), List.of("minecraft:white_wool", "minecraft:hay_block")),
                 ch("minecraft:furnace", List.of("minecraft:furnace", "minecraft:iron_ingot@iron_ingot_from_smelting_raw_iron"), List.of("minecraft:smoker", "minecraft:blast_furnace")),
                 ch("minecraft:iron_pickaxe", List.of("minecraft:iron_pickaxe", "minecraft:shield"), List.of("minecraft:iron_sword", "minecraft:bucket")),
                 ch("minecraft:chest", List.of("minecraft:chest", "minecraft:barrel"), List.of("minecraft:bundle", "minecraft:copper_chest")),
@@ -256,7 +256,11 @@ public final class GuideContent {
         STYLES.put(GuideBooks.Book.VANILLA_OVERWORLD, new BookStyle(0x6FB35A, List.of(
                 ch("minecraft:grass_block", List.of(), List.of("minecraft:grass_block", "minecraft:sand", "minecraft:snow_block", "minecraft:mud")),
                 ch("minecraft:oak_sapling", List.of("minecraft:bone_meal"), List.of("minecraft:oak_sapling", "minecraft:cherry_sapling", "minecraft:pale_oak_sapling", "minecraft:mangrove_propagule")),
-                ch("minecraft:poplar_sapling", List.of("minecraft:poplar_planks"), List.of("minecraft:poplar_log", "minecraft:orange_poplar_leaves", "minecraft:red_shrub", "minecraft:shelf_mushroom")),
+                ch(com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT ? "minecraft:poplar_sapling" : "minecraft:oak_sapling",
+                        com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT ? List.of("minecraft:poplar_planks") : List.of("minecraft:oak_planks"),
+                        com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT
+                                ? List.of("minecraft:poplar_log", "minecraft:orange_poplar_leaves", "minecraft:red_shrub", "minecraft:shelf_mushroom")
+                                : List.of("minecraft:oak_log", "minecraft:birch_sapling", "minecraft:spruce_sapling", "minecraft:dark_oak_sapling")),
                 ch("minecraft:emerald_ore", List.of(), List.of("minecraft:emerald_ore", "minecraft:iron_ore", "minecraft:powder_snow_bucket")),
                 ch("minecraft:bell", List.of(), List.of("minecraft:bell", "minecraft:iron_block", "minecraft:carved_pumpkin")),
                 ch("minecraft:chiseled_sandstone", List.of(), List.of("minecraft:tnt", "minecraft:mossy_cobblestone", "minecraft:cauldron", "minecraft:dark_oak_log")),
@@ -276,7 +280,7 @@ public final class GuideContent {
                 ch("minecraft:trial_key", List.of("minecraft:mace"), List.of("minecraft:trial_key", "minecraft:ominous_trial_key", "minecraft:heavy_core", "minecraft:breeze_rod")),
                 ch("minecraft:water_bucket", List.of(), List.of("minecraft:water_bucket", "minecraft:cobblestone", "minecraft:torch", "minecraft:bread")))));
         STYLES.put(GuideBooks.Book.VANILLA_OCEAN, new BookStyle(0x3FA3C9, List.of(
-                ch("minecraft:oak_boat", List.of("minecraft:oak_boat", "minecraft:oak_chest_boat"), List.of("minecraft:bamboo_raft", "minecraft:poplar_boat")),
+                ch("minecraft:oak_boat", List.of("minecraft:oak_boat", "minecraft:oak_chest_boat"), com.simplebuilding.version.McVersion.VANILLA_26_3_CONTENT ? List.of("minecraft:bamboo_raft", "minecraft:poplar_boat") : List.of("minecraft:bamboo_raft")),
                 ch("minecraft:turtle_helmet", List.of("minecraft:turtle_helmet"), List.of("minecraft:turtle_scute", "minecraft:potion")),
                 ch("minecraft:brain_coral_block", List.of(), List.of("minecraft:brain_coral_block", "minecraft:kelp", "minecraft:seagrass", "minecraft:sea_pickle")),
                 ch("minecraft:heart_of_the_sea", List.of(), List.of("minecraft:map", "minecraft:heart_of_the_sea", "minecraft:chest")),

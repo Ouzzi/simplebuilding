@@ -217,8 +217,23 @@ public final class GuideBookTests {
                 problems.add(name + " (item name) missing in en_us or de_de");
             }
         }
+        // Shared translations also describe chapters whose feature is disabled on this line.
+        Set<String> disabledChapters = new LinkedHashSet<>();
+        if (!com.simplebuilding.version.McVersion.END_SYSTEMS) {
+            disabledChapters.addAll(List.of("book.simplebuilding.storage.10", "book.simplebuilding.end.9"));
+        }
+        if (!com.simplebuilding.version.McVersion.END_RAILS) disabledChapters.add("book.simplebuilding.end.10");
+        if (!com.simplebuilding.version.McVersion.SILENT_DANDELION) {
+            disabledChapters.addAll(List.of("book.simplebuilding.gadgets.13", "book.simplebuilding.gadgets.14"));
+        }
+        for (String chapter : disabledChapters) {
+            helper.assertTrue(!used.contains(chapter + ".title") && !used.contains(chapter + ".text"),
+                    "disabled chapter is still shown: " + chapter);
+        }
         for (String key : en.keySet()) {
-            if (key.startsWith("book.simplebuilding.") && !used.contains(key)) {
+            boolean disabled = disabledChapters.stream().anyMatch(chapter ->
+                    key.equals(chapter + ".title") || key.equals(chapter + ".text"));
+            if (key.startsWith("book.simplebuilding.") && !used.contains(key) && !disabled) {
                 problems.add(key + " is in en_us but on no page");
             }
         }

@@ -39,6 +39,7 @@ public final class SimplebuildingForge {
         ModEnvironment.setDevelopmentEnvironment(!net.minecraftforge.fml.loading.FMLEnvironment.production);
         // FTB Quests (optional): copy the SimpleBuilding chapters into its quest book once.
         com.simplebuilding.compat.FtbQuestsDefaults.installIfPresent(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
+        Forge262Events.register();
         ForgeModRegistries.register(modBus);
         RegisterEvent.getBus(modBus).addListener(ForgeRegistryBootstrap::onRegister);
         FMLCommonSetupEvent.getBus(modBus).addListener(this::commonSetup);
@@ -92,5 +93,10 @@ public final class SimplebuildingForge {
         for (Item coloredItem : OctantCauldronWash.washableOctants()) {
             ((CauldronInteractionDispatcherAccessor) (Object) CauldronInteractions.WATER).simplebuilding$put(coloredItem, OctantCauldronWash.INTERACTION);
         }
+        for (Item box : com.simplebuilding.util.TieredShulkerBoxes.items()) {
+            ((CauldronInteractionDispatcherAccessor) (Object) CauldronInteractions.WATER)
+                    .simplebuilding$put(box, com.simplebuilding.util.TieredShulkerBoxes.WASH);
+        }
+        com.simplebuilding.util.TieredShulkerBoxes.registerDispenserBehavior();
     }
 }

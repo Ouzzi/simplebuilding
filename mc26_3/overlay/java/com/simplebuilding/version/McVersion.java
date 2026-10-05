@@ -33,6 +33,8 @@ import java.util.stream.Stream;
  * common/src/mc26_2/java for the contract; both must keep the same public signatures.
  */
 public final class McVersion {
+    /** Vanilla 26.3 guide examples: straw beds and the Dappled Forest wood set. */
+    public static final boolean VANILLA_26_3_CONTENT = true;
     /** Redstone variants of the three chest tiers (26.3 first). */
     public static final boolean TRAPPED_TIERED_CHESTS = true;
     public static final boolean SILENT_DANDELION = true;

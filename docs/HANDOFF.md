@@ -28,6 +28,23 @@ einschließlich Testzentralen-Neubau und Item-/Block-Abdeckung. `check -q -Pskip
 Kein Client, Push oder Port; Wiki wird zentral regeneriert. Belege und initiale Dateisperre:
 `docs/ai/PLAN-BEFUNDE-11-12-2026-10-02.md`.
 
+## Worker-Nachtrag 2026-10-05: 26.2-Linie ohne Feature-Port repariert
+
+Branch `gpt-line262`, Basis `6735bc9b`: Tests nach Versionsflags getrennt,
+26.2-Handbuchbeispiele berichtigt, historische Upgrade-Fixture erhalten und
+aktuelle Writer-Fixture ergaenzt. Forge registriert nun die bestehenden
+Suchreiter-, Shulkerkisten- und Breeze-Farmland-Hooks.
+
+Volle 26.2-Suiten Fabric/NeoForge/Forge: **2836/2836, alles gruen**;
+26.3-Gegenprobe Fabric/NeoForge: **1890/1890, alles gruen**. Testzentralen-Neubau
+und Item-/Block-Abdeckung bestanden. Forge-26.3-Compile und
+`check -q -PskipWiki`: **GRADLE_EXIT=0**. Wiki --all/--all --check gruen,
+ohne inhaltlichen Wiki-Diff.
+Die geaenderten 26.2-Handbuchseiten passen in EN/DE (je 12 Zeilen).
+Zwei bekannte deutsche Themenlisten-Ueberlaengen der 26.3-Pruefung bleiben offen.
+Kein Client, Datagen, Push oder Merge. Ursachen und Belege:
+`docs/ai/PLAN-LINE262-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-04: Auto Smither
 
 Branch `gpt-smither`: gespeicherte, nur entnehmbare Ausgabe statt gesperrter
