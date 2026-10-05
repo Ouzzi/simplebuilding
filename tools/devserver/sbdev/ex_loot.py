@@ -54,6 +54,30 @@ def loot_table_names(repo: Path) -> dict:
 ROLLS = re.compile(r"(?:LootNumbers|ConstantValue|UniformGenerator|BinomialDistributionGenerator)\.(exactly|between|binomial)\(")
 
 
+def _restrict_branch(repo: Path, record: dict, flag: str, enabled: bool) -> None:
+    """A conditional constant must never write a twin from the other version branch."""
+    paths = {"26.2": "common/src/mc26_2", "26.3": "mc26_3/overlay", "26.4": "mc26_4/overlay"}
+    active = []
+    for mc, root in paths.items():
+        path = repo / root / "java/com/simplebuilding/version/McVersion.java"
+        if mc == "26.4" and not path.exists():
+            path = repo / paths["26.3"] / "java/com/simplebuilding/version/McVersion.java"
+        if not path.exists():
+            continue
+        match = re.search(r"public static final boolean " + re.escape(flag) + r" = (true|false);",
+                          path.read_text(encoding="utf-8"))
+        if match and (match[1] == "true") == enabled:
+            active.append(mc)
+    if not active:
+        return
+    source = record.setdefault("source", {})
+    source["lines"] = [mc for mc in sites.main_lines(source.get("file", LOOT_FILE)) if mc in active]
+    for key in ("twins", "twinsDiffer"):
+        source[key] = [t for t in source.get(key, []) if t["mc"] in active]
+    if "26.3" not in active:
+        record.update(readonly=True, apply="plan", note="Dieser Versionszweig ist auf 26.3 inaktiv; erst im Port-Run ändern.")
+
+
 def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict,
             rel: str = LOOT_FILE) -> tuple[dict, list[dict], list[dict]]:
     """
@@ -188,9 +212,25 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict,
                                             line=lines.line(call_start)))
                     continue
                 core = item_id(args[1][0], args[1][1])
-                vid, p = literal(args[2][0], args[2][1], args[2][2], f"{pid}:chance", "Kern-Chance je Kiste", "prob",
+                chance_arg = args[2]
+                alternate = None
+                choice = re.fullmatch(r"McVersion\.(\w+)\s*\?\s*(\w+)\s*:\s*(\w+)", chance_arg[0].strip())
+                if choice:
+                    # Main-line value stays editable; the pre-port branch remains a separate literal.
+                    flag_name, primary, legacy = choice.groups()
+                    for name, enabled in ((primary, True), (legacy, False)):
+                        if name in constants:
+                            _restrict_branch(repo, constants[name], flag_name, enabled)
+                    at = chance_arg[1] + chance_arg[0].index(legacy)
+                    legacy_id, legacy_p = literal(legacy, at, at + len(legacy), f"{pid}:legacyChance",
+                            "Kern-Chance vor dem Port", "prob", "Kern-Chancen", {"item": core})
+                    alternate = {"flag": flag_name, "p": legacy_p, "id": legacy_id}
+                    at = chance_arg[1] + chance_arg[0].index(primary)
+                    chance_arg = (primary, at, at + len(primary))
+                vid, p = literal(chance_arg[0], chance_arg[1], chance_arg[2], f"{pid}:chance", "Kern-Chance je Kiste", "prob",
                                  "Kern-Chancen", {"item": core, "tables": [names[c][0] for c in known if c in names]})
                 pools.append({"index": pool_index, "line": lines.line(call_start), "rareCore": True,
+                              "alternateChance": alternate,
                               "coreMultiplierConfig": "worldGen.buildingCoreLootChanceMultiplier",
                               "rolls": {"type": "binomial", "n": 1, "p": p, "ids": {"p": vid}},
                               "entries": [{"key": core.split(":")[1], "item": core, "weight": 1, "count": [1, 1], "ids": {}}]})

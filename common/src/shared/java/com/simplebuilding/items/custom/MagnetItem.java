@@ -138,7 +138,7 @@ public class MagnetItem extends Item {
     public static double rangeMultiplier() {
         com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
         return config == null ? 1.0
-                : com.simplebuilding.config.SimplebuildingConfig.nonNegative(config.tools.magnetRangeMultiplier, 1.0);
+                : com.simplebuilding.config.SimplebuildingConfig.bounded(config.tools.magnetRangeMultiplier, 0, 4, 1.0);
     }
 
     public static boolean passesFilter(ItemEntity itemEntity, @Nullable String filterId) {

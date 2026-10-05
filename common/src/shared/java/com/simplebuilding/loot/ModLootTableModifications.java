@@ -1,5 +1,7 @@
 package com.simplebuilding.loot;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.version.LootNumbers;
 
 import com.simplebuilding.Simplebuilding;
@@ -66,10 +68,10 @@ public final class ModLootTableModifications {
                         EntityPredicate.Builder.entity().entityType(
                                 EntityTypePredicate.of(registry.lookupOrThrow(Registries.ENTITY_TYPE), victim))));
     }
-    // Kern-Chancen (Besitzer 2026-09-28, "Zeitalter B"): die mittlere Zeit gezielter Suche bis zum
-    // ersten Kern liegt bei ~85 % des Zeitalters, in dem der Kern gebraucht wird - Eisen ~8 h
-    // (Diamantzeit), Gold ~15 h (Braustand), Diamant ~25 h (Netherit), Netherit ~30 h (Drache),
-    // Enderit ~45 h (Wither, Beacon). Modell und Tabelle: docs/KERNE-SELTENHEIT.md, Abschnitt 5.
+    // Kern-Chancen nach der Besitzerentscheidung 2026-09-28; Enderit auf 26.3 am 2026-10-05 angepasst.
+    // Die historischen Zeitalter-Ziele sind Modellannahmen, keine gemessenen Beschaffungszeiten.
+    // Aktuelle Werte und Quellen: docs/KERNE-SELTENHEIT.md, Stand 2026-10-05 und Abschnitt 5.3.
+    // Die alte Enderit-Chance bleibt auf 26.2 bis zum eigenen Port-Run erhalten.
     /** Eisenkern pro Waldanwesen-Kiste. */
     public static final float IRON_CORE_CHANCE = 0.015f;
     /**
@@ -85,8 +87,10 @@ public final class ModLootTableModifications {
     public static final float DIAMOND_CORE_CHANCE = 0.0105f;
     /** Netheritkern pro Bastion-Schatzraum (eine Kiste pro Schatz-Bastion). */
     public static final float NETHERITE_CORE_CHANCE = 0.06f;
-    /** Enderit-Kern pro End-City-Kiste - der seltenste Kern. */
-    public static final float ENDERITE_CORE_CHANCE = 0.00175f;
+    /** Enderit-Kern pro End-City-Kiste, Besitzer 2026-10-05: 0,5 % auf der Hauptlinie. */
+    public static final float ENDERITE_CORE_CHANCE = 0.005f;
+    /** Unveraenderte Chance der 26.2-Linie bis zum eigenen Port-Run. */
+    public static final float LEGACY_ENDERITE_CORE_CHANCE = 0.00175f;
 
     // HolderGetter.Provider, not HolderLookup.Provider: NeoForge 26.3 hands its loot event a plain
     // getter provider; every HolderLookup.Provider is one as well.
@@ -172,8 +176,8 @@ public final class ModLootTableModifications {
                     .setRolls(LootNumbers.binomial(1, 0.15f)) // 15% pro Kiste
                     .build());
 
-            // Enderit-Kern: extrem selten (0,175 % pro Kiste, etwa 1 % pro Stadt)
-            rareCore(editor, ModItems.ENDERITE_CORE, ENDERITE_CORE_CHANCE);
+            // Besitzer 2026-10-05: 0,5 % auf 26.3; 26.2 behaelt 0,175 % bis zum Port.
+            rareCore(editor, ModItems.ENDERITE_CORE, McVersion.GADGET_REWORK ? ENDERITE_CORE_CHANCE : LEGACY_ENDERITE_CORE_CHANCE);
 
             // Template: 30% pro Kiste - bei vier bis acht Kisten pro Stadt meist eins bis zwei
             editor.addBuiltPool(LootPool.lootPool()
@@ -426,7 +430,7 @@ public final class ModLootTableModifications {
     public static float coreChance(float base) {
         com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();
         double factor = config == null ? 1.0
-                : com.simplebuilding.config.SimplebuildingConfig.nonNegative(config.worldGen.buildingCoreLootChanceMultiplier, 1.0);
+                : com.simplebuilding.config.SimplebuildingConfig.bounded(config.worldGen.buildingCoreLootChanceMultiplier, 0, 1000, 1.0);
         return (float) Math.min(1.0, base * factor);
     }
 

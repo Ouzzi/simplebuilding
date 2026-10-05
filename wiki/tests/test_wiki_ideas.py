@@ -87,6 +87,7 @@ class TradeAvailabilityTests(unittest.TestCase):
 class ConfigMetadataTests(unittest.TestCase):
     def test_real_validation_and_executable_scope_sets(self):
         configs = {c['name']: c for c in g.collect_config(g.LINES['26.3'], {})}
+        legacy = {c['name']: c for c in g.collect_config(g.LINES['26.2'], {})}
         for name, bounds in [('hudScale', [50, 200]), ('airJumpCooldownTicks', [20, 6000]),
                              ('server.tools.ironChiselCooldownTicks', [2, 200]),
                              ('server.loot.globalLootMultiplier', [0, 3]),
@@ -98,7 +99,12 @@ class ConfigMetadataTests(unittest.TestCase):
         self.assertEqual('yes', configs['worldGen.enableLootTableChanges']['reload'])
         self.assertEqual('recipes', configs['server.features.backpack']['reload'])
         self.assertEqual('restart', configs['server.charges.lensMaxCharge']['reload'])
-        self.assertEqual([0, None], configs['tools.wandHungerMultiplier']['range'])
+        for name, maximum in [('tools.wandHungerMultiplier', 10), ('tools.magnetRangeMultiplier', 4),
+                              ('tools.rotatorChargePerTurn', 4096), ('worldGen.buildingCoreLootChanceMultiplier', 1000),
+                              ('tweaks.laserPointer.chargePerSecond', 2560), ('tweaks.laserPointer.effectCost', 2560)]:
+            self.assertEqual([0, maximum], configs[name]['range'], name)
+            self.assertEqual([0, None], legacy[name]['range'], name)
+            self.assertEqual('server', configs[name]['side'], name)
 
     def test_comments_and_unresolved_bounds_are_not_evidence(self):
         with tempfile.TemporaryDirectory() as directory:

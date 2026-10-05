@@ -115,39 +115,33 @@ class WriteJavaTests(unittest.TestCase):
         base = self.s.store.state()["version"]
         return self.s.save(dict({"baseVersion": base, "changes": changes, "message": "t"}, **kw))
 
-    def test_core_chance_round_trip_both_lines_check_and_rollback(self):
-        res = self.save([{"id": ENDERITE, "value": 0.01, "expected": 0.00175}])
+    def test_core_chance_round_trip_preserves_older_lines_check_and_rollback(self):
+        res = self.save([{"id": ENDERITE, "value": 0.01, "expected": 0.005}])
         self.assertEqual(res["applied"], 1)
         self.assertTrue(res["datagen"])
-        for rel in (LOOT, LOOT_1211):
-            text = (self.repo / rel).read_text(encoding="utf-8")
-            self.assertIn("ENDERITE_CORE_CHANCE = 0.01f;", text, rel)
-        # genau ein Token je Datei
-        for rel in (LOOT, LOOT_1211):
-            self.assertEqual((self.repo / rel).read_bytes(), self.before[rel].replace(b"0.00175f;", b"0.01f;", 1))
+        self.assertIn("ENDERITE_CORE_CHANCE = 0.01f;", (self.repo / LOOT).read_text(encoding="utf-8"))
+        self.assertEqual((self.repo / LOOT).read_bytes(), self.before[LOOT].replace(
+            b"ENDERITE_CORE_CHANCE = 0.005f;", b"ENDERITE_CORE_CHANCE = 0.01f;", 1))
+        self.assertEqual((self.repo / LOOT_1211).read_bytes(), self.before[LOOT_1211])
         self.assertEqual(self.s.snapshot["values"][ENDERITE]["value"], 0.01)
         entry = self.s.store.state()["entries"][ENDERITE]
         self.assertTrue(entry["applied"])
-        self.assertEqual(entry["originText"], ["0.00175f", "0.00175f"])
+        self.assertEqual(entry["originText"], ["0.005f"])
         # checkBalance: Ablage = Code, aber die Inject-Tabelle ist noch alt -> Datagen fehlt
         result = self.s.balance_check()
         self.assertFalse(result["ok"])
         self.assertTrue(any(e["kind"] == "datagen" and "end_city_treasure" in e["message"] for e in result["errors"]))
         # "Datagen": die erzeugte Tabelle bekommt den neuen Wert -> ok
-        inject = self.repo / INJECT_END_CITY
-        inject.write_bytes(self.before[INJECT_END_CITY].replace(b'"chance": 0.00175', b'"chance": 0.01'))
-        for other in ("mc1_21_11/fabric/src/main/generated/", "mc26_3/generated/"):
-            path = self.repo / (other + INJECT_END_CITY.split("src/main/generated/", 1)[1])
-            if path.exists():
-                raw = path.read_bytes()
-                path.write_bytes(raw.replace(b"0.00175", b"0.01"))
+        inject = self.repo / ("mc26_3/generated/" + INJECT_END_CITY.split("src/main/generated/", 1)[1])
+        inject.write_bytes(inject.read_bytes().replace(b'"chance": 0.005', b'"chance": 0.01'))
+        self.assertEqual((self.repo / INJECT_END_CITY).read_bytes(), self.before[INJECT_END_CITY])
         self.assertTrue(self.s.balance_check()["ok"], self.s.balance_check()["errors"][:3])
         # jemand ändert die Zahl im Code an der Zentrale vorbei -> checkBalance meldet die Abweichung
-        text = (self.repo / LOOT).read_text(encoding="utf-8")
-        (self.repo / LOOT).write_text(text.replace("= 0.01f;", "= 0.02f;"), encoding="utf-8")
+        text = (self.repo / LOOT).read_bytes()
+        (self.repo / LOOT).write_bytes(text.replace(b"= 0.01f;", b"= 0.02f;"))
         self.s.reload()
         self.assertTrue(any(e["kind"] == "drift" for e in self.s.balance_check()["errors"]))
-        (self.repo / LOOT).write_text(text, encoding="utf-8")
+        (self.repo / LOOT).write_bytes(text)
         self.s.reload()
         # Rückgängig auf v0: Original-Literale zurück, Eintrag weg
         self.s.rollback({"target": 0, "baseVersion": 1})
@@ -196,30 +190,31 @@ class WriteJavaTests(unittest.TestCase):
         self.assertTrue(self.s.balance_check()["ok"])
 
     def test_a_changed_twin_blocks_the_whole_save(self):
-        path = self.repo / LOOT_1211
+        path = self.repo / CONFIG_1211
         text = path.read_text(encoding="utf-8")
-        path.write_text(text.replace("ENDERITE_CORE_CHANCE = 0.00175f", "ENDERITE_CORE_CHANCE = 0.003f"), encoding="utf-8")
+        path.write_text(text.replace("airJumpCooldownTicks = 400", "airJumpCooldownTicks = 300"), encoding="utf-8")
         try:
             with self.assertRaises(StoreError) as ctx:
-                self.save([{"id": ENDERITE, "value": 0.01}])
+                self.save([{"id": "config:airJumpCooldownTicks", "value": 200}])
             self.assertEqual(ctx.exception.status, 409)
             self.assertIn("1.21.11", ctx.exception.details[0]["message"])
             self.assertEqual((self.repo / LOOT).read_bytes(), self.before[LOOT])  # 26.2 unangetastet
             self.assertEqual(self.s.store.state()["version"], 0)
         finally:
-            path.write_bytes(self.before[LOOT_1211])
+            path.write_bytes(self.before[CONFIG_1211])
 
     def test_failed_write_restores_every_file(self):
-        target = self.repo / LOOT_1211
+        target = self.repo / CONFIG_1211
         os.chmod(target, stat.S_IREAD)
         try:
-            record = self.s.record_for(ENDERITE)
+            record = self.s.record_for("config:airJumpCooldownTicks")
             with self.assertRaises(Exception):
-                applier.write_all(self.repo, [(record, 0.01)])
+                applier.write_all(self.repo, [(record, 200)])
         finally:
             os.chmod(target, stat.S_IWRITE | stat.S_IREAD)
         self.assertEqual((self.repo / LOOT).read_bytes(), self.before[LOOT])
-        self.assertEqual(target.read_bytes(), self.before[LOOT_1211])
+        self.assertEqual((self.repo / CONFIG).read_bytes(), self.before[CONFIG])
+        self.assertEqual(target.read_bytes(), self.before[CONFIG_1211])
 
     def test_plan_only_then_apply_later(self):
         self.save([{"id": ENDERITE, "value": 0.004}], applyToMod=False)
@@ -228,7 +223,7 @@ class WriteJavaTests(unittest.TestCase):
         res = self.s.apply_planned({})
         self.assertEqual(res["applied"], 1)
         self.assertIn(b"0.004f;", (self.repo / LOOT).read_bytes())
-        self.assertIn(b"0.004f;", (self.repo / LOOT_1211).read_bytes())
+        self.assertEqual((self.repo / LOOT_1211).read_bytes(), self.before[LOOT_1211])
         self.assertEqual(self.s.pending_apply(), [])
         self.save([{"id": ENDERITE, "reset": True}])
         self.assertEqual((self.repo / LOOT).read_bytes(), self.before[LOOT])

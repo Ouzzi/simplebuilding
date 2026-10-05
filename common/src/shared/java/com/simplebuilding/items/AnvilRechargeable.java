@@ -4,7 +4,7 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * Ein Geraet, dessen Haltbarkeit eine Ladung ist: es zerbricht nie, wird nur leer und laesst sich im
- * Amboss mit einem Material aufladen - ohne Stufenkosten (Amethystlinse: Redstone, Rotator:
+ * Amboss mit einem Material aufladen - ohne Stufenkosten (Resonanzstab: Amethystscherben, Rotator:
  * Enderperlen). Der Amboss ({@code AnvilScreenHandlerMixin}) verbraucht nur so viel Material, wie bis
  * voll noetig ist, und gibt das Ergebnis auch mit 0 Stufen heraus.
  */

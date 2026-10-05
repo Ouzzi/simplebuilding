@@ -25,7 +25,7 @@ class RoundTripTests(unittest.TestCase):
 
     def test_edit_save_reload_rollback_round_trip(self):
         self.assertEqual(self.s.store.state()["version"], 0)
-        r1 = self.save([{"id": ENDERITE, "value": 0.0025, "expected": 0.00175}, {"id": AIRJUMP, "value": "120"}])
+        r1 = self.save([{"id": ENDERITE, "value": 0.0025, "expected": 0.005}, {"id": AIRJUMP, "value": "120"}])
         self.assertEqual(r1["version"], 1)
         r2 = self.save([{"id": ENDERITE, "value": "0,003"}])
         self.assertEqual(r2["version"], 2)
@@ -33,7 +33,7 @@ class RoundTripTests(unittest.TestCase):
         from sbdev.store import Store
         reloaded = Store(self.s.store.root).state()
         self.assertEqual(reloaded["entries"][ENDERITE]["value"], 0.003)
-        self.assertEqual(reloaded["entries"][ENDERITE]["origin"], 0.00175)
+        self.assertEqual(reloaded["entries"][ENDERITE]["origin"], 0.005)
         self.assertEqual(reloaded["entries"][AIRJUMP]["value"], 120)
         # Rollback auf v1: neue Version v3 mit dem Inhalt von v1
         pv = self.s.rollback_preview({"target": 1})
@@ -84,7 +84,7 @@ class RoundTripTests(unittest.TestCase):
     def test_stale_expected_value_is_a_conflict(self):
         self.save([{"id": ENDERITE, "value": 0.002}])
         with self.assertRaises(StoreError) as ctx:
-            self.save([{"id": ENDERITE, "value": 0.004, "expected": 0.00175}])  # UI kannte noch den Mod-Wert
+            self.save([{"id": ENDERITE, "value": 0.004, "expected": 0.005}])  # UI kannte noch den Mod-Wert
         self.assertEqual(ctx.exception.status, 409)
         self.assertEqual(self.s.store.state()["entries"][ENDERITE]["value"], 0.002)
 

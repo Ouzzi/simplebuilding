@@ -485,7 +485,8 @@ public final class ConfigOptionTests {
             Map.entry(BuiltInLootTables.NETHER_BRIDGE, Map.of(ModItems.GOLD_CORE, new Budget(0.0125, 0.0205))),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, Map.of(ModItems.DIAMOND_CORE, new Budget(0.0072, 0.0138))),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, Map.of(ModItems.DIAMOND_CORE, new Budget(0.0072, 0.0138))),
-            Map.entry(BuiltInLootTables.END_CITY_TREASURE, Map.of(ModItems.ENDERITE_CORE, new Budget(0.0006, 0.0023))));
+            Map.entry(BuiltInLootTables.END_CITY_TREASURE, Map.of(ModItems.ENDERITE_CORE,
+                    McVersion.GADGET_REWORK ? new Budget(0.003, 0.0072) : new Budget(0.0006, 0.0023))));
 
     /** Seed for the loot rolls, so a failure is reproducible instead of a coin flip. */
     private static final long POOL_ROLL_SEED = 20260904L;
@@ -1382,6 +1383,7 @@ public final class ConfigOptionTests {
      * blocks away is pulled, and the rotator cost is what one real turn takes off the charge.
      */
     public static void newToolOptionsChangeWhatTheToolsDo(GameTestHelper helper) {
+        if (McVersion.GADGET_REWORK) assertRunDBounds(helper);
         SimplebuildingConfig config = liveConfig(helper);
         double hunger = config.tools.wandHungerMultiplier;
         double magnet = config.tools.magnetRangeMultiplier;
@@ -1458,12 +1460,51 @@ public final class ConfigOptionTests {
         done(helper);
     }
 
-    /**
-     * The new pad options change what the pads do: the potion pad switch stops a filled pad, the
-     * charge step decides when the first 25 % arrive, the cooldown factor sets the cooldown after
-     * the full charge (0 = none), and the teleporter warm-ups and the launchpad multiplier feed the
-     * countdown and the launch the block entities use.
-     */
+    /** Loading and live access both reject negative, excessive and non-finite Run-D values. */
+    private static void assertRunDBounds(GameTestHelper helper) {
+        String[] paths = {"tools.wandHungerMultiplier", "tools.magnetRangeMultiplier", "tools.rotatorChargePerTurn",
+                "worldGen.buildingCoreLootChanceMultiplier", "tweaks.laserPointer.chargePerSecond", "tweaks.laserPointer.effectCost"};
+        double[] caps = {10, 4, 4096, 1000, 2560, 2560};
+        SimplebuildingConfig live = liveConfig(helper);
+        SimplebuildingConfig detached = new SimplebuildingConfig();
+        try {
+            for (int i = 0; i < paths.length; i++) {
+                var option = com.simplebuilding.config.ConfigOptions.byPath(paths[i]);
+                helper.assertTrue(option != null && !option.clientSide(), paths[i] + " must be a server option");
+                Object original = option.get(live);
+                try {
+                    for (double raw : new double[] {-1, caps[i] * 2, Double.NaN, Double.POSITIVE_INFINITY}) {
+                        if (option.type() == int.class && !Double.isFinite(raw)) continue;
+                        if (option.type() == int.class) {
+                            option.field().setInt(option.owner(live), (int) raw);
+                            option.field().setInt(option.owner(detached), (int) raw);
+                        } else {
+                            option.field().setDouble(option.owner(live), raw);
+                            option.field().setDouble(option.owner(detached), raw);
+                        }
+                        double expected = !Double.isFinite(raw) ? 1 : raw < 0 ? 0 : caps[i];
+                        double actual = switch (i) {
+                            case 0 -> com.simplebuilding.util.WandHunger.multiplier();
+                            case 1 -> com.simplebuilding.items.custom.MagnetItem.rangeMultiplier();
+                            case 2 -> com.simplebuilding.items.custom.RotatorItem.useCost();
+                            case 3 -> ModLootTableModifications.coreChance(0.0001f) / 0.0001;
+                            case 4 -> com.simplebuilding.tweaks.item.LaserPointerItem.beamCost();
+                            default -> com.simplebuilding.tweaks.item.LaserPointerItem.effectCost();
+                        };
+                        helper.assertTrue(Math.abs(actual - expected) < 0.001, paths[i] + " runtime bound: " + actual);
+                        detached.validatePostLoad();
+                        helper.assertTrue(((Number) option.get(detached)).doubleValue() == expected, paths[i] + " load bound");
+                    }
+                } finally {
+                    option.field().set(option.owner(live), original);
+                }
+            }
+        } catch (ReflectiveOperationException e) {
+            throw new AssertionError(e);
+        }
+    }
+
+    /** Drive pad switches, charge steps, cooldowns, warm-ups and launch strength through their readers. */
     public static void newPadOptionsChangeWhatThePadsDo(GameTestHelper helper) {
         TweaksConfig tweaks = liveConfig(helper).tweaks;
         boolean potionPads = tweaks.pads.enablePotionPads;
@@ -2162,8 +2203,8 @@ public final class ConfigOptionTests {
     }
 
     /**
-     * The building cores are very rare in chests (owner 2026-09-27), the Enderite core rarest of
-     * all: every table the mod edits is rolled like {@link #CORE_CHESTS} chests - every mod pool
+     * The building cores are very rare in chests; 26.3 uses the owner's updated Enderite chance.
+     * Every table the mod edits is rolled like {@link #CORE_CHESTS} chests - every mod pool
      * once per chest, fixed seed - and each core's share per chest has to land in its
      * {@link #CORE_CHANCES} band. A core in a table without a band is a failure as well, which
      * covers the copper core (no chest at all) and the Enderite core outside the End City.
@@ -2174,9 +2215,12 @@ public final class ConfigOptionTests {
      * cent, kept both green.
      *
      * <p>What breaks it: a core chance raised or lowered out of its band, a core in a new table, or
-     * an Enderite core no longer rarer than every other core.
+     * on the older line, an Enderite core no longer rarer than every other core.
      */
     public static void buildingCoresAreVeryRareInLootChests(GameTestHelper helper) {
+        helper.assertTrue(ModLootTableModifications.ENDERITE_CORE_CHANCE == 0.005f
+                        && ModLootTableModifications.LEGACY_ENDERITE_CORE_CHANCE == 0.00175f,
+                "owner-approved Enderite chance must be 0.5% on 26.3 and remain 0.175% on 26.2");
         HolderLookup.Provider registries = helper.getLevel().registryAccess();
         boolean original = Simplebuilding.getConfig().worldGen.enableLootTableChanges;
         helper.runBeforeTestEnd(() -> Simplebuilding.getConfig().worldGen.enableLootTableChanges = original);
@@ -2230,7 +2274,7 @@ public final class ConfigOptionTests {
             Simplebuilding.getConfig().worldGen.enableLootTableChanges = original;
         }
         helper.assertTrue(problems.isEmpty(), "core loot chances are off:\n" + String.join("\n", problems));
-        helper.assertTrue(commonestEnderite > 0 && commonestEnderite < rarestOther,
+        helper.assertTrue(commonestEnderite > 0 && (McVersion.GADGET_REWORK || commonestEnderite < rarestOther),
                 "the Enderite core is no longer the rarest core in chests: " + commonestEnderite
                         + " per chest against " + rarestOther + " for the rarest other core");
         helper.succeed();
