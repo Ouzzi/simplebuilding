@@ -29,6 +29,7 @@
   "tooltip.simplesandwiches.effect": "%s (%s) %s%%",
   "tooltip.simplesandwiches.food": "Hunger %s, saturation %s",
   "tooltip.simplesandwiches.layer": "- %s",
+  "tooltip.simplesandwiches.knife.recipe": "Craft with a stick at bottom left and four iron nuggets at top right, center, middle right and bottom center.",
   "item.simplesandwiches.guide_book": "Simple Sandwiches Guide",
   "simplesandwiches.guide.page.1.title": "Simple Sandwiches",
   "simplesandwiches.guide.page.1": "Sandwiches on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.",
@@ -45,6 +46,5 @@
   "quests.simplesandwiches.start.title": "Welcome to Simple Sandwiches",
   "quests.simplesandwiches.start.subtitle": "Your free guide",
   "quests.simplesandwiches.start.welcome.title": "A free guide",
-  "quests.simplesandwiches.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Sandwiches Guide as a reward. You can also craft it from a book and bread.",
-  "tooltip.simplesandwiches.knife.recipe": "Craft with a stick at bottom left and four iron nuggets at top right, center, middle right and bottom center."
+  "quests.simplesandwiches.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Sandwiches Guide as a reward. You can also craft it from a book and bread."
 }

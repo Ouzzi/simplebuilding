@@ -29,6 +29,7 @@
   "tooltip.simplesandwiches.effect": "%s (%s) %s%%",
   "tooltip.simplesandwiches.food": "Hunger %s, Sättigung %s",
   "tooltip.simplesandwiches.layer": "- %s",
+  "tooltip.simplesandwiches.knife.recipe": "Herstellung: Stock unten links; vier Eisennuggets oben rechts, in der Mitte, rechts mittig und unten mittig.",
   "item.simplesandwiches.guide_book": "Simple-Sandwiches-Handbuch",
   "simplesandwiches.guide.page.1.title": "Simple Sandwiches",
   "simplesandwiches.guide.page.1": "Sandwiches auf dem Schneidebrett, ein Küchenmesser, Käse und Butter aus dem Kessel und Essen direkt aus Bündeln.",
@@ -45,6 +46,5 @@
   "quests.simplesandwiches.start.title": "Willkommen bei Simple Sandwiches",
   "quests.simplesandwiches.start.subtitle": "Dein Handbuch gratis",
   "quests.simplesandwiches.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplesandwiches.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Sandwiches-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Brot herstellen.",
-  "tooltip.simplesandwiches.knife.recipe": "Herstellung: Stock unten links; vier Eisennuggets oben rechts, in der Mitte, rechts mittig und unten mittig."
+  "quests.simplesandwiches.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Sandwiches-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Brot herstellen."
 }
