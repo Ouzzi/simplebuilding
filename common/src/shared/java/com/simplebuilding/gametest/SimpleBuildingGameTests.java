@@ -83,6 +83,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_every_mod_item_and_block_has_its_place_in_the_test_centre", TestCentreTests::everyModItemAndBlockHasItsPlaceInTheTestCentre)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_fresh_world_origin_and_entrance_are_safe", TestCentreTests::freshWorldOriginAndEntranceAreSafe)
+                    .build(),
             GameTestSpec.named("test_centre_game_test_the_whole_centre_builds_and_matches_its_plan", TestCentreTests::theWholeCentreBuildsAndMatchesItsPlan)
                     .build(),
             GameTestSpec.named("test_centre_game_test_broken_and_repaired_states_stand_side_by_side", TestCentreTests::brokenAndRepairedStatesStandSideBySide)

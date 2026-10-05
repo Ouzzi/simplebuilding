@@ -68,6 +68,71 @@ public final class TestCentreTests {
     private TestCentreTests() {
     }
 
+    /** Regressions: unloaded-origin minY, invalid old marker, falling join and respawn scatter. */
+    public static void freshWorldOriginAndEntranceAreSafe(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HUB_TEST_WORLD) {
+            helper.succeed();
+            return;
+        }
+        ServerLevel level = helper.getLevel();
+        var marker = level.getServer().getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT)
+                .resolve("simplebuilding_testcentre.txt");
+        var spawn = level.getRespawnData();
+        var rules = level.getGameRules();
+        int radius = rules.get(net.minecraft.world.level.gamerules.GameRules.RESPAWN_RADIUS);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        helper.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(player));
+        byte[] before;
+        try {
+            before = java.nio.file.Files.exists(marker) ? java.nio.file.Files.readAllBytes(marker) : null;
+        } catch (java.io.IOException e) {
+            throw new java.io.UncheckedIOException(e);
+        }
+        try {
+            java.nio.file.Files.deleteIfExists(marker);
+            BlockPos fresh = TestCentreCommand.savedOrDefaultOrigin(level);
+            helper.assertTrue(fresh.getY() > level.getMinY(), "fresh origin must leave room for a floor");
+            helper.assertTrue(level.hasChunk(0, 0), "origin chunk must be loaded before reading its height");
+            helper.assertTrue(fresh.getY() == Math.max(level.getMinY() + 1,
+                    level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, 0, 0)),
+                    "fresh origin must use the generated terrain height");
+            java.nio.file.Files.writeString(marker, "0 " + level.getMinY() + " 0 old-hash\n");
+            helper.assertTrue(TestCentreCommand.savedOrDefaultOrigin(level).equals(fresh), "repair old minY origin");
+            BlockPos origin = helper.absolutePos(new BlockPos(2, 3, 2));
+            java.nio.file.Files.writeString(marker, origin.getX() + " " + origin.getY() + " " + origin.getZ() + "\n");
+            helper.assertTrue(TestCentreCommand.savedOrDefaultOrigin(level).equals(origin), "rebuild must retain its origin");
+            var plan = TestCentreLayout.plan(level.registryAccess(), origin);
+            BlockPos entrance = plan.entrance();
+            for (int attempt = 0; attempt < 2; attempt++) {
+                level.setBlockAndUpdate(entrance.below(), Blocks.AIR.defaultBlockState());
+                player.snapTo(entrance.getX(), level.getMinY() - 5, entrance.getZ(), 0, 0);
+                player.setDeltaMovement(0, -2, 0);
+                player.fallDistance = 50;
+                TestCentreCommand.arriveAtEntrance(level, plan, player);
+                helper.assertTrue(player.blockPosition().equals(entrance), "join/rebuild must teleport to entrance");
+                helper.assertTrue(level.getBlockState(entrance.below()).isSolid(), "entrance needs a real floor");
+                helper.assertTrue(level.noCollision(player), "entrance must have clear headroom");
+                helper.assertTrue(player.getDeltaMovement().lengthSqr() == 0 && player.fallDistance == 0,
+                        "landing must clear falling motion and damage");
+                helper.assertTrue(level.getRespawnData().pos().equals(entrance), "world spawn must be the entrance");
+                helper.assertTrue(rules.get(net.minecraft.world.level.gamerules.GameRules.RESPAWN_RADIUS) == 0,
+                        "respawn must not scatter players off the platform");
+            }
+        } catch (java.io.IOException e) {
+            throw new java.io.UncheckedIOException(e);
+        } finally {
+            level.setRespawnData(spawn);
+            rules.set(net.minecraft.world.level.gamerules.GameRules.RESPAWN_RADIUS, radius, level.getServer());
+            try {
+                if (before == null) java.nio.file.Files.deleteIfExists(marker);
+                else java.nio.file.Files.write(marker, before);
+            } catch (java.io.IOException e) {
+                throw new java.io.UncheckedIOException(e);
+            }
+        }
+        helper.succeed();
+    }
+
     /** Jedes Mod-Item und jeder Mod-Block steht in einem Abschnitt (ausser den begruendeten Ausnahmen). */
     public static void everyModItemAndBlockHasItsPlaceInTheTestCentre(GameTestHelper helper) {
         TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel().registryAccess(), BlockPos.ZERO);
@@ -119,6 +184,7 @@ public final class TestCentreTests {
         com.simplebuilding.Simplebuilding.LOGGER.info("{} | built in {} ms ({} steps, {} entities)", plan.summary(),
                 result.millis(), result.ops(), result.entities());
         try {
+            helper.assertTrue(!level.getBlockState(plan.entrance().below()).isAir(), "built entrance must have a floor");
             Map<BlockPos, BlockState> expected = new HashMap<>();
             int frames = 0;
             int stands = 0;

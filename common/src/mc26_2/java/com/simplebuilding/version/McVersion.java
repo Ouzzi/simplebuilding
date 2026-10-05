@@ -38,6 +38,8 @@ import java.util.stream.Stream;
  * overlay class has a counterpart on the other line.
  */
 public final class McVersion {
+    /** Safe hub test-world spawn and explicit dev-only warning acknowledgment (26.3 first). */
+    public static final boolean HUB_TEST_WORLD = false;
     /** Vanilla 26.3 guide examples: straw beds and the Dappled Forest wood set. */
     public static final boolean VANILLA_26_3_CONTENT = false;
     /** Redstone variants of the three chest tiers (26.3 first). */
