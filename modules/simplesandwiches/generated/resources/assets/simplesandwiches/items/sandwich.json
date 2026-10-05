@@ -46,6 +46,104 @@
           },
           {
             "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_beef_raw",
+              "type": "minecraft:model"
+            },
+            "when": "beef_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_beef_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "beef_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_pork_raw",
+              "type": "minecraft:model"
+            },
+            "when": "pork_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_pork_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "pork_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_chicken_raw",
+              "type": "minecraft:model"
+            },
+            "when": "chicken_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_chicken_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "chicken_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_mutton_raw",
+              "type": "minecraft:model"
+            },
+            "when": "mutton_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_mutton_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "mutton_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_rabbit_raw",
+              "type": "minecraft:model"
+            },
+            "when": "rabbit_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_rabbit_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "rabbit_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_cod_raw",
+              "type": "minecraft:model"
+            },
+            "when": "cod_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_cod_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "cod_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_salmon_raw",
+              "type": "minecraft:model"
+            },
+            "when": "salmon_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_0_salmon_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "salmon_cooked"
+          },
+          {
+            "model": {
               "model": "simplesandwiches:item/sandwich/layer_0_potato",
               "type": "minecraft:model"
             },
@@ -207,6 +305,104 @@
               "type": "minecraft:model"
             },
             "when": "fish_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_beef_raw",
+              "type": "minecraft:model"
+            },
+            "when": "beef_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_beef_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "beef_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_pork_raw",
+              "type": "minecraft:model"
+            },
+            "when": "pork_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_pork_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "pork_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_chicken_raw",
+              "type": "minecraft:model"
+            },
+            "when": "chicken_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_chicken_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "chicken_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_mutton_raw",
+              "type": "minecraft:model"
+            },
+            "when": "mutton_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_mutton_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "mutton_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_rabbit_raw",
+              "type": "minecraft:model"
+            },
+            "when": "rabbit_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_rabbit_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "rabbit_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_cod_raw",
+              "type": "minecraft:model"
+            },
+            "when": "cod_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_cod_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "cod_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_salmon_raw",
+              "type": "minecraft:model"
+            },
+            "when": "salmon_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_1_salmon_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "salmon_cooked"
           },
           {
             "model": {
@@ -374,6 +570,104 @@
           },
           {
             "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_beef_raw",
+              "type": "minecraft:model"
+            },
+            "when": "beef_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_beef_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "beef_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_pork_raw",
+              "type": "minecraft:model"
+            },
+            "when": "pork_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_pork_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "pork_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_chicken_raw",
+              "type": "minecraft:model"
+            },
+            "when": "chicken_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_chicken_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "chicken_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_mutton_raw",
+              "type": "minecraft:model"
+            },
+            "when": "mutton_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_mutton_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "mutton_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_rabbit_raw",
+              "type": "minecraft:model"
+            },
+            "when": "rabbit_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_rabbit_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "rabbit_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_cod_raw",
+              "type": "minecraft:model"
+            },
+            "when": "cod_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_cod_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "cod_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_salmon_raw",
+              "type": "minecraft:model"
+            },
+            "when": "salmon_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_2_salmon_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "salmon_cooked"
+          },
+          {
+            "model": {
               "model": "simplesandwiches:item/sandwich/layer_2_potato",
               "type": "minecraft:model"
             },
@@ -538,6 +832,104 @@
           },
           {
             "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_beef_raw",
+              "type": "minecraft:model"
+            },
+            "when": "beef_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_beef_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "beef_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_pork_raw",
+              "type": "minecraft:model"
+            },
+            "when": "pork_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_pork_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "pork_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_chicken_raw",
+              "type": "minecraft:model"
+            },
+            "when": "chicken_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_chicken_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "chicken_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_mutton_raw",
+              "type": "minecraft:model"
+            },
+            "when": "mutton_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_mutton_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "mutton_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_rabbit_raw",
+              "type": "minecraft:model"
+            },
+            "when": "rabbit_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_rabbit_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "rabbit_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_cod_raw",
+              "type": "minecraft:model"
+            },
+            "when": "cod_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_cod_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "cod_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_salmon_raw",
+              "type": "minecraft:model"
+            },
+            "when": "salmon_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_3_salmon_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "salmon_cooked"
+          },
+          {
+            "model": {
               "model": "simplesandwiches:item/sandwich/layer_3_potato",
               "type": "minecraft:model"
             },
@@ -699,6 +1091,104 @@
               "type": "minecraft:model"
             },
             "when": "fish_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_beef_raw",
+              "type": "minecraft:model"
+            },
+            "when": "beef_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_beef_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "beef_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_pork_raw",
+              "type": "minecraft:model"
+            },
+            "when": "pork_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_pork_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "pork_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_chicken_raw",
+              "type": "minecraft:model"
+            },
+            "when": "chicken_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_chicken_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "chicken_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_mutton_raw",
+              "type": "minecraft:model"
+            },
+            "when": "mutton_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_mutton_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "mutton_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_rabbit_raw",
+              "type": "minecraft:model"
+            },
+            "when": "rabbit_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_rabbit_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "rabbit_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_cod_raw",
+              "type": "minecraft:model"
+            },
+            "when": "cod_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_cod_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "cod_cooked"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_salmon_raw",
+              "type": "minecraft:model"
+            },
+            "when": "salmon_raw"
+          },
+          {
+            "model": {
+              "model": "simplesandwiches:item/sandwich/layer_4_salmon_cooked",
+              "type": "minecraft:model"
+            },
+            "when": "salmon_cooked"
           },
           {
             "model": {

@@ -1,4 +1,4 @@
-"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4|--v5] [--shapes]
+"""Usage: python tools/textures/sandwiches.py <vanilla textures dir> [preview png] [--check] [--old=<textures dir>] [--v3|--v4|--v5|--v6] [--shapes]
 
 v2 (2026-10-05): sandwich/bread, bread half, knife, board and cake slice come from the v2 section with
 variants A/B/C (STYLE picks the built-in one); --old=<copy of the previous textures> writes the comparison
@@ -35,7 +35,8 @@ PREVIEW = ARGS[1] if len(ARGS) > 1 else os.path.join(ROOT, '..', '..', 'code', '
 
 WOODS = ['oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry', 'pale_oak', 'poplar',
          'bamboo', 'crimson', 'warped']
-KEYS = ['meat_raw', 'meat_cooked', 'fish_raw', 'fish_cooked', 'potato', 'carrot', 'golden', 'apple', 'melon',
+KEYS = ['meat_raw', 'meat_cooked', 'fish_raw', 'fish_cooked', 'beef_raw', 'beef_cooked', 'pork_raw', 'pork_cooked', 'chicken_raw', 'chicken_cooked', 'mutton_raw', 'mutton_cooked', 'rabbit_raw', 'rabbit_cooked', 'cod_raw', 'cod_cooked', 'salmon_raw', 'salmon_cooked',
+        'potato', 'carrot', 'golden', 'apple', 'melon',
         'berries', 'beetroot', 'kelp', 'cookie', 'pie', 'chorus', 'spider_eye', 'rotten', 'cheese', 'cake',
         'netherite', 'enderite', 'generic']
 
@@ -298,7 +299,7 @@ def cauldron_textures():
 # Each group has variants A/B/C; STYLE picks the built-in one (the owner may switch a letter and rerun).
 # Screenshots of other mods were inspiration only (rounded golden bread, visible filling edge, clear
 # shading); every sprite here is drawn from scratch with vanilla palettes.
-STYLE = {'sandwich': 'v5', 'bread_half': 'C2W', 'knife': 'S', 'board': 'v4', 'cake': 'A'}  # v5 choice (2026-10-05)
+STYLE = {'sandwich': 'v6', 'bread_half': 'C2W', 'knife': 'S', 'board': 'v4', 'cake': 'A'}  # v6 choice (2026-10-05)
 
 # vanilla bread ramp (item/bread.png) + crumb tones
 BR = {'K': '3f2e0e', 'E': '574114', 'F': '654b17', 'D': '8c661e', 'd': 'a27924', 'g': 'bc8927', 'h': 'd6a640',
@@ -1057,11 +1058,12 @@ KEY_ITEMS = {
     'enderite': 'SB: Enderit-Apfel/-Karotte (+verz.)', 'generic': 'alles andere (andere Mods, Datapacks)',
 }
 X0, X1 = 1, 14
+BASE_TILT = 0.0   # v6: level, the dome gives the shape (v5 used 0.2)
 
 
 def _base(x):
     """Row of the bottom bun's upper surface in column x (tilted: lower on the left)."""
-    return int(round(12.4 - (x - 7.5) * 0.2))
+    return int(round(12.4 - (x - 7.5) * BASE_TILT))
 
 
 def _layer_rows(x, p):
@@ -1379,6 +1381,154 @@ def preview_shapes(path):
     print('preview shapes:', path)
 
 
+# === v6 (owner 2026-10-05): calmer bread top, one filling group per meat/fish kind ========================
+_RAW = ['.3435334353343..', '2222322223222232']        # raw: marbled with fat streaks (5)
+_COOKED = ['.4354435443544..', '2323132321323231']     # cooked: grill marks (1)
+_FISH = ['..34533453345...', '.23322332233223.']       # fish: flaky
+LAYERS.update({
+    'beef_raw': ({'1': '5e0c0c', '2': '8e1818', '3': 'b82a28', '4': 'd04842', '5': 'e8a0a0'}, _RAW),
+    'beef_cooked': ({'1': '2e140c', '2': '4e2414', '3': '6c341e', '4': '82422a', '5': '965238'}, _COOKED),
+    'pork_raw': ({'1': 'a0504c', '2': 'cc7470', '3': 'e6948e', '4': 'f0aea6', '5': 'fad4cc'}, _RAW),
+    'pork_cooked': ({'1': '6a3e20', '2': '966030', '3': 'b47a44', '4': 'c8925a', '5': 'dcae7a'}, _COOKED),
+    'chicken_raw': ({'1': 'b08876', '2': 'd0a892', '3': 'e4c0aa', '4': 'f0d6c4', '5': 'faeade'}, _RAW),
+    'chicken_cooked': ({'1': '8a5a18', '2': 'b8842c', '3': 'd6a444', '4': 'e8c060', '5': 'f6dc8c'}, _COOKED),
+    'mutton_raw': ({'1': '761818', '2': 'a03030', '3': 'c04a44', '4': 'd86a60', '5': 'f0dccc'}, _RAW),
+    'mutton_cooked': ({'1': '421c12', '2': '62301e', '3': '82442c', '4': '9a583a', '5': 'b4724e'}, _COOKED),
+    'rabbit_raw': ({'1': '8e5444', '2': 'b07462', '3': 'c88e7c', '4': 'deaa98', '5': 'f0cec0'}, _RAW),
+    'rabbit_cooked': ({'1': '5e3a22', '2': '825432', '3': 'a06e44', '4': 'b8885a', '5': 'cca274'}, _COOKED),
+    'cod_raw': ({'1': '8a8478', '2': 'b8b2a4', '3': 'd2ccbe', '4': 'e6e0d4', '5': 'f6f2ea'}, _FISH),
+    'cod_cooked': ({'1': 'a88452', '2': 'c8a87a', '3': 'dcc49c', '4': 'eedcbe', '5': 'faf0dc'}, _FISH),
+    'salmon_raw': ({'1': 'a83c22', '2': 'd45a34', '3': 'f07444', '4': 'f89a6a', '5': 'fcd0b4'}, _FISH),
+    'salmon_cooked': ({'1': '8c3e22', '2': 'b45e38', '3': 'cc7c52', '4': 'e09a6e', '5': 'f0bc94'}, _FISH),
+})
+KEY_ITEMS.update({
+    'meat_raw': '(alt, nur fruehere Sandwiches)', 'meat_cooked': '(alt, nur fruehere Sandwiches)',
+    'fish_cooked': '(alt, nur fruehere Sandwiches)', 'fish_raw': 'Tropenfisch, Kugelfisch',
+    'beef_raw': 'rohes Rindfleisch', 'beef_cooked': 'Steak', 'pork_raw': 'rohes Schweinefleisch',
+    'pork_cooked': 'gebratenes Schweinefleisch', 'chicken_raw': 'rohes Huhn', 'chicken_cooked': 'gebratenes Huhn',
+    'mutton_raw': 'rohes Hammelfleisch', 'mutton_cooked': 'gebratenes Hammelfleisch',
+    'rabbit_raw': 'rohes Kaninchen', 'rabbit_cooked': 'gebratenes Kaninchen', 'cod_raw': 'roher Kabeljau',
+    'cod_cooked': 'gebratener Kabeljau', 'salmon_raw': 'roher Lachs', 'salmon_cooked': 'gebratener Lachs',
+})
+# matte bread crust (vanilla bread browns, warmed slightly) - no gloss ramp
+CRUST = {'K': '3f2408', 'D': '6a4012', 'd': '8c5a18', 'm': 'b07626', 'l': 'c68c30', 'h': 'dca448', 's': 'f0d498'}
+
+
+def bun_top_v6(n):
+    """Nearly level top crust with a gentle dome, matte, two baker's cuts like the Vanilla bread, one or two
+    subtle highlight pixels. Rests on the highest layer (same rows as v5)."""
+    im = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    cells = {}
+    for x in range(X0, X1 + 1):
+        t = (x - 7.5) / 7.0
+        h = max(2, int(round(4.3 * math.sqrt(max(0.0, 1 - (t * 0.95) ** 2)))))
+        low = _base(x) - (0 if n == 0 else 2 + (n - 1)) - 1   # follows the (now very slight) tilt
+        for k in range(h):
+            cells[(x, low - k)] = (k, h)
+    for (x, y), (k, h) in cells.items():
+        top = (x, y - 1) not in cells
+        side = (x - 1, y) not in cells or (x + 1, y) not in cells
+        if k == 0:
+            c = 'D' if X0 < x < X1 else 'K'          # crust edge above the filling
+        elif top or side:
+            c = 'd' if x < 11 else 'D'                # outline, a bit darker on the right
+        else:
+            c = 'l' if (x + y) % 4 else 'm'           # matte crust with a little grain
+            if x > 10:
+                c = 'm'
+        put(im, x, y, hx(CRUST[c]))
+    # two diagonal baker's cuts (scoring) showing the lighter crumb
+    for cx in (5, 9):
+        top_y = min(y for (x, y) in cells if x == cx)
+        for i, (dx, dy) in enumerate(((0, 1), (1, 1), (1, 2), (2, 2))):
+            p = (cx + dx, top_y + dy)
+            if p in cells and cells[p][0] > 0:
+                put(im, *p, hx(CRUST['s'] if i % 2 == 0 else CRUST['h']))
+            q = (cx + dx - 1, top_y + dy + 1)
+            if q in cells and cells[q][0] > 0:
+                put(im, *q, hx(CRUST['D']))
+    # one subtle highlight
+    put(im, 4, min(y for (x, y) in cells if x == 4) + 1, hx(CRUST['h']))
+    return im
+
+
+def sandwich_v6(keys, buttered=False):
+    im = bun_bottom_v5(buttered)
+    for i, k in enumerate(keys):
+        im.alpha_composite(filling_v5(k, i))
+    im.alpha_composite(bun_top_v6(len(keys)))
+    return im
+
+
+MEAT_KEYS = ['beef_raw', 'beef_cooked', 'pork_raw', 'pork_cooked', 'chicken_raw', 'chicken_cooked', 'mutton_raw',
+             'mutton_cooked', 'rabbit_raw', 'rabbit_cooked', 'cod_raw', 'cod_cooked', 'salmon_raw', 'salmon_cooked']
+
+
+def preview_v6(path_main, path_snippets):
+    s = 10
+    cell = 16 * s + 16
+    combos = [['beef_cooked'], ['pork_cooked', 'cheese'], ['salmon_cooked', 'kelp', 'cheese'],
+              ['chicken_cooked', 'cheese', 'beetroot', 'potato'], ['beef_cooked', 'cheese', 'carrot', 'kelp', 'golden']]
+    global BASE_TILT
+    keep, BASE_TILT = BASE_TILT, 0.2
+    old = [sandwich_v5([], True)] + [sandwich_v5([{'beef_cooked': 'meat_cooked', 'pork_cooked': 'meat_cooked', 'salmon_cooked': 'fish_cooked', 'chicken_cooked': 'meat_cooked'}.get(k, k) for k in c]) for c in combos]
+    BASE_TILT = keep
+    rows = [('v5 (bisher)', old),
+            ('v6: Oberseite fast waagerecht, matt, Baecker-Schnitte, Fleisch je Sorte', [sandwich_v6([], True)] + [sandwich_v6(c) for c in combos])]
+    width = 20 + 7 * cell
+    meat_cols = 7
+    meat_rows = (len(MEAT_KEYS) + meat_cols - 1) // meat_cols
+    sheet = Image.new('RGBA', (width, 30 + 2 * (cell + 40) + 30 + meat_rows * (16 * 8 + 40)), (139, 139, 139, 255))
+    dr = ImageDraw.Draw(sheet)
+    dr.text((10, 8), 'Simple Sandwiches v6 - Butterbrot, 1-5 Zutaten; unten Fleisch/Fisch-Schnipsel einzeln (roh | gebraten)',
+            fill=(0, 0, 0, 255))
+    for r, (title, ims) in enumerate(rows):
+        y = 30 + r * (cell + 40)
+        dr.text((10, y), title, fill=(0, 0, 0, 255))
+        for c, im in enumerate(ims):
+            x = 10 + c * cell
+            sheet.alpha_composite(im.resize((16 * s, 16 * s), Image.NEAREST), (x, y + 14))
+            sheet.alpha_composite(im, (x, y + 18 + 16 * s))
+    y0 = 30 + 2 * (cell + 40) + 10
+    for i, key in enumerate(MEAT_KEYS):
+        x, y = 10 + (i % meat_cols) * (16 * 8 + 30), y0 + (i // meat_cols) * (16 * 8 + 40)
+        im = bun_bottom_v5()
+        im.alpha_composite(filling_v5(key, 0))
+        sheet.alpha_composite(im.resize((128, 128), Image.NEAREST), (x, y))
+        dr.text((x, y + 130), key, fill=(0, 0, 0, 255))
+    sheet.save(path_main)
+    # snippet overview with the new groups
+    preview_v5_snippets(path_snippets, combos)
+    print('preview v6:', path_main, path_snippets)
+
+
+def preview_v5_snippets(path, combos):
+    s2, cols = 8, 4
+    cw, ch = 16 * s2 + 250, 16 * s2 + 20
+    rows_n = (len(KEYS) + cols - 1) // cols
+    cell = 16 * 10 + 30
+    sheet = Image.new('RGBA', (20 + cols * cw, 40 + rows_n * ch + cell + 60), (139, 139, 139, 255))
+    dr = ImageDraw.Draw(sheet)
+    dr.text((10, 8), 'Sandwich-Zutaten-Schnipsel (Schicht 1 auf der Brot-Unterseite) - Gruppe und Items; gruen = Salat-Deko',
+            fill=(0, 0, 0, 255))
+    for i, key in enumerate(KEYS):
+        x, y = 10 + (i % cols) * cw, 30 + (i // cols) * ch
+        im = bun_bottom_v5()
+        im.alpha_composite(filling_v5(key, 0))
+        sheet.alpha_composite(im.resize((16 * s2, 16 * s2), Image.NEAREST), (x, y))
+        dr.text((x + 16 * s2 + 6, y + 30), key + (' (gruen)' if key in GREEN_KEYS else ''), fill=(0, 0, 0, 255))
+        text = KEY_ITEMS[key]
+        for j in range(0, len(text), 34):
+            dr.text((x + 16 * s2 + 6, y + 46 + j // 34 * 12), text[j:j + 34], fill=(30, 30, 30, 255))
+    y = 40 + rows_n * ch
+    dr.text((10, y), 'Beispiele 1-5 Zutaten (v6)', fill=(0, 0, 0, 255))
+    for i, c in enumerate(combos):
+        im = sandwich_v6(c)
+        sheet.alpha_composite(im.resize((160, 160), Image.NEAREST), (10 + i * cell, y + 14))
+        dr.text((10 + i * cell, y + 178), '+'.join(c)[:30], fill=(0, 0, 0, 255))
+    sheet.save(path)
+
+
 # --- write -----------------------------------------------------------------------------------------
 def all_textures():
     files = {}
@@ -1392,7 +1542,7 @@ def all_textures():
     files[item('sandwich/bottom')] = bun_bottom_v5(False)
     files[item('sandwich/bottom_buttered')] = bun_bottom_v5(True)
     for n in range(6):
-        files[item(f'sandwich/top_{n}')] = bun_top_v5(n)
+        files[item(f'sandwich/top_{n}')] = bun_top_v6(n)
     for key in KEYS:
         for pos in range(5):
             files[item(f'sandwich/layer_{pos}_{key}')] = filling_v5(key, pos)
@@ -1470,6 +1620,9 @@ def main():
     old = next((a.split('=', 1)[1] for a in sys.argv if a.startswith('--old=')), None)
     if '--shapes' in sys.argv:
         preview_shapes(os.path.join(os.path.dirname(os.path.abspath(PREVIEW)), 'brot-formen-vorschau.png'))
+    if '--v6' in sys.argv:
+        d = os.path.dirname(os.path.abspath(PREVIEW))
+        preview_v6(os.path.join(d, 'sandwiches-v6-vorschau.png'), os.path.join(d, 'sandwich-zutaten-schnipsel.png'))
     if '--v5' in sys.argv:
         d = os.path.dirname(os.path.abspath(PREVIEW))
         preview_v5(os.path.join(d, 'sandwiches-v5-vorschau.png'), os.path.join(d, 'sandwich-zutaten-schnipsel.png'))

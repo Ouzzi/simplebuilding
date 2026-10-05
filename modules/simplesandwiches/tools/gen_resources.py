@@ -15,7 +15,10 @@ WOODS = (
     "cherry", "pale_oak", "poplar", "bamboo", "crimson", "warped",
 )
 KEYS = (
-    "meat_raw", "meat_cooked", "fish_raw", "fish_cooked", "potato", "carrot",
+    "meat_raw", "meat_cooked", "fish_raw", "fish_cooked",
+    "beef_raw", "beef_cooked", "pork_raw", "pork_cooked", "chicken_raw", "chicken_cooked", "mutton_raw",
+    "mutton_cooked", "rabbit_raw", "rabbit_cooked", "cod_raw", "cod_cooked", "salmon_raw", "salmon_cooked",
+    "potato", "carrot",
     "golden", "apple", "melon", "berries", "beetroot", "kelp", "cookie", "pie",
     "chorus", "spider_eye", "rotten", "cheese", "cake", "netherite", "enderite", "generic",
 )

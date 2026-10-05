@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simplesandwiches:item/sandwich/layer_1_salmon_cooked"
+  }
+}
