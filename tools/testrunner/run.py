@@ -309,6 +309,12 @@ def module_targets(root=REPO):
                 label=f"{module['displayName']} {loader} integration", loader=loader,
                 gradle_task=spec["task"], report=spec["report"],
                 catalogue=tests["catalogues"][0], gradle_args=tuple(args), **common))
+        # Principle 8: the same catalogue, run with only the module and its hard requirements.
+        for loader, spec in tests.get("standalone", {}).get("loaders", {}).items():
+            result.append(Target(id=f"module-{module['id']}-standalone-{loader}-263",
+                label=f"{module['displayName']} {loader} standalone", loader=loader,
+                gradle_task=spec["task"], report=spec["report"],
+                catalogue=tests["catalogues"][0], **common))
         client = tests.get("client")
         if client:
             result.append(Target(id=f"module-{module['id']}-client-263",
@@ -319,6 +325,8 @@ def module_targets(root=REPO):
 
 
 MODULE_TARGETS = module_targets()
+#: Principle 8: every module alone (plus hard requirements). Selected with --targets standalone.
+STANDALONE_TARGETS = tuple(t for t in MODULE_TARGETS if "-standalone-" in t.id)
 # Forge 26.3 is part of the main line (owner decision 2026-10-01) and of the gate.
 FORGE263_TARGETS = (Target(
     id="forge-263", label="Forge - MC 26.3", loader="forge", mc_line="26.3",
@@ -1452,7 +1460,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--targets",
         default="all",
         help=("comma separated target ids; 'all' (default) runs the four server targets, "
-              "'client' only the client ones, 'everything' both; the experimental 26.4 snapshot "
+              "'client' only the client ones, 'everything' both, 'standalone' every module alone; the experimental 26.4 snapshot "
               "targets only by id, 'snapshot' or 'everything-plus-snapshot': "
               + ", ".join(t.id for t in ALL_TARGETS)),
     )
@@ -1480,6 +1488,8 @@ def select_targets(spec: str) -> list[Target]:
         return list(TARGETS)
     if spec.strip() == "snapshot":
         return list(SNAPSHOT_TARGETS)
+    if spec.strip() == "standalone":
+        return list(STANDALONE_TARGETS)
     if spec.strip() == "everything-plus-snapshot":
         return list(ALL_TARGETS)
     chosen: list[Target] = []

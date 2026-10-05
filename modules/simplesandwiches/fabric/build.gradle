@@ -1,2 +1,3 @@
 plugins { id 'net.fabricmc.fabric-loom' }
 apply from: rootProject.file('gradle/module-fabric.gradle')
+dependencies { include project(':framework') }

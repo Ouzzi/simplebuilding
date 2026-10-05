@@ -89,6 +89,56 @@ moduleSuites.each { entry ->
         }
     }
 }
+// Principle 8 (docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md): standalone suites load only the module,
+// its declared hard module requirements and hard libraries. Each module gets its own run directory
+// and mods folder; the classpath drops :framework, :common and this harness, so a module that forgets
+// to bundle what it uses fails here instead of in a player's instance.
+def standaloneExcluded = [rootProject.file('framework'), rootProject.file('common'),
+                          file('build/classes'), file('build/resources')].collect { it.toPath().toAbsolutePath() }
+sourceSets.create('standalone') {
+    java.srcDirs = []
+    resources.srcDirs = []
+    runtimeClasspath = sourceSets.main.runtimeClasspath.filter { f ->
+        !standaloneExcluded.any { f.toPath().toAbsolutePath().startsWith(it) }
+    }
+}
+def standaloneSuites = registry.modules.findAll { it.tests?.standalone?.loaders?.fabric }
+standaloneSuites.each { entry ->
+    def standalone = entry.tests.standalone
+    def spec = standalone.loaders.fabric
+    def taskName = spec.task.tokenize(':').last()
+    def runName = taskName.substring(3).uncapitalize()
+    def runDirName = "run-standalone-fabric-263/${entry.id}"
+    def moduleIds = [entry.id] + (standalone.requires ?: [])
+    def prepareStandalone = tasks.register("prepareStandalone${entry.id.capitalize()}") {
+        dependsOn moduleIds.collect { id -> "${registry.modules.find { it.id == id }.projects.fabric}:jar" }
+        doLast {
+            def unknown = (standalone.devMods ?: []) - devRegistry.mods*.id
+            if (unknown) throw new GradleException("Unknown standalone dev mods for ${entry.id}: ${unknown}")
+            def jars = moduleIds.collect { id ->
+                project(registry.modules.find { it.id == id }.projects.fabric).tasks.named('jar').get().archiveFile.get().asFile
+            }
+            devRegistry.mods.findAll { (standalone.devMods ?: []).contains(it.id) && it.sources.fabric }.each { mod ->
+                if (mod.sources.fabric.maven) jars.addAll(configurations.getByName("integrationDev_${mod.id}").files)
+                else jars.add(localDevModJar(mod.sources.fabric.local, mod.id))
+            }
+            project.sync { from jars; into file("${runDirName}/mods") }
+            file("${runDirName}/eula.txt").text = 'eula=true\n'
+        }
+    }
+    loom.runs.create(runName) {
+        server()
+        sourceSet = 'standalone'
+        runDir runDirName
+        vmArg '-Dfabric-api.gametest'
+        vmArg "-Dfabric-api.gametest.report-file=${rootProject.file(spec.report).absolutePath}"
+        vmArg "-Dfabric-api.gametest.filter=${project.findProperty('gametestFilter') ?: (entry.tests.namespace ?: entry.id) + ':*'}"
+    }
+    tasks.named(taskName) {
+        dependsOn prepareStandalone
+        doFirst { rootProject.file(spec.report).parentFile.mkdirs() }
+    }
+}
 // Compile smoke sources directly; module implementation classes remain in runtime jars.
 registry.modules.findAll { it.tests?.client }.each { entry ->
     sourceSets.gametest.java.srcDir rootProject.file(entry.tests.client.sources)

@@ -239,11 +239,41 @@ class ModTests(unittest.TestCase):
                 time.sleep(0.02)
             self.assertEqual(job.exit_code, 0)
 
+    def test_standalone_targets_cover_every_module_suite_and_only_hard_requirements(self):
+        modules, _ = multimod.registries(self.root)
+        found = {t.id: t for t in targets.runner().module_targets(self.root)}
+        for module in modules:
+            tests = module.get('tests')
+            if not tests:
+                continue
+            standalone = tests.get('standalone')
+            self.assertIsNotNone(standalone, f"{module['id']} needs tests.standalone (principle 8)")
+            if 'exempt' in standalone:
+                continue
+            self.assertLessEqual(set(standalone.get('requires', [])), set(module['requires']))
+            for loader in ('fabric', 'neoforge'):
+                self.assertIn(f"module-{module['id']}-standalone-{loader}-263", found)
+        tweaks = next(m for m in modules if m['id'] == 'simpletweaks')
+        self.assertEqual(tweaks['tests']['standalone']['requires'], ['simplebuilding'])
+        preset = targets.test_presets()['standalone']['targets']
+        self.assertTrue(preset and all('-standalone-' in item for item in preset))
+
+    def test_standalone_rejects_optional_partners(self):
+        path = self.root / 'modules/modules.json'
+        manifest = json.loads(path.read_text(encoding='utf-8'))
+        fun = next(m for m in manifest['modules'] if m['id'] == 'simplefun')
+        fun['tests']['standalone']['requires'] = ['simplebuilding']
+        path.write_text(json.dumps(manifest), encoding='utf-8')
+        with self.assertRaisesRegex(ValueError, 'hard requirements'):
+            multimod.registries(self.root)
+
     def test_manifest_discovers_new_module_without_shared_registration(self):
         newmod.create('pluginprobe', 'Plugin Probe', self.root)
         found = {t.id: t for t in targets.runner().module_targets(self.root)}
-        for loader in ('fabric', 'neoforge', 'client'):
+        for loader in ('fabric', 'neoforge', 'client', 'standalone-fabric', 'standalone-neoforge'):
             self.assertIn(f'module-pluginprobe-{loader}-263', found)
+        self.assertEqual(found['module-pluginprobe-standalone-neoforge-263'].gradle_task,
+                         ':modules:pluginprobe:neoforge:runModuleStandaloneGameTest')
         module = next(m for m in multimod.registries(self.root)[0] if m['id'] == 'pluginprobe')
         self.assertTrue((self.root / module['tests']['catalogues'][0]).is_file())
         self.assertTrue((self.root / module['tests']['client']['sources']).is_dir())

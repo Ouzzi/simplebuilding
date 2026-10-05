@@ -9,7 +9,11 @@ apply from: rootProject.file('gradle/module-neoforge.gradle')
 repositories { maven { url = 'https://maven.shedaniel.me/' }; maven { url = 'https://maven.terraformersmc.com/releases/' } }
 dependencies { implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.mc263_cloth_version}" }
 
-dependencies { runtimeOnly project(':mc26_3:neoforge') }
+// SimpleBuilding joins integration runs through the mods container only; a classpath dependency would
+// also load it into the standalone run (principle 8).
+// SimpleBuilding's shared library (not a mod) for the integration run, like the other modules.
+dependencies { implementation project(':common') }
+evaluationDependsOn(':mc26_3:neoforge')
 neoForge {
  mods { simplebuildingIntegration { sourceSet project(':mc26_3:neoforge').sourceSets.main } }
  runs {

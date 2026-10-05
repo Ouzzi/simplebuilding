@@ -5,8 +5,12 @@ import net.minecraft.core.registries.BuiltInRegistries;import net.minecraft.reso
 import java.util.*;
 
 public final class VisualsTests {
+ /** Principle 8 (standalone): a content mod is loaded when it owns registry ids; loader-neutral for shared tests. */
+ public static boolean isModLoaded(String mod){return BuiltInRegistries.ITEM.keySet().stream().anyMatch(i->i.getNamespace().equals(mod))||BuiltInRegistries.BLOCK.keySet().stream().anyMatch(i->i.getNamespace().equals(mod));}
+ /** Without the partner the coupling cannot be observed: pass with a log note instead of failing. */
+ public static boolean partnerMissing(net.minecraft.gametest.framework.GameTestHelper h,String mod,String what){if(isModLoaded(mod))return false;com.mojang.logging.LogUtils.getLogger().info("[standalone] {} not loaded - skipping {}",mod,what);h.succeed();return true;}
  public static void launch(GameTestHelper h){
-  require(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplebuilding:enderite_ingot")),"SimpleBuilding loaded alongside module");
+  if(isModLoaded("simplebuilding"))require(BuiltInRegistries.ITEM.containsKey(Identifier.parse("simplebuilding:enderite_ingot")),"SimpleBuilding content visible when loaded");
   require(h.getLevel().getServer().getCommands().getDispatcher().getRoot().getChild("simplevisuals")!=null,"Command registered");
   require(BuiltInRegistries.ITEM.keySet().stream().noneMatch(id->id.getNamespace().equals("simplevisuals")),"No invented persistent token or duplicate gameplay items");
   for(var e:EffectRegistry.ALL)require(BuiltInRegistries.PARTICLE_TYPE.getValue(Identifier.parse(e.particle())) instanceof net.minecraft.core.particles.SimpleParticleType,"Vanilla particle loads: "+e.id());
@@ -99,7 +103,8 @@ public final class VisualsTests {
   require(Visuals.formatName("x".repeat(51),true)==null&&Visuals.formatName("x".repeat(50),true).length()==50,"Vanilla length cap enforced");
   var player=h.makeMockPlayer(net.minecraft.world.level.GameType.CREATIVE);
   var menu=new net.minecraft.world.inventory.AnvilMenu(0,player.getInventory());
-  var item=BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_ingot"));
+  // A SimpleBuilding stack when present, otherwise a Vanilla stack: the anvil rules are the same.
+  var item=isModLoaded("simplebuilding")?BuiltInRegistries.ITEM.getValue(Identifier.parse("simplebuilding:enderite_ingot")):net.minecraft.world.item.Items.IRON_INGOT;
   var stack=new net.minecraft.world.item.ItemStack(item,3);menu.getSlot(0).set(stack);
   boolean previous=Visuals.serverFormatting();boolean localPrevious=Visuals.CONFIG.visuals.enableAnvilFormatting;
   try{Visuals.setServerFormatting(true);menu.setItemName("&cCross-mod");

@@ -33,6 +33,10 @@ Presets bleiben im Bereich „Mods“. Ältere Minecraft-Linien sind unveränder
 - **Tests**: „Alle Tests ausführen“ (Vorauswahl 26.3 Fabric + NeoForge; Voreinstellungen für alle Server-Linien und Client-Suiten),
   Filterlauf, nur Fehlgeschlagene, Einzeltest nochmal, Auswahl mehrerer Tests. Kacheln je Ziel mit Sparkline, Trend,
   „Vor dem Push“-Liste, Tabelle mit Suche, Gruppierung nach Testklasse, „nur rote“, „nur wackelige“.
+  Voreinstellung **„Every module alone (standalone)“** wählt alle `module-<id>-standalone-<loader>-263`-Ziele
+  (Prinzip 8, `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`): jedes Modul nur mit seinen harten Abhängigkeiten,
+  eigener Lauf- und Weltordner. Die Ziele kommen wie alle Modul-Ziele aus `modules.json` (`tests.standalone`);
+  auf der Kommandozeile `python tools/testrunner/run.py --targets standalone`.
 - **Fehlschlaege**: aktuell rote Tests (neueste Aufzeichnung je Test), seit welchem Lauf rot, Fehlertext, Markdown kopieren.
 - **Verlauf**: Läufe, Detail, Markdown-Export, zwei Läufe vergleichen (neu rot / neu grün).
 - **KI-Fixes**: Anbieter-Status, Jobs mit Log, Branch, Commit, geänderten Dateien, Merge-Vorschau, Diff.

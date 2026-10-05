@@ -59,6 +59,9 @@ def validate_tests(entry, tests, root):
         values = tests.get(field, [])
         if not isinstance(values, list) or any(not isinstance(value, str) or not ID.fullmatch(value) for value in values):
             raise ValueError(f'Invalid test {field}: {mid}')
+    standalone = tests.get('standalone')
+    if standalone is not None:
+        validate_standalone(entry, standalone, root)
     client = tests.get('client')
     if client is not None:
         if not isinstance(client, dict) or not client.get('entrypoints') or any(not re.fullmatch(r'[A-Za-z_][\w]*(?:\.[A-Za-z_][\w]*)+', value) for value in client['entrypoints']):
@@ -98,6 +101,35 @@ def validate_optional_metadata(entry, modules, root):
             raise ValueError(f'Optional dependencies differ: {entry["id"]}/{loader}: '
                              f'missing={sorted(expected - actual)}, extra={sorted(actual - expected)}, '
                              f'required={sorted(expected & required)}')
+
+
+def validate_standalone(entry, standalone, root):
+    """Principle 8: a standalone suite loads only the module and its hard requirements."""
+    mid = entry['id']
+    if not isinstance(standalone, dict):
+        raise ValueError(f'Invalid standalone tests: {mid}')
+    if 'exempt' in standalone:
+        if set(standalone) != {'exempt'} or not isinstance(standalone['exempt'], str) or not standalone['exempt'].strip():
+            raise ValueError(f'Standalone exemption needs only a reason: {mid}')
+        return
+    for field in ('requires', 'devMods'):
+        values = standalone.get(field, [])
+        if not isinstance(values, list) or any(not isinstance(v, str) or not ID.fullmatch(v) for v in values) or mid in values:
+            raise ValueError(f'Invalid standalone {field}: {mid}')
+    extra = set(standalone.get('requires', [])) - set(entry.get('requires', []))
+    if extra:
+        raise ValueError(f'Standalone may only add hard requirements: {mid}: {sorted(extra)}')
+    if 'reason' in standalone and (not isinstance(standalone['reason'], str) or not standalone['reason'].strip()):
+        raise ValueError(f'Invalid standalone reason: {mid}')
+    suites = standalone.get('loaders')
+    if not isinstance(suites, dict) or not suites or not set(suites) <= set(entry['loaders']) - {'forge'}:
+        raise ValueError(f'Invalid standalone loaders: {mid}')
+    for loader, spec in suites.items():
+        expected = (f':integration:run{mid.capitalize()}StandaloneGameTest' if loader == 'fabric'
+                    else entry['projects'][loader] + ':runModuleStandaloneGameTest')
+        if not isinstance(spec, dict) or spec.get('task') != expected:
+            raise ValueError(f'Invalid standalone task: {mid}/{loader} (expected {expected})')
+        validate_relative_path(spec.get('report'), root, f'{mid}: standalone report')
 
 
 def registries(root=ROOT):
