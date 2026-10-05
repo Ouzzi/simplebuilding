@@ -67,13 +67,14 @@ import net.minecraft.world.level.storage.TagValueOutput;
  * A world played on Minecraft 26.2 with this mod, opened on 26.3 with the mod's 26.3 build, keeps
  * the mod's data. See docs/UPGRADE-26.2-26.3.md for the audit behind this.
  *
- * <p><b>The fixtures.</b> testing/fixtures/upgrade-26.2/*.snbt hold save data exactly as the 26.2
- * build writes it: a chunk (a vanilla chest full of mod items, a mod hopper, an enderite blast
+ * <p><b>The fixtures.</b> testing/fixtures/upgrade-26.2/*.snbt hold save data from 26.2
+ * builds: a chunk (a vanilla chest full of mod items, a mod hopper, an enderite blast
  * furnace, a placed backpack), an entity chunk (a rising block, a locked item frame), a player,
  * and the mod's two saved-data files. They are produced by {@link #fixturesAreWhatTwentySixTwoWrites}
  * on a 26.2 target with the environment variable {@code SIMPLEBUILDING_WRITE_UPGRADE_FIXTURES=1};
- * without it, that test checks on 26.2 that the committed files still are what 26.2 writes (a mod
- * change to a save format then shows up here, before it reaches players).
+ * without it, that test checks the current writer snapshots against a fresh save. The original
+ * chunk.snbt stays untouched for migration readers; chunk-current.snbt tracks the renamed
+ * detector and retired furnace bonus. A further format change still fails the writer comparison.
  *
  * <p><b>The round trip.</b> Every other test here loads a fixture, sends it through the same
  * vanilla data fixer the server uses when it loads an old chunk/player/file
@@ -97,6 +98,8 @@ public final class WorldUpgradeTests {
     static final String FIXTURE_DIR = "testing/fixtures/upgrade-26.2";
 
     static final String CHUNK = "chunk.snbt";
+    // Current writer uses detector and omits the retired furnace bonus; keep the old reader fixture.
+    static final String CURRENT_CHUNK = "chunk-current.snbt";
     static final String ENTITIES = "entities.snbt";
     static final String PLAYER = "player.snbt";
     static final String BLUEPRINT_JOBS = "blueprint_jobs.snbt";
@@ -152,7 +155,7 @@ public final class WorldUpgradeTests {
     // =====================================================================================
 
     /**
-     * On 26.2: the committed fixtures are what this build writes (every key and value in the file
+     * On 26.2: the current writer fixtures are what this build writes (every key and value in the file
      * is present and equal in a fresh write; loaders may add keys of their own). With
      * {@code SIMPLEBUILDING_WRITE_UPGRADE_FIXTURES=1} the files are (re)written instead. On any other
      * version: the fixtures are all there and all carry the 26.2 data version, so the round-trip
@@ -161,7 +164,7 @@ public final class WorldUpgradeTests {
     public static void fixturesAreWhatTwentySixTwoWrites(GameTestHelper helper) {
         Path dir = fixtureDir(helper);
         if (currentDataVersion() != DATA_VERSION_26_2) {
-            for (String name : ALL_FIXTURES) {
+            for (String name : java.util.stream.Stream.concat(ALL_FIXTURES.stream(), java.util.stream.Stream.of(CURRENT_CHUNK)).toList()) {
                 CompoundTag fixture = readFixture(helper, name);
                 helper.assertValueEqual(fixture.getIntOr("DataVersion", -1), DATA_VERSION_26_2,
                         "DataVersion of fixture " + name);
@@ -173,7 +176,7 @@ public final class WorldUpgradeTests {
                 writeBlueprintJobs(helper), writeSledgehammerProgress(helper));
         boolean write = "1".equals(System.getenv(WRITE_ENV));
         for (int i = 0; i < ALL_FIXTURES.size(); i++) {
-            String name = ALL_FIXTURES.get(i);
+            String name = ALL_FIXTURES.get(i).equals(CHUNK) ? CURRENT_CHUNK : ALL_FIXTURES.get(i);
             if (write) {
                 try {
                     Files.createDirectories(dir);

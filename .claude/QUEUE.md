@@ -27,6 +27,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Claims-Folgeschutz für Crafter, Kupfergolem-Transfers und Blitz-Blockänderungen; 100/100 Modultests. Claims bleiben wegen weiterer offener Pfade AUS.
 
 ## Offen (inklusive Besitzerpunkte)
+- [x] 26.2-Nachtserie ohne Feature-Port repariert: Flags/Erwartungen, Handbuch-/Upgrade-Daten und Forge-Hooks; 26.2 Fabric/NeoForge/Forge 2836/2836 und 26.3-Gegenprobe 1890/1890 gruen; Forge-26.3-Compile und `check -q -PskipWiki` Exit 0. Worker `gpt-line262`, Plan `docs/ai/PLAN-LINE262-2026-10-02.md`; kein Push/Datagen/Client.
 - [x] Auto Smither 26.3: entnehmbare, gegen Einlegen gesperrte Ausgabe; Trichterseiten, Kapazitaetsschutz und Vanilla-GUI korrigiert. 1872/1872 Servertests und Compile-/check-Gate gruen. Plan/Vorschau: `docs/ai/PLAN-AUTO-SMITHER-2026-10-02.md`; Client-Sichtabnahme offen, kein Push.
 - [x] Wackelige GameTests: Testzentrale-Knoepfe, Claims-Attractor, Shulker-Endermiten, Magnet-Pickup und Palette abgesichert; dreifache Wiederholungen je Loader, Basis 1814/1814, SimpleTweaks 104/104 und Gradle-Gate gruen. Belege: `docs/ai/PLAN-FLAKY-GAMETESTS-2026-10-02.md`; Worker-Branch, kein Push/Port.
 - [x] Simple Riding: Leaping-/Tailwind-Buecher aus Vorschlag B mit weiteren 25 % Kontrast; Generator, Modulmodelle, Vorschau, Wiki-Modellalias-Vertrag, 78/78 Modultests und volles Gate gruen (2026-10-04, gpt-books). Client-Sichtabnahme und 26.2-Port bleiben offen.

@@ -2407,9 +2407,14 @@ public final class DataIntegrityTests {
                 modItems.add(id);
             }
         }
-        // Das Zeilen-Layout nutzen alle Tabs (Besitzer 2026-09-28 "Zeilen-Layout fuer alle Tabs").
-        if (!spacers.keySet().equals(Set.of(ModItemGroupsContent.Tab.values()))) {
-            problems.add("creative_spacer fills " + spacers.keySet() + " instead of every tab");
+        // The arrows tab is deliberately empty until fletching is enabled on this line.
+        Set<ModItemGroupsContent.Tab> paddedTabs = java.util.EnumSet.allOf(ModItemGroupsContent.Tab.class);
+        if (!McVersion.FLETCHING) {
+            paddedTabs.remove(ModItemGroupsContent.Tab.ARROWS);
+            helper.assertTrue(ModItemGroupsContent.arrowsRows().isEmpty(), "disabled arrows tab is not empty");
+        }
+        if (!spacers.keySet().equals(paddedTabs)) {
+            problems.add("creative_spacer fills " + spacers.keySet() + " instead of " + paddedTabs);
         }
         // Bewusst doppelt (Besitzer 2026-09-28): Kupfer-, Eisen- und Enderit-Kern stehen als Freischalt-Zutat
         // neben Chunk-Loader, Launchpad und Flypad in SimplePads - und bei den Kernen in SimpleMaterials.

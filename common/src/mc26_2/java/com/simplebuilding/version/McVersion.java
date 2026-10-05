@@ -38,6 +38,8 @@ import java.util.stream.Stream;
  * overlay class has a counterpart on the other line.
  */
 public final class McVersion {
+    /** Vanilla 26.3 guide examples: straw beds and the Dappled Forest wood set. */
+    public static final boolean VANILLA_26_3_CONTENT = false;
     /** Redstone variants of the three chest tiers (26.3 first). */
     public static final boolean TRAPPED_TIERED_CHESTS = false;
     public static final boolean SILENT_DANDELION = false;

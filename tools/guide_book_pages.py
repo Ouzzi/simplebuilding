@@ -154,7 +154,9 @@ def chapter_icons():
     src = read(GUIDE_CONTENT)
     out = {}
     for m in re.finditer(r'STYLES\.put\(GuideBooks\.Book\.([A-Z_]+),(.*?)\)\)\);', src, re.S):
-        out[m.group(1)] = re.findall(r'\bch\("([a-z0-9_:]+)"', m.group(2))
+        # This checker reads 26.3 languages, so choose the first icon of the version conditional.
+        out[m.group(1)] = re.findall(
+            r'\bch\((?:com\.simplebuilding\.version\.McVersion\.VANILLA_26_3_CONTENT\s*\?\s*)?"([a-z0-9_:]+)"', m.group(2))
     return out
 
 
