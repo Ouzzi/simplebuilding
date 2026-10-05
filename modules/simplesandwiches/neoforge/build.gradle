@@ -11,7 +11,6 @@ dependencies { jarJar project(':modules:simplelib:neoforge') }
 neoForge.runs {
     moduleIntegrationGameTest {
         type = 'gameTestServer'
-        gameDirectory = rootProject.layout.projectDirectory.dir('integration/run-neoforge-263')
         programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simplesandwiches:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
     }
 }

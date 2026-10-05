@@ -12,7 +12,6 @@ neoForge.runs {
  moduleIntegrationGameTest {
   type = 'gameTestServer'
   loadedMods = [neoForge.mods.simpletweaks, neoForge.mods.simplebuilding]
-  gameDirectory = rootProject.layout.projectDirectory.dir('integration/run-neoforge-263')
   programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simpletweaks:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
  }
 }

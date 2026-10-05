@@ -49,7 +49,7 @@ The harness test requires SimpleBuilding and wiringexample and proves storing/re
 token in a SimpleBuilding reinforced hopper through public registry ids and Vanilla Container.
 It has its own namespace, catalogue, report and target; existing counts/default targets are unchanged.
 The generic cross-mod harness above is Fabric-only. Simple Money also has a dedicated
-NeoForge module-test runtime under integration/run-neoforge-263; this is not a general
+NeoForge module-test runtime under `integration/run-neoforge-263/simplemoney`; this is not a general
 NeoForge cross-mod integration launcher. See docs/modules/simplemoney.md.
 
 ## Dev mods and Launch Hub
@@ -256,8 +256,12 @@ Launch Hub derives module test targets from `tests.loaders` and queues selected
 suites after `integration-263`. `launch_targets.json` contains base launch lines,
 without a second module registration. Reports and client screenshot expectations
 remain isolated per target. Fabric run tasks form a `mustRunAfter` chain, as do
-NeoForge module tasks, preventing simultaneous use of each shared integration
-test directory even under `--parallel`.
+NeoForge module tasks. Fabric still shares its integration test directory; NeoForge
+uses `integration/run-neoforge-263/<id>` per module, with the existing ordering retained
+to limit concurrent servers. Standalone directories remain separate. Mods are supplied
+by Gradle; module runs do not inherit `mods/` or `defaultconfigs/` from the parent directory.
+Run `gradlew -I tools/testrunner/check_neoforge_runs.gradle checkModuleNeoForgeRuns`
+to verify the evaluated directories and mod lists without starting a server.
 
 ## Repeatable experimental Forge module adapter (26.3)
 

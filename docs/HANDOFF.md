@@ -5,6 +5,24 @@ Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alte
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
 
+## Worker-Nachtrag 2026-10-05: NeoForge-Modul-Gate
+
+Branch `gpt-neorun`: `loadedMods.add(simplelib)` verwarf die Gradle-Konvention;
+Money/Dimensions luden nur SimpleLib und fanden keine eigenen Tests (Exit -1).
+Die 21 erfolgreichen Tests im Sammellog gehoerten zu SimpleLib, die Claims-Fehler
+zu absichtlichen Negativtests. Die gemeinsame Konvention erhaelt jetzt die
+effektive Mod-Liste. Modul-Spielordner liegen unter
+`integration/run-neoforge-263/<id>`; Standalone bleibt getrennt. Leere alte
+`mods/`-/`defaultconfigs/`-Ordner brauchen keine Migration. Bestehende Reihenfolge
+der Integrationsserver bleibt erhalten; keine Dateikollision als Ursache behauptet.
+
+Money/Dimensions zweimal **61/61**, alle 21 Modul-/Standalone-Ziele **617/617**,
+Kern-NeoForge **962/962**, jeweils `alles gruen`, inklusive Testzentralen-Neubau
+und Item-/Block-Abdeckung. `check -q -PskipWiki` und Pflicht-Compiles:
+**GRADLE_EXIT=0**. Zusaetzliche Gradle-Konfigurationspruefung kontrolliert 21
+effektive Mod-Listen und eindeutige Ordner. Kein Client/Push/Port;
+Belege: `docs/ai/PLAN-NEOFORGE-MODULE-RUNS-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-05: Hub-Testwelt
 
 Branch `gpt-hubworld`: `client_fresh` archiviert die gesamte alte Welt und erzeugt
