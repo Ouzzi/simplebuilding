@@ -1,0 +1,627 @@
+window.WIKI_MODULE_DATA = window.WIKI_MODULE_DATA || {};
+window.WIKI_MODULE_DATA["simplelib"] = {
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simplelib",
+    "name": "SimpleLib",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ]
+  },
+  "features": [
+    {
+      "id": "crucible",
+      "en": {
+        "title": "Crucibles",
+        "summary": "A cooking station without fuel that cooks every slot at once, heated by the block below.",
+        "details": [
+          "Iron 6 slots, Reinforced 9, Netherite 18 (Enderite 27 with SimpleBuilding). Speed 1x/2x/4x/8x; Netherite and Enderite count experience twice.",
+          "Heat comes from the block directly below, or two blocks below at 10% less speed (air, a hopper or a non-full block in between). Medium: campfire, soul campfire, magma block, flowing lava (0.5x, campfire and smoker recipes). High: lava, lava cauldron, flowing soul lava (0.75x, also furnace and blast furnace recipes). Extreme: soul lava (1x, also ancient debris). Torches, candles and plain fire give no heat. In the Nether every source is one level hotter, at most high.",
+          "Before a slot starts, it reserves the place for its result: the slot directly below first, then any other free or matching slot. A reserved slot shows the result faintly; anything else put there stops that slot until it is taken out. Finished results are never cooked again until taken out.",
+          "After the heat source is gone the crucible keeps its heat for 2/4/8/16 seconds. Hoppers insert from above and the sides and take finished results from below.",
+          "Build an iron crucible in the world: hold an axe, put a heavy weighted pressure plate in the off hand and use it on an iron block four times (walls), then twice with an iron ingot (handles).",
+          "Upgrade in place without SimpleBuilding: axe in the main hand, ten strikes on the crucible: Iron to Reinforced with 2 diamonds in the off hand, Reinforced to Netherite with 1 netherite ingot. Contents, progress and experience stay. With SimpleBuilding the sledgehammer replaces the axe."
+        ]
+      },
+      "de": {
+        "title": "Schmelztiegel",
+        "summary": "Garstation ohne Brennstoff, die alle Plätze zugleich gart, beheizt vom Block darunter.",
+        "details": [
+          "Eisen 6 Plätze, Verstärkt 9, Netherit 18 (Enderit 27 mit SimpleBuilding). Tempo 1×/2×/4×/8×; Netherit und Enderit zählen die Erfahrung doppelt.",
+          "Hitze kommt vom Block direkt darunter oder zwei Blöcke darunter mit 10 % weniger Tempo (dazwischen Luft, ein Trichter oder ein nicht voller Block). Mittel: Lagerfeuer, Seelen-Lagerfeuer, Magmablock, fließende Lava (0,5×, Lagerfeuer- und Räucherofen-Rezepte). Hoch: Lava, Lavakessel, fließende Seelen-Lava (0,75×, auch Ofen- und Schmelzofen-Rezepte). Extrem: Seelen-Lava (1×, auch antiker Schrott). Fackeln, Kerzen und normales Feuer geben keine Hitze. Im Nether ist jede Quelle eine Stufe heißer, höchstens hoch.",
+          "Bevor ein Platz anfängt, reserviert er den Platz für sein Ergebnis: zuerst den Platz direkt darunter, sonst einen anderen freien oder passenden. Ein reservierter Platz zeigt das Ergebnis blass; legt man etwas anderes hinein, stoppt dieser Platz, bis es wieder herausgenommen wird. Fertige Ergebnisse werden nie erneut gegart, bis man sie entnimmt.",
+          "Nach dem Entfernen der Hitzequelle hält der Tiegel die Hitze 2/4/8/16 Sekunden. Trichter füllen von oben und von der Seite ein und nehmen fertige Ergebnisse unten heraus.",
+          "Eisen-Tiegel in der Welt bauen: Axt in der Hand, schwere Wägeplatte in der Nebenhand und viermal auf einen Eisenblock anwenden (Wände), dann zweimal mit einem Eisenbarren (Griffe).",
+          "Aufwerten ohne SimpleBuilding: Axt in der Haupthand, zehn Schläge auf den Tiegel: Eisen zu Verstärkt mit 2 Diamanten in der Nebenhand, Verstärkt zu Netherit mit 1 Netheritbarren. Inhalt, Fortschritt und Erfahrung bleiben. Mit SimpleBuilding ersetzt der Vorschlaghammer die Axt."
+        ]
+      }
+    },
+    {
+      "id": "village_kitchen",
+      "en": {
+        "title": "Village field kitchens",
+        "summary": "Villages of all five types can have a small field kitchen: an iron crucible on an unlit campfire with cooked food, a barrel of raw meat and a seat.",
+        "details": [
+          "The kitchen is added to each village houses pool at server start with weight 3 (about every third village); server config villageKitchenWeight 0–10, 0 switches it off. Only newly generated villages get it.",
+          "Light the campfire to warm the food in the crucible."
+        ]
+      },
+      "de": {
+        "title": "Dorf-Feldküchen",
+        "summary": "Dörfer aller fünf Arten können eine kleine Feldküche haben: ein Eisen-Schmelztiegel auf einem ausgemachten Lagerfeuer mit gegartem Essen, ein Fass mit rohem Fleisch und eine Sitzgelegenheit.",
+        "details": [
+          "Die Küche wird beim Serverstart jedem Häuser-Pool der Dörfer mit Gewicht 3 hinzugefügt (etwa jedes dritte Dorf); Server-Config villageKitchenWeight 0–10, 0 schaltet sie ab. Nur neu erzeugte Dörfer bekommen sie.",
+          "Zündet man das Lagerfeuer an, wärmt der Tiegel das Essen auf."
+        ]
+      }
+    },
+    {
+      "id": "warm_food",
+      "en": {
+        "title": "Warm food",
+        "summary": "Cooked food comes out of a crucible warm and is eaten 15% faster while warm.",
+        "details": [
+          "Warmable food (tag simplelib:warmable_food: cooked meat and fish, baked potato, bread, pumpkin pie, stews and soups) put into a heated crucible is warmed as a whole stack and stays in its slot.",
+          "Food stays warm for half a day-night cycle (12,000 ticks) and cools everywhere except inside a crucible. Server bounds: warmDurationTicks 1,200–48,000, eatSpeedBonus 0–0.30.",
+          "In any bundle (also mod bundles) food stays warm for two day-night cycles (48,000 ticks, bound warmBundleDurationTicks 1,200–96,000). Stacks of the same food combine regardless of warmth; the new warmth is the mean over all items, cold items count as zero. Warm items glow in inventories, stronger the warmer they are, and the tooltip shows the minutes left."
+        ]
+      },
+      "de": {
+        "title": "Warmes Essen",
+        "summary": "Gegartes Essen kommt warm aus dem Schmelztiegel und wird warm 15 % schneller gegessen.",
+        "details": [
+          "Aufwärmbares Essen (Tag simplelib:warmable_food: gegartes Fleisch und Fisch, Ofenkartoffel, Brot, Kürbiskuchen, Eintöpfe und Suppen) wird in einem beheizten Tiegel als ganzer Stapel aufgewärmt und bleibt in seinem Platz.",
+          "Essen bleibt einen halben Tag-Nacht-Zyklus warm (12.000 Ticks) und kühlt überall ab außer im Tiegel. Server-Grenzen: warmDurationTicks 1.200–48.000, eatSpeedBonus 0–0,30.",
+          "In jedem Bündel (auch Mod-Bündeln) bleibt Essen zwei Tag-Nacht-Zyklen warm (48.000 Ticks, Grenze warmBundleDurationTicks 1.200–96.000). Stapel desselben Essens lassen sich unabhängig von der Wärme zusammenlegen; die neue Wärme ist der Mittelwert über alle Stücke, kalte zählen als null. Warme Gegenstände leuchten im Inventar, je wärmer desto stärker, und der Tooltip zeigt die restlichen Minuten."
+        ]
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "simplelib:copper_barrel",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplelib:copper_barrel",
+        "count": 1
+      },
+      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/copper_barrel.json",
+      "ingredients": [
+        "minecraft:barrel",
+        "minecraft:copper_ingot"
+      ],
+      "pattern": [
+        " C ",
+        "CBC",
+        " C "
+      ],
+      "key": {
+        "C": [
+          "minecraft:copper_ingot"
+        ],
+        "B": [
+          "minecraft:barrel"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 4
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.75
+          }
+        ]
+      }
+    }
+  ],
+  "lootTables": [
+    {
+      "id": "simplelib:blocks/copper_barrel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelib:copper_barrel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/copper_barrel.json"
+    },
+    {
+      "id": "simplelib:blocks/crucible_blank",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_block"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:heavy_weighted_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:heavy_weighted_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:heavy_weighted_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:heavy_weighted_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:heavy_weighted_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1,
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "conditions": [
+            "minecraft:block_state_property"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/crucible_blank.json"
+    },
+    {
+      "id": "simplelib:blocks/iron_crucible",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelib:iron_crucible"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/iron_crucible.json"
+    },
+    {
+      "id": "simplelib:blocks/netherite_crucible",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelib:netherite_crucible"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/netherite_crucible.json"
+    },
+    {
+      "id": "simplelib:blocks/reinforced_barrel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelib:reinforced_barrel"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/reinforced_barrel.json"
+    },
+    {
+      "id": "simplelib:blocks/reinforced_crucible",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplelib:reinforced_crucible"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/reinforced_crucible.json"
+    },
+    {
+      "id": "simplelib:chests/village_field_kitchen",
+      "kind": "chests",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "min": 2,
+            "max": 4
+          },
+          "items": [
+            "minecraft:beef",
+            "minecraft:porkchop",
+            "minecraft:mutton",
+            "minecraft:chicken",
+            "minecraft:rabbit",
+            "minecraft:potato"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/chests/village_field_kitchen.json"
+    }
+  ],
+  "tags": [
+    {
+      "id": "simplelib:block/heat_source/extreme",
+      "replace": false,
+      "values": [],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/block/heat_source/extreme.json"
+    },
+    {
+      "id": "simplelib:block/heat_source/high",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:lava_cauldron",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/block/heat_source/high.json"
+    },
+    {
+      "id": "simplelib:block/heat_source/medium",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:campfire",
+          "required": true
+        },
+        {
+          "id": "minecraft:soul_campfire",
+          "required": true
+        },
+        {
+          "id": "minecraft:magma_block",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/block/heat_source/medium.json"
+    },
+    {
+      "id": "simplelib:fluid/extreme_heat",
+      "replace": false,
+      "values": [],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/fluid/extreme_heat.json"
+    },
+    {
+      "id": "simplelib:item/crucible_handles",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:iron_ingot",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/crucible_handles.json"
+    },
+    {
+      "id": "simplelib:item/crucible_walls",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:heavy_weighted_pressure_plate",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/crucible_walls.json"
+    },
+    {
+      "id": "simplelib:item/needs_extreme_heat",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:ancient_debris",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/needs_extreme_heat.json"
+    },
+    {
+      "id": "simplelib:item/upgrade_netherite",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:netherite_ingot",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/upgrade_netherite.json"
+    },
+    {
+      "id": "simplelib:item/upgrade_reinforced",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:diamond",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/upgrade_reinforced.json"
+    },
+    {
+      "id": "simplelib:item/warmable_food",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:cooked_beef",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_porkchop",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_chicken",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_mutton",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_rabbit",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_cod",
+          "required": true
+        },
+        {
+          "id": "minecraft:cooked_salmon",
+          "required": true
+        },
+        {
+          "id": "minecraft:baked_potato",
+          "required": true
+        },
+        {
+          "id": "minecraft:bread",
+          "required": true
+        },
+        {
+          "id": "minecraft:pumpkin_pie",
+          "required": true
+        },
+        {
+          "id": "minecraft:mushroom_stew",
+          "required": true
+        },
+        {
+          "id": "minecraft:rabbit_stew",
+          "required": true
+        },
+        {
+          "id": "minecraft:beetroot_soup",
+          "required": true
+        },
+        {
+          "id": "minecraft:suspicious_stew",
+          "required": true
+        }
+      ],
+      "source": "modules/simplelib/generated/resources/data/simplelib/tags/item/warmable_food.json"
+    }
+  ],
+  "advancements": [],
+  "enchantments": [],
+  "items": [],
+  "blocks": [
+    {
+      "id": "simplelib:copper_barrel",
+      "name": {
+        "en_us": "Copper Barrel",
+        "de_de": "Kupfer-Fass"
+      },
+      "note": {
+        "en": {
+          "summary": "A barrel of 27 slots (barrel surrounded by four copper ingots). Next to a crucible, six axe strikes (sledgehammer with SimpleBuilding) attach it: the crucible then puts its results into its first 9 slots first, shown in the crucible screen; a hopper below the barrel takes them out."
+        },
+        "de": {
+          "summary": "Ein Fass mit 27 Plätzen (Fass umringt von vier Kupferbarren). Neben einem Schmelztiegel mit sechs Axtschlägen (mit SimpleBuilding Vorschlaghammer) angebracht, legt der Tiegel seine Ergebnisse zuerst in dessen erste 9 Plätze, die im Tiegel-Fenster erscheinen; ein Trichter unter dem Fass nimmt sie heraus."
+        }
+      },
+      "craftedBy": [
+        "simplelib:copper_barrel"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplelib:crucible_blank",
+      "name": {
+        "en_us": "Crucible Blank",
+        "de_de": "Schmelztiegel-Rohling"
+      },
+      "note": {
+        "en": {
+          "summary": "A half-built iron crucible; breaking it returns the iron block and every part used so far."
+        },
+        "de": {
+          "summary": "Ein halb gebauter Eisen-Schmelztiegel; abgebaut gibt er den Eisenblock und alle bisher verbrauchten Teile zurück."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelib:iron_crucible",
+      "name": {
+        "en_us": "Iron Crucible",
+        "de_de": "Eisen-Schmelztiegel"
+      },
+      "note": {
+        "en": {
+          "summary": "Crucible with 6 slots at furnace speed; built in the world from an iron block (see Crucibles)."
+        },
+        "de": {
+          "summary": "Schmelztiegel mit 6 Plätzen in Ofen-Tempo; wird in der Welt aus einem Eisenblock gebaut (siehe Schmelztiegel)."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelib:netherite_crucible",
+      "name": {
+        "en_us": "Netherite Crucible",
+        "de_de": "Netherit-Schmelztiegel"
+      },
+      "note": {
+        "en": {
+          "summary": "Crucible with 18 slots at four times the speed; counts experience twice."
+        },
+        "de": {
+          "summary": "Schmelztiegel mit 18 Plätzen in vierfachem Tempo; zählt die Erfahrung doppelt."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelib:reinforced_barrel",
+      "name": {
+        "en_us": "Reinforced Barrel",
+        "de_de": "Verstärktes Fass"
+      },
+      "note": {
+        "en": {
+          "summary": "A copper barrel upgraded in place (axe, 2 diamonds, ten strikes): 36 slots on its own, 9 when attached to a crucible."
+        },
+        "de": {
+          "summary": "Ein in der Welt aufgewertetes Kupfer-Fass (Axt, 2 Diamanten, zehn Schläge): allein 36 Plätze, am Tiegel 9."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplelib:reinforced_crucible",
+      "name": {
+        "en_us": "Reinforced Crucible",
+        "de_de": "Verstärkter Schmelztiegel"
+      },
+      "note": {
+        "en": {
+          "summary": "Crucible with 9 slots at double speed."
+        },
+        "de": {
+          "summary": "Schmelztiegel mit 9 Plätzen in doppeltem Tempo."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    }
+  ],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 3,
+    "recipes": 1,
+    "lootTables": 7,
+    "tags": 10,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 0,
+    "blocks": 6,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+};
