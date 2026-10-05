@@ -108,6 +108,18 @@ public sealed interface TcOp {
     }
 
     /**
+     * Verknuepft eine Haengematte (docs/ai/PLAN-HAENGEMATTE-WINKEL-2026-10-02.md): ihre Bloecke stehen schon als
+     * {@link Place}-Schritte da, dieser Schritt traegt jedem Block die Matte (erster Anker {@code pos}, zweiter um
+     * {@code dx}/{@code dz} versetzt) in seine Block-Entity ein.
+     */
+    record Hammock(BlockPos pos, int dx, int dz) implements TcOp {
+        @Override
+        public TcOp moved(BlockPos offset) {
+            return new Hammock(pos.offset(offset), dx, dz);
+        }
+    }
+
+    /**
      * Ein Befehlsblock, der nach {@code facing} zeigt, mit Knopf davor und einem Schild darueber.
      * Der Befehl kann absolute Koordinaten enthalten; die kennt die Planung erst mit dem Ursprung.
      */

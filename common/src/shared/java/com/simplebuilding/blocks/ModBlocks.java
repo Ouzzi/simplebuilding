@@ -259,6 +259,16 @@ public class ModBlocks {
             BLACK_HAMMOCK, BROWN_HAMMOCK, RED_HAMMOCK, ORANGE_HAMMOCK, YELLOW_HAMMOCK, LIME_HAMMOCK, GREEN_HAMMOCK, CYAN_HAMMOCK,
             LIGHT_BLUE_HAMMOCK, BLUE_HAMMOCK, PURPLE_HAMMOCK, MAGENTA_HAMMOCK, PINK_HAMMOCK) : List.of();
 
+    /** Die Bloecke mit Haengematten-Block-Entity (HammockBlockEntity): alle Tuchfarben und das Seil; leer ohne McVersion.HAMMOCK. */
+    public static Block[] hammockBlockEntityBlocks() {
+        if (!McVersion.HAMMOCK) {
+            return new Block[0];
+        }
+        List<Block> blocks = new java.util.ArrayList<>(HAMMOCKS);
+        blocks.add(HAMMOCK_ROPE);
+        return blocks.toArray(new Block[0]);
+    }
+
     private static Block hammock(net.minecraft.world.item.DyeColor color) {
         if (!McVersion.HAMMOCK) {
             return null;

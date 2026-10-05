@@ -2767,7 +2767,7 @@
   "block.simplebuilding.standing_rod": "Aufgestellter Stab",
   "tooltip.simplebuilding.hammock": "Zwischen zwei Blöcken mit 2–4 Abstand.",
   "tooltip.simplebuilding.hammock.2": "Liegen: Zeit läuft schneller, auch nachts.",
-  "tooltip.simplebuilding.hammock.3": "Diagonal: erst einen Anker, dann den anderen.",
+  "tooltip.simplebuilding.hammock.3": "Jeder Winkel: erst einen Anker, dann den anderen.",
   "simplebuilding.testcentre.section.archery": "Schießstand",
   "simplebuilding.testcentre.section.archery.sub": "jeder Pfeil, Puppen",
   "simplebuilding.testcentre.archery.plain": "Kürbiskopf",

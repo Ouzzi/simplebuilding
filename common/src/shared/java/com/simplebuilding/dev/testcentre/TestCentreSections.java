@@ -988,8 +988,9 @@ public final class TestCentreSections {
             c.sign(sx, 0, pz - 1, Direction.NORTH, ModBlocks.AUTO_SMITHER.getName(),
                     TcText.t("machines.auto_smither", "flip the lever: smiths once"));
         }
-        // Haengematten (v2): 13 Farben zwischen Zaunpfosten mit 2 freien Bloecken, dann 3 und 4 frei (mittig), die letzte
-        // diagonal (zwei Klicks). Hinlegen beschleunigt die Uhr (advance_time an, genug Spieler), tags und nachts.
+        // Haengematten (v3): 13 Farben zwischen Zaunpfosten mit 2 freien Bloecken, dann 3 und 4 frei (mittig), die letzte
+        // diagonal (zwei Klicks); dahinter zwei schraege (3:1 und 5:2, jeder Winkel per zwei Klicks). Hinlegen
+        // beschleunigt die Uhr (advance_time an, genug Spieler), tags und nachts.
         if (!ModBlocks.HAMMOCKS.isEmpty()) {
             int hx = (ModBlocks.AUTO_SMITHER != null ? px + 4 : px + 1);
             c.sign(hx, 0, pz - 1, Direction.NORTH, TcText.bold(TcText.t("machines.hammocks", "Hammocks")),
@@ -999,13 +1000,23 @@ public final class TestCentreSections {
                 boolean diagonal = i == ModBlocks.HAMMOCKS.size() - 1;
                 int gap = diagonal ? 2 : i == 13 ? 3 : i == 14 ? 4 : 2;
                 var spot = new com.simplebuilding.blocks.custom.HammockLayout.Spot(new net.minecraft.core.BlockPos(col, 1, pz),
-                        diagonal ? Direction.EAST : Direction.SOUTH, diagonal, gap);
+                        diagonal ? gap + 1 : 0, gap + 1);
                 for (net.minecraft.core.BlockPos anchor : List.of(spot.anchor(), spot.otherAnchor())) {
                     c.place(anchor.getX(), 0, anchor.getZ(), Blocks.OAK_FENCE);
                     c.place(anchor.getX(), 1, anchor.getZ(), Blocks.OAK_FENCE);
                 }
-                com.simplebuilding.blocks.custom.HammockLayout.states(ModBlocks.HAMMOCKS.get(i), ModBlocks.HAMMOCK_ROPE, spot)
-                        .forEach((pos, state) -> c.place(pos.getX(), pos.getY(), pos.getZ(), state));
+                c.hammock(spot, ModBlocks.HAMMOCKS.get(i));
+            }
+            // schraeg (v3): 3:1 und 5:2 hinter der Reihe (z = pz + 6 .. pz + 8), rot und blau
+            int[][] slants = {{3, 1}, {5, 2}};
+            for (int k = 0; k < slants.length; k++) {
+                var spot = new com.simplebuilding.blocks.custom.HammockLayout.Spot(
+                        new net.minecraft.core.BlockPos(hx + 1 + k * 7, 1, pz + 6), slants[k][0], slants[k][1]);
+                for (net.minecraft.core.BlockPos anchor : List.of(spot.anchor(), spot.otherAnchor())) {
+                    c.place(anchor.getX(), 0, anchor.getZ(), Blocks.OAK_FENCE);
+                    c.place(anchor.getX(), 1, anchor.getZ(), Blocks.OAK_FENCE);
+                }
+                c.hammock(spot, ModBlocks.HAMMOCKS.get(k == 0 ? 5 : 12));
             }
             // Aufgestellte Staebe (2026-10-04) gleich hinter der diagonalen Haengematte (reicht bis hx + 19): die fuenf
             // Staebe einzeln, dahinter eine weisse Haengematte zwischen Pfosten aus je zwei aufgestellten Stoecken.
@@ -1020,14 +1031,12 @@ public final class TestCentreSections {
                             .setValue(com.simplebuilding.blocks.custom.StandingRodBlock.ROD, rods[i]));
                 }
                 int hcol = sx + 1 + rods.length + 1;
-                var rodSpot = new com.simplebuilding.blocks.custom.HammockLayout.Spot(new net.minecraft.core.BlockPos(hcol, 1, pz),
-                        Direction.SOUTH, false, 2);
+                var rodSpot = new com.simplebuilding.blocks.custom.HammockLayout.Spot(new net.minecraft.core.BlockPos(hcol, 1, pz), 0, 3);
                 for (net.minecraft.core.BlockPos anchor : List.of(rodSpot.anchor(), rodSpot.otherAnchor())) {
                     c.place(anchor.getX(), 0, anchor.getZ(), ModBlocks.STANDING_ROD.defaultBlockState());
                     c.place(anchor.getX(), 1, anchor.getZ(), ModBlocks.STANDING_ROD.defaultBlockState());
                 }
-                com.simplebuilding.blocks.custom.HammockLayout.states(ModBlocks.HAMMOCKS.get(0), ModBlocks.HAMMOCK_ROPE, rodSpot)
-                        .forEach((pos, state) -> c.place(pos.getX(), pos.getY(), pos.getZ(), state));
+                c.hammock(rodSpot, ModBlocks.HAMMOCKS.get(0));
             }
         }
         return c;

@@ -4,6 +4,7 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.HammockBlock;
 import com.simplebuilding.blocks.custom.HammockLayout;
 import com.simplebuilding.blocks.custom.HammockRopeBlock;
+import com.simplebuilding.blocks.custom.HammockShape;
 import com.simplebuilding.blocks.custom.HammockTime;
 import com.simplebuilding.blocks.custom.StandingRodBlock;
 import com.simplebuilding.config.ServerTuning;
@@ -41,8 +42,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Hammock (docs/ai/PLAN-HAENGEMATTE-2026-10-02.md, v2): placement between two anchors 2 to 4 apart, straight in one click
- * or diagonal in two, the cloth in the middle, falling and dropping once, resting day and night, the clock speed-up and
+ * Hammock (docs/ai/PLAN-HAENGEMATTE-2026-10-02.md, v2; any angle: PLAN-HAENGEMATTE-WINKEL-2026-10-02.md): placement
+ * between two anchors 2 to 4 apart, straight in one click or at any angle in two, the cloth in the middle, falling and dropping once, resting day and night, the clock speed-up and
  * its share of players, the recipe, the capped server option. Loader-neutral; on lines without {@link McVersion#HAMMOCK}
  * the tests pass at once.
  */
@@ -87,25 +88,39 @@ public final class HammockTests {
         return state.getBlock() instanceof HammockBlock || state.getBlock() instanceof HammockRopeBlock;
     }
 
-    /** Asserts the white hammock {@code spot} (relative): rope cells everywhere, cloth only under the cloth, head in place. */
+    /**
+     * Asserts the white hammock {@code spot} (relative): a rope block in every rope cell, cloth only in the cloth cells
+     * (the head where it belongs, air under the other rope cells), every block entity linked to the hammock, intact.
+     */
     private static void assertHangs(GameTestHelper helper, HammockLayout.Spot spot, String what) {
-        for (int i = 0; i < spot.gap(); i++) {
-            BlockState rope = at(helper, spot.rope(i));
-            helper.assertTrue(rope.is(ModBlocks.HAMMOCK_ROPE) && rope.getValue(HammockRopeBlock.FACING) == spot.facing()
-                    && rope.getValue(HammockLayout.DIAGONAL) == spot.diagonal() && rope.getValue(HammockLayout.GAP) == spot.gap()
-                    && rope.getValue(HammockLayout.INDEX) == i, what + ": rope cell " + i + " is " + rope);
-            BlockState below = at(helper, spot.rope(i).below());
-            boolean cloth = HammockLayout.clothCells(spot.gap()).contains(i);
-            if (cloth) {
-                boolean head = i == HammockLayout.headCell(spot.gap());
-                helper.assertTrue(below.is(ModBlocks.WHITE_HAMMOCK) && below.getValue(HammockLayout.INDEX) == i
-                        && (below.getValue(HammockBlock.PART) == BedPart.HEAD) == head, what + ": cloth cell " + i + " is " + below);
-            } else {
-                helper.assertTrue(below.isAir(), what + ": cell " + i + " under the ropes is not free: " + below);
+        HammockLayout.Spot abs = spot.moved(helper.absolutePos(BlockPos.ZERO));
+        List<BlockPos> cloth = spot.clothCells();
+        for (BlockPos cell : spot.ropeCells()) {
+            BlockState rope = at(helper, cell);
+            helper.assertTrue(rope.is(ModBlocks.HAMMOCK_ROPE), what + ": rope cell " + cell.toShortString() + " is " + rope);
+            helper.assertValueEqual(HammockLayout.spotAt(helper.getLevel(), helper.absolutePos(cell)), abs,
+                    what + ": hammock of rope cell " + cell.toShortString());
+            if (!cloth.contains(cell.below())) {
+                helper.assertTrue(at(helper, cell.below()).isAir(), what + ": cell under the rope " + cell.toShortString() + " is not free");
             }
         }
-        helper.assertTrue(HammockLayout.intact(helper.getLevel(), helper.absolutePos(spot.clothHead()),
-                helper.getLevel().getBlockState(helper.absolutePos(spot.clothHead()))), what + ": not intact");
+        for (BlockPos cell : cloth) {
+            BlockState below = at(helper, cell);
+            boolean head = cell.equals(spot.clothHead());
+            helper.assertTrue(below.is(ModBlocks.WHITE_HAMMOCK) && (below.getValue(HammockBlock.PART) == BedPart.HEAD) == head
+                    && below.getValue(HammockBlock.FACING) == spot.facing() && below.getValue(HammockLayout.STRAIGHT) == spot.straight(),
+                    what + ": cloth cell " + cell.toShortString() + " is " + below);
+            helper.assertValueEqual(HammockLayout.spotAt(helper.getLevel(), helper.absolutePos(cell)), abs,
+                    what + ": hammock of cloth cell " + cell.toShortString());
+        }
+        helper.assertTrue(HammockLayout.intact(helper.getLevel(), helper.absolutePos(spot.clothHead())), what + ": not intact");
+    }
+
+    /** Asserts that none of the cells of {@code spot} (relative) holds a hammock block any more. */
+    private static void assertGone(GameTestHelper helper, HammockLayout.Spot spot, String what) {
+        for (BlockPos cell : spot.cells()) {
+            helper.assertFalse(isHammock(at(helper, cell)), what + ": hammock block left at " + cell.toShortString());
+        }
     }
 
     private static void assertNoHammockIn(GameTestHelper helper, int x, String what) {
@@ -126,7 +141,7 @@ public final class HammockTests {
     }
 
     private static HammockLayout.Spot straight(int x, int gap) {
-        return new HammockLayout.Spot(new BlockPos(x, ROPE_Y, 1), Direction.SOUTH, false, gap);
+        return new HammockLayout.Spot(new BlockPos(x, ROPE_Y, 1), 0, gap + 1);
     }
 
     /** Builds a straight hammock between stone anchors at (x, ROPE_Y, 1) and (x, ROPE_Y, 2 + gap) with one click. */
@@ -137,6 +152,31 @@ public final class HammockTests {
         InteractionResult result = click(helper, player, spot.anchor());
         helper.assertTrue(result.consumesAction(), "gap " + gap + ": the hammock was refused (" + result + ")");
         return spot;
+    }
+
+    /**
+     * Two clicks (sneaking, so the first one always remembers its anchor) between stone anchors at {@code spot}
+     * (relative); returns the second click's result. The remembered anchor is forgotten afterwards either way.
+     */
+    private static InteractionResult twoClicks(GameTestHelper helper, ServerPlayer player, HammockLayout.Spot spot) {
+        helper.setBlock(spot.anchor(), Blocks.STONE);
+        helper.setBlock(spot.otherAnchor(), Blocks.STONE);
+        player.setShiftKeyDown(true);
+        helper.assertTrue(click(helper, player, spot.anchor()).consumesAction(), "the first click on an anchor was refused");
+        helper.assertValueEqual(HammockItem.storedAnchor(player.getMainHandItem(), helper.getLevel()),
+                Optional.of(helper.absolutePos(spot.anchor())), "remembered first anchor");
+        InteractionResult result = click(helper, player, spot.otherAnchor());
+        player.setShiftKeyDown(false);
+        HammockItem.clearAnchor(player.getMainHandItem());
+        return result;
+    }
+
+    private static List<BlockPos> cells(BlockPos origin, int y, int[][] xz) {
+        List<BlockPos> out = new java.util.ArrayList<>();
+        for (int[] c : xz) {
+            out.add(origin.offset(c[0], y, c[1]));
+        }
+        return out;
     }
 
     /** One click: gaps 1 and 5 fail, 2, 3 and 4 hang with the cloth in the middle; a fence holds like a block. */
@@ -170,66 +210,126 @@ public final class HammockTests {
         helper.succeed();
     }
 
-    /** The cloth hangs in the middle at every gap: cloth cells, head cell and the lying player's shift along the line. */
+    /**
+     * Straight and 45-degree hammocks occupy exactly the cells of v2: rope cells 1..gap along the line, cloth cells
+     * 0,1 / 0,1,2 / 1,2 (by index), the cloth head at index 1 / 1 / 2 - in every direction.
+     */
     public static void clothHangsInTheMiddleAtEveryGap(GameTestHelper helper) {
-        helper.assertValueEqual(HammockLayout.clothCells(2), List.of(0, 1), "cloth cells, gap 2");
-        helper.assertValueEqual(HammockLayout.clothCells(3), List.of(0, 1, 2), "cloth cells, gap 3");
-        helper.assertValueEqual(HammockLayout.clothCells(4), List.of(1, 2), "cloth cells, gap 4");
-        helper.assertValueEqual(HammockLayout.headCell(2), 1, "head, gap 2");
-        helper.assertValueEqual(HammockLayout.headCell(3), 1, "head, gap 3");
-        helper.assertValueEqual(HammockLayout.headCell(4), 2, "head, gap 4");
-        // the head point is the cloth middle + half a block: on the head cell's centre for 2 and 4, half a block on for 3
-        helper.assertTrue(Math.abs(HammockLayout.headShift(2, false)) < 1.0E-9, "shift, gap 2");
-        helper.assertTrue(Math.abs(HammockLayout.headShift(3, false) - 0.5) < 1.0E-9, "shift, gap 3");
-        helper.assertTrue(Math.abs(HammockLayout.headShift(4, false)) < 1.0E-9, "shift, gap 4");
-        helper.assertTrue(Math.abs(HammockLayout.headShift(3, true) - 0.5) < 1.0E-9, "shift, diagonal gap 3");
-        helper.assertTrue(Math.abs(HammockLayout.headShift(2, true) - (0.5 - 0.5 * Math.sqrt(2.0))) < 1.0E-9, "shift, diagonal gap 2");
-        // symmetry: the cells under the cloth mirror around the middle of the gap
-        for (int gap = HammockLayout.MIN_GAP; gap <= HammockLayout.MAX_GAP; gap++) {
-            for (int i : HammockLayout.clothCells(gap)) {
-                helper.assertTrue(HammockLayout.clothCells(gap).contains(gap - 1 - i), "cloth cells not symmetric for gap " + gap);
+        int[][] clothIndex = {{0, 1}, {0, 1, 2}, {1, 2}};
+        int[] headIndex = {1, 1, 2};
+        BlockPos a = new BlockPos(10, 64, -7);
+        for (Direction facing : Direction.Plane.HORIZONTAL) {
+            for (boolean diagonal : new boolean[] {false, true}) {
+                int sx = facing.getStepX() + (diagonal ? facing.getClockWise().getStepX() : 0);
+                int sz = facing.getStepZ() + (diagonal ? facing.getClockWise().getStepZ() : 0);
+                for (int gap = HammockLayout.MIN_GAP; gap <= HammockLayout.MAX_GAP; gap++) {
+                    HammockLayout.Spot spot = new HammockLayout.Spot(a, sx * (gap + 1), sz * (gap + 1));
+                    String what = facing + (diagonal ? " diagonal " : " straight ") + gap;
+                    List<BlockPos> rope = new java.util.ArrayList<>();
+                    for (int i = 0; i < gap; i++) {
+                        rope.add(a.offset(sx * (i + 1), 0, sz * (i + 1)));
+                    }
+                    List<BlockPos> cloth = new java.util.ArrayList<>();
+                    for (int i : clothIndex[gap - 2]) {
+                        cloth.add(rope.get(i).below());
+                    }
+                    helper.assertValueEqual(spot.ropeCells(), rope, what + ": rope cells");
+                    helper.assertValueEqual(spot.clothCells(), cloth, what + ": cloth cells");
+                    helper.assertValueEqual(spot.clothHead(), rope.get(headIndex[gap - 2]).below(), what + ": cloth head");
+                    helper.assertValueEqual(spot.facing(), facing, what + ": facing");
+                    helper.assertValueEqual(spot.straight(), !diagonal, what + ": straight");
+                }
             }
         }
         helper.succeed();
     }
 
     /**
-     * Symmetry in the world (owner 2026-10-04: "still not centred"): for every facing, straight and diagonal, 2 to 4 free
-     * cells, the middle between the two anchor centres plus half a block towards the second anchor (the head point) is
-     * exactly where the lying player is drawn - the centre of the cloth head cell moved by {@code headShift} along the
-     * line - and the cloth cells lie symmetrically around that middle.
+     * Centred at every angle: for every allowed offset (2 to 4 free cells along the main axis, any side offset) the
+     * rope and cloth cells mirror about the middle between the anchor centres, cloth cells hang under rope cells, the
+     * rope cells form a chain from anchor to anchor, the head point lies in the cloth head, and the drawn boxes
+     * ({@link HammockShape}) mirror about the middle too.
      */
     public static void clothMiddleSitsBetweenTheAnchorsInEveryDirection(GameTestHelper helper) {
-        for (Direction facing : Direction.Plane.HORIZONTAL) {
-            for (boolean diagonal : new boolean[] {false, true}) {
-                for (int gap = HammockLayout.MIN_GAP; gap <= HammockLayout.MAX_GAP; gap++) {
-                    HammockLayout.Spot spot = new HammockLayout.Spot(new BlockPos(10, 64, -7), facing, diagonal, gap);
-                    BlockPos step = spot.step();
-                    double len = Math.sqrt(step.getX() * step.getX() + step.getZ() * step.getZ());
-                    double ux = step.getX() / len;
-                    double uz = step.getZ() / len;
-                    double midX = (spot.anchor().getX() + spot.otherAnchor().getX()) / 2.0 + 0.5;
-                    double midZ = (spot.anchor().getZ() + spot.otherAnchor().getZ()) / 2.0 + 0.5;
-                    double shift = HammockLayout.headShift(gap, diagonal);
-                    double drawnX = spot.clothHead().getX() + 0.5 + shift * ux;
-                    double drawnZ = spot.clothHead().getZ() + 0.5 + shift * uz;
-                    String what = facing + (diagonal ? " diagonal " : " straight ") + gap;
-                    helper.assertTrue(Math.abs(drawnX - (midX + 0.5 * ux)) < 1.0E-9 && Math.abs(drawnZ - (midZ + 0.5 * uz)) < 1.0E-9,
-                            what + ": head point " + drawnX + "," + drawnZ + " is not the middle + half a block " + midX + "," + midZ);
-                    // cloth cells mirror around the middle: their centres average to it
-                    double sx = 0;
-                    double sz = 0;
-                    for (int i : HammockLayout.clothCells(gap)) {
-                        sx += spot.rope(i).getX() + 0.5;
-                        sz += spot.rope(i).getZ() + 0.5;
-                    }
-                    int n = HammockLayout.clothCells(gap).size();
-                    helper.assertTrue(Math.abs(sx / n - midX) < 1.0E-9 && Math.abs(sz / n - midZ) < 1.0E-9, what + ": cloth cells off the middle");
-                    helper.assertValueEqual(spot.otherAnchor(), spot.rope(gap), what + ": second anchor");
+        BlockPos a = new BlockPos(-3, 70, 12);
+        int count = 0;
+        for (int dx = -6; dx <= 6; dx++) {
+            for (int dz = -6; dz <= 6; dz++) {
+                HammockLayout.Spot spot = new HammockLayout.Spot(a, dx, dz);
+                String what = "offset " + dx + "," + dz;
+                int main = Math.max(Math.abs(dx), Math.abs(dz));
+                helper.assertValueEqual(spot.valid(), main >= 3 && main <= 5, what + ": valid");
+                helper.assertValueEqual(HammockLayout.between(a, spot.otherAnchor()).isPresent(), spot.valid(), what + ": between");
+                if (!spot.valid()) {
+                    continue;
                 }
+                count++;
+                List<BlockPos> rope = spot.ropeCells();
+                List<BlockPos> cloth = spot.clothCells();
+                helper.assertTrue(rope.size() <= 8 && cloth.size() >= 2 && cloth.size() <= 4, what + ": cell counts " + rope.size() + "/" + cloth.size());
+                // the reflection through the middle maps cell (x, z) to (2a + d - x, 2a + d - z)
+                for (List<BlockPos> list : List.of(rope, cloth)) {
+                    for (BlockPos cell : list) {
+                        BlockPos mirror = new BlockPos(2 * a.getX() + dx - cell.getX(), cell.getY(), 2 * a.getZ() + dz - cell.getZ());
+                        helper.assertTrue(list.contains(mirror), what + ": " + cell.toShortString() + " has no mirror cell");
+                    }
+                }
+                for (BlockPos cell : cloth) {
+                    helper.assertTrue(rope.contains(cell.above()), what + ": cloth cell " + cell.toShortString() + " not under the rope");
+                }
+                BlockPos previous = a;
+                for (BlockPos cell : rope) {
+                    helper.assertTrue(Math.abs(cell.getX() - previous.getX()) <= 1 && Math.abs(cell.getZ() - previous.getZ()) <= 1
+                            && !cell.equals(previous), what + ": rope chain broken at " + cell.toShortString());
+                    previous = cell;
+                }
+                BlockPos b = spot.otherAnchor();
+                helper.assertTrue(Math.abs(b.getX() - previous.getX()) <= 1 && Math.abs(b.getZ() - previous.getZ()) <= 1,
+                        what + ": rope chain does not reach the second anchor");
+                BlockPos head = spot.clothHead();
+                helper.assertTrue(cloth.contains(head), what + ": the cloth head is no cloth cell");
+                helper.assertTrue(spot.headX() >= head.getX() - 1.0E-9 && spot.headX() <= head.getX() + 1 + 1.0E-9
+                        && spot.headZ() >= head.getZ() - 1.0E-9 && spot.headZ() <= head.getZ() + 1 + 1.0E-9,
+                        what + ": head point outside the cloth head");
+                double midX = (a.getX() + b.getX()) / 2.0 + 0.5;
+                double midZ = (a.getZ() + b.getZ()) / 2.0 + 0.5;
+                helper.assertTrue(Math.abs(spot.middleX() - midX) < 1.0E-9 && Math.abs(spot.middleZ() - midZ) < 1.0E-9, what + ": middle");
+                helper.assertTrue(Math.abs(Math.hypot(spot.headX() - midX, spot.headZ() - midZ) - 0.5) < 1.0E-9, what + ": head point");
+                assertBoxesMirror(helper, spot, what);
             }
         }
+        helper.assertValueEqual(count, 96, "allowed offsets");
         helper.succeed();
+    }
+
+    /** Every corner of every drawn box has its mirror image (through the vertical axis at the middle) among the corners. */
+    private static void assertBoxesMirror(GameTestHelper helper, HammockLayout.Spot spot, String what) {
+        List<double[]> pts = new java.util.ArrayList<>();
+        List<double[]> mirrored = new java.util.ArrayList<>();
+        for (HammockShape.Box box : HammockShape.boxes(spot)) {
+            for (double[] p : box.corners()) {
+                double t = (p[0] - spot.middleX()) * spot.ux() + (p[2] - spot.middleZ()) * spot.uz();
+                double w = -(p[0] - spot.middleX()) * spot.uz() + (p[2] - spot.middleZ()) * spot.ux();
+                pts.add(new double[] {t, w, p[1]});
+                mirrored.add(new double[] {-t, -w, p[1]});
+            }
+        }
+        java.util.Comparator<double[]> order = java.util.Comparator.<double[]>comparingDouble(v -> Math.round(v[0] * 1.0E6))
+                .thenComparingDouble(v -> Math.round(v[1] * 1.0E6)).thenComparingDouble(v -> Math.round(v[2] * 1.0E6));
+        pts.sort(order);
+        mirrored.sort(order);
+        double worst = 0;
+        for (int i = 0; i < pts.size(); i++) {
+            for (int k = 0; k < 3; k++) {
+                worst = Math.max(worst, Math.abs(pts.get(i)[k] - mirrored.get(i)[k]));
+            }
+        }
+        helper.assertTrue(worst < 1.0E-6, what + ": drawn hammock not centred (" + worst + ")");
+        // the ropes end where the line leaves the anchor blocks, the cloth stays between the anchors
+        double half = spot.length() / 2;
+        for (double[] p : pts) {
+            helper.assertTrue(Math.abs(p[0]) <= half, what + ": drawn beyond the anchor centres (" + p[0] + ")");
+        }
     }
 
     /**
@@ -260,15 +360,14 @@ public final class HammockTests {
         // the far stick of the gap-3 hammock goes: the hammock falls, one item
         HammockLayout.Spot three = straight(1, 3);
         helper.setBlock(three.otherAnchor(), Blocks.AIR);
-        for (int i = 0; i < 3; i++) {
-            helper.assertFalse(isHammock(at(helper, three.rope(i))) || isHammock(at(helper, three.rope(i).below())),
-                    "the hammock still hangs at cell " + i);
-        }
-        helper.assertValueEqual(dropped(helper, ModItems.WHITE_HAMMOCK), 1, "hammocks dropped");
-        helper.succeed();
+        helper.runAfterDelay(2, () -> {
+            assertGone(helper, three, "gap 3 after losing a stick");
+            helper.assertValueEqual(dropped(helper, ModItems.WHITE_HAMMOCK), 1, "hammocks dropped");
+            helper.succeed();
+        });
     }
 
-    /** Two clicks: first anchor remembered, second anchor hangs a 45-degree hammock; knight moves and gap 5 do not. */
+    /** Two clicks: first anchor remembered, second anchor hangs a 45-degree hammock; a lost corner anchor brings it down. */
     public static void diagonalHammockNeedsTwoClicks(GameTestHelper helper) {
         if (!McVersion.HAMMOCK) {
             helper.succeed();
@@ -284,11 +383,10 @@ public final class HammockTests {
                 "remembered first anchor");
         helper.assertTrue(click(helper, player, b).consumesAction(), "the second click did not hang the diagonal hammock");
         helper.assertTrue(HammockItem.storedAnchor(player.getMainHandItem(), helper.getLevel()).isEmpty(), "the first anchor stayed remembered");
-        HammockLayout.Spot spot = new HammockLayout.Spot(a, Direction.EAST, true, 2);
-        helper.assertValueEqual(spot.otherAnchor(), b, "diagonal line");
+        HammockLayout.Spot spot = new HammockLayout.Spot(a, 3, 3);
+        helper.assertValueEqual(spot.facing(), Direction.EAST, "diagonal facing (south-east line)");
         assertHangs(helper, spot, "diagonal gap 2");
         BlockPos o = new BlockPos(0, 0, 0);
-        helper.assertTrue(HammockLayout.between(o, new BlockPos(2, 0, 3)).isEmpty(), "a knight move is a hammock line");
         helper.assertTrue(HammockLayout.between(o, new BlockPos(6, 0, 6)).isEmpty(), "diagonal gap 5 is allowed");
         helper.assertTrue(HammockLayout.between(o, new BlockPos(0, 1, 3)).isEmpty(), "anchors at different heights");
         helper.assertValueEqual(HammockLayout.between(o, new BlockPos(-5, 0, 5)).map(HammockLayout.Spot::gap), Optional.of(4), "diagonal gap 4");
@@ -297,11 +395,87 @@ public final class HammockTests {
         // the diagonal anchor touches its rope cell only at an edge: the cloth head's own check brings it down
         helper.setBlock(b, Blocks.AIR);
         helper.runAfterDelay(HammockBlock.CHECK_TICKS + 5, () -> {
-            for (int i = 0; i < 2; i++) {
-                helper.assertFalse(isHammock(at(helper, spot.rope(i))) || isHammock(at(helper, spot.rope(i).below())),
-                        "diagonal hammock still hangs at cell " + i);
-            }
+            assertGone(helper, spot, "diagonal after losing an anchor");
             helper.assertValueEqual(dropped(helper, ModItems.WHITE_HAMMOCK), 1, "hammocks dropped by the fallen diagonal one");
+            helper.succeed();
+        });
+    }
+
+    /**
+     * Any angle (owner 2026-10-04): two clicks hang 3:1, 5:2 and -3:2 hammocks on exactly the cells worked out by hand
+     * (and by tools/textures/hammock.py); too far, too near, a blocked cloth cell and different heights are refused
+     * without placing anything; resting lies along the hammock's nearest direction.
+     */
+    public static void slantedHammocksHangWithTwoClicks(GameTestHelper helper) {
+        if (!McVersion.HAMMOCK) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = player(helper, GameType.SURVIVAL);
+        record Case(HammockLayout.Spot spot, int[][] rope, int[][] cloth, int[] head, Direction facing) {
+        }
+        List<Case> cases = List.of(
+                new Case(new HammockLayout.Spot(new BlockPos(0, ROPE_Y, 0), 3, 1), new int[][] {{1, 0}, {2, 1}},
+                        new int[][] {{1, 0}, {2, 1}}, new int[] {2, 1}, Direction.EAST),
+                new Case(new HammockLayout.Spot(new BlockPos(0, ROPE_Y, 2), 5, 2),
+                        new int[][] {{1, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {4, 2}}, new int[][] {{2, 1}, {3, 1}}, new int[] {3, 1}, Direction.EAST),
+                new Case(new HammockLayout.Spot(new BlockPos(7, ROPE_Y, 0), -3, 2), new int[][] {{-1, 0}, {-1, 1}, {-2, 1}, {-2, 2}},
+                        new int[][] {{-1, 0}, {-1, 1}, {-2, 1}, {-2, 2}}, new int[] {-2, 1}, Direction.WEST));
+        for (Case c : cases) {
+            HammockLayout.Spot spot = c.spot();
+            String what = "offset " + spot.dx() + "," + spot.dz();
+            helper.assertValueEqual(spot.ropeCells(), cells(spot.anchor(), 0, c.rope()), what + ": rope cells");
+            helper.assertValueEqual(spot.clothCells(), cells(spot.anchor(), -1, c.cloth()), what + ": cloth cells");
+            helper.assertValueEqual(spot.clothHead(), spot.anchor().offset(c.head()[0], -1, c.head()[1]), what + ": cloth head");
+            helper.assertValueEqual(spot.facing(), c.facing(), what + ": facing");
+            InteractionResult result = twoClicks(helper, player, spot);
+            helper.assertTrue(result.consumesAction(), what + ": the second click was refused (" + result + ")");
+            assertHangs(helper, spot, what);
+        }
+        // refusals: nothing placed, the item stays
+        HammockLayout.Spot blocked = new HammockLayout.Spot(new BlockPos(7, ROPE_Y, 5), -3, 2);
+        helper.setBlock(blocked.clothCells().get(2), Blocks.STONE);
+        HammockLayout.Spot far = new HammockLayout.Spot(new BlockPos(0, ROPE_Y, 7), 6, -1);
+        HammockLayout.Spot near = new HammockLayout.Spot(new BlockPos(0, ROPE_Y, 5), 2, 1);
+        for (HammockLayout.Spot refused : List.of(blocked, far, near)) {
+            String what = "refused offset " + refused.dx() + "," + refused.dz();
+            ItemStack held = hold(player);
+            int before = held.getCount();
+            helper.assertFalse(twoClicks(helper, player, refused).consumesAction(), what + ": hung anyway");
+            helper.assertValueEqual(held.getCount(), before, what + ": item used up");
+            for (BlockPos cell : refused.ropeCells()) {
+                helper.assertFalse(isHammock(at(helper, cell)) || isHammock(at(helper, cell.below())), what + ": block placed at " + cell.toShortString());
+            }
+        }
+        helper.assertTrue(HammockLayout.between(new BlockPos(0, 0, 0), new BlockPos(4, 1, 2)).isEmpty(), "anchors at different heights");
+        helper.assertTrue(HammockLayout.between(new BlockPos(0, 0, 0), new BlockPos(2, 0, 2)).isEmpty(), "one free cell is allowed");
+        // resting: vanilla lies the player along the nearest direction (the client turns the body onto the line)
+        BlockPos head = helper.absolutePos(cases.get(1).spot().clothHead());
+        helper.assertTrue(HammockBlock.rest(player, head) && player.isSleeping(), "the player did not lie down in the 5:2 hammock");
+        helper.assertValueEqual(player.getBedOrientation(), Direction.EAST, "lying direction in the 5:2 hammock");
+        player.stopSleepInBed(false, true);
+        helper.succeed();
+    }
+
+    /** A slanted hammock falls as a whole when its corner anchor (5:3) or one rope cell (4:-1) goes, one item each. */
+    public static void slantedHammockFallsOnceWhenItsAnchorOrRopeGoes(GameTestHelper helper) {
+        if (!McVersion.HAMMOCK) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = player(helper, GameType.SURVIVAL);
+        HammockLayout.Spot anchorLost = new HammockLayout.Spot(new BlockPos(0, ROPE_Y, 0), 5, 3);
+        HammockLayout.Spot ropeBroken = new HammockLayout.Spot(new BlockPos(0, ROPE_Y, 7), 4, -1);
+        for (HammockLayout.Spot spot : List.of(anchorLost, ropeBroken)) {
+            helper.assertTrue(twoClicks(helper, player, spot).consumesAction(), "offset " + spot.dx() + "," + spot.dz() + " was refused");
+            assertHangs(helper, spot, "offset " + spot.dx() + "," + spot.dz());
+        }
+        helper.setBlock(anchorLost.otherAnchor(), Blocks.AIR);
+        player.gameMode.destroyBlock(helper.absolutePos(ropeBroken.ropeCells().get(2)));
+        helper.runAfterDelay(HammockBlock.CHECK_TICKS + 5, () -> {
+            assertGone(helper, anchorLost, "5:3 after losing its anchor");
+            assertGone(helper, ropeBroken, "4:-1 after breaking a rope");
+            helper.assertValueEqual(dropped(helper, ModItems.WHITE_HAMMOCK), 2, "hammocks dropped (one each)");
             helper.succeed();
         });
     }
@@ -333,10 +507,10 @@ public final class HammockTests {
         }
         ServerPlayer survival = player(helper, GameType.SURVIVAL);
         HammockLayout.Spot first = hang(helper, survival, 1, 2);
-        survival.gameMode.destroyBlock(helper.absolutePos(first.rope(0)));
+        survival.gameMode.destroyBlock(helper.absolutePos(first.ropeCells().get(0)));
         ServerPlayer creative = player(helper, GameType.CREATIVE);
         HammockLayout.Spot second = hang(helper, creative, 4, 2);
-        creative.gameMode.destroyBlock(helper.absolutePos(second.rope(0).below()));
+        creative.gameMode.destroyBlock(helper.absolutePos(second.clothCells().get(0)));
         helper.runAfterDelay(3, () -> {
             assertNoHammockIn(helper, 1, "survival break");
             assertNoHammockIn(helper, 4, "creative break");

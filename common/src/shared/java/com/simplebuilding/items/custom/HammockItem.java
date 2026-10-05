@@ -37,8 +37,9 @@ import org.jspecify.annotations.Nullable;
  * <ul>
  *   <li>One click: on the side of an anchor (or the floor) a straight hammock hangs at once if a second anchor 2 to 4
  *       free blocks away fits.</li>
- *   <li>Two clicks: otherwise (or always while sneaking) a click on an anchor remembers it (custom data on the item, green sparks at the anchor
- *       for the holder only); a click on the second anchor hangs a straight or 45-degree hammock. The first anchor is
+ *   <li>Two clicks: otherwise (or always while sneaking) a click on an anchor remembers it (custom data on the item,
+ *       green sparks at the anchor for the holder only); a click on the second anchor hangs a hammock at any angle
+ *       (2 to 4 free cells along the main axis, same height, {@link HammockLayout#between}). The first anchor is
  *       forgotten when it is clicked again, the item leaves the main hand, after 30 s, in another dimension or when
  *       the anchor is gone.</li>
  * </ul>
@@ -106,12 +107,7 @@ public class HammockItem extends BlockItem {
             return false;
         }
         if (!level.isClientSide()) {
-            // Without shape updates first, so no half-built hammock tears itself down; then tell the neighbours.
-            states.forEach((pos, state) -> level.setBlock(pos, state, Block.UPDATE_CLIENTS | Block.UPDATE_IMMEDIATE | Block.UPDATE_KNOWN_SHAPE));
-            states.forEach((pos, state) -> {
-                level.updateNeighborsAt(pos, state.getBlock());
-                state.updateNeighbourShapes(level, pos, Block.UPDATE_ALL);
-            });
+            HammockLayout.hang(level, spot, states);
             BlockPos head = spot.clothHead();
             level.scheduleTick(head, getBlock(), com.simplebuilding.blocks.custom.HammockBlock.CHECK_TICKS);
             SoundType sound = getBlock().defaultBlockState().getSoundType();
