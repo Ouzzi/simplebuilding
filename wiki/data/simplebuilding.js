@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 305,
+      "count": 315,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3693,6 +3693,47 @@ window.WIKI_DATA = {
           "Ein Plattenspieler zÃ¤hlt seine Verstärker beim Start eines StÃ¼cks, ein Notenblock bei jeder Note."
         ]
       }
+    },
+    {
+      "id": "crucible_parts",
+      "sources": [
+        "mc26_3/overlay/java/com/simplebuilding/crucible/CrucibleCompat.java",
+        "common/src/shared/java/com/simplebuilding/fluid/SoulLavaFluid.java",
+        "common/src/shared/java/com/simplebuilding/fluid/SoulLavaBlock.java",
+        "common/src/shared/java/com/simplebuilding/fluid/SoulLava.java",
+        "common/src/shared/java/com/simplebuilding/fluid/ModBucketItem.java",
+        "common/src/shared/java/com/simplebuilding/effect/SoulBurnEffect.java",
+        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/SoulLavaSpringMixin.java",
+        "mc26_3/overlay/java/com/simplebuilding/mixin/SoulLavaFortressMixin.java"
+      ],
+      "related": [
+        "simplebuilding:enderite_crucible",
+        "simplebuilding:enderite_barrel",
+        "simplebuilding:soul_lava_bucket",
+        "simplebuilding:copper_bucket",
+        "simplebuilding:enderite_bucket"
+      ],
+      "en": {
+        "title": "Crucibles, soul lava and buckets",
+        "summary": "SimpleBuilding's part of the SimpleLib crucibles: the Enderite tier, sledgehammer ways, soul lava as extreme heat, copper and Enderite buckets.",
+        "details": [
+          "Enderite crucible (27 slots, double stacks, 8x) and Enderite barrel. The sledgehammer replaces SimpleLib's axe ways: building the iron crucible on an iron block (4 heavy weighted pressure plates, then 2 iron rods or iron ingots; 2 durability per strike), attaching a barrel (6 strikes) and upgrading at twice the cost of a furnace (2 material, twice the strikes): Iron to Reinforced with cracked diamonds, to Netherite with netherite nuggets (diamond hammer), to Enderite with Enderite nuggets (Netherite hammer); copper to reinforced to Enderite barrel. A cauldron becomes a reinforced cauldron with 4 cracked diamonds.",
+          "Soul lava: 0.5% of the Nether's lava springs and the lava well of 10% of Nether fortress entrances. It flows 2 blocks (Nether 5), slower than lava, and nothing replaces it except creative players; only scooping the source removes it. Water touching it turns: a source into a quartz block, flowing water into blackstone. Touching it burns twice as long as lava and gives Seelenbrand for a minute: every 3 seconds a 50% chance of fire damage, which fire resistance blocks only while it lasts. It starts fires four times as often as lava with twice the reach. Heat: source extreme, flowing high.",
+          "Buckets: the iron bucket scoops soul lava but breaks when pouring it; the Enderite bucket (an iron bucket surrounded by 8 Enderite nuggets) takes water, lava and soul lava and never breaks. The copper bucket (3 copper ingots) takes water and lava, never soul lava, oxidizes one stage per pour unless waxed (axe in the off hand scrapes, honeycomb waxes), pours water only as a flowing block and breaks when pouring lava. A soul lava bucket burns 10 times as long as a lava bucket.",
+          "The sledgehammer crushes a quartz block into 4 quartz."
+        ]
+      },
+      "de": {
+        "title": "Schmelztiegel, Seelen-Lava und Eimer",
+        "summary": "SimpleBuildings Teil der SimpleLib-Schmelztiegel: Enderit-Stufe, Vorschlaghammer-Wege, Seelen-Lava als extreme Hitze, Kupfer- und Enderit-Eimer.",
+        "details": [
+          "Enderit-Schmelztiegel (27 Plätze, doppelte Stapel, 8×) und Enderit-Fass. Der Vorschlaghammer ersetzt SimpleLibs Axt-Wege: Bau des Eisen-Schmelztiegels auf einem Eisenblock (4 schwere Wägeplatten, dann 2 Eisenstäbe oder Eisenbarren; 2 Haltbarkeit je Schlag), Fass anbringen (6 Schläge) und Aufwerten zum doppelten Preis eines Ofens (2 Material, doppelte Schläge): Eisen zu Verstärkt mit Rissigen Diamanten, zu Netherit mit Netheritklumpen (Diamant-Hammer), zu Enderit mit Enderitklumpen (Netherit-Hammer); Kupfer- zu Verstärktem zu Enderit-Fass. Ein Kessel wird mit 4 Rissigen Diamanten zum verstärkten Kessel.",
+          "Seelen-Lava: 0,5 % der Lavaquellen im Nether und der Lavabrunnen von 10 % der Netherfestungs-Eingänge. Sie fließt 2 Blöcke (Nether 5), langsamer als Lava, und nichts ersetzt sie außer Kreativspielern; nur das Schöpfen der Quelle entfernt sie. Berührendes Wasser wandelt sich: eine Quelle zu Quarzblock, fließendes Wasser zu Schwarzstein. Berühren lässt doppelt so lange brennen wie Lava und gibt eine Minute Seelenbrand: alle 3 Sekunden 50 % Chance auf Brandschaden, den Feuerresistenz nur abhält, solange sie wirkt. Sie entzündet viermal so oft wie Lava mit doppelter Reichweite. Hitze: Quelle extrem, fließend hoch.",
+          "Eimer: Der Eisen-Eimer schöpft Seelen-Lava, zerbricht aber beim Ausgießen; der Enderit-Eimer (Eisen-Eimer umringt von 8 Enderitklumpen) nimmt Wasser, Lava und Seelen-Lava und zerbricht nie. Der Kupfer-Eimer (3 Kupferbarren) nimmt Wasser und Lava, nie Seelen-Lava, oxidiert je Ausgießen um eine Stufe, außer er ist gewachst (Axt in der Nebenhand schabt, Honigwabe wachst), gießt Wasser nur als fließenden Block aus und zerbricht beim Ausgießen von Lava. Ein Seelen-Lava-Eimer brennt 10-mal so lange wie ein Lavaeimer.",
+          "Der Vorschlaghammer zerschlägt einen Quarzblock zu 4 Quarz."
+        ]
+      }
     }
   ],
   "items": [
@@ -4994,6 +5035,23 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:copper_bucket",
+      "name": {
+        "en_us": "Copper Bucket",
+        "de_de": "Kupfer-Eimer"
+      },
+      "texture": "assets/textures/item/copper_bucket_0.png",
+      "craftedBy": [
+        "simplebuilding:copper_bucket"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:copper_building_wand",
       "name": {
         "en_us": "Copper Building Wand",
@@ -5513,6 +5571,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:copper_lava_bucket",
+      "name": {
+        "en_us": "Copper Lava Bucket",
+        "de_de": "Kupfer-Lavaeimer"
+      },
+      "texture": "assets/textures/item/copper_lava_bucket_0.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:copper_sledgehammer",
       "name": {
         "en_us": "Copper Sledgehammer",
@@ -5724,6 +5797,21 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:copper_water_bucket",
+      "name": {
+        "en_us": "Copper Water Bucket",
+        "de_de": "Kupfer-Wassereimer"
+      },
+      "texture": "assets/textures/item/copper_water_bucket_0.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:cracked_diamond",
@@ -7709,6 +7797,23 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_bucket",
+      "name": {
+        "en_us": "Enderite Bucket",
+        "de_de": "Enderit-Eimer"
+      },
+      "texture": "assets/textures/item/enderite_bucket.png",
+      "craftedBy": [
+        "simplebuilding:enderite_bucket"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_building_wand",
       "name": {
         "en_us": "Enderite Building Wand",
@@ -8685,6 +8790,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_lava_bucket",
+      "name": {
+        "en_us": "Enderite Lava Bucket",
+        "de_de": "Enderit-Lavaeimer"
+      },
+      "texture": "assets/textures/item/enderite_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_leggings",
       "name": {
         "en_us": "Enderite Leggings",
@@ -8762,6 +8882,7 @@ window.WIKI_DATA = {
         "simplebuilding:astral_vault",
         "simplebuilding:echo_sounder",
         "simplebuilding:enderite_apple",
+        "simplebuilding:enderite_bucket",
         "simplebuilding:enderite_carrot",
         "simplebuilding:enderite_ingot_from_nugget",
         "simplebuilding:nihil_vault"
@@ -9460,6 +9581,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_soul_lava_bucket",
+      "name": {
+        "en_us": "Enderite Soul Lava Bucket",
+        "de_de": "Enderit-Seelen-Lava-Eimer"
+      },
+      "texture": "assets/textures/item/enderite_soul_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_spear",
       "name": {
         "en_us": "Enderite Spear",
@@ -9591,6 +9727,21 @@ window.WIKI_DATA = {
         "simplebuilding:stellar_flypad_smithing"
       ],
       "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_water_bucket",
+      "name": {
+        "en_us": "Enderite Water Bucket",
+        "de_de": "Enderit-Wassereimer"
+      },
+      "texture": "assets/textures/item/enderite_water_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -17790,6 +17941,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:soul_lava_bucket",
+      "name": {
+        "en_us": "Soul Lava Bucket",
+        "de_de": "Seelen-Lava-Eimer"
+      },
+      "texture": "assets/textures/item/soul_lava_bucket.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:spawn_elytra",
       "name": {
         "en_us": "Spawn Elytra",
@@ -21110,6 +21276,23 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_barrel",
+      "name": {
+        "en_us": "Enderite Barrel",
+        "de_de": "Enderit-Fass"
+      },
+      "texture": "assets/textures/block/enderite_barrel_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_barrel.png",
+      "lootTable": "simplebuilding:blocks/enderite_barrel",
+      "drops": [
+        "simplebuilding:enderite_barrel"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_blast_furnace",
       "name": {
         "en_us": "Enderite Blast Furnace",
@@ -21345,6 +21528,23 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_crucible",
+      "name": {
+        "en_us": "Enderite Crucible",
+        "de_de": "Enderit-Schmelztiegel"
+      },
+      "texture": "assets/textures/block/enderite_crucible_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_crucible.png",
+      "lootTable": "simplebuilding:blocks/enderite_crucible",
+      "drops": [
+        "simplebuilding:enderite_crucible"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -28085,6 +28285,18 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:soul_lava",
+      "name": {
+        "en_us": "Soul Lava",
+        "de_de": "Seelen-Lava"
+      },
+      "texture": "assets/textures/block/soul_lava_still.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:spawn_teleporter",
       "name": {
         "en_us": "Spawn Teleporter I",
@@ -33024,6 +33236,41 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:copper_bucket",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:copper_bucket",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/copper_bucket.json",
+      "ingredients": [
+        "minecraft:copper_ingot"
+      ],
+      "pattern": [
+        "C C",
+        " C "
+      ],
+      "key": {
+        "C": [
+          "minecraft:copper_ingot"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:copper_building_wand",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -36350,6 +36597,50 @@ window.WIKI_DATA = {
           {
             "id": "simplebuilding:enderite_upgrade_template",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_bucket",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_bucket",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_bucket.json",
+      "ingredients": [
+        "minecraft:bucket",
+        "simplebuilding:enderite_nugget"
+      ],
+      "pattern": [
+        "NNN",
+        "NBN",
+        "NNN"
+      ],
+      "key": {
+        "B": [
+          "minecraft:bucket"
+        ],
+        "N": [
+          "simplebuilding:enderite_nugget"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 3
+          },
+          {
+            "id": "simplebuilding:enderite_ingot",
+            "count": 0.889
           }
         ]
       }
@@ -57253,6 +57544,22 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_backpack.json"
     },
     {
+      "id": "simplebuilding:blocks/enderite_barrel",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:enderite_barrel"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_barrel.json"
+    },
+    {
       "id": "simplebuilding:blocks/enderite_blast_furnace",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -57315,6 +57622,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_chunk_loader.json"
+    },
+    {
+      "id": "simplebuilding:blocks/enderite_crucible",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:enderite_crucible"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_crucible.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_elytra_pad",
@@ -64403,6 +64726,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_barrel",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_blast_furnace",
           "required": true
         },
@@ -64412,6 +64739,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_boots",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_bucket",
           "required": true
         },
         {
@@ -64444,6 +64775,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_crucible",
           "required": true
         },
         {
@@ -64480,6 +64815,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_launchpad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_lava_bucket",
           "required": true
         },
         {
@@ -64535,6 +64874,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_soul_lava_bucket",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_spawn_teleporter",
           "required": true
         },
@@ -64548,6 +64891,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_trapped_chest",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_water_bucket",
           "required": true
         }
       ],
@@ -64578,6 +64925,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_barrel",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_blast_furnace",
           "required": true
         },
@@ -64587,6 +64938,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_boots",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_bucket",
           "required": true
         },
         {
@@ -64619,6 +64974,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_crucible",
           "required": true
         },
         {
@@ -64655,6 +65014,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_launchpad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_lava_bucket",
           "required": true
         },
         {
@@ -64714,6 +65077,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_soul_lava_bucket",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_spawn_teleporter",
           "required": true
         },
@@ -64731,6 +65098,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_upgrade_template",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_water_bucket",
           "required": true
         },
         {
@@ -89810,6 +90181,32 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/hammer/stair_master.json"
     },
     {
+      "id": "simplebuilding:machines/bottomless_bucket",
+      "parent": "simplebuilding:machines/soul_scooper",
+      "icon": "simplebuilding:enderite_bucket",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Unbreakable Bucket",
+        "de_de": "Unzerbrechlicher Eimer"
+      },
+      "description": {
+        "en_us": "Get an Enderite bucket, which carries soul lava and never breaks",
+        "de_de": "Besorge dir einen Enderit-Eimer, der Seelen-Lava trägt und nie zerbricht"
+      },
+      "criteria": [
+        {
+          "name": "enderite_bucket",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_bucket"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/generated/data/simplebuilding/advancement/machines/bottomless_bucket.json"
+    },
+    {
       "id": "simplebuilding:machines/end_of_the_line",
       "parent": "simplebuilding:machines/forged_in_place",
       "icon": "simplebuilding:enderite_furnace",
@@ -89882,6 +90279,30 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/machines/good_as_new.json"
     },
     {
+      "id": "simplebuilding:machines/hot_pot",
+      "parent": "simplebuilding:machines/reinforcements",
+      "icon": "simplelib:iron_crucible",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Hot Pot",
+        "de_de": "Heißer Topf"
+      },
+      "description": {
+        "en_us": "Build an iron crucible on an iron block with the sledgehammer",
+        "de_de": "Baue mit dem Vorschlaghammer einen Eisen-Schmelztiegel auf einem Eisenblock"
+      },
+      "criteria": [
+        {
+          "name": "crucible_built",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "crucible_built"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/generated/data/simplebuilding/advancement/machines/hot_pot.json"
+    },
+    {
       "id": "simplebuilding:machines/reinforcements",
       "parent": "simplebuilding:hammer/cracked_up",
       "icon": "simplebuilding:reinforced_furnace",
@@ -89912,6 +90333,30 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/machines/reinforcements.json"
+    },
+    {
+      "id": "simplebuilding:machines/soul_scooper",
+      "parent": "simplebuilding:machines/hot_pot",
+      "icon": "simplebuilding:soul_lava_bucket",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Soul Scooper",
+        "de_de": "Seelenschöpfer"
+      },
+      "description": {
+        "en_us": "Scoop a soul lava source with a bucket",
+        "de_de": "Schöpfe eine Seelen-Lava-Quelle mit einem Eimer"
+      },
+      "criteria": [
+        {
+          "name": "soul_lava_scooped",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "soul_lava_scooped"
+        }
+      ],
+      "needs": "any",
+      "source": "mc26_3/generated/data/simplebuilding/advancement/machines/soul_scooper.json"
     },
     {
       "id": "simplebuilding:mining/all_in_vein",
@@ -93720,17 +94165,17 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 251,
-    "blocks": 205,
-    "recipes": 611,
-    "lootTables": 202,
+    "items": 259,
+    "blocks": 208,
+    "recipes": 613,
+    "lootTables": 204,
     "trades": 20,
     "enchantments": 19,
     "tags": 47,
     "config": 202,
     "inWorld": 463,
-    "advancements": 124,
-    "features": 47,
+    "advancements": 127,
+    "features": 48,
     "undocumented": 0,
     "incompleteProse": 0
   },
