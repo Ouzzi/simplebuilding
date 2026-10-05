@@ -601,8 +601,13 @@ SHARED_CLIENT_SOURCES = {
 SKIPPED_SHOTS = {
     # The mega-guide screen is a 26.3 feature, pending the separate port run.
     "26.2": {"mega-guide-locked", "mega-guide-unlocked"},
-    # No Cloth Config for 26.4 yet: the config screen is hidden and not tested there.
-    "26.4-snapshot": {"screen-h-mod-config"},
+    # McVersion.SMITHING_RECIPE_BOOK (owner 2026-10-02): the vanilla recipe book replaced the trim
+    # reference button in the smithing table, so ModScreensClientTest checks the book and returns
+    # before the button path that takes this shot.
+    "26.3": {"screen-g-trim-reference"},
+    # No Cloth Config for 26.4 yet: the config screen is hidden and not tested there. 26.4 builds on
+    # the 26.3 overlay, so the smithing recipe book is there too.
+    "26.4-snapshot": {"screen-h-mod-config", "screen-g-trim-reference"},
 }
 
 
