@@ -84,13 +84,25 @@ public final class ModTriggers {
     public static final String ECHO_SHATTER = "echo_shatter";
     /** The amethyst lens beam primed TNT ({@code LaserBeam#beamAt}). */
     public static final String LASER_TNT = "laser_tnt";
+    /** Crucible P5/P6 (26.3): iron crucible built with the sledgehammer, soul lava scooped, Enderite bucket. */
+    public static final String CRUCIBLE_BUILT = "crucible_built";
+    public static final String SOUL_LAVA_SCOOPED = "soul_lava_scooped";
 
     /** Every feature name, for the tests that fire each one. */
-    public static final List<String> ALL = List.of(HAMMER_UPGRADE_NETHERITE, HAMMER_UPGRADE_ENDERITE, HAMMER_RESHAPE,
+    public static final List<String> ALL = withCrucible(List.of(HAMMER_UPGRADE_NETHERITE, HAMMER_UPGRADE_ENDERITE, HAMMER_RESHAPE,
             DIAMOND_CRUSH, TRIM_TEMPLATE_FORGED, CHISEL, WAND_BUILD, OCTANT_MARK, ROTATE, BLUEPRINT_SCAN, BLUEPRINT_COPY,
             BLUEPRINT_BUILD, LAUNCHPAD, FLYPAD, ELYTRA_PAD, SPAWN_TELEPORT, POTION_PAD, ECHO_TELEPORT, LENS_BEAM,
             ORE_DETECTED, VEIN_MINE, STRIP_MINE, VERSATILITY_SWAP, AIR_JUMP, KINETIC_PROTECTION, FULL_TRIM_SET,
-            BACKPACK_PLACED, PISTON_REPAIR, VOID_RESCUE, ECHO_SHATTER, LASER_TNT);
+            BACKPACK_PLACED, PISTON_REPAIR, VOID_RESCUE, ECHO_SHATTER, LASER_TNT));
+
+    /** The crucible features exist only where their advancements are generated (McVersion.CRUCIBLE, 26.3). */
+    private static List<String> withCrucible(List<String> base) {
+        if (!com.simplebuilding.version.McVersion.CRUCIBLE) return base;
+        List<String> all = new java.util.ArrayList<>(base);
+        all.add(CRUCIBLE_BUILT);
+        all.add(SOUL_LAVA_SCOOPED);
+        return List.copyOf(all);
+    }
 
     /** {@code simplebuilding:counter} - waits until a per-player count ({@link ModCounters}) reaches a threshold. */
     public static final Identifier COUNTER_ID = Identifier.fromNamespaceAndPath("simplebuilding", "counter");

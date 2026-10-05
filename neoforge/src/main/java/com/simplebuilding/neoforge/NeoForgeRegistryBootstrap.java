@@ -23,6 +23,11 @@ public final class NeoForgeRegistryBootstrap {
             }
             return;
         }
+        // Crucible P5: soul lava fluids in their own registry event (before the blocks).
+        if (event.getRegistryKey().equals(Registries.FLUID)) {
+            com.simplebuilding.fluid.ModFluids.registerFluids();
+            return;
+        }
         // Listiger Shulker (2026-10-02): Effekt vor den Traenken, jeweils in ihrem eigenen Ereignis.
         if (event.getRegistryKey().equals(Registries.MOB_EFFECT)) {
             com.simplebuilding.effect.ModEffects.registerEffects();

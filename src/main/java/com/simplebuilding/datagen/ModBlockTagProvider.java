@@ -39,6 +39,13 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                         net.minecraft.resources.Identifier.fromNamespaceAndPath("c", "chests"))).add(key(chest));
             }
         }
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P5: Enderit-Tiegel und -Fass wie die Enderit-Oefen (Spitzhacke, ab Diamant).
+            for (Block block : java.util.List.of(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible(), com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel())) {
+                builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block));
+                builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(block));
+            }
+        }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             builder(BlockTags.SMALL_FLOWERS).add(key(ModBlocks.SILENT_DANDELION));
             builder(BlockTags.FLOWER_POTS).add(key(ModBlocks.POTTED_SILENT_DANDELION));

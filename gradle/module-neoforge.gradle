@@ -1,4 +1,6 @@
-group = 'com.simplebuilding.modules'
+// Unique group per module: all loader projects are named 'neoforge', and a shared group would let Gradle
+// resolve one module in place of another (e.g. a module that nests SimpleLib, principle 6a).
+group = 'com.simplebuilding.modules.' + project.parent.name
 base { archivesName = project.parent.name + '-26.3-' + project.name }
 version = project.findProperty('moduleVersion') ?: '0.1.0'
 java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
@@ -33,4 +35,12 @@ if (standaloneSpec) {
         def allowed = [project.parent.name] + (standaloneEntry.tests.standalone.requires ?: [])
         neoForge.runs.moduleStandaloneGameTest.loadedMods = neoForge.mods.matching { it.name in allowed }.toList()
     }
+// SimpleBuilding 26.3 needs SimpleLib at runtime (principle 6a, nested in production). A module whose dev/test runs
+// load SimpleBuilding from its sourceSet loads SimpleLib the same way.
+afterEvaluate {
+    if (project.path == ':modules:simplelib:neoforge' || neoForge.mods.findByName('simplebuilding') == null) return
+    if (neoForge.mods.findByName('simplelib') == null) {
+        neoForge.mods.create('simplelib') { sourceSet rootProject.project(':modules:simplelib:neoforge').sourceSets.main }
+    }
+    neoForge.runs.configureEach { run -> if (run.loadedMods.get().any { it.name == 'simplebuilding' }) run.loadedMods.add(neoForge.mods.simplelib) }
 }

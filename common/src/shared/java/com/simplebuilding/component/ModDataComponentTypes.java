@@ -26,6 +26,12 @@ public class ModDataComponentTypes {
     public static final DataComponentType<Integer> GLOW_LEVEL = register("glow_level", builder -> builder.persistent(
             Codec.INT.xmap(com.simplebuilding.util.GlowingTrimUtils::normalizeGlowLevel, level -> level)));
 
+    /** Kupfer-Eimer (Crucible P5, 26.3): Oxidationsstufe 0-3 (Optik) und gewachst. */
+    public static final DataComponentType<Integer> OXIDATION = com.simplebuilding.version.McVersion.CRUCIBLE ? register("oxidation", builder -> builder
+            .persistent(Codec.intRange(0, 3)).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT)) : null;
+    public static final DataComponentType<Boolean> WAXED = com.simplebuilding.version.McVersion.CRUCIBLE ? register("waxed", builder -> builder
+            .persistent(Codec.BOOL).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.BOOL)) : null;
+
     // NEU: Visueller Glow (RGB Effekt)
     public static final DataComponentType<Boolean> VISUAL_GLOW = register("visual_glow", builder -> builder.persistent(Codec.BOOL));
 

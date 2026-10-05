@@ -256,6 +256,20 @@ public class SledgehammerItem extends Item {
             return InteractionResult.PASS;
         }
 
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P5: build the iron crucible on an iron block, attach a barrel (SimpleLib through CrucibleCompat).
+            InteractionResult crucible = com.simplebuilding.crucible.CrucibleCompat.hammerUse(context);
+            if (crucible != null) {
+                return crucible;
+            }
+            if (state.is(net.minecraft.world.level.block.Blocks.QUARTZ_BLOCK)) {
+                if (!world.isClientSide() && !player.getCooldowns().isOnCooldown(stack)) {
+                    crushQuartzBlock((ServerLevel) world, pos, player, stack);
+                }
+                return InteractionResult.SUCCESS;
+            }
+        }
+
         if (state.is(net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK)) {
             if (!strikesDiamondBlock(state, stack.getItem())) {
                 // Zu schwach: dumpfer Klang, keine Ladung (keine Einblendung).
@@ -581,6 +595,23 @@ public class SledgehammerItem extends Item {
     }
 
     /** Schlaege, nach denen ein Diamantblock zerspringt. */
+    /** Quarzblock -> 4 Quarz (Crucible P5, Besitzer 54): ein Schlag, verlustfrei wie die Werkbank-Umkehr. */
+    public static final int QUARTZ_BLOCK_QUARTZ = 4;
+    public static final int QUARTZ_CRUSH_DAMAGE = 1;
+    public static final int QUARTZ_CRUSH_COOLDOWN_TICKS = 10;
+
+    /** Zerschlaegt einen Quarzblock in {@value #QUARTZ_BLOCK_QUARTZ} Quarz (nur Server). */
+    public static void crushQuartzBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
+        world.removeBlock(pos, false);
+        net.minecraft.world.level.block.Block.popResource(world, pos, new ItemStack(net.minecraft.world.item.Items.QUARTZ, QUARTZ_BLOCK_QUARTZ));
+        world.playSound(null, pos, SoundEvents.NETHER_GOLD_ORE_BREAK, SoundSource.BLOCKS, 1.0F, 1.2F);
+        world.sendParticles(new net.minecraft.core.particles.BlockParticleOption(net.minecraft.core.particles.ParticleTypes.BLOCK,
+                net.minecraft.world.level.block.Blocks.QUARTZ_BLOCK.defaultBlockState()), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 20, 0.3, 0.3, 0.3, 0.1);
+        com.simplebuilding.version.McVersion.swing(player, net.minecraft.world.InteractionHand.MAIN_HAND, true);
+        stack.hurtAndBreak(QUARTZ_CRUSH_DAMAGE, player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
+        player.getCooldowns().addCooldown(stack, QUARTZ_CRUSH_COOLDOWN_TICKS);
+    }
+
     public static final int DIAMOND_BLOCK_STRIKES = 8;
     /** Ohne weiteren Schlag verfaellt die Zaehlung nach so vielen Ticks (wie bei der abgelegten Vorlage). */
     public static final int DIAMOND_STRIKE_RESET_TICKS = 100;

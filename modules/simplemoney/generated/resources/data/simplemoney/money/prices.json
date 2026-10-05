@@ -2630,6 +2630,50 @@
       "chance": 1
     },
     {
+      "item": "simplebuilding:enderite_crucible",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuilding:enderite_barrel",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuilding:enderite_bucket",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuilding:copper_bucket",
+      "tier": 0,
+      "hours": 1.0,
+      "craft": 3,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
       "item": "simplefun:brick_snowball",
       "tier": 0,
       "hours": 0.5,

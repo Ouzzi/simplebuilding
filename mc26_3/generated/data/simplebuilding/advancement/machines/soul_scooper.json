@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:machines/hot_pot",
+  "criteria": {
+    "soul_lava_scooped": {
+      "conditions": {
+        "feature": "soul_lava_scooped"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.machines.soul_scooper.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "simplebuilding:soul_lava_bucket"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.machines.soul_scooper.title"
+    }
+  },
+  "requirements": [
+    [
+      "soul_lava_scooped"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

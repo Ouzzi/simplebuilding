@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "attached=false,facing=north,open=false": {
+      "model": "simplelib:block/reinforced_barrel"
+    },
+    "attached=false,facing=north,open=true": {
+      "model": "simplelib:block/reinforced_barrel"
+    },
+    "attached=true,facing=north,open=false": {
+      "model": "simplelib:block/reinforced_barrel_attached"
+    },
+    "attached=true,facing=north,open=true": {
+      "model": "simplelib:block/reinforced_barrel_attached"
+    },
+    "attached=false,facing=east,open=false": {
+      "model": "simplelib:block/reinforced_barrel",
+      "y": 90
+    },
+    "attached=false,facing=east,open=true": {
+      "model": "simplelib:block/reinforced_barrel",
+      "y": 90
+    },
+    "attached=true,facing=east,open=false": {
+      "model": "simplelib:block/reinforced_barrel_attached",
+      "y": 90
+    },
+    "attached=true,facing=east,open=true": {
+      "model": "simplelib:block/reinforced_barrel_attached",
+      "y": 90
+    },
+    "attached=false,facing=south,open=false": {
+      "model": "simplelib:block/reinforced_barrel",
+      "y": 180
+    },
+    "attached=false,facing=south,open=true": {
+      "model": "simplelib:block/reinforced_barrel",
+      "y": 180
+    },
+    "attached=true,facing=south,open=false": {
+      "model": "simplelib:block/reinforced_barrel_attached",
+      "y": 180
+    },
+    "attached=true,facing=south,open=true": {
+      "model": "simplelib:block/reinforced_barrel_attached",
+      "y": 180
+    },
+    "attached=false,facing=west,open=false": {
+      "model": "simplelib:block/reinforced_barrel",
+      "y": 270
+    },
+    "attached=false,facing=west,open=true": {
+      "model": "simplelib:block/reinforced_barrel",
+      "y": 270
+    },
+    "attached=true,facing=west,open=false": {
+      "model": "simplelib:block/reinforced_barrel_attached",
+      "y": 270
+    },
+    "attached=true,facing=west,open=true": {
+      "model": "simplelib:block/reinforced_barrel_attached",
+      "y": 270
+    }
+  }
+}

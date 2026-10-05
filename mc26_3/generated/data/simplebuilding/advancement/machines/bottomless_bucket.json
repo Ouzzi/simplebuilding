@@ -1,0 +1,32 @@
+{
+  "parent": "simplebuilding:machines/soul_scooper",
+  "criteria": {
+    "enderite_bucket": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_bucket"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.machines.bottomless_bucket.description"
+    },
+    "icon": {
+      "id": "simplebuilding:enderite_bucket"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.machines.bottomless_bucket.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_bucket"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

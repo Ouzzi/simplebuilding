@@ -37,6 +37,21 @@ Branch `claude-modprinciples` (Basis `2a01fea6`).
    bzw. eigenen Werkzeug-Tags (`simplebuilding:sledgehammer_tools`). Andere Module verwenden **den Tag**,
    bedingt nach Regel 4, und haben immer einen Vanilla-Weg. Braucht ein Modul allein einen Grundstoff
    zwingend, nimmt es eine Vanilla-Entsprechung (Eisen-Nugget, Stock, Axt) statt eines Eigenbaus.
+5a. **Axt-Prinzip (Besitzer 2026-10-04).** Gibt es keinen funktionierenden Mod-Weg (Partner fehlt), gibt
+   es einen Vanilla-Weg, und bei diesem ersetzt die **Axt** den Vorschlaghammer – für In-World-Bau und
+   -Aufwertungen gleichermaßen, mit Vanilla-Material statt Partner-Material (z. B. Diamant statt Rissiger
+   Diamant, Netheritbarren statt Netherit-Nugget). Ist der Partner geladen, schaltet er den Axt-Weg über
+   eine Condition/einen `isModLoaded`-Schalter ab und bietet seinen eigenen Weg an.
+6a. **Ausnahme zu Regel 3 und 6 – gebündelte Bibliotheken (`*lib`, Besitzer bestätigt 2026-10-04).** Teilen
+   mehrere Mods Inhalte (Blöcke, Items, Komponenten), die jeder von ihnen allein braucht, liegen diese in
+   **einer** Bibliothek, deren Mod-ID auf `lib` endet (Standard: `simplelib`). Sie hat genau einen
+   Namensraum, ist selbst ein Mod und wird von jedem nutzenden Mod per Jar-in-Jar gebündelt (Fabric
+   `include`, NeoForge `jarJar`, Forge Jar-in-Jar mit Versions-Range); der Loader wählt eine Fassung.
+   Mods dürfen dafür Klassen aus `com.<lib>.api` importieren – sonst nichts aus der Bibliothek. Die
+   Bibliothek kennt keinen ihrer Nutzer (kein Import, keine fremde ID ohne `required:false`/Condition). Sie
+   liefert den Vanilla-Weg (Regel 5a); ein bündelnder Mod mit besserem Weg schaltet ihn ab. Inhalte, die nur
+   einem Mod gehören (Enderit, Hammer), bleiben in diesem Mod. `framework/` bleibt inhaltsfrei. Erster Fall:
+   Crucible/Fass/Warm-Essen (`docs/ai/PLAN-CRUCIBLE-2026-10-04.md` §3).
 7. **Wiki/Guide sagen, was fehlt.** Jede Funktion, die einen Partner braucht, ist im Modul-Wiki als
    „mit SimpleBuilding“ / „requires X“ markiert (Vorbild `simpleriding/wiki/manual.json`: „(with
    SimpleBuilding) Enderite horseshoes“). Optionale Partner stehen in `modules.json` `optional` **und**

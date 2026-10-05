@@ -329,5 +329,24 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
   Belege: `docs/ai/PLAN-SMALL9-2026-10-02.md`; 1870/1870 Server grün, Gesamt-Gate grün.
   Sicht-/Hörabnahme und Testzentrale in der Besitzerwelt bleiben offen; kein Client/Push.
 
+- [ ] Crucible / Schmelztiegel (Konzept + Fragebogen zuerst: `docs/ai/PLAN-CRUCIBLE-2026-10-04.md`, Branch `claude-crucible`):
+  - [ ] Neue Ofen-Station, so schnell wie ein normaler Ofen, gart mehrere verschiedene Dinge parallel; Ergebnisse in den nächsten freien Slot.
+  - [ ] Stufen (Runde 1): Eisen 6, Verstärkt 9, Netherit 18, Enderit 27 (nur SB, doppelte Stackgröße); Tempo wie die SB-Ofen-Stufen (1×/2×/4×/8×), Hitzefaktor niedrig 0,5× … extrem 1×.
+  - [ ] Herstellung in der Welt: Vorschlaghammer auf Eisenblock, Eisenbarren in der Nebenhand; 4 Schläge = 4 Wände (Eisen-Druckplatten), 2 Schläge = 2 Griffe (Eisenstäbe). Höhere Stufen wie die Ofen-Aufwertungen.
+  - [ ] Slot-Indikator im Slot-Hintergrund: gart = heller + Fortschritt; kein Platz = rot (gestoppt); zu wenig Hitze = blau.
+  - [ ] Kein Brennstoff, sondern Hitzequelle: Lagerfeuer/Magma = mittel, Lava = hoch, Seelen-Lava = extrem; niedrige Stufe (Fackel/Kerze/Seelenfeuer) vorgeschlagen.
+  - [ ] Seelen-Lava (neue Flüssigkeit): Quell- und Fließblock nicht ersetz-/überbaubar, entfernen nur durch Aufnehmen der Quelle mit Eimer. Weltgenerierung nur im Nether: ca. 0,5 % statt einer Lava-Tasche, in Netherfestungen 10 % Chance je Lavaquellen-Raum; sonst nirgends.
+  - [ ] Kupfer-Eimer: nimmt keine Seelen-Lava, nur normale Lava, zerbricht beim Ausgießen von Lava. Eisen-Eimer zerbricht beim Ausgießen von Seelen-Lava. Enderit-Eimer (Schmiedetisch, direkt vom Eisen-Eimer) zerbricht nicht.
+  - [ ] Warmes Essen: Tiegel wärmt Sandwiches und andere warme Speisen auf; warm 15 % schneller essbar; bleibt ca. einen halben Tag-Nacht-Zyklus warm, im Bündel ca. 2 Zyklen; beim Stapeln Mittelwert der Wärme; Glow um die Items (Stärke ~ Restwärme).
+  - [ ] Auch im Modul Simple Sandwiches (eigenständig spielbar): Tiegel + Warm-Food; ohne SB mit der Axt statt dem Vorschlaghammer. Aufteilung SB/Modul/Bibliothek `simplelib` siehe Plan §3 und `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md`.
+  - [x] Fragebogen Runde 1 (F1–F37) beantwortet, eingearbeitet (Plan §2; gemeinsamer Kern als Bibliothek, seit Runde 2 `simplelib`, Dorf-Feldküche neu).
+  - [x] Fragebogen Runde 2, Fragen 1–31 beantwortet und eingearbeitet (Plan §2b: Bibliothek `simplelib`, Axt als Vanilla-Ersatz für den Vorschlaghammer, Hitzestufen neu als Frage 51, BER-Inhalt sichtbar, Seelen-Lava 2/5, Seelenbrand, verstärkter Kessel).
+  - [ ] Ofen-Ausbeutebonus (Netherit-/Enderit-Schmelzofen, `FurnaceTierPerks`) aus SB entfernen – macht ein anderer Helfer im Code (Runde 2 Frage 1).
+  - [ ] Kupfer-Fass (Kupfer/Verstärkt/Enderit, 9 Slots) per Vorschlaghammer (ohne SB Axt) in 6 Schlägen an den Tiegel anbringen, sichtbar verbunden; Tiegel-GUI zeigt die 9 Fass-Felder; Ergebnisse zuerst ins Fass; Trichter unter dem Fass (Plan §8a).
+  - [ ] Seelen-Lava: 4× entflammbarer als Lava, doppelte Zündreichweite; „schmilzt 10× mehr“ (★ Brennstoff 10× Lava, Plan §9/§10).
+  - [ ] Besitzer beantwortet die offenen Fragen 32–61, danach Umsetzung.
+  - [x] P5/P6 Textur-Platzhalter (2026-10-05, `claude-crucible-gpt`): 34 PNGs und zwei Vanilla-Animationsmetadaten; Enderit-Tiegel/Fass, Seelenlava, Kupfer-/Enderit-Eimer, Seelenbrand und verstaerkter Kessel. Vier A/B/C-Vergleichstafeln nur in `C:/Users/o_o/code/minecraft-mods/previews/`; Auswahl und Ingame-Abnahme offen.
+  - [x] Eimer-Nacharbeit 2026-10-05 (`claude-crucible-gpt`): Kupfer-/Enderit-Eimer erhalten Vanilla-Kontur und alle Schattierungen der Oeffnung; Wasser/Lava unveraendert. Pixelchecks, Texturgenerator --check, Wiki --check und Gradle check -q gruen (Java 25, vorgegebenes Python im PATH). 16x Alt/Neu und deutlich eigene A/B/C-Beschlaege unter `previews/eimer-*-vorschau.png`; Vorschlaege nicht eingebaut, Besitzer-Abnahme offen.
 ## Guides Schritt 3/4 (Besitzer 2026-10-01: „Zu jeder Mod ein herstellbarer Guide, mit FTB Quests am Anfang gratis“)
 - [x] Guide-Buch je Modul (Branch `claude-guides2`, Plan `docs/ai/PLAN-MODUL-GUIDES-2026-10-05.md`): Vanilla-Buchansicht mit EN/DE-Seiten aus `wiki/manual.json`, Rezept Buch + Vanilla-Item, FTB-Startquest schenkt das Buch (nur mit FTB Quests), Texturen A–H (`previews/modul-buecher-vorschau.png`); Visuals/Sounds als Client-Mods ohne Item über `/simplevisuals guide` bzw. `/simplesounds guide`. Generator `tools/guides/module_guides.py` (`checkModuleGuides`). Offen: Merge, Client-Sichtabnahme (Seitenumbruch, Befehle), FTB-Quests im echten Spiel, Umzug der Vorlage nach `simplelib`.
+## Besitzer 2026-10-04 (Nachtrag 9)

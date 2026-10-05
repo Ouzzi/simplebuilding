@@ -57,10 +57,12 @@
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
     "simplebuilding:enderite_backpack",
+    "simplebuilding:enderite_barrel",
     "simplebuilding:enderite_blast_furnace",
     "simplebuilding:enderite_block",
     "simplebuilding:enderite_chest",
     "simplebuilding:enderite_chunk_loader",
+    "simplebuilding:enderite_crucible",
     "simplebuilding:enderite_elytra_pad",
     "simplebuilding:enderite_flypad",
     "simplebuilding:enderite_furnace",
@@ -184,6 +186,7 @@
     "simplebuilding:silverfish_wall_head",
     "simplebuilding:slime_head",
     "simplebuilding:slime_wall_head",
+    "simplebuilding:soul_lava",
     "simplebuilding:spawn_teleporter",
     "simplebuilding:spawn_teleporter_tier_2",
     "simplebuilding:spawn_teleporter_tier_3",
@@ -322,6 +325,10 @@
       "id": "simplebuilding:construction_light"
     },
     {
+      "id": "simplebuilding:copper_bucket",
+      "maxStackSize": 16
+    },
+    {
       "durability": 1520,
       "enchantability": 18,
       "id": "simplebuilding:copper_building_wand",
@@ -341,6 +348,10 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:copper_lava_bucket",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:copper_pressure_plate"
     },
     {
@@ -357,6 +368,10 @@
       "durability": 192,
       "enchantability": 18,
       "id": "simplebuilding:copper_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:copper_water_bucket",
       "maxStackSize": 1
     },
     {
@@ -509,6 +524,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:enderite_barrel"
+    },
+    {
       "id": "simplebuilding:enderite_blast_furnace"
     },
     {
@@ -519,6 +537,10 @@
       "enchantability": 18,
       "id": "simplebuilding:enderite_boots",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_bucket",
+      "maxStackSize": 16
     },
     {
       "durability": 20000,
@@ -561,6 +583,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:enderite_crucible"
+    },
+    {
       "id": "simplebuilding:enderite_elytra_pad",
       "maxStackSize": 1
     },
@@ -597,6 +622,10 @@
     },
     {
       "id": "simplebuilding:enderite_launchpad",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_lava_bucket",
       "maxStackSize": 1
     },
     {
@@ -664,6 +693,10 @@
       "id": "simplebuilding:enderite_smoker"
     },
     {
+      "id": "simplebuilding:enderite_soul_lava_bucket",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:enderite_spawn_teleporter",
       "maxStackSize": 1
     },
@@ -688,6 +721,10 @@
     },
     {
       "id": "simplebuilding:enderite_upgrade_template"
+    },
+    {
+      "id": "simplebuilding:enderite_water_bucket",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:enderman_head"
@@ -1332,6 +1369,10 @@
     },
     {
       "id": "simplebuilding:slime_head"
+    },
+    {
+      "id": "simplebuilding:soul_lava_bucket",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:spawn_elytra",

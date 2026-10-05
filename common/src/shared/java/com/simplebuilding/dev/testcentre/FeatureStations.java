@@ -596,4 +596,45 @@ public final class FeatureStations {
         c.backWall(0, 10, wallZ, 5);
         return c;
     }
+
+    /**
+     * Crucible station (P6, McVersion.CRUCIBLE): an Enderite crucible on a reinforced cauldron with soul lava (extreme
+     * heat), an unattached Enderite barrel beside it (hammer it 6 times), an iron block to build a crucible on, a quartz
+     * block to crush and a cauldron to reinforce; the chest holds the parts and every bucket.
+     */
+    public static TcCanvas crucible(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        if (!com.simplebuilding.version.McVersion.CRUCIBLE) {
+            return c;
+        }
+        int z = 2;
+        int wallZ = 5;
+        c.place(2, 0, z, com.simplebuilding.crucible.CrucibleCompat.reinforcedCauldron("extreme"));
+        c.place(2, 1, z, com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible());
+        c.place(3, 1, z, com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel());
+        c.place(5, 0, z, Blocks.IRON_BLOCK);
+        c.place(7, 0, z, Blocks.QUARTZ_BLOCK);
+        c.place(9, 0, z, Blocks.CAULDRON);
+        c.place(1, 0, 1, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
+        List<ItemStack> chest = new ArrayList<>();
+        chest.add(new ItemStack(ModItems.NETHERITE_SLEDGEHAMMER));
+        chest.add(new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 4));
+        if (ModItems.IRON_ROD != null) chest.add(new ItemStack(ModItems.IRON_ROD, 2));
+        chest.add(new ItemStack(ModItems.CRACKED_DIAMOND, 8));
+        chest.add(new ItemStack(ModItems.NETHERITE_NUGGET, 4));
+        chest.add(new ItemStack(ModItems.ENDERITE_NUGGET, 4));
+        for (Item bucket : com.simplebuilding.fluid.ModFluids.buckets()) {
+            chest.add(new ItemStack(bucket));
+        }
+        c.contents(1, 0, 1, chest);
+        c.title(0, 3, wallZ, TcText.t("section.crucible", "Crucibles"), TcText.t("section.crucible.sub", "soul lava, buckets, hammer"));
+        c.wallSign(2, 2, wallZ, TcText.bold(TcText.t("crucible.extreme", "Extreme heat")),
+                TcText.t("crucible.extreme.sub", "soul lava in a"), TcText.t("crucible.extreme.sub2", "reinforced cauldron"));
+        c.wallSign(5, 2, wallZ, TcText.bold(TcText.t("crucible.build", "Build")),
+                TcText.t("crucible.build.sub", "hammer + 4 plates,"), TcText.t("crucible.build.sub2", "then 2 iron rods"));
+        c.wallSign(8, 2, wallZ, TcText.bold(TcText.t("crucible.hammer", "Hammer")),
+                TcText.t("crucible.hammer.sub", "quartz: 4 quartz"), TcText.t("crucible.hammer.sub2", "cauldron: 4 cracked"));
+        c.backWall(0, 10, wallZ, 5);
+        return c;
+    }
 }

@@ -425,6 +425,16 @@ public final class ModItemGroupsContent {
             // Haengematten (2026-10-02): 16 Farben in Vanillas Bett-Reihenfolge, laufen in die naechste Zeile weiter.
             rows.add(CreativeTabLayout.Row.of("hammocks", ModItems.HAMMOCKS.toArray(net.minecraft.world.level.ItemLike[]::new)));
         }
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P5 (2026-10-05): Tiegel-Stufen (Eisen bis Netherit aus SimpleLib), Faesser, verstaerkter Kessel; Eimer.
+            // Nur SB-Items in SB-Tabs: die SimpleLib-Stufen stehen in deren eigenem Tab.
+            rows.add(CreativeTabLayout.Row.of("crucibles", com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible().asItem(),
+                    com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel().asItem()));
+            rows.add(CreativeTabLayout.Row.of("buckets", com.simplebuilding.fluid.ModFluids.COPPER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, CreativeTabLayout.GAP,
+                    com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET,
+                    com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET));
+        }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Lautsprecher (2026-10-03): Astralit (Plattenspieler), Nihilit (Notenblock).
             rows.add(CreativeTabLayout.Row.of("amplifiers", ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));

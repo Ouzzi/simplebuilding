@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:machines/reinforcements",
+  "criteria": {
+    "crucible_built": {
+      "conditions": {
+        "feature": "crucible_built"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.machines.hot_pot.description"
+    },
+    "icon": {
+      "id": "simplelib:iron_crucible"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.machines.hot_pot.title"
+    }
+  },
+  "requirements": [
+    [
+      "crucible_built"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

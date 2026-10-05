@@ -96,6 +96,11 @@ public class SimplebuildingClient implements ClientModInitializer {
                 com.simplebuilding.blocks.entity.ModBlockEntities.TIERED_SHULKER_BOX_BE, com.simplebuilding.client.render.TieredShulkerBoxRenderer::new);
         // Der getragene Rucksack bzw. Koecher auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
         // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity.
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P5: soul lava rendering (turquoise lava textures).
+            net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry.register(com.simplebuilding.fluid.ModFluids.SOUL_LAVA,
+                    com.simplebuilding.fluid.ModFluids.FLOWING_SOUL_LAVA, com.simplebuilding.client.render.SoulLavaModel.unbaked());
+        }
         net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
                 java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,

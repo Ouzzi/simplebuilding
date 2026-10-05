@@ -1,0 +1,146 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "side": "simplelib:block/iron_crucible_side",
+    "top": "simplelib:block/iron_crucible_top",
+    "bottom": "simplelib:block/iron_crucible_bottom",
+    "inner": "simplelib:block/iron_crucible_inner",
+    "handle": "simplelib:block/iron_crucible_handle",
+    "particle": "minecraft:block/iron_block",
+    "iron": "minecraft:block/iron_block"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        3,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#iron",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#iron",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#iron",
+          "uv": [
+            0,
+            13,
+            16,
+            16
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#iron",
+          "uv": [
+            0,
+            13,
+            16,
+            16
+          ],
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#iron",
+          "uv": [
+            0,
+            13,
+            16,
+            16
+          ],
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#iron",
+          "uv": [
+            0,
+            13,
+            16,
+            16
+          ],
+          "cullface": "east"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        3,
+        1
+      ],
+      "to": [
+        15,
+        14,
+        3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side",
+          "uv": [
+            1,
+            2,
+            15,
+            13
+          ]
+        },
+        "south": {
+          "texture": "#inner",
+          "uv": [
+            1,
+            2,
+            15,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            1,
+            1,
+            15,
+            3
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            1,
+            2,
+            3,
+            13
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            13,
+            2,
+            15,
+            13
+          ]
+        }
+      }
+    }
+  ]
+}

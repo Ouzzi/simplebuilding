@@ -41,7 +41,7 @@ public final class TestCentreLayout {
 
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
     public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "states", "storage", "food",
-            "materials", "placeables", "arrows", "archery", "music", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
+            "materials", "placeables", "arrows", "archery", "music", "crucible", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning",
             "mining", "enchants", "sinkdamper", "tweaks", "devices",
             // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
             "tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads", "tab_arrows",
@@ -56,7 +56,8 @@ public final class TestCentreLayout {
             "simplebuilding:reinforced_piston_head", "technischer Block (Kopf der verstaerkten Kolben), kein Item",
             "simplebuilding:netherite_piston_head", "technischer Block (Kopf des Netherit-Kolbens), kein Item",
             "simplebuilding:enderite_piston_head", "technischer Block (Kopf des Enderit-Kolbens), kein Item",
-            "simplebuilding:funny_stick", "Easter Egg, bewusst versteckt (Spoiler in docs/SIMPLETWEAKS-UEBERNAHME.md)");
+            "simplebuilding:funny_stick", "Easter Egg, bewusst versteckt (Spoiler in docs/SIMPLETWEAKS-UEBERNAHME.md)",
+            "simplebuilding:soul_lava", "Fluessigkeitsblock wie Lava; die Station zeigt sie im verstaerkten Kessel, Eimer liegen in der Truhe");
 
     /**
      * Mod-Bloecke, die nur im Rahmen stehen und nirgends gesetzt werden: Pads mit Wirkung auf die
@@ -199,6 +200,8 @@ public final class TestCentreLayout {
         builders.put("archery", FeatureStations::archery);
         // Musik-Station (2026-10-03); auf 26.2 leer.
         builders.put("music", FeatureStations::music);
+        // Schmelztiegel-Station (Crucible P6); auf 26.2 leer.
+        builders.put("crucible", FeatureStations::crucible);
         builders.put("chisel", TestCentreSections::chisel);
         builders.put("inworld", TestCentreSections::inWorld);
         builders.put("templates", TestCentreSections::templates);
