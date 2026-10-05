@@ -561,6 +561,32 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
                     .build(),
+            GameTestSpec.named("crucible_game_test_enderite_tiers_have_twenty_seven_slots_and_double_stacks", CrucibleTests::enderiteTiersHaveTwentySevenSlotsAndDoubleStacks)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_sledgehammer_builds_the_iron_crucible", CrucibleTests::sledgehammerBuildsTheIronCrucible)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_sledgehammer_upgrades_cost_double", CrucibleTests::sledgehammerUpgradesCostDouble)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_soul_lava_flows_two_blocks_in_the_overworld", CrucibleTests::soulLavaFlowsTwoBlocksInTheOverworld)
+                    .maxTicks(300).build(),
+            GameTestSpec.named("crucible_game_test_soul_lava_is_not_replaceable", CrucibleTests::soulLavaIsNotReplaceable)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_water_touching_soul_lava_turns_to_quartz_or_blackstone", CrucibleTests::waterTouchingSoulLavaTurnsToQuartzOrBlackstone)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_touching_soul_lava_burns_longer_and_gives_soul_burn", CrucibleTests::touchingSoulLavaBurnsLongerAndGivesSoulBurn)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_fire_resistance_only_blocks_soul_burn_damage", CrucibleTests::fireResistanceOnlyBlocksSoulBurnDamage)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_soul_lava_heats_extreme_flowing_high", CrucibleTests::soulLavaHeatsExtremeFlowingHigh)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_copper_bucket_rules", CrucibleTests::copperBucketRules)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_iron_bucket_breaks_on_soul_lava_enderite_never", CrucibleTests::ironBucketBreaksOnSoulLavaEnderiteNever)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_reinforced_cauldron_holds_soul_lava", CrucibleTests::reinforcedCauldronHoldsSoulLava)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_sledgehammer_crushes_quartz_block_into_four_quartz", CrucibleTests::sledgehammerCrushesQuartzBlockIntoFourQuartz)
+                    .build(),
             GameTestSpec.named("hammock_game_test_hangs_only_between_two_anchors_two_to_four_apart", HammockTests::hangsOnlyBetweenTwoAnchorsTwoToFourApart)
                     .build(),
             GameTestSpec.named("hammock_game_test_cloth_hangs_in_the_middle_at_every_gap", HammockTests::clothHangsInTheMiddleAtEveryGap)

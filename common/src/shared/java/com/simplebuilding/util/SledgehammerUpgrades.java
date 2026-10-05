@@ -274,9 +274,42 @@ public final class SledgehammerUpgrades {
                     ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false, factor, cost));
             map.put(ModBlocks.NETHERITE_SHULKER_BOX, new Upgrade(ModBlocks.NETHERITE_SHULKER_BOX, ModBlocks.ENDERITE_SHULKER_BOX,
                     ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
+            if (McVersion.CRUCIBLE) crucibleUpgrades(map);
             table = map;
         }
         return table;
+    }
+
+    /**
+     * Crucible P5 (owner F9/F10/F11, 56, 59): the SimpleLib crucibles and barrels go up with the sledgehammer at
+     * twice the cost of a furnace (2 material, twice the strikes): Iron -> Reinforced (cracked diamonds) -> Netherite
+     * (netherite nuggets) -> Enderite (enderite nuggets); copper -> reinforced -> Enderite barrel. The Vanilla cauldron
+     * becomes the reinforced cauldron with 4 cracked diamonds. SimpleLib blocks by their public ids (principle 6a).
+     */
+    private static void crucibleUpgrades(Map<Block, Upgrade> map) {
+        Block iron = lib("iron_crucible"), reinforced = lib("reinforced_crucible"), netherite = lib("netherite_crucible");
+        Block copperBarrel = lib("copper_barrel"), reinforcedBarrel = lib("reinforced_barrel"), cauldron = lib("reinforced_cauldron");
+        Block enderite = com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible();
+        Block enderiteBarrel = com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel();
+        if (iron == null || enderite == null || enderiteBarrel == null) return;
+        int factor = CRUCIBLE_UPGRADE_DURATION_FACTOR;
+        int cost = CRUCIBLE_UPGRADE_MATERIAL_COST;
+        map.put(iron, new Upgrade(iron, reinforced, ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, factor, cost));
+        map.put(reinforced, new Upgrade(reinforced, netherite, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false, factor, cost));
+        map.put(netherite, new Upgrade(netherite, enderite, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
+        map.put(copperBarrel, new Upgrade(copperBarrel, reinforcedBarrel, ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, factor, cost));
+        map.put(reinforcedBarrel, new Upgrade(reinforcedBarrel, enderiteBarrel, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false, factor, cost));
+        map.put(net.minecraft.world.level.block.Blocks.CAULDRON, new Upgrade(net.minecraft.world.level.block.Blocks.CAULDRON, cauldron,
+                ModItems.CRACKED_DIAMOND, 0, REINFORCED_DAMAGE_PER_HIT, false, true, 1, CAULDRON_UPGRADE_MATERIAL_COST));
+    }
+
+    /** Crucible/barrel upgrades cost twice a furnace upgrade (owner F9); the cauldron takes 4 cracked diamonds (owner 56). */
+    public static final int CRUCIBLE_UPGRADE_DURATION_FACTOR = 2;
+    public static final int CRUCIBLE_UPGRADE_MATERIAL_COST = 2;
+    public static final int CAULDRON_UPGRADE_MATERIAL_COST = 4;
+
+    private static @Nullable Block lib(String path) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", path)).orElse(null);
     }
 
     private static void toNetherite(Map<Block, Upgrade> map, Block from, Block to) {
@@ -621,6 +654,22 @@ public final class SledgehammerUpgrades {
             }
             return true;
         }
+        if (com.simplebuilding.crucible.CrucibleCompat.upgradesInPlace(job.upgrade.to())) {
+            // Crucibles and barrels (SimpleLib): contents, progress and experience move to the next tier (owner 11).
+            com.simplebuilding.crucible.CrucibleCompat.upgradeInPlace(serverLevel, job.pos, job.upgrade.to());
+            SledgehammerProgress.clear(serverLevel, job.pos);
+            player.getOffhandItem().consume(job.upgrade.materialCost(), player);
+            finishEffects(serverLevel, job, old);
+            if (!job.upgrade.toReinforced()) {
+                com.simplebuilding.advancement.ModTriggers.feature(player, job.upgrade.toEnderite() ? com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE : com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_NETHERITE);
+            }
+            McVersion.swing(player, InteractionHand.MAIN_HAND, true);
+            hammer.hurtAndBreak(damagePerHit(job.upgrade), player, EquipmentSlot.MAINHAND);
+            if (!hammer.isEmpty() && hasConnection(player)) {
+                player.getCooldowns().addCooldown(hammer, FINISH_COOLDOWN_TICKS);
+            }
+            return true;
+        }
         BlockState upgraded = job.upgrade.to().withPropertiesOf(old);
         // Die Aufwertung gibt einen neuen Kolben: der Schaden des Netheritkolbens gilt fuer den
         // Enderitkolben nicht, er beginnt mit voller Haltbarkeit.
@@ -629,7 +678,7 @@ public final class SledgehammerUpgrades {
         SledgehammerProgress.clear(serverLevel, job.pos);
         level.gameEvent(GameEvent.BLOCK_CHANGE, job.pos, GameEvent.Context.of(player, upgraded));
         // Im Kreativmodus verbraucht consume nichts, hurtAndBreak kostet nichts.
-        player.getOffhandItem().consume(1, player);
+        player.getOffhandItem().consume(job.upgrade.materialCost(), player);
         finishEffects(serverLevel, job, old);
         com.simplebuilding.advancement.ModTriggers.feature(player, job.upgrade.toEnderite() ? com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE : com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_NETHERITE);
         McVersion.swing(player, InteractionHand.MAIN_HAND, true);

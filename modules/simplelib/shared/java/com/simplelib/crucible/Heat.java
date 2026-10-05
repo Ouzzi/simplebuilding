@@ -39,6 +39,14 @@ public final class Heat {
     /** Heat of one block, ignoring the Nether bonus. */
     public static HeatLevel of(Level level, BlockPos pos, BlockState state) {
         if (state.hasProperty(BlockStateProperties.LIT) && !state.getValue(BlockStateProperties.LIT)) return HeatLevel.NONE;
+        if (state.getBlock() instanceof com.simplelib.cauldron.ReinforcedCauldronBlock) {
+            // Owner F30: a cauldron counts like the source block of its content.
+            return switch (state.getValue(com.simplelib.cauldron.ReinforcedCauldronBlock.CONTENT)) {
+                case LAVA -> HeatLevel.HIGH;
+                case EXTREME -> HeatLevel.EXTREME;
+                default -> HeatLevel.NONE;
+            };
+        }
         HeatLevel hooked = SimpleLibApi.heatOf(level, pos, state);
         if (hooked != HeatLevel.NONE) return hooked;
         if (state.is(LibTags.HEAT_EXTREME)) return HeatLevel.EXTREME;

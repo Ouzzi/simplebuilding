@@ -53,6 +53,9 @@ public final class LibTests {
         ALL.put("warm_bundle_insulates", LibTests::warmBundleInsulates);
         ALL.put("village_kitchen_in_pools", LibTests::villageKitchen);
         ALL.put("barrel_attach_and_results_first", LibTests::barrelAttach);
+        ALL.put("axe_click_reaches_axe_not_menu", LibTests::axeClickReachesAxe);
+        ALL.put("axe_upgrades_cauldron", LibTests::axeUpgradesCauldron);
+        ALL.put("reinforced_cauldron_holds_buckets", LibTests::reinforcedCauldronBuckets);
     }
 
     // ------------------------------------------------------------ helpers
@@ -357,6 +360,57 @@ public final class LibTests {
         run(h, be, 270);
         check(h, barrel.getItem(0).is(Items.GOLD_INGOT), "result went into the barrel first (owner wish)");
         check(h, be.getItem(3).isEmpty(), "not into the slot below");
+        h.succeed();
+    }
+
+    /** Principle 5a: with the axe way on, an axe + material click reaches the axe instead of opening the menu. */
+    private static void axeClickReachesAxe(GameTestHelper h) {
+        BlockPos rel = new BlockPos(1, 2, 1);
+        crucible(h, rel, Blocks.STONE.defaultBlockState(), LibBlocks.IRON_CRUCIBLE);
+        BlockPos abs = h.absolutePos(rel);
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_AXE));
+        var state = h.getLevel().getBlockState(abs);
+        check(h, !com.simplelib.api.SimpleLibApi.toolWants(state, h.getLevel(), abs, player, net.minecraft.world.InteractionHand.MAIN_HAND),
+                "an axe alone opens the menu");
+        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.DIAMOND, 2));
+        boolean expected = com.simplelib.api.SimpleLibApi.axeWaysEnabled();
+        check(h, com.simplelib.api.SimpleLibApi.toolWants(state, h.getLevel(), abs, player, net.minecraft.world.InteractionHand.MAIN_HAND) == expected,
+                "axe + 2 diamonds reaches the axe exactly when the axe way is on (" + expected + ")");
+        h.succeed();
+    }
+
+    /** Owner 56 B: without SimpleBuilding a cauldron becomes reinforced with an axe and 4 diamonds. */
+    private static void axeUpgradesCauldron(GameTestHelper h) {
+        BlockPos rel = new BlockPos(1, 2, 1);
+        h.setBlock(rel, Blocks.CAULDRON);
+        BlockPos abs = h.absolutePos(rel);
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.DIAMOND, 4));
+        ItemStack axe = new ItemStack(Items.IRON_AXE);
+        for (int i = 0; i < com.simplelib.crucible.CrucibleUpgrades.CAULDRON_STRIKES; i++) {
+            check(h, com.simplelib.crucible.CrucibleUpgrades.strike(h.getLevel(), abs, player, axe), "strike " + (i + 1));
+            player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(axe));
+        }
+        check(h, h.getLevel().getBlockState(abs).is(LibBlocks.REINFORCED_CAULDRON), "reinforced cauldron built");
+        check(h, player.getOffhandItem().isEmpty(), "four diamonds used");
+        h.succeed();
+    }
+
+    /** The reinforced cauldron takes and gives lava/water by bucket; lava in it heats a crucible like a lava source (owner F30). */
+    private static void reinforcedCauldronBuckets(GameTestHelper h) {
+        BlockPos rel = new BlockPos(2, 1, 2);
+        h.setBlock(rel, LibBlocks.REINFORCED_CAULDRON);
+        BlockPos abs = h.absolutePos(rel);
+        net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(Items.LAVA_BUCKET));
+        var hit = new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(abs), Direction.UP, abs, false);
+        h.getLevel().getBlockState(abs).useItemOn(player.getMainHandItem(), h.getLevel(), player, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+        check(h, "lava".equals(com.simplelib.api.SimpleLibApi.cauldronContent(h.getLevel().getBlockState(abs))), "lava poured in");
+        check(h, player.getMainHandItem().is(Items.BUCKET), "empty bucket back");
+        check(h, Heat.at(h.getLevel(), abs.above()).level() == HeatLevel.HIGH, "lava in the cauldron heats high");
+        h.getLevel().getBlockState(abs).useItemOn(player.getMainHandItem(), h.getLevel(), player, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+        check(h, player.getMainHandItem().is(Items.LAVA_BUCKET), "lava taken back");
         h.succeed();
     }
 

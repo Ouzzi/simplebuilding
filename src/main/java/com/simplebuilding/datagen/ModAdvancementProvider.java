@@ -168,6 +168,16 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             feature("machines/end_of_the_line", netherite, ModItems.ENDERITE_FURNACE, AdvancementType.CHALLENGE,
                     ModTriggers.HAMMER_UPGRADE_ENDERITE);
             feature("machines/good_as_new", netherite, ModItems.NETHERITE_PISTON, AdvancementType.TASK, ModTriggers.PISTON_REPAIR);
+            if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+                // Crucible P5/P6 (Besitzer 48 A): Tiegel bauen, Seelen-Lava schoepfen, Enderit-Eimer.
+                ItemLike crucibleIcon = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(
+                        Identifier.fromNamespaceAndPath("simplelib", "iron_crucible"));
+                AdvancementHolder pot = feature("machines/hot_pot", reinforced, crucibleIcon, AdvancementType.TASK, ModTriggers.CRUCIBLE_BUILT);
+                AdvancementHolder soul = feature("machines/soul_scooper", pot, com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET,
+                        AdvancementType.GOAL, ModTriggers.SOUL_LAVA_SCOOPED);
+                node("machines/bottomless_bucket", soul, com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET, AdvancementType.TASK,
+                        "enderite_bucket", any(com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET));
+            }
         }
 
         /** The tool tiers, one step per material - the mod's version of "Getting an Upgrade". */

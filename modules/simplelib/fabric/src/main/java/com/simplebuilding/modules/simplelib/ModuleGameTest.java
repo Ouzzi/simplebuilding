@@ -95,4 +95,19 @@ public final class ModuleGameTest {
     public void barrelAttachAndResultsFirst(GameTestHelper h) {
         LibTests.ALL.get("barrel_attach_and_results_first").accept(h);
     }
+
+    @GameTest
+    public void axeClickReachesAxeNotMenu(GameTestHelper h) {
+        LibTests.ALL.get("axe_click_reaches_axe_not_menu").accept(h);
+    }
+
+    @GameTest
+    public void axeUpgradesCauldron(GameTestHelper h) {
+        LibTests.ALL.get("axe_upgrades_cauldron").accept(h);
+    }
+
+    @GameTest
+    public void reinforcedCauldronHoldsBuckets(GameTestHelper h) {
+        LibTests.ALL.get("reinforced_cauldron_holds_buckets").accept(h);
+    }
 }

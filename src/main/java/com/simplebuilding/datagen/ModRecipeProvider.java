@@ -406,6 +406,24 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
                         .save(output);
 
+                // Crucible P5 (Besitzer 32/35): Kupfer-Eimer wie der Eisen-Eimer aus drei Kupferbarren; Enderit-Eimer = Eisen-Eimer
+                // umringt von acht Enderit-Nuggets.
+                if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+                    shaped(RecipeCategory.TOOLS, com.simplebuilding.fluid.ModFluids.COPPER_BUCKET)
+                            .pattern("C C")
+                            .pattern(" C ")
+                            .define('C', Items.COPPER_INGOT)
+                            .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT))
+                            .save(output);
+                    shaped(RecipeCategory.TOOLS, com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET)
+                            .pattern("NNN")
+                            .pattern("NBN")
+                            .pattern("NNN")
+                            .define('N', ModItems.ENDERITE_NUGGET)
+                            .define('B', Items.BUCKET)
+                            .unlockedBy(getHasName(ModItems.ENDERITE_NUGGET), has(ModItems.ENDERITE_NUGGET))
+                            .save(output);
+                }
                 // Eisenstab (2026-10-02): wie der Blitzableiter, drei Eisenbarren uebereinander.
                 if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
                     shaped(RecipeCategory.REDSTONE, ModItems.IRON_ROD)

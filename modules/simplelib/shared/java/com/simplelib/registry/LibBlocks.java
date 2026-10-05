@@ -19,6 +19,7 @@ import net.minecraft.world.level.material.MapColor;
 public final class LibBlocks {
     public static CrucibleBlock IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE;
     public static CrucibleBlankBlock CRUCIBLE_BLANK;
+    public static com.simplelib.cauldron.ReinforcedCauldronBlock REINFORCED_CAULDRON;
     public static com.simplelib.crucible.CrucibleBarrelBlock COPPER_BARREL, REINFORCED_BARREL;
     /** Every barrel block, including partner tiers (Enderite in SimpleBuilding). */
     public static final List<com.simplelib.crucible.CrucibleBarrelBlock> BARRELS = new ArrayList<>();
@@ -31,6 +32,10 @@ public final class LibBlocks {
         NETHERITE_CRUCIBLE = crucible("netherite_crucible", CrucibleTier.NETHERITE, props(MapColor.COLOR_BLACK, 5.0F, 1200.0F, SoundType.NETHERITE_BLOCK));
         CRUCIBLE_BLANK = Registry.register(BuiltInRegistries.BLOCK, key("crucible_blank"),
                 new CrucibleBlankBlock(props(MapColor.METAL, 5.0F, 6.0F, SoundType.METAL).setId(key("crucible_blank"))));
+        REINFORCED_CAULDRON = Registry.register(BuiltInRegistries.BLOCK, key("reinforced_cauldron"), new com.simplelib.cauldron.ReinforcedCauldronBlock(
+                BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(3.0F, 6.0F).noOcclusion()
+                        .lightLevel(state -> state.getValue(com.simplelib.cauldron.ReinforcedCauldronBlock.CONTENT).hot() ? 15 : 0)
+                        .setId(key("reinforced_cauldron"))));
         COPPER_BARREL = barrel("copper_barrel", com.simplelib.crucible.BarrelTier.COPPER, MapColor.COLOR_ORANGE, 3.0F);
         REINFORCED_BARREL = barrel("reinforced_barrel", com.simplelib.crucible.BarrelTier.REINFORCED, MapColor.DIAMOND, 4.0F);
     }

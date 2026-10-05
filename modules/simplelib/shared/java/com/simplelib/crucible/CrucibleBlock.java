@@ -91,6 +91,14 @@ public class CrucibleBlock extends Block implements EntityBlock {
         };
     }
 
+    /** A tool way (axe without SimpleBuilding, a partner's sledgehammer) takes the click instead of the menu. */
+    @Override
+    protected InteractionResult useItemOn(net.minecraft.world.item.ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
+            net.minecraft.world.InteractionHand hand, BlockHitResult hit) {
+        if (com.simplelib.api.SimpleLibApi.toolWants(state, level, pos, player, hand)) return InteractionResult.PASS;
+        return super.useItemOn(stack, state, level, pos, player, hand, hit);
+    }
+
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof CrucibleBlockEntity be) {

@@ -211,6 +211,11 @@ apply from: rootProject.file('gradle/hub-project-mods.gradle')
 dependencies { implementation project(':framework'); jarJar project(':framework') }
 // SimpleLib (crucibles, warm food) nested per principle 6a.
 dependencies { jarJar project(':modules:simplelib:neoforge') }
+// SB 26.3 code uses com.simplelib.api (crucible P5): compile against it and load it as its own mod in every dev/test run.
+evaluationDependsOn(':modules:simplelib:neoforge')
+dependencies { implementation project(':modules:simplelib:neoforge') }
+neoForge.mods { simplelib { sourceSet project(':modules:simplelib:neoforge').sourceSets.main } }
+neoForge.runs.configureEach { loadedMods.add(neoForge.mods.simplelib) }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }
 

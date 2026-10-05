@@ -79,6 +79,8 @@ public final class McVersion {
     public static final boolean MUSIC_DISCS = true;
     /** Astral rail (boosts towards a raised top speed) and Nihil rail (brakes to a stop), fed by their End channel (2026-10-04). */
     public static final boolean END_RAILS = true;
+    /** Crucible SB parts (2026-10-05): Enderite crucible/barrel, sledgehammer ways, soul lava, copper/enderite buckets (needs SimpleLib, 26.3 only). */
+    public static final boolean CRUCIBLE = true;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = true;
 
@@ -285,5 +287,12 @@ public final class McVersion {
     /** Pistons can neither push nor pull the block (26.3 renamed BLOCK to IMMOVEABLE). */
     public static net.minecraft.world.level.material.PushReaction immovable() {
         return net.minecraft.world.level.material.PushReaction.IMMOVEABLE;
+    }
+
+    /** Furnace fuel of an item (26.3: the cooking_fuel component with a fixed burn time; 26.2: nothing). */
+    public static net.minecraft.world.item.Item.Properties cookingFuel(net.minecraft.world.item.Item.Properties properties, int ticks) {
+        return properties.component(net.minecraft.core.component.DataComponents.COOKING_FUEL,
+                new net.minecraft.world.item.component.CookingFuel(new net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt.Constant(ticks),
+                        new net.minecraft.world.level.storage.loot.providers.number.floats.ResolvableFloat.Constant(1.0F)));
     }
 }

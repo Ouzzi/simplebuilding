@@ -3,9 +3,11 @@
     "simplebuilding:enderite_apple",
     "simplebuilding:enderite_axe",
     "simplebuilding:enderite_backpack",
+    "simplebuilding:enderite_barrel",
     "simplebuilding:enderite_blast_furnace",
     "simplebuilding:enderite_block",
     "simplebuilding:enderite_boots",
+    "simplebuilding:enderite_bucket",
     "simplebuilding:enderite_building_wand",
     "simplebuilding:enderite_bundle",
     "simplebuilding:enderite_carrot",
@@ -14,6 +16,7 @@
     "simplebuilding:enderite_chisel",
     "simplebuilding:enderite_chunk_loader",
     "simplebuilding:enderite_core",
+    "simplebuilding:enderite_crucible",
     "simplebuilding:enderite_elytra_pad",
     "simplebuilding:enderite_flypad",
     "simplebuilding:enderite_furnace",
@@ -23,6 +26,7 @@
     "simplebuilding:enderite_horse_armor",
     "simplebuilding:enderite_ingot",
     "simplebuilding:enderite_launchpad",
+    "simplebuilding:enderite_lava_bucket",
     "simplebuilding:enderite_leggings",
     "simplebuilding:enderite_nautilus_armor",
     "simplebuilding:enderite_nugget",
@@ -36,9 +40,11 @@
     "simplebuilding:enderite_shulker_shell",
     "simplebuilding:enderite_sledgehammer",
     "simplebuilding:enderite_smoker",
+    "simplebuilding:enderite_soul_lava_bucket",
     "simplebuilding:enderite_spawn_teleporter",
     "simplebuilding:enderite_spear",
     "simplebuilding:enderite_sword",
-    "simplebuilding:enderite_trapped_chest"
+    "simplebuilding:enderite_trapped_chest",
+    "simplebuilding:enderite_water_bucket"
   ]
 }

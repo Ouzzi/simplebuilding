@@ -67,6 +67,7 @@
       "com.simplebuilding.gametest.RareStructureFindsGameTest",
       "com.simplebuilding.gametest.CombatGameTest",
       "com.simplebuilding.gametest.TrainingDummyGameTest",
+      "com.simplebuilding.gametest.CrucibleGameTest",
       "com.simplebuilding.gametest.HammockGameTest",
       "com.simplebuilding.gametest.WorkstationGameTest",
       "com.simplebuilding.gametest.ConfigOptionGameTest",

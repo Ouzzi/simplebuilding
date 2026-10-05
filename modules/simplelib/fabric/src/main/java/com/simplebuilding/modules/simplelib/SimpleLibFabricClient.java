@@ -12,5 +12,7 @@ public final class SimpleLibFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         LibMenus.CRUCIBLES.values().forEach(type -> MenuScreens.register(type, CrucibleScreen::new));
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(LibBlockEntities.CRUCIBLE, CrucibleRenderer::new);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
+                java.util.List.of(com.simplelib.client.ReinforcedCauldronTint.INSTANCE), com.simplelib.registry.LibBlocks.REINFORCED_CAULDRON);
     }
 }

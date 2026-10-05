@@ -8,10 +8,12 @@
     "TemplatePoolAccessor",
     "WarmBundleMixin",
     "WarmClockMixin",
+    "WarmSteamMixin",
     "WarmStackingMixin",
     "WarmUseDurationMixin"
   ],
   "client": [
+    "client.WarmGlowEntityMixin",
     "client.WarmGlowSlotMixin"
   ],
   "server": [],

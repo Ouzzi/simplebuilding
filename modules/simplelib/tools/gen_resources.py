@@ -158,6 +158,25 @@ def files():
         "pattern": [" C ", "CBC", " C "],
         "result": {"id": f"{NS}:copper_barrel", "count": 1},
     }
+    # Reinforced cauldron (owner 30/56): one block, content as state; always full (bucket in, bucket out).
+    rc = f"{NS}:block/reinforced_cauldron"
+    rc_tex = {"particle": f"{rc}_side", "top": f"{rc}_top", "bottom": f"{rc}_bottom", "side": f"{rc}_side", "inside": f"{rc}_inner"}
+    out[f"{a}/models/block/reinforced_cauldron.json"] = {"parent": "minecraft:block/cauldron", "textures": rc_tex}
+    contents = {"water": "minecraft:block/water_still", "lava": "minecraft:block/lava_still",
+                "powder_snow": "minecraft:block/powder_snow", "extreme": f"{rc}_extreme"}
+    cauldron_variants = {"content=empty": {"model": rc}}
+    for content, texture in contents.items():
+        out[f"{a}/models/block/reinforced_cauldron_{content}.json"] = {
+            "parent": "minecraft:block/template_cauldron_full", "textures": dict(rc_tex, content=texture)}
+        cauldron_variants[f"content={content}"] = {"model": f"{rc}_{content}"}
+    out[f"{a}/blockstates/reinforced_cauldron.json"] = {"variants": cauldron_variants}
+    out[f"{a}/items/reinforced_cauldron.json"] = {"model": {"type": "minecraft:model", "model": rc}}
+    out[f"{d}/loot_table/blocks/reinforced_cauldron.json"] = {
+        "type": "minecraft:block",
+        "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": f"{NS}:reinforced_cauldron"}],
+                   "conditions": [{"condition": "minecraft:survives_explosion"}]}],
+        "random_sequence": f"{NS}:blocks/reinforced_cauldron",
+    }
     # Village field kitchen barrel (owner 46: raw meat beside the crucible).
     def meat(item, lo, hi, weight):
         return {"type": "minecraft:item", "name": item, "weight": weight,
@@ -180,7 +199,8 @@ def files():
     out[f"{d}/tags/item/crucible_handles.json"] = {"values": ["minecraft:iron_ingot"]}
     out[f"{d}/tags/item/upgrade_reinforced.json"] = {"values": ["minecraft:diamond"]}
     out[f"{d}/tags/item/upgrade_netherite.json"] = {"values": ["minecraft:netherite_ingot"]}
-    pickaxe = [f"{NS}:{t}_crucible" for t in TIERS] + [f"{NS}:crucible_blank", f"{NS}:copper_barrel", f"{NS}:reinforced_barrel"]
+    pickaxe = [f"{NS}:{t}_crucible" for t in TIERS] + [f"{NS}:crucible_blank", f"{NS}:copper_barrel", f"{NS}:reinforced_barrel",
+                                                      f"{NS}:reinforced_cauldron"]
     out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": pickaxe}
     out["data/minecraft/tags/block/needs_stone_tool.json"] = {"values": pickaxe}
     return out

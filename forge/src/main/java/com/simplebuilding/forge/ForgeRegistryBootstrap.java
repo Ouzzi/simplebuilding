@@ -32,6 +32,11 @@ public final class ForgeRegistryBootstrap {
             registerLegacyAliases(event);
             return;
         }
+        // Crucible P5: Seelen-Lava in ihrem eigenen Ereignis (Forge entsperrt je Ereignis nur eine Registry).
+        if (event.getRegistryKey().equals(Registries.FLUID)) {
+            com.simplebuilding.fluid.ModFluids.registerFluids();
+            return;
+        }
         // Forge entsperrt je RegisterEvent nur die eine Registry - Entitaeten gehoeren in ihr eigenes Ereignis.
         if (event.getRegistryKey().equals(Registries.ENTITY_TYPE)) {
             ModEntities.registerModEntities();

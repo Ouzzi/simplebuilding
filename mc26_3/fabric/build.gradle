@@ -222,7 +222,11 @@ apply from: rootProject.file('gradle/hub-project-mods.gradle')
 // Public cross-mod contracts are packaged on the main line only.
 dependencies { implementation project(':framework'); include project(':framework') }
 // SimpleLib (crucibles, warm food) nested per principle 6a; SB code uses it from P5 on.
-dependencies { include project(':modules:simplelib:fabric') }
+dependencies {
+    include project(':modules:simplelib:fabric')
+    // SB 26.3 code uses com.simplelib.api (crucible P5) and needs the mod in dev and test runs too.
+    implementation project(':modules:simplelib:fabric')
+}
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }
 

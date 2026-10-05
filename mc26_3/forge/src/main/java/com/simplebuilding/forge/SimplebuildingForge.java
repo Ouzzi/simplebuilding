@@ -41,6 +41,8 @@ public final class SimplebuildingForge {
         com.simplebuilding.compat.FtbQuestsDefaults.installIfPresent(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
         Forge263Events.register();
         ForgeModRegistries.register(modBus);
+        // Crucible P5: soul lava needs its Forge fluid type before the fluids are created.
+        ForgeSoulLava.install(modBus);
         RegisterEvent.getBus(modBus).addListener(ForgeRegistryBootstrap::onRegister);
         FMLCommonSetupEvent.getBus(modBus).addListener(this::commonSetup);
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {

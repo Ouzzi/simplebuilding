@@ -19,5 +19,14 @@ public final class LibBlockEntities {
         BARREL = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleLib.id("barrel"), type);
     }
 
+    /** The crucible type accepts every crucible block, also partner tiers registered after it (load order free). */
+    public static boolean isCrucible(net.minecraft.world.level.block.state.BlockState state) {
+        return state.getBlock() instanceof com.simplelib.crucible.CrucibleBlock;
+    }
+
+    public static boolean isBarrel(net.minecraft.world.level.block.state.BlockState state) {
+        return state.getBlock() instanceof com.simplelib.crucible.CrucibleBarrelBlock;
+    }
+
     private LibBlockEntities() {}
 }

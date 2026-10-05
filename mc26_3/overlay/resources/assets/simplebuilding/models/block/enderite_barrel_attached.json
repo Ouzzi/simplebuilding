@@ -1,0 +1,10 @@
+{
+  "parent": "simplelib:block/copper_barrel_attached",
+  "textures": {
+    "side": "simplebuilding:block/enderite_barrel_side",
+    "top": "simplebuilding:block/enderite_barrel_top",
+    "bottom": "simplebuilding:block/enderite_barrel_bottom",
+    "flange": "simplebuilding:block/enderite_barrel_flange",
+    "particle": "simplebuilding:block/enderite_barrel_side"
+  }
+}

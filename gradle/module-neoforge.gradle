@@ -14,3 +14,13 @@ neoForge {
 processResources { filesMatching('META-INF/neoforge.mods.toml') { expand version: project.version } }
 
 sourceSets.main.resources.srcDir '../generated/resources'
+
+// SimpleBuilding 26.3 needs SimpleLib at runtime (principle 6a, nested in production). A module whose dev/test runs
+// load SimpleBuilding from its sourceSet loads SimpleLib the same way.
+afterEvaluate {
+    if (project.path == ':modules:simplelib:neoforge' || neoForge.mods.findByName('simplebuilding') == null) return
+    if (neoForge.mods.findByName('simplelib') == null) {
+        neoForge.mods.create('simplelib') { sourceSet rootProject.project(':modules:simplelib:neoforge').sourceSets.main }
+    }
+    neoForge.runs.configureEach { run -> if (run.loadedMods.get().any { it.name == 'simplebuilding' }) run.loadedMods.add(neoForge.mods.simplelib) }
+}

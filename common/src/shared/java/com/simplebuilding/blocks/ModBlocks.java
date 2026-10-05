@@ -479,6 +479,12 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         Simplebuilding.LOGGER.info("Registering Mod Blocks for " + Simplebuilding.MOD_ID);
+        if (McVersion.CRUCIBLE) {
+            // Crucible P5: soul lava (fluids first; on Forge already in the FLUID event) and the SimpleLib-based blocks.
+            com.simplebuilding.fluid.ModFluids.registerFluids();
+            com.simplebuilding.fluid.ModFluids.registerBlocks();
+            com.simplebuilding.crucible.CrucibleCompat.registerBlocks();
+        }
     }
 
     /** Vanillas Shulkerkisten-Eigenschaften, mit der Offen-Pruefung gegen die Block-Entity der Stufen. */

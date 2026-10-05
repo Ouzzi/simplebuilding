@@ -38,6 +38,12 @@ public final class RecipelessJeiInfo {
             map.put("sage_ore", List.of(ModBlocks.SAGE_ORE, ModBlocks.DEEPSLATE_SAGE_ORE));
             map.put("sage_orb", List.of(ModItems.SAGE_ORB));
         }
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            // Crucible P5: gefuellte Eimer entstehen nur durch Schoepfen (kein Rezept).
+            map.put("soul_lava_bucket", List.of(com.simplebuilding.fluid.ModFluids.SOUL_LAVA_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_SOUL_LAVA_BUCKET));
+            map.put("copper_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.COPPER_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.COPPER_LAVA_BUCKET));
+            map.put("enderite_bucket_filled", List.of(com.simplebuilding.fluid.ModFluids.ENDERITE_WATER_BUCKET, com.simplebuilding.fluid.ModFluids.ENDERITE_LAVA_BUCKET));
+        }
         if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
             map.put("dimensional_scrap", List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP));
         }
@@ -49,6 +55,11 @@ public final class RecipelessJeiInfo {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             map.put("velocity_gauge", List.of(ModItems.VELOCITY_GAUGE));
+        }
+        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
+            map.put("copper_bucket", List.of(com.simplebuilding.fluid.ModFluids.COPPER_BUCKET));
+            map.put("enderite_bucket", List.of(com.simplebuilding.fluid.ModFluids.ENDERITE_BUCKET));
+            map.put("enderite_crucible", List.of(com.simplebuilding.crucible.CrucibleCompat.enderiteCrucible(), com.simplebuilding.crucible.CrucibleCompat.enderiteBarrel()));
         }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             map.put("silent_dandelion", List.of(ModItems.SILENT_DANDELION));

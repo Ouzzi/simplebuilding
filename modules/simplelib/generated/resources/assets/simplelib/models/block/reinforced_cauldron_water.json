@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/template_cauldron_full",
+  "textures": {
+    "particle": "simplelib:block/reinforced_cauldron_side",
+    "top": "simplelib:block/reinforced_cauldron_top",
+    "bottom": "simplelib:block/reinforced_cauldron_bottom",
+    "side": "simplelib:block/reinforced_cauldron_side",
+    "inside": "simplelib:block/reinforced_cauldron_inner",
+    "content": "minecraft:block/water_still"
+  }
+}

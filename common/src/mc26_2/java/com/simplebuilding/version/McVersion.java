@@ -84,6 +84,8 @@ public final class McVersion {
     public static final boolean MUSIC_DISCS = false;
     /** Astral rail (boosts towards a raised top speed) and Nihil rail (brakes to a stop), fed by their End channel (2026-10-04). */
     public static final boolean END_RAILS = false;
+    /** Crucible SB parts: 26.3 only (SimpleLib is not built for 26.2). */
+    public static final boolean CRUCIBLE = false;
     /** Main-line transformations; older renderers/gameplay are ported after owner approval. */
     public static final boolean TRANSFORM_HINTS_AND_CORNERS = false;
 
@@ -247,5 +249,10 @@ public final class McVersion {
     /** Pistons can neither push nor pull the block (26.3 renamed BLOCK to IMMOVEABLE). */
     public static net.minecraft.world.level.material.PushReaction immovable() {
         return net.minecraft.world.level.material.PushReaction.BLOCK;
+    }
+
+    /** Furnace fuel of an item: 26.2 has no cooking_fuel component (crucible items are 26.3 only). */
+    public static net.minecraft.world.item.Item.Properties cookingFuel(net.minecraft.world.item.Item.Properties properties, int ticks) {
+        return properties;
     }
 }

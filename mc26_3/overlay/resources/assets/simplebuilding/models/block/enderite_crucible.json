@@ -1,0 +1,11 @@
+{
+  "parent": "simplelib:block/iron_crucible",
+  "textures": {
+    "side": "simplebuilding:block/enderite_crucible_side",
+    "top": "simplebuilding:block/enderite_crucible_top",
+    "bottom": "simplebuilding:block/enderite_crucible_bottom",
+    "inner": "simplebuilding:block/enderite_crucible_inner",
+    "handle": "simplebuilding:block/enderite_crucible_handle",
+    "particle": "simplebuilding:block/enderite_crucible_side"
+  }
+}

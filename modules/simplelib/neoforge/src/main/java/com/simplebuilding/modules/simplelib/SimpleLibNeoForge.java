@@ -29,8 +29,12 @@ public final class SimpleLibNeoForge {
             if (key.equals(Registries.BLOCK)) LibBlocks.register();
             if (key.equals(Registries.ITEM)) LibItems.register();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
-                LibBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(LibBlocks.crucibles()), false));
-                LibBlockEntities.registerBarrel(new BlockEntityType<>(com.simplelib.crucible.CrucibleBarrelBlockEntity::new, Set.of(LibBlocks.barrels()), false));
+                LibBlockEntities.register(new BlockEntityType<>(CrucibleBlockEntity::new, Set.of(LibBlocks.crucibles()), false) {
+                    @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return LibBlockEntities.isCrucible(state); }
+                });
+                LibBlockEntities.registerBarrel(new BlockEntityType<>(com.simplelib.crucible.CrucibleBarrelBlockEntity::new, Set.of(LibBlocks.barrels()), false) {
+                    @Override public boolean isValid(net.minecraft.world.level.block.state.BlockState state) { return LibBlockEntities.isBarrel(state); }
+                });
             }
             if (key.equals(Registries.MENU)) LibMenus.register();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) LibRegistry.tab();
