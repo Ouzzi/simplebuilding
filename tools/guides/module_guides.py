@@ -357,6 +357,49 @@ def item_files(cfg: dict) -> dict[str, str]:
     return out
 
 
+NOTE = ("Guide to this mod: %d pages taken from this wiki, shown in your language. Shapeless recipe: book + %s. "
+        "Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to %s\" gives one for free.",
+        "Handbuch zu dieser Mod: %d Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + %s. "
+        "Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei %s\" eins.")
+RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
+    "minecraft:hay_block": ("hay bale", "Heuballen"), "minecraft:brick": ("brick", "Ziegel"),
+    "minecraft:gold_nugget": ("gold nugget", "Goldklumpen"), "minecraft:bread": ("bread", "Brot"),
+    "minecraft:chest": ("chest", "Truhe"), "minecraft:item_frame": ("item frame", "Rahmen"),
+    "minecraft:flint_and_steel": ("flint and steel", "Feuerzeug"), "minecraft:paper": ("paper", "Papier"),
+}
+
+
+def updated_manual(cfg: dict, pages) -> str:
+    """The guide's wiki note in modules/<id>/wiki/manual.json (owned key <ns>:guide_book), keeping the file's style."""
+    nl = "\n"
+    path = REPO / "modules" / cfg["module"] / "wiki/manual.json"
+    raw = path.read_text(encoding="utf-8").replace("\r" + nl, nl)
+    data = json.loads(raw)
+    key = f"{cfg['ns']}:guide_book"
+    names = RECIPE_ITEM_SHORT[cfg["recipe"]]
+    rel = module_paths(cfg)["java"].relative_to(REPO).as_posix()
+    note = {"sources": [rel, f"modules/{cfg['module']}/shared/resources/data/{cfg['ns']}/recipe/guide_book.json"],
+            "en": {"summary": NOTE[0] % (len(pages), names[0], cfg["author"])},
+            "de": {"summary": NOTE[1] % (len(pages), names[1], cfg["author"])}}
+    if json.dumps(data, indent=2, ensure_ascii=False) + nl == raw:
+        notes = {k: v for k, v in data["notes"].items() if k != key}
+        data["notes"] = {key: note, **notes}
+        return json.dumps(data, indent=2, ensure_ascii=False) + nl
+    # Hand-formatted file (compact note objects): replace or insert the entry as text.
+    dump = lambda value: json.dumps(value, ensure_ascii=False)  # noqa: E731
+    entry = (f'    "{key}": {{{nl}      "sources": {dump(note["sources"])},{nl}'
+             f'      "en": {dump(note["en"])},{nl}      "de": {dump(note["de"])}{nl}    }},{nl}')
+    start = raw.find(f'    "{key}": {{{nl}')
+    if start >= 0:
+        close = f"{nl}    }},{nl}"
+        raw = raw[:start] + raw[raw.index(close, start) + len(close):]
+    head = f'  "notes": {{{nl}'
+    anchor = raw.index(head) + len(head)
+    out = raw[:anchor] + entry + raw[anchor:]
+    json.loads(out)
+    return out
+
+
 def outputs() -> dict[Path, str]:
     out: dict[Path, str] = {}
     for cfg in MODULES:
@@ -368,6 +411,7 @@ def outputs() -> dict[Path, str]:
         out[p["lang"] / "de_de.json"] = updated_lang(p["lang"] / "de_de.json", cfg, de)
         if cfg["kind"] == "item":
             out.update(item_files(cfg))
+            out[REPO / "modules" / cfg["module"] / "wiki/manual.json"] = updated_manual(cfg, pages)
     return out
 
 

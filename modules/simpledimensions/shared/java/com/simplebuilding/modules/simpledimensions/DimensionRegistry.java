@@ -21,6 +21,7 @@ public final class DimensionRegistry {
  }
  /** Legacy block item only: keeps old stacks loadable. Deliberately in no creative tab (audit 2026-10-02) - no recipe, drop or trade; /give only. */
  public static void items() {
+  com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide.register();
   Registry.register(BuiltInRegistries.ITEM,id("light_blue_portal"),new BlockItem(LEGACY,new Item.Properties().setId(ResourceKey.create(Registries.ITEM,id("light_blue_portal")))));
  }
  public static boolean portal(net.minecraft.world.level.block.state.BlockState state) { return state.is(PORTAL)||state.is(LEGACY); }

@@ -8,6 +8,9 @@
     "main": [
       "com.simplebuilding.modules.simplesounds.FabricExample"
     ],
+    "client": [
+      "com.simplebuilding.modules.simplesounds.SoundsFabricClient"
+    ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simplesounds.ModuleGameTest"
     ],

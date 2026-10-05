@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 public final class ModelTests {
     public static final Map<String, Consumer<GameTestHelper>> ALL = new LinkedHashMap<>();
     static {
+        ALL.put("guide_book", com.simplebuilding.modules.simplemodels.guide.ModelsGuide::gameTest);
         ALL.put("launch", ModelTests::launch); ALL.put("assignment", ModelTests::assignment);
         ALL.put("permissions", ModelTests::permissions); ALL.put("request_bounds", ModelTests::requestBounds);
         ALL.put("config_bounds", ModelTests::configBounds); ALL.put("definition_bounds", ModelTests::definitionBounds);

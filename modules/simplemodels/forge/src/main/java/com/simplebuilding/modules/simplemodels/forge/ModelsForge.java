@@ -5,6 +5,9 @@ public final class ModelsForge {
  private static net.minecraftforge.network.Channel<net.minecraft.network.protocol.common.custom.CustomPacketPayload> channel;
  public ModelsForge(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext context){
   ModuleForgeTests.register(context.getModBusGroup());
+  net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(e->{if(e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM))com.simplebuilding.modules.simplemodels.guide.ModelsGuide.register();});
+  if(net.minecraftforge.fml.ModList.isLoaded("ftbquests"))com.simplebuilding.modules.simplemodels.guide.ModelsGuide.installQuests(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
+  net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e->{if(e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES))e.accept(com.simplebuilding.modules.simplemodels.guide.ModelsGuide.book());});
   Models.root=net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get().resolve("simplemodels");
   channel=net.minecraftforge.network.ChannelBuilder.named(net.minecraft.resources.Identifier.parse("simplemodels:main"))
    .payloadChannel().protocol(net.minecraftforge.network.NetworkProtocol.PLAY).clientbound()

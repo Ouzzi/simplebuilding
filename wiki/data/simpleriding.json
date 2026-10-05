@@ -1023,6 +1023,46 @@
       }
     },
     {
+      "id": "simpleriding:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleriding:guide_book",
+        "count": 1
+      },
+      "source": "modules/simpleriding/shared/resources/data/simpleriding/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:hay_block"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:hay_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:wheat",
+            "count": 9
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleriding:horseshoe_smithing_template",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -1591,6 +1631,19 @@
       "usedIn": []
     },
     {
+      "id": "simpleriding:guide_book",
+      "name": {
+        "en_us": "Simple Riding Guide",
+        "de_de": "Simple-Riding-Handbuch"
+      },
+      "note": null,
+      "texture": "assets/textures/simpleriding/item/guide_book.png",
+      "craftedBy": [
+        "simpleriding:guide_book"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleriding:horseshoe_smithing_template",
       "name": {
         "en_us": "Horseshoe Upgrade",
@@ -1683,22 +1736,24 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simpleriding:guide_book"
+  ],
   "incompleteProse": {},
   "counts": {
     "features": 34,
-    "recipes": 7,
+    "recipes": 8,
     "lootTables": 0,
     "tags": 7,
     "advancements": 1,
     "enchantments": 2,
-    "items": 7,
+    "items": 8,
     "blocks": 0,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 1,
     "inWorld": 0,
     "incompleteProse": 0
   }

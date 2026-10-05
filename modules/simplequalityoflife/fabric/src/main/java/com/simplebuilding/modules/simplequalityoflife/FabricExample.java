@@ -6,6 +6,9 @@ import net.fabricmc.api.ModInitializer;
 public final class FabricExample implements ModInitializer {
  public void onInitialize(){
   Simplequalityoflife.init();
+  com.simplequalityoflife.guide.QolGuide.register();
+  if(net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("ftbquests"))com.simplequalityoflife.guide.QolGuide.installQuests(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());
+  net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(out->out.accept(com.simplequalityoflife.guide.QolGuide.book()));
   InteractionGuard.permission=(p,pos)->net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.invoker().beforeBlockBreak(p.level(),p,pos,p.level().getBlockState(pos),p.level().getBlockEntity(pos));
   net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(ConfigSyncPayload.TYPE,ConfigSyncPayload.STREAM_CODEC);
   net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(com.simplequalityoflife.network.LinkedOpenPayload.TYPE,com.simplequalityoflife.network.LinkedOpenPayload.CODEC);

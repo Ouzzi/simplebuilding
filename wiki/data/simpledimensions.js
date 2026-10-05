@@ -271,12 +271,71 @@ window.WIKI_MODULE_DATA["simpledimensions"] = {
       }
     }
   ],
-  "recipes": [],
+  "recipes": [
+    {
+      "id": "simpledimension:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpledimension:guide_book",
+        "count": 1
+      },
+      "source": "modules/simpledimensions/shared/resources/data/simpledimension/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:flint_and_steel"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:flint_and_steel"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:flint",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          }
+        ]
+      }
+    }
+  ],
   "lootTables": [],
   "tags": [],
   "advancements": [],
   "enchantments": [],
-  "items": [],
+  "items": [
+    {
+      "id": "simpledimension:guide_book",
+      "name": {
+        "en_us": "Simple Dimensions Guide",
+        "de_de": "Simple-Dimensions-Handbuch"
+      },
+      "note": null,
+      "texture": "assets/textures/simpledimensions/item/guide_book.png",
+      "craftedBy": [
+        "simpledimension:guide_book"
+      ],
+      "usedIn": []
+    }
+  ],
   "blocks": [
     {
       "id": "simpledimension:light_blue_portal",
@@ -326,22 +385,24 @@ window.WIKI_MODULE_DATA["simpledimensions"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simpledimension:guide_book"
+  ],
   "incompleteProse": {},
   "counts": {
     "features": 7,
-    "recipes": 0,
+    "recipes": 1,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
-    "items": 0,
+    "items": 1,
     "blocks": 2,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 1,
     "inWorld": 0,
     "incompleteProse": 0
   }

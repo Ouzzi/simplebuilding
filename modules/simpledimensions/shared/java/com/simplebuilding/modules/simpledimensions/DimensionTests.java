@@ -19,6 +19,7 @@ public final class DimensionTests {
   ALL.put("claims_footprints",PortalProtectionTests::footprints);
   ALL.put("claims_linked_travel",PortalProtectionTests::linkedTravel);
   ALL.put("claims_unsupported_provider",PortalProtectionTests::unsupportedProvider);
+  ALL.put("guide_book",com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide::gameTest);
   ALL.put("launch",DimensionTests::launch);ALL.put("world_generation",DimensionTests::worldGeneration);
   ALL.put("six_arches_both_axes",DimensionTests::sixArchesBothAxes);ALL.put("recipes_and_mutations",DimensionTests::recipesAndMutations);
   ALL.put("separate_light",DimensionTests::separateLight);ALL.put("ignition_costs",DimensionTests::ignitionCosts);

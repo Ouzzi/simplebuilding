@@ -7,6 +7,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 public final class NeoForgeExample {
  public NeoForgeExample(net.neoforged.bus.api.IEventBus bus) {
   ModuleNeoTests.register(bus);
+  if(net.neoforged.fml.ModList.get().isLoaded("ftbquests"))com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide.installQuests(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
+  bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e)->{if(e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES))e.accept(com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide.book());});
   var events=net.neoforged.neoforge.common.NeoForge.EVENT_BUS;
   events.addListener((net.neoforged.neoforge.event.tick.ServerTickEvent.Post e)->DimensionRuntime.get(e.getServer()).tick());
   events.addListener((net.neoforged.neoforge.event.server.ServerStoppedEvent e)->DimensionRuntime.stop(e.getServer()));

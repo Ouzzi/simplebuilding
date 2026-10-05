@@ -706,7 +706,48 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       }
     }
   ],
-  "recipes": [],
+  "recipes": [
+    {
+      "id": "simplequalityoflife:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplequalityoflife:guide_book",
+        "count": 1
+      },
+      "source": "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:chest"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:chest"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          }
+        ]
+      }
+    }
+  ],
   "lootTables": [],
   "tags": [],
   "advancements": [],
@@ -745,7 +786,21 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
       }
     }
   ],
-  "items": [],
+  "items": [
+    {
+      "id": "simplequalityoflife:guide_book",
+      "name": {
+        "en_us": "Simple Quality of Life Guide",
+        "de_de": "Simple-Quality-of-Life-Handbuch"
+      },
+      "note": null,
+      "texture": "assets/textures/simplequalityoflife/item/guide_book.png",
+      "craftedBy": [
+        "simplequalityoflife:guide_book"
+      ],
+      "usedIn": []
+    }
+  ],
   "blocks": [],
   "trades": [],
   "config": [],
@@ -758,22 +813,24 @@ window.WIKI_MODULE_DATA["simplequalityoflife"] = {
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simplequalityoflife:guide_book"
+  ],
   "incompleteProse": {},
   "counts": {
     "features": 48,
-    "recipes": 0,
+    "recipes": 1,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,
     "enchantments": 1,
-    "items": 0,
+    "items": 1,
     "blocks": 0,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 1,
     "inWorld": 0,
     "incompleteProse": 0
   }

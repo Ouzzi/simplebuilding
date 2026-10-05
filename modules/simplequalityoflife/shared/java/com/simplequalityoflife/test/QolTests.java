@@ -24,6 +24,7 @@ import java.util.function.Consumer;
 public final class QolTests {
  public static final Map<String,Consumer<GameTestHelper>> ALL=new LinkedHashMap<>();
  static {
+  ALL.put("guide_book",com.simplequalityoflife.guide.QolGuide::gameTest);
   ALL.put("launch",QolTests::launch);ALL.put("config_bounds",QolTests::configBounds);ALL.put("config_lang",QolTests::configLang);
   ALL.put("crawl",QolTests::crawl);ALL.put("climb_packets",QolTests::climbPackets);ALL.put("climb_mechanics",QolTests::climbMechanics);
   ALL.put("powder_snow",QolTests::powderSnow);ALL.put("farmland",QolTests::farmland);ALL.put("hoe_harvest",QolTests::hoeHarvest);

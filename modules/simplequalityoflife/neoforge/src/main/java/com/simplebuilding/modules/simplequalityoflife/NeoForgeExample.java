@@ -6,6 +6,9 @@ import com.simplequalityoflife.network.ConfigSyncPayload;
 public final class NeoForgeExample {
  public NeoForgeExample(net.neoforged.bus.api.IEventBus bus){
   Simplequalityoflife.init();
+  bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e)->{if(e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM))com.simplequalityoflife.guide.QolGuide.register();});
+  if(net.neoforged.fml.ModList.get().isLoaded("ftbquests"))com.simplequalityoflife.guide.QolGuide.installQuests(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
+  bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e)->{if(e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES))e.accept(com.simplequalityoflife.guide.QolGuide.book());});
   InteractionGuard.permission=(p,pos)->!net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.level.block.BreakBlockEvent(p.level(),pos,p.level().getBlockState(pos),p)).isCanceled();ModuleNeoTests.register(bus);
   bus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent e)->e.registrar("1").optional().playToClient(ConfigSyncPayload.TYPE,ConfigSyncPayload.STREAM_CODEC,(p,c)->c.enqueueWork(()->com.simplequalityoflife.client.ClientNetworking.receive(p.json()))));
   bus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent e)->e.registrar("1").optional().playToClient(com.simplequalityoflife.network.CrawlStatePayload.TYPE,com.simplequalityoflife.network.CrawlStatePayload.CODEC,(p,c)->c.enqueueWork(()->com.simplequalityoflife.client.ClientNetworking.receive(p))));

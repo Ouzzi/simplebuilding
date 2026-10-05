@@ -2616,6 +2616,46 @@
       }
     },
     {
+      "id": "simplemoney:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplemoney:guide_book",
+        "count": 1
+      },
+      "source": "modules/simplemoney/shared/resources/data/simplemoney/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:gold_nugget"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:gold_nugget"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 0.111
+          }
+        ]
+      }
+    },
+    {
       "id": "simplemoney:money_bill_from_blasting",
       "type": "minecraft:blasting",
       "category": null,
@@ -3073,6 +3113,19 @@
       ]
     },
     {
+      "id": "simplemoney:guide_book",
+      "name": {
+        "en_us": "Simple Money Guide",
+        "de_de": "Simple-Money-Handbuch"
+      },
+      "note": null,
+      "texture": "assets/textures/simplemoney/item/guide_book.png",
+      "craftedBy": [
+        "simplemoney:guide_book"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplemoney:money_bill",
       "name": {
         "en_us": "Money Bill",
@@ -3326,22 +3379,24 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simplemoney:guide_book"
+  ],
   "incompleteProse": {},
   "counts": {
     "features": 68,
-    "recipes": 8,
+    "recipes": 9,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
-    "items": 7,
+    "items": 8,
     "blocks": 0,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 1,
     "inWorld": 0,
     "incompleteProse": 0
   }

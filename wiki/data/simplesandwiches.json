@@ -389,6 +389,46 @@
       }
     },
     {
+      "id": "simplesandwiches:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplesandwiches:guide_book",
+        "count": 1
+      },
+      "source": "modules/simplesandwiches/shared/resources/data/simplesandwiches/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:bread"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:bread"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:wheat",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplesandwiches:jungle_cutting_board",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -1351,6 +1391,19 @@
       "usedIn": []
     },
     {
+      "id": "simplesandwiches:guide_book",
+      "name": {
+        "en_us": "Simple Sandwiches Guide",
+        "de_de": "Simple-Sandwiches-Handbuch"
+      },
+      "note": null,
+      "texture": "assets/textures/simplesandwiches/item/guide_book.png",
+      "craftedBy": [
+        "simplesandwiches:guide_book"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplesandwiches:knife",
       "name": {
         "en_us": "Kitchen Knife",
@@ -1712,22 +1765,24 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simplesandwiches:guide_book"
+  ],
   "incompleteProse": {},
   "counts": {
     "features": 5,
-    "recipes": 14,
+    "recipes": 15,
     "lootTables": 16,
     "tags": 4,
     "advancements": 0,
     "enchantments": 0,
-    "items": 5,
+    "items": 6,
     "blocks": 16,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 1,
     "inWorld": 0,
     "incompleteProse": 0
   }

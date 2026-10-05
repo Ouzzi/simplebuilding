@@ -323,6 +323,19 @@ tasks.register('checkQuests', Exec) {
 }
 tasks.named('check') { dependsOn 'checkQuests' }
 
+// Module guide books (docs/ai/PLAN-MODUL-GUIDES-2026-10-05.md): guide classes, EN/DE pages from each
+// modules/<id>/wiki/manual.json, recipes and FTB start chapters are generated. Fails when stale.
+// Fix: python tools/guides/module_guides.py. Skip: -PskipWiki.
+tasks.register('checkModuleGuides', Exec) {
+	group = 'verification'
+	description = 'Fails when the module guide books are stale (python tools/guides/module_guides.py --check).'
+	workingDir = rootDir
+	commandLine wikiPython, 'tools/guides/module_guides.py', '--check'
+	onlyIf { !project.hasProperty('skipWiki') }
+	outputs.upToDateWhen { false }
+}
+tasks.named('check') { dependsOn 'checkModuleGuides' }
+
 // The Minecraft 26.3 line compiles the 26.2 trees plus small overlays instead of a copy of its own.
 // Two things keep that honest:
 //   1. No class may exist both in a shared tree and in an overlay - it would be two classes with one

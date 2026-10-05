@@ -20,6 +20,7 @@ public final class MoneyTests {
  public static final Map<String,java.util.function.Consumer<GameTestHelper>> ALL=new LinkedHashMap<>();
  static {
   ALL.put("money_game_test_launch_smoke",MoneyTests::launchSmoke);
+  ALL.put("money_game_test_guide_book",com.simplemoney.guide.MoneyGuide::gameTest);
   ALL.put("money_game_test_bill_use",MoneyTests::billUse);
   ALL.put("money_game_test_creative_tabs",MoneyTests::creativeTabs);
   ALL.put("money_game_test_recipes",MoneyTests::recipes);
@@ -56,7 +57,8 @@ public final class MoneyTests {
   CreativeModeTabs.tryRebuildTabContents(h.getLevel().enabledFeatures(),true,h.getLevel().registryAccess());
   var expected=MoneyItems.TAB_ORDER.stream().map(MoneyItems.ITEMS::get).toList();
   var own=BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(ResourceKey.create(Registries.CREATIVE_MODE_TAB,id("money_items"))).getDisplayItems().stream().map(ItemStack::getItem).toList();
-  h.assertValueEqual(own,expected,"own tab in crafting order");
+  var ownExpected=new ArrayList<Item>();ownExpected.add(com.simplemoney.guide.MoneyGuide.book());ownExpected.addAll(expected);
+  h.assertValueEqual(own,ownExpected,"own tab: guide, then crafting order");
   for(var tab:List.of(BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(CreativeModeTabs.INGREDIENTS).getDisplayItems(),CreativeModeTabs.searchTab().getDisplayItems())) {
    var items=new ArrayList<ItemStack>(tab).stream().map(ItemStack::getItem).toList();
    int at=items.indexOf(MoneyItems.SEARCH_ANCHOR);

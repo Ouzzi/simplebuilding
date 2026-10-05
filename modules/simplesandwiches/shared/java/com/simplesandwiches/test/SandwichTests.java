@@ -68,6 +68,7 @@ public final class SandwichTests {
 
     static {
         ALL.put("config_bounds", SandwichTests::configBounds);
+        ALL.put("guide_book", com.simplesandwiches.guide.SandwichGuide::gameTest);
         ALL.put("ingredient_tag_complete", SandwichTests::ingredientTagComplete);
         ALL.put("hunger_sum_without_cap", SandwichTests::hungerSum);
         ALL.put("butter_bonus", SandwichTests::butterBonus);

@@ -14,10 +14,11 @@ public final class MoneyNeoForge {
  public MoneyNeoForge(IEventBus bus) {
   MoneyLinks.loaded=id->net.neoforged.fml.ModList.get().isLoaded(id);
   SimpleMoney.loadConfig(FMLPaths.CONFIGDIR.get()); MoneyGameTests.register(bus);
+  if(net.neoforged.fml.ModList.get().isLoaded("ftbquests"))com.simplemoney.guide.MoneyGuide.installQuests(FMLPaths.CONFIGDIR.get());
   var conditions=DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS,"simplemoney");
   conditions.register("config",()->MoneyCondition.CODEC);conditions.register(bus);
   bus.addListener((RegisterEvent event)-> {
-   if(event.getRegistryKey().equals(Registries.ITEM)) MoneyItems.register();
+   if(event.getRegistryKey().equals(Registries.ITEM)) {MoneyItems.register();com.simplemoney.guide.MoneyGuide.register();}
    if(event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB)) MoneyItems.registerTab(CreativeModeTab.builder());
    if(event.getRegistryKey().equals(Registries.LOOT_FUNCTION_TYPE)) Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE,Identifier.fromNamespaceAndPath("simplemoney","weighted_enchant"),WeightedEnchantFunction.MAP_CODEC);
   });

@@ -3,6 +3,8 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.147'
 }
 apply from: rootProject.file('gradle/module-neoforge.gradle')
+// Bundles the shared framework API (guide-book quest installer) for standalone runs.
+dependencies { jarJar project(':framework') }
 
 neoForge.runs {
     moduleIntegrationGameTest {

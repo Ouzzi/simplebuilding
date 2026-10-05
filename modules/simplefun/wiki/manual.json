@@ -1121,6 +1121,18 @@
     }
   ],
   "notes": {
+    "simplefun:guide_book": {
+      "sources": [
+        "modules/simplefun/shared/java/com/simplefun/guide/FunGuide.java",
+        "modules/simplefun/shared/resources/data/simplefun/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 28 pages taken from this wiki, shown in your language. Shapeless recipe: book + brick. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Fun\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 28 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Ziegel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Fun\" eins."
+      }
+    },
     "simplefun:brick_snowball": {
       "en": {
         "summary": "Four snowballs around one brick craft one. Stack 16. Separate switch; damage 0–4, throw cooldown 10 ticks."

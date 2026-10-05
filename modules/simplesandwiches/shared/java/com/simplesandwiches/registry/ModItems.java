@@ -29,6 +29,7 @@ public final class ModItems {
     public static final Map<String, Item> CUTTING_BOARDS = new LinkedHashMap<>();
 
     public static void register() {
+        com.simplesandwiches.guide.SandwichGuide.register();
         KNIFE = register("knife", p -> new KnifeItem(KnifeItem.properties(p)));
         SANDWICH = register("sandwich", p -> new SandwichItem(p.stacksTo(SANDWICH_STACK)
                 .component(ModComponents.SANDWICH_CONTENTS, SandwichContents.EMPTY)));

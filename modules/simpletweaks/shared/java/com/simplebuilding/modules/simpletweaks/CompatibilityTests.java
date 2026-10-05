@@ -20,6 +20,7 @@ import net.minecraft.world.Container;
 /** Exercises actual registry/codec/container entrypoints, on both loaders with SimpleBuilding. */
 public final class CompatibilityTests {
  public static final Map<String, Consumer<GameTestHelper>> TESTS = Map.ofEntries(
+  Map.entry("guide_book", com.simplebuilding.modules.simpletweaks.guide.TweaksGuide::gameTest),
   Map.entry("boot_and_no_duplicate_registrations", CompatibilityTests::boot),
   Map.entry("every_legacy_registry_lookup", CompatibilityTests::lookups),
   Map.entry("every_old_item_decodes_and_saves_canonical_id", CompatibilityTests::items),
@@ -44,7 +45,7 @@ public final class CompatibilityTests {
  static void boot(GameTestHelper h) {
   require(h,BuiltInRegistries.ITEM.containsKey(old("claim_deed")),"Legacy deed registered");
   require(h,BuiltInRegistries.ITEM.containsKey(now("amethyst_lens")),"SimpleBuilding loaded");
-  require(h,BuiltInRegistries.ITEM.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).count()==1,"Only deed is a real module item");
+  require(h,BuiltInRegistries.ITEM.keySet().stream().filter(x->x.getNamespace().equals("simpletweaks")).count()==2,"Only the deed and the guide are real module items");
   for (Registry<?> r : List.of(BuiltInRegistries.BLOCK,BuiltInRegistries.BLOCK_ENTITY_TYPE,BuiltInRegistries.DATA_COMPONENT_TYPE,BuiltInRegistries.ENTITY_TYPE,BuiltInRegistries.CREATIVE_MODE_TAB))
    require(h,r.keySet().stream().noneMatch(x->x.getNamespace().equals("simpletweaks")),"No duplicate gameplay registry: "+r.key());
   try {
