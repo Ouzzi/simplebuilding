@@ -250,9 +250,18 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
             extinguish(player, state, level, pos);
             return net.minecraft.world.InteractionResult.SUCCESS;
         }
-        // Feuerzeug oder Feuerkugel zuenden die Kerzen an (Vanilla-Klang, Haltbarkeit bzw. eine Kugel).
+        // Eissplitter loescht brennende Kerzen und schmilzt dabei (ein Splitter, 2026-10-05).
+        if (isChip(stack, com.simplebuilding.items.ModItems.ICE_CHIP) && state.getValue(LIT) && player.getAbilities().mayBuild) {
+            extinguish(player, state, level, pos);
+            if (!level.isClientSide()) {
+                stack.consume(1, player);
+            }
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        }
+        // Feuerzeug, Feuerkugel oder Feuerkugelsplitter zuenden die Kerzen an (Vanilla-Klang, Haltbarkeit bzw. ein Stueck).
         boolean flint = stack.is(net.minecraft.world.item.Items.FLINT_AND_STEEL);
-        if ((flint || stack.is(net.minecraft.world.item.Items.FIRE_CHARGE)) && canLight(state)) {
+        if ((flint || stack.is(net.minecraft.world.item.Items.FIRE_CHARGE) || isChip(stack, com.simplebuilding.items.ModItems.FIRE_CHIP))
+                && canLight(state)) {
             if (!level.isClientSide()) {
                 level.setBlock(pos, state.setValue(LIT, true), Block.UPDATE_ALL_IMMEDIATE);
                 RandomSource random = level.getRandom();
@@ -268,6 +277,11 @@ public class PlacedSmallPartsBlock extends BaseEntityBlock implements SimpleWate
             return net.minecraft.world.InteractionResult.SUCCESS;
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hit);
+    }
+
+    /** Splitter-Pruefung, die auch ohne die Kleinteile (26.2: Item {@code null}) sicher ist. */
+    private static boolean isChip(ItemStack stack, @Nullable net.minecraft.world.item.Item chip) {
+        return chip != null && stack.is(chip);
     }
 
     /** Mittlere Maustaste: das zuletzt dazugelegte Teil. */

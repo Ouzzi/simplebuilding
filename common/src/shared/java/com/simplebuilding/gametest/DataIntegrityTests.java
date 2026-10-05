@@ -3002,13 +3002,19 @@ public final class DataIntegrityTests {
         // Nach allen Erz-Zeilen die Kleinteile, der Eisenstab nach einer Luecke daneben (Audit 2026-10-02).
         List<Item> parts = new ArrayList<>();
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
-            parts.addAll(List.of(ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP));
+            parts.addAll(List.of(ModItems.STONE_PEBBLE, ModItems.FLINT_CHIP, ModItems.OBSIDIAN_CHIP, ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
         }
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            if (!parts.isEmpty()) {
+            // Die Staebe laufen nur dann nach einer Luecke in der Kleinteil-Zeile weiter, wenn sie dort hineinpassen
+            // (Row#besides); seit den Splittern (2026-10-05) stehen sie in einer eigenen Zeile.
+            List<Item> rods = List.of(ModItems.IRON_ROD, ModItems.GOLD_ROD, ModItems.DIAMOND_ROD, ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD);
+            if (!parts.isEmpty() && parts.size() + 1 + rods.size() <= 9) {
                 parts.add(gap);
+            } else if (!parts.isEmpty()) {
+                expected.add(parts);
+                parts = new ArrayList<>();
             }
-            parts.addAll(List.of(ModItems.IRON_ROD, ModItems.GOLD_ROD, ModItems.DIAMOND_ROD, ModItems.NETHERITE_ROD, ModItems.ENDERITE_ROD));
+            parts.addAll(rods);
         }
         if (!parts.isEmpty()) {
             expected.add(parts);

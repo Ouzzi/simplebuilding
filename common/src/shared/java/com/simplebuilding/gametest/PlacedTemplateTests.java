@@ -1257,6 +1257,40 @@ public final class PlacedTemplateTests {
     }
 
     /**
+     * Fire and ice chips (owner 2026-10-05): a fire chip lights the candles of a pile like a fire charge and is used up, an
+     * ice chip puts burning candles out and is used up; an ice chip on unlit candles does nothing. The chips lie down
+     * like every small part (placeable_small tag).
+     */
+    public static void fireChipsLightAndIceChipsPutOutPiledCandles(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+            helper.succeed();
+            return;
+        }
+        for (Item chip : List.of(ModItems.FIRE_CHIP, ModItems.ICE_CHIP, ModItems.OBSIDIAN_CHIP)) {
+            helper.assertTrue(PlacedTemplates.isPlaceableSmall(new ItemStack(chip)), "chip does not lie down: " + chip);
+        }
+        ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 4.5));
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        BlockPos spot = pile(helper, new BlockPos(1, 1, 1), new ItemStack(Items.CANDLE), new ItemStack(ModItems.OBSIDIAN_CHIP));
+        ItemStack ice = new ItemStack(ModItems.ICE_CHIP, 2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, ice);
+        helper.getBlockState(spot).useItemOn(ice, helper.getLevel(), player, InteractionHand.MAIN_HAND, hitTop(helper, spot));
+        helper.assertValueEqual(ice.getCount(), 2, "ice chips used on unlit candles");
+        ItemStack fire = new ItemStack(ModItems.FIRE_CHIP, 2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, fire);
+        InteractionResult lit = helper.getBlockState(spot).useItemOn(fire, helper.getLevel(), player, InteractionHand.MAIN_HAND, hitTop(helper, spot));
+        helper.assertTrue(lit.consumesAction(), "the fire chip answered " + lit);
+        helper.assertTrue(helper.getBlockState(spot).getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.LIT), "the fire chip did not light the candle");
+        helper.assertValueEqual(fire.getCount(), 1, "fire chips left");
+        player.setItemInHand(InteractionHand.MAIN_HAND, ice);
+        InteractionResult out = helper.getBlockState(spot).useItemOn(ice, helper.getLevel(), player, InteractionHand.MAIN_HAND, hitTop(helper, spot));
+        helper.assertTrue(out.consumesAction(), "the ice chip answered " + out);
+        helper.assertFalse(helper.getBlockState(spot).getValue(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock.LIT), "the ice chip did not put the candle out");
+        helper.assertValueEqual(ice.getCount(), 1, "ice chips left");
+        helper.succeed();
+    }
+
+    /**
      * Save compatibility (owner 2026-10-03): a pile saved before candles and pickles (only facing and waterlogged) loads as
      * the pile with lit=false, candles=0, pickles=0 and no light; the candle and pickle item definitions the renderer draws
      * through point at the vanilla block models.

@@ -1,68 +1,56 @@
-"""Generate the owner's settled Riding books; --check verifies installed pixels.
+"""Generate the Simple Riding books Leaping and Tailwind; --check verifies installed pixels.
 
-Proposal B is the old double-jump/range book with +12% contrast. Apply a
-further 25% to the proposal's RGB distances from its opaque-pixel mean,
-round and clamp per channel, preserving alpha and transparent pixels.
+Owner 2026-10-05: "Why did you use existing enchanted-book textures for Simple Riding? Please make new ones." The
+earlier version (contrast-boosted copies of the double_jump / range books) is replaced by new motifs in the style of
+the owner's books, drawn in texture_round6_2026_10_05.py (three variants each, INSTALL picks the built-in one):
+Leaping = horseshoe arch with nails on jump-boost green, Tailwind = wind strokes with a curl on pale wind teal.
 """
 import argparse
+import os
+import sys
 from pathlib import Path
 
 from PIL import Image, ImageDraw
 
-import horseshoe_template_and_riding_books_2026_10_04 as proposal
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import texture_round6_2026_10_05 as round6  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / 'modules/simpleriding/shared/resources/assets/simpleriding'
-BOOKS = {'leaping': 'double_jump', 'tailwind': 'range'}
-
-
-def more_contrast(image):
-    points = proposal.ps.opaque(image)
-    mean = tuple(sum(image.getpixel(p)[i] for p in points) / len(points) for i in range(3))
-    result = image.copy()
-    for point in points:
-        pixel = image.getpixel(point)
-        result.putpixel(point, proposal.contrast(pixel[:3], 1.25, mean) + (pixel[3],))
-    return result
 
 
 def main():
-    # Pin the formula, clipping and alpha independently of the installed sprites.
-    sample = Image.new('RGBA', (3, 1))
-    sample.putdata([(10, 20, 30, 255), (210, 220, 230, 128), (80, 90, 100, 0)])
-    checked = more_contrast(sample)
-    assert [checked.getpixel((x, 0)) for x in range(3)] == [(0, 0, 5, 255), (235, 245, 255, 128), (80, 90, 100, 0)]
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
     parser.add_argument('--preview', type=Path, default=ROOT / 'build/riding-books-settled-vorschau.png')
     args = parser.parse_args()
-    sheet = Image.new('RGB', (960, 650), '#292c32')
+    names = list(round6.INSTALL)
+    sheet = Image.new('RGB', (40 + 3 * 300, 60 + len(names) * 300), '#292c32')
     draw = ImageDraw.Draw(sheet)
-    draw.text((20, 12), 'Simple Riding - Besitzer-Buecher (16x, ohne Glaettung)', fill='white')
-    for x, title in zip((120, 400, 680), ('A: alt', 'B: Vorschlag (+12 %)', 'C: Vorschlag +25 %')):
-        draw.text((x, 40), title, fill='white')
-    for row, (name, source) in enumerate(BOOKS.items()):
-        old = proposal.book(source, 1.0)
-        proposed = proposal.book(source, 1.12)
-        settled = more_contrast(proposed)
-        assert settled.size == (16, 16)
-        assert settled.getchannel('A').tobytes() == old.getchannel('A').tobytes()
-        path = ASSETS / f'textures/item/enchanted_book_{name}.png'
-        if args.check:
-            with Image.open(path) as installed:
-                assert installed.size == (16, 16) and installed.convert('RGBA').tobytes() == settled.tobytes(), path
-        else:
-            settled.save(path)
-        y = 75 + row * 280
-        draw.text((12, y + 115), name.title(), fill='white')
-        for x, sprite in zip((120, 400, 680), (old, proposed, settled)):
+    draw.text((20, 12), 'Simple Riding - neue Buchmotive (16x), eingebaut: '
+              + ', '.join(f'{n} {v}' for n, v in round6.INSTALL.items()), fill='white')
+    for row, name in enumerate(names):
+        y = 40 + row * 300
+        for col, variant in enumerate('ABC'):
+            sprite = round6.riding_book(name, variant)
+            assert sprite.size == (16, 16)
+            x = 20 + col * 300
             sheet.paste(sprite.resize((256, 256), Image.Resampling.NEAREST), (x, y),
                         sprite.getchannel('A').resize((256, 256), Image.Resampling.NEAREST))
+            mark = ' (eingebaut)' if variant == round6.INSTALL[name] else ''
+            draw.text((x, y + 262), f'{name} {variant}: {round6.RIDING_MOTIFS[name][variant][0]}{mark}', fill='white')
+        installed = round6.riding_book(name, round6.INSTALL[name])
+        path = ASSETS / f'textures/item/enchanted_book_{name}.png'
+        if args.check:
+            with Image.open(path) as current:
+                assert current.size == (16, 16) and current.convert('RGBA').tobytes() == installed.tobytes(), path
+        else:
+            installed.save(path)
     if not args.check:
         args.preview.parent.mkdir(parents=True, exist_ok=True)
         sheet.save(args.preview)
         print(f'Preview: {args.preview}')
-    print('Riding books: 2/2 pixels, 16x16 and unchanged alpha OK')
+    print(f'Riding books: {len(names)}/{len(names)} OK')
 
 
 if __name__ == '__main__':

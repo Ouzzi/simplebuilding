@@ -1811,6 +1811,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_template_game_test_mixed_candles_light_and_go_out_and_pickles_glow_only_under_water", PlacedTemplateTests::mixedCandlesLightAndGoOutAndPicklesGlowOnlyUnderWater)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_fire_chips_light_and_ice_chips_put_out_piled_candles", PlacedTemplateTests::fireChipsLightAndIceChipsPutOutPiledCandles)
+                    .build(),
             GameTestSpec.named("placed_template_game_test_old_piles_load_unlit_and_the_candle_models_are_the_vanilla_ones", PlacedTemplateTests::oldPilesLoadUnlitAndTheCandleModelsAreTheVanillaOnes)
                     .build(),
             GameTestSpec.named("placed_template_game_test_small_parts_lie_down_and_the_server_options_gate_them", PlacedTemplateTests::smallPartsLieDownAndTheServerOptionsGateThem)

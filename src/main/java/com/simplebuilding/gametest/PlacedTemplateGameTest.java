@@ -106,6 +106,11 @@ public final class PlacedTemplateGameTest {
     }
 
     @GameTest
+    public void fireChipsLightAndIceChipsPutOutPiledCandles(GameTestHelper helper) {
+        PlacedTemplateTests.fireChipsLightAndIceChipsPutOutPiledCandles(helper);
+    }
+
+    @GameTest
     public void oldPilesLoadUnlitAndTheCandleModelsAreTheVanillaOnes(GameTestHelper helper) {
         PlacedTemplateTests.oldPilesLoadUnlitAndTheCandleModelsAreTheVanillaOnes(helper);
     }

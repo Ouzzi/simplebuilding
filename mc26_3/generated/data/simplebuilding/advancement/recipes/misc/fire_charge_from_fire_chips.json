@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fire_chip": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:fire_chip"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:fire_charge_from_fire_chips"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_fire_chip"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:fire_charge_from_fire_chips"
+    ]
+  }
+}
