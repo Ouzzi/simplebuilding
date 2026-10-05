@@ -35,12 +35,20 @@ if (standaloneSpec) {
         def allowed = [project.parent.name] + (standaloneEntry.tests.standalone.requires ?: [])
         neoForge.runs.moduleStandaloneGameTest.loadedMods = neoForge.mods.matching { it.name in allowed }.toList()
     }
+}
 // SimpleBuilding 26.3 needs SimpleLib at runtime (principle 6a, nested in production). A module whose dev/test runs
-// load SimpleBuilding from its sourceSet loads SimpleLib the same way.
+// load SimpleBuilding from its sourceSet loads SimpleLib the same way; so does a module that nests SimpleLib itself
+// (its standalone run included - a nested lib counts as part of the module).
 afterEvaluate {
-    if (project.path == ':modules:simplelib:neoforge' || neoForge.mods.findByName('simplebuilding') == null) return
+    if (project.path == ':modules:simplelib:neoforge') return
+    boolean nestsLib = configurations.jarJar.dependencies.any { it instanceof org.gradle.api.artifacts.ProjectDependency && it.path == ':modules:simplelib:neoforge' }
+    if (!nestsLib && neoForge.mods.findByName('simplebuilding') == null) return
     if (neoForge.mods.findByName('simplelib') == null) {
         neoForge.mods.create('simplelib') { sourceSet rootProject.project(':modules:simplelib:neoforge').sourceSets.main }
     }
-    neoForge.runs.configureEach { run -> if (run.loadedMods.get().any { it.name == 'simplebuilding' }) run.loadedMods.add(neoForge.mods.simplelib) }
+    neoForge.runs.configureEach { run ->
+        if (run.loadedMods.get().any { it.name == 'simplebuilding' } || (nestsLib && run.name == 'moduleStandaloneGameTest')) {
+            run.loadedMods.add(neoForge.mods.simplelib)
+        }
+    }
 }
