@@ -18,9 +18,20 @@
   "tooltip.simplelib.warm": "Warm (noch etwa %s Min.)",
   "tooltip.simplelib.warm.faster": "%s %% schneller gegessen",
   "block.simplelib.copper_barrel": "Kupfer-Fass",
+  "block.simplelib.netherite_barrel": "Netherit-Fass",
   "block.simplelib.reinforced_barrel": "Verstärktes Fass",
   "block.simplelib.reinforced_cauldron": "Verstärkter Kessel",
   "container.simplelib.copper_barrel": "Kupfer-Fass",
+  "container.simplelib.netherite_barrel": "Netherit-Fass",
   "container.simplelib.reinforced_barrel": "Verstärktes Fass",
-  "container.simplelib.enderite_barrel": "Enderit-Fass"
+  "container.simplelib.enderite_barrel": "Enderit-Fass",
+  "gui.simplelib.crucible.heat": "Hitze: %s",
+  "gui.simplelib.crucible.heat.none": "keine",
+  "gui.simplelib.crucible.heat.medium": "mittel",
+  "gui.simplelib.crucible.heat.high": "hoch",
+  "gui.simplelib.crucible.heat.extreme": "extrem",
+  "gui.simplelib.crucible.afterglow": "Nachglühen: %s s",
+  "gui.simplelib.crucible.two_below": "Hitzequelle zwei Blöcke tiefer: 10 % langsamer",
+  "gui.simplelib.crucible.barrel": "Fass-Felder",
+  "gui.simplelib.crucible.barrel_hint": "Ein Kupfer-Fass neben den Tiegel stellen und sechsmal darauf schlagen (Axt; mit SimpleBuilding Vorschlaghammer)"
 }

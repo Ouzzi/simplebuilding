@@ -1,0 +1,245 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "side": "simplelib:block/netherite_barrel_side",
+    "top": "simplelib:block/netherite_barrel_top",
+    "bottom": "simplelib:block/netherite_barrel_bottom",
+    "flange": "simplelib:block/netherite_barrel_flange",
+    "particle": "simplelib:block/netherite_barrel_side"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "east"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        4,
+        -1
+      ],
+      "to": [
+        13,
+        11,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#flange",
+          "uv": [
+            3,
+            5,
+            13,
+            12
+          ]
+        },
+        "up": {
+          "texture": "#flange",
+          "uv": [
+            3,
+            0,
+            13,
+            1
+          ]
+        },
+        "down": {
+          "texture": "#flange",
+          "uv": [
+            3,
+            15,
+            13,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#flange",
+          "uv": [
+            0,
+            5,
+            1,
+            12
+          ]
+        },
+        "east": {
+          "texture": "#flange",
+          "uv": [
+            15,
+            5,
+            16,
+            12
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        14,
+        -4
+      ],
+      "to": [
+        10,
+        15,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#flange",
+          "uv": [
+            6,
+            1,
+            10,
+            2
+          ]
+        },
+        "up": {
+          "texture": "#flange",
+          "uv": [
+            6,
+            0,
+            10,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#flange",
+          "uv": [
+            6,
+            12,
+            10,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#flange",
+          "uv": [
+            0,
+            1,
+            4,
+            2
+          ]
+        },
+        "east": {
+          "texture": "#flange",
+          "uv": [
+            12,
+            1,
+            16,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        11,
+        -1
+      ],
+      "to": [
+        10,
+        14,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#flange",
+          "uv": [
+            6,
+            2,
+            10,
+            5
+          ]
+        },
+        "west": {
+          "texture": "#flange",
+          "uv": [
+            0,
+            2,
+            1,
+            5
+          ]
+        },
+        "east": {
+          "texture": "#flange",
+          "uv": [
+            15,
+            2,
+            16,
+            5
+          ]
+        }
+      }
+    }
+  ]
+}

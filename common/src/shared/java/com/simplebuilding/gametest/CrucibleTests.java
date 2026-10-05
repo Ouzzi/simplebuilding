@@ -198,12 +198,16 @@ public final class CrucibleTests {
         var iron = SledgehammerUpgrades.upgradeOf(lib("iron_crucible"));
         var netherite = SledgehammerUpgrades.upgradeOf(lib("netherite_crucible"));
         var barrel = SledgehammerUpgrades.upgradeOf(lib("reinforced_barrel"));
+        var netheriteBarrel = SledgehammerUpgrades.upgradeOf(lib("netherite_barrel"));
         var cauldron = SledgehammerUpgrades.upgradeOf(Blocks.CAULDRON);
         helper.assertTrue(iron != null && iron.to() == lib("reinforced_crucible") && iron.nugget() == ModItems.CRACKED_DIAMOND
                 && iron.materialCost() == 2 && iron.durationFactor() == 2, "iron -> reinforced: 2 cracked diamonds, double strikes");
         helper.assertTrue(netherite != null && netherite.to() == CrucibleCompat.enderiteCrucible() && netherite.nugget() == ModItems.ENDERITE_NUGGET
                 && netherite.minHammerRank() == SledgehammerUpgrades.RANK_NETHERITE, "netherite -> enderite with enderite nuggets, netherite hammer");
-        helper.assertTrue(barrel != null && barrel.to() == CrucibleCompat.enderiteBarrel() && barrel.materialCost() == 2, "reinforced -> enderite barrel");
+        helper.assertTrue(barrel != null && barrel.to() == lib("netherite_barrel") && barrel.nugget() == ModItems.NETHERITE_NUGGET
+                && barrel.materialCost() == 2, "reinforced -> netherite barrel with netherite nuggets");
+        helper.assertTrue(netheriteBarrel != null && netheriteBarrel.to() == CrucibleCompat.enderiteBarrel() && netheriteBarrel.materialCost() == 2,
+                "netherite -> enderite barrel");
         helper.assertTrue(cauldron != null && cauldron.to() == CrucibleCompat.reinforcedCauldron() && cauldron.materialCost() == 4,
                 "cauldron -> reinforced cauldron with 4 cracked diamonds");
         // The upgrade keeps the contents (owner 11).

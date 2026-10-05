@@ -13,6 +13,7 @@ OUTPUT = MODULE / "generated/resources"
 NS = "simplelib"
 CRLF, LF = b"\r\n", b"\n"
 TIERS = ("iron", "reinforced", "netherite")
+BARREL_TIERS = ("copper", "reinforced", "netherite")
 FACINGS = {"north": 0, "east": 90, "south": 180, "west": 270}
 
 # Owner 37: everything that is eaten or served warm.
@@ -75,6 +76,24 @@ HANDLES = [
     cuboid((15, 9, 6), (16, 11, 10), {"east": "#handle", "up": "#handle", "down": "#handle", "north": "#handle", "south": "#handle"}),
     cuboid((0, 9, 6), (1, 11, 10), {"west": "#handle", "up": "#handle", "down": "#handle", "north": "#handle", "south": "#handle"}),
 ]
+
+
+def inside_uv(element):
+    """Shifts face UVs that reach outside 0..16 back inside (outside the sprite the atlas neighbour would show)."""
+    for f in element["faces"].values():
+        u0, v0, u1, v1 = f["uv"]
+        du = -min(u0, u1) if min(u0, u1) < 0 else 16 - max(u0, u1) if max(u0, u1) > 16 else 0
+        dv = -min(v0, v1) if min(v0, v1) < 0 else 16 - max(v0, v1) if max(v0, v1) > 16 else 0
+        f["uv"] = [u0 + du, v0 + dv, u1 + du, v1 + dv]
+    return element
+
+
+# Attached barrel (facing north = towards the crucible): flange on the crucible's belly, a chute over its rim.
+DOCK = [inside_uv(e) for e in (
+    cuboid((3, 4, -1), (13, 11, 0), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange"}),
+    cuboid((6, 14, -4), (10, 15, 0), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange"}),
+    cuboid((6, 11, -1), (10, 14, 0), {"north": "#flange", "west": "#flange", "east": "#flange"}),
+)]
 
 
 def crucible_model(tier):
@@ -144,15 +163,16 @@ def files():
                                        "functions": [{"function": "minecraft:set_count", "count": count}]}]})
     out[f"{d}/loot_table/blocks/crucible_blank.json"] = {"type": "minecraft:block", "pools": pools,
                                                          "random_sequence": f"{NS}:blocks/crucible_blank"}
-    # Copper barrels (plan section 8a): plain barrel cube, plus a copper flange towards the crucible when attached.
-    for tier in ("copper", "reinforced"):
+    # Barrels (plan section 8a, owner addition 11): plain barrel cube; attached, a flange on the crucible's belly and a
+    # chute that rests on the crucible's rim (crucible belly at z=-1, neck at z=-2, opening from z=-3 seen from here).
+    for tier in BARREL_TIERS:
         name = f"{tier}_barrel"
         tex = {"side": f"{NS}:block/{name}_side", "top": f"{NS}:block/{name}_top", "bottom": f"{NS}:block/{name}_bottom",
                "flange": f"{NS}:block/{name}_flange", "particle": f"{NS}:block/{name}_side"}
         body = cuboid((0, 0, 0), (16, 16, 16), {"down": "#bottom", "up": "#top", "north": "#side", "south": "#side", "west": "#side", "east": "#side"})
-        flange = cuboid((4, 4, -1), (12, 12, 0), {"north": "#flange", "up": "#flange", "down": "#flange", "west": "#flange", "east": "#flange"})
         out[f"{a}/models/block/{name}.json"] = {"parent": "minecraft:block/block", "textures": tex, "elements": [body]}
-        out[f"{a}/models/block/{name}_attached.json"] = {"parent": "minecraft:block/block", "textures": tex, "elements": [body, flange]}
+        out[f"{a}/models/block/{name}_attached.json"] = {"parent": "minecraft:block/block", "textures": tex,
+                                                         "elements": [body, *DOCK]}
         variants = {}
         for facing, rot in FACINGS.items():
             for attached in ("false", "true"):
@@ -181,13 +201,29 @@ def files():
     out[f"{a}/models/block/reinforced_cauldron.json"] = {"parent": "minecraft:block/cauldron", "textures": rc_tex}
     contents = {"water": "minecraft:block/water_still", "lava": "minecraft:block/lava_still",
                 "powder_snow": "minecraft:block/powder_snow", "extreme": f"{rc}_extreme"}
-    cauldron_variants = {"content=empty": {"model": rc}}
+    # Water and powder snow fill in three levels like Vanilla (owner addition 11: the reinforced cauldron inherits it).
+    cauldron_variants = {}
+    for content in ("empty", *contents):
+        for level in (1, 2, 3):
+            if content == "empty":
+                model = rc
+            elif content in ("water", "powder_snow") and level < 3:
+                model = f"{rc}_{content}_level{level}"
+            else:
+                model = f"{rc}_{content}"
+            cauldron_variants[f"content={content},level={level}"] = {"model": model}
     for content, texture in contents.items():
         out[f"{a}/models/block/reinforced_cauldron_{content}.json"] = {
             "parent": "minecraft:block/template_cauldron_full", "textures": dict(rc_tex, content=texture)}
-        cauldron_variants[f"content={content}"] = {"model": f"{rc}_{content}"}
+        if content in ("water", "powder_snow"):
+            for level in (1, 2):
+                out[f"{a}/models/block/reinforced_cauldron_{content}_level{level}.json"] = {
+                    "parent": f"minecraft:block/template_cauldron_level{level}", "textures": dict(rc_tex, content=texture)}
     out[f"{a}/blockstates/reinforced_cauldron.json"] = {"variants": cauldron_variants}
-    out[f"{a}/items/reinforced_cauldron.json"] = {"model": {"type": "minecraft:model", "model": rc}}
+    # Like Vanilla's cauldron the item is a flat sprite (the block model has no GUI transform, owner image 17).
+    out[f"{a}/models/item/reinforced_cauldron.json"] = {"parent": "minecraft:item/generated",
+                                                        "textures": {"layer0": f"{NS}:item/reinforced_cauldron"}}
+    out[f"{a}/items/reinforced_cauldron.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:item/reinforced_cauldron"}}
     out[f"{d}/loot_table/blocks/reinforced_cauldron.json"] = {
         "type": "minecraft:block",
         "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": f"{NS}:reinforced_cauldron"}],
@@ -216,8 +252,7 @@ def files():
     out[f"{d}/tags/item/crucible_handles.json"] = {"values": ["minecraft:iron_ingot"]}
     out[f"{d}/tags/item/upgrade_reinforced.json"] = {"values": ["minecraft:diamond"]}
     out[f"{d}/tags/item/upgrade_netherite.json"] = {"values": ["minecraft:netherite_ingot"]}
-    pickaxe = [f"{NS}:{t}_crucible" for t in TIERS] + [f"{NS}:crucible_blank", f"{NS}:copper_barrel", f"{NS}:reinforced_barrel",
-                                                      f"{NS}:reinforced_cauldron"]
+    pickaxe = [f"{NS}:{t}_crucible" for t in TIERS] + [f"{NS}:crucible_blank"] + [f"{NS}:{t}_barrel" for t in BARREL_TIERS]         + [f"{NS}:reinforced_cauldron"]
     out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": pickaxe}
     out["data/minecraft/tags/block/needs_stone_tool.json"] = {"values": pickaxe}
     return out

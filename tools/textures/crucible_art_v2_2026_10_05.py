@@ -192,9 +192,15 @@ def chest_style(tier):
                 'frame': [(91, 29, 24), (117, 55, 35), (135, 66, 44)], 'stud': (227, 130, 108),
                 'lock': [(118, 118, 118), (165, 165, 165), (205, 205, 205)], 'spark': None}
     if tier == 'reinforced':
-        return {'panel': [(52, 52, 56), (70, 70, 74), (90, 90, 94), (112, 112, 116), (138, 138, 142)],
+        # Owner addition 11: the SB reinforced chest is light stone grey (its plates are mostly the two lightest tones).
+        return {'panel': [(90, 90, 94), (112, 112, 116), (124, 124, 128), (138, 138, 142), (156, 156, 160)],
                 'frame': [(36, 36, 40), (52, 52, 56), (70, 70, 74)], 'stud': (196, 196, 200),
                 'lock': [DIAMOND[0], (40, 160, 160), (90, 220, 210)], 'spark': None}
+    if tier == 'netherite':
+        # SB netherite chest: netherite grey-brown plates, near-black seams, light studs, gold lock.
+        return {'panel': [(60, 52, 54), (77, 69, 71), (96, 88, 90), (118, 110, 112), (132, 124, 126)],
+                'frame': [(30, 24, 26), (44, 37, 39), (60, 52, 54)], 'stud': (170, 160, 162),
+                'lock': [(150, 96, 30), (230, 170, 60), (250, 215, 120)], 'spark': None}
     return {'panel': [(38, 22, 64), (54, 32, 92), (74, 44, 128), (98, 62, 168), (128, 88, 210)],
             'frame': [(24, 14, 40), (38, 22, 64), (54, 32, 92)], 'stud': (150, 110, 228),
             'lock': [(120, 50, 140), (200, 90, 210), (250, 180, 255)], 'spark': (240, 168, 255)}
@@ -274,6 +280,29 @@ def barrel_textures(tier):
         stud(d, *c, s['stud'])
     tex['flange'] = fl_img
     return tex
+
+
+BARREL_TIERS = ('copper', 'reinforced', 'netherite', 'enderite')
+
+
+def reinforced_cauldron_item():
+    """Vanilla's cauldron item sprite in the reinforced cauldron's tones with its turquoise band (owner image 17:
+    the block model has no GUI transform, so Vanilla uses a flat sprite; so do we)."""
+    a = np.array(p.vanilla('item/cauldron').convert('RGBA'))
+    tones = [(26, 26, 30), (45, 45, 50), (52, 52, 56), (63, 62, 66), (73, 72, 72), (79, 79, 79), (89, 88, 88), (103, 97, 97)]
+    ok = a[:, :, 3] > 0
+    lu = a[:, :, :3].astype(float) @ np.array([.299, .587, .114])
+    lo, hi = lu[ok].min(), lu[ok].max()
+    idx = np.rint((lu - lo) / max(hi - lo, 1) * (len(tones) - 1)).clip(0, len(tones) - 1).astype(int)
+    a[ok, :3] = np.array(tones)[idx[ok]]
+    # Turquoise band two rows above the body's lowest full row, inside the outline.
+    rows = [y for y in range(16) if ok[y].sum() >= 10]
+    band = rows[-1] - 3
+    for y, color in ((band, (94, 228, 214)), (band + 1, (26, 120, 132))):
+        xs = [x for x in range(16) if ok[y, x]]
+        for x in xs[1:-1]:
+            a[y, x, :3] = color
+    return Image.fromarray(a)
 
 
 def barrel_paths(tier):
@@ -690,10 +719,11 @@ def resources():
         tex = crucible_textures(tier, CHOICE['crucible'])
         for part, path in crucible_paths(tier).items():
             out[path] = tex[part]
-    for tier in ('copper', 'reinforced', 'enderite'):
+    for tier in BARREL_TIERS:
         tex = barrel_textures(tier)
         for part, path in barrel_paths(tier).items():
             out[path] = tex[part]
+    out[LIB.parent / 'item/reinforced_cauldron.png'] = reinforced_cauldron_item()
     out[SB / 'block/soul_lava_still.png'] = soul_lava('still')
     out[SB / 'block/soul_lava_flow.png'] = soul_lava('flow')
     out.update(bucket_resources(CHOICE['copper_bucket'], CHOICE['enderite_bucket']))

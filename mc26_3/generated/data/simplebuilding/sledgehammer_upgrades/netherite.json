@@ -77,6 +77,16 @@
     {
       "damage_per_hit": 4,
       "duration_factor": 2,
+      "from": "simplelib:reinforced_barrel",
+      "material": "simplebuilding:netherite_nugget",
+      "material_count": 2,
+      "min_hammer": "diamond",
+      "tier": "netherite",
+      "to": "simplelib:netherite_barrel"
+    },
+    {
+      "damage_per_hit": 4,
+      "duration_factor": 2,
       "from": "simplelib:reinforced_crucible",
       "material": "simplebuilding:netherite_nugget",
       "material_count": 2,

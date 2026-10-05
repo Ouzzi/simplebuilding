@@ -5,14 +5,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.BiConsumer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Which containers pour into and take from the reinforced cauldron (owner 30/56). Vanilla buckets
- * are built in; a partner adds its own buckets (and the extreme fluid, SimpleBuilding's soul lava)
- * through {@code SimpleLibApi.registerCauldronBucket}.
+ * Partner containers for the reinforced cauldron (owner 30/56): a partner adds its own buckets (and
+ * the extreme fluid, SimpleBuilding's soul lava) through {@code SimpleLibApi.registerCauldronBucket}.
+ * Vanilla buckets, bottles and everything else go through the Vanilla cauldron interaction tables
+ * (see {@link ReinforcedCauldronBlock}). A full container is only taken from a full cauldron.
  */
 public final class ReinforcedCauldrons {
     /** One kind of container (e.g. the vanilla bucket, a copper bucket). */
@@ -30,34 +30,6 @@ public final class ReinforcedCauldrons {
     public static final List<Bucket> BUCKETS = new CopyOnWriteArrayList<>();
     /** What the extreme content does to an entity inside (set by the partner that owns the fluid). */
     public static volatile BiConsumer<Level, Entity> extremeInside = (level, entity) -> entity.lavaHurt();
-
-    static {
-        BUCKETS.add(new Bucket() {
-            @Override
-            public ReinforcedCauldronBlock.Content pours(ItemStack held) {
-                if (held.is(Items.WATER_BUCKET)) return ReinforcedCauldronBlock.Content.WATER;
-                if (held.is(Items.LAVA_BUCKET)) return ReinforcedCauldronBlock.Content.LAVA;
-                if (held.is(Items.POWDER_SNOW_BUCKET)) return ReinforcedCauldronBlock.Content.POWDER_SNOW;
-                return null;
-            }
-
-            @Override
-            public ItemStack afterPour(ItemStack held) {
-                return new ItemStack(Items.BUCKET);
-            }
-
-            @Override
-            public ItemStack take(ItemStack held, ReinforcedCauldronBlock.Content content) {
-                if (!held.is(Items.BUCKET)) return null;
-                return switch (content) {
-                    case WATER -> new ItemStack(Items.WATER_BUCKET);
-                    case LAVA -> new ItemStack(Items.LAVA_BUCKET);
-                    case POWDER_SNOW -> new ItemStack(Items.POWDER_SNOW_BUCKET);
-                    default -> null;
-                };
-            }
-        });
-    }
 
     private ReinforcedCauldrons() {}
 }

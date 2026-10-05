@@ -20,7 +20,7 @@ public final class LibBlocks {
     public static CrucibleBlock IRON_CRUCIBLE, REINFORCED_CRUCIBLE, NETHERITE_CRUCIBLE;
     public static CrucibleBlankBlock CRUCIBLE_BLANK;
     public static com.simplelib.cauldron.ReinforcedCauldronBlock REINFORCED_CAULDRON;
-    public static com.simplelib.crucible.CrucibleBarrelBlock COPPER_BARREL, REINFORCED_BARREL;
+    public static com.simplelib.crucible.CrucibleBarrelBlock COPPER_BARREL, REINFORCED_BARREL, NETHERITE_BARREL;
     /** Every barrel block, including partner tiers (Enderite in SimpleBuilding). */
     public static final List<com.simplelib.crucible.CrucibleBarrelBlock> BARRELS = new ArrayList<>();
     /** Every crucible block, including those partners register through the API (Enderite in SimpleBuilding). */
@@ -38,11 +38,14 @@ public final class LibBlocks {
                         .setId(key("reinforced_cauldron"))));
         COPPER_BARREL = barrel("copper_barrel", com.simplelib.crucible.BarrelTier.COPPER, MapColor.COLOR_ORANGE, 3.0F);
         REINFORCED_BARREL = barrel("reinforced_barrel", com.simplelib.crucible.BarrelTier.REINFORCED, MapColor.DIAMOND, 4.0F);
+        NETHERITE_BARREL = barrel("netherite_barrel", com.simplelib.crucible.BarrelTier.NETHERITE, MapColor.COLOR_BLACK, 5.0F);
     }
 
     private static com.simplelib.crucible.CrucibleBarrelBlock barrel(String name, com.simplelib.crucible.BarrelTier tier, MapColor color, float hardness) {
+        boolean netherite = tier == com.simplelib.crucible.BarrelTier.NETHERITE;
         var block = Registry.register(BuiltInRegistries.BLOCK, key(name), new com.simplelib.crucible.CrucibleBarrelBlock(
-                BlockBehaviour.Properties.of().mapColor(color).strength(hardness, 6.0F).sound(SoundType.COPPER).requiresCorrectToolForDrops()
+                BlockBehaviour.Properties.of().mapColor(color).strength(hardness, netherite ? 1200.0F : 6.0F)
+                        .sound(netherite ? SoundType.NETHERITE_BLOCK : SoundType.COPPER).requiresCorrectToolForDrops()
                         .setId(key(name)), tier));
         BARRELS.add(block);
         return block;

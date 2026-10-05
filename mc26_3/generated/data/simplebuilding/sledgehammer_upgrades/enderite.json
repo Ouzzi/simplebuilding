@@ -69,22 +69,22 @@
     {
       "damage_per_hit": 10,
       "duration_factor": 2,
+      "from": "simplelib:netherite_barrel",
+      "material": "simplebuilding:enderite_nugget",
+      "material_count": 2,
+      "min_hammer": "netherite",
+      "tier": "enderite",
+      "to": "simplebuilding:enderite_barrel"
+    },
+    {
+      "damage_per_hit": 10,
+      "duration_factor": 2,
       "from": "simplelib:netherite_crucible",
       "material": "simplebuilding:enderite_nugget",
       "material_count": 2,
       "min_hammer": "netherite",
       "tier": "enderite",
       "to": "simplebuilding:enderite_crucible"
-    },
-    {
-      "damage_per_hit": 10,
-      "duration_factor": 2,
-      "from": "simplelib:reinforced_barrel",
-      "material": "simplebuilding:enderite_nugget",
-      "material_count": 2,
-      "min_hammer": "netherite",
-      "tier": "enderite",
-      "to": "simplebuilding:enderite_barrel"
     }
   ]
 }

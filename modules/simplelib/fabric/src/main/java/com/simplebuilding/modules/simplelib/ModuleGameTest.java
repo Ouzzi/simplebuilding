@@ -110,4 +110,14 @@ public final class ModuleGameTest {
     public void reinforcedCauldronHoldsBuckets(GameTestHelper h) {
         LibTests.ALL.get("reinforced_cauldron_holds_buckets").accept(h);
     }
+
+    @GameTest
+    public void reinforcedCauldronInheritsVanilla(GameTestHelper h) {
+        LibTests.ALL.get("reinforced_cauldron_inherits_vanilla").accept(h);
+    }
+
+    @GameTest
+    public void axeUpgradesBarrelToNetherite(GameTestHelper h) {
+        LibTests.ALL.get("axe_upgrades_barrel_to_netherite").accept(h);
+    }
 }

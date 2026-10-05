@@ -1,18 +1,48 @@
 {
   "variants": {
-    "content=empty": {
+    "content=empty,level=1": {
       "model": "simplelib:block/reinforced_cauldron"
     },
-    "content=water": {
+    "content=empty,level=2": {
+      "model": "simplelib:block/reinforced_cauldron"
+    },
+    "content=empty,level=3": {
+      "model": "simplelib:block/reinforced_cauldron"
+    },
+    "content=water,level=1": {
+      "model": "simplelib:block/reinforced_cauldron_water_level1"
+    },
+    "content=water,level=2": {
+      "model": "simplelib:block/reinforced_cauldron_water_level2"
+    },
+    "content=water,level=3": {
       "model": "simplelib:block/reinforced_cauldron_water"
     },
-    "content=lava": {
+    "content=lava,level=1": {
       "model": "simplelib:block/reinforced_cauldron_lava"
     },
-    "content=powder_snow": {
+    "content=lava,level=2": {
+      "model": "simplelib:block/reinforced_cauldron_lava"
+    },
+    "content=lava,level=3": {
+      "model": "simplelib:block/reinforced_cauldron_lava"
+    },
+    "content=powder_snow,level=1": {
+      "model": "simplelib:block/reinforced_cauldron_powder_snow_level1"
+    },
+    "content=powder_snow,level=2": {
+      "model": "simplelib:block/reinforced_cauldron_powder_snow_level2"
+    },
+    "content=powder_snow,level=3": {
       "model": "simplelib:block/reinforced_cauldron_powder_snow"
     },
-    "content=extreme": {
+    "content=extreme,level=1": {
+      "model": "simplelib:block/reinforced_cauldron_extreme"
+    },
+    "content=extreme,level=2": {
+      "model": "simplelib:block/reinforced_cauldron_extreme"
+    },
+    "content=extreme,level=3": {
       "model": "simplelib:block/reinforced_cauldron_extreme"
     }
   }

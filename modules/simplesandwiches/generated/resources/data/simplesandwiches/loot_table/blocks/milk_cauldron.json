@@ -6,6 +6,13 @@
       },
       "entries": [
         {
+          "condition": {
+            "blocks": "simplesandwiches:milk_cauldron",
+            "state": {
+              "reinforced": "false"
+            },
+            "type": "minecraft:match_block"
+          },
           "name": "minecraft:cauldron",
           "type": "minecraft:item"
         }
