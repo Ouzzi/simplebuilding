@@ -1,5 +1,17 @@
 // Hub launches use the saved project-mod selection on the 26.3 main line.
 // Keep ordinary developer runs and test classpaths unchanged.
+if (providers.gradleProperty('hub_client').getOrElse('false').toBoolean()) {
+    if (project.name == 'fabric') {
+        tasks.named('runClient') { systemProperty 'simplebuilding.hub', 'true' }
+    } else if (project.name == 'neoforge') {
+        neoForge.runs.getByName('client').systemProperty 'simplebuilding.hub', 'true'
+    } else if (project.name == 'forge') {
+        minecraft.runs.matching { it.name == 'client' }.configureEach {
+            systemProperty 'simplebuilding.hub', 'true'
+        }
+    }
+}
+
 if (providers.gradleProperty('hub_mod_selection').getOrElse('false').toBoolean()) {
     def selection = new groovy.json.JsonSlurper().parse(rootProject.file('integration/enabled-mods.json'))
     def registry = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json')).modules

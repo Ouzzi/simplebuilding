@@ -30,6 +30,7 @@ Ein erledigter Codepunkt ersetzt weder Client-Gate noch Besitzer-Abnahme.
 - [x] Claims-Folgeschutz für Crafter, Kupfergolem-Transfers und Blitz-Blockänderungen; 100/100 Modultests. Claims bleiben wegen weiterer offener Pfade AUS.
 
 ## Offen (inklusive Besitzerpunkte)
+- [x] Launch-Hub `client_fresh`: echte frische Welt mit Archiv, sicherer Testzentralen-Spawn und dev-only Experimental-Bestaetigung. Worker `gpt-hubworld`: Server 1922/1922, Gate/Pflicht-Compiles/Wiki gruen; neue Hub-Tests 5/5, volle Hub-Suite 86/87 wegen unveraendertem SimpleLib-Standalone-Manifestfehler. Besitzer-Clientabnahme offen; Plan `docs/ai/PLAN-HUB-TESTWORLD-2026-10-02.md`, kein Push.
 - [x] 26.2-Nachtserie ohne Feature-Port repariert: Flags/Erwartungen, Handbuch-/Upgrade-Daten und Forge-Hooks; 26.2 Fabric/NeoForge/Forge 2836/2836 und 26.3-Gegenprobe 1890/1890 gruen; Forge-26.3-Compile und `check -q -PskipWiki` Exit 0. Worker `gpt-line262`, Plan `docs/ai/PLAN-LINE262-2026-10-02.md`; kein Push/Datagen/Client.
 - [x] Auto Smither 26.3: entnehmbare, gegen Einlegen gesperrte Ausgabe; Trichterseiten, Kapazitaetsschutz und Vanilla-GUI korrigiert. 1872/1872 Servertests und Compile-/check-Gate gruen. Plan/Vorschau: `docs/ai/PLAN-AUTO-SMITHER-2026-10-02.md`; Client-Sichtabnahme offen, kein Push.
 - [x] Besitzer-Abgleich 2026-10-05 (`gpt-gaps`), Messer: vier Nuggets nach Sollmuster, EN/DE und Wiki korrigiert, Generatorcheck und je 18/18 Fabric-/NeoForge-Tests grün. Plan: `docs/ai/PLAN-BESITZER-LUECKEN-2026-10-02.md`; kein Push/Client.

@@ -5,6 +5,25 @@ Wünsche/offene Besitzerpunkte: `.claude/QUEUE.md`. Code gewinnt gegenüber alte
 Worker arbeiten in ihrem Worktree/Branch, committen ohne Push/Merge. Andere Linien erst im
 separaten Port-Run nach Besitzer-Abnahme; shared muss weiterhin für 26.2 kompilieren.
 
+## Worker-Nachtrag 2026-10-05: Hub-Testwelt
+
+Branch `gpt-hubworld`: `client_fresh` archiviert die gesamte alte Welt und erzeugt
+per QuickPlay eine neue. Explizites Rebuild behaelt den Ursprung. Der bisher
+ungeladene Ursprungschunk lieferte y=-64 (Boden unbaubar bei -65); Chunk-Laden,
+Reparatur alter Urspruenge, sichere Eingangsplattform, Teleport und Weltspawn mit
+Radius 0 beheben den Void-Start. Experimental-Lifecycle-Bestaetigungen entfallen
+nur im expliziten Hub-Dev-Client auf 26.3; normale Installationen bleiben unveraendert.
+
+Fabric-Filter **8/8**, volle Fabric-/NeoForge-Suiten **1922/1922, alles gruen**,
+einschliesslich Neubau und Item-/Block-Abdeckung. `check -q -PskipWiki`, 26.2-
+Compiles und Forge-26.3-Compile: **GRADLE_EXIT=0**. Hub-Client-Property auf allen
+drei Loadern ohne Clientstart geprueft; Server erhalten es nicht. Wiki --all und
+--all --check gruen, kein Inhaltsdiff. Neue Hub-Tests **5/5**, Gesamtsuite **86/87**:
+unveraenderter Bestandsfehler `simplelib needs tests.standalone (principle 8)`.
+Keine Testabschwaechung, kein Client/Push/Port. Besitzer prueft nach Uebernahme
+zwei frische Starts, Eingang/Respawn und Dialogfreiheit. Belege:
+`docs/ai/PLAN-HUB-TESTWORLD-2026-10-02.md`.
+
 ## Worker-Nachtrag 2026-10-05: Forge Crucible
 
 Branch `gpt-forgecrucible`: SimpleLib war als Jar-in-Jar geladen, aber Forge

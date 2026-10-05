@@ -129,6 +129,8 @@ def launch_command(entry: dict, kind: str, workspace: Path, data: dict | None = 
         raise TargetError(f"unknown launch kind: {kind!r}")
     argv = [gradlew_path(workspace), *gradle_args(entry["prefix"] == ":forge:"),
             *expand_gradle_args(entry["gradleArgs"]), entry["prefix"] + data["tasks"][kind]]
+    if kind == "client" and entry["id"] in ("fabric-263", "neoforge-263", "forge-263"):
+        argv.append("-Phub_client=true")
     if program_args:
         argv.append("--args=" + program_args)
     return argv

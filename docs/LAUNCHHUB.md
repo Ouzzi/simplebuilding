@@ -66,10 +66,32 @@ Tastatur: `r` Fehlgeschlagene wiederholen, `a` alle (26.3), `/` Suche, `1`–`7`
 ## Frische Testwelt
 `/sbtestcentre build` läuft in Entwicklungsumgebungen beim ersten Betreten einer Welt namens `SB-Testzentrale` von selbst
 (`TestCentreCommand.onPlayerJoin`; erkennt „alt“ am Fingerabdruck in `simplebuilding_testcentre.txt`, siehe `docs/TESTZENTRALE.md`).
-Der Hub löscht deshalb vor dem Start nur diese Datei (`world: rebuild`, Standard) – das Testzentrum baut sich neu. Optional
-`world: recreate` verschiebt die Welt nach `<Laufordner>/hub-old-worlds/`. Eine neue Welt selbst kann der Hub nicht anlegen
-(kein Headless-Weg; einmal Flachland, Kreativ, Cheats an). Existiert die Welt, hängt der Hub `--args=--quickPlaySingleplayer
-SB-Testzentrale` an (abschaltbar). Client-Tests einzeln: Feld „Client-Testnamen“ setzt `SIMPLEBUILDING_CLIENT_ONLY`.
+„Client + frische Testwelt“ (`client_fresh`) verwendet standardmäßig `world: recreate`:
+Die gesamte bisherige Welt einschließlich Spielerstand wandert nach
+`<Laufordner>/hub-old-worlds/SB-Testzentrale-<Zeitstempel>`. Vorhandene Archive werden
+nicht überschrieben. Der freigewordene Ordner `saves/SB-Testzentrale` wird per
+`--quickPlaySingleplayer SB-Testzentrale` neu erzeugt: neuer Zufallsseed, Flachland,
+Kreativ, friedlich, Cheats an, keine Strukturen. QuickPlay muss dafür eingeschaltet
+sein; andernfalls weist der Hub auf die nötige manuelle Welterstellung hin.
+
+Explizites `world: rebuild` behält Welt und Spielerstand und entwertet nur den
+Fingerabdruck. Die gespeicherten Ursprungskoordinaten bleiben erhalten, damit ein
+Neubau nicht auf dem Dach der bisherigen Zentrale beginnt.
+
+Auf 26.3 lädt die automatische Testzentrale den Ursprungschunk vor der Höhenabfrage.
+Ungültige alte Ursprünge bei oder unter der minimalen Bauhöhe werden repariert.
+Beim Betreten sowie nach einem verzögerten Neubau landet der Spieler auf einer
+freien Eingangsplattform; Fallbewegung und Fallstrecke werden zurückgesetzt.
+Der Weltspawn liegt dort mit Respawn-Radius 0. Auch während der drei Sekunden vor
+einem Neubau steht dort ein sicherer Boden.
+
+Nur Hub-Clientstarts auf 26.3 erhalten über `-Phub_client=true` das JVM-Property
+`-Dsimplebuilding.hub=true`. Der Client-Mixin bestätigt experimentelle Registry-
+Lifecycles nur bei diesem Property **und** einer Entwicklungsumgebung automatisch.
+Normale Installationen und direkte Gradle-Starts ohne Opt-in behalten die Warnung.
+Versions-, veraltete Weltformat-, Datapack- und Speicherprüfungen bleiben erhalten;
+die Weltvorlage nutzt `WorldDataConfiguration.DEFAULT` ohne zusätzliche experimentelle
+Feature-Packs. Client-Tests einzeln: Feld „Client-Testnamen“ setzt `SIMPLEBUILDING_CLIENT_ONLY`.
 
 ## KI-Fix
 „Mit KI beheben“ nimmt die ausgewählten roten Tests (Standard alle), baut den Prompt aus `tools/launchhub/prompt_template.md`

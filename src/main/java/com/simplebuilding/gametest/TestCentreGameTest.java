@@ -14,6 +14,11 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class TestCentreGameTest {
 
     @GameTest
+    public void freshWorldOriginAndEntranceAreSafe(GameTestHelper helper) {
+        TestCentreTests.freshWorldOriginAndEntranceAreSafe(helper);
+    }
+
+    @GameTest
     public void everyModItemAndBlockHasItsPlaceInTheTestCentre(GameTestHelper helper) {
         TestCentreTests.everyModItemAndBlockHasItsPlaceInTheTestCentre(helper);
     }
