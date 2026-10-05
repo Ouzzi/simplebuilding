@@ -10,6 +10,10 @@ dependencies { implementation project(':framework') }
 neoForge {
     version = rootProject.mc263_neoforge_version
     mods { "${project.parent.name}" { sourceSet sourceSets.main } }
+    // The test runner starts module projects in parallel; never share worlds, configs or logs.
+    runs.configureEach {
+        gameDirectory = rootProject.layout.projectDirectory.dir("integration/run-neoforge-263/${project.parent.name}")
+    }
 }
 processResources { filesMatching('META-INF/neoforge.mods.toml') { expand version: project.version } }
 
@@ -49,7 +53,9 @@ afterEvaluate {
     }
     neoForge.runs.configureEach { run ->
         if (run.loadedMods.get().any { it.name.startsWith('simplebuilding') } || (nestsLib && run.name == 'moduleStandaloneGameTest')) {
-            run.loadedMods.add(neoForge.mods.simplelib)
+            // add() discards a ListProperty convention (all mods) on its first explicit mutation.
+            // Preserve that effective list as well as explicitly selected integration/standalone mods.
+            run.loadedMods.set((run.loadedMods.get() + [neoForge.mods.simplelib]).unique())
         }
     }
 }

@@ -190,7 +190,7 @@ def sharedRuns = ['runIntegrationGameTest'] + moduleSuites.collect { it.tests.lo
 sharedRuns.eachWithIndex { name, index ->
     if (index) tasks.named(name) { mustRunAfter sharedRuns.take(index).collect { tasks.named(it) } }
 }
-// NeoForge module adapters own their runs; impose a cross-project order for the shared world.
+// Keep the existing cross-project order to limit concurrent servers. Module worlds are isolated.
 def neoRuns = registry.modules.findAll { it.tests?.loaders?.neoforge }.collect { it.tests.loaders.neoforge.task }
 gradle.projectsEvaluated {
     neoRuns.eachWithIndex { path, index ->

@@ -1,0 +1,35 @@
+// Run with: gradlew -I tools/testrunner/check_neoforge_runs.gradle checkModuleNeoForgeRuns
+// Inspect actual Gradle properties, including ListProperty conventions and afterEvaluate callbacks.
+gradle.projectsEvaluated {
+    rootProject.tasks.register('checkModuleNeoForgeRuns') {
+        doLast {
+            def directories = [] as Set
+            int checked = 0
+            rootProject.subprojects.findAll {
+                it.path.startsWith(':modules:') && it.name == 'neoforge'
+            }.each { module ->
+                module.neoForge.runs.each { run ->
+                    def standalone = run.name == 'moduleStandaloneGameTest'
+                    def mods = run.loadedMods.get()*.name
+                    assert module.parent.name in mods: "${module.path}:${run.name} lost its own mod: ${mods}"
+                    if (!standalone && module.neoForge.mods.any { it.name.startsWith('simplebuilding') }) {
+                        assert mods.any { it.startsWith('simplebuilding') }: "${module.path} lost SimpleBuilding"
+                    }
+                    if (mods.any { it.startsWith('simplebuilding') } || module.parent.name == 'simplesandwiches') {
+                        assert 'simplelib' in mods: "${module.path}:${run.name} lost SimpleLib"
+                    }
+                    if (standalone && module.parent.name != 'simpletweaks') {
+                        assert mods.every { it in [module.parent.name, 'simplelib'] }: "Unexpected standalone mods: ${mods}"
+                    }
+                    def base = standalone ? 'run-standalone-neoforge-263' : 'run-neoforge-263'
+                    def directory = run.gameDirectory.get().asFile.canonicalFile
+                    assert directory == rootProject.file("integration/${base}/${module.parent.name}").canonicalFile
+                    assert directories.add(directory): "Shared game directory: ${directory}"
+                    checked++
+                }
+            }
+            assert checked > 0
+            println "NeoForge run configuration: ${checked} runs checked, unique directories and required mods preserved"
+        }
+    }
+}

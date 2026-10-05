@@ -37,7 +37,7 @@ README ist veraltet: kein Phantomhaut-Rezept, keine behaupteten festen 5-Smaragd
 
 ## Integration / Verifikation
 
-Fabric: Auswahl im Manifest/Launch Hub, `integration-263` für den Bestand und `module-simplemoney-fabric-263` für diesen Katalog. NeoForge: `module-simplemoney-neoforge-263`, eigene Welt unter `integration/run-neoforge-263`, SimpleBuilding mitgeladen. Kein Besitzer-Save wird verwendet. Gemeinsamer Testkatalog prüft Start/Registry, alle Rezepte, alle 47 echten Handelsangebote (je 128 Ziehungen), alle Beutetypen, Config, Sprach-/Assetvollständigkeit und fremde Items im verstärkten Trichter.
+Fabric: Auswahl im Manifest/Launch Hub, `integration-263` für den Bestand und `module-simplemoney-fabric-263` für diesen Katalog. NeoForge: `module-simplemoney-neoforge-263`, eigene Welt unter `integration/run-neoforge-263/simplemoney`, SimpleBuilding mitgeladen. Kein Besitzer-Save wird verwendet. Gemeinsamer Testkatalog prüft Start/Registry, alle Rezepte, alle 47 echten Handelsangebote (je 128 Ziehungen), alle Beutetypen, Config, Sprach-/Assetvollständigkeit und fremde Items im verstärkten Trichter.
 
 Forge 26.3 und 26.2/1.21.11/26.4 folgen erst im freigegebenen Port-Run. Dazu Loader-Einstieg, Configbedingungen, Lootadapter, Client-Config und Testadapter ergänzen; Registry-IDs/Configschlüssel erhalten. Client-Smoke und visuelle Besitzerabnahme werden separat dokumentiert; keine erfolgreiche Prüfung behaupten, bevor sie ausgeführt wurde.
 

@@ -17,7 +17,6 @@ neoForge {
  runs { ridingIntegrationGameTest {
   type='gameTestServer'
   loadedMods=[mods.simpleriding,mods.simplebuilding]
-  gameDirectory=rootProject.layout.projectDirectory.dir('integration/run-neoforge-263')
   programArguments.addAll '--tests',(project.findProperty('gametestFilter') ?: 'simpleriding:*').toString(),'--report',layout.buildDirectory.file('riding-junit.xml').get().asFile.absolutePath
  } }
 }
