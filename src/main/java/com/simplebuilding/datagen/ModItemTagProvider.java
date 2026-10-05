@@ -331,6 +331,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 net.minecraft.world.item.Items.LAPIS_LAZULI, net.minecraft.world.item.Items.AMETHYST_SHARD, net.minecraft.world.item.Items.QUARTZ,
                 net.minecraft.world.item.Items.PRISMARINE_SHARD, net.minecraft.world.item.Items.ECHO_SHARD,
                 com.simplebuilding.items.ModItems.STONE_PEBBLE, com.simplebuilding.items.ModItems.FLINT_CHIP,
+                com.simplebuilding.items.ModItems.OBSIDIAN_CHIP, com.simplebuilding.items.ModItems.FIRE_CHIP,
+                com.simplebuilding.items.ModItems.ICE_CHIP,
                 com.simplebuilding.items.ModItems.DIAMOND_PEBBLE, com.simplebuilding.items.ModItems.NETHERITE_NUGGET,
                 com.simplebuilding.items.ModItems.ENDERITE_NUGGET, com.simplebuilding.items.ModItems.ENDERITE_INGOT)) {
             tag.add(BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow());

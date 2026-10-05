@@ -85,6 +85,25 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .unlockedBy("has_yarn_ball", has(ModItems.YARN_BALL)).save(output);
                 }
 
+                if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
+                    // Splitter-Kleinteile (2026-10-05), wie Feuersteinsplitter/Steinkiesel: Material -> Splitter -> zurueck.
+                    // Jeder Rueckweg kostet mindestens so viel wie der Hinweg (kein Vermehren; Packeis 9 Eis -> 9 Splitter).
+                    shapeless(RecipeCategory.MISC, ModItems.FIRE_CHIP, 4).requires(Items.FIRE_CHARGE)
+                            .unlockedBy(getHasName(Items.FIRE_CHARGE), has(Items.FIRE_CHARGE)).save(output);
+                    shaped(RecipeCategory.MISC, Items.FIRE_CHARGE).pattern("CC").pattern("CC").define('C', ModItems.FIRE_CHIP)
+                            .unlockedBy(getHasName(ModItems.FIRE_CHIP), has(ModItems.FIRE_CHIP)).save(output, "fire_charge_from_fire_chips");
+                    shapeless(RecipeCategory.MISC, ModItems.ICE_CHIP, 4).requires(Items.ICE)
+                            .unlockedBy(getHasName(Items.ICE), has(Items.ICE)).save(output);
+                    shapeless(RecipeCategory.MISC, ModItems.ICE_CHIP, 9).requires(Items.PACKED_ICE)
+                            .unlockedBy(getHasName(Items.PACKED_ICE), has(Items.PACKED_ICE)).save(output, "ice_chip_from_packed_ice");
+                    shaped(RecipeCategory.MISC, Items.ICE).pattern("CC").pattern("CC").define('C', ModItems.ICE_CHIP)
+                            .unlockedBy(getHasName(ModItems.ICE_CHIP), has(ModItems.ICE_CHIP)).save(output, "ice_from_ice_chips");
+                    shapeless(RecipeCategory.MISC, ModItems.OBSIDIAN_CHIP, 9).requires(Items.OBSIDIAN)
+                            .unlockedBy(getHasName(Items.OBSIDIAN), has(Items.OBSIDIAN)).save(output);
+                    shaped(RecipeCategory.MISC, Items.OBSIDIAN).pattern("CCC").pattern("CCC").pattern("CCC").define('C', ModItems.OBSIDIAN_CHIP)
+                            .unlockedBy(getHasName(ModItems.OBSIDIAN_CHIP), has(ModItems.OBSIDIAN_CHIP)).save(output, "obsidian_from_obsidian_chips");
+                }
+
                 // Befiederungstisch (B14): ein Rezept je Teile-Kombination, nur fuer das Vanilla-Rezeptbuch des Tisches.
                 // Kein Freischalt-Advancement: das Oeffnen des Tisches schaltet alle frei (FletchingRecipes.unlockAll).
                 if (com.simplebuilding.version.McVersion.FLETCHING) {

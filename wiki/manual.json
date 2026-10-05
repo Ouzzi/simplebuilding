@@ -11173,6 +11173,72 @@
         "mc26_3/overlay/resources/data/simplebuilding/recipe/flint_chip.json"
       ]
     },
+    "obsidian_chip": {
+      "en": {
+        "summary": "A shard of volcanic glass: one obsidian gives 9 Obsidian Chips, 9 chips in the crafting grid give the obsidian back.",
+        "details": [
+          "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+        ]
+      },
+      "de": {
+        "summary": "Ein Splitter Vulkanglas: ein Obsidian ergibt 9 Obsidiansplitter, 9 Splitter im Handwerksfeld wieder den Obsidian.",
+        "details": [
+          "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
+      ]
+    },
+    "fire_chip": {
+      "en": {
+        "summary": "A piece of a fire charge: one fire charge gives 4 Fire Chips, 4 chips in a 2x2 give the fire charge back.",
+        "details": [
+          "Right-click on a lying small-parts pile with unlit candles lights them like a fire charge and uses up one chip.",
+          "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+        ]
+      },
+      "de": {
+        "summary": "Ein Stück Feuerkugel: eine Feuerkugel ergibt 4 Feuerkugelsplitter, 4 Splitter im 2x2-Feld wieder die Feuerkugel.",
+        "details": [
+          "Rechtsklick auf einen liegenden Kleinteil-Haufen mit erloschenen Kerzen zündet sie wie eine Feuerkugel an und verbraucht einen Splitter.",
+          "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
+      ]
+    },
+    "ice_chip": {
+      "en": {
+        "summary": "A splinter of ice: one ice gives 4 Ice Chips, one packed ice 9; 4 chips in a 2x2 give one ice back.",
+        "details": [
+          "Right-click on a lying small-parts pile with burning candles puts them out and uses up one chip.",
+          "Sneak + right-click lays it flat on top of a block; sneak + right-click with another small part or an egg on the same spot adds it, up to 4 in any mix (see Small Parts). On a wall or under a ceiling it lies alone like a smithing template. Breaking the spot gives every lying part back."
+        ]
+      },
+      "de": {
+        "summary": "Ein Splitter Eis: ein Eis ergibt 4 Eissplitter, ein Packeis 9; 4 Splitter im 2x2-Feld wieder ein Eis.",
+        "details": [
+          "Rechtsklick auf einen liegenden Kleinteil-Haufen mit brennenden Kerzen löscht sie und verbraucht einen Splitter.",
+          "Schleichen + Rechtsklick legt es flach auf die Oberseite eines Blocks; Schleichen + Rechtsklick mit einem weiteren Kleinteil oder Ei auf denselben Fleck legt es dazu, bis zu 4 in beliebiger Mischung (siehe Kleinteile). An der Wand oder unter der Decke liegt es allein wie eine Schmiedevorlage. Abbauen gibt jedes liegende Teil zurück."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
+      ]
+    },
     "straw_armor_stand": {
       "en": {
         "summary": "An armor stand stuffed with straw: Armor Stand + Hay Bale (shapeless). It works as a scarecrow; a carved pumpkin turns it into a Training Dummy.",

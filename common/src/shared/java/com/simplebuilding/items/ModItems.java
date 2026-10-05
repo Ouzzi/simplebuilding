@@ -306,6 +306,15 @@ public class ModItems {
     /** Feuersteinsplitter: vier aus einem Feuerstein (2026-10-02). */
     public static final Item FLINT_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
             ? registerItem("flint_chip", settings -> new Item(settings)) : null;
+    /** Feuerkugelsplitter: vier aus einer Feuerkugel, zuendet Kerzen eines Kleinteil-Haufens an (2026-10-05). */
+    public static final Item FIRE_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
+            ? registerItem("fire_chip", settings -> new Item(settings)) : null;
+    /** Eissplitter: vier aus Eis, neun aus Packeis, loescht Kerzen eines Kleinteil-Haufens (2026-10-05). */
+    public static final Item ICE_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
+            ? registerItem("ice_chip", settings -> new Item(settings)) : null;
+    /** Obsidiansplitter: neun aus einem Obsidian, neun zurueck zum Obsidian (2026-10-05). */
+    public static final Item OBSIDIAN_CHIP = com.simplebuilding.version.McVersion.SMALL_PLACEABLES
+            ? registerItem("obsidian_chip", settings -> new Item(settings)) : null;
 
     /** Eisenstab (2026-10-02): Blitzableiter aus Eisen, Zutat fuer Resonanzstab und Rotator. */
     public static final Item IRON_ROD = com.simplebuilding.version.McVersion.GADGET_REWORK

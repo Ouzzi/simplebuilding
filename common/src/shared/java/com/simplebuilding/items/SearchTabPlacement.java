@@ -156,7 +156,8 @@ public final class SearchTabPlacement {
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.BED.pick(DyeColor.PINK), ModItems.HAMMOCKS.toArray(ItemLike[]::new)));
         }
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
-            out.add(Placement.after(INGREDIENTS, Items.FLINT, ModItems.FLINT_CHIP, ModItems.STONE_PEBBLE));
+            out.add(Placement.after(INGREDIENTS, Items.FLINT, ModItems.FLINT_CHIP, ModItems.STONE_PEBBLE, ModItems.OBSIDIAN_CHIP,
+                    ModItems.FIRE_CHIP, ModItems.ICE_CHIP));
         }
         if (com.simplebuilding.version.McVersion.RARE_STRUCTURE_FINDS) {
             out.add(Placement.after(INGREDIENTS, Items.SHULKER_SHELL, ModItems.REINFORCED_SHULKER_SHELL,
