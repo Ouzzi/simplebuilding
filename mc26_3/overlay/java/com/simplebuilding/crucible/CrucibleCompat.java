@@ -99,6 +99,22 @@ public final class CrucibleCompat {
         return SimpleLibApi.crucibleSlots(block);
     }
 
+    public static int[] status(net.minecraft.world.level.block.entity.BlockEntity entity) {
+        return SimpleLibApi.crucibleStatus(entity);
+    }
+
+    public static int requiredHeat(ItemStack input, net.minecraft.world.item.crafting.RecipeType<?> type) {
+        return SimpleLibApi.requiredHeat(input, type);
+    }
+
+    public static int cookingTicks(int baseTicks, int heat) {
+        return SimpleLibApi.crucibleCookingTicks(baseTicks, heat);
+    }
+
+    public static int warmingTicks() { return SimpleLibApi.warmingTicks(); }
+
+    public static boolean warmable(ItemStack input) { return SimpleLibApi.warmable(input); }
+
     public static int stackMultiplier(Block block) {
         return SimpleLibApi.stackMultiplier(block);
     }

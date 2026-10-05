@@ -38,6 +38,16 @@ public final class CrucibleCompat {
 
     public static int crucibleSlots(Block block) { return 0; }
 
+    public static int[] status(net.minecraft.world.level.block.entity.BlockEntity entity) { return new int[0]; }
+
+    public static int requiredHeat(net.minecraft.world.item.ItemStack input, net.minecraft.world.item.crafting.RecipeType<?> type) { return 0; }
+
+    public static int cookingTicks(int baseTicks, int heat) { return 0; }
+
+    public static int warmingTicks() { return 0; }
+
+    public static boolean warmable(net.minecraft.world.item.ItemStack input) { return false; }
+
     public static int stackMultiplier(Block block) { return 0; }
 
     public static boolean isAttached(BlockState state) { return false; }

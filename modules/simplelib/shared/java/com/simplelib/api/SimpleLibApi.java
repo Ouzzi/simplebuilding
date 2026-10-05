@@ -146,6 +146,36 @@ public final class SimpleLibApi {
         return block instanceof com.simplelib.crucible.CrucibleBlock crucible ? crucible.tier().slots() : 0;
     }
 
+    /** Heat id (0..3), occupied slots, capacity and next completion ticks (-1 if idle). */
+    public static int[] crucibleStatus(net.minecraft.world.level.block.entity.BlockEntity entity) {
+        if (!(entity instanceof com.simplelib.crucible.CrucibleBlockEntity crucible)) return new int[0];
+        int occupied = 0;
+        for (int slot = 0; slot < crucible.getContainerSize(); slot++) {
+            if (!crucible.getItem(slot).isEmpty()) occupied++;
+        }
+        return new int[] {crucible.heat().ordinal(), occupied, crucible.tier().slots(), crucible.nextCompletionTicks()};
+    }
+
+    public static int requiredHeat(ItemStack input, net.minecraft.world.item.crafting.RecipeType<?> type) {
+        return com.simplelib.crucible.CrucibleJob.requiredHeat(input, type).ordinal();
+    }
+
+    /** Iron-tier duration at the given heat, without a two-block source distance penalty. */
+    public static int crucibleCookingTicks(int baseTicks, int heat) {
+        double factor = HeatLevel.byId(heat).factor();
+        if (factor <= 0) return 0;
+        long step = Math.max(1L, Math.round(1000 * factor));
+        return (int) Math.min(Integer.MAX_VALUE, (Math.max(1L, baseTicks) * 1000 + step - 1) / step);
+    }
+
+    public static int warmingTicks() {
+        return com.simplelib.config.LibConfig.warmBaseTicks;
+    }
+
+    public static boolean warmable(ItemStack input) {
+        return com.simplelib.warm.Warm.warmable(input);
+    }
+
     /** Stack multiplier of a crucible or barrel block (tests, info), or 0. */
     public static int stackMultiplier(Block block) {
         if (block instanceof com.simplelib.crucible.CrucibleBlock crucible) return crucible.tier().stackMultiplier();

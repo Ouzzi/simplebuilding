@@ -39,7 +39,9 @@ public class CrucibleBlock extends Block implements EntityBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     /** An open pot: full outline, hollow inside above the floor (like a cauldron). */
-    private static final VoxelShape SHAPE = Shapes.join(Block.box(1, 0, 1, 15, 14, 15), Block.box(3, 3, 3, 13, 14, 13), BooleanOp.ONLY_FIRST);
+    /** Kettle (owner 2026-10-05): foot 3-13, floor 2-14, belly 1-15, neck 2-14, opening 3-13 down to the floor at y 4. */
+    private static final VoxelShape SHAPE = Shapes.join(Shapes.or(Block.box(3, 0, 3, 13, 2, 13), Block.box(2, 2, 2, 14, 4, 14),
+            Block.box(1, 4, 1, 15, 11, 15), Block.box(2, 11, 2, 14, 14, 14)), Block.box(3, 4, 3, 13, 14, 13), BooleanOp.ONLY_FIRST);
 
     private final CrucibleTier tier;
 

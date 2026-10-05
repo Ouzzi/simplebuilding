@@ -48,13 +48,29 @@ def all_faces(side="#side", top="#top", bottom="#bottom", inner="#inner"):
     return {"down": bottom, "up": top, "north": side, "south": side, "west": side, "east": side}
 
 
-FLOOR = cuboid((1, 0, 1), (15, 3, 15), {"down": "#bottom", "up": "#inner", "north": "#side", "south": "#side", "west": "#side", "east": "#side"})
-WALLS = [
-    cuboid((1, 3, 1), (15, 14, 3), {"north": "#side", "south": "#inner", "up": "#top", "west": "#side", "east": "#side"}),
-    cuboid((13, 3, 3), (15, 14, 13), {"east": "#side", "west": "#inner", "up": "#top"}),
-    cuboid((1, 3, 13), (15, 14, 15), {"south": "#side", "north": "#inner", "up": "#top", "west": "#side", "east": "#side"}),
-    cuboid((1, 3, 3), (3, 14, 13), {"west": "#side", "east": "#inner", "up": "#top"}),
-]
+# Kettle shape (owner 2026-10-05: narrower at the bottom and the top by 1-2 px): foot x/z 3-13 (y 0-2), floor 2-14
+# (y 2-4, inner floor at y 4), belly 1-15 (y 4-11), neck 2-14 (y 11-14); the opening stays 3-13.
+SIDES = {"north": "#side", "south": "#side", "west": "#side", "east": "#side"}
+FOOT = [cuboid((3, 0, 3), (13, 2, 13), {"down": "#bottom", **SIDES})]
+FLOOR = cuboid((2, 2, 2), (14, 4, 14), {"down": "#bottom", "up": "#inner", **SIDES})
+
+
+def ring(o0, o1, y0, y1, underside):
+    """Four wall pieces (north, east, south, west) between outer o0..o1 and the opening 3..13."""
+    down = {"down": "#bottom"} if underside else {}
+    return [
+        cuboid((o0, y0, o0), (o1, y1, 3), {"north": "#side", "south": "#inner", "up": "#top", "west": "#side", "east": "#side", **down}),
+        cuboid((13, y0, 3), (o1, y1, 13), {"east": "#side", "west": "#inner", "up": "#top", **down}),
+        cuboid((o0, y0, 13), (o1, y1, o1), {"south": "#side", "north": "#inner", "up": "#top", "west": "#side", "east": "#side", **down}),
+        cuboid((o0, y0, 3), (3, y1, 13), {"west": "#side", "east": "#inner", "up": "#top", **down}),
+    ]
+
+
+BELLY = ring(1, 15, 4, 11, True)
+NECK = ring(2, 14, 11, 14, False)
+# One wall = belly + neck piece of a side (the blank shows them strike by strike).
+WALLS = [[BELLY[i], NECK[i]] for i in range(4)]
+WALLS_FLAT = BELLY + NECK
 HANDLES = [
     cuboid((15, 9, 6), (16, 11, 10), {"east": "#handle", "up": "#handle", "down": "#handle", "north": "#handle", "south": "#handle"}),
     cuboid((0, 9, 6), (1, 11, 10), {"west": "#handle", "up": "#handle", "down": "#handle", "north": "#handle", "south": "#handle"}),
@@ -64,15 +80,16 @@ HANDLES = [
 def crucible_model(tier):
     tex = {k: f"{NS}:block/{tier}_crucible_{k}" for k in ("side", "top", "bottom", "inner", "handle")}
     tex["particle"] = tex["side"]
-    return {"parent": "minecraft:block/block", "textures": tex, "elements": [FLOOR, *WALLS, *HANDLES]}
+    return {"parent": "minecraft:block/block", "textures": tex, "elements": [*FOOT, FLOOR, *WALLS_FLAT, *HANDLES]}
 
 
 def blank_model(stage):
     tex = {k: f"{NS}:block/iron_crucible_{k}" for k in ("side", "top", "bottom", "inner", "handle")}
     tex["particle"] = "minecraft:block/iron_block"
-    base = cuboid((0, 0, 0), (16, 3, 16), {"down": "#iron", "up": "#iron", "north": "#iron", "south": "#iron", "west": "#iron", "east": "#iron"})
+    base = cuboid((0, 0, 0), (16, 4, 16), {"down": "#iron", "up": "#iron", "north": "#iron", "south": "#iron", "west": "#iron", "east": "#iron"})
     tex["iron"] = "minecraft:block/iron_block"
-    elements = [base] + WALLS[:min(stage, 4)] + HANDLES[:max(0, stage - 4)]
+    walls = [piece for wall in WALLS[:min(stage, 4)] for piece in wall]
+    elements = [base] + walls + HANDLES[:max(0, stage - 4)]
     return {"parent": "minecraft:block/block", "textures": tex, "elements": elements}
 
 

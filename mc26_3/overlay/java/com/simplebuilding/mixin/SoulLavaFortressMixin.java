@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * Soul lava in Nether fortresses (owner addition 11): the lava well of a fortress entrance room becomes soul lava
- * with {@link SoulLava#FORTRESS_CHANCE}. The roll depends only on the world seed and the well's position, so every
+ * with {@link SoulLava#fortressChance()}. The roll depends only on the world seed and the well's position, so every
  * chunk pass of the piece agrees.
  */
 @Mixin(NetherFortressPieces.CastleEntrance.class)
@@ -31,7 +31,7 @@ public abstract class SoulLavaFortressMixin {
         if (ModFluids.SOUL_LAVA == null) return;
         BlockPos well = ((StructurePieceAccessor) this).simplebuilding$worldPos(6, 5, 6).immutable();
         if (!chunkBB.isInside(well) || !level.getBlockState(well).is(Blocks.LAVA)) return;
-        if (new LegacyRandomSource(level.getSeed() ^ well.asLong() ^ 0x50554C4156414CL).nextFloat() >= SoulLava.FORTRESS_CHANCE) return;
+        if (new LegacyRandomSource(level.getSeed() ^ well.asLong() ^ 0x50554C4156414CL).nextFloat() >= SoulLava.fortressChance()) return;
         level.setBlock(well, ModFluids.SOUL_LAVA.defaultFluidState().createLegacyBlock(), Block.UPDATE_CLIENTS);
         level.scheduleTick(well, ModFluids.SOUL_LAVA, 0);
     }

@@ -48,6 +48,90 @@ public final class CrucibleTests {
     private CrucibleTests() {
     }
 
+    public static void jadeReportsHeatSlotsAndShortestRemainingTime(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        int smokingTicks = helper.getLevel().recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMOKING,
+                new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.BEEF)), helper.getLevel()).orElseThrow().value().cookingTime();
+        Block[] blocks = {lib("iron_crucible"), lib("reinforced_crucible"), lib("netherite_crucible"), CrucibleCompat.enderiteCrucible()};
+        int[] sizes = {6, 9, 18, 27};
+        for (int i = 0; i < blocks.length; i++) {
+            BlockPos pos = new BlockPos(i + 1, 2, 2);
+            helper.setBlock(pos.below(), Blocks.CAMPFIRE);
+            helper.setBlock(pos, blocks[i]);
+            var be = helper.getLevel().getBlockEntity(helper.absolutePos(pos));
+            ((net.minecraft.world.Container) be).setItem(0, new ItemStack(Items.BEEF, 2));
+            ((net.minecraft.world.Container) be).setItem(1, new ItemStack(Items.DIRT));
+        }
+        BlockPos distant = new BlockPos(1, 3, 4);
+        helper.setBlock(distant.below(2), Blocks.CAMPFIRE);
+        helper.setBlock(distant, blocks[0]);
+        ((net.minecraft.world.Container) helper.getLevel().getBlockEntity(helper.absolutePos(distant))).setItem(0, new ItemStack(Items.BEEF, 2));
+        BlockPos mixed = new BlockPos(5, 2, 4);
+        helper.setBlock(mixed.below(), Blocks.CAMPFIRE);
+        helper.setBlock(mixed, blocks[0]);
+        var mixedInventory = (net.minecraft.world.Container) helper.getLevel().getBlockEntity(helper.absolutePos(mixed));
+        mixedInventory.setItem(0, new ItemStack(Items.BEEF, 2));
+        mixedInventory.setItem(1, new ItemStack(Items.BREAD));
+        BlockPos blocked = new BlockPos(5, 2, 6);
+        helper.setBlock(blocked.below(), Blocks.CAMPFIRE);
+        helper.setBlock(blocked, blocks[0]);
+        var blockedInventory = (net.minecraft.world.Container) helper.getLevel().getBlockEntity(helper.absolutePos(blocked));
+        blockedInventory.setItem(0, new ItemStack(Items.BEEF, 2));
+        for (int slot = 1; slot < blockedInventory.getContainerSize(); slot++) blockedInventory.setItem(slot, new ItemStack(Items.DIRT, 64));
+        helper.runAfterDelay(5, () -> {
+            for (int i = 0; i < blocks.length; i++) {
+                var be = helper.getLevel().getBlockEntity(helper.absolutePos(new BlockPos(i + 1, 2, 2)));
+                int[] status = CrucibleCompat.status(be);
+                helper.assertTrue(status.length == 4 && status[0] == 1 && status[1] == 2 && status[2] == sizes[i], "heat and occupied slots tier " + i);
+                helper.assertTrue(status[3] > 0 && status[3] <= smokingTicks * 2, "running duration tier " + i + ": " + status[3]);
+                var topic = com.simplebuilding.compat.BlockInfo.Topic.CRUCIBLE;
+                helper.assertTrue(com.simplebuilding.compat.BlockInfo.handles(topic, be), "Jade handles tier " + i);
+                var lines = com.simplebuilding.compat.BlockInfo.serverLines(topic, be);
+                helper.assertTrue(lines.size() == 3 && lines.get(2).argTexts().equals(java.util.List.of(String.valueOf((status[3] + 19) / 20))), "Jade seconds rounded up");
+                var tag = new net.minecraft.nbt.CompoundTag();
+                com.simplebuilding.compat.BlockInfo.write(tag, topic, lines);
+                helper.assertTrue(com.simplebuilding.compat.BlockInfo.read(tag, topic).equals(lines), "Jade server/client round trip");
+            }
+            int nearTicks = CrucibleCompat.status(helper.getLevel().getBlockEntity(helper.absolutePos(new BlockPos(1, 2, 2))))[3];
+            int distantTicks = CrucibleCompat.status(helper.getLevel().getBlockEntity(helper.absolutePos(distant)))[3];
+            helper.assertTrue(distantTicks > nearTicks, "two-block heat penalty included in remaining time");
+            int mixedTicks = CrucibleCompat.status(helper.getLevel().getBlockEntity(helper.absolutePos(mixed)))[3];
+            helper.assertTrue(mixedTicks > 0 && mixedTicks < nearTicks, "shortest job wins over the first slot");
+            helper.assertTrue(CrucibleCompat.status(helper.getLevel().getBlockEntity(helper.absolutePos(blocked)))[3] == -1, "blocked jobs have no finite remaining time");
+            helper.setBlock(new BlockPos(5, 2, 2), blocks[0]);
+            var cold = helper.getLevel().getBlockEntity(helper.absolutePos(new BlockPos(5, 2, 2)));
+            helper.assertTrue(CrucibleCompat.status(cold)[3] == -1 && com.simplebuilding.compat.BlockInfo.serverLines(com.simplebuilding.compat.BlockInfo.Topic.CRUCIBLE, cold).size() == 2, "cold crucible has no remaining time");
+            helper.succeed();
+        });
+    }
+
+    public static void recipeHeatAndCatalogMatchCookingRules(GameTestHelper helper) {
+        if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
+        for (var type : java.util.List.of(net.minecraft.world.item.crafting.RecipeType.CAMPFIRE_COOKING,
+                net.minecraft.world.item.crafting.RecipeType.SMOKING, net.minecraft.world.item.crafting.RecipeType.SMELTING,
+                net.minecraft.world.item.crafting.RecipeType.BLASTING)) {
+            int expected = type == net.minecraft.world.item.crafting.RecipeType.CAMPFIRE_COOKING || type == net.minecraft.world.item.crafting.RecipeType.SMOKING ? 1 : 2;
+            helper.assertTrue(CrucibleCompat.requiredHeat(new ItemStack(Items.BEEF), type) == expected, "recipe heat " + type);
+            helper.assertTrue(CrucibleCompat.requiredHeat(new ItemStack(Items.ANCIENT_DEBRIS), type) == 3, "extreme tag overrides " + type);
+            helper.assertTrue(CrucibleCompat.requiredHeat(new ItemStack(ModItems.CRACKED_DIAMOND), type) == 3, "SB extreme tag overrides " + type);
+        }
+        var recipes = new java.util.ArrayList<net.minecraft.world.item.crafting.AbstractCookingRecipe>();
+        var input = new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.BEEF));
+        helper.getLevel().recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMOKING, input, helper.getLevel()).ifPresent(holder -> recipes.add(holder.value()));
+        helper.getLevel().recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CAMPFIRE_COOKING, input, helper.getLevel()).ifPresent(holder -> recipes.add(holder.value()));
+        helper.getLevel().recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMELTING, input, helper.getLevel()).ifPresent(holder -> recipes.add(holder.value()));
+        var entries = com.simplebuilding.compat.CrucibleRecipeCatalog.build(recipes);
+        int fastestMedium = recipes.stream().filter(recipe -> recipe.getType() != net.minecraft.world.item.crafting.RecipeType.SMELTING)
+                .mapToInt(net.minecraft.world.item.crafting.AbstractCookingRecipe::cookingTime).min().orElseThrow();
+        var beef = entries.stream().filter(entry -> entry.input().is(Items.BEEF)).toList();
+        helper.assertTrue(beef.size() == 2, "one beef entry per heat");
+        helper.assertTrue(beef.stream().anyMatch(entry -> entry.heat() == 1 && entry.baseTicks() == fastestMedium && entry.result().is(Items.COOKED_BEEF)), "fastest medium recipe wins");
+        helper.assertTrue(entries.stream().anyMatch(entry -> entry.input().is(Items.BREAD) && entry.warming() && entry.heat() == 1), "bread warming fallback");
+        helper.assertTrue(beef.stream().noneMatch(com.simplebuilding.compat.CrucibleRecipeCatalog.Entry::warming), "cooking takes precedence over warming");
+        helper.assertTrue(CrucibleCompat.cookingTicks(100, 1) == 200 && CrucibleCompat.cookingTicks(200, 2) == 267, "display time includes heat factor and rounds ticks up");
+        helper.succeed();
+    }
+
     private static Block lib(String path) {
         return BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath("simplelib", path));
     }
@@ -182,7 +266,7 @@ public final class CrucibleTests {
         SoulLava.touch(helper.getLevel(), pig);
         helper.assertTrue(pig.getRemainingFireTicks() >= 20 * 20, "burns longer than lava: " + pig.getRemainingFireTicks());
         MobEffectInstance burn = pig.getEffect(ModEffects.SOUL_BURN);
-        helper.assertTrue(burn != null && burn.getDuration() >= SoulLava.SOUL_BURN_TICKS - 1, "seelenbrand for a minute");
+        helper.assertTrue(burn != null && burn.getDuration() >= SoulLava.soulBurnTicks() - 1, "seelenbrand for a minute");
         helper.succeed();
     }
 
@@ -193,7 +277,7 @@ public final class CrucibleTests {
         Pig safe = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, new BlockPos(2, 1, 2));
         Pig hurt = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, new BlockPos(5, 1, 5));
         safe.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 2400));
-        for (Pig pig : new Pig[] {safe, hurt}) pig.addEffect(new MobEffectInstance(ModEffects.SOUL_BURN, SoulLava.SOUL_BURN_TICKS));
+        for (Pig pig : new Pig[] {safe, hurt}) pig.addEffect(new MobEffectInstance(ModEffects.SOUL_BURN, SoulLava.soulBurnTicks()));
         float before = safe.getHealth();
         for (int i = 0; i < 40; i++) {
             McVersion.resetInvulnerableTime(safe);

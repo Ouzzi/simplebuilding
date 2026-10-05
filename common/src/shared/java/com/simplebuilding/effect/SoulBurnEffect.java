@@ -8,8 +8,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 
 /**
- * Seelenbrand (owner round 2 answer 28 + round 3 answer 55): after touching soul lava, for one minute,
- * every {@link SoulLava#SOUL_BURN_INTERVAL_TICKS} ticks a {@link SoulLava#SOUL_BURN_CHANCE} chance of 1
+ * Seelenbrand (owner round 2 answer 28 + round 3 answer 55): after touching soul lava, by default for one minute,
+ * every {@link SoulLava#soulBurnIntervalTicks()} ticks a {@link SoulLava#soulBurnChance()} chance of 1
  * fire damage. Fire resistance only protects against the burning and the fire damage while it lasts
  * - the effect itself keeps running, so damage comes back when the protection ends first. The
  * damage is Vanilla's on_fire type (tag is_fire): the Fire Resistance effect blocks it, the Fire
@@ -26,7 +26,7 @@ public class SoulBurnEffect extends MobEffect {
     @Override
     public boolean applyEffectTick(ServerLevel level, LivingEntity mob, int amplification) {
         if (mob.hasEffect(MobEffects.FIRE_RESISTANCE) || mob.getType().fireImmune()) return true;
-        if (mob.getRandom().nextFloat() < SoulLava.SOUL_BURN_CHANCE) {
+        if (mob.getRandom().nextFloat() < SoulLava.soulBurnChance()) {
             mob.hurtServer(level, mob.damageSources().onFire(), 1.0F);
         }
         return true;
@@ -34,6 +34,6 @@ public class SoulBurnEffect extends MobEffect {
 
     @Override
     public boolean shouldApplyEffectTickThisTick(int tickCount, int amplification) {
-        return tickCount % SoulLava.SOUL_BURN_INTERVAL_TICKS == 0;
+        return tickCount % SoulLava.soulBurnIntervalTicks() == 0;
     }
 }

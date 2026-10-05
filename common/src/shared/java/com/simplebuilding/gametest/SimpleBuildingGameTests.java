@@ -563,33 +563,37 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
                     .build(),
+            GameTestSpec.named("crucible_game_test_copper_bucket_rules", CrucibleTests::copperBucketRules)
+                    .build(),
             GameTestSpec.named("crucible_game_test_enderite_tiers_have_twenty_seven_slots_and_double_stacks", CrucibleTests::enderiteTiersHaveTwentySevenSlotsAndDoubleStacks)
                     .build(),
+            GameTestSpec.named("crucible_game_test_fire_resistance_only_blocks_soul_burn_damage", CrucibleTests::fireResistanceOnlyBlocksSoulBurnDamage)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_iron_bucket_breaks_on_soul_lava_enderite_never", CrucibleTests::ironBucketBreaksOnSoulLavaEnderiteNever)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_jade_reports_heat_slots_and_shortest_remaining_time", CrucibleTests::jadeReportsHeatSlotsAndShortestRemainingTime)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_recipe_heat_and_catalog_match_cooking_rules", CrucibleTests::recipeHeatAndCatalogMatchCookingRules)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_reinforced_cauldron_holds_soul_lava", CrucibleTests::reinforcedCauldronHoldsSoulLava)
+                    .build(),
             GameTestSpec.named("crucible_game_test_sledgehammer_builds_the_iron_crucible", CrucibleTests::sledgehammerBuildsTheIronCrucible)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_sledgehammer_crushes_quartz_block_into_four_quartz", CrucibleTests::sledgehammerCrushesQuartzBlockIntoFourQuartz)
                     .build(),
             GameTestSpec.named("crucible_game_test_sledgehammer_upgrades_cost_double", CrucibleTests::sledgehammerUpgradesCostDouble)
                     .build(),
             GameTestSpec.named("crucible_game_test_soul_lava_flows_two_blocks_in_the_overworld", CrucibleTests::soulLavaFlowsTwoBlocksInTheOverworld)
                     .maxTicks(300).build(),
-            GameTestSpec.named("crucible_game_test_soul_lava_is_not_replaceable", CrucibleTests::soulLavaIsNotReplaceable)
+            GameTestSpec.named("crucible_game_test_soul_lava_heats_extreme_flowing_high", CrucibleTests::soulLavaHeatsExtremeFlowingHigh)
                     .build(),
-            GameTestSpec.named("crucible_game_test_water_touching_soul_lava_turns_to_quartz_or_blackstone", CrucibleTests::waterTouchingSoulLavaTurnsToQuartzOrBlackstone)
+            GameTestSpec.named("crucible_game_test_soul_lava_is_not_replaceable", CrucibleTests::soulLavaIsNotReplaceable)
                     .build(),
             GameTestSpec.named("crucible_game_test_touching_soul_lava_burns_longer_and_gives_soul_burn", CrucibleTests::touchingSoulLavaBurnsLongerAndGivesSoulBurn)
                     .build(),
-            GameTestSpec.named("crucible_game_test_fire_resistance_only_blocks_soul_burn_damage", CrucibleTests::fireResistanceOnlyBlocksSoulBurnDamage)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_soul_lava_heats_extreme_flowing_high", CrucibleTests::soulLavaHeatsExtremeFlowingHigh)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_copper_bucket_rules", CrucibleTests::copperBucketRules)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_iron_bucket_breaks_on_soul_lava_enderite_never", CrucibleTests::ironBucketBreaksOnSoulLavaEnderiteNever)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_reinforced_cauldron_holds_soul_lava", CrucibleTests::reinforcedCauldronHoldsSoulLava)
-                    .build(),
-            GameTestSpec.named("crucible_game_test_sledgehammer_crushes_quartz_block_into_four_quartz", CrucibleTests::sledgehammerCrushesQuartzBlockIntoFourQuartz)
-                    .build(),
             GameTestSpec.named("crucible_game_test_vanilla_cauldron_takes_copper_and_enderite_buckets", CrucibleTests::vanillaCauldronTakesCopperAndEnderiteBuckets)
+                    .build(),
+            GameTestSpec.named("crucible_game_test_water_touching_soul_lava_turns_to_quartz_or_blackstone", CrucibleTests::waterTouchingSoulLavaTurnsToQuartzOrBlackstone)
                     .build(),
             GameTestSpec.named("hammock_game_test_hangs_only_between_two_anchors_two_to_four_apart", HammockTests::hangsOnlyBetweenTwoAnchorsTwoToFourApart)
                     .build(),
@@ -684,31 +688,35 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("ore_gen_and_item_frame_game_test_brush_reveal_is_wired_to_an_interface_nothing_implements", OreGenAndItemFrameTests::brushRevealIsWiredToAnInterfaceNothingImplements)
                     .rotation(Rotation.NONE)
                     .build(),
-            GameTestSpec.named("config_option_game_test_bundle_click_inversion_follows_the_configured_option", ConfigOptionTests::bundleClickInversionFollowsTheConfiguredOption)
-                    .build(),
-            GameTestSpec.named("config_option_game_test_loot_table_changes_stop_when_the_option_is_switched_off", ConfigOptionTests::lootTableChangesStopWhenTheOptionIsSwitchedOff)
-                    .build(),
-            GameTestSpec.named("config_option_game_test_loot_balance_keeps_every_chest_within_its_budget", ConfigOptionTests::lootBalanceKeepsEveryChestWithinItsBudget)
-                    .build(),
             GameTestSpec.named("config_option_game_test_building_cores_are_very_rare_in_loot_chests", ConfigOptionTests::buildingCoresAreVeryRareInLootChests)
                     .build(),
-            GameTestSpec.named("config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders", ConfigOptionTests::tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders)
+            GameTestSpec.named("config_option_game_test_bundle_click_inversion_follows_the_configured_option", ConfigOptionTests::bundleClickInversionFollowsTheConfiguredOption)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_core_loot_chance_follows_its_multiplier", ConfigOptionTests::coreLootChanceFollowsItsMultiplier)
                     .build(),
             GameTestSpec.named("config_option_game_test_every_config_option_keeps_its_persisted_name_and_default", ConfigOptionTests::everyConfigOptionKeepsItsPersistedNameAndDefault)
                     .build(),
             GameTestSpec.named("config_option_game_test_every_option_has_name_tooltip_and_tab", ConfigOptionTests::everyOptionHasNameTooltipAndTab)
                     .build(),
-            GameTestSpec.named("config_option_game_test_the_config_command_reaches_every_option", ConfigOptionTests::theConfigCommandReachesEveryOption)
+            GameTestSpec.named("config_option_game_test_loot_balance_keeps_every_chest_within_its_budget", ConfigOptionTests::lootBalanceKeepsEveryChestWithinItsBudget)
                     .build(),
-            GameTestSpec.named("config_option_game_test_new_tool_options_change_what_the_tools_do", ConfigOptionTests::newToolOptionsChangeWhatTheToolsDo)
+            GameTestSpec.named("config_option_game_test_loot_table_changes_stop_when_the_option_is_switched_off", ConfigOptionTests::lootTableChangesStopWhenTheOptionIsSwitchedOff)
                     .build(),
             GameTestSpec.named("config_option_game_test_new_pad_options_change_what_the_pads_do", ConfigOptionTests::newPadOptionsChangeWhatThePadsDo)
                     .build(),
+            GameTestSpec.named("config_option_game_test_new_tool_options_change_what_the_tools_do", ConfigOptionTests::newToolOptionsChangeWhatTheToolsDo)
+                    .build(),
             GameTestSpec.named("config_option_game_test_new_tweak_options_change_what_the_tweaks_do", ConfigOptionTests::newTweakOptionsChangeWhatTheTweaksDo)
                     .build(),
-            GameTestSpec.named("config_option_game_test_core_loot_chance_follows_its_multiplier", ConfigOptionTests::coreLootChanceFollowsItsMultiplier)
+            GameTestSpec.named("config_option_game_test_soul_lava_bounds_are_clamped", ConfigOptionTests::soulLavaBoundsAreClamped)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_soul_lava_uses_server_values", ConfigOptionTests::soulLavaUsesServerValues)
                     .build(),
             GameTestSpec.named("config_option_game_test_the_air_jump_cooldown_travels_from_server_to_client", ConfigOptionTests::theAirJumpCooldownTravelsFromServerToClient)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_the_config_command_reaches_every_option", ConfigOptionTests::theConfigCommandReachesEveryOption)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders", ConfigOptionTests::tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders)
                     .build(),
             GameTestSpec.named("air_jump_game_test_the_cooldown_is_twenty_seconds_at_level_one_and_ten_at_level_two", AirJumpTests::theCooldownIsTwentySecondsAtLevelOneAndTenAtLevelTwo)
                     .build(),

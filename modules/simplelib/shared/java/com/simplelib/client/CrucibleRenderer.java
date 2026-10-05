@@ -29,7 +29,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public class CrucibleRenderer implements BlockEntityRenderer<CrucibleBlockEntity, CrucibleRenderer.State> {
     public static final int VIEW_DISTANCE = 16;
-    private static final float FLOOR = 3.0F / 16.0F;
+    /** Inner floor of the kettle model (gen_resources.py FLOOR top). */
+    private static final float FLOOR = 4.0F / 16.0F;
     private static final float SCALE = 0.22F;
     private static final float LAYER = 0.12F;
 

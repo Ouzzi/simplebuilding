@@ -216,6 +216,18 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         return (long) job.ticks() * MILLI - progress[slot];
     }
 
+    /** Ticks until the next running slot finishes at the current speed, or -1 when none runs. */
+    public int nextCompletionTicks() {
+        long shortest = Long.MAX_VALUE;
+        if (heat == HeatLevel.NONE) return -1;
+        for (int slot = 0; slot < tier.slots(); slot++) {
+            if (state[slot] == COOKING && jobs[slot] != null) {
+                shortest = Math.min(shortest, Math.max(0L, remaining(slot)));
+            }
+        }
+        return shortest == Long.MAX_VALUE ? -1 : (int) Math.min(Integer.MAX_VALUE, (shortest + step() - 1) / step());
+    }
+
     private int step() {
         return Math.max(1, (int) Math.round(MILLI * tier.speed() * heat.factor() * heatMultiplier));
     }

@@ -358,3 +358,6 @@ Regeln: `docs/ai/PRINZIPIEN-MODUL-UNABHAENGIGKEIT.md` (Befunde 1, 4 und 8 auf `c
 
 ## Forge Crucible (Besitzer 2026-10-05)
 - [x] Forge 26.3: fehlende SimpleLib-Pack-Metadaten ergaenzt; Vorschlaghammer baut Crucible wieder. Bautest prueft Tags, echten Item-Aufruf und jeden Schlag. Forge-Filter 14/14, volle drei Serverziele 2881/2881, Gate und Pflicht-Compiles gruen. Branch gpt-forgecrucible; Plan docs/ai/PLAN-FORGE-CRUCIBLE-2026-10-02.md; kein Push/Client.
+
+## Crucible P6 (2026-10-05)
+- [x] `claude-crucibleart-gpt`: Seelen-Lava-Server-Config, Jade-Tiegelstatus und JEI-Schmelztiegelkategorie umgesetzt. Fabric-Tests Crucible 16/16, Config 15/15, Testzentrale 7/7; Pflicht-Compiles, Wiki, JUnit (inkl. Jade-Split) und einzelne Gate-Prüfungen grün. Gesamtcheck dreimal am 600-s-Limit beendet, kein grüner Gesamt-Gate-Abschluss. Plan/Belege: `docs/ai/PLAN-CRUCIBLE-P6-2026-10-05.md`. Kein Push/Client/Artwork.
