@@ -77,6 +77,7 @@ LINES = {
         "client_jar_version": "26.2",
         "code_roots": [
             "common/src/shared/java/com/simplebuilding",
+            "common/src/mc26_2/java/com/simplebuilding",
             "src/main/java/com/simplebuilding",
             "neoforge/src/main/java/com/simplebuilding",
             "forge/src/main/java/com/simplebuilding",
@@ -1194,6 +1195,13 @@ def parse_config_classes(path: Path) -> dict:
     return classes
 
 
+def version_flags(roots: dict) -> dict[str, bool] | None:
+    path = next((REPO / root / "version" / "McVersion.java" for root in roots["code_roots"]
+                 if (REPO / root / "version" / "McVersion.java").exists()), None)
+    return {name: value == "true" for name, value in re.findall(
+        r"public static final boolean (\w+) = (true|false);", path.read_text(encoding="utf-8"))} if path else None
+
+
 def collect_config(roots: dict, lang: dict) -> list[dict]:
     """
     Every option as its dotted path (tools.wandHungerMultiplier,
@@ -1224,7 +1232,7 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
     scarecrow_path = path.parents[1] / 'dummy/Scarecrow.java'
     if scarecrow_path.exists():
         metadata_files.append(scarecrow_path)
-    bounds = config_metadata.read_metadata(metadata_files)
+    bounds = config_metadata.read_metadata(metadata_files, version_flags(roots))
     sets_path = path.parent / "ConfigOptions.java"
     option_sets = config_metadata.option_sets(sets_path)
 

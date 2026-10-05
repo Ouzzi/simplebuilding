@@ -426,7 +426,7 @@ public final class ModLootTableModifications {
     public static float coreChance(float base) {
         com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();
         double factor = config == null ? 1.0
-                : com.simplebuilding.config.SimplebuildingConfig.nonNegative(config.worldGen.buildingCoreLootChanceMultiplier, 1.0);
+                : com.simplebuilding.config.SimplebuildingConfig.bounded(config.worldGen.buildingCoreLootChanceMultiplier, 0, 1000, 1.0);
         return (float) Math.min(1.0, base * factor);
     }
 

@@ -116,7 +116,7 @@ public final class WandHunger {
     /** Config {@code tools.wandHungerMultiplier}: Faktor auf die Rate je Block (Standard 1). */
     public static double multiplier() {
         SimplebuildingConfig config = Simplebuilding.getConfig();
-        return config == null ? 1.0 : SimplebuildingConfig.nonNegative(config.tools.wandHungerMultiplier, 1.0);
+        return config == null ? 1.0 : SimplebuildingConfig.bounded(config.tools.wandHungerMultiplier, 0, 10, 1.0);
     }
 
     /**

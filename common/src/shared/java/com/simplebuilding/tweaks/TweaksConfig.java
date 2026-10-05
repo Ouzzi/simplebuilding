@@ -68,6 +68,10 @@ public class TweaksConfig {
         laserPointer.range = (int) bounded("laserPointer.range", laserPointer.range, 1, MAX_LASER_RANGE, 512);
         laserPointer.chargePerSecond = Math.max(0, laserPointer.chargePerSecond);
         laserPointer.effectCost = Math.max(0, laserPointer.effectCost);
+        if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+            laserPointer.chargePerSecond = (int) bounded("laserPointer.chargePerSecond", laserPointer.chargePerSecond, 0, 2560, 4);
+            laserPointer.effectCost = (int) bounded("laserPointer.effectCost", laserPointer.effectCost, 0, 2560, 5);
+        }
         balancing.echoSounderJumpCooldownTicks = (int) bounded("balancing.echoSounderJumpCooldownTicks", balancing.echoSounderJumpCooldownTicks, 0, MAX_ECHO_COOLDOWN_TICKS, 480);
         balancing.echoSounderAttemptLockTicks = (int) bounded("balancing.echoSounderAttemptLockTicks", balancing.echoSounderAttemptLockTicks, 0, MAX_ECHO_COOLDOWN_TICKS, 100);
     }

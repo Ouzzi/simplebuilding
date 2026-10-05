@@ -94,7 +94,8 @@ public class RotatorItem extends Item implements AnvilRechargeable {
     /** Ladung je Drehung: Config {@code tools.rotatorChargePerTurn} (Standard {@link #USE_COST}), 0 = kostenlos. */
     public static int useCost() {
         com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
-        return config == null ? USE_COST : Math.max(0, config.tools.rotatorChargePerTurn);
+        return config == null ? USE_COST : (int) com.simplebuilding.config.SimplebuildingConfig.bounded(
+                config.tools.rotatorChargePerTurn, 0, 4096, USE_COST);
     }
 
     /** Leer: die ganze Ladung ist verbraucht, der Rotator dreht nichts mehr. */

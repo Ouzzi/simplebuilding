@@ -93,12 +93,12 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
 
     /** Ladung je angefangener Sekunde Strahlen: Config {@code tweaks.laserPointer.chargePerSecond} (Standard {@link #BEAM_COST}). */
     public static int beamCost() {
-        return Math.max(0, SimpleTweaks.config().laserPointer.chargePerSecond);
+        return (int) com.simplebuilding.config.SimplebuildingConfig.bounded(SimpleTweaks.config().laserPointer.chargePerSecond, 0, 2560, BEAM_COST);
     }
 
     /** Ladung je Wirkung: Config {@code tweaks.laserPointer.effectCost} (Standard {@link #EFFECT_COST}). */
     public static int effectCost() {
-        return Math.max(0, SimpleTweaks.config().laserPointer.effectCost);
+        return (int) com.simplebuilding.config.SimplebuildingConfig.bounded(SimpleTweaks.config().laserPointer.effectCost, 0, 2560, EFFECT_COST);
     }
 
     /** Leer: die ganze Ladung ist verbraucht (Schaden = Haltbarkeit). */

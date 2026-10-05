@@ -6,8 +6,12 @@ def clean(text):
     return re.sub(r'//[^\n]*|/\*.*?\*/', '', text, flags=re.S)
 
 
-def read_metadata(files):
+def read_metadata(files, version_flags=None):
     texts = {path: clean(path.read_text(encoding='utf-8')) for path in files}
+    if version_flags is not None:
+        for path, text in texts.items():
+            texts[path] = re.sub(r'if\s*\((?:[\w.]+\.)?McVersion\.(\w+)\)\s*\{[^{}]*\}',
+                                 lambda match: '' if version_flags.get(match[1]) is False else match[0], text)
     constants = {}
     for path, text in texts.items():
         for name, value in re.findall(r'static final (?:int|long|double|float) (\w+)\s*=\s*([\d.]+)[fFdDlL]?\s*;', text):
@@ -33,6 +37,10 @@ def read_metadata(files):
                 match = re.search(r'([\w.]+)\s*=\s*Math.max\(([^,]+),\s*Math.min\(([^,]+),\s*\1\)\)', line)
             if match and stack:
                 lo, hi = number(match[2], path), number(match[3], path)
+                conditional_max = re.search(r'McVersion\.(\w+)\s*\?\s*max\s*:\s*Double.MAX_VALUE', text)
+                if ('bounded(' in line and conditional_max and version_flags is not None
+                        and version_flags.get(conditional_max[1]) is False):
+                    hi = None
                 if lo is not None or hi is not None:
                     bounds[(path, stack[-1][0], match[1])] = [lo, hi]
             if not match and stack:

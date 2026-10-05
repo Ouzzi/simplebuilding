@@ -1382,6 +1382,7 @@ public final class ConfigOptionTests {
      * blocks away is pulled, and the rotator cost is what one real turn takes off the charge.
      */
     public static void newToolOptionsChangeWhatTheToolsDo(GameTestHelper helper) {
+        if (McVersion.GADGET_REWORK) assertRunDBounds(helper);
         SimplebuildingConfig config = liveConfig(helper);
         double hunger = config.tools.wandHungerMultiplier;
         double magnet = config.tools.magnetRangeMultiplier;
@@ -1458,12 +1459,51 @@ public final class ConfigOptionTests {
         done(helper);
     }
 
-    /**
-     * The new pad options change what the pads do: the potion pad switch stops a filled pad, the
-     * charge step decides when the first 25 % arrive, the cooldown factor sets the cooldown after
-     * the full charge (0 = none), and the teleporter warm-ups and the launchpad multiplier feed the
-     * countdown and the launch the block entities use.
-     */
+    /** Loading and live access both reject negative, excessive and non-finite Run-D values. */
+    private static void assertRunDBounds(GameTestHelper helper) {
+        String[] paths = {"tools.wandHungerMultiplier", "tools.magnetRangeMultiplier", "tools.rotatorChargePerTurn",
+                "worldGen.buildingCoreLootChanceMultiplier", "tweaks.laserPointer.chargePerSecond", "tweaks.laserPointer.effectCost"};
+        double[] caps = {10, 4, 4096, 1000, 2560, 2560};
+        SimplebuildingConfig live = liveConfig(helper);
+        SimplebuildingConfig detached = new SimplebuildingConfig();
+        try {
+            for (int i = 0; i < paths.length; i++) {
+                var option = com.simplebuilding.config.ConfigOptions.byPath(paths[i]);
+                helper.assertTrue(option != null && !option.clientSide(), paths[i] + " must be a server option");
+                Object original = option.get(live);
+                try {
+                    for (double raw : new double[] {-1, caps[i] * 2, Double.NaN, Double.POSITIVE_INFINITY}) {
+                        if (option.type() == int.class && !Double.isFinite(raw)) continue;
+                        if (option.type() == int.class) {
+                            option.field().setInt(option.owner(live), (int) raw);
+                            option.field().setInt(option.owner(detached), (int) raw);
+                        } else {
+                            option.field().setDouble(option.owner(live), raw);
+                            option.field().setDouble(option.owner(detached), raw);
+                        }
+                        double expected = !Double.isFinite(raw) ? 1 : raw < 0 ? 0 : caps[i];
+                        double actual = switch (i) {
+                            case 0 -> com.simplebuilding.util.WandHunger.multiplier();
+                            case 1 -> com.simplebuilding.items.custom.MagnetItem.rangeMultiplier();
+                            case 2 -> com.simplebuilding.items.custom.RotatorItem.useCost();
+                            case 3 -> ModLootTableModifications.coreChance(0.0001f) / 0.0001;
+                            case 4 -> com.simplebuilding.tweaks.item.LaserPointerItem.beamCost();
+                            default -> com.simplebuilding.tweaks.item.LaserPointerItem.effectCost();
+                        };
+                        helper.assertTrue(Math.abs(actual - expected) < 0.001, paths[i] + " runtime bound: " + actual);
+                        detached.validatePostLoad();
+                        helper.assertTrue(((Number) option.get(detached)).doubleValue() == expected, paths[i] + " load bound");
+                    }
+                } finally {
+                    option.field().set(option.owner(live), original);
+                }
+            }
+        } catch (ReflectiveOperationException e) {
+            throw new AssertionError(e);
+        }
+    }
+
+    /** Drive pad switches, charge steps, cooldowns, warm-ups and launch strength through their readers. */
     public static void newPadOptionsChangeWhatThePadsDo(GameTestHelper helper) {
         TweaksConfig tweaks = liveConfig(helper).tweaks;
         boolean potionPads = tweaks.pads.enablePotionPads;
